@@ -38,3 +38,12 @@ This function is particularly useful when working with dynamically allocated str
 - Part of the external API for Snowball stemmer implementations
 - Less commonly used than insert_s in generated stemming code, but useful for utility functions
 - The string buffer  must be properly formatted with size header for SIZE macro to work correctly
+
+## Simplified Source
+
+```c
+extern int insert_v(struct SN_env *z, int bra, int ket, const symbol *p) {
+    // Get string length from header and delegate to insert_s
+    return insert_s(z, bra, ket, SIZE(p), p);
+}
+```

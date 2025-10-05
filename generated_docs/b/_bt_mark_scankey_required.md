@@ -44,3 +44,50 @@ The markings persist across rescans within a query since the requirements don't 
 - Only marks the first subsidiary scankey in row comparisons, as subsequent keys are for lower-order columns and cannot be required after the first non-equality condition
 - Part of PostgreSQL's scan optimization system that enables early termination
 - The required flags are used by scan positioning and advancement logic to determine when scans can terminate
+
+## Simplified Source
+
+```c
+static void
+_bt_mark_scankey_required(ScanKey skey)
+{
+    int addflags;
+
+    // Determine required direction flags based on strategy
+    switch (skey->sk_strategy)
+    {
+        case BTLessStrategyNumber:
+        case BTLessEqualStrategyNumber:
+            addflags = SK_BT_REQFWD;        // Required for forward scans
+            break;
+        case BTEqualStrategyNumber:
+            addflags = SK_BT_REQFWD | SK_BT_REQBKWD;  // Required for both directions
+            break;
+        case BTGreaterEqualStrategyNumber:
+        case BTGreaterStrategyNumber:
+            addflags = SK_BT_REQBKWD;       // Required for backward scans
+            break;
+        default:
+            elog(ERROR, "unrecognized StrategyNumber: %d",
+                 (int) skey->sk_strategy);
+            addflags = 0;
+            break;
+    }
+
+    // Mark the scan key as required
+    skey->sk_flags |= addflags;
+
+    // For row comparison keys, also mark the first subkey
+    if (skey->sk_flags & SK_ROW_HEADER)
+    {
+        ScanKey subkey = (ScanKey) DatumGetPointer(skey->sk_argument);
+
+        // First subkey should match the header key
+        Assert(subkey->sk_flags & SK_ROW_MEMBER);
+        Assert(subkey->sk_attno == skey->sk_attno);
+        Assert(subkey->sk_strategy == skey->sk_strategy);
+
+        subkey->sk_flags |= addflags;
+    }
+}
+```

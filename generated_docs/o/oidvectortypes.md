@@ -46,3 +46,45 @@ The output format is a comma-separated list like: "integer, text, boolean" or "n
 - Returns a PostgreSQL  type that can be used in SQL queries and system functions
 - The function follows PostgreSQL's fmgr (function manager) calling convention using 
 - Useful for introspection of function signatures, operator definitions, and other type-related metadata
+
+## Simplified Source
+
+```c
+Datum oidvectortypes(PG_FUNCTION_ARGS) {
+    // Extract OID vector from arguments
+    oidvector *oidArray = (oidvector *) PG_GETARG_POINTER(0);
+    int numargs = oidArray->dim1;
+
+    // Allocate initial buffer (20 chars per type estimate)
+    size_t total = 20 * numargs + 1;
+    char *result = palloc(total);
+    result[0] = '\0';
+    size_t left = total - 1;
+
+    // Convert each OID to type name and build comma-separated list
+    for (int num = 0; num < numargs; num++) {
+        char *typename = format_type_extended(oidArray->values[num], -1,
+                                            FORMAT_TYPE_ALLOW_INVALID);
+        size_t slen = strlen(typename);
+
+        // Expand buffer if needed
+        if (left < (slen + 2)) {
+            total += slen + 2;
+            result = repalloc(result, total);
+            left += slen + 2;
+        }
+
+        // Add comma separator for subsequent types
+        if (num > 0) {
+            strcat(result, ", ");
+            left -= 2;
+        }
+
+        // Append type name
+        strcat(result, typename);
+        left -= slen;
+    }
+
+    PG_RETURN_TEXT_P(cstring_to_text(result));
+}
+```

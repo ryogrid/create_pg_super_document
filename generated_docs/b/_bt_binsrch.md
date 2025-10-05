@@ -52,3 +52,57 @@ Key behavioral aspects:
 8. **VACUUM dependency**: Backward scan behavior is relied upon by VACUUM for page re-finding during deletion operations
 
 The function assumes proper page structure and relies on _bt_compare for tuple comparisons. It includes assertions to ensure proper usage patterns, particularly around scantid usage.
+
+## Simplified Source
+
+```c
+static OffsetNumber
+_bt_binsrch(Relation rel, BTScanInsert key, Buffer buf)
+{
+    Page page;
+    BTPageOpaque opaque;
+    OffsetNumber low, high;
+    int32 result, cmpval;
+
+    page = BufferGetPage(buf);
+    opaque = BTPageGetOpaque(page);
+
+    // Set search bounds
+    low = P_FIRSTDATAKEY(opaque);
+    high = PageGetMaxOffsetNumber(page);
+
+    // Handle empty page case
+    if (unlikely(high < low))
+        return low;
+
+    // Set up binary search parameters
+    high++; // establish loop invariant for high
+    cmpval = key->nextkey ? 0 : 1; // 0 for ">", 1 for ">="
+
+    // Binary search loop
+    while (high > low)
+    {
+        OffsetNumber mid = low + ((high - low) / 2);
+
+        result = _bt_compare(rel, key, page, mid);
+
+        if (result >= cmpval)
+            low = mid + 1;
+        else
+            high = mid;
+    }
+
+    // Handle leaf page results
+    if (P_ISLEAF(opaque))
+    {
+        // For backward scans, return the last matching tuple
+        if (key->backward)
+            return OffsetNumberPrev(low);
+
+        return low;
+    }
+
+    // For internal pages, return last key < scan key
+    return OffsetNumberPrev(low);
+}
+```

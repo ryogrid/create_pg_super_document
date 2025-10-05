@@ -42,3 +42,38 @@ The function includes validation to ensure the resulting date is within PostgreS
 - Error handling includes specific error codes (ERRCODE_DATETIME_VALUE_OUT_OF_RANGE) and descriptive error messages
 - The function ignores time components that might be parsed by do_to_timestamp, focusing only on date extraction
 - Part of PostgreSQL's formatting subsystem located in src/backend/utils/adt/formatting.c
+
+## Simplified Source
+
+```c
+Datum to_date(PG_FUNCTION_ARGS) {
+    text *date_txt = PG_GETARG_TEXT_PP(0);
+    text *fmt = PG_GETARG_TEXT_PP(1);
+    Oid collid = PG_GET_COLLATION();
+    DateADT result;
+    struct pg_tm tm;
+    struct fmt_tz ftz;
+    fsec_t fsec;
+
+    // Parse the date string using the format template
+    do_to_timestamp(date_txt, fmt, collid, false,
+                   &tm, &fsec, &ftz, NULL, NULL, NULL);
+
+    // Validate date components for Julian day calculation
+    if (!IS_VALID_JULIAN(tm.tm_year, tm.tm_mon, tm.tm_mday))
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                       errmsg("date out of range: \"%s\"",
+                              text_to_cstring(date_txt))));
+
+    // Convert to PostgreSQL's internal date format
+    result = date2j(tm.tm_year, tm.tm_mon, tm.tm_mday) - POSTGRES_EPOCH_JDATE;
+
+    // Final validation of date range
+    if (!IS_VALID_DATE(result))
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                       errmsg("date out of range: \"%s\"",
+                              text_to_cstring(date_txt))));
+
+    PG_RETURN_DATEADT(result);
+}
+```

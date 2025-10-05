@@ -40,3 +40,24 @@ The function is streamlined compared to other variants - it only needs to conver
 - Most efficient variant since it uses all numeric identifiers and avoids name resolution
 - Ideal for internal PostgreSQL code or applications that already have numeric identifiers
 - The function follows PostgreSQL's standard function calling conventions using PG_FUNCTION_ARGS
+
+## Simplified Source
+
+```c
+Datum has_column_privilege_id_id_attnum(PG_FUNCTION_ARGS) {
+    // Extract arguments
+    Oid roleid = PG_GETARG_OID(0);
+    Oid tableoid = PG_GETARG_OID(1);
+    AttrNumber colattnum = PG_GETARG_INT16(2);
+    text *priv_type_text = PG_GETARG_TEXT_PP(3);
+
+    // Convert privilege string to ACL mode
+    AclMode mode = convert_column_priv_string(priv_type_text);
+
+    // Check privilege and return result
+    int privresult = column_privilege_check(tableoid, colattnum, roleid, mode);
+    if (privresult < 0)
+        PG_RETURN_NULL();
+    PG_RETURN_BOOL(privresult);
+}
+```

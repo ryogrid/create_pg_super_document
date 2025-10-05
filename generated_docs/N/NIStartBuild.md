@@ -32,3 +32,15 @@ The buildCxt member of the IspellDict structure is set to a newly created AllocS
 - The memory context created is automatically cleaned up if an error occurs during dictionary building
 - This function must be called before any dictionary building operations
 - The IspellDict structure should be zero-initialized before calling this function
+
+## Simplified Source
+
+```c
+void NIStartBuild(IspellDict *Conf) {
+    // Create temporary memory context for dictionary building
+    // Context is child of CurTransactionContext for automatic cleanup
+    Conf->buildCxt = AllocSetContextCreate(CurTransactionContext,
+                                           "Ispell dictionary init context",
+                                           ALLOCSET_DEFAULT_SIZES);
+}
+```

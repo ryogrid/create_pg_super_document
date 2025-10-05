@@ -47,3 +47,29 @@ The function returns NULL if the specified function doesn't exist, true if the u
 - The function handles the "public" role specially through get_role_oid_or_public
 - Privilege checking is delegated to the central object_aclcheck function for consistency with other object types
 - Function names in PostgreSQL can be overloaded, so convert_function_name must handle function signature resolution
+
+## Simplified Source
+
+```c
+Datum
+has_function_privilege_name_name(PG_FUNCTION_ARGS)
+{
+    Name username = PG_GETARG_NAME(0);
+    text *functionname = PG_GETARG_TEXT_PP(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert username to role OID (handles "public" role)
+    Oid roleid = get_role_oid_or_public(NameStr(*username));
+
+    // Convert function name to OID
+    Oid functionoid = convert_function_name(functionname);
+
+    // Convert privilege string to access mode
+    AclMode mode = convert_function_priv_string(priv_type_text);
+
+    // Check if role has the specified privilege on the function
+    AclResult aclresult = object_aclcheck(ProcedureRelationId, functionoid, roleid, mode);
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

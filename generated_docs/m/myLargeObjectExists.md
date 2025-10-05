@@ -36,3 +36,37 @@ This internal function provides a snapshot-aware version of large object existen
 - Returns boolean result indicating existence
 - Key difference from LargeObjectExists() is the configurable snapshot parameter
 - Properly manages relation opening/closing and scan lifecycle
+
+## Simplified Source
+
+```c
+static bool myLargeObjectExists(Oid loid, Snapshot snapshot) {
+    ScanKeyData skey[1];
+    bool retval = false;
+
+    // Set up scan key to search for the large object OID
+    ScanKeyInit(&skey[0],
+                Anum_pg_largeobject_metadata_oid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(loid));
+
+    // Open large object metadata relation for reading
+    Relation pg_lo_meta = table_open(LargeObjectMetadataRelationId, AccessShareLock);
+
+    // Begin system catalog scan using specified snapshot
+    SysScanDesc sd = systable_beginscan(pg_lo_meta,
+                                      LargeObjectMetadataOidIndexId, true,
+                                      snapshot, 1, skey);
+
+    // Check if a matching tuple exists
+    HeapTuple tuple = systable_getnext(sd);
+    if (HeapTupleIsValid(tuple))
+        retval = true;
+
+    // Clean up scan and relation
+    systable_endscan(sd);
+    table_close(pg_lo_meta, AccessShareLock);
+
+    return retval;
+}
+```

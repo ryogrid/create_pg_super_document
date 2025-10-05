@@ -37,3 +37,23 @@ This is a static helper function used by the has_function_privilege family of fu
 - Uses regprocedurein which supports function signatures (name with parameter types)
 - Part of the support routines for the has_function_privilege family of functions
 - Located in src/backend/utils/adt/acl.c:3556-3576
+
+## Simplified Source
+
+```c
+static Oid convert_function_name(text *functionname) {
+    // Convert text to C string
+    char *funcname = text_to_cstring(functionname);
+
+    // Parse function name using regprocedurein and extract OID
+    Oid oid = DatumGetObjectId(DirectFunctionCall1(regprocedurein,
+                                                   CStringGetDatum(funcname)));
+
+    // Error if function doesn't exist
+    if (!OidIsValid(oid))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                       errmsg("function \"%s\" does not exist", funcname)));
+
+    return oid;
+}
+```

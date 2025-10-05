@@ -51,3 +51,43 @@ The function handles both single-spool scenarios (for non-unique indexes or uniq
 - The function ensures proper ordering of tuples before tree construction to maintain B-tree invariants
 - Integrates with PostgreSQL's statistics system for performance monitoring when enabled
 - The write state initialization includes important optimizations like image equality detection for better page utilization
+
+## Simplified Source
+
+```c
+static void
+_bt_leafbuild(BTSpool *btspool, BTSpool *btspool2)
+{
+    BTWriteState wstate;
+
+    // Execute the sort on primary spool
+    pgstat_progress_update_param(PROGRESS_CREATEIDX_SUBPHASE,
+                                 PROGRESS_BTREE_PHASE_PERFORMSORT_1);
+    tuplesort_performsort(btspool->sortstate);
+
+    // Execute sort on secondary spool if present
+    if (btspool2) {
+        pgstat_progress_update_param(PROGRESS_CREATEIDX_SUBPHASE,
+                                     PROGRESS_BTREE_PHASE_PERFORMSORT_2);
+        tuplesort_performsort(btspool2->sortstate);
+    }
+
+    // Initialize write state for B-tree construction
+    wstate.heap = btspool->heap;
+    wstate.index = btspool->index;
+    wstate.inskey = _bt_mkscankey(wstate.index, NULL);
+
+    // Set up image equality optimization
+    wstate.inskey->allequalimage = _bt_allequalimage(wstate.index, true);
+
+    // Reserve space for metapage
+    wstate.btws_pages_alloced = BTREE_METAPAGE + 1;
+
+    // Begin leaf page loading phase
+    pgstat_progress_update_param(PROGRESS_CREATEIDX_SUBPHASE,
+                                 PROGRESS_BTREE_PHASE_LEAF_LOAD);
+
+    // Load sorted tuples into B-tree structure
+    _bt_load(&wstate, btspool, btspool2);
+}
+```

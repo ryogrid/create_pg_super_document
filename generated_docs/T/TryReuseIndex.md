@@ -35,3 +35,29 @@ The function specifically handles partitioned indexes by checking the relation k
 - Storage reuse is only applicable to non-partitioned indexes
 - The function uses NoLock when opening/closing the index since appropriate locks should already be held by the calling context
 - The oldNumber, oldCreateSubid, and oldFirstRelfilelocatorSubid fields are set in the IndexStmt to enable the storage reuse mechanism
+
+## Simplified Source
+
+```c
+static void TryReuseIndex(Oid oldId, IndexStmt *stmt) {
+    // Check if the existing index is compatible with the new specification
+    if (CheckIndexCompatible(oldId,
+                           stmt->accessMethod,
+                           stmt->indexParams,
+                           stmt->excludeOpNames)) {
+
+        // Open the index to extract storage information
+        Relation irel = index_open(oldId, NoLock);
+
+        // Only reuse storage for non-partitioned indexes
+        if (irel->rd_rel->relkind != RELKIND_PARTITIONED_INDEX) {
+            // Store the old index's storage identifiers for reuse
+            stmt->oldNumber = irel->rd_locator.relNumber;
+            stmt->oldCreateSubid = irel->rd_createSubid;
+            stmt->oldFirstRelfilelocatorSubid = irel->rd_firstRelfilelocatorSubid;
+        }
+
+        index_close(irel, NoLock);
+    }
+}
+```

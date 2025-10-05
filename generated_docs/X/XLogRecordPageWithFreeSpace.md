@@ -50,3 +50,34 @@ The function follows a careful protocol for buffer management: it extends the FS
 - Updates are marked as hints and don't require additional WAL logging
 - Called from various heap WAL replay functions to maintain FSM consistency
 - Located in src/backend/storage/freespace/freespace.c:211-243
+
+## Simplified Source
+
+```c
+void XLogRecordPageWithFreeSpace(RelFileLocator rlocator, BlockNumber heapBlk, Size spaceAvail) {
+    // Convert space to FSM category
+    int new_cat = fsm_space_avail_to_cat(spaceAvail);
+
+    // Get FSM location for this heap block
+    FSMAddress addr;
+    uint16 slot;
+    addr = fsm_get_location(heapBlk, &slot);
+    BlockNumber blkno = fsm_logical_to_physical(addr);
+
+    // Read or extend FSM page
+    Buffer buf = XLogReadBufferExtended(rlocator, FSM_FORKNUM, blkno,
+                                       RBM_ZERO_ON_ERROR, InvalidBuffer);
+    LockBuffer(buf, BUFFER_LOCK_EXCLUSIVE);
+
+    // Initialize page if new
+    Page page = BufferGetPage(buf);
+    if (PageIsNew(page))
+        PageInit(page, BLCKSZ, 0);
+
+    // Update free space information
+    if (fsm_set_avail(page, slot, new_cat))
+        MarkBufferDirtyHint(buf, false);
+
+    UnlockReleaseBuffer(buf);
+}
+```

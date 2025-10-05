@@ -40,3 +40,33 @@ This function creates a new physical replication slot used for streaming replica
 - When immediately_reserve is true, the slot is marked dirty and saved to disk
 - The function doesn't release the created slot - this responsibility lies with the caller
 - Used internally by the SQL function pg_create_physical_replication_slot and slot copying functionality
+
+## Simplified Source
+
+```c
+static void create_physical_replication_slot(char *name, bool immediately_reserve,
+                                             bool temporary, XLogRecPtr restart_lsn) {
+    // Ensure no existing slot is active
+    Assert(!MyReplicationSlot);
+
+    // Create the replication slot with specified persistence
+    ReplicationSlotCreate(name, false,
+                          temporary ? RS_TEMPORARY : RS_PERSISTENT,
+                          false, false, false);
+
+    // Reserve WAL space if requested
+    if (immediately_reserve) {
+        if (XLogRecPtrIsInvalid(restart_lsn)) {
+            // Reserve WAL from current position
+            ReplicationSlotReserveWal();
+        } else {
+            // Use provided restart LSN
+            MyReplicationSlot->data.restart_lsn = restart_lsn;
+        }
+
+        // Persist slot to disk
+        ReplicationSlotMarkDirty();
+        ReplicationSlotSave();
+    }
+}
+```

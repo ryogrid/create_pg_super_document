@@ -45,3 +45,32 @@ The implementation checks transaction states and maintains a list of uncommitted
 - Currently only handles ALTER TYPE ADD VALUE at the outermost transaction level
 - Provides specific error messages with hints when unsafe usage is detected
 - Critical for maintaining database integrity during concurrent enum modifications
+
+## Simplified Source
+
+```c
+static void check_safe_enum_use(HeapTuple enumval_tup) {
+    Form_pg_enum enum_data = (Form_pg_enum) GETSTRUCT(enumval_tup);
+
+    // Fast path: if tuple is marked as committed, it's safe to use
+    if (HeapTupleHeaderXminCommitted(enumval_tup->t_data))
+        return;
+
+    // Check if the creating transaction has committed
+    TransactionId xmin = HeapTupleHeaderGetXmin(enumval_tup->t_data);
+    if (!TransactionIdIsInProgress(xmin) && TransactionIdDidCommit(xmin))
+        return;
+
+    // Check if enum value is in the uncommitted list
+    if (!EnumUncommitted(enum_data->oid))
+        return;  // Not uncommitted, so it's safe
+
+    // Enum value is uncommitted and unsafe to use
+    ereport(ERROR,
+            (errcode(ERRCODE_UNSAFE_NEW_ENUM_VALUE_USAGE),
+             errmsg("unsafe use of new value \"%s\" of enum type %s",
+                    NameStr(enum_data->enumlabel),
+                    format_type_be(enum_data->enumtypid)),
+             errhint("New enum values must be committed before they can be used.")));
+}
+```

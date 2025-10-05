@@ -40,3 +40,32 @@ This function is commonly used in SQL queries where users want to check their ow
 - Part of the overloaded 'has_any_column_privilege' family of functions at the SQL level
 - Performs the same two-tier privilege checking as other variants: table-level first, then column-level
 - Located in src/backend/utils/adt/acl.c:2364-2391
+
+## Simplified Source
+
+```c
+Datum
+has_any_column_privilege_name(PG_FUNCTION_ARGS)
+{
+    text *tablename = PG_GETARG_TEXT_PP(0);
+    text *priv_type_text = PG_GETARG_TEXT_PP(1);
+
+    // Use current user's ID
+    Oid roleid = GetUserId();
+
+    // Resolve table name to OID
+    Oid tableoid = convert_table_name(tablename);
+
+    // Parse privilege string to internal mode
+    AclMode mode = convert_column_priv_string(priv_type_text);
+
+    // Check table-level privileges first
+    AclResult aclresult = pg_class_aclcheck(tableoid, roleid, mode);
+
+    // If table-level fails, check any column has the privilege
+    if (aclresult != ACLCHECK_OK)
+        aclresult = pg_attribute_aclcheck_all(tableoid, roleid, mode, ACLMASK_ANY);
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

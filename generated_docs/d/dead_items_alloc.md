@@ -35,3 +35,50 @@ This function handles the allocation of data structures needed to track dead tup
 
 ## Notes and Other Information
 The function implements intelligent memory management by selecting appropriate work memory limits and choosing between local and shared memory allocation based on parallelism requirements. It ensures that parallel vacuum is only attempted when beneficial (multiple indexes) and safe (non-temporary tables). The parallel vacuum initialization includes proper error handling and resource cleanup. The memory allocation strategy optimizes for the expected vacuum workload while respecting configured memory limits.
+
+## Simplified Source
+
+```c
+static void
+dead_items_alloc(LVRelState *vacrel, int nworkers)
+{
+    VacDeadItemsInfo *dead_items_info;
+    int vac_work_mem = AmAutoVacuumWorkerProcess() &&
+        autovacuum_work_mem != -1 ?
+        autovacuum_work_mem : maintenance_work_mem;
+
+    // Try parallel vacuum if conditions are met
+    if (nworkers >= 0 && vacrel->nindexes > 1 && vacrel->do_index_vacuuming) {
+        // Check if relation uses local buffers (temporary tables)
+        if (RelationUsesLocalBuffers(vacrel->rel)) {
+            if (nworkers > 0)
+                ereport(WARNING,
+                        (errmsg("disabling parallel option of vacuum on \"%s\" --- "
+                               "cannot vacuum temporary tables in parallel",
+                               vacrel->relname)));
+        } else {
+            // Initialize parallel vacuum
+            vacrel->pvs = parallel_vacuum_init(vacrel->rel, vacrel->indrels,
+                                              vacrel->nindexes, nworkers,
+                                              vac_work_mem,
+                                              vacrel->verbose ? INFO : DEBUG2,
+                                              vacrel->bstrategy);
+        }
+
+        // If parallel mode started, get dead_items from DSM
+        if (ParallelVacuumIsActive(vacrel)) {
+            vacrel->dead_items = parallel_vacuum_get_dead_items(vacrel->pvs,
+                                                               &vacrel->dead_items_info);
+            return;
+        }
+    }
+
+    // Serial vacuum case - allocate locally
+    dead_items_info = (VacDeadItemsInfo *) palloc(sizeof(VacDeadItemsInfo));
+    dead_items_info->max_bytes = vac_work_mem * 1024L;
+    dead_items_info->num_items = 0;
+    vacrel->dead_items_info = dead_items_info;
+
+    vacrel->dead_items = TidStoreCreateLocal(dead_items_info->max_bytes, true);
+}
+```

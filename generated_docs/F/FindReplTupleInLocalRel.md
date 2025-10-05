@@ -60,3 +60,45 @@ The function returns a boolean indicating whether the tuple was found and popula
 - For REPLICA_IDENTITY_FULL tables without a suitable index, the function falls back to sequential scanning, which can be expensive for large tables
 - The function is a critical component in ensuring that logical replication can reliably locate target tuples across different replica identity configurations
 - The localslot parameter is allocated by this function and must be managed by the caller
+
+## Simplified Source
+
+```c
+static bool
+FindReplTupleInLocalRel(ApplyExecutionData *edata, Relation localrel,
+                        LogicalRepRelation *remoterel,
+                        Oid localidxoid,
+                        TupleTableSlot *remoteslot,
+                        TupleTableSlot **localslot)
+{
+    EState *estate = edata->estate;
+    bool found;
+
+    // Check SELECT privileges since we're performing a read
+    TargetPrivilegesCheck(localrel, ACL_SELECT);
+
+    // Create local slot to hold the found tuple
+    *localslot = table_slot_create(localrel, &estate->es_tupleTable);
+
+    // Must have valid index OR replica identity full
+    Assert(OidIsValid(localidxoid) ||
+           (remoterel->replident == REPLICA_IDENTITY_FULL));
+
+    // Choose search strategy based on index availability
+    if (OidIsValid(localidxoid))
+    {
+        // Use index-based search for efficiency
+        found = RelationFindReplTupleByIndex(localrel, localidxoid,
+                                           LockTupleExclusive,
+                                           remoteslot, *localslot);
+    }
+    else
+    {
+        // Fall back to sequential scan for REPLICA_IDENTITY_FULL
+        found = RelationFindReplTupleSeq(localrel, LockTupleExclusive,
+                                       remoteslot, *localslot);
+    }
+
+    return found;
+}
+```

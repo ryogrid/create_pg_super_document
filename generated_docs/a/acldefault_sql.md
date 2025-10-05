@@ -47,3 +47,62 @@ This function serves as a SQL-callable wrapper around the internal acldefault() 
 - Throws an ERROR if an unrecognized object type abbreviation is provided
 - Part of PostgreSQL's ACL (Access Control List) system for managing privileges
 - Located in src/backend/utils/adt/acl.c:920-991
+
+## Simplified Source
+
+```c
+Datum
+acldefault_sql(PG_FUNCTION_ARGS)
+{
+    char objtypec = PG_GETARG_CHAR(0);
+    Oid owner = PG_GETARG_OID(1);
+    ObjectType objtype = 0;
+
+    // Map character abbreviation to object type
+    switch (objtypec) {
+        case 'c':
+            objtype = OBJECT_COLUMN;
+            break;
+        case 'r':
+            objtype = OBJECT_TABLE;
+            break;
+        case 's':
+            objtype = OBJECT_SEQUENCE;
+            break;
+        case 'd':
+            objtype = OBJECT_DATABASE;
+            break;
+        case 'f':
+            objtype = OBJECT_FUNCTION;
+            break;
+        case 'l':
+            objtype = OBJECT_LANGUAGE;
+            break;
+        case 'L':
+            objtype = OBJECT_LARGEOBJECT;
+            break;
+        case 'n':
+            objtype = OBJECT_SCHEMA;
+            break;
+        case 'p':
+            objtype = OBJECT_PARAMETER_ACL;
+            break;
+        case 't':
+            objtype = OBJECT_TABLESPACE;
+            break;
+        case 'F':
+            objtype = OBJECT_FDW;
+            break;
+        case 'S':
+            objtype = OBJECT_FOREIGN_SERVER;
+            break;
+        case 'T':
+            objtype = OBJECT_TYPE;
+            break;
+        default:
+            elog(ERROR, "unrecognized object type abbreviation: %c", objtypec);
+    }
+
+    PG_RETURN_ACL_P(acldefault(objtype, owner));
+}
+```

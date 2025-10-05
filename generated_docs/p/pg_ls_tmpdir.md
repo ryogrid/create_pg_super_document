@@ -33,3 +33,25 @@ This function provides the core functionality for listing files in PostgreSQL's 
 - The function throws an error if the specified tablespace OID doesn't exist in the system catalog
 - Returns the result of pg_ls_dir_files with the show_size parameter set to true
 - Part of PostgreSQL's file system inspection functionality accessible via SQL functions
+
+## Simplified Source
+
+```c
+static Datum
+pg_ls_tmpdir(FunctionCallInfo fcinfo, Oid tblspc)
+{
+    char path[MAXPGPATH];
+
+    // Validate that the tablespace exists
+    if (!SearchSysCacheExists1(TABLESPACEOID, ObjectIdGetDatum(tblspc)))
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("tablespace with OID %u does not exist", tblspc)));
+
+    // Construct path to tablespace's temporary directory
+    TempTablespacePath(path, tblspc);
+
+    // List files in the temporary directory (missing_ok = true)
+    return pg_ls_dir_files(fcinfo, path, true);
+}
+```

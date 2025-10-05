@@ -42,3 +42,35 @@ The function includes several validation checks: it ensures the circle has a non
 - The resulting polygon includes a properly calculated bounding box for efficient geometric operations
 - Error handling covers invalid parameters (zero radius, insufficient vertices) and resource limits (excessive vertex count)
 - The polygon vertices are calculated using the parametric circle equation: x = center.x - radius*cos(angle), y = center.y + radius*sin(angle)
+
+## Simplified Source
+
+```c
+Datum circle_poly(PG_FUNCTION_ARGS) {
+    int32 npts = PG_GETARG_INT32(0);
+    CIRCLE *circle = PG_GETARG_CIRCLE_P(1);
+
+    // Validate inputs
+    if (FPzero(circle->radius))
+        ereport(ERROR, (errmsg("cannot convert circle with radius zero to polygon")));
+    if (npts < 2)
+        ereport(ERROR, (errmsg("must request at least 2 points")));
+
+    // Allocate polygon with overflow check
+    int size = offsetof(POLYGON, p) + sizeof(Point) * npts;
+    POLYGON *poly = (POLYGON *) palloc0(size);
+    SET_VARSIZE(poly, size);
+    poly->npts = npts;
+
+    // Generate vertices at equal angular intervals
+    float8 anglestep = 2.0 * M_PI / npts;
+    for (int i = 0; i < npts; i++) {
+        float8 angle = anglestep * i;
+        poly->p[i].x = circle->center.x - circle->radius * cos(angle);
+        poly->p[i].y = circle->center.y + circle->radius * sin(angle);
+    }
+
+    make_bound_box(poly);
+    PG_RETURN_POLYGON_P(poly);
+}
+```

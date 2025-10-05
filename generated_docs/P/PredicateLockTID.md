@@ -49,3 +49,39 @@ The function is essential for maintaining consistency in SERIALIZABLE isolation 
 - Performs lock hierarchy checks to avoid redundant locking when coarser-grained locks exist
 - Critical for detecting rw-conflicts (read-write conflicts) in serializable transactions
 - Part of the predicate locking subsystem that prevents serialization anomalies
+
+## Simplified Source
+
+```c
+void PredicateLockTID(Relation relation, ItemPointer tid, Snapshot snapshot,
+                      TransactionId tuple_xid)
+{
+    PREDICATELOCKTARGETTAG tag;
+
+    // Skip if serialization not needed
+    if (!SerializationNeededForRead(relation, snapshot))
+        return;
+
+    // Skip if current transaction wrote this tuple
+    if (relation->rd_index == NULL)
+    {
+        if (TransactionIdIsCurrentTransactionId(tuple_xid))
+            return;
+    }
+
+    // Check for existing relation-level lock first (optimization)
+    SET_PREDICATELOCKTARGETTAG_RELATION(tag,
+                                        relation->rd_locator.dbOid,
+                                        relation->rd_id);
+    if (PredicateLockExists(&tag))
+        return;
+
+    // Acquire tuple-level predicate lock
+    SET_PREDICATELOCKTARGETTAG_TUPLE(tag,
+                                     relation->rd_locator.dbOid,
+                                     relation->rd_id,
+                                     ItemPointerGetBlockNumber(tid),
+                                     ItemPointerGetOffsetNumber(tid));
+    PredicateLockAcquire(&tag);
+}
+```

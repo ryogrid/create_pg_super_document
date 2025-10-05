@@ -43,3 +43,62 @@ The search process uses a binary search algorithm at each tree node to quickly l
 - Static function, only accessible within the spell.c module
 - Implements character-by-character tree traversal with uint8 pointer arithmetic
 - Affix rule validation ensures that applied transformations are legitimate for the base word
+
+## Simplified Source
+
+```c
+static int
+FindWord(IspellDict *Conf, const char *word, const char *affixflag, int flag)
+{
+    SPNode *node = Conf->Dictionary;
+    SPNodeData *StopLow, *StopHigh, *StopMiddle;
+    const uint8 *ptr = (const uint8 *) word;
+
+    flag &= FF_COMPOUNDFLAGMASK;
+
+    // Traverse prefix tree character by character
+    while (node && *ptr) {
+        StopLow = node->data;
+        StopHigh = node->data + node->length;
+
+        // Binary search for current character in node
+        while (StopLow < StopHigh) {
+            StopMiddle = StopLow + ((StopHigh - StopLow) >> 1);
+
+            if (StopMiddle->val == *ptr) {
+                // Found character match
+                if (*(ptr + 1) == '\0' && StopMiddle->isword) {
+                    // End of word - validate compound and affix flags
+                    if (flag == 0) {
+                        // Non-compound search: reject compound-only words
+                        if (StopMiddle->compoundflag & FF_COMPOUNDONLY)
+                            return 0;
+                    } else if ((flag & StopMiddle->compoundflag) == 0) {
+                        // Compound search: check flag compatibility
+                        return 0;
+                    }
+
+                    // Check if affix rule is valid for this word
+                    if (IsAffixFlagInUse(Conf, StopMiddle->affix, affixflag))
+                        return 1;
+                }
+
+                // Move to next character
+                node = StopMiddle->node;
+                ptr++;
+                break;
+            } else if (StopMiddle->val < *ptr) {
+                StopLow = StopMiddle + 1;
+            } else {
+                StopHigh = StopMiddle;
+            }
+        }
+
+        // Character not found in this node
+        if (StopLow >= StopHigh)
+            break;
+    }
+
+    return 0;  // Word not found or path incomplete
+}
+```

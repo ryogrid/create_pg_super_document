@@ -35,3 +35,29 @@ This function allocates a new temporary page in local memory that mirrors the sp
 - The function preserves both the size and content of the special space from the source page
 - This is commonly used in index operations where temporary manipulation of page special space is required
 - The function is located in src/backend/storage/page/bufpage.c:402-423
+
+## Simplified Source
+
+```c
+Page PageGetTempPageCopySpecial(Page page)
+{
+    Size pageSize;
+    Page temp;
+
+    // Get the size of the source page
+    pageSize = PageGetPageSize(page);
+
+    // Allocate memory for new page
+    temp = (Page) palloc(pageSize);
+
+    // Initialize with same special space size as source
+    PageInit(temp, pageSize, PageGetSpecialSize(page));
+
+    // Copy special space content from source page
+    memcpy(PageGetSpecialPointer(temp),
+           PageGetSpecialPointer(page),
+           PageGetSpecialSize(page));
+
+    return temp;
+}
+```

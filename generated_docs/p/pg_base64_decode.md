@@ -46,3 +46,58 @@ The function includes comprehensive error reporting for invalid characters, malf
 - Part of PostgreSQL's encoding/decoding subsystem for handling text-to-binary conversion
 - Ensures complete sequence validation - detects truncated or malformed Base64 input
 - Provides helpful error hints for common issues like missing padding or corrupted data
+
+## Simplified Source
+
+```c
+static uint64 pg_base64_decode(const char *src, size_t len, char *dst) {
+    const char *srcend = src + len, *s = src;
+    char *p = dst;
+    uint32 buffer = 0;
+    int position = 0, padding_count = 0;
+
+    while (s < srcend) {
+        char c = *s++;
+
+        // Skip whitespace
+        if (c == ' ' || c == '\t' || c == '\n' || c == '\r')
+            continue;
+
+        int value;
+        if (c == '=') {
+            // Handle padding at end of sequence
+            if (position == 2) padding_count = 1;
+            else if (position == 3) padding_count = 2;
+            else ereport(ERROR, "unexpected padding");
+            value = 0;
+        } else {
+            // Look up Base64 character value
+            if (c < 0 || c >= 127) ereport(ERROR, "invalid character");
+            value = b64lookup[(unsigned char) c];
+            if (value < 0) ereport(ERROR, "invalid Base64 character");
+        }
+
+        // Accumulate 6 bits into 24-bit buffer
+        buffer = (buffer << 6) + value;
+        position++;
+
+        // When we have 4 characters (24 bits), output 3 bytes
+        if (position == 4) {
+            *p++ = (buffer >> 16) & 255;          // First byte
+            if (padding_count <= 1)
+                *p++ = (buffer >> 8) & 255;       // Second byte
+            if (padding_count == 0)
+                *p++ = buffer & 255;              // Third byte
+
+            buffer = 0;
+            position = 0;
+        }
+    }
+
+    // Ensure complete sequence
+    if (position != 0)
+        ereport(ERROR, "incomplete Base64 sequence");
+
+    return p - dst;  // Return number of decoded bytes
+}
+```

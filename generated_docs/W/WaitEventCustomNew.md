@@ -55,3 +55,72 @@ The function implements a double-checked locking pattern to handle concurrent ac
 - Returns a composite wait event info value combining class ID and unique event ID
 - Event names must be unique within each class but can be reused across different classes
 - The function handles the race condition where another process creates the same event between lock acquisition and release
+
+## Simplified Source
+
+```c
+static uint32
+WaitEventCustomNew(uint32 classId, const char *wait_event_name)
+{
+    uint16 eventId;
+    bool found;
+    WaitEventCustomEntryByName *entry_by_name;
+    WaitEventCustomEntryByInfo *entry_by_info;
+    uint32 wait_event_info;
+
+    // Validate event name length
+    if (strlen(wait_event_name) >= NAMEDATALEN)
+        elog(ERROR, "wait event name too long");
+
+    // Check if event already exists (shared lock)
+    LWLockAcquire(WaitEventCustomLock, LW_SHARED);
+    entry_by_name = hash_search(WaitEventCustomHashByName, wait_event_name, HASH_FIND, &found);
+    LWLockRelease(WaitEventCustomLock);
+
+    if (found) {
+        // Verify class matches existing event
+        uint32 oldClassId = entry_by_name->wait_event_info & WAIT_EVENT_CLASS_MASK;
+        if (oldClassId != classId)
+            ereport(ERROR, "wait event already exists in different type");
+        return entry_by_name->wait_event_info;
+    }
+
+    // Allocate new event with exclusive lock
+    LWLockAcquire(WaitEventCustomLock, LW_EXCLUSIVE);
+
+    // Double-check: event might have been created by another process
+    entry_by_name = hash_search(WaitEventCustomHashByName, wait_event_name, HASH_FIND, &found);
+    if (found) {
+        LWLockRelease(WaitEventCustomLock);
+        // Return existing event if class matches
+        uint32 oldClassId = entry_by_name->wait_event_info & WAIT_EVENT_CLASS_MASK;
+        if (oldClassId != classId)
+            ereport(ERROR, "wait event already exists in different type");
+        return entry_by_name->wait_event_info;
+    }
+
+    // Allocate new event ID
+    SpinLockAcquire(&WaitEventCustomCounter->mutex);
+    if (WaitEventCustomCounter->nextId >= WAIT_EVENT_CUSTOM_HASH_MAX_SIZE) {
+        SpinLockRelease(&WaitEventCustomCounter->mutex);
+        ereport(ERROR, "too many custom wait events");
+    }
+    eventId = WaitEventCustomCounter->nextId++;
+    SpinLockRelease(&WaitEventCustomCounter->mutex);
+
+    // Create and register new event entries
+    wait_event_info = classId | eventId;
+
+    // Add to info-based hash table
+    entry_by_info = hash_search(WaitEventCustomHashByInfo, &wait_event_info, HASH_ENTER, &found);
+    strlcpy(entry_by_info->wait_event_name, wait_event_name,
+            sizeof(entry_by_info->wait_event_name));
+
+    // Add to name-based hash table
+    entry_by_name = hash_search(WaitEventCustomHashByName, wait_event_name, HASH_ENTER, &found);
+    entry_by_name->wait_event_info = wait_event_info;
+
+    LWLockRelease(WaitEventCustomLock);
+    return wait_event_info;
+}
+```

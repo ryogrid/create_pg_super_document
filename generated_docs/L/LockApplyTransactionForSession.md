@@ -44,3 +44,18 @@ This function acquires a session-level lock specifically for logical replication
 - Does not return a value (void function)
 - Includes MyDatabaseId in the lock tag to scope locks to the current database
 - Used primarily in logical replication parallel apply worker scenarios
+
+## Simplified Source
+```c
+void LockApplyTransactionForSession(Oid suboid, TransactionId xid, uint16 objid,
+                                    LOCKMODE lockmode)
+{
+    LOCKTAG tag;
+
+    // Create lock tag for apply transaction
+    SET_LOCKTAG_APPLY_TRANSACTION(tag, MyDatabaseId, suboid, xid, objid);
+
+    // Acquire session-level lock
+    (void) LockAcquire(&tag, lockmode, true, false);
+}
+```

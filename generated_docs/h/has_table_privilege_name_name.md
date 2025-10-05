@@ -43,3 +43,26 @@ The function performs its check by:
 - This is one of several overloaded variants of has_table_privilege at the SQL level
 - Located in src/backend/utils/adt/acl.c:1895-1920
 - Part of PostgreSQL's role-based access control system
+
+## Simplified Source
+
+```c
+Datum has_table_privilege_name_name(PG_FUNCTION_ARGS) {
+    Name rolename = PG_GETARG_NAME(0);
+    text *tablename = PG_GETARG_TEXT_PP(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+    Oid roleid, tableoid;
+    AclMode mode;
+    AclResult aclresult;
+
+    // Convert names to OIDs and privilege string to mode
+    roleid = get_role_oid_or_public(NameStr(*rolename));
+    tableoid = convert_table_name(tablename);
+    mode = convert_table_priv_string(priv_type_text);
+
+    // Check if user has the specified privilege on the table
+    aclresult = pg_class_aclcheck(tableoid, roleid, mode);
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

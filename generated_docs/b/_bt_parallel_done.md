@@ -47,3 +47,37 @@ The function performs several important operations:
 - It includes an assertion to ensure the scan is not in BTPARALLEL_NEED_PRIMSCAN state when marking as done
 - The condition variable broadcast ensures all waiting workers are notified simultaneously
 - For non-parallel scans, the function returns immediately without doing anything
+
+## Simplified Source
+
+```c
+void _bt_parallel_done(IndexScanDesc scan) {
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+    ParallelIndexScanDesc parallel_scan = scan->parallel_scan;
+    BTParallelScanDesc btscan;
+    bool status_changed = false;
+
+    // Early exit for non-parallel scans
+    if (parallel_scan == NULL)
+        return;
+
+    // Don't mark done if primitive scan is pending
+    if (so->needPrimScan)
+        return;
+
+    btscan = (BTParallelScanDesc) OffsetToPointer((void *) parallel_scan,
+                                                  parallel_scan->ps_offset);
+
+    // Atomically mark scan as complete
+    SpinLockAcquire(&btscan->btps_mutex);
+    if (btscan->btps_pageStatus != BTPARALLEL_DONE) {
+        btscan->btps_pageStatus = BTPARALLEL_DONE;
+        status_changed = true;
+    }
+    SpinLockRelease(&btscan->btps_mutex);
+
+    // Wake up all waiting workers
+    if (status_changed)
+        ConditionVariableBroadcast(&btscan->btps_cv);
+}
+```

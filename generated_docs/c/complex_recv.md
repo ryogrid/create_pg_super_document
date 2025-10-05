@@ -36,3 +36,23 @@ The  function is responsible for converting binary data received over PostgreSQL
 - Allocates memory using PostgreSQL's palloc() for the result structure
 - Part of the PostgreSQL tutorial demonstrating custom data type implementation
 - Located in src/tutorial/complex.c:71-84
+
+## Simplified Source
+
+```c
+Datum
+complex_recv(PG_FUNCTION_ARGS)
+{
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    Complex *result;
+
+    // Allocate memory for result
+    result = (Complex *) palloc(sizeof(Complex));
+
+    // Read real and imaginary parts from binary buffer
+    result->x = pq_getmsgfloat8(buf);
+    result->y = pq_getmsgfloat8(buf);
+
+    PG_RETURN_POINTER(result);
+}
+```

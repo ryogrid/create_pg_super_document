@@ -49,3 +49,71 @@ The conversion process builds arrays of Datum values and null flags, creates a H
 - Includes special logic to handle the change in array interpretation behavior introduced in PostgreSQL 10
 - Memory management is carefully handled to avoid leaks even in error conditions
 - The function assumes the PLyObToDatum structure has been properly initialized with appropriate conversion functions for each attribute
+
+## Simplified Source
+
+```c
+static Datum
+PLyGenericObject_ToComposite(PLyObToDatum *arg, TupleDesc desc, PyObject *object, bool inarray)
+{
+    Datum result;
+    HeapTuple tuple;
+    Datum *values;
+    bool *nulls;
+    volatile int i;
+
+    // Allocate arrays for tuple construction
+    values = palloc(sizeof(Datum) * desc->natts);
+    nulls = palloc(sizeof(bool) * desc->natts);
+
+    // Extract each attribute from Python object by name
+    for (i = 0; i < desc->natts; ++i) {
+        char *key;
+        PyObject *volatile value;
+        PLyObToDatum *att;
+        Form_pg_attribute attr = TupleDescAttr(desc, i);
+
+        if (attr->attisdropped) {
+            values[i] = (Datum) 0;
+            nulls[i] = true;
+            continue;
+        }
+
+        key = NameStr(attr->attname);
+        value = NULL;
+        att = &arg->u.tuple.atts[i];
+        PG_TRY();
+        {
+            value = PyObject_GetAttrString(object, key);
+            if (!value) {
+                ereport(ERROR,
+                        (errcode(ERRCODE_UNDEFINED_COLUMN),
+                         errmsg("attribute \"%s\" does not exist in Python object", key),
+                         inarray ?
+                         errhint("To return a composite type in an array, return the composite type as a Python tuple, e.g., \"[('foo',)]\".") :
+                         errhint("To return null in a column, let the returned object have an attribute named after column with value None.")));
+            }
+
+            values[i] = att->func(att, value, &nulls[i], false);
+            Py_XDECREF(value);
+            value = NULL;
+        }
+        PG_CATCH();
+        {
+            Py_XDECREF(value);
+            PG_RE_THROW();
+        }
+        PG_END_TRY();
+    }
+
+    // Build final tuple and convert to Datum
+    tuple = heap_form_tuple(desc, values, nulls);
+    result = heap_copy_tuple_as_datum(tuple, desc);
+    heap_freetuple(tuple);
+
+    pfree(values);
+    pfree(nulls);
+
+    return result;
+}
+```

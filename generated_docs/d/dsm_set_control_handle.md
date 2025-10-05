@@ -35,3 +35,14 @@ The function includes an assertion to ensure that it's only called once (when ds
 - Critical for proper DSM functionality in Windows and other EXEC_BACKEND environments
 - The control handle is later used by dsm_backend_startup() to attach to the control segment
 - Part of the shared memory re-attachment callback mechanism in PostgreSQL's memory management
+
+## Simplified Source
+```c
+void dsm_set_control_handle(dsm_handle h) {
+    // Validate that handle is set only once with a valid value
+    Assert(dsm_control_handle == 0 && h != 0);
+
+    // Store the DSM control handle for future operations
+    dsm_control_handle = h;
+}
+```

@@ -42,3 +42,23 @@ The materialized approach ensures that the view remains consistent even if the p
 - Returns NULL as per standard SRF convention - actual data is returned via the tuplestore
 - Located in src/backend/utils/adt/hbafuncs.c:574-591
 - Typically used in system administration queries to inspect current identity mapping rules
+
+## Simplified Source
+
+```c
+Datum
+pg_ident_file_mappings(PG_FUNCTION_ARGS)
+{
+    ReturnSetInfo *rsi;
+
+    // Initialize materialized set-returning function
+    // Uses Materialize mode for safety against file changes
+    InitMaterializedSRF(fcinfo, 0);
+
+    // Fill the tuplestore with identity mapping data
+    rsi = (ReturnSetInfo *) fcinfo->resultinfo;
+    fill_ident_view(rsi->setResult, rsi->setDesc);
+
+    PG_RETURN_NULL();
+}
+```

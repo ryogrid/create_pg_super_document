@@ -38,3 +38,19 @@ The comparison is performed by `timetz_cmp_internal()`, which normalizes both ti
 - Returns a pointer to one of the input arguments rather than creating a new copy, which is efficient for immutable data types
 - Part of PostgreSQL's date/time function family located in `src/backend/utils/adt/date.c:2579`
 - Functionally opposite to `timetz_larger`, using `< 0` instead of `> 0` in the comparison logic
+
+## Simplified Source
+
+```c
+Datum timetz_smaller(PG_FUNCTION_ARGS) {
+    // Extract two time-with-timezone values from arguments
+    TimeTzADT *time1 = PG_GETARG_TIMETZADT_P(0);
+    TimeTzADT *time2 = PG_GETARG_TIMETZADT_P(1);
+
+    // Compare times and return the smaller one
+    // Uses internal comparison that accounts for timezone differences
+    TimeTzADT *result = (timetz_cmp_internal(time1, time2) < 0) ? time1 : time2;
+
+    PG_RETURN_TIMETZADT_P(result);
+}
+```

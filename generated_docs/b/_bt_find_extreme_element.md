@@ -46,3 +46,39 @@ The function is designed to work with B-tree index preprocessing, particularly f
 - Error handling includes checks for missing operators and procedures in the opfamily
 - The comparison is performed using the collation specified in the scan key
 - This is a static function, so it's only accessible within the nbtutils.c file
+
+## Simplified Source
+
+```c
+static Datum
+_bt_find_extreme_element(IndexScanDesc scan, ScanKey skey, Oid elemtype,
+                         StrategyNumber strat, Datum *elems, int nelems)
+{
+    Relation rel = scan->indexRelation;
+    FmgrInfo flinfo;
+
+    // Look up comparison operator in opfamily
+    Oid cmp_op = get_opfamily_member(rel->rd_opfamily[skey->sk_attno - 1],
+                                     elemtype, elemtype, strat);
+    if (!OidIsValid(cmp_op))
+        elog(ERROR, "missing operator %d(%u,%u) in opfamily %u",
+             strat, elemtype, elemtype,
+             rel->rd_opfamily[skey->sk_attno - 1]);
+
+    RegProcedure cmp_proc = get_opcode(cmp_op);
+    if (!RegProcedureIsValid(cmp_proc))
+        elog(ERROR, "missing oprcode for operator %u", cmp_op);
+
+    fmgr_info(cmp_proc, &flinfo);
+
+    // Find extreme element by comparing with all others
+    Datum result = elems[0];
+    for (int i = 1; i < nelems; i++) {
+        if (DatumGetBool(FunctionCall2Coll(&flinfo, skey->sk_collation,
+                                           elems[i], result)))
+            result = elems[i];
+    }
+
+    return result;
+}
+```

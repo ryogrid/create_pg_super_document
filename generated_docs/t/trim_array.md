@@ -48,3 +48,47 @@ The implementation leverages PostgreSQL's array slicing mechanism by setting up 
 - Delegates the actual array construction to  for consistency with PostgreSQL's slicing infrastructure
 - Returns a new array datum rather than modifying the input array in place
 - Handles empty arrays gracefully (array_length = 0 when ARR_NDIM(v) = 0)
+
+## Simplified Source
+
+```c
+Datum
+trim_array(PG_FUNCTION_ARGS)
+{
+    ArrayType *v = PG_GETARG_ARRAYTYPE_P(0);
+    int n = PG_GETARG_INT32(1);
+    int array_length = (ARR_NDIM(v) > 0) ? ARR_DIMS(v)[0] : 0;
+
+    // Validate trim count is within bounds
+    if (n < 0 || n > array_length)
+        ereport(ERROR,
+                (errcode(ERRCODE_ARRAY_ELEMENT_ERROR),
+                 errmsg("number of elements to trim must be between 0 and %d",
+                        array_length)));
+
+    // Setup slice bounds - initialize all as unprovided
+    int lower[MAXDIM], upper[MAXDIM];
+    bool lowerProvided[MAXDIM], upperProvided[MAXDIM];
+    memset(lowerProvided, false, sizeof(lowerProvided));
+    memset(upperProvided, false, sizeof(upperProvided));
+
+    // Set upper bound for first dimension to trim last n elements
+    if (ARR_NDIM(v) > 0) {
+        upper[0] = ARR_LBOUND(v)[0] + array_length - n - 1;
+        upperProvided[0] = true;
+    }
+
+    // Get element type information
+    int16 elmlen;
+    bool elmbyval;
+    char elmalign;
+    get_typlenbyvalalign(ARR_ELEMTYPE(v), &elmlen, &elmbyval, &elmalign);
+
+    // Create trimmed array using slice operation
+    Datum result = array_get_slice(PointerGetDatum(v), 1,
+                                   upper, lower, upperProvided, lowerProvided,
+                                   -1, elmlen, elmbyval, elmalign);
+
+    PG_RETURN_DATUM(result);
+}
+```

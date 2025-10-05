@@ -38,3 +38,24 @@ The function first checks if this message is part of a streaming transaction and
 - Part of PostgreSQL logical replication metadata management system
 - Critical for maintaining consistent relation metadata between publisher and subscriber
 - Partition map reset ensures consistency when relation definitions change
+
+## Simplified Source
+
+```c
+static void
+apply_handle_relation(StringInfo s)
+{
+    LogicalRepRelation *rel;
+
+    // Handle streaming transactions first
+    if (handle_streamed_transaction(LOGICAL_REP_MSG_RELATION, s))
+        return;
+
+    // Read relation metadata and update local mapping
+    rel = logicalrep_read_rel(s);
+    logicalrep_relmap_update(rel);
+
+    // Reset partition entries that reference this relation
+    logicalrep_partmap_reset_relmap(rel);
+}
+```

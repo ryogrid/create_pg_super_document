@@ -36,3 +36,15 @@ Like box_lt, this function calculates the area of each box using the box_ar help
 - Returns true if area(box1) > area(box2)
 - Complement function to box_lt
 - Comparison is done within PostgreSQL's accuracy constraints
+
+## Simplified Source
+
+```c
+Datum box_gt(PG_FUNCTION_ARGS) {
+    BOX *box1 = PG_GETARG_BOX_P(0);
+    BOX *box2 = PG_GETARG_BOX_P(1);
+
+    // Compare areas: return true if box1 area > box2 area
+    PG_RETURN_BOOL(FPgt(box_ar(box1), box_ar(box2)));
+}
+```

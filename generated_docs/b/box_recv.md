@@ -33,3 +33,37 @@ The  function is a PostgreSQL binary input conversion function that deserializes
 
 ## Notes and Other Information
 This function follows PostgreSQL's standard binary receive function convention using the  interface. It is the binary counterpart to the text-based  function, providing more efficient data transfer for binary protocols. The function reads exactly four float8 values in the expected order: high.x, high.y, low.x, low.y. The coordinate normalization logic is identical to , ensuring consistent box representation regardless of input source. This function is essential for PostgreSQL's binary protocol support and is used in contexts such as prepared statements, COPY BINARY operations, and client-server communication using binary format.
+
+## Simplified Source
+
+```c
+Datum box_recv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    BOX *box;
+    float8 x, y;
+
+    box = (BOX *) palloc(sizeof(BOX));
+
+    // Read four float8 values from binary buffer
+    box->high.x = pq_getmsgfloat8(buf);
+    box->high.y = pq_getmsgfloat8(buf);
+    box->low.x = pq_getmsgfloat8(buf);
+    box->low.y = pq_getmsgfloat8(buf);
+
+    // Normalize coordinates: ensure high.x >= low.x
+    if (float8_lt(box->high.x, box->low.x)) {
+        x = box->high.x;
+        box->high.x = box->low.x;
+        box->low.x = x;
+    }
+
+    // Normalize coordinates: ensure high.y >= low.y
+    if (float8_lt(box->high.y, box->low.y)) {
+        y = box->high.y;
+        box->high.y = box->low.y;
+        box->low.y = y;
+    }
+
+    PG_RETURN_BOX_P(box);
+}
+```

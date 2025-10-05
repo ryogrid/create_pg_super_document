@@ -38,3 +38,40 @@ This function transmits schema information for a relation to logical replication
 
 ## Notes and Other Information
 The function uses FirstGenbkiObjectId as a cutoff to distinguish between built-in types (with hand-assigned OIDs that remain stable across PostgreSQL versions) and user-created types that need explicit transmission. This is crucial for cross-version replication compatibility. The function handles column filtering through the Bitmapset parameter, allowing for selective replication of specific columns. Type information is sent before relation schema to ensure subscribers have all necessary type definitions before processing the relation structure.
+
+## Simplified Source
+
+```c
+static void
+send_relation_and_attrs(Relation relation, TransactionId xid,
+                        LogicalDecodingContext *ctx,
+                        Bitmapset *columns)
+{
+    TupleDesc desc = RelationGetDescr(relation);
+
+    // Send type info for user-created types (OID >= FirstGenbkiObjectId)
+    for (int i = 0; i < desc->natts; i++) {
+        Form_pg_attribute att = TupleDescAttr(desc, i);
+
+        // Skip dropped/generated columns and built-in types
+        if (att->attisdropped || att->attgenerated)
+            continue;
+        if (att->atttypid < FirstGenbkiObjectId)
+            continue;
+
+        // Skip if not in specified column list
+        if (columns != NULL && !bms_is_member(att->attnum, columns))
+            continue;
+
+        // Send type definition
+        OutputPluginPrepareWrite(ctx, false);
+        logicalrep_write_typ(ctx->out, xid, att->atttypid);
+        OutputPluginWrite(ctx, false);
+    }
+
+    // Send relation schema
+    OutputPluginPrepareWrite(ctx, false);
+    logicalrep_write_rel(ctx->out, xid, relation, columns);
+    OutputPluginWrite(ctx, false);
+}
+```

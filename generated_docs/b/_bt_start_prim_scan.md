@@ -182,3 +182,33 @@ write_data_to_archive_lz4_doc.md: Scan direction (forward or backward)
 - The needPrimScan flag is managed by _bt_checkkeys and reset by _bt_first
 - Handles edge cases gracefully where _bt_checkkeys cannot be reached due to empty indexes or boundary conditions
 - Return value: true if another primitive scan should start, false if array keys are exhausted
+
+## Simplified Source
+
+```c
+bool
+_bt_start_prim_scan(IndexScanDesc scan, ScanDirection dir)
+{
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+
+    Assert(so->numArrayKeys);
+
+    // Reset scan position flag for new primitive scan
+    so->scanBehind = false;
+
+    // Check if _bt_checkkeys scheduled another primitive scan
+    if (so->needPrimScan) {
+        Assert(_bt_verify_arrays_bt_first(scan, dir));
+
+        // Flag was set - must call _bt_first again
+        // _bt_first will reset the needPrimScan flag
+        return true;
+    }
+
+    // Top-level scan exhausted in this direction
+    if (scan->parallel_scan != NULL)
+        _bt_parallel_done(scan);
+
+    return false;  // No more tuples
+}
+```

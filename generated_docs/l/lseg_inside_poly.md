@@ -41,3 +41,68 @@ lseg_inside_poly implements a comprehensive algorithm to test whether a line seg
 - Uses floating-point arithmetic for precise coordinate calculations
 - Includes interrupt checking to allow query cancellation during complex polygon operations
 - The start parameter enables optimization by allowing callers to specify which polygon edge to begin checking from
+
+## Simplified Source
+
+```c
+static bool
+lseg_inside_poly(Point *a, Point *b, POLYGON *poly, int start)
+{
+    LSEG test_seg, poly_edge;
+    int i;
+    bool result = true, intersection = false;
+
+    // Stack overflow protection for recursive calls
+    check_stack_depth();
+
+    // Set up test segment
+    test_seg.p[0] = *a;
+    test_seg.p[1] = *b;
+    poly_edge.p[0] = poly->p[(start == 0) ? (poly->npts - 1) : (start - 1)];
+
+    // Check intersection with each polygon edge
+    for (i = start; i < poly->npts && result; i++)
+    {
+        Point intersection_point;
+
+        CHECK_FOR_INTERRUPTS();  // Allow query cancellation
+
+        poly_edge.p[1] = poly->p[i];
+
+        if (lseg_contain_point(&poly_edge, test_seg.p))
+        {
+            if (lseg_contain_point(&poly_edge, test_seg.p + 1))
+                return true;  // Segment completely contained by edge
+
+            // Y-crossing case: endpoint touches edge
+            result = touched_lseg_inside_poly(test_seg.p, test_seg.p + 1, &poly_edge, poly, i + 1);
+        }
+        else if (lseg_contain_point(&poly_edge, test_seg.p + 1))
+        {
+            // Y-crossing case: other endpoint touches edge
+            result = touched_lseg_inside_poly(test_seg.p + 1, test_seg.p, &poly_edge, poly, i + 1);
+        }
+        else if (lseg_interpt_lseg(&intersection_point, &test_seg, &poly_edge))
+        {
+            // X-crossing case: segments intersect, check both subsegments
+            intersection = true;
+            result = lseg_inside_poly(test_seg.p, &intersection_point, poly, i + 1);
+            if (result)
+                result = lseg_inside_poly(test_seg.p + 1, &intersection_point, poly, i + 1);
+        }
+
+        poly_edge.p[0] = poly_edge.p[1];  // Move to next edge
+    }
+
+    // If no intersections found, test segment midpoint
+    if (result && !intersection)
+    {
+        Point midpoint;
+        midpoint.x = float8_div(float8_pl(test_seg.p[0].x, test_seg.p[1].x), 2.0);
+        midpoint.y = float8_div(float8_pl(test_seg.p[0].y, test_seg.p[1].y), 2.0);
+        result = point_inside(&midpoint, poly->npts, poly->p);
+    }
+
+    return result;
+}
+```

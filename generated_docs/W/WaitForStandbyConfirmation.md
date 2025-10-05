@@ -40,3 +40,39 @@ Early return occurs if the current replication slot is not a logical failover sl
 - Uses WARNING level for error reporting in StandbySlotsHaveCaughtup calls
 - The function is interruptible via CHECK_FOR_INTERRUPTS() to handle query cancellation and shutdown signals
 - Critical for maintaining consistency in logical replication with failover capabilities, ensuring standby servers are sufficiently caught up before logical decoding proceeds
+
+## Simplified Source
+
+```c
+void
+WaitForStandbyConfirmation(XLogRecPtr wait_for_lsn)
+{
+    // Early exit if not a logical failover slot or no synchronized slots
+    if (!MyReplicationSlot->data.failover || !synchronized_standby_slots_config)
+        return;
+
+    ConditionVariablePrepareToSleep(&WalSndCtl->wal_confirm_rcv_cv);
+
+    for (;;)
+    {
+        CHECK_FOR_INTERRUPTS();
+
+        // Handle configuration reloads
+        if (ConfigReloadPending)
+        {
+            ConfigReloadPending = false;
+            ProcessConfigFile(PGC_SIGHUP);
+        }
+
+        // Check if all synchronized standby slots have caught up
+        if (StandbySlotsHaveCaughtup(wait_for_lsn, WARNING))
+            break;
+
+        // Wait with timeout to remain responsive to config changes
+        ConditionVariableTimedSleep(&WalSndCtl->wal_confirm_rcv_cv, 1000,
+                                    WAIT_EVENT_WAIT_FOR_STANDBY_CONFIRMATION);
+    }
+
+    ConditionVariableCancelSleep();
+}
+```

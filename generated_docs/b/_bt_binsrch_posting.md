@@ -40,3 +40,49 @@ The function implements a standard binary search algorithm but operates specific
 - Requires that key->heapkeyspace and key->allequalimage are true
 - The function assumes posting lists have at least 2 entries (Assert(high >= 2))
 - Used primarily during B-tree insertion to maintain proper ordering of heap TIDs within posting lists
+
+## Simplified Source
+
+```c
+static int
+_bt_binsrch_posting(BTScanInsert key, Page page, OffsetNumber offnum)
+{
+    IndexTuple itup;
+    ItemId itemid;
+    int low, high, mid, res;
+
+    // Get the posting list tuple
+    itemid = PageGetItemId(page, offnum);
+    itup = (IndexTuple) PageGetItem(page, itemid);
+
+    // Not a posting tuple - return 0 (potential corruption)
+    if (!BTreeTupleIsPosting(itup))
+        return 0;
+
+    // Dead tuple - return sentinel value
+    if (ItemIdIsDead(itemid))
+        return -1;
+
+    // Set up binary search bounds
+    low = 0;
+    high = BTreeTupleGetNPosting(itup);
+
+    // Binary search through posting list entries
+    while (high > low)
+    {
+        mid = low + ((high - low) / 2);
+        res = ItemPointerCompare(key->scantid,
+                                BTreeTupleGetPostingN(itup, mid));
+
+        if (res > 0)
+            low = mid + 1;
+        else if (res < 0)
+            high = mid;
+        else
+            return mid; // Exact match found
+    }
+
+    // Return position where scantid should be inserted
+    return low;
+}
+```

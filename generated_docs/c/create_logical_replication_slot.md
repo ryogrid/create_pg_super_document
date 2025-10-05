@@ -56,3 +56,40 @@ The function is designed with error safety in mind - slots are created as epheme
 - The function doesn't release the created slot - this is the caller's responsibility
 - Plugin validation occurs during the CreateInitDecodingContext call, even when find_startpoint is false
 - Error handling is built-in through the ephemeral slot creation strategy
+
+## Simplified Source
+
+```c
+static void create_logical_replication_slot(char *name, char *plugin,
+                                            bool temporary, bool two_phase,
+                                            bool failover,
+                                            XLogRecPtr restart_lsn,
+                                            bool find_startpoint) {
+    // Ensure no existing slot is active
+    Assert(!MyReplicationSlot);
+
+    // Create logical slot (initially ephemeral for error safety)
+    ReplicationSlotCreate(name, true,
+                          temporary ? RS_TEMPORARY : RS_EPHEMERAL,
+                          two_phase, failover, false);
+
+    // Initialize logical decoding context
+    // This validates the plugin and sets up decoding infrastructure
+    LogicalDecodingContext *ctx = CreateInitDecodingContext(
+        plugin, NIL,
+        false,  // just catalogs is OK
+        restart_lsn,
+        XL_ROUTINE(.page_read = read_local_xlog_page,
+                   .segment_open = wal_segment_open,
+                   .segment_close = wal_segment_close),
+        NULL, NULL, NULL);
+
+    // Find decoding start point if requested
+    if (find_startpoint) {
+        DecodingContextFindStartpoint(ctx);
+    }
+
+    // Clean up decoding context
+    FreeDecodingContext(ctx);
+}
+```

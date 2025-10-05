@@ -33,3 +33,15 @@ The implementation is straightforward: it extracts the input bytea argument, pas
 - The function produces a 48-byte (384-bit) hash output, which is the standard length for SHA-384
 - As with all cryptographic hash functions, the output is deterministic - the same input will always produce the same hash
 - This function is typically exposed to SQL users as a built-in function for computing SHA-384 hashes of binary data
+
+## Simplified Source
+
+```c
+Datum sha384_bytea(PG_FUNCTION_ARGS) {
+    // Compute SHA-384 hash using internal function
+    bytea *result = cryptohash_internal(PG_SHA384, PG_GETARG_BYTEA_PP(0));
+
+    // Return the binary hash result
+    PG_RETURN_BYTEA_P(result);
+}
+```

@@ -49,3 +49,106 @@ The parser supports:
 - Includes extensive debugging support via WPARSER_TRACE macro for development and troubleshooting
 - Critical for PostgreSQL's text search performance as it processes all searchable text content
 - Uses character class dispatch for efficient rule matching rather than character-by-character comparisons
+
+## Simplified Source
+
+```c
+static bool TParserGet(TParser *prs) {
+    const TParserStateActionItem *item = NULL;
+
+    CHECK_FOR_INTERRUPTS();
+
+    // End of string check
+    if (prs->state->posbyte >= prs->lenstr)
+        return false;
+
+    prs->token = prs->str + prs->state->posbyte;
+    prs->state->pushedAtAction = NULL;
+
+    // Main parsing loop
+    while (prs->state->posbyte <= prs->lenstr) {
+        // Calculate character length (multibyte support)
+        if (prs->state->posbyte == prs->lenstr)
+            prs->state->charlen = 0;
+        else
+            prs->state->charlen = (prs->charmaxlen == 1) ?
+                prs->charmaxlen : pg_mblen(prs->str + prs->state->posbyte);
+
+        // Get action item for current state
+        if (prs->state->pushedAtAction) {
+            item = prs->state->pushedAtAction + 1;  // Resume after POP
+            prs->state->pushedAtAction = NULL;
+        } else {
+            item = Actions[prs->state->state].action;
+        }
+
+        // Find matching action by character class
+        while (item->isclass) {
+            prs->c = item->c;
+            if (item->isclass(prs) != 0)
+                break;
+            item++;
+        }
+
+        // Execute special handler if present
+        if (item->special)
+            item->special(prs);
+
+        // Token found - set up return values
+        if (item->flags & A_BINGO) {
+            prs->lenbytetoken = prs->state->lenbytetoken;
+            prs->lenchartoken = prs->state->lenchartoken;
+            prs->state->lenbytetoken = prs->state->lenchartoken = 0;
+            prs->type = item->type;
+        }
+
+        // Handle stack operations
+        if (item->flags & A_POP) {
+            // Pop state from stack
+            TParserPosition *ptr = prs->state->prev;
+            pfree(prs->state);
+            prs->state = ptr;
+        } else if (item->flags & A_PUSH) {
+            // Push current state to stack
+            prs->state->pushedAtAction = item;
+            prs->state = newTParserPosition(prs->state);
+        } else if (item->flags & A_CLEAR) {
+            // Clear previous state
+            TParserPosition *ptr = prs->state->prev->prev;
+            pfree(prs->state->prev);
+            prs->state->prev = ptr;
+        } else if (item->flags & A_MERGE) {
+            // Merge with previous state
+            TParserPosition *ptr = prs->state;
+            prs->state = prs->state->prev;
+            prs->state->posbyte = ptr->posbyte;
+            prs->state->poschar = ptr->poschar;
+            // ... copy other position fields
+            pfree(ptr);
+        }
+
+        // Transition to new state if specified
+        if (item->tostate != TPS_Null)
+            prs->state->state = item->tostate;
+
+        // Check exit conditions
+        if ((item->flags & A_BINGO) ||
+            (prs->state->posbyte >= prs->lenstr && !(item->flags & A_RERUN)))
+            break;
+
+        // Handle rerun or continue after POP
+        if (item->flags & (A_RERUN | A_POP))
+            continue;
+
+        // Advance position
+        if (prs->state->charlen) {
+            prs->state->posbyte += prs->state->charlen;
+            prs->state->lenbytetoken += prs->state->charlen;
+            prs->state->poschar++;
+            prs->state->lenchartoken++;
+        }
+    }
+
+    return (item && (item->flags & A_BINGO));
+}
+```

@@ -41,3 +41,56 @@ The function uses PostgreSQL's set-returning function (SRF) infrastructure to re
 - Error handling respects the missing_ok parameter to provide graceful degradation
 - Dot directory filtering is performed at the application level rather than filesystem level
 - Returns empty result set (not NULL) when directory is missing and missing_ok is true
+
+## Simplified Source
+
+```c
+Datum pg_ls_dir(PG_FUNCTION_ARGS) {
+    ReturnSetInfo *rsinfo = (ReturnSetInfo *) fcinfo->resultinfo;
+    bool missing_ok = false;
+    bool include_dot_dirs = false;
+
+    // Convert and validate directory path
+    char *location = convert_and_check_filename(PG_GETARG_TEXT_PP(0));
+
+    // Parse optional arguments (missing_ok and include_dot_dirs)
+    if (PG_NARGS() == 3) {
+        if (!PG_ARGISNULL(1))
+            missing_ok = PG_GETARG_BOOL(1);
+        if (!PG_ARGISNULL(2))
+            include_dot_dirs = PG_GETARG_BOOL(2);
+    }
+
+    // Initialize set-returning function infrastructure
+    InitMaterializedSRF(fcinfo, MAT_SRF_USE_EXPECTED_DESC);
+
+    // Open directory
+    DIR *dirdesc = AllocateDir(location);
+    if (!dirdesc) {
+        // Return empty result if missing_ok is true
+        if (missing_ok && errno == ENOENT)
+            return (Datum) 0;
+        // Otherwise let ReadDir() handle the error
+    }
+
+    // Read directory entries
+    struct dirent *de;
+    while ((de = ReadDir(dirdesc, location)) != NULL) {
+        // Skip dot directories unless requested
+        if (!include_dot_dirs &&
+            (strcmp(de->d_name, ".") == 0 || strcmp(de->d_name, "..") == 0))
+            continue;
+
+        // Add filename to result set
+        Datum values[1];
+        bool nulls[1];
+        values[0] = CStringGetTextDatum(de->d_name);
+        nulls[0] = false;
+
+        tuplestore_putvalues(rsinfo->setResult, rsinfo->setDesc, values, nulls);
+    }
+
+    FreeDir(dirdesc);
+    return (Datum) 0;
+}
+```

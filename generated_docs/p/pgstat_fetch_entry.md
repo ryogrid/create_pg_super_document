@@ -53,3 +53,79 @@ The function handles several edge cases: it returns NULL for dropped entries, cr
 - Thread-safe through proper locking of shared statistics entries
 - Returns NULL when no statistics exist for the requested object or if the object has been dropped
 - The function clears padding in the hash key structure to ensure consistent hash values
+
+## Simplified Source
+
+```c
+void *
+pgstat_fetch_entry(PgStat_Kind kind, Oid dboid, Oid objoid)
+{
+    PgStat_HashKey key;
+    PgStat_EntryRef *entry_ref;
+    void *stats_data;
+    const PgStat_KindInfo *kind_info = pgstat_get_kind_info(kind);
+
+    Assert(IsUnderPostmaster || !IsPostmasterEnvironment);
+    Assert(!kind_info->fixed_amount);
+
+    pgstat_prep_snapshot();
+
+    // Build hash key for lookup
+    memset(&key, 0, sizeof(struct PgStat_HashKey));
+    key.kind = kind;
+    key.dboid = dboid;
+    key.objoid = objoid;
+
+    // Build full snapshot if required by consistency mode
+    if (pgstat_fetch_consistency == PGSTAT_FETCH_CONSISTENCY_SNAPSHOT)
+        pgstat_build_snapshot();
+
+    // Check cache if caching is enabled
+    if (pgstat_fetch_consistency > PGSTAT_FETCH_CONSISTENCY_NONE) {
+        PgStat_SnapshotEntry *entry = pgstat_snapshot_lookup(pgStatLocal.snapshot.stats, key);
+        if (entry)
+            return entry->data;
+
+        // No data in full snapshot means no stats exist
+        if (pgstat_fetch_consistency == PGSTAT_FETCH_CONSISTENCY_SNAPSHOT)
+            return NULL;
+    }
+
+    pgStatLocal.snapshot.mode = pgstat_fetch_consistency;
+
+    // Get reference to shared statistics entry
+    entry_ref = pgstat_get_entry_ref(kind, dboid, objoid, false, NULL);
+
+    if (entry_ref == NULL || entry_ref->shared_entry->dropped) {
+        // Create empty cache entry if using cache consistency
+        if (pgstat_fetch_consistency == PGSTAT_FETCH_CONSISTENCY_CACHE) {
+            PgStat_SnapshotEntry *entry = pgstat_snapshot_insert(pgStatLocal.snapshot.stats, key, &found);
+            Assert(!found);
+            entry->data = NULL;
+        }
+        return NULL;
+    }
+
+    // Allocate memory for statistics data
+    if (pgstat_fetch_consistency == PGSTAT_FETCH_CONSISTENCY_NONE)
+        stats_data = palloc(kind_info->shared_data_len);  // Caller's context
+    else
+        stats_data = MemoryContextAlloc(pgStatLocal.snapshot.context,
+                                       kind_info->shared_data_len);  // Snapshot context
+
+    // Copy data from shared memory with locking
+    pgstat_lock_entry_shared(entry_ref, false);
+    memcpy(stats_data,
+           pgstat_get_entry_data(kind, entry_ref->shared_stats),
+           kind_info->shared_data_len);
+    pgstat_unlock_entry(entry_ref);
+
+    // Cache the result if caching is enabled
+    if (pgstat_fetch_consistency > PGSTAT_FETCH_CONSISTENCY_NONE) {
+        PgStat_SnapshotEntry *entry = pgstat_snapshot_insert(pgStatLocal.snapshot.stats, key, &found);
+        entry->data = stats_data;
+    }
+
+    return stats_data;
+}
+```

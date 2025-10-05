@@ -37,3 +37,18 @@ The function uses a conservative threshold of BLCKSZ/2 to ensure that the return
 - Automatically handles FSM bookkeeping by marking pages as used
 - Used by all major index access methods in PostgreSQL
 - Part of the centralized index free space management infrastructure
+
+## Simplified Source
+
+```c
+BlockNumber GetFreeIndexPage(Relation rel) {
+    // Request page with at least half-block free space
+    BlockNumber blkno = GetPageWithFreeSpace(rel, BLCKSZ / 2);
+
+    // Mark page as used if found
+    if (blkno != InvalidBlockNumber)
+        RecordUsedIndexPage(rel, blkno);
+
+    return blkno;
+}
+```

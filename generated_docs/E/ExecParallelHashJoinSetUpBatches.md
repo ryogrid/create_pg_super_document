@@ -52,3 +52,73 @@ The function ensures that all parallel workers can coordinate effectively during
 - The shared tuplestores use SHARED_TUPLESTORE_SINGLE_PASS mode for efficient processing
 - [Barrier](../B/Barrier.md) phases coordinate the parallel processing workflow across all participating backends
 - The function assumes hashtable->batches is NULL, indicating this is the first batch setup
+
+## Simplified Source
+
+```c
+static void
+ExecParallelHashJoinSetUpBatches(HashJoinTable hashtable, int nbatch)
+{
+    ParallelHashJoinState *pstate = hashtable->parallel_state;
+    ParallelHashJoinBatch *batches;
+    MemoryContext oldcxt;
+    int i;
+
+    // Allocate shared memory for batch structures
+    pstate->batches = dsa_allocate0(hashtable->area,
+                                   EstimateParallelHashJoinBatch(hashtable) * nbatch);
+    pstate->nbatch = nbatch;
+    batches = dsa_get_address(hashtable->area, pstate->batches);
+
+    // Switch to spill context for accessor allocation
+    oldcxt = MemoryContextSwitchTo(hashtable->spillCxt);
+
+    // Allocate local accessor array
+    hashtable->nbatch = nbatch;
+    hashtable->batches = palloc0_array(ParallelHashJoinBatchAccessor, hashtable->nbatch);
+
+    // Initialize each batch
+    for (i = 0; i < hashtable->nbatch; ++i) {
+        ParallelHashJoinBatchAccessor *accessor = &hashtable->batches[i];
+        ParallelHashJoinBatch *shared = NthParallelHashJoinBatch(batches, i);
+        char name[MAXPGPATH];
+
+        // Initialize barrier for synchronization
+        BarrierInit(&shared->batch_barrier, 0);
+
+        // Special handling for batch 0 (no loading needed)
+        if (i == 0) {
+            BarrierAttach(&shared->batch_barrier);
+            while (BarrierPhase(&shared->batch_barrier) < PHJ_BATCH_PROBE)
+                BarrierArriveAndWait(&shared->batch_barrier, 0);
+            BarrierDetach(&shared->batch_barrier);
+        }
+
+        // Set up accessor
+        accessor->shared = shared;
+
+        // Initialize shared tuplestores for inner and outer relations
+        snprintf(name, sizeof(name), "i%dof%d", i, hashtable->nbatch);
+        accessor->inner_tuples = sts_initialize(
+            ParallelHashJoinBatchInner(shared),
+            pstate->nparticipants,
+            ParallelWorkerNumber + 1,
+            sizeof(uint32),
+            SHARED_TUPLESTORE_SINGLE_PASS,
+            &pstate->fileset,
+            name);
+
+        snprintf(name, sizeof(name), "o%dof%d", i, hashtable->nbatch);
+        accessor->outer_tuples = sts_initialize(
+            ParallelHashJoinBatchOuter(shared, pstate->nparticipants),
+            pstate->nparticipants,
+            ParallelWorkerNumber + 1,
+            sizeof(uint32),
+            SHARED_TUPLESTORE_SINGLE_PASS,
+            &pstate->fileset,
+            name);
+    }
+
+    MemoryContextSwitchTo(oldcxt);
+}
+```

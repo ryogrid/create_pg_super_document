@@ -47,3 +47,59 @@ The function operates in two phases:
 - The semantic action callbacks (okeys_*) handle different JSON elements during parsing
 - Memory allocation occurs in the multi-call memory context to persist across function calls
 - Returns keys as PostgreSQL text datums
+
+## Simplified Source
+
+```c
+Datum json_object_keys(PG_FUNCTION_ARGS) {
+    FuncCallContext *funcctx;
+    OkeysState *state;
+
+    if (SRF_IS_FIRSTCALL()) {
+        // First call: parse JSON and extract all keys
+        text *json = PG_GETARG_TEXT_PP(0);
+        JsonLexContext lex;
+        JsonSemAction *sem;
+
+        // Initialize SRF context
+        funcctx = SRF_FIRSTCALL_INIT();
+
+        // Setup state for collecting keys
+        state = palloc(sizeof(OkeysState));
+        sem = palloc0(sizeof(JsonSemAction));
+
+        // Initialize JSON lexer and result storage
+        state->lex = makeJsonLexContext(&lex, json, true);
+        state->result_size = 256;  // Initial array size
+        state->result_count = 0;
+        state->sent_count = 0;
+        state->result = palloc(256 * sizeof(char *));
+
+        // Setup semantic actions for parsing
+        sem->semstate = state;
+        sem->array_start = okeys_array_start;        // Handle arrays (error)
+        sem->scalar = okeys_scalar;                  // Handle scalars (error)
+        sem->object_field_start = okeys_object_field_start;  // Collect keys
+
+        // Parse JSON using semantic actions
+        pg_parse_json_or_ereport(&lex, sem);
+
+        // Cleanup parser resources
+        freeJsonLexContext(&lex);
+        pfree(sem);
+
+        funcctx->user_fctx = state;
+    }
+
+    // Subsequent calls: return next key
+    funcctx = SRF_PERCALL_SETUP();
+    state = (OkeysState *) funcctx->user_fctx;
+
+    if (state->sent_count < state->result_count) {
+        char *next_key = state->result[state->sent_count++];
+        SRF_RETURN_NEXT(funcctx, CStringGetTextDatum(next_key));
+    }
+
+    SRF_RETURN_DONE(funcctx);
+}
+```

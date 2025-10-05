@@ -45,3 +45,34 @@ This function is essential for the incremental building of serialized GUC data, 
 - Part of the GUC serialization infrastructure for parallel worker communication
 - Should not happen errors indicate potential logic bugs in size estimation
 - Uses PostgreSQL's elog for error reporting with appropriate error messages
+
+## Simplified Source
+
+```c
+static void do_serialize(char **destptr, Size *maxbytes, const char *fmt, ...)
+{
+    va_list vargs;
+    int n;
+
+    // Check if we have space available
+    if (*maxbytes <= 0)
+        elog(ERROR, "not enough space to serialize GUC state");
+
+    // Format the string using variable arguments
+    va_start(vargs, fmt);
+    n = vsnprintf(*destptr, *maxbytes, fmt, vargs);
+    va_end(vargs);
+
+    // Check for formatting errors
+    if (n < 0)
+        elog(ERROR, "vsnprintf failed: %m with format string \"%s\"", fmt);
+
+    // Check if formatted string fits in remaining space
+    if (n >= *maxbytes)
+        elog(ERROR, "not enough space to serialize GUC state");
+
+    // Advance destination pointer past null terminator and update remaining space
+    *destptr += n + 1;
+    *maxbytes -= n + 1;
+}
+```

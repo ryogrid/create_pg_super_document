@@ -32,3 +32,17 @@ This function implements PostgreSQL's sort support interface for DATE data types
 - Enables significant performance improvements for date sorting operations
 - Leverages the fact that DateADT is a 32-bit integer for direct comparison
 - Used automatically by PostgreSQL when sorting DATE columns efficiently
+
+## Simplified Source
+
+```c
+Datum date_sortsupport(PG_FUNCTION_ARGS)
+{
+    SortSupport ssup = (SortSupport) PG_GETARG_POINTER(0);
+
+    // Configure optimized integer comparison for date sorting
+    ssup->comparator = ssup_datum_int32_cmp;
+
+    PG_RETURN_VOID();
+}
+```

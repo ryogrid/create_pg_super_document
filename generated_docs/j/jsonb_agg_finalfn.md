@@ -36,3 +36,33 @@ This function serves as the final function for JSONB array aggregation operation
 - Uses shallow cloning to allow multiple final function calls
 - Only adds the final array end marker without modifying existing values
 - Part of PostgreSQL's JSONB aggregate function family located in src/backend/utils/adt/jsonb.c:1640-1672
+
+## Simplified Source
+
+```c
+Datum
+jsonb_agg_finalfn(PG_FUNCTION_ARGS)
+{
+    JsonbAggState *aggregate_state;
+    JsonbInState result;
+    Jsonb *final_jsonb;
+
+    // Return NULL if no input values were provided
+    if (PG_ARGISNULL(0))
+        PG_RETURN_NULL();
+
+    aggregate_state = (JsonbAggState *) PG_GETARG_POINTER(0);
+
+    // Shallow clone to avoid modifying original state
+    // (allows final function to be called multiple times)
+    memset(&result, 0, sizeof(JsonbInState));
+    result.parseState = clone_parse_state(aggregate_state->res->parseState);
+
+    // Add final array end marker to complete the JSONB array
+    result.res = pushJsonbValue(&result.parseState, WJB_END_ARRAY, NULL);
+
+    // Convert to final JSONB format and return
+    final_jsonb = JsonbValueToJsonb(result.res);
+    PG_RETURN_POINTER(final_jsonb);
+}
+```

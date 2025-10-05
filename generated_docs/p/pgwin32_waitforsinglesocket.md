@@ -53,3 +53,85 @@ The function ensures proper cleanup by detaching events from sockets before retu
 - Critical component of PostgreSQLs Windows socket abstraction layer
 - Ensures signal responsiveness during potentially blocking socket operations
 - Properly manages Windows event object lifecycle and socket event attachment/detachment
+
+## Simplified Source
+
+```c
+int
+pgwin32_waitforsinglesocket(SOCKET s, int what, int timeout)
+{
+    static HANDLE waitevent = INVALID_HANDLE_VALUE;
+    static SOCKET current_socket = INVALID_SOCKET;
+    static int isUDP = 0;
+    HANDLE events[2];
+    int r;
+
+    // Create event object on first call
+    if (waitevent == INVALID_HANDLE_VALUE) {
+        waitevent = CreateEvent(NULL, TRUE, FALSE, NULL);
+        if (waitevent == INVALID_HANDLE_VALUE)
+            ereport(ERROR, (errmsg_internal("could not create socket waiting event")));
+    } else if (!ResetEvent(waitevent)) {
+        ereport(ERROR, (errmsg_internal("could not reset socket waiting event")));
+    }
+
+    // Track socket type for UDP workaround
+    if (current_socket != s)
+        isUDP = isDataGram(s);
+    current_socket = s;
+
+    // Attach event to socket
+    if (WSAEventSelect(s, waitevent, what) != 0) {
+        TranslateSocketError();
+        return 0;
+    }
+
+    events[0] = pgwin32_signal_event;
+    events[1] = waitevent;
+
+    // Special UDP write handling with timeout workaround
+    if ((what & FD_WRITE) && isUDP) {
+        for (;;) {
+            r = WaitForMultipleObjectsEx(2, events, FALSE, 100, TRUE);
+            if (r == WAIT_TIMEOUT) {
+                // Try empty send to check socket availability
+                char c;
+                WSABUF buf = {0, &c};
+                DWORD sent;
+                r = WSASend(s, &buf, 1, &sent, 0, NULL, NULL);
+                if (r == 0) {  // Send succeeded
+                    WSAEventSelect(s, NULL, 0);
+                    return 1;
+                }
+                if (WSAGetLastError() != WSAEWOULDBLOCK) {
+                    TranslateSocketError();
+                    WSAEventSelect(s, NULL, 0);
+                    return 0;
+                }
+            } else {
+                break;
+            }
+        }
+    } else {
+        r = WaitForMultipleObjectsEx(2, events, FALSE, timeout, TRUE);
+    }
+
+    WSAEventSelect(s, NULL, 0);  // Clean up event attachment
+
+    // Handle wait results
+    if (r == WAIT_OBJECT_0 || r == WAIT_IO_COMPLETION) {
+        pgwin32_dispatch_queued_signals();
+        errno = EINTR;
+        return 0;
+    }
+    if (r == WAIT_OBJECT_0 + 1)
+        return 1;  // Socket event occurred
+    if (r == WAIT_TIMEOUT) {
+        errno = EWOULDBLOCK;
+        return 0;
+    }
+
+    ereport(ERROR, (errmsg_internal("unrecognized return from WaitForMultipleObjects")));
+    return 0;
+}
+```

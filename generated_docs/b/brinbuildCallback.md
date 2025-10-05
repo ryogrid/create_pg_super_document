@@ -58,3 +58,29 @@ The function processes tuples sequentially as they are encountered during the ta
 - Uses a while loop to handle cases where multiple ranges are completed in one call
 - Debug logging (BRIN_elog) provides visibility into range completion during builds
 - The tupleIsAlive parameter is accepted but not currently used in the logic
+
+## Simplified Source
+
+```c
+static void brinbuildCallback(Relation index, ItemPointer tid,
+                             Datum *values, bool *isnull,
+                             bool tupleIsAlive, void *brstate) {
+    BrinBuildState *state = (BrinBuildState *) brstate;
+    BlockNumber thisblock = ItemPointerGetBlockNumber(tid);
+
+    // Check if we've moved to a new range that needs processing
+    while (thisblock > state->bs_currRangeStart + state->bs_pagesPerRange - 1) {
+        // Complete the current range and insert its index tuple
+        form_and_insert_tuple(state);
+
+        // Advance to next range
+        state->bs_currRangeStart += state->bs_pagesPerRange;
+
+        // Initialize summary state for new range
+        brin_memtuple_initialize(state->bs_dtuple, state->bs_bdesc);
+    }
+
+    // Add current tuple's values to the range summary
+    add_values_to_range(index, state->bs_bdesc, state->bs_dtuple, values, isnull);
+}
+```

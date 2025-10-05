@@ -43,3 +43,37 @@ The function uses a sophisticated bit-shifting calculation to determine the divi
 
 ## Notes and Other Information
 This function is designed to be called from SQL as `pg_size_pretty(numeric)`. It provides a more precise alternative to the int64-based `pg_size_pretty` function by working with arbitrary precision numeric values. The function handles very large size values that would overflow int64 representation. The sophisticated unit scaling algorithm ensures consistent and intuitive size representations across all supported units. Located in src/backend/utils/adt/dbsize.c:672-712.
+
+## Simplified Source
+
+```c
+Datum pg_size_pretty_numeric(PG_FUNCTION_ARGS) {
+    Numeric size = PG_GETARG_NUMERIC(0);
+    char *result = NULL;
+    const struct size_pretty_unit *unit;
+
+    // Find the appropriate unit for the size
+    for (unit = size_pretty_units; unit->name != NULL; unit++) {
+        // Use this unit if it's the last one or size is below the limit
+        if (unit[1].name == NULL ||
+            numeric_is_less(numeric_absolute(size), int64_to_numeric(unit->limit))) {
+
+            // Apply half-rounding if this unit requires it
+            if (unit->round) {
+                size = numeric_half_rounded(size);
+            }
+
+            // Format result with the scaled size and unit name
+            result = psprintf("%s %s", numeric_to_cstring(size), unit->name);
+            break;
+        }
+
+        // Scale size to next unit by calculating divisor based on bit differences
+        unsigned int shiftby = (unit[1].unitbits - unit->unitbits -
+                               (unit[1].round == true) + (unit->round == true));
+        size = numeric_truncated_divide(size, ((int64) 1) << shiftby);
+    }
+
+    PG_RETURN_TEXT_P(cstring_to_text(result));
+}
+```

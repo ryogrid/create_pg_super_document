@@ -40,3 +40,64 @@ The function handles multiple vacuum phases including heap scanning, heap vacuum
 - For unknown or uninitialized phases, the function returns without setting any error context
 - Error messages include specific location information (block numbers, offset numbers) when available
 - The function is static and only used within the vacuumlazy.c module
+
+## Simplified Source
+
+```c
+static void vacuum_error_callback(void *arg) {
+    LVRelState *errinfo = arg;
+
+    switch (errinfo->phase) {
+        case VACUUM_ERRCB_PHASE_SCAN_HEAP:
+            // Provide context for heap scanning errors
+            if (BlockNumberIsValid(errinfo->blkno)) {
+                if (OffsetNumberIsValid(errinfo->offnum))
+                    errcontext("while scanning block %u offset %u of relation \"%s.%s\"",
+                              errinfo->blkno, errinfo->offnum,
+                              errinfo->relnamespace, errinfo->relname);
+                else
+                    errcontext("while scanning block %u of relation \"%s.%s\"",
+                              errinfo->blkno, errinfo->relnamespace, errinfo->relname);
+            } else {
+                errcontext("while scanning relation \"%s.%s\"",
+                          errinfo->relnamespace, errinfo->relname);
+            }
+            break;
+
+        case VACUUM_ERRCB_PHASE_VACUUM_HEAP:
+            // Provide context for heap vacuuming errors
+            if (BlockNumberIsValid(errinfo->blkno)) {
+                if (OffsetNumberIsValid(errinfo->offnum))
+                    errcontext("while vacuuming block %u offset %u of relation \"%s.%s\"",
+                              errinfo->blkno, errinfo->offnum,
+                              errinfo->relnamespace, errinfo->relname);
+                else
+                    errcontext("while vacuuming block %u of relation \"%s.%s\"",
+                              errinfo->blkno, errinfo->relnamespace, errinfo->relname);
+            } else {
+                errcontext("while vacuuming relation \"%s.%s\"",
+                          errinfo->relnamespace, errinfo->relname);
+            }
+            break;
+
+        case VACUUM_ERRCB_PHASE_VACUUM_INDEX:
+            errcontext("while vacuuming index \"%s\" of relation \"%s.%s\"",
+                      errinfo->indname, errinfo->relnamespace, errinfo->relname);
+            break;
+
+        case VACUUM_ERRCB_PHASE_INDEX_CLEANUP:
+            errcontext("while cleaning up index \"%s\" of relation \"%s.%s\"",
+                      errinfo->indname, errinfo->relnamespace, errinfo->relname);
+            break;
+
+        case VACUUM_ERRCB_PHASE_TRUNCATE:
+            if (BlockNumberIsValid(errinfo->blkno))
+                errcontext("while truncating relation \"%s.%s\" to %u blocks",
+                          errinfo->relnamespace, errinfo->relname, errinfo->blkno);
+            break;
+
+        default:
+            return; // No context for unknown phases
+    }
+}
+```

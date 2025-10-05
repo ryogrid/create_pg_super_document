@@ -36,3 +36,14 @@ The function reads a 64-bit integer directly from the binary message buffer usin
 - Handles network byte order conversion automatically through 
 - Part of the binary I/O functions that enable efficient data transfer without string conversion overhead
 - Located in src/backend/utils/adt/int8.c alongside other 64-bit integer utility functions
+
+## Simplified Source
+
+```c
+Datum int8recv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);  // Get binary data buffer
+
+    // Read 64-bit integer from binary buffer and return
+    PG_RETURN_INT64(pq_getmsgint64(buf));
+}
+```

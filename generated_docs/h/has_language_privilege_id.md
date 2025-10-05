@@ -37,3 +37,27 @@ This function provides the most optimized variant of language privilege checking
 - Part of PostgreSQL's access control system for procedural languages
 - All has_language_privilege variants are named 'has_language_privilege' at the SQL level
 - Located in src/backend/utils/adt/acl.c:3685-3712
+
+## Simplified Source
+
+```c
+Datum has_language_privilege_id(PG_FUNCTION_ARGS) {
+    // Extract function arguments (current user assumed)
+    Oid languageoid = PG_GETARG_OID(0);
+    text *priv_type_text = PG_GETARG_TEXT_PP(1);
+
+    // Get current user and convert privilege string
+    Oid roleid = GetUserId();
+    AclMode mode = convert_language_priv_string(priv_type_text);
+
+    // Check privilege with missing object detection
+    bool is_missing = false;
+    AclResult aclresult = object_aclcheck_ext(LanguageRelationId, languageoid,
+                                              roleid, mode, &is_missing);
+
+    // Return NULL if language doesn't exist, otherwise return privilege result
+    if (is_missing)
+        PG_RETURN_NULL();
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

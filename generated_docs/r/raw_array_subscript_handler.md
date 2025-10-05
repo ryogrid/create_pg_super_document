@@ -46,3 +46,22 @@ The returned `SubscriptRoutines` structure contains:
 - Raw arrays are designed for efficiency when dealing with fixed-length element types
 - The handler is registered in the PostgreSQL type system and called automatically during array subscript operations
 - Location: `src/backend/utils/adt/arraysubs.c:566-577`
+
+## Simplified Source
+
+```c
+Datum raw_array_subscript_handler(PG_FUNCTION_ARGS)
+{
+    // Static structure defining raw array subscripting behavior
+    // Uses same support code as standard varlena arrays
+    static const SubscriptRoutines sbsroutines = {
+        .transform = array_subscript_transform,
+        .exec_setup = array_exec_setup,
+        .fetch_strict = true,     // Returns NULL for NULL inputs
+        .fetch_leakproof = true,  // Returns NULL for bad subscripts
+        .store_leakproof = false  // Assignment throws errors
+    };
+
+    PG_RETURN_POINTER(&sbsroutines);
+}
+```

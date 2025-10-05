@@ -43,3 +43,38 @@ FileFallocate provides efficient space allocation for files by attempting to use
 - Part of PostgreSQL's optimization strategy for file space management
 - Includes comprehensive debug logging for troubleshooting space allocation issues
 - Critical for performance in scenarios involving large file extensions or pre-allocation
+
+## Simplified Source
+
+```c
+int FileFallocate(File file, off_t offset, off_t amount, uint32 wait_event_info) {
+#ifdef HAVE_POSIX_FALLOCATE
+    Assert(FileIsValid(file));
+
+    // Ensure file is accessible and open
+    int returnCode = FileAccess(file);
+    if (returnCode < 0)
+        return -1;
+
+    // Try posix_fallocate with interrupt retry
+retry:
+    pgstat_report_wait_start(wait_event_info);
+    returnCode = posix_fallocate(VfdCache[file].fd, offset, amount);
+    pgstat_report_wait_end();
+
+    if (returnCode == 0)
+        return 0;  // Success
+    else if (returnCode == EINTR)
+        goto retry;  // Handle signal interruption
+
+    errno = returnCode;  // Set errno for compatibility
+
+    // Fall back to FileZero if fallocate not supported
+    if (returnCode != EINVAL && returnCode != EOPNOTSUPP)
+        return -1;  // Real failure
+#endif
+
+    // Fallback: use FileZero to achieve same result
+    return FileZero(file, offset, amount, wait_event_info);
+}
+```

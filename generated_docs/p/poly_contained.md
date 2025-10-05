@@ -34,3 +34,22 @@ This function implements the containment test for two polygons where the first p
 - Memory management is explicitly handled for toasted inputs to prevent leaks during rtree index operations
 - The containment test is implemented by argument reversal, demonstrating the symmetric relationship between containment operations
 - Located at src/backend/utils/adt/geo_ops.c:3988-4007
+
+## Simplified Source
+
+```c
+Datum poly_contained(PG_FUNCTION_ARGS) {
+    POLYGON *polya = PG_GETARG_POLYGON_P(0);  // Polygon to test for containment
+    POLYGON *polyb = PG_GETARG_POLYGON_P(1);  // Containing polygon
+    bool result;
+
+    // Reverse arguments: "A contained in B" = "B contains A"
+    result = poly_contain_poly(polyb, polya);
+
+    // Clean up toasted inputs for memory efficiency
+    PG_FREE_IF_COPY(polya, 0);
+    PG_FREE_IF_COPY(polyb, 1);
+
+    PG_RETURN_BOOL(result);
+}
+```

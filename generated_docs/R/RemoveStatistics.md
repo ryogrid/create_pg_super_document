@@ -42,3 +42,44 @@ The function opens the pg_statistic table with RowExclusiveLock, sets up scan ke
 - Uses RowExclusiveLock on pg_statistic to ensure exclusive access during deletion
 - Statistics removal is typically followed by regeneration via ANALYZE or automatic statistics collection
 - The function is part of PostgreSQL's metadata management system for maintaining data distribution statistics used by the query planner
+
+## Simplified Source
+
+```c
+void RemoveStatistics(Oid relid, AttrNumber attnum) {
+    Relation pgstatistic;
+    SysScanDesc scan;
+    ScanKeyData key[2];
+    int nkeys;
+    HeapTuple tuple;
+
+    // Open pg_statistic catalog for modification
+    pgstatistic = table_open(StatisticRelationId, RowExclusiveLock);
+
+    // Set up scan key for relation ID (always included)
+    ScanKeyInit(&key[0], Anum_pg_statistic_starelid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(relid));
+
+    if (attnum == 0) {
+        // Remove statistics for all columns
+        nkeys = 1;
+    } else {
+        // Remove statistics for specific column
+        ScanKeyInit(&key[1], Anum_pg_statistic_staattnum, BTEqualStrategyNumber, F_INT2EQ,
+                    Int16GetDatum(attnum));
+        nkeys = 2;
+    }
+
+    // Scan for matching statistics entries
+    scan = systable_beginscan(pgstatistic, StatisticRelidAttnumInhIndexId, true,
+                             NULL, nkeys, key);
+
+    // Delete all matching statistics entries
+    // (must loop even when attnum != 0 due to inherited stats)
+    while (HeapTupleIsValid(tuple = systable_getnext(scan)))
+        CatalogTupleDelete(pgstatistic, &tuple->t_self);
+
+    systable_endscan(scan);
+    table_close(pgstatistic, RowExclusiveLock);
+}
+```

@@ -32,3 +32,17 @@ This function computes hash values for lexemes stored in LexemeHashKey structure
 - Part of hash table setup for Lossy Counting algorithm in tsvector statistics
 - Returns uint32 hash value suitable for PostgreSQL hash tables
 - The keysize parameter is not used since length is embedded in the key structure
+
+## Simplified Source
+
+```c
+static uint32
+lexeme_hash(const void *key, Size keysize)
+{
+    const LexemeHashKey *lexeme_key = (const LexemeHashKey *) key;
+
+    // Hash the lexeme bytes using its explicit length
+    return DatumGetUInt32(hash_any((const unsigned char *) lexeme_key->lexeme,
+                                   lexeme_key->length));
+}
+```

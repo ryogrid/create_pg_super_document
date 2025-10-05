@@ -45,3 +45,34 @@ The function includes special handling to avoid negative zero results on some pl
 - Ensures consistent coefficient representation across platforms
 - Used extensively by other geometric functions for line construction
 - Line numbers: 1083-1114 in geo_ops.c
+
+## Simplified Source
+
+```c
+static inline void
+line_construct(LINE *result, Point *pt, float8 m)
+{
+    if (isinf(m)) {
+        // Vertical line: x = C
+        result->A = -1.0;
+        result->B = 0.0;
+        result->C = pt->x;
+    }
+    else if (m == 0) {
+        // Horizontal line: y = C
+        result->A = 0.0;
+        result->B = -1.0;
+        result->C = pt->y;
+    }
+    else {
+        // General line: mx - y + yinter = 0
+        result->A = m;
+        result->B = -1.0;
+        result->C = float8_mi(pt->y, float8_mul(m, pt->x));
+
+        // Avoid negative zero on some platforms
+        if (result->C == 0.0)
+            result->C = 0.0;
+    }
+}
+```

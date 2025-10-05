@@ -29,3 +29,16 @@ This function is part of PostgreSQL's SP-GiST implementation for geometric box o
 
 ## Notes and Other Information
 This function is used in SP-GiST index operations for spatial queries involving box geometries. It provides the complement to left4D, checking for strict right positioning relative to a query boundary. Along with other directional predicates (left4D, overLeft4D, overRight4D, below4D), it enables efficient spatial indexing and query processing for PostgreSQL's geometric data types. The function is declared static for internal use within geo_spgist.c.
+
+## Simplified Source
+
+```c
+/* Check if any rectangle from rect_box can be right of this query */
+static bool
+right4D(RectBox *rect_box, RangeBox *query)
+{
+    // Delegate to higher2D to check if rectangle's x-range
+    // can be positioned higher (right) than query's left boundary
+    return higher2D(&rect_box->range_box_x, &query->left);
+}
+```

@@ -34,3 +34,35 @@ The  function is a PostgreSQL input conversion function that parses string repre
 
 ## Notes and Other Information
 This function follows PostgreSQL's standard input function convention using the  interface. It implements automatic coordinate normalization to ensure boxes are always represented with consistent high/low corner semantics regardless of input order. The function supports soft error handling through the error context parameter, allowing it to return NULL on parse errors rather than throwing exceptions in appropriate contexts. The use of  with parameter  and  indicates it expects exactly 2 points for a valid box.
+
+## Simplified Source
+
+```c
+Datum box_in(PG_FUNCTION_ARGS) {
+    char *str = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    BOX *box = (BOX *) palloc(sizeof(BOX));
+    bool isopen;
+    float8 x, y;
+
+    // Parse two coordinate pairs for box corners
+    if (!path_decode(str, false, 2, &(box->high), &isopen, NULL, "box", str, escontext))
+        PG_RETURN_NULL();
+
+    // Normalize coordinates: ensure high.x >= low.x
+    if (float8_lt(box->high.x, box->low.x)) {
+        x = box->high.x;
+        box->high.x = box->low.x;
+        box->low.x = x;
+    }
+
+    // Normalize coordinates: ensure high.y >= low.y
+    if (float8_lt(box->high.y, box->low.y)) {
+        y = box->high.y;
+        box->high.y = box->low.y;
+        box->low.y = y;
+    }
+
+    PG_RETURN_BOX_P(box);
+}
+```

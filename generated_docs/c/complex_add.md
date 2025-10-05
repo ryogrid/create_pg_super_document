@@ -35,3 +35,20 @@ The  function implements complex number addition by taking two  structures as in
 - Part of the PostgreSQL tutorial demonstrating custom data type implementation with operations
 - Serves as a template for implementing other mathematical operations (subtraction, multiplication, etc.)
 - Located in src/tutorial/complex.c:105-128
+
+## Simplified Source
+
+```c
+Datum complex_add(PG_FUNCTION_ARGS) {
+    // Extract input complex numbers
+    Complex *a = (Complex *) PG_GETARG_POINTER(0);
+    Complex *b = (Complex *) PG_GETARG_POINTER(1);
+
+    // Allocate result and perform component-wise addition
+    Complex *result = (Complex *) palloc(sizeof(Complex));
+    result->x = a->x + b->x;  // Add real parts
+    result->y = a->y + b->y;  // Add imaginary parts
+
+    PG_RETURN_POINTER(result);
+}
+```

@@ -39,3 +39,46 @@ This function computes the shortest distance between two polygons using a compre
 - Located at src/backend/utils/adt/geo_ops.c:4027-4095
 - Returns NULL if no valid minimum distance can be determined (though this case should be rare)
 - The algorithm handles polygon closure by connecting the last vertex back to the first vertex of each polygon
+
+## Simplified Source
+
+```c
+Datum poly_distance(PG_FUNCTION_ARGS) {
+    POLYGON *polya = PG_GETARG_POLYGON_P(0);
+    POLYGON *polyb = PG_GETARG_POLYGON_P(1);
+    float8 min = 0.0;
+    bool have_min = false;
+    float8 tmp;
+    int i, j;
+    LSEG seg1, seg2;
+
+    // If polygons overlap, distance is zero
+    if (poly_overlap_internal(polya, polyb))
+        PG_RETURN_FLOAT8(0.0);
+
+    // Compare all edge pairs between the two polygons
+    for (i = 0; i < polya->npts; i++) {
+        int iprev = (i > 0) ? i - 1 : polya->npts - 1;  // Previous vertex
+
+        for (j = 0; j < polyb->npts; j++) {
+            int jprev = (j > 0) ? j - 1 : polyb->npts - 1;  // Previous vertex
+
+            // Construct edge segments for both polygons
+            statlseg_construct(&seg1, &polya->p[iprev], &polya->p[i]);
+            statlseg_construct(&seg2, &polyb->p[jprev], &polyb->p[j]);
+
+            // Calculate closest distance between these edges
+            tmp = lseg_closept_lseg(NULL, &seg1, &seg2);
+            if (!have_min || float8_lt(tmp, min)) {
+                min = tmp;
+                have_min = true;
+            }
+        }
+    }
+
+    if (!have_min)
+        PG_RETURN_NULL();
+
+    PG_RETURN_FLOAT8(min);
+}
+```

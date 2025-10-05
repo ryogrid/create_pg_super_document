@@ -35,3 +35,15 @@ This function is part of PostgreSQL's binary I/O system for the Cash data type. 
 - The implementation is simple because Cash has a direct mapping to a 64-bit integer representation
 - No validation or error checking is performed since the binary format is assumed to be trusted
 - Essential for efficient binary data transfer of monetary values in PostgreSQL
+
+## Simplified Source
+
+```c
+// Convert binary format to Cash value
+Datum cash_recv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+
+    // Read 64-bit integer directly from binary buffer
+    PG_RETURN_CASH((Cash) pq_getmsgint64(buf));
+}
+```

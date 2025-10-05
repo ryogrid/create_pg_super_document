@@ -45,3 +45,30 @@ The function process:
 - All parameters are required and cannot be NULL
 - Located in src/backend/utils/adt/acl.c:1945-1972
 - Useful when checking privileges on potentially non-existent table OIDs
+
+## Simplified Source
+
+```c
+Datum has_table_privilege_name_id(PG_FUNCTION_ARGS) {
+    Name username = PG_GETARG_NAME(0);
+    Oid tableoid = PG_GETARG_OID(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+    Oid roleid;
+    AclMode mode;
+    AclResult aclresult;
+    bool is_missing = false;
+
+    // Convert user name to OID and privilege string to mode
+    roleid = get_role_oid_or_public(NameStr(*username));
+    mode = convert_table_priv_string(priv_type_text);
+
+    // Check privilege with missing table detection
+    aclresult = pg_class_aclcheck_ext(tableoid, roleid, mode, &is_missing);
+
+    // Return NULL if table doesn't exist
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

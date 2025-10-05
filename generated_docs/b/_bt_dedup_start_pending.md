@@ -47,4 +47,37 @@ The function sets up all necessary state information including the base tuple re
 - For existing posting lists, basetupsize excludes the posting list data to calculate space for a new posting list
 - Physical size calculation includes MAXALIGN overhead and line pointer size for accurate space accounting
 - The baseoff is saved in the intervals array to track the original location of the base tuple
-- This function is always paired with subsequent calls to  and 
+- This function is always paired with subsequent calls to  and
+
+## Simplified Source
+
+```c
+void _bt_dedup_start_pending(BTDedupState state, IndexTuple base, OffsetNumber baseoff) {
+    // Initialize state - must be clean start
+    Assert(state->nhtids == 0 && state->nitems == 0 && !BTreeTupleIsPivot(base));
+
+    // Copy heap TID(s) from base tuple into working state
+    if (!BTreeTupleIsPosting(base)) {
+        // Single TID from regular tuple
+        memcpy(state->htids, &base->t_tid, sizeof(ItemPointerData));
+        state->nhtids = 1;
+        state->basetupsize = IndexTupleSize(base);
+    } else {
+        // Multiple TIDs from existing posting list
+        int nposting = BTreeTupleGetNPosting(base);
+        memcpy(state->htids, BTreeTupleGetPosting(base),
+               sizeof(ItemPointerData) * nposting);
+        state->nhtids = nposting;
+        state->basetupsize = BTreeTupleGetPostingOffset(base); // Exclude posting data
+    }
+
+    // Save base tuple and calculate physical size for space accounting
+    state->nitems = 1;
+    state->base = base;
+    state->baseoff = baseoff;
+    state->phystupsize = MAXALIGN(IndexTupleSize(base)) + sizeof(ItemIdData);
+
+    // Track interval for deduplication range
+    state->intervals[state->nintervals].baseoff = baseoff;
+}
+``` 

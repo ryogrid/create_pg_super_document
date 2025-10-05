@@ -54,3 +54,40 @@ Unlike the standard timetz arithmetic functions, this function deliberately avoi
 - Located in `src/backend/utils/adt/date.c:2650`
 - Part of PostgreSQL's window function infrastructure for time-based ranges
 - Subtraction cannot overflow, but addition is protected against overflow conditions
+
+## Simplified Source
+
+```c
+Datum in_range_timetz_interval(PG_FUNCTION_ARGS) {
+    // Extract arguments: value to test, base time, interval offset, and comparison flags
+    TimeTzADT *val = PG_GETARG_TIMETZADT_P(0);
+    TimeTzADT *base = PG_GETARG_TIMETZADT_P(1);
+    Interval *offset = PG_GETARG_INTERVAL_P(2);
+    bool sub = PG_GETARG_BOOL(3);        // true for PRECEDING, false for FOLLOWING
+    bool less = PG_GETARG_BOOL(4);       // true for <=, false for >=
+
+    // Reject negative intervals (invalid for window functions)
+    if (offset->time < 0) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PRECEDING_OR_FOLLOWING_SIZE),
+                errmsg("invalid preceding or following size in window function")));
+    }
+
+    // Calculate sum without wraparound behavior (unlike normal timetz arithmetic)
+    TimeTzADT sum;
+    if (sub) {
+        sum.time = base->time - offset->time;  // Subtraction cannot overflow
+    } else if (pg_add_s64_overflow(base->time, offset->time, &sum.time)) {
+        // Addition overflow - return comparison result based on direction
+        PG_RETURN_BOOL(less);
+    }
+    sum.zone = base->zone;  // Preserve timezone from base
+
+    // Compare val against computed sum
+    int cmp_result = timetz_cmp_internal(val, &sum);
+
+    if (less)
+        PG_RETURN_BOOL(cmp_result <= 0);  // val <= sum
+    else
+        PG_RETURN_BOOL(cmp_result >= 0);  // val >= sum
+}
+```

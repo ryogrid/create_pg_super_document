@@ -46,3 +46,46 @@ The function prioritizes memory efficiency by growing the buffer exponentially (
 - Memory allocation strategy balances efficiency (exponential growth) with resource constraints (work_mem limits)
 - Silent discarding of pages when at maximum capacity ensures the vacuum operation continues even under memory pressure
 - The optimization automatically degrades gracefully when _bt_pendingfsm_init opted not to enable the feature (npendingpages would equal maxbufsize from the start)
+
+## Simplified Source
+
+```c
+static void _bt_pendingfsm_add(BTVacState *vstate,
+                               BlockNumber target,
+                               FullTransactionId safexid)
+{
+    Assert(vstate->npendingpages <= vstate->bufsize);
+    Assert(vstate->bufsize <= vstate->maxbufsize);
+
+#ifdef USE_ASSERT_CHECKING
+    // Verify safexid ordering assumption for _bt_pendingfsm_finalize
+    if (vstate->npendingpages > 0) {
+        FullTransactionId lastsafexid =
+            vstate->pendingpages[vstate->npendingpages - 1].safexid;
+        Assert(FullTransactionIdFollowsOrEquals(safexid, lastsafexid));
+    }
+#endif
+
+    // If at work_mem limit, silently discard this page
+    if (vstate->npendingpages == vstate->maxbufsize)
+        return;
+
+    // Grow buffer if needed
+    if (vstate->npendingpages == vstate->bufsize) {
+        int newbufsize = vstate->bufsize * 2;
+
+        // Respect work_mem constraint
+        if (newbufsize > vstate->maxbufsize)
+            newbufsize = vstate->maxbufsize;
+
+        vstate->bufsize = newbufsize;
+        vstate->pendingpages = repalloc(vstate->pendingpages,
+                                        sizeof(BTPendingFSM) * vstate->bufsize);
+    }
+
+    // Save deleted page metadata
+    vstate->pendingpages[vstate->npendingpages].target = target;
+    vstate->pendingpages[vstate->npendingpages].safexid = safexid;
+    vstate->npendingpages++;
+}
+```

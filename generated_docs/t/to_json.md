@@ -32,3 +32,28 @@ This function serves as the main entry point for converting arbitrary PostgreSQL
 - Located in src/backend/utils/adt/json.c:730-753
 - Part of PostgreSQL's JSON functionality introduced to provide SQL-level access to JSON conversion
 - The function validates that a valid data type is provided before proceeding with conversion
+
+## Simplified Source
+
+```c
+Datum
+to_json(PG_FUNCTION_ARGS)
+{
+    // Extract input value and determine its type
+    Datum val = PG_GETARG_DATUM(0);
+    Oid val_type = get_fn_expr_argtype(fcinfo->flinfo, 0);
+    JsonTypeCategory tcategory;
+    Oid outfuncoid;
+
+    // Validate input type is known
+    if (val_type == InvalidOid)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("could not determine input data type")));
+
+    // Categorize type for JSON conversion
+    json_categorize_type(val_type, false, &tcategory, &outfuncoid);
+
+    // Convert datum to JSON and return
+    PG_RETURN_DATUM(datum_to_json(val, tcategory, outfuncoid));
+}
+```

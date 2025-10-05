@@ -44,3 +44,51 @@ The function also handles special cases like incomplete page splits and dead/ign
 - More aggressive locking than strictly necessary for non-unique indexes, but ensures correctness
 - Will error if it encounters the rightmost page while looking for ignored pages
 - Critical for maintaining consistency in concurrent unique index operations
+
+## Simplified Source
+
+```c
+static void _bt_stepright(Relation rel, Relation heaprel, BTInsertState insertstate, BTStack stack) {
+    Page page;
+    BTPageOpaque opaque;
+    Buffer rbuf;
+    BlockNumber rblkno;
+
+    page = BufferGetPage(insertstate->buf);
+    opaque = BTPageGetOpaque(page);
+
+    rbuf = InvalidBuffer;
+    rblkno = opaque->btpo_next;
+
+    // Find next suitable page
+    for (;;) {
+        // Get write lock on next page before releasing current
+        rbuf = _bt_relandgetbuf(rel, rbuf, rblkno, BT_WRITE);
+        page = BufferGetPage(rbuf);
+        opaque = BTPageGetOpaque(page);
+
+        // Handle incomplete splits
+        if (P_INCOMPLETE_SPLIT(opaque)) {
+            _bt_finish_split(rel, heaprel, rbuf, stack);
+            rbuf = InvalidBuffer;
+            continue;
+        }
+
+        // Found a good page
+        if (!P_IGNORE(opaque))
+            break;
+
+        // Check for end of index
+        if (P_RIGHTMOST(opaque))
+            elog(ERROR, "fell off the end of index \"%s\"",
+                 RelationGetRelationName(rel));
+
+        rblkno = opaque->btpo_next;
+    }
+
+    // Update insertion state with new buffer
+    _bt_relbuf(rel, insertstate->buf);
+    insertstate->buf = rbuf;
+    insertstate->bounds_valid = false;
+}
+```

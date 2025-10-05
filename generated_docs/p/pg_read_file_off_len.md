@@ -36,3 +36,24 @@ The function reads text files and returns the content as a PostgreSQL text datum
 - The function uses the fourth and fifth parameters of pg_read_file_common as false, indicating it reads text files (not binary) and does not allow missing files
 - Located in src/backend/utils/adt/genfile.c:285-300
 - Part of PostgreSQL's file reading functionality accessible via SQL
+
+## Simplified Source
+
+```c
+Datum
+pg_read_file_off_len(PG_FUNCTION_ARGS)
+{
+    text *filename_t = PG_GETARG_TEXT_PP(0);
+    int64 seek_offset = PG_GETARG_INT64(1);
+    int64 bytes_to_read = PG_GETARG_INT64(2);
+    text *ret;
+
+    // Read file using common implementation (not read_to_eof, not missing_ok)
+    ret = pg_read_file_common(filename_t, seek_offset, bytes_to_read,
+                             false, false);
+    if (!ret)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(ret);
+}
+```

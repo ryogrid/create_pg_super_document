@@ -43,3 +43,38 @@ The function bridges the gap between autovacuum's table selection logic and Post
 - Uses OID-based table identification for vacuum operations
 - The function is designed to be called within the autovacuum worker process context
 - Handles both vacuum and analyze operations based on parameters in the tab->at_params structure
+
+## Simplified Source
+
+```c
+static void
+autovacuum_do_vac_analyze(autovac_table *tab, BufferAccessStrategy bstrategy)
+{
+    RangeVar *rangevar;
+    VacuumRelation *rel;
+    List *rel_list;
+    MemoryContext vac_context;
+    MemoryContext old_context;
+
+    // Report current activity to statistics collector
+    autovac_report_activity(tab);
+
+    // Create memory context for vacuum that survives transactions
+    vac_context = AllocSetContextCreate(CurrentMemoryContext,
+                                       "Vacuum",
+                                       ALLOCSET_DEFAULT_SIZES);
+
+    // Build vacuum target: table name + OID
+    old_context = MemoryContextSwitchTo(vac_context);
+    rangevar = makeRangeVar(tab->at_nspname, tab->at_relname, -1);
+    rel = makeVacuumRelation(rangevar, tab->at_relid, NIL);
+    rel_list = list_make1(rel);
+    MemoryContextSwitchTo(old_context);
+
+    // Execute vacuum/analyze with parameters from tab
+    vacuum(rel_list, &tab->at_params, bstrategy, vac_context, true);
+
+    // Clean up vacuum context
+    MemoryContextDelete(vac_context);
+}
+```

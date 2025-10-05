@@ -47,3 +47,31 @@ When a lock is successfully acquired (and it wasn't already held in clear state)
 - Commonly used by background processes like autovacuum that need to avoid blocking on lock acquisition
 - The lock acquisition is scoped to the current database (MyDatabaseId)
 - Located in src/backend/storage/lmgr/lmgr.c:1024-1058
+
+## Simplified Source
+```c
+bool ConditionalLockDatabaseObject(Oid classid, Oid objid, uint16 objsubid,
+                                   LOCKMODE lockmode)
+{
+    LOCKTAG tag;
+    LOCALLOCK *locallock;
+    LockAcquireResult res;
+
+    // Create lock tag for the database object
+    SET_LOCKTAG_OBJECT(tag, MyDatabaseId, classid, objid, objsubid);
+
+    // Try to acquire lock without waiting
+    res = LockAcquireExtended(&tag, lockmode, false, true, true, &locallock);
+
+    if (res == LOCKACQUIRE_NOT_AVAIL)
+        return false;
+
+    // Process invalidation messages if we got a new lock
+    if (res != LOCKACQUIRE_ALREADY_CLEAR) {
+        AcceptInvalidationMessages();
+        MarkLockClear(locallock);
+    }
+
+    return true;
+}
+```

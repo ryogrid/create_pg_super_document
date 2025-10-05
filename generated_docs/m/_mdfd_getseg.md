@@ -50,3 +50,93 @@ When creating segments, the function maintains the invariant that all segments e
 - Sets errno to ENOENT when returning NULL to help callers distinguish failure reasons
 - Critical for all I/O operations in the MD storage manager as it locates the correct segment
 - The behavior parameter provides fine-grained control over error handling and segment creation
+
+## Simplified Source
+
+```c
+static MdfdVec *_mdfd_getseg(SMgrRelation reln, ForkNumber forknum, BlockNumber blkno,
+                            bool skipFsync, int behavior)
+{
+    MdfdVec *v;
+    BlockNumber targetseg;
+    BlockNumber nextsegno;
+
+    // Calculate which segment contains the target block
+    targetseg = blkno / ((BlockNumber) RELSEG_SIZE);
+
+    // Return already-opened segment if available
+    if (targetseg < reln->md_num_open_segs[forknum])
+    {
+        v = &reln->md_seg_fds[forknum][targetseg];
+        return v;
+    }
+
+    // Don't open new segments if caller doesn't want it
+    if (behavior & EXTENSION_DONT_OPEN)
+        return NULL;
+
+    // Start from last opened segment, or open first segment
+    if (reln->md_num_open_segs[forknum] > 0)
+        v = &reln->md_seg_fds[forknum][reln->md_num_open_segs[forknum] - 1];
+    else
+    {
+        v = mdopenfork(reln, forknum, behavior);
+        if (!v)
+            return NULL;
+    }
+
+    // Open all segments from current to target
+    for (nextsegno = reln->md_num_open_segs[forknum];
+         nextsegno <= targetseg; nextsegno++)
+    {
+        BlockNumber nblocks = _mdnblocks(reln, forknum, v);
+        int flags = 0;
+
+        if (nblocks > ((BlockNumber) RELSEG_SIZE))
+            elog(FATAL, "segment too big");
+
+        // Create segment if requested or during recovery
+        if ((behavior & EXTENSION_CREATE) ||
+            (InRecovery && (behavior & EXTENSION_CREATE_RECOVERY)))
+        {
+            // Pad incomplete segments to maintain size invariant
+            if (nblocks < ((BlockNumber) RELSEG_SIZE))
+            {
+                char *zerobuf = palloc_aligned(BLCKSZ, PG_IO_ALIGN_SIZE, MCXT_ALLOC_ZERO);
+                mdextend(reln, forknum,
+                        nextsegno * ((BlockNumber) RELSEG_SIZE) - 1,
+                        zerobuf, skipFsync);
+                pfree(zerobuf);
+            }
+            flags = O_CREAT;
+        }
+        else if (!(behavior & EXTENSION_DONT_CHECK_SIZE) &&
+                 nblocks < ((BlockNumber) RELSEG_SIZE))
+        {
+            // Handle incomplete segments based on behavior
+            if (behavior & EXTENSION_RETURN_NULL)
+            {
+                errno = ENOENT;
+                return NULL;
+            }
+            ereport(ERROR, (errcode_for_file_access(),
+                           errmsg("could not open file \"%s\" (target block %u): previous segment is only %u blocks",
+                                  _mdfd_segpath(reln, forknum, nextsegno), blkno, nblocks)));
+        }
+
+        // Open the segment
+        v = _mdfd_openseg(reln, forknum, nextsegno, flags);
+
+        if (v == NULL)
+        {
+            if ((behavior & EXTENSION_RETURN_NULL) && FILE_POSSIBLY_DELETED(errno))
+                return NULL;
+            ereport(ERROR, (errcode_for_file_access(),
+                           errmsg("could not open file \"%s\" (target block %u): %m",
+                                  _mdfd_segpath(reln, forknum, nextsegno), blkno)));
+        }
+    }
+
+    return v;
+}
+```

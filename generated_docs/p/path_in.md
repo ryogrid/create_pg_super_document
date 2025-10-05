@@ -65,3 +65,58 @@ The parsing process:
 - Initializes dummy field to prevent instability in unused padding bytes
 - Validates complete input consumption to detect malformed strings
 - The actual coordinate parsing logic is delegated to the path_decode helper function
+
+## Simplified Source
+
+```c
+Datum path_in(PG_FUNCTION_ARGS) {
+    char *str = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    PATH *path;
+    bool isopen;
+    char *s;
+    int npts, size, base_size, depth = 0;
+
+    // Count coordinate pairs
+    if ((npts = pair_count(str, ',')) <= 0)
+        ereturn(escontext, (Datum) 0, /* invalid input syntax error */);
+
+    // Skip whitespace and handle leading parenthesis
+    s = str;
+    while (isspace((unsigned char) *s)) s++;
+    if ((*s == LDELIM) && (strrchr(s, LDELIM) == s)) {
+        s++;
+        depth++;
+    }
+
+    // Calculate size and check for overflow
+    base_size = sizeof(path->p[0]) * npts;
+    size = offsetof(PATH, p) + base_size;
+    if (base_size / npts != sizeof(path->p[0]) || size <= base_size)
+        ereturn(escontext, (Datum) 0, /* too many points error */);
+
+    // Allocate and initialize PATH structure
+    path = (PATH *) palloc(size);
+    SET_VARSIZE(path, size);
+    path->npts = npts;
+
+    // Parse coordinates using helper function
+    if (!path_decode(s, true, npts, &(path->p[0]), &isopen, &s, "path", str, escontext))
+        PG_RETURN_NULL();
+
+    // Validate closing parenthesis and end of string
+    if (depth >= 1) {
+        if (*s++ != RDELIM)
+            ereturn(escontext, (Datum) 0, /* invalid syntax error */);
+        while (isspace((unsigned char) *s)) s++;
+    }
+    if (*s != '\0')
+        ereturn(escontext, (Datum) 0, /* invalid syntax error */);
+
+    // Set path properties
+    path->closed = (!isopen);
+    path->dummy = 0;  // Prevent padding instability
+
+    PG_RETURN_PATH_P(path);
+}
+```

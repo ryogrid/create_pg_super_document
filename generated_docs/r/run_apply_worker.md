@@ -50,3 +50,71 @@ This function takes no parameters but operates on global variables:
 - The function sets up proper error context for better error reporting during replication
 - Transaction snapshots are carefully managed when updating subscription metadata
 - Debug logging provides visibility into the two-phase commit state transitions
+
+## Simplified Source
+
+```c
+static void
+run_apply_worker()
+{
+    char originname[NAMEDATALEN];
+    XLogRecPtr origin_startpos = InvalidXLogRecPtr;
+    char *slotname = NULL;
+    WalRcvStreamOptions options;
+    RepOriginId originid;
+    bool must_use_password;
+
+    // Validate subscription has a replication slot
+    slotname = MySubscription->slotname;
+    if (!slotname)
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("subscription has no replication slot set")));
+
+    // Setup replication origin tracking
+    ReplicationOriginNameForLogicalRep(MySubscription->oid, InvalidOid,
+                                     originname, sizeof(originname));
+    StartTransactionCommand();
+    originid = replorigin_by_name(originname, true);
+    if (!OidIsValid(originid))
+        originid = replorigin_create(originname);
+    replorigin_session_setup(originid, 0);
+    replorigin_session_origin = originid;
+    origin_startpos = replorigin_session_get_progress(false);
+    CommitTransactionCommand();
+
+    // Connect to publisher
+    must_use_password = MySubscription->passwordrequired &&
+                       !MySubscription->ownersuperuser;
+    LogRepWorkerWalRcvConn = walrcv_connect(MySubscription->conninfo, true,
+                                          true, must_use_password,
+                                          MySubscription->name, &err);
+    if (LogRepWorkerWalRcvConn == NULL)
+        ereport(ERROR, (errcode(ERRCODE_CONNECTION_FAILURE),
+                       errmsg("could not connect to the publisher: %s", err)));
+
+    // Initialize connection and setup streaming options
+    walrcv_identify_system(LogRepWorkerWalRcvConn, &startpointTLI);
+    set_apply_error_context_origin(originname);
+    set_stream_options(&options, slotname, &origin_startpos);
+
+    // Handle two-phase commit if ready
+    if (MySubscription->twophasestate == LOGICALREP_TWOPHASE_STATE_PENDING &&
+        AllTablesyncsReady()) {
+        options.proto.logical.twophase = true;
+        walrcv_startstreaming(LogRepWorkerWalRcvConn, &options);
+
+        // Update subscription state to enabled
+        StartTransactionCommand();
+        PushActiveSnapshot(GetTransactionSnapshot());
+        UpdateTwoPhaseState(MySubscription->oid, LOGICALREP_TWOPHASE_STATE_ENABLED);
+        MySubscription->twophasestate = LOGICALREP_TWOPHASE_STATE_ENABLED;
+        PopActiveSnapshot();
+        CommitTransactionCommand();
+    } else {
+        walrcv_startstreaming(LogRepWorkerWalRcvConn, &options);
+    }
+
+    // Start the main replication loop
+    start_apply(origin_startpos);
+}
+```

@@ -53,3 +53,109 @@ Memory management is carefully handled through proper context switching and chun
 - The algorithm processes chunks directly rather than following bucket chains to ensure all tuples are handled exactly once
 - Includes safety checks to prevent integer overflow in batch count calculations
 - Bucket array resizing is performed opportunistically during rebatching for efficiency
+
+## Simplified Source
+
+```c
+static void
+ExecHashIncreaseNumBatches(HashJoinTable hashtable)
+{
+    int oldnbatch = hashtable->nbatch;
+    int curbatch = hashtable->curbatch;
+    int nbatch;
+    long ninmemory, nfreed;
+    HashMemoryChunk oldchunks;
+
+    // Exit early if growth is disabled or would overflow
+    if (!hashtable->growEnabled ||
+        oldnbatch > Min(INT_MAX / 2, MaxAllocSize / (sizeof(void *) * 2)))
+        return;
+
+    // Double the number of batches
+    nbatch = oldnbatch * 2;
+
+    // Create or enlarge batch file arrays
+    if (hashtable->innerBatchFile == NULL)
+    {
+        MemoryContext oldcxt = MemoryContextSwitchTo(hashtable->spillCxt);
+        hashtable->innerBatchFile = palloc0_array(BufFile *, nbatch);
+        hashtable->outerBatchFile = palloc0_array(BufFile *, nbatch);
+        MemoryContextSwitchTo(oldcxt);
+        PrepareTempTablespaces();
+    }
+    else
+    {
+        hashtable->innerBatchFile = repalloc0_array(hashtable->innerBatchFile,
+                                                   BufFile *, oldnbatch, nbatch);
+        hashtable->outerBatchFile = repalloc0_array(hashtable->outerBatchFile,
+                                                   BufFile *, oldnbatch, nbatch);
+    }
+
+    hashtable->nbatch = nbatch;
+
+    // Resize buckets if needed
+    if (hashtable->nbuckets_optimal != hashtable->nbuckets)
+    {
+        hashtable->nbuckets = hashtable->nbuckets_optimal;
+        hashtable->log2_nbuckets = hashtable->log2_nbuckets_optimal;
+        hashtable->buckets.unshared = repalloc_array(hashtable->buckets.unshared,
+                                                    HashJoinTuple, hashtable->nbuckets);
+    }
+
+    // Clear bucket array and save old chunks
+    memset(hashtable->buckets.unshared, 0, sizeof(HashJoinTuple) * hashtable->nbuckets);
+    oldchunks = hashtable->chunks;
+    hashtable->chunks = NULL;
+    ninmemory = nfreed = 0;
+
+    // Process all tuples in old chunks
+    while (oldchunks != NULL)
+    {
+        HashMemoryChunk nextchunk = oldchunks->next.unshared;
+        size_t idx = 0;
+
+        // Process each tuple in this chunk
+        while (idx < oldchunks->used)
+        {
+            HashJoinTuple hashTuple = (HashJoinTuple) (HASH_CHUNK_DATA(oldchunks) + idx);
+            MinimalTuple tuple = HJTUPLE_MINTUPLE(hashTuple);
+            int hashTupleSize = (HJTUPLE_OVERHEAD + tuple->t_len);
+            int bucketno, batchno;
+
+            ninmemory++;
+            ExecHashGetBucketAndBatch(hashtable, hashTuple->hashvalue,
+                                    &bucketno, &batchno);
+
+            if (batchno == curbatch)
+            {
+                // Keep in memory - copy to new chunks
+                HashJoinTuple copyTuple = (HashJoinTuple) dense_alloc(hashtable, hashTupleSize);
+                memcpy(copyTuple, hashTuple, hashTupleSize);
+                copyTuple->next.unshared = hashtable->buckets.unshared[bucketno];
+                hashtable->buckets.unshared[bucketno] = copyTuple;
+            }
+            else
+            {
+                // Spill to batch file
+                ExecHashJoinSaveTuple(HJTUPLE_MINTUPLE(hashTuple),
+                                    hashTuple->hashvalue,
+                                    &hashtable->innerBatchFile[batchno],
+                                    hashtable);
+                hashtable->spaceUsed -= hashTupleSize;
+                nfreed++;
+            }
+
+            idx += MAXALIGN(hashTupleSize);
+            CHECK_FOR_INTERRUPTS();
+        }
+
+        // Free processed chunk
+        pfree(oldchunks);
+        oldchunks = nextchunk;
+    }
+
+    // Disable growth if rebatching was ineffective
+    if (nfreed == 0 || nfreed == ninmemory)
+        hashtable->growEnabled = false;
+}
+```

@@ -34,3 +34,18 @@ The function serves as a PostgreSQL internal function that can be called from SQ
 - Part of PostgreSQL's date/time comparison infrastructure
 - Located in src/backend/utils/adt/date.c:1024-1038
 - Returns an integer: negative if timestamptz < date, zero if equal, positive if timestamptz > date
+
+## Simplified Source
+
+```c
+Datum
+timestamptz_cmp_date(PG_FUNCTION_ARGS)
+{
+    // Extract timestamptz and date arguments
+    TimestampTz dt1 = PG_GETARG_TIMESTAMPTZ(0);
+    DateADT dateVal = PG_GETARG_DATEADT(1);
+
+    // Return comparison result (negated for proper ordering)
+    PG_RETURN_INT32(-date_cmp_timestamptz_internal(dateVal, dt1));
+}
+```

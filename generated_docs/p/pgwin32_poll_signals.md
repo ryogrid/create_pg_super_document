@@ -41,3 +41,21 @@ This function takes no parameters.
 - Returns 1 when signals are processed to allow calling functions to handle the EINTR condition appropriately
 - Works in conjunction with PostgreSQLs Windows signal emulation system
 - Typically called before potentially blocking socket operations to ensure signals are processed promptly
+
+## Simplified Source
+
+```c
+static int
+pgwin32_poll_signals(void)
+{
+    // Check for queued signals
+    if (UNBLOCKED_SIGNAL_QUEUE())
+    {
+        // Process any pending signals
+        pgwin32_dispatch_queued_signals();
+        errno = EINTR;  // Signal interrupted system call
+        return 1;
+    }
+    return 0;  // No signals to process
+}
+```

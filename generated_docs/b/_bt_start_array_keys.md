@@ -110,3 +110,38 @@ update_symbol_types.py: ScanDirection indicating whether this is a forward or ba
 - The scanBehind flag reset ensures consistent scan state at initialization
 - Forward scans start from the beginning of arrays, backward scans start from the end
 - Each array scan key's sk_argument is set to point to the current array element value
+
+## Simplified Source
+
+```c
+void
+_bt_start_array_keys(IndexScanDesc scan, ScanDirection dir)
+{
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+    int i;
+
+    Assert(so->numArrayKeys);
+    Assert(so->qual_ok);
+
+    // Initialize each array key's current element position
+    for (i = 0; i < so->numArrayKeys; i++) {
+        BTArrayKeyInfo *curArrayKey = &so->arrayKeys[i];
+        ScanKey skey = &so->keyData[curArrayKey->scan_key];
+
+        Assert(curArrayKey->num_elems > 0);
+        Assert(skey->sk_flags & SK_SEARCHARRAY);
+
+        // Set starting position based on scan direction
+        if (ScanDirectionIsBackward(dir))
+            curArrayKey->cur_elem = curArrayKey->num_elems - 1;  // Start from end
+        else
+            curArrayKey->cur_elem = 0;  // Start from beginning
+
+        // Set scan key argument to current array element
+        skey->sk_argument = curArrayKey->elem_values[curArrayKey->cur_elem];
+    }
+
+    // Reset scan position flag
+    so->scanBehind = false;
+}
+```

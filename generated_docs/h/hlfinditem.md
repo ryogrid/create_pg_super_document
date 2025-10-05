@@ -47,3 +47,42 @@ The `hlfinditem` function processes a lexeme to find matching query items and as
 - Position values are constrained using the LIMITPOS macro to prevent overflow
 - [String](../S/String.md) comparison uses tsCompareString which handles prefix matching and other text search semantics
 - This function is crucial for generating accurate highlights in search result snippets
+
+## Simplified Source
+
+```c
+static void hlfinditem(HeadlineParsedText *prs, TSQuery query, int32 pos, char *buf, int buflen) {
+    QueryItem *item = GETQUERY(query);
+    HeadlineWordEntry *word;
+
+    // Expand words array if needed
+    while (prs->curwords + query->size >= prs->lenwords) {
+        prs->lenwords *= 2;
+        prs->words = repalloc(prs->words, prs->lenwords * sizeof(HeadlineWordEntry));
+    }
+
+    // Get the last added word
+    word = &(prs->words[prs->curwords - 1]);
+    word->pos = LIMITPOS(pos);
+
+    // Find matching query items for this lexeme
+    for (int i = 0; i < query->size; i++) {
+        if (item->type == QI_VAL &&
+            tsCompareString(GETOPERAND(query) + item->qoperand.distance, item->qoperand.length,
+                           buf, buflen, item->qoperand.prefix) == 0) {
+
+            if (word->item) {
+                // Create duplicate word entry for multiple matches
+                memcpy(&(prs->words[prs->curwords]), word, sizeof(HeadlineWordEntry));
+                prs->words[prs->curwords].item = &item->qoperand;
+                prs->words[prs->curwords].repeated = 1;
+                prs->curwords++;
+            } else {
+                // First match for this word
+                word->item = &item->qoperand;
+            }
+        }
+        item++;
+    }
+}
+```

@@ -44,3 +44,36 @@ This scanning approach is designed to be resilient against index corruption and 
 - Uses the provided BufferAccessStrategy to avoid overwhelming the shared buffer pool during large index scans
 - Critical for maintaining BRIN index consistency after system failures or incomplete operations
 - The function is designed to be safe to run on potentially corrupted or inconsistent indexes
+
+## Simplified Source
+```c
+static void
+brin_vacuum_scan(Relation idxrel, BufferAccessStrategy strategy)
+{
+    BlockNumber nblocks;
+    BlockNumber blkno;
+
+    // Get total number of blocks in the index
+    nblocks = RelationGetNumberOfBlocks(idxrel);
+
+    // Scan every block in physical order and clean it up
+    for (blkno = 0; blkno < nblocks; blkno++)
+    {
+        Buffer buf;
+
+        CHECK_FOR_INTERRUPTS();  // Allow cancellation
+
+        // Read the block using the provided access strategy
+        buf = ReadBufferExtended(idxrel, MAIN_FORKNUM, blkno,
+                                RBM_NORMAL, strategy);
+
+        // Clean up any issues on this page
+        brin_page_cleanup(idxrel, buf);
+
+        ReleaseBuffer(buf);
+    }
+
+    // Update the entire Free Space Map to repair any damage
+    FreeSpaceMapVacuum(idxrel);
+}
+```

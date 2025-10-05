@@ -48,3 +48,15 @@ This function is part of PostgreSQL's text search parser interface and is typica
 - The function is very lightweight, serving primarily as a bridge between PostgreSQL's function calling convention and the internal parser implementation
 - Memory management for the returned TParser structure follows PostgreSQL's memory context system
 - Used as part of the standard text search parser workflow: prsd_start → prsd_nexttoken (repeatedly) → cleanup
+
+## Simplified Source
+
+```c
+Datum prsd_start(PG_FUNCTION_ARGS) {
+    // Initialize parser with input text and length
+    PG_RETURN_POINTER(TParserInit(
+        (char *) PG_GETARG_POINTER(0),  // Input text string
+        PG_GETARG_INT32(1)              // String length
+    ));
+}
+```

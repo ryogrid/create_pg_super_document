@@ -35,3 +35,26 @@ The  function is responsible for creating a new struct member node and adding it
 - The function handles both empty lists (where *start is NULL) and non-empty lists
 - Memory management relies on the mm_alloc and mm_strdup functions for consistent error handling
 - Located in  at lines 77-95
+
+## Simplified Source
+
+```c
+void ECPGmake_struct_member(const char *name, struct ECPGtype *type, struct ECPGstruct_member **start) {
+    // Allocate and initialize new struct member
+    struct ECPGstruct_member *new_member = (struct ECPGstruct_member *) mm_alloc(sizeof(struct ECPGstruct_member));
+
+    new_member->name = mm_strdup(name);  // Copy the name
+    new_member->type = type;             // Preserve type pointer
+    new_member->next = NULL;
+
+    // Find the end of the linked list
+    struct ECPGstruct_member *ptr;
+    for (ptr = *start; ptr && ptr->next; ptr = ptr->next);
+
+    // Append to end of list or set as first element
+    if (ptr)
+        ptr->next = new_member;
+    else
+        *start = new_member;
+}
+```

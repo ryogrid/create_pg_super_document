@@ -48,3 +48,39 @@ This function sets up the tuple storage infrastructure needed for logical replic
 - Static function only accessible within pgoutput.c
 - Part of the lazy initialization infrastructure for relation synchronization entries
 - Critical for maintaining tuple format consistency in inheritance-based replication scenarios
+
+## Simplified Source
+
+```c
+static void
+init_tuple_slot(PGOutputData *data, Relation relation,
+                RelationSyncEntry *entry)
+{
+    MemoryContext oldctx = MemoryContextSwitchTo(data->cachectx);
+
+    // Create persistent tuple descriptors
+    TupleDesc oldtupdesc = CreateTupleDescCopyConstr(RelationGetDescr(relation));
+    TupleDesc newtupdesc = CreateTupleDescCopyConstr(RelationGetDescr(relation));
+
+    // Create tuple table slots for old and new tuples
+    entry->old_slot = MakeSingleTupleTableSlot(oldtupdesc, &TTSOpsHeapTuple);
+    entry->new_slot = MakeSingleTupleTableSlot(newtupdesc, &TTSOpsHeapTuple);
+
+    MemoryContextSwitchTo(oldctx);
+
+    // Build attribute mapping if publishing as different relation
+    if (entry->publish_as_relid != RelationGetRelid(relation))
+    {
+        Relation ancestor = RelationIdGetRelation(entry->publish_as_relid);
+        TupleDesc indesc = RelationGetDescr(relation);
+        TupleDesc outdesc = RelationGetDescr(ancestor);
+
+        // Create attribute mapping in cache context
+        oldctx = MemoryContextSwitchTo(data->cachectx);
+        entry->attrmap = build_attrmap_by_name_if_req(indesc, outdesc, false);
+        MemoryContextSwitchTo(oldctx);
+
+        RelationClose(ancestor);
+    }
+}
+```

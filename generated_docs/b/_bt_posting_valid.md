@@ -47,3 +47,34 @@ This function is critical for maintaining B-tree index integrity and is used ext
 - Primarily used in assertion checks and debugging to ensure posting list integrity
 - The strict ordering requirement is essential for binary search operations on posting lists
 - Performance note: O(n) complexity where n is the number of TIDs in the posting list
+
+## Simplified Source
+
+```c
+static bool _bt_posting_valid(IndexTuple posting) {
+    // Basic type and size validation
+    if (!BTreeTupleIsPosting(posting) || BTreeTupleGetNPosting(posting) < 2)
+        return false;
+
+    // Get first TID as baseline for comparison
+    ItemPointerData last;
+    ItemPointerCopy(BTreeTupleGetHeapTID(posting), &last);
+    if (!ItemPointerIsValid(&last))
+        return false;
+
+    // Validate each subsequent TID is valid and in ascending order
+    for (int i = 1; i < BTreeTupleGetNPosting(posting); i++) {
+        ItemPointer htid = BTreeTupleGetPostingN(posting, i);
+
+        if (!ItemPointerIsValid(htid))
+            return false;
+
+        if (ItemPointerCompare(htid, &last) <= 0)
+            return false; // Must be strictly ascending
+
+        ItemPointerCopy(htid, &last); // Update baseline for next comparison
+    }
+
+    return true; // All validations passed
+}
+```

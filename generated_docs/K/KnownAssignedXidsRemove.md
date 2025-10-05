@@ -31,3 +31,17 @@ The function includes debug logging at level 4 to track removal operations and d
 - Includes DEBUG4 logging for troubleshooting removal operations
 - Commonly used during subtransaction cleanup and top-level transaction completion
 - The function explicitly ignores the search result to handle duplicate removal attempts gracefully
+
+## Simplified Source
+
+```c
+static void KnownAssignedXidsRemove(TransactionId xid) {
+    Assert(TransactionIdIsValid(xid));
+
+    elog(DEBUG4, "remove KnownAssignedXid %u", xid);
+
+    // Remove XID from array, ignoring if not found
+    // This tolerates duplicate removals during subtransaction processing
+    (void) KnownAssignedXidsSearch(xid, true);
+}
+```

@@ -37,3 +37,16 @@ This function is the logical complement of `timestamp_eq_date` and handles plain
 - Complement function to `timestamp_eq_date` - returns opposite boolean result
 - Part of the cross-type comparison functions for dates in PostgreSQL
 - Located in src/backend/utils/adt/date.c:916-924
+
+## Simplified Source
+
+```c
+Datum timestamp_ne_date(PG_FUNCTION_ARGS) {
+    // Extract timestamp and date arguments
+    Timestamp timestamp = PG_GETARG_TIMESTAMP(0);
+    DateADT date = PG_GETARG_DATEADT(1);
+
+    // Compare and return true if not equal
+    return PG_RETURN_BOOL(date_cmp_timestamp_internal(date, timestamp) != 0);
+}
+```

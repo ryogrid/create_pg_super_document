@@ -35,3 +35,16 @@ The function acts as a thin wrapper around the generic `pgstat_fetch_entry` func
 - Provides access to committed/finalized statistics data, as opposed to pending statistics
 - Used primarily by SQL-callable functions that expose function performance metrics to users
 - The returned statistics include metrics like call count, total time, self time, etc. for the specified function
+
+## Simplified Source
+
+```c
+PgStat_StatFuncEntry *
+pgstat_fetch_stat_funcentry(Oid func_id)
+{
+    // Fetch committed function statistics entry using general fetcher
+    // Returns NULL if no statistics exist for this function
+    return (PgStat_StatFuncEntry *)
+        pgstat_fetch_entry(PGSTAT_KIND_FUNCTION, MyDatabaseId, func_id);
+}
+```

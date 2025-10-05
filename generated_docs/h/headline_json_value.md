@@ -48,3 +48,33 @@ This function is specifically designed to work with PostgreSQL's full-text searc
 - Word counting is reset () at the beginning of each call to ensure clean state
 - The function integrates with PostgreSQL's headline generation system, which formats text by adding start/stop selection markers around matching words
 - Memory management for the returned text object is handled by PostgreSQL's memory context system
+
+## Simplified Source
+
+```c
+static text *
+headline_json_value(void *_state, char *elem_value, int elem_len)
+{
+    // Extract state information from context
+    HeadlineJsonState *state = (HeadlineJsonState *) _state;
+    HeadlineParsedText *prs = state->prs;
+    TSConfigCacheEntry *cfg = state->cfg;
+    TSParserCacheEntry *prsobj = state->prsobj;
+    TSQuery query = state->query;
+    List *prsoptions = state->prsoptions;
+
+    // Reset word counter and parse the text element
+    prs->curwords = 0;
+    hlparsetext(cfg->cfgId, prs, query, elem_value, elem_len);
+
+    // Apply headline formatting using parser's headline function
+    FunctionCall3(&(prsobj->prsheadline),
+                  PointerGetDatum(prs),
+                  PointerGetDatum(prsoptions),
+                  PointerGetDatum(query));
+
+    // Mark transformation as complete and generate formatted headline
+    state->transformed = true;
+    return generateHeadline(prs);
+}
+```

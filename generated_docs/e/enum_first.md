@@ -36,3 +36,26 @@ The function includes proper error handling for cases where the enum type cannot
 - Raises an error if the enum type cannot be determined from the calling context
 - Raises an error if the enum type contains no values
 - Returns the OID of the first enum value, which can be used in SQL operations
+
+## Simplified Source
+
+```c
+Datum enum_first(PG_FUNCTION_ARGS) {
+    // Get enum type from function call expression tree (not argument value)
+    Oid enumtypoid = get_fn_expr_argtype(fcinfo->flinfo, 0);
+
+    if (enumtypoid == InvalidOid)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("could not determine actual enum type")));
+
+    // Find the first enum value using forward scan
+    Oid min = enum_endpoint(enumtypoid, ForwardScanDirection);
+
+    if (!OidIsValid(min))
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("enum %s contains no values",
+                             format_type_be(enumtypoid))));
+
+    PG_RETURN_OID(min);
+}
+```

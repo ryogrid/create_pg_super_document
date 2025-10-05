@@ -34,3 +34,31 @@ The function calls rfmtlong() to perform the actual formatting, then examines th
 - The function assumes a buffer size of 30 characters for the formatted output
 - This function is part of the ECPG (Embedded SQL in C for PostgreSQL) test suite for Informix compatibility
 - Located in a test expected output file, indicating it's used for regression testing
+
+## Simplified Source
+
+```c
+static void
+fmtlong(long lng, const char *fmt)
+{
+    static int i;        // Counter for successful formatting operations
+    int r;              // Return code from rfmtlong
+    char buf[30];       // Buffer for formatted output
+
+    // Call the actual formatting function
+    r = rfmtlong(lng, fmt, buf);
+    printf("r: %d ", r);
+
+    // Check result and print output or error
+    if (r == 0)
+    {
+        // Success: print formatted result with sequence number
+        printf("%d: %s (fmt was: %s)\n", i++, buf, fmt);
+    }
+    else
+    {
+        // Error: delegate to error handling function
+        check_return(r);
+    }
+}
+```

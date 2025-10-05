@@ -45,3 +45,64 @@ This function provides comprehensive file system information for a specified fil
 - Performs filename validation through convert_and_check_filename() for security
 - Memory management includes proper cleanup with pfree() for filename buffer
 - The function signature supports both 1-arg and 2-arg variants through PG_NARGS() checking
+
+## Simplified Source
+
+```c
+Datum pg_stat_file(PG_FUNCTION_ARGS) {
+    text *filename_t = PG_GETARG_TEXT_PP(0);
+    bool missing_ok = false;
+
+    // Check for optional missing_ok argument
+    if (PG_NARGS() == 2)
+        missing_ok = PG_GETARG_BOOL(1);
+
+    // Convert and validate filename
+    char *filename = convert_and_check_filename(filename_t);
+
+    // Get file statistics
+    struct stat fst;
+    if (stat(filename, &fst) < 0) {
+        if (missing_ok && errno == ENOENT)
+            PG_RETURN_NULL();
+        else
+            ereport(ERROR, (errcode_for_file_access(),
+                errmsg("could not stat file \"%s\": %m", filename)));
+    }
+
+    // Create tuple descriptor for return record (6 fields)
+    TupleDesc tupdesc = CreateTemplateTupleDesc(6);
+    TupleDescInitEntry(tupdesc, 1, "size", INT8OID, -1, 0);
+    TupleDescInitEntry(tupdesc, 2, "access", TIMESTAMPTZOID, -1, 0);
+    TupleDescInitEntry(tupdesc, 3, "modification", TIMESTAMPTZOID, -1, 0);
+    TupleDescInitEntry(tupdesc, 4, "change", TIMESTAMPTZOID, -1, 0);
+    TupleDescInitEntry(tupdesc, 5, "creation", TIMESTAMPTZOID, -1, 0);
+    TupleDescInitEntry(tupdesc, 6, "isdir", BOOLOID, -1, 0);
+    BlessTupleDesc(tupdesc);
+
+    // Populate return values
+    Datum values[6];
+    bool isnull[6];
+    memset(isnull, false, sizeof(isnull));
+
+    values[0] = Int64GetDatum((int64) fst.st_size);
+    values[1] = TimestampTzGetDatum(time_t_to_timestamptz(fst.st_atime));
+    values[2] = TimestampTzGetDatum(time_t_to_timestamptz(fst.st_mtime));
+
+    // Platform-specific: Unix has change time, Windows has creation time
+#if !defined(WIN32) && !defined(__CYGWIN__)
+    values[3] = TimestampTzGetDatum(time_t_to_timestamptz(fst.st_ctime));
+    isnull[4] = true;  // No creation time on Unix
+#else
+    isnull[3] = true;  // No change time on Windows
+    values[4] = TimestampTzGetDatum(time_t_to_timestamptz(fst.st_ctime));
+#endif
+    values[5] = BoolGetDatum(S_ISDIR(fst.st_mode));
+
+    // Create and return tuple
+    HeapTuple tuple = heap_form_tuple(tupdesc, values, isnull);
+    pfree(filename);
+
+    PG_RETURN_DATUM(HeapTupleGetDatum(tuple));
+}
+```

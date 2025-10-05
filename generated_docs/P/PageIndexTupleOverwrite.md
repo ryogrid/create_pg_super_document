@@ -51,3 +51,65 @@ The function calculates space requirements, validates the operation feasibility,
 - Essential for in-place tuple updates across multiple index types (BRIN, GiST, B-tree)
 - More efficient than separate delete/insert operations when updating existing tuples
 - Maintains page compaction automatically during the replacement process
+
+## Simplified Source
+
+```c
+bool PageIndexTupleOverwrite(Page page, OffsetNumber offnum,
+                           Item newtup, Size newsize) {
+    PageHeader phdr = (PageHeader) page;
+
+    // Validate page structure
+    if (phdr->pd_lower < SizeOfPageHeaderData ||
+        phdr->pd_lower > phdr->pd_upper ||
+        phdr->pd_upper > phdr->pd_special) {
+        ereport(ERROR, "corrupted page pointers");
+    }
+
+    int itemcount = PageGetMaxOffsetNumber(page);
+    if (offnum <= 0 || offnum > itemcount) {
+        elog(ERROR, "invalid index offnum: %u", offnum);
+    }
+
+    // Get existing tuple information
+    ItemId tupid = PageGetItemId(page, offnum);
+    int oldsize = MAXALIGN(ItemIdGetLength(tupid));
+    unsigned offset = ItemIdGetOffset(tupid);
+    Size alignednewsize = MAXALIGN(newsize);
+
+    // Check if new tuple fits on page
+    if (alignednewsize > oldsize + (phdr->pd_upper - phdr->pd_lower)) {
+        return false; // Not enough space
+    }
+
+    // Calculate space difference (positive = shrinking, negative = growing)
+    int size_diff = oldsize - alignednewsize;
+
+    // Only move data if size changed
+    if (size_diff != 0) {
+        // Move all tuple data before the target tuple
+        char *tuple_space_start = (char *) page + phdr->pd_upper;
+        memmove(tuple_space_start + size_diff,
+                tuple_space_start,
+                offset - phdr->pd_upper);
+
+        // Update page boundary
+        phdr->pd_upper += size_diff;
+
+        // Adjust affected line pointer offsets
+        for (int i = FirstOffsetNumber; i <= itemcount; i++) {
+            ItemId item = PageGetItemId(page, i);
+            if (ItemIdHasStorage(item) && ItemIdGetOffset(item) <= offset) {
+                item->lp_off += size_diff;
+            }
+        }
+    }
+
+    // Update the target tuple's line pointer and copy new data
+    tupid->lp_off = offset + size_diff;
+    tupid->lp_len = newsize;
+    memcpy(PageGetItem(page, tupid), newtup, newsize);
+
+    return true;
+}
+```

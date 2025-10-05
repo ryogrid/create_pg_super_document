@@ -44,3 +44,28 @@ The function follows PostgreSQL's standard comparison semantics, returning a neg
 - Memory management is handled properly with PG_FREE_IF_COPY to avoid memory leaks
 - The comparison is performed on the raw text data without considering JSONB-specific semantics
 - This function enables the GIN index to maintain sorted order of text-based entries for efficient range queries and index maintenance
+
+## Simplified Source
+
+```c
+Datum
+gin_compare_jsonb(PG_FUNCTION_ARGS)
+{
+    text *arg1 = PG_GETARG_TEXT_PP(0);
+    text *arg2 = PG_GETARG_TEXT_PP(1);
+
+    // Extract text data and lengths
+    char *a1p = VARDATA_ANY(arg1);
+    char *a2p = VARDATA_ANY(arg2);
+    int len1 = VARSIZE_ANY_EXHDR(arg1);
+    int len2 = VARSIZE_ANY_EXHDR(arg2);
+
+    // Compare using C collation for consistent ordering
+    int32 result = varstr_cmp(a1p, len1, a2p, len2, C_COLLATION_OID);
+
+    PG_FREE_IF_COPY(arg1, 0);
+    PG_FREE_IF_COPY(arg2, 1);
+
+    PG_RETURN_INT32(result);
+}
+```

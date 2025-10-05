@@ -46,3 +46,50 @@ This function handles the exit from PL/Python subtransactions, following Python'
 - Supports Python's `with` statement through context manager protocol
 - Returns Py_None as required by context manager protocol
 - Located in src/pl/plpython/plpy_subxactobject.c:137-186
+
+## Simplified Source
+
+```c
+static PyObject *PLy_subtransaction_exit(PyObject *self, PyObject *args) {
+    PyObject *type, *value, *traceback;
+    PLySubtransactionData *subxactdata;
+    PLySubtransactionObject *subxact = (PLySubtransactionObject *) self;
+
+    // Parse arguments (exc_type, exc_value, traceback)
+    if (!PyArg_ParseTuple(args, "OOO", &type, &value, &traceback))
+        return NULL;
+
+    // Validate subtransaction state
+    if (!subxact->started) {
+        PLy_exception_set(PyExc_ValueError, "this subtransaction has not been entered");
+        return NULL;
+    }
+    if (subxact->exited) {
+        PLy_exception_set(PyExc_ValueError, "this subtransaction has already been exited");
+        return NULL;
+    }
+    if (explicit_subtransactions == NIL) {
+        PLy_exception_set(PyExc_ValueError, "there is no subtransaction to exit from");
+        return NULL;
+    }
+
+    subxact->exited = true;
+
+    // Commit or abort based on exception status
+    if (type != Py_None) {
+        RollbackAndReleaseCurrentSubTransaction();  // Exception occurred
+    } else {
+        ReleaseCurrentSubTransaction();  // Success
+    }
+
+    // Restore previous context and cleanup
+    subxactdata = (PLySubtransactionData *) linitial(explicit_subtransactions);
+    explicit_subtransactions = list_delete_first(explicit_subtransactions);
+
+    MemoryContextSwitchTo(subxactdata->oldcontext);
+    CurrentResourceOwner = subxactdata->oldowner;
+    pfree(subxactdata);
+
+    Py_RETURN_NONE;
+}
+```

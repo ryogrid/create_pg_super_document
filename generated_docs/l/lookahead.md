@@ -44,3 +44,46 @@ This function takes no parameters but uses several global variables:
 - Must be paired with lookahead_reset() calls to avoid losing synchronization with the main buffer
 - Critical for multi-character lookahead in parsing contexts where token recognition requires examining future characters
 - Used extensively in pg_bsd_indent for parsing decisions and in pg_dump utilities for format detection
+
+## Simplified Source
+
+```c
+int
+lookahead(void)
+{
+    // First check saved buffer area
+    if (lookahead_bp_save != NULL && lookahead_bp_save < be_save)
+        return (unsigned char) *lookahead_bp_save++;
+
+    // Read from main lookahead buffer, expanding as needed
+    while (lookahead_ptr >= lookahead_end) {
+        int ch = getc(input);
+
+        if (ch == EOF)
+            return ch;
+        if (ch == '\0')
+            continue;  // Skip nulls like fill_buffer does
+
+        // Expand buffer if full
+        if (lookahead_end >= lookahead_buf_end) {
+            char *new_buf;
+            size_t req = lookahead_buf ? (lookahead_buf_end - lookahead_buf) * 2 : 64;
+
+            new_buf = lookahead_buf ? realloc(lookahead_buf, req) : malloc(req);
+            if (new_buf == NULL)
+                errx(1, "too much lookahead required");
+
+            // Update all pointers for new buffer location
+            lookahead_start = new_buf + (lookahead_start - lookahead_buf);
+            lookahead_ptr = new_buf + (lookahead_ptr - lookahead_buf);
+            lookahead_end = new_buf + (lookahead_end - lookahead_buf);
+            lookahead_buf = new_buf;
+            lookahead_buf_end = new_buf + req;
+        }
+
+        *lookahead_end++ = ch;
+    }
+
+    return (unsigned char) *lookahead_ptr++;
+}
+```

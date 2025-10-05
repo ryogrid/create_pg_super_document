@@ -36,3 +36,19 @@ This function performs cleanup operations for files associated with a specific s
 - Uses MyLogicalRepWorker->stream_fileset to manage the file operations
 - Each subscription maintains separate sets of files for different toplevel transactions
 - This is part of the cleanup process that ensures no temporary files are left behind after transaction processing
+
+## Simplified Source
+
+```c
+void stream_cleanup_files(Oid subid, TransactionId xid) {
+    char path[MAXPGPATH];
+
+    // Delete the changes file (must exist)
+    changes_filename(path, subid, xid);
+    BufFileDeleteFileSet(MyLogicalRepWorker->stream_fileset, path, false);
+
+    // Delete the subxact file (may not exist)
+    subxact_filename(path, subid, xid);
+    BufFileDeleteFileSet(MyLogicalRepWorker->stream_fileset, path, true);
+}
+```

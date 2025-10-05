@@ -47,3 +47,50 @@ The function includes validation to ensure the target index relation is empty be
 - Can utilize parallel processing for large indexes when appropriate
 - Returns statistics about the build process including tuple counts from both heap and index
 - Performance statistics are conditionally compiled and logged when BTREE_BUILD_STATS is enabled
+
+## Simplified Source
+
+```c
+IndexBuildResult *
+btbuild(Relation heap, Relation index, IndexInfo *indexInfo)
+{
+    IndexBuildResult *result;
+    BTBuildState buildstate;
+    double reltuples;
+
+    // Initialize build state
+    buildstate.isunique = indexInfo->ii_Unique;
+    buildstate.nulls_not_distinct = indexInfo->ii_NullsNotDistinct;
+    buildstate.havedead = false;
+    buildstate.heap = heap;
+    buildstate.spool = NULL;
+    buildstate.spool2 = NULL;
+    buildstate.indtuples = 0;
+    buildstate.btleader = NULL;
+
+    // Verify index is empty
+    if (RelationGetNumberOfBlocks(index) != 0)
+        elog(ERROR, "index \"%s\" already contains data",
+             RelationGetRelationName(index));
+
+    // Scan heap and populate spools
+    reltuples = _bt_spools_heapscan(heap, index, &buildstate, indexInfo);
+
+    // Build the B-tree structure
+    _bt_leafbuild(buildstate.spool, buildstate.spool2);
+
+    // Cleanup spools
+    _bt_spooldestroy(buildstate.spool);
+    if (buildstate.spool2)
+        _bt_spooldestroy(buildstate.spool2);
+    if (buildstate.btleader)
+        _bt_end_parallel(buildstate.btleader);
+
+    // Return build results
+    result = (IndexBuildResult *) palloc(sizeof(IndexBuildResult));
+    result->heap_tuples = reltuples;
+    result->index_tuples = buildstate.indtuples;
+
+    return result;
+}
+```

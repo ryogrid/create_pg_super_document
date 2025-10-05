@@ -43,3 +43,21 @@ The function supports both basic privileges and their "WITH GRANT OPTION" varian
 - Part of PostgreSQL's privilege checking infrastructure for schema objects
 - The privilege mapping covers the two main schema privileges: CREATE and USAGE
 - Located in src/backend/utils/adt/acl.c:3977-4006
+
+## Simplified Source
+
+```c
+static AclMode
+convert_schema_priv_string(text *priv_type_text)
+{
+    static const priv_map schema_priv_map[] = {
+        {"CREATE", ACL_CREATE},
+        {"CREATE WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_CREATE)},
+        {"USAGE", ACL_USAGE},
+        {"USAGE WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_USAGE)},
+        {NULL, 0}
+    };
+
+    return convert_any_priv_string(priv_type_text, schema_priv_map);
+}
+```

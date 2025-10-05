@@ -43,3 +43,29 @@ The function is typically invoked through SQL as `SELECT pg_cancel_backend(pid)`
 - Provides detailed error messages distinguishing between superuser permission issues and general role membership issues
 - Part of PostgreSQL's signal handling infrastructure for process management
 - Does not guarantee the query will actually be canceled - depends on the target backend's responsiveness to SIGINT
+
+## Simplified Source
+
+```c
+Datum pg_cancel_backend(PG_FUNCTION_ARGS) {
+    // Send SIGINT to cancel query in target backend
+    int r = pg_signal_backend(PG_GETARG_INT32(0), SIGINT);
+
+    // Handle permission errors with detailed messages
+    if (r == SIGNAL_BACKEND_NOSUPERUSER)
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("permission denied to cancel query"),
+                 errdetail("Only roles with the %s attribute may cancel queries of roles with the %s attribute.",
+                          "SUPERUSER", "SUPERUSER")));
+
+    if (r == SIGNAL_BACKEND_NOPERMISSION)
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("permission denied to cancel query"),
+                 errdetail("Only roles with privileges of the role whose query is being canceled or with privileges of the \"%s\" role may cancel this query.",
+                          "pg_signal_backend")));
+
+    PG_RETURN_BOOL(r == SIGNAL_BACKEND_SUCCESS);
+}
+```

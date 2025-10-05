@@ -47,3 +47,45 @@ The function is designed for situations where a complete database flush is requi
 - Proper resource management is ensured through ReservePrivateRefCountEntry and ResourceOwnerEnlarge calls
 - Content locks are acquired in shared mode since the buffer content is only being read for flushing
 - The function handles the case where buffer tags might change between the precheck and the locked check
+
+## Simplified Source
+
+```c
+void FlushDatabaseBuffers(Oid dbid) {
+    // Iterate through all buffers in the shared buffer pool
+    for (int i = 0; i < NBuffers; i++) {
+        BufferDesc *bufHdr = GetBufferDescriptor(i);
+
+        // Quick unlocked precheck - skip if wrong database
+        if (bufHdr->tag.dbOid != dbid)
+            continue;
+
+        // Prepare for potential buffer operations
+        ReservePrivateRefCountEntry();
+        ResourceOwnerEnlarge(CurrentResourceOwner);
+
+        // Lock buffer header and recheck conditions
+        uint32 buf_state = LockBufHdr(bufHdr);
+
+        if (bufHdr->tag.dbOid == dbid &&
+            (buf_state & (BM_VALID | BM_DIRTY)) == (BM_VALID | BM_DIRTY)) {
+            // Buffer belongs to target database and is dirty - flush it
+            PinBuffer_Locked(bufHdr);
+            LWLockAcquire(BufferDescriptorGetContentLock(bufHdr), LW_SHARED);
+            FlushBuffer(bufHdr, NULL, IOOBJECT_RELATION, IOCONTEXT_NORMAL);
+            LWLockRelease(BufferDescriptorGetContentLock(bufHdr));
+            UnpinBuffer(bufHdr);
+        } else {
+            // Buffer doesn't match criteria, just unlock
+            UnlockBufHdr(bufHdr, buf_state);
+        }
+    }
+}
+```
+
+**Key Logic:**
+- Flushes all dirty buffers belonging to a specific database to disk
+- Uses unlocked precheck optimization to avoid work on wrong-database buffers
+- Properly pins buffers and acquires content locks before flushing
+- Ensures resource management through reference counting and resource owner
+- Handles concurrent buffer state changes between precheck and locked check

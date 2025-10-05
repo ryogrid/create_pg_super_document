@@ -54,3 +54,41 @@ The current implementation is intentionally simple, using "essentially random or
 - Target is maxentries/2 rather than maxentries to reduce frequency of re-lossification
 - Can dynamically increase maxentries if memory reduction targets cannot be met
 - Critical for maintaining reasonable memory usage in queries with large result sets
+
+## Simplified Source
+
+```c
+static void
+tbm_lossify(TIDBitmap *tbm)
+{
+    pagetable_iterator i;
+    PagetableEntry *page;
+
+    // Start iteration from remembered position for fairness
+    pagetable_start_iterate_at(tbm->pagetable, &i, tbm->lossify_start);
+
+    while ((page = pagetable_iterate(tbm->pagetable, &i)) != NULL) {
+        // Skip already lossy chunks
+        if (page->ischunk)
+            continue;
+
+        // Skip pages that would become chunk headers (no memory savings)
+        if ((page->blockno % PAGES_PER_CHUNK) == 0)
+            continue;
+
+        // Convert page to lossy format
+        tbm_mark_page_lossy(tbm, page->blockno);
+
+        // Check if we've reduced entries enough (target: maxentries/2)
+        if (tbm->nentries <= tbm->maxentries / 2) {
+            // Remember where to continue next time
+            tbm->lossify_start = i.cur;
+            break;
+        }
+    }
+
+    // If we couldn't reduce enough, increase the limit to prevent thrashing
+    if (tbm->nentries > tbm->maxentries / 2)
+        tbm->maxentries = Min(tbm->nentries, (INT_MAX - 1) / 2) * 2;
+}
+```

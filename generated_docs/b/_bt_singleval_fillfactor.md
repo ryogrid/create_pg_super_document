@@ -45,3 +45,25 @@ The calculation works by:
 - The function may set maxpostingsize to 0 if the required reduction exceeds the current value
 - Works as part of a multi-pass deduplication strategy where early passes handle different tuple types
 - Located at src/backend/access/nbtree/nbtdedup.c:822-863
+
+## Simplified Source
+
+```c
+static void _bt_singleval_fillfactor(Page page, BTDedupState state, Size newitemsz) {
+    // Calculate available space on page (must match nbtsplitloc.c logic)
+    Size leftfree = PageGetPageSize(page) - SizeOfPageHeaderData -
+                    MAXALIGN(sizeof(BTPageOpaqueData));
+
+    // Account for new high key space (includes pivot heap TID)
+    leftfree -= newitemsz + MAXALIGN(sizeof(ItemPointerData));
+
+    // Calculate reduction needed to achieve target fill factor
+    int reduction = leftfree * ((100 - BTREE_SINGLEVAL_FILLFACTOR) / 100.0);
+
+    // Reduce maxpostingsize to prevent problematic sixth posting list
+    if (state->maxpostingsize > reduction)
+        state->maxpostingsize -= reduction;
+    else
+        state->maxpostingsize = 0; // Clamp to zero if reduction too large
+}
+```

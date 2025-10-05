@@ -40,3 +40,20 @@ The function performs:
 - Error handling and detailed conversion logic are delegated to numericvar_to_double
 - Part of the standard type conversion functions in PostgreSQL's ECPG embedded C interface
 - Commonly used in applications that need to convert PostgreSQL numeric values to C double values for mathematical operations
+
+## Simplified Source
+
+```c
+int PGTYPESnumeric_to_double(numeric *nv, double *dp)
+{
+    double tmp;
+
+    // Delegate to internal conversion function
+    if (numericvar_to_double(nv, &tmp) != 0)
+        return -1;
+
+    // Set output parameter on success
+    *dp = tmp;
+    return 0;
+}
+```

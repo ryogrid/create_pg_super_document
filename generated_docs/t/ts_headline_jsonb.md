@@ -38,3 +38,17 @@ The function recursively processes all string values within the JSONB document, 
 - Uses the system's default text search configuration rather than requiring explicit specification
 - Processes all string values within the JSONB document recursively
 - Similar to  but specifically designed for JSONB document types
+
+## Simplified Source
+
+```c
+Datum
+ts_headline_jsonb(PG_FUNCTION_ARGS)
+{
+    // Simple wrapper: use current default config and delegate to full implementation
+    PG_RETURN_DATUM(DirectFunctionCall3(ts_headline_jsonb_byid_opt,
+                                       ObjectIdGetDatum(getTSCurrentConfig(true)),
+                                       PG_GETARG_DATUM(0),  // JSONB document
+                                       PG_GETARG_DATUM(1))); // TSQuery
+}
+```

@@ -30,3 +30,21 @@ AddStem appends a new word stem to the dynamic array maintained within a SplitVa
 - Does not duplicate the word string - stores the pointer directly
 - Caller is responsible for ensuring the word pointer remains valid
 - Part of PostgreSQL's text search infrastructure for managing word variants during spell checking
+
+## Simplified Source
+
+```c
+static void
+AddStem(SplitVar *v, char *word)
+{
+    // Expand array capacity if needed
+    if (v->nstem >= v->lenstem) {
+        v->lenstem *= 2;  // Double the capacity
+        v->stem = (char **) repalloc(v->stem, sizeof(char *) * v->lenstem);
+    }
+
+    // Add the word and increment count
+    v->stem[v->nstem] = word;
+    v->nstem++;
+}
+```

@@ -37,3 +37,23 @@ The function combines the functionality of both alphabetic and numeric character
 - Less frequently used compared to other character classification functions in the text search system
 - Primarily used in query parsing contexts where alphanumeric character identification is needed
 - Combines both alphabetic and numeric character detection in a single function call
+
+## Simplified Source
+
+```c
+int
+t_isalnum(const char *ptr)
+{
+    int char_len = pg_mblen(ptr);
+
+    // Fast path for single-byte characters or C locale
+    if (char_len == 1 || database_ctype_is_c)
+        return isalnum(TOUCHAR(ptr));
+
+    // Multi-byte character: convert to wide char and test
+    wchar_t wide_char[WC_BUF_LEN];
+    char2wchar(wide_char, WC_BUF_LEN, ptr, char_len, 0);
+
+    return iswalnum((wint_t) wide_char[0]);
+}
+```

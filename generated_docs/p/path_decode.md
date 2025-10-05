@@ -62,3 +62,74 @@ The function intelligently detects delimiter patterns, manages nesting depth for
 - Error messages include the original input string and type name for better user feedback
 - The nesting depth logic correctly handles various geometric data type format variations
 - Part of PostgreSQL's comprehensive geometric data type system that maintains consistent parsing behavior across multiple geometric types
+
+## Simplified Source
+
+```c
+static bool path_decode(char *str, bool opentype, int npts, Point *p,
+                       bool *isopen, char **endptr_p,
+                       const char *type_name, const char *orig_string,
+                       Node *escontext) {
+    int depth = 0;
+    char *cp;
+    int i;
+
+    // Skip leading whitespace
+    while (isspace((unsigned char) *str))
+        str++;
+
+    // Check for open path format [...]
+    if ((*isopen = (*str == LDELIM_EP))) {
+        if (!opentype)  // open delimiter not allowed
+            goto fail;
+        depth++;
+        str++;
+    }
+    // Check for closed path format (...) or ((...))
+    else if (*str == LDELIM) {
+        cp = (str + 1);
+        while (isspace((unsigned char) *cp))
+            cp++;
+        // Handle nested parentheses for formats like ((...))
+        if (*cp == LDELIM || strrchr(str, LDELIM) == str) {
+            depth++;
+            str = cp;
+        }
+    }
+
+    // Parse coordinate pairs
+    for (i = 0; i < npts; i++) {
+        if (!pair_decode(str, &(p->x), &(p->y), &str, type_name, orig_string, escontext))
+            return false;
+        if (*str == DELIM)  // skip comma separator
+            str++;
+        p++;
+    }
+
+    // Match closing delimiters
+    while (depth > 0) {
+        if (*str == RDELIM || (*str == RDELIM_EP && *isopen && depth == 1)) {
+            depth--;
+            str++;
+            while (isspace((unsigned char) *str))
+                str++;
+        } else {
+            goto fail;
+        }
+    }
+
+    // Set end pointer or validate end of string
+    if (endptr_p)
+        *endptr_p = str;
+    else if (*str != '\0')
+        goto fail;
+
+    return true;
+
+fail:
+    ereturn(escontext, false,
+            (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+             errmsg("invalid input syntax for type %s: \"%s\"",
+                    type_name, orig_string)));
+}
+```

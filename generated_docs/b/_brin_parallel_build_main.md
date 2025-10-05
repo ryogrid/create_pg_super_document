@@ -42,3 +42,61 @@ This function is executed by each parallel worker process launched during a para
 - The function sets debug_query_string and reports activity to help with debugging and monitoring
 - Workers receive false for the progress parameter when calling _brin_parallel_scan_and_build (only leader reports progress)
 - Each worker gets its own initialized build state but shares coordination structures
+
+## Simplified Source
+
+```c
+void _brin_parallel_build_main(dsm_segment *seg, shm_toc *toc) {
+    BrinShared *brinshared;
+    Sharedsort *sharedsort;
+    BrinBuildState *buildstate;
+    Relation heapRel, indexRel;
+    LOCKMODE heapLockmode, indexLockmode;
+
+    // Setup worker context and activity reporting
+    char *sharedquery = shm_toc_lookup(toc, PARALLEL_KEY_QUERY_TEXT, true);
+    debug_query_string = sharedquery;
+    pgstat_report_activity(STATE_RUNNING, debug_query_string);
+
+    // Look up shared state
+    brinshared = shm_toc_lookup(toc, PARALLEL_KEY_BRIN_SHARED, false);
+
+    // Determine lock modes based on build type
+    if (!brinshared->isconcurrent) {
+        heapLockmode = ShareLock;
+        indexLockmode = AccessExclusiveLock;
+    } else {
+        heapLockmode = ShareUpdateExclusiveLock;
+        indexLockmode = RowExclusiveLock;
+    }
+
+    // Open relations and initialize build state
+    heapRel = table_open(brinshared->heaprelid, heapLockmode);
+    indexRel = index_open(brinshared->indexrelid, indexLockmode);
+    buildstate = initialize_brin_buildstate(indexRel, NULL,
+                                          brinshared->pagesPerRange,
+                                          InvalidBlockNumber);
+
+    // Attach to shared sort state
+    sharedsort = shm_toc_lookup(toc, PARALLEL_KEY_TUPLESORT, false);
+    tuplesort_attach_shared(sharedsort, seg);
+
+    // Start performance tracking
+    InstrStartParallelQuery();
+
+    // Calculate memory allocation and do the work
+    int sortmem = maintenance_work_mem / brinshared->scantuplesortstates;
+    _brin_parallel_scan_and_build(buildstate, brinshared, sharedsort,
+                                 heapRel, indexRel, sortmem, false);
+
+    // Report performance metrics
+    BufferUsage *bufferusage = shm_toc_lookup(toc, PARALLEL_KEY_BUFFER_USAGE, false);
+    WalUsage *walusage = shm_toc_lookup(toc, PARALLEL_KEY_WAL_USAGE, false);
+    InstrEndParallelQuery(&bufferusage[ParallelWorkerNumber],
+                         &walusage[ParallelWorkerNumber]);
+
+    // Cleanup
+    index_close(indexRel, indexLockmode);
+    table_close(heapRel, heapLockmode);
+}
+```

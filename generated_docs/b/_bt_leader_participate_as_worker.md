@@ -47,3 +47,41 @@ Key responsibilities include:
 - Includes conditional debug statistics reporting for performance analysis
 - Leader performs identical work to dedicated workers, improving overall throughput
 - Memory distribution ensures fairness when fewer workers than requested are available
+
+## Simplified Source
+
+```c
+static void
+_bt_leader_participate_as_worker(BTBuildState *buildstate)
+{
+    BTLeader *btleader = buildstate->btleader;
+    BTSpool *leaderworker;
+    BTSpool *leaderworker2;
+    int sortmem;
+
+    // Set up primary spool for leader as worker
+    leaderworker = (BTSpool *) palloc0(sizeof(BTSpool));
+    leaderworker->heap = buildstate->spool->heap;
+    leaderworker->index = buildstate->spool->index;
+    leaderworker->isunique = buildstate->spool->isunique;
+    leaderworker->nulls_not_distinct = buildstate->spool->nulls_not_distinct;
+
+    // Set up secondary spool if needed for unique indexes
+    if (!btleader->btshared->isunique) {
+        leaderworker2 = NULL;
+    } else {
+        leaderworker2 = (BTSpool *) palloc0(sizeof(BTSpool));
+        leaderworker2->heap = leaderworker->heap;
+        leaderworker2->index = leaderworker->index;
+        leaderworker2->isunique = false;
+    }
+
+    // Calculate memory per participant based on actual worker count
+    sortmem = maintenance_work_mem / btleader->nparticipanttuplesorts;
+
+    // Perform the same work as dedicated workers
+    _bt_parallel_scan_and_sort(leaderworker, leaderworker2, btleader->btshared,
+                               btleader->sharedsort, btleader->sharedsort2,
+                               sortmem, true);
+}
+```

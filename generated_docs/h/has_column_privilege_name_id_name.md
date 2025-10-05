@@ -38,3 +38,31 @@ The function follows the standard pattern of converting input parameters to thei
 - Part of the SQL-callable has_column_privilege function family
 - More efficient than fully name-based variants when table OID is known
 - Located in src/backend/utils/adt/acl.c:2634-2660
+
+## Simplified Source
+
+```c
+Datum
+has_column_privilege_name_id_name(PG_FUNCTION_ARGS)
+{
+    Name username = PG_GETARG_NAME(0);
+    Oid tableoid = PG_GETARG_OID(1);
+    text *column = PG_GETARG_TEXT_PP(2);
+    text *priv_type_text = PG_GETARG_TEXT_PP(3);
+    Oid roleid;
+    AttrNumber colattnum;
+    AclMode mode;
+    int privresult;
+
+    // Convert identifiers to internal representations
+    roleid = get_role_oid_or_public(NameStr(*username));
+    colattnum = convert_column_name(tableoid, column);
+    mode = convert_column_priv_string(priv_type_text);
+
+    // Perform privilege check
+    privresult = column_privilege_check(tableoid, colattnum, roleid, mode);
+    if (privresult < 0)
+        PG_RETURN_NULL();
+    PG_RETURN_BOOL(privresult);
+}
+```

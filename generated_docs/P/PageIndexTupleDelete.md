@@ -66,3 +66,62 @@ This comprehensive approach ensures that index pages remain compact and efficien
 - More complex than heap deletion due to index page structure requirements
 - Maintains page compactness by eliminating gaps left by deleted tuples
 - Located in src/backend/storage/page/bufpage.c:1052-1160
+
+## Simplified Source
+
+```c
+void PageIndexTupleDelete(Page page, OffsetNumber offnum) {
+    PageHeader phdr = (PageHeader) page;
+
+    // Validate page structure and offset bounds
+    if (phdr->pd_lower < SizeOfPageHeaderData ||
+        phdr->pd_lower > phdr->pd_upper ||
+        phdr->pd_upper > phdr->pd_special) {
+        ereport(ERROR, "corrupted page pointers");
+    }
+
+    int nline = PageGetMaxOffsetNumber(page);
+    if (offnum <= 0 || offnum > nline) {
+        elog(ERROR, "invalid index offnum: %u", offnum);
+    }
+
+    // Get tuple info and validate
+    ItemId tup = PageGetItemId(page, offnum);
+    Size size = MAXALIGN(ItemIdGetLength(tup));
+    unsigned offset = ItemIdGetOffset(tup);
+
+    // Step 1: Remove line pointer by shifting subsequent entries back
+    int offidx = offnum - 1;
+    int bytes_to_move = phdr->pd_lower -
+                       ((char *) &phdr->pd_linp[offidx + 1] - (char *) phdr);
+
+    if (bytes_to_move > 0) {
+        memmove(&phdr->pd_linp[offidx],
+                &phdr->pd_linp[offidx + 1],
+                bytes_to_move);
+    }
+
+    // Step 2: Move tuple data to eliminate gap
+    char *tuple_space_start = (char *) page + phdr->pd_upper;
+    if (offset > phdr->pd_upper) {
+        memmove(tuple_space_start + size,
+                tuple_space_start,
+                offset - phdr->pd_upper);
+    }
+
+    // Step 3: Update page boundaries
+    phdr->pd_upper += size;
+    phdr->pd_lower -= sizeof(ItemIdData);
+
+    // Step 4: Adjust remaining line pointer offsets
+    if (!PageIsEmpty(page)) {
+        nline--; // One less tuple now
+        for (int i = 1; i <= nline; i++) {
+            ItemId item = PageGetItemId(page, i);
+            if (ItemIdGetOffset(item) <= offset) {
+                item->lp_off += size; // Adjust for data movement
+            }
+        }
+    }
+}
+```

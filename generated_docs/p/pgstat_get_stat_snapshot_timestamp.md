@@ -34,3 +34,23 @@ This function serves as a diagnostic and informational tool within the statistic
 - Returns 0 as the timestamp when no snapshot exists, which is a safe sentinel value
 - The function is primarily used for diagnostic and monitoring purposes within the statistics infrastructure
 - The snapshot timestamp represents when the snapshot was created, not when individual statistics were last updated
+
+## Simplified Source
+
+```c
+TimestampTz pgstat_get_stat_snapshot_timestamp(bool *have_snapshot) {
+    // Clear snapshot if forced clear is pending
+    if (force_stats_snapshot_clear)
+        pgstat_clear_snapshot();
+
+    // Check if we have a consistent snapshot
+    if (pgStatLocal.snapshot.mode == PGSTAT_FETCH_CONSISTENCY_SNAPSHOT) {
+        *have_snapshot = true;
+        return pgStatLocal.snapshot.snapshot_timestamp;
+    }
+
+    // No snapshot available
+    *have_snapshot = false;
+    return 0;
+}
+```

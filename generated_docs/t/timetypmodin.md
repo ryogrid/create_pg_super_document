@@ -35,3 +35,17 @@ Type modifiers for TIME typically specify the precision of fractional seconds, r
 - Part of PostgreSQL's type system infrastructure for handling parameterized types
 - Located in src/backend/utils/adt/date.c:1558-1565
 - Companion function to  for type modifier output
+
+## Simplified Source
+
+```c
+Datum
+timetypmodin(PG_FUNCTION_ARGS)
+{
+    // Extract type modifier array (e.g., precision from TIME(3))
+    ArrayType *ta = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Delegate to common time typmod processing (false = TIME, not TIMETZ)
+    PG_RETURN_INT32(anytime_typmodin(false, ta));
+}
+```

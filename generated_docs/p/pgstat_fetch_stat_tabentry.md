@@ -37,3 +37,15 @@ This design pattern allows the statistics system to be lazy - tables don't need 
 - The function is specifically designed to support the SQL-callable pgstat* functions exposed to users
 - All actual statistics retrieval logic is delegated to `pgstat_fetch_stat_tabentry_ext`
 - The distinction between shared and non-shared relations is important because they are tracked in different statistics databases
+
+## Simplified Source
+
+```c
+PgStat_StatTabEntry *
+pgstat_fetch_stat_tabentry(Oid relid)
+{
+    // Convenience wrapper that automatically determines if relation is shared
+    // and delegates to the extended version for actual statistics retrieval
+    return pgstat_fetch_stat_tabentry_ext(IsSharedRelation(relid), relid);
+}
+```

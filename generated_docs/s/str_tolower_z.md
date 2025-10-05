@@ -30,3 +30,11 @@ This function is part of PostgreSQL's internal formatting utilities and provides
 - Delegates actual conversion logic to str_tolower function
 - Part of a family of convenience functions for string case conversion in PostgreSQL's formatting system
 - Supports collation-aware conversion for proper locale handling
+
+## Simplified Source
+
+```c
+static char *str_tolower_z(const char *buff, Oid collid) {
+    return str_tolower(buff, strlen(buff), collid);
+}
+```

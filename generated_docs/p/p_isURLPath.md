@@ -43,3 +43,33 @@ The function creates a new parser position state and sets it to TPS_InURLPathFir
 - Part of PostgreSQL's full-text search URL parsing functionality
 - Includes recursive call protection through stack depth checking
 - The function has side effects only when successful - it modifies the original parser's position and length counters
+
+## Simplified Source
+
+```c
+static int p_isURLPath(TParser *prs) {
+    // Create temporary parser copy for lookahead
+    TParser *tmpprs = TParserCopyInit(prs);
+    int res = 0;
+
+    // Set up new parser position for URL path parsing
+    tmpprs->state = newTParserPosition(tmpprs->state);
+    tmpprs->state->state = TPS_InURLPathFirst;
+
+    check_stack_depth();  // Prevent stack overflow
+
+    // Try to parse next token as URLPATH
+    if (TParserGet(tmpprs) && tmpprs->type == URLPATH) {
+        // Update original parser position and length counters
+        prs->state->posbyte += tmpprs->lenbytetoken;
+        prs->state->poschar += tmpprs->lenchartoken;
+        prs->state->lenbytetoken += tmpprs->lenbytetoken;
+        prs->state->lenchartoken += tmpprs->lenchartoken;
+        prs->state->charlen = tmpprs->state->charlen;
+        res = 1;  // Success
+    }
+
+    TParserCopyClose(tmpprs);
+    return res;
+}
+```

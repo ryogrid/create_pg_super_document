@@ -33,3 +33,21 @@ The function optimizes reading by starting with the file that the current backen
 - Initializes read state to begin from page 0 of the selected participant file
 - Part of PostgreSQLs parallel query execution infrastructure for hash joins and repartitioning
 - Must be called after sts_reinitialize() and before calling sts_parallel_scan_next() in a typical scan cycle
+
+## Simplified Source
+
+```c
+void sts_begin_parallel_scan(SharedTuplestoreAccessor *accessor) {
+    // End any existing scan in progress
+    sts_end_parallel_scan(accessor);
+
+    // Verify all participants have finished writing
+    for (int i = 0; i < accessor->sts->nparticipants; ++i)
+        Assert(!accessor->sts->participants[i].writing);
+
+    // Start reading from this backend's own file for cache locality
+    accessor->read_participant = accessor->participant;
+    accessor->read_file = NULL;
+    accessor->read_next_page = 0;
+}
+```

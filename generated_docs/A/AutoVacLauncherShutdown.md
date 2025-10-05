@@ -33,3 +33,19 @@ This function takes no parameters.
 - Uses proc_exit(0) for a normal, successful process termination
 - This function provides the primary exit point for the autovacuum launcher process
 - The shared memory cleanup is critical for the postmaster to know the launcher has terminated
+
+## Simplified Source
+
+```c
+static void AutoVacLauncherShutdown(void)
+{
+    // Log shutdown event for debugging
+    ereport(DEBUG1, (errmsg_internal("autovacuum launcher shutting down")));
+
+    // Clear launcher PID from shared memory
+    AutoVacuumShmem->av_launcherpid = 0;
+
+    // Exit cleanly
+    proc_exit(0);
+}
+```

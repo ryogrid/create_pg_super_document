@@ -34,3 +34,17 @@ btint2sortsupport is a PostgreSQL built-in function that initializes sort suppor
 - The function returns void since its purpose is solely to configure the SortSupport structure
 - This optimization is particularly beneficial for operations involving large datasets with smallint columns, such as ORDER BY clauses and index creation
 - Located in src/backend/access/nbtree/nbtcompare.c as part of the B-tree access method implementation
+
+## Simplified Source
+
+```c
+Datum btint2sortsupport(PG_FUNCTION_ARGS) {
+    // Get the SortSupport structure from function arguments
+    SortSupport ssup = (SortSupport) PG_GETARG_POINTER(0);
+
+    // Assign the optimized comparison function
+    ssup->comparator = btint2fastcmp;
+
+    PG_RETURN_VOID();
+}
+```

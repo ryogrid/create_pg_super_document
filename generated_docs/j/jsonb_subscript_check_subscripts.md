@@ -48,3 +48,48 @@ The function sets the  flag when the first subscript is an integer, which helps 
 - The  flag is set when the first subscript is an integer, helping to determine the expected JSONB container type
 - Text subscripts are used as-is without conversion
 - The function assumes subscripts have already been evaluated and type-checked during the transform phase
+
+## Simplified Source
+
+```c
+static bool jsonb_subscript_check_subscripts(ExprState *state,
+                                            ExprEvalStep *op,
+                                            ExprContext *econtext) {
+    SubscriptingRefState *sbsrefstate = op->d.sbsref_subscript.state;
+    JsonbSubWorkspace *workspace = (JsonbSubWorkspace *) sbsrefstate->workspace;
+
+    // Check if first subscript is integer -> expect array
+    if (sbsrefstate->numupper > 0 && sbsrefstate->upperprovided[0] &&
+        !sbsrefstate->upperindexnull[0] && workspace->indexOid[0] == INT4OID) {
+        workspace->expectArray = true;
+    }
+
+    // Process each upper subscript
+    for (int i = 0; i < sbsrefstate->numupper; i++) {
+        if (sbsrefstate->upperprovided[i]) {
+            // Handle NULL subscripts
+            if (sbsrefstate->upperindexnull[i]) {
+                if (sbsrefstate->isassignment) {
+                    ereport(ERROR,
+                        (errcode(ERRCODE_NULL_VALUE_NOT_ALLOWED),
+                         errmsg("jsonb subscript in assignment must not be null")));
+                }
+                *op->resnull = true;
+                return false;
+            }
+
+            // Convert integer subscripts to text format
+            if (workspace->indexOid[i] == INT4OID) {
+                Datum datum = sbsrefstate->upperindex[i];
+                char *cs = DatumGetCString(DirectFunctionCall1(int4out, datum));
+                workspace->index[i] = CStringGetTextDatum(cs);
+            } else {
+                // Text subscripts used as-is
+                workspace->index[i] = sbsrefstate->upperindex[i];
+            }
+        }
+    }
+
+    return true;
+}
+```

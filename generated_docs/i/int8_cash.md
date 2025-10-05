@@ -44,3 +44,35 @@ Similar to `int4_cash`, this function uses `int8mul` to perform the multiplicati
 - Handles larger integer values than `int4_cash` due to 64-bit input capacity
 - Input values are interpreted as whole currency units before scaling to internal cash representation
 - Located in src/backend/utils/adt/cash.c:1166-1190
+
+## Simplified Source
+
+```c
+Datum int8_cash(PG_FUNCTION_ARGS) {
+    int64 amount = PG_GETARG_INT64(0);
+    Cash result;
+    int fpoint;
+    int64 scale;
+    int i;
+    struct lconv *lconvert = PGLC_localeconv();
+
+    // Get fractional digits from locale, default to 2 if invalid
+    fpoint = lconvert->frac_digits;
+    if (fpoint < 0 || fpoint > 10) {
+        fpoint = 2;
+    }
+
+    // Compute scale factor (10^fpoint)
+    scale = 1;
+    for (i = 0; i < fpoint; i++) {
+        scale *= 10;
+    }
+
+    // Multiply amount by scale with overflow checking
+    result = DatumGetInt64(DirectFunctionCall2(int8mul,
+                                             Int64GetDatum(amount),
+                                             Int64GetDatum(scale)));
+
+    PG_RETURN_CASH(result);
+}
+```

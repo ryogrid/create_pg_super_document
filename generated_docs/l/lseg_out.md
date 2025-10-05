@@ -28,7 +28,21 @@ The  function is a PostgreSQL output function that converts an internal line seg
   -  - line segment data type
 
 ## Notes and Other Information
-- This is a standard PostgreSQL type output function, following the convention of 
+- This is a standard PostgreSQL type output function, following the convention of
 - The function leverages existing path encoding functionality to format line segments
 - Line segments are represented as open paths with exactly 2 points
 - The output format is compatible with PostgreSQL's line segment input parser
+
+## Simplified Source
+
+```c
+Datum
+lseg_out(PG_FUNCTION_ARGS)
+{
+    // Get line segment from function arguments
+    LSEG *ls = PG_GETARG_LSEG_P(0);
+
+    // Convert to string format using path encoding: "[(x1,y1),(x2,y2)]"
+    PG_RETURN_CSTRING(path_encode(PATH_OPEN, 2, &ls->p[0]));
+}
+```

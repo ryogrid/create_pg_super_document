@@ -39,3 +39,58 @@ The function handles special cases where the new item becomes either the first-r
 - The function distinguishes between splits with the same firstrightoff based on whether the new item becomes first-right or last-left
 - Critical for strategy selection as it provides the boundary splits needed to evaluate the entire range of acceptable split points
 - Uses assertions to ensure both left and right interval pointers are properly set before returning
+
+## Simplified Source
+```c
+static void
+_bt_interval_edges(FindSplitData *state, SplitPoint **leftinterval,
+                   SplitPoint **rightinterval)
+{
+    int highsplit = Min(state->interval, state->nsplits);
+    SplitPoint *deltaoptimal = state->splits;  // First split is delta-optimal
+
+    *leftinterval = NULL;
+    *rightinterval = NULL;
+
+    // Search backwards since extreme splits typically appear at end due to delta distance
+    for (int i = highsplit - 1; i >= 0; i--) {
+        SplitPoint *distant = state->splits + i;
+
+        if (distant->firstrightoff < deltaoptimal->firstrightoff) {
+            // Split point to the left of delta-optimal
+            if (*leftinterval == NULL)
+                *leftinterval = distant;
+        }
+        else if (distant->firstrightoff > deltaoptimal->firstrightoff) {
+            // Split point to the right of delta-optimal
+            if (*rightinterval == NULL)
+                *rightinterval = distant;
+        }
+        else if (!distant->newitemonleft && deltaoptimal->newitemonleft) {
+            // Same firstrightoff, but newitem becomes firstright vs lastleft
+            // "newitem becomes firstright" is to the left of "newitem becomes lastleft"
+            if (*leftinterval == NULL)
+                *leftinterval = distant;
+        }
+        else if (distant->newitemonleft && !deltaoptimal->newitemonleft) {
+            // "newitem becomes lastleft" is to the right of "newitem becomes firstright"
+            if (*rightinterval == NULL)
+                *rightinterval = distant;
+        }
+        else {
+            // Same split point as delta-optimal or only one/two splits in interval
+            if (*leftinterval == NULL)
+                *leftinterval = distant;
+            if (*rightinterval == NULL)
+                *rightinterval = distant;
+        }
+
+        // Early exit once both boundaries found
+        if (*leftinterval && *rightinterval)
+            return;
+    }
+
+    // Should never reach here - both pointers must be set
+    Assert(false);
+}
+```

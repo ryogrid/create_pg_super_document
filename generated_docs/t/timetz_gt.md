@@ -40,3 +40,17 @@ The comparison is performed by first converting both times to GMT-equivalent val
 - The comparison logic ensures proper handling of timezone differences by normalizing both times to GMT before comparison
 - Returns a PostgreSQL Datum containing a boolean value
 - Located in src/backend/utils/adt/date.c:2506-2514
+
+## Simplified Source
+
+```c
+Datum timetz_gt(PG_FUNCTION_ARGS) {
+    // Extract two time-with-timezone values from arguments
+    TimeTzADT *time1 = PG_GETARG_TIMETZADT_P(0);
+    TimeTzADT *time2 = PG_GETARG_TIMETZADT_P(1);
+
+    // Compare times using internal comparison function
+    // Returns true if time1 > time2 (accounting for timezone differences)
+    PG_RETURN_BOOL(timetz_cmp_internal(time1, time2) > 0);
+}
+```

@@ -48,3 +48,67 @@ This function serves as the input conversion routine for PostgreSQL's DATE data 
 - Fractional seconds are parsed but ignored for DATE type (fsec parameter unused)
 - [Range](../R/Range.md) validation prevents integer overflow in Julian day calculations
 - Part of PostgreSQL's date/time type system infrastructure
+
+## Simplified Source
+
+```c
+Datum date_in(PG_FUNCTION_ARGS)
+{
+    char *str = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    DateADT date;
+    fsec_t fsec;
+    struct pg_tm tt, *tm = &tt;
+    int tzp, dtype, nf, dterr;
+    char *field[MAXDATEFIELDS];
+    int ftype[MAXDATEFIELDS];
+    char workbuf[MAXDATELEN + 1];
+    DateTimeErrorExtra extra;
+
+    // Parse the input date string into fields
+    dterr = ParseDateTime(str, workbuf, sizeof(workbuf), field, ftype, MAXDATEFIELDS, &nf);
+    if (dterr == 0)
+        dterr = DecodeDateTime(field, ftype, nf, &dtype, tm, &fsec, &tzp, &extra);
+
+    // Handle parse errors
+    if (dterr != 0) {
+        DateTimeParseError(dterr, &extra, str, "date", escontext);
+        PG_RETURN_NULL();
+    }
+
+    // Handle different date types
+    switch (dtype) {
+        case DTK_DATE:
+            break;  // Normal date, continue processing
+        case DTK_EPOCH:
+            GetEpochTime(tm);  // Set to Unix epoch
+            break;
+        case DTK_LATE:
+            DATE_NOEND(date);  // Infinity
+            PG_RETURN_DATEADT(date);
+        case DTK_EARLY:
+            DATE_NOBEGIN(date);  // -Infinity
+            PG_RETURN_DATEADT(date);
+        default:
+            DateTimeParseError(DTERR_BAD_FORMAT, &extra, str, "date", escontext);
+            PG_RETURN_NULL();
+    }
+
+    // Validate Julian date range
+    if (!IS_VALID_JULIAN(tm->tm_year, tm->tm_mon, tm->tm_mday))
+        ereturn(escontext, (Datum) 0,
+                (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                 errmsg("date out of range: \"%s\"", str)));
+
+    // Convert to internal date format (days since PostgreSQL epoch)
+    date = date2j(tm->tm_year, tm->tm_mon, tm->tm_mday) - POSTGRES_EPOCH_JDATE;
+
+    // Final range validation
+    if (!IS_VALID_DATE(date))
+        ereturn(escontext, (Datum) 0,
+                (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                 errmsg("date out of range: \"%s\"", str)));
+
+    PG_RETURN_DATEADT(date);
+}
+```

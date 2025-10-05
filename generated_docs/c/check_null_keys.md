@@ -40,3 +40,44 @@ The function is part of BRIN's range filtering logic, helping to skip ranges tha
 - The function assumes all indexable operators are strict (return false for NULL inputs)
 - Uses BRIN range metadata (bv_allnulls, bv_hasnulls) to make efficient filtering decisions
 - Part of the query optimization strategy to avoid scanning ranges that cannot contain matching tuples
+
+## Simplified Source
+```c
+static bool
+check_null_keys(BrinValues *bval, ScanKey *nullkeys, int nnullkeys)
+{
+    int keyno;
+
+    // Check each NULL-related scan key
+    for (keyno = 0; keyno < nnullkeys; keyno++)
+    {
+        ScanKey key = nullkeys[keyno];
+
+        Assert(key->sk_attno == bval->bv_attno);
+
+        // Only handle IS NULL/IS NOT NULL tests
+        if (!(key->sk_flags & SK_ISNULL))
+            continue;
+
+        if (key->sk_flags & SK_SEARCHNULL)
+        {
+            // IS NULL: range must have some NULLs to match
+            if (!bval->bv_allnulls && !bval->bv_hasnulls)
+                return false;
+        }
+        else if (key->sk_flags & SK_SEARCHNOTNULL)
+        {
+            // IS NOT NULL: can only skip ranges with only NULLs
+            if (bval->bv_allnulls)
+                return false;
+        }
+        else
+        {
+            // Regular operator with NULL - assume strict operator
+            return false;
+        }
+    }
+
+    return true;  // All NULL conditions satisfied
+}
+```

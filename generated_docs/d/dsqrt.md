@@ -43,3 +43,29 @@ The function uses the standard C library sqrt() function but adds PostgreSQL-spe
 - Uses specific SQL error code ERRCODE_INVALID_ARGUMENT_FOR_POWER_FUNCTION for domain errors
 - Implements comprehensive overflow/underflow detection beyond what the standard sqrt() provides
 - Follows standard PostgreSQL function conventions for SQL-callable functions
+
+## Simplified Source
+
+```c
+Datum dsqrt(PG_FUNCTION_ARGS) {
+    // Extract input argument
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+
+    // Check for negative input (domain error)
+    if (arg1 < 0)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_ARGUMENT_FOR_POWER_FUNCTION),
+                 errmsg("cannot take square root of a negative number")));
+
+    // Compute square root
+    float8 result = sqrt(arg1);
+
+    // Check for overflow and underflow
+    if (unlikely(isinf(result)) && !isinf(arg1))
+        float_overflow_error();
+    if (unlikely(result == 0.0) && arg1 != 0.0)
+        float_underflow_error();
+
+    PG_RETURN_FLOAT8(result);
+}
+```

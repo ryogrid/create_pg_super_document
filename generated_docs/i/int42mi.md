@@ -34,3 +34,20 @@ The  function implements subtraction between a 32-bit integer (int4) and a 16-bi
 - The function follows PostgreSQL's function call convention using PG_FUNCTION_ARGS
 - Overflow checking ensures mathematical safety and prevents undefined behavior
 - The int16 argument is implicitly cast to int32 before the subtraction operation
+
+## Simplified Source
+
+```c
+Datum int42mi(PG_FUNCTION_ARGS) {
+    int32 arg1 = PG_GETARG_INT32(0);  // Get 32-bit minuend
+    int16 arg2 = PG_GETARG_INT16(1);  // Get 16-bit subtrahend
+    int32 result;
+
+    // Perform subtraction with overflow check
+    if (pg_sub_s32_overflow(arg1, (int32) arg2, &result))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("integer out of range")));
+
+    PG_RETURN_INT32(result);
+}
+```

@@ -52,3 +52,34 @@ This API is designed for scenarios where temporary files need to:
 - Files created through this API must be explicitly deleted using FileSetDelete/FileSetDeleteAll
 - The maximum number of tablespaces is hardcoded to 8, assuming it's rare to have more temporary tablespaces
 - This is the foundation for both single-backend temporary file management and shared fileset functionality
+
+## Simplified Source
+
+```c
+void FileSetInit(FileSet *fileset)
+{
+    static uint32 counter = 0;
+
+    // Assign unique identifier for this fileset
+    fileset->creator_pid = MyProcPid;
+    fileset->number = counter;
+    counter = (counter + 1) % INT_MAX;
+
+    // Get configured temporary tablespaces
+    PrepareTempTablespaces();
+    fileset->ntablespaces = GetTempTablespaces(&fileset->tablespaces[0],
+                                               lengthof(fileset->tablespaces));
+
+    // Use default tablespace if none configured
+    if (fileset->ntablespaces == 0) {
+        fileset->tablespaces[0] = MyDatabaseTableSpace;
+        fileset->ntablespaces = 1;
+    } else {
+        // Replace any InvalidOid entries with default tablespace
+        for (int i = 0; i < fileset->ntablespaces; i++) {
+            if (fileset->tablespaces[i] == InvalidOid)
+                fileset->tablespaces[i] = MyDatabaseTableSpace;
+        }
+    }
+}
+```

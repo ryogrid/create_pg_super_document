@@ -36,3 +36,24 @@ This function writes logical replication change data to the currently open strea
 - This design allows the function to skip transaction ID data that may have been consumed from the buffer
 - The format is optimized for sequential writing and later sequential reading during message replay
 - Part of the core streaming infrastructure for logical replication message persistence
+
+## Simplified Source
+
+```c
+static void stream_write_change(char action, StringInfo s) {
+    int len;
+
+    Assert(stream_fd != NULL);
+
+    // Calculate total size including action character
+    len = (s->len - s->cursor) + sizeof(char);
+
+    // Write length, action, then data
+    BufFileWrite(stream_fd, &len, sizeof(len));
+    BufFileWrite(stream_fd, &action, sizeof(action));
+
+    // Write remaining buffer data from cursor position
+    len = (s->len - s->cursor);
+    BufFileWrite(stream_fd, &s->data[s->cursor], len);
+}
+```

@@ -48,8 +48,56 @@ The algorithm ensures that only LSNs corresponding to locally-flushed data are r
 
 ## Notes and Other Information
 - Uses a doubly-linked list (lsn_mapping) to maintain LSN associations in commit order
-- Critical for maintaining data consistency in logical replication by preventing premature flush acknowledgments  
+- Critical for maintaining data consistency in logical replication by preventing premature flush acknowledgments
 - The function modifies the lsn_mapping list by removing entries that have been safely flushed
 - Optimized to avoid unnecessary iteration over potentially long lists of unflushed transactions
 - InvalidXLogRecPtr is used as the initial value for write and flush positions before processing
 - The have_pending_txes flag helps the caller understand replication lag status
+
+## Simplified Source
+
+```c
+static void
+get_flush_position(XLogRecPtr *write, XLogRecPtr *flush,
+                   bool *have_pending_txes)
+{
+    dlist_mutable_iter iter;
+    XLogRecPtr local_flush = GetFlushRecPtr(NULL);
+
+    // Initialize output parameters
+    *write = InvalidXLogRecPtr;
+    *flush = InvalidXLogRecPtr;
+
+    // Iterate through LSN mapping list to find what can be safely reported
+    dlist_foreach_modify(iter, &lsn_mapping)
+    {
+        FlushPosition *pos = dlist_container(FlushPosition, node, iter.cur);
+
+        // Always update write position to latest remote LSN
+        *write = pos->remote_end;
+
+        // Check if this transaction's local changes are flushed to disk
+        if (pos->local_end <= local_flush)
+        {
+            // Safe to report this remote LSN as flushed
+            *flush = pos->remote_end;
+
+            // Remove processed entry from list
+            dlist_delete(iter.cur);
+            pfree(pos);
+        }
+        else
+        {
+            // Found unflushed transaction - optimize by jumping to tail
+            // to get the latest write position without processing everything
+            pos = dlist_tail_element(FlushPosition, node, &lsn_mapping);
+            *write = pos->remote_end;
+            *have_pending_txes = true;
+            return;
+        }
+    }
+
+    // Check if there are still pending transactions
+    *have_pending_txes = !dlist_is_empty(&lsn_mapping);
+}
+```

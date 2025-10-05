@@ -37,3 +37,55 @@ The scanning process follows this order:
 - Memory management is handled carefully with ResetExprContext() to prevent memory leaks during long scans
 - Supports query cancellation through CHECK_FOR_INTERRUPTS() in the main loop
 - Essential for implementing RIGHT and FULL OUTER join semantics in PostgreSQL
+
+## Simplified Source
+```c
+bool
+ExecScanHashTableForUnmatched(HashJoinState *hjstate, ExprContext *econtext)
+{
+    HashJoinTable hashtable = hjstate->hj_HashTable;
+    HashJoinTuple hashTuple = hjstate->hj_CurTuple;
+
+    for (;;)
+    {
+        // Get next tuple: continue from current, or start new bucket
+        if (hashTuple != NULL)
+            hashTuple = hashTuple->next.unshared;
+        else if (hjstate->hj_CurBucketNo < hashtable->nbuckets)
+        {
+            // Scan regular buckets
+            hashTuple = hashtable->buckets.unshared[hjstate->hj_CurBucketNo];
+            hjstate->hj_CurBucketNo++;
+        }
+        else if (hjstate->hj_CurSkewBucketNo < hashtable->nSkewBuckets)
+        {
+            // Scan skew buckets for outlier hash values
+            int j = hashtable->skewBucketNums[hjstate->hj_CurSkewBucketNo];
+            hashTuple = hashtable->skewBucket[j]->tuples;
+            hjstate->hj_CurSkewBucketNo++;
+        }
+        else
+            break; // All buckets scanned
+
+        // Check each tuple in current bucket
+        while (hashTuple != NULL)
+        {
+            if (!HeapTupleHeaderHasMatch(HJTUPLE_MINTUPLE(hashTuple)))
+            {
+                // Found unmatched tuple - set up for return
+                TupleTableSlot *inntuple = ExecStoreMinimalTuple(
+                    HJTUPLE_MINTUPLE(hashTuple), hjstate->hj_HashTupleSlot, false);
+                econtext->ecxt_innertuple = inntuple;
+                ResetExprContext(econtext);
+                hjstate->hj_CurTuple = hashTuple;
+                return true;
+            }
+            hashTuple = hashTuple->next.unshared;
+        }
+
+        CHECK_FOR_INTERRUPTS();
+    }
+
+    return false; // No more unmatched tuples
+}
+```

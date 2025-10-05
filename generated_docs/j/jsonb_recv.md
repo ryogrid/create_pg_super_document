@@ -37,3 +37,23 @@ This function handles the reception of JSONB data transmitted in binary format o
 - The function uses NULL for the memory context parameter in 
 - Located in 
 - Throws an error for unsupported version numbers to ensure protocol compatibility
+
+## Simplified Source
+
+```c
+Datum jsonb_recv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    int version = pq_getmsgint(buf, 1);
+    char *str;
+    int nbytes;
+
+    // Only version 1 is currently supported
+    if (version == 1)
+        str = pq_getmsgtext(buf, buf->len - buf->cursor, &nbytes);
+    else
+        elog(ERROR, "unsupported jsonb version number %d", version);
+
+    // Parse JSON text and convert to JSONB
+    return jsonb_from_cstring(str, nbytes, false, NULL);
+}
+```

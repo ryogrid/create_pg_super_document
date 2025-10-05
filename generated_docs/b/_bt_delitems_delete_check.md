@@ -64,3 +64,75 @@ The function handles both regular index tuples and posting list tuples (which co
 - Efficiently processes posting list tuples by grouping operations on the same tuple
 - Manages memory allocation for BTVacuumPosting structures and ensures proper cleanup
 - The function may result in no deletions if the tableam determines no TIDs are safe to delete
+
+## Simplified Source
+
+```c
+void _bt_delitems_delete_check(Relation rel, Buffer buf, Relation heapRel,
+                               TM_IndexDeleteOp *delstate)
+{
+    Page page = BufferGetPage(buf);
+    TransactionId snapshotConflictHorizon;
+    OffsetNumber deletable[MaxIndexTuplesPerPage];
+    BTVacuumPosting updatable[MaxIndexTuplesPerPage];
+    int ndeletable = 0, nupdatable = 0;
+
+    // Ask tableam which tuples are safe to delete
+    snapshotConflictHorizon = table_index_delete_tuples(heapRel, delstate);
+
+    // Sort deltids back to leaf-page order after tableam processing
+    qsort(delstate->deltids, delstate->ndeltids, sizeof(TM_IndexDelete),
+          _bt_delitems_cmp);
+
+    if (delstate->ndeltids == 0)
+        return;  // Nothing left to delete
+
+    // Process each deletion candidate
+    for (int i = 0; i < delstate->ndeltids; i++) {
+        TM_IndexStatus *dstatus = delstate->status + delstate->deltids[i].id;
+        OffsetNumber idxoffnum = dstatus->idxoffnum;
+        IndexTuple itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, idxoffnum));
+
+        if (!BTreeTupleIsPosting(itup)) {
+            // Simple tuple - delete entirely if safe
+            if (dstatus->knowndeletable)
+                deletable[ndeletable++] = idxoffnum;
+        } else {
+            // Posting list tuple - may delete some or all TIDs
+            BTVacuumPosting vacposting = NULL;
+            int nitem = BTreeTupleGetNPosting(itup);
+
+            // Check each TID in posting list against deletion candidates
+            for (int p = 0; p < nitem; p++) {
+                ItemPointer ptid = BTreeTupleGetPostingN(itup, p);
+
+                // Find matching deletable TID
+                if (/* TID matches and is deletable */) {
+                    if (vacposting == NULL)
+                        vacposting = palloc(/* appropriate size */);
+                    vacposting->deletetids[vacposting->ndeletedtids++] = p;
+                }
+            }
+
+            // Decide action for posting list tuple
+            if (vacposting && vacposting->ndeletedtids == nitem) {
+                // Delete entire tuple
+                deletable[ndeletable++] = idxoffnum;
+                pfree(vacposting);
+            } else if (vacposting) {
+                // Partial deletion - update posting list
+                updatable[nupdatable++] = vacposting;
+            }
+        }
+    }
+
+    // Perform physical deletions and updates
+    _bt_delitems_delete(rel, buf, snapshotConflictHorizon,
+                        RelationIsAccessibleInLogicalDecoding(heapRel),
+                        deletable, ndeletable, updatable, nupdatable);
+
+    // Clean up allocated memory
+    for (int i = 0; i < nupdatable; i++)
+        pfree(updatable[i]);
+}
+```

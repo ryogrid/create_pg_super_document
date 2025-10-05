@@ -35,3 +35,20 @@ This function implements the subtraction operation for PostgreSQL's bigint (int8
 - Error handling follows PostgreSQL's standard error reporting mechanism
 - The 32-bit argument is implicitly cast to 64-bit before the subtraction operation
 - Located in src/backend/utils/adt/int8.c:904-917
+
+## Simplified Source
+
+```c
+Datum int84mi(PG_FUNCTION_ARGS) {
+    int64 arg1 = PG_GETARG_INT64(0);  // Get first 64-bit argument
+    int32 arg2 = PG_GETARG_INT32(1);  // Get second 32-bit argument
+    int64 result;
+
+    // Perform subtraction with overflow check
+    if (pg_sub_s64_overflow(arg1, (int64) arg2, &result))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("bigint out of range")));
+
+    PG_RETURN_INT64(result);
+}
+```

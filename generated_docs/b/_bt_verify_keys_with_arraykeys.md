@@ -44,3 +44,55 @@ The function is primarily used for debugging and assertion purposes to catch inc
 - Validates that the current array element value matches the scan key argument
 - Used primarily for internal consistency checking and debugging purposes
 - Part of PostgreSQL's B-tree array key optimization feature
+
+## Simplified Source
+
+```c
+static bool
+_bt_verify_keys_with_arraykeys(IndexScanDesc scan)
+{
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+    int last_sk_attno = InvalidAttrNumber;
+    int arrayidx = 0;
+
+    // Check if scan state is valid
+    if (!so->qual_ok)
+        return false;
+
+    // Verify each scan key's array state
+    for (int ikey = 0; ikey < so->numberOfKeys; ikey++)
+    {
+        ScanKey cur = so->keyData + ikey;
+        BTArrayKeyInfo *array;
+
+        // Only process equality array keys
+        if (cur->sk_strategy != BTEqualStrategyNumber ||
+            !(cur->sk_flags & SK_SEARCHARRAY))
+            continue;
+
+        array = &so->arrayKeys[arrayidx++];
+
+        // Verify array metadata consistency
+        if (array->scan_key != ikey)
+            return false;
+
+        if (array->num_elems <= 0)
+            return false;
+
+        // Check current array element matches scan key argument
+        if (cur->sk_argument != array->elem_values[array->cur_elem])
+            return false;
+
+        // Verify attributes are in ascending order
+        if (last_sk_attno > cur->sk_attno)
+            return false;
+        last_sk_attno = cur->sk_attno;
+    }
+
+    // Final check: array count should match expected
+    if (arrayidx != so->numArrayKeys)
+        return false;
+
+    return true;
+}
+```

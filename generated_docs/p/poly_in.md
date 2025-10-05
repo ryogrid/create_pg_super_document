@@ -43,3 +43,48 @@ The function uses PostgreSQLs error context system to provide detailed error mes
 - The bounding box is automatically calculated for optimization purposes
 - Memory is allocated using PostgreSQLs memory management system
 - Part of the geometric data types subsystem in PostgreSQL
+
+## Simplified Source
+
+```c
+Datum
+poly_in(PG_FUNCTION_ARGS)
+{
+    char *str = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    POLYGON *poly;
+    int npts, size, base_size;
+    bool isopen;
+
+    // Count coordinate pairs in input string
+    if ((npts = pair_count(str, ',')) <= 0)
+        ereturn(escontext, (Datum) 0,
+                (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                 errmsg("invalid input syntax for type %s: \"%s\"",
+                        "polygon", str)));
+
+    // Calculate memory requirements with overflow protection
+    base_size = sizeof(poly->p[0]) * npts;
+    size = offsetof(POLYGON, p) + base_size;
+
+    if (base_size / npts != sizeof(poly->p[0]) || size <= base_size)
+        ereturn(escontext, (Datum) 0,
+                (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                 errmsg("too many points requested")));
+
+    // Allocate and initialize polygon structure
+    poly = (POLYGON *) palloc0(size);
+    SET_VARSIZE(poly, size);
+    poly->npts = npts;
+
+    // Parse coordinate data from string
+    if (!path_decode(str, false, npts, &(poly->p[0]), &isopen, NULL, "polygon",
+                     str, escontext))
+        PG_RETURN_NULL();
+
+    // Calculate bounding box for optimization
+    make_bound_box(poly);
+
+    PG_RETURN_POLYGON_P(poly);
+}
+```

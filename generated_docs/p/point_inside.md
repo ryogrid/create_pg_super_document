@@ -49,3 +49,40 @@ The implementation processes edges in sequence, including the closing edge from 
 - The ray-casting method is robust for both convex and concave polygons
 - Relies on the `lseg_crossing` function to handle the geometric details of ray-edge intersection testing
 - The function assumes at least one vertex in the polygon (enforced by Assert)
+
+## Simplified Source
+
+```c
+static int point_inside(Point *p, int npts, Point *plist) {
+    Assert(npts > 0);
+
+    int total_cross = 0;
+
+    // Convert first point to relative coordinates
+    float8 x0 = plist[0].x - p->x;
+    float8 y0 = plist[0].y - p->y;
+    float8 prev_x = x0, prev_y = y0;
+
+    // Check crossings for each polygon edge
+    for (int i = 1; i < npts; i++) {
+        float8 x = plist[i].x - p->x;
+        float8 y = plist[i].y - p->y;
+
+        int cross = lseg_crossing(x, y, prev_x, prev_y);
+        if (cross == POINT_ON_POLYGON)
+            return 2;  // Point is on boundary
+        total_cross += cross;
+
+        prev_x = x;
+        prev_y = y;
+    }
+
+    // Check closing edge from last point back to first
+    int cross = lseg_crossing(x0, y0, prev_x, prev_y);
+    if (cross == POINT_ON_POLYGON)
+        return 2;  // Point is on boundary
+    total_cross += cross;
+
+    return (total_cross != 0) ? 1 : 0;  // Inside if odd crossings
+}
+```

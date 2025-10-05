@@ -33,3 +33,21 @@ The `convert_server_priv_string` function is a support routine that converts tex
 
 ## Notes and Other Information
 This function is declared static, making it internal to the acl.c compilation unit. The privilege mapping is specific to foreign servers, which only support USAGE privileges (unlike tables or functions which support multiple privilege types). The static `server_priv_map` array is null-terminated and follows the standard pattern used throughout PostgreSQL's privilege system. The function supports both basic privileges and grant option variants, indicated by the "WITH GRANT OPTION" suffix in the privilege string.
+
+## Simplified Source
+
+```c
+static AclMode
+convert_server_priv_string(text *priv_type_text)
+{
+    // Define server-specific privilege mapping
+    static const priv_map server_priv_map[] = {
+        {"USAGE", ACL_USAGE},
+        {"USAGE WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_USAGE)},
+        {NULL, 0}
+    };
+
+    // Convert using generic privilege string converter
+    return convert_any_priv_string(priv_type_text, server_priv_map);
+}
+```

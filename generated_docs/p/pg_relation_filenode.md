@@ -44,3 +44,44 @@ The function retrieves the pg_class tuple, checks if the relation kind supports 
 
 ## Notes and Other Information
 This function is designed to be called from SQL as `pg_relation_filenode(oid)`. It's commonly used in administrative queries like `SELECT pg_relation_filenode(oid) FROM pg_class;` to examine the physical file layout of database relations. The function handles edge cases gracefully by returning NULL rather than errors, making it suitable for bulk queries across all relations. It distinguishes between relations with direct filenode storage and those that use the relation mapper (typically system catalogs). The function provides essential functionality for database administration, backup tools, and system monitoring utilities that need to understand the physical file layout. Located in src/backend/utils/adt/dbsize.c:879-929.
+
+## Simplified Source
+
+```c
+Datum pg_relation_filenode(PG_FUNCTION_ARGS) {
+    Oid relid = PG_GETARG_OID(0);
+    RelFileNumber result;
+    HeapTuple tuple;
+    Form_pg_class relform;
+
+    // Look up relation in pg_class catalog
+    tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tuple)) {
+        PG_RETURN_NULL();  // Relation not found
+    }
+
+    relform = (Form_pg_class) GETSTRUCT(tuple);
+
+    // Check if relation has physical storage
+    if (RELKIND_HAS_STORAGE(relform->relkind)) {
+        if (relform->relfilenode) {
+            // Use direct filenode from catalog
+            result = relform->relfilenode;
+        } else {
+            // Consult relation mapper for mapped relations (system catalogs)
+            result = RelationMapOidToFilenumber(relid, relform->relisshared);
+        }
+    } else {
+        // No storage (views, etc.) - return NULL
+        result = InvalidRelFileNumber;
+    }
+
+    ReleaseSysCache(tuple);
+
+    if (!RelFileNumberIsValid(result)) {
+        PG_RETURN_NULL();
+    }
+
+    PG_RETURN_OID(result);
+}
+```

@@ -38,3 +38,23 @@ This function implements complex number multiplication for PostgreSQL Point data
 - Returns a PostgreSQL Datum containing the result Point
 - Part of PostgreSQL's geometric data type operations
 - Located in src/backend/utils/adt/geo_ops.c at lines 4167-4181
+
+## Simplified Source
+
+```c
+Datum
+point_mul(PG_FUNCTION_ARGS)
+{
+    Point *p1 = PG_GETARG_POINT_P(0);
+    Point *p2 = PG_GETARG_POINT_P(1);
+    Point *result;
+
+    // Allocate memory for result point
+    result = (Point *) palloc(sizeof(Point));
+
+    // Perform complex multiplication
+    point_mul_point(result, p1, p2);
+
+    PG_RETURN_POINT_P(result);
+}
+```

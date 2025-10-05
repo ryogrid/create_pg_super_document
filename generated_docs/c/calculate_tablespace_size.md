@@ -51,3 +51,72 @@ The  function computes the total size of a tablespace by scanning its directory 
 - The function handles interruption checking during directory scanning for long operations
 - Error handling follows PostgreSQL conventions, continuing on ENOENT but reporting other stat failures
 - Total size calculation includes everything within the tablespace across all databases that use it
+
+## Simplified Source
+
+```c
+static int64 calculate_tablespace_size(Oid tblspcOid) {
+    char tblspcPath[MAXPGPATH];
+    char pathname[MAXPGPATH * 2];
+    int64 totalsize = 0;
+    DIR *dirdesc;
+    struct dirent *direntry;
+
+    // Check privileges - need pg_read_all_stats role or CREATE on tablespace
+    // (exception: current database's tablespace is always accessible)
+    if (tblspcOid != MyDatabaseTableSpace &&
+        !has_privs_of_role(GetUserId(), ROLE_PG_READ_ALL_STATS)) {
+        AclResult aclresult = object_aclcheck(TableSpaceRelationId, tblspcOid,
+                                              GetUserId(), ACL_CREATE);
+        if (aclresult != ACLCHECK_OK)
+            aclcheck_error(aclresult, OBJECT_TABLESPACE,
+                           get_tablespace_name(tblspcOid));
+    }
+
+    // Build tablespace path based on type
+    if (tblspcOid == DEFAULTTABLESPACE_OID)
+        snprintf(tblspcPath, MAXPGPATH, "base");
+    else if (tblspcOid == GLOBALTABLESPACE_OID)
+        snprintf(tblspcPath, MAXPGPATH, "global");
+    else
+        snprintf(tblspcPath, MAXPGPATH, "pg_tblspc/%u/%s", tblspcOid,
+                 TABLESPACE_VERSION_DIRECTORY);
+
+    // Open tablespace directory
+    dirdesc = AllocateDir(tblspcPath);
+    if (!dirdesc)
+        return -1;  // Directory not found
+
+    // Scan all entries in tablespace directory
+    while ((direntry = ReadDir(dirdesc, tblspcPath)) != NULL) {
+        struct stat fst;
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Skip current and parent directory entries
+        if (strcmp(direntry->d_name, ".") == 0 ||
+            strcmp(direntry->d_name, "..") == 0)
+            continue;
+
+        // Build full path to entry
+        snprintf(pathname, sizeof(pathname), "%s/%s", tblspcPath, direntry->d_name);
+
+        // Get entry stats
+        if (stat(pathname, &fst) < 0) {
+            if (errno == ENOENT)
+                continue;  // Entry disappeared, skip it
+            else
+                ereport(ERROR, (errcode_for_file_access(),
+                    errmsg("could not stat file \"%s\": %m", pathname)));
+        }
+
+        // Add directory contents recursively, plus entry's own size
+        if (S_ISDIR(fst.st_mode))
+            totalsize += db_dir_size(pathname);
+        totalsize += fst.st_size;
+    }
+
+    FreeDir(dirdesc);
+    return totalsize;
+}
+```

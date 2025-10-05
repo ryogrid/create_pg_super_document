@@ -46,3 +46,30 @@ The implementation follows a typical lock-free stack push pattern:
 - The lock-free design prevents contention and blocking between parallel workers
 - The infinite loop ensures eventual success even under high contention
 - Located in src/backend/executor/nodeHash.c:3461-3478
+
+## Simplified Source
+
+```c
+static inline void
+ExecParallelHashPushTuple(dsa_pointer_atomic *head,
+                         HashJoinTuple tuple,
+                         dsa_pointer tuple_shared)
+{
+    // Lock-free atomic insertion at list head
+    for (;;)
+    {
+        // Read current head pointer
+        tuple->next.shared = dsa_pointer_atomic_read(head);
+
+        // Attempt atomic compare-and-swap to update head
+        if (dsa_pointer_atomic_compare_exchange(head,
+                                              &tuple->next.shared,
+                                              tuple_shared))
+        {
+            // Success - tuple inserted
+            break;
+        }
+        // If failed, retry with updated head value
+    }
+}
+```

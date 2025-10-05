@@ -42,3 +42,30 @@ The function operates in two phases: first summing all vertex coordinates and di
 - The function assumes the input polygon has at least one vertex (enforced by Assert)
 - The result parameter must be pre-allocated by the caller; this function only fills in the values
 - For irregular polygons, the resulting circle may not closely approximate the original shape due to the simplistic averaging approach
+
+## Simplified Source
+
+```c
+static void poly_to_circle(CIRCLE *result, POLYGON *poly) {
+    Assert(poly->npts > 0);
+
+    // Initialize result
+    result->center.x = 0;
+    result->center.y = 0;
+    result->radius = 0;
+
+    // Calculate center as average of all vertices
+    for (int i = 0; i < poly->npts; i++) {
+        result->center.x += poly->p[i].x;
+        result->center.y += poly->p[i].y;
+    }
+    result->center.x /= poly->npts;
+    result->center.y /= poly->npts;
+
+    // Calculate radius as average distance from center to vertices
+    for (int i = 0; i < poly->npts; i++) {
+        result->radius += point_dt(&poly->p[i], &result->center);
+    }
+    result->radius /= poly->npts;
+}
+```

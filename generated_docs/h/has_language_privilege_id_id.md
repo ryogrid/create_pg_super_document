@@ -33,3 +33,27 @@ This function is a PostgreSQL internal function that performs privilege checking
 - Returns NULL if the specified language does not exist, following PostgreSQL's convention for missing objects
 - The function follows the standard PostgreSQL function calling convention using PG_FUNCTION_ARGS
 - Located in src/backend/utils/adt/acl.c:3736-3764
+
+## Simplified Source
+
+```c
+Datum has_language_privilege_id_id(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    Oid roleid = PG_GETARG_OID(0);
+    Oid languageoid = PG_GETARG_OID(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert privilege string
+    AclMode mode = convert_language_priv_string(priv_type_text);
+
+    // Check privilege with missing object detection
+    bool is_missing = false;
+    AclResult aclresult = object_aclcheck_ext(LanguageRelationId, languageoid,
+                                              roleid, mode, &is_missing);
+
+    // Return NULL if language doesn't exist, otherwise return privilege result
+    if (is_missing)
+        PG_RETURN_NULL();
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

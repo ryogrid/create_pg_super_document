@@ -42,3 +42,21 @@ The function takes a configuration ID and JSONB input, then delegates to  with t
 - For default configuration behavior, use  instead
 - Located in 
 - Memory management includes proper cleanup of JSONB input parameter
+
+## Simplified Source
+
+```c
+Datum jsonb_string_to_tsvector_byid(PG_FUNCTION_ARGS) {
+    Oid config_id = PG_GETARG_OID(0);
+    Jsonb *jsonb_input = PG_GETARG_JSONB_P(1);
+    TSVector result;
+
+    // Convert JSONB string values to TSVector using specified config
+    result = jsonb_to_tsvector_worker(config_id, jsonb_input, jtiString);
+
+    // Clean up input parameter
+    PG_FREE_IF_COPY(jsonb_input, 1);
+
+    PG_RETURN_TSVECTOR(result);
+}
+```

@@ -42,3 +42,25 @@ The function workflow:
 - This is one of several overloaded variants of has_table_privilege at the SQL level
 - Located in src/backend/utils/adt/acl.c:1921-1944
 - Commonly used in applications where privilege checks are needed for the current user
+
+## Simplified Source
+
+```c
+Datum has_table_privilege_name(PG_FUNCTION_ARGS) {
+    text *tablename = PG_GETARG_TEXT_PP(0);
+    text *priv_type_text = PG_GETARG_TEXT_PP(1);
+    Oid roleid, tableoid;
+    AclMode mode;
+    AclResult aclresult;
+
+    // Use current user and convert table name to OID
+    roleid = GetUserId();
+    tableoid = convert_table_name(tablename);
+    mode = convert_table_priv_string(priv_type_text);
+
+    // Check if current user has the specified privilege
+    aclresult = pg_class_aclcheck(tableoid, roleid, mode);
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

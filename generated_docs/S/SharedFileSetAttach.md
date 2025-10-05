@@ -46,3 +46,31 @@ Key operations performed:
 - Error handling prevents race conditions where a process might try to attach to a file set that's being destroyed
 - The cleanup callback ensures that when this process detaches from the DSM segment, proper cleanup occurs
 - This is typically called by worker processes in parallel queries to gain access to shared temporary storage
+
+## Simplified Source
+
+```c
+void SharedFileSetAttach(SharedFileSet *fileset, dsm_segment *seg) {
+    bool success;
+
+    // Atomically increment reference count with spinlock protection
+    SpinLockAcquire(&fileset->mutex);
+    if (fileset->refcnt == 0) {
+        success = false;  // File set already destroyed
+    } else {
+        ++fileset->refcnt;
+        success = true;
+    }
+    SpinLockRelease(&fileset->mutex);
+
+    // Error if trying to attach to destroyed file set
+    if (!success) {
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("could not attach to a SharedFileSet that is already destroyed")));
+    }
+
+    // Register cleanup callback for when DSM segment detaches
+    on_dsm_detach(seg, SharedFileSetOnDetach, PointerGetDatum(fileset));
+}
+```

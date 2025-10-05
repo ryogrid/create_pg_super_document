@@ -31,3 +31,14 @@ The "strict" variant means that NULL values in either keys or values will cause 
 - Strict semantics mean NULL inputs will cause the aggregate to return NULL
 - Located in src/backend/utils/adt/jsonb.c:1924-1929
 - Part of PostgreSQL's extensive JSONB manipulation and aggregation capabilities with enhanced null safety
+
+## Simplified Source
+
+```c
+Datum
+jsonb_object_agg_unique_strict_transfn(PG_FUNCTION_ARGS)
+{
+    // Delegate to worker function with null exclusion and unique key enforcement
+    return jsonb_object_agg_transfn_worker(fcinfo, true, true);
+}
+```

@@ -40,3 +40,20 @@ The primary use case is in parsing Hunspell affix files, specifically for findin
 - More efficient than calling findchar() twice for two different characters
 - Used specifically in affix file parsing for compound word directive processing
 - Part of PostgreSQL's text search infrastructure for processing Hunspell affix files
+
+## Simplified Source
+
+```c
+static char *
+findchar2(char *str, int c1, int c2)
+{
+    // Search through string for either of two target characters
+    while (*str) {
+        if (t_iseq(str, c1) || t_iseq(str, c2))  // Match either character
+            return str;                          // Found match - return pointer
+        str += pg_mblen(str);                    // Advance by multibyte char length
+    }
+
+    return NULL;  // Neither character found
+}
+```

@@ -32,3 +32,36 @@ The function uses a state-tracking approach with the wasalnum variable to determ
 - Uses explicit ASCII range checks rather than isalnum() for reliability
 - Treats digits (0-9) as part of alphanumeric sequences for word boundary detection
 - Designed for consistent behavior across different locales in PostgreSQL's formatting system
+
+## Simplified Source
+
+```c
+char *asc_initcap(const char *buff, size_t nbytes) {
+    char *result;
+    int wasalnum = false;
+
+    if (!buff) return NULL;
+
+    // Copy input string
+    result = pnstrdup(buff, nbytes);
+
+    // Process each character
+    for (char *p = result; *p; p++) {
+        char c;
+
+        // Apply case conversion based on position in word
+        if (wasalnum) {
+            *p = c = pg_ascii_tolower((unsigned char) *p);
+        } else {
+            *p = c = pg_ascii_toupper((unsigned char) *p);
+        }
+
+        // Check if character is alphanumeric (ASCII only)
+        wasalnum = ((c >= 'A' && c <= 'Z') ||
+                   (c >= 'a' && c <= 'z') ||
+                   (c >= '0' && c <= '9'));
+    }
+
+    return result;
+}
+```

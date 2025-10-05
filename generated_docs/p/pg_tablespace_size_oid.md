@@ -34,3 +34,22 @@ When the tablespace size calculation fails or encounters an error, the function 
 - The function is defined in src/backend/utils/adt/dbsize.c:272-285
 - Typically used in conjunction with system catalogs to provide tablespace size information to administrators
 - The underlying calculation includes all databases and objects within the tablespace directory structure
+
+## Simplified Source
+
+```c
+Datum pg_tablespace_size_oid(PG_FUNCTION_ARGS) {
+    Oid tblspcOid = PG_GETARG_OID(0);
+    int64 size;
+
+    // Calculate the tablespace size using internal function
+    size = calculate_tablespace_size(tblspcOid);
+
+    // Return NULL if calculation failed (size < 0)
+    if (size < 0)
+        PG_RETURN_NULL();
+
+    // Return the size in bytes
+    PG_RETURN_INT64(size);
+}
+```

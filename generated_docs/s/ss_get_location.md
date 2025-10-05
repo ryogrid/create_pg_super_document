@@ -43,3 +43,30 @@ The goal is to have new scans start close to where existing scans are currently 
 - Uses exclusive locking to prevent race conditions when accessing shared scan location data
 - Includes optional trace logging when TRACE_SYNCSCAN is enabled for debugging purposes
 - Critical for the synchronized scan optimization that reduces redundant I/O in concurrent table scans
+
+## Simplified Source
+
+```c
+BlockNumber ss_get_location(Relation rel, BlockNumber relnblocks)
+{
+    BlockNumber startloc;
+
+    // Get the last reported scan location with exclusive lock
+    LWLockAcquire(SyncScanLock, LW_EXCLUSIVE);
+    startloc = ss_search(rel->rd_locator, 0, false);
+    LWLockRelease(SyncScanLock);
+
+    // Validate location is within current table size
+    // (table may have been truncated since location was saved)
+    if (startloc >= relnblocks)
+        startloc = 0;
+
+#ifdef TRACE_SYNCSCAN
+    if (trace_syncscan)
+        elog(LOG, "SYNC_SCAN: start \"%s\" (size %u) at %u",
+             RelationGetRelationName(rel), relnblocks, startloc);
+#endif
+
+    return startloc;
+}
+```

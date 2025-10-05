@@ -36,3 +36,38 @@ The function follows PostgreSQL's privilege inheritance model where table-level 
 - Uses a performance optimization by checking table-level privileges first
 - Part of the SQL-callable privilege checking infrastructure
 - Located in src/backend/utils/adt/acl.c:2487-2537
+
+## Simplified Source
+
+```c
+Datum
+has_any_column_privilege_id_id(PG_FUNCTION_ARGS)
+{
+    Oid roleid = PG_GETARG_OID(0);
+    Oid tableoid = PG_GETARG_OID(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+    AclMode mode;
+    AclResult aclresult;
+    bool is_missing = false;
+
+    // Convert privilege string to mode
+    mode = convert_column_priv_string(priv_type_text);
+
+    // Check table-level privileges first
+    aclresult = pg_class_aclcheck_ext(tableoid, roleid, mode, &is_missing);
+
+    // If table-level check fails, check individual columns
+    if (aclresult != ACLCHECK_OK) {
+        if (is_missing)
+            PG_RETURN_NULL();
+
+        // Check if any column has the privilege
+        aclresult = pg_attribute_aclcheck_all_ext(tableoid, roleid, mode,
+                                                ACLMASK_ANY, &is_missing);
+        if (is_missing)
+            PG_RETURN_NULL();
+    }
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

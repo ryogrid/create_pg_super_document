@@ -37,3 +37,21 @@ This function computes the distance from a circle to a point, which is functiona
 - Provides alternative syntax for circle-to-point distance calculations
 - Part of PostgreSQL's geometric distance operations
 - Located in src/backend/utils/adt/geo_ops.c:5127-5142
+
+## Simplified Source
+
+```c
+Datum dist_cpoint(PG_FUNCTION_ARGS) {
+    CIRCLE *circle = PG_GETARG_CIRCLE_P(0);
+    Point *point = PG_GETARG_POINT_P(1);
+
+    // Distance from point to center minus radius
+    float8 result = float8_mi(point_dt(point, &circle->center), circle->radius);
+
+    // Return 0 if point is inside circle
+    if (result < 0.0)
+        result = 0.0;
+
+    PG_RETURN_FLOAT8(result);
+}
+```

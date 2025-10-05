@@ -42,3 +42,15 @@ This function is typically invoked through SQL queries using geometric operators
 - The function name follows PostgreSQL's geometric operator naming pattern (on_pl = 'on point-line')
 - Provides the SQL interface for the '@' or similar containment operators in geometric contexts
 - Currently shows no direct references in the codebase, suggesting it may be called through PostgreSQL's dynamic function dispatch system
+
+## Simplified Source
+
+```c
+Datum on_pl(PG_FUNCTION_ARGS) {
+    Point *pt = PG_GETARG_POINT_P(0);
+    LINE *line = PG_GETARG_LINE_P(1);
+
+    // Test if point lies on line
+    PG_RETURN_BOOL(line_contain_point(line, pt));
+}
+```

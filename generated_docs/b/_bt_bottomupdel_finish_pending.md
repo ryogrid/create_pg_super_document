@@ -48,3 +48,79 @@ The function uses heuristics that work well in practice because it only needs to
 - For posting list tuples, it conservatively assumes at most one affected logical row per tuple
 - The promising flag helps the tableam prioritize which table blocks to examine during deletion operations
 - Located at src/backend/access/nbtree/nbtdedup.c:648-781
+
+## Simplified Source
+
+```c
+static void _bt_bottomupdel_finish_pending(Page page, BTDedupState state,
+                                          TM_IndexDeleteOp *delstate) {
+    bool dupinterval = (state->nitems > 1);
+    Assert(state->nitems > 0 && state->nitems <= state->nhtids);
+
+    // Process each item in the interval
+    for (int i = 0; i < state->nitems; i++) {
+        OffsetNumber offnum = state->baseoff + i;
+        ItemId itemid = PageGetItemId(page, offnum);
+        IndexTuple itup = (IndexTuple) PageGetItem(page, itemid);
+        TM_IndexDelete *ideltid = &delstate->deltids[delstate->ndeltids];
+        TM_IndexStatus *istatus = &delstate->status[delstate->ndeltids];
+
+        if (!BTreeTupleIsPosting(itup)) {
+            // Simple case: plain tuple - mark promising if in duplicate interval
+            ideltid->tid = itup->t_tid;
+            ideltid->id = delstate->ndeltids;
+            istatus->idxoffnum = offnum;
+            istatus->knowndeletable = false;
+            istatus->promising = dupinterval; // Simple rule
+            istatus->freespace = ItemIdGetLength(itemid) + sizeof(ItemIdData);
+            delstate->ndeltids++;
+        } else {
+            // Complex case: posting list tuple
+            int nitem = BTreeTupleGetNPosting(itup);
+            bool firstpromising = false, lastpromising = false;
+
+            if (dupinterval) {
+                // Determine which TID to mark promising based on block distribution
+                ItemPointer mintid = BTreeTupleGetHeapTID(itup);
+                ItemPointer midtid = BTreeTupleGetPostingN(itup, nitem / 2);
+                ItemPointer maxtid = BTreeTupleGetMaxHeapTID(itup);
+
+                BlockNumber minblock = ItemPointerGetBlockNumber(mintid);
+                BlockNumber midblock = ItemPointerGetBlockNumber(midtid);
+                BlockNumber maxblock = ItemPointerGetBlockNumber(maxtid);
+
+                // Mark based on predominant table block
+                firstpromising = (minblock == midblock);
+                lastpromising = (!firstpromising && midblock == maxblock);
+            }
+
+            // Add each TID from posting list to deletion state
+            for (int p = 0; p < nitem; p++) {
+                ItemPointer htid = BTreeTupleGetPostingN(itup, p);
+                ideltid->tid = *htid;
+                ideltid->id = delstate->ndeltids;
+                istatus->idxoffnum = offnum;
+                istatus->knowndeletable = false;
+                istatus->promising = (firstpromising && p == 0) ||
+                                   (lastpromising && p == nitem - 1);
+                istatus->freespace = sizeof(ItemPointerData);
+
+                ideltid++;
+                istatus++;
+                delstate->ndeltids++;
+            }
+        }
+    }
+
+    // Finalize interval if it contained duplicates
+    if (dupinterval) {
+        state->intervals[state->nintervals].nitems = state->nitems;
+        state->nintervals++;
+    }
+
+    // Reset state for next interval
+    state->nhtids = 0;
+    state->nitems = 0;
+    state->phystupsize = 0;
+}
+```

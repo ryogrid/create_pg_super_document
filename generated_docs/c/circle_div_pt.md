@@ -36,3 +36,21 @@ The `circle_div_pt` function performs the inverse geometric transformation of `c
 - This is the inverse operation of circle_mul_pt
 - Part of PostgreSQLs geometric data type operators for circle manipulation
 - The transformation combines point division for the center with magnitude-based inverse scaling for the radius
+
+## Simplified Source
+
+```c
+Datum circle_div_pt(PG_FUNCTION_ARGS) {
+    CIRCLE *circle = PG_GETARG_CIRCLE_P(0);
+    Point *point = PG_GETARG_POINT_P(1);
+    CIRCLE *result = (CIRCLE *) palloc(sizeof(CIRCLE));
+
+    // Transform center by dividing by point
+    point_div_point(&result->center, &circle->center, point);
+
+    // Scale radius inversely by point's magnitude
+    result->radius = float8_div(circle->radius, HYPOT(point->x, point->y));
+
+    PG_RETURN_CIRCLE_P(result);
+}
+```

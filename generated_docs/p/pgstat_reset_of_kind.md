@@ -39,3 +39,20 @@ The function captures the current timestamp to mark when the reset operation occ
 - The function handles both fixed-amount statistics kinds (using direct callbacks) and variable-amount kinds (using entry-based reset mechanisms)
 - This is a core function in PostgreSQL's statistics reset infrastructure, providing a unified interface for resetting different types of statistics
 - The timestamp captured during reset helps maintain consistency in the statistics system timeline
+
+## Simplified Source
+
+```c
+void
+pgstat_reset_of_kind(PgStat_Kind kind)
+{
+    const PgStat_KindInfo *kind_info = pgstat_get_kind_info(kind);
+    TimestampTz ts = GetCurrentTimestamp();
+
+    // Choose reset strategy based on kind type
+    if (kind_info->fixed_amount)
+        kind_info->reset_all_cb(ts);  // Use callback for fixed amount
+    else
+        pgstat_reset_entries_of_kind(kind, ts);  // Reset all entries of kind
+}
+```

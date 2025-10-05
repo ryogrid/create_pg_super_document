@@ -39,3 +39,25 @@ The binary format is more efficient than text representation for network transmi
 - More efficient than text representation for network and storage operations
 - Memory management handled automatically by StringInfo and pq_endtypsend
 - Line numbers: 1061-1082 in geo_ops.c
+
+## Simplified Source
+
+```c
+Datum
+line_send(PG_FUNCTION_ARGS)
+{
+    LINE *line = PG_GETARG_LINE_P(0);
+    StringInfoData buf;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Write coefficients to binary buffer
+    pq_sendfloat8(&buf, line->A);
+    pq_sendfloat8(&buf, line->B);
+    pq_sendfloat8(&buf, line->C);
+
+    // Finalize and return binary data
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

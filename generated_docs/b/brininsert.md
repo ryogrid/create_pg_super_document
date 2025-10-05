@@ -65,3 +65,74 @@ The function implements a retry loop to handle concurrent updates, as other proc
 - The `pages_per_range` parameter (from the index definition) determines how many heap pages are covered by each BRIN tuple
 - If a page range is not yet summarized (no BRIN tuple exists), the insertion is essentially a no-op
 - Performance is optimized by caching the `BrinInsertState` across multiple insertions in the same command
+
+## Simplified Source
+
+```c
+bool brininsert(Relation idxRel, Datum *values, bool *nulls,
+                ItemPointer heaptid, Relation heapRel,
+                IndexUniqueCheck checkUnique,
+                bool indexUnchanged,
+                IndexInfo *indexInfo) {
+    // Initialize state for first insertion in this command
+    BrinInsertState *bistate = (BrinInsertState *) indexInfo->ii_AmCache;
+    if (!bistate)
+        bistate = initialize_brin_insertstate(idxRel, indexInfo);
+
+    // Calculate which page range this tuple belongs to
+    BlockNumber origHeapBlk = ItemPointerGetBlockNumber(heaptid);
+    BlockNumber heapBlk = (origHeapBlk / bistate->bis_pages_per_range) * bistate->bis_pages_per_range;
+    bool autosummarize = BrinGetAutoSummarize(idxRel);
+
+    for (;;) {
+        // Handle auto-summarization of previous range if needed
+        if (autosummarize && heapBlk > 0 && heapBlk == origHeapBlk) {
+            // Request summarization of previous range if it's empty
+            BlockNumber lastPageRange = heapBlk - 1;
+            BrinTuple *lastPageTuple = brinGetTupleForHeapBlock(revmap, lastPageRange, &buf, &off, NULL, BUFFER_LOCK_SHARE);
+            if (!lastPageTuple) {
+                AutoVacuumRequestWork(AVW_BRINSummarizeRange, RelationGetRelid(idxRel), lastPageRange);
+            }
+        }
+
+        // Get existing BRIN tuple for this page range
+        BrinTuple *brtup = brinGetTupleForHeapBlock(bistate->bis_rmAccess, heapBlk, &buf, &off, NULL, BUFFER_LOCK_SHARE);
+
+        // If range not summarized yet, nothing to do
+        if (!brtup)
+            break;
+
+        // Convert to memory format and check if update needed
+        BrinMemTuple *dtup = brin_deform_tuple(bistate->bis_desc, brtup, NULL);
+        bool need_insert = add_values_to_range(idxRel, bistate->bis_desc, dtup, values, nulls);
+
+        if (!need_insert) {
+            // Values fit within existing summary - done
+            LockBuffer(buf, BUFFER_LOCK_UNLOCK);
+            break;
+        } else {
+            // Need to update summary tuple
+            Size origsz = ItemIdGetLength(PageGetItemId(BufferGetPage(buf), off));
+            BrinTuple *origtup = brin_copy_tuple(brtup, origsz, NULL, NULL);
+
+            // Create new tuple and attempt update
+            Size newsz;
+            BrinTuple *newtup = brin_form_tuple(bistate->bis_desc, heapBlk, dtup, &newsz);
+            bool samepage = brin_can_do_samepage_update(buf, origsz, newsz);
+            LockBuffer(buf, BUFFER_LOCK_UNLOCK);
+
+            // Try to update - retry on concurrent modification
+            if (!brin_doupdate(idxRel, bistate->bis_pages_per_range, bistate->bis_rmAccess,
+                               heapBlk, buf, off, origtup, origsz, newtup, newsz, samepage)) {
+                continue; // Retry from beginning
+            }
+            break; // Success
+        }
+    }
+
+    // Cleanup and return
+    if (BufferIsValid(buf))
+        ReleaseBuffer(buf);
+    return false; // BRIN never enforces uniqueness
+}
+```

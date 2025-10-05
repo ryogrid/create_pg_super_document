@@ -45,3 +45,26 @@ The function uses PostgreSQL's StringInfo mechanism to efficiently build the out
 - Handles all valid CIRCLE values including those with NaN coordinates or radius
 - The generated string is automatically null-terminated and memory-managed by PostgreSQL
 - Located in src/backend/utils/adt/geo_ops.c:4681-4702
+
+## Simplified Source
+
+```c
+Datum circle_out(PG_FUNCTION_ARGS) {
+    CIRCLE *circle = PG_GETARG_CIRCLE_P(0);
+    StringInfoData str;
+
+    // Initialize string buffer
+    initStringInfo(&str);
+
+    // Build output format: "<(x,y),radius>"
+    appendStringInfoChar(&str, LDELIM_C);  // '<'
+    appendStringInfoChar(&str, LDELIM);    // '('
+    pair_encode(circle->center.x, circle->center.y, &str);
+    appendStringInfoChar(&str, RDELIM);    // ')'
+    appendStringInfoChar(&str, DELIM);     // ','
+    single_encode(circle->radius, &str);
+    appendStringInfoChar(&str, RDELIM_C);  // '>'
+
+    return PG_RETURN_CSTRING(str.data);
+}
+```

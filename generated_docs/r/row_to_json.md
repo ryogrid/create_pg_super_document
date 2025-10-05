@@ -37,4 +37,25 @@ The function extracts the composite datum from the function arguments, creates a
 - Field names become JSON object keys, and field values are converted to appropriate JSON values
 - Dropped columns are automatically excluded from the JSON output
 - NULL values are represented as JSON 
-- Located in 
+- Located in
+
+## Simplified Source
+
+```c
+Datum
+row_to_json(PG_FUNCTION_ARGS)
+{
+    // Extract the composite type from function arguments
+    Datum array = PG_GETARG_DATUM(0);
+    StringInfo result;
+
+    // Create buffer for JSON output
+    result = makeStringInfo();
+
+    // Convert composite type to compact JSON (pretty=false)
+    composite_to_json(array, result, false);
+
+    // Return JSON as PostgreSQL text
+    PG_RETURN_TEXT_P(cstring_to_text_with_len(result->data, result->len));
+}
+```

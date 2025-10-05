@@ -37,3 +37,28 @@ This function implements PostgreSQLs MD5() SQL function for text input. It takes
 - Part of PostgreSQLs cryptographic hash function suite accessible via SQL
 - Returns a 32-character hexadecimal string representation of the MD5 hash
 - Handles variable-length text input efficiently using varlena macros
+
+## Simplified Source
+
+```c
+Datum md5_text(PG_FUNCTION_ARGS) {
+    // Extract input text
+    text *in_text = PG_GETARG_TEXT_PP(0);
+    size_t len;
+    char hexsum[MD5_HASH_LEN + 1];
+    const char *errstr = NULL;
+
+    // Calculate text length using varlena metadata
+    len = VARSIZE_ANY_EXHDR(in_text);
+
+    // Compute MD5 hash of the text data
+    if (pg_md5_hash(VARDATA_ANY(in_text), len, hexsum, &errstr) == false) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INTERNAL_ERROR),
+                 errmsg("could not compute %s hash: %s", "MD5", errstr)));
+    }
+
+    // Convert hex string to text and return
+    PG_RETURN_TEXT_P(cstring_to_text(hexsum));
+}
+```

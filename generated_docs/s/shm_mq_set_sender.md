@@ -33,3 +33,22 @@ The shm_mq_set_sender function assigns a PGPROC structure (representing a Postgr
 - The latch mechanism allows for efficient process synchronization
 - Mirrors the functionality of shm_mq_set_receiver but for the sending side
 - Located in src/backend/storage/ipc/shm_mq.c:224-241
+
+## Simplified Source
+
+```c
+void shm_mq_set_sender(shm_mq *mq, PGPROC *proc) {
+    PGPROC *receiver;
+
+    // Thread-safe assignment of sender
+    SpinLockAcquire(&mq->mq_mutex);
+    Assert(mq->mq_sender == NULL);  // Can only set sender once
+    mq->mq_sender = proc;
+    receiver = mq->mq_receiver;
+    SpinLockRelease(&mq->mq_mutex);
+
+    // Wake up receiver if already attached
+    if (receiver != NULL)
+        SetLatch(&receiver->procLatch);
+}
+```

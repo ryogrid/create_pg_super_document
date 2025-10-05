@@ -36,3 +36,21 @@ The function performs ownership transfer by changing the parent memory context o
 - The function always returns the object's standard read-write pointer, ensuring consistency
 - This function is essential for proper memory management when expanded objects need to outlive their original memory context
 - The transfer operation maintains the expanded object's internal structure while changing its memory context hierarchy
+
+## Simplified Source
+
+```c
+Datum TransferExpandedObject(Datum d, MemoryContext new_parent) {
+    // Get expanded object header from the Datum
+    ExpandedObjectHeader *eohptr = DatumGetEOHP(d);
+
+    // Verify caller provided a read-write pointer
+    Assert(VARATT_IS_EXTERNAL_EXPANDED_RW(DatumGetPointer(d)));
+
+    // Transfer ownership by changing parent memory context
+    MemoryContextSetParent(eohptr->eoh_context, new_parent);
+
+    // Return the object's standard read-write pointer
+    return EOHPGetRWDatum(eohptr);
+}
+```

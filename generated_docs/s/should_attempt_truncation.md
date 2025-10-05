@@ -30,3 +30,28 @@ This function evaluates whether heap truncation should be attempted during vacuu
 
 ## Notes and Other Information
 The function includes important safeguards against truncation during XID wraparound failsafe conditions, where acquiring AccessExclusiveLock could worsen system-wide XID exhaustion problems. Truncation requires AccessExclusiveLock which can be particularly disruptive on hot standby systems, so the function ensures meaningful space savings justify the cost. The thresholds ensure truncation attempts only when there's a reasonable chance of releasing a significant number of pages.
+
+## Simplified Source
+
+```c
+static bool
+should_attempt_truncation(LVRelState *vacrel)
+{
+    BlockNumber possibly_freeable;
+
+    // Don't truncate if disabled or failsafe is active
+    if (!vacrel->do_rel_truncate || VacuumFailsafeActive)
+        return false;
+
+    // Calculate potentially freeable pages
+    possibly_freeable = vacrel->rel_pages - vacrel->nonempty_pages;
+
+    // Check if truncation meets minimum thresholds
+    if (possibly_freeable > 0 &&
+        (possibly_freeable >= REL_TRUNCATE_MINIMUM ||
+         possibly_freeable >= vacrel->rel_pages / REL_TRUNCATE_FRACTION))
+        return true;
+
+    return false;
+}
+```

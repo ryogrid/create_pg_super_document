@@ -49,3 +49,84 @@ The function handles both regular index tuples and posting list tuples (used in 
 - Builds TM_IndexDeleteOp structure to interface with the tableam layer
 - Allocates temporary arrays sized for maximum possible TIDs per page
 - Ensures at least the originally dead tuples are included in deletion candidates
+
+## Simplified Source
+
+```c
+static void
+_bt_simpledel_pass(Relation rel, Buffer buffer, Relation heapRel,
+                  OffsetNumber *deletable, int ndeletable, IndexTuple newitem,
+                  OffsetNumber minoff, OffsetNumber maxoff)
+{
+    Page page = BufferGetPage(buffer);
+    BlockNumber *deadblocks;
+    int ndeadblocks;
+    TM_IndexDeleteOp delstate;
+
+    // Get array of table blocks pointed to by LP_DEAD tuples (plus newitem block)
+    deadblocks = _bt_deadblocks(page, deletable, ndeletable, newitem, &ndeadblocks);
+
+    // Initialize deletion operation state
+    delstate.irel = rel;
+    delstate.iblknum = BufferGetBlockNumber(buffer);
+    delstate.bottomup = false;
+    delstate.bottomupfreespace = 0;
+    delstate.ndeltids = 0;
+    delstate.deltids = palloc(MaxTIDsPerBTreePage * sizeof(TM_IndexDelete));
+    delstate.status = palloc(MaxTIDsPerBTreePage * sizeof(TM_IndexStatus));
+
+    // Scan all tuples on page to find candidates for deletion
+    for (OffsetNumber offnum = minoff; offnum <= maxoff; offnum++) {
+        ItemId itemid = PageGetItemId(page, offnum);
+        IndexTuple itup = (IndexTuple) PageGetItem(page, itemid);
+
+        if (!BTreeTupleIsPosting(itup)) {
+            // Regular tuple - check if its block is in our dead blocks list
+            BlockNumber tidblock = ItemPointerGetBlockNumber(&itup->t_tid);
+            void *match = bsearch(&tidblock, deadblocks, ndeadblocks,
+                                sizeof(BlockNumber), _bt_blk_cmp);
+
+            if (match) {
+                // Add TID to deletion candidates
+                TM_IndexDelete *odeltid = &delstate.deltids[delstate.ndeltids];
+                TM_IndexStatus *ostatus = &delstate.status[delstate.ndeltids];
+
+                odeltid->tid = itup->t_tid;
+                odeltid->id = delstate.ndeltids;
+                ostatus->idxoffnum = offnum;
+                ostatus->knowndeletable = ItemIdIsDead(itemid);
+                delstate.ndeltids++;
+            }
+        } else {
+            // Posting list tuple - check each TID individually
+            int nitem = BTreeTupleGetNPosting(itup);
+            for (int p = 0; p < nitem; p++) {
+                ItemPointer tid = BTreeTupleGetPostingN(itup, p);
+                BlockNumber tidblock = ItemPointerGetBlockNumber(tid);
+                void *match = bsearch(&tidblock, deadblocks, ndeadblocks,
+                                    sizeof(BlockNumber), _bt_blk_cmp);
+
+                if (match) {
+                    // Add TID to deletion candidates
+                    TM_IndexDelete *odeltid = &delstate.deltids[delstate.ndeltids];
+                    TM_IndexStatus *ostatus = &delstate.status[delstate.ndeltids];
+
+                    odeltid->tid = *tid;
+                    odeltid->id = delstate.ndeltids;
+                    ostatus->idxoffnum = offnum;
+                    ostatus->knowndeletable = ItemIdIsDead(itemid);
+                    delstate.ndeltids++;
+                }
+            }
+        }
+    }
+
+    pfree(deadblocks);
+
+    // Perform actual deletion through tableam layer
+    _bt_delitems_delete_check(rel, buffer, heapRel, &delstate);
+
+    pfree(delstate.deltids);
+    pfree(delstate.status);
+}
+```

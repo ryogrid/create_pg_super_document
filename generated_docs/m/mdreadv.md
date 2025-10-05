@@ -54,3 +54,80 @@ Key features include distributed tracing support (TRACE_POSTGRESQL_SMGR_MD_READ_
 - Provides comprehensive error messages including block ranges and file paths
 - Part of PostgreSQL's high-performance I/O subsystem with distributed tracing support
 - Respects system limits on vectored I/O operations through PG_IOV_MAX checking
+
+## Simplified Source
+
+```c
+void
+mdreadv(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
+        void **buffers, BlockNumber nblocks)
+{
+    while (nblocks > 0) {
+        struct iovec iov[PG_IOV_MAX];
+        int iovcnt;
+        off_t seekpos;
+        int nbytes;
+        MdfdVec *v;
+        BlockNumber nblocks_this_segment;
+        size_t transferred_this_segment;
+        size_t size_this_segment;
+
+        // Get the segment containing this block
+        v = _mdfd_getseg(reln, forknum, blocknum, false,
+                        EXTENSION_FAIL | EXTENSION_CREATE_RECOVERY);
+
+        // Calculate position within segment
+        seekpos = (off_t) BLCKSZ * (blocknum % ((BlockNumber) RELSEG_SIZE));
+
+        // Calculate how many blocks to read in this segment
+        nblocks_this_segment = Min(nblocks,
+                                 RELSEG_SIZE - (blocknum % ((BlockNumber) RELSEG_SIZE)));
+        nblocks_this_segment = Min(nblocks_this_segment, lengthof(iov));
+
+        // Set up iovec for vectored I/O
+        iovcnt = buffers_to_iovec(iov, buffers, nblocks_this_segment);
+        size_this_segment = nblocks_this_segment * BLCKSZ;
+        transferred_this_segment = 0;
+
+        // Read loop - handle short reads
+        for (;;) {
+            nbytes = FileReadV(v->mdfd_vfd, iov, iovcnt, seekpos,
+                             WAIT_EVENT_DATA_FILE_READ);
+
+            // Handle read errors
+            if (nbytes < 0)
+                ereport(ERROR, "could not read blocks %u..%u in file \"%s\": %m",
+                       blocknum, blocknum + nblocks_this_segment - 1,
+                       FilePathName(v->mdfd_vfd));
+
+            // Handle EOF - zero fill or error depending on settings
+            if (nbytes == 0) {
+                if (zero_damaged_pages || InRecovery) {
+                    // Zero fill remaining buffers
+                    for (BlockNumber i = transferred_this_segment / BLCKSZ;
+                         i < nblocks_this_segment; ++i)
+                        memset(buffers[i], 0, BLCKSZ);
+                    break;
+                } else {
+                    ereport(ERROR, "could not read blocks: read only %zu of %zu bytes",
+                           transferred_this_segment, size_this_segment);
+                }
+            }
+
+            // Check if we've read everything
+            transferred_this_segment += nbytes;
+            if (transferred_this_segment == size_this_segment)
+                break;
+
+            // Adjust for next iteration after short read
+            seekpos += nbytes;
+            iovcnt = compute_remaining_iovec(iov, iov, iovcnt, nbytes);
+        }
+
+        // Move to next segment
+        nblocks -= nblocks_this_segment;
+        buffers += nblocks_this_segment;
+        blocknum += nblocks_this_segment;
+    }
+}
+```

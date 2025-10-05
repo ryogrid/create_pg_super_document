@@ -43,3 +43,87 @@ The function handles cross-product affixes (combinations of prefix and suffix) a
 - Uses separate buffers (newword, pnewword) for different transformation stages
 - Part of PostgreSQL's text search spell checking functionality
 - The baselen parameter tracks word boundaries when processing compound affixes
+
+## Simplified Source
+
+```c
+static char **
+NormalizeSubWord(IspellDict *Conf, char *word, int flag)
+{
+    if (strlen(word) > MAXNORMLEN)
+        return NULL;
+
+    char **forms = (char **) palloc(MAX_NORM * sizeof(char *));
+    char **cur = forms;
+    *cur = NULL;
+
+    char newword[2 * MAXNORMLEN] = "";
+    char pnewword[2 * MAXNORMLEN] = "";
+
+    // Check if word itself is already normalized
+    if (FindWord(Conf, word, VoidString, flag)) {
+        *cur = pstrdup(word);
+        cur++;
+        *cur = NULL;
+    }
+
+    // Try prefix-only transformations
+    AffixNode *pnode = Conf->Prefix;
+    int plevel = 0;
+    while (pnode) {
+        AffixNodeData *prefix = FindAffixes(pnode, word, strlen(word), &plevel, FF_PREFIX);
+        if (!prefix) break;
+
+        for (int j = 0; j < prefix->naff; j++) {
+            if (CheckAffix(word, strlen(word), prefix->aff[j], flag, newword, NULL)) {
+                if (FindWord(Conf, newword, prefix->aff[j]->flag, flag))
+                    cur += addToResult(forms, cur, newword);
+            }
+        }
+        pnode = prefix->node;
+    }
+
+    // Try suffix transformations, then prefixes on results
+    AffixNode *snode = Conf->Suffix;
+    int slevel = 0;
+    while (snode) {
+        int baselen = 0;
+        AffixNodeData *suffix = FindAffixes(snode, word, strlen(word), &slevel, FF_SUFFIX);
+        if (!suffix) break;
+
+        for (int i = 0; i < suffix->naff; i++) {
+            if (CheckAffix(word, strlen(word), suffix->aff[i], flag, newword, &baselen)) {
+                // Try suffix-only result
+                if (FindWord(Conf, newword, suffix->aff[i]->flag, flag))
+                    cur += addToResult(forms, cur, newword);
+
+                // Try prefix+suffix combinations
+                pnode = Conf->Prefix;
+                plevel = 0;
+                while (pnode) {
+                    AffixNodeData *prefix = FindAffixes(pnode, newword, strlen(newword), &plevel, FF_PREFIX);
+                    if (!prefix) break;
+
+                    for (int j = 0; j < prefix->naff; j++) {
+                        if (CheckAffix(newword, strlen(newword), prefix->aff[j], flag, pnewword, &baselen)) {
+                            char *ff = (prefix->aff[j]->flagflags & suffix->aff[i]->flagflags & FF_CROSSPRODUCT) ?
+                                VoidString : prefix->aff[j]->flag;
+
+                            if (FindWord(Conf, pnewword, ff, flag))
+                                cur += addToResult(forms, cur, pnewword);
+                        }
+                    }
+                    pnode = prefix->node;
+                }
+            }
+        }
+        snode = suffix->node;
+    }
+
+    if (cur == forms) {
+        pfree(forms);
+        return NULL;
+    }
+    return forms;
+}
+```

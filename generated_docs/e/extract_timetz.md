@@ -46,3 +46,14 @@ The function is typically used internally by PostgreSQL when precise numeric res
 - Epoch extraction returns precise numeric representation of seconds since Unix epoch
 - Error handling is identical to `timetz_part` for unsupported or invalid field names
 - This function is crucial for applications requiring exact decimal arithmetic without floating-point precision loss
+
+## Simplified Source
+
+```c
+Datum
+extract_timetz(PG_FUNCTION_ARGS)
+{
+	// Delegate to common implementation with numeric return type
+	return timetz_part_common(fcinfo, true);
+}
+```

@@ -56,3 +56,59 @@ This is a core internal function that provides a unified interface for computing
 - Handles memory management with palloc0 and proper VARHDRSZ sizing
 - Comprehensive error handling for all stages of hash computation (init, update, final)
 - Serves as the common backend for all supported SHA hash SQL functions
+
+## Simplified Source
+
+```c
+static inline bytea * cryptohash_internal(pg_cryptohash_type type, bytea *input) {
+    const uint8 *data;
+    const char *typestr = NULL;
+    int digest_len = 0;
+    size_t len;
+    pg_cryptohash_ctx *ctx;
+    bytea *result;
+
+    // Determine hash type parameters
+    switch (type) {
+        case PG_SHA224:
+            typestr = "SHA224";
+            digest_len = PG_SHA224_DIGEST_LENGTH;
+            break;
+        case PG_SHA256:
+            typestr = "SHA256";
+            digest_len = PG_SHA256_DIGEST_LENGTH;
+            break;
+        case PG_SHA384:
+            typestr = "SHA384";
+            digest_len = PG_SHA384_DIGEST_LENGTH;
+            break;
+        case PG_SHA512:
+            typestr = "SHA512";
+            digest_len = PG_SHA512_DIGEST_LENGTH;
+            break;
+        case PG_MD5:
+        case PG_SHA1:
+            elog(ERROR, "unsupported cryptohash type %d", type);
+            break;
+    }
+
+    // Allocate result buffer and extract input data
+    result = palloc0(digest_len + VARHDRSZ);
+    len = VARSIZE_ANY_EXHDR(input);
+    data = (unsigned char *) VARDATA_ANY(input);
+
+    // Create hash context and compute hash
+    ctx = pg_cryptohash_create(type);
+    if (pg_cryptohash_init(ctx) < 0)
+        elog(ERROR, "could not initialize %s context: %s", typestr, pg_cryptohash_error(ctx));
+    if (pg_cryptohash_update(ctx, data, len) < 0)
+        elog(ERROR, "could not update %s context: %s", typestr, pg_cryptohash_error(ctx));
+    if (pg_cryptohash_final(ctx, (unsigned char *) VARDATA(result), digest_len) < 0)
+        elog(ERROR, "could not finalize %s context: %s", typestr, pg_cryptohash_error(ctx));
+
+    pg_cryptohash_free(ctx);
+    SET_VARSIZE(result, digest_len + VARHDRSZ);
+
+    return result;
+}
+```

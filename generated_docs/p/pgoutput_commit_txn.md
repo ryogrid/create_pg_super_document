@@ -38,3 +38,31 @@ This function is the commit callback for the pgoutput logical replication plugin
 - Logs debug information when skipping empty transactions
 - Only sends commit messages for transactions that had a BEGIN message sent
 - Updates replication progress regardless of whether the transaction is replicated
+
+## Simplified Source
+
+```c
+static void
+pgoutput_commit_txn(LogicalDecodingContext *ctx, ReorderBufferTXN *txn,
+                    XLogRecPtr commit_lsn)
+{
+    PGOutputTxnData *txndata = (PGOutputTxnData *) txn->output_plugin_private;
+    bool sent_begin_txn = txndata->sent_begin_txn;
+
+    // Update progress and cleanup transaction data
+    OutputPluginUpdateProgress(ctx, !sent_begin_txn);
+    pfree(txndata);
+    txn->output_plugin_private = NULL;
+
+    // Skip empty transactions (optimization)
+    if (!sent_begin_txn) {
+        elog(DEBUG1, "skipped replication of an empty transaction with XID: %u", txn->xid);
+        return;
+    }
+
+    // Send commit message to subscribers
+    OutputPluginPrepareWrite(ctx, true);
+    logicalrep_write_commit(ctx->out, txn, commit_lsn);
+    OutputPluginWrite(ctx, true);
+}
+```

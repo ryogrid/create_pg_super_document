@@ -66,3 +66,94 @@ The function includes comprehensive error handling with sigsetjmp/longjmp to ens
 - Critical for maintaining database health through automated vacuum and analyze operations
 - Integrates with PostgreSQL's process management and shared memory infrastructure
 - The worker notifies the launcher of successful startup via SIGUSR2 signal
+
+## Simplified Source
+
+```c
+void AutoVacWorkerMain(char *startup_data, size_t startup_data_len)
+{
+    sigjmp_buf local_sigjmp_buf;
+    Oid dbid;
+
+    // Clean up postmaster context and initialize worker
+    if (PostmasterContext) {
+        MemoryContextDelete(PostmasterContext);
+        PostmasterContext = NULL;
+    }
+
+    MyBackendType = B_AUTOVAC_WORKER;
+    init_ps_display(NULL);
+    SetProcessingMode(InitProcessing);
+
+    // Set up signal handlers for worker lifecycle
+    pqsignal(SIGHUP, SignalHandlerForConfigReload);
+    pqsignal(SIGINT, StatementCancelHandler);  // Cancel current vacuum
+    pqsignal(SIGTERM, die);                    // Clean shutdown
+    pqsignal(SIGUSR1, procsignal_sigusr1_handler);
+
+    InitProcess();
+    BaseInit();
+
+    // Error handling: clean exit on any errors
+    if (sigsetjmp(local_sigjmp_buf, 1) != 0) {
+        error_context_stack = NULL;
+        HOLD_INTERRUPTS();
+        EmitErrorReport();
+        proc_exit(0);
+    }
+    PG_exception_stack = &local_sigjmp_buf;
+
+    // Apply security-hardened configuration
+    SetConfigOption("search_path", "", PGC_SUSET, PGC_S_OVERRIDE);
+    SetConfigOption("zero_damaged_pages", "false", PGC_SUSET, PGC_S_OVERRIDE);
+    SetConfigOption("statement_timeout", "0", PGC_SUSET, PGC_S_OVERRIDE);
+    SetConfigOption("default_transaction_isolation", "read committed", PGC_SUSET, PGC_S_OVERRIDE);
+    SetConfigOption("stats_fetch_consistency", "none", PGC_SUSET, PGC_S_OVERRIDE);
+
+    // Get assigned database from shared memory
+    LWLockAcquire(AutovacuumLock, LW_EXCLUSIVE);
+    if (AutoVacuumShmem->av_startingWorker != NULL) {
+        MyWorkerInfo = AutoVacuumShmem->av_startingWorker;
+        dbid = MyWorkerInfo->wi_dboid;
+        MyWorkerInfo->wi_proc = MyProc;
+
+        // Register in running workers list
+        dlist_push_head(&AutoVacuumShmem->av_runningWorkers, &MyWorkerInfo->wi_links);
+        AutoVacuumShmem->av_startingWorker = NULL;
+        LWLockRelease(AutovacuumLock);
+
+        on_shmem_exit(FreeWorkerInfo, 0);
+
+        // Notify launcher of successful startup
+        if (AutoVacuumShmem->av_launcherpid != 0)
+            kill(AutoVacuumShmem->av_launcherpid, SIGUSR2);
+    } else {
+        elog(WARNING, "autovacuum worker started without a worker entry");
+        dbid = InvalidOid;
+        LWLockRelease(AutovacuumLock);
+    }
+
+    // Connect to database and perform vacuum work
+    if (OidIsValid(dbid)) {
+        char dbname[NAMEDATALEN];
+
+        // Report startup to stats (even if connection fails)
+        pgstat_report_autovac(dbid);
+
+        // Connect to assigned database
+        InitPostgres(NULL, dbid, NULL, InvalidOid, INIT_PG_OVERRIDE_ALLOW_CONNS, dbname);
+        SetProcessingMode(NormalProcessing);
+        set_ps_display(dbname);
+
+        ereport(DEBUG1, (errmsg_internal("autovacuum: processing database \"%s\"", dbname)));
+
+        // Perform autovacuum operations
+        recentXid = ReadNextTransactionId();
+        recentMulti = ReadNextMultiXactId();
+        do_autovacuum();
+    }
+
+    // Exit cleanly
+    proc_exit(0);
+}
+```

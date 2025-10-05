@@ -39,3 +39,28 @@ This function reads the metadata page of a BRIN index to extract essential stati
 - Statistics extracted include pagesPerRange and revmapNumPages which are critical for BRIN index cost estimation
 - The revmap page count is calculated as (lastRevmapPage - 1) from the metadata
 - This function is typically used by the query planner to estimate costs for BRIN index scans
+
+## Simplified Source
+
+```c
+void
+brinGetStats(Relation index, BrinStatsData *stats)
+{
+    Buffer metabuffer;
+    Page metapage;
+    BrinMetaPageData *metadata;
+
+    // Read and lock the metadata page
+    metabuffer = ReadBuffer(index, BRIN_METAPAGE_BLKNO);
+    LockBuffer(metabuffer, BUFFER_LOCK_SHARE);
+    metapage = BufferGetPage(metabuffer);
+    metadata = (BrinMetaPageData *) PageGetContents(metapage);
+
+    // Extract statistics from metadata
+    stats->pagesPerRange = metadata->pagesPerRange;
+    stats->revmapNumPages = metadata->lastRevmapPage - 1;
+
+    // Release buffer
+    UnlockReleaseBuffer(metabuffer);
+}
+```

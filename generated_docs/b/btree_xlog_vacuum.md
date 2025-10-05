@@ -50,3 +50,47 @@ Key operations performed:
 - The BTP_HAS_GARBAGE flag is cleared to indicate the page is clean after vacuum
 - Part of PostgreSQL's vacuum system for maintaining B-tree index efficiency
 - Critical for proper space reclamation and performance maintenance during recovery
+
+## Simplified Source
+
+```c
+static void
+btree_xlog_vacuum(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_btree_vacuum *xlrec = (xl_btree_vacuum *) XLogRecGetData(record);
+    Buffer buffer;
+    Page page;
+    BTPageOpaque opaque;
+
+    // Get cleanup lock and check if redo is needed
+    if (XLogReadBufferForRedoExtended(record, 0, RBM_NORMAL, true, &buffer) == BLK_NEEDS_REDO)
+    {
+        char *ptr = XLogRecGetBlockData(record, 0, NULL);
+        page = (Page) BufferGetPage(buffer);
+
+        // Process posting list updates first
+        if (xlrec->nupdated > 0)
+        {
+            OffsetNumber *updatedoffsets = (OffsetNumber *)(ptr + xlrec->ndeleted * sizeof(OffsetNumber));
+            xl_btree_update *updates = (xl_btree_update *)((char *)updatedoffsets + xlrec->nupdated * sizeof(OffsetNumber));
+
+            btree_xlog_updates(page, updatedoffsets, updates, xlrec->nupdated);
+        }
+
+        // Delete dead tuples
+        if (xlrec->ndeleted > 0)
+            PageIndexMultiDelete(page, (OffsetNumber *)ptr, xlrec->ndeleted);
+
+        // Clear garbage flag - page is now clean
+        opaque = BTPageGetOpaque(page);
+        opaque->btpo_flags &= ~BTP_HAS_GARBAGE;
+
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+}
+```

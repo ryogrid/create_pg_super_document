@@ -38,3 +38,29 @@ The function delegates the core array access logic to array_get_element, which h
 - The Assert statement documents the assumption that NULL handling has been done in prior steps
 - [Result](../R/Result.md) handling (including NULL detection for out-of-bounds access) is delegated to array_get_element
 - Performance-optimized by pre-validating inputs and using workspace storage for subscripts
+
+## Simplified Source
+
+```c
+static void
+array_subscript_fetch(ExprState *state,
+                      ExprEvalStep *op,
+                      ExprContext *econtext)
+{
+    SubscriptingRefState *sbsrefstate = op->d.sbsref.state;
+    ArraySubWorkspace *workspace = (ArraySubWorkspace *) sbsrefstate->workspace;
+
+    // Source array should not be NULL (enforced by fetch_strict)
+    Assert(!(*op->resnull));
+
+    // Extract single element from array using pre-computed subscripts
+    *op->resvalue = array_get_element(*op->resvalue,
+                                      sbsrefstate->numupper,
+                                      workspace->upperindex,
+                                      workspace->refattrlength,
+                                      workspace->refelemlength,
+                                      workspace->refelembyval,
+                                      workspace->refelemalign,
+                                      op->resnull);
+}
+```

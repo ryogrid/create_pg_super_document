@@ -32,3 +32,17 @@ The `point_recv` function is responsible for deserializing Point data from Postg
 - Used in binary protocol communications for better performance compared to text format
 - The binary format stores coordinates as IEEE 754 double precision floating point values
 - Memory allocation uses `palloc()` which integrates with PostgreSQL's memory management
+
+## Simplified Source
+```c
+Datum point_recv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    Point *point = (Point *) palloc(sizeof(Point));
+
+    // Read x and y coordinates from binary buffer
+    point->x = pq_getmsgfloat8(buf);
+    point->y = pq_getmsgfloat8(buf);
+
+    PG_RETURN_POINT_P(point);
+}
+```

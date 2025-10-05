@@ -39,3 +39,15 @@ This is a fundamental geometric operation used throughout PostgreSQL's geometric
 - The function is heavily used throughout PostgreSQL's geometric operations as a building block for more complex spatial calculations
 - Uses PostgreSQL's internal floating-point arithmetic functions to ensure consistent behavior across platforms
 - The HYPOT macro provides better numerical stability than naive sqrt(x²+y²) implementations
+
+## Simplified Source
+
+```c
+static inline float8
+point_dt(Point *pt1, Point *pt2)
+{
+    // Calculate Euclidean distance between two 2D points
+    // Uses HYPOT for numerical stability: sqrt((x2-x1)² + (y2-y1)²)
+    return HYPOT(float8_mi(pt1->x, pt2->x), float8_mi(pt1->y, pt2->y));
+}
+```

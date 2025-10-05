@@ -44,3 +44,28 @@ The function is designed to be called from within PG_CATCH() blocks to handle ex
 - Should be called in the PG_CATCH() path of exception handling
 - Located in src/pl/tcl/pltcl.c:2296-2324
 - The aborted subtransaction's changes are completely rolled back
+
+## Simplified Source
+
+```c
+static void pltcl_subtrans_abort(Tcl_Interp *interp,
+                                MemoryContext oldcontext,
+                                ResourceOwner oldowner) {
+    ErrorData *edata;
+
+    // Save error info before rollback
+    MemoryContextSwitchTo(oldcontext);
+    edata = CopyErrorData();
+    FlushErrorState();
+
+    // Abort the subtransaction
+    RollbackAndReleaseCurrentSubTransaction();
+    MemoryContextSwitchTo(oldcontext);
+    CurrentResourceOwner = oldowner;
+
+    // Pass error to Tcl interpreter
+    pltcl_construct_errorCode(interp, edata);
+    Tcl_SetObjResult(interp, Tcl_NewStringObj(UTF_E2U(edata->message), -1));
+    FreeErrorData(edata);
+}
+```

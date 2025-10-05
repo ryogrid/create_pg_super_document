@@ -36,3 +36,26 @@ This internal function ensures that the large object heap relation and its prima
 - Employs RowExclusiveLock for both relations to support read/write operations
 - Resource ownership is temporarily transferred to TopTransactionResourceOwner for proper cleanup
 - Implements lazy initialization pattern for performance
+
+## Simplified Source
+
+```c
+static void open_lo_relation(void) {
+    // Skip if relations already open in current transaction
+    if (lo_heap_r && lo_index_r)
+        return;
+
+    // Temporarily switch to top transaction resource owner for proper cleanup
+    ResourceOwner currentOwner = CurrentResourceOwner;
+    CurrentResourceOwner = TopTransactionResourceOwner;
+
+    // Open large object table and index with RowExclusiveLock for read/write access
+    if (lo_heap_r == NULL)
+        lo_heap_r = table_open(LargeObjectRelationId, RowExclusiveLock);
+    if (lo_index_r == NULL)
+        lo_index_r = index_open(LargeObjectLOidPNIndexId, RowExclusiveLock);
+
+    // Restore original resource owner
+    CurrentResourceOwner = currentOwner;
+}
+```

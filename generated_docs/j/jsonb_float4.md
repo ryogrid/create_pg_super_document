@@ -37,3 +37,25 @@ This function performs type conversion from JSONB to float4 (single-precision fl
 - Uses PostgreSQL's standard numeric conversion pathway for consistent behavior
 - Part of the JSONB type casting infrastructure in PostgreSQL
 - Located in src/backend/utils/adt/jsonb.c:2127-2144
+
+## Simplified Source
+
+```c
+Datum
+jsonb_float4(PG_FUNCTION_ARGS)
+{
+    Jsonb *in = PG_GETARG_JSONB_P(0);
+    JsonbValue v;
+
+    // Extract scalar value and validate it's numeric
+    if (!JsonbExtractScalar(&in->root, &v) || v.type != jbvNumeric)
+        cannotCastJsonbValue(v.type, "real");
+
+    // Convert numeric to float4
+    Datum retValue = DirectFunctionCall1(numeric_float4,
+                                        NumericGetDatum(v.val.numeric));
+
+    PG_FREE_IF_COPY(in, 0);
+    PG_RETURN_DATUM(retValue);
+}
+```

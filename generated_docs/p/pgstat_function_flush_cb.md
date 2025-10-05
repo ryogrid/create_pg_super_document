@@ -35,3 +35,33 @@ This function serves as a callback in PostgreSQL's statistics system to transfer
 - Returns boolean indicating success/failure, allowing callers to handle lock contention scenarios
 - Located in src/backend/utils/activity/pgstat_function.c:193-222
 - Critical component for moving function performance data from local accumulation to system-wide visibility
+
+## Simplified Source
+
+```c
+bool
+pgstat_function_flush_cb(PgStat_EntryRef *entry_ref, bool nowait)
+{
+    PgStat_FunctionCounts *localent;
+    PgStatShared_Function *shfuncent;
+
+    // Get pointers to local and shared statistics data
+    localent = (PgStat_FunctionCounts *) entry_ref->pending;
+    shfuncent = (PgStatShared_Function *) entry_ref->shared_stats;
+
+    // Try to acquire lock, return false if nowait=true and can't lock
+    if (!pgstat_lock_entry(entry_ref, nowait))
+        return false;
+
+    // Aggregate function call statistics from local to shared memory
+    shfuncent->stats.numcalls += localent->numcalls;
+    shfuncent->stats.total_time +=
+        INSTR_TIME_GET_MICROSEC(localent->total_time);
+    shfuncent->stats.self_time +=
+        INSTR_TIME_GET_MICROSEC(localent->self_time);
+
+    // Release lock and return success
+    pgstat_unlock_entry(entry_ref);
+    return true;
+}
+```

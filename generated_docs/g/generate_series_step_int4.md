@@ -44,3 +44,57 @@ The `generate_series_step_int4` function is the main implementation of PostgreSQ
 - Includes overflow protection using `pg_add_s32_overflow` to prevent infinite loops
 - Part of PostgreSQL's generate_series() SQL function family
 - Can handle 2 or 3 parameters (start, finish, and optional step)
+
+## Simplified Source
+
+```c
+Datum generate_series_step_int4(PG_FUNCTION_ARGS) {
+    FuncCallContext *funcctx;
+    generate_series_fctx *fctx;
+    int32 result;
+
+    // First call: initialize the series
+    if (SRF_IS_FIRSTCALL()) {
+        int32 start = PG_GETARG_INT32(0);
+        int32 finish = PG_GETARG_INT32(1);
+        int32 step = (PG_NARGS() == 3) ? PG_GETARG_INT32(2) : 1;
+
+        // Validate step is not zero
+        if (step == 0)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("step size cannot equal zero")));
+
+        // Initialize function context and memory
+        funcctx = SRF_FIRSTCALL_INIT();
+        MemoryContext oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
+
+        // Allocate and initialize series state
+        fctx = (generate_series_fctx *) palloc(sizeof(generate_series_fctx));
+        fctx->current = start;
+        fctx->finish = finish;
+        fctx->step = step;
+        funcctx->user_fctx = fctx;
+
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    // Every call: get current state and generate next value
+    funcctx = SRF_PERCALL_SETUP();
+    fctx = funcctx->user_fctx;
+    result = fctx->current;
+
+    // Check if we should continue the series
+    if ((fctx->step > 0 && fctx->current <= fctx->finish) ||
+        (fctx->step < 0 && fctx->current >= fctx->finish)) {
+
+        // Advance to next value, stop on overflow
+        if (pg_add_s32_overflow(fctx->current, fctx->step, &fctx->current))
+            fctx->step = 0;
+
+        SRF_RETURN_NEXT(funcctx, Int32GetDatum(result));
+    }
+    else {
+        SRF_RETURN_DONE(funcctx);
+    }
+}
+```

@@ -37,3 +37,41 @@ This function serves as a security gateway for file access operations in Postgre
 - Regular users can only access files within DataDir or Log_directory (even if Log_directory is outside DataDir)
 - The function throws ERRCODE_INSUFFICIENT_PRIVILEGE errors for unauthorized access attempts
 - [Path](../P/Path.md) canonicalization can change the filename length, so the function handles dynamic memory appropriately
+
+## Simplified Source
+
+```c
+static char *
+convert_and_check_filename(text *arg)
+{
+    char *filename;
+
+    // Convert PostgreSQL text to C string and normalize path
+    filename = text_to_cstring(arg);
+    canonicalize_path(filename);
+
+    // Users with pg_read_server_files role can access any files
+    if (has_privs_of_role(GetUserId(), ROLE_PG_READ_SERVER_FILES))
+        return filename;
+
+    // For regular users, restrict access based on path location
+    if (is_absolute_path(filename)) {
+        // Allow absolute paths only within DataDir or Log_directory
+        if (!path_is_prefix_of_path(DataDir, filename) &&
+            (!is_absolute_path(Log_directory) ||
+             !path_is_prefix_of_path(Log_directory, filename))) {
+            ereport(ERROR,
+                    (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                     errmsg("absolute path not allowed")));
+        }
+    }
+    // For relative paths, ensure they stay within current directory
+    else if (!path_is_relative_and_below_cwd(filename)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("path must be in or below the data directory")));
+    }
+
+    return filename;
+}
+```

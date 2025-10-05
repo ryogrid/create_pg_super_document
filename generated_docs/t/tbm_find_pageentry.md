@@ -33,3 +33,36 @@ The function handles different bitmap states: when the bitmap contains only a si
 
 ## Notes and Other Information
 This is a static function internal to tidbitmap.c, primarily used for bitmap intersection operations. The function explicitly rejects lossy chunk headers (where ischunk is true) to ensure callers receive only exact tuple position information. Returns NULL for non-existent pages or when only lossy information is available for the requested page.
+
+## Simplified Source
+
+```c
+static const PagetableEntry *tbm_find_pageentry(const TIDBitmap *tbm, BlockNumber pageno)
+{
+    const PagetableEntry *page;
+
+    // Return NULL if bitmap is empty
+    if (tbm->nentries == 0)
+        return NULL;
+
+    // Handle single-page bitmap optimization
+    if (tbm->status == TBM_ONE_PAGE) {
+        page = &tbm->entry1;
+        if (page->blockno != pageno)
+            return NULL;
+        Assert(!page->ischunk);
+        return page;
+    }
+
+    // Look up page in hash table
+    page = pagetable_lookup(tbm->pagetable, pageno);
+    if (page == NULL)
+        return NULL;
+
+    // Reject lossy chunk headers - only return exact entries
+    if (page->ischunk)
+        return NULL;
+
+    return page;
+}
+```

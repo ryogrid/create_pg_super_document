@@ -110,3 +110,46 @@ update_symbol_types.py: ScanDirection indicating the current scan direction (for
 - Critical for supporting multi-column array scans in B-tree indexes
 - Each scan key's sk_argument is updated to point to the new current array element
 - The rollover mechanism ensures all possible array element combinations are visited exactly once
+
+## Simplified Source
+
+```c
+static bool
+_bt_advance_array_keys_increment(IndexScanDesc scan, ScanDirection dir)
+{
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+
+    // Advance arrays from right to left (lowest-order column first)
+    for (int i = so->numArrayKeys - 1; i >= 0; i--) {
+        BTArrayKeyInfo *curArrayKey = &so->arrayKeys[i];
+        ScanKey skey = &so->keyData[curArrayKey->scan_key];
+        int cur_elem = curArrayKey->cur_elem;
+        int num_elems = curArrayKey->num_elems;
+        bool rolled = false;
+
+        // Advance current element in scan direction
+        if (ScanDirectionIsForward(dir) && ++cur_elem >= num_elems) {
+            cur_elem = 0;          // Roll over to beginning
+            rolled = true;
+        } else if (ScanDirectionIsBackward(dir) && --cur_elem < 0) {
+            cur_elem = num_elems - 1;  // Roll over to end
+            rolled = true;
+        }
+
+        // Update array position and scan key argument
+        curArrayKey->cur_elem = cur_elem;
+        skey->sk_argument = curArrayKey->elem_values[cur_elem];
+
+        if (!rolled)
+            return true;  // Successfully advanced, more combinations remain
+
+        // This array rolled over, continue to next higher-order array
+    }
+
+    // All arrays exhausted - restore to pre-call state
+    // This ensures arrays only advance monotonically in scan direction
+    _bt_start_array_keys(scan, -dir);
+
+    return false;  // No more combinations
+}
+```

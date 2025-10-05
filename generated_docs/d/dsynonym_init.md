@@ -48,3 +48,109 @@ The synonym file format expects each line to contain an input word followed by i
 - Case insensitive mode converts all words to lowercase for consistent matching
 - Ignores empty lines and lines with only one word in the synonym file
 - The resulting dictionary structure is optimized for fast binary search lookups
+
+## Simplified Source
+
+```c
+Datum
+dsynonym_init(PG_FUNCTION_ARGS)
+{
+    List *dictoptions = (List *) PG_GETARG_POINTER(0);
+    DictSyn *d;
+    ListCell *l;
+    char *filename = NULL;
+    bool case_sensitive = false;
+    tsearch_readline_state trst;
+    char *starti, *starto, *end = NULL;
+    int cur = 0;
+    char *line = NULL;
+    uint16 flags = 0;
+
+    // Parse configuration options
+    foreach(l, dictoptions)
+    {
+        DefElem *defel = (DefElem *) lfirst(l);
+
+        if (strcmp(defel->defname, "synonyms") == 0)
+            filename = defGetString(defel);
+        else if (strcmp(defel->defname, "casesensitive") == 0)
+            case_sensitive = defGetBoolean(defel);
+        else
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                    errmsg("unrecognized synonym parameter: \"%s\"",
+                           defel->defname)));
+    }
+
+    // Synonyms file is required
+    if (!filename)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                errmsg("missing Synonyms parameter")));
+
+    // Open synonyms file
+    filename = get_tsearch_config_filename(filename, "syn");
+    if (!tsearch_readline_begin(&trst, filename))
+        ereport(ERROR, (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                errmsg("could not open synonym file \"%s\": %m", filename)));
+
+    d = (DictSyn *) palloc0(sizeof(DictSyn));
+
+    // Read synonym pairs from file
+    while ((line = tsearch_readline(&trst)) != NULL)
+    {
+        // Parse input word
+        starti = findwrd(line, &end, NULL);
+        if (!starti || *end == '\0')
+            goto skipline;  // Skip empty lines or single words
+        *end = '\0';
+
+        // Parse output word
+        starto = findwrd(end + 1, &end, &flags);
+        if (!starto)
+            goto skipline;
+        *end = '\0';
+
+        // Expand array if needed
+        if (cur >= d->len)
+        {
+            if (d->len == 0)
+            {
+                d->len = 64;
+                d->syn = (Syn *) palloc(sizeof(Syn) * d->len);
+            }
+            else
+            {
+                d->len *= 2;
+                d->syn = (Syn *) repalloc(d->syn, sizeof(Syn) * d->len);
+            }
+        }
+
+        // Store synonym pair (with case handling)
+        if (case_sensitive)
+        {
+            d->syn[cur].in = pstrdup(starti);
+            d->syn[cur].out = pstrdup(starto);
+        }
+        else
+        {
+            d->syn[cur].in = lowerstr(starti);
+            d->syn[cur].out = lowerstr(starto);
+        }
+
+        d->syn[cur].outlen = strlen(starto);
+        d->syn[cur].flags = flags;
+        cur++;
+
+skipline:
+        pfree(line);
+    }
+
+    tsearch_readline_end(&trst);
+
+    // Finalize dictionary: set size, sort for binary search
+    d->len = cur;
+    qsort(d->syn, d->len, sizeof(Syn), compareSyn);
+    d->case_sensitive = case_sensitive;
+
+    PG_RETURN_POINTER(d);
+}
+```

@@ -35,3 +35,26 @@ The function performs role detection by comparing the current process (MyProc) w
 - Process death detection is only possible if a background worker handle was passed to shm_mq_attach()
 - Uses assertion to ensure the calling process is either the designated sender or receiver
 - Critical for establishing reliable communication channels in PostgreSQL's parallel processing framework
+
+## Simplified Source
+
+```c
+shm_mq_result shm_mq_wait_for_attach(shm_mq_handle *mqh) {
+    shm_mq *mq = mqh->mqh_queue;
+    PGPROC **victim;
+
+    // Determine which process to wait for
+    if (shm_mq_get_receiver(mq) == MyProc)
+        victim = &mq->mq_sender;     // We're receiver, wait for sender
+    else {
+        Assert(shm_mq_get_sender(mq) == MyProc);
+        victim = &mq->mq_receiver;   // We're sender, wait for receiver
+    }
+
+    // Wait for the other process to attach
+    if (shm_mq_wait_internal(mq, victim, mqh->mqh_handle))
+        return SHM_MQ_SUCCESS;
+    else
+        return SHM_MQ_DETACHED;
+}
+```

@@ -38,3 +38,26 @@ This behavior is convenient for callers that want to act as though dropped attri
 - Returns NULL for both non-existent attributes and dropped attributes, providing consistent behavior
 - Part of PostgreSQL's system catalog caching infrastructure for efficient metadata lookups
 - Attribute numbers are typically positive integers, with system columns having negative numbers
+
+## Simplified Source
+
+```c
+HeapTuple SearchSysCacheAttNum(Oid relid, int16 attnum) {
+    // Search for the attribute using relation OID and attribute number
+    HeapTuple tuple = SearchSysCache2(ATTNUM,
+                                     ObjectIdGetDatum(relid),
+                                     Int16GetDatum(attnum));
+
+    // Return NULL if attribute doesn't exist
+    if (!HeapTupleIsValid(tuple))
+        return NULL;
+
+    // Check if attribute is marked as dropped
+    if (((Form_pg_attribute) GETSTRUCT(tuple))->attisdropped) {
+        ReleaseSysCache(tuple);
+        return NULL;  // Treat dropped attributes as non-existent
+    }
+
+    return tuple;
+}
+```

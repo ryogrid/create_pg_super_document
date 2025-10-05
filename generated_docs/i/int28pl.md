@@ -38,3 +38,20 @@ The function uses PostgreSQL's pg_add_s64_overflow utility to detect overflow co
 - The function name follows PostgreSQL's convention where 'int2' refers to 16-bit integers, 'int8' refers to 64-bit integers, and 'pl' indicates plus/addition
 - Automatically promotes the smaller integer type to match the larger one before computation
 - Reports NUMERIC_VALUE_OUT_OF_RANGE error when overflow occurs
+
+## Simplified Source
+
+```c
+Datum int28pl(PG_FUNCTION_ARGS) {
+    int16 arg1 = PG_GETARG_INT16(0);  // Get first 16-bit argument
+    int64 arg2 = PG_GETARG_INT64(1);  // Get second 64-bit argument
+    int64 result;
+
+    // Perform addition with overflow check (cast arg1 to 64-bit)
+    if (pg_add_s64_overflow((int64) arg1, arg2, &result))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("bigint out of range")));
+
+    PG_RETURN_INT64(result);
+}
+```

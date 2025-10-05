@@ -35,3 +35,37 @@ This function is a PostgreSQL built-in function that verifies whether a specific
 - Throws an error if the specified OID refers to a non-sequence object
 - Part of PostgreSQL's privilege checking system for sequence objects
 - Defined in src/backend/utils/adt/acl.c:2168-2204
+
+## Simplified Source
+
+```c
+Datum
+has_sequence_privilege_name_id(PG_FUNCTION_ARGS)
+{
+    Name     username = PG_GETARG_NAME(0);
+    Oid      sequenceoid = PG_GETARG_OID(1);
+    text    *priv_type_text = PG_GETARG_TEXT_PP(2);
+    bool     is_missing = false;
+
+    // Convert username to role OID
+    Oid roleid = get_role_oid_or_public(NameStr(*username));
+
+    // Parse privilege string to internal mode
+    AclMode mode = convert_sequence_priv_string(priv_type_text);
+
+    // Check if sequence exists and is actually a sequence
+    char relkind = get_rel_relkind(sequenceoid);
+    if (relkind == '\0')
+        PG_RETURN_NULL();  // Object doesn't exist
+    else if (relkind != RELKIND_SEQUENCE)
+        ereport(ERROR, "not a sequence");
+
+    // Check privilege and handle missing objects
+    AclResult aclresult = pg_class_aclcheck_ext(sequenceoid, roleid, mode, &is_missing);
+
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

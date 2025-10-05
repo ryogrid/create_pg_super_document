@@ -43,3 +43,48 @@ The function implements careful memory management for Python objects, using prop
 - Error handling follows the Python C API pattern with proper cleanup using goto failure pattern
 - If the function fails to create the Python exception objects, it falls back to using PostgreSQL's elog(ERROR) to report the conversion failure
 - The function is part of the PL/Python extension's SPI interface, which allows Python stored procedures to interact with the database
+
+## Simplified Source
+
+```c
+static void PLy_spi_exception_set(PyObject *excclass, ErrorData *edata) {
+    PyObject *args = NULL;
+    PyObject *spierror = NULL;
+    PyObject *spidata = NULL;
+
+    // Create exception with error message
+    args = Py_BuildValue("(s)", edata->message);
+    if (!args) goto failure;
+
+    spierror = PyObject_CallObject(excclass, args);
+    if (!spierror) goto failure;
+
+    // Build detailed error data tuple
+    spidata = Py_BuildValue("(izzzizzzzz)",
+                           edata->sqlerrcode, edata->detail, edata->hint,
+                           edata->internalquery, edata->internalpos,
+                           edata->schema_name, edata->table_name, edata->column_name,
+                           edata->datatype_name, edata->constraint_name);
+    if (!spidata) goto failure;
+
+    // Attach detailed data to exception
+    if (PyObject_SetAttrString(spierror, "spidata", spidata) == -1)
+        goto failure;
+
+    // Raise the Python exception
+    PyErr_SetObject(excclass, spierror);
+
+    // Cleanup and return
+    Py_DECREF(args);
+    Py_DECREF(spierror);
+    Py_DECREF(spidata);
+    return;
+
+failure:
+    // Cleanup on error
+    Py_XDECREF(args);
+    Py_XDECREF(spierror);
+    Py_XDECREF(spidata);
+    elog(ERROR, "could not convert SPI error to Python exception");
+}
+```

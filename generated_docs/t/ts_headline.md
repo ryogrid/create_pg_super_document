@@ -36,3 +36,15 @@ The function takes two arguments (accessed via ) and returns a highlighted versi
 - Located in src/backend/tsearch/wparser.c:348-356
 - Part of PostgreSQL's full-text search functionality
 - Uses the system's default text search configuration rather than requiring explicit specification
+
+## Simplified Source
+
+```c
+Datum ts_headline(PG_FUNCTION_ARGS) {
+    // Use current default configuration and delegate to full implementation
+    PG_RETURN_DATUM(DirectFunctionCall3(ts_headline_byid_opt,
+                                        ObjectIdGetDatum(getTSCurrentConfig(true)),
+                                        PG_GETARG_DATUM(0),
+                                        PG_GETARG_DATUM(1)));
+}
+```

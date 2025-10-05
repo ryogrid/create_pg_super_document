@@ -36,3 +36,23 @@ The function converts the field name to a C string and delegates the main work t
 - Unlike json_object_field which returns JSON format, this returns plain text
 - The function relies on get_worker for the actual JSON parsing and extraction logic
 - Located in src/backend/utils/adt/jsonfuncs.c:882-897
+
+## Simplified Source
+
+```c
+Datum json_object_field_text(PG_FUNCTION_ARGS) {
+    // Extract JSON text and field name from arguments
+    text *json = PG_GETARG_TEXT_PP(0);
+    text *fname = PG_GETARG_TEXT_PP(1);
+    char *fnamestr = text_to_cstring(fname);
+
+    // Extract field value as text using generic worker function
+    text *result = get_worker(json, &fnamestr, NULL, 1, true);
+
+    // Return result or NULL
+    if (result != NULL)
+        PG_RETURN_TEXT_P(result);
+    else
+        PG_RETURN_NULL();
+}
+```

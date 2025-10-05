@@ -34,3 +34,36 @@ This function takes no parameters and operates on shared memory structures.
 
 ## Notes and Other Information
 The function must be called with AutovacuumLock held in at least shared mode, as documented in the function comment and enforced by the Assert statement. The atomic operations ensure thread-safe access to the shared counter without requiring exclusive locks. The function's design minimizes performance impact by only updating the shared counter when the worker count actually changes, avoiding unnecessary cache invalidation in multi-worker scenarios. The wi_dobalance flag mechanism allows fine-grained control over which workers participate in cost balancing.
+
+## Simplified Source
+
+```c
+static void
+autovac_recalculate_workers_for_balance(void)
+{
+    dlist_iter iter;
+    int nworkers_for_balance = 0;
+
+    // Get current count from shared memory
+    int orig_nworkers_for_balance =
+        pg_atomic_read_u32(&AutoVacuumShmem->av_nworkersForBalance);
+
+    // Count workers eligible for cost balancing
+    dlist_foreach(iter, &AutoVacuumShmem->av_runningWorkers)
+    {
+        WorkerInfo worker = dlist_container(WorkerInfoData, wi_links, iter.cur);
+
+        // Skip workers without process or with balance override
+        if (worker->wi_proc == NULL ||
+            pg_atomic_unlocked_test_flag(&worker->wi_dobalance))
+            continue;
+
+        nworkers_for_balance++;
+    }
+
+    // Update shared counter only if count changed
+    if (nworkers_for_balance != orig_nworkers_for_balance)
+        pg_atomic_write_u32(&AutoVacuumShmem->av_nworkersForBalance,
+                            nworkers_for_balance);
+}
+```

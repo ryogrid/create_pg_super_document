@@ -45,3 +45,27 @@ The flags parameter is provided as JSONB and is parsed by  to determine processi
 - Located in 
 - Memory management includes proper cleanup of both JSONB input parameters
 - Most comprehensive of the JSONB-to-TSVector conversion functions
+
+## Simplified Source
+
+```c
+Datum jsonb_to_tsvector_byid(PG_FUNCTION_ARGS) {
+    Oid config_id = PG_GETARG_OID(0);
+    Jsonb *jsonb_input = PG_GETARG_JSONB_P(1);
+    Jsonb *jsonb_flags = PG_GETARG_JSONB_P(2);
+    TSVector result;
+    uint32 flags;
+
+    // Parse processing flags from JSONB specification
+    flags = parse_jsonb_index_flags(jsonb_flags);
+
+    // Convert JSONB to TSVector using specified config and flags
+    result = jsonb_to_tsvector_worker(config_id, jsonb_input, flags);
+
+    // Clean up input parameters
+    PG_FREE_IF_COPY(jsonb_input, 1);
+    PG_FREE_IF_COPY(jsonb_flags, 2);
+
+    PG_RETURN_TSVECTOR(result);
+}
+```

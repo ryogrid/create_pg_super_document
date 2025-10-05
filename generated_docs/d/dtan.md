@@ -34,3 +34,26 @@ The  function computes the tangent of a floating-point argument expressed in rad
 - Does not check for overflow since tan(π/2) legitimately equals infinity
 - Located in src/backend/utils/adt/float.c:1958-2011
 - Uses errno to detect mathematical errors from the tan() function
+
+## Simplified Source
+
+```c
+Datum dtan(PG_FUNCTION_ARGS) {
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+
+    // Handle NaN input per POSIX spec
+    if (isnan(arg1))
+        PG_RETURN_FLOAT8(get_float8_nan());
+
+    // Check for infinite input (domain error per POSIX)
+    errno = 0;
+    float8 result = tan(arg1);
+    if (errno != 0 || isinf(arg1))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("input is out of range")));
+
+    // Note: No overflow check since tan(π/2) == Inf is valid
+
+    PG_RETURN_FLOAT8(result);
+}
+```

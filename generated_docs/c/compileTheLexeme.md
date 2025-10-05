@@ -49,3 +49,124 @@ The function ensures robust error handling for unrecognized words and stop words
 - Memory efficient: replaces original array in-place and uses repalloc to resize to exact requirements
 - Critical for thesaurus dictionary performance as it establishes the sorted structure needed for binary search operations
 - The final sorted array enables O(log n) lookup times during phrase matching operations
+
+## Simplified Source
+
+```c
+static void
+compileTheLexeme(DictThesaurus *d)
+{
+    int i, nnw = 0, tnm = 16;
+    TheLexeme *newwrds = (TheLexeme *) palloc(sizeof(TheLexeme) * tnm);
+    TheLexeme *ptrwrds;
+
+    // Process each raw lexeme through subdictionary
+    for (i = 0; i < d->nwrds; i++)
+    {
+        TSLexeme *ptr;
+
+        if (strcmp(d->wrds[i].lexeme, "?") == 0)
+        {
+            // Handle stop word marker specially
+            newwrds = addCompiledLexeme(newwrds, &nnw, &tnm, NULL, d->wrds[i].entries, 0);
+        }
+        else
+        {
+            // Normalize lexeme through subdictionary
+            ptr = (TSLexeme *) DatumGetPointer(FunctionCall4(&(d->subdict->lexize),
+                    PointerGetDatum(d->subdict->dictData),
+                    PointerGetDatum(d->wrds[i].lexeme),
+                    Int32GetDatum(strlen(d->wrds[i].lexeme)),
+                    PointerGetDatum(NULL)));
+
+            if (!ptr)
+                ereport(ERROR, (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                        errmsg("thesaurus sample word \"%s\" isn't recognized by subdictionary (rule %d)",
+                               d->wrds[i].lexeme, d->wrds[i].entries->idsubst + 1)));
+            else if (!(ptr->lexeme))
+                ereport(ERROR, (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                        errmsg("thesaurus sample word \"%s\" is a stop word (rule %d)",
+                               d->wrds[i].lexeme, d->wrds[i].entries->idsubst + 1),
+                        errhint("Use \"?\" to represent a stop word within a sample phrase.")));
+            else
+            {
+                // Process all variants returned by subdictionary
+                while (ptr->lexeme)
+                {
+                    TSLexeme *remptr = ptr + 1;
+                    int tnvar = 1;
+                    int curvar = ptr->nvariant;
+
+                    // Count words in this variant
+                    while (remptr->lexeme)
+                    {
+                        if (remptr->nvariant != (remptr - 1)->nvariant)
+                            break;
+                        tnvar++;
+                        remptr++;
+                    }
+
+                    // Add all lexemes in this variant
+                    remptr = ptr;
+                    while (remptr->lexeme && remptr->nvariant == curvar)
+                    {
+                        newwrds = addCompiledLexeme(newwrds, &nnw, &tnm, remptr, d->wrds[i].entries, tnvar);
+                        remptr++;
+                    }
+
+                    ptr = remptr;
+                }
+            }
+        }
+
+        // Free original lexeme data
+        pfree(d->wrds[i].lexeme);
+        pfree(d->wrds[i].entries);
+    }
+
+    // Replace original array with compiled version
+    if (d->wrds)
+        pfree(d->wrds);
+    d->wrds = newwrds;
+    d->nwrds = nnw;
+    d->ntwrds = tnm;
+
+    // Sort and deduplicate
+    if (d->nwrds > 1)
+    {
+        qsort(d->wrds, d->nwrds, sizeof(TheLexeme), cmpTheLexeme);
+
+        // Remove duplicates, merging LexemeInfo chains
+        newwrds = d->wrds;
+        ptrwrds = d->wrds + 1;
+        while (ptrwrds - d->wrds < d->nwrds)
+        {
+            if (cmpLexeme(ptrwrds, newwrds) == 0)
+            {
+                // Same lexeme - merge or discard
+                if (cmpLexemeInfo(ptrwrds->entries, newwrds->entries))
+                {
+                    ptrwrds->entries->nextentry = newwrds->entries;
+                    newwrds->entries = ptrwrds->entries;
+                }
+                else
+                    pfree(ptrwrds->entries);
+
+                if (ptrwrds->lexeme)
+                    pfree(ptrwrds->lexeme);
+            }
+            else
+            {
+                // Different lexeme - keep it
+                newwrds++;
+                *newwrds = *ptrwrds;
+            }
+            ptrwrds++;
+        }
+
+        // Resize to actual number of unique entries
+        d->nwrds = newwrds - d->wrds + 1;
+        d->wrds = (TheLexeme *) repalloc(d->wrds, sizeof(TheLexeme) * d->nwrds);
+    }
+}
+```

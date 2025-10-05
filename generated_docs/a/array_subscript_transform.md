@@ -56,3 +56,79 @@ For slice operations, non-slice indirection items are converted to slices by tre
 - Maximum array dimensions are limited by MAXDIM constant
 - Error messages provide parser position information for better user experience
 - The function modifies the SubscriptingRef node in-place rather than returning a new structure
+
+## Simplified Source
+
+```c
+static void
+array_subscript_transform(SubscriptingRef *sbsref,
+                          List *indirection,
+                          ParseState *pstate,
+                          bool isSlice,
+                          bool isAssignment)
+{
+    List *upperIndexpr = NIL;
+    List *lowerIndexpr = NIL;
+    ListCell *idx;
+
+    // Transform subscript expressions and separate upper/lower bounds
+    foreach(idx, indirection) {
+        A_Indices *ai = lfirst_node(A_Indices, idx);
+        Node *subexpr;
+
+        // Handle lower bounds for slice operations
+        if (isSlice) {
+            if (ai->lidx) {
+                // Transform and coerce lower bound to integer
+                subexpr = transformExpr(pstate, ai->lidx, pstate->p_expr_kind);
+                subexpr = coerce_to_target_type(pstate, subexpr, exprType(subexpr),
+                                               INT4OID, -1, COERCION_ASSIGNMENT,
+                                               COERCE_IMPLICIT_CAST, -1);
+                if (subexpr == NULL)
+                    ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                                   errmsg("array subscript must have type integer")));
+            } else if (!ai->is_slice) {
+                // Default lower bound to 1 for non-slice items
+                subexpr = (Node *) makeConst(INT4OID, -1, InvalidOid, sizeof(int32),
+                                           Int32GetDatum(1), false, true);
+            } else {
+                // Omitted lower bound in slice
+                subexpr = NULL;
+            }
+            lowerIndexpr = lappend(lowerIndexpr, subexpr);
+        }
+
+        // Handle upper bounds
+        if (ai->uidx) {
+            // Transform and coerce upper bound to integer
+            subexpr = transformExpr(pstate, ai->uidx, pstate->p_expr_kind);
+            subexpr = coerce_to_target_type(pstate, subexpr, exprType(subexpr),
+                                           INT4OID, -1, COERCION_ASSIGNMENT,
+                                           COERCE_IMPLICIT_CAST, -1);
+            if (subexpr == NULL)
+                ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                               errmsg("array subscript must have type integer")));
+        } else {
+            // Omitted upper bound in slice
+            subexpr = NULL;
+        }
+        upperIndexpr = lappend(upperIndexpr, subexpr);
+    }
+
+    // Store transformed expressions in SubscriptingRef node
+    sbsref->refupperindexpr = upperIndexpr;
+    sbsref->reflowerindexpr = lowerIndexpr;
+
+    // Check dimension limits
+    if (list_length(upperIndexpr) > MAXDIM)
+        ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                       errmsg("number of array dimensions (%d) exceeds the maximum allowed (%d)",
+                              list_length(upperIndexpr), MAXDIM)));
+
+    // Set result type: same as container for slices, element type for single access
+    if (isSlice)
+        sbsref->refrestype = sbsref->refcontainertype;
+    else
+        sbsref->refrestype = sbsref->refelemtype;
+}
+```

@@ -43,3 +43,60 @@ The function supports different access modes through flags and handles memory al
 - The returned descriptor's snapshot field contains the snapshot used for the operation
 - The caller must ensure proper lifetime management of the memory context and snapshot
 - The descriptor's subid field is initialized to InvalidSubTransactionId and should be set by the caller if needed
+
+## Simplified Source
+
+```c
+LargeObjectDesc *inv_open(Oid lobjId, int flags, MemoryContext mcxt) {
+    Snapshot snapshot = NULL;
+    int descflags = 0;
+
+    // Convert input flags to internal descriptor flags
+    if (flags & INV_WRITE)
+        descflags |= IFS_WRLOCK | IFS_RDLOCK;  // Write implies read access
+    if (flags & INV_READ)
+        descflags |= IFS_RDLOCK;
+
+    // Validate that at least one access mode was specified
+    if (descflags == 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("invalid flags for opening a large object: %d", flags)));
+
+    // Choose snapshot: instantaneous for writes, active for reads
+    if (descflags & IFS_WRLOCK)
+        snapshot = NULL;
+    else
+        snapshot = GetActiveSnapshot();
+
+    // Check if large object exists
+    if (!myLargeObjectExists(lobjId, snapshot))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("large object %u does not exist", lobjId)));
+
+    // Check permissions for read access
+    if ((descflags & IFS_RDLOCK) != 0) {
+        if (!lo_compat_privileges &&
+            pg_largeobject_aclcheck_snapshot(lobjId, GetUserId(), ACL_SELECT, snapshot) != ACLCHECK_OK)
+            ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                           errmsg("permission denied for large object %u", lobjId)));
+    }
+
+    // Check permissions for write access
+    if ((descflags & IFS_WRLOCK) != 0) {
+        if (!lo_compat_privileges &&
+            pg_largeobject_aclcheck_snapshot(lobjId, GetUserId(), ACL_UPDATE, snapshot) != ACLCHECK_OK)
+            ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                           errmsg("permission denied for large object %u", lobjId)));
+    }
+
+    // Create and initialize the descriptor
+    LargeObjectDesc *retval = (LargeObjectDesc *) MemoryContextAlloc(mcxt, sizeof(LargeObjectDesc));
+    retval->id = lobjId;
+    retval->offset = 0;
+    retval->flags = descflags;
+    retval->subid = InvalidSubTransactionId;
+    retval->snapshot = snapshot;
+
+    return retval;
+}
+```

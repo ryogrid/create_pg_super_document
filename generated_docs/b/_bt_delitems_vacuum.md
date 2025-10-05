@@ -63,3 +63,84 @@ Additionally, the function performs page maintenance by clearing the VACUUM cycl
 - WAL logging is VACUUM-specific and differs from regular B-tree deletion logging
 - Essential for maintaining B-tree index health and preventing index bloat during VACUUM operations
 - Function must have at least one operation to perform (ndeletable > 0 || nupdatable > 0)
+
+## Simplified Source
+
+```c
+void _bt_delitems_vacuum(Relation rel, Buffer buf,
+                        OffsetNumber *deletable, int ndeletable,
+                        BTVacuumPosting *updatable, int nupdatable) {
+    Page page = BufferGetPage(buf);
+    BTPageOpaque opaque;
+    bool needswal = RelationNeedsWAL(rel);
+    char *updatedbuf = NULL;
+    Size updatedbuflen = 0;
+    OffsetNumber updatedoffsets[MaxIndexTuplesPerPage];
+
+    Assert(ndeletable > 0 || nupdatable > 0);
+
+    // Generate new posting lists with dead TIDs removed
+    if (nupdatable > 0)
+        updatedbuf = _bt_delitems_update(updatable, nupdatable,
+                                       updatedoffsets, &updatedbuflen,
+                                       needswal);
+
+    START_CRIT_SECTION();
+
+    // Update posting lists first (before simple deletes to avoid offset complications)
+    for (int i = 0; i < nupdatable; i++) {
+        OffsetNumber updatedoffset = updatedoffsets[i];
+        IndexTuple itup = updatable[i]->itup;
+        Size itemsz = MAXALIGN(IndexTupleSize(itup));
+
+        if (!PageIndexTupleOverwrite(page, updatedoffset, (Item) itup, itemsz))
+            elog(PANIC, "failed to update partially dead item in block %u",
+                 BufferGetBlockNumber(buf));
+    }
+
+    // Delete entire tuples
+    if (ndeletable > 0)
+        PageIndexMultiDelete(page, deletable, ndeletable);
+
+    // Clear vacuum cycle ID and garbage flag
+    opaque = BTPageGetOpaque(page);
+    opaque->btpo_cycleid = 0;
+    opaque->btpo_flags &= ~BTP_HAS_GARBAGE;
+
+    MarkBufferDirty(buf);
+
+    // WAL logging for VACUUM operation
+    if (needswal) {
+        XLogRecPtr recptr;
+        xl_btree_vacuum xlrec_vacuum;
+
+        xlrec_vacuum.ndeleted = ndeletable;
+        xlrec_vacuum.nupdated = nupdatable;
+
+        XLogBeginInsert();
+        XLogRegisterBuffer(0, buf, REGBUF_STANDARD);
+        XLogRegisterData((char *) &xlrec_vacuum, SizeOfBtreeVacuum);
+
+        if (ndeletable > 0)
+            XLogRegisterBufData(0, (char *) deletable,
+                              ndeletable * sizeof(OffsetNumber));
+
+        if (nupdatable > 0) {
+            XLogRegisterBufData(0, (char *) updatedoffsets,
+                              nupdatable * sizeof(OffsetNumber));
+            XLogRegisterBufData(0, updatedbuf, updatedbuflen);
+        }
+
+        recptr = XLogInsert(RM_BTREE_ID, XLOG_BTREE_VACUUM);
+        PageSetLSN(page, recptr);
+    }
+
+    END_CRIT_SECTION();
+
+    // Cleanup allocated memory
+    if (updatedbuf != NULL)
+        pfree(updatedbuf);
+    for (int i = 0; i < nupdatable; i++)
+        pfree(updatable[i]->itup);
+}
+```

@@ -32,3 +32,33 @@ mb_strchr provides multibyte-aware character searching functionality, acting as 
 - Performs byte-by-byte comparison for matching characters of the same length
 - Part of the regex execution infrastructure for pattern matching
 - More robust than standard strchr for non-ASCII character sets
+
+## Simplified Source
+
+```c
+static bool mb_strchr(char *str, char *c) {
+    int target_len = pg_mblen(c);
+    char *ptr = str;
+    bool found = false;
+
+    // Search through string for matching multibyte character
+    while (*ptr && !found) {
+        int char_len = pg_mblen(ptr);
+
+        // Compare character lengths first, then byte content
+        if (char_len == target_len) {
+            found = true;
+            for (int i = 0; i < char_len; i++) {
+                if (ptr[i] != c[i]) {
+                    found = false;
+                    break;
+                }
+            }
+        }
+
+        ptr += char_len;  // Move to next character
+    }
+
+    return found;
+}
+```

@@ -43,3 +43,70 @@ For tuples belonging to future batches, the function saves them to temporary fil
 - Memory tracking includes both tuple storage and projected bucket overhead to prevent memory exhaustion
 - The function handles memory cleanup by freeing minimal tuples when shouldFree is true
 - Tuples for future batches are stored in temporary files using the ExecHashJoinSaveTuple mechanism
+
+## Simplified Source
+```c
+void ExecHashTableInsert(HashJoinTable hashtable,
+                         TupleTableSlot *slot,
+                         uint32 hashvalue)
+{
+    // Extract tuple from slot
+    bool shouldFree;
+    MinimalTuple tuple = ExecFetchSlotMinimalTuple(slot, &shouldFree);
+    int bucketno, batchno;
+
+    // Determine bucket and batch for this hash value
+    ExecHashGetBucketAndBatch(hashtable, hashvalue, &bucketno, &batchno);
+
+    if (batchno == hashtable->curbatch)
+    {
+        // Insert into current batch's hash table
+        int hashTupleSize = HJTUPLE_OVERHEAD + tuple->t_len;
+        HashJoinTuple hashTuple = (HashJoinTuple) dense_alloc(hashtable, hashTupleSize);
+
+        // Store hash value and copy tuple data
+        hashTuple->hashvalue = hashvalue;
+        memcpy(HJTUPLE_MINTUPLE(hashTuple), tuple, tuple->t_len);
+        HeapTupleHeaderClearMatch(HJTUPLE_MINTUPLE(hashTuple));
+
+        // Insert at front of bucket chain
+        hashTuple->next.unshared = hashtable->buckets.unshared[bucketno];
+        hashtable->buckets.unshared[bucketno] = hashTuple;
+
+        // Optimize bucket count if needed (single batch only)
+        double ntuples = hashtable->totalTuples - hashtable->skewTuples;
+        if (hashtable->nbatch == 1 &&
+            ntuples > (hashtable->nbuckets_optimal * NTUP_PER_BUCKET))
+        {
+            // Double optimal buckets if within safe limits
+            if (hashtable->nbuckets_optimal <= INT_MAX / 2 &&
+                hashtable->nbuckets_optimal * 2 <= MaxAllocSize / sizeof(HashJoinTuple))
+            {
+                hashtable->nbuckets_optimal *= 2;
+                hashtable->log2_nbuckets_optimal += 1;
+            }
+        }
+
+        // Update memory tracking and handle overflow
+        hashtable->spaceUsed += hashTupleSize;
+        if (hashtable->spaceUsed > hashtable->spacePeak)
+            hashtable->spacePeak = hashtable->spaceUsed;
+
+        // Check if we need to increase batches to reduce memory pressure
+        if (hashtable->spaceUsed +
+            hashtable->nbuckets_optimal * sizeof(HashJoinTuple) > hashtable->spaceAllowed)
+            ExecHashIncreaseNumBatches(hashtable);
+    }
+    else
+    {
+        // Save tuple to temp file for future batch
+        ExecHashJoinSaveTuple(tuple, hashvalue,
+                              &hashtable->innerBatchFile[batchno],
+                              hashtable);
+    }
+
+    // Clean up temporary tuple if needed
+    if (shouldFree)
+        heap_free_minimal_tuple(tuple);
+}
+```

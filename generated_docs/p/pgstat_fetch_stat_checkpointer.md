@@ -35,3 +35,17 @@ This function serves as a support function for SQL-callable pgstat* functions th
 - Returns a pointer to `pgStatLocal.snapshot.checkpointer` which contains statistics like checkpoint counts, timing data, and buffer write information
 - The returned pointer provides access to a `PgStat_CheckpointerStats` structure containing metrics such as num_timed, num_requested, restartpoints_*, write_time, sync_time, buffers_written, and stat_reset_timestamp
 - This function is thread-safe as it operates on the local snapshot after ensuring it's current
+
+## Simplified Source
+
+```c
+PgStat_CheckpointerStats *
+pgstat_fetch_stat_checkpointer(void)
+{
+    // Ensure statistics snapshot is current
+    pgstat_snapshot_fixed(PGSTAT_KIND_CHECKPOINTER);
+
+    // Return pointer to checkpointer stats in local snapshot
+    return &pgStatLocal.snapshot.checkpointer;
+}
+```

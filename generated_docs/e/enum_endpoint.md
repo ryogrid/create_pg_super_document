@@ -41,3 +41,38 @@ The function implements proper transaction safety by calling  to ensure that unc
 - Returns InvalidOid for empty enum types
 - Uses ordered scanning with the pg_enum_typid_sortorder_index for consistent results
 - Implements proper resource cleanup by closing relations and indexes after use
+
+## Simplified Source
+
+```c
+static Oid enum_endpoint(Oid enumtypoid, ScanDirection direction) {
+    // Initialize scan key for enum type
+    ScanKeyData skey;
+    ScanKeyInit(&skey, Anum_pg_enum_enumtypid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(enumtypoid));
+
+    // Open pg_enum table and its sort order index
+    Relation enum_rel = table_open(EnumRelationId, AccessShareLock);
+    Relation enum_idx = index_open(EnumTypIdSortOrderIndexId, AccessShareLock);
+
+    // Start ordered scan to find first/last enum value
+    SysScanDesc enum_scan = systable_beginscan_ordered(enum_rel, enum_idx, NULL, 1, &skey);
+
+    // Get the first tuple in the specified direction
+    HeapTuple enum_tuple = systable_getnext_ordered(enum_scan, direction);
+    Oid result = InvalidOid;
+
+    if (HeapTupleIsValid(enum_tuple)) {
+        // Ensure enum value is safe to use in SQL
+        check_safe_enum_use(enum_tuple);
+        result = ((Form_pg_enum) GETSTRUCT(enum_tuple))->oid;
+    }
+
+    // Clean up resources
+    systable_endscan_ordered(enum_scan);
+    index_close(enum_idx, AccessShareLock);
+    table_close(enum_rel, AccessShareLock);
+
+    return result;
+}
+```

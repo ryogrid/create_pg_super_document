@@ -37,3 +37,22 @@ The function uses PostgreSQL's standard binary output protocol, creating a Strin
 - Used by PostgreSQL's binary protocol for efficient data transfer
 - Part of the time data type's I/O function suite
 - Located in src/backend/utils/adt/date.c:1547-1557
+
+## Simplified Source
+
+```c
+Datum
+time_send(PG_FUNCTION_ARGS)
+{
+    // Extract the time value from function arguments
+    TimeADT time = PG_GETARG_TIMEADT(0);
+    StringInfoData buf;
+
+    // Create binary output buffer and write time as 64-bit integer
+    pq_begintypsend(&buf);
+    pq_sendint64(&buf, time);
+
+    // Return the binary representation as bytea
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

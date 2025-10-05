@@ -36,3 +36,26 @@ The function supports five distinct phases of B-tree index building:
 
 ## Notes and Other Information
 This function is part of PostgreSQL's progress reporting infrastructure, introduced to provide users with visibility into long-running index creation operations. The phase names returned are designed to be informative for database administrators monitoring index builds. The function returns NULL for unrecognized phase numbers, allowing for graceful handling of unknown phases.
+
+## Simplified Source
+
+```c
+char *
+btbuildphasename(int64 phasenum)
+{
+    switch (phasenum) {
+        case PROGRESS_CREATEIDX_SUBPHASE_INITIALIZE:
+            return "initializing";
+        case PROGRESS_BTREE_PHASE_INDEXBUILD_TABLESCAN:
+            return "scanning table";
+        case PROGRESS_BTREE_PHASE_PERFORMSORT_1:
+            return "sorting live tuples";
+        case PROGRESS_BTREE_PHASE_PERFORMSORT_2:
+            return "sorting dead tuples";
+        case PROGRESS_BTREE_PHASE_LEAF_LOAD:
+            return "loading tuples in tree";
+        default:
+            return NULL;
+    }
+}
+```

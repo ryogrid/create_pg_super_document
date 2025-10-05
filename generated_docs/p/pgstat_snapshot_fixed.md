@@ -41,3 +41,26 @@ The function performs validation to ensure the requested kind is valid and repre
 - Uses different snapshot building strategies based on fetch consistency settings
 - Ensures the snapshot validity flag is set for the requested kind after completion
 - Primarily used by pgstat_fetch_* functions as a prerequisite for statistics data access
+
+## Simplified Source
+
+```c
+void pgstat_snapshot_fixed(PgStat_Kind kind) {
+    // Validate parameters
+    Assert(pgstat_is_kind_valid(kind));
+    Assert(pgstat_get_kind_info(kind)->fixed_amount);
+
+    // Clear snapshot if forced
+    if (force_stats_snapshot_clear)
+        pgstat_clear_snapshot();
+
+    // Build snapshot based on consistency mode
+    if (pgstat_fetch_consistency == PGSTAT_FETCH_CONSISTENCY_SNAPSHOT)
+        pgstat_build_snapshot();          // Full snapshot
+    else
+        pgstat_build_snapshot_fixed(kind); // Kind-specific snapshot
+
+    // Verify snapshot was created
+    Assert(pgStatLocal.snapshot.fixed_valid[kind]);
+}
+```

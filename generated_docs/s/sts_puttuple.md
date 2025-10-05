@@ -51,3 +51,83 @@ This function writes a tuple to the shared tuplestore associated with the given 
 - Metadata size must match the size specified during sts_initialize()
 - Critical component of PostgreSQLs parallel hash join and repartitioning operations
 - Ensures thread-safe writing by having each backend write to its own file
+
+## Simplified Source
+
+```c
+void
+sts_puttuple(SharedTuplestoreAccessor *accessor, void *meta_data,
+             MinimalTuple tuple)
+{
+    size_t size = accessor->sts->meta_data_size + tuple->t_len;
+
+    // Create write file if this is first tuple
+    if (accessor->write_file == NULL)
+    {
+        char name[MAXPGPATH];
+        sts_filename(name, accessor, accessor->participant);
+
+        MemoryContext oldcxt = MemoryContextSwitchTo(accessor->context);
+        accessor->write_file = BufFileCreateFileSet(&accessor->fileset->fs, name);
+        MemoryContextSwitchTo(oldcxt);
+
+        // Mark participant as writing
+        accessor->sts->participants[accessor->participant].writing = true;
+    }
+
+    // Check if current chunk has enough space
+    if (accessor->write_pointer + size > accessor->write_end)
+    {
+        if (accessor->write_chunk == NULL)
+        {
+            // Allocate first chunk
+            accessor->write_chunk = (SharedTuplestoreChunk *)
+                MemoryContextAllocZero(accessor->context, STS_CHUNK_PAGES * BLCKSZ);
+            accessor->write_chunk->ntuples = 0;
+            accessor->write_pointer = &accessor->write_chunk->data[0];
+            accessor->write_end = (char *) accessor->write_chunk + STS_CHUNK_PAGES * BLCKSZ;
+        }
+        else
+        {
+            // Flush current chunk to make space
+            sts_flush_chunk(accessor);
+        }
+
+        // Handle oversized tuples with overflow chunks
+        if (accessor->write_pointer + size > accessor->write_end)
+        {
+            // Write metadata and partial tuple to current chunk
+            if (accessor->sts->meta_data_size > 0)
+                memcpy(accessor->write_pointer, meta_data, accessor->sts->meta_data_size);
+
+            size_t written = accessor->write_end - accessor->write_pointer - accessor->sts->meta_data_size;
+            memcpy(accessor->write_pointer + accessor->sts->meta_data_size, tuple, written);
+            ++accessor->write_chunk->ntuples;
+
+            size -= accessor->sts->meta_data_size + written;
+
+            // Write remaining data in overflow chunks
+            while (size > 0)
+            {
+                sts_flush_chunk(accessor);
+                accessor->write_chunk->overflow = (size + STS_CHUNK_DATA_SIZE - 1) / STS_CHUNK_DATA_SIZE;
+
+                size_t written_this_chunk = Min(accessor->write_end - accessor->write_pointer, size);
+                memcpy(accessor->write_pointer, (char *) tuple + written, written_this_chunk);
+                accessor->write_pointer += written_this_chunk;
+                size -= written_this_chunk;
+                written += written_this_chunk;
+            }
+            return;
+        }
+    }
+
+    // Normal case: copy metadata and tuple to current chunk
+    if (accessor->sts->meta_data_size > 0)
+        memcpy(accessor->write_pointer, meta_data, accessor->sts->meta_data_size);
+    memcpy(accessor->write_pointer + accessor->sts->meta_data_size, tuple, tuple->t_len);
+
+    accessor->write_pointer += size;
+    ++accessor->write_chunk->ntuples;
+}
+```

@@ -37,3 +37,36 @@ This function implements the core algorithm for calculating the minimum distance
 - Returns 0.0 immediately if the point is inside the polygon
 - Uses an iterative approach to find minimum distance across all polygon edges
 - The algorithm ensures complete coverage of the polygon boundary for distance calculation
+
+## Simplified Source
+
+```c
+static float8
+dist_ppoly_internal(Point *pt, POLYGON *poly)
+{
+    float8 result, d;
+    int i;
+    LSEG seg;
+
+    // If point is inside polygon, distance is zero
+    if (point_inside(pt, poly->npts, poly->p) != 0)
+        return 0.0;
+
+    // Initialize with distance to edge from first to last vertex (close polygon)
+    seg.p[0] = poly->p[0];
+    seg.p[1] = poly->p[poly->npts - 1];
+    result = lseg_closept_point(NULL, &seg, pt);
+
+    // Check distance to each edge and keep minimum
+    for (i = 0; i < poly->npts - 1; i++)
+    {
+        seg.p[0] = poly->p[i];
+        seg.p[1] = poly->p[i + 1];
+        d = lseg_closept_point(NULL, &seg, pt);
+        if (d < result)
+            result = d;
+    }
+
+    return result;
+}
+```

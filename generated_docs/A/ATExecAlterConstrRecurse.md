@@ -57,3 +57,107 @@ Key operations include:
 - Must recurse even when constraint values are already correct to handle partitions that may have been altered locally
 - Collects OIDs of other relations for cache invalidation to maintain consistency
 - Returns true if any actual changes were made to the constraint or its triggers
+
+## Simplified Source
+
+```c
+static bool ATExecAlterConstrRecurse(Constraint *cmdcon, Relation conrel, Relation tgrel,
+                                    Relation rel, HeapTuple contuple, List **otherrelids,
+                                    LOCKMODE lockmode) {
+    Form_pg_constraint currcon;
+    Oid conoid;
+    Oid refrelid;
+    bool changed = false;
+
+    // Prevent stack overflow in deep recursion
+    check_stack_depth();
+
+    currcon = (Form_pg_constraint) GETSTRUCT(contuple);
+    conoid = currcon->oid;
+    refrelid = currcon->confrelid;
+
+    // Update constraint if deferrability attributes have changed
+    if (currcon->condeferrable != cmdcon->deferrable ||
+        currcon->condeferred != cmdcon->initdeferred) {
+
+        // Update pg_constraint tuple
+        HeapTuple copyTuple = heap_copytuple(contuple);
+        Form_pg_constraint copy_con = (Form_pg_constraint) GETSTRUCT(copyTuple);
+        copy_con->condeferrable = cmdcon->deferrable;
+        copy_con->condeferred = cmdcon->initdeferred;
+        CatalogTupleUpdate(conrel, &copyTuple->t_self, copyTuple);
+
+        InvokeObjectPostAlterHook(ConstraintRelationId, conoid, 0);
+        heap_freetuple(copyTuple);
+        changed = true;
+
+        // Invalidate relcache to make changes visible
+        CacheInvalidateRelcache(rel);
+
+        // Update related triggers in pg_trigger
+        ScanKeyData tgkey;
+        SysScanDesc tgscan;
+        HeapTuple tgtuple;
+
+        ScanKeyInit(&tgkey, Anum_pg_trigger_tgconstraint, BTEqualStrategyNumber, F_OIDEQ,
+                    ObjectIdGetDatum(conoid));
+        tgscan = systable_beginscan(tgrel, TriggerConstraintIndexId, true, NULL, 1, &tgkey);
+
+        while (HeapTupleIsValid(tgtuple = systable_getnext(tgscan))) {
+            Form_pg_trigger tgform = (Form_pg_trigger) GETSTRUCT(tgtuple);
+
+            // Track other relations for cache invalidation
+            if (tgform->tgrelid != RelationGetRelid(rel))
+                *otherrelids = list_append_unique_oid(*otherrelids, tgform->tgrelid);
+
+            // Only update specific FK trigger types
+            if (tgform->tgfoid != F_RI_FKEY_NOACTION_DEL &&
+                tgform->tgfoid != F_RI_FKEY_NOACTION_UPD &&
+                tgform->tgfoid != F_RI_FKEY_CHECK_INS &&
+                tgform->tgfoid != F_RI_FKEY_CHECK_UPD)
+                continue;
+
+            // Update trigger deferrability
+            HeapTuple tgCopyTuple = heap_copytuple(tgtuple);
+            Form_pg_trigger copy_tg = (Form_pg_trigger) GETSTRUCT(tgCopyTuple);
+            copy_tg->tgdeferrable = cmdcon->deferrable;
+            copy_tg->tginitdeferred = cmdcon->initdeferred;
+            CatalogTupleUpdate(tgrel, &tgCopyTuple->t_self, tgCopyTuple);
+
+            InvokeObjectPostAlterHook(TriggerRelationId, tgform->oid, 0);
+            heap_freetuple(tgCopyTuple);
+        }
+
+        systable_endscan(tgscan);
+    }
+
+    // Handle partitioned tables - recurse to child constraints
+    if (rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE ||
+        get_rel_relkind(refrelid) == RELKIND_PARTITIONED_TABLE) {
+
+        ScanKeyData pkey;
+        SysScanDesc pscan;
+        HeapTuple childtup;
+
+        ScanKeyInit(&pkey, Anum_pg_constraint_conparentid, BTEqualStrategyNumber, F_OIDEQ,
+                    ObjectIdGetDatum(conoid));
+
+        pscan = systable_beginscan(conrel, ConstraintParentIndexId, true, NULL, 1, &pkey);
+
+        while (HeapTupleIsValid(childtup = systable_getnext(pscan))) {
+            Form_pg_constraint childcon = (Form_pg_constraint) GETSTRUCT(childtup);
+            Relation childrel = table_open(childcon->conrelid, lockmode);
+
+            // Recursively process child constraint
+            ATExecAlterConstrRecurse(cmdcon, conrel, tgrel, childrel, childtup,
+                                    otherrelids, lockmode);
+
+            table_close(childrel, NoLock);
+        }
+
+        systable_endscan(pscan);
+    }
+
+    return changed;
+}
+```

@@ -48,3 +48,89 @@ The function handles different types of SQL operations appropriately - for non-S
 - Handles errors gracefully with proper cleanup of partially constructed results
 - The returned PLyResultObject provides attributes like status, nrows(), and rows for Python access
 - Memory management follows PostgreSQL patterns with temporary contexts for intermediate data
+
+## Simplified Source
+
+```c
+static PyObject *PLy_spi_execute_fetch_result(SPITupleTable *tuptable, uint64 rows, int status) {
+    // Create new result object
+    PLyResultObject *result = (PLyResultObject *) PLy_result_new();
+    if (!result) {
+        SPI_freetuptable(tuptable);
+        return NULL;
+    }
+
+    // Set status and row count
+    Py_DECREF(result->status);
+    result->status = PyLong_FromLong(status);
+
+    if (status > 0 && tuptable == NULL) {
+        // Non-SELECT query: just set row count
+        Py_DECREF(result->nrows);
+        result->nrows = PyLong_FromUnsignedLongLong(rows);
+    }
+    else if (status > 0 && tuptable != NULL) {
+        // SELECT query: convert tuples to Python objects
+        Py_DECREF(result->nrows);
+        result->nrows = PyLong_FromUnsignedLongLong(rows);
+
+        // Check Python list size limits
+        if (rows > (uint64) PY_SSIZE_T_MAX) {
+            ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                errmsg("query result has too many rows to fit in a Python list")));
+        }
+
+        // Create temporary context for conversion
+        MemoryContext cxt = AllocSetContextCreate(CurrentMemoryContext,
+            "PL/Python temp context", ALLOCSET_DEFAULT_SIZES);
+
+        PLyDatumToOb ininfo;
+        PLyExecutionContext *exec_ctx = PLy_current_execution_context();
+        PLy_input_setup_func(&ininfo, cxt, RECORDOID, -1, exec_ctx->curr_proc);
+
+        volatile MemoryContext oldcontext = CurrentMemoryContext;
+        PG_TRY();
+        {
+            if (rows) {
+                // Create Python list and convert each tuple
+                Py_DECREF(result->rows);
+                result->rows = PyList_New(rows);
+
+                if (result->rows) {
+                    PLy_input_setup_tuple(&ininfo, tuptable->tupdesc, exec_ctx->curr_proc);
+
+                    for (uint64 i = 0; i < rows; i++) {
+                        PyObject *row = PLy_input_from_tuple(&ininfo, tuptable->vals[i],
+                                                           tuptable->tupdesc, true);
+                        PyList_SetItem(result->rows, i, row);
+                    }
+                }
+            }
+
+            // Save tuple descriptor for metadata access
+            MemoryContext oldcontext2 = MemoryContextSwitchTo(TopMemoryContext);
+            result->tupdesc = CreateTupleDescCopy(tuptable->tupdesc);
+            MemoryContextSwitchTo(oldcontext2);
+        }
+        PG_CATCH();
+        {
+            MemoryContextSwitchTo(oldcontext);
+            MemoryContextDelete(cxt);
+            Py_DECREF(result);
+            PG_RE_THROW();
+        }
+        PG_END_TRY();
+
+        MemoryContextDelete(cxt);
+        SPI_freetuptable(tuptable);
+
+        // Handle list creation failure
+        if (!result->rows) {
+            Py_DECREF(result);
+            result = NULL;
+        }
+    }
+
+    return (PyObject *) result;
+}
+```

@@ -32,3 +32,20 @@ This static internal function computes the distance between a circle and a polyg
 - Implements non-negative distance semantics (returns 0.0 for overlapping geometries)
 - Shared implementation for both circle-to-polygon and polygon-to-circle distance calculations
 - Uses point-to-polygon distance as the foundation for circle-to-polygon distance
+
+## Simplified Source
+
+```c
+static float8
+dist_cpoly_internal(CIRCLE *circle, POLYGON *poly)
+{
+    // Calculate distance from circle center to polygon, then subtract radius
+    float8 result = dist_ppoly_internal(&circle->center, poly) - circle->radius;
+
+    // Ensure non-negative distance (0 means touching/overlapping)
+    if (result < 0.0)
+        result = 0.0;
+
+    return result;
+}
+```

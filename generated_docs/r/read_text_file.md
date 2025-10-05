@@ -34,3 +34,27 @@ This function serves as a text-aware wrapper around read_binary_file, adding cru
 - Returns text datum format compatible with PostgreSQL text handling
 - Null return indicates either missing file (when missing_ok is true) or encoding validation failure
 - The function safely casts validated bytea to text after verification
+
+## Simplified Source
+
+```c
+static text *
+read_text_file(const char *filename, int64 seek_offset, int64 bytes_to_read,
+               bool missing_ok)
+{
+    bytea *buf;
+
+    // Read file content as binary data
+    buf = read_binary_file(filename, seek_offset, bytes_to_read, missing_ok);
+
+    if (buf != NULL) {
+        // Validate that content is valid in database encoding
+        pg_verifymbstr(VARDATA(buf), VARSIZE(buf) - VARHDRSZ, false);
+
+        // Safe to cast to text after validation
+        return (text *) buf;
+    }
+
+    return NULL;
+}
+```

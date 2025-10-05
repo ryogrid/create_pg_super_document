@@ -43,3 +43,23 @@ The function uses PostgreSQL's standard binary serialization functions to create
 - Handles both toasted and untoasted JSON values automatically
 - The resulting binary data can be reconstructed using the corresponding  function
 - Used primarily when clients connect using PostgreSQL's binary protocol mode
+
+## Simplified Source
+
+```c
+Datum
+json_send(PG_FUNCTION_ARGS)
+{
+    text *json_text = PG_GETARG_TEXT_PP(0);
+    StringInfoData buf;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Send text data to buffer with length information
+    pq_sendtext(&buf, VARDATA_ANY(json_text), VARSIZE_ANY_EXHDR(json_text));
+
+    // Return finalized binary data
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

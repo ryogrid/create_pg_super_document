@@ -32,3 +32,21 @@ The function is designed to support gradual migration of code from manual buffer
 - Returns InvalidBlockNumber when the end of the stream is reached
 - The strategy parameter receives the same BufferAccessStrategy that was passed to read_stream_begin_relation
 - Does not perform any actual I/O - only provides the block number and strategy for external use
+
+## Simplified Source
+
+```c
+BlockNumber read_stream_next_block(ReadStream *stream, BufferAccessStrategy *strategy) {
+    // Set the output strategy parameter from the stream's current strategy
+    *strategy = stream->ios[0].op.strategy;
+
+    // Get and consume the next block number from the stream's lookahead algorithm
+    return read_stream_get_block(stream, NULL);
+}
+```
+
+**Key Logic:**
+- Retrieves the buffer access strategy from the stream's internal state
+- Delegates to `read_stream_get_block()` to consume and return the next predicted block
+- Returns `InvalidBlockNumber` when stream is exhausted
+- Transitional interface for legacy code migrating to read streams

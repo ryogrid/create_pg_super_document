@@ -41,3 +41,35 @@ A key design decision is that the function never shrinks allocated arrays to avo
 - Repalloc operations are not amortized as the cost is minimal compared to file operations
 - The md_num_open_segs counter is always updated to reflect the new segment count
 - This is an internal function specific to the MD storage manager implementation
+
+## Simplified Source
+
+```c
+static void _fdvec_resize(SMgrRelation reln, ForkNumber forknum, int nseg)
+{
+    if (nseg == 0)
+    {
+        // Free the array if no segments needed
+        if (reln->md_num_open_segs[forknum] > 0)
+        {
+            pfree(reln->md_seg_fds[forknum]);
+            reln->md_seg_fds[forknum] = NULL;
+        }
+    }
+    else if (reln->md_num_open_segs[forknum] == 0)
+    {
+        // Initial allocation when transitioning from 0 segments
+        reln->md_seg_fds[forknum] =
+            MemoryContextAlloc(MdCxt, sizeof(MdfdVec) * nseg);
+    }
+    else if (nseg > reln->md_num_open_segs[forknum])
+    {
+        // Expand array for more segments
+        reln->md_seg_fds[forknum] =
+            repalloc(reln->md_seg_fds[forknum], sizeof(MdfdVec) * nseg);
+    }
+    // Note: Never shrink array to avoid allocation in critical sections
+
+    reln->md_num_open_segs[forknum] = nseg;
+}
+```

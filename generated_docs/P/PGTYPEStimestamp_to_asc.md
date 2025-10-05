@@ -43,3 +43,32 @@ The function uses a fixed DateStyle of 1 (USE_ISO_DATES) and allocates a new str
 - Part of the ECPG pgtypes library for embedded SQL applications
 - Extensively tested as evidenced by numerous test program references
 - The function handles all timestamp representations including special values like infinity
+
+## Simplified Source
+
+```c
+char *
+PGTYPEStimestamp_to_asc(timestamp tstamp)
+{
+    struct tm tt, *tm = &tt;
+    char buf[MAXDATELEN + 1];
+    fsec_t fsec;
+    int DateStyle = 1;  // USE_ISO_DATES format
+
+    // Handle special timestamp values (infinity, -infinity)
+    if (TIMESTAMP_NOT_FINITE(tstamp)) {
+        EncodeSpecialTimestamp(tstamp, buf);
+    }
+    // Convert finite timestamp to string representation
+    else if (timestamp2tm(tstamp, NULL, tm, &fsec, NULL) == 0) {
+        EncodeDateTime(tm, fsec, false, 0, NULL, DateStyle, buf, 0);
+    }
+    // Handle conversion failure
+    else {
+        errno = PGTYPES_TS_BAD_TIMESTAMP;
+        return NULL;
+    }
+
+    return pgtypes_strdup(buf);  // Return allocated copy
+}
+```

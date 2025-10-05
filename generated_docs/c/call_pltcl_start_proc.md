@@ -45,3 +45,72 @@ The function uses PostgreSQL's standard function call mechanism, ensuring proper
 - Provides enhanced error context through `start_proc_error_callback` for better diagnostics
 - The function is static, indicating it's only used within the pltcl.c module
 - If no startup procedure is configured (NULL or empty string), the function returns immediately without action
+
+## Simplified Source
+
+```c
+static void
+call_pltcl_start_proc(Oid prolang, bool pltrusted)
+{
+    char *start_proc;
+    const char *gucname;
+
+    // Select appropriate GUC parameter based on trusted/untrusted
+    start_proc = pltrusted ? pltcl_start_proc : pltclu_start_proc;
+    gucname = pltrusted ? "pltcl.start_proc" : "pltclu.start_proc";
+
+    // Return early if no start procedure configured
+    if (start_proc == NULL || start_proc[0] == '\0')
+        return;
+
+    // Set up error context for better error messages
+    ErrorContextCallback errcallback;
+    errcallback.callback = start_proc_error_callback;
+    errcallback.arg = unconstify(char *, gucname);
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Parse function name and look it up
+    List *namelist = stringToQualifiedNameList(start_proc, NULL);
+    Oid procOid = LookupFuncName(namelist, 0, NULL, false);
+
+    // Check user has permission to execute function
+    AclResult aclresult = object_aclcheck(ProcedureRelationId, procOid, GetUserId(), ACL_EXECUTE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, OBJECT_FUNCTION, start_proc);
+
+    // Validate function properties
+    HeapTuple procTup = SearchSysCache1(PROCOID, ObjectIdGetDatum(procOid));
+    if (!HeapTupleIsValid(procTup))
+        elog(ERROR, "cache lookup failed for function %u", procOid);
+
+    Form_pg_proc procStruct = (Form_pg_proc) GETSTRUCT(procTup);
+
+    // Function must be same language
+    if (procStruct->prolang != prolang)
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("function \"%s\" is in the wrong language", start_proc)));
+
+    // Function must not be SECURITY DEFINER
+    if (procStruct->prosecdef)
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("function \"%s\" must not be SECURITY DEFINER", start_proc)));
+
+    ReleaseSysCache(procTup);
+
+    // Call the function using standard SQL function call mechanism
+    LOCAL_FCINFO(fcinfo, 0);
+    FmgrInfo finfo;
+    PgStat_FunctionCallUsage fcusage;
+
+    InvokeFunctionExecuteHook(procOid);
+    fmgr_info(procOid, &finfo);
+    InitFunctionCallInfoData(*fcinfo, &finfo, 0, InvalidOid, NULL, NULL);
+    pgstat_init_function_usage(fcinfo, &fcusage);
+    (void) FunctionCallInvoke(fcinfo);
+    pgstat_end_function_usage(&fcusage, true);
+
+    // Restore error context
+    error_context_stack = errcallback.previous;
+}
+```

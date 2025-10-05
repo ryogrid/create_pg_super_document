@@ -50,3 +50,69 @@ The algorithm ensures that only live pages are returned by stepping right when e
 - For leaf level (level 0), descends to the leftmost or rightmost child at each internal level
 - Provides the foundation for other endpoint-related operations in the B-tree implementation
 - This is not a static function, making it accessible from other source files in the B-tree subsystem
+
+## Simplified Source
+
+```c
+Buffer
+_bt_get_endpoint(Relation rel, uint32 level, bool rightmost)
+{
+    Buffer buf;
+    Page page;
+    BTPageOpaque opaque;
+    OffsetNumber offnum;
+    BlockNumber blkno;
+    IndexTuple itup;
+
+    // Start from appropriate root
+    if (level == 0)
+        buf = _bt_getroot(rel, NULL, BT_READ);  // Fast root for leaf
+    else
+        buf = _bt_gettrueroot(rel);  // True root for internal levels
+
+    if (!BufferIsValid(buf))
+        return InvalidBuffer;
+
+    page = BufferGetPage(buf);
+    opaque = BTPageGetOpaque(page);
+
+    for (;;) {
+        // Skip deleted pages and find rightmost if requested
+        while (P_IGNORE(opaque) || (rightmost && !P_RIGHTMOST(opaque))) {
+            blkno = opaque->btpo_next;
+            if (blkno == P_NONE)
+                elog(ERROR, "fell off the end of index \"%s\"",
+                     RelationGetRelationName(rel));
+
+            buf = _bt_relandgetbuf(rel, buf, blkno, BT_READ);
+            page = BufferGetPage(buf);
+            opaque = BTPageGetOpaque(page);
+        }
+
+        // Check if we've reached the target level
+        if (opaque->btpo_level == level)
+            break;
+
+        if (opaque->btpo_level < level)
+            ereport(ERROR,
+                    (errcode(ERRCODE_INDEX_CORRUPTED),
+                     errmsg_internal("btree level %u not found in index \"%s\"",
+                                     level, RelationGetRelationName(rel))));
+
+        // Descend to appropriate child page
+        if (rightmost)
+            offnum = PageGetMaxOffsetNumber(page);
+        else
+            offnum = P_FIRSTDATAKEY(opaque);
+
+        itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, offnum));
+        blkno = BTreeTupleGetDownLink(itup);
+
+        buf = _bt_relandgetbuf(rel, buf, blkno, BT_READ);
+        page = BufferGetPage(buf);
+        opaque = BTPageGetOpaque(page);
+    }
+
+    return buf;
+}
+```

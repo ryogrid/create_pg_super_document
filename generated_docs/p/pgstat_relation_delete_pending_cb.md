@@ -33,3 +33,17 @@ The function checks if the pending statistics entry has an associated relation r
 - Part of PostgreSQL's resource management for the statistics collection system
 - Works in conjunction with other statistics management callbacks to maintain system integrity
 - The function is simple but critical for preventing resource leaks in the statistics subsystem
+
+## Simplified Source
+
+```c
+void
+pgstat_relation_delete_pending_cb(PgStat_EntryRef *entry_ref)
+{
+    PgStat_TableStatus *pending = (PgStat_TableStatus *) entry_ref->pending;
+
+    // Clean up relation reference if it exists
+    if (pending->relation)
+        pgstat_unlink_relation(pending->relation);
+}
+```

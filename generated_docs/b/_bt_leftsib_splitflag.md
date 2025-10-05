@@ -50,3 +50,31 @@ The function includes logic to handle concurrent splits: if the left sibling was
 - This check is essential for maintaining B-tree structural integrity during deletion operations
 - The function handles the case where there is no left sibling (target is leftmost page) by returning false
 - Concurrent split detection ensures that completed splits don't prevent legitimate deletions
+
+## Simplified Source
+
+```c
+static bool _bt_leftsib_splitflag(Relation rel, BlockNumber leftsib, BlockNumber target)
+{
+    Buffer buf;
+    Page page;
+    BTPageOpaque opaque;
+    bool result;
+
+    // No left sibling means deletion is safe
+    if (leftsib == P_NONE)
+        return false;
+
+    // Read the left sibling page
+    buf = _bt_getbuf(rel, leftsib, BT_READ);
+    page = BufferGetPage(buf);
+    opaque = BTPageGetOpaque(page);
+
+    // Check if left sibling has incomplete split AND still points to target
+    // This would mean target page lacks proper parent downlink
+    result = (opaque->btpo_next == target && P_INCOMPLETE_SPLIT(opaque));
+
+    _bt_relbuf(rel, buf);
+    return result;
+}
+```

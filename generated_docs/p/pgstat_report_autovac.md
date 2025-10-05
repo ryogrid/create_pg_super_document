@@ -35,3 +35,28 @@ This function is called from the autovacuum process to report the startup of an 
 - Uses locked access to shared statistics to ensure consistency
 - Reports the start of autovacuum instantly for consistency with end-of-vacuum reporting
 - Called before InitPostgres completion, hence requires explicit database OID parameter
+
+## Simplified Source
+
+```c
+void
+pgstat_report_autovac(Oid dboid)
+{
+    PgStat_EntryRef *entry_ref;
+    PgStatShared_Database *dbentry;
+
+    // Must be under postmaster (not single-user mode)
+    Assert(IsUnderPostmaster);
+
+    // Get locked reference to database statistics entry
+    entry_ref = pgstat_get_entry_ref_locked(PGSTAT_KIND_DATABASE,
+                                            dboid, InvalidOid, false);
+
+    // Update last autovacuum start time to current timestamp
+    dbentry = (PgStatShared_Database *) entry_ref->shared_stats;
+    dbentry->stats.last_autovac_time = GetCurrentTimestamp();
+
+    // Release the lock
+    pgstat_unlock_entry(entry_ref);
+}
+```

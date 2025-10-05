@@ -41,3 +41,29 @@ The function uses  to determine the PostgreSQL share directory path and construc
 - Non-ASCII characters are prohibited to prevent encoding-related security risks
 - The returned string is palloc'd and should be pfree'd when no longer needed
 - All text search configuration files are expected to reside in the tsearch_data subdirectory of the PostgreSQL share directory
+
+## Simplified Source
+
+```c
+char *
+get_tsearch_config_filename(const char *basename, const char *extension)
+{
+    char sharepath[MAXPGPATH];
+    char *result;
+
+    // Validate basename contains only safe characters (a-z, 0-9, _)
+    if (strspn(basename, "abcdefghijklmnopqrstuvwxyz0123456789_") != strlen(basename))
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("invalid text search configuration file name \"%s\"",
+                        basename)));
+
+    // Build full path: <share>/tsearch_data/<basename>.<extension>
+    get_share_path(my_exec_path, sharepath);
+    result = palloc(MAXPGPATH);
+    snprintf(result, MAXPGPATH, "%s/tsearch_data/%s.%s",
+             sharepath, basename, extension);
+
+    return result;
+}
+```

@@ -33,3 +33,37 @@ The function performs several critical cleanup tasks: it removes the worker from
 
 ## Notes and Other Information
 This function is designed to be registered as an exit callback, which explains why it follows the standard callback signature with code and arg parameters that are not used in the implementation. The function carefully handles the race condition where the launcher's PID might change between reading and signaling by relying on the process cleanup mechanism to send the actual signal. The rebalancing signal ensures that remaining workers can adjust their cost limits optimally after a worker terminates.
+
+## Simplified Source
+
+```c
+static void
+FreeWorkerInfo(int code, Datum arg)
+{
+    if (MyWorkerInfo != NULL)
+    {
+        // Acquire exclusive lock for worker management
+        LWLockAcquire(AutovacuumLock, LW_EXCLUSIVE);
+
+        // Save launcher PID for later signaling
+        AutovacuumLauncherPid = AutoVacuumShmem->av_launcherpid;
+
+        // Remove worker from active list and reset fields
+        dlist_delete(&MyWorkerInfo->wi_links);
+        MyWorkerInfo->wi_dboid = InvalidOid;
+        MyWorkerInfo->wi_tableoid = InvalidOid;
+        MyWorkerInfo->wi_sharedrel = false;
+        MyWorkerInfo->wi_proc = NULL;
+        MyWorkerInfo->wi_launchtime = 0;
+        pg_atomic_clear_flag(&MyWorkerInfo->wi_dobalance);
+
+        // Add worker back to free workers list
+        dlist_push_head(&AutoVacuumShmem->av_freeWorkers, &MyWorkerInfo->wi_links);
+        MyWorkerInfo = NULL;
+
+        // Signal for worker rebalancing
+        AutoVacuumShmem->av_signal[AutoVacRebalance] = true;
+        LWLockRelease(AutovacuumLock);
+    }
+}
+```

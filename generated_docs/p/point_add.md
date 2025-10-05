@@ -38,3 +38,21 @@ This function serves as the PostgreSQL SQL function interface for point addition
 - Returns a Datum which is PostgreSQL's generic data type for SQL function returns
 - The function signature follows PostgreSQL's V1 calling convention for internal functions
 - Memory allocated with palloc will be automatically freed at the end of the current memory context
+
+## Simplified Source
+
+```c
+Datum point_add(PG_FUNCTION_ARGS) {
+    Point *p1 = PG_GETARG_POINT_P(0);  // First point
+    Point *p2 = PG_GETARG_POINT_P(1);  // Second point
+    Point *result;
+
+    // Allocate memory for result point
+    result = (Point *) palloc(sizeof(Point));
+
+    // Perform point addition
+    point_add_point(result, p1, p2);
+
+    PG_RETURN_POINT_P(result);
+}
+```

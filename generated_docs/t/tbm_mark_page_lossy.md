@@ -56,3 +56,63 @@ The chunk-based approach allows multiple pages to be represented in a compressed
 - Updates multiple counters: nentries, npages, nchunks
 - The function carefully manages the transition from exact to lossy representation
 - Critical for the bitmap's ability to handle large result sets within memory constraints
+
+## Simplified Source
+
+```c
+static void
+tbm_mark_page_lossy(TIDBitmap *tbm, BlockNumber pageno)
+{
+    PagetableEntry *page;
+    bool found;
+    BlockNumber chunk_pageno;
+    int bitno, wordnum, bitnum;
+
+    // Force bitmap into hash table mode for lossy storage
+    if (tbm->status != TBM_HASH)
+        tbm_create_pagetable(tbm);
+
+    // Calculate chunk information
+    bitno = pageno % PAGES_PER_CHUNK;
+    chunk_pageno = pageno - bitno;
+
+    // Remove existing exact entry (unless it's a chunk header)
+    if (bitno != 0) {
+        if (pagetable_delete(tbm->pagetable, pageno)) {
+            // Update counters for deleted exact entry
+            tbm->nentries--;
+            tbm->npages--;
+        }
+    }
+
+    // Find or create chunk header entry
+    page = pagetable_insert(tbm->pagetable, chunk_pageno, &found);
+
+    if (!found) {
+        // Initialize new chunk entry
+        char oldstatus = page->status;
+        MemSet(page, 0, sizeof(PagetableEntry));
+        page->status = oldstatus;
+        page->blockno = chunk_pageno;
+        page->ischunk = true;
+        tbm->nentries++;
+        tbm->nchunks++;
+    }
+    else if (!page->ischunk) {
+        // Convert exact page to chunk header
+        char oldstatus = page->status;
+        MemSet(page, 0, sizeof(PagetableEntry));
+        page->status = oldstatus;
+        page->blockno = chunk_pageno;
+        page->ischunk = true;
+        page->words[0] = ((bitmapword) 1 << 0);  // Mark as lossy
+        tbm->nchunks++;
+        tbm->npages--;
+    }
+
+    // Set bit for the target page in chunk
+    wordnum = WORDNUM(bitno);
+    bitnum = BITNUM(bitno);
+    page->words[wordnum] |= ((bitmapword) 1 << bitnum);
+}
+```

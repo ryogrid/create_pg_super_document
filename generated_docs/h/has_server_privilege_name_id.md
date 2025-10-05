@@ -48,3 +48,32 @@ This function is useful when working with foreign server OIDs directly, which mi
 - Returns true if the user has the privilege, false if not, NULL if server is missing
 - Handles both regular users and the special 'public' role through get_role_oid_or_public
 - Located in src/backend/utils/adt/acl.c:4057-4086
+
+## Simplified Source
+
+```c
+Datum
+has_server_privilege_name_id(PG_FUNCTION_ARGS)
+{
+    Name        username = PG_GETARG_NAME(0);
+    Oid         serverid = PG_GETARG_OID(1);
+    text       *priv_type_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert username to role OID
+    Oid roleid = get_role_oid_or_public(NameStr(*username));
+
+    // Convert privilege string to ACL mode
+    AclMode mode = convert_server_priv_string(priv_type_text);
+
+    // Check access permissions with missing object detection
+    bool is_missing = false;
+    AclResult aclresult = object_aclcheck_ext(ForeignServerRelationId, serverid,
+                                              roleid, mode, &is_missing);
+
+    // Return NULL if server doesn't exist, otherwise return boolean result
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

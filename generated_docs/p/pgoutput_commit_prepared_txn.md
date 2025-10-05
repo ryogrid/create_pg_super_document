@@ -35,3 +35,20 @@ This function is the commit prepared callback for the pgoutput logical replicati
 - Essential for maintaining ACID properties in distributed transaction scenarios
 - Only called for transactions that were previously prepared via pgoutput_prepare_txn
 - Does not need empty transaction optimization since prepared transactions must have changes
+
+## Simplified Source
+
+```c
+static void
+pgoutput_commit_prepared_txn(LogicalDecodingContext *ctx, ReorderBufferTXN *txn,
+                             XLogRecPtr commit_lsn)
+{
+    // Update replication progress
+    OutputPluginUpdateProgress(ctx, false);
+
+    // Send COMMIT PREPARED message to finalize transaction
+    OutputPluginPrepareWrite(ctx, true);
+    logicalrep_write_commit_prepared(ctx->out, txn, commit_lsn);
+    OutputPluginWrite(ctx, true);
+}
+```

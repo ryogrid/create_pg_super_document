@@ -34,3 +34,11 @@ This function serves as an advanced debugging tool that provides much more detai
 - More sophisticated than simple error messages, offering comprehensive buffer state details
 - Critical for diagnosing complex buffer pin leaks in PostgreSQL's buffer system
 - Works in conjunction with DebugPrintBufferRefcount for detailed diagnostic output
+
+## Simplified Source
+```c
+static char *ResOwnerPrintBufferPin(Datum res) {
+    // Convert Datum to Buffer and generate detailed diagnostic info
+    return DebugPrintBufferRefcount(DatumGetInt32(res));
+}
+```

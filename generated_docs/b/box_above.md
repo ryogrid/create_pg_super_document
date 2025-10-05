@@ -38,3 +38,15 @@ This function is a fundamental spatial relationship operator used in PostgreSQL'
 - The comparison uses floating-point operations to handle coordinate precision issues
 - Part of a comprehensive set of geometric relationship operators for PostgreSQL's box data type
 - Ensures no vertical overlap exists between the two boxes being compared
+
+## Simplified Source
+
+```c
+Datum box_above(PG_FUNCTION_ARGS) {
+    BOX *box1 = PG_GETARG_BOX_P(0);
+    BOX *box2 = PG_GETARG_BOX_P(1);
+
+    // Check if box1's bottommost point is above box2's topmost point
+    PG_RETURN_BOOL(FPgt(box1->low.y, box2->high.y));
+}
+```

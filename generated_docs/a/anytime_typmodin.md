@@ -32,3 +32,25 @@ This static function serves as a common implementation for both  and  functions.
 - Error messages are intentionally brief since the SQL grammar should prevent invalid modifier counts
 - Returns the validated type modifier value after checking via 
 - Part of PostgreSQL's type system infrastructure for handling TIME data type variants
+
+## Simplified Source
+
+```c
+static int32 anytime_typmodin(bool istz, ArrayType *ta) {
+    int32 *tl;
+    int n;
+
+    // Extract integer type modifiers from the array
+    tl = ArrayGetIntegerTypmods(ta, &n);
+
+    // Validate that exactly one modifier (precision) is provided
+    if (n != 1) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("invalid type modifier")));
+    }
+
+    // Validate and return the precision modifier
+    return anytime_typmod_check(istz, tl[0]);
+}
+```

@@ -41,3 +41,31 @@ The function performs the same hierarchical privilege checking pattern: table-le
 - Part of the overloaded 'has_any_column_privilege' family of functions at the SQL level
 - Completes the set of variants covering all combinations of user/table identification methods
 - Located in src/backend/utils/adt/acl.c:2460-2486
+
+## Simplified Source
+
+```c
+Datum
+has_any_column_privilege_id_name(PG_FUNCTION_ARGS)
+{
+    Oid roleid = PG_GETARG_OID(0);
+    text *tablename = PG_GETARG_TEXT_PP(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+    Oid tableoid;
+    AclMode mode;
+    AclResult aclresult;
+
+    // Convert table name to OID and privilege string to mode
+    tableoid = convert_table_name(tablename);
+    mode = convert_column_priv_string(priv_type_text);
+
+    // Check table-level privileges first
+    aclresult = pg_class_aclcheck(tableoid, roleid, mode);
+
+    // If table-level check fails, check individual columns
+    if (aclresult != ACLCHECK_OK)
+        aclresult = pg_attribute_aclcheck_all(tableoid, roleid, mode, ACLMASK_ANY);
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

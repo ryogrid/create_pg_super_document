@@ -39,3 +39,20 @@ The `pgoutput_stream_prepare_txn` function is part of PostgreSQL's logical repli
 - Unlike the commit callback, this function does not perform relation cache cleanup since the transaction is only being prepared, not committed
 - This is part of PostgreSQL's support for distributed transactions where prepare and commit are separate phases
 - The prepare_lsn parameter allows downstream systems to track the exact WAL position of the prepare operation
+
+## Simplified Source
+
+```c
+static void
+pgoutput_stream_prepare_txn(LogicalDecodingContext *ctx,
+                           ReorderBufferTXN *txn,
+                           XLogRecPtr prepare_lsn) {
+    // Update replication progress
+    OutputPluginUpdateProgress(ctx, false);
+
+    // Write stream prepare message to output
+    OutputPluginPrepareWrite(ctx, true);
+    logicalrep_write_stream_prepare(ctx->out, txn, prepare_lsn);
+    OutputPluginWrite(ctx, true);
+}
+```

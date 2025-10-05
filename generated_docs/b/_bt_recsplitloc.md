@@ -45,3 +45,76 @@ The function implements conservative space estimation, particularly for leaf pag
 - For posting list tuples over 64 bytes, calculates potential space savings from suffix truncation
 - Assumes worst-case scenario for high key size on leaf pages to ensure safe split decisions
 - The split point represents a position between two adjacent tuples on the imaginary combined page
+
+## Simplified Source
+```c
+static void
+_bt_recsplitloc(FindSplitData *state, OffsetNumber firstrightoff,
+                bool newitemonleft, int olddataitemstoleft,
+                Size firstrightofforigpagetuplesz)
+{
+    int16 leftfree, rightfree;
+    Size firstrightsz;
+    Size postingsz = 0;
+
+    // Determine if new item will be the first item on right page
+    bool newitemisfirstright = (firstrightoff == state->newitemoff && !newitemonleft);
+
+    if (newitemisfirstright) {
+        firstrightsz = state->newitemsz;
+    } else {
+        firstrightsz = firstrightofforigpagetuplesz;
+
+        // Calculate posting list space savings for suffix truncation
+        if (state->is_leaf && firstrightsz > 64) {
+            ItemId itemid = PageGetItemId(state->origpage, firstrightoff);
+            IndexTuple newhighkey = (IndexTuple) PageGetItem(state->origpage, itemid);
+
+            if (BTreeTupleIsPosting(newhighkey)) {
+                postingsz = IndexTupleSize(newhighkey) -
+                           BTreeTupleGetPostingOffset(newhighkey);
+            }
+        }
+    }
+
+    // Calculate free space on both sides after split
+    leftfree = state->leftspace - olddataitemstoleft;
+    rightfree = state->rightspace - (state->olddataitemstotal - olddataitemstoleft);
+
+    // Account for high key overhead on left page
+    // First item on right becomes high key on left, consuming space on both sides
+    if (state->is_leaf) {
+        // Leaf page: assume worst case for high key size, subtract posting savings
+        leftfree -= (int16)(firstrightsz + MAXALIGN(sizeof(ItemPointerData)) - postingsz);
+    } else {
+        // Non-leaf page: high key size equals first right tuple size
+        leftfree -= (int16)firstrightsz;
+    }
+
+    // Account for new item placement
+    if (newitemonleft)
+        leftfree -= (int16)state->newitemsz;
+    else
+        rightfree -= (int16)state->newitemsz;
+
+    // Non-leaf optimization: discard key data from first right tuple
+    if (!state->is_leaf) {
+        rightfree += (int16)firstrightsz -
+                    (int16)(MAXALIGN(sizeof(IndexTupleData)) + sizeof(ItemIdData));
+    }
+
+    // Record split if both sides have adequate free space
+    if (leftfree >= 0 && rightfree >= 0) {
+        // Track minimum first-right tuple size among legal splits
+        state->minfirstrightsz = Min(state->minfirstrightsz, firstrightsz);
+
+        // Store split point details
+        state->splits[state->nsplits].curdelta = 0;
+        state->splits[state->nsplits].leftfree = leftfree;
+        state->splits[state->nsplits].rightfree = rightfree;
+        state->splits[state->nsplits].firstrightoff = firstrightoff;
+        state->splits[state->nsplits].newitemonleft = newitemonleft;
+        state->nsplits++;
+    }
+}
+```

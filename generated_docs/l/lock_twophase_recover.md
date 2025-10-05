@@ -332,3 +332,102 @@ Text creation and manipulation
 - Maintains consistency with fast-path locking by updating strong lock counters when necessary.
 - Includes detailed assertions to verify data structure consistency during the recovery process.
 - The function assumes the 2PC lock record format and validates the record length to ensure data integrity.
+
+## Simplified Source
+
+```c
+void
+lock_twophase_recover(TransactionId xid, uint16 info, void *recdata, uint32 len)
+{
+    TwoPhaseLockRecord *rec = (TwoPhaseLockRecord *) recdata;
+    PGPROC *proc = TwoPhaseGetDummyProc(xid, false);
+    LOCKTAG *locktag = &rec->locktag;
+    LOCKMODE lockmode = rec->lockmode;
+    LOCKMETHODID lockmethodid = locktag->locktag_lockmethodid;
+
+    // Validate lock method and get method table
+    if (lockmethodid <= 0 || lockmethodid >= lengthof(LockMethods))
+        elog(ERROR, "unrecognized lock method: %d", lockmethodid);
+    LockMethod lockMethodTable = LockMethods[lockmethodid];
+
+    // Calculate hash codes and partition
+    uint32 hashcode = LockTagHashCode(locktag);
+    int partition = LockHashPartition(hashcode);
+    LWLock *partitionLock = LockHashPartitionLock(hashcode);
+
+    LWLockAcquire(partitionLock, LW_EXCLUSIVE);
+
+    // Find or create lock object
+    bool found;
+    LOCK *lock = hash_search_with_hash_value(LockMethodLockHash, locktag,
+                                             hashcode, HASH_ENTER_NULL, &found);
+    if (!lock) {
+        LWLockRelease(partitionLock);
+        ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY),
+                       errmsg("out of shared memory")));
+    }
+
+    // Initialize new lock if needed
+    if (!found) {
+        lock->grantMask = 0;
+        lock->waitMask = 0;
+        dlist_init(&lock->procLocks);
+        dclist_init(&lock->waitProcs);
+        lock->nRequested = 0;
+        lock->nGranted = 0;
+        MemSet(lock->requested, 0, sizeof(int) * MAX_LOCKMODES);
+        MemSet(lock->granted, 0, sizeof(int) * MAX_LOCKMODES);
+    }
+
+    // Create proclock entry
+    PROCLOCKTAG proclocktag = {.myLock = lock, .myProc = proc};
+    uint32 proclock_hashcode = ProcLockHashCode(&proclocktag, hashcode);
+
+    PROCLOCK *proclock = hash_search_with_hash_value(LockMethodProcLockHash,
+                                                     &proclocktag, proclock_hashcode,
+                                                     HASH_ENTER_NULL, &found);
+    if (!proclock) {
+        // Clean up lock if no other requestors
+        if (lock->nRequested == 0) {
+            hash_search_with_hash_value(LockMethodLockHash, &(lock->tag),
+                                        hashcode, HASH_REMOVE, NULL);
+        }
+        LWLockRelease(partitionLock);
+        ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY),
+                       errmsg("out of shared memory")));
+    }
+
+    // Initialize new proclock if needed
+    if (!found) {
+        proclock->groupLeader = proc;
+        proclock->holdMask = 0;
+        proclock->releaseMask = 0;
+        dlist_push_tail(&lock->procLocks, &proclock->lockLink);
+        dlist_push_tail(&proc->myProcLocks[partition], &proclock->procLink);
+    }
+
+    // Update lock request counts
+    lock->nRequested++;
+    lock->requested[lockmode]++;
+
+    // Verify we don't already hold this lock
+    if (proclock->holdMask & LOCKBIT_ON(lockmode))
+        elog(ERROR, "lock %s on object %u/%u/%u is already held",
+             lockMethodTable->lockModeNames[lockmode],
+             lock->tag.locktag_field1, lock->tag.locktag_field2,
+             lock->tag.locktag_field3);
+
+    // Grant the lock (bypassing conflict checks during recovery)
+    GrantLock(lock, proclock, lockmode);
+
+    // Update fast-path counters if needed
+    if (ConflictsWithRelationFastPath(&lock->tag, lockmode)) {
+        uint32 fasthashcode = FastPathStrongLockHashPartition(hashcode);
+        SpinLockAcquire(&FastPathStrongRelationLocks->mutex);
+        FastPathStrongRelationLocks->count[fasthashcode]++;
+        SpinLockRelease(&FastPathStrongRelationLocks->mutex);
+    }
+
+    LWLockRelease(partitionLock);
+}
+```

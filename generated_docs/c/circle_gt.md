@@ -35,3 +35,15 @@ The  function implements the "greater than" comparison operator for PostgreSQL's
 - Implements floating-point comparison with epsilon tolerance to handle precision issues
 - Located in src/backend/utils/adt/geo_ops.c:4930-4938
 - The comparison is based on the mathematical area formula: π × radius²
+
+## Simplified Source
+
+```c
+Datum circle_gt(PG_FUNCTION_ARGS) {
+    CIRCLE *circle1 = PG_GETARG_CIRCLE_P(0);
+    CIRCLE *circle2 = PG_GETARG_CIRCLE_P(1);
+
+    // Compare areas: circle1.area > circle2.area
+    PG_RETURN_BOOL(FPgt(circle_ar(circle1), circle_ar(circle2)));
+}
+```

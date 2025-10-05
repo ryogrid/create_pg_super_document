@@ -66,3 +66,111 @@ The function works by:
 - Memory management includes proper cleanup of temporary data structures
 - Uses internal error messages for length validation to avoid exposing internal format strings
 - The object's current position (offset) is not modified by this operation
+
+## Simplified Source
+
+```c
+void inv_truncate(LargeObjectDesc *obj_desc, int64 len) {
+    int32 target_page = len / LOBLKSIZE;
+    int32 offset_in_page = len % LOBLKSIZE;
+
+    // Validate parameters
+    if ((obj_desc->flags & IFS_WRLOCK) == 0)
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                       errmsg("permission denied for large object %u", obj_desc->id)));
+
+    if (len < 0 || len > MAX_LARGE_OBJECT_SIZE)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg_internal("invalid large object truncation target")));
+
+    // Open large object relation and indexes
+    open_lo_relation();
+    CatalogIndexState indstate = CatalogOpenIndexes(lo_heap_r);
+
+    // Scan for pages starting from target page
+    ScanKeyData skey[2];
+    ScanKeyInit(&skey[0], Anum_pg_largeobject_loid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(obj_desc->id));
+    ScanKeyInit(&skey[1], Anum_pg_largeobject_pageno, BTGreaterEqualStrategyNumber,
+                F_INT4GE, Int32GetDatum(target_page));
+
+    SysScanDesc sd = systable_beginscan_ordered(lo_heap_r, lo_index_r,
+                                                obj_desc->snapshot, 2, skey);
+
+    // Get first page at or after truncation point
+    HeapTuple oldtuple = systable_getnext_ordered(sd, ForwardScanDirection);
+    Form_pg_largeobject olddata = NULL;
+    if (oldtuple != NULL) {
+        olddata = (Form_pg_largeobject) GETSTRUCT(oldtuple);
+    }
+
+    // Handle the truncation target page
+    if (olddata != NULL && olddata->pageno == target_page) {
+        // Truncate existing page at target position
+        char workbuf[LOBLKSIZE + VARHDRSZ];
+        bytea *datafield;
+        int pagelen;
+        bool pfreeit;
+
+        // Load existing data and truncate
+        getdatafield(olddata, &datafield, &pagelen, &pfreeit);
+        memcpy(VARDATA(workbuf), VARDATA(datafield), pagelen);
+        if (pfreeit) pfree(datafield);
+
+        // Zero-fill any hole if needed
+        if (offset_in_page > pagelen)
+            MemSet(VARDATA(workbuf) + pagelen, 0, offset_in_page - pagelen);
+
+        SET_VARSIZE(workbuf, offset_in_page + VARHDRSZ);
+
+        // Update existing tuple with truncated data
+        Datum values[Natts_pg_largeobject] = {0};
+        bool nulls[Natts_pg_largeobject] = {false};
+        bool replace[Natts_pg_largeobject] = {false};
+
+        values[Anum_pg_largeobject_data - 1] = PointerGetDatum(workbuf);
+        replace[Anum_pg_largeobject_data - 1] = true;
+
+        HeapTuple newtup = heap_modify_tuple(oldtuple, RelationGetDescr(lo_heap_r),
+                                           values, nulls, replace);
+        CatalogTupleUpdateWithInfo(lo_heap_r, &newtup->t_self, newtup, indstate);
+        heap_freetuple(newtup);
+    } else {
+        // Create new page if we're in a hole or beyond existing data
+        if (olddata != NULL && olddata->pageno > target_page) {
+            // Delete the page we found since we're creating a new one before it
+            CatalogTupleDelete(lo_heap_r, &oldtuple->t_self);
+        }
+
+        // Create new page with zero-filled data up to truncation point
+        char workbuf[LOBLKSIZE + VARHDRSZ];
+        if (offset_in_page > 0)
+            MemSet(VARDATA(workbuf), 0, offset_in_page);
+        SET_VARSIZE(workbuf, offset_in_page + VARHDRSZ);
+
+        // Insert new tuple
+        Datum values[Natts_pg_largeobject] = {0};
+        bool nulls[Natts_pg_largeobject] = {false};
+
+        values[Anum_pg_largeobject_loid - 1] = ObjectIdGetDatum(obj_desc->id);
+        values[Anum_pg_largeobject_pageno - 1] = Int32GetDatum(target_page);
+        values[Anum_pg_largeobject_data - 1] = PointerGetDatum(workbuf);
+
+        HeapTuple newtup = heap_form_tuple(lo_heap_r->rd_att, values, nulls);
+        CatalogTupleInsertWithInfo(lo_heap_r, newtup, indstate);
+        heap_freetuple(newtup);
+    }
+
+    // Delete all pages beyond the truncation point
+    if (olddata != NULL) {
+        while ((oldtuple = systable_getnext_ordered(sd, ForwardScanDirection)) != NULL) {
+            CatalogTupleDelete(lo_heap_r, &oldtuple->t_self);
+        }
+    }
+
+    // Cleanup
+    systable_endscan_ordered(sd);
+    CatalogCloseIndexes(indstate);
+    CommandCounterIncrement();
+}
+```

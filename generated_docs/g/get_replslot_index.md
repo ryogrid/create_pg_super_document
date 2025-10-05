@@ -38,3 +38,24 @@ If the named slot is not found, the function returns -1 to indicate failure, all
 - The need_lock parameter allows for optimized usage in contexts where locks are already held
 - Used as a bridge between slot names and array indices for statistics operations
 - Located in src/backend/utils/activity/pgstat_replslot.c:224-236
+
+## Simplified Source
+
+```c
+static int
+get_replslot_index(const char *name, bool need_lock)
+{
+    ReplicationSlot *slot;
+
+    Assert(name != NULL);
+
+    // Search for the named replication slot
+    slot = SearchNamedReplicationSlot(name, need_lock);
+
+    // Return slot index, or -1 if not found
+    if (!slot)
+        return -1;
+
+    return ReplicationSlotIndex(slot);
+}
+```

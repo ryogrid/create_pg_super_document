@@ -47,3 +47,83 @@ After processing affixes, it sorts all spell entries lexicographically and build
 - The resulting Dictionary tree enables efficient prefix-based lookups during spell checking operations
 - Memory allocation uses palloc0 for the AffixData array
 - Handles empty flag cases by assigning index 0 in the AffixData array
+
+## Simplified Source
+
+```c
+void NISortDictionary(IspellDict *Conf) {
+    int i, naffix, curaffix;
+
+    // Process affix data based on mode
+    if (Conf->useFlagAliases) {
+        // Flag aliases mode: convert string flags to indices
+        for (i = 0; i < Conf->nspell; i++) {
+            char *end;
+
+            if (*Conf->Spell[i]->p.flag != '\0') {
+                // Parse flag as integer index
+                errno = 0;
+                curaffix = strtol(Conf->Spell[i]->p.flag, &end, 10);
+
+                // Validate conversion
+                if (Conf->Spell[i]->p.flag == end || errno == ERANGE)
+                    ereport(ERROR, (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                                  errmsg("invalid affix alias \"%s\"",
+                                        Conf->Spell[i]->p.flag)));
+
+                // Validate range
+                if (curaffix < 0 || curaffix >= Conf->nAffixData)
+                    ereport(ERROR, (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                                  errmsg("invalid affix alias \"%s\"",
+                                        Conf->Spell[i]->p.flag)));
+
+                // Validate format
+                if (*end != '\0' && !t_isdigit(end) && !t_isspace(end))
+                    ereport(ERROR, (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                                  errmsg("invalid affix alias \"%s\"",
+                                        Conf->Spell[i]->p.flag)));
+            } else {
+                // Empty flag gets index 0
+                curaffix = 0;
+            }
+
+            Conf->Spell[i]->p.d.affix = curaffix;
+            Conf->Spell[i]->p.d.len = strlen(Conf->Spell[i]->word);
+        }
+    } else {
+        // Standard mode: build AffixData from unique flags
+
+        // Sort by affix flags to group identical flags
+        qsort(Conf->Spell, Conf->nspell, sizeof(SPELL *), cmpspellaffix);
+
+        // Count unique flags
+        naffix = 0;
+        for (i = 0; i < Conf->nspell; i++) {
+            if (i == 0 || strcmp(Conf->Spell[i]->p.flag, Conf->Spell[i - 1]->p.flag) != 0)
+                naffix++;
+        }
+
+        // Allocate AffixData array
+        Conf->AffixData = (char **) palloc0(naffix * sizeof(char *));
+
+        // Fill AffixData and convert flags to indices
+        curaffix = -1;
+        for (i = 0; i < Conf->nspell; i++) {
+            if (i == 0 || strcmp(Conf->Spell[i]->p.flag, Conf->AffixData[curaffix]) != 0) {
+                curaffix++;
+                Assert(curaffix < naffix);
+                Conf->AffixData[curaffix] = cpstrdup(Conf, Conf->Spell[i]->p.flag);
+            }
+
+            Conf->Spell[i]->p.d.affix = curaffix;
+            Conf->Spell[i]->p.d.len = strlen(Conf->Spell[i]->word);
+        }
+
+        Conf->lenAffixData = Conf->nAffixData = naffix;
+    }
+
+    // Build prefix tree from sorted dictionary
+    qsort(Conf->Spell, Conf->nspell, sizeof(SPELL *), cmpspell);
+    Conf->Dictionary = mkSPNode(Conf, 0, Conf->nspell, 0);
+}
+```

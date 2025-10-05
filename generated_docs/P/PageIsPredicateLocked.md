@@ -37,3 +37,35 @@ The function is particularly important for GiST index vacuum operations, where i
 - Specifically checks page-level locks, not relation-level locks
 - Essential for maintaining consistency during concurrent GiST index operations
 - Part of PostgreSQL's implementation of true serializable isolation level
+
+## Simplified Source
+
+```c
+bool PageIsPredicateLocked(Relation relation, BlockNumber blkno)
+{
+    PREDICATELOCKTARGETTAG targettag;
+    uint32 targettaghash;
+    LWLock *partitionLock;
+    PREDICATELOCKTARGET *target;
+
+    // Set up target tag for the specific page
+    SET_PREDICATELOCKTARGETTAG_PAGE(targettag,
+                                    relation->rd_locator.dbOid,
+                                    relation->rd_id,
+                                    blkno);
+
+    // Get hash and appropriate partition lock
+    targettaghash = PredicateLockTargetTagHashCode(&targettag);
+    partitionLock = PredicateLockHashPartitionLock(targettaghash);
+
+    // Search for predicate lock target
+    LWLockAcquire(partitionLock, LW_SHARED);
+    target = (PREDICATELOCKTARGET *)
+        hash_search_with_hash_value(PredicateLockTargetHash,
+                                    &targettag, targettaghash,
+                                    HASH_FIND, NULL);
+    LWLockRelease(partitionLock);
+
+    return (target != NULL);
+}
+```

@@ -59,3 +59,65 @@ The function handles several important cases:
 - Truncated attributes are defensively represented as NULL values in the scan key
 - The scantid field is set to the heap TID from the tuple if available and the index is heapkeyspace
 - The function handles both regular insertion scenarios and utility operations that may not have complete tuple data
+
+## Simplified Source
+
+```c
+BTScanInsert
+_bt_mkscankey(Relation rel, IndexTuple itup)
+{
+    BTScanInsert key;
+    TupleDesc itupdesc = RelationGetDescr(rel);
+    int indnkeyatts = IndexRelationGetNumberOfKeyAttributes(rel);
+    int tupnatts = itup ? BTreeTupleGetNAtts(itup, rel) : 0;
+
+    // Allocate scan key structure
+    key = palloc(offsetof(BTScanInsertData, scankeys) +
+                 sizeof(ScanKeyData) * indnkeyatts);
+
+    // Set metadata flags
+    if (itup)
+        _bt_metaversion(rel, &key->heapkeyspace, &key->allequalimage);
+    else {
+        key->heapkeyspace = true;
+        key->allequalimage = false;
+    }
+
+    // Initialize scan key fields
+    key->anynullkeys = false;
+    key->nextkey = false;
+    key->backward = false;
+    key->keysz = Min(indnkeyatts, tupnatts);
+    key->scantid = key->heapkeyspace && itup ? BTreeTupleGetHeapTID(itup) : NULL;
+
+    // Build scan key entries for each key attribute
+    for (int i = 0; i < indnkeyatts; i++) {
+        FmgrInfo *procinfo = index_getprocinfo(rel, i + 1, BTORDER_PROC);
+        Datum arg;
+        bool null;
+
+        // Extract attribute value or use NULL for truncated attributes
+        if (i < tupnatts)
+            arg = index_getattr(itup, i + 1, itupdesc, &null);
+        else {
+            arg = (Datum) 0;
+            null = true;
+        }
+
+        int flags = (null ? SK_ISNULL : 0) | (rel->rd_indoption[i] << SK_BT_INDOPTION_SHIFT);
+
+        ScanKeyEntryInitializeWithInfo(&key->scankeys[i], flags, (AttrNumber)(i + 1),
+                                       InvalidStrategy, InvalidOid, rel->rd_indcollation[i],
+                                       procinfo, arg);
+
+        if (null)
+            key->anynullkeys = true;
+    }
+
+    // Handle NULLS NOT DISTINCT mode
+    if (rel->rd_index->indnullsnotdistinct)
+        key->anynullkeys = false;
+
+    return key;
+}
+```

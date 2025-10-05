@@ -33,3 +33,22 @@ This function is specifically designed to handle the case where  is called witho
 - It directly constructs an empty JSONB object without going through the variadic argument extraction process
 - The resulting JSONB object is always 
 - This is a PostgreSQL internal function that may be called when the SQL parser determines that  has zero arguments
+
+## Simplified Source
+
+```c
+Datum
+jsonb_build_object_noargs(PG_FUNCTION_ARGS)
+{
+    // Initialize empty JSONB state
+    JsonbInState result;
+    memset(&result, 0, sizeof(JsonbInState));
+
+    // Create empty object: start with BEGIN_OBJECT, then immediately END_OBJECT
+    pushJsonbValue(&result.parseState, WJB_BEGIN_OBJECT, NULL);
+    result.res = pushJsonbValue(&result.parseState, WJB_END_OBJECT, NULL);
+
+    // Convert to JSONB and return
+    PG_RETURN_POINTER(JsonbValueToJsonb(result.res));
+}
+```

@@ -57,3 +57,81 @@ The returned autovac_table contains all necessary parameters for the vacuum/anal
 - For wraparound prevention, sets VACOPT_SKIP_LOCKED to false to ensure vacuum proceeds
 - The returned structure does not have name fields set (at_relname, at_nspname, at_datname are NULL)
 - Properly handles memory management for extracted autovacuum options
+
+## Simplified Source
+
+```c
+static autovac_table *
+table_recheck_autovac(Oid relid, HTAB *table_toast_map,
+                      TupleDesc pg_class_desc,
+                      int effective_multixact_freeze_max_age)
+{
+    Form_pg_class classForm;
+    HeapTuple classTup;
+    bool dovacuum, doanalyze, wraparound;
+    autovac_table *tab = NULL;
+    AutoVacOpts *avopts;
+    bool free_avopts = false;
+
+    // Fetch fresh relation metadata
+    classTup = SearchSysCacheCopy1(RELOID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(classTup))
+        return NULL;
+    classForm = (Form_pg_class) GETSTRUCT(classTup);
+
+    // Get autovac options, checking TOAST table inheritance
+    avopts = extract_autovac_opts(classTup, pg_class_desc);
+    if (avopts)
+        free_avopts = true;
+    else if (classForm->relkind == RELKIND_TOASTVALUE && table_toast_map != NULL)
+    {
+        // Inherit options from main table for TOAST tables
+        av_relation *hentry;
+        bool found;
+        hentry = hash_search(table_toast_map, &relid, HASH_FIND, &found);
+        if (found && hentry->ar_hasrelopts)
+            avopts = &hentry->ar_reloptions;
+    }
+
+    // Recheck if maintenance is needed with fresh stats
+    recheck_relation_needs_vacanalyze(relid, avopts, classForm,
+                                      effective_multixact_freeze_max_age,
+                                      &dovacuum, &doanalyze, &wraparound);
+
+    // Create autovac_table if work is needed
+    if (doanalyze || dovacuum)
+    {
+        tab = palloc(sizeof(autovac_table));
+        tab->at_relid = relid;
+        tab->at_sharedrel = classForm->relisshared;
+
+        // Configure vacuum parameters
+        tab->at_params.options =
+            (dovacuum ? (VACOPT_VACUUM | VACOPT_PROCESS_MAIN | VACOPT_SKIP_DATABASE_STATS) : 0) |
+            (doanalyze ? VACOPT_ANALYZE : 0) |
+            (!wraparound ? VACOPT_SKIP_LOCKED : 0);
+
+        // Set freeze ages from options or defaults
+        tab->at_params.freeze_min_age = (avopts && avopts->freeze_min_age >= 0) ?
+            avopts->freeze_min_age : default_freeze_min_age;
+        tab->at_params.freeze_table_age = (avopts && avopts->freeze_table_age >= 0) ?
+            avopts->freeze_table_age : default_freeze_table_age;
+
+        // Configure cost parameters and balancing
+        tab->at_storage_param_vac_cost_limit = avopts ? avopts->vacuum_cost_limit : 0;
+        tab->at_storage_param_vac_cost_delay = avopts ? avopts->vacuum_cost_delay : -1;
+        tab->at_dobalance = !(avopts && (avopts->vacuum_cost_limit > 0 ||
+                                         avopts->vacuum_cost_delay >= 0));
+
+        // Initialize other fields
+        tab->at_params.nworkers = -1; // No parallel vacuum for autovacuum
+        tab->at_params.is_wraparound = wraparound;
+        tab->at_relname = tab->at_nspname = tab->at_datname = NULL;
+    }
+
+    // Clean up
+    if (free_avopts) pfree(avopts);
+    heap_freetuple(classTup);
+    return tab;
+}
+```

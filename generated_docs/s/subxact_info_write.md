@@ -41,3 +41,40 @@ This function manages the persistent storage of subtransaction information for l
 - The implementation includes a TODO comment noting that only non-aborted subtransactions should be stored
 - Memory allocated for subtransaction info is freed after writing via cleanup_subxact_info()
 - The file format includes a count followed by the actual SubXactInfo structures
+
+## Simplified Source
+
+```c
+static void subxact_info_write(Oid subid, TransactionId xid) {
+    char path[MAXPGPATH];
+    Size len;
+    BufFile *fd;
+
+    Assert(TransactionIdIsValid(xid));
+
+    // Generate filename for this transaction's subxact info
+    subxact_filename(path, subid, xid);
+
+    // If no subtransactions, delete the file and cleanup
+    if (subxact_data.nsubxacts == 0) {
+        cleanup_subxact_info();
+        BufFileDeleteFileSet(MyLogicalRepWorker->stream_fileset, path, true);
+        return;
+    }
+
+    // Open existing file or create new one
+    fd = BufFileOpenFileSet(MyLogicalRepWorker->stream_fileset, path, O_RDWR, true);
+    if (fd == NULL)
+        fd = BufFileCreateFileSet(MyLogicalRepWorker->stream_fileset, path);
+
+    // Calculate data size and write to file
+    len = sizeof(SubXactInfo) * subxact_data.nsubxacts;
+    BufFileWrite(fd, &subxact_data.nsubxacts, sizeof(subxact_data.nsubxacts));
+    BufFileWrite(fd, subxact_data.subxacts, len);
+
+    BufFileClose(fd);
+
+    // Free allocated memory
+    cleanup_subxact_info();
+}
+```

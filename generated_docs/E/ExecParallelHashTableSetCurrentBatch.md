@@ -47,3 +47,29 @@ The function ensures that all parallel workers can consistently access the same 
 - The function resets chunk-related fields to ensure clean state for the new batch
 - Part of PostgreSQL's parallel hash join implementation for handling large datasets
 - Located in src/backend/executor/nodeHash.c:3479-3499
+
+## Simplified Source
+```c
+void ExecParallelHashTableSetCurrentBatch(HashJoinTable hashtable, int batchno)
+{
+    // Verify the target batch has valid buckets
+    Assert(hashtable->batches[batchno].shared->buckets != InvalidDsaPointer);
+
+    // Switch to the new batch
+    hashtable->curbatch = batchno;
+
+    // Point to the batch's bucket array in shared memory
+    hashtable->buckets.shared = (dsa_pointer_atomic *)
+        dsa_get_address(hashtable->area,
+                        hashtable->batches[batchno].shared->buckets);
+
+    // Copy bucket configuration from parallel state
+    hashtable->nbuckets = hashtable->parallel_state->nbuckets;
+    hashtable->log2_nbuckets = my_log2(hashtable->nbuckets);
+
+    // Reset chunk management for the new batch
+    hashtable->current_chunk = NULL;
+    hashtable->current_chunk_shared = InvalidDsaPointer;
+    hashtable->batches[batchno].at_least_one_chunk = false;
+}
+```

@@ -36,3 +36,21 @@ The signaling mechanism follows a FIFO (First-In-First-Out) ordering, ensuring f
 - Uses spinlock protection for thread-safe queue manipulation
 - Implements FIFO ordering for fairness in process wakeup
 - Part of PostgreSQL's condition variable synchronization framework used in parallel operations
+
+## Simplified Source
+
+```c
+void ConditionVariableSignal(ConditionVariable *cv) {
+    PGPROC *proc = NULL;
+
+    // Safely remove first process from wakeup queue
+    SpinLockAcquire(&cv->mutex);
+    if (!proclist_is_empty(&cv->wakeup))
+        proc = proclist_pop_head_node(&cv->wakeup, cvWaitLink);
+    SpinLockRelease(&cv->mutex);
+
+    // Wake up the process if we found one
+    if (proc != NULL)
+        SetLatch(&proc->procLatch);
+}
+```

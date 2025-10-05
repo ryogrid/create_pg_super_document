@@ -45,3 +45,14 @@ This function is commonly used by procedural language implementations (PL/Perl, 
 - The function will throw an error if domain constraints are violated
 - Commonly used by procedural languages and composite type handling code
 - Uses  as the actual implementation workhorse
+
+## Simplified Source
+
+```c
+void domain_check(Datum value, bool isnull, Oid domainType,
+                  void **extra, MemoryContext mcxt) {
+    // Simple wrapper that delegates to internal implementation
+    // with NULL error context (uses traditional ereport on errors)
+    (void) domain_check_internal(value, isnull, domainType, extra, mcxt, NULL);
+}
+```

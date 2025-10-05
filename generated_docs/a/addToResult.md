@@ -35,3 +35,24 @@ The function performs bounds checking against MAX_NORM to prevent buffer overflo
 - Maintains null termination of the result array
 - Part of PostgreSQL's text search spell checking functionality
 - The MAX_NORM limit of 1024 prevents excessive memory usage during normalization
+
+## Simplified Source
+
+```c
+static int
+addToResult(char **forms, char **cur, char *word)
+{
+    // Check if array is full
+    if (cur - forms >= MAX_NORM - 1)
+        return 0;
+
+    // Add word only if different from previous entry (avoid duplicates)
+    if (forms == cur || strcmp(word, *(cur - 1)) != 0) {
+        *cur = pstrdup(word);
+        *(cur + 1) = NULL;  // Maintain null termination
+        return 1;
+    }
+
+    return 0;
+}
+```

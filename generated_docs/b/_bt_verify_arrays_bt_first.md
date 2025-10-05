@@ -160,3 +160,47 @@ write_data_to_archive_lz4_doc.md: Current scan direction (forward or backward)
 - Returns false if any non-required array is not positioned at the expected first element
 - The validation helps ensure that new primitive scans start from a clean, predictable state
 - This function is typically called within assertions to catch state corruption early
+
+## Simplified Source
+
+```c
+static bool
+_bt_verify_arrays_bt_first(IndexScanDesc scan, ScanDirection dir)
+{
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+    int arrayidx = 0;
+
+    // Check each scan key for array compliance
+    for (int ikey = 0; ikey < so->numberOfKeys; ikey++)
+    {
+        ScanKey cur = so->keyData + ikey;
+        BTArrayKeyInfo *array = NULL;
+        int first_elem_dir;
+
+        // Skip non-array equality keys
+        if (!(cur->sk_flags & SK_SEARCHARRAY) ||
+            cur->sk_strategy != BTEqualStrategyNumber)
+            continue;
+
+        array = &so->arrayKeys[arrayidx++];
+
+        // Skip required keys (they may be positioned elsewhere)
+        if (((cur->sk_flags & SK_BT_REQFWD) && ScanDirectionIsForward(dir)) ||
+            ((cur->sk_flags & SK_BT_REQBKWD) && ScanDirectionIsBackward(dir)))
+            continue;
+
+        // Determine expected first element position for scan direction
+        if (ScanDirectionIsForward(dir))
+            first_elem_dir = 0;                    // First element
+        else
+            first_elem_dir = array->num_elems - 1; // Last element
+
+        // Verify array is positioned at correct first element
+        if (array->cur_elem != first_elem_dir)
+            return false;
+    }
+
+    // Final verification of array key consistency
+    return _bt_verify_keys_with_arraykeys(scan);
+}
+```

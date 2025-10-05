@@ -35,3 +35,25 @@ This function implements the SQL ATAN2 function for PostgreSQL, computing the tw
 - More robust than single-argument arctangent for coordinate system conversions
 - Handles special cases like atan2(0,0) according to standard mathematical conventions
 - Located in src/backend/utils/adt/float.c:1836-1861
+
+## Simplified Source
+
+```c
+Datum datan2(PG_FUNCTION_ARGS) {
+    float8 arg1 = PG_GETARG_FLOAT8(0);  // y-coordinate
+    float8 arg2 = PG_GETARG_FLOAT8(1);  // x-coordinate
+
+    // Handle NaN input per POSIX spec
+    if (isnan(arg1) || isnan(arg2))
+        PG_RETURN_FLOAT8(get_float8_nan());
+
+    // Compute two-argument arctangent (maps to [-π, π])
+    float8 result = atan2(arg1, arg2);
+
+    // Safety check for overflow (unlikely for atan2)
+    if (unlikely(isinf(result)))
+        float_overflow_error();
+
+    PG_RETURN_FLOAT8(result);
+}
+```

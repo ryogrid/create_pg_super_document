@@ -43,3 +43,22 @@ Similar to its counterpart `derf`, this function includes overflow checking for 
 - Includes defensive programming with infinity checks despite the low probability of overflow
 - Returns standard PostgreSQL Datum type for SQL function compatibility
 - Mathematically equivalent to 1 - erf(x) but may provide better numerical accuracy for certain ranges
+
+## Simplified Source
+
+```c
+Datum derfc(PG_FUNCTION_ARGS) {
+    // Get input float8 value
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+
+    // Compute complementary error function (erfc never overflows normally)
+    float8 result = erfc(arg1);
+
+    // Defensive check for infinite results
+    if (unlikely(isinf(result))) {
+        float_overflow_error();
+    }
+
+    PG_RETURN_FLOAT8(result);
+}
+```

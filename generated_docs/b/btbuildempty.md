@@ -38,3 +38,25 @@ The function uses PostgreSQL's bulk write infrastructure to efficiently create t
 - Part of PostgreSQL's bulk write infrastructure for efficient index creation
 - Essential for proper B-tree index initialization before data insertion begins
 - The metapage contains critical metadata about the B-tree structure and properties
+
+## Simplified Source
+
+```c
+void btbuildempty(Relation index) {
+    // Determine if index supports equal image (deduplication)
+    bool allequalimage = _bt_allequalimage(index, false);
+
+    // Start bulk write operation for initialization fork
+    BulkWriteState *bulkstate = smgr_bulk_start_rel(index, INIT_FORKNUM);
+
+    // Create and initialize the metapage
+    BulkWriteBuffer metabuf = smgr_bulk_get_buf(bulkstate);
+    _bt_initmetapage((Page) metabuf, P_NONE, 0, allequalimage);
+
+    // Write metapage to disk at metapage location
+    smgr_bulk_write(bulkstate, BTREE_METAPAGE, metabuf, true);
+
+    // Complete bulk write operation
+    smgr_bulk_finish(bulkstate);
+}
+```

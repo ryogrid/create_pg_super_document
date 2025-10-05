@@ -31,3 +31,12 @@ The  function is a static helper function in PostgreSQL's geometric operations m
 - Uses PostgreSQL's float8_mi function for proper floating-point arithmetic handling
 - The height is calculated as high.y - low.y, which should always be positive for a properly formed box
 - Complements the box_wd function for complete dimensional analysis of boxes
+
+## Simplified Source
+
+```c
+static float8 box_ht(BOX *box) {
+    // Calculate height = high.y - low.y (vertical magnitude)
+    return float8_mi(box->high.y, box->low.y);
+}
+```

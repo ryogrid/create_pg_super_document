@@ -48,3 +48,29 @@ This function is particularly important for checkpoint operations and buffer man
 - The function may block until the specified data range is written to storage
 - Used in background writer and checkpointer processes to maintain consistent performance
 - Platform-specific implementation via pg_flush_data() handles differences between operating systems
+
+## Simplified Source
+
+```c
+void FileWriteback(File file, off_t offset, off_t nbytes, uint32 wait_event_info) {
+    Assert(FileIsValid(file));
+
+    // Skip if no data to write back
+    if (nbytes <= 0)
+        return;
+
+    // Skip writeback for direct I/O files (they bypass OS buffers)
+    if (VfdCache[file].fileFlags & PG_O_DIRECT)
+        return;
+
+    // Ensure file is accessible
+    int returnCode = FileAccess(file);
+    if (returnCode < 0)
+        return;
+
+    // Force dirty pages to storage with wait event tracking
+    pgstat_report_wait_start(wait_event_info);
+    pg_flush_data(VfdCache[file].fd, offset, nbytes);
+    pgstat_report_wait_end();
+}
+```

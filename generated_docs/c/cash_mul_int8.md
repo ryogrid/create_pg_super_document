@@ -34,3 +34,16 @@ This function implements the multiplication operation between a PostgreSQL Cash 
 - Leverages the cash_mul_int64 helper function which provides overflow protection and safe arithmetic
 - Handles large integer multipliers efficiently through direct 64-bit integer arithmetic
 - Related to the already processed cash_mul_int64 helper function that provides safe multiplication with overflow detection
+
+## Simplified Source
+
+```c
+// Multiply cash by 64-bit integer
+Datum cash_mul_int8(PG_FUNCTION_ARGS) {
+    Cash cash_value = PG_GETARG_CASH(0);
+    int64 multiplier = PG_GETARG_INT64(1);
+
+    // Delegate to internal function for safe multiplication
+    PG_RETURN_CASH(cash_mul_int64(cash_value, multiplier));
+}
+```

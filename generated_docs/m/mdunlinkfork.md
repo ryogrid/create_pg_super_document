@@ -43,3 +43,65 @@ The `mdunlinkfork` function is responsible for completely removing a relation fo
 - The function preserves errno values using save_errno pattern throughout
 - Deferred unlink scheduling is used for main forks during normal operation to avoid potential issues with other backends
 - Part of PostgreSQL's storage manager layer responsible for physical file lifecycle management
+
+## Simplified Source
+
+```c
+static void mdunlinkfork(RelFileLocatorBackend rlocator, ForkNumber forknum, bool isRedo) {
+    char *path = relpath(rlocator, forknum);
+    int ret;
+
+    // Phase 1: Handle the first segment (segment 0)
+    if (isRedo || IsBinaryUpgrade || forknum != MAIN_FORKNUM ||
+        RelFileLocatorBackendIsTemp(rlocator)) {
+
+        // Immediate unlink mode
+        if (!RelFileLocatorBackendIsTemp(rlocator)) {
+            ret = do_truncate(path); // Free disk space
+            register_forget_request(rlocator, forknum, 0); // Cancel sync requests
+        } else {
+            ret = 0; // Skip truncation for temp relations
+        }
+
+        // Unlink the file if truncation succeeded or file wasn't missing
+        if (ret >= 0 || errno != ENOENT) {
+            if (unlink(path) < 0 && errno != ENOENT) {
+                ereport(WARNING, "could not remove file \"%s\": %m", path);
+            }
+        }
+    } else {
+        // Deferred unlink mode for main forks during normal operation
+        ret = do_truncate(path); // Free disk space immediately
+        register_unlink_segment(rlocator, forknum, 0); // Schedule unlink for later
+    }
+
+    // Phase 2: Remove additional segments (.1, .2, .3, etc.)
+    if (ret >= 0 || errno != ENOENT) {
+        char *segpath = palloc(strlen(path) + 12);
+
+        for (BlockNumber segno = 1; ; segno++) {
+            sprintf(segpath, "%s.%u", path, segno);
+
+            // Truncate segment (if not temp relation)
+            if (!RelFileLocatorBackendIsTemp(rlocator)) {
+                if (do_truncate(segpath) < 0 && errno == ENOENT) {
+                    break; // No more segments
+                }
+                register_forget_request(rlocator, forknum, segno);
+            }
+
+            // Unlink segment
+            if (unlink(segpath) < 0) {
+                if (errno != ENOENT) {
+                    ereport(WARNING, "could not remove file \"%s\": %m", segpath);
+                }
+                break; // Stop on any unlink error
+            }
+        }
+
+        pfree(segpath);
+    }
+
+    pfree(path);
+}
+```

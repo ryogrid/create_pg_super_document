@@ -45,3 +45,29 @@ The function reads three consecutive float8 values from the input buffer: the x 
 - Reads data in network byte order as handled by pq_getmsgfloat8
 - Part of PostgreSQL's type system for binary I/O operations
 - Located in src/backend/utils/adt/geo_ops.c:4703-4726
+
+## Simplified Source
+
+```c
+Datum circle_recv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    CIRCLE *circle;
+
+    // Allocate memory for circle
+    circle = (CIRCLE *) palloc(sizeof(CIRCLE));
+
+    // Read binary data: center x, y, then radius
+    circle->center.x = pq_getmsgfloat8(buf);
+    circle->center.y = pq_getmsgfloat8(buf);
+    circle->radius = pq_getmsgfloat8(buf);
+
+    // Validate radius (accept NaN, reject negative)
+    if (circle->radius < 0.0) {
+        ereport(ERROR,
+            (errcode(ERRCODE_INVALID_BINARY_REPRESENTATION),
+             errmsg("invalid radius in external \"circle\" value")));
+    }
+
+    return PG_RETURN_CIRCLE_P(circle);
+}
+```

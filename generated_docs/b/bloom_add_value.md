@@ -38,3 +38,30 @@ The double hashing approach provides good hash function independence while being
 - Only sets the updated flag to true if new bits were actually set (not if they were already set)
 - The bit manipulation uses standard techniques: byte indexing and bit masking
 - Located in src/backend/access/brin/brin_bloom.c:370-406
+
+## Simplified Source
+
+```c
+static BloomFilter *bloom_add_value(BloomFilter *filter, uint32 value, bool *updated) {
+    // Compute two primary hash values
+    uint64 h1 = hash_bytes_uint32_extended(value, BLOOM_SEED_1) % filter->nbits;
+    uint64 h2 = hash_bytes_uint32_extended(value, BLOOM_SEED_2) % filter->nbits;
+
+    // Generate required number of hash functions using double hashing
+    for (int i = 0; i < filter->nhashes; i++) {
+        uint32 h = (h1 + i * h2) % filter->nbits;
+        uint32 byte = h / 8;
+        uint32 bit = h % 8;
+
+        // Set bit if not already set
+        if (!(filter->data[byte] & (0x01 << bit))) {
+            filter->data[byte] |= (0x01 << bit);
+            filter->nbits_set++;
+            if (updated)
+                *updated = true;
+        }
+    }
+
+    return filter;
+}
+```

@@ -37,3 +37,17 @@ The function uses PostgreSQL's function call interface and returns a Datum resul
 - Demonstrates PostgreSQL's systematic approach to providing range functions for all type combinations
 - The conversion from int2 to int4 for both test and base values ensures compatibility with the underlying int4_int8 range logic
 - Part of the comprehensive matrix of range checking functions that PostgreSQL provides for window functions and other range-based operations
+
+## Simplified Source
+
+```c
+Datum in_range_int2_int8(PG_FUNCTION_ARGS) {
+    // Delegate to int4_int8 function with int2 values converted to int4
+    return DirectFunctionCall5(in_range_int4_int8,
+                             Int32GetDatum((int32) PG_GETARG_INT16(0)),  // val converted to int4
+                             Int32GetDatum((int32) PG_GETARG_INT16(1)),  // base converted to int4
+                             PG_GETARG_DATUM(2),  // offset (int8)
+                             PG_GETARG_DATUM(3),  // sub flag
+                             PG_GETARG_DATUM(4)); // less flag
+}
+```

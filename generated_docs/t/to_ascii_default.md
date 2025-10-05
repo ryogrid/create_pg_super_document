@@ -35,3 +35,18 @@ The function follows PostgreSQL convention for SQL-callable functions by using P
 - Uses a copy of the input text for safe processing
 - No validation needed since GetDatabaseEncoding() always returns a valid encoding
 - Most convenient when converting from the database default encoding to ASCII
+
+## Simplified Source
+
+```c
+Datum to_ascii_default(PG_FUNCTION_ARGS)
+{
+    text *data = PG_GETARG_TEXT_P_COPY(0);
+
+    // Use current database encoding
+    int enc = GetDatabaseEncoding();
+
+    // Perform ASCII conversion
+    PG_RETURN_TEXT_P(encode_to_ascii(data, enc));
+}
+```

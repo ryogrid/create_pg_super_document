@@ -32,3 +32,12 @@ The function extracts the integer kind value from the  parameter and compares it
 - Designed as a callback function matching the signature expected by 
 - The  parameter must contain a valid int32 value representing a statistics kind
 - Simple comparison function that enables kind-based filtering of statistics entries
+
+## Simplified Source
+
+```c
+static bool match_kind(PgStatShared_HashEntry *entry, Datum match_data) {
+    // Extract target kind from match_data and compare with entry's kind
+    return entry->key.kind == DatumGetInt32(match_data);
+}
+```

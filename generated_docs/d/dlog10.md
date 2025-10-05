@@ -43,3 +43,30 @@ The function explicitly handles:
 - Uses ERRCODE_INVALID_ARGUMENT_FOR_LOG for consistency with natural logarithm function
 - The function follows PostgreSQL's standard function interface using PG_FUNCTION_ARGS and PG_RETURN_FLOAT8
 - Domain restrictions: arg1 must be > 0
+
+## Simplified Source
+
+```c
+Datum dlog10(PG_FUNCTION_ARGS) {
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+
+    // Validate input: must be positive for logarithm
+    if (arg1 == 0.0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_ARGUMENT_FOR_LOG),
+                       errmsg("cannot take logarithm of zero")));
+    if (arg1 < 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_ARGUMENT_FOR_LOG),
+                       errmsg("cannot take logarithm of a negative number")));
+
+    // Compute base-10 logarithm
+    float8 result = log10(arg1);
+
+    // Check for overflow/underflow conditions
+    if (unlikely(isinf(result)) && !isinf(arg1))
+        float_overflow_error();
+    if (unlikely(result == 0.0) && arg1 != 1.0)
+        float_underflow_error();
+
+    PG_RETURN_FLOAT8(result);
+}
+```

@@ -39,3 +39,25 @@ This function is a static helper function that converts human-readable privilege
 - Uses convert_any_priv_string for the actual parsing logic
 - Part of PostgreSQL's ACL (Access Control List) system
 - Defined in src/backend/utils/adt/acl.c:2301-2333
+
+## Simplified Source
+
+```c
+static AclMode
+convert_sequence_priv_string(text *priv_type_text)
+{
+    // Privilege mapping table for sequences
+    static const priv_map sequence_priv_map[] = {
+        {"USAGE", ACL_USAGE},
+        {"USAGE WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_USAGE)},
+        {"SELECT", ACL_SELECT},
+        {"SELECT WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_SELECT)},
+        {"UPDATE", ACL_UPDATE},
+        {"UPDATE WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_UPDATE)},
+        {NULL, 0}
+    };
+
+    // Use generic converter with sequence-specific mapping
+    return convert_any_priv_string(priv_type_text, sequence_priv_map);
+}
+```

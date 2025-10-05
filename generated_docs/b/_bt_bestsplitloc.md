@@ -42,3 +42,45 @@ The function implements an optimization where it can return early if it finds a 
 - The penalty-based selection ensures optimal split points that balance page utilization and key distribution
 - Returns the offset number of the first tuple that should go on the right page after split
 - The perfectpenalty parameter enables performance optimization by allowing early exit from penalty calculations
+
+## Simplified Source
+```c
+static OffsetNumber
+_bt_bestsplitloc(FindSplitData *state, int perfectpenalty,
+                 bool *newitemonleft, FindSplitStrat strategy)
+{
+    int bestpenalty = INT_MAX;
+    int lowsplit = 0;
+    int highsplit = Min(state->interval, state->nsplits);
+
+    // Find split point with lowest penalty within the acceptable interval
+    for (int i = lowsplit; i < highsplit; i++) {
+        int penalty = _bt_split_penalty(state, state->splits + i);
+
+        if (penalty < bestpenalty) {
+            bestpenalty = penalty;
+            lowsplit = i;
+        }
+
+        // Early exit if we achieve perfect penalty
+        if (penalty <= perfectpenalty)
+            break;
+    }
+
+    SplitPoint *final = &state->splits[lowsplit];
+
+    // Special handling for "many duplicates" strategy
+    // Avoid repeatedly splitting at same point during monotonically decreasing insertions
+    if (strategy == SPLIT_MANY_DUPLICATES && !state->is_rightmost &&
+        !final->newitemonleft && final->firstrightoff >= state->newitemoff &&
+        final->firstrightoff < state->newitemoff + 9) {
+
+        // Use 50:50 split to avoid unusable right half pages
+        final = &state->splits[0];
+    }
+
+    // Return results
+    *newitemonleft = final->newitemonleft;
+    return final->firstrightoff;
+}
+```

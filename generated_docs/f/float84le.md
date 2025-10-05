@@ -31,3 +31,16 @@ The float84le function implements the less-than-or-equal-to comparison operator 
 - Part of PostgreSQL's floating point arithmetic operator family
 - Returns a boolean Datum indicating whether arg1 <= arg2
 - Located in src/backend/utils/adt/float.c:3948-3956
+
+## Simplified Source
+
+```c
+Datum float84le(PG_FUNCTION_ARGS) {
+    // Extract float8 and float4 arguments
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float4 arg2 = PG_GETARG_FLOAT4(1);
+
+    // Promote float4 to float8 and perform less-than-or-equal comparison
+    PG_RETURN_BOOL(float8_le(arg1, (float8) arg2));
+}
+```

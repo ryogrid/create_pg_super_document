@@ -49,3 +49,148 @@ A key optimization is the ability to mark dead tuples as killed when all HOT cha
 - Handles posting list tuples by processing each heap TID individually
 - Marks dead tuples as killed and sets BTP_HAS_GARBAGE flag for cleanup
 - For UNIQUE_CHECK_PARTIAL mode, never waits for other transactions
+
+## Simplified Source
+
+```c
+static TransactionId _bt_check_unique(Relation rel, BTInsertState insertstate, Relation heapRel,
+                                     IndexUniqueCheck checkUnique, bool *is_unique,
+                                     uint32 *speculativeToken) {
+    IndexTuple itup = insertstate->itup;
+    IndexTuple curitup = NULL;
+    BTScanInsert itup_key = insertstate->itup_key;
+    SnapshotData SnapshotDirty;
+    OffsetNumber offset, maxoff;
+    Page page;
+    BTPageOpaque opaque;
+    Buffer nbuf = InvalidBuffer;
+    bool found = false;
+    bool inposting = false;
+    int curposti = 0;
+
+    *is_unique = true;  // Assume unique until we find a duplicate
+    InitDirtySnapshot(SnapshotDirty);
+
+    page = BufferGetPage(insertstate->buf);
+    opaque = BTPageGetOpaque(page);
+    maxoff = PageGetMaxOffsetNumber(page);
+
+    // Find first tuple with same key using binary search
+    offset = _bt_binsrch_insert(rel, insertstate);
+
+    // Scan through all equal tuples looking for conflicts
+    for (;;) {
+        if (offset <= maxoff) {
+            // Skip killed items for performance
+            ItemId curitemid = PageGetItemId(page, offset);
+            if (!ItemIdIsDead(curitemid)) {
+                ItemPointerData htid;
+                bool all_dead = false;
+
+                // Get current tuple and check if it matches our key
+                if (!inposting) {
+                    if (_bt_compare(rel, itup_key, page, offset) != 0)
+                        break;  // Past all equal tuples
+
+                    curitup = (IndexTuple) PageGetItem(page, curitemid);
+                }
+
+                // Extract heap TID (handle posting lists)
+                if (!BTreeTupleIsPosting(curitup)) {
+                    htid = curitup->t_tid;
+                } else if (!inposting) {
+                    inposting = true;
+                    curposti = 0;
+                    htid = *BTreeTupleGetPostingN(curitup, 0);
+                } else {
+                    htid = *BTreeTupleGetPostingN(curitup, curposti);
+                }
+
+                // Handle special case: recheck existing tuple
+                if (checkUnique == UNIQUE_CHECK_EXISTING &&
+                    ItemPointerCompare(&htid, &itup->t_tid) == 0) {
+                    found = true;
+                }
+                // Check if heap tuple exists and is visible
+                else if (table_index_fetch_tuple_check(heapRel, &htid, &SnapshotDirty, &all_dead)) {
+                    // Found a conflict!
+
+                    // For partial check, return immediately without waiting
+                    if (checkUnique == UNIQUE_CHECK_PARTIAL) {
+                        if (nbuf != InvalidBuffer) _bt_relbuf(rel, nbuf);
+                        *is_unique = false;
+                        return InvalidTransactionId;
+                    }
+
+                    // Check if we need to wait for another transaction
+                    TransactionId xwait = TransactionIdIsValid(SnapshotDirty.xmin) ?
+                                         SnapshotDirty.xmin : SnapshotDirty.xmax;
+
+                    if (TransactionIdIsValid(xwait)) {
+                        // Must wait for conflicting transaction
+                        if (nbuf != InvalidBuffer) _bt_relbuf(rel, nbuf);
+                        *speculativeToken = SnapshotDirty.speculativeToken;
+                        insertstate->bounds_valid = false;
+                        return xwait;
+                    }
+
+                    // Definite conflict - check if our tuple is still alive
+                    htid = itup->t_tid;
+                    if (!table_index_fetch_tuple_check(heapRel, &htid, SnapshotSelf, NULL)) {
+                        break;  // Our tuple is dead, no conflict
+                    }
+
+                    // Report unique constraint violation
+                    if (nbuf != InvalidBuffer) _bt_relbuf(rel, nbuf);
+                    _bt_relbuf(rel, insertstate->buf);
+                    insertstate->buf = InvalidBuffer;
+
+                    ereport(ERROR, (errcode(ERRCODE_UNIQUE_VIOLATION),
+                                   errmsg("duplicate key value violates unique constraint \"%s\"",
+                                          RelationGetRelationName(rel))));
+                }
+                // Mark dead tuples as killed for cleanup
+                else if (all_dead) {
+                    ItemIdMarkDead(curitemid);
+                    opaque->btpo_flags |= BTP_HAS_GARBAGE;
+                    MarkBufferDirtyHint(insertstate->buf, true);
+                }
+            }
+        }
+
+        // Advance to next tuple or TID in posting list
+        if (inposting && curposti < BTreeTupleGetNPosting(curitup) - 1) {
+            curposti++;  // Next TID in posting list
+        } else if (offset < maxoff) {
+            curposti = 0;
+            inposting = false;
+            offset++;    // Next tuple on page
+        } else {
+            // Check if we need to examine next page
+            if (P_RIGHTMOST(opaque)) break;
+            if (_bt_compare(rel, itup_key, page, P_HIKEY) != 0) break;
+
+            // Move to next page
+            BlockNumber nblkno = opaque->btpo_next;
+            nbuf = _bt_relandgetbuf(rel, nbuf, nblkno, BT_READ);
+            page = BufferGetPage(nbuf);
+            opaque = BTPageGetOpaque(page);
+
+            curposti = 0;
+            inposting = false;
+            maxoff = PageGetMaxOffsetNumber(page);
+            offset = P_FIRSTDATAKEY(opaque);
+        }
+    }
+
+    // Cleanup and verify recheck found the tuple
+    if (checkUnique == UNIQUE_CHECK_EXISTING && !found) {
+        ereport(ERROR, (errcode(ERRCODE_INTERNAL_ERROR),
+                       errmsg("failed to re-find tuple within index \"%s\"",
+                              RelationGetRelationName(rel))));
+    }
+
+    if (nbuf != InvalidBuffer) _bt_relbuf(rel, nbuf);
+    return InvalidTransactionId;  // No conflict found
+}
+```

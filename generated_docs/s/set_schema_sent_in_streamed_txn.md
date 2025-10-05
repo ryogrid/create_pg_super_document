@@ -35,3 +35,19 @@ The `set_schema_sent_in_streamed_txn` function is used in PostgreSQL's logical r
 - The list is maintained in cache memory to persist across multiple operations within a decoding session
 - Essential for optimizing logical replication performance by avoiding unnecessary network traffic
 - The memory context switch ensures the transaction ID list survives beyond the current function call
+
+## Simplified Source
+
+```c
+static void
+set_schema_sent_in_streamed_txn(RelationSyncEntry *entry, TransactionId xid) {
+    // Switch to cache memory context for persistent allocation
+    MemoryContext oldctx = MemoryContextSwitchTo(CacheMemoryContext);
+
+    // Add transaction ID to the streamed transactions list
+    entry->streamed_txns = lappend_xid(entry->streamed_txns, xid);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldctx);
+}
+```

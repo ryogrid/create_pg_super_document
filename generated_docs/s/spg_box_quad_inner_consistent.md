@@ -54,3 +54,122 @@ The 4D approach treats each box as having four coordinates (low.x, high.x, low.y
 - Memory optimization by freeing unused traversal values for rejected nodes
 - Located in src/backend/utils/adt/geo_spgist.c:553-740
 - Critical performance component as it determines index traversal paths during queries
+
+## Simplified Source
+
+```c
+/* SP-GiST inner consistent function - determines which child nodes to visit */
+Datum
+spg_box_quad_inner_consistent(PG_FUNCTION_ARGS)
+{
+    spgInnerConsistentIn *in = (spgInnerConsistentIn *) PG_GETARG_POINTER(0);
+    spgInnerConsistentOut *out = (spgInnerConsistentOut *) PG_GETARG_POINTER(1);
+
+    // Initialize or use existing traversal state
+    RectBox *rect_box = in->traversalValue ? in->traversalValue : initRectBox();
+
+    // Special case: if all nodes are identical, visit all
+    if (in->allTheSame) {
+        out->nNodes = in->nNodes;
+        out->nodeNumbers = (int *) palloc(sizeof(int) * in->nNodes);
+        for (int i = 0; i < in->nNodes; i++)
+            out->nodeNumbers[i] = i;
+
+        // Handle ordering if present
+        if (in->norderbys > 0 && in->nNodes > 0) {
+            // Calculate distances for all nodes (simplified)
+            double *distances = palloc(sizeof(double) * in->norderbys);
+            for (int j = 0; j < in->norderbys; j++) {
+                Point *pt = DatumGetPointP(in->orderbys[j].sk_argument);
+                distances[j] = pointToRectBoxDistance(pt, rect_box);
+            }
+            // Duplicate distances for all nodes
+            out->distances = (double **) palloc(sizeof(double *) * in->nNodes);
+            for (int i = 0; i < in->nNodes; i++) {
+                out->distances[i] = palloc(sizeof(double) * in->norderbys);
+                memcpy(out->distances[i], distances, sizeof(double) * in->norderbys);
+            }
+        }
+        PG_RETURN_VOID();
+    }
+
+    // Convert centroid and queries to 4D format
+    RangeBox *centroid = getRangeBox(DatumGetBoxP(in->prefixDatum));
+    RangeBox **queries = (RangeBox **) palloc(in->nkeys * sizeof(RangeBox *));
+    for (int i = 0; i < in->nkeys; i++) {
+        BOX *box = spg_box_quad_get_scankey_bbox(&in->scankeys[i], NULL);
+        queries[i] = getRangeBox(box);
+    }
+
+    // Prepare output arrays
+    out->nNodes = 0;
+    out->nodeNumbers = (int *) palloc(sizeof(int) * in->nNodes);
+    out->traversalValues = (void **) palloc(sizeof(void *) * in->nNodes);
+    if (in->norderbys > 0)
+        out->distances = (double **) palloc(sizeof(double *) * in->nNodes);
+
+    // Switch to persistent memory context
+    MemoryContext old_ctx = MemoryContextSwitchTo(in->traversalMemoryContext);
+
+    // Test each quadrant
+    for (uint8 quadrant = 0; quadrant < in->nNodes; quadrant++) {
+        RectBox *next_rect_box = nextRectBox(rect_box, centroid, quadrant);
+        bool flag = true;
+
+        // Test all query constraints
+        for (int i = 0; i < in->nkeys && flag; i++) {
+            StrategyNumber strategy = in->scankeys[i].sk_strategy;
+
+            switch (strategy) {
+                case RTOverlapStrategyNumber:
+                    flag = overlap4D(next_rect_box, queries[i]); break;
+                case RTContainsStrategyNumber:
+                    flag = contain4D(next_rect_box, queries[i]); break;
+                case RTSameStrategyNumber:
+                case RTContainedByStrategyNumber:
+                    flag = contained4D(next_rect_box, queries[i]); break;
+                case RTLeftStrategyNumber:
+                    flag = left4D(next_rect_box, queries[i]); break;
+                case RTOverLeftStrategyNumber:
+                    flag = overLeft4D(next_rect_box, queries[i]); break;
+                case RTRightStrategyNumber:
+                    flag = right4D(next_rect_box, queries[i]); break;
+                case RTOverRightStrategyNumber:
+                    flag = overRight4D(next_rect_box, queries[i]); break;
+                case RTAboveStrategyNumber:
+                    flag = above4D(next_rect_box, queries[i]); break;
+                case RTOverAboveStrategyNumber:
+                    flag = overAbove4D(next_rect_box, queries[i]); break;
+                case RTBelowStrategyNumber:
+                    flag = below4D(next_rect_box, queries[i]); break;
+                case RTOverBelowStrategyNumber:
+                    flag = overBelow4D(next_rect_box, queries[i]); break;
+                default:
+                    elog(ERROR, "unrecognized strategy: %d", strategy);
+            }
+        }
+
+        // Include qualifying nodes
+        if (flag) {
+            out->traversalValues[out->nNodes] = next_rect_box;
+            out->nodeNumbers[out->nNodes] = quadrant;
+
+            // Calculate distances for ordering if needed
+            if (in->norderbys > 0) {
+                double *distances = palloc(sizeof(double) * in->norderbys);
+                out->distances[out->nNodes] = distances;
+                for (int j = 0; j < in->norderbys; j++) {
+                    Point *pt = DatumGetPointP(in->orderbys[j].sk_argument);
+                    distances[j] = pointToRectBoxDistance(pt, next_rect_box);
+                }
+            }
+            out->nNodes++;
+        } else {
+            pfree(next_rect_box);  // Free unused traversal value
+        }
+    }
+
+    MemoryContextSwitchTo(old_ctx);
+    PG_RETURN_VOID();
+}
+```

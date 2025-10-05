@@ -34,3 +34,14 @@ The function converts the generic  argument back to a  pointer and calls  to per
 - Follows PostgreSQL's standard callback function signature (int, Datum)
 - The  parameter is ignored as cleanup is always performed regardless of exit reason
 - Critical for maintaining system stability by preventing permanent slot exhaustion in btvacinfo array
+
+## Simplified Source
+
+```c
+void
+_bt_end_vacuum_callback(int code, Datum arg)
+{
+    // Convert Datum back to relation pointer and cleanup vacuum tracking
+    _bt_end_vacuum((Relation) DatumGetPointer(arg));
+}
+```

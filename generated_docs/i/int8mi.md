@@ -33,3 +33,21 @@ This function performs subtraction of two 64-bit signed integer arguments (arg1 
 - Error handling follows PostgreSQL conventions by using ereport with ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE
 - Located in src/backend/utils/adt/int8.c:476-489
 - This is a binary arithmetic operator that requires two int64 operands
+
+## Simplified Source
+
+```c
+Datum int8mi(PG_FUNCTION_ARGS) {
+    // Extract two 64-bit integer arguments
+    int64 arg1 = PG_GETARG_INT64(0);
+    int64 arg2 = PG_GETARG_INT64(1);
+    int64 result;
+
+    // Perform safe subtraction with overflow detection
+    if (pg_sub_s64_overflow(arg1, arg2, &result)) {
+        ereport(ERROR, "bigint out of range");
+    }
+
+    return result;
+}
+```

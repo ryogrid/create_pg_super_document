@@ -51,3 +51,29 @@ The function raises appropriate errors if either check fails, preventing potenti
 - The RLS prohibition extends to all operations, including TRUNCATE, to maintain behavioral consistency
 - Essential security component that prevents unauthorized replication operations
 - Part of PostgreSQL's logical replication privilege enforcement mechanism
+
+## Simplified Source
+
+```c
+static void
+TargetPrivilegesCheck(Relation rel, AclMode mode)
+{
+    Oid relid = RelationGetRelid(rel);
+    AclResult aclresult;
+
+    // Check if user has required privileges
+    aclresult = pg_class_aclcheck(relid, GetUserId(), mode);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult,
+                       get_relkind_objtype(rel->rd_rel->relkind),
+                       get_rel_name(relid));
+
+    // Prohibit replication to relations with RLS enabled
+    if (check_enable_rls(relid, InvalidOid, false) == RLS_ENABLED)
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("user \"%s\" cannot replicate into relation with row-level security enabled: \"%s\"",
+                        GetUserNameFromId(GetUserId(), true),
+                        RelationGetRelationName(rel))));
+}
+```

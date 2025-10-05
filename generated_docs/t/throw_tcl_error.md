@@ -43,3 +43,20 @@ The function carefully manages memory and string conversion to avoid potential i
 - Applies UTF-8 to database encoding conversion using utf_u2e() for both error message and context
 - Reports errors with ERRCODE_EXTERNAL_ROUTINE_EXCEPTION to indicate the error originated from an external routine
 - Includes both the Tcl error details and the PL/Tcl function name in the error context for debugging
+
+## Simplified Source
+
+```c
+static void throw_tcl_error(Tcl_Interp *interp, const char *proname) {
+    // Extract error message and context from Tcl interpreter
+    // Note: pstrdup() creates safe copy before Tcl_GetVar to avoid memory issues
+    char *emsg = pstrdup(utf_u2e(Tcl_GetStringResult(interp)));
+    char *econtext = utf_u2e(Tcl_GetVar(interp, "errorInfo", TCL_GLOBAL_ONLY));
+
+    // Report PostgreSQL error with Tcl error details
+    ereport(ERROR,
+            (errcode(ERRCODE_EXTERNAL_ROUTINE_EXCEPTION),
+             errmsg("%s", emsg),
+             errcontext("%s\nin PL/Tcl function \"%s\"", econtext, proname)));
+}
+```

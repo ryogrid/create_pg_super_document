@@ -50,3 +50,51 @@ The function operates on index tuples that are already known to be deletable (ty
 - The function can be safely skipped by index AMs that don't require snapshot conflict horizon values
 - Memory for temporary data structures (deltids and status arrays) is allocated and freed within the function
 - The table access method is expected to confirm that all items are indeed deletable
+
+## Simplified Source
+
+```c
+TransactionId
+index_compute_xid_horizon_for_tuples(Relation irel, Relation hrel,
+                                     Buffer ibuf, OffsetNumber *itemnos,
+                                     int nitems)
+{
+    TM_IndexDeleteOp delstate;
+    Page ipage = BufferGetPage(ibuf);
+
+    // Initialize deletion operation state
+    delstate.irel = irel;
+    delstate.iblknum = BufferGetBlockNumber(ibuf);
+    delstate.bottomup = false;
+    delstate.ndeltids = 0;
+    delstate.deltids = palloc(nitems * sizeof(TM_IndexDelete));
+    delstate.status = palloc(nitems * sizeof(TM_IndexStatus));
+
+    // Build list of table TIDs from index tuples to be deleted
+    for (int i = 0; i < nitems; i++)
+    {
+        OffsetNumber offnum = itemnos[i];
+        ItemId iitemid = PageGetItemId(ipage, offnum);
+        IndexTuple itup = (IndexTuple) PageGetItem(ipage, iitemid);
+
+        Assert(ItemIdIsDead(iitemid));  // Must be already marked LP_DEAD
+
+        // Copy TID from index tuple to deletion state
+        ItemPointerCopy(&itup->t_tid, &delstate.deltids[i].tid);
+        delstate.deltids[i].id = delstate.ndeltids;
+        delstate.status[i].idxoffnum = offnum;
+        delstate.status[i].knowndeletable = true;
+
+        delstate.ndeltids++;
+    }
+
+    // Ask table AM for the snapshot conflict horizon
+    TransactionId snapshotConflictHorizon = table_index_delete_tuples(hrel, &delstate);
+
+    // Cleanup temporary memory
+    pfree(delstate.deltids);
+    pfree(delstate.status);
+
+    return snapshotConflictHorizon;
+}
+```

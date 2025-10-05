@@ -40,3 +40,47 @@ The function is designed to be called by AM-specific beginscan routines, which t
 - The heapRelation field is initially set to NULL and may be populated later by the calling AM
 - The xs_snapshot field must be initialized by the caller before use
 - This function is part of the general access method interface and must be used by all index AMs - they cannot bypass it in their beginscan implementations
+
+## Simplified Source
+
+```c
+IndexScanDesc
+RelationGetIndexScan(Relation indexRelation, int nkeys, int norderbys)
+{
+    // Allocate and initialize the scan descriptor
+    IndexScanDesc scan = (IndexScanDesc) palloc(sizeof(IndexScanDescData));
+
+    // Set basic relation and key information
+    scan->heapRelation = NULL;  // May be set later
+    scan->indexRelation = indexRelation;
+    scan->xs_snapshot = InvalidSnapshot;  // Caller must initialize
+    scan->numberOfKeys = nkeys;
+    scan->numberOfOrderBys = norderbys;
+
+    // Allocate workspace for scan keys and order-by conditions
+    if (nkeys > 0)
+        scan->keyData = (ScanKey) palloc(sizeof(ScanKeyData) * nkeys);
+    else
+        scan->keyData = NULL;
+
+    if (norderbys > 0)
+        scan->orderByData = (ScanKey) palloc(sizeof(ScanKeyData) * norderbys);
+    else
+        scan->orderByData = NULL;
+
+    // Initialize scan behavior flags
+    scan->xs_want_itup = false;
+    scan->kill_prior_tuple = false;
+    scan->xactStartedInRecovery = TransactionStartedDuringRecovery();
+    scan->ignore_killed_tuples = !scan->xactStartedInRecovery;
+
+    // Initialize remaining fields
+    scan->opaque = NULL;
+    scan->xs_itup = NULL;
+    scan->xs_itupdesc = NULL;
+    scan->xs_hitup = NULL;
+    scan->xs_hitupdesc = NULL;
+
+    return scan;
+}
+```

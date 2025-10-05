@@ -40,3 +40,27 @@ The function is designed as a subroutine to support the overall B-tree page spli
 - The penalty scoring system is crucial for B-tree performance as it affects page utilization and future split patterns
 - For internal pages, the penalty directly relates to storage overhead, while for leaf pages it relates to key truncation efficiency
 - The function handles special cases where the new item being inserted affects the split point calculation
+
+## Simplified Source
+
+```c
+static inline int
+_bt_split_penalty(FindSplitData *state, SplitPoint *split)
+{
+    // For internal pages: penalty is size of first right tuple
+    if (!state->is_leaf) {
+        // Special case: new item becomes first right tuple
+        if (!split->newitemonleft && split->firstrightoff == state->newitemoff)
+            return state->newitemsz;
+
+        // Normal case: get existing tuple size + line pointer overhead
+        ItemId itemid = PageGetItemId(state->origpage, split->firstrightoff);
+        return MAXALIGN(ItemIdGetLength(itemid)) + sizeof(ItemIdData);
+    }
+
+    // For leaf pages: penalty is attribute number for key truncation
+    IndexTuple lastleft = _bt_split_lastleft(state, split);
+    IndexTuple firstright = _bt_split_firstright(state, split);
+    return _bt_keep_natts_fast(state->rel, lastleft, firstright);
+}
+```

@@ -42,3 +42,16 @@ This function is fundamental to PostgreSQL's type system infrastructure for enum
 - The actual comparison logic is centralized in `enum_cmp_internal` for consistency
 - Part of the btree operator class for enum types, enabling B-tree indexing
 - The function follows PostgreSQL's fmgr (function manager) calling convention
+
+## Simplified Source
+
+```c
+Datum enum_cmp(PG_FUNCTION_ARGS) {
+    // Extract the two enum OIDs from function arguments
+    Oid a = PG_GETARG_OID(0);
+    Oid b = PG_GETARG_OID(1);
+
+    // Return three-way comparison result as 32-bit integer
+    PG_RETURN_INT32(enum_cmp_internal(a, b, fcinfo));
+}
+```

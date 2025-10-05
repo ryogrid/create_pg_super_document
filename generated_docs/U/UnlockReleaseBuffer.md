@@ -33,3 +33,22 @@ This function provides a shorthand for the common combination of unlocking a buf
 - Widely used across PostgreSQL's storage layer, appearing in over 50 source files
 - The function ensures proper cleanup order: unlock first, then release the pin
 - Essential for preventing buffer leaks and lock contention in PostgreSQL's buffer management system
+
+## Simplified Source
+
+```c
+void UnlockReleaseBuffer(Buffer buffer) {
+    // Unlock the buffer content lock
+    LockBuffer(buffer, BUFFER_LOCK_UNLOCK);
+
+    // Release the buffer pin
+    ReleaseBuffer(buffer);
+}
+```
+
+**Key Logic:**
+- Convenience function combining two common buffer cleanup operations
+- First unlocks the buffer content lock using LockBuffer with unlock mode
+- Then releases the buffer pin to allow potential eviction
+- Ensures proper cleanup order: unlock before releasing pin
+- Widely used across PostgreSQL storage layer for buffer cleanup

@@ -47,4 +47,43 @@ The function allocates a type-specific workspace () that includes space for per-
 - Memory allocation includes careful alignment calculations to ensure proper pointer alignment
 - The workspace expectArray field is set to false, distinguishing JSONB subscripting from array subscripting
 - The function assumes  for proper memory alignment
-- Located in 
+- Located in
+
+## Simplified Source
+
+```c
+static void jsonb_exec_setup(const SubscriptingRef *sbsref,
+                            SubscriptingRefState *sbsrefstate,
+                            SubscriptExecSteps *methods) {
+    JsonbSubWorkspace *workspace;
+    ListCell *lc;
+    int nupper = sbsref->refupperindexpr->length;
+    char *ptr;
+
+    // Allocate workspace with space for per-subscript data
+    workspace = palloc0(MAXALIGN(sizeof(JsonbSubWorkspace)) +
+                       nupper * (sizeof(Datum) + sizeof(Oid)));
+    workspace->expectArray = false;
+    ptr = ((char *) workspace) + MAXALIGN(sizeof(JsonbSubWorkspace));
+
+    // Set up workspace arrays with proper alignment
+    workspace->index = (Datum *) ptr;
+    ptr += nupper * sizeof(Datum);
+    workspace->indexOid = (Oid *) ptr;
+
+    sbsrefstate->workspace = workspace;
+
+    // Collect subscript data types for execution
+    foreach(lc, sbsref->refupperindexpr) {
+        Node *expr = lfirst(lc);
+        int i = foreach_current_index(lc);
+        workspace->indexOid[i] = exprType(expr);
+    }
+
+    // Set up method function pointers
+    methods->sbs_check_subscripts = jsonb_subscript_check_subscripts;
+    methods->sbs_fetch = jsonb_subscript_fetch;
+    methods->sbs_assign = jsonb_subscript_assign;
+    methods->sbs_fetch_old = jsonb_subscript_fetch_old;
+}
+``` 

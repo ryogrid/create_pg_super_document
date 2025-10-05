@@ -41,3 +41,24 @@ The function includes important memory management considerations, as it must cre
 - Uses `DatumGetNumericCopy` to ensure proper memory allocation for the returned value
 - Follows PostgreSQL's memory management conventions with `PG_FREE_IF_COPY`
 - Error handling delegates to `cannotCastJsonbValue` for consistent error messages
+
+## Simplified Source
+
+```c
+Datum
+jsonb_numeric(PG_FUNCTION_ARGS)
+{
+    Jsonb *in = PG_GETARG_JSONB_P(0);
+    JsonbValue v;
+
+    // Extract scalar value and validate it's numeric
+    if (!JsonbExtractScalar(&in->root, &v) || v.type != jbvNumeric)
+        cannotCastJsonbValue(v.type, "numeric");
+
+    // Create a copy since v.val.numeric points into jsonb body
+    Numeric retValue = DatumGetNumericCopy(NumericGetDatum(v.val.numeric));
+
+    PG_FREE_IF_COPY(in, 0);
+    PG_RETURN_NUMERIC(retValue);
+}
+```

@@ -59,3 +59,59 @@ The `hlparsetext` function serves as the main entry point for parsing text durin
 - Parser data is managed through PostgreSQL's function call interface for extensibility
 - Memory management is handled by the called functions (LexizeExec, addHLParsedLex)
 - This function is fundamental to PostgreSQL's ts_headline functionality
+
+## Simplified Source
+
+```c
+void hlparsetext(Oid cfgId, HeadlineParsedText *prs, TSQuery query, char *buf, int buflen) {
+    int type, lenlemm = 0;
+    char *lemm = NULL;
+    LexizeData ldata;
+    TSLexeme *norms;
+    ParsedLex *lexs;
+    TSConfigCacheEntry *cfg;
+    TSParserCacheEntry *prsobj;
+    void *prsdata;
+
+    // Initialize text search configuration and parser
+    cfg = lookup_ts_config_cache(cfgId);
+    prsobj = lookup_ts_parser_cache(cfg->prsId);
+
+    // Start parser
+    prsdata = DatumGetPointer(FunctionCall2(&(prsobj->prsstart),
+                                          PointerGetDatum(buf),
+                                          Int32GetDatum(buflen)));
+    LexizeInit(&ldata, cfg);
+
+    // Parse tokens and process lexemes
+    do {
+        // Get next token
+        type = DatumGetInt32(FunctionCall3(&(prsobj->prstoken),
+                                         PointerGetDatum(prsdata),
+                                         PointerGetDatum(&lemm),
+                                         PointerGetDatum(&lenlemm)));
+
+        // Check token length limit
+        if (type > 0 && lenlemm >= MAXSTRLEN) {
+            ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                           errmsg("word is too long to be indexed")));
+        }
+
+        LexizeAddLemm(&ldata, type, lemm, lenlemm);
+
+        // Process normalized forms
+        do {
+            if ((norms = LexizeExec(&ldata, &lexs)) != NULL) {
+                prs->vectorpos++;
+                addHLParsedLex(prs, query, lexs, norms);
+            } else {
+                addHLParsedLex(prs, query, lexs, NULL);
+            }
+        } while (norms);
+
+    } while (type > 0);
+
+    // Clean up parser
+    FunctionCall1(&(prsobj->prsend), PointerGetDatum(prsdata));
+}
+```

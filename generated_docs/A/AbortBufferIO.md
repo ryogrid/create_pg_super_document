@@ -57,3 +57,37 @@ The function delegates the actual I/O termination to TerminateBufferIO, ensuring
 - Part of PostgreSQL's error recovery and cleanup infrastructure
 - The buffer must be pinned and have I/O in progress when this function is called
 - Handles both read and write I/O failure scenarios with appropriate state management
+
+## Simplified Source
+```c
+static void AbortBufferIO(Buffer buffer) {
+    BufferDesc *buf_hdr = GetBufferDescriptor(buffer - 1);
+    uint32 buf_state;
+
+    // Lock buffer header and validate I/O state
+    buf_state = LockBufHdr(buf_hdr);
+
+    if (!(buf_state & BM_VALID)) {
+        // Handle failed read operation - buffer invalid
+        UnlockBufHdr(buf_hdr, buf_state);
+    } else {
+        // Handle failed write operation - buffer valid but dirty
+        UnlockBufHdr(buf_hdr, buf_state);
+
+        // Report warning for repeated failures
+        if (buf_state & BM_IO_ERROR) {
+            char *path = relpathperm(BufTagGetRelFileLocator(&buf_hdr->tag),
+                                   BufTagGetForkNum(&buf_hdr->tag));
+            ereport(WARNING,
+                   (errcode(ERRCODE_IO_ERROR),
+                    errmsg("could not write block %u of %s",
+                           buf_hdr->tag.blockNum, path),
+                    errdetail("Multiple failures --- write error might be permanent.")));
+            pfree(path);
+        }
+    }
+
+    // Terminate I/O and set error flag
+    TerminateBufferIO(buf_hdr, false, BM_IO_ERROR, false);
+}
+```

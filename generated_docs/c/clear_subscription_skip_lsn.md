@@ -51,3 +51,70 @@ The function follows PostgreSQL's standard patterns for catalog updates, includi
 - Proper transaction and snapshot management ensures data consistency
 - The function skips operation for parallel apply workers as they don't manage subscription state directly
 - Located in src/backend/replication/logical/worker.c:4880-4968
+
+## Simplified Source
+
+```c
+static void
+clear_subscription_skip_lsn(XLogRecPtr finish_lsn)
+{
+    XLogRecPtr myskiplsn = MySubscription->skiplsn;
+    bool started_tx = false;
+
+    // Skip if no skip LSN set or parallel worker
+    if (likely(XLogRecPtrIsInvalid(myskiplsn)) || am_parallel_apply_worker())
+        return;
+
+    // Start transaction if needed
+    if (!IsTransactionState()) {
+        StartTransactionCommand();
+        started_tx = true;
+    }
+
+    // Set up snapshot for catalog access
+    PushActiveSnapshot(GetTransactionSnapshot());
+
+    // Lock subscription to prevent concurrent updates
+    LockSharedObject(SubscriptionRelationId, MySubscription->oid, 0, AccessShareLock);
+
+    // Open subscription catalog and fetch current tuple
+    Relation rel = table_open(SubscriptionRelationId, RowExclusiveLock);
+    HeapTuple tup = SearchSysCacheCopy1(SUBSCRIPTIONOID,
+                                        ObjectIdGetDatum(MySubscription->oid));
+
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "subscription \"%s\" does not exist", MySubscription->name);
+
+    Form_pg_subscription subform = (Form_pg_subscription) GETSTRUCT(tup);
+
+    // Clear skip LSN if it matches current value
+    if (subform->subskiplsn == myskiplsn) {
+        // Prepare tuple update to clear subskiplsn
+        bool nulls[Natts_pg_subscription] = {false};
+        bool replaces[Natts_pg_subscription] = {false};
+        Datum values[Natts_pg_subscription] = {0};
+
+        values[Anum_pg_subscription_subskiplsn - 1] = LSNGetDatum(InvalidXLogRecPtr);
+        replaces[Anum_pg_subscription_subskiplsn - 1] = true;
+
+        // Update catalog
+        tup = heap_modify_tuple(tup, RelationGetDescr(rel), values, nulls, replaces);
+        CatalogTupleUpdate(rel, &tup->t_self, tup);
+
+        // Warn if LSN mismatch
+        if (myskiplsn != finish_lsn)
+            ereport(WARNING,
+                    errmsg("skip-LSN of subscription \"%s\" cleared", MySubscription->name),
+                    errdetail("Remote transaction's finish WAL location (LSN) %X/%X did not match skip-LSN %X/%X.",
+                              LSN_FORMAT_ARGS(finish_lsn), LSN_FORMAT_ARGS(myskiplsn)));
+    }
+
+    // Cleanup
+    heap_freetuple(tup);
+    table_close(rel, NoLock);
+    PopActiveSnapshot();
+
+    if (started_tx)
+        CommitTransactionCommand();
+}
+```

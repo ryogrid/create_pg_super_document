@@ -37,3 +37,37 @@ This function implements the in_range support for int8 (64-bit integer) data typ
 - Does not require int8_int4 or int8_int2 variants as implicit type coercion handles those cases
 - Located in src/backend/utils/adt/int8.c:401-439
 - Used internally by the window function processing system for range-based frame specifications
+
+## Simplified Source
+
+```c
+Datum in_range_int8_int8(PG_FUNCTION_ARGS) {
+    int64 val = PG_GETARG_INT64(0);     // Value to test
+    int64 base = PG_GETARG_INT64(1);    // Base value
+    int64 offset = PG_GETARG_INT64(2);  // Range offset
+    bool sub = PG_GETARG_BOOL(3);       // True for PRECEDING
+    bool less = PG_GETARG_BOOL(4);      // True for <= comparison
+    int64 sum;
+
+    // Validate offset is non-negative
+    if (offset < 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PRECEDING_OR_FOLLOWING_SIZE),
+                       errmsg("invalid preceding or following size in window function")));
+
+    // Adjust offset for subtraction if needed
+    if (sub)
+        offset = -offset;
+
+    // Calculate range boundary with overflow protection
+    if (pg_add_s64_overflow(base, offset, &sum)) {
+        // Handle overflow: return logical result based on direction
+        PG_RETURN_BOOL(sub ? !less : less);
+    }
+
+    // Compare value with calculated boundary
+    if (less)
+        PG_RETURN_BOOL(val <= sum);
+    else
+        PG_RETURN_BOOL(val >= sum);
+}
+```

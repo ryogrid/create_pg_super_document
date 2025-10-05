@@ -35,3 +35,21 @@ This is one of the translation operators in PostgreSQL's geometric system, allow
 - Applies the same translation offset to all points in the path uniformly
 - The translation preserves the path's topology - open/closed status and point relationships remain unchanged
 - Part of PostgreSQL's comprehensive geometric transformation system for 2D paths
+
+## Simplified Source
+
+```c
+Datum
+path_add_pt(PG_FUNCTION_ARGS)
+{
+    PATH *path = PG_GETARG_PATH_P_COPY(0);
+    Point *point = PG_GETARG_POINT_P(1);
+    int i;
+
+    // Translate each point in the path by adding the offset
+    for (i = 0; i < path->npts; i++)
+        point_add_point(&path->p[i], &path->p[i], point);
+
+    PG_RETURN_PATH_P(path);
+}
+```

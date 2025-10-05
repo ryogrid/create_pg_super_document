@@ -45,3 +45,30 @@ This function is essential for enabling multiple worker processes to collaborati
 - The xs_want_itup setting ensures that index tuples are returned rather than heap tuples, which is the defining characteristic of index-only scans
 - Runtime key handling is consistent with the leader process - scans only start immediately if keys are ready
 - Workers do not initialize the visibility map buffer (ioss_VMBuffer) in this function; it will be managed separately during scan execution
+
+## Simplified Source
+
+```c
+void ExecIndexOnlyScanInitializeWorker(IndexOnlyScanState *node, ParallelWorkerContext *pwcxt) {
+    ParallelIndexScanDesc piscan;
+
+    // Lookup the shared parallel scan descriptor
+    piscan = shm_toc_lookup(pwcxt->toc, node->ss.ps.plan->plan_node_id, false);
+
+    // Initialize parallel index scan for this worker
+    node->ioss_ScanDesc = index_beginscan_parallel(node->ss.ss_currentRelation,
+                                                   node->ioss_RelationDesc,
+                                                   node->ioss_NumScanKeys,
+                                                   node->ioss_NumOrderByKeys,
+                                                   piscan);
+
+    // Configure for index-only scan (return index tuples)
+    node->ioss_ScanDesc->xs_want_itup = true;
+
+    // Start scan if runtime keys are ready
+    if (node->ioss_NumRuntimeKeys == 0 || node->ioss_RuntimeKeysReady)
+        index_rescan(node->ioss_ScanDesc,
+                     node->ioss_ScanKeys, node->ioss_NumScanKeys,
+                     node->ioss_OrderByKeys, node->ioss_NumOrderByKeys);
+}
+```

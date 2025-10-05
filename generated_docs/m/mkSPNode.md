@@ -41,3 +41,84 @@ This function builds a prefix tree structure for efficient spell-checking by rec
 - Automatically promotes compound-only words to compound flags when appropriate
 - Uses clearCompoundOnly logic to handle conflicting compound permissions
 - Tree structure enables efficient prefix-based word lookup and validation
+
+## Simplified Source
+
+```c
+static SPNode *mkSPNode(IspellDict *Conf, int low, int high, int level) {
+    int i, nchar = 0;
+    char lastchar = '\0';
+    SPNode *rs;
+    SPNodeData *data;
+    int lownew = low;
+
+    // Count unique characters at this level
+    for (i = low; i < high; i++) {
+        if (Conf->Spell[i]->p.d.len > level &&
+            lastchar != Conf->Spell[i]->word[level]) {
+            nchar++;
+            lastchar = Conf->Spell[i]->word[level];
+        }
+    }
+
+    if (!nchar)
+        return NULL;
+
+    // Allocate node with space for character data
+    rs = (SPNode *) cpalloc0(SPNHDRSZ + nchar * sizeof(SPNodeData));
+    rs->length = nchar;
+    data = rs->data;
+
+    // Build node data for each unique character
+    lastchar = '\0';
+    for (i = low; i < high; i++) {
+        if (Conf->Spell[i]->p.d.len > level) {
+            if (lastchar != Conf->Spell[i]->word[level]) {
+                if (lastchar) {
+                    // Recursively build child node for previous character
+                    data->node = mkSPNode(Conf, lownew, i, level + 1);
+                    lownew = i;
+                    data++;
+                }
+                lastchar = Conf->Spell[i]->word[level];
+            }
+
+            // Set character value
+            data->val = ((uint8 *) (Conf->Spell[i]->word))[level];
+
+            // Handle word completion at this level
+            if (Conf->Spell[i]->p.d.len == level + 1) {
+                bool clearCompoundOnly = false;
+
+                // Handle affix merging for duplicate words
+                if (data->isword && data->affix != Conf->Spell[i]->p.d.affix) {
+                    // Check compound flag compatibility
+                    clearCompoundOnly = (FF_COMPOUNDONLY & data->compoundflag
+                                       & makeCompoundFlags(Conf, Conf->Spell[i]->p.d.affix))
+                                      ? false : true;
+                    data->affix = MergeAffix(Conf, data->affix, Conf->Spell[i]->p.d.affix);
+                } else {
+                    data->affix = Conf->Spell[i]->p.d.affix;
+                }
+
+                data->isword = 1;
+                data->compoundflag = makeCompoundFlags(Conf, data->affix);
+
+                // Auto-promote compound-only words to compound flags
+                if ((data->compoundflag & FF_COMPOUNDONLY) &&
+                    (data->compoundflag & FF_COMPOUNDFLAG) == 0)
+                    data->compoundflag |= FF_COMPOUNDFLAG;
+
+                // Clear compound-only if there's a conflict
+                if (clearCompoundOnly)
+                    data->compoundflag &= ~FF_COMPOUNDONLY;
+            }
+        }
+    }
+
+    // Build final child node
+    data->node = mkSPNode(Conf, lownew, high, level + 1);
+
+    return rs;
+}
+```

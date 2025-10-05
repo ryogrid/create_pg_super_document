@@ -63,3 +63,107 @@ The function is designed to be recursively callable, which is essential when pro
 - Maintains proper error callback context to provide meaningful error messages during message processing
 - All message handlers are expected to fully consume their respective message data from the StringInfo buffer
 - Protocol violation errors are raised for unrecognized message types to maintain strict protocol compliance
+
+## Simplified Source
+
+```c
+void
+apply_dispatch(StringInfo s)
+{
+    LogicalRepMsgType action = pq_getmsgbyte(s);
+    LogicalRepMsgType saved_command;
+
+    // Save current command for error context management
+    saved_command = apply_error_callback_arg.command;
+    apply_error_callback_arg.command = action;
+
+    // Dispatch message to appropriate handler
+    switch (action)
+    {
+        case LOGICAL_REP_MSG_BEGIN:
+            apply_handle_begin(s);
+            break;
+
+        case LOGICAL_REP_MSG_COMMIT:
+            apply_handle_commit(s);
+            break;
+
+        case LOGICAL_REP_MSG_INSERT:
+            apply_handle_insert(s);
+            break;
+
+        case LOGICAL_REP_MSG_UPDATE:
+            apply_handle_update(s);
+            break;
+
+        case LOGICAL_REP_MSG_DELETE:
+            apply_handle_delete(s);
+            break;
+
+        case LOGICAL_REP_MSG_TRUNCATE:
+            apply_handle_truncate(s);
+            break;
+
+        case LOGICAL_REP_MSG_RELATION:
+            apply_handle_relation(s);
+            break;
+
+        case LOGICAL_REP_MSG_TYPE:
+            apply_handle_type(s);
+            break;
+
+        case LOGICAL_REP_MSG_ORIGIN:
+            apply_handle_origin(s);
+            break;
+
+        case LOGICAL_REP_MSG_MESSAGE:
+            // Currently unused but reserved for extensions
+            break;
+
+        case LOGICAL_REP_MSG_STREAM_START:
+            apply_handle_stream_start(s);
+            break;
+
+        case LOGICAL_REP_MSG_STREAM_STOP:
+            apply_handle_stream_stop(s);
+            break;
+
+        case LOGICAL_REP_MSG_STREAM_ABORT:
+            apply_handle_stream_abort(s);
+            break;
+
+        case LOGICAL_REP_MSG_STREAM_COMMIT:
+            apply_handle_stream_commit(s);
+            break;
+
+        case LOGICAL_REP_MSG_BEGIN_PREPARE:
+            apply_handle_begin_prepare(s);
+            break;
+
+        case LOGICAL_REP_MSG_PREPARE:
+            apply_handle_prepare(s);
+            break;
+
+        case LOGICAL_REP_MSG_COMMIT_PREPARED:
+            apply_handle_commit_prepared(s);
+            break;
+
+        case LOGICAL_REP_MSG_ROLLBACK_PREPARED:
+            apply_handle_rollback_prepared(s);
+            break;
+
+        case LOGICAL_REP_MSG_STREAM_PREPARE:
+            apply_handle_stream_prepare(s);
+            break;
+
+        default:
+            ereport(ERROR,
+                    (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                     errmsg("invalid logical replication message type \"%c\" (%d)",
+                            action, action)));
+    }
+
+    // Restore previous command context
+    apply_error_callback_arg.command = saved_command;
+}
+```

@@ -39,3 +39,33 @@ The `boolin` function serves as the input conversion function for PostgreSQL's b
 - Raises detailed error messages on parse failure, including the original input string for debugging
 - Uses PostgreSQL's standard error reporting mechanism for consistent error handling
 - The function signature follows PostgreSQL's V1 calling convention using PG_FUNCTION_ARGS
+
+## Simplified Source
+
+```c
+Datum boolin(PG_FUNCTION_ARGS)
+{
+    const char *in_str = PG_GETARG_CSTRING(0);
+    const char *str;
+    size_t len;
+    bool result;
+
+    // Skip leading whitespace
+    str = in_str;
+    while (isspace((unsigned char) *str))
+        str++;
+
+    // Calculate length without trailing whitespace
+    len = strlen(str);
+    while (len > 0 && isspace((unsigned char) str[len - 1]))
+        len--;
+
+    // Parse boolean value
+    if (parse_bool_with_len(str, len, &result))
+        PG_RETURN_BOOL(result);
+
+    // Report parsing error
+    ereturn(fcinfo->context, (Datum) 0,
+           "invalid input syntax for type boolean");
+}
+```

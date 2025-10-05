@@ -53,3 +53,75 @@ The function distinguishes between logical and physical slots: logical slots use
 - Updates global slot state after advancement to maintain cluster consistency
 - Requires appropriate permissions to execute slot operations
 - Thread-safe through slot acquisition mechanism
+
+## Simplified Source
+
+```c
+Datum pg_replication_slot_advance(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    Name slotname = PG_GETARG_NAME(0);
+    XLogRecPtr moveto = PG_GETARG_LSN(1);
+    XLogRecPtr endlsn, minlsn;
+    TupleDesc tupdesc;
+    Datum values[2];
+    bool nulls[2];
+
+    Assert(!MyReplicationSlot);
+
+    // Validate permissions and target LSN
+    CheckSlotPermissions();
+    if (XLogRecPtrIsInvalid(moveto))
+        ereport(ERROR, (errmsg("invalid target WAL LSN")));
+
+    // Validate return type
+    if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+        elog(ERROR, "return type must be a row type");
+
+    // Clamp target position to available WAL
+    if (!RecoveryInProgress())
+        moveto = Min(moveto, GetFlushRecPtr(NULL));
+    else
+        moveto = Min(moveto, GetXLogReplayRecPtr(NULL));
+
+    // Acquire exclusive access to the slot
+    ReplicationSlotAcquire(NameStr(*slotname), true);
+
+    // Ensure slot can be advanced (has reserved WAL)
+    if (XLogRecPtrIsInvalid(MyReplicationSlot->data.restart_lsn))
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                        errmsg("replication slot \"%s\" cannot be advanced",
+                               NameStr(*slotname))));
+
+    // Determine minimum position based on slot type
+    if (OidIsValid(MyReplicationSlot->data.database))
+        minlsn = MyReplicationSlot->data.confirmed_flush;  // Logical slot
+    else
+        minlsn = MyReplicationSlot->data.restart_lsn;      // Physical slot
+
+    // Prevent backward movement
+    if (moveto < minlsn)
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                        errmsg("cannot advance replication slot to %X/%X, minimum is %X/%X",
+                               LSN_FORMAT_ARGS(moveto), LSN_FORMAT_ARGS(minlsn))));
+
+    // Advance slot based on type
+    if (OidIsValid(MyReplicationSlot->data.database))
+        endlsn = pg_logical_replication_slot_advance(moveto);
+    else
+        endlsn = pg_physical_replication_slot_advance(moveto);
+
+    // Update global slot state
+    ReplicationSlotsComputeRequiredXmin(false);
+    ReplicationSlotsComputeRequiredLSN();
+
+    // Build result tuple
+    values[0] = NameGetDatum(&MyReplicationSlot->data.name);
+    values[1] = LSNGetDatum(endlsn);
+    nulls[0] = nulls[1] = false;
+
+    ReplicationSlotRelease();
+
+    HeapTuple tuple = heap_form_tuple(tupdesc, values, nulls);
+    PG_RETURN_DATUM(HeapTupleGetDatum(tuple));
+}
+```

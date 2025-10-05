@@ -33,3 +33,25 @@ void ExecIndexScanInitializeWorker(IndexScanState *node, ParallelWorkerContext *
 - The parallel index scan descriptor contains shared state needed for coordinating the scan across multiple workers
 - Located in src/backend/executor/nodeIndexscan.c:1710-1731
 - Runtime keys may need to be calculated based on parameter values, which is why the function checks `iss_RuntimeKeysReady` before applying scan keys
+
+## Simplified Source
+
+```c
+void ExecIndexScanInitializeWorker(IndexScanState *node, ParallelWorkerContext *pwcxt) {
+    // Lookup the parallel index scan descriptor from shared memory
+    ParallelIndexScanDesc piscan = shm_toc_lookup(pwcxt->toc, node->ss.ps.plan->plan_node_id, false);
+
+    // Initialize the worker's index scan descriptor
+    node->iss_ScanDesc = index_beginscan_parallel(node->ss.ss_currentRelation,
+                                                  node->iss_RelationDesc,
+                                                  node->iss_NumScanKeys,
+                                                  node->iss_NumOrderByKeys,
+                                                  piscan);
+
+    // Apply scan keys if runtime keys are ready or not needed
+    if (node->iss_NumRuntimeKeys == 0 || node->iss_RuntimeKeysReady)
+        index_rescan(node->iss_ScanDesc,
+                     node->iss_ScanKeys, node->iss_NumScanKeys,
+                     node->iss_OrderByKeys, node->iss_NumOrderByKeys);
+}
+```

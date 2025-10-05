@@ -30,3 +30,24 @@ This function is part of the ECPG (Embedded SQL in C) preprocessor and generates
 - Memory management: The function calls free() on the name parameter after processing
 - The generated code includes line number information for debugging purposes
 - Error handling is managed through whenever_action(2) call
+
+## Simplified Source
+
+```c
+void output_deallocate_prepare_statement(char *name) {
+    const char *con = connection ? connection : "NULL";
+
+    // Handle specific statement vs "all" statements
+    if (strcmp(name, "all") != 0) {
+        fprintf(base_yyout, "{ ECPGdeallocate(__LINE__, %d, %s, ", compat, con);
+        output_escaped_str(name, true);
+        fputs(");", base_yyout);
+    } else {
+        fprintf(base_yyout, "{ ECPGdeallocate_all(__LINE__, %d, %s);", compat, con);
+    }
+
+    // Generate error handling and cleanup
+    whenever_action(2);
+    free(name);
+}
+```

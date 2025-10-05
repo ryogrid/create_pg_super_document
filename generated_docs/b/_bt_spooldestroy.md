@@ -39,3 +39,17 @@ This function is called during the final cleanup phase of index construction to 
 - Must be called for both primary and secondary spools when they exist
 - The function assumes the BTSpool structure and its sortstate field are properly initialized
 - Part of the resource management strategy that ensures index construction doesn't leave behind temporary resources
+
+## Simplified Source
+
+```c
+static void
+_bt_spooldestroy(BTSpool *btspool)
+{
+    // Clean up tuplesort state and release associated resources
+    tuplesort_end(btspool->sortstate);
+
+    // Free the spool structure itself
+    pfree(btspool);
+}
+```

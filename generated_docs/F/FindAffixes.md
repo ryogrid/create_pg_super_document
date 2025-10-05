@@ -35,3 +35,47 @@ The function handles void affixes (empty affixes) as a special case and continue
 - Supports both prefix (FF_PREFIX) and suffix (FF_SUFFIX) affix types
 - The function modifies the level parameter to track traversal progress
 - Part of PostgreSQL's text search spell checking functionality
+
+## Simplified Source
+
+```c
+static AffixNodeData *
+FindAffixes(AffixNode *node, const char *word, int wrdlen, int *level, int type)
+{
+    // Handle void affixes (empty affixes) first
+    if (node->isvoid) {
+        if (node->data->naff)
+            return node->data;
+        node = node->data->node;
+    }
+
+    // Traverse tree while there are more characters to process
+    while (node && *level < wrdlen) {
+        AffixNodeData *StopLow = node->data;
+        AffixNodeData *StopHigh = node->data + node->length;
+
+        // Binary search for matching character
+        while (StopLow < StopHigh) {
+            AffixNodeData *StopMiddle = StopLow + ((StopHigh - StopLow) >> 1);
+            uint8 symbol = GETWCHAR(word, wrdlen, *level, type);
+
+            if (StopMiddle->val == symbol) {
+                (*level)++;
+                if (StopMiddle->naff)
+                    return StopMiddle;  // Found matching affix
+                node = StopMiddle->node;
+                break;
+            }
+            else if (StopMiddle->val < symbol)
+                StopLow = StopMiddle + 1;
+            else
+                StopHigh = StopMiddle;
+        }
+
+        if (StopLow >= StopHigh)
+            break;  // No match found
+    }
+
+    return NULL;
+}
+```

@@ -34,3 +34,24 @@ The function is essential for vacuum operations that need to process dead items 
 - In parallel vacuum mode, coordination is handled by the parallel vacuum subsystem
 - The `true` parameter to TidStoreCreateLocal indicates the store should track memory usage
 - Resetting allows vacuum to reuse the same dead items collection for multiple cleanup cycles
+
+## Simplified Source
+
+```c
+static void
+dead_items_reset(LVRelState *vacrel)
+{
+    if (ParallelVacuumIsActive(vacrel)) {
+        // Delegate to parallel vacuum subsystem
+        parallel_vacuum_reset_dead_items(vacrel->pvs);
+        return;
+    }
+
+    // Serial case: recreate TidStore with same memory limit
+    TidStoreDestroy(vacrel->dead_items);
+    vacrel->dead_items = TidStoreCreateLocal(vacrel->dead_items_info->max_bytes, true);
+
+    // Reset the item counter
+    vacrel->dead_items_info->num_items = 0;
+}
+```

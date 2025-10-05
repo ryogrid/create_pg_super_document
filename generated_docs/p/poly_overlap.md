@@ -31,3 +31,25 @@ poly_overlap is a PostgreSQL function that implements the overlap operator for p
 - Includes memory management for toasted inputs, which is essential for rtree indexes
 - Acts as a thin wrapper around poly_overlap_internal() while handling PostgreSQL-specific argument extraction and memory management
 - The function is designed to be called from SQL as the overlap operator (&) for polygon types
+
+## Simplified Source
+
+```c
+Datum
+poly_overlap(PG_FUNCTION_ARGS)
+{
+    // Extract polygon arguments
+    POLYGON *polya = PG_GETARG_POLYGON_P(0);
+    POLYGON *polyb = PG_GETARG_POLYGON_P(1);
+    bool result;
+
+    // Delegate to internal overlap detection function
+    result = poly_overlap_internal(polya, polyb);
+
+    // Clean up memory for toasted inputs (required for rtree indexes)
+    PG_FREE_IF_COPY(polya, 0);
+    PG_FREE_IF_COPY(polyb, 1);
+
+    PG_RETURN_BOOL(result);
+}
+```

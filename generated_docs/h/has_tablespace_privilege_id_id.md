@@ -39,3 +39,29 @@ This variant combines maximum efficiency (both user and tablespace identified by
 - Part of the overloaded `has_tablespace_privilege` function family
 - Located in `src/backend/utils/adt/acl.c:4338-4366`
 - Optimal for performance-critical code paths where OIDs are already available
+
+## Simplified Source
+
+```c
+Datum
+has_tablespace_privilege_id_id(PG_FUNCTION_ARGS)
+{
+    Oid roleid = PG_GETARG_OID(0);
+    Oid tablespaceoid = PG_GETARG_OID(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+    bool is_missing = false;
+
+    // Convert privilege string to access mode
+    AclMode mode = convert_tablespace_priv_string(priv_type_text);
+
+    // Check access control with missing object detection
+    AclResult aclresult = object_aclcheck_ext(TableSpaceRelationId, tablespaceoid,
+                                              roleid, mode, &is_missing);
+
+    // Return NULL if tablespace doesn't exist
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

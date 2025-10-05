@@ -46,4 +46,41 @@ The final step converts the broken-down components into PostgreSQL's internal ti
 - Part of PostgreSQL's public SQL function interface, accessible via SQL to_timestamp() calls
 - Uses session_timezone as fallback when no timezone specified in input
 - Precision adjustment ensures output matches expected timestamp typmod specifications
-- [Complex](../C/Complex.md) parsing logic handled by do_to_timestamp() enables flexible input format support
+- Complex parsing logic handled by do_to_timestamp() enables flexible input format support
+
+## Simplified Source
+
+```c
+Datum to_timestamp(PG_FUNCTION_ARGS) {
+    text *date_txt = PG_GETARG_TEXT_PP(0);
+    text *fmt = PG_GETARG_TEXT_PP(1);
+    Oid collid = PG_GET_COLLATION();
+    Timestamp result;
+    int tz;
+    struct pg_tm tm;
+    struct fmt_tz ftz;
+    fsec_t fsec;
+    int fprec;
+
+    // Parse the date string according to format template
+    do_to_timestamp(date_txt, fmt, collid, false,
+                   &tm, &fsec, &ftz, &fprec, NULL, NULL);
+
+    // Determine timezone: use parsed timezone if available, otherwise session timezone
+    if (ftz.has_tz)
+        tz = ftz.gmtoffset;
+    else
+        tz = DetermineTimeZoneOffset(&tm, session_timezone);
+
+    // Convert broken-down time to timestamp
+    if (tm2timestamp(&tm, fsec, &tz, &result) != 0)
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                       errmsg("timestamp out of range")));
+
+    // Apply fractional precision if specified
+    if (fprec)
+        AdjustTimestampForTypmod(&result, fprec, NULL);
+
+    PG_RETURN_TIMESTAMP(result);
+}
+```

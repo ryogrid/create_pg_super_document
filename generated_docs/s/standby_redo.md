@@ -105,3 +105,62 @@ The function first extracts the record type information and verifies that the sy
 - Panics on unknown operation codes to ensure system integrity
 - Critical component of hot standby functionality in PostgreSQL
 - Located in src/backend/storage/ipc/standby.c:1159-1284
+
+## Simplified Source
+
+```c
+void standby_redo(XLogReaderState *record) {
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    // Skip processing if not in hot standby mode
+    if (standbyState == STANDBY_DISABLED)
+        return;
+
+    // Process different types of standby WAL records
+    if (info == XLOG_STANDBY_LOCK) {
+        // Handle lock acquisition records
+        xl_standby_locks *xlrec = (xl_standby_locks *) XLogRecGetData(record);
+
+        // Acquire each lock specified in the record
+        for (int i = 0; i < xlrec->nlocks; i++) {
+            StandbyAcquireAccessExclusiveLock(xlrec->locks[i].xid,
+                                            xlrec->locks[i].dbOid,
+                                            xlrec->locks[i].relOid);
+        }
+    }
+    else if (info == XLOG_RUNNING_XACTS) {
+        // Handle running transaction snapshot records
+        xl_running_xacts *xlrec = (xl_running_xacts *) XLogRecGetData(record);
+        RunningTransactionsData running;
+
+        // Build transaction state from WAL record
+        running.xcnt = xlrec->xcnt;
+        running.subxcnt = xlrec->subxcnt;
+        running.subxid_status = xlrec->subxid_overflow ? SUBXIDS_MISSING : SUBXIDS_IN_ARRAY;
+        running.nextXid = xlrec->nextXid;
+        running.latestCompletedXid = xlrec->latestCompletedXid;
+        running.oldestRunningXid = xlrec->oldestRunningXid;
+        running.xids = xlrec->xids;
+
+        // Apply transaction state to process array
+        ProcArrayApplyRecoveryInfo(&running);
+
+        // Report statistics (using regular XLOG_RUNNING_XACTS cadence)
+        pgstat_report_stat(true);
+    }
+    else if (info == XLOG_INVALIDATIONS) {
+        // Handle cache invalidation records
+        xl_invalidations *xlrec = (xl_invalidations *) XLogRecGetData(record);
+
+        // Process invalidation messages for cache consistency
+        ProcessCommittedInvalidationMessages(xlrec->msgs,
+                                           xlrec->nmsgs,
+                                           xlrec->relcacheInitFileInval,
+                                           xlrec->dbId,
+                                           xlrec->tsId);
+    }
+    else {
+        elog(PANIC, "standby_redo: unknown op code %u", info);
+    }
+}
+```

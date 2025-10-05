@@ -45,3 +45,29 @@ pgoutput_stream_abort is a callback function in the pgoutput logical replication
 - Performs cleanup of relation synchronization cache to maintain consistency
 - Critical for proper transaction rollback handling in logical replication streaming scenarios
 - Ensures downstream subscribers can properly handle transaction aborts in streaming replication
+
+## Simplified Source
+
+```c
+static void
+pgoutput_stream_abort(struct LogicalDecodingContext *ctx,
+                     ReorderBufferTXN *txn,
+                     XLogRecPtr abort_lsn) {
+    PGOutputData *data = (PGOutputData *) ctx->output_plugin_private;
+
+    // Determine if we need to write abort info (for parallel streaming)
+    bool write_abort_info = (data->streaming == LOGICALREP_STREAM_PARALLEL);
+
+    // Get the top-level transaction (handles subtransactions)
+    ReorderBufferTXN *toptxn = rbtxn_get_toptxn(txn);
+
+    // Write stream abort message to output
+    OutputPluginPrepareWrite(ctx, true);
+    logicalrep_write_stream_abort(ctx->out, toptxn->xid, txn->xid, abort_lsn,
+                                 txn->xact_time.abort_time, write_abort_info);
+    OutputPluginWrite(ctx, true);
+
+    // Clean up relation sync cache for this transaction
+    cleanup_rel_sync_cache(toptxn->xid, false);
+}
+```

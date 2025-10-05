@@ -40,3 +40,44 @@ The function works by starting from the last known open segment and iterating th
 - Includes a FATAL error check to prevent segments from being larger than RELSEG_SIZE
 - The checkpointer process may have entries for inactive segments, which is acceptable since it doesn't need to compute relation sizes
 - Avoids using O_CREAT when opening additional segments to prevent masking missing segment errors
+
+## Simplified Source
+
+```c
+BlockNumber
+mdnblocks(SMgrRelation reln, ForkNumber forknum)
+{
+    MdfdVec *v;
+    BlockNumber nblocks;
+    BlockNumber segno;
+
+    // Open the first segment
+    mdopenfork(reln, forknum, EXTENSION_FAIL);
+
+    // Start from the last open segment to avoid redundant seeks
+    segno = reln->md_num_open_segs[forknum] - 1;
+    v = &reln->md_seg_fds[forknum][segno];
+
+    // Iterate through segments to find total blocks
+    for (;;) {
+        // Get number of blocks in this segment
+        nblocks = _mdnblocks(reln, forknum, v);
+
+        // Validate segment size
+        if (nblocks > ((BlockNumber) RELSEG_SIZE))
+            elog(FATAL, "segment too big");
+
+        // If segment is not full, this is the last segment
+        if (nblocks < ((BlockNumber) RELSEG_SIZE))
+            return (segno * ((BlockNumber) RELSEG_SIZE)) + nblocks;
+
+        // Segment is exactly RELSEG_SIZE, check next segment
+        segno++;
+        v = _mdfd_openseg(reln, forknum, segno, 0);
+
+        // If no more segments exist, return total from full segments
+        if (v == NULL)
+            return segno * ((BlockNumber) RELSEG_SIZE);
+    }
+}
+```

@@ -40,3 +40,44 @@ The function coordinates with other parallel workers through:
 - Returns true when an unmatched tuple is found, false when scanning is complete
 - Essential for implementing RIGHT and FULL OUTER joins in parallel query execution
 - Maintains the same memory management patterns as the single-worker version
+
+## Simplified Source
+```c
+bool
+ExecParallelScanHashTableForUnmatched(HashJoinState *hjstate, ExprContext *econtext)
+{
+    HashJoinTable hashtable = hjstate->hj_HashTable;
+    HashJoinTuple hashTuple = hjstate->hj_CurTuple;
+
+    for (;;)
+    {
+        // Get next tuple using parallel-safe functions
+        if (hashTuple != NULL)
+            hashTuple = ExecParallelHashNextTuple(hashtable, hashTuple);
+        else if (hjstate->hj_CurBucketNo < hashtable->nbuckets)
+            hashTuple = ExecParallelHashFirstTuple(hashtable, hjstate->hj_CurBucketNo++);
+        else
+            break; // All buckets scanned
+
+        // Check each tuple in current bucket
+        while (hashTuple != NULL)
+        {
+            if (!HeapTupleHeaderHasMatch(HJTUPLE_MINTUPLE(hashTuple)))
+            {
+                // Found unmatched tuple - set up for return
+                TupleTableSlot *inntuple = ExecStoreMinimalTuple(
+                    HJTUPLE_MINTUPLE(hashTuple), hjstate->hj_HashTupleSlot, false);
+                econtext->ecxt_innertuple = inntuple;
+                ResetExprContext(econtext);
+                hjstate->hj_CurTuple = hashTuple;
+                return true;
+            }
+            hashTuple = ExecParallelHashNextTuple(hashtable, hashTuple);
+        }
+
+        CHECK_FOR_INTERRUPTS();
+    }
+
+    return false; // No more unmatched tuples
+}
+```

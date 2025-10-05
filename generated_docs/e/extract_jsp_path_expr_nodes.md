@@ -44,3 +44,55 @@ This function traverses a JSON path expression and extracts indexable nodes for 
 - The function can extract both equality conditions (when scalar is provided) and existence conditions (when scalar is NULL)
 - Part of PostgreSQL's GIN indexing infrastructure for efficient JSONB path queries
 - Located in src/backend/utils/adt/jsonb_gin.c:504-563
+
+## Simplified Source
+
+```c
+static List *
+extract_jsp_path_expr_nodes(JsonPathGinContext *cxt, JsonPathGinPath path,
+                            JsonPathItem *jsp, JsonbValue *scalar)
+{
+    JsonPathItem next;
+    List *nodes = NIL;
+
+    // Process each path item in sequence
+    for (;;)
+    {
+        switch (jsp->type)
+        {
+            case jpiCurrent:
+                // Current position operator - continue processing
+                break;
+
+            case jpiFilter:
+                {
+                    // Extract filter expression as boolean node
+                    JsonPathItem arg;
+                    JsonPathGinNode *filter;
+
+                    jspGetArg(jsp, &arg);
+                    filter = extract_jsp_bool_expr(cxt, path, &arg, false);
+
+                    if (filter)
+                        nodes = lappend(nodes, filter);
+                    break;
+                }
+
+            default:
+                // Process path item via context-specific handler
+                if (!cxt->add_path_item(&path, jsp))
+                    // Unsupported path - return filter nodes only
+                    return nodes;
+                break;
+        }
+
+        // Move to next path item
+        if (!jspGetNext(jsp, &next))
+            break;
+        jsp = &next;
+    }
+
+    // Add nodes from path expression to filter nodes
+    return cxt->extract_nodes(cxt, path, scalar, nodes);
+}
+```

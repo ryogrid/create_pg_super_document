@@ -33,3 +33,31 @@ This function is a PostgreSQL built-in function that verifies if the current use
 - Returns NULL if the specified function doesn't exist (is_missing flag)
 - Part of the has_*_privilege family of functions for access control verification
 - Located in src/backend/utils/adt/acl.c:3476-3503
+
+## Simplified Source
+
+```c
+Datum
+has_function_privilege_id(PG_FUNCTION_ARGS)
+{
+    Oid functionoid = PG_GETARG_OID(0);
+    text *priv_type_text = PG_GETARG_TEXT_PP(1);
+    bool is_missing = false;
+
+    // Get current user's OID
+    Oid roleid = GetUserId();
+
+    // Convert privilege string to access mode
+    AclMode mode = convert_function_priv_string(priv_type_text);
+
+    // Check privilege with missing object detection
+    AclResult aclresult = object_aclcheck_ext(ProcedureRelationId, functionoid,
+                                               roleid, mode, &is_missing);
+
+    // Return NULL if function doesn't exist
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

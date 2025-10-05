@@ -44,3 +44,21 @@ This function represents the most comprehensive size measurement available for P
 - Efficiently reuses existing specialized calculation functions rather than duplicating logic
 - The calculation is comprehensive but excludes no relation components
 - Represents the actual disk space consumed by a complete table and all its associated objects
+
+## Simplified Source
+
+```c
+static int64
+calculate_total_relation_size(Relation rel)
+{
+    int64 size;
+
+    // Get table size (heap + TOAST + FSM + VM)
+    size = calculate_table_size(rel);
+
+    // Add all indexes size
+    size += calculate_indexes_size(rel);
+
+    return size;
+}
+```

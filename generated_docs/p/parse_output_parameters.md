@@ -44,3 +44,53 @@ This function processes the parameter list passed to the pgoutput plugin and pop
 - Implements origin filtering with "none" and "any" options
 - Uses PostgreSQL's standard error reporting mechanisms for validation failures
 - Sets sensible defaults: binary=false, streaming=off, messages=false, two_phase=false
+
+## Simplified Source
+
+```c
+static void parse_output_parameters(List *options, PGOutputData *data) {
+    ListCell *lc;
+    bool flags[7] = {false}; // Track duplicate options
+
+    // Set defaults
+    data->binary = false;
+    data->streaming = LOGICALREP_STREAM_OFF;
+    data->messages = false;
+    data->two_phase = false;
+
+    // Parse each option
+    foreach(lc, options) {
+        DefElem *defel = (DefElem *) lfirst(lc);
+
+        if (strcmp(defel->defname, "proto_version") == 0) {
+            if (flags[0]) ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                                         errmsg("conflicting or redundant options")));
+            flags[0] = true;
+            // Parse and validate protocol version
+            unsigned long parsed = strtoul(strVal(defel->arg), &endptr, 10);
+            if (errno != 0 || *endptr != '\0' || parsed > PG_UINT32_MAX)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                               errmsg("invalid proto_version")));
+            data->protocol_version = (uint32) parsed;
+        }
+        else if (strcmp(defel->defname, "publication_names") == 0) {
+            if (flags[1]) ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                                         errmsg("conflicting or redundant options")));
+            flags[1] = true;
+            if (!SplitIdentifierString(strVal(defel->arg), ',', &data->publication_names))
+                ereport(ERROR, (errcode(ERRCODE_INVALID_NAME),
+                               errmsg("invalid publication_names syntax")));
+        }
+        // Handle other boolean options (binary, messages, streaming, two_phase, origin)
+        // ... similar pattern for each option type
+        else {
+            elog(ERROR, "unrecognized pgoutput option: %s", defel->defname);
+        }
+    }
+
+    // Validate required options
+    if (!flags[0] || !flags[1])
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("required option missing")));
+}
+```

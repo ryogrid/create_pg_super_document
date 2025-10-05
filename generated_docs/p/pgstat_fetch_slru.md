@@ -35,3 +35,15 @@ The function is designed to provide a consistent view of SLRU statistics at a sp
 - Used by system views and functions that expose SLRU performance metrics to database administrators
 - The function takes a snapshot specifically for SLRU statistics (PGSTAT_KIND_SLRU) rather than all statistics
 - Part of the PostgreSQL statistics collector infrastructure for exposing internal metrics to SQL interfaces
+
+## Simplified Source
+
+```c
+PgStat_SLRUStats *pgstat_fetch_slru(void) {
+    // Take a snapshot of SLRU statistics
+    pgstat_snapshot_fixed(PGSTAT_KIND_SLRU);
+
+    // Return pointer to the local SLRU statistics snapshot
+    return pgStatLocal.snapshot.slru;
+}
+```

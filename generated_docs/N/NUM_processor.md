@@ -58,3 +58,214 @@ The function operates in two main phases: initialization/setup and pattern proce
 - Roman numeral and scientific notation formats are handled as special cases
 - Locale-aware formatting uses system locale settings for currency and thousands separators
 - Pattern processing loop handles both format actions and literal characters differently
+
+## Simplified Source
+
+```c
+static char *NUM_processor(FormatNode *node, NUMDesc *Num, char *inout,
+                          char *number, int input_len, int to_char_out_pre_spaces,
+                          int sign, bool is_to_char, Oid collid) {
+    FormatNode *n;
+    NUMProc _Np, *Np = &_Np;
+    const char *pattern;
+    int pattern_len;
+
+    // Initialize processing context
+    MemSet(Np, 0, sizeof(NUMProc));
+    Np->Num = Num;
+    Np->is_to_char = is_to_char;
+    Np->number = number;
+    Np->inout = inout;
+
+    // Handle special format types
+    if (IS_EEEE(Np->Num)) {
+        if (!Np->is_to_char)
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                           errmsg("\"EEEE\" not supported for input")));
+        return strcpy(inout, number);
+    }
+
+    if (IS_ROMAN(Np->Num)) {
+        if (!Np->is_to_char)
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                           errmsg("\"RN\" not supported for input")));
+        // Reset format flags for Roman numerals
+        Np->Num->lsign = Np->Num->pre_lsign_num = Np->Num->post =
+                        Np->Num->pre = Np->out_pre_spaces = Np->sign = 0;
+    }
+
+    // Set up sign handling and counting
+    if (is_to_char) {
+        Np->sign = sign;
+        Np->out_pre_spaces = to_char_out_pre_spaces;
+        // Handle sign placement logic
+        if (IS_PLUS(Np->Num) || IS_MINUS(Np->Num)) {
+            Np->sign_wrote = !(IS_PLUS(Np->Num) && !IS_MINUS(Np->Num));
+        } else {
+            Np->sign_wrote = (Np->sign == '+' && IS_FILLMODE(Np->Num) && !IS_LSIGN(Np->Num));
+        }
+    }
+
+    Np->num_count = Np->Num->post + Np->Num->pre - 1;
+
+    // Handle decimal precision and zero padding
+    if (is_to_char && IS_FILLMODE(Np->Num) && IS_DECIMAL(Np->Num)) {
+        Np->last_relevant = get_last_relevant_decnum(Np->number);
+        // Adjust for zero padding requirements
+        if (Np->last_relevant && Np->Num->zero_end > Np->out_pre_spaces) {
+            int last_zero_pos = Min(strlen(Np->number) - 1,
+                                   Np->Num->zero_end - Np->out_pre_spaces);
+            char *last_zero = Np->number + last_zero_pos;
+            if (Np->last_relevant < last_zero)
+                Np->last_relevant = last_zero;
+        }
+    }
+
+    // Prepare locale-specific formatting
+    NUM_prepare_locale(Np);
+
+    // Set up number pointer
+    if (Np->is_to_char)
+        Np->number_p = Np->number;
+    else
+        Np->number_p = Np->number + 1; // first char is space for sign
+
+    // Main pattern processing loop
+    for (n = node, Np->inout_p = Np->inout; n->type != NODE_TYPE_END; n++) {
+        if (!Np->is_to_char && OVERLOAD_TEST)
+            break;
+
+        if (n->type == NODE_TYPE_ACTION) {
+            // Process format commands
+            switch (n->key->id) {
+                case NUM_9:
+                case NUM_0:
+                case NUM_DEC:
+                case NUM_D:
+                    if (Np->is_to_char) {
+                        NUM_numpart_to_char(Np, n->key->id);
+                        continue;
+                    } else {
+                        NUM_numpart_from_char(Np, n->key->id, input_len);
+                        break;
+                    }
+
+                case NUM_COMMA:
+                    // Handle comma separators
+                    if (Np->is_to_char) {
+                        *Np->inout_p = (!Np->num_in && IS_FILLMODE(Np->Num)) ?
+                                      '\0' : (Np->num_in ? ',' : ' ');
+                    } else {
+                        if (!Np->num_in && IS_FILLMODE(Np->Num)) continue;
+                        if (*Np->inout_p != ',') continue;
+                    }
+                    break;
+
+                case NUM_G:
+                    // Handle locale thousands separator
+                    pattern = Np->L_thousands_sep;
+                    pattern_len = strlen(pattern);
+                    if (Np->is_to_char) {
+                        if (!Np->num_in && IS_FILLMODE(Np->Num)) {
+                            continue;
+                        } else {
+                            strcpy(Np->inout_p, pattern);
+                            Np->inout_p += pattern_len - 1;
+                        }
+                    } else {
+                        if (!Np->num_in && IS_FILLMODE(Np->Num)) continue;
+                        if (AMOUNT_TEST(pattern_len) &&
+                            strncmp(Np->inout_p, pattern, pattern_len) == 0)
+                            Np->inout_p += pattern_len - 1;
+                        else continue;
+                    }
+                    break;
+
+                case NUM_L:
+                    // Handle locale currency symbol
+                    pattern = Np->L_currency_symbol;
+                    if (Np->is_to_char) {
+                        strcpy(Np->inout_p, pattern);
+                        Np->inout_p += strlen(pattern) - 1;
+                    } else {
+                        NUM_eat_non_data_chars(Np, pg_mbstrlen(pattern), input_len);
+                        continue;
+                    }
+                    break;
+
+                case NUM_MI:
+                    // Handle minus sign
+                    if (Np->is_to_char) {
+                        *Np->inout_p = (Np->sign == '-') ? '-' :
+                                      (IS_FILLMODE(Np->Num) ? '\0' : ' ');
+                    } else {
+                        if (*Np->inout_p == '-') {
+                            *Np->number = '-';
+                        } else {
+                            NUM_eat_non_data_chars(Np, 1, input_len);
+                            continue;
+                        }
+                    }
+                    break;
+
+                case NUM_PL:
+                    // Handle plus sign
+                    if (Np->is_to_char) {
+                        *Np->inout_p = (Np->sign == '+') ? '+' :
+                                      (IS_FILLMODE(Np->Num) ? '\0' : ' ');
+                    } else {
+                        if (*Np->inout_p == '+') {
+                            *Np->number = '+';
+                        } else {
+                            NUM_eat_non_data_chars(Np, 1, input_len);
+                            continue;
+                        }
+                    }
+                    break;
+
+                case NUM_SG:
+                    // Handle general sign
+                    if (Np->is_to_char) {
+                        *Np->inout_p = Np->sign;
+                    } else {
+                        if (*Np->inout_p == '-' || *Np->inout_p == '+') {
+                            *Np->number = *Np->inout_p;
+                        } else {
+                            NUM_eat_non_data_chars(Np, 1, input_len);
+                            continue;
+                        }
+                    }
+                    break;
+
+                default:
+                    continue;
+            }
+        } else {
+            // Handle literal characters
+            if (Np->is_to_char) {
+                strcpy(Np->inout_p, n->character);
+                Np->inout_p += strlen(Np->inout_p);
+            } else {
+                Np->inout_p += pg_mblen(Np->inout_p);
+            }
+            continue;
+        }
+        Np->inout_p++;
+    }
+
+    // Finalize result
+    if (Np->is_to_char) {
+        *Np->inout_p = '\0';
+        return Np->inout;
+    } else {
+        // Clean up number string
+        if (*(Np->number_p - 1) == '.')
+            *(Np->number_p - 1) = '\0';
+        else
+            *Np->number_p = '\0';
+
+        Np->Num->post = Np->read_post;
+        return Np->number;
+    }
+}
+```

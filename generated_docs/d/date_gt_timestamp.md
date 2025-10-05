@@ -36,3 +36,16 @@ This function implements the greater-than comparison operator (>) between a DATE
 - This function is typically called through PostgreSQL's function manager when the > operator is used between date and timestamp values in SQL
 - The actual comparison logic is implemented in date_cmp_timestamp_internal() for code reuse across different comparison operators
 - Returns a PostgreSQL Datum containing a boolean value
+
+## Simplified Source
+
+```c
+Datum date_gt_timestamp(PG_FUNCTION_ARGS)
+{
+    DateADT dateVal = PG_GETARG_DATEADT(0);
+    Timestamp dt2 = PG_GETARG_TIMESTAMP(1);
+
+    // Compare date and timestamp for greater-than (result > 0 means date is later)
+    PG_RETURN_BOOL(date_cmp_timestamp_internal(dateVal, dt2) > 0);
+}
+```

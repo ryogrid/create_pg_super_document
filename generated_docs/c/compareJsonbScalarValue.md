@@ -31,3 +31,38 @@ This static function implements lexicographic ordering comparison for JsonbValue
 
 ## Notes and Other Information
 The function is declared static and limited to jsonb_util.c scope. It provides consistent ordering semantics required for B-tree indexing and sorting operations on JSONB data. String comparisons respect PostgreSQL's default collation rules, ensuring proper locale-aware sorting. Boolean comparison follows the convention that false (0) is less than true (1). The function will generate ERROR conditions for type mismatches or invalid scalar types, maintaining type safety in comparison operations.
+
+## Simplified Source
+
+```c
+static int compareJsonbScalarValue(JsonbValue *a, JsonbValue *b) {
+    // Only compare values of same type
+    if (a->type == b->type) {
+        switch (a->type) {
+            case jbvNull:
+                return 0;  // All nulls are equal
+            case jbvString:
+                return varstr_cmp(a->val.string.val,
+                                a->val.string.len,
+                                b->val.string.val,
+                                b->val.string.len,
+                                DEFAULT_COLLATION_OID);
+            case jbvNumeric:
+                return DatumGetInt32(DirectFunctionCall2(numeric_cmp,
+                    PointerGetDatum(a->val.numeric),
+                    PointerGetDatum(b->val.numeric)));
+            case jbvBool:
+                if (a->val.boolean == b->val.boolean)
+                    return 0;
+                else if (a->val.boolean > b->val.boolean)
+                    return 1;
+                else
+                    return -1;
+            default:
+                elog(ERROR, "invalid jsonb scalar type");
+        }
+    }
+    elog(ERROR, "jsonb scalar type mismatch");
+    return -1;
+}
+```

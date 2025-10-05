@@ -36,3 +36,22 @@ This function is a callback handler for the ROLLBACK PREPARED operation in Postg
 
 ## Notes and Other Information
 This function is registered as a callback in the pgoutput plugin initialization and is part of PostgreSQL's two-phase commit support in logical replication. It ensures that prepared transaction rollbacks are properly propagated to logical replication subscribers, maintaining consistency across the replication cluster. The function is static and only used within the pgoutput plugin module.
+
+## Simplified Source
+
+```c
+static void
+pgoutput_rollback_prepared_txn(LogicalDecodingContext *ctx,
+                               ReorderBufferTXN *txn,
+                               XLogRecPtr prepare_end_lsn,
+                               TimestampTz prepare_time)
+{
+    // Update replication progress
+    OutputPluginUpdateProgress(ctx, false);
+
+    // Send ROLLBACK PREPARED message to abort transaction
+    OutputPluginPrepareWrite(ctx, true);
+    logicalrep_write_rollback_prepared(ctx->out, txn, prepare_end_lsn, prepare_time);
+    OutputPluginWrite(ctx, true);
+}
+```

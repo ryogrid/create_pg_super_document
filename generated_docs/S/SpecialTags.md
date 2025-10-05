@@ -40,3 +40,27 @@ This is crucial for HTML document parsing where script and style content should 
 - Part of PostgreSQL's HTML-aware text search functionality
 - Handles both opening and closing variants of script and style tags
 - Length checks: 6 chars for `<style`, 7 chars for `<script` and `</style`, 8 chars for `</script`
+
+## Simplified Source
+
+```c
+static void SpecialTags(TParser *prs) {
+    // Check tag length and handle special HTML tags
+    switch (prs->state->lenchartoken) {
+        case 8:  // </script>
+            if (pg_strncasecmp(prs->token, "</script", 8) == 0)
+                prs->ignore = false;  // Resume processing
+            break;
+        case 7:  // <script> or </style>
+            if (pg_strncasecmp(prs->token, "</style", 7) == 0)
+                prs->ignore = false;  // Resume processing
+            else if (pg_strncasecmp(prs->token, "<script", 7) == 0)
+                prs->ignore = true;   // Start ignoring content
+            break;
+        case 6:  // <style>
+            if (pg_strncasecmp(prs->token, "<style", 6) == 0)
+                prs->ignore = true;   // Start ignoring content
+            break;
+    }
+}
+```

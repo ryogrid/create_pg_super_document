@@ -45,3 +45,45 @@ When creating posting lists, the function tracks the operation in the deduplicat
 - The function validates that tuples fit within page size limits and posting list size constraints
 - All space calculations use MAXALIGN for proper tuple alignment
 - Error handling includes assertions and elog(ERROR) for cases that should never occur in normal operation
+
+## Simplified Source
+
+```c
+Size _bt_dedup_finish_pending(Page newpage, BTDedupState state) {
+    Assert(state->nitems > 0 && state->nitems <= state->nhtids);
+
+    OffsetNumber tupoff = OffsetNumberNext(PageGetMaxOffsetNumber(newpage));
+    Size tuplesz;
+    Size spacesaving;
+
+    if (state->nitems == 1) {
+        // No duplicates found - use original base tuple unchanged
+        tuplesz = IndexTupleSize(state->base);
+        if (PageAddItem(newpage, (Item) state->base, tuplesz, tupoff,
+                       false, false) == InvalidOffsetNumber)
+            elog(ERROR, "deduplication failed to add tuple to page");
+        spacesaving = 0;
+    } else {
+        // Create posting list from merged duplicates
+        IndexTuple final = _bt_form_posting(state->base, state->htids, state->nhtids);
+        tuplesz = IndexTupleSize(final);
+
+        // Save posting list info and add to page
+        state->intervals[state->nintervals].nitems = state->nitems;
+        if (PageAddItem(newpage, (Item) final, tuplesz, tupoff, false,
+                       false) == InvalidOffsetNumber)
+            elog(ERROR, "deduplication failed to add tuple to page");
+
+        pfree(final);
+        spacesaving = state->phystupsize - (tuplesz + sizeof(ItemIdData));
+        state->nintervals++; // Increment for new posting list
+    }
+
+    // Reset state for next pending posting list
+    state->nhtids = 0;
+    state->nitems = 0;
+    state->phystupsize = 0;
+
+    return spacesaving;
+}
+```

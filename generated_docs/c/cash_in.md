@@ -49,3 +49,129 @@ The function accumulates the absolute value in negative form to handle the full 
 - Performs input validation and normalization of whitespace and currency symbols
 - Uses safe arithmetic operations to prevent integer overflow vulnerabilities
 - The parsing logic builds values in negative form as a safety measure against integer overflow
+
+## Simplified Source
+
+```c
+Datum
+cash_in(PG_FUNCTION_ARGS)
+{
+    char *str = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    Cash result;
+    Cash value = 0;
+    Cash dec = 0;
+    Cash sgn = 1;
+    bool seen_dot = false;
+    const char *s = str;
+    int fpoint;
+    char dsymbol;
+    const char *ssymbol, *psymbol, *nsymbol, *csymbol;
+    struct lconv *lconvert = PGLC_localeconv();
+
+    // Get locale-specific formatting info
+    fpoint = lconvert->frac_digits;
+    if (fpoint < 0 || fpoint > 10)
+        fpoint = 2;    // Default to 2 decimal places
+
+    // Set up locale symbols with fallbacks
+    dsymbol = (*lconvert->mon_decimal_point != '\0' && lconvert->mon_decimal_point[1] == '\0')
+              ? *lconvert->mon_decimal_point : '.';
+    ssymbol = (*lconvert->mon_thousands_sep != '\0') ? lconvert->mon_thousands_sep :
+              (dsymbol != ',') ? "," : ".";
+    csymbol = (*lconvert->currency_symbol != '\0') ? lconvert->currency_symbol : "$";
+    psymbol = (*lconvert->positive_sign != '\0') ? lconvert->positive_sign : "+";
+    nsymbol = (*lconvert->negative_sign != '\0') ? lconvert->negative_sign : "-";
+
+    // Skip leading whitespace and currency symbol
+    while (isspace((unsigned char) *s)) s++;
+    if (strncmp(s, csymbol, strlen(csymbol)) == 0) s += strlen(csymbol);
+    while (isspace((unsigned char) *s)) s++;
+
+    // Handle leading sign
+    if (strncmp(s, nsymbol, strlen(nsymbol)) == 0) {
+        sgn = -1;
+        s += strlen(nsymbol);
+    } else if (*s == '(') {
+        sgn = -1;
+        s++;
+    } else if (strncmp(s, psymbol, strlen(psymbol)) == 0) {
+        s += strlen(psymbol);
+    }
+
+    // Skip more whitespace and currency after sign
+    while (isspace((unsigned char) *s)) s++;
+    if (strncmp(s, csymbol, strlen(csymbol)) == 0) s += strlen(csymbol);
+    while (isspace((unsigned char) *s)) s++;
+
+    // Parse digits (accumulate in negative to handle full range safely)
+    for (; *s; s++) {
+        if (isdigit((unsigned char) *s) && (!seen_dot || dec < fpoint)) {
+            int8 digit = *s - '0';
+
+            if (pg_mul_s64_overflow(value, 10, &value) ||
+                pg_sub_s64_overflow(value, digit, &value))
+                ereturn(escontext, (Datum) 0,
+                        (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                         errmsg("value \"%s\" is out of range for type %s", str, "money")));
+
+            if (seen_dot) dec++;
+        } else if (*s == dsymbol && !seen_dot) {
+            seen_dot = true;
+        } else if (strncmp(s, ssymbol, strlen(ssymbol)) == 0) {
+            s += strlen(ssymbol) - 1;  // Skip thousands separator
+        } else {
+            break;
+        }
+    }
+
+    // Round if next digit >= 5
+    if (isdigit((unsigned char) *s) && *s >= '5') {
+        if (pg_sub_s64_overflow(value, 1, &value))
+            ereturn(escontext, (Datum) 0,
+                    (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                     errmsg("value \"%s\" is out of range for type %s", str, "money")));
+    }
+
+    // Pad with zeros if insufficient decimal places
+    for (; dec < fpoint; dec++) {
+        if (pg_mul_s64_overflow(value, 10, &value))
+            ereturn(escontext, (Datum) 0,
+                    (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                     errmsg("value \"%s\" is out of range for type %s", str, "money")));
+    }
+
+    // Skip trailing digits and validate remaining characters
+    while (isdigit((unsigned char) *s)) s++;
+
+    while (*s) {
+        if (isspace((unsigned char) *s) || *s == ')') {
+            s++;
+        } else if (strncmp(s, nsymbol, strlen(nsymbol)) == 0) {
+            sgn = -1;
+            s += strlen(nsymbol);
+        } else if (strncmp(s, psymbol, strlen(psymbol)) == 0) {
+            s += strlen(psymbol);
+        } else if (strncmp(s, csymbol, strlen(csymbol)) == 0) {
+            s += strlen(csymbol);
+        } else {
+            ereturn(escontext, (Datum) 0,
+                    (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                     errmsg("invalid input syntax for type %s: \"%s\"", "money", str)));
+        }
+    }
+
+    // Apply sign (check for most negative number overflow)
+    if (sgn > 0) {
+        if (value == PG_INT64_MIN)
+            ereturn(escontext, (Datum) 0,
+                    (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                     errmsg("value \"%s\" is out of range for type %s", str, "money")));
+        result = -value;
+    } else {
+        result = value;
+    }
+
+    PG_RETURN_CASH(result);
+}
+```

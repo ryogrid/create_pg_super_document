@@ -36,3 +36,27 @@ The function includes an optimization to return early if no segments are current
 - Part of PostgreSQL's resource management strategy to prevent file descriptor leaks
 - The _fdvec_resize call after each FileClose ensures the data structure accurately reflects the current state
 - This function only closes segments for the specified fork, not all forks of the relation
+
+## Simplified Source
+
+```c
+void
+mdclose(SMgrRelation reln, ForkNumber forknum)
+{
+    int nopensegs = reln->md_num_open_segs[forknum];
+
+    // Early return if no segments are open
+    if (nopensegs == 0)
+        return;
+
+    // Close segments from highest to lowest index
+    while (nopensegs > 0) {
+        MdfdVec *v = &reln->md_seg_fds[forknum][nopensegs - 1];
+
+        // Close the file descriptor and resize the vector
+        FileClose(v->mdfd_vfd);
+        _fdvec_resize(reln, forknum, nopensegs - 1);
+        nopensegs--;
+    }
+}
+```

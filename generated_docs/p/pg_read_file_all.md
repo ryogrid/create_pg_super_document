@@ -38,3 +38,21 @@ The function reads the complete contents of a text file and returns it as a Post
 - Located in src/backend/utils/adt/genfile.c:319-332
 - Part of PostgreSQL's file reading functionality accessible via SQL
 - Most straightforward variant for reading complete file contents
+
+## Simplified Source
+
+```c
+Datum pg_read_file_all(PG_FUNCTION_ARGS) {
+    // Extract filename parameter from function arguments
+    text *filename_t = PG_GETARG_TEXT_PP(0);
+
+    // Read entire file: offset=0, length=-1 (all), validate=true, missing_ok=false
+    text *ret = pg_read_file_common(filename_t, 0, -1, true, false);
+
+    // Return file contents or NULL if reading failed
+    if (!ret)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(ret);
+}
+```

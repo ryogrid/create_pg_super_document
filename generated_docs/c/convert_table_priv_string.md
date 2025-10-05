@@ -43,3 +43,35 @@ The actual conversion work is delegated to convert_any_priv_string, which provid
 - Part of PostgreSQL's comprehensive access control system
 - Uses the generic convert_any_priv_string function for actual parsing and conversion
 - Located in src/backend/utils/adt/acl.c:2064-2107
+
+## Simplified Source
+
+```c
+static AclMode convert_table_priv_string(text *priv_type_text) {
+    // Table privilege mapping - maps privilege names to ACL bits
+    static const priv_map table_priv_map[] = {
+        {"SELECT", ACL_SELECT},
+        {"SELECT WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_SELECT)},
+        {"INSERT", ACL_INSERT},
+        {"INSERT WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_INSERT)},
+        {"UPDATE", ACL_UPDATE},
+        {"UPDATE WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_UPDATE)},
+        {"DELETE", ACL_DELETE},
+        {"DELETE WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_DELETE)},
+        {"TRUNCATE", ACL_TRUNCATE},
+        {"TRUNCATE WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_TRUNCATE)},
+        {"REFERENCES", ACL_REFERENCES},
+        {"REFERENCES WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_REFERENCES)},
+        {"TRIGGER", ACL_TRIGGER},
+        {"TRIGGER WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_TRIGGER)},
+        {"MAINTAIN", ACL_MAINTAIN},
+        {"MAINTAIN WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_MAINTAIN)},
+        {"RULE", 0},  // Legacy privilege, ignore
+        {"RULE WITH GRANT OPTION", 0},
+        {NULL, 0}
+    };
+
+    // Use generic privilege string converter with table mapping
+    return convert_any_priv_string(priv_type_text, table_priv_map);
+}
+```

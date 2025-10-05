@@ -37,3 +37,17 @@ The containment test uses the mathematical principle that for circle1 to be cont
 - Returns true if circle1 is completely contained within circle2, false otherwise
 - This operator is used for spatial queries involving circle containment relationships
 - Handles edge cases where circles are tangent (touching at exactly one point)
+
+## Simplified Source
+
+```c
+Datum circle_contained(PG_FUNCTION_ARGS) {
+    CIRCLE *circle1 = PG_GETARG_CIRCLE_P(0);
+    CIRCLE *circle2 = PG_GETARG_CIRCLE_P(1);
+
+    // Check if circle1 is contained in circle2:
+    // distance(centers) + radius1 <= radius2
+    PG_RETURN_BOOL(FPle(point_dt(&circle1->center, &circle2->center),
+                        circle2->radius - circle1->radius));
+}
+```

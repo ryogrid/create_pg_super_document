@@ -50,3 +50,62 @@ Key implementation details:
 - Hardwires knowledge of Oid representation details in construct_array call
 - Supports both bounded and unbounded range queries through InvalidOid parameters
 - Part of PostgreSQL's enum type system infrastructure in src/backend/utils/adt/enum.c
+
+## Simplified Source
+
+```c
+static ArrayType *enum_range_internal(Oid enumtypoid, Oid lower, Oid upper) {
+    // Initialize scan key for enum type
+    ScanKeyData skey;
+    ScanKeyInit(&skey, Anum_pg_enum_enumtypid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(enumtypoid));
+
+    // Open pg_enum table and index for ordered scanning
+    Relation enum_rel = table_open(EnumRelationId, AccessShareLock);
+    Relation enum_idx = index_open(EnumTypIdSortOrderIndexId, AccessShareLock);
+    SysScanDesc enum_scan = systable_beginscan_ordered(enum_rel, enum_idx, NULL, 1, &skey);
+
+    // Initialize dynamic array for results
+    int max = 64, cnt = 0;
+    Datum *elems = (Datum *) palloc(max * sizeof(Datum));
+    bool left_found = !OidIsValid(lower);  // No lower bound if InvalidOid
+
+    // Scan enum values in order
+    HeapTuple enum_tuple;
+    while (HeapTupleIsValid(enum_tuple = systable_getnext_ordered(enum_scan, ForwardScanDirection))) {
+        Oid enum_oid = ((Form_pg_enum) GETSTRUCT(enum_tuple))->oid;
+
+        // Check if we've reached the lower bound
+        if (!left_found && lower == enum_oid)
+            left_found = true;
+
+        // Add to result if within range
+        if (left_found) {
+            check_safe_enum_use(enum_tuple);
+
+            // Grow array if needed
+            if (cnt >= max) {
+                max *= 2;
+                elems = (Datum *) repalloc(elems, max * sizeof(Datum));
+            }
+
+            elems[cnt++] = ObjectIdGetDatum(enum_oid);
+        }
+
+        // Stop at upper bound
+        if (OidIsValid(upper) && upper == enum_oid)
+            break;
+    }
+
+    // Clean up scan resources
+    systable_endscan_ordered(enum_scan);
+    index_close(enum_idx, AccessShareLock);
+    table_close(enum_rel, AccessShareLock);
+
+    // Build result array
+    ArrayType *result = construct_array(elems, cnt, enumtypoid,
+                                       sizeof(Oid), true, TYPALIGN_INT);
+    pfree(elems);
+    return result;
+}
+```

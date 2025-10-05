@@ -40,3 +40,29 @@ This static function retrieves the human-readable name string for a custom wait 
 - Uses shared locking to allow concurrent reads while preventing writes during the lookup
 - Handles both built-in extension events and user-defined custom events
 - Located at src/backend/utils/activity/wait_event.c:277-306
+
+## Simplified Source
+
+```c
+static const char *
+GetWaitEventCustomIdentifier(uint32 wait_event_info)
+{
+    bool found;
+    WaitEventCustomEntryByInfo *entry;
+
+    // Handle built-in extension event
+    if (wait_event_info == PG_WAIT_EXTENSION)
+        return "Extension";
+
+    // Look up custom wait event in hash table
+    LWLockAcquire(WaitEventCustomLock, LW_SHARED);
+    entry = hash_search(WaitEventCustomHashByInfo, &wait_event_info, HASH_FIND, &found);
+    LWLockRelease(WaitEventCustomLock);
+
+    // Error if event not found
+    if (!entry)
+        elog(ERROR, "could not find custom name for wait event information %u", wait_event_info);
+
+    return entry->wait_event_name;
+}
+```

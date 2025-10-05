@@ -29,3 +29,29 @@ The `has_server_privilege_id_id` function is a PostgreSQL built-in function that
 
 ## Notes and Other Information
 This function is part of PostgreSQL's privilege checking system for foreign servers and is optimized for cases where the server OID is already known. The key difference from similar functions is its use of `object_aclcheck_ext` with the `is_missing` parameter, which allows it to return NULL when the specified server doesn't exist, rather than throwing an error. This behavior is consistent with PostgreSQL's has_*_privilege family of functions that return NULL for non-existent objects.
+
+## Simplified Source
+
+```c
+Datum
+has_server_privilege_id_id(PG_FUNCTION_ARGS)
+{
+    Oid         roleid = PG_GETARG_OID(0);
+    Oid         serverid = PG_GETARG_OID(1);
+    text       *priv_type_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert privilege string to ACL mode
+    AclMode mode = convert_server_priv_string(priv_type_text);
+
+    // Check access permissions with missing object detection
+    bool is_missing = false;
+    AclResult aclresult = object_aclcheck_ext(ForeignServerRelationId, serverid,
+                                              roleid, mode, &is_missing);
+
+    // Return NULL if server doesn't exist, otherwise return boolean result
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

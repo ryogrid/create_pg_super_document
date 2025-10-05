@@ -47,3 +47,35 @@ The function ensures that decisions are based on the most up-to-date statistical
 - The function ensures fresh statistics are used for decision making, which is critical for avoiding unnecessary work
 - Delegates all actual decision logic to relation_needs_vacanalyze, maintaining code reuse and consistency
 - The distinction from relation_needs_vacanalyze is that this function fetches fresh statistics rather than using pre-fetched ones
+
+## Simplified Source
+
+```c
+static void
+recheck_relation_needs_vacanalyze(Oid relid,
+                                  AutoVacOpts *avopts,
+                                  Form_pg_class classForm,
+                                  int effective_multixact_freeze_max_age,
+                                  bool *dovacuum,
+                                  bool *doanalyze,
+                                  bool *wraparound)
+{
+    PgStat_StatTabEntry *tabentry;
+
+    // Fetch fresh statistics for the relation
+    tabentry = pgstat_fetch_stat_tabentry_ext(classForm->relisshared, relid);
+
+    // Delegate to core decision logic
+    relation_needs_vacanalyze(relid, avopts, classForm, tabentry,
+                              effective_multixact_freeze_max_age,
+                              dovacuum, doanalyze, wraparound);
+
+    // Clean up statistics entry
+    if (tabentry)
+        pfree(tabentry);
+
+    // TOAST tables don't need independent analyze
+    if (classForm->relkind == RELKIND_TOASTVALUE)
+        *doanalyze = false;
+}
+```

@@ -40,3 +40,23 @@ This constant helps handle scenarios where timezone rules have complex patterns 
 - Critical for handling non-POSIX timezone rules that require historical pattern analysis
 - Part of PostgreSQL's strategy for generating comprehensive timezone data files
 - Ensures compatibility with timezones that have complex historical daylight saving patterns
+
+## Simplified Source
+
+```c
+// Note: This is an enum constant, not a function
+enum {
+    years_of_observations = YEARSPERREPEAT + 2  // 400 + 2 = 402 years
+};
+
+// Used in context like:
+if (min_year >= ZIC_MIN + years_of_observations)
+    min_year -= years_of_observations;
+else
+    min_year = ZIC_MIN;
+
+if (max_year <= ZIC_MAX - years_of_observations)
+    max_year += years_of_observations;
+else
+    max_year = ZIC_MAX;
+```

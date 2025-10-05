@@ -29,3 +29,18 @@ This function performs cleanup operations when dictionary construction is comple
 - The function sets multiple pointers to NULL (buildCxt, Spell, firstfree, CompoundAffixFlags) to prevent dangling pointer access
 - Memory cleanup is essential to prevent memory leaks in dictionary building operations
 - Part of PostgreSQL's full-text search ISpell dictionary functionality
+
+## Simplified Source
+
+```c
+void NIFinishBuild(IspellDict *Conf) {
+    // Release temporary memory context
+    MemoryContextDelete(Conf->buildCxt);
+
+    // Clear pointers to prevent dangling references
+    Conf->buildCxt = NULL;
+    Conf->Spell = NULL;
+    Conf->firstfree = NULL;
+    Conf->CompoundAffixFlags = NULL;
+}
+```

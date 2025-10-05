@@ -62,3 +62,69 @@ Key aspects of the move-right protocol:
 6. Maintains the same lock type (access parameter) on the final page
 7. Returns an error if it falls off the rightmost edge of the index
 8. The split completion logic ensures data consistency before allowing modifications
+
+## Simplified Source
+
+```c
+Buffer
+_bt_moveright(Relation rel, Relation heaprel, BTScanInsert key, Buffer buf,
+              bool forupdate, BTStack stack, int access)
+{
+    Page page;
+    BTPageOpaque opaque;
+    int32 cmpval;
+
+    // Set comparison threshold based on search type
+    cmpval = key->nextkey ? 0 : 1;
+
+    // Keep moving right until we find the correct page
+    for (;;)
+    {
+        page = BufferGetPage(buf);
+        opaque = BTPageGetOpaque(page);
+
+        // Stop if we've reached the rightmost page
+        if (P_RIGHTMOST(opaque))
+            break;
+
+        // Complete any incomplete splits if updating
+        if (forupdate && P_INCOMPLETE_SPLIT(opaque))
+        {
+            BlockNumber blkno = BufferGetBlockNumber(buf);
+
+            // Upgrade to write lock if necessary
+            if (access == BT_READ)
+            {
+                _bt_unlockbuf(rel, buf);
+                _bt_lockbuf(rel, buf, BT_WRITE);
+            }
+
+            // Complete the split if still incomplete
+            if (P_INCOMPLETE_SPLIT(opaque))
+                _bt_finish_split(rel, heaprel, buf, stack);
+            else
+                _bt_relbuf(rel, buf);
+
+            // Re-acquire lock and continue
+            buf = _bt_getbuf(rel, blkno, access);
+            continue;
+        }
+
+        // Move right if page is dead or our key is beyond the high key
+        if (P_IGNORE(opaque) || _bt_compare(rel, key, page, P_HIKEY) >= cmpval)
+        {
+            buf = _bt_relandgetbuf(rel, buf, opaque->btpo_next, access);
+            continue;
+        }
+        else
+            break;
+    }
+
+    // Error if we ended up on a dead page
+    if (P_IGNORE(opaque))
+        elog(ERROR, "fell off the end of index \"%s\"",
+             RelationGetRelationName(rel));
+
+    return buf;
+}
+```

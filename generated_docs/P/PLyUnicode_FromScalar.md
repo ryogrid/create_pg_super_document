@@ -33,3 +33,17 @@ PLyUnicode_FromScalar is a generic conversion function within PostgreSQL's PL/Py
 - Memory management is handled correctly by freeing the temporary string after conversion
 - The conversion maintains PostgreSQL's standard text output format for the data type
 - This function is typically used when no specialized conversion function exists for a particular type
+
+## Simplified Source
+
+```c
+static PyObject *
+PLyUnicode_FromScalar(PLyDatumToOb *arg, Datum d)
+{
+    char *x = OutputFunctionCall(&arg->u.scalar.typfunc, d);
+    PyObject *r = PLyUnicode_FromString(x);
+
+    pfree(x);
+    return r;
+}
+```

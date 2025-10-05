@@ -35,3 +35,18 @@ The  function is a PostgreSQL geometric operator that determines if a line segme
 - Uses NULL as first parameter to  to indicate boolean-only testing (no intersection point calculation needed)
 - Considers line segments completely inside the box as intersecting
 - Returns a boolean Datum indicating whether intersection occurs
+
+## Simplified Source
+
+```c
+Datum
+inter_sb(PG_FUNCTION_ARGS)
+{
+    // Extract line segment and box arguments
+    LSEG *lseg = PG_GETARG_LSEG_P(0);
+    BOX *box = PG_GETARG_BOX_P(1);
+
+    // Delegate to core intersection function
+    PG_RETURN_BOOL(box_interpt_lseg(NULL, box, lseg));
+}
+```

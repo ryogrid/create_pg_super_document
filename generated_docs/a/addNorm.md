@@ -35,3 +35,24 @@ addNorm is a utility function that appends normalized word results to a dynamica
 - Automatically null-terminates the lexeme array after each addition
 - Used specifically in text search normalization to collect all possible word forms
 - Part of PostgreSQL's text search infrastructure for processing dictionary results
+
+## Simplified Source
+
+```c
+static void
+addNorm(TSLexeme **lres, TSLexeme **lcur, char *word, int flags, uint16 NVariant)
+{
+    // Allocate result array on first call
+    if (*lres == NULL)
+        *lcur = *lres = (TSLexeme *) palloc(MAX_NORM * sizeof(TSLexeme));
+
+    // Add lexeme if there's space available
+    if (*lcur - *lres < MAX_NORM - 1) {
+        (*lcur)->lexeme = word;
+        (*lcur)->flags = flags;
+        (*lcur)->nvariant = NVariant;
+        (*lcur)++;
+        (*lcur)->lexeme = NULL;  // Maintain null termination
+    }
+}
+```

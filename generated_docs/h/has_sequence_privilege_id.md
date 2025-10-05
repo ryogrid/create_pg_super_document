@@ -34,3 +34,36 @@ This function is a PostgreSQL built-in function that verifies whether the curren
 - Automatically uses the current user context (no username parameter needed)
 - Part of PostgreSQL's privilege checking system for sequence objects
 - Defined in src/backend/utils/adt/acl.c:2205-2239
+
+## Simplified Source
+
+```c
+Datum
+has_sequence_privilege_id(PG_FUNCTION_ARGS)
+{
+    Oid   sequenceoid = PG_GETARG_OID(0);
+    text *priv_type_text = PG_GETARG_TEXT_PP(1);
+    bool  is_missing = false;
+
+    // Use current user's ID
+    Oid roleid = GetUserId();
+
+    // Parse privilege string to internal mode
+    AclMode mode = convert_sequence_priv_string(priv_type_text);
+
+    // Check if sequence exists and is actually a sequence
+    char relkind = get_rel_relkind(sequenceoid);
+    if (relkind == '\0')
+        PG_RETURN_NULL();  // Object doesn't exist
+    else if (relkind != RELKIND_SEQUENCE)
+        ereport(ERROR, "not a sequence");
+
+    // Check privilege and handle missing objects
+    AclResult aclresult = pg_class_aclcheck_ext(sequenceoid, roleid, mode, &is_missing);
+
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

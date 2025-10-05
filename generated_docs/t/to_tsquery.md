@@ -35,3 +35,21 @@ This function provides a convenient wrapper for creating TSQuery objects from te
 - Uses DirectFunctionCall2 to invoke to_tsquery_byid with the retrieved default configuration
 - Part of PostgreSQL's SQL-accessible text search API for end users who don't need explicit configuration control
 - The getTSCurrentConfig(true) call ensures that a configuration is available and will raise an error if none is set
+
+## Simplified Source
+
+```c
+Datum to_tsquery(PG_FUNCTION_ARGS)
+{
+    // Extract input text
+    text *in = PG_GETARG_TEXT_PP(0);
+
+    // Get current default text search configuration
+    Oid cfgId = getTSCurrentConfig(true);
+
+    // Delegate to to_tsquery_byid with default configuration
+    PG_RETURN_DATUM(DirectFunctionCall2(to_tsquery_byid,
+                                        ObjectIdGetDatum(cfgId),
+                                        PointerGetDatum(in)));
+}
+```

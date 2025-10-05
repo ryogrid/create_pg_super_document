@@ -56,3 +56,46 @@ The function uses the PostgreSQL function calling convention with:
 - All domain constraints are validated after successful base type conversion
 - The function follows PostgreSQL's standard binary type input function protocol
 - Sets up the cache with binary=true flag to use binary I/O functions for the base type
+
+## Simplified Source
+
+```c
+Datum domain_recv(PG_FUNCTION_ARGS) {
+    StringInfo buf;
+    Oid domainType;
+    DomainIOData *my_extra;
+    Datum value;
+
+    // Handle null inputs (function is not strict)
+    if (PG_ARGISNULL(0)) {
+        buf = NULL;
+    } else {
+        buf = (StringInfo) PG_GETARG_POINTER(0);
+    }
+
+    if (PG_ARGISNULL(1)) {
+        PG_RETURN_NULL();
+    }
+    domainType = PG_GETARG_OID(1);
+
+    // Set up or reuse cached domain information for binary I/O
+    my_extra = (DomainIOData *) fcinfo->flinfo->fn_extra;
+    if (my_extra == NULL || my_extra->domain_type != domainType) {
+        my_extra = domain_state_setup(domainType, true, fcinfo->flinfo->fn_mcxt);
+        fcinfo->flinfo->fn_extra = (void *) my_extra;
+    }
+
+    // Convert binary input using base type's receive function
+    value = ReceiveFunctionCall(&my_extra->proc, buf,
+                                my_extra->typioparam, my_extra->typtypmod);
+
+    // Validate domain constraints (no error context for binary input)
+    domain_check_input(value, (buf == NULL), my_extra, NULL);
+
+    if (buf == NULL) {
+        PG_RETURN_NULL();
+    } else {
+        PG_RETURN_DATUM(value);
+    }
+}
+```

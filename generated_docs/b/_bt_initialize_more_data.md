@@ -205,3 +205,30 @@ write_data_to_archive_lz4_doc.md: ScanDirection - The direction of the scan (for
 - The moreLeft/moreRight flags are used by other scan functions to determine when to stop advancing in each direction
 - Part of the scan state management infrastructure for B-tree index operations
 - Essential for proper scan termination and direction control in complex scanning scenarios
+
+## Simplified Source
+
+```c
+static inline void
+_bt_initialize_more_data(BTScanOpaque so, ScanDirection dir)
+{
+    if (so->needPrimScan) {
+        // Primary scan with array keys - enable both directions
+        so->currPos.moreLeft = true;
+        so->currPos.moreRight = true;
+        so->needPrimScan = false;
+    } else if (ScanDirectionIsForward(dir)) {
+        // Forward scan - can only advance right
+        so->currPos.moreLeft = false;
+        so->currPos.moreRight = true;
+    } else {
+        // Backward scan - can only advance left
+        so->currPos.moreLeft = true;
+        so->currPos.moreRight = false;
+    }
+
+    // Reset scan state counters
+    so->numKilled = 0;
+    so->markItemIndex = -1;
+}
+```

@@ -52,3 +52,100 @@ The function handles various tuple states including live, dead, recently dead, a
 - The function sets and clears `vacrel->offnum` for error reporting purposes
 - Only committed, old enough transactions with normal XIDs contribute to visibility_cutoff_xid
 - A page can be all-visible but not all-frozen if it contains unfrozen but visible tuples
+
+## Simplified Source
+
+```c
+static bool
+heap_page_is_all_visible(LVRelState *vacrel, Buffer buf,
+                         TransactionId *visibility_cutoff_xid,
+                         bool *all_frozen)
+{
+    Page page = BufferGetPage(buf);
+    BlockNumber blockno = BufferGetBlockNumber(buf);
+    OffsetNumber offnum, maxoff;
+    bool all_visible = true;
+
+    *visibility_cutoff_xid = InvalidTransactionId;
+    *all_frozen = true;
+
+    // Scan all line pointers on the page
+    maxoff = PageGetMaxOffsetNumber(page);
+    for (offnum = FirstOffsetNumber; offnum <= maxoff && all_visible;
+         offnum = OffsetNumberNext(offnum)) {
+        ItemId itemid;
+        HeapTupleData tuple;
+
+        vacrel->offnum = offnum;
+        itemid = PageGetItemId(page, offnum);
+
+        // Skip unused or redirect line pointers
+        if (!ItemIdIsUsed(itemid) || ItemIdIsRedirected(itemid))
+            continue;
+
+        ItemPointerSet(&(tuple.t_self), blockno, offnum);
+
+        // Dead line pointers make page not all-visible
+        if (ItemIdIsDead(itemid)) {
+            all_visible = false;
+            *all_frozen = false;
+            break;
+        }
+
+        // Set up tuple for visibility check
+        tuple.t_data = (HeapTupleHeader) PageGetItem(page, itemid);
+        tuple.t_len = ItemIdGetLength(itemid);
+        tuple.t_tableOid = RelationGetRelid(vacrel->rel);
+
+        switch (HeapTupleSatisfiesVacuum(&tuple, vacrel->cutoffs.OldestXmin, buf)) {
+            case HEAPTUPLE_LIVE:
+                {
+                    TransactionId xmin;
+
+                    // Check if inserter committed
+                    if (!HeapTupleHeaderXminCommitted(tuple.t_data)) {
+                        all_visible = false;
+                        *all_frozen = false;
+                        break;
+                    }
+
+                    // Check if old enough for all to see as committed
+                    xmin = HeapTupleHeaderGetXmin(tuple.t_data);
+                    if (!TransactionIdPrecedes(xmin, vacrel->cutoffs.OldestXmin)) {
+                        all_visible = false;
+                        *all_frozen = false;
+                        break;
+                    }
+
+                    // Track newest xmin on page
+                    if (TransactionIdFollows(xmin, *visibility_cutoff_xid) &&
+                        TransactionIdIsNormal(xmin))
+                        *visibility_cutoff_xid = xmin;
+
+                    // Check if tuple needs freezing
+                    if (all_visible && *all_frozen &&
+                        heap_tuple_needs_eventual_freeze(tuple.t_data))
+                        *all_frozen = false;
+                }
+                break;
+
+            case HEAPTUPLE_DEAD:
+            case HEAPTUPLE_RECENTLY_DEAD:
+            case HEAPTUPLE_INSERT_IN_PROGRESS:
+            case HEAPTUPLE_DELETE_IN_PROGRESS:
+                all_visible = false;
+                *all_frozen = false;
+                break;
+
+            default:
+                elog(ERROR, "unexpected HeapTupleSatisfiesVacuum result");
+                break;
+        }
+    }
+
+    // Clear offset info
+    vacrel->offnum = InvalidOffsetNumber;
+
+    return all_visible;
+}
+```

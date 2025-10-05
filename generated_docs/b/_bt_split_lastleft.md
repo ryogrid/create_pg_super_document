@@ -37,3 +37,19 @@ This function works in conjunction with _bt_split_firstright to provide the boun
 - It handles the special case where the new item being inserted affects the split boundary
 - Works as a pair with _bt_split_firstright to define the split boundary tuples
 - The returned IndexTuple is used in penalty calculations and key truncation algorithms
+
+## Simplified Source
+
+```c
+static inline IndexTuple
+_bt_split_lastleft(FindSplitData *state, SplitPoint *split)
+{
+    // Special case: new item becomes last left tuple
+    if (split->newitemonleft && split->firstrightoff == state->newitemoff)
+        return state->newitem;
+
+    // Normal case: get tuple just before first right tuple
+    ItemId itemid = PageGetItemId(state->origpage, OffsetNumberPrev(split->firstrightoff));
+    return (IndexTuple) PageGetItem(state->origpage, itemid);
+}
+```

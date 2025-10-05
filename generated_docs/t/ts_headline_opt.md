@@ -38,3 +38,16 @@ This function is useful when you need more control over the headline generation 
 - Part of PostgreSQL's full-text search functionality
 - Uses DirectFunctionCall4 instead of DirectFunctionCall3 due to the additional options parameter
 - The options parameter allows fine-tuning of highlighting behavior such as custom delimiters and fragment length
+
+## Simplified Source
+
+```c
+Datum ts_headline_opt(PG_FUNCTION_ARGS) {
+    // Use current default configuration with custom options
+    PG_RETURN_DATUM(DirectFunctionCall4(ts_headline_byid_opt,
+                                        ObjectIdGetDatum(getTSCurrentConfig(true)),
+                                        PG_GETARG_DATUM(0),
+                                        PG_GETARG_DATUM(1),
+                                        PG_GETARG_DATUM(2)));
+}
+```

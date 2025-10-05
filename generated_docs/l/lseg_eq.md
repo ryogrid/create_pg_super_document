@@ -38,3 +38,17 @@ The  function tests whether two line segments are equal. Two line segments are c
 - The comparison is order-dependent: the first point of l1 must equal the first point of l2, etc.
 - Located in geo_ops.c alongside other geometric utility functions
 - Does not consider segments equal if they have the same endpoints in reverse order
+
+## Simplified Source
+
+```c
+Datum lseg_eq(PG_FUNCTION_ARGS) {
+    // Extract two line segments from function arguments
+    LSEG *l1 = PG_GETARG_LSEG_P(0);
+    LSEG *l2 = PG_GETARG_LSEG_P(1);
+
+    // Two segments are equal if both endpoints match exactly
+    PG_RETURN_BOOL(point_eq_point(&l1->p[0], &l2->p[0]) &&
+                   point_eq_point(&l1->p[1], &l2->p[1]));
+}
+```

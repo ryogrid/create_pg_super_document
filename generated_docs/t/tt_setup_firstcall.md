@@ -45,3 +45,37 @@ The function performs several key operations:
 - Uses PostgreSQL's multi-call function framework for returning sets of rows
 - Memory allocation is done in the multi-call memory context to ensure persistence across calls
 - The lextype function is called with a dummy argument (Datum 0) as required by the interface
+
+## Simplified Source
+
+```c
+static void
+tt_setup_firstcall(FuncCallContext *funcctx, FunctionCallInfo fcinfo, Oid prsid)
+{
+    TupleDesc tupdesc;
+    MemoryContext oldcontext;
+    TSTokenTypeStorage *st;
+    TSParserCacheEntry *prs = lookup_ts_parser_cache(prsid);
+
+    // Ensure parser has lextype method
+    if (!OidIsValid(prs->lextypeOid))
+        elog(ERROR, "method lextype isn't defined for text search parser %u", prsid);
+
+    // Switch to multi-call memory context for persistence
+    oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
+
+    // Initialize token type storage
+    st = (TSTokenTypeStorage *) palloc(sizeof(TSTokenTypeStorage));
+    st->cur = 0;
+    st->list = (LexDescr *) DatumGetPointer(OidFunctionCall1(prs->lextypeOid, (Datum) 0));
+    funcctx->user_fctx = (void *) st;
+
+    // Setup tuple descriptor for return type
+    if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+        elog(ERROR, "return type must be a row type");
+    funcctx->tuple_desc = tupdesc;
+    funcctx->attinmeta = TupleDescGetAttInMetadata(tupdesc);
+
+    MemoryContextSwitchTo(oldcontext);
+}
+```

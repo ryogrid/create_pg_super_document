@@ -40,3 +40,24 @@ The function operates differently from other conflict resolution mechanisms by u
 - This function is specifically called during tablespace redo operations when replaying DROP TABLESPACE commands on standby servers
 - The tsid parameter is currently not directly used in the conflict resolution logic, but is passed for potential future enhancements
 - Recovery conflicts of this type should be relatively rare, occurring only when standby queries happen to be using temporary files in a tablespace being dropped
+
+## Simplified Source
+
+```c
+void ResolveRecoveryConflictWithTablespace(Oid tsid) {
+    VirtualTransactionId *temp_file_users;
+
+    // Get all active virtual transactions (aggressive approach)
+    // Using InvalidTransactionId and InvalidOid to target all backends
+    // rather than trying to identify specific tablespace users
+    temp_file_users = GetConflictingVirtualXIDs(InvalidTransactionId, InvalidOid);
+
+    // Cancel all backends to ensure no temp files remain in tablespace
+    ResolveRecoveryConflictWithVirtualXIDs(temp_file_users,
+                                           PROCSIG_RECOVERY_CONFLICT_TABLESPACE,
+                                           WAIT_EVENT_RECOVERY_CONFLICT_TABLESPACE,
+                                           true);
+
+    // Note: Don't wait for commits since tablespace drop is non-transactional
+}
+```

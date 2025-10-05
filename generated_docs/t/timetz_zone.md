@@ -46,3 +46,54 @@ The conversion process adjusts the time component by the difference between the 
 - The time adjustment formula: `result->time = t->time + (t->zone - tz) * USECS_PER_SEC`
 - Memory allocation for result uses palloc() for proper PostgreSQL memory management
 - Timezone offset values are stored in seconds from UTC, with negative values representing east of UTC
+
+## Simplified Source
+
+```c
+Datum
+timetz_zone(PG_FUNCTION_ARGS)
+{
+	text *zone = PG_GETARG_TEXT_PP(0);
+	TimeTzADT *t = PG_GETARG_TIMETZADT_P(1);
+	TimeTzADT *result;
+	int tz;
+	char tzname[TZ_STRLEN_MAX + 1];
+	int type, val;
+	pg_tz *tzp;
+
+	// Parse timezone specification
+	text_to_cstring_buffer(zone, tzname, sizeof(tzname));
+	type = DecodeTimezoneName(tzname, &val, &tzp);
+
+	if (type == TZNAME_FIXED_OFFSET) {
+		// Fixed offset timezone
+		tz = -val;
+	} else if (type == TZNAME_DYNTZ) {
+		// Dynamic timezone with DST rules
+		TimestampTz now = GetCurrentTransactionStartTimestamp();
+		int isdst;
+		tz = DetermineTimeZoneAbbrevOffsetTS(now, tzname, tzp, &isdst);
+	} else {
+		// Named timezone - get current offset
+		TimestampTz now = GetCurrentTransactionStartTimestamp();
+		struct pg_tm tm;
+		fsec_t fsec;
+		if (timestamp2tm(now, &tz, &tm, &fsec, NULL, tzp) != 0)
+			ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+					errmsg("timestamp out of range")));
+	}
+
+	// Convert time to new timezone
+	result = (TimeTzADT *) palloc(sizeof(TimeTzADT));
+	result->time = t->time + (t->zone - tz) * USECS_PER_SEC;
+
+	// Ensure time stays within 24-hour range
+	while (result->time < INT64CONST(0))
+		result->time += USECS_PER_DAY;
+	if (result->time >= USECS_PER_DAY)
+		result->time %= USECS_PER_DAY;
+
+	result->zone = tz;
+	PG_RETURN_TIMETZADT_P(result);
+}
+```

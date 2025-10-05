@@ -37,3 +37,23 @@ This function is one of the PostgreSQL SQL-callable privilege checking functions
 - Returns NULL if the language object doesn't exist
 - Part of PostgreSQL's access control system for procedural languages
 - Located in src/backend/utils/adt/acl.c:3605-3630
+
+## Simplified Source
+
+```c
+Datum has_language_privilege_name_name(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    Name username = PG_GETARG_NAME(0);
+    text *languagename = PG_GETARG_TEXT_PP(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert parameters to OIDs and privilege mode
+    Oid roleid = get_role_oid_or_public(NameStr(*username));
+    Oid languageoid = convert_language_name(languagename);
+    AclMode mode = convert_language_priv_string(priv_type_text);
+
+    // Check privilege and return boolean result
+    AclResult aclresult = object_aclcheck(LanguageRelationId, languageoid, roleid, mode);
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

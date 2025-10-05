@@ -205,3 +205,25 @@ write_data_to_archive_lz4_doc.md: ScanDirection - The direction of the scan (for
 - Returns true on success when valid data is available, false otherwise
 - Part of PostgreSQL's parallel B-tree scanning infrastructure
 - Manages buffer locks and pins to ensure safe concurrent access during parallel operations
+
+## Simplified Source
+
+```c
+static bool
+_bt_parallel_readpage(IndexScanDesc scan, BlockNumber blkno, ScanDirection dir)
+{
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+
+    // Initialize scan data for parallel operation
+    _bt_initialize_more_data(so, dir);
+
+    // Read the specified page
+    if (!_bt_readnextpage(scan, blkno, dir))
+        return false;
+
+    // Release locks/pins for concurrent access
+    _bt_drop_lock_and_maybe_pin(scan, &so->currPos);
+
+    return true;
+}
+```

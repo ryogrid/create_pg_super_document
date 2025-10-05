@@ -46,3 +46,55 @@ The function initializes parsing structures, looks up the appropriate text searc
 - Manages complex memory allocation patterns including dynamic word entry arrays
 - The function supports optional headline generation parameters through the `opt` parameter
 - Part of PostgreSQL full-text search functionality specifically designed for JSON document processing
+
+## Simplified Source
+
+```c
+Datum
+ts_headline_json_byid_opt(PG_FUNCTION_ARGS)
+{
+    // Extract arguments: config ID, JSON text, query, and optional options
+    Oid tsconfig = PG_GETARG_OID(0);
+    text *json = PG_GETARG_TEXT_P(1);
+    TSQuery query = PG_GETARG_TSQUERY(2);
+    text *opt = (PG_NARGS() > 3 && PG_GETARG_POINTER(3)) ? PG_GETARG_TEXT_P(3) : NULL;
+
+    // Initialize headline parsing structures
+    HeadlineParsedText prs;
+    HeadlineJsonState *state = palloc0(sizeof(HeadlineJsonState));
+
+    // Set up word array for parsing (initial size: 32 words)
+    memset(&prs, 0, sizeof(HeadlineParsedText));
+    prs.lenwords = 32;
+    prs.words = (HeadlineWordEntry *) palloc(sizeof(HeadlineWordEntry) * prs.lenwords);
+
+    // Configure state with text search config and parser
+    state->prs = &prs;
+    state->cfg = lookup_ts_config_cache(tsconfig);
+    state->prsobj = lookup_ts_parser_cache(state->cfg->prsId);
+    state->query = query;
+    state->prsoptions = opt ? deserialize_deflist(PointerGetDatum(opt)) : NIL;
+
+    // Verify parser supports headline generation
+    if (!OidIsValid(state->prsobj->headlineOid))
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("text search parser does not support headline creation")));
+
+    // Transform JSON by applying headlines to string values
+    text *out = transform_json_string_values(json, state, headline_json_value);
+
+    // Cleanup: free input arguments and allocated memory
+    PG_FREE_IF_COPY(json, 1);
+    PG_FREE_IF_COPY(query, 2);
+    if (opt) PG_FREE_IF_COPY(opt, 3);
+    pfree(prs.words);
+
+    // Clean up headline markers if transformation occurred
+    if (state->transformed) {
+        pfree(prs.startsel);
+        pfree(prs.stopsel);
+    }
+
+    PG_RETURN_TEXT_P(out);
+}
+```

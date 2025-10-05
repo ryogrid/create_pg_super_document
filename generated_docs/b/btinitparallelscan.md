@@ -35,3 +35,19 @@ The initialization includes setting up the mutex for protecting shared state, ma
 - The spinlock protects access to the scan page and status information
 - The condition variable allows workers to wait for and signal scan state changes
 - Initial page status of BTPARALLEL_NOT_INITIALIZED indicates the scan hasn't started yet
+
+## Simplified Source
+
+```c
+void btinitparallelscan(void *target) {
+    BTParallelScanDesc bt_target = (BTParallelScanDesc) target;
+
+    // Initialize synchronization primitives for parallel coordination
+    SpinLockInit(&bt_target->btps_mutex);
+    ConditionVariableInit(&bt_target->btps_cv);
+
+    // Set initial scan state to uninitialized
+    bt_target->btps_scanPage = InvalidBlockNumber;
+    bt_target->btps_pageStatus = BTPARALLEL_NOT_INITIALIZED;
+}
+```

@@ -51,3 +51,47 @@ The function handles both local buffers (used for temporary tables) and shared b
 - Handles both local and shared buffers with appropriate unpinning mechanisms
 - Originally provided lock acquisition savings, now primarily serves as a convenience function with caching optimization
 - The optimization is particularly beneficial in sequential access patterns where the same buffer is repeatedly accessed
+
+## Simplified Source
+
+```c
+Buffer ReleaseAndReadBuffer(Buffer buffer, Relation relation, BlockNumber blockNum) {
+    ForkNumber forkNum = MAIN_FORKNUM;
+
+    // Check if current buffer already contains the desired block
+    if (BufferIsValid(buffer)) {
+        Assert(BufferIsPinned(buffer));
+
+        BufferDesc *bufHdr;
+        if (BufferIsLocal(buffer)) {
+            // Handle local buffer (for temporary tables)
+            bufHdr = GetLocalBufferDescriptor(-buffer - 1);
+            if (bufHdr->tag.blockNum == blockNum &&
+                BufTagMatchesRelFileLocator(&bufHdr->tag, &relation->rd_locator) &&
+                BufTagGetForkNum(&bufHdr->tag) == forkNum) {
+                return buffer;  // Same block, return existing buffer
+            }
+            UnpinLocalBuffer(buffer);
+        } else {
+            // Handle shared buffer
+            bufHdr = GetBufferDescriptor(buffer - 1);
+            if (bufHdr->tag.blockNum == blockNum &&
+                BufTagMatchesRelFileLocator(&bufHdr->tag, &relation->rd_locator) &&
+                BufTagGetForkNum(&bufHdr->tag) == forkNum) {
+                return buffer;  // Same block, return existing buffer
+            }
+            UnpinBuffer(bufHdr);
+        }
+    }
+
+    // Buffer doesn't match or is invalid, read the requested block
+    return ReadBuffer(relation, blockNum);
+}
+```
+
+**Key Logic:**
+- Optimization: Returns existing buffer if it already contains the target block
+- Compares block number, relation file locator, and fork number for match detection
+- Handles local buffers (temp tables) and shared buffers differently
+- Falls back to standard ReadBuffer() when no match or invalid buffer
+- Safely examines buffer tags while pinned (no additional locking needed)

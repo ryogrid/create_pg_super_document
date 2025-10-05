@@ -35,3 +35,24 @@ The function operates at the database level, removing the actual large object fr
 - After calling this function, the large object is permanently gone and cannot be recovered
 - The command counter increment ensures the deletion is visible to subsequent operations in the same transaction
 - This function affects the actual database storage, unlike inv_close which only affects local descriptors
+
+## Simplified Source
+
+```c
+int inv_drop(Oid lobjId) {
+    // Set up object reference for deletion
+    ObjectAddress object;
+    object.classId = LargeObjectRelationId;
+    object.objectId = lobjId;
+    object.objectSubId = 0;
+
+    // Perform cascading deletion of large object and all dependencies
+    performDeletion(&object, DROP_CASCADE, 0);
+
+    // Make deletion visible to subsequent operations in this transaction
+    CommandCounterIncrement();
+
+    // Return 1 for historical compatibility
+    return 1;
+}
+```

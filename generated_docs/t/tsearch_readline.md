@@ -47,3 +47,32 @@ The function increments the line number counter for error reporting purposes and
 - The returned string must be freed by the caller using pfree()
 - Maintains curline pointer for error context reporting
 - Used in conjunction with tsearch_readline_begin() and tsearch_readline_end()
+
+## Simplified Source
+
+```c
+char *tsearch_readline(tsearch_readline_state *stp) {
+    // Increment line number for error reporting
+    stp->lineno++;
+
+    // Clean up previous line if needed
+    if (stp->curline) {
+        if (stp->curline != stp->buf.data)
+            pfree(stp->curline);
+        stp->curline = NULL;
+    }
+
+    // Read next line from file
+    if (!pg_get_line_buf(stp->fp, &stp->buf))
+        return NULL;  // EOF reached
+
+    // Convert from UTF-8 to database encoding
+    char *recoded = pg_any_to_server(stp->buf.data, stp->buf.len, PG_UTF8);
+
+    // Save for error context
+    stp->curline = recoded;
+
+    // Return fresh copy for caller
+    return pstrdup(recoded);
+}
+```

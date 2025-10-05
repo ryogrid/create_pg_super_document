@@ -38,3 +38,17 @@ This is the inverse operation of circle_contained. The containment test uses the
 - This operator is the complement of the circle_contained operator
 - Used for spatial queries involving circle containment relationships
 - Handles edge cases where circles are tangent (touching at exactly one point)
+
+## Simplified Source
+
+```c
+Datum circle_contain(PG_FUNCTION_ARGS) {
+    CIRCLE *circle1 = PG_GETARG_CIRCLE_P(0);
+    CIRCLE *circle2 = PG_GETARG_CIRCLE_P(1);
+
+    // Check if circle1 contains circle2:
+    // distance(centers) + radius2 <= radius1
+    PG_RETURN_BOOL(FPle(point_dt(&circle1->center, &circle2->center),
+                        circle1->radius - circle2->radius));
+}
+```

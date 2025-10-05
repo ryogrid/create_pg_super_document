@@ -41,3 +41,29 @@ The function performs table name resolution by converting the text table name to
 - Useful when you have a role OID and column number but need to specify the table by name
 - More efficient than the name-based column variant since it avoids column name resolution
 - The function follows PostgreSQL's standard function calling conventions using PG_FUNCTION_ARGS
+
+## Simplified Source
+
+```c
+Datum
+has_column_privilege_id_name_attnum(PG_FUNCTION_ARGS)
+{
+    Oid roleid = PG_GETARG_OID(0);
+    text *tablename = PG_GETARG_TEXT_PP(1);
+    AttrNumber colattnum = PG_GETARG_INT16(2);
+    text *priv_type_text = PG_GETARG_TEXT_PP(3);
+    Oid tableoid;
+    AclMode mode;
+    int privresult;
+
+    // Convert identifiers to internal representations
+    tableoid = convert_table_name(tablename);
+    mode = convert_column_priv_string(priv_type_text);
+
+    // Perform privilege check
+    privresult = column_privilege_check(tableoid, colattnum, roleid, mode);
+    if (privresult < 0)
+        PG_RETURN_NULL();
+    PG_RETURN_BOOL(privresult);
+}
+```

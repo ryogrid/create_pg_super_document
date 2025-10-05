@@ -54,3 +54,19 @@ The function serves as the implementation for PostgreSQL's `>>` operator for cir
 - Located alongside other circle positional operators in the geometric operations module
 - Complementary to `circle_left` function, providing the opposite directional test
 - Critical for applications requiring strict spatial separation constraints
+
+## Simplified Source
+
+```c
+Datum circle_right(PG_FUNCTION_ARGS) {
+    CIRCLE *circle1 = PG_GETARG_CIRCLE_P(0);
+    CIRCLE *circle2 = PG_GETARG_CIRCLE_P(1);
+
+    // Circle1 is strictly right of circle2 if:
+    // leftmost point of circle1 > rightmost point of circle2
+    double circle1_left = float8_mi(circle1->center.x, circle1->radius);
+    double circle2_right = float8_pl(circle2->center.x, circle2->radius);
+
+    return PG_RETURN_BOOL(FPgt(circle1_left, circle2_right));
+}
+```

@@ -43,3 +43,20 @@ The function ensures proper memory management by decrementing the reference coun
 - Uses Py_XDECREF instead of Py_DECREF for safer handling of potentially NULL objects
 - Widely used throughout the PL/Python codebase for converting Python strings to PostgreSQL-compatible C strings
 - The returned string is in PostgreSQL server encoding, making it suitable for database operations
+
+## Simplified Source
+
+```c
+char *PLyUnicode_AsString(PyObject *unicode) {
+    // Convert Python unicode to bytes in server encoding
+    PyObject *bytes_obj = PLyUnicode_Bytes(unicode);
+
+    // Extract C string and create PostgreSQL-allocated copy
+    char *result = pstrdup(PyBytes_AsString(bytes_obj));
+
+    // Clean up temporary Python object
+    Py_XDECREF(bytes_obj);
+
+    return result;
+}
+```

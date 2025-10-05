@@ -40,3 +40,23 @@ This function is part of the JSON accessor function family that includes operato
 - Handles missing fields gracefully by returning NULL
 - The get_worker function handles the complex JSON parsing and path navigation logic
 - Typically exposed as a SQL function/operator for JSON processing in queries
+
+## Simplified Source
+
+```c
+Datum json_object_field(PG_FUNCTION_ARGS) {
+    // Extract JSON text and field name from arguments
+    text *json = PG_GETARG_TEXT_PP(0);
+    text *fname = PG_GETARG_TEXT_PP(1);
+    char *fnamestr = text_to_cstring(fname);
+
+    // Extract field value using generic worker function
+    text *result = get_worker(json, &fnamestr, NULL, 1, false);
+
+    // Return result or NULL
+    if (result != NULL)
+        PG_RETURN_TEXT_P(result);
+    else
+        PG_RETURN_NULL();
+}
+```

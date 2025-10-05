@@ -56,3 +56,38 @@ The lookup order prioritizes abbreviations over full names to handle cases where
 - The function ensures that at least one output parameter (*offset or *tz) is set based on the timezone type
 - Fixed offset results use ISO sign convention (positive = east of Greenwich)
 - Dynamic timezones require additional resolution through the underlying timezone object
+
+## Simplified Source
+
+```c
+int DecodeTimezoneName(const char *tzname, int *offset, pg_tz **tz) {
+    int dterr, type;
+    DateTimeErrorExtra extra;
+
+    // Convert to lowercase for abbreviation lookup
+    char *lowzone = downcase_truncate_identifier(tzname, strlen(tzname), false);
+
+    // First try timezone abbreviation lookup
+    dterr = DecodeTimezoneAbbrev(0, lowzone, &type, offset, tz, &extra);
+    if (dterr) {
+        DateTimeParseError(dterr, &extra, NULL, NULL, NULL);
+    }
+
+    if (type == TZ || type == DTZ) {
+        // Fixed-offset abbreviation (e.g., "EST", "PST")
+        return TZNAME_FIXED_OFFSET;
+    } else if (type == DYNTZ) {
+        // Dynamic-offset abbreviation (references a timezone)
+        return TZNAME_DYNTZ;
+    } else {
+        // Try as full timezone name (e.g., "America/New_York")
+        *tz = pg_tzset(tzname);
+        if (*tz == NULL) {
+            ereport(ERROR,
+                   (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                    errmsg("time zone \"%s\" not recognized", tzname)));
+        }
+        return TZNAME_ZONE;
+    }
+}
+```

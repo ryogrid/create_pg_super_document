@@ -35,3 +35,24 @@ The function takes a TIMETZ value and packs its components (time and timezone of
 - The binary format uses network byte order for cross-platform compatibility
 - The function is called automatically by PostgreSQL when binary protocol is requested by clients
 - Part of the date/time ADT (Abstract Data Type) implementation in PostgreSQL
+
+## Simplified Source
+
+```c
+Datum timetz_send(PG_FUNCTION_ARGS) {
+    TimeTzADT *time = PG_GETARG_TIMETZADT_P(0);
+    StringInfoData buf;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Send time value as 64-bit integer
+    pq_sendint64(&buf, time->time);
+
+    // Send timezone offset as 32-bit integer
+    pq_sendint32(&buf, time->zone);
+
+    // Return finalized binary data
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

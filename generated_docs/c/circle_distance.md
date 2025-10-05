@@ -34,3 +34,22 @@ This function calculates the distance between the closest points of two circles.
 - Returns 0.0 when circles overlap or touch, making it useful for collision detection
 - Part of PostgreSQL's geometric data type operations
 - Located in src/backend/utils/adt/geo_ops.c:5066-5081
+
+## Simplified Source
+
+```c
+Datum circle_distance(PG_FUNCTION_ARGS) {
+    CIRCLE *circle1 = PG_GETARG_CIRCLE_P(0);
+    CIRCLE *circle2 = PG_GETARG_CIRCLE_P(1);
+
+    // Distance between centers minus sum of radii
+    float8 result = float8_mi(point_dt(&circle1->center, &circle2->center),
+                              float8_pl(circle1->radius, circle2->radius));
+
+    // Return 0 if circles overlap or touch
+    if (result < 0.0)
+        result = 0.0;
+
+    PG_RETURN_FLOAT8(result);
+}
+```

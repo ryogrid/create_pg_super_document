@@ -42,3 +42,25 @@ The function assumes that the tuple descriptor may not be long-lived and takes a
 - The function handles the case where tuple descriptors may be transient by ensuring proper blessing
 - Type modifier changes are detected and handled by clearing cached record descriptors
 - Located in src/pl/plpython/plpy_typeio.c at lines 261-295
+
+## Simplified Source
+
+```c
+void PLy_output_setup_record(PLyObToDatum *arg, TupleDesc desc, PLyProcedure *proc)
+{
+    // Validate that both arg and desc are RECORD types
+    Assert(arg->typoid == RECORDOID);
+    Assert(desc->tdtypeid == RECORDOID);
+
+    // Finalize the tuple descriptor for use with SRFs
+    BlessTupleDesc(desc);
+
+    // Update type modifier and clear cached descriptor if changed
+    arg->typmod = desc->tdtypmod;
+    if (arg->u.tuple.recdesc && arg->u.tuple.recdesc->tdtypmod != arg->typmod)
+        arg->u.tuple.recdesc = NULL;
+
+    // Delegate to tuple setup function
+    PLy_output_setup_tuple(arg, desc, proc);
+}
+```

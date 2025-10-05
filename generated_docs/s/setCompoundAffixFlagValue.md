@@ -43,3 +43,35 @@ The function also sets the flagMode and value fields of the entry to match the p
 - Memory for string flags is allocated in the dictionary's memory context
 - Part of PostgreSQL's Hunspell-compatible spell checking implementation
 - Supports different flag representation modes for compatibility with various dictionary formats
+
+## Simplified Source
+
+```c
+static void setCompoundAffixFlagValue(IspellDict *Conf, CompoundAffixFlag *entry,
+                                      char *s, uint32 val) {
+    if (Conf->flagMode == FM_NUM) {
+        // Parse string as numeric flag
+        char *next;
+        int i = strtol(s, &next, 10);
+
+        // Validate numeric conversion
+        if (s == next || errno == ERANGE)
+            ereport(ERROR, (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                          errmsg("invalid affix flag \"%s\"", s)));
+
+        // Check range bounds
+        if (i < 0 || i > FLAGNUM_MAXSIZE)
+            ereport(ERROR, (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                          errmsg("affix flag \"%s\" is out of range", s)));
+
+        entry->flag.i = i;
+    } else {
+        // Store flag as string for non-numeric modes
+        entry->flag.s = cpstrdup(Conf, s);
+    }
+
+    // Set common properties
+    entry->flagMode = Conf->flagMode;
+    entry->value = val;
+}
+```

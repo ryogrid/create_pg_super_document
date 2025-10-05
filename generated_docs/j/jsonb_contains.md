@@ -42,3 +42,25 @@ For containment to be true:
 - More complex than simple key existence - checks actual containment of structures
 - Uses iterators to efficiently traverse both JSONB structures simultaneously
 - Containment is asymmetric: A contains B does not imply B contains A
+
+## Simplified Source
+
+```c
+Datum jsonb_contains(PG_FUNCTION_ARGS) {
+    Jsonb *val = PG_GETARG_JSONB_P(0);   // Container value
+    Jsonb *tmpl = PG_GETARG_JSONB_P(1);  // Template to search for
+
+    JsonbIterator *it1, *it2;
+
+    // Quick check: root types must match (object vs array)
+    if (JB_ROOT_IS_OBJECT(val) != JB_ROOT_IS_OBJECT(tmpl))
+        PG_RETURN_BOOL(false);
+
+    // Initialize iterators for both JSONB values
+    it1 = JsonbIteratorInit(&val->root);
+    it2 = JsonbIteratorInit(&tmpl->root);
+
+    // Perform deep containment check
+    PG_RETURN_BOOL(JsonbDeepContains(&it1, &it2));
+}
+```

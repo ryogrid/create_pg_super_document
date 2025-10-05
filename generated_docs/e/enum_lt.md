@@ -37,3 +37,15 @@ The function follows PostgreSQL's standard function calling convention using PG_
 - Registered in the system catalogs as the implementation for the < operator on enum types
 - Performance relies on enum_cmp_internal's optimization strategies
 - Returns true only if left operand has lower sort order than right operand in the enum definition
+
+## Simplified Source
+
+```c
+Datum enum_lt(PG_FUNCTION_ARGS) {
+    Oid left_enum = PG_GETARG_OID(0);
+    Oid right_enum = PG_GETARG_OID(1);
+
+    // Use internal comparison function and check if result is negative
+    PG_RETURN_BOOL(enum_cmp_internal(left_enum, right_enum, fcinfo) < 0);
+}
+```

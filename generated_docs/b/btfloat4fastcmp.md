@@ -35,3 +35,16 @@ This static function provides an optimized comparison interface for float4 value
 - The SortSupport parameter is unused but required by the sort support function interface
 - Located in 
 - Part of PostgreSQL's sort support optimization framework introduced to improve query performance
+
+## Simplified Source
+
+```c
+static int btfloat4fastcmp(Datum x, Datum y, SortSupport ssup) {
+    // Extract float4 values from Datums
+    float4 arg1 = DatumGetFloat4(x);
+    float4 arg2 = DatumGetFloat4(y);
+
+    // Delegate to internal comparison function
+    return float4_cmp_internal(arg1, arg2);
+}
+```

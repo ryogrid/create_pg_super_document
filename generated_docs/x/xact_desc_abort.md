@@ -285,9 +285,45 @@ Text creation and manipulation
 * M4: (m4).                     A powerful macro processor.
 * Word differences: (wdiff).    GNU wdiff and diff related tools.
 * grep: (grep).                 Print lines that match patterns.
-* sed: (sed).                   Stream EDitor.  : 8-bit info field containing abort record metadata and flags
-- : Pointer to xl_xact_abort structure containing the abort record data
-- : Replication origin identifier for the transaction
+* sed: (sed).                   Stream EDitor.
+
+## Simplified Source
+
+```c
+static void xact_desc_abort(StringInfo buf, uint8 info, xl_xact_abort *xlrec, RepOriginId origin_id) {
+    xl_xact_parsed_abort parsed;
+
+    // Parse the abort record into structured format
+    ParseAbortRecord(info, xlrec, &parsed);
+
+    // Show original transaction ID for prepared transactions
+    if (TransactionIdIsValid(parsed.twophase_xid))
+        appendStringInfo(buf, "%u: ", parsed.twophase_xid);
+
+    // Show transaction timestamp
+    appendStringInfoString(buf, timestamptz_to_str(xlrec->xact_time));
+
+    // Show relations and subtransactions
+    xact_desc_relations(buf, "rels", parsed.nrels, parsed.xlocators);
+    xact_desc_subxacts(buf, parsed.nsubxacts, parsed.subxacts);
+
+    // Show replication origin information if present
+    if (parsed.xinfo & XACT_XINFO_HAS_ORIGIN) {
+        appendStringInfo(buf, "; origin: node %u, lsn %X/%X, at %s",
+                        origin_id,
+                        LSN_FORMAT_ARGS(parsed.origin_lsn),
+                        timestamptz_to_str(parsed.origin_timestamp));
+    }
+
+    // Show statistics (at the end)
+    xact_desc_stats(buf, "", parsed.nstats, parsed.stats);
+}
+```
+
+## Parameters / Member Variables
+- info: 8-bit info field containing abort record metadata and flags
+- xlrec: Pointer to xl_xact_abort structure containing the abort record data
+- origin_id: Replication origin identifier for the transaction
 
 ## Dependencies
 - Functions called/Symbols referenced:

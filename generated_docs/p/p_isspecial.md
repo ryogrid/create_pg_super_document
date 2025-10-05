@@ -51,3 +51,47 @@ The function uses binary search on the sorted array of special Unicode character
 - The extensive Unicode character list suggests this was carefully crafted to handle proper text segmentation across many languages
 - Only performs Unicode-specific checks when database encoding is UTF-8 and wide character processing is enabled
 - Uses binary search for efficient character lookup in the large Unicode character array
+
+## Simplified Source
+
+```c
+static int p_isspecial(TParser *prs) {
+    // Check if character has zero display length (control characters)
+    if (pg_dsplen(prs->str + prs->state->posbyte) == 0)
+        return 1;
+
+    // For UTF-8 databases, check against Unicode combining marks
+    if (GetDatabaseEncoding() == PG_UTF8 && prs->usewide) {
+        // Static array of Unicode combining mark characters
+        // (includes vowel signs from Devanagari, Bengali, Tamil, etc.)
+        static const pg_wchar strange_letter[] = {
+            0x0903, 0x093E, 0x093F, 0x0940, // Devanagari signs
+            0x0982, 0x0983, 0x09BE, 0x09BF, // Bengali signs
+            0x0BBE, 0x0BBF, 0x0BC1, 0x0BC2, // Tamil signs
+            // ... (many more Unicode combining marks)
+            0xAA33, 0xAA34, 0xAA4D          // Cham signs
+        };
+
+        // Get current character
+        pg_wchar c = prs->pgwstr ?
+            *(prs->pgwstr + prs->state->poschar) :
+            (pg_wchar) *(prs->wstr + prs->state->poschar);
+
+        // Binary search in sorted array
+        const pg_wchar *low = strange_letter;
+        const pg_wchar *high = strange_letter + lengthof(strange_letter);
+
+        while (low < high) {
+            const pg_wchar *mid = low + ((high - low) >> 1);
+            if (*mid == c)
+                return 1;  // Found special character
+            else if (*mid < c)
+                low = mid + 1;
+            else
+                high = mid;
+        }
+    }
+
+    return 0;  // Not a special character
+}
+```

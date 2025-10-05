@@ -31,3 +31,14 @@ This handler is responsible for executing Tcl functions that have been defined w
 - The function acts purely as an entry point wrapper with no additional logic
 - Part of the PL/Tcl procedural language extension for PostgreSQL
 - Untrusted mode allows broader system access but requires superuser privileges to create functions
+
+## Simplified Source
+
+```c
+Datum
+pltclu_call_handler(PG_FUNCTION_ARGS)
+{
+    // Delegate to the main handler with trusted=false (untrusted mode)
+    return pltcl_handler(fcinfo, false);
+}
+```

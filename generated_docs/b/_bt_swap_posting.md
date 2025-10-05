@@ -51,3 +51,42 @@ The design accounts for potential representational differences between tuples th
 - This operation is performed within critical sections during B-tree page modifications
 - The design supports future enhancements like page-level prefix compression
 - Detailed algorithm and design rationale can be found in nbtree/README documentation
+
+## Simplified Source
+
+```c
+IndexTuple _bt_swap_posting(IndexTuple newitem, IndexTuple oposting, int postingoff) {
+    int nhtids = BTreeTupleGetNPosting(oposting);
+    Assert(_bt_posting_valid(oposting));
+
+    // Validate postingoff to catch corruption
+    if (!(postingoff > 0 && postingoff < nhtids))
+        elog(ERROR, "posting list tuple with %d items cannot be split at offset %d",
+             nhtids, postingoff);
+
+    // Create copy of original posting list for modification
+    IndexTuple nposting = CopyIndexTuple(oposting);
+
+    // Calculate positions and bytes to move
+    char *replacepos = (char *) BTreeTupleGetPostingN(nposting, postingoff);
+    char *replaceposright = (char *) BTreeTupleGetPostingN(nposting, postingoff + 1);
+    Size nmovebytes = (nhtids - postingoff - 1) * sizeof(ItemPointerData);
+
+    // Shift TIDs right to make gap, losing rightmost TID
+    memmove(replaceposright, replacepos, nmovebytes);
+
+    // Insert newitem's TID into the gap at postingoff
+    Assert(!BTreeTupleIsPivot(newitem) && !BTreeTupleIsPosting(newitem));
+    ItemPointerCopy(&newitem->t_tid, (ItemPointer) replacepos);
+
+    // Copy original posting list's max TID into newitem
+    ItemPointerCopy(BTreeTupleGetMaxHeapTID(oposting), &newitem->t_tid);
+
+    // Verify correct ordering after swap
+    Assert(ItemPointerCompare(BTreeTupleGetMaxHeapTID(nposting),
+                             BTreeTupleGetHeapTID(newitem)) < 0);
+    Assert(_bt_posting_valid(nposting));
+
+    return nposting;
+}
+```

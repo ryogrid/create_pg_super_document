@@ -45,3 +45,28 @@ The function requires that the provided TupleDesc matches the one used during th
 - The resulting Python dictionary provides named access to tuple column values, making it convenient for Python code to work with PostgreSQL row data
 - Memory context switching ensures that temporary allocations during tuple conversion are properly managed
 - The function is part of the broader PL/Python type conversion system that enables seamless data exchange between PostgreSQL and Python
+
+## Simplified Source
+
+```c
+PyObject *PLy_input_from_tuple(PLyDatumToOb *arg, HeapTuple tuple, TupleDesc desc, bool include_generated) {
+    PyObject *dict;
+    PLyExecutionContext *exec_ctx = PLy_current_execution_context();
+    MemoryContext scratch_context = PLy_get_scratch_context(exec_ctx);
+    MemoryContext oldcontext;
+
+    // Reset scratch context for clean memory management
+    MemoryContextReset(scratch_context);
+
+    // Switch to scratch context for tuple conversion work
+    oldcontext = MemoryContextSwitchTo(scratch_context);
+
+    // Convert tuple to Python dictionary
+    dict = PLyDict_FromTuple(arg, tuple, desc, include_generated);
+
+    // Restore original memory context
+    MemoryContextSwitchTo(oldcontext);
+
+    return dict;
+}
+```

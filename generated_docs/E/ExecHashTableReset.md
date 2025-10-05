@@ -38,3 +38,26 @@ This efficient approach allows reusing the same hash table structure across mult
 - Uses memory context reset for efficient bulk deallocation
 - Sets spaceUsed to 0 and chunks to NULL to reflect the clean state
 - Does not modify the overall hash table configuration, only clears batch-specific data
+
+## Simplified Source
+```c
+void
+ExecHashTableReset(HashJoinTable hashtable)
+{
+    MemoryContext oldcxt;
+    int nbuckets = hashtable->nbuckets;
+
+    // Release all memory from previous batch
+    MemoryContextReset(hashtable->batchCxt);
+    oldcxt = MemoryContextSwitchTo(hashtable->batchCxt);
+
+    // Reallocate clean bucket headers
+    hashtable->buckets.unshared = palloc0_array(HashJoinTuple, nbuckets);
+    hashtable->spaceUsed = 0;
+
+    MemoryContextSwitchTo(oldcxt);
+
+    // Clear chunk tracking (memory freed by context reset)
+    hashtable->chunks = NULL;
+}
+```

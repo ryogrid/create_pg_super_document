@@ -46,3 +46,27 @@ The function performs comprehensive validation of the received JSON data, includ
 - Part of the binary protocol infrastructure ensuring data integrity during transmission
 - The binary format is platform-independent and includes all necessary metadata
 - Essential for maintaining consistency when using PostgreSQL's binary protocol mode
+
+## Simplified Source
+
+```c
+Datum
+json_recv(PG_FUNCTION_ARGS)
+{
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    char *json_str;
+    int nbytes;
+    JsonLexContext lex;
+
+    // Extract text data from binary message buffer
+    json_str = pq_getmsgtext(buf, buf->len - buf->cursor, &nbytes);
+
+    // Validate JSON syntax with proper encoding
+    makeJsonLexContextCstringLen(&lex, json_str, nbytes,
+                                GetDatabaseEncoding(), false);
+    pg_parse_json_or_ereport(&lex, &nullSemAction);
+
+    // Convert to PostgreSQL text format
+    PG_RETURN_TEXT_P(cstring_to_text_with_len(json_str, nbytes));
+}
+```

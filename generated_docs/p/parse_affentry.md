@@ -46,3 +46,96 @@ The parser handles multibyte characters properly and validates syntax, reporting
 - Handles multibyte character encodings properly through pg_mblen
 - Part of PostgreSQL's full-text search (tsearch) spell-checking functionality
 - Supports Ispell dictionary format for morphological analysis
+
+## Simplified Source
+
+```c
+static bool parse_affentry(char *str, char *mask, char *find, char *repl) {
+    int state = PAE_WAIT_MASK;
+    char *pmask = mask, *pfind = find, *prepl = repl;
+
+    // Initialize output buffers
+    *mask = *find = *repl = '\0';
+
+    while (*str) {
+        switch (state) {
+            case PAE_WAIT_MASK:
+                // Skip comments starting with #
+                if (t_iseq(str, '#'))
+                    return false;
+                // Start reading mask when non-space found
+                if (!t_isspace(str)) {
+                    COPYCHAR(pmask, str);
+                    pmask += pg_mblen(str);
+                    state = PAE_INMASK;
+                }
+                break;
+
+            case PAE_INMASK:
+                // End of mask marked by '>'
+                if (t_iseq(str, '>')) {
+                    *pmask = '\0';
+                    state = PAE_WAIT_FIND;
+                } else if (!t_isspace(str)) {
+                    // Continue reading mask
+                    COPYCHAR(pmask, str);
+                    pmask += pg_mblen(str);
+                }
+                break;
+
+            case PAE_WAIT_FIND:
+                // '-' indicates start of find pattern
+                if (t_iseq(str, '-')) {
+                    state = PAE_INFIND;
+                } else if (t_isalpha(str) || t_iseq(str, '\'')) {
+                    // Direct replacement without find pattern
+                    COPYCHAR(prepl, str);
+                    prepl += pg_mblen(str);
+                    state = PAE_INREPL;
+                } else if (!t_isspace(str)) {
+                    ereport(ERROR, (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                                  errmsg("syntax error")));
+                }
+                break;
+
+            case PAE_INFIND:
+                // ',' ends find pattern, starts replacement
+                if (t_iseq(str, ',')) {
+                    *pfind = '\0';
+                    state = PAE_WAIT_REPL;
+                } else if (t_isalpha(str)) {
+                    COPYCHAR(pfind, str);
+                    pfind += pg_mblen(str);
+                }
+                break;
+
+            case PAE_WAIT_REPL:
+                // Start reading replacement pattern
+                if (t_iseq(str, '-')) {
+                    break; // Empty replacement
+                } else if (t_isalpha(str)) {
+                    COPYCHAR(prepl, str);
+                    prepl += pg_mblen(str);
+                    state = PAE_INREPL;
+                }
+                break;
+
+            case PAE_INREPL:
+                // '#' ends replacement (comment follows)
+                if (t_iseq(str, '#')) {
+                    *prepl = '\0';
+                    goto done;
+                } else if (t_isalpha(str)) {
+                    COPYCHAR(prepl, str);
+                    prepl += pg_mblen(str);
+                }
+                break;
+        }
+        str += pg_mblen(str);
+    }
+
+done:
+    *pmask = *pfind = *prepl = '\0';
+    return (*mask && (*find || *repl));
+}
+```

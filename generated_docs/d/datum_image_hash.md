@@ -43,3 +43,44 @@ This function is particularly useful in scenarios like query memoization where e
 - Error handling is provided for unexpected typLen values
 - The binary-level approach makes this function sensitive to platform-specific byte ordering and padding
 - This function is declared in src/include/utils/datum.h and is part of the public PostgreSQL utility API
+
+## Simplified Source
+
+```c
+uint32 datum_image_hash(Datum value, bool typByVal, int typLen) {
+    Size len;
+    uint32 result;
+
+    if (typByVal) {
+        // Pass-by-value: hash the Datum value directly
+        result = hash_bytes((unsigned char *)&value, sizeof(Datum));
+    } else if (typLen > 0) {
+        // Fixed-length pass-by-reference: hash the referenced data
+        result = hash_bytes((unsigned char *)DatumGetPointer(value), typLen);
+    } else if (typLen == -1) {
+        // Variable-length (varlena): handle potential TOAST compression
+        struct varlena *val;
+
+        len = toast_raw_datum_size(value);
+        val = PG_DETOAST_DATUM_PACKED(value);
+
+        // Hash only the data portion (excluding header)
+        result = hash_bytes((unsigned char *)VARDATA_ANY(val), len - VARHDRSZ);
+
+        // Free memory only if we made a copy during detoasting
+        if ((Pointer)val != (Pointer)value)
+            pfree(val);
+    } else if (typLen == -2) {
+        // Null-terminated string: hash including null terminator
+        char *s = DatumGetCString(value);
+        len = strlen(s) + 1;
+        result = hash_bytes((unsigned char *)s, len);
+    } else {
+        // Unexpected typLen value
+        elog(ERROR, "unexpected typLen: %d", typLen);
+        result = 0;  // Keep compiler quiet
+    }
+
+    return result;
+}
+```

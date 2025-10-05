@@ -44,3 +44,62 @@ pgwin32_recv is the most complex of the Windows socket wrapper functions in Post
 - Includes a sleep-and-retry mechanism to handle cases where Windows reports a socket as ready but WSARecv still returns WSAEWOULDBLOCK
 - Reports a NOTICE if all retry attempts fail, indicating a persistent Windows socket issue
 - Returns the number of bytes received on success, -1 on error
+
+## Simplified Source
+
+```c
+int
+pgwin32_recv(SOCKET s, char *buf, int len, int f)
+{
+    WSABUF wbuf;
+    int r;
+    DWORD b;
+    DWORD flags = f;
+    int n;
+
+    // Check for pending signals
+    if (pgwin32_poll_signals())
+        return -1;
+
+    wbuf.len = len;
+    wbuf.buf = buf;
+
+    // Try immediate receive
+    r = WSARecv(s, &wbuf, 1, &b, &flags, NULL, NULL);
+    if (r != SOCKET_ERROR)
+        return b;  // Success
+
+    // Handle errors
+    if (WSAGetLastError() != WSAEWOULDBLOCK) {
+        TranslateSocketError();
+        return -1;
+    }
+
+    // Handle non-blocking mode
+    if (pgwin32_noblock) {
+        errno = EWOULDBLOCK;
+        return -1;
+    }
+
+    // Blocking mode: wait and retry up to 5 times
+    for (n = 0; n < 5; n++) {
+        if (pgwin32_waitforsinglesocket(s, FD_READ | FD_CLOSE | FD_ACCEPT, INFINITE) == 0)
+            return -1;  // Error or signal
+
+        r = WSARecv(s, &wbuf, 1, &b, &flags, NULL, NULL);
+        if (r != SOCKET_ERROR)
+            return b;  // Success
+        if (WSAGetLastError() != WSAEWOULDBLOCK) {
+            TranslateSocketError();
+            return -1;
+        }
+
+        // Windows socket quirk: sleep and retry
+        pg_usleep(10000);
+    }
+
+    ereport(NOTICE, (errmsg_internal("could not read from ready socket (after retries)")));
+    errno = EWOULDBLOCK;
+    return -1;
+}
+```

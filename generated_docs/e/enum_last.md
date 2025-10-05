@@ -37,3 +37,26 @@ The function includes the same error handling as `enum_first` for cases where th
 - Raises an error if the enum type contains no values
 - Returns the OID of the last enum value, which can be used in SQL operations
 - Symmetric counterpart to `enum_first`, using backward scan direction instead of forward
+
+## Simplified Source
+
+```c
+Datum enum_last(PG_FUNCTION_ARGS) {
+    // Get enum type from function call expression tree (not argument value)
+    Oid enumtypoid = get_fn_expr_argtype(fcinfo->flinfo, 0);
+
+    if (enumtypoid == InvalidOid)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("could not determine actual enum type")));
+
+    // Find the last enum value using backward scan
+    Oid max = enum_endpoint(enumtypoid, BackwardScanDirection);
+
+    if (!OidIsValid(max))
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("enum %s contains no values",
+                             format_type_be(enumtypoid))));
+
+    PG_RETURN_OID(max);
+}
+```

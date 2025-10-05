@@ -33,3 +33,25 @@ This function serves as the entry point for the SQL function . It accepts a vari
 - The function returns NULL if argument extraction fails
 - Arguments are processed in the order they are provided
 - This function does not skip NULL values by default (uses )
+
+## Simplified Source
+
+```c
+Datum
+jsonb_build_array(PG_FUNCTION_ARGS)
+{
+    // Extract variadic arguments for array elements
+    Datum *args;
+    bool *nulls;
+    Oid *types;
+
+    int nargs = extract_variadic_args(fcinfo, 0, true, &args, &types, &nulls);
+
+    // Return NULL if argument extraction fails
+    if (nargs < 0)
+        PG_RETURN_NULL();
+
+    // Build the JSONB array using worker function
+    PG_RETURN_DATUM(jsonb_build_array_worker(nargs, args, nulls, types, false));
+}
+```

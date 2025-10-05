@@ -35,3 +35,16 @@ The comparison uses floating-point arithmetic with appropriate precision handlin
 - Uses PostgreSQLs standard function calling convention with PG_FUNCTION_ARGS
 - Returns a boolean result indicating the spatial relationship between the circles
 - This operator is typically used in geometric queries and spatial indexing operations
+
+## Simplified Source
+
+```c
+Datum circle_overright(PG_FUNCTION_ARGS) {
+    CIRCLE *circle1 = PG_GETARG_CIRCLE_P(0);
+    CIRCLE *circle2 = PG_GETARG_CIRCLE_P(1);
+
+    // Compare left edges: (center.x - radius) of circle1 >= (center.x - radius) of circle2
+    PG_RETURN_BOOL(FPge(circle1->center.x - circle1->radius,
+                        circle2->center.x - circle2->radius));
+}
+```

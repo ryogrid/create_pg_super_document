@@ -37,3 +37,15 @@ This function is part of PostgreSQL's type system infrastructure, specifically d
 - Returns a PostgreSQL Datum containing a boolean value
 - Part of the enum type's operator class, enabling use in indexes, sorting, and range operations
 - The function follows PostgreSQL's fmgr (function manager) calling convention
+
+## Simplified Source
+
+```c
+Datum enum_ge(PG_FUNCTION_ARGS) {
+    Oid left_enum = PG_GETARG_OID(0);
+    Oid right_enum = PG_GETARG_OID(1);
+
+    // Use internal comparison function and check if result is >= 0
+    PG_RETURN_BOOL(enum_cmp_internal(left_enum, right_enum, fcinfo) >= 0);
+}
+```

@@ -41,3 +41,35 @@ This function is designed to be called without locks on the heap page, making it
 - The returned buffer remains pinned and must be released by the caller
 - Single-byte reads are atomic, but memory ordering effects are caller's responsibility
 - May return stale data due to concurrent modifications - this is by design for performance
+
+## Simplified Source
+
+```c
+uint8 visibilitymap_get_status(Relation rel, BlockNumber heapBlk, Buffer *vmbuf) {
+    // Calculate visibility map coordinates for this heap block
+    BlockNumber mapBlock = HEAPBLK_TO_MAPBLOCK(heapBlk);
+    uint32 mapByte = HEAPBLK_TO_MAPBYTE(heapBlk);
+    uint8 mapOffset = HEAPBLK_TO_OFFSET(heapBlk);
+
+    // Reuse existing buffer if it's for the right visibility map page
+    if (BufferIsValid(*vmbuf)) {
+        if (BufferGetBlockNumber(*vmbuf) != mapBlock) {
+            ReleaseBuffer(*vmbuf);
+            *vmbuf = InvalidBuffer;
+        }
+    }
+
+    // Read the visibility map page if needed
+    if (!BufferIsValid(*vmbuf)) {
+        *vmbuf = vm_readbuf(rel, mapBlock, false);
+        if (!BufferIsValid(*vmbuf))
+            return false; // VM page doesn't exist yet
+    }
+
+    // Extract visibility bits for this heap block
+    char *map = PageGetContents(BufferGetPage(*vmbuf));
+    uint8 result = ((map[mapByte] >> mapOffset) & VISIBILITYMAP_VALID_BITS);
+
+    return result;
+}
+```

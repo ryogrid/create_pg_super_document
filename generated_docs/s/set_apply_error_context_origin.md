@@ -31,3 +31,12 @@ set_apply_error_context_origin is a utility function used in PostgreSQL's logica
 - The stored origin name becomes part of the error callback argument structure for better error diagnostics
 - This is part of PostgreSQL's error handling infrastructure for logical replication, helping administrators identify which replication origin was involved when errors occur
 - The ApplyContext is specifically chosen as it has the appropriate lifetime for the apply worker process
+
+## Simplified Source
+
+```c
+void set_apply_error_context_origin(char *originname) {
+    // Store origin name in long-lived context for error messages
+    apply_error_callback_arg.origin_name = MemoryContextStrdup(ApplyContext, originname);
+}
+```

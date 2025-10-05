@@ -54,3 +54,111 @@ The conservative approach during recovery ensures serialization safety by assumi
 - Prepared transactions during recovery have no associated process (pid = 0, pgprocno = INVALID_PROC_NUMBER)
 - Critical for maintaining serializable isolation across database restarts when prepared transactions exist
 - The function includes assertions to validate record structure and transaction state consistency
+
+## Simplified Source
+
+```c
+void predicatelock_twophase_recover(TransactionId xid, uint16 info,
+                                   void *recdata, uint32 len)
+{
+    TwoPhasePredicateRecord *record;
+
+    Assert(len == sizeof(TwoPhasePredicateRecord));
+    record = (TwoPhasePredicateRecord *) recdata;
+
+    if (record->type == TWOPHASEPREDICATERECORD_XACT)
+    {
+        // Recover transaction record - create SERIALIZABLEXACT
+        TwoPhasePredicateXactRecord *xactRecord;
+        SERIALIZABLEXACT *sxact;
+        SERIALIZABLEXID *sxid;
+        SERIALIZABLEXIDTAG sxidtag;
+        bool found;
+
+        xactRecord = (TwoPhasePredicateXactRecord *) &record->data.xactRecord;
+
+        LWLockAcquire(SerializableXactHashLock, LW_EXCLUSIVE);
+        sxact = CreatePredXact();
+        if (!sxact)
+            ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY),
+                           errmsg("out of shared memory")));
+
+        // Set up transaction with special vxid for prepared state
+        sxact->vxid.procNumber = INVALID_PROC_NUMBER;
+        sxact->vxid.localTransactionId = (LocalTransactionId) xid;
+        sxact->pid = 0;
+        sxact->pgprocno = INVALID_PROC_NUMBER;
+
+        // Initialize transaction state
+        sxact->prepareSeqNo = RecoverySerCommitSeqNo;
+        sxact->commitSeqNo = InvalidSerCommitSeqNo;
+        sxact->finishedBefore = InvalidTransactionId;
+        sxact->SeqNo.lastCommitBeforeSnapshot = RecoverySerCommitSeqNo;
+
+        // Initialize lists and set transaction data
+        dlist_init(&(sxact->possibleUnsafeConflicts));
+        dlist_init(&(sxact->predicateLocks));
+        dlist_node_init(&sxact->finishedLink);
+        sxact->topXid = xid;
+        sxact->xmin = xactRecord->xmin;
+        sxact->flags = xactRecord->flags;
+
+        if (!SxactIsReadOnly(sxact))
+            ++(PredXact->WritableSxactCount);
+
+        // Conservatively assume conflicts existed
+        dlist_init(&(sxact->outConflicts));
+        dlist_init(&(sxact->inConflicts));
+        sxact->flags |= SXACT_FLAG_SUMMARY_CONFLICT_IN;
+        sxact->flags |= SXACT_FLAG_SUMMARY_CONFLICT_OUT;
+
+        // Register transaction in hash table
+        sxidtag.xid = xid;
+        sxid = (SERIALIZABLEXID *) hash_search(SerializableXidHash,
+                                              &sxidtag, HASH_ENTER, &found);
+        Assert(!found);
+        sxid->myXact = (SERIALIZABLEXACT *) sxact;
+
+        // Update global xmin
+        if (!TransactionIdIsValid(PredXact->SxactGlobalXmin) ||
+            TransactionIdFollows(PredXact->SxactGlobalXmin, sxact->xmin))
+        {
+            PredXact->SxactGlobalXmin = sxact->xmin;
+            PredXact->SxactGlobalXminCount = 1;
+            SerialSetActiveSerXmin(sxact->xmin);
+        }
+        else if (TransactionIdEquals(sxact->xmin, PredXact->SxactGlobalXmin))
+        {
+            PredXact->SxactGlobalXminCount++;
+        }
+
+        LWLockRelease(SerializableXactHashLock);
+    }
+    else if (record->type == TWOPHASEPREDICATERECORD_LOCK)
+    {
+        // Recover lock record - recreate PREDICATELOCK
+        TwoPhasePredicateLockRecord *lockRecord;
+        SERIALIZABLEXID *sxid;
+        SERIALIZABLEXACT *sxact;
+        SERIALIZABLEXIDTAG sxidtag;
+        uint32 targettaghash;
+
+        lockRecord = (TwoPhasePredicateLockRecord *) &record->data.lockRecord;
+        targettaghash = PredicateLockTargetTagHashCode(&lockRecord->target);
+
+        // Find the transaction this lock belongs to
+        LWLockAcquire(SerializableXactHashLock, LW_SHARED);
+        sxidtag.xid = xid;
+        sxid = (SERIALIZABLEXID *)
+            hash_search(SerializableXidHash, &sxidtag, HASH_FIND, NULL);
+        LWLockRelease(SerializableXactHashLock);
+
+        Assert(sxid != NULL);
+        sxact = sxid->myXact;
+        Assert(sxact != InvalidSerializableXact);
+
+        // Recreate the predicate lock
+        CreatePredicateLock(&lockRecord->target, targettaghash, sxact);
+    }
+}
+```

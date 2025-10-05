@@ -50,3 +50,55 @@ This function is fundamental to PostgreSQL's geometric data type parsing infrast
 - The function validates delimiter presence and proper sequence
 - Part of PostgreSQL's comprehensive geometric data type system that maintains consistent parsing behavior across all geometric types
 - Error messages include the original input string and type name for better user feedback
+
+## Simplified Source
+
+```c
+static bool pair_decode(char *str, float8 *x, float8 *y, char **endptr_p,
+                       const char *type_name, const char *orig_string,
+                       Node *escontext) {
+    bool has_delim;
+
+    // Skip leading whitespace
+    while (isspace((unsigned char) *str))
+        str++;
+
+    // Check for opening parenthesis
+    if ((has_delim = (*str == LDELIM)))
+        str++;
+
+    // Parse first coordinate (x)
+    if (!single_decode(str, x, &str, type_name, orig_string, escontext))
+        return false;
+
+    // Expect comma delimiter
+    if (*str++ != DELIM)
+        goto fail;
+
+    // Parse second coordinate (y)
+    if (!single_decode(str, y, &str, type_name, orig_string, escontext))
+        return false;
+
+    // Handle closing parenthesis if needed
+    if (has_delim) {
+        if (*str++ != RDELIM)
+            goto fail;
+        while (isspace((unsigned char) *str))
+            str++;
+    }
+
+    // Set end pointer or validate end of string
+    if (endptr_p)
+        *endptr_p = str;
+    else if (*str != '\0')
+        goto fail;
+
+    return true;
+
+fail:
+    ereturn(escontext, false,
+            (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+             errmsg("invalid input syntax for type %s: \"%s\"",
+                    type_name, orig_string)));
+}
+```

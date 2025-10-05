@@ -41,3 +41,19 @@ The optimization is based on the principle that certain GUCs are guaranteed to h
 - Other GUCs are skipped only if they have their compiled-in default value (source == PGC_S_DEFAULT)
 - This optimization typically saves significant work by avoiding transmission of default-valued GUCs
 - The function is critical for parallel query performance and correctness
+
+## Simplified Source
+
+```c
+static bool can_skip_gucvar(struct config_generic *gconf)
+{
+    // Skip GUCs that are guaranteed to have same values in leaders and workers
+
+    // Always skip POSTMASTER vars (same in all children)
+    // Always skip INTERNAL vars (set by special mechanisms)
+    // Skip other GUCs if they have default value
+    return gconf->context == PGC_POSTMASTER ||
+           gconf->context == PGC_INTERNAL ||
+           gconf->source == PGC_S_DEFAULT;
+}
+```

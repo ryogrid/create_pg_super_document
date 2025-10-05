@@ -55,3 +55,45 @@ This function is the core parsing engine used by all the specific privilege conv
 - Uses OR operation to combine multiple privilege bits into a single bitmask
 - Memory management: allocates temporary string copy and cleans it up
 - Core utility function that enables consistent privilege parsing across all PostgreSQL object types
+
+## Simplified Source
+
+```c
+static AclMode convert_any_priv_string(text *priv_type_text, const priv_map *privileges) {
+    AclMode result = 0;
+    char *priv_type = text_to_cstring(priv_type_text);
+    char *chunk, *next_chunk;
+
+    // Parse comma-separated privilege names
+    for (chunk = priv_type; chunk; chunk = next_chunk) {
+        const priv_map *this_priv;
+
+        // Split at commas
+        next_chunk = strchr(chunk, ',');
+        if (next_chunk)
+            *next_chunk++ = '\0';
+
+        // Trim whitespace
+        while (*chunk && isspace(*chunk)) chunk++;
+        int chunk_len = strlen(chunk);
+        while (chunk_len > 0 && isspace(chunk[chunk_len - 1])) chunk_len--;
+        chunk[chunk_len] = '\0';
+
+        // Find matching privilege in mapping table
+        for (this_priv = privileges; this_priv->name; this_priv++) {
+            if (pg_strcasecmp(this_priv->name, chunk) == 0) {
+                result |= this_priv->value;  // OR in the privilege bit
+                break;
+            }
+        }
+
+        // Error if privilege name not found
+        if (!this_priv->name)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("unrecognized privilege type: \"%s\"", chunk)));
+    }
+
+    pfree(priv_type);
+    return result;
+}
+```

@@ -30,3 +30,22 @@ The dtanh function is a PostgreSQL wrapper around the standard C library tanh() 
 - The function includes a defensive check for infinite results as a safety measure
 - The function is part of PostgreSQL mathematical function library in src/backend/utils/adt/float.c
 - Located at src/backend/utils/adt/float.c:2645-2664
+
+## Simplified Source
+
+```c
+Datum dtanh(PG_FUNCTION_ARGS) {
+    // Get input float8 value
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+
+    // Compute hyperbolic tangent (never overflows due to bounded range [-1,1])
+    float8 result = tanh(arg1);
+
+    // Safety check for infinite results (defensive programming)
+    if (unlikely(isinf(result))) {
+        float_overflow_error();
+    }
+
+    PG_RETURN_FLOAT8(result);
+}
+```

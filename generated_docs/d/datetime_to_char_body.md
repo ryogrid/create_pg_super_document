@@ -43,3 +43,52 @@ The actual formatting work is delegated to `DCH_to_char()`, which handles the co
 - Manages memory carefully with proper cleanup of temporary allocations
 - Central hub for all PostgreSQL date/time formatting operations
 - Format parsing uses DCH_keywords, DCH_suff, DCH_index, and DCH_FLAG configuration arrays
+
+## Simplified Source
+
+```c
+static text *datetime_to_char_body(TmToChar *tmtc, text *fmt, bool is_interval, Oid collid) {
+    FormatNode *format;
+    char *fmt_str, *result;
+    bool incache;
+    int fmt_len;
+    text *res;
+
+    // Convert format template to C string
+    fmt_str = text_to_cstring(fmt);
+    fmt_len = strlen(fmt_str);
+
+    // Allocate output buffer (worst case size)
+    result = palloc((fmt_len * DCH_MAX_ITEM_SIZ) + 1);
+    *result = '\0';
+
+    // Use cache for small format strings, parse large ones directly
+    if (fmt_len > DCH_CACHE_SIZE) {
+        // Large format: parse directly without caching
+        incache = false;
+        format = palloc((fmt_len + 1) * sizeof(FormatNode));
+        parse_format(format, fmt_str, DCH_keywords,
+                    DCH_suff, DCH_index, DCH_FLAG, NULL);
+    }
+    else {
+        // Small format: use cache for performance
+        DCHCacheEntry *ent = DCH_cache_fetch(fmt_str, false);
+        incache = true;
+        format = ent->format;
+    }
+
+    // Perform the actual formatting
+    DCH_to_char(format, is_interval, tmtc, result, collid);
+
+    // Clean up temporary allocations
+    if (!incache)
+        pfree(format);
+    pfree(fmt_str);
+
+    // Convert result to TEXT format
+    res = cstring_to_text(result);
+    pfree(result);
+
+    return res;
+}
+```

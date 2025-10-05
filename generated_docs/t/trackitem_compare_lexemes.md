@@ -31,3 +31,17 @@ This function serves as a wrapper comparator that sorts TrackItem structures bas
 - Used in PostgreSQL's ANALYZE process for tsvector column statistics
 - Part of the text search statistics collection infrastructure
 - Located in src/backend/tsearch/ts_typanalyze.c:530-536
+
+## Simplified Source
+
+```c
+static int
+trackitem_compare_lexemes(const void *e1, const void *e2, void *arg)
+{
+    const TrackItem *const *t1 = (const TrackItem *const *) e1;
+    const TrackItem *const *t2 = (const TrackItem *const *) e2;
+
+    // Compare TrackItems by their lexeme keys
+    return lexeme_compare(&(*t1)->key, &(*t2)->key);
+}
+```

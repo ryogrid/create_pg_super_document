@@ -38,3 +38,18 @@ This function performs a security check to ensure that only users with the REPLI
 
 ## Notes and Other Information
 This function serves as a security gate for all replication slot operations, ensuring that only privileged users can create, modify, or access replication slots. The REPLICATION attribute is a database role attribute that must be explicitly granted to users who need to perform replication-related operations.
+
+## Simplified Source
+
+```c
+void
+CheckSlotPermissions(void)
+{
+    if (!has_rolreplication(GetUserId()))
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("permission denied to use replication slots"),
+                 errdetail("Only roles with the %s attribute may use replication slots.",
+                           "REPLICATION")));
+}
+```

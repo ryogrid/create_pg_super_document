@@ -43,3 +43,16 @@ The function follows PostgreSQL's function call convention using the PG_FUNCTION
 - Uses PostgreSQL's standard function interface (Datum return type, PG_FUNCTION_ARGS)
 - The function is likely registered as an operator function in pg_operator catalog
 - Useful for range queries and temporal filtering in SQL queries involving mixed date/timestamp columns
+
+## Simplified Source
+
+```c
+Datum date_lt_timestamp(PG_FUNCTION_ARGS)
+{
+    DateADT dateVal = PG_GETARG_DATEADT(0);
+    Timestamp dt2 = PG_GETARG_TIMESTAMP(1);
+
+    // Compare date and timestamp for less-than (result < 0 means date is earlier)
+    PG_RETURN_BOOL(date_cmp_timestamp_internal(dateVal, dt2) < 0);
+}
+```

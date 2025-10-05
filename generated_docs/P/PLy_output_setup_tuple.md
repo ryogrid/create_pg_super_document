@@ -50,3 +50,43 @@ Like its input counterpart, the function is designed to handle re-initialization
 - For named composite or registered record types, the tuple descriptor does not need to be long-lived
 - This function works in conjunction with PLyObject_ToComposite to provide complete Python-to-tuple conversion functionality
 - Part of the broader PL/Python type conversion system that enables seamless data exchange between Python and PostgreSQL
+
+## Simplified Source
+
+```c
+void PLy_output_setup_tuple(PLyObToDatum *arg, TupleDesc desc, PLyProcedure *proc) {
+    int i;
+
+    // Validate this is set up for composite type output conversion
+    Assert(arg->func == PLyObject_ToComposite);
+
+    // Save tupdesc reference for anonymous record types
+    if (arg->typoid == RECORDOID && arg->typmod < 0)
+        arg->u.tuple.recdesc = desc;
+
+    // Reallocate attributes array if column count changed
+    if (arg->u.tuple.natts != desc->natts) {
+        if (arg->u.tuple.atts)
+            pfree(arg->u.tuple.atts);
+        arg->u.tuple.natts = desc->natts;
+        arg->u.tuple.atts = (PLyObToDatum *)
+            MemoryContextAllocZero(arg->mcxt, desc->natts * sizeof(PLyObToDatum));
+    }
+
+    // Setup conversion info for each non-dropped column
+    for (i = 0; i < desc->natts; i++) {
+        Form_pg_attribute attr = TupleDescAttr(desc, i);
+        PLyObToDatum *att = &arg->u.tuple.atts[i];
+
+        if (attr->attisdropped)
+            continue;
+
+        // Skip if already set up for this type/typmod
+        if (att->typoid == attr->atttypid && att->typmod == attr->atttypmod)
+            continue;
+
+        // Setup conversion function for this column
+        PLy_output_setup_func(att, arg->mcxt, attr->atttypid, attr->atttypmod, proc);
+    }
+}
+```

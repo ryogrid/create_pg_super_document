@@ -37,3 +37,15 @@ The function uses PostgreSQL's floating-point comparison function FPlt() to hand
 - The function is used in spatial indexing operations, particularly in GiST and SP-GiST index implementations
 - Returns true only when box1 is completely to the left of box2 with no horizontal overlap
 - Located in src/backend/utils/adt/geo_ops.c:583-597
+
+## Simplified Source
+
+```c
+Datum box_left(PG_FUNCTION_ARGS) {
+    BOX *box1 = PG_GETARG_BOX_P(0);
+    BOX *box2 = PG_GETARG_BOX_P(1);
+
+    // Check if box1's rightmost point is left of box2's leftmost point
+    PG_RETURN_BOOL(FPlt(box1->high.x, box2->low.x));
+}
+```

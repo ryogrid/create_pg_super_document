@@ -36,3 +36,17 @@ This function serves as the sort support initialization routine for float4 data 
 - Sets up the  field of the SortSupport structure to point to 
 - Located in 
 - Returns void using PostgreSQL's function calling conventions
+
+## Simplified Source
+
+```c
+Datum btfloat4sortsupport(PG_FUNCTION_ARGS) {
+    // Get the SortSupport structure from function arguments
+    SortSupport ssup = (SortSupport) PG_GETARG_POINTER(0);
+
+    // Configure with fast comparison function
+    ssup->comparator = btfloat4fastcmp;
+
+    PG_RETURN_VOID();
+}
+```

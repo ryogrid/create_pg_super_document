@@ -44,3 +44,30 @@ The function supports both addition and subtraction of intervals from the base d
 - Located in src/backend/utils/adt/date.c:1039-1065
 - Contains a TODO comment about potentially supporting out-of-range cases
 - Used internally by PostgreSQL's window function processing for date-based frames with interval specifications
+
+## Simplified Source
+
+```c
+Datum
+in_range_date_interval(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments
+    DateADT val = PG_GETARG_DATEADT(0);
+    DateADT base = PG_GETARG_DATEADT(1);
+    Interval *offset = PG_GETARG_INTERVAL_P(2);
+    bool sub = PG_GETARG_BOOL(3);
+    bool less = PG_GETARG_BOOL(4);
+
+    // Convert dates to timestamps for range calculation
+    Timestamp valStamp = date2timestamp(val);
+    Timestamp baseStamp = date2timestamp(base);
+
+    // Delegate to timestamp interval range function
+    return DirectFunctionCall5(in_range_timestamp_interval,
+                              TimestampGetDatum(valStamp),
+                              TimestampGetDatum(baseStamp),
+                              IntervalPGetDatum(offset),
+                              BoolGetDatum(sub),
+                              BoolGetDatum(less));
+}
+```

@@ -34,3 +34,17 @@ PLy_spi_subtransaction_begin is a utility function that starts an internal subtr
 - Switching back to oldcontext ensures that memory allocations continue in the caller's context
 - Subtransactions provide isolation for SPI operations, allowing recovery from SQL errors without affecting the main transaction
 - The oldowner parameter is accepted for API consistency but not used in the current implementation
+
+## Simplified Source
+
+```c
+void
+PLy_spi_subtransaction_begin(MemoryContext oldcontext, ResourceOwner oldowner)
+{
+	// Start a new internal subtransaction
+	BeginInternalSubTransaction(NULL);
+
+	// Switch back to caller's memory context
+	MemoryContextSwitchTo(oldcontext);
+}
+```

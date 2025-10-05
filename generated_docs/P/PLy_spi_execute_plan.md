@@ -46,3 +46,66 @@ The execution occurs within a subtransaction to provide proper error handling an
 - Provides detailed error messages including parameter count mismatches
 - Handles NULL parameter values through the nulls array ('n' for NULL, ' ' for non-NULL)
 - All parameter conversion and execution occurs within a subtransaction for atomic error handling
+
+## Simplified Source
+
+```c
+PyObject *PLy_spi_execute_plan(PyObject *ob, PyObject *list, long limit) {
+    PLyPlanObject *plan = (PLyPlanObject *) ob;
+    int nargs = list ? PySequence_Length(list) : 0;
+
+    // Validate argument count matches plan requirements
+    if (nargs != plan->nargs) {
+        PLy_exception_set_plural(PyExc_TypeError,
+            "Expected sequence of %d argument, got %d",
+            "Expected sequence of %d arguments, got %d",
+            plan->nargs, plan->nargs, nargs, "");
+        return NULL;
+    }
+
+    // Begin subtransaction for atomic execution
+    volatile MemoryContext oldcontext = CurrentMemoryContext;
+    volatile ResourceOwner oldowner = CurrentResourceOwner;
+    PLy_spi_subtransaction_begin(oldcontext, oldowner);
+
+    PG_TRY();
+    {
+        // Create temporary context for parameter conversion
+        MemoryContext tmpcontext = AllocSetContextCreate(CurTransactionContext,
+            "PL/Python temporary context", ALLOCSET_SMALL_SIZES);
+        MemoryContextSwitchTo(tmpcontext);
+
+        // Convert Python parameters to PostgreSQL Datum values
+        Datum *values = nargs > 0 ? palloc(nargs * sizeof(Datum)) : NULL;
+        char *nulls = nargs > 0 ? palloc(nargs * sizeof(char)) : NULL;
+
+        for (int j = 0; j < nargs; j++) {
+            PyObject *elem = PySequence_GetItem(list, j);
+            bool isnull;
+            values[j] = PLy_output_convert(&plan->args[j], elem, &isnull);
+            nulls[j] = isnull ? 'n' : ' ';
+            Py_DECREF(elem);
+        }
+
+        MemoryContextSwitchTo(oldcontext);
+
+        // Execute the prepared plan
+        PLyExecutionContext *exec_ctx = PLy_current_execution_context();
+        int rv = SPI_execute_plan(plan->plan, values, nulls,
+                                  exec_ctx->curr_proc->fn_readonly, limit);
+
+        // Process results and cleanup
+        PyObject *ret = PLy_spi_execute_fetch_result(SPI_tuptable, SPI_processed, rv);
+        MemoryContextDelete(tmpcontext);
+        PLy_spi_subtransaction_commit(oldcontext, oldowner);
+
+        return ret;
+    }
+    PG_CATCH();
+    {
+        PLy_spi_subtransaction_abort(oldcontext, oldowner);
+        return NULL;
+    }
+    PG_END_TRY();
+}
+```

@@ -39,3 +39,63 @@ The function intelligently handles tuple descriptor sharing based on the source 
 - Uses the same tuple descriptor management strategy as the source record (refcounting, copying, or sharing)
 - The new record is initialized in an empty state without setting ER_FLAG_DVALUES_VALID or ER_FLAG_FVALUE_VALID
 - Optimizes memory allocation by pre-allocating dvalues/dnulls arrays alongside the header structure
+
+## Simplified Source
+
+```c
+ExpandedRecordHeader *
+make_expanded_record_from_exprecord(ExpandedRecordHeader *olderh, MemoryContext parentcontext)
+{
+    ExpandedRecordHeader *erh;
+    TupleDesc tupdesc = expanded_record_get_tupdesc(olderh);
+    MemoryContext objcxt;
+
+    // Create memory context for new expanded object
+    objcxt = AllocSetContextCreate(parentcontext, "expanded record", ALLOCSET_DEFAULT_SIZES);
+
+    // Allocate header with space for dvalues/dnulls arrays
+    erh = (ExpandedRecordHeader *)
+        MemoryContextAlloc(objcxt, MAXALIGN(sizeof(ExpandedRecordHeader))
+                          + tupdesc->natts * (sizeof(Datum) + sizeof(bool)));
+
+    // Initialize header and set up arrays
+    memset(erh, 0, sizeof(ExpandedRecordHeader));
+    EOH_init_header(&erh->hdr, &ER_methods, objcxt);
+    erh->er_magic = ER_MAGIC;
+
+    char *chunk = (char *) erh + MAXALIGN(sizeof(ExpandedRecordHeader));
+    erh->dvalues = (Datum *) chunk;
+    erh->dnulls = (bool *) (chunk + tupdesc->natts * sizeof(Datum));
+    erh->nfields = tupdesc->natts;
+
+    // Copy type identification from source record
+    erh->er_decltypeid = olderh->er_decltypeid;
+    erh->er_typeid = olderh->er_typeid;
+    erh->er_typmod = olderh->er_typmod;
+    erh->er_tupdesc_id = olderh->er_tupdesc_id;
+
+    // Inherit only IS_DOMAIN flag from source
+    erh->flags = olderh->flags & ER_FLAG_IS_DOMAIN;
+
+    // Handle tupdesc sharing based on source's strategy
+    if (tupdesc->tdrefcount >= 0) {
+        // Use reference counting with cleanup callback
+        erh->er_mcb.func = ER_mc_callback;
+        erh->er_mcb.arg = (void *) erh;
+        MemoryContextRegisterResetCallback(erh->hdr.eoh_context, &erh->er_mcb);
+        erh->er_tupdesc = tupdesc;
+        tupdesc->tdrefcount++;
+    } else if (olderh->flags & ER_FLAG_TUPDESC_ALLOCED) {
+        // Source has private copy, so we need our own copy
+        MemoryContext oldcxt = MemoryContextSwitchTo(objcxt);
+        erh->er_tupdesc = CreateTupleDescCopy(tupdesc);
+        erh->flags |= ER_FLAG_TUPDESC_ALLOCED;
+        MemoryContextSwitchTo(oldcxt);
+    } else {
+        // Assume tupdesc persists like in source record
+        erh->er_tupdesc = tupdesc;
+    }
+
+    return erh;
+}
+```

@@ -40,3 +40,15 @@ This design pattern allows PostgreSQL to provide both a simple interface for com
 - The underlying ts_headline_byid_opt function handles all the actual processing
 - Provides a cleaner SQL interface by hiding optional parameter complexity
 - Companion to other headline functions like ts_headline and ts_headline_opt
+
+## Simplified Source
+
+```c
+Datum ts_headline_byid(PG_FUNCTION_ARGS) {
+    // Delegate to full implementation with default options
+    PG_RETURN_DATUM(DirectFunctionCall3(ts_headline_byid_opt,
+                                        PG_GETARG_DATUM(0),
+                                        PG_GETARG_DATUM(1),
+                                        PG_GETARG_DATUM(2)));
+}
+```

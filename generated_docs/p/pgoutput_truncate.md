@@ -52,3 +52,74 @@ The function only sends the TRUNCATE message if at least one relation qualifies 
 - Uses a separate memory context that is reset after processing to prevent memory leaks
 - Can handle empty TRUNCATE operations (where no relations qualify for publication) without sending unnecessary messages
 - Maintains transaction consistency by ensuring BEGIN messages are sent before the TRUNCATE operation
+
+## Simplified Source
+
+```c
+static void
+pgoutput_truncate(LogicalDecodingContext *ctx, ReorderBufferTXN *txn,
+                  int nrelations, Relation relations[], ReorderBufferChange *change)
+{
+    PGOutputData *data = (PGOutputData *) ctx->output_plugin_private;
+    PGOutputTxnData *txndata = (PGOutputTxnData *) txn->output_plugin_private;
+    RelationSyncEntry *relentry;
+    Oid *relids;
+    int nrelids = 0;
+    TransactionId xid = InvalidTransactionId;
+
+    // Get transaction ID for streaming mode
+    if (data->in_streaming)
+        xid = change->txn->xid;
+
+    MemoryContext old = MemoryContextSwitchTo(data->context);
+    relids = palloc0(nrelations * sizeof(Oid));
+
+    // Process each relation in the TRUNCATE command
+    for (int i = 0; i < nrelations; i++)
+    {
+        Relation relation = relations[i];
+        Oid relid = RelationGetRelid(relation);
+
+        // Check if relation is publishable
+        if (!is_publishable_relation(relation))
+            continue;
+
+        relentry = get_rel_sync_entry(data, relation);
+
+        // Check if TRUNCATE is allowed for this publication
+        if (!relentry->pubactions.pubtruncate)
+            continue;
+
+        // Skip partitions if publishing via root table
+        if (relation->rd_rel->relispartition &&
+            relentry->publish_as_relid != relid)
+            continue;
+
+        // Add relation to list of relations to truncate
+        relids[nrelids++] = relid;
+
+        // Send BEGIN if haven't sent it yet
+        if (txndata && !txndata->sent_begin_txn)
+            pgoutput_send_begin(ctx, txn);
+
+        // Send schema information if needed
+        maybe_send_schema(ctx, change, relation, relentry);
+    }
+
+    // Send TRUNCATE message if we have relations to truncate
+    if (nrelids > 0)
+    {
+        OutputPluginPrepareWrite(ctx, true);
+        logicalrep_write_truncate(ctx->out,
+                                 xid,
+                                 nrelids,
+                                 relids,
+                                 change->data.truncate.cascade,
+                                 change->data.truncate.restart_seqs);
+        OutputPluginWrite(ctx, true);
+    }
+
+    MemoryContextSwitchTo(old);
+    MemoryContextReset(data->context);
+}
+```

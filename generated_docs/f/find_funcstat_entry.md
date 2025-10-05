@@ -34,3 +34,22 @@ The function operates by calling  with the function kind, current database ID, a
 - Returns NULL if no existing entry is found, making it safe to use for conditional statistics access
 - The function is read-only and does not modify the statistics collection state
 - It specifically looks for pending entries, which are statistics that have been collected but not yet committed to the main statistics tables
+
+## Simplified Source
+
+```c
+PgStat_FunctionCounts *
+find_funcstat_entry(Oid func_id)
+{
+    PgStat_EntryRef *entry_ref;
+
+    // Look for existing pending statistics entry for this function
+    entry_ref = pgstat_fetch_pending_entry(PGSTAT_KIND_FUNCTION,
+                                           MyDatabaseId, func_id);
+
+    // Return pending stats if found, otherwise NULL
+    if (entry_ref)
+        return entry_ref->pending;
+    return NULL;
+}
+```

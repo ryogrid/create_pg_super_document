@@ -40,3 +40,32 @@ Array slices in PostgreSQL are guaranteed to never return NULL - even an empty o
 - Performance-optimized by pre-validating inputs and using workspace storage for subscripts and type metadata
 - The result is always a valid array, potentially empty but never NULL
 - Handles multi-dimensional array slicing through the underlying array_get_slice function
+
+## Simplified Source
+
+```c
+static void
+array_subscript_fetch_slice(ExprState *state,
+                            ExprEvalStep *op,
+                            ExprContext *econtext)
+{
+    SubscriptingRefState *sbsrefstate = op->d.sbsref.state;
+    ArraySubWorkspace *workspace = (ArraySubWorkspace *) sbsrefstate->workspace;
+
+    // Source array should not be NULL (enforced by fetch_strict)
+    Assert(!(*op->resnull));
+
+    // Extract array slice using pre-computed upper/lower bounds
+    *op->resvalue = array_get_slice(*op->resvalue,
+                                    sbsrefstate->numupper,
+                                    workspace->upperindex,
+                                    workspace->lowerindex,
+                                    sbsrefstate->upperprovided,
+                                    sbsrefstate->lowerprovided,
+                                    workspace->refattrlength,
+                                    workspace->refelemlength,
+                                    workspace->refelembyval,
+                                    workspace->refelemalign);
+    // Array slices are never NULL, even if empty
+}
+```

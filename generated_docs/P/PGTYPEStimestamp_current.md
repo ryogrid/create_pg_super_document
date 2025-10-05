@@ -38,3 +38,21 @@ The function follows a void return pattern, writing the result directly to the p
 - Provides a simple interface for obtaining 'now' timestamps in embedded SQL contexts
 - The microsecond parameter (second argument to tm2timestamp) is set to 0, indicating no sub-second precision from the system time call
 - Relatively simple implementation focused on current time capture rather than complex time manipulation
+
+## Simplified Source
+
+```c
+void
+PGTYPEStimestamp_current(timestamp *ts)
+{
+    struct tm tm;
+
+    // Get current system date/time
+    GetCurrentDateTime(&tm);
+
+    // Convert to timestamp format if successful
+    if (errno == 0) {
+        tm2timestamp(&tm, 0, NULL, ts);
+    }
+}
+```

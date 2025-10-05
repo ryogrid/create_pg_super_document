@@ -54,3 +54,87 @@ The function performs several key operations:
 - Critical for proper C array to SQL array mapping in embedded contexts
 - Contains specialized logic for string types (char, varchar) vs other data types
 - Uses memory-managed string operations (mm_strdup) for safe memory handling
+
+## Simplified Source
+
+```c
+void
+adjust_array(enum ECPGttype type_enum, char **dimension, char **length,
+             char *type_dimension, char *type_index, int pointer_len, bool type_definition)
+{
+    // Handle type index parameter
+    if (atoi(type_index) >= 0) {
+        if (atoi(*length) >= 0)
+            mmfatal(PARSE_ERROR, "multidimensional arrays are not supported");
+        *length = type_index;
+    }
+
+    // Handle type dimension parameter
+    if (atoi(type_dimension) >= 0) {
+        if (atoi(*dimension) >= 0 && atoi(*length) >= 0)
+            mmfatal(PARSE_ERROR, "multidimensional arrays are not supported");
+        if (atoi(*dimension) >= 0)
+            *length = *dimension;
+        *dimension = type_dimension;
+    }
+
+    // Validate pointer levels
+    if (pointer_len > 2)
+        mmfatal(PARSE_ERROR, "multilevel pointers (more than 2 levels) are not supported");
+
+    if (pointer_len > 1 && type_enum != ECPGt_char && type_enum != ECPGt_unsigned_char && type_enum != ECPGt_string)
+        mmfatal(PARSE_ERROR, "pointer to pointer is not supported for this data type");
+
+    // Type-specific adjustments
+    switch (type_enum) {
+        case ECPGt_struct:
+        case ECPGt_union:
+            if (pointer_len) {
+                *length = *dimension;
+                *dimension = mm_strdup("0");
+            }
+            if (atoi(*length) >= 0)
+                mmfatal(PARSE_ERROR, "multidimensional arrays for structures are not supported");
+            break;
+
+        case ECPGt_varchar:
+        case ECPGt_bytea:
+            if (pointer_len)
+                *dimension = mm_strdup("0");
+            if (atoi(*length) < 0) {
+                *length = *dimension;
+                *dimension = mm_strdup("-1");
+            }
+            break;
+
+        case ECPGt_char:
+        case ECPGt_unsigned_char:
+        case ECPGt_string:
+            if (pointer_len == 2) {
+                *length = *dimension = mm_strdup("0");
+            } else if (pointer_len == 1) {
+                *length = mm_strdup("0");
+            }
+            // Handle string length logic
+            if (atoi(*length) < 0) {
+                if (atoi(*dimension) < 0 && !type_definition)
+                    *length = mm_strdup("1");
+                else if (strcmp(*dimension, "0") == 0)
+                    *length = mm_strdup("-1");
+                else
+                    *length = *dimension;
+                *dimension = mm_strdup("-1");
+            }
+            break;
+
+        default:
+            if (pointer_len) {
+                *length = *dimension;
+                *dimension = mm_strdup("0");
+            }
+            if (atoi(*length) >= 0)
+                mmfatal(PARSE_ERROR, "multidimensional arrays for simple data types are not supported");
+            break;
+    }
+}
+```

@@ -44,3 +44,30 @@ This function is registered in PostgreSQL's system catalogs and is directly acce
 - Uses the default collation for the array's element type during comparisons
 - The replacement value is set to (Datum) 0 with replace_isnull=true since it's not used in remove mode
 - Performance is optimized by returning the original array unchanged if no elements match the search value
+
+## Simplified Source
+
+```c
+Datum
+array_remove(PG_FUNCTION_ARGS)
+{
+    // Handle NULL input array
+    if (PG_ARGISNULL(0))
+        PG_RETURN_NULL();
+
+    // Extract arguments
+    ArrayType *array = PG_GETARG_ARRAYTYPE_P(0);
+    Datum search = PG_GETARG_DATUM(1);
+    bool search_isnull = PG_ARGISNULL(1);
+
+    // Call internal implementation with remove=true
+    array = array_replace_internal(array,
+                                  search, search_isnull,
+                                  (Datum) 0, true,  // replacement not used
+                                  true,              // remove mode
+                                  PG_GET_COLLATION(),
+                                  fcinfo);
+
+    PG_RETURN_ARRAYTYPE_P(array);
+}
+```

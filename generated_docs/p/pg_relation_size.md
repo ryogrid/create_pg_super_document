@@ -59,3 +59,29 @@ The function handles different relation forks (main data, free space map, visibi
 - The function is defined in src/backend/utils/adt/dbsize.c:346-377
 - Commonly used in monitoring and administrative queries to analyze storage usage patterns
 - The fork name parameter allows for detailed analysis of different components of relation storage
+
+## Simplified Source
+
+```c
+Datum pg_relation_size(PG_FUNCTION_ARGS) {
+    Oid relOid = PG_GETARG_OID(0);
+    text *forkName = PG_GETARG_TEXT_PP(1);
+    Relation rel;
+    int64 size;
+
+    // Try to open the relation (returns NULL if dropped)
+    rel = try_relation_open(relOid, AccessShareLock);
+
+    // Return NULL for non-existent relations (safer than throwing error)
+    if (rel == NULL)
+        PG_RETURN_NULL();
+
+    // Calculate size for the specified fork
+    size = calculate_relation_size(&(rel->rd_locator), rel->rd_backend,
+                                   forkname_to_number(text_to_cstring(forkName)));
+
+    // Clean up and return result
+    relation_close(rel, AccessShareLock);
+    PG_RETURN_INT64(size);
+}
+```

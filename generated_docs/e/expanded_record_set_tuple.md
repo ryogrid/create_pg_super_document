@@ -47,3 +47,88 @@ The function performs domain constraint validation when the expanded record repr
 - Resets flat_size information which will be recalculated when needed
 - Invalidates any existing deconstructed representation (ER_FLAG_DVALUES_VALID is cleared)
 - Can handle NULL tuple assignments to create logically empty records
+
+## Simplified Source
+
+```c
+void
+expanded_record_set_tuple(ExpandedRecordHeader *erh, HeapTuple tuple, bool copy, bool expand_external)
+{
+    int oldflags, newflags;
+    HeapTuple oldtuple, newtuple;
+    char *oldfstartptr, *oldfendptr;
+
+    Assert(!(erh->flags & ER_FLAG_IS_DUMMY));
+
+    // Check domain constraints if needed
+    if (erh->flags & ER_FLAG_IS_DOMAIN)
+        check_domain_for_new_tuple(erh, tuple);
+
+    // Handle external field detoasting if requested
+    if (expand_external && tuple) {
+        Assert(copy);  // Unsupported combination check
+        if (HeapTupleHasExternal(tuple)) {
+            MemoryContext oldcxt = MemoryContextSwitchTo(get_short_term_cxt(erh));
+            tuple = toast_flatten_tuple(tuple, erh->er_tupdesc);
+            MemoryContextSwitchTo(oldcxt);
+        } else {
+            expand_external = false;
+        }
+    }
+
+    // Prepare new flags, preserving non-data status bits
+    oldflags = erh->flags;
+    newflags = oldflags & ER_FLAGS_NON_DATA;
+
+    // Copy tuple if requested
+    if (copy && tuple) {
+        MemoryContext oldcxt = MemoryContextSwitchTo(erh->hdr.eoh_context);
+        newtuple = heap_copytuple(tuple);
+        newflags |= ER_FLAG_FVALUE_ALLOCED;
+        MemoryContextSwitchTo(oldcxt);
+
+        if (expand_external)
+            MemoryContextReset(erh->er_short_term_cxt);
+    } else {
+        newtuple = tuple;
+    }
+
+    // Save old values before overwriting
+    oldtuple = erh->fvalue;
+    oldfstartptr = erh->fstartptr;
+    oldfendptr = erh->fendptr;
+
+    // Update expanded record state
+    if (newtuple) {
+        erh->fvalue = newtuple;
+        erh->fstartptr = (char *) newtuple->t_data;
+        erh->fendptr = ((char *) newtuple->t_data) + newtuple->t_len;
+        newflags |= ER_FLAG_FVALUE_VALID;
+
+        if (HeapTupleHasExternal(newtuple))
+            newflags |= ER_FLAG_HAVE_EXTERNAL;
+    } else {
+        erh->fvalue = NULL;
+        erh->fstartptr = erh->fendptr = NULL;
+    }
+
+    erh->flags = newflags;
+    erh->flat_size = 0;  // Reset size info
+
+    // Clean up old field values if they were allocated
+    if (oldflags & ER_FLAG_DVALUES_ALLOCED) {
+        TupleDesc tupdesc = erh->er_tupdesc;
+        for (int i = 0; i < erh->nfields; i++) {
+            if (!erh->dnulls[i] && !(TupleDescAttr(tupdesc, i)->attbyval)) {
+                char *oldValue = (char *) DatumGetPointer(erh->dvalues[i]);
+                if (oldValue < oldfstartptr || oldValue >= oldfendptr)
+                    pfree(oldValue);
+            }
+        }
+    }
+
+    // Free old tuple if it was locally allocated
+    if (oldflags & ER_FLAG_FVALUE_ALLOCED)
+        heap_freetuple(oldtuple);
+}
+```

@@ -44,3 +44,27 @@ This function verifies that an operator has the correct signature for use in an 
 - Part of the access method validation infrastructure
 - Simpler than check_amproc_signature due to fixed binary operator requirement
 - Located in src/backend/access/index/amvalidate.c:206-235
+
+## Simplified Source
+
+```c
+bool
+check_amop_signature(Oid opno, Oid restype, Oid lefttype, Oid righttype)
+{
+    // Look up the operator in the system catalog
+    HeapTuple tp = SearchSysCache1(OPEROID, ObjectIdGetDatum(opno));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for operator %u", opno);
+
+    Form_pg_operator opform = (Form_pg_operator) GETSTRUCT(tp);
+
+    // Check if all signature components match exactly
+    bool result = (opform->oprresult == restype &&
+                   opform->oprkind == 'b' &&
+                   opform->oprleft == lefttype &&
+                   opform->oprright == righttype);
+
+    ReleaseSysCache(tp);
+    return result;
+}
+```

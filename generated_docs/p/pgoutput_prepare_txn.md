@@ -34,3 +34,20 @@ This function is the prepare callback for the pgoutput logical replication plugi
 - Works in conjunction with pgoutput_begin_prepare_txn and pgoutput_commit_prepared_txn
 - Essential for maintaining ACID properties in distributed transaction scenarios
 - The prepared transaction can later be committed via pgoutput_commit_prepared_txn or aborted
+
+## Simplified Source
+
+```c
+static void
+pgoutput_prepare_txn(LogicalDecodingContext *ctx, ReorderBufferTXN *txn,
+                     XLogRecPtr prepare_lsn)
+{
+    // Update replication progress
+    OutputPluginUpdateProgress(ctx, false);
+
+    // Send PREPARE message to subscribers
+    OutputPluginPrepareWrite(ctx, true);
+    logicalrep_write_prepare(ctx->out, txn, prepare_lsn);
+    OutputPluginWrite(ctx, true);
+}
+```

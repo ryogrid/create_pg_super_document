@@ -53,3 +53,55 @@ The function handles both individual processes and lock groups. For lock groups 
 - Memory allocation uses pre-estimation based on MaxBackends to minimize reallocation while holding locks
 - All returned lock tags for a single blocked PID should be the same, as a process can only wait on one lock at a time
 - Wait queue information allows callers to determine the position of blocked processes relative to other waiters
+
+## Simplified Source
+```c
+BlockedProcsData *GetBlockerStatusData(int blocked_pid)
+{
+    BlockedProcsData *data;
+    PGPROC *proc;
+    int i;
+
+    data = (BlockedProcsData *) palloc(sizeof(BlockedProcsData));
+
+    // Pre-allocate arrays based on MaxBackends estimate
+    data->nprocs = data->nlocks = data->npids = 0;
+    data->maxprocs = data->maxlocks = data->maxpids = MaxBackends;
+    data->procs = (BlockedProcData *) palloc(sizeof(BlockedProcData) * data->maxprocs);
+    data->locks = (LockInstanceData *) palloc(sizeof(LockInstanceData) * data->maxlocks);
+    data->waiter_pids = (int *) palloc(sizeof(int) * data->maxpids);
+
+    // Must hold ProcArrayLock to safely examine process entries
+    LWLockAcquire(ProcArrayLock, LW_SHARED);
+
+    proc = BackendPidGetProcWithLock(blocked_pid);
+
+    if (proc != NULL) {
+        // Acquire all partition locks for consistent lock table view
+        for (i = 0; i < NUM_LOCK_PARTITIONS; i++)
+            LWLockAcquire(LockHashPartitionLockByIndex(i), LW_SHARED);
+
+        if (proc->lockGroupLeader == NULL) {
+            // Simple case: process is not in a lock group
+            GetSingleProcBlockerStatusData(proc, data);
+        } else {
+            // Complex case: examine all processes in the lock group
+            dlist_iter iter;
+
+            dlist_foreach(iter, &proc->lockGroupLeader->lockGroupMembers) {
+                PGPROC *memberProc;
+
+                memberProc = dlist_container(PGPROC, lockGroupLink, iter.cur);
+                GetSingleProcBlockerStatusData(memberProc, data);
+            }
+        }
+
+        // Release partition locks in reverse order
+        for (i = NUM_LOCK_PARTITIONS; --i >= 0;)
+            LWLockRelease(LockHashPartitionLockByIndex(i));
+    }
+
+    LWLockRelease(ProcArrayLock);
+    return data;
+}
+```

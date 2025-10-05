@@ -46,3 +46,19 @@ The function is marked as static inline for performance optimization, as it's fr
 - Uses InvalidTransactionId and InvalidXLogRecPtr constants for resetting transaction context
 - Part of the error reporting infrastructure cleanup for logical replication
 - Located in src/backend/replication/logical/worker.c:5049-5064
+
+## Simplified Source
+
+```c
+static inline void
+reset_apply_error_context_info(void)
+{
+    // Clear all error context information
+    apply_error_callback_arg.command = 0;
+    apply_error_callback_arg.rel = NULL;
+    apply_error_callback_arg.remote_attnum = -1;
+
+    // Reset transaction context with invalid values
+    set_apply_error_context_xact(InvalidTransactionId, InvalidXLogRecPtr);
+}
+```

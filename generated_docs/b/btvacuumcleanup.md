@@ -51,3 +51,39 @@ The function also addresses the challenge of posting list tuples in cleanup-only
 - Does not use vacuum cycle IDs for cleanup-only operations since no deletions occur
 - The function handles the difference between deleted pages and pages actually placed in the Free Space Map (FSM)
 - Cleanup-only scans are an optimization to avoid full index scans when no tuples need deletion
+
+## Simplified Source
+
+```c
+IndexBulkDeleteResult *btvacuumcleanup(IndexVacuumInfo *info,
+                                      IndexBulkDeleteResult *stats) {
+    BlockNumber num_delpages;
+
+    // No-op for analyze-only operations
+    if (info->analyze_only)
+        return stats;
+
+    // If btbulkdelete wasn't called, decide if cleanup scan is needed
+    if (stats == NULL) {
+        if (!_bt_vacuum_needs_cleanup(info->index))
+            return NULL;
+
+        // Perform cleanup-only scan (no deletions)
+        stats = (IndexBulkDeleteResult *) palloc0(sizeof(IndexBulkDeleteResult));
+        btvacuumscan(info, stats, NULL, NULL, 0);
+        stats->estimated_count = true;  // Mark as estimate due to posting lists
+    }
+
+    // Update metapage with deleted page count for future cleanup decisions
+    num_delpages = stats->pages_deleted - stats->pages_free;
+    _bt_set_cleanup_info(info->index, num_delpages);
+
+    // Correct potential overestimation from concurrent page splits
+    if (!info->estimated_count) {
+        if (stats->num_index_tuples > info->num_heap_tuples)
+            stats->num_index_tuples = info->num_heap_tuples;
+    }
+
+    return stats;
+}
+```

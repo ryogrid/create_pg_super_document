@@ -47,3 +47,50 @@ The function handles both valid configuration entries and lines with errors, ens
 - Maintains sequential map numbering only for successfully parsed entries (lines with errors don't increment the counter)
 - Part of PostgreSQL's Host-Based Authentication (HBA) system for identity mapping between system and database users
 - Located in src/backend/utils/adt/hbafuncs.c:521-573
+
+## Simplified Source
+
+```c
+static void
+fill_ident_view(Tuplestorestate *tuple_store, TupleDesc tupdesc)
+{
+    FILE *file;
+    List *ident_lines = NIL;
+    ListCell *line;
+    int map_number = 0;
+    MemoryContext identcxt, oldcxt;
+
+    // Open and tokenize identity mapping configuration file
+    file = open_auth_file(IdentFileName, ERROR, 0, NULL);
+    tokenize_auth_file(IdentFileName, file, &ident_lines, DEBUG3, 0);
+
+    // Create temporary memory context for parsing
+    identcxt = AllocSetContextCreate(CurrentMemoryContext,
+                                     "ident parser context",
+                                     ALLOCSET_SMALL_SIZES);
+    oldcxt = MemoryContextSwitchTo(identcxt);
+
+    // Process each line from the identity file
+    foreach(line, ident_lines)
+    {
+        TokenizedAuthLine *tok_line = (TokenizedAuthLine *) lfirst(line);
+        IdentLine *identline = NULL;
+
+        // Parse valid lines only
+        if (tok_line->err_msg == NULL) {
+            identline = parse_ident_line(tok_line, DEBUG3);
+            map_number++;  // Increment only for valid mappings
+        }
+
+        // Add line to tuplestore (both valid and invalid)
+        fill_ident_line(tuple_store, tupdesc, map_number,
+                        tok_line->file_name, tok_line->line_num,
+                        identline, tok_line->err_msg);
+    }
+
+    // Cleanup resources
+    free_auth_file(file, 0);
+    MemoryContextSwitchTo(oldcxt);
+    MemoryContextDelete(identcxt);
+}
+```

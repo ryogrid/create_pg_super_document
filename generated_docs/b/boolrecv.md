@@ -36,3 +36,20 @@ The `boolrecv` function serves as the binary input conversion function for Postg
 - Part of PostgreSQL's type system infrastructure for binary serialization/deserialization
 - The function signature follows PostgreSQL's V1 calling convention using PG_FUNCTION_ARGS
 - Complements `boolsend` function (not in target list) for complete binary I/O support
+
+## Simplified Source
+
+```c
+Datum
+boolrecv(PG_FUNCTION_ARGS)
+{
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    int ext;
+
+    // Read one byte from buffer
+    ext = pq_getmsgbyte(buf);
+
+    // Return true if non-zero, false if zero
+    PG_RETURN_BOOL(ext != 0);
+}
+```

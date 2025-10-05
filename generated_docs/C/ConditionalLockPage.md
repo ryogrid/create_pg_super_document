@@ -35,3 +35,20 @@ ConditionalLockPage is a non-blocking variant of LockPage that attempts to acqui
 - Uses the dontWait parameter (true) in LockAcquire to achieve non-blocking behavior
 - Checks the return value against LOCKACQUIRE_NOT_AVAIL to determine success/failure
 - Useful in scenarios where the caller can perform alternative actions if the lock is not immediately available
+
+## Simplified Source
+
+```c
+bool ConditionalLockPage(Relation relation, BlockNumber blkno, LOCKMODE lockmode) {
+    LOCKTAG tag;
+
+    // Set up page lock tag
+    SET_LOCKTAG_PAGE(tag,
+                     relation->rd_lockInfo.lockRelId.dbId,
+                     relation->rd_lockInfo.lockRelId.relId,
+                     blkno);
+
+    // Try to acquire page lock without waiting
+    return (LockAcquire(&tag, lockmode, false, true) != LOCKACQUIRE_NOT_AVAIL);
+}
+```

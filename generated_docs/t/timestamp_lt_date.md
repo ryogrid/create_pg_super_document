@@ -37,3 +37,16 @@ Note that the comparison logic checks if the result is > 0 because `date_cmp_tim
 - Part of the cross-type comparison functions for dates in PostgreSQL
 - The actual comparison logic is handled by `date_cmp_timestamp_internal()` which converts the date to timestamp format before comparison
 - Located in src/backend/utils/adt/date.c:925-933
+
+## Simplified Source
+
+```c
+Datum timestamp_lt_date(PG_FUNCTION_ARGS) {
+    // Extract timestamp and date arguments
+    Timestamp timestamp = PG_GETARG_TIMESTAMP(0);
+    DateADT date = PG_GETARG_DATEADT(1);
+
+    // Return true if timestamp < date (comparison result > 0)
+    return PG_RETURN_BOOL(date_cmp_timestamp_internal(date, timestamp) > 0);
+}
+```

@@ -43,3 +43,21 @@ The function is designed to be safe for use in error cleanup paths, as it does n
 - Directory removal is recursive, eliminating all files and subdirectories
 - Used primarily during process termination, error cleanup, and resource deallocation scenarios
 - Complements FileSetDelete for complete resource management - [FileSetDelete](FileSetDelete.md) handles individual files while FileSetDeleteAll handles bulk cleanup
+
+## Simplified Source
+
+```c
+void FileSetDeleteAll(FileSet *fileset)
+{
+    char dirpath[MAXPGPATH];
+
+    // Delete directories in each configured tablespace
+    for (int i = 0; i < fileset->ntablespaces; ++i) {
+        // Build the directory path for this tablespace
+        FileSetPath(dirpath, fileset, fileset->tablespaces[i]);
+
+        // Remove the entire directory tree (safe for error cleanup)
+        PathNameDeleteTemporaryDir(dirpath);
+    }
+}
+```

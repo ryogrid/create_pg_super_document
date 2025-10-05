@@ -40,3 +40,53 @@ The `make_date` function serves as a date constructor that creates a PostgreSQL 
 - Returns ERRCODE_DATETIME_FIELD_OVERFLOW for invalid field values
 - Returns ERRCODE_DATETIME_VALUE_OUT_OF_RANGE for dates outside PostgreSQL's supported range
 - The function follows PostgreSQL's standard function calling conventions
+
+## Simplified Source
+
+```c
+Datum make_date(PG_FUNCTION_ARGS)
+{
+    struct pg_tm tm;
+    DateADT date;
+    int dterr;
+    bool bc = false;
+
+    // Extract year, month, day arguments
+    tm.tm_year = PG_GETARG_INT32(0);
+    tm.tm_mon = PG_GETARG_INT32(1);
+    tm.tm_mday = PG_GETARG_INT32(2);
+
+    // Handle negative years as BC dates
+    if (tm.tm_year < 0) {
+        bc = true;
+        tm.tm_year = -tm.tm_year;
+    }
+
+    // Validate date field values
+    dterr = ValidateDate(DTK_DATE_M, false, false, bc, &tm);
+    if (dterr != 0)
+        ereport(ERROR,
+                (errcode(ERRCODE_DATETIME_FIELD_OVERFLOW),
+                 errmsg("date field value out of range: %d-%02d-%02d",
+                        tm.tm_year, tm.tm_mon, tm.tm_mday)));
+
+    // Check Julian date validity to prevent overflow
+    if (!IS_VALID_JULIAN(tm.tm_year, tm.tm_mon, tm.tm_mday))
+        ereport(ERROR,
+                (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                 errmsg("date out of range: %d-%02d-%02d",
+                        tm.tm_year, tm.tm_mon, tm.tm_mday)));
+
+    // Convert to internal date format (days since PostgreSQL epoch)
+    date = date2j(tm.tm_year, tm.tm_mon, tm.tm_mday) - POSTGRES_EPOCH_JDATE;
+
+    // Final range validation
+    if (!IS_VALID_DATE(date))
+        ereport(ERROR,
+                (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                 errmsg("date out of range: %d-%02d-%02d",
+                        tm.tm_year, tm.tm_mon, tm.tm_mday)));
+
+    PG_RETURN_DATEADT(date);
+}
+```

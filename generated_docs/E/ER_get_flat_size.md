@@ -41,3 +41,78 @@ The function operates in a short-lived memory context to avoid memory leaks duri
 - Ensures composite datums contain no out-of-line values by detoasting external references
 - Uses MAXALIGN to ensure proper data alignment in the flattened representation
 - Part of PostgreSQL's expanded object system for efficient handling of complex data types
+
+## Simplified Source
+
+```c
+static Size
+ER_get_flat_size(ExpandedObjectHeader *eohptr)
+{
+    ExpandedRecordHeader *erh = (ExpandedRecordHeader *) eohptr;
+    TupleDesc tupdesc;
+    Size len, data_len;
+    int hoff;
+    bool hasnull;
+
+    Assert(erh->er_magic == ER_MAGIC);
+
+    // Ensure RECORD types have proper typmod
+    if (erh->er_typeid == RECORDOID && erh->er_typmod < 0) {
+        tupdesc = expanded_record_get_tupdesc(erh);
+        assign_record_type_typmod(tupdesc);
+        erh->er_typmod = tupdesc->tdtypmod;
+    }
+
+    // Fast path: valid flattened value without external fields
+    if (erh->flags & ER_FLAG_FVALUE_VALID && !(erh->flags & ER_FLAG_HAVE_EXTERNAL))
+        return erh->fvalue->t_len;
+
+    // Return cached size if available
+    if (erh->flat_size)
+        return erh->flat_size;
+
+    // Ensure deconstructed representation exists
+    if (!(erh->flags & ER_FLAG_DVALUES_VALID))
+        deconstruct_expanded_record(erh);
+
+    tupdesc = erh->er_tupdesc;
+
+    // Detoast any external field values
+    if (erh->flags & ER_FLAG_HAVE_EXTERNAL) {
+        for (int i = 0; i < erh->nfields; i++) {
+            Form_pg_attribute attr = TupleDescAttr(tupdesc, i);
+            if (!erh->dnulls[i] && !attr->attbyval && attr->attlen == -1 &&
+                VARATT_IS_EXTERNAL(DatumGetPointer(erh->dvalues[i]))) {
+                expanded_record_set_field_internal(erh, i + 1, erh->dvalues[i],
+                                                  false, true, false);
+            }
+        }
+        erh->flags &= ~ER_FLAG_HAVE_EXTERNAL;
+    }
+
+    // Check for null values
+    hasnull = false;
+    for (int i = 0; i < erh->nfields; i++) {
+        if (erh->dnulls[i]) {
+            hasnull = true;
+            break;
+        }
+    }
+
+    // Calculate total space needed
+    len = offsetof(HeapTupleHeaderData, t_bits);
+    if (hasnull)
+        len += BITMAPLEN(tupdesc->natts);
+    hoff = len = MAXALIGN(len);
+    data_len = heap_compute_data_size(tupdesc, erh->dvalues, erh->dnulls);
+    len += data_len;
+
+    // Cache results
+    erh->flat_size = len;
+    erh->data_len = data_len;
+    erh->hoff = hoff;
+    erh->hasnull = hasnull;
+
+    return len;
+}
+```

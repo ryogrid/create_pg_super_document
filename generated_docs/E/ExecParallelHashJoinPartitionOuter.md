@@ -49,3 +49,53 @@ This partitioning strategy allows parallel hash join workers to process their as
 - Includes interrupt checking (CHECK_FOR_INTERRUPTS) to allow for query cancellation during long-running operations
 - The sts_end_write calls ensure that all parallel workers can read from the outer partition tuplestores
 - Essential for parallel hash join performance as it enables work distribution across multiple processes
+
+## Simplified Source
+
+```c
+static void
+ExecParallelHashJoinPartitionOuter(HashJoinState *hjstate)
+{
+    PlanState *outerState = outerPlanState(hjstate);
+    ExprContext *econtext = hjstate->js.ps.ps_ExprContext;
+    HashJoinTable hashtable = hjstate->hj_HashTable;
+    TupleTableSlot *slot;
+    uint32 hashvalue;
+    int i;
+
+    Assert(hjstate->hj_FirstOuterTupleSlot == NULL);
+
+    // Read all outer tuples and partition them by hash value
+    for (;;) {
+        slot = ExecProcNode(outerState);
+        if (TupIsNull(slot))
+            break;
+
+        // Set up expression context and compute hash value
+        econtext->ecxt_outertuple = slot;
+        if (ExecHashGetHashValue(hashtable, econtext,
+                               hjstate->hj_OuterHashKeys,
+                               true, HJ_FILL_OUTER(hjstate),
+                               &hashvalue)) {
+            int batchno, bucketno;
+            bool shouldFree;
+            MinimalTuple mintup = ExecFetchSlotMinimalTuple(slot, &shouldFree);
+
+            // Determine target batch and store tuple
+            ExecHashGetBucketAndBatch(hashtable, hashvalue, &bucketno, &batchno);
+            sts_puttuple(hashtable->batches[batchno].outer_tuples,
+                        &hashvalue, mintup);
+
+            // Clean up minimal tuple if it was allocated
+            if (shouldFree)
+                heap_free_minimal_tuple(mintup);
+        }
+
+        CHECK_FOR_INTERRUPTS();
+    }
+
+    // Finalize all outer partition tuplestores for parallel reading
+    for (i = 0; i < hashtable->nbatch; ++i)
+        sts_end_write(hashtable->batches[i].outer_tuples);
+}
+```

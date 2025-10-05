@@ -41,3 +41,26 @@ The lookup process follows this hierarchy:
 - The function prioritizes standard SQL keywords over ECPG-specific keywords in the lookup order
 - Uses case-folding rules consistent with PostgreSQL backend for keyword matching
 - The ECPGScanKeywordTokens array is generated from ecpg_kwlist.h using preprocessor macros
+
+## Simplified Source
+
+```c
+int
+ScanECPGKeywordLookup(const char *text)
+{
+    int kwnum;
+
+    // First check standard SQL keywords from backend
+    kwnum = ScanKeywordLookup(text, &ScanKeywords);
+    if (kwnum >= 0)
+        return SQLScanKeywordTokens[kwnum];
+
+    // Then check ECPG-specific keywords
+    kwnum = ScanKeywordLookup(text, &ScanECPGKeywords);
+    if (kwnum >= 0)
+        return ECPGScanKeywordTokens[kwnum];
+
+    // Not a keyword
+    return -1;
+}
+```

@@ -42,3 +42,58 @@ This function manages the dynamic tracking of subtransactions during logical rep
 - The function stores both file number and offset using BufFileTell for precise positioning
 - Contains a TODO comment suggesting binary search optimization if XIDs arrive in sorted order
 - Array scanning is intentionally done in reverse order since recent subtransactions are more likely to be accessed again
+
+## Simplified Source
+
+```c
+static void subxact_info_add(TransactionId xid) {
+    SubXactInfo *subxacts = subxact_data.subxacts;
+    int64 i;
+
+    Assert(TransactionIdIsValid(stream_xid));
+    Assert(stream_fd != NULL);
+
+    // Skip toplevel transaction
+    if (stream_xid == xid)
+        return;
+
+    // Skip if we already processed this XID recently
+    if (subxact_data.subxact_last == xid)
+        return;
+
+    // Remember this XID as last processed
+    subxact_data.subxact_last = xid;
+
+    // Check if transaction already exists (scan from tail for efficiency)
+    for (i = subxact_data.nsubxacts; i > 0; i--) {
+        if (subxacts[i - 1].xid == xid)
+            return; // Already exists
+    }
+
+    // New subxact - ensure we have space in array
+    if (subxact_data.nsubxacts == 0) {
+        // Initial allocation
+        MemoryContext oldctx;
+        subxact_data.nsubxacts_max = 128;
+
+        oldctx = MemoryContextSwitchTo(LogicalStreamingContext);
+        subxacts = palloc(subxact_data.nsubxacts_max * sizeof(SubXactInfo));
+        MemoryContextSwitchTo(oldctx);
+    } else if (subxact_data.nsubxacts == subxact_data.nsubxacts_max) {
+        // Double the array size
+        subxact_data.nsubxacts_max *= 2;
+        subxacts = repalloc(subxacts, subxact_data.nsubxacts_max * sizeof(SubXactInfo));
+    }
+
+    // Add new subtransaction info
+    subxacts[subxact_data.nsubxacts].xid = xid;
+
+    // Record current position in stream file
+    BufFileTell(stream_fd,
+                &subxacts[subxact_data.nsubxacts].fileno,
+                &subxacts[subxact_data.nsubxacts].offset);
+
+    subxact_data.nsubxacts++;
+    subxact_data.subxacts = subxacts;
+}
+```

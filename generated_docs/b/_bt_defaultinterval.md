@@ -36,3 +36,41 @@ The function follows the "Prefix B-Trees" paper methodology, where the split int
 - Returns the number of split points that fall within acceptable balance tolerances
 - The split interval concept helps reduce tuple sizes on higher index levels without significantly affecting space utilization
 - Implementation may need adjustment if suffix truncation is extended to truncate within individual attributes/datums
+
+## Simplified Source
+```c
+static int
+_bt_defaultinterval(FindSplitData *state)
+{
+    SplitPoint *spaceoptimal = state->splits;  // First split is most balanced
+    int16 tolerance;
+
+    // Calculate tolerance based on page type
+    // Leaf pages: ~10% of splits for uniform tuples (less aggressive)
+    // Internal pages: more aggressive filtering
+    if (state->is_leaf)
+        tolerance = state->olddataitemstotal * LEAF_SPLIT_DISTANCE;
+    else
+        tolerance = state->olddataitemstotal * INTERNAL_SPLIT_DISTANCE;
+
+    // Define acceptable range around the optimal split point
+    int16 lowleftfree = spaceoptimal->leftfree - tolerance;
+    int16 lowrightfree = spaceoptimal->rightfree - tolerance;
+    int16 highleftfree = spaceoptimal->leftfree + tolerance;
+    int16 highrightfree = spaceoptimal->rightfree + tolerance;
+
+    // Find first split point that falls outside acceptable balance range
+    for (int i = 1; i < state->nsplits; i++) {
+        SplitPoint *split = state->splits + i;
+
+        // Check if split divides free space too unevenly
+        if (split->leftfree < lowleftfree || split->rightfree < lowrightfree ||
+            split->leftfree > highleftfree || split->rightfree > highrightfree) {
+            return i;  // Return interval size (excludes this and later splits)
+        }
+    }
+
+    // All splits are within tolerance
+    return state->nsplits;
+}
+```

@@ -48,3 +48,61 @@ This function is typically called during the replay of lock operations that occu
 - **Visibility Map Handling**: Maintains consistency with visibility maps when locks affect tuple frozen status
 - **Recovery Safety**: Includes PANIC-level validation to ensure data consistency during WAL replay
 - **Transaction Coordination**: Properly records the locking transaction in xmax for proper concurrency control reconstruction
+
+## Simplified Source
+
+```c
+static void heap_xlog_lock_updated(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_heap_lock_updated *xlrec = (xl_heap_lock_updated *) XLogRecGetData(record);
+    Buffer buffer;
+    Page page;
+    HeapTupleHeader htup;
+
+    // Clear visibility map if all-frozen flag was cleared during lock
+    if (xlrec->flags & XLH_LOCK_ALL_FROZEN_CLEARED) {
+        RelFileLocator rlocator;
+        Buffer vmbuffer = InvalidBuffer;
+        BlockNumber block;
+        Relation reln;
+
+        XLogRecGetBlockTag(record, 0, &rlocator, NULL, &block);
+        reln = CreateFakeRelcacheEntry(rlocator);
+
+        // Update visibility map to clear frozen status
+        visibilitymap_pin(reln, block, &vmbuffer);
+        visibilitymap_clear(reln, block, vmbuffer, VISIBILITYMAP_ALL_FROZEN);
+
+        ReleaseBuffer(vmbuffer);
+        FreeFakeRelcacheEntry(reln);
+    }
+
+    // Apply lock information to the tuple if redo is needed
+    if (XLogReadBufferForRedo(record, 0, &buffer) == BLK_NEEDS_REDO) {
+        page = BufferGetPage(buffer);
+
+        // Locate the target tuple
+        OffsetNumber offnum = xlrec->offnum;
+        ItemId lp = PageGetItemId(page, offnum);
+
+        if (PageGetMaxOffsetNumber(page) < offnum || !ItemIdIsNormal(lp))
+            elog(PANIC, "invalid lp");
+
+        htup = (HeapTupleHeader) PageGetItem(page, lp);
+
+        // Update tuple header with lock information
+        htup->t_infomask &= ~(HEAP_XMAX_BITS | HEAP_MOVED);
+        htup->t_infomask2 &= ~HEAP_KEYS_UPDATED;
+        fix_infomask_from_infobits(xlrec->infobits_set, &htup->t_infomask, &htup->t_infomask2);
+        HeapTupleHeaderSetXmax(htup, xlrec->xmax);
+
+        // Mark page as modified
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+}
+```

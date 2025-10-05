@@ -55,3 +55,57 @@ The function handles incomplete lines gracefully, setting unfound fields to empt
 - Compatible with both MySpell and Hunspell affix file formats
 - Error handling includes logging for unexpected parser states
 - Relies on get_nextfield for actual field extraction and whitespace handling
+
+## Simplified Source
+
+```c
+static int
+parse_ooaffentry(char *str, char *type, char *flag, char *find,
+                 char *repl, char *mask)
+{
+    int state = PAE_WAIT_TYPE;
+    int fields_read = 0;
+    bool valid = false;
+
+    // Initialize all output fields to empty
+    *type = *flag = *find = *repl = *mask = '\0';
+
+    while (*str) {
+        switch (state) {
+            case PAE_WAIT_TYPE:
+                valid = get_nextfield(&str, type);
+                state = PAE_WAIT_FLAG;
+                break;
+            case PAE_WAIT_FLAG:
+                valid = get_nextfield(&str, flag);
+                state = PAE_WAIT_FIND;
+                break;
+            case PAE_WAIT_FIND:
+                valid = get_nextfield(&str, find);
+                state = PAE_WAIT_REPL;
+                break;
+            case PAE_WAIT_REPL:
+                valid = get_nextfield(&str, repl);
+                state = PAE_WAIT_MASK;
+                break;
+            case PAE_WAIT_MASK:
+                valid = get_nextfield(&str, mask);
+                state = -1;  // Force loop exit after this field
+                break;
+            default:
+                elog(ERROR, "unrecognized state in parse_ooaffentry: %d", state);
+                break;
+        }
+
+        if (valid)
+            fields_read++;
+        else
+            break;  // Field extraction failed - stop parsing
+
+        if (state < 0)
+            break;  // Got all possible fields
+    }
+
+    return fields_read;  // Number of successfully parsed fields
+}
+```

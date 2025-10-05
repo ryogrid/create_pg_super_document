@@ -44,3 +44,13 @@ This is one of the simplest geometric containment algorithms, requiring only fou
 - Often used as a preliminary filter in spatial operations before more expensive geometric tests
 - Part of PostgreSQL's geometric operations infrastructure, particularly important for bounding box operations
 - The inclusive boundary behavior is important for spatial queries and geometric consistency
+
+## Simplified Source
+
+```c
+static bool box_contain_point(BOX *box, Point *point) {
+    // Check if point coordinates are within box bounds (inclusive)
+    return box->high.x >= point->x && box->low.x <= point->x &&
+           box->high.y >= point->y && box->low.y <= point->y;
+}
+```

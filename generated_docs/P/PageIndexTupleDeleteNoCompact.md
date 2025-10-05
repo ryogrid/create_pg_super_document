@@ -48,3 +48,57 @@ This approach trades some space efficiency for TID stability, which is crucial f
 - Includes comprehensive page corruption validation
 - More space-wasteful than compact deletion but necessary for TID-sensitive operations
 - Line pointers marked as unused can potentially be reused for future insertions
+
+## Simplified Source
+
+```c
+void PageIndexTupleDeleteNoCompact(Page page, OffsetNumber offnum) {
+    PageHeader phdr = (PageHeader) page;
+
+    // Validate page structure
+    if (phdr->pd_lower < SizeOfPageHeaderData ||
+        phdr->pd_lower > phdr->pd_upper ||
+        phdr->pd_upper > phdr->pd_special) {
+        ereport(ERROR, "corrupted page pointers");
+    }
+
+    int nline = PageGetMaxOffsetNumber(page);
+    if (offnum <= 0 || offnum > nline) {
+        elog(ERROR, "invalid index offnum: %u", offnum);
+    }
+
+    // Get tuple information
+    ItemId tup = PageGetItemId(page, offnum);
+    Size size = MAXALIGN(ItemIdGetLength(tup));
+    unsigned offset = ItemIdGetOffset(tup);
+
+    // Handle line pointer: mark unused or remove if last
+    if (offnum < nline) {
+        ItemIdSetUnused(tup); // Mark as unused to preserve TIDs
+    } else {
+        phdr->pd_lower -= sizeof(ItemIdData); // Safe to remove last pointer
+        nline--;
+    }
+
+    // Move tuple data to reclaim space
+    char *tuple_space_start = (char *) page + phdr->pd_upper;
+    if (offset > phdr->pd_upper) {
+        memmove(tuple_space_start + size,
+                tuple_space_start,
+                offset - phdr->pd_upper);
+    }
+
+    // Update page boundary
+    phdr->pd_upper += size;
+
+    // Adjust remaining line pointer offsets
+    if (!PageIsEmpty(page)) {
+        for (int i = 1; i <= nline; i++) {
+            ItemId item = PageGetItemId(page, i);
+            if (ItemIdHasStorage(item) && ItemIdGetOffset(item) <= offset) {
+                item->lp_off += size;
+            }
+        }
+    }
+}
+```

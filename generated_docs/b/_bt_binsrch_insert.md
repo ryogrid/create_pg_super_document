@@ -50,3 +50,82 @@ Key features and behaviors:
 8. **Edge case handling**: Properly handles empty pages and out-of-bounds results
 
 The cached bounds approach is particularly beneficial during operations that perform multiple searches on the same page, such as uniqueness checking or complex insertion positioning. Callers are responsible for invalidating bounds when they modify the page structure.
+
+## Simplified Source
+
+```c
+OffsetNumber
+_bt_binsrch_insert(Relation rel, BTInsertState insertstate)
+{
+    BTScanInsert key = insertstate->itup_key;
+    Page page;
+    BTPageOpaque opaque;
+    OffsetNumber low, high, stricthigh;
+    int32 result, cmpval;
+
+    page = BufferGetPage(insertstate->buf);
+    opaque = BTPageGetOpaque(page);
+
+    // Use cached bounds if available, otherwise start fresh
+    if (!insertstate->bounds_valid)
+    {
+        low = P_FIRSTDATAKEY(opaque);
+        high = PageGetMaxOffsetNumber(page);
+    }
+    else
+    {
+        low = insertstate->low;
+        high = insertstate->stricthigh;
+    }
+
+    // Handle empty page case
+    if (unlikely(high < low))
+    {
+        insertstate->low = InvalidOffsetNumber;
+        insertstate->stricthigh = InvalidOffsetNumber;
+        insertstate->bounds_valid = false;
+        return low;
+    }
+
+    // Set up binary search parameters
+    if (!insertstate->bounds_valid)
+        high++; // establish loop invariant for high
+    stricthigh = high;
+    cmpval = 1; // always searching for >= key in insert
+
+    // Binary search loop
+    while (high > low)
+    {
+        OffsetNumber mid = low + ((high - low) / 2);
+
+        result = _bt_compare(rel, key, page, mid);
+
+        if (result >= cmpval)
+            low = mid + 1;
+        else
+        {
+            high = mid;
+            if (result != 0)
+                stricthigh = high;
+        }
+
+        // Handle posting list case when exact match found
+        if (unlikely(result == 0 && key->scantid != NULL))
+        {
+            // Check for duplicate TIDs (should never happen)
+            if (insertstate->postingoff != 0)
+                ereport(ERROR, (errcode(ERRCODE_INDEX_CORRUPTED),
+                    errmsg_internal("duplicate table tid detected in index")));
+
+            insertstate->postingoff = _bt_binsrch_posting(key, page, mid);
+        }
+    }
+
+    // Cache the search bounds for potential reuse
+    insertstate->low = low;
+    insertstate->stricthigh = stricthigh;
+    insertstate->bounds_valid = true;
+
+    return low;
+}
+```

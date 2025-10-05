@@ -47,3 +47,42 @@ The `mdopenfork` function is responsible for opening the first segment (segment 
 - Includes assertion to verify the segment doesn't exceed RELSEG_SIZE
 - Part of PostgreSQL's storage manager layer, providing the foundation for all file-based relation operations
 - The function manages the md_seg_fds array and md_num_open_segs counter in the SMgrRelation structure
+
+## Simplified Source
+
+```c
+static MdfdVec *
+mdopenfork(SMgrRelation reln, ForkNumber forknum, int behavior)
+{
+    MdfdVec *mdfd;
+    char *path;
+    File fd;
+
+    // Return existing open segment if already available
+    if (reln->md_num_open_segs[forknum] > 0)
+        return &reln->md_seg_fds[forknum][0];
+
+    // Construct file path and open the first segment
+    path = relpath(reln->smgr_rlocator, forknum);
+    fd = PathNameOpenFile(path, _mdfd_open_flags());
+
+    // Handle file open failure
+    if (fd < 0) {
+        if ((behavior & EXTENSION_RETURN_NULL) && FILE_POSSIBLY_DELETED(errno)) {
+            pfree(path);
+            return NULL;
+        }
+        ereport(ERROR, "could not open file \"%s\": %m", path);
+    }
+
+    pfree(path);
+
+    // Initialize the file descriptor vector and MdfdVec structure
+    _fdvec_resize(reln, forknum, 1);
+    mdfd = &reln->md_seg_fds[forknum][0];
+    mdfd->mdfd_vfd = fd;
+    mdfd->mdfd_segno = 0;
+
+    return mdfd;
+}
+```

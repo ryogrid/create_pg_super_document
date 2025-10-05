@@ -43,3 +43,73 @@ The function handles proper memory management by copying non-by-value fields int
 - Automatically handles domain constraint checking if the record represents a domain type
 - Sets ER_FLAG_DVALUES_ALLOCED when allocating memory for non-by-value fields
 - Invalidates flattened representation (ER_FLAG_FVALUE_VALID) since fields have changed
+
+## Simplified Source
+
+```c
+void expanded_record_set_fields(ExpandedRecordHeader *erh,
+                               const Datum *newValues, const bool *isnulls,
+                               bool expand_external)
+{
+    // Ensure record is deconstructed
+    if (!(erh->flags & ER_FLAG_DVALUES_VALID))
+        deconstruct_expanded_record(erh);
+
+    TupleDesc tupdesc = erh->er_tupdesc;
+
+    // Invalidate flattened representation
+    erh->flags &= ~ER_FLAG_FVALUE_VALID;
+    erh->flat_size = 0;
+
+    MemoryContext oldcxt = MemoryContextSwitchTo(erh->hdr.eoh_context);
+
+    // Process each field
+    for (int fnumber = 0; fnumber < erh->nfields; fnumber++) {
+        Form_pg_attribute attr = TupleDescAttr(tupdesc, fnumber);
+
+        if (attr->attisdropped)
+            continue;
+
+        Datum newValue = newValues[fnumber];
+        bool isnull = isnulls[fnumber];
+
+        // Handle non-byval values
+        if (!attr->attbyval && !isnull) {
+            // Handle external values
+            if (attr->attlen == -1 && VARATT_IS_EXTERNAL(DatumGetPointer(newValue))) {
+                if (expand_external) {
+                    newValue = PointerGetDatum(detoast_external_attr((struct varlena *) DatumGetPointer(newValue)));
+                } else {
+                    newValue = datumCopy(newValue, false, -1);
+                    if (VARATT_IS_EXTERNAL(DatumGetPointer(newValue)))
+                        erh->flags |= ER_FLAG_HAVE_EXTERNAL;
+                }
+            } else {
+                newValue = datumCopy(newValue, false, attr->attlen);
+            }
+            erh->flags |= ER_FLAG_DVALUES_ALLOCED;
+
+            // Free old value if present
+            if (!erh->dnulls[fnumber]) {
+                char *oldValue = (char *) DatumGetPointer(erh->dvalues[fnumber]);
+                if (oldValue < erh->fstartptr || oldValue >= erh->fendptr)
+                    pfree(oldValue);
+            }
+        }
+
+        // Set new field value
+        erh->dvalues[fnumber] = newValue;
+        erh->dnulls[fnumber] = isnull;
+    }
+
+    // Check domain constraints if needed
+    if (erh->flags & ER_FLAG_IS_DOMAIN) {
+        MemoryContextSwitchTo(get_short_term_cxt(erh));
+        domain_check(ExpandedRecordGetRODatum(erh), false,
+                    erh->er_decltypeid, &erh->er_domaininfo,
+                    erh->hdr.eoh_context);
+    }
+
+    MemoryContextSwitchTo(oldcxt);
+}
+```

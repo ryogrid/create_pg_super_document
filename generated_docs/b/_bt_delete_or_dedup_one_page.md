@@ -50,3 +50,59 @@ The function maintains several optimization hints and conditions to determine wh
 - BTP_HAS_GARBAGE flag cleanup is deferred to avoid unnecessary writes
 - Returns early when sufficient space is freed to avoid unnecessary work
 - Balances scan overhead against split avoidance benefits
+
+## Simplified Source
+
+```c
+static void
+_bt_delete_or_dedup_one_page(Relation rel, Relation heapRel, BTInsertState insertstate,
+                            bool simpleonly, bool checkingunique, bool uniquedup, bool indexUnchanged)
+{
+    OffsetNumber deletable[MaxIndexTuplesPerPage];
+    int ndeletable = 0;
+    Buffer buffer = insertstate->buf;
+    Page page = BufferGetPage(buffer);
+    BTPageOpaque opaque = BTPageGetOpaque(page);
+    OffsetNumber minoff, maxoff;
+
+    // Phase 1: Simple deletion - scan for LP_DEAD marked items
+    minoff = P_FIRSTDATAKEY(opaque);
+    maxoff = PageGetMaxOffsetNumber(page);
+
+    for (OffsetNumber offnum = minoff; offnum <= maxoff; offnum++) {
+        ItemId itemId = PageGetItemId(page, offnum);
+        if (ItemIdIsDead(itemId))
+            deletable[ndeletable++] = offnum;
+    }
+
+    // Perform simple deletion if we found dead items
+    if (ndeletable > 0) {
+        _bt_simpledel_pass(rel, buffer, heapRel, deletable, ndeletable,
+                          insertstate->itup, minoff, maxoff);
+        insertstate->bounds_valid = false;
+
+        // Return if we freed enough space
+        if (PageGetFreeSpace(page) >= insertstate->itemsz)
+            return;
+
+        uniquedup = true;  // Assume duplicates exist now
+    }
+
+    // Return early if only simple deletion was requested
+    if (simpleonly || (checkingunique && !uniquedup))
+        return;
+
+    insertstate->bounds_valid = false;
+
+    // Phase 2: Bottom-up deletion for unchanged items or known duplicates
+    if ((indexUnchanged || uniquedup) &&
+        _bt_bottomupdel_pass(rel, buffer, heapRel, insertstate->itemsz))
+        return;
+
+    // Phase 3: Deduplication as last resort
+    if (BTGetDeduplicateItems(rel) && insertstate->itup_key->allequalimage) {
+        _bt_dedup_pass(rel, buffer, insertstate->itup, insertstate->itemsz,
+                      (indexUnchanged || uniquedup));
+    }
+}
+```

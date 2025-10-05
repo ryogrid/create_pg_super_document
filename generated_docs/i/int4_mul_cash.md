@@ -35,3 +35,16 @@ The function follows PostgreSQL's standard function calling convention and ensur
 - Delegates to the same `cash_mul_int64` helper as `cash_mul_int4`, ensuring consistent behavior regardless of operand order
 - Part of PostgreSQL's comprehensive monetary arithmetic type system
 - The parameter order differs from `cash_mul_int4` but the internal implementation uses the same multiplication logic
+
+## Simplified Source
+
+```c
+Datum int4_mul_cash(PG_FUNCTION_ARGS) {
+    // Extract int4 multiplier and cash value from arguments
+    int32 i = PG_GETARG_INT32(0);
+    Cash c = PG_GETARG_CASH(1);
+
+    // Delegate to 64-bit multiplication helper for safe arithmetic
+    PG_RETURN_CASH(cash_mul_int64(c, (int64) i));
+}
+```

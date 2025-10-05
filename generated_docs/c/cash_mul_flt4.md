@@ -32,3 +32,16 @@ This function implements the PostgreSQL SQL operator for multiplying a money amo
 - Provides support for single precision floating-point multiplication with money values
 - Uses the same underlying logic and error handling as cash_mul_flt8
 - Part of PostgreSQL's money data type implementation in src/backend/utils/adt/cash.c
+
+## Simplified Source
+
+```c
+// Multiply cash by single precision float
+Datum cash_mul_flt4(PG_FUNCTION_ARGS) {
+    Cash cash_value = PG_GETARG_CASH(0);
+    float4 multiplier = PG_GETARG_FLOAT4(1);
+
+    // Convert float4 to float8 and delegate to common implementation
+    PG_RETURN_CASH(cash_mul_float8(cash_value, (float8) multiplier));
+}
+```

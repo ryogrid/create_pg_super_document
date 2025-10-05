@@ -51,3 +51,49 @@ The function is essential for ensuring that index operations use the correct alg
 - Empty indexes (no root) still provide version information for proper operation
 - Caching strategy balances performance with correctness across version upgrades
 - The function is located in src/backend/access/nbtree/nbtpage.c:739-796
+
+## Simplified Source
+
+```c
+void _bt_metaversion(Relation rel, bool *heapkeyspace, bool *allequalimage) {
+    BTMetaPageData *metad;
+
+    // Use cached metadata if available
+    if (rel->rd_amcache == NULL) {
+        Buffer metabuf;
+
+        // Read metadata page
+        metabuf = _bt_getbuf(rel, BTREE_METAPAGE, BT_READ);
+        metad = _bt_getmeta(rel, metabuf);
+
+        // Handle empty index (no root page yet)
+        if (metad->btm_root == P_NONE) {
+            *heapkeyspace = metad->btm_version > BTREE_NOVAC_VERSION;
+            *allequalimage = metad->btm_allequalimage;
+            _bt_relbuf(rel, metabuf);
+            return;
+        }
+
+        // Cache metadata for future use
+        rel->rd_amcache = MemoryContextAlloc(rel->rd_indexcxt,
+                                           sizeof(BTMetaPageData));
+        memcpy(rel->rd_amcache, metad, sizeof(BTMetaPageData));
+        _bt_relbuf(rel, metabuf);
+    }
+
+    // Use cached metadata
+    metad = (BTMetaPageData *) rel->rd_amcache;
+
+    // Validate cached metadata
+    Assert(metad->btm_magic == BTREE_MAGIC);
+    Assert(metad->btm_version >= BTREE_MIN_VERSION);
+    Assert(metad->btm_version <= BTREE_VERSION);
+    Assert(!metad->btm_allequalimage ||
+           metad->btm_version > BTREE_NOVAC_VERSION);
+    Assert(metad->btm_fastroot != P_NONE);
+
+    // Set output parameters based on metadata
+    *heapkeyspace = metad->btm_version > BTREE_NOVAC_VERSION;
+    *allequalimage = metad->btm_allequalimage;
+}
+```

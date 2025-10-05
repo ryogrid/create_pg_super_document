@@ -35,8 +35,33 @@ This cleanup is essential for proper resource management in parallel hash joins,
 ## Notes and Other Information
 - This is a static function internal to nodeHash.c for parallel hash join cleanup
 - Must be called before reallocating batch accessors or ending hash join operations
-- Ensures proper cleanup of both inner and outer tuplestore resources for all batches  
+- Ensures proper cleanup of both inner and outer tuplestore resources for all batches
 - Sets hashtable->batches to NULL after cleanup to prevent accidental reuse
 - Critical for preventing file descriptor leaks in parallel hash join operations
 - The function handles cleanup for the local backend's accessor array, not the shared batch structures
 - Should be paired with ExecParallelHashJoinSetUpBatches() or ExecParallelHashEnsureBatchAccessors() calls
+
+## Simplified Source
+
+```c
+static void
+ExecParallelHashCloseBatchAccessors(HashJoinTable hashtable)
+{
+    int i;
+
+    // Close all tuplestore operations for each batch
+    for (i = 0; i < hashtable->nbatch; ++i) {
+        // End write operations on both inner and outer tuplestores
+        sts_end_write(hashtable->batches[i].inner_tuples);
+        sts_end_write(hashtable->batches[i].outer_tuples);
+
+        // End parallel scan operations
+        sts_end_parallel_scan(hashtable->batches[i].inner_tuples);
+        sts_end_parallel_scan(hashtable->batches[i].outer_tuples);
+    }
+
+    // Clean up batch accessor array
+    pfree(hashtable->batches);
+    hashtable->batches = NULL;
+}
+```

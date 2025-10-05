@@ -35,3 +35,14 @@ This represents the "strict" variant of the SQL json_object_agg function that fi
 - Returns Datum as required by PostgreSQL's function interface
 - Allows duplicate keys but excludes entries with null values from the resulting JSON object
 - Provides SQL standard compliant "ABSENT ON NULL" semantics for JSON object aggregation
+
+## Simplified Source
+
+```c
+Datum
+json_object_agg_strict_transfn(PG_FUNCTION_ARGS)
+{
+    // Strict json_object_agg: allow duplicates, exclude nulls
+    return json_object_agg_transfn_worker(fcinfo, true, false);
+}
+```

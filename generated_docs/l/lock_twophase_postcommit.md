@@ -321,3 +321,27 @@ Text creation and manipulation
 - The function is designed to be robust and handle cleanup even in error scenarios.
 - Lock release is performed using the same lock mode that was originally acquired, as recorded in the 2PC record.
 - This function has a counterpart lock_twophase_postabort that handles the abort case but reuses much of the same logic.
+
+## Simplified Source
+
+```c
+void
+lock_twophase_postcommit(TransactionId xid, uint16 info,
+                         void *recdata, uint32 len)
+{
+    TwoPhaseLockRecord *rec = (TwoPhaseLockRecord *) recdata;
+    PGPROC *proc = TwoPhaseGetDummyProc(xid, true);
+    LOCKTAG *locktag = &rec->locktag;
+    LOCKMETHODID lockmethodid = locktag->locktag_lockmethodid;
+
+    Assert(len == sizeof(TwoPhaseLockRecord));
+
+    // Validate lock method and get method table
+    if (lockmethodid <= 0 || lockmethodid >= lengthof(LockMethods))
+        elog(ERROR, "unrecognized lock method: %d", lockmethodid);
+    LockMethod lockMethodTable = LockMethods[lockmethodid];
+
+    // Find and release the lock indicated by the 2PC record
+    LockRefindAndRelease(lockMethodTable, proc, locktag, rec->lockmode, true);
+}
+```

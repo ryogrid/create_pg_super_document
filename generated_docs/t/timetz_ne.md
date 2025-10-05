@@ -42,3 +42,15 @@ The inequality test considers both the time component and timezone component, so
 - Part of PostgreSQL's operator function framework for the timetz data type
 - The function signature follows PostgreSQL's standard function calling convention
 - Logically opposite of timetz_eq function
+
+## Simplified Source
+
+```c
+Datum timetz_ne(PG_FUNCTION_ARGS) {
+    TimeTzADT *time1 = PG_GETARG_TIMETZADT_P(0);
+    TimeTzADT *time2 = PG_GETARG_TIMETZADT_P(1);
+
+    // Compare two timetz values for inequality
+    PG_RETURN_BOOL(timetz_cmp_internal(time1, time2) != 0);
+}
+```

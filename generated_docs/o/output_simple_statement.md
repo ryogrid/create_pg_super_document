@@ -33,3 +33,22 @@ This function processes and outputs a simple SQL statement to the ECPG preproces
 - Integrates error handling through the whenever_mode parameter
 - Maintains source line correspondence through output_line_number()
 - The function assumes ownership of the stmt parameter and frees it
+
+## Simplified Source
+
+```c
+void output_simple_statement(char *stmt, int whenever_mode) {
+    // Output the SQL statement in escaped form
+    output_escaped_str(stmt, false);
+
+    // Handle error conditions if specified
+    if (whenever_mode)
+        whenever_action(whenever_mode);
+
+    // Add line number for debugging
+    output_line_number();
+
+    // Clean up memory
+    free(stmt);
+}
+```

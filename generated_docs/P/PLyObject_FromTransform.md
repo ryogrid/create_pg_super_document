@@ -33,3 +33,17 @@ PLyObject_FromTransform is a conversion function within PostgreSQL's PL/Python e
 - Transform functions provide extensibility for complex or domain-specific data types
 - The function assumes the transform function returns a valid Python object pointer
 - This mechanism is part of PostgreSQL's extensible type system for procedural languages
+
+## Simplified Source
+
+```c
+static PyObject *
+PLyObject_FromTransform(PLyDatumToOb *arg, Datum d)
+{
+    // Call the user-defined transform function to convert datum to Python object
+    Datum result = FunctionCall1(&arg->u.transform.typtransform, d);
+
+    // Return the Python object pointer from the result datum
+    return (PyObject *) DatumGetPointer(result);
+}
+```

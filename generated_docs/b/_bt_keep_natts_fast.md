@@ -47,3 +47,40 @@ The approach relies on the fact that most B-tree opclasses can only indicate two
 - Starts with keepnatts = 1, meaning at least one attribute is always considered for truncation
 - Breaks comparison loop on first difference in null status or bitwise content
 - Performance optimization prioritizes speed over perfect accuracy in suffix truncation decisions
+
+## Simplified Source
+
+```c
+int
+_bt_keep_natts_fast(Relation rel, IndexTuple lastleft, IndexTuple firstright)
+{
+    TupleDesc itupdesc = RelationGetDescr(rel);
+    int keysz = IndexRelationGetNumberOfKeyAttributes(rel);
+    int keepnatts = 1;
+
+    // Compare attributes using fast bitwise equality
+    for (int attnum = 1; attnum <= keysz; attnum++) {
+        Datum datum1, datum2;
+        bool isNull1, isNull2;
+        Form_pg_attribute att;
+
+        // Extract attribute values and metadata
+        datum1 = index_getattr(lastleft, attnum, itupdesc, &isNull1);
+        datum2 = index_getattr(firstright, attnum, itupdesc, &isNull2);
+        att = TupleDescAttr(itupdesc, attnum - 1);
+
+        // Stop if null status differs
+        if (isNull1 != isNull2)
+            break;
+
+        // Stop if non-null values are not bitwise equal
+        if (!isNull1 &&
+            !datum_image_eq(datum1, datum2, att->attbyval, att->attlen))
+            break;
+
+        keepnatts++;
+    }
+
+    return keepnatts;
+}
+```

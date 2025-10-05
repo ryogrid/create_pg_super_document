@@ -35,3 +35,16 @@ The sorted block number arrays enable efficient binary search during the simple 
 - The function maintains the qsort comparison contract: returns negative, zero, or positive values for less-than, equal-to, or greater-than relationships respectively
 - Part of the optimization strategy for B-tree tuple deletion that groups operations by table block numbers to minimize I/O
 - Located in src/backend/access/nbtree/nbtinsert.c:3011-3017
+
+## Simplified Source
+
+```c
+static inline int
+_bt_blk_cmp(const void *arg1, const void *arg2)
+{
+    BlockNumber b1 = *((BlockNumber *) arg1);
+    BlockNumber b2 = *((BlockNumber *) arg2);
+
+    return pg_cmp_u32(b1, b2);
+}
+```

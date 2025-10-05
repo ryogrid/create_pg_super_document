@@ -322,3 +322,31 @@ Text creation and manipulation
 - This function works in conjunction with the broader hot standby recovery system to ensure proper lock state during standby initialization.
 - The record length validation ensures data integrity during the recovery process.
 - Part of PostgreSQL's comprehensive two-phase commit recovery system, specifically tailored for replica server scenarios.
+
+## Simplified Source
+
+```c
+void
+lock_twophase_standby_recover(TransactionId xid, uint16 info,
+                              void *recdata, uint32 len)
+{
+    TwoPhaseLockRecord *rec = (TwoPhaseLockRecord *) recdata;
+    LOCKTAG *locktag = &rec->locktag;
+    LOCKMODE lockmode = rec->lockmode;
+    LOCKMETHODID lockmethodid = locktag->locktag_lockmethodid;
+
+    Assert(len == sizeof(TwoPhaseLockRecord));
+
+    // Validate lock method
+    if (lockmethodid <= 0 || lockmethodid >= lengthof(LockMethods))
+        elog(ERROR, "unrecognized lock method: %d", lockmethodid);
+
+    // Special handling for AccessExclusive locks on relations in hot standby
+    if (lockmode == AccessExclusiveLock && locktag->locktag_type == LOCKTAG_RELATION) {
+        StandbyAcquireAccessExclusiveLock(xid,
+                                         locktag->locktag_field1,  // dboid
+                                         locktag->locktag_field2); // reloid
+    }
+    // Other lock types are not processed in standby recovery
+}
+```

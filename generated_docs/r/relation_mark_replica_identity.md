@@ -49,3 +49,69 @@ The function ensures transactional consistency by updating both catalog tables (
 - Post-alter hooks are invoked for each modified index with the is_internal parameter
 - Error handling includes cache lookup failures for both relations and indexes
 - The function is optimized to only update catalog entries when values actually change
+
+## Simplified Source
+
+```c
+static void relation_mark_replica_identity(Relation rel, char ri_type,
+                                         Oid indexOid, bool is_internal) {
+    // Update the table's replica identity type in pg_class
+    Relation pg_class = table_open(RelationRelationId, RowExclusiveLock);
+    HeapTuple pg_class_tuple = SearchSysCacheCopy1(RELOID,
+                                     ObjectIdGetDatum(RelationGetRelid(rel)));
+
+    if (!HeapTupleIsValid(pg_class_tuple))
+        elog(ERROR, "cache lookup failed for relation");
+
+    Form_pg_class pg_class_form = (Form_pg_class) GETSTRUCT(pg_class_tuple);
+
+    // Update replica identity type if it changed
+    if (pg_class_form->relreplident != ri_type) {
+        pg_class_form->relreplident = ri_type;
+        CatalogTupleUpdate(pg_class, &pg_class_tuple->t_self, pg_class_tuple);
+    }
+
+    table_close(pg_class, RowExclusiveLock);
+    heap_freetuple(pg_class_tuple);
+
+    // Update per-index replica identity flags
+    Relation pg_index = table_open(IndexRelationId, RowExclusiveLock);
+
+    foreach(index, RelationGetIndexList(rel)) {
+        Oid thisIndexOid = lfirst_oid(index);
+        bool dirty = false;
+
+        HeapTuple pg_index_tuple = SearchSysCacheCopy1(INDEXRELID,
+                                         ObjectIdGetDatum(thisIndexOid));
+        if (!HeapTupleIsValid(pg_index_tuple))
+            elog(ERROR, "cache lookup failed for index");
+
+        Form_pg_index pg_index_form = (Form_pg_index) GETSTRUCT(pg_index_tuple);
+
+        // Set flag for specified index, clear for others
+        if (thisIndexOid == indexOid) {
+            if (!pg_index_form->indisreplident) {
+                pg_index_form->indisreplident = true;
+                dirty = true;
+            }
+        } else {
+            if (pg_index_form->indisreplident) {
+                pg_index_form->indisreplident = false;
+                dirty = true;
+            }
+        }
+
+        // Update catalog and invalidate cache if changed
+        if (dirty) {
+            CatalogTupleUpdate(pg_index, &pg_index_tuple->t_self, pg_index_tuple);
+            InvokeObjectPostAlterHookArg(IndexRelationId, thisIndexOid, 0,
+                                       InvalidOid, is_internal);
+            CacheInvalidateRelcache(rel);
+        }
+
+        heap_freetuple(pg_index_tuple);
+    }
+
+    table_close(pg_index, RowExclusiveLock);
+}
+```

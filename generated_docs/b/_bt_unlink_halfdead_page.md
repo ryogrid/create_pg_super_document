@@ -59,3 +59,148 @@ The function includes extensive corruption detection and recovery mechanisms, lo
 - Uses proper locking order (left-to-right, then up) to prevent deadlocks
 - Maintains referential integrity by updating all sibling pointers before marking page deleted
 - The deleted page becomes a tombstone that can be recycled when all concurrent transactions complete
+
+## Simplified Source
+
+```c
+static bool _bt_unlink_halfdead_page(Relation rel, Buffer leafbuf, BlockNumber scanblkno,
+                                     bool *rightsib_empty, BTVacState *vstate)
+{
+    Page page = BufferGetPage(leafbuf);
+    BTPageOpaque opaque = BTPageGetOpaque(page);
+    IndexBulkDeleteResult *stats = vstate->stats;
+
+    // Get target page info from leaf's high key
+    ItemId itemid = PageGetItemId(page, P_HIKEY);
+    IndexTuple leafhikey = (IndexTuple) PageGetItem(page, itemid);
+    BlockNumber target = BTreeTupleGetTopParent(leafhikey);
+    BlockNumber leafleftsib = opaque->btpo_prev;
+    BlockNumber leafrightsib = opaque->btpo_next;
+
+    _bt_unlockbuf(rel, leafbuf);
+    CHECK_FOR_INTERRUPTS();
+
+    // Determine target page to unlink
+    Buffer buf, lbuf = InvalidBuffer, rbuf;
+    BlockNumber leftsib;
+    uint32 targetlevel;
+
+    if (!BlockNumberIsValid(target)) {
+        // Target is leaf page itself
+        target = BufferGetBlockNumber(leafbuf);
+        buf = leafbuf;
+        leftsib = leafleftsib;
+        targetlevel = 0;
+    } else {
+        // Target is internal page
+        buf = _bt_getbuf(rel, target, BT_READ);
+        page = BufferGetPage(buf);
+        opaque = BTPageGetOpaque(page);
+        leftsib = opaque->btpo_prev;
+        targetlevel = opaque->btpo_level;
+        _bt_unlockbuf(rel, buf);
+    }
+
+    // Lock pages in proper order: left sibling, target, right sibling
+    if (target != BufferGetBlockNumber(leafbuf))
+        _bt_lockbuf(rel, leafbuf, BT_WRITE);
+
+    if (leftsib != P_NONE) {
+        lbuf = _bt_getbuf(rel, leftsib, BT_WRITE);
+        // Handle case where left sibling was split/moved
+        page = BufferGetPage(lbuf);
+        opaque = BTPageGetOpaque(page);
+        while (P_ISDELETED(opaque) || opaque->btpo_next != target) {
+            leftsib = opaque->btpo_next;
+            _bt_relbuf(rel, lbuf);
+            if (P_RIGHTMOST(opaque) || P_ISDELETED(opaque)) {
+                // Corruption detected - abort
+                ReleaseBuffer(buf);
+                if (target != BufferGetBlockNumber(leafbuf))
+                    _bt_relbuf(rel, leafbuf);
+                return false;
+            }
+            lbuf = _bt_getbuf(rel, leftsib, BT_WRITE);
+            page = BufferGetPage(lbuf);
+            opaque = BTPageGetOpaque(page);
+        }
+    }
+
+    _bt_lockbuf(rel, buf, BT_WRITE);
+    page = BufferGetPage(buf);
+    opaque = BTPageGetOpaque(page);
+
+    // Final safety checks
+    if (P_RIGHTMOST(opaque) || P_ISROOT(opaque) || P_ISDELETED(opaque))
+        elog(ERROR, "target page changed status unexpectedly");
+
+    BlockNumber rightsib = opaque->btpo_next;
+    rbuf = _bt_getbuf(rel, rightsib, BT_WRITE);
+
+    // Check if right sibling is empty for caller
+    page = BufferGetPage(rbuf);
+    opaque = BTPageGetOpaque(page);
+    *rightsib_empty = (P_FIRSTDATAKEY(opaque) > PageGetMaxOffsetNumber(page));
+
+    START_CRIT_SECTION();
+
+    // Update sibling links to bypass target page
+    if (BufferIsValid(lbuf)) {
+        page = BufferGetPage(lbuf);
+        opaque = BTPageGetOpaque(page);
+        opaque->btpo_next = rightsib;
+    }
+    page = BufferGetPage(rbuf);
+    opaque = BTPageGetOpaque(page);
+    opaque->btpo_prev = leftsib;
+
+    // Update leaf's top parent if we deleted an internal page
+    BlockNumber leaftopparent = InvalidBlockNumber;
+    if (target != BufferGetBlockNumber(leafbuf)) {
+        // Set up next iteration
+        page = BufferGetPage(buf);
+        opaque = BTPageGetOpaque(page);
+        if (P_FIRSTDATAKEY(opaque) <= PageGetMaxOffsetNumber(page)) {
+            itemid = PageGetItemId(page, P_FIRSTDATAKEY(opaque));
+            IndexTuple finaldataitem = (IndexTuple) PageGetItem(page, itemid);
+            leaftopparent = BTreeTupleGetDownLink(finaldataitem);
+            if (leaftopparent == BufferGetBlockNumber(leafbuf))
+                leaftopparent = InvalidBlockNumber;
+        }
+        BTreeTupleSetTopParent(leafhikey, leaftopparent);
+    }
+
+    // Mark target page as deleted
+    page = BufferGetPage(buf);
+    FullTransactionId safexid = ReadNextFullTransactionId();
+    BTPageSetDeleted(page, safexid);
+
+    // Mark all buffers dirty and perform WAL logging
+    MarkBufferDirty(rbuf);
+    MarkBufferDirty(buf);
+    if (BufferIsValid(lbuf))
+        MarkBufferDirty(lbuf);
+    if (target != BufferGetBlockNumber(leafbuf))
+        MarkBufferDirty(leafbuf);
+
+    if (RelationNeedsWAL(rel)) {
+        // WAL logging code...
+    }
+
+    END_CRIT_SECTION();
+
+    // Release locks and update statistics
+    if (BufferIsValid(lbuf))
+        _bt_relbuf(rel, lbuf);
+    _bt_relbuf(rel, rbuf);
+    if (target != BufferGetBlockNumber(leafbuf))
+        _bt_relbuf(rel, buf);
+
+    stats->pages_newly_deleted++;
+    if (target <= scanblkno)
+        stats->pages_deleted++;
+
+    _bt_pendingfsm_add(vstate, target, safexid);
+    return true;
+}
+```

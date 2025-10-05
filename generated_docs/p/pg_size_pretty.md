@@ -41,3 +41,39 @@ The algorithm iterates through available units and selects the first unit where 
 - Uses efficient bit-shifting division rather than standard division
 - The rounding behavior varies by unit as defined in the size_pretty_units table
 - Commonly used in database monitoring and administration tools for displaying storage sizes in readable format
+
+## Simplified Source
+
+```c
+Datum
+pg_size_pretty(PG_FUNCTION_ARGS)
+{
+    int64 size = PG_GETARG_INT64(0);
+    char buf[64];
+    const struct size_pretty_unit *unit;
+
+    // Find appropriate unit by iterating through size_pretty_units
+    for (unit = size_pretty_units; unit->name != NULL; unit++)
+    {
+        uint8 bits;
+        uint64 abs_size = size < 0 ? 0 - (uint64) size : (uint64) size;
+
+        // Use this unit if it's the last one or size fits within limit
+        if (unit[1].name == NULL || abs_size < unit->limit)
+        {
+            if (unit->round)
+                size = half_rounded(size);
+
+            snprintf(buf, sizeof(buf), INT64_FORMAT " %s", size, unit->name);
+            break;
+        }
+
+        // Calculate bit shift for scaling to next unit
+        bits = (unit[1].unitbits - unit->unitbits - (unit[1].round == true)
+                + (unit->round == true));
+        size /= ((int64) 1) << bits;
+    }
+
+    PG_RETURN_TEXT_P(cstring_to_text(buf));
+}
+```

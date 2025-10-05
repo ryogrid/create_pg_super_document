@@ -43,3 +43,31 @@ This design provides security isolation between users in trusted mode while allo
 - The function is static, indicating it's only used within the pltcl.c module
 - [Hash](../H/Hash.md) table key is user_id for trusted mode, InvalidOid for untrusted mode
 - Returns a pointer to the interpreter descriptor, never NULL (creates if needed)
+
+## Simplified Source
+
+```c
+static pltcl_interp_desc *pltcl_fetch_interp(Oid prolang, bool pltrusted) {
+    Oid user_id;
+    pltcl_interp_desc *interp_desc;
+    bool found;
+
+    // Determine user ID for hash table key
+    if (pltrusted)
+        user_id = GetUserId();    // Per-user interpreter for trusted
+    else
+        user_id = InvalidOid;     // Shared interpreter for untrusted
+
+    // Find or create interpreter descriptor in hash table
+    interp_desc = hash_search(pltcl_interp_htab, &user_id,
+                             HASH_ENTER, &found);
+    if (!found)
+        interp_desc->interp = NULL;
+
+    // Initialize interpreter if not already done
+    if (!interp_desc->interp)
+        pltcl_init_interp(interp_desc, prolang, pltrusted);
+
+    return interp_desc;
+}
+```

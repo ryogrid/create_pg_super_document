@@ -40,3 +40,32 @@ This PostgreSQL function provides an optimized variant of type privilege checkin
 - More efficient than name-based variants when the type OID is already available
 - The is_missing flag allows proper NULL handling for non-existent types
 - Handles both regular users and the special "public" pseudo-role
+
+## Simplified Source
+
+```c
+Datum
+has_type_privilege_name_id(PG_FUNCTION_ARGS)
+{
+    Name username = PG_GETARG_NAME(0);
+    Oid typeoid = PG_GETARG_OID(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+    bool is_missing = false;
+
+    // Convert username to role OID
+    Oid roleid = get_role_oid_or_public(NameStr(*username));
+
+    // Convert privilege string to access mode
+    AclMode mode = convert_type_priv_string(priv_type_text);
+
+    // Check access control with missing object detection
+    AclResult aclresult = object_aclcheck_ext(TypeRelationId, typeoid,
+                                              roleid, mode, &is_missing);
+
+    // Return NULL if type doesn't exist
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

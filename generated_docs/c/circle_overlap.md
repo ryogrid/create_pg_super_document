@@ -45,3 +45,19 @@ This function serves as the implementation for PostgreSQL's overlap operator `&&
 - The algorithm handles edge cases where circles exactly touch (distance equals sum of radii) as overlapping
 - Follows PostgreSQL's standard function interface using PG_FUNCTION_ARGS and PG_RETURN_BOOL macros
 - Located alongside other circle relational operators in the geometric operations module
+
+## Simplified Source
+
+```c
+Datum circle_overlap(PG_FUNCTION_ARGS) {
+    CIRCLE *circle1 = PG_GETARG_CIRCLE_P(0);
+    CIRCLE *circle2 = PG_GETARG_CIRCLE_P(1);
+
+    // Two circles overlap if the distance between centers
+    // is less than or equal to the sum of their radii
+    double center_distance = point_dt(&circle1->center, &circle2->center);
+    double radii_sum = float8_pl(circle1->radius, circle2->radius);
+
+    return PG_RETURN_BOOL(FPle(center_distance, radii_sum));
+}
+```

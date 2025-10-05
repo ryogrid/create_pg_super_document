@@ -41,3 +41,27 @@ The function uses PostgreSQL's MAXALIGN macro to ensure proper memory alignment 
 - Memory layout is carefully managed with MAXALIGN for cross-platform compatibility
 - Part of PostgreSQL's BRIN (Block Range Index) extensibility framework
 - Located in src/backend/access/brin/brin_bloom.c:449-495
+
+## Simplified Source
+
+```c
+Datum brin_bloom_opcinfo(PG_FUNCTION_ARGS) {
+    BrinOpcInfo *result;
+
+    // Allocate aligned memory for BrinOpcInfo + BloomOpaque
+    result = palloc0(MAXALIGN(SizeofBrinOpcInfo(1)) + sizeof(BloomOpaque));
+
+    // Configure bloom index storage parameters
+    result->oi_nstored = 1;              // Single BYTEA column for bloom filter
+    result->oi_regular_nulls = true;     // Standard null handling
+
+    // Setup opaque data structure pointer
+    result->oi_opaque = (BloomOpaque *)
+        MAXALIGN((char *) result + SizeofBrinOpcInfo(1));
+
+    // Cache type information for bloom summary data type
+    result->oi_typcache[0] = lookup_type_cache(PG_BRIN_BLOOM_SUMMARYOID, 0);
+
+    PG_RETURN_POINTER(result);
+}
+```

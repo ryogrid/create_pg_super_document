@@ -43,3 +43,31 @@ This static function performs cleanup operations for a BrinBuildState that was u
 - Proper cleanup includes both buffer management and memory deallocation
 - The Free Space Map vacuum operation helps maintain accurate free space information for future insertions
 - Essential for preventing resource leaks during BRIN index operations
+
+## Simplified Source
+
+```c
+static void
+terminate_brin_buildstate(BrinBuildState *state)
+{
+    // Handle the last insert buffer if it exists
+    if (!BufferIsInvalid(state->bs_currentInsertBuf)) {
+        Page page;
+        Size freespace;
+        BlockNumber blk;
+
+        // Record remaining free space in FSM
+        page = BufferGetPage(state->bs_currentInsertBuf);
+        freespace = PageGetFreeSpace(page);
+        blk = BufferGetBlockNumber(state->bs_currentInsertBuf);
+        ReleaseBuffer(state->bs_currentInsertBuf);
+        RecordPageWithFreeSpace(state->bs_irel, blk, freespace);
+        FreeSpaceMapVacuumRange(state->bs_irel, blk, blk + 1);
+    }
+
+    // Free descriptor and tuple structures
+    brin_free_desc(state->bs_bdesc);
+    pfree(state->bs_dtuple);
+    pfree(state);
+}
+```

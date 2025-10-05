@@ -46,3 +46,32 @@ This function is registered in PostgreSQL's system catalogs and is directly acce
 - The remove parameter is set to false to enable replacement mode in array_replace_internal
 - Performance is optimized by returning the original array unchanged if no elements match the search value
 - Both search and replacement values support NULL, enabling flexible NULL handling scenarios
+
+## Simplified Source
+
+```c
+Datum
+array_replace(PG_FUNCTION_ARGS)
+{
+    // Handle NULL input array
+    if (PG_ARGISNULL(0))
+        PG_RETURN_NULL();
+
+    // Extract arguments
+    ArrayType *array = PG_GETARG_ARRAYTYPE_P(0);
+    Datum search = PG_GETARG_DATUM(1);
+    bool search_isnull = PG_ARGISNULL(1);
+    Datum replace = PG_GETARG_DATUM(2);
+    bool replace_isnull = PG_ARGISNULL(2);
+
+    // Call internal implementation with remove=false
+    array = array_replace_internal(array,
+                                  search, search_isnull,
+                                  replace, replace_isnull,
+                                  false,             // replace mode
+                                  PG_GET_COLLATION(),
+                                  fcinfo);
+
+    PG_RETURN_ARRAYTYPE_P(array);
+}
+```

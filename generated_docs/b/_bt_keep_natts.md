@@ -44,3 +44,53 @@ The function may return a value one greater than the number of key attributes, i
 
 ## Notes and Other Information
 This function is critical for B-tree suffix truncation optimization. It ensures that truncated pivot tuples retain just enough information to maintain correct ordering while maximizing space savings. The function includes an assertion to verify consistency with _bt_keep_natts_fast() for indexes that support fast equality image comparisons. The heapkeyspace requirement reflects the need for proper handling of truncated attributes in comparison operations.
+
+## Simplified Source
+
+```c
+static int
+_bt_keep_natts(Relation rel, IndexTuple lastleft, IndexTuple firstright,
+               BTScanInsert itup_key)
+{
+    int nkeyatts = IndexRelationGetNumberOfKeyAttributes(rel);
+    TupleDesc itupdesc = RelationGetDescr(rel);
+    int keepnatts;
+    ScanKey scankey;
+
+    // Can't truncate safely in non-heapkeyspace indexes
+    if (!itup_key->heapkeyspace)
+        return nkeyatts;
+
+    scankey = itup_key->scankeys;
+    keepnatts = 1;
+
+    // Compare attributes until we find a difference
+    for (int attnum = 1; attnum <= nkeyatts; attnum++, scankey++) {
+        Datum datum1, datum2;
+        bool isNull1, isNull2;
+
+        // Extract attribute values from both tuples
+        datum1 = index_getattr(lastleft, attnum, itupdesc, &isNull1);
+        datum2 = index_getattr(firstright, attnum, itupdesc, &isNull2);
+
+        // Different null status means we found distinguishing attribute
+        if (isNull1 != isNull2)
+            break;
+
+        // Compare non-null values using scan key's comparison function
+        if (!isNull1 &&
+            DatumGetInt32(FunctionCall2Coll(&scankey->sk_func,
+                                            scankey->sk_collation,
+                                            datum1, datum2)) != 0)
+            break;
+
+        keepnatts++;
+    }
+
+    // Verify consistency with fast path in allequalimage indexes
+    Assert(!itup_key->allequalimage ||
+           keepnatts == _bt_keep_natts_fast(rel, lastleft, firstright));
+
+    return keepnatts;
+}
+```

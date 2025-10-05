@@ -53,3 +53,83 @@ When all skew buckets are removed, the function disables skew optimization entir
 - Includes cancellation points during tuple processing loop for responsiveness
 - Critical that removal order matches reverse creation order to prevent open addressing hash table corruption
 - Frees both tuple data and bucket overhead when cleaning up structures
+
+## Simplified Source
+
+```c
+static void
+ExecHashRemoveNextSkewBucket(HashJoinTable hashtable)
+{
+    int bucketToRemove;
+    HashSkewBucket *bucket;
+    uint32 hashvalue;
+    int bucketno, batchno;
+    HashJoinTuple hashTuple;
+
+    // Select the least valuable bucket (last in creation order)
+    bucketToRemove = hashtable->skewBucketNums[hashtable->nSkewBuckets - 1];
+    bucket = hashtable->skewBucket[bucketToRemove];
+
+    // Calculate target bucket and batch for all tuples
+    hashvalue = bucket->hashvalue;
+    ExecHashGetBucketAndBatch(hashtable, hashvalue, &bucketno, &batchno);
+
+    // Process all tuples in the skew bucket
+    hashTuple = bucket->tuples;
+    while (hashTuple != NULL)
+    {
+        HashJoinTuple nextHashTuple = hashTuple->next.unshared;
+        MinimalTuple tuple = HJTUPLE_MINTUPLE(hashTuple);
+        Size tupleSize = HJTUPLE_OVERHEAD + tuple->t_len;
+
+        if (batchno == hashtable->curbatch)
+        {
+            // Move tuple to main hash table
+            HashJoinTuple copyTuple = (HashJoinTuple) dense_alloc(hashtable, tupleSize);
+            memcpy(copyTuple, hashTuple, tupleSize);
+            pfree(hashTuple);
+
+            // Add to appropriate bucket chain
+            copyTuple->next.unshared = hashtable->buckets.unshared[bucketno];
+            hashtable->buckets.unshared[bucketno] = copyTuple;
+
+            // Update space accounting
+            hashtable->spaceUsedSkew -= tupleSize;
+        }
+        else
+        {
+            // Spill tuple to batch file for future processing
+            ExecHashJoinSaveTuple(tuple, hashvalue,
+                                &hashtable->innerBatchFile[batchno],
+                                hashtable);
+            pfree(hashTuple);
+
+            // Update space accounting
+            hashtable->spaceUsed -= tupleSize;
+            hashtable->spaceUsedSkew -= tupleSize;
+        }
+
+        hashTuple = nextHashTuple;
+        CHECK_FOR_INTERRUPTS();
+    }
+
+    // Clean up bucket structure
+    hashtable->skewBucket[bucketToRemove] = NULL;
+    hashtable->nSkewBuckets--;
+    pfree(bucket);
+    hashtable->spaceUsed -= SKEW_BUCKET_OVERHEAD;
+    hashtable->spaceUsedSkew -= SKEW_BUCKET_OVERHEAD;
+
+    // Disable skew optimization if no buckets remain
+    if (hashtable->nSkewBuckets == 0)
+    {
+        hashtable->skewEnabled = false;
+        pfree(hashtable->skewBucket);
+        pfree(hashtable->skewBucketNums);
+        hashtable->skewBucket = NULL;
+        hashtable->skewBucketNums = NULL;
+        hashtable->spaceUsed -= hashtable->spaceUsedSkew;
+        hashtable->spaceUsedSkew = 0;
+    }
+}
+```

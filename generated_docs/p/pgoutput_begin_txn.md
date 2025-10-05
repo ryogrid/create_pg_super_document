@@ -36,3 +36,14 @@ This callback function is invoked when a transaction begins during logical repli
 - Part of the pgoutput plugin's efficiency optimization strategy
 - Critical for scenarios where only a subset of tables are replicated
 - The deferred BEGIN approach reduces overhead for transactions with no published changes
+
+## Simplified Source
+
+```c
+static void pgoutput_begin_txn(LogicalDecodingContext *ctx, ReorderBufferTXN *txn) {
+    // Allocate transaction-specific data but don't send BEGIN yet
+    // This optimizes bandwidth by deferring BEGIN until first actual change
+    PGOutputTxnData *txndata = MemoryContextAllocZero(ctx->context, sizeof(PGOutputTxnData));
+    txn->output_plugin_private = txndata;
+}
+```

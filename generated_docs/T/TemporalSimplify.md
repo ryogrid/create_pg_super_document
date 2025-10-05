@@ -44,3 +44,37 @@ The function operates on FuncExpr nodes representing calls to temporal coercion 
 - The optimization is safe because temporal precision coercion is monotonic - higher precision values can always be safely treated as lower precision
 - The function assumes typmod validation has already occurred during parsing (typmodin functions)
 - Returns NULL if no optimization is possible, allowing the original function call to proceed
+
+## Simplified Source
+
+```c
+Node *TemporalSimplify(int32 max_precis, Node *node) {
+    FuncExpr *expr = castNode(FuncExpr, node);
+    Node *ret = NULL;
+
+    // Function must have at least 2 arguments (value and typmod)
+    Assert(list_length(expr->args) >= 2);
+
+    // Get the precision typmod (second argument)
+    Node *typmod = (Node *)lsecond(expr->args);
+
+    // Only optimize if typmod is a constant
+    if (IsA(typmod, Const) && !((Const *)typmod)->constisnull) {
+        Node *source = (Node *)linitial(expr->args);
+        int32 old_precis = exprTypmod(source);
+        int32 new_precis = DatumGetInt32(((Const *)typmod)->constvalue);
+
+        // Can optimize if:
+        // - New precision is unspecified (< 0)
+        // - New precision equals maximum precision
+        // - Source already has adequate precision (old >= new)
+        if (new_precis < 0 || new_precis == max_precis ||
+            (old_precis >= 0 && new_precis >= old_precis)) {
+            // Replace with simple relabel - no function call needed
+            ret = relabel_to_typmod(source, new_precis);
+        }
+    }
+
+    return ret;  // NULL if no optimization possible
+}
+```

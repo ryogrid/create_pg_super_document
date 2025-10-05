@@ -39,3 +39,26 @@ The function swaps the argument order compared to jsonb_contains: it checks if t
 - Corresponds to the '<@' operator in PostgreSQL JSONB operations
 - The comment in the code explicitly notes this is the "Commutator of contains"
 - Provides syntactic convenience for expressing containment relationships in different ways
+
+## Simplified Source
+
+```c
+Datum jsonb_contained(PG_FUNCTION_ARGS) {
+    // Commutator of "contains" - swapped argument order
+    Jsonb *tmpl = PG_GETARG_JSONB_P(0);  // Template to be contained
+    Jsonb *val = PG_GETARG_JSONB_P(1);   // Container value
+
+    JsonbIterator *it1, *it2;
+
+    // Quick check: root types must match (object vs array)
+    if (JB_ROOT_IS_OBJECT(val) != JB_ROOT_IS_OBJECT(tmpl))
+        PG_RETURN_BOOL(false);
+
+    // Initialize iterators: val contains tmpl
+    it1 = JsonbIteratorInit(&val->root);
+    it2 = JsonbIteratorInit(&tmpl->root);
+
+    // Check if val contains tmpl (same logic as jsonb_contains)
+    PG_RETURN_BOOL(JsonbDeepContains(&it1, &it2));
+}
+```

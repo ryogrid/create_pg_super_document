@@ -30,3 +30,14 @@ The  function performs a mathematical conversion from degrees to radians using t
 - Located in src/backend/utils/adt/float.c:2576-2590
 - Complementary function to  which performs the inverse conversion
 - Essential for preparing degree inputs for standard trigonometric functions that expect radian arguments
+
+## Simplified Source
+
+```c
+Datum radians(PG_FUNCTION_ARGS) {
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+
+    // Convert degrees to radians: radians = degrees × (π/180)
+    PG_RETURN_FLOAT8(float8_mul(arg1, RADIANS_PER_DEGREE));
+}
+```

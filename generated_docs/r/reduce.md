@@ -44,3 +44,70 @@ Each reduction also manages indentation levels by setting ps.i_l_follow (indenta
 - Uses a switch-case structure with nested logic to handle different token combinations on the parse stack
 - Part of PostgreSQL's pg_bsd_indent tool for code formatting consistency
 - The function includes fallthrough logic for similar statement types that require identical handling
+
+## Simplified Source
+
+```c
+static void
+reduce(void)
+{
+    int i;
+
+    // Keep looping until no more reductions are possible
+    for (;;) {
+        switch (ps.p_stack[ps.tos]) {
+        case stmt:
+            switch (ps.p_stack[ps.tos - 1]) {
+            case stmt:
+            case stmtl:
+                // stmt stmt or stmtl stmt -> stmtl
+                ps.p_stack[--ps.tos] = stmtl;
+                break;
+
+            case dolit:
+                // do stmt -> dostmt
+                ps.p_stack[--ps.tos] = dohead;
+                ps.i_l_follow = ps.il[ps.tos];
+                break;
+
+            case ifstmt:
+                // if stmt -> ifhead
+                ps.p_stack[--ps.tos] = ifhead;
+                // Find previous stmt/stmtl/lbrace for indentation
+                for (i = ps.tos - 1; ps.p_stack[i] != stmt &&
+                     ps.p_stack[i] != stmtl && ps.p_stack[i] != lbrace; --i);
+                ps.i_l_follow = ps.il[i];
+                break;
+
+            case swstmt:
+                // switch stmt -> stmt
+                case_ind = ps.cstk[ps.tos - 1];
+                // FALLTHROUGH
+            case decl:
+            case elsehead:
+            case forstmt:
+            case whilestmt:
+                // Various constructs + stmt -> stmt
+                ps.p_stack[--ps.tos] = stmt;
+                ps.i_l_follow = ps.il[ps.tos];
+                break;
+
+            default:
+                return;
+            }
+            break;
+
+        case whilestmt:
+            if (ps.p_stack[ps.tos - 1] == dohead) {
+                // dostmt while -> stmt
+                ps.tos -= 2;
+                break;
+            }
+            return;
+
+        default:
+            return;
+        }
+    }
+}
+```

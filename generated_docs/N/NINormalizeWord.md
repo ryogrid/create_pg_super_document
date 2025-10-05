@@ -37,3 +37,60 @@ NINormalizeWord is the primary function for word normalization in PostgreSQL's I
 - For compound words, processes all components and generates combinations of their normalized forms
 - Critical component of PostgreSQL's full-text search infrastructure
 - Used by the Ispell dictionary type in text search configurations
+
+## Simplified Source
+
+```c
+TSLexeme *NINormalizeWord(IspellDict *Conf, char *word) {
+    TSLexeme *result_list = NULL, *current = NULL;
+    uint16 variant_num = 1;
+
+    // Phase 1: Direct normalization
+    char **normalizations = NormalizeSubWord(Conf, word, 0);
+    if (normalizations) {
+        char **ptr = normalizations;
+        while (*ptr && (current - result_list) < MAX_NORM) {
+            addNorm(&result_list, &current, *ptr, 0, variant_num++);
+            ptr++;
+        }
+        pfree(normalizations);
+    }
+
+    // Phase 2: Compound word processing (if enabled)
+    if (Conf->usecompound) {
+        int wordlen = strlen(word);
+        SplitVar *variants = SplitToVariants(Conf, NULL, NULL, word, wordlen, 0, -1);
+
+        while (variants) {
+            if (variants->nstem > 1) {
+                // Normalize the last component with compound flag
+                char **last_stem_forms = NormalizeSubWord(Conf,
+                    variants->stem[variants->nstem - 1], FF_COMPOUNDLAST);
+
+                if (last_stem_forms) {
+                    char **form_ptr = last_stem_forms;
+                    while (*form_ptr) {
+                        // Add all stem components plus normalized last component
+                        for (int i = 0; i < variants->nstem - 1; i++) {
+                            addNorm(&result_list, &current,
+                                (form_ptr == last_stem_forms) ? variants->stem[i] : pstrdup(variants->stem[i]),
+                                0, variant_num);
+                        }
+                        addNorm(&result_list, &current, *form_ptr, 0, variant_num);
+                        form_ptr++;
+                        variant_num++;
+                    }
+                    pfree(last_stem_forms);
+                }
+            }
+
+            // Cleanup current variant and move to next
+            SplitVar *next = variants->next;
+            // ... cleanup code for stems and variant structure
+            variants = next;
+        }
+    }
+
+    return result_list;
+}
+```

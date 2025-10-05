@@ -39,3 +39,18 @@ This function serves as a wrapper around `ts_headline_json_byid_opt` that automa
 - Part of PostgreSQL full-text search functionality specifically designed for JSON document processing
 - The actual headline processing logic is implemented in `ts_headline_json_byid_opt`
 - This provides the most user-friendly interface for JSON headline generation with customization options
+
+## Simplified Source
+
+```c
+Datum
+ts_headline_json_opt(PG_FUNCTION_ARGS)
+{
+    // Wrapper: use current default config with custom options, delegate to full implementation
+    PG_RETURN_DATUM(DirectFunctionCall4(ts_headline_json_byid_opt,
+                                       ObjectIdGetDatum(getTSCurrentConfig(true)),
+                                       PG_GETARG_DATUM(0),  // JSON document
+                                       PG_GETARG_DATUM(1),  // TSQuery
+                                       PG_GETARG_DATUM(2))); // Options
+}
+```

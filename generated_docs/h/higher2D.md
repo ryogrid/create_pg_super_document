@@ -35,3 +35,17 @@ This function is part of PostgreSQL's geometric SP-GiST implementation for 2D sp
 - The function implements a "strictly higher" comparison, requiring both left and right range upper bounds to be greater than the query's upper bound
 - This function is the complement to `lower2D`, dealing with upper bounds instead of lower bounds
 - This function is utilized by higher-level 4D positioning functions like `right4D` and `above4D`
+
+## Simplified Source
+
+```c
+/* Check if any range from range_box can be higher than query */
+static bool
+higher2D(RangeBox *range_box, Range *query)
+{
+    // Return true if both left and right ranges have upper bounds
+    // greater than the query's upper bound
+    return FPgt(range_box->left.high, query->high) &&
+           FPgt(range_box->right.high, query->high);
+}
+```

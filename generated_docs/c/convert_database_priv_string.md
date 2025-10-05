@@ -39,3 +39,27 @@ This static helper function parses database privilege names and converts them to
 - The privilege mapping table is null-terminated for easy iteration
 - This is a static function, only accessible within the same source file
 - Located in src/backend/utils/adt/acl.c:3162-3195
+
+## Simplified Source
+
+```c
+static AclMode
+convert_database_priv_string(text *priv_type_text)
+{
+    // Database privilege mapping table
+    static const priv_map database_priv_map[] = {
+        {"CREATE", ACL_CREATE},
+        {"CREATE WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_CREATE)},
+        {"TEMPORARY", ACL_CREATE_TEMP},
+        {"TEMPORARY WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_CREATE_TEMP)},
+        {"TEMP", ACL_CREATE_TEMP},
+        {"TEMP WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_CREATE_TEMP)},
+        {"CONNECT", ACL_CONNECT},
+        {"CONNECT WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_CONNECT)},
+        {NULL, 0}  // Null terminator
+    };
+
+    // Use generic privilege string converter with database privilege mapping
+    return convert_any_priv_string(priv_type_text, database_priv_map);
+}
+```

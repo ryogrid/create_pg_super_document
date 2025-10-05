@@ -34,3 +34,18 @@ float8mul is a PostgreSQL built-in function wrapper that implements the multipli
 - Underflow detection catches cases where non-zero inputs produce zero results
 - Part of PostgreSQL's type system for double-precision floating-point arithmetic
 - Located in src/backend/utils/adt/float.c:781-789
+
+## Simplified Source
+
+```c
+Datum
+float8mul(PG_FUNCTION_ARGS)
+{
+    // Get the two float8 operands
+    float8 arg1 = PG_GETARG_FLOAT8(0);  // multiplicand
+    float8 arg2 = PG_GETARG_FLOAT8(1);  // multiplier
+
+    // Perform multiplication and return result
+    PG_RETURN_FLOAT8(float8_mul(arg1, arg2));
+}
+```

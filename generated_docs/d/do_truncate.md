@@ -34,3 +34,21 @@ The  function is a utility function within PostgreSQL's magnetic disk storage ma
 - Uses  pattern to preserve the original error code after logging
 - The function provides a centralized point for file truncation error handling, avoiding code duplication in callers
 - Part of PostgreSQL's storage management layer responsible for physical file operations
+
+## Simplified Source
+
+```c
+static int do_truncate(const char *path) {
+    // Attempt to truncate file to zero length
+    int ret = pg_truncate(path, 0);
+
+    // Log warning for errors (except file not found)
+    if (ret < 0 && errno != ENOENT) {
+        int save_errno = errno;
+        ereport(WARNING, "could not truncate file \"%s\": %m", path);
+        errno = save_errno; // Preserve original error
+    }
+
+    return ret; // 0 on success, -1 on failure
+}
+```

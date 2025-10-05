@@ -40,3 +40,57 @@ The function handles both prefix and suffix affixes differently - for suffixes, 
 - Supports three types of pattern matching: simple (no pattern), regis (simple regex), and full PostgreSQL regex
 - Part of PostgreSQL's text search spell checking functionality
 - The baselen parameter helps track word boundaries in compound word processing
+
+## Simplified Source
+
+```c
+static char *
+CheckAffix(const char *word, size_t len, AFFIX *Affix, int flagflags, char *newword, int *baselen)
+{
+    // Check compound word flags compatibility
+    if (!validate_compound_flags(flagflags, Affix))
+        return NULL;
+
+    // Apply affix transformation
+    if (Affix->type == FF_SUFFIX) {
+        // Replace suffix: copy word and change ending
+        strcpy(newword, word);
+        strcpy(newword + len - Affix->replen, Affix->find);
+        if (baselen)
+            *baselen = len - Affix->replen;
+    }
+    else {
+        // Replace prefix: check for valid base length
+        if (baselen && *baselen + strlen(Affix->find) <= Affix->replen)
+            return NULL;
+        strcpy(newword, Affix->find);
+        strcat(newword, word + Affix->replen);
+    }
+
+    // Validate the transformed word
+    if (Affix->issimple) {
+        return newword;  // No pattern matching needed
+    }
+    else if (Affix->isregis) {
+        // Simple regex validation
+        if (RS_execute(&(Affix->reg.regis), newword))
+            return newword;
+    }
+    else {
+        // Full regex validation with wide characters
+        pg_wchar *data;
+        int newword_len = strlen(newword);
+
+        data = (pg_wchar *) palloc((newword_len + 1) * sizeof(pg_wchar));
+        size_t data_len = pg_mb2wchar_with_len(newword, data, newword_len);
+
+        if (pg_regexec(Affix->reg.pregex, data, data_len, 0, NULL, 0, NULL, 0) == REG_OKAY) {
+            pfree(data);
+            return newword;
+        }
+        pfree(data);
+    }
+
+    return NULL;
+}
+```

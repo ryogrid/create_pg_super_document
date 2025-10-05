@@ -36,3 +36,26 @@ This function creates a LINE geometric object by taking two Point arguments and 
 - Throws an error with ERRCODE_INVALID_PARAMETER_VALUE if the two input points are identical
 - Part of PostgreSQL's geometric data type operations system
 - The function follows PostgreSQL's V1 calling convention using PG_FUNCTION_ARGS macro
+
+## Simplified Source
+
+```c
+Datum
+line_construct_pp(PG_FUNCTION_ARGS)
+{
+    Point *pt1 = PG_GETARG_POINT_P(0);
+    Point *pt2 = PG_GETARG_POINT_P(1);
+    LINE *result = (LINE *) palloc(sizeof(LINE));
+
+    // Validate that points are distinct
+    if (point_eq_point(pt1, pt2))
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("invalid line specification: must be two distinct points")));
+
+    // Construct line from first point and slope between points
+    line_construct(result, pt1, point_sl(pt1, pt2));
+
+    PG_RETURN_LINE_P(result);
+}
+```

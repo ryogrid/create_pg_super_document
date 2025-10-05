@@ -54,3 +54,48 @@ For internal pages, oversized tuples indicate a serious inconsistency since leaf
 - TOAST methods are not applied here as they would break suffix truncation and amcheck assumptions
 - Provides detailed error context including tuple location in heap relation
 - Size limits vary between versions: higher limits for version 2/3 indexes and internal pages
+
+## Simplified Source
+
+```c
+void _bt_check_third_page(Relation rel, Relation heap, bool needheaptidspace,
+                          Page page, IndexTuple newtup)
+{
+    Size itemsz;
+    BTPageOpaque opaque;
+
+    // Calculate aligned item size
+    itemsz = MAXALIGN(IndexTupleSize(newtup));
+
+    // Check against standard size limit
+    if (itemsz <= BTMaxItemSize(page))
+        return;
+
+    // Check against relaxed limit for version 2/3 indexes or internal pages
+    if (!needheaptidspace && itemsz <= BTMaxItemSizeNoHeapTid(page))
+        return;
+
+    // Internal pages should never have oversized tuples
+    opaque = BTPageGetOpaque(page);
+    if (!P_ISLEAF(opaque))
+        elog(ERROR, "cannot insert oversized tuple of size %zu on internal page of index \"%s\"",
+             itemsz, RelationGetRelationName(rel));
+
+    // Report detailed error for leaf page size violation
+    ereport(ERROR,
+            (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+             errmsg("index row size %zu exceeds btree version %u maximum %zu for index \"%s\"",
+                    itemsz,
+                    needheaptidspace ? BTREE_VERSION : BTREE_NOVAC_VERSION,
+                    needheaptidspace ? BTMaxItemSize(page) : BTMaxItemSizeNoHeapTid(page),
+                    RelationGetRelationName(rel)),
+             errdetail("Index row references tuple (%u,%u) in relation \"%s\".",
+                      ItemPointerGetBlockNumber(BTreeTupleGetHeapTID(newtup)),
+                      ItemPointerGetOffsetNumber(BTreeTupleGetHeapTID(newtup)),
+                      RelationGetRelationName(heap)),
+             errhint("Values larger than 1/3 of a buffer page cannot be indexed.\n"
+                    "Consider a function index of an MD5 hash of the value, "
+                    "or use full text indexing."),
+             errtableconstraint(heap, RelationGetRelationName(rel))));
+}
+```

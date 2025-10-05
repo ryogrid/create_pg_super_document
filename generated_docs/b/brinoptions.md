@@ -47,3 +47,23 @@ The function uses PostgreSQL's standard reloptions infrastructure:
 - Returns NULL-equivalent if no options are specified or if processing fails
 - Validation includes checking option value ranges and compatibility
 - The returned bytea structure is used internally by BRIN functions to access option values
+
+## Simplified Source
+
+```c
+bytea *
+brinoptions(Datum reloptions, bool validate)
+{
+    // Define supported BRIN options with their types and struct offsets
+    static const relopt_parse_elt tab[] = {
+        {"pages_per_range", RELOPT_TYPE_INT, offsetof(BrinOptions, pagesPerRange)},
+        {"autosummarize", RELOPT_TYPE_BOOL, offsetof(BrinOptions, autosummarize)}
+    };
+
+    // Build and return processed options structure
+    return (bytea *) build_reloptions(reloptions, validate,
+                                      RELOPT_KIND_BRIN,
+                                      sizeof(BrinOptions),
+                                      tab, lengthof(tab));
+}
+```

@@ -47,3 +47,28 @@ The function maintains the same tuple formation process using brin_form_tuple() 
 - Memory allocated by brin_form_tuple() is properly freed using pfree() to prevent memory leaks
 - The leader process will later read from the tuplesort and perform the actual index insertions
 - Part of PostgreSQL's parallel index building infrastructure for BRIN indexes
+
+## Simplified Source
+```c
+static void
+form_and_spill_tuple(BrinBuildState *state)
+{
+    BrinTuple  *tup;
+    Size        size;
+
+    // Skip empty ranges in parallel builds (optimization)
+    if (state->bs_dtuple->bt_empty_range)
+        return;
+
+    // Convert in-memory summary data to on-disk format
+    tup = brin_form_tuple(state->bs_bdesc, state->bs_currRangeStart,
+                         state->bs_dtuple, &size);
+
+    // Write tuple to tuplesort for leader to process later
+    tuplesort_putbrintuple(state->bs_sortstate, tup, size);
+
+    // Update tuple counter and cleanup
+    state->bs_numtuples++;
+    pfree(tup);
+}
+```

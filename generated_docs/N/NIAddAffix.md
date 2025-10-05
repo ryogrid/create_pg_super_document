@@ -57,3 +57,83 @@ The function automatically manages compound word flags, ensuring that words mark
 - Regex compilation errors are reported with appropriate PostgreSQL error codes
 - Memory is allocated in the dictionary's context for automatic cleanup
 - Supports both simple string matching and complex regex patterns for word ending conditions
+
+## Simplified Source
+
+```c
+static void
+NIAddAffix(IspellDict *Conf, const char *flag, char flagflags, const char *mask,
+           const char *find, const char *repl, int type)
+{
+    AFFIX *Affix;
+
+    // Expand affix array if needed
+    if (Conf->naffixes >= Conf->maffixes) {
+        if (Conf->maffixes) {
+            Conf->maffixes *= 2;
+            Conf->Affix = (AFFIX *) repalloc(Conf->Affix,
+                                             Conf->maffixes * sizeof(AFFIX));
+        } else {
+            Conf->maffixes = 16;
+            Conf->Affix = (AFFIX *) palloc(Conf->maffixes * sizeof(AFFIX));
+        }
+    }
+
+    Affix = Conf->Affix + Conf->naffixes;
+
+    // Determine pattern matching method
+    if (strcmp(mask, ".") == 0 || *mask == '\0') {
+        // Simple: matches any word ending
+        Affix->issimple = 1;
+        Affix->isregis = 0;
+    } else if (RS_isRegis(mask)) {
+        // Use simpler regex engine for basic patterns
+        Affix->issimple = 0;
+        Affix->isregis = 1;
+        RS_compile(&(Affix->reg.regis), (type == FF_SUFFIX),
+                   *mask ? mask : VoidString);
+    } else {
+        // Use full regex engine for complex patterns
+        Affix->issimple = 0;
+        Affix->isregis = 0;
+
+        // Build regex pattern with anchors
+        char *tmask = (char *) tmpalloc(strlen(mask) + 3);
+        if (type == FF_SUFFIX)
+            sprintf(tmask, "%s$", mask);  // Anchor to end
+        else
+            sprintf(tmask, "^%s", mask);  // Anchor to start
+
+        // Convert to wide chars and compile regex
+        int masklen = strlen(tmask);
+        pg_wchar *wmask = (pg_wchar *) tmpalloc((masklen + 1) * sizeof(pg_wchar));
+        int wmasklen = pg_mb2wchar_with_len(tmask, wmask, masklen);
+
+        Affix->reg.pregex = palloc(sizeof(regex_t));
+        int err = pg_regcomp(Affix->reg.pregex, wmask, wmasklen,
+                             REG_ADVANCED | REG_NOSUB, DEFAULT_COLLATION_OID);
+        if (err)
+            ereport(ERROR, /* regex compilation error */);
+    }
+
+    // Set affix properties
+    Affix->flagflags = flagflags;
+
+    // Auto-add compound flag if needed
+    if ((flagflags & FF_COMPOUNDONLY) || (flagflags & FF_COMPOUNDPERMITFLAG)) {
+        if ((flagflags & FF_COMPOUNDFLAG) == 0)
+            Affix->flagflags |= FF_COMPOUNDFLAG;
+    }
+
+    Affix->flag = cpstrdup(Conf, flag);
+    Affix->type = type;
+    Affix->find = (find && *find) ? cpstrdup(Conf, find) : VoidString;
+
+    if ((Affix->replen = strlen(repl)) > 0)
+        Affix->repl = cpstrdup(Conf, repl);
+    else
+        Affix->repl = VoidString;
+
+    Conf->naffixes++;
+}
+```

@@ -39,3 +39,26 @@ The  mode is set to true for this operation, meaning that NULL source containers
 - The result is stored directly in op->resvalue, with NULL status in op->resnull
 - Part of the expression evaluation framework for JSONB subscripting operations
 - The false parameter passed to jsonb_get_element likely controls some aspect of the extraction behavior
+
+## Simplified Source
+
+```c
+static void jsonb_subscript_fetch(ExprState *state,
+                                 ExprEvalStep *op,
+                                 ExprContext *econtext) {
+    SubscriptingRefState *sbsrefstate = op->d.sbsref.state;
+    JsonbSubWorkspace *workspace = (JsonbSubWorkspace *) sbsrefstate->workspace;
+    Jsonb *jsonbSource;
+
+    // Source should not be null (enforced by fetch_strict=true)
+    Assert(!(*op->resnull));
+
+    // Convert datum to JSONB and extract the element
+    jsonbSource = DatumGetJsonbP(*op->resvalue);
+    *op->resvalue = jsonb_get_element(jsonbSource,
+                                    workspace->index,
+                                    sbsrefstate->numupper,
+                                    op->resnull,
+                                    false);
+}
+```

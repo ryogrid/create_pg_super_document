@@ -52,3 +52,37 @@ The function is typically used for forceful termination of problematic or unresp
 - Provides separate error messages for superuser privilege issues vs general role membership issues
 - Part of PostgreSQL's process management infrastructure for administrative operations
 - More forceful than query cancellation - designed for terminating unresponsive or problematic backends
+
+## Simplified Source
+
+```c
+Datum pg_terminate_backend(PG_FUNCTION_ARGS) {
+    int pid = PG_GETARG_INT32(0);
+    int timeout = PG_GETARG_INT64(1);
+
+    // Validate timeout parameter
+    if (timeout < 0)
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("\"timeout\" must not be negative")));
+
+    // Send SIGTERM signal to backend process
+    int result = pg_signal_backend(pid, SIGTERM);
+
+    // Handle permission errors
+    if (result == SIGNAL_BACKEND_NOSUPERUSER)
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                       errmsg("permission denied to terminate process"),
+                       errdetail("Only superusers may terminate superuser processes")));
+
+    if (result == SIGNAL_BACKEND_NOPERMISSION)
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                       errmsg("permission denied to terminate process"),
+                       errdetail("Insufficient role privileges for termination")));
+
+    // If timeout specified and signal succeeded, wait for termination
+    if (result == SIGNAL_BACKEND_SUCCESS && timeout > 0)
+        PG_RETURN_BOOL(pg_wait_until_termination(pid, timeout));
+    else
+        PG_RETURN_BOOL(result == SIGNAL_BACKEND_SUCCESS);
+}
+```

@@ -43,3 +43,32 @@ The conversion process involves:
 - Clears errno on successful completion
 - Part of the ECPG pgtypes library for type conversions between C types and PostgreSQL types
 - The two-step conversion (double -> string -> numeric) ensures consistent parsing behavior with other numeric input methods
+
+## Simplified Source
+
+```c
+int PGTYPESnumeric_from_double(double d, numeric *dst)
+{
+    char buffer[DBL_DIG + 100];
+    numeric *tmp;
+    int i;
+
+    // Format double to string with full precision
+    if (sprintf(buffer, "%.*g", DBL_DIG, d) <= 0)
+        return -1;
+
+    // Convert string to numeric
+    if ((tmp = PGTYPESnumeric_from_asc(buffer, NULL)) == NULL)
+        return -1;
+
+    // Copy result to destination
+    i = PGTYPESnumeric_copy(tmp, dst);
+    PGTYPESnumeric_free(tmp);
+
+    if (i != 0)
+        return -1;
+
+    errno = 0;
+    return 0;
+}
+```

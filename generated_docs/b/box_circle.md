@@ -42,3 +42,21 @@ The  function performs a geometric conversion from a BOX (rectangular) data type
 - Can be called from SQL to convert box geometric types to circle types
 - Memory allocation is handled by PostgreSQL's memory context system
 - The resulting circle will have its diameter equal to the diagonal length of the original box
+
+## Simplified Source
+
+```c
+Datum box_circle(PG_FUNCTION_ARGS) {
+    BOX *box = PG_GETARG_BOX_P(0);
+    CIRCLE *circle = (CIRCLE *) palloc(sizeof(CIRCLE));
+
+    // Calculate center as midpoint of box
+    circle->center.x = (box->high.x + box->low.x) / 2.0;
+    circle->center.y = (box->high.y + box->low.y) / 2.0;
+
+    // Set radius as distance from center to corner
+    circle->radius = point_dt(&circle->center, &box->high);
+
+    PG_RETURN_CIRCLE_P(circle);
+}
+```

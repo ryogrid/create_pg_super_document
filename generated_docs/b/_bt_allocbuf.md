@@ -51,3 +51,74 @@ The function handles edge cases like all-zeroes pages (from crashed backends) an
 - Handles edge case of all-zeroes pages from backend crashes
 - Returns a write-locked buffer containing an initialized, empty B-tree page
 - Located in src/backend/access/nbtree/nbtpage.c:869-1002
+
+## Simplified Source
+
+```c
+Buffer _bt_allocbuf(Relation rel, Relation heaprel) {
+    Buffer buf;
+    BlockNumber blkno;
+    Page page;
+
+    Assert(heaprel != NULL);
+
+    // Try to find a reusable page from Free Space Map
+    for (;;) {
+        blkno = GetFreeIndexPage(rel);
+        if (blkno == InvalidBlockNumber)
+            break;  // No more FSM pages to try
+
+        buf = ReadBuffer(rel, blkno);
+
+        // Use conditional locking to avoid deadlocks
+        if (_bt_conditionallockbuf(rel, buf)) {
+            page = BufferGetPage(buf);
+
+            // Handle all-zeroes pages from crashed backends
+            if (PageIsNew(page)) {
+                _bt_pageinit(page, BufferGetPageSize(buf));
+                return buf;
+            }
+
+            // Check if page can be safely recycled
+            if (BTPageIsRecyclable(page, heaprel)) {
+                // Generate WAL record for Hot Standby conflict detection
+                if (RelationNeedsWAL(rel) && XLogStandbyInfoActive()) {
+                    xl_btree_reuse_page xlrec_reuse;
+                    xlrec_reuse.locator = rel->rd_locator;
+                    xlrec_reuse.block = blkno;
+                    xlrec_reuse.snapshotConflictHorizon = BTPageGetDeleteXid(page);
+                    xlrec_reuse.isCatalogRel =
+                        RelationIsAccessibleInLogicalDecoding(heaprel);
+
+                    XLogBeginInsert();
+                    XLogRegisterData((char *) &xlrec_reuse, SizeOfBtreeReusePage);
+                    XLogInsert(RM_BTREE_ID, XLOG_BTREE_REUSE_PAGE);
+                }
+
+                // Page is suitable for reuse
+                _bt_pageinit(page, BufferGetPageSize(buf));
+                return buf;
+            }
+
+            // Page not recyclable, release and try next
+            _bt_relbuf(rel, buf);
+        } else {
+            // Couldn't lock page, release and try next
+            ReleaseBuffer(buf);
+        }
+    }
+
+    // No suitable FSM pages found, extend the relation
+    buf = ExtendBufferedRel(BMR_REL(rel), MAIN_FORKNUM, NULL, EB_LOCK_FIRST);
+    if (!RelationUsesLocalBuffers(rel))
+        VALGRIND_MAKE_MEM_DEFINED(BufferGetPage(buf), BLCKSZ);
+
+    // Initialize the new page
+    page = BufferGetPage(buf);
+    Assert(PageIsNew(page));
+    _bt_pageinit(page, BufferGetPageSize(buf));
+
+    return buf;
+}
+```

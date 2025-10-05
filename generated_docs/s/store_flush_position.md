@@ -53,3 +53,31 @@ This mapping list is essential for the get_flush_position() function to determin
 - Critical component of the feedback mechanism that prevents premature flush acknowledgments to the publisher
 - Works in conjunction with get_flush_position() to implement safe replication progress reporting
 - Called at transaction commit points to establish the remote-to-local LSN correlation needed for accurate flush reporting
+
+## Simplified Source
+
+```c
+void
+store_flush_position(XLogRecPtr remote_lsn, XLogRecPtr local_lsn)
+{
+    FlushPosition *flushpos;
+
+    // Skip for parallel apply workers - only leader maintains LSN mapping
+    if (am_parallel_apply_worker())
+        return;
+
+    // Switch to permanent context to ensure mapping persists
+    MemoryContextSwitchTo(ApplyContext);
+
+    // Create and populate LSN mapping entry
+    flushpos = (FlushPosition *) palloc(sizeof(FlushPosition));
+    flushpos->local_end = local_lsn;   // Where we wrote it locally
+    flushpos->remote_end = remote_lsn; // Where publisher had it
+
+    // Add to tail of mapping list (maintains chronological order)
+    dlist_push_tail(&lsn_mapping, &flushpos->node);
+
+    // Switch back to message processing context
+    MemoryContextSwitchTo(ApplyMessageContext);
+}
+```

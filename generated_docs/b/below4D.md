@@ -29,3 +29,16 @@ This function is part of PostgreSQL's SP-GiST implementation for geometric box o
 
 ## Notes and Other Information
 This function is used in SP-GiST index operations for spatial queries involving box geometries. It provides vertical positioning evaluation, complementing the horizontal positioning functions (left4D, right4D, overLeft4D, overRight4D). The function checks the y-axis relationship and is part of the comprehensive spatial relationship predicate system that enables efficient geometric indexing and query processing for PostgreSQL's spatial data types. Note that it compares the y-range with the query's right boundary, which may seem counterintuitive but follows the internal structure design of the RangeBox.
+
+## Simplified Source
+
+```c
+/* Check if any rectangle from rect_box can be below this query */
+static bool
+below4D(RectBox *rect_box, RangeBox *query)
+{
+    // Delegate to lower2D to check if rectangle's y-range
+    // can be positioned lower (below) than query's right boundary
+    return lower2D(&rect_box->range_box_y, &query->right);
+}
+```

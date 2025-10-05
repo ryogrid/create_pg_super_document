@@ -37,3 +37,29 @@ The function returns INVALID_SKEW_BUCKET_NO in two cases: when skew optimization
 - Critical for performance during hash join probe phase to quickly identify MCV lookups
 - Skew optimization is typically disabled after the initial batch is processed
 - The linear probing must eventually terminate due to guaranteed NULL slots in the bucket array
+
+## Simplified Source
+```c
+int ExecHashGetSkewBucket(HashJoinTable hashtable, uint32 hashvalue)
+{
+    // Skip skew optimization if disabled
+    if (!hashtable->skewEnabled)
+        return INVALID_SKEW_BUCKET_NO;
+
+    // Find starting bucket using bitwise AND (power-of-2 modulo)
+    int bucket = hashvalue & (hashtable->skewBucketLen - 1);
+
+    // Linear probe until we find matching bucket or empty slot
+    while (hashtable->skewBucket[bucket] != NULL &&
+           hashtable->skewBucket[bucket]->hashvalue != hashvalue)
+    {
+        bucket = (bucket + 1) & (hashtable->skewBucketLen - 1);
+    }
+
+    // Return bucket index if found, otherwise indicate not found
+    if (hashtable->skewBucket[bucket] != NULL)
+        return bucket;
+
+    return INVALID_SKEW_BUCKET_NO;
+}
+```

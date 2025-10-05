@@ -39,4 +39,32 @@ Swap:        8388608           0     8388608: Memory deallocation for list nodes
 - The recursive approach naturally handles empty lists (base case: )
 - Both the main variable and its indicator variable are processed in each call
 - Memory management includes freeing both the temporary zero string and optionally the list nodes
-- The function assumes that indicator variables exist (accesses  without null checks)
+- The function assumes that indicator variables exist (accesses without null checks)
+
+## Simplified Source
+
+```c
+void
+dump_variables(struct arguments *list, int mode)
+{
+    if (list == NULL)
+        return;
+
+    char *str_zero = mm_strdup("0");
+
+    // Process the rest of the list first (recursive tail call)
+    dump_variables(list->next, mode);
+
+    // Generate code for current variable and its indicator
+    ECPGdump_a_type(base_yyout,
+                    list->variable->name, list->variable->type, list->variable->brace_level,
+                    list->indicator->name, list->indicator->type, list->indicator->brace_level,
+                    NULL, NULL, str_zero, NULL, NULL);
+
+    // Cleanup if requested
+    if (mode != 0)
+        free(list);
+
+    free(str_zero);
+}
+```

@@ -33,3 +33,21 @@ The time_scale function is responsible for adjusting TIME data type values accor
 - The function creates a copy of the input time value before adjustment to avoid modifying the original
 - Located in src/backend/utils/adt/date.c:1625-1644
 - Part of PostgreSQL's type coercion system for maintaining data type constraints
+
+## Simplified Source
+
+```c
+Datum
+time_scale(PG_FUNCTION_ARGS)
+{
+    // Extract input time value and desired precision modifier
+    TimeADT time = PG_GETARG_TIMEADT(0);
+    int32 typmod = PG_GETARG_INT32(1);
+
+    // Copy time value and adjust it for the specified precision
+    TimeADT result = time;
+    AdjustTimeForTypmod(&result, typmod);
+
+    PG_RETURN_TIMEADT(result);
+}
+```

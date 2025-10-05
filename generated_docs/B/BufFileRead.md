@@ -38,3 +38,13 @@ The function is part of PostgreSQL's legacy BufFile interface, maintained for co
 - Part of the public BufFile API exposed in buffile.h
 - Modern code typically uses BufFileReadExact for stricter read requirements
 - The function parameters mirror those of standard fread() for familiar behavior
+
+## Simplified Source
+
+```c
+size_t BufFileRead(BufFile *file, void *ptr, size_t size) {
+    // Legacy wrapper for reading from BufFile with flexible EOF handling
+    // Allows partial reads - caller must check return value
+    return BufFileReadCommon(file, ptr, size, false, false);
+}
+```

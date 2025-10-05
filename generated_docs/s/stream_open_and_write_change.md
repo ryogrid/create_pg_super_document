@@ -41,3 +41,24 @@ This encapsulation ensures proper file lifecycle management and is used primaril
 - It provides automatic file lifecycle management, making it suitable for one-off message writes
 - Used specifically for handling stream control messages (prepare, abort, commit) in logical replication
 - Part of PostgreSQL's logical replication worker subsystem for handling large transactions that need to be spilled to disk
+
+## Simplified Source
+
+```c
+static void
+stream_open_and_write_change(TransactionId xid, char action, StringInfo s)
+{
+    // Ensure not in an active streamed transaction
+    Assert(!in_streamed_transaction);
+
+    // Open stream file if not already open
+    if (!stream_fd)
+        stream_start_internal(xid, false);
+
+    // Write the change data
+    stream_write_change(action, s);
+
+    // Close the stream
+    stream_stop_internal(xid);
+}
+```

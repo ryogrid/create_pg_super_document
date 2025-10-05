@@ -57,3 +57,59 @@ The function handles two distinct types of background workers: those that requir
 - Applies PostAuthDelay if configured for security
 - Workers exit with status 0 on normal completion, status 1 on error
 - The function does not return under normal circumstances - it exits via proc_exit()
+
+## Simplified Source
+
+```c
+void BackgroundWorkerMain(char *startup_data, size_t startup_data_len) {
+    sigjmp_buf local_sigjmp_buf;
+    BackgroundWorker *worker;
+    bgworker_main_type entrypt;
+
+    // Validate and copy worker configuration
+    if (startup_data == NULL)
+        elog(FATAL, "unable to find bgworker entry");
+    worker = MemoryContextAlloc(TopMemoryContext, sizeof(BackgroundWorker));
+    memcpy(worker, startup_data, sizeof(BackgroundWorker));
+
+    // Initialize process state
+    MyBgworkerEntry = worker;
+    MyBackendType = B_BG_WORKER;
+    init_ps_display(worker->bgw_name);
+    SetProcessingMode(InitProcessing);
+
+    // Set up signal handlers based on worker type
+    if (worker->bgw_flags & BGWORKER_BACKEND_DATABASE_CONNECTION) {
+        pqsignal(SIGINT, StatementCancelHandler);
+        pqsignal(SIGUSR1, procsignal_sigusr1_handler);
+        pqsignal(SIGFPE, FloatExceptionHandler);
+    } else {
+        pqsignal(SIGINT, SIG_IGN);
+        pqsignal(SIGUSR1, SIG_IGN);
+        pqsignal(SIGFPE, SIG_IGN);
+    }
+    pqsignal(SIGTERM, bgworker_die);
+
+    // Set up error recovery
+    if (sigsetjmp(local_sigjmp_buf, 1) != 0) {
+        error_context_stack = NULL;
+        HOLD_INTERRUPTS();
+        BackgroundWorkerUnblockSignals();
+        EmitErrorReport();
+        proc_exit(1);
+    }
+    PG_exception_stack = &local_sigjmp_buf;
+
+    // Initialize PostgreSQL infrastructure
+    InitProcess();
+    BaseInit();
+
+    // Look up and execute worker function
+    entrypt = LookupBackgroundWorkerFunction(worker->bgw_library_name,
+                                             worker->bgw_function_name);
+    entrypt(worker->bgw_main_arg);
+
+    // Normal exit
+    proc_exit(0);
+}
+```

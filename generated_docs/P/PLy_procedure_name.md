@@ -30,3 +30,16 @@ This function extracts and returns the SQL name (not the internal Python procedu
 - Commonly used in error handling and debugging contexts
 - The returned string is owned by the PLyProcedure structure and should not be freed by the caller
 - Essential for providing meaningful error messages to users when PL/Python procedures encounter issues
+
+## Simplified Source
+
+```c
+char *PLy_procedure_name(PLyProcedure *proc) {
+    // Return safe default for null procedures
+    if (proc == NULL)
+        return "<unknown procedure>";
+
+    // Return SQL procedure name (not Python internal name)
+    return proc->proname;
+}
+```

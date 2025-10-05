@@ -34,3 +34,18 @@ This function is useful when a segment that was pinned for session-level persist
 - This operation is the inverse of dsm_pin_mapping() and restores normal resource management
 - Should be used carefully to avoid premature cleanup of shared memory segments that are still in use
 - Once unpinned, the segment's lifetime is tied to the current resource owner's lifecycle
+
+## Simplified Source
+```c
+void dsm_unpin_mapping(dsm_segment *seg) {
+    // Ensure segment is currently pinned (no resource owner)
+    Assert(seg->resowner == NULL);
+
+    // Prepare resource owner to track this segment
+    ResourceOwnerEnlarge(CurrentResourceOwner);
+
+    // Assign segment to current resource owner for automatic cleanup
+    seg->resowner = CurrentResourceOwner;
+    ResourceOwnerRememberDSM(seg->resowner, seg);
+}
+```

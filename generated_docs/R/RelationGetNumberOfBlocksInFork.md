@@ -37,3 +37,33 @@ RelationGetNumberOfBlocksInFork provides a unified interface for determining the
 - Used by RelationGetNumberOfBlocks macro for the main fork
 - Critical for determining relation size and managing storage allocation
 - Supports all fork types (main, FSM, VM, etc.) through the forkNum parameter
+
+## Simplified Source
+
+```c
+BlockNumber RelationGetNumberOfBlocksInFork(Relation relation, ForkNumber forkNum) {
+    if (RELKIND_HAS_TABLE_AM(relation->rd_rel->relkind)) {
+        // For table access methods: get size in bytes and convert to blocks
+        uint64 szbytes = table_relation_size(relation, forkNum);
+
+        // Round up to handle partial blocks
+        return (szbytes + (BLCKSZ - 1)) / BLCKSZ;
+    }
+    else if (RELKIND_HAS_STORAGE(relation->rd_rel->relkind)) {
+        // For traditional storage: use storage manager directly
+        return smgrnblocks(RelationGetSmgr(relation), forkNum);
+    }
+    else {
+        // Should not reach here for valid relations
+        Assert(false);
+        return 0;
+    }
+}
+```
+
+**Key Logic:**
+- Determines relation size handling method based on relation kind
+- Table AM relations: queries table access method for byte size, converts to blocks
+- Traditional storage relations: uses storage manager's block count directly
+- Rounds up byte sizes to account for partial blocks in table AM case
+- Supports all fork types (main, FSM, visibility map, etc.)

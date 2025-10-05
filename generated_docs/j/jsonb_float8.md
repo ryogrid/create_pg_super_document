@@ -38,3 +38,25 @@ This function performs type conversion from JSONB to float8 (double-precision fl
 - Part of the JSONB type casting infrastructure in PostgreSQL
 - Companion function to jsonb_float4, providing higher precision conversion
 - Located in src/backend/utils/adt/jsonb.c:2145-2165
+
+## Simplified Source
+
+```c
+Datum
+jsonb_float8(PG_FUNCTION_ARGS)
+{
+    Jsonb *in = PG_GETARG_JSONB_P(0);
+    JsonbValue v;
+
+    // Extract scalar value and validate it's numeric
+    if (!JsonbExtractScalar(&in->root, &v) || v.type != jbvNumeric)
+        cannotCastJsonbValue(v.type, "double precision");
+
+    // Convert numeric to float8
+    Datum retValue = DirectFunctionCall1(numeric_float8,
+                                        NumericGetDatum(v.val.numeric));
+
+    PG_FREE_IF_COPY(in, 0);
+    PG_RETURN_DATUM(retValue);
+}
+```

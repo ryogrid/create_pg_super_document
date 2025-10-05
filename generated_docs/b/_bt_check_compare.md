@@ -218,3 +218,118 @@ write_data_to_archive_lz4_doc.md: Scan direction (forward or backward)
 - Critical for B-tree scan performance through early termination logic
 - Special handling for truncated attributes in pivot tuples
 - Part of the PostgreSQL B-tree access method implementation in src/backend/access/nbtree/nbtutils.c:3682-3887
+
+## Simplified Source
+
+```c
+static bool
+_bt_check_compare(IndexScanDesc scan, ScanDirection dir,
+                  IndexTuple tuple, int tupnatts, TupleDesc tupdesc,
+                  bool advancenonrequired, bool prechecked, bool firstmatch,
+                  bool *continuescan, int *ikey)
+{
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+
+    *continuescan = true;  // Default assumption
+
+    // Check each scan key against the tuple
+    for (; *ikey < so->numberOfKeys; (*ikey)++)
+    {
+        ScanKey key = so->keyData + *ikey;
+        Datum datum;
+        bool isNull;
+        bool requiredSameDir = false;
+        bool requiredOppositeDirOnly = false;
+
+        // Determine if key is required for current/opposite direction
+        if (((key->sk_flags & SK_BT_REQFWD) && ScanDirectionIsForward(dir)) ||
+            ((key->sk_flags & SK_BT_REQBKWD) && ScanDirectionIsBackward(dir)))
+            requiredSameDir = true;
+        else if (((key->sk_flags & SK_BT_REQFWD) && ScanDirectionIsBackward(dir)) ||
+                 ((key->sk_flags & SK_BT_REQBKWD) && ScanDirectionIsForward(dir)))
+            requiredOppositeDirOnly = true;
+
+        // Skip precheck optimizations for certain cases
+        if (prechecked &&
+            (requiredSameDir || (requiredOppositeDirOnly && firstmatch)) &&
+            !(key->sk_flags & SK_ROW_HEADER))
+            continue;
+
+        // Handle truncated attributes in pivot tuples
+        if (key->sk_attno > tupnatts)
+        {
+            Assert(BTreeTupleIsPivot(tuple));
+            continue;  // Assume truncated attributes pass
+        }
+
+        // Handle row-comparison keys
+        if (key->sk_flags & SK_ROW_HEADER)
+        {
+            if (_bt_check_rowcompare(key, tuple, tupnatts, tupdesc, dir,
+                                    continuescan))
+                continue;
+            return false;
+        }
+
+        // Get tuple attribute value
+        datum = index_getattr(tuple, key->sk_attno, tupdesc, &isNull);
+
+        // Handle IS NULL/NOT NULL tests
+        if (key->sk_flags & SK_ISNULL)
+        {
+            if (key->sk_flags & SK_SEARCHNULL)
+            {
+                if (isNull)
+                    continue;  // NULL matches IS NULL
+            }
+            else
+            {
+                Assert(key->sk_flags & SK_SEARCHNOTNULL);
+                if (!isNull)
+                    continue;  // Non-NULL matches IS NOT NULL
+            }
+
+            // Qualification failed
+            if (requiredSameDir)
+                *continuescan = false;
+            return false;
+        }
+
+        // Handle NULL values based on NULLS FIRST/LAST
+        if (isNull)
+        {
+            if (key->sk_flags & SK_BT_NULLS_FIRST)
+            {
+                if ((key->sk_flags & (SK_BT_REQFWD | SK_BT_REQBKWD)) &&
+                    ScanDirectionIsBackward(dir))
+                    *continuescan = false;
+            }
+            else
+            {
+                if ((key->sk_flags & (SK_BT_REQFWD | SK_BT_REQBKWD)) &&
+                    ScanDirectionIsForward(dir))
+                    *continuescan = false;
+            }
+            return false;
+        }
+
+        // Apply comparison function
+        if (!(requiredOppositeDirOnly && firstmatch) &&
+            !DatumGetBool(FunctionCall2Coll(&key->sk_func, key->sk_collation,
+                                           datum, key->sk_argument)))
+        {
+            // Qualification failed
+            if (requiredSameDir)
+                *continuescan = false;
+            else if (advancenonrequired &&
+                     key->sk_strategy == BTEqualStrategyNumber &&
+                     (key->sk_flags & SK_SEARCHARRAY))
+                return _bt_advance_array_keys(scan, NULL, tuple, tupnatts,
+                                             tupdesc, *ikey, false);
+            return false;
+        }
+    }
+
+    return true;  // All keys passed
+}
+```

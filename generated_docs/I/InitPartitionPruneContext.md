@@ -41,3 +41,75 @@ This function initializes a PartitionPruneContext structure that contains all th
 - Creates indexed storage for expression states using PruneCxtStateIdx for efficient lookup during pruning evaluation
 - The initialized context is used later during actual partition pruning to evaluate which partitions match the pruning criteria
 - Handles null keys by checking the nullkeys bitmapset and skipping initialization for those keys
+
+## Simplified Source
+
+```c
+static void
+InitPartitionPruneContext(PartitionPruneContext *context,
+                          List *pruning_steps,
+                          PartitionDesc partdesc,
+                          PartitionKey partkey,
+                          PlanState *planstate,
+                          ExprContext *econtext)
+{
+    int n_steps = list_length(pruning_steps);
+    int partnatts = partkey->partnatts;
+
+    // Copy partition metadata from partkey and partdesc
+    context->strategy = partkey->strategy;
+    context->partnatts = partnatts;
+    context->nparts = partdesc->nparts;
+    context->boundinfo = partdesc->boundinfo;
+    context->partcollation = partkey->partcollation;
+    context->partsupfunc = partkey->partsupfunc;
+
+    // Allocate arrays for comparison functions and expression states
+    context->stepcmpfuncs = palloc0(sizeof(FmgrInfo) * n_steps * partnatts);
+    context->exprstates = palloc0(sizeof(ExprState *) * n_steps * partnatts);
+
+    // Set context information
+    context->ppccontext = CurrentMemoryContext;
+    context->planstate = planstate;
+    context->exprcontext = econtext;
+
+    // Initialize expression states for each pruning step
+    foreach(lc, pruning_steps)
+    {
+        PartitionPruneStepOp *step = (PartitionPruneStepOp *) lfirst(lc);
+        ListCell *lc2 = list_head(step->exprs);
+
+        // Skip non-operation steps
+        if (!IsA(step, PartitionPruneStepOp))
+            continue;
+
+        // Process each partition key attribute
+        for (int keyno = 0; keyno < partnatts; keyno++)
+        {
+            // Skip null keys
+            if (bms_is_member(keyno, step->nullkeys))
+                continue;
+
+            if (lc2 != NULL)
+            {
+                Expr *expr = lfirst(lc2);
+
+                // Only initialize non-constant expressions
+                if (!IsA(expr, Const))
+                {
+                    int stateidx = PruneCxtStateIdx(partnatts, step->step.step_id, keyno);
+
+                    // Initialize expression with or without planstate
+                    if (planstate == NULL)
+                        context->exprstates[stateidx] =
+                            ExecInitExprWithParams(expr, econtext->ecxt_param_list_info);
+                    else
+                        context->exprstates[stateidx] =
+                            ExecInitExpr(expr, context->planstate);
+                }
+                lc2 = lnext(step->exprs, lc2);
+            }
+        }
+    }
+}
+```

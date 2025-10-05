@@ -59,3 +59,106 @@ This function implements sophisticated row filtering logic for logical replicati
 - Includes extensive debugging support with elog(DEBUG3) messages
 - Static function only accessible within pgoutput.c
 - Essential component of selective row replication functionality
+
+## Simplified Source
+
+```c
+static bool
+pgoutput_row_filter(Relation relation, TupleTableSlot *old_slot,
+                    TupleTableSlot **new_slot_ptr, RelationSyncEntry *entry,
+                    ReorderBufferChangeType *action)
+{
+    // Map change types to publication actions
+    static const int map_changetype_pubaction[] = {
+        [REORDER_BUFFER_CHANGE_INSERT] = PUBACTION_INSERT,
+        [REORDER_BUFFER_CHANGE_UPDATE] = PUBACTION_UPDATE,
+        [REORDER_BUFFER_CHANGE_DELETE] = PUBACTION_DELETE
+    };
+
+    TupleTableSlot *new_slot = *new_slot_ptr;
+    ExprState *filter_exprstate = entry->exprstate[map_changetype_pubaction[*action]];
+
+    // No filter means allow all
+    if (!filter_exprstate)
+        return true;
+
+    ExprContext *ecxt = GetPerTupleExprContext(entry->estate);
+    ResetPerTupleExprContext(entry->estate);
+
+    // Simple case: single tuple operations (INSERT, DELETE, or UPDATE with one tuple)
+    if (!new_slot || !old_slot)
+    {
+        ecxt->ecxt_scantuple = new_slot ? new_slot : old_slot;
+        return pgoutput_row_filter_exec_expr(filter_exprstate, ecxt);
+    }
+
+    // Complex case: UPDATE with both old and new tuples
+    slot_getallattrs(new_slot);
+    slot_getallattrs(old_slot);
+
+    TupleDesc desc = RelationGetDescr(relation);
+    TupleTableSlot *tmp_new_slot = NULL;
+
+    // Handle TOAST values: copy unchanged replica identity columns
+    for (int i = 0; i < desc->natts; i++)
+    {
+        Form_pg_attribute att = TupleDescAttr(desc, i);
+
+        if (new_slot->tts_isnull[i] || old_slot->tts_isnull[i])
+            continue;
+
+        // Copy TOAST values from old to new if needed
+        if (att->attlen == -1 &&
+            VARATT_IS_EXTERNAL_ONDISK(new_slot->tts_values[i]) &&
+            !VARATT_IS_EXTERNAL_ONDISK(old_slot->tts_values[i]))
+        {
+            if (!tmp_new_slot)
+            {
+                tmp_new_slot = MakeSingleTupleTableSlot(desc, &TTSOpsVirtual);
+                ExecClearTuple(tmp_new_slot);
+                memcpy(tmp_new_slot->tts_values, new_slot->tts_values,
+                       desc->natts * sizeof(Datum));
+                memcpy(tmp_new_slot->tts_isnull, new_slot->tts_isnull,
+                       desc->natts * sizeof(bool));
+            }
+            tmp_new_slot->tts_values[i] = old_slot->tts_values[i];
+            tmp_new_slot->tts_isnull[i] = old_slot->tts_isnull[i];
+        }
+    }
+
+    // Evaluate filter for old tuple
+    ecxt->ecxt_scantuple = old_slot;
+    bool old_matched = pgoutput_row_filter_exec_expr(filter_exprstate, ecxt);
+
+    // Evaluate filter for new tuple
+    if (tmp_new_slot)
+    {
+        ExecStoreVirtualTuple(tmp_new_slot);
+        ecxt->ecxt_scantuple = tmp_new_slot;
+    }
+    else
+        ecxt->ecxt_scantuple = new_slot;
+
+    bool new_matched = pgoutput_row_filter_exec_expr(filter_exprstate, ecxt);
+
+    // Transform UPDATE based on filter results:
+    // Case 1: old=false, new=false -> drop change
+    if (!old_matched && !new_matched)
+        return false;
+
+    // Case 2: old=false, new=true -> convert to INSERT
+    if (!old_matched && new_matched)
+    {
+        *action = REORDER_BUFFER_CHANGE_INSERT;
+        if (tmp_new_slot)
+            *new_slot_ptr = tmp_new_slot;
+    }
+    // Case 3: old=true, new=false -> convert to DELETE
+    else if (old_matched && !new_matched)
+        *action = REORDER_BUFFER_CHANGE_DELETE;
+
+    // Case 4: old=true, new=true -> keep as UPDATE (no change needed)
+
+    return true;
+}
+```

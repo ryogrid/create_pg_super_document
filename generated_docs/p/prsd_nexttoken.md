@@ -49,3 +49,24 @@ The function is designed to be called repeatedly until it returns 0, allowing co
 - Token types correspond to the lexical categories defined in the parser (see prsd_lextype for details)
 - Used as part of the standard text search parser workflow: prsd_start → prsd_nexttoken (repeatedly) → cleanup
 - Return value of 0 indicates end of tokenization; positive values indicate valid token types
+
+## Simplified Source
+
+```c
+Datum prsd_nexttoken(PG_FUNCTION_ARGS) {
+    // Extract arguments
+    TParser *p = (TParser *) PG_GETARG_POINTER(0);      // Parser instance
+    char **t = (char **) PG_GETARG_POINTER(1);          // Output: token text
+    int *tlen = (int *) PG_GETARG_POINTER(2);           // Output: token length
+
+    // Try to get next token
+    if (!TParserGet(p))
+        PG_RETURN_INT32(0);  // No more tokens
+
+    // Set output parameters
+    *t = p->token;           // Point to token in input string
+    *tlen = p->lenbytetoken; // Token length in bytes
+
+    PG_RETURN_INT32(p->type); // Return token type ID
+}
+```

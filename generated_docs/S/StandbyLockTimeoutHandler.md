@@ -28,3 +28,12 @@ This function serves as a timeout handler specifically for standby lock operatio
 - Works in conjunction with lock conflict resolution mechanisms in hot standby mode
 - Part of PostgreSQL's hot standby infrastructure for handling lock timeout scenarios
 - Different from StandbyTimeoutHandler in that it specifically handles lock-related timeouts
+
+## Simplified Source
+
+```c
+void StandbyLockTimeoutHandler(void) {
+    // Signal that standby lock timeout has occurred
+    got_standby_lock_timeout = true;
+}
+```

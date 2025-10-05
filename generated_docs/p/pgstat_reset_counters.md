@@ -39,3 +39,18 @@ The timestamp is recorded with each reset operation, allowing the statistics sys
 - Timestamps are recorded for each reset to enable proper statistics calculations post-reset
 - This is the primary mechanism for administrative reset of database-level statistics in PostgreSQL
 - The function operates on shared memory statistics structures, making the reset immediately visible to all backend processes
+
+## Simplified Source
+
+```c
+void
+pgstat_reset_counters(void)
+{
+    TimestampTz ts = GetCurrentTimestamp();
+
+    // Reset all entries matching current database
+    pgstat_reset_matching_entries(match_db_entries,
+                                  ObjectIdGetDatum(MyDatabaseId),
+                                  ts);
+}
+```

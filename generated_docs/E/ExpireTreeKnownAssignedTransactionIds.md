@@ -37,3 +37,26 @@ This function is called during recovery on standby servers to remove completed t
 - Uses exclusive locking on ProcArrayLock to ensure thread safety, matching the locking pattern used in normal transaction commits
 - Increments xactCompletionCount to maintain consistency with normal transaction processing
 - The function is part of PostgreSQL's Hot Standby functionality, allowing read-only queries on standby servers during recovery
+
+## Simplified Source
+
+```c
+void ExpireTreeKnownAssignedTransactionIds(TransactionId xid, int nsubxids,
+                                         TransactionId *subxids, TransactionId max_xid) {
+    Assert(standbyState >= STANDBY_INITIALIZED);
+
+    // Use same locking as transaction commit for consistency
+    LWLockAcquire(ProcArrayLock, LW_EXCLUSIVE);
+
+    // Remove the main transaction and all subtransactions from KnownAssignedXids
+    KnownAssignedXidsRemoveTree(xid, nsubxids, subxids);
+
+    // Advance latestCompletedXid for recovery progress tracking
+    MaintainLatestCompletedXidRecovery(max_xid);
+
+    // Increment transaction completion counter
+    TransamVariables->xactCompletionCount++;
+
+    LWLockRelease(ProcArrayLock);
+}
+```

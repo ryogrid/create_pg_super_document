@@ -50,3 +50,38 @@ The caching is done at the relation level (rel->rd_amcache) and persists across 
 - The function is thread-safe as long as callers properly manage buffer pins and locks
 - This caching mechanism significantly improves performance for hash index operations that frequently need metapage information
 - The cache is automatically invalidated when the relation cache entry is invalidated
+
+## Simplified Source
+
+```c
+HashMetaPage _hash_getcachedmetap(Relation rel, Buffer *metabuf, bool force_refresh) {
+    Page page;
+
+    // Check if cache needs refresh
+    if (force_refresh || rel->rd_amcache == NULL) {
+        char *cache = NULL;
+
+        // Allocate cache memory if needed
+        if (rel->rd_amcache == NULL)
+            cache = MemoryContextAlloc(rel->rd_indexcxt, sizeof(HashMetaPageData));
+
+        // Read metapage from buffer or disk
+        if (BufferIsValid(*metabuf))
+            LockBuffer(*metabuf, BUFFER_LOCK_SHARE);
+        else
+            *metabuf = _hash_getbuf(rel, HASH_METAPAGE, HASH_READ, LH_META_PAGE);
+
+        page = BufferGetPage(*metabuf);
+
+        // Update cache pointer and copy metapage data
+        if (rel->rd_amcache == NULL)
+            rel->rd_amcache = cache;
+        memcpy(rel->rd_amcache, HashPageGetMeta(page), sizeof(HashMetaPageData));
+
+        // Release lock but keep pin
+        LockBuffer(*metabuf, BUFFER_LOCK_UNLOCK);
+    }
+
+    return (HashMetaPage) rel->rd_amcache;
+}
+```

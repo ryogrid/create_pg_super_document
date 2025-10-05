@@ -50,3 +50,47 @@ The function includes optimizations for different data types:
 - Memory management includes freeing toasted input to avoid leaks
 - For float8 data, uses a specialized implementation for better performance
 - For other types, chooses between fixed-width and variable-width implementation paths based on the type's storage characteristics
+
+## Simplified Source
+
+```c
+Datum
+width_bucket_array(PG_FUNCTION_ARGS)
+{
+    Datum operand = PG_GETARG_DATUM(0);
+    ArrayType *thresholds = PG_GETARG_ARRAYTYPE_P(1);
+    Oid collation = PG_GET_COLLATION();
+    Oid element_type = ARR_ELEMTYPE(thresholds);
+
+    // Validate input array
+    if (ARR_NDIM(thresholds) > 1)
+        ereport(ERROR, "thresholds must be one-dimensional array");
+
+    if (array_contains_nulls(thresholds))
+        ereport(ERROR, "thresholds array must not contain NULLs");
+
+    int result;
+
+    // Use optimized path for float8
+    if (element_type == FLOAT8OID) {
+        result = width_bucket_array_float8(operand, thresholds);
+    } else {
+        // Get or cache comparison function for element type
+        TypeCacheEntry *typentry = get_cached_comparison_proc(fcinfo, element_type);
+
+        // Choose implementation based on type characteristics
+        if (typentry->typlen > 0) {
+            // Fixed-width types
+            result = width_bucket_array_fixed(operand, thresholds, collation, typentry);
+        } else {
+            // Variable-width types
+            result = width_bucket_array_variable(operand, thresholds, collation, typentry);
+        }
+    }
+
+    // Clean up toasted input
+    PG_FREE_IF_COPY(thresholds, 1);
+
+    PG_RETURN_INT32(result);
+}
+```

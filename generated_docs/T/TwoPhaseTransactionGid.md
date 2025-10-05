@@ -41,3 +41,23 @@ This GID is essential for the two-phase commit protocol, allowing the system to 
 - Essential component of PostgreSQL's two-phase commit implementation for logical replication
 - The generated GID must be unique across the entire cluster to avoid conflicts
 - Used in prepare, commit prepared, and rollback prepared operations to maintain transaction consistency
+
+## Simplified Source
+
+```c
+static void
+TwoPhaseTransactionGid(Oid subid, TransactionId xid, char *gid, int szgid)
+{
+    // Validate subscription ID
+    Assert(subid != InvalidRepOriginId);
+
+    // Validate transaction ID
+    if (!TransactionIdIsValid(xid))
+        ereport(ERROR,
+                (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                 errmsg_internal("invalid two-phase transaction ID")));
+
+    // Generate standardized GID format: "pg_gid_{subid}_{xid}"
+    snprintf(gid, szgid, "pg_gid_%u_%u", subid, xid);
+}
+```

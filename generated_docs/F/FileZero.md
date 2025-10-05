@@ -41,3 +41,33 @@ FileZero efficiently zeros out a contiguous region of a file by writing zero byt
 - Part of PostgreSQL's Virtual File Descriptor (VFD) system
 - Critical for maintaining data integrity by ensuring clean initialization of file regions
 - Wait event reporting enables monitoring of potentially long-running zero operations
+
+## Simplified Source
+
+```c
+int FileZero(File file, off_t offset, off_t amount, uint32 wait_event_info) {
+    Assert(FileIsValid(file));
+
+    // Ensure file is accessible and open
+    int returnCode = FileAccess(file);
+    if (returnCode < 0)
+        return returnCode;
+
+    // Write zeros to the specified region with wait event tracking
+    pgstat_report_wait_start(wait_event_info);
+    ssize_t written = pg_pwrite_zeros(VfdCache[file].fd, amount, offset);
+    pgstat_report_wait_end();
+
+    // Handle errors and partial writes
+    if (written < 0)
+        return -1;
+    else if (written != amount) {
+        // Assume disk space issue if no specific error
+        if (errno == 0)
+            errno = ENOSPC;
+        return -1;
+    }
+
+    return 0;  // Success
+}
+```

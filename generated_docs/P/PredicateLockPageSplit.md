@@ -49,3 +49,58 @@ The function handles the case where the predicate lock table becomes full by pro
 - Memory barriers from LWLock acquisition ensure safe concurrent access during the serializable transaction check
 - Skip processing for temporary tables and toast tables as they don't require predicate locking
 - The function is essential for maintaining the correctness of PostgreSQL's serializable snapshot isolation implementation
+
+## Simplified Source
+
+```c
+void PredicateLockPageSplit(Relation relation, BlockNumber oldblkno,
+                           BlockNumber newblkno)
+{
+    PREDICATELOCKTARGETTAG oldtargettag;
+    PREDICATELOCKTARGETTAG newtargettag;
+    bool success;
+
+    // Quick exit if no serializable transactions running
+    if (!TransactionIdIsValid(PredXact->SxactGlobalXmin))
+        return;
+
+    if (!PredicateLockingNeededForRelation(relation))
+        return;
+
+    Assert(oldblkno != newblkno);
+    Assert(BlockNumberIsValid(oldblkno));
+    Assert(BlockNumberIsValid(newblkno));
+
+    // Set up target tags for old and new pages
+    SET_PREDICATELOCKTARGETTAG_PAGE(oldtargettag,
+                                    relation->rd_locator.dbOid,
+                                    relation->rd_id,
+                                    oldblkno);
+    SET_PREDICATELOCKTARGETTAG_PAGE(newtargettag,
+                                    relation->rd_locator.dbOid,
+                                    relation->rd_id,
+                                    newblkno);
+
+    LWLockAcquire(SerializablePredicateListLock, LW_EXCLUSIVE);
+
+    // Try copying locks to new page
+    success = TransferPredicateLocksToNewTarget(oldtargettag,
+                                                newtargettag,
+                                                false);
+
+    if (!success)
+    {
+        // Out of memory - promote to relation lock instead
+        success = GetParentPredicateLockTag(&oldtargettag, &newtargettag);
+        Assert(success);
+
+        // Move locks to relation level (this should always succeed)
+        success = TransferPredicateLocksToNewTarget(oldtargettag,
+                                                    newtargettag,
+                                                    true);
+        Assert(success);
+    }
+
+    LWLockRelease(SerializablePredicateListLock);
+}
+```

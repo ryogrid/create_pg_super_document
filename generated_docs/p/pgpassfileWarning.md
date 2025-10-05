@@ -44,3 +44,28 @@ The warning message includes the full path to the password file that was used, h
 - The warning is appended to existing connection error messages rather than replacing them
 - Only triggers for the specific ERRCODE_INVALID_PASSWORD SQL state, ensuring it doesn't interfere with other types of authentication errors
 - Part of libpq's comprehensive error reporting system for connection troubleshooting
+
+## Simplified Source
+
+```c
+static void
+pgpassfileWarning(PGconn *conn)
+{
+    // Only add warning if password was needed and came from pgpass file
+    if (conn->password_needed &&
+        conn->connhost[conn->whichhost].password != NULL &&
+        conn->result)
+    {
+        // Check if the error was specifically "invalid password"
+        const char *sqlstate = PQresultErrorField(conn->result, PG_DIAG_SQLSTATE);
+
+        if (sqlstate && strcmp(sqlstate, ERRCODE_INVALID_PASSWORD) == 0)
+        {
+            // Append helpful message about password source
+            libpq_append_conn_error(conn,
+                                   "password retrieved from file \"%s\"",
+                                   conn->pgpassfile);
+        }
+    }
+}
+```

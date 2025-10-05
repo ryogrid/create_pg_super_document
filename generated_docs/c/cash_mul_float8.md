@@ -45,3 +45,22 @@ The  function multiplies a Cash value (64-bit signed integer representing moneta
 - Part of PostgreSQL's cash data type implementation for mixed-type arithmetic operations
 - Enables multiplication of monetary values by percentage factors or scaling values
 - The intermediate float8 calculation allows for fractional multiplication while maintaining final integer precision
+
+## Simplified Source
+
+```c
+static inline Cash
+cash_mul_float8(Cash c, float8 f)
+{
+    // Multiply cash by float8 and round to nearest integer
+    float8 res = rint(float8_mul((float8) c, f));
+
+    // Check for NaN or out-of-range results
+    if (unlikely(isnan(res) || !FLOAT8_FITS_IN_INT64(res)))
+        ereport(ERROR,
+                (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                 errmsg("money out of range")));
+
+    return (Cash) res;
+}
+```

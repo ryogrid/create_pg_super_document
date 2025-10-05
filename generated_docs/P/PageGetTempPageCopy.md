@@ -33,3 +33,24 @@ PageGetTempPageCopy creates a temporary page buffer in local memory that is an e
 - Commonly used in index maintenance operations where the original page structure must be preserved
 - More expensive than PageGetTempPage due to the complete memory copy operation
 - The resulting page can be modified independently without affecting the source page
+
+## Simplified Source
+
+```c
+Page PageGetTempPageCopy(Page page)
+{
+    Size pageSize;
+    Page temp;
+
+    // Get the size of the source page
+    pageSize = PageGetPageSize(page);
+
+    // Allocate memory for the copy
+    temp = (Page) palloc(pageSize);
+
+    // Copy all content from source to temporary page
+    memcpy(temp, page, pageSize);
+
+    return temp;
+}
+```

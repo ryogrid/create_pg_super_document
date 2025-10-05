@@ -37,3 +37,24 @@ The  function is responsible for converting PostgreSQL's internal  data type rep
 - Returns a bytea (variable-length binary string) containing the serialized data
 - Part of the PostgreSQL tutorial demonstrating custom data type implementation
 - Located in src/tutorial/complex.c:85-104
+
+## Simplified Source
+
+```c
+Datum
+complex_send(PG_FUNCTION_ARGS)
+{
+    Complex *complex = (Complex *) PG_GETARG_POINTER(0);
+    StringInfoData buf;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Write real and imaginary parts to buffer
+    pq_sendfloat8(&buf, complex->x);
+    pq_sendfloat8(&buf, complex->y);
+
+    // Return finalized binary data
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

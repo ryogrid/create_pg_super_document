@@ -36,3 +36,22 @@ This function combines the functionality of complete file reading with optional 
 - Returns the entire file content as bytea data type on success, NULL when file is missing and missing_ok is true
 - Provides a balance between complete file access and graceful handling of optional files
 - Useful for configuration files, optional binary resources, or conditional file operations
+
+## Simplified Source
+
+```c
+Datum pg_read_binary_file_all_missing(PG_FUNCTION_ARGS) {
+    // Extract filename and missing_ok flag from function arguments
+    text *filename_t = PG_GETARG_TEXT_PP(0);
+    bool missing_ok = PG_GETARG_BOOL(1);
+
+    // Read entire binary file: offset=0, length=-1 (all), enforce_size=true, with missing file handling
+    text *ret = pg_read_binary_file_common(filename_t, 0, -1, true, missing_ok);
+
+    // Return binary data or NULL if reading failed
+    if (!ret)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BYTEA_P(ret);
+}
+```

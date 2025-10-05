@@ -33,3 +33,37 @@ This function takes no parameters.
 - If autovacuuming becomes inactive during config reload, it triggers a launcher shutdown
 - This is a static function internal to the autovacuum.c module
 - The function handles both graceful shutdown scenarios and emergency interrupt processing
+
+## Simplified Source
+
+```c
+static void HandleAutoVacLauncherInterrupts(void)
+{
+    // Handle shutdown request - highest priority
+    if (ShutdownRequestPending)
+        AutoVacLauncherShutdown();
+
+    // Handle configuration reload
+    if (ConfigReloadPending) {
+        ConfigReloadPending = false;
+        ProcessConfigFile(PGC_SIGHUP);
+
+        // Shutdown if autovacuum disabled in new config
+        if (!AutoVacuumingActive())
+            AutoVacLauncherShutdown();
+
+        // Rebuild database list for new settings
+        rebuild_database_list(InvalidOid);
+    }
+
+    // Process other signal-based events
+    if (ProcSignalBarrierPending)
+        ProcessProcSignalBarrier();
+
+    if (LogMemoryContextPending)
+        ProcessLogMemoryContextInterrupt();
+
+    // Handle shared invalidation catchup
+    ProcessCatchupInterrupt();
+}
+```

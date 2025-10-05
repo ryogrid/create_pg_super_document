@@ -34,3 +34,16 @@ This function implements the subtraction operation for mixed-precision floating-
 - The result is always returned as float8 (double precision) to preserve precision
 - The function follows PostgreSQL's naming convention: float48mi indicates float4 - float8 subtraction
 - Located in src/backend/utils/adt/float.c:3786-3794
+
+## Simplified Source
+
+```c
+Datum float48mi(PG_FUNCTION_ARGS) {
+    // Extract float4 and float8 arguments
+    float4 arg1 = PG_GETARG_FLOAT4(0);
+    float8 arg2 = PG_GETARG_FLOAT8(1);
+
+    // Promote float4 to float8 and perform subtraction
+    PG_RETURN_FLOAT8(float8_mi((float8) arg1, arg2));
+}
+```

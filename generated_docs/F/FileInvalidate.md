@@ -41,3 +41,16 @@ The invalidation removes the file from the LRU ring, which means it won't be con
 - Part of PostgreSQL's sophisticated file descriptor management system
 - May be used in specialized scenarios where files need to be excluded from automatic LRU-based closure
 - The lack of current references suggests this might be a utility function for future use or specific edge cases
+
+## Simplified Source
+
+```c
+void FileInvalidate(File file) {
+    // Ensure the file descriptor is valid
+    Assert(FileIsValid(file));
+
+    // Remove from LRU cache if file is currently open
+    if (!FileIsNotOpen(file))
+        LruDelete(file);
+}
+```

@@ -35,3 +35,39 @@ This function generates hash values for JSONB scalar values (null, string, numer
 
 ## Notes and Other Information
 The function uses a left-rotate-then-XOR strategy for combining hash values, which provides good hash distribution properties. Callers may independently XOR in JB_FOBJECT and JB_FARRAY flags as needed. The function will throw an ERROR for invalid JSONB scalar types, making it safe to use with validated JsonbValue structures.
+
+## Simplified Source
+
+```c
+void JsonbHashScalarValue(const JsonbValue *scalarVal, uint32 *hash) {
+    uint32 tmp;
+
+    // Compute hash based on scalar type
+    switch (scalarVal->type) {
+        case jbvNull:
+            tmp = 0x01;
+            break;
+        case jbvString:
+            tmp = DatumGetUInt32(hash_any(
+                (const unsigned char *) scalarVal->val.string.val,
+                scalarVal->val.string.len));
+            break;
+        case jbvNumeric:
+            // Ensure equal numerics hash to same value
+            tmp = DatumGetUInt32(DirectFunctionCall1(hash_numeric,
+                NumericGetDatum(scalarVal->val.numeric)));
+            break;
+        case jbvBool:
+            tmp = scalarVal->val.boolean ? 0x02 : 0x04;
+            break;
+        default:
+            elog(ERROR, "invalid jsonb scalar type");
+            tmp = 0;
+            break;
+    }
+
+    // Combine hash using left-rotate and XOR
+    *hash = pg_rotate_left32(*hash, 1);
+    *hash ^= tmp;
+}
+```

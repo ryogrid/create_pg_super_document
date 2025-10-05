@@ -37,3 +37,21 @@ This PostgreSQL SQL function provides the interface to drop replication slots fr
 - This function is exposed to SQL as pg_drop_replication_slot()
 - The actual slot deletion logic is handled by ReplicationSlotDrop() in the replication slot management subsystem
 - Simple and straightforward interface with minimal parameters - just the slot name to drop
+
+## Simplified Source
+
+```c
+Datum pg_drop_replication_slot(PG_FUNCTION_ARGS) {
+    // Extract slot name from function arguments
+    Name name = PG_GETARG_NAME(0);
+
+    // Validate permissions and requirements
+    CheckSlotPermissions();
+    CheckSlotRequirements();
+
+    // Drop the replication slot
+    ReplicationSlotDrop(NameStr(*name), true);
+
+    PG_RETURN_VOID();
+}
+```

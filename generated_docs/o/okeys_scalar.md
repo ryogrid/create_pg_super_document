@@ -42,3 +42,19 @@ The function performs validation by checking if a scalar value is encountered at
 - The token and tokentype parameters are available but not used in the current implementation
 - Part of the comprehensive validation strategy that includes both array and scalar checks
 - The error message specifically mentions 'json_object_keys' for clear user feedback
+
+## Simplified Source
+
+```c
+static JsonParseErrorType okeys_scalar(void *state, char *token, JsonTokenType tokentype) {
+    OkeysState *_state = (OkeysState *) state;
+
+    // Ensure top level is not a scalar - json_object_keys requires an object
+    if (_state->lex->lex_level == 0)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("cannot call %s on a scalar", "json_object_keys")));
+
+    return JSON_SUCCESS;
+}
+```

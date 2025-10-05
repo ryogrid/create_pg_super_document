@@ -55,3 +55,39 @@ The function operates in several phases:
 - Statistical reporting differentiates between table sync and apply worker failures
 - Only leader apply workers have their start time tracking cleaned up
 - The subscription disable operation is performed in a separate transaction to ensure consistency
+
+## Simplified Source
+
+```c
+void
+DisableSubscriptionAndExit(void)
+{
+    // Step 1: Error recovery and cleanup
+    HOLD_INTERRUPTS();
+    EmitErrorReport();
+    AbortOutOfAnyTransaction();
+    FlushErrorState();
+    RESUME_INTERRUPTS();
+
+    // Step 2: Report subscription error statistics
+    pgstat_report_subscription_error(MyLogicalRepWorker->subid,
+                                     !am_tablesync_worker());
+
+    // Step 3: Disable subscription in new transaction
+    StartTransactionCommand();
+    PushActiveSnapshot(GetTransactionSnapshot());
+    DisableSubscription(MySubscription->oid);
+    PopActiveSnapshot();
+    CommitTransactionCommand();
+
+    // Step 4: Clean up worker tracking if leader
+    if (am_leader_apply_worker())
+        ApplyLauncherForgetWorkerStartTime(MyLogicalRepWorker->subid);
+
+    // Step 5: Log and exit
+    ereport(LOG,
+            errmsg("subscription \"%s\" has been disabled because of an error",
+                   MySubscription->name));
+    proc_exit(0);
+}
+```

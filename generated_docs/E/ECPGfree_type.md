@@ -36,3 +36,43 @@ This function implements a comprehensive memory deallocation system for ECPGtype
 - Error messages include references to PACKAGE_BUGREPORT for user reporting of unknown datatypes
 - Memory is freed in a specific order: first complex substructures, then the main ECPGtype structure
 - Part of ECPG's comprehensive memory management system for type definitions
+
+## Simplified Source
+
+```c
+void ECPGfree_type(struct ECPGtype *type) {
+    // Simple types need no special handling
+    if (!IS_SIMPLE_TYPE(type->type)) {
+        switch (type->type) {
+            case ECPGt_array:
+                switch (type->u.element->type) {
+                    case ECPGt_array:
+                        base_yyerror("internal error: found multidimensional array\n");
+                        break;
+                    case ECPGt_struct:
+                    case ECPGt_union:
+                        // Free array of structs
+                        ECPGfree_struct_member(type->u.element->u.members);
+                        free(type->u.element);
+                        break;
+                    default:
+                        if (!IS_SIMPLE_TYPE(type->u.element->type))
+                            base_yyerror("internal error: unknown datatype");
+                        free(type->u.element);
+                }
+                break;
+
+            case ECPGt_struct:
+            case ECPGt_union:
+                ECPGfree_struct_member(type->u.members);
+                break;
+
+            default:
+                mmerror(PARSE_ERROR, ET_ERROR, "unrecognized variable type code %d", type->type);
+                break;
+        }
+    }
+
+    free(type);
+}
+```

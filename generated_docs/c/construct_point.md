@@ -37,3 +37,21 @@ This function constructs a 2D point from two floating-point coordinate values. I
 - Located at src/backend/utils/adt/geo_ops.c:4096-4110
 - Memory allocated with palloc will be automatically freed when the current memory context is reset
 - Provides the foundation for creating Point objects that can be used by other geometric operations
+
+## Simplified Source
+
+```c
+Datum construct_point(PG_FUNCTION_ARGS) {
+    float8 x = PG_GETARG_FLOAT8(0);  // X coordinate
+    float8 y = PG_GETARG_FLOAT8(1);  // Y coordinate
+    Point *result;
+
+    // Allocate memory for new Point structure
+    result = (Point *) palloc(sizeof(Point));
+
+    // Initialize the point with coordinates
+    point_construct(result, x, y);
+
+    PG_RETURN_POINT_P(result);
+}
+```

@@ -40,3 +40,19 @@ The function creates a FileTag to identify the specific segment and uses Registe
 - Helps optimize checkpoint performance by removing obsolete sync requests
 - Works in conjunction with register_unlink_segment during file deletion operations
 - Critical for preventing wasted I/O operations on files that are no longer needed
+
+## Simplified Source
+
+```c
+static void register_forget_request(RelFileLocatorBackend rlocator, ForkNumber forknum,
+                                   BlockNumber segno)
+{
+    FileTag tag;
+
+    // Create file tag to identify the segment
+    INIT_MD_FILETAG(tag, rlocator.locator, forknum, segno);
+
+    // Cancel any pending fsync requests for this segment
+    RegisterSyncRequest(&tag, SYNC_FORGET_REQUEST, true /* retryOnError */);
+}
+```

@@ -44,3 +44,41 @@ This function serves as the primary entry point for numeric format caching in Po
 - Central performance optimization point for PostgreSQL numeric formatting operations
 - Debug logging available when DEBUG_TO_FROM_CHAR is defined
 - Part of the numeric formatting cache management system located in src/backend/utils/adt/formatting.c:5180-5237
+
+## Simplified Source
+
+```c
+static FormatNode *NUM_cache(int len, NUMDesc *Num, text *pars_str, bool *shouldFree) {
+    FormatNode *format = NULL;
+    char *str = text_to_cstring(pars_str);
+
+    if (len > NUM_CACHE_SIZE) {
+        // Format string too large for cache - allocate and parse directly
+        format = (FormatNode *) palloc((len + 1) * sizeof(FormatNode));
+        *shouldFree = true;
+
+        zeroize_NUM(Num);
+        parse_format(format, str, NUM_keywords, NULL, NUM_index, NUM_FLAG, Num);
+    }
+    else {
+        // Use cached format
+        NUMCacheEntry *ent = NUM_cache_fetch(str);
+        *shouldFree = false;
+        format = ent->format;
+
+        // Copy cached format descriptor to output
+        Num->flag = ent->Num.flag;
+        Num->lsign = ent->Num.lsign;
+        Num->pre = ent->Num.pre;
+        Num->post = ent->Num.post;
+        Num->pre_lsign_num = ent->Num.pre_lsign_num;
+        Num->need_locale = ent->Num.need_locale;
+        Num->multi = ent->Num.multi;
+        Num->zero_start = ent->Num.zero_start;
+        Num->zero_end = ent->Num.zero_end;
+    }
+
+    pfree(str);
+    return format;
+}
+```

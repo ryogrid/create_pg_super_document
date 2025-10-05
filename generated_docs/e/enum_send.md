@@ -39,3 +39,32 @@ The function looks up the enum label corresponding to the given OID and packages
 - The binary format includes proper length encoding and is platform-independent
 - Creates a bytea result that contains the binary-encoded enum label
 - Part of the complete binary I/O support for enum types alongside enum_recv
+
+## Simplified Source
+
+```c
+Datum enum_send(PG_FUNCTION_ARGS) {
+    Oid enum_value_oid = PG_GETARG_OID(0);
+    StringInfoData buffer;
+
+    // Look up the enum value by its OID
+    HeapTuple enum_tuple = SearchSysCache1(ENUMOID, ObjectIdGetDatum(enum_value_oid));
+
+    if (!HeapTupleIsValid(enum_tuple)) {
+        ereport(ERROR, "invalid internal value for enum");
+    }
+
+    // Extract the enum label from the catalog entry
+    Form_pg_enum enum_data = (Form_pg_enum) GETSTRUCT(enum_tuple);
+
+    // Create binary protocol message
+    pq_begintypsend(&buffer);
+    pq_sendtext(&buffer, NameStr(enum_data->enumlabel),
+                strlen(NameStr(enum_data->enumlabel)));
+
+    ReleaseSysCache(enum_tuple);
+
+    // Return the binary-encoded result
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buffer));
+}
+```

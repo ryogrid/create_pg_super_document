@@ -33,3 +33,21 @@ This function serves as a GUC (Grand Unified Configuration) assign hook that is 
 - The timeout is managed through PostgreSQL's timeout management system
 - Changes to transaction_timeout outside of transactions will be applied to future transactions automatically
 - Part of the GUC hook mechanism that allows custom behavior when configuration parameters change
+
+## Simplified Source
+
+```c
+void assign_transaction_timeout(int newval, void *extra)
+{
+    if (IsTransactionState())
+    {
+        // Enable timeout if new value is positive and not already active
+        if (newval > 0 && !get_timeout_active(TRANSACTION_TIMEOUT))
+            enable_timeout_after(TRANSACTION_TIMEOUT, newval);
+
+        // Disable timeout if new value is zero/negative and currently active
+        else if (newval <= 0 && get_timeout_active(TRANSACTION_TIMEOUT))
+            disable_timeout(TRANSACTION_TIMEOUT, false);
+    }
+}
+```

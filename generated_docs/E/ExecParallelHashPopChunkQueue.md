@@ -48,3 +48,36 @@ This design allows parallel workers to efficiently coordinate chunk processing w
 - The function is part of PostgreSQL's work-stealing approach for parallel hash operations
 - Critical for load balancing among parallel workers during hash table operations
 - Located in src/backend/executor/nodeHash.c:3500-3540
+
+## Simplified Source
+
+```c
+static HashMemoryChunk
+ExecParallelHashPopChunkQueue(HashJoinTable hashtable, dsa_pointer *shared)
+{
+    ParallelHashJoinState *pstate = hashtable->parallel_state;
+    HashMemoryChunk chunk;
+
+    // Acquire exclusive lock for thread-safe access
+    LWLockAcquire(&pstate->lock, LW_EXCLUSIVE);
+
+    // Check if chunks are available in work queue
+    if (DsaPointerIsValid(pstate->chunk_work_queue))
+    {
+        // Get chunk from queue head
+        *shared = pstate->chunk_work_queue;
+        chunk = (HashMemoryChunk) dsa_get_address(hashtable->area, *shared);
+
+        // Update queue to next chunk
+        pstate->chunk_work_queue = chunk->next.shared;
+    }
+    else
+    {
+        // No chunks available
+        chunk = NULL;
+    }
+
+    LWLockRelease(&pstate->lock);
+    return chunk;
+}
+```

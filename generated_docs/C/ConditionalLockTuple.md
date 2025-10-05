@@ -39,3 +39,21 @@ ConditionalLockTuple is a non-blocking variant of LockTuple that attempts to acq
 - Operates at the most granular (tuple) level of PostgreSQL locking
 - Useful in scenarios where the caller can perform alternative actions if the tuple lock is not immediately available
 - Like LockTuple, should be used with careful consideration of the overall locking strategy
+
+## Simplified Source
+```c
+bool ConditionalLockTuple(Relation relation, ItemPointer tid, LOCKMODE lockmode)
+{
+    LOCKTAG tag;
+
+    // Create lock tag for the specific tuple
+    SET_LOCKTAG_TUPLE(tag,
+                      relation->rd_lockInfo.lockRelId.dbId,
+                      relation->rd_lockInfo.lockRelId.relId,
+                      ItemPointerGetBlockNumber(tid),
+                      ItemPointerGetOffsetNumber(tid));
+
+    // Try to acquire lock without waiting - return success/failure
+    return (LockAcquire(&tag, lockmode, false, true) != LOCKACQUIRE_NOT_AVAIL);
+}
+```

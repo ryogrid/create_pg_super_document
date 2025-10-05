@@ -37,3 +37,18 @@ The function includes safety checks and will raise an ERROR if it cannot find a 
 - The replication slot set must be stable when this function is called
 - Part of the broader PostgreSQL statistics serialization framework
 - Located in src/backend/utils/activity/pgstat_replslot.c:189-201
+
+## Simplified Source
+
+```c
+void
+pgstat_replslot_to_serialized_name_cb(const PgStat_HashKey *key,
+                                       const PgStatShared_Common *header,
+                                       NameData *name)
+{
+    // Convert slot index to slot name during shutdown serialization
+    // The slot set is stable at this point so lookup should always succeed
+    if (!ReplicationSlotName(key->objoid, name))
+        elog(ERROR, "could not find name for replication slot index %u", key->objoid);
+}
+```

@@ -39,3 +39,30 @@ This static function computes the closest point on a line segment to an infinite
 - When lines are parallel or in degenerate cases, the function may default to returning the second endpoint of the line segment
 - Part of PostgreSQL's comprehensive geometric data type support system
 - Located in `geo_ops.c` at lines 2960-2987
+
+## Simplified Source
+
+```c
+static float8 lseg_closept_line(Point *result, LSEG *lseg, LINE *line) {
+    float8 dist1, dist2;
+
+    // If segment intersects line, distance is 0
+    if (lseg_interpt_line(result, lseg, line))
+        return 0.0;
+
+    // Check distances from both segment endpoints to line
+    dist1 = line_closept_point(NULL, line, &lseg->p[0]);
+    dist2 = line_closept_point(NULL, line, &lseg->p[1]);
+
+    // Return the closer endpoint
+    if (dist1 < dist2) {
+        if (result != NULL)
+            *result = lseg->p[0];
+        return dist1;
+    } else {
+        if (result != NULL)
+            *result = lseg->p[1];
+        return dist2;
+    }
+}
+```

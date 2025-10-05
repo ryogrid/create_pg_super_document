@@ -44,3 +44,35 @@ The function outputs detailed information for each pinned buffer including the b
 - Particularly useful for detecting buffer pin leaks or understanding buffer usage patterns
 - The selective nature makes output more manageable when debugging specific pinning issues
 - Output format is identical to PrintBufferDescs but filtered to show only relevant buffers
+
+## Simplified Source
+
+```c
+void PrintPinnedBufs(void) {
+    // Iterate through all buffers in the shared buffer pool
+    for (int i = 0; i < NBuffers; ++i) {
+        BufferDesc *buf = GetBufferDescriptor(i);
+        Buffer b = BufferDescriptorGetBuffer(buf);
+
+        // Only log buffers that are pinned by this process
+        if (GetPrivateRefCount(b) > 0) {
+            // Log pinned buffer information (note: should theoretically lock bufhdr)
+            elog(LOG,
+                 "[%02d] (freeNext=%d, rel=%s, "
+                 "blockNum=%u, flags=0x%x, refcount=%u %d)",
+                 i, buf->freeNext,
+                 relpathperm(BufTagGetRelFileLocator(&buf->tag),
+                            BufTagGetForkNum(&buf->tag)),
+                 buf->tag.blockNum, buf->flags,
+                 buf->refcount, GetPrivateRefCount(b));
+        }
+    }
+}
+```
+
+**Key Logic:**
+- Debugging function focused on buffers pinned by the current process
+- Filters output to show only buffers with positive private reference counts
+- Uses same detailed logging format as PrintBufferDescs but more selective
+- Particularly useful for detecting buffer pin leaks or understanding usage patterns
+- Uses relpathperm() for permanent relation path format in output

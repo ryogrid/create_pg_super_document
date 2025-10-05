@@ -30,3 +30,23 @@ This function maintains the operational statistics for a logical replication wor
 - Updates the global MyLogicalRepWorker structure which tracks the current worker's state
 - The function sets last_recv_time to the current timestamp, providing a way to measure replication lag
 - Reply-specific statistics (reply_lsn and reply_time) are only updated when the reply flag is true, typically when sending acknowledgments back to the publisher
+
+## Simplified Source
+
+```c
+static void
+UpdateWorkerStats(XLogRecPtr last_lsn, TimestampTz send_time, bool reply)
+{
+    // Update core worker statistics
+    MyLogicalRepWorker->last_lsn = last_lsn;           // Latest processed LSN
+    MyLogicalRepWorker->last_send_time = send_time;    // When publisher sent it
+    MyLogicalRepWorker->last_recv_time = GetCurrentTimestamp();  // When we received it
+
+    // Update reply statistics if this is a reply message
+    if (reply)
+    {
+        MyLogicalRepWorker->reply_lsn = last_lsn;      // Last LSN we replied about
+        MyLogicalRepWorker->reply_time = send_time;    // When that message was sent
+    }
+}
+```

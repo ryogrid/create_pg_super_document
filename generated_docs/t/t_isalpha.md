@@ -38,3 +38,23 @@ The function is primarily used in regular expression processing and affix parsin
 - Part of PostgreSQL's text search locale abstraction layer defined in ts_locale.h
 - Essential for proper morphological analysis and pattern matching in various languages
 - Less frequently used compared to t_isspace but critical for specific regex and affix operations
+
+## Simplified Source
+
+```c
+int
+t_isalpha(const char *ptr)
+{
+    int char_len = pg_mblen(ptr);
+
+    // Fast path for single-byte characters or C locale
+    if (char_len == 1 || database_ctype_is_c)
+        return isalpha(TOUCHAR(ptr));
+
+    // Multi-byte character: convert to wide char and test
+    wchar_t wide_char[WC_BUF_LEN];
+    char2wchar(wide_char, WC_BUF_LEN, ptr, char_len, 0);
+
+    return iswalpha((wint_t) wide_char[0]);
+}
+```

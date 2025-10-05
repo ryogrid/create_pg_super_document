@@ -46,3 +46,47 @@ When creating a new entry, the function initializes it as an exact (non-chunk) e
 - May cause memory usage to exceed limits - caller responsibility to call tbm_lossify()
 - New entries are always marked as exact (non-chunk) initially
 - The function preserves the status field when reinitializing existing page entries
+
+## Simplified Source
+
+```c
+static PagetableEntry *
+tbm_get_pageentry(TIDBitmap *tbm, BlockNumber pageno)
+{
+    PagetableEntry *page;
+    bool found;
+
+    // Handle empty bitmap - use fixed slot
+    if (tbm->status == TBM_EMPTY) {
+        page = &tbm->entry1;
+        found = false;
+        tbm->status = TBM_ONE_PAGE;
+    }
+    else {
+        // Handle single page case
+        if (tbm->status == TBM_ONE_PAGE) {
+            page = &tbm->entry1;
+            if (page->blockno == pageno)
+                return page;
+            // Transition to hash table for multiple pages
+            tbm_create_pagetable(tbm);
+        }
+
+        // Look up or create entry in hash table
+        page = pagetable_insert(tbm->pagetable, pageno, &found);
+    }
+
+    // Initialize new entry
+    if (!found) {
+        char oldstatus = page->status;
+        MemSet(page, 0, sizeof(PagetableEntry));
+        page->status = oldstatus;
+        page->blockno = pageno;
+        // Update counters
+        tbm->nentries++;
+        tbm->npages++;
+    }
+
+    return page;
+}
+```

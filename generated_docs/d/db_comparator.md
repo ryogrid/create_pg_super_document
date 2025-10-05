@@ -31,3 +31,14 @@ This function serves as a comparator for the qsort algorithm when sorting the ar
 - Critical for ensuring databases are processed in the correct priority order
 - The adl_score field represents the insertion order and priority during database list rebuilding
 - Lower scores indicate higher priority (databases are processed in score order)
+
+## Simplified Source
+
+```c
+static int db_comparator(const void *a, const void *b)
+{
+    // Compare database scheduling scores for qsort ordering
+    return pg_cmp_s32(((const avl_dbase *) a)->adl_score,
+                      ((const avl_dbase *) b)->adl_score);
+}
+```

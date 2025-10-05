@@ -39,3 +39,16 @@ The `lseg_parallel` function is a PostgreSQL built-in function that tests whethe
 - Part of PostgreSQL's geometric data type support for spatial analysis
 - Useful for geometric queries involving parallel line detection in spatial databases
 - The parallelism test is based purely on slope equality and does not consider whether the segments are collinear
+
+## Simplified Source
+
+```c
+Datum lseg_parallel(PG_FUNCTION_ARGS) {
+    // Extract two line segments from function arguments
+    LSEG *l1 = PG_GETARG_LSEG_P(0);
+    LSEG *l2 = PG_GETARG_LSEG_P(1);
+
+    // Two segments are parallel if they have equal slopes
+    PG_RETURN_BOOL(FPeq(lseg_sl(l1), lseg_sl(l2)));
+}
+```

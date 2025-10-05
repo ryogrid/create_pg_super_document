@@ -40,3 +40,34 @@ The function performs bounds checking using Assert to ensure the affix index is 
 - Uses a local buffer of size BUFSIZ to store individual flags during parsing
 - The function validates array bounds using Assert before accessing AffixData
 - Located in src/backend/tsearch/spell.c:455-486
+
+## Simplified Source
+
+```c
+static bool
+IsAffixFlagInUse(IspellDict *Conf, int affix, const char *affixflag)
+{
+    char *flagcur;
+    char flag[BUFSIZ];
+
+    // Empty flag is always considered "in use"
+    if (*affixflag == 0)
+        return true;
+
+    Assert(affix < Conf->nAffixData);
+
+    // Start at beginning of this affix's flag string
+    flagcur = Conf->AffixData[affix];
+
+    // Parse each flag in the string and compare
+    while (*flagcur) {
+        getNextFlagFromString(Conf, &flagcur, flag);
+
+        // Check if this flag matches the target
+        if (strcmp(flag, affixflag) == 0)
+            return true;
+    }
+
+    return false;  // Flag not found
+}
+```

@@ -30,3 +30,16 @@ The function works by recursively scanning the FSM tree starting from the root, 
 - Uses a dummy boolean variable for the recursive fsm_vacuum_page call as the return value is not needed at the root level
 - Essential for maintaining FSM consistency after vacuum operations or other processes that update free space information
 - Located in src/backend/storage/freespace/freespace.c:351-366
+
+## Simplified Source
+
+```c
+void FreeSpaceMapVacuum(Relation rel) {
+    bool dummy;
+
+    // Recursively update FSM tree starting from root
+    (void) fsm_vacuum_page(rel, FSM_ROOT_ADDRESS,
+                          (BlockNumber) 0, InvalidBlockNumber,
+                          &dummy);
+}
+```

@@ -36,3 +36,21 @@ This function converts human-readable privilege strings into the internal AclMod
 - The function uses a static privilege mapping table that is initialized once and reused
 - Part of the has_tablespace_privilege family of functions
 - Follows the same pattern as other privilege conversion functions in PostgreSQL
+
+## Simplified Source
+
+```c
+static AclMode
+convert_tablespace_priv_string(text *priv_type_text)
+{
+    // Define privilege mapping for tablespaces
+    static const priv_map tablespace_priv_map[] = {
+        {"CREATE", ACL_CREATE},
+        {"CREATE WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_CREATE)},
+        {NULL, 0}
+    };
+
+    // Convert using generic privilege string converter
+    return convert_any_priv_string(priv_type_text, tablespace_priv_map);
+}
+```

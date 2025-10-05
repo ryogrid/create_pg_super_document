@@ -64,3 +64,82 @@ The function stops processing when the parser returns type <= 0, indicating end 
 - Supports lexeme variants and special flags for advanced text search features
 - Memory management follows PostgreSQL conventions with automatic cleanup
 - The function is central to tsvector creation and text search indexing
+
+## Simplified Source
+
+```c
+void parsetext(Oid cfgId, ParsedText *prs, char *buf, int buflen) {
+    int type, lenlemm = 0;
+    char *lemm = NULL;
+    LexizeData ldata;
+    TSLexeme *norms;
+    TSConfigCacheEntry *cfg;
+    TSParserCacheEntry *prsobj;
+    void *prsdata;
+
+    // Initialize configuration and parser
+    cfg = lookup_ts_config_cache(cfgId);
+    prsobj = lookup_ts_parser_cache(cfg->prsId);
+    prsdata = (void *) DatumGetPointer(FunctionCall2(&prsobj->prsstart,
+                                                     PointerGetDatum(buf),
+                                                     Int32GetDatum(buflen)));
+    LexizeInit(&ldata, cfg);
+
+    // Main parsing loop
+    do {
+        // Get next token from parser
+        type = DatumGetInt32(FunctionCall3(&(prsobj->prstoken),
+                                           PointerGetDatum(prsdata),
+                                           PointerGetDatum(&lemm),
+                                           PointerGetDatum(&lenlemm)));
+
+        // Check for overly long words
+        if (type > 0 && lenlemm >= MAXSTRLEN) {
+#ifdef IGNORE_LONGLEXEME
+            ereport(NOTICE, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                            errmsg("word is too long to be indexed")));
+            continue;
+#else
+            ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                           errmsg("word is too long to be indexed")));
+#endif
+        }
+
+        // Add token to lexical analysis queue
+        LexizeAddLemm(&ldata, type, lemm, lenlemm);
+
+        // Process tokens through dictionaries
+        while ((norms = LexizeExec(&ldata, NULL)) != NULL) {
+            TSLexeme *ptr = norms;
+            prs->pos++; // Increment position
+
+            // Process each lexeme variant
+            while (ptr->lexeme) {
+                // Expand word array if needed
+                if (prs->curwords == prs->lenwords) {
+                    prs->lenwords *= 2;
+                    prs->words = (ParsedWord *) repalloc(prs->words,
+                                                       prs->lenwords * sizeof(ParsedWord));
+                }
+
+                // Store word information
+                if (ptr->flags & TSL_ADDPOS)
+                    prs->pos++;
+                prs->words[prs->curwords].len = strlen(ptr->lexeme);
+                prs->words[prs->curwords].word = ptr->lexeme;
+                prs->words[prs->curwords].nvariant = ptr->nvariant;
+                prs->words[prs->curwords].flags = ptr->flags & TSL_PREFIX;
+                prs->words[prs->curwords].alen = 0;
+                prs->words[prs->curwords].pos.pos = LIMITPOS(prs->pos);
+
+                ptr++;
+                prs->curwords++;
+            }
+            pfree(norms);
+        }
+    } while (type > 0);
+
+    // Clean up parser
+    FunctionCall1(&(prsobj->prsend), PointerGetDatum(prsdata));
+}
+```

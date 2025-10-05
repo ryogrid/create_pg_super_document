@@ -36,3 +36,21 @@ This function is similar to pgstat_get_beentry_by_proc_number() but returns the 
 - The caller is responsible for checking user permissions to view the returned information, especially query strings
 - Returns NULL if the specified process number is not found in the table
 - Part of PostgreSQL's statistics collection infrastructure, providing detailed backend process information including transaction state
+
+## Simplified Source
+
+```c
+LocalPgBackendStatus *
+pgstat_get_local_beentry_by_proc_number(ProcNumber procNumber)
+{
+    LocalPgBackendStatus key;
+
+    // Ensure local status table is current
+    pgstat_read_current_status();
+
+    // Binary search for the entry (table is sorted by proc_number)
+    key.proc_number = procNumber;
+    return bsearch(&key, localBackendStatusTable, localNumBackends,
+                   sizeof(LocalPgBackendStatus), cmp_lbestatus);
+}
+```

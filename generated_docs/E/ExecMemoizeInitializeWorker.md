@@ -36,3 +36,16 @@ The function performs a simple lookup in the shared memory table of contents (TO
 - The third parameter (true) to shm_toc_lookup indicates that the lookup must succeed (will error if not found)
 - Once initialized, workers can use the shared_info pointer to update their instrumentation data during execution
 - This is a lightweight operation that simply establishes the connection to shared memory without allocating new memory
+
+## Simplified Source
+
+```c
+void
+ExecMemoizeInitializeWorker(MemoizeState *node, ParallelWorkerContext *pwcxt)
+{
+    // Connect worker to shared memory for memoize statistics
+    // Lookup the shared info structure using the plan node ID
+    node->shared_info =
+        shm_toc_lookup(pwcxt->toc, node->ss.ps.plan->plan_node_id, true);
+}
+```

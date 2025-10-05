@@ -36,3 +36,17 @@ The function uses  to perform the actual string replacement, replacing the entir
 - This is the standard way to load input text into the Snowball stemming environment
 - Used by PostgreSQL's text search dictionary system to prepare words for stemming
 - Must be called before running language-specific stemming algorithms on the text
+
+## Simplified Source
+
+```c
+extern int SN_set_current(struct SN_env *z, int size, const symbol *s) {
+    // Replace entire string buffer with new input
+    int err = replace_s(z, 0, z->l, size, s, NULL);
+
+    // Reset cursor to beginning
+    z->c = 0;
+
+    return err;
+}
+```

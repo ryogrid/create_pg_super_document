@@ -39,3 +39,11 @@ The underlying implementation (lowerstr_with_len) uses different strategies base
 - For single-byte or C locale, uses simpler byte-by-byte conversion
 - Commonly used in text search dictionary initialization for case-insensitive processing
 - Part of PostgreSQL's text search infrastructure for normalizing dictionary entries
+
+## Simplified Source
+
+```c
+char *lowerstr(const char *str) {
+    return lowerstr_with_len(str, strlen(str));
+}
+```

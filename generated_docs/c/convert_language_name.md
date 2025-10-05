@@ -32,3 +32,15 @@ This is a support function for the has_language_privilege family of functions. I
 - The second parameter to get_language_oid is false, meaning it will throw an error if the language doesn't exist
 - Part of PostgreSQL's privilege checking infrastructure for procedural languages
 - Located in src/backend/utils/adt/acl.c:3765-3776
+
+## Simplified Source
+
+```c
+static Oid convert_language_name(text *languagename) {
+    // Convert text to C string
+    char *langname = text_to_cstring(languagename);
+
+    // Look up language OID (throws error if not found)
+    return get_language_oid(langname, false);
+}
+```

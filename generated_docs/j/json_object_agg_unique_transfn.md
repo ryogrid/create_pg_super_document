@@ -34,3 +34,14 @@ The function delegates all the actual work to  with the parameters  and , meanin
 - Part of the JSON object aggregation functionality introduced for building JSON objects from query results
 - The unique key enforcement helps prevent malformed JSON objects with duplicate keys
 - Located in src/backend/utils/adt/json.c:1159-1167
+
+## Simplified Source
+
+```c
+Datum
+json_object_agg_unique_transfn(PG_FUNCTION_ARGS)
+{
+    // Unique json_object_agg: enforce unique keys, include nulls
+    return json_object_agg_transfn_worker(fcinfo, false, true);
+}
+```

@@ -63,3 +63,55 @@ The function is essential for PostgreSQL's parallel hash join implementation, en
 **Parallel Coordination**: The use of shared tuple stores ensures that each outer tuple is processed exactly once across all parallel workers, while allowing for efficient concurrent access patterns.
 
 Location: src/backend/executor/nodeHashjoin.c:964-1030
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecParallelHashJoinOuterGetTuple(PlanState *outerNode,
+                                  HashJoinState *hjstate,
+                                  uint32 *hashvalue)
+{
+    HashJoinTable hashtable = hjstate->hj_HashTable;
+    int curbatch = hashtable->curbatch;
+    TupleTableSlot *slot;
+
+    // Single-batch case: fetch directly from outer node
+    if (curbatch == 0 && hashtable->nbatch == 1) {
+        slot = ExecProcNode(outerNode);
+
+        while (!TupIsNull(slot)) {
+            // Set up expression context for hash computation
+            ExprContext *econtext = hjstate->js.ps.ps_ExprContext;
+            econtext->ecxt_outertuple = slot;
+
+            // Compute hash value, return tuple if successful
+            if (ExecHashGetHashValue(hashtable, econtext,
+                                   hjstate->hj_OuterHashKeys,
+                                   true, HJ_FILL_OUTER(hjstate),
+                                   hashvalue))
+                return slot;
+
+            // Skip NULL-producing tuples
+            slot = ExecProcNode(outerNode);
+        }
+    }
+    // Multi-batch case: fetch from shared tuple store
+    else if (curbatch < hashtable->nbatch) {
+        MinimalTuple tuple = sts_parallel_scan_next(
+            hashtable->batches[curbatch].outer_tuples, hashvalue);
+
+        if (tuple != NULL) {
+            // Convert minimal tuple to slot format
+            ExecForceStoreMinimalTuple(tuple, hjstate->hj_OuterTupleSlot, false);
+            return hjstate->hj_OuterTupleSlot;
+        } else {
+            ExecClearTuple(hjstate->hj_OuterTupleSlot);
+        }
+    }
+
+    // Mark batch as complete and return NULL
+    hashtable->batches[curbatch].outer_eof = true;
+    return NULL;
+}
+```

@@ -31,3 +31,14 @@ This handler is responsible for executing Tcl functions that have been defined w
 - It specifically handles trusted Tcl execution (as opposed to untrusted)
 - The function acts purely as an entry point wrapper with no additional logic
 - Part of the PL/Tcl procedural language extension for PostgreSQL
+
+## Simplified Source
+
+```c
+Datum
+pltcl_call_handler(PG_FUNCTION_ARGS)
+{
+    // Delegate to the main handler with trusted=true
+    return pltcl_handler(fcinfo, true);
+}
+```

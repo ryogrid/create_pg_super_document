@@ -34,3 +34,28 @@ The dcosh function is a PostgreSQL wrapper around the standard C library cosh() 
 - Underflow conditions (result == 0.0) trigger a PostgreSQL-specific error
 - The function is part of PostgreSQL's mathematical function library in src/backend/utils/adt/float.c
 - Located at src/backend/utils/adt/float.c:2620-2644
+
+## Simplified Source
+
+```c
+Datum dcosh(PG_FUNCTION_ARGS) {
+    // Get input float8 value
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+
+    // Compute hyperbolic cosine
+    errno = 0;
+    float8 result = cosh(arg1);
+
+    // Handle overflow - cosh is always positive, so overflow means +infinity
+    if (errno == ERANGE) {
+        result = get_float8_infinity();
+    }
+
+    // Check for underflow
+    if (unlikely(result == 0.0)) {
+        float_underflow_error();
+    }
+
+    PG_RETURN_FLOAT8(result);
+}
+```

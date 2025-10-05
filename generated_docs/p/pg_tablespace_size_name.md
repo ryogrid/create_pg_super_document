@@ -37,3 +37,26 @@ Like its OID-based counterpart, this function returns NULL when the size calcula
 - Returns NULL if size calculation fails (size < 0), providing error-safe behavior
 - The function is defined in src/backend/utils/adt/dbsize.c:286-307
 - Commonly used in administrative queries where tablespace names are more convenient than OIDs
+
+## Simplified Source
+
+```c
+Datum pg_tablespace_size_name(PG_FUNCTION_ARGS) {
+    Name tblspcName = PG_GETARG_NAME(0);
+    Oid tblspcOid;
+    int64 size;
+
+    // Convert tablespace name to OID (raises error if not found)
+    tblspcOid = get_tablespace_oid(NameStr(*tblspcName), false);
+
+    // Calculate the tablespace size using internal function
+    size = calculate_tablespace_size(tblspcOid);
+
+    // Return NULL if calculation failed (size < 0)
+    if (size < 0)
+        PG_RETURN_NULL();
+
+    // Return the size in bytes
+    PG_RETURN_INT64(size);
+}
+```

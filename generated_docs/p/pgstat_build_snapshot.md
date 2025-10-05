@@ -51,3 +51,63 @@ The snapshot includes only statistics relevant to the current database context, 
 - Skips dropped statistics entries and validates reference counts
 - Processes both variable and fixed-numbered statistics in a comprehensive manner
 - Sets the snapshot mode flag upon successful completion to prevent redundant rebuilding
+
+## Simplified Source
+
+```c
+static void pgstat_build_snapshot(void) {
+    // Validate snapshot mode is required
+    Assert(pgstat_fetch_consistency == PGSTAT_FETCH_CONSISTENCY_SNAPSHOT);
+
+    // Skip if snapshot already built
+    if (pgStatLocal.snapshot.mode == PGSTAT_FETCH_CONSISTENCY_SNAPSHOT)
+        return;
+
+    // Prepare snapshot infrastructure
+    pgstat_prep_snapshot();
+    pgStatLocal.snapshot.snapshot_timestamp = GetCurrentTimestamp();
+
+    // Snapshot all variable stats from shared hash
+    dshash_seq_status hstat;
+    dshash_seq_init(&hstat, pgStatLocal.shared_hash, false);
+
+    PgStatShared_HashEntry *p;
+    while ((p = dshash_seq_next(&hstat)) != NULL) {
+        PgStat_Kind kind = p->key.kind;
+        const PgStat_KindInfo *kind_info = pgstat_get_kind_info(kind);
+
+        // Filter by database access permissions
+        if (p->key.dboid != MyDatabaseId &&
+            p->key.dboid != InvalidOid &&
+            !kind_info->accessed_across_databases)
+            continue;
+
+        if (p->dropped)
+            continue;
+
+        // Copy stats data to snapshot with locking
+        PgStatShared_Common *stats_data = dsa_get_address(pgStatLocal.dsa, p->body);
+        bool found;
+        PgStat_SnapshotEntry *entry = pgstat_snapshot_insert(pgStatLocal.snapshot.stats,
+                                                            p->key, &found);
+
+        entry->data = MemoryContextAlloc(pgStatLocal.snapshot.context,
+                                        kind_info->shared_size);
+
+        LWLockAcquire(&stats_data->lock, LW_SHARED);
+        memcpy(entry->data, pgstat_get_entry_data(kind, stats_data),
+               kind_info->shared_size);
+        LWLockRelease(&stats_data->lock);
+    }
+    dshash_seq_term(&hstat);
+
+    // Build snapshots for all fixed-numbered stats
+    for (int kind = PGSTAT_KIND_FIRST_VALID; kind <= PGSTAT_KIND_LAST; kind++) {
+        const PgStat_KindInfo *kind_info = pgstat_get_kind_info(kind);
+        if (kind_info->fixed_amount)
+            pgstat_build_snapshot_fixed(kind);
+    }
+
+    pgStatLocal.snapshot.mode = PGSTAT_FETCH_CONSISTENCY_SNAPSHOT;
+}
+```

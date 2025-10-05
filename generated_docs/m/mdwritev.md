@@ -45,3 +45,73 @@ The function processes blocks in segments, respecting PostgreSQL's file segmenta
 - Only registers dirty segments for fsync if skipFsync is false and the relation is not temporary
 - Contains debug assertions to verify that writes don't extend beyond the current EOF
 - Uses vectorized I/O (iovec) for efficiency when writing multiple consecutive blocks
+
+## Simplified Source
+
+```c
+void
+mdwritev(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
+         const void **buffers, BlockNumber nblocks, bool skipFsync)
+{
+    while (nblocks > 0) {
+        struct iovec iov[PG_IOV_MAX];
+        int iovcnt;
+        off_t seekpos;
+        int nbytes;
+        MdfdVec *v;
+        BlockNumber nblocks_this_segment;
+        size_t transferred_this_segment;
+        size_t size_this_segment;
+
+        // Get segment for this block
+        v = _mdfd_getseg(reln, forknum, blocknum, skipFsync,
+                        EXTENSION_FAIL | EXTENSION_CREATE_RECOVERY);
+
+        // Calculate position within segment
+        seekpos = (off_t) BLCKSZ * (blocknum % ((BlockNumber) RELSEG_SIZE));
+
+        // Calculate how many blocks to write in this segment
+        nblocks_this_segment = Min(nblocks,
+                                 RELSEG_SIZE - (blocknum % ((BlockNumber) RELSEG_SIZE)));
+        nblocks_this_segment = Min(nblocks_this_segment, lengthof(iov));
+
+        // Set up iovec for vectored I/O
+        iovcnt = buffers_to_iovec(iov, (void **) buffers, nblocks_this_segment);
+        size_this_segment = nblocks_this_segment * BLCKSZ;
+        transferred_this_segment = 0;
+
+        // Write loop - handle short writes
+        for (;;) {
+            nbytes = FileWriteV(v->mdfd_vfd, iov, iovcnt, seekpos,
+                              WAIT_EVENT_DATA_FILE_WRITE);
+
+            // Handle write errors
+            if (nbytes < 0) {
+                bool enospc = errno == ENOSPC;
+                ereport(ERROR, "could not write blocks %u..%u in file \"%s\": %m",
+                       blocknum, blocknum + nblocks_this_segment - 1,
+                       FilePathName(v->mdfd_vfd),
+                       enospc ? "Check free disk space." : "");
+            }
+
+            // Check if we've written everything
+            transferred_this_segment += nbytes;
+            if (transferred_this_segment == size_this_segment)
+                break;
+
+            // Adjust for next iteration after short write
+            seekpos += nbytes;
+            iovcnt = compute_remaining_iovec(iov, iov, iovcnt, nbytes);
+        }
+
+        // Register for fsync if needed
+        if (!skipFsync && !SmgrIsTemp(reln))
+            register_dirty_segment(reln, forknum, v);
+
+        // Move to next segment
+        nblocks -= nblocks_this_segment;
+        buffers += nblocks_this_segment;
+        blocknum += nblocks_this_segment;
+    }
+}
+```

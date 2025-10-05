@@ -44,3 +44,47 @@ The function establishes a connection to the primary server using the configured
 - Returns void - success is indicated by successful completion without error
 - Part of PostgreSQL's high-availability and disaster recovery infrastructure
 - Requires libpqwalreceiver to be available for primary server connection
+
+## Simplified Source
+
+```c
+Datum
+pg_sync_replication_slots(PG_FUNCTION_ARGS)
+{
+    WalReceiverConn *wrconn;
+    char *err;
+    StringInfoData app_name;
+
+    // Validate permissions and server state
+    CheckSlotPermissions();
+    if (!RecoveryInProgress())
+        ereport(ERROR, "replication slots can only be synchronized to a standby server");
+    ValidateSlotSyncParams(ERROR);
+
+    // Load connection library and validate connection info
+    load_file("libpqwalreceiver", false);
+    CheckAndGetDbnameFromConninfo();
+
+    // Build application name for connection
+    initStringInfo(&app_name);
+    if (cluster_name[0])
+        appendStringInfo(&app_name, "%s_slotsync", cluster_name);
+    else
+        appendStringInfoString(&app_name, "slotsync");
+
+    // Connect to primary server
+    wrconn = walrcv_connect(PrimaryConnInfo, false, false, false,
+                           app_name.data, &err);
+    pfree(app_name.data);
+
+    if (!wrconn)
+        ereport(ERROR, "could not connect to the primary server: %s", err);
+
+    // Synchronize replication slots
+    SyncReplicationSlots(wrconn);
+
+    // Clean up connection
+    walrcv_disconnect(wrconn);
+    PG_RETURN_VOID();
+}
+```

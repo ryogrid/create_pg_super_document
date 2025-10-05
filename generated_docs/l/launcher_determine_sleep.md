@@ -42,3 +42,49 @@ This function determines how long the autovacuum launcher should sleep before ch
 - When no workers are available, defaults to full autovacuum_naptime sleep duration
 - Automatically triggers database list rebuilding when scheduled times are in the past
 - Sleep time calculations are based on the next earliest scheduled database maintenance
+
+## Simplified Source
+
+```c
+static void launcher_determine_sleep(bool canlaunch, bool recursing, struct timeval *nap)
+{
+    // If can't launch workers, sleep for full naptime
+    if (!canlaunch) {
+        nap->tv_sec = autovacuum_naptime;
+        nap->tv_usec = 0;
+    }
+    // Calculate sleep time based on next scheduled database work
+    else if (!dlist_is_empty(&DatabaseList)) {
+        TimestampTz current_time = GetCurrentTimestamp();
+        avl_dbase *next_db = dlist_tail_element(avl_dbase, adl_node, &DatabaseList);
+
+        long secs, usecs;
+        TimestampDifference(current_time, next_db->adl_next_worker, &secs, &usecs);
+
+        nap->tv_sec = secs;
+        nap->tv_usec = usecs;
+    }
+    // No databases scheduled, sleep for full naptime
+    else {
+        nap->tv_sec = autovacuum_naptime;
+        nap->tv_usec = 0;
+    }
+
+    // If time is in past, rebuild database list (once only)
+    if (nap->tv_sec == 0 && nap->tv_usec == 0 && !recursing) {
+        rebuild_database_list(InvalidOid);
+        launcher_determine_sleep(canlaunch, true, nap);
+        return;
+    }
+
+    // Enforce minimum sleep time to prevent busy-waiting
+    if (nap->tv_sec <= 0 && nap->tv_usec <= MIN_AUTOVAC_SLEEPTIME * 1000) {
+        nap->tv_sec = 0;
+        nap->tv_usec = MIN_AUTOVAC_SLEEPTIME * 1000;
+    }
+
+    // Enforce maximum sleep time to handle clock issues
+    if (nap->tv_sec > MAX_AUTOVAC_SLEEPTIME)
+        nap->tv_sec = MAX_AUTOVAC_SLEEPTIME;
+}
+```

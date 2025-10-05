@@ -50,3 +50,50 @@ The new root page has no siblings (prev/next pointers set to P_NONE) and is mark
 - Block references in WAL record: [0] new root page, [1] left child (for incomplete split clearing), [2] metapage
 - The metapage is always updated to reflect the new root page location and increased tree height
 - This operation typically occurs during B-tree growth when the original root needs to be split
+
+## Simplified Source
+
+```c
+static void
+btree_xlog_newroot(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_btree_newroot *xlrec = (xl_btree_newroot *) XLogRecGetData(record);
+    Buffer buffer;
+    Page page;
+    BTPageOpaque pageop;
+
+    // Initialize new root page
+    buffer = XLogInitBufferForRedo(record, 0);
+    page = (Page) BufferGetPage(buffer);
+
+    _bt_pageinit(page, BufferGetPageSize(buffer));
+    pageop = BTPageGetOpaque(page);
+
+    // Set root page metadata
+    pageop->btpo_flags = BTP_ROOT;
+    pageop->btpo_prev = pageop->btpo_next = P_NONE;
+    pageop->btpo_level = xlrec->level;
+    if (xlrec->level == 0)
+        pageop->btpo_flags |= BTP_LEAF;
+    pageop->btpo_cycleid = 0;
+
+    // For non-leaf roots, restore content and clear incomplete split
+    if (xlrec->level > 0)
+    {
+        char *ptr;
+        Size len;
+
+        ptr = XLogRecGetBlockData(record, 0, &len);
+        _bt_restore_page(page, ptr, len);
+        _bt_clear_incomplete_split(record, 1);
+    }
+
+    PageSetLSN(page, lsn);
+    MarkBufferDirty(buffer);
+    UnlockReleaseBuffer(buffer);
+
+    // Update metapage with new root
+    _bt_restore_meta(record, 2);
+}
+```

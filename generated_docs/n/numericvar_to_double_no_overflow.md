@@ -42,3 +42,35 @@ This function converts a PostgreSQL NumericVar structure to a double-precision f
 - Properly manages memory by freeing the temporary string representation
 - Designed for use in mathematical functions where overflow should be handled gracefully
 - The 'no_overflow' in the name refers to error handling behavior, not prevention of mathematical overflow
+
+## Simplified Source
+
+```c
+static double
+numericvar_to_double_no_overflow(const NumericVar *var)
+{
+    char *string_repr;
+    double result;
+    char *end_ptr;
+
+    // Convert NumericVar to string representation
+    string_repr = get_str_from_var(var);
+
+    // Convert string to double, ignoring ERANGE overflow errors
+    result = strtod(string_repr, &end_ptr);
+
+    // Verify the entire string was consumed during conversion
+    if (*end_ptr != '\0') {
+        // This shouldn't happen with valid NumericVar input
+        ereport(ERROR, (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+            errmsg("invalid input syntax for type %s: \"%s\"",
+                "double precision", string_repr)));
+    }
+
+    // Clean up temporary string
+    pfree(string_repr);
+
+    // Return result (may be +/- HUGE_VAL for overflow cases)
+    return result;
+}
+```

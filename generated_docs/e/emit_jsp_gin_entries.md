@@ -37,3 +37,30 @@ The function modifies the node tree in-place by replacing entry datums with thei
 - Uses recursive descent with stack depth checking to handle arbitrarily deep expression trees
 - The entry index replacement is crucial for subsequent query execution phases
 - Does not handle other node types, suggesting they are processed elsewhere or represent invalid states
+
+## Simplified Source
+
+```c
+static void
+emit_jsp_gin_entries(JsonPathGinNode *node, GinEntries *entries)
+{
+    check_stack_depth();
+
+    switch (node->type)
+    {
+        case JSP_GIN_ENTRY:
+            // Replace datum with its index in entries array
+            node->val.entryIndex = add_gin_entry(entries, node->val.entryDatum);
+            break;
+
+        case JSP_GIN_OR:
+        case JSP_GIN_AND:
+            {
+                // Recursively process all child nodes
+                for (int i = 0; i < node->val.nargs; i++)
+                    emit_jsp_gin_entries(node->args[i], entries);
+                break;
+            }
+    }
+}
+```

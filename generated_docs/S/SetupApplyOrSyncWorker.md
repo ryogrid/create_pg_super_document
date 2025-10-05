@@ -61,3 +61,45 @@ Global variables accessed:
 - Cache callback registration enables dynamic response to subscription configuration changes
 - Includes comprehensive debug logging for connection establishment
 - Properly handles resource management with attention to shutdown scenarios where incomplete transactions could affect replication consistency
+
+## Simplified Source
+
+```c
+void
+SetupApplyOrSyncWorker(int worker_slot)
+{
+    // Attach to the specified worker slot
+    logicalrep_worker_attach(worker_slot);
+
+    // Validate worker type
+    Assert(am_tablesync_worker() || am_leader_apply_worker());
+
+    // Setup signal handling
+    pqsignal(SIGHUP, SignalHandlerForConfigReload);
+    pqsignal(SIGTERM, die);
+    BackgroundWorkerUnblockSignals();
+
+    // Initialize communication statistics
+    MyLogicalRepWorker->last_send_time = MyLogicalRepWorker->last_recv_time =
+        MyLogicalRepWorker->reply_time = GetCurrentTimestamp();
+
+    // Load PostgreSQL connection library
+    load_file("libpqwalreceiver", false);
+
+    // Perform common worker initialization
+    InitializeLogRepWorker();
+
+    // Register exit callback to clean up origin state on shutdown
+    // This prevents incomplete transactions from affecting origin advancement
+    before_shmem_exit(replorigin_reset, (Datum) 0);
+
+    // Debug log connection attempt
+    elog(DEBUG1, "connecting to publisher using connection string \"%s\"",
+         MySubscription->conninfo);
+
+    // Register for subscription relation state changes
+    CacheRegisterSyscacheCallback(SUBSCRIPTIONRELMAP,
+                                  invalidate_syncing_table_states,
+                                  (Datum) 0);
+}
+```

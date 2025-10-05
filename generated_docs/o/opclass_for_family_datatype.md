@@ -40,3 +40,35 @@ This function searches through all operator classes belonging to a specific acce
 - Implicitly validates that the operator family belongs to the specified access method
 - Part of the access method validation and adjustment infrastructure
 - Located in src/backend/access/index/amvalidate.c:236-270
+
+## Simplified Source
+
+```c
+Oid
+opclass_for_family_datatype(Oid amoid, Oid opfamilyoid, Oid datatypeoid)
+{
+    Oid result = InvalidOid;
+    CatCList *opclist;
+
+    // Get all opclasses for this access method
+    opclist = SearchSysCacheList1(CLAAMNAMENSP, ObjectIdGetDatum(amoid));
+
+    // Search through all opclasses to find a match
+    for (int i = 0; i < opclist->n_members; i++)
+    {
+        HeapTuple classtup = &opclist->members[i]->tuple;
+        Form_pg_opclass classform = (Form_pg_opclass) GETSTRUCT(classtup);
+
+        // Check if this opclass matches both family and datatype
+        if (classform->opcfamily == opfamilyoid &&
+            classform->opcintype == datatypeoid)
+        {
+            result = classform->oid;
+            break;  // Return first match found
+        }
+    }
+
+    ReleaseCatCacheList(opclist);
+    return result;
+}
+```

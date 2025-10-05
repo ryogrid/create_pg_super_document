@@ -38,3 +38,23 @@ This internal function performs the actual work of resetting SLRU statistics for
 - Serves as the common implementation for both individual and bulk reset operations
 - Essential for maintaining accurate SLRU statistics when requested by database administrators
 - The exclusive lock ensures atomicity of the reset operation across all fields in the statistics structure
+
+## Simplified Source
+
+```c
+static void pgstat_reset_slru_counter_internal(int index, TimestampTz ts) {
+    PgStatShared_SLRU *slru_stats = &pgStatLocal.shmem->slru;
+
+    // Acquire exclusive lock for atomic reset
+    LWLockAcquire(&slru_stats->lock, LW_EXCLUSIVE);
+
+    // Clear all statistics for this SLRU index
+    memset(&slru_stats->stats[index], 0, sizeof(PgStat_SLRUStats));
+
+    // Record when the reset occurred
+    slru_stats->stats[index].stat_reset_timestamp = ts;
+
+    // Release the lock
+    LWLockRelease(&slru_stats->lock);
+}
+```

@@ -39,3 +39,18 @@ By sorting in ascending order of delta values, the most balanced splits (lowest 
 - This function is essential for the multi-strategy split point selection algorithm
 - The sort order (ascending by delta) prioritizes balanced splits over unbalanced ones
 - Function is static and only used internally within the nbtsplitloc.c module
+
+## Simplified Source
+```c
+static int
+_bt_splitcmp(const void *arg1, const void *arg2)
+{
+    // Cast void pointers to SplitPoint structures
+    SplitPoint *split1 = (SplitPoint *) arg1;
+    SplitPoint *split2 = (SplitPoint *) arg2;
+
+    // Compare delta values - lower delta means better balanced split
+    // Returns: < 0 if split1 better, 0 if equal, > 0 if split2 better
+    return pg_cmp_s16(split1->curdelta, split2->curdelta);
+}
+```

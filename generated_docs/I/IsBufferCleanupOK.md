@@ -47,3 +47,29 @@ This allows callers who initially acquired a regular exclusive lock to upgrade t
 - This function is an optimization that allows cleanup operations without lock cycling
 - The function includes assertions to verify that the caller holds the required exclusive lock
 - Local buffers have simpler logic since they don't involve shared memory coordination
+
+## Simplified Source
+```c
+bool IsBufferCleanupOK(Buffer buffer) {
+    BufferDesc *bufHdr;
+    uint32 buf_state;
+
+    // Handle local buffers: check for exactly one pin
+    if (BufferIsLocal(buffer)) {
+        return (LocalRefCount[-buffer - 1] == 1);
+    }
+
+    // For shared buffers: verify exactly one local pin
+    if (GetPrivateRefCount(buffer) != 1)
+        return false;
+
+    // Check total buffer reference count
+    bufHdr = GetBufferDescriptor(buffer - 1);
+    buf_state = LockBufHdr(bufHdr);
+
+    bool cleanup_ok = (BUF_STATE_GET_REFCOUNT(buf_state) == 1);
+
+    UnlockBufHdr(bufHdr, buf_state);
+    return cleanup_ok;
+}
+```

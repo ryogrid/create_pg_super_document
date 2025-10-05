@@ -56,5 +56,103 @@ The returned data consists of LockInstanceData objects, which are abstracted ver
 - Main lock table processing uses shared locks on all partitions to ensure consistency within the primary lock structures
 - Lock partitions are acquired in order and released in reverse order to avoid deadlocks and optimize performance
 - The function handles dynamic memory allocation, expanding the result array as needed during collection
-- Virtual transaction locks in fast-path arrays are included when  is set
+- Virtual transaction locks in fast-path arrays are included when fpVXIDLock is set
 - Wait start times are captured atomically to provide accurate timing information for lock waits
+
+## Simplified Source
+```c
+LockData *GetLockStatusData(void)
+{
+    LockData *data;
+    PROCLOCK *proclock;
+    HASH_SEQ_STATUS seqstat;
+    int els, el, i;
+
+    data = (LockData *) palloc(sizeof(LockData));
+
+    // Estimate space needed
+    els = MaxBackends;
+    el = 0;
+    data->locks = (LockInstanceData *) palloc(sizeof(LockInstanceData) * els);
+
+    // Collect fast-path locks from all backends
+    for (i = 0; i < ProcGlobal->allProcCount; ++i) {
+        PGPROC *proc = &ProcGlobal->allProcs[i];
+
+        LWLockAcquire(&proc->fpInfoLock, LW_SHARED);
+
+        // Process fast-path relation locks
+        for (int f = 0; f < FP_LOCK_SLOTS_PER_BACKEND; ++f) {
+            uint32 lockbits = FAST_PATH_GET_BITS(proc, f);
+            if (!lockbits) continue;
+
+            // Expand array if needed
+            if (el >= els) {
+                els += MaxBackends;
+                data->locks = (LockInstanceData *) repalloc(data->locks,
+                    sizeof(LockInstanceData) * els);
+            }
+
+            // Create lock instance entry
+            LockInstanceData *instance = &data->locks[el];
+            SET_LOCKTAG_RELATION(instance->locktag, proc->databaseId, proc->fpRelId[f]);
+            instance->holdMask = lockbits << FAST_PATH_LOCKNUMBER_OFFSET;
+            instance->waitLockMode = NoLock;
+            instance->vxid.procNumber = proc->vxid.procNumber;
+            instance->vxid.localTransactionId = proc->vxid.lxid;
+            instance->pid = proc->pid;
+            instance->leaderPid = proc->pid;
+            instance->fastpath = true;
+            instance->waitStart = 0;
+            el++;
+        }
+
+        // Handle virtual transaction lock if present
+        if (proc->fpVXIDLock) {
+            // Similar processing for VXID lock...
+            el++;
+        }
+
+        LWLockRelease(&proc->fpInfoLock);
+    }
+
+    // Acquire all partition locks for main lock table
+    for (i = 0; i < NUM_LOCK_PARTITIONS; i++)
+        LWLockAcquire(LockHashPartitionLockByIndex(i), LW_SHARED);
+
+    // Count total elements and ensure space
+    data->nelements = el + hash_get_num_entries(LockMethodProcLockHash);
+    if (data->nelements > els) {
+        els = data->nelements;
+        data->locks = (LockInstanceData *) repalloc(data->locks,
+            sizeof(LockInstanceData) * els);
+    }
+
+    // Scan main lock table
+    hash_seq_init(&seqstat, LockMethodProcLockHash);
+    while ((proclock = (PROCLOCK *) hash_seq_search(&seqstat))) {
+        PGPROC *proc = proclock->tag.myProc;
+        LOCK *lock = proclock->tag.myLock;
+        LockInstanceData *instance = &data->locks[el];
+
+        // Copy lock information
+        memcpy(&instance->locktag, &lock->tag, sizeof(LOCKTAG));
+        instance->holdMask = proclock->holdMask;
+        instance->waitLockMode = (proc->waitLock == proclock->tag.myLock) ?
+            proc->waitLockMode : NoLock;
+        instance->vxid.procNumber = proc->vxid.procNumber;
+        instance->vxid.localTransactionId = proc->vxid.lxid;
+        instance->pid = proc->pid;
+        instance->leaderPid = proclock->groupLeader->pid;
+        instance->fastpath = false;
+        instance->waitStart = (TimestampTz) pg_atomic_read_u64(&proc->waitStart);
+        el++;
+    }
+
+    // Release locks in reverse order
+    for (i = NUM_LOCK_PARTITIONS; --i >= 0;)
+        LWLockRelease(LockHashPartitionLockByIndex(i));
+
+    return data;
+}
+```

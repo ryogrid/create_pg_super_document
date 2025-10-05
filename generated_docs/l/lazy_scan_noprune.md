@@ -67,3 +67,126 @@ lazy_scan_noprune is an optimized variant of lazy_scan_prune that processes heap
 - Counts various tuple states (live, recently dead, missed dead) for VACUUM statistics
 - Does not modify the page content, only collects information and LP_DEAD items
 - Updates vacrel statistics including live_tuples, recently_dead_tuples, and missed_dead_tuples
+
+## Simplified Source
+
+```c
+static bool
+lazy_scan_noprune(LVRelState *vacrel,
+                  Buffer buf,
+                  BlockNumber blkno,
+                  Page page,
+                  bool *has_lpdead_items)
+{
+    OffsetNumber offnum, maxoff;
+    int lpdead_items = 0, live_tuples = 0, recently_dead_tuples = 0, missed_dead_tuples = 0;
+    bool hastup = false;
+    OffsetNumber deadoffsets[MaxHeapTuplesPerPage];
+    TransactionId NoFreezePageRelfrozenXid = vacrel->NewRelfrozenXid;
+    MultiXactId NoFreezePageRelminMxid = vacrel->NewRelminMxid;
+
+    // Scan all line pointers on the page
+    maxoff = PageGetMaxOffsetNumber(page);
+    for (offnum = FirstOffsetNumber; offnum <= maxoff; offnum = OffsetNumberNext(offnum))
+    {
+        ItemId itemid = PageGetItemId(page, offnum);
+        HeapTupleData tuple;
+        HeapTupleHeader tupleheader;
+
+        vacrel->offnum = offnum;
+
+        if (!ItemIdIsUsed(itemid))
+            continue;
+
+        if (ItemIdIsRedirected(itemid))
+        {
+            hastup = true;
+            continue;
+        }
+
+        if (ItemIdIsDead(itemid))
+        {
+            deadoffsets[lpdead_items++] = offnum;
+            continue;
+        }
+
+        hastup = true;
+        tupleheader = (HeapTupleHeader) PageGetItem(page, itemid);
+
+        // Check if tuple needs freezing
+        if (heap_tuple_should_freeze(tupleheader, &vacrel->cutoffs,
+                                   &NoFreezePageRelfrozenXid, &NoFreezePageRelminMxid))
+        {
+            // Aggressive VACUUM requires freezing - must use lazy_scan_prune
+            if (vacrel->aggressive)
+            {
+                vacrel->offnum = InvalidOffsetNumber;
+                return false; // Caller must use lazy_scan_prune
+            }
+            // Non-aggressive VACUUM can skip freezing
+        }
+
+        // Check tuple visibility status
+        ItemPointerSet(&(tuple.t_self), blkno, offnum);
+        tuple.t_data = tupleheader;
+        tuple.t_len = ItemIdGetLength(itemid);
+        tuple.t_tableOid = RelationGetRelid(vacrel->rel);
+
+        switch (HeapTupleSatisfiesVacuum(&tuple, vacrel->cutoffs.OldestXmin, buf))
+        {
+            case HEAPTUPLE_DELETE_IN_PROGRESS:
+            case HEAPTUPLE_LIVE:
+                live_tuples++;
+                break;
+            case HEAPTUPLE_DEAD:
+                missed_dead_tuples++;
+                break;
+            case HEAPTUPLE_RECENTLY_DEAD:
+                recently_dead_tuples++;
+                break;
+            case HEAPTUPLE_INSERT_IN_PROGRESS:
+                break; // Don't count as live
+            default:
+                elog(ERROR, "unexpected HeapTupleSatisfiesVacuum result");
+                break;
+        }
+    }
+
+    vacrel->offnum = InvalidOffsetNumber;
+    vacrel->NewRelfrozenXid = NoFreezePageRelfrozenXid;
+    vacrel->NewRelminMxid = NoFreezePageRelminMxid;
+
+    // Handle LP_DEAD items
+    if (vacrel->nindexes == 0)
+    {
+        // Single-pass strategy - count LP_DEAD as missed
+        if (lpdead_items > 0)
+        {
+            hastup = true;
+            missed_dead_tuples += lpdead_items;
+        }
+    }
+    else if (lpdead_items > 0)
+    {
+        // Multi-pass strategy - collect LP_DEAD items for index cleanup
+        vacrel->lpdead_item_pages++;
+        dead_items_add(vacrel, blkno, deadoffsets, lpdead_items);
+        vacrel->lpdead_items += lpdead_items;
+    }
+
+    // Update VACUUM statistics
+    vacrel->live_tuples += live_tuples;
+    vacrel->recently_dead_tuples += recently_dead_tuples;
+    vacrel->missed_dead_tuples += missed_dead_tuples;
+    if (missed_dead_tuples > 0)
+        vacrel->missed_dead_pages++;
+
+    // Update truncation boundary
+    if (hastup)
+        vacrel->nonempty_pages = blkno + 1;
+
+    *has_lpdead_items = (lpdead_items > 0);
+
+    return true; // Processing completed successfully
+}
+```

@@ -47,3 +47,15 @@ The function is marked as static inline, indicating it's optimized for performan
 - Called at various points during transaction lifecycle management
 - Works in conjunction with apply_error_callback to provide rich error context
 - Located in src/backend/replication/logical/worker.c:5041-5048
+
+## Simplified Source
+
+```c
+static inline void
+set_apply_error_context_xact(TransactionId xid, XLogRecPtr lsn)
+{
+    // Set transaction context for error reporting
+    apply_error_callback_arg.remote_xid = xid;
+    apply_error_callback_arg.finish_lsn = lsn;
+}
+```

@@ -40,3 +40,19 @@ The function includes a note that callers may need to call _bt_checkpage() to va
 - Only marks shared buffer memory as accessible (skips local buffers to avoid Valgrind interference)
 - Caller may need to call _bt_checkpage() for validation if buffer pin wasn't acquired through standard B-tree buffer acquisition functions
 - Useful for implementing deadlock-free B-tree algorithms and optimistic concurrency patterns
+
+## Simplified Source
+
+```c
+bool _bt_conditionallockbuf(Relation rel, Buffer buf) {
+    // Try to acquire lock without blocking
+    if (!ConditionalLockBuffer(buf))
+        return false;
+
+    // Mark memory accessible for Valgrind (shared buffers only)
+    if (!RelationUsesLocalBuffers(rel))
+        VALGRIND_MAKE_MEM_DEFINED(BufferGetPage(buf), BLCKSZ);
+
+    return true;
+}
+```

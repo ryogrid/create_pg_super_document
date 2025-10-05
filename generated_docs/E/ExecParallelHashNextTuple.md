@@ -38,3 +38,12 @@ This function is essential for iterating through all tuples that hash to the sam
 - The function assumes the input tuple is valid and properly initialized
 - Part of the core parallel hash join tuple iteration infrastructure
 - Works exclusively with shared memory structures in parallel execution contexts
+
+## Simplified Source
+
+```c
+static inline HashJoinTuple ExecParallelHashNextTuple(HashJoinTable hashtable, HashJoinTuple tuple) {
+    // Get the next tuple in the chain by following the shared pointer
+    return (HashJoinTuple) dsa_get_address(hashtable->area, tuple->next.shared);
+}
+```

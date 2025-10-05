@@ -47,3 +47,81 @@ The function uses a lock-based protocol where each participant has a  pointer th
 - Memory context switching ensures file handles are allocated in the correct context
 - The round-robin participant scanning ensures load balancing across all participants in the shared tuple store
 - This function is critical for parallel query execution, particularly in hash joins where tuple redistribution is necessary
+
+## Simplified Source
+
+```c
+MinimalTuple sts_parallel_scan_next(SharedTuplestoreAccessor *accessor, void *meta_data) {
+    SharedTuplestoreParticipant *p;
+    BlockNumber read_page;
+    bool eof;
+
+    for (;;) {
+        // Try to read more tuples from current chunk
+        if (accessor->read_ntuples < accessor->read_ntuples_available)
+            return sts_read_tuple(accessor, meta_data);
+
+        // Need a new chunk - coordinate with other participants
+        p = &accessor->sts->participants[accessor->read_participant];
+
+        LWLockAcquire(&p->lock, LW_EXCLUSIVE);
+        // Skip past overflow pages
+        if (p->read_page < accessor->read_next_page)
+            p->read_page = accessor->read_next_page;
+
+        eof = p->read_page >= p->npages;
+        if (!eof) {
+            // Claim next chunk
+            read_page = p->read_page;
+            p->read_page += STS_CHUNK_PAGES;
+            accessor->read_next_page = p->read_page;
+        }
+        LWLockRelease(&p->lock);
+
+        if (!eof) {
+            // Load chunk from file
+            if (accessor->read_file == NULL) {
+                // Open participant's file
+                char name[MAXPGPATH];
+                sts_filename(name, accessor, accessor->read_participant);
+                accessor->read_file = BufFileOpenFileSet(&accessor->fileset->fs,
+                                                        name, O_RDONLY, false);
+            }
+
+            // Seek to chunk and read header
+            SharedTuplestoreChunk chunk_header;
+            BufFileSeekBlock(accessor->read_file, read_page);
+            BufFileReadExact(accessor->read_file, &chunk_header, STS_CHUNK_HEADER_SIZE);
+
+            // Skip overflow chunks
+            if (chunk_header.overflow > 0) {
+                accessor->read_next_page = read_page + chunk_header.overflow * STS_CHUNK_PAGES;
+                continue;
+            }
+
+            // Prepare to read tuples from this chunk
+            accessor->read_ntuples = 0;
+            accessor->read_ntuples_available = chunk_header.ntuples;
+            accessor->read_bytes = STS_CHUNK_HEADER_SIZE;
+        } else {
+            // EOF on this participant - try next one
+            if (accessor->read_file != NULL) {
+                BufFileClose(accessor->read_file);
+                accessor->read_file = NULL;
+            }
+
+            // Round-robin to next participant
+            accessor->read_participant = (accessor->read_participant + 1) %
+                                       accessor->sts->nparticipants;
+
+            // If back to starting participant, we're done
+            if (accessor->read_participant == accessor->participant)
+                break;
+
+            accessor->read_next_page = 0;
+        }
+    }
+
+    return NULL;  // No more tuples available
+}
+```

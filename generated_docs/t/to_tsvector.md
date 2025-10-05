@@ -36,4 +36,21 @@ This is one of the primary entry points for full-text search functionality in Po
 - This function is part of PostgreSQL's full-text search system
 - It automatically uses the current session's default text search configuration
 - For explicit configuration control, use  instead
-- The function is located in 
+- The function is located in src/backend/tsearch/to_tsany.c
+
+## Simplified Source
+
+```c
+Datum to_tsvector(PG_FUNCTION_ARGS) {
+    text *input_text = PG_GETARG_TEXT_PP(0);
+    Oid config_id;
+
+    // Get current default text search configuration
+    config_id = getTSCurrentConfig(true);
+
+    // Delegate to to_tsvector_byid with current config
+    PG_RETURN_DATUM(DirectFunctionCall2(to_tsvector_byid,
+                                       ObjectIdGetDatum(config_id),
+                                       PointerGetDatum(input_text)));
+}
+``` 

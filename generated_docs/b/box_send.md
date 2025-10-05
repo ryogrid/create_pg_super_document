@@ -36,3 +36,24 @@ This function is typically called automatically by the PostgreSQL system when a 
 - This function is the binary counterpart to box_out (text output) and box_recv (binary input)
 - The binary format is more efficient than text format for network transmission
 - Part of PostgreSQL's geometric data type system located in src/backend/utils/adt/geo_ops.c
+
+## Simplified Source
+
+```c
+Datum box_send(PG_FUNCTION_ARGS) {
+    BOX *box = PG_GETARG_BOX_P(0);
+    StringInfoData buf;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Send all four coordinates as 8-byte floats
+    pq_sendfloat8(&buf, box->high.x);
+    pq_sendfloat8(&buf, box->high.y);
+    pq_sendfloat8(&buf, box->low.x);
+    pq_sendfloat8(&buf, box->low.y);
+
+    // Return the binary data
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

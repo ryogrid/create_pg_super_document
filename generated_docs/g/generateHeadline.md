@@ -50,3 +50,69 @@ The `generateHeadline` function is responsible for the final stage of headline g
 - The function properly handles PostgreSQL's variable-length text format with SET_VARSIZE
 - Selected word highlighting uses configurable start/stop selection strings from the parsed text structure
 - This function represents the final output generation stage of PostgreSQL's ts_headline functionality
+
+## Simplified Source
+
+```c
+text *generateHeadline(HeadlineParsedText *prs) {
+    text *out;
+    char *ptr;
+    int len = 128;
+    int numfragments = 0;
+    int16 infrag = 0;
+    HeadlineWordEntry *wrd = prs->words;
+
+    // Allocate output buffer
+    out = palloc(len);
+    ptr = ((char *) out) + VARHDRSZ;
+
+    while (wrd - prs->words < prs->curwords) {
+        // Expand buffer if needed
+        while (wrd->len + prs->stopsellen + prs->startsellen + prs->fragdelimlen +
+               (ptr - ((char *) out)) >= len) {
+            int dist = ptr - ((char *) out);
+            len *= 2;
+            out = repalloc(out, len);
+            ptr = ((char *) out) + dist;
+        }
+
+        if (wrd->in && !wrd->repeated) {
+            // Start new fragment if needed
+            if (!infrag) {
+                infrag = 1;
+                numfragments++;
+                if (numfragments > 1) {
+                    memcpy(ptr, prs->fragdelim, prs->fragdelimlen);
+                    ptr += prs->fragdelimlen;
+                }
+            }
+
+            // Add word content
+            if (wrd->replace) {
+                *ptr = ' ';
+                ptr++;
+            } else if (!wrd->skip) {
+                if (wrd->selected) {
+                    memcpy(ptr, prs->startsel, prs->startsellen);
+                    ptr += prs->startsellen;
+                }
+                memcpy(ptr, wrd->word, wrd->len);
+                ptr += wrd->len;
+                if (wrd->selected) {
+                    memcpy(ptr, prs->stopsel, prs->stopsellen);
+                    ptr += prs->stopsellen;
+                }
+            }
+        } else if (!wrd->repeated) {
+            if (infrag)
+                infrag = 0;
+            pfree(wrd->word);
+        }
+
+        wrd++;
+    }
+
+    SET_VARSIZE(out, ptr - ((char *) out));
+    return out;
+}
+```

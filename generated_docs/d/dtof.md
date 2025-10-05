@@ -37,3 +37,25 @@ This function performs type conversion from PostgreSQL's float8 data type (doubl
 - Uses unlikely() macro hints for performance optimization on error paths
 - More complex than ftod due to potential data loss during precision reduction
 - Source location: src/backend/utils/adt/float.c:1188-1206
+
+## Simplified Source
+
+```c
+Datum dtof(PG_FUNCTION_ARGS) {
+    // Extract float8 input argument
+    float8 num = PG_GETARG_FLOAT8(0);
+
+    // Convert to float4 (may lose precision)
+    float4 result = (float4) num;
+
+    // Check for overflow (finite input becoming infinite)
+    if (unlikely(isinf(result)) && !isinf(num))
+        float_overflow_error();
+
+    // Check for underflow (non-zero input becoming zero)
+    if (unlikely(result == 0.0f) && num != 0.0)
+        float_underflow_error();
+
+    PG_RETURN_FLOAT4(result);
+}
+```

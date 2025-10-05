@@ -34,3 +34,23 @@ This function configures sort support for 64-bit signed integers in PostgreSQL B
 - On 64-bit systems, leverages the generic signed comparison for better performance
 - On 32-bit systems, uses the specialized btint8fastcmp to handle 64-bit comparisons
 - Returns void as it only configures the passed SortSupport structure
+
+## Simplified Source
+
+```c
+Datum btint8sortsupport(PG_FUNCTION_ARGS) {
+    // Get the SortSupport structure from function arguments
+    SortSupport ssup = (SortSupport) PG_GETARG_POINTER(0);
+
+    // Choose optimal comparator based on platform
+#if SIZEOF_DATUM >= 8
+    // On 64-bit platforms, use optimized generic signed comparison
+    ssup->comparator = ssup_datum_signed_cmp;
+#else
+    // On 32-bit platforms, use specialized 64-bit comparison
+    ssup->comparator = btint8fastcmp;
+#endif
+
+    PG_RETURN_VOID();
+}
+```

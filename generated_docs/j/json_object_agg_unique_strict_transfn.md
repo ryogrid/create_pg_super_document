@@ -34,3 +34,14 @@ The function delegates all the actual work to `json_object_agg_transfn_worker` w
 - The 'strict' behavior means NULL values are omitted from the output JSON object
 - The unique key enforcement prevents malformed JSON objects with duplicate keys
 - Located in src/backend/utils/adt/json.c:1168-1176
+
+## Simplified Source
+
+```c
+Datum json_object_agg_unique_strict_transfn(PG_FUNCTION_ARGS) {
+    // Delegate to worker function with strict behavior:
+    // - absent_on_null=true: Skip NULL values in output
+    // - unique_keys=true: Enforce key uniqueness
+    return json_object_agg_transfn_worker(fcinfo, true, true);
+}
+```

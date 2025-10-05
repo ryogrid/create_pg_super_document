@@ -55,3 +55,79 @@ This function is the core add_value handler for BRIN inclusion operator classes.
 - Manages memory carefully by freeing old union values when they are replaced
 - The function assumes the new value is not null (asserted with PG_USED_FOR_ASSERTS_ONLY)
 - Contains optimization potential noted in comments regarding removal of union values when marked unmergeable
+
+## Simplified Source
+
+```c
+Datum brin_inclusion_add_value(PG_FUNCTION_ARGS) {
+    BrinDesc *bdesc = (BrinDesc *) PG_GETARG_POINTER(0);
+    BrinValues *column = (BrinValues *) PG_GETARG_POINTER(1);
+    Datum newval = PG_GETARG_DATUM(2);
+    Oid colloid = PG_GET_COLLATION();
+
+    AttrNumber attno = column->bv_attno;
+    Form_pg_attribute attr = TupleDescAttr(bdesc->bd_tupdesc, attno - 1);
+    bool new = false;
+
+    // Initialize if this is the first non-null value
+    if (column->bv_allnulls) {
+        column->bv_values[INCLUSION_UNION] =
+            datumCopy(newval, attr->attbyval, attr->attlen);
+        column->bv_values[INCLUSION_UNMERGEABLE] = BoolGetDatum(false);
+        column->bv_values[INCLUSION_CONTAINS_EMPTY] = BoolGetDatum(false);
+        column->bv_allnulls = false;
+        new = true;
+    }
+
+    // Skip processing if already marked as unmergeable
+    if (DatumGetBool(column->bv_values[INCLUSION_UNMERGEABLE]))
+        PG_RETURN_BOOL(false);
+
+    // Check if new value is empty
+    FmgrInfo *finfo = inclusion_get_procinfo(bdesc, attno, PROCNUM_EMPTY, true);
+    if (finfo != NULL && DatumGetBool(FunctionCall1Coll(finfo, colloid, newval))) {
+        if (!DatumGetBool(column->bv_values[INCLUSION_CONTAINS_EMPTY])) {
+            column->bv_values[INCLUSION_CONTAINS_EMPTY] = BoolGetDatum(true);
+            PG_RETURN_BOOL(true);
+        }
+        PG_RETURN_BOOL(false);
+    }
+
+    if (new)
+        PG_RETURN_BOOL(true);
+
+    // Check if new value is already contained
+    finfo = inclusion_get_procinfo(bdesc, attno, PROCNUM_CONTAINS, true);
+    if (finfo != NULL &&
+        DatumGetBool(FunctionCall2Coll(finfo, colloid,
+                                      column->bv_values[INCLUSION_UNION],
+                                      newval)))
+        PG_RETURN_BOOL(false);
+
+    // Check if values are mergeable
+    finfo = inclusion_get_procinfo(bdesc, attno, PROCNUM_MERGEABLE, true);
+    if (finfo != NULL &&
+        !DatumGetBool(FunctionCall2Coll(finfo, colloid,
+                                       column->bv_values[INCLUSION_UNION],
+                                       newval))) {
+        column->bv_values[INCLUSION_UNMERGEABLE] = BoolGetDatum(true);
+        PG_RETURN_BOOL(true);
+    }
+
+    // Merge new value to existing union
+    finfo = inclusion_get_procinfo(bdesc, attno, PROCNUM_MERGE, false);
+    Datum result = FunctionCall2Coll(finfo, colloid,
+                                    column->bv_values[INCLUSION_UNION], newval);
+
+    // Handle memory management for pass-by-reference types
+    if (!attr->attbyval &&
+        DatumGetPointer(result) != DatumGetPointer(column->bv_values[INCLUSION_UNION])) {
+        pfree(DatumGetPointer(column->bv_values[INCLUSION_UNION]));
+        if (result == newval)
+            result = datumCopy(result, attr->attbyval, attr->attlen);
+    }
+    column->bv_values[INCLUSION_UNION] = result;
+
+    PG_RETURN_BOOL(true);
+}
+```

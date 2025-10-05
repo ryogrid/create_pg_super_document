@@ -51,3 +51,42 @@ This function modifies the firing behavior of a PostgreSQL rewrite rule by updat
 - Broadcasts cache invalidation messages to ensure all backends see the change
 - Part of PostgreSQL's ALTER TABLE ENABLE/DISABLE RULE functionality
 - Uses system cache for efficient rule lookup with RULERELNAME cache
+
+## Simplified Source
+
+```c
+void EnableDisableRule(Relation rel, const char *rulename, char fires_when) {
+    // Open pg_rewrite catalog for exclusive access
+    Relation pg_rewrite_desc = table_open(RewriteRelationId, RowExclusiveLock);
+    Oid owningRel = RelationGetRelid(rel);
+
+    // Find the rule to modify
+    HeapTuple ruletup = SearchSysCacheCopy2(RULERELNAME,
+                                          ObjectIdGetDatum(owningRel),
+                                          PointerGetDatum(rulename));
+    if (!HeapTupleIsValid(ruletup))
+        ereport(ERROR, "rule does not exist");
+
+    Form_pg_rewrite ruleform = (Form_pg_rewrite) GETSTRUCT(ruletup);
+
+    // Verify user has permission to modify this rule
+    if (!object_ownercheck(RelationRelationId, ruleform->ev_class, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, "relation");
+
+    // Update rule's firing state if it's different
+    bool changed = false;
+    if (DatumGetChar(ruleform->ev_enabled) != fires_when) {
+        ruleform->ev_enabled = CharGetDatum(fires_when);
+        CatalogTupleUpdate(pg_rewrite_desc, &ruletup->t_self, ruletup);
+        changed = true;
+    }
+
+    // Cleanup and notify other backends of the change
+    InvokeObjectPostAlterHook(RewriteRelationId, ruleform->oid, 0);
+    heap_freetuple(ruletup);
+    table_close(pg_rewrite_desc, RowExclusiveLock);
+
+    if (changed)
+        CacheInvalidateRelcache(rel);
+}
+```

@@ -36,3 +36,11 @@ This inline function creates a standardized filename format for subtransaction i
 - This naming scheme ensures unique filenames for each subscription-transaction combination
 - The function is used consistently across all subtransaction file operations for naming uniformity
 - No error checking is performed on buffer size - caller responsibility to provide adequate buffer
+
+## Simplified Source
+
+```c
+static inline void subxact_filename(char *path, Oid subid, TransactionId xid) {
+    snprintf(path, MAXPGPATH, "%u-%u.subxacts", subid, xid);
+}
+```

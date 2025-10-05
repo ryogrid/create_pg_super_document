@@ -44,3 +44,95 @@ The function implements a round-robin search strategy starting from different po
 - The function is static and specific to parallel hash join execution
 - Critical for efficient parallel processing of large hash joins across multiple worker processes
 - Each worker may participate in different phases of batch processing depending on timing and coordination
+
+## Simplified Source
+
+```c
+static bool
+ExecParallelHashJoinNewBatch(HashJoinState *hjstate)
+{
+    HashJoinTable hashtable = hjstate->hj_HashTable;
+    int start_batchno, batchno;
+
+    // Detach from current batch if attached
+    if (hashtable->curbatch >= 0) {
+        hashtable->batches[hashtable->curbatch].done = true;
+        ExecHashTableDetachBatch(hashtable);
+    }
+
+    // Use atomic counter to distribute workers across different starting batches
+    batchno = start_batchno =
+        pg_atomic_fetch_add_u32(&hashtable->parallel_state->distributor, 1) %
+        hashtable->nbatch;
+
+    // Search for an available batch to process
+    do {
+        uint32 hashvalue;
+        MinimalTuple tuple;
+        TupleTableSlot *slot;
+
+        if (!hashtable->batches[batchno].done) {
+            SharedTuplestoreAccessor *inner_tuples;
+            Barrier *batch_barrier = &hashtable->batches[batchno].shared->batch_barrier;
+
+            // Participate in batch processing state machine
+            switch (BarrierAttach(batch_barrier)) {
+                case PHJ_BATCH_ELECT:
+                    // Elect one worker to allocate hash table
+                    if (BarrierArriveAndWait(batch_barrier, WAIT_EVENT_HASH_BATCH_ELECT))
+                        ExecParallelHashTableAlloc(hashtable, batchno);
+                    // Fall through
+
+                case PHJ_BATCH_ALLOCATE:
+                    // Wait for hash table allocation to complete
+                    BarrierArriveAndWait(batch_barrier, WAIT_EVENT_HASH_BATCH_ALLOCATE);
+                    // Fall through
+
+                case PHJ_BATCH_LOAD:
+                    // Load tuples from shared tuple store into hash table
+                    ExecParallelHashTableSetCurrentBatch(hashtable, batchno);
+                    inner_tuples = hashtable->batches[batchno].inner_tuples;
+                    sts_begin_parallel_scan(inner_tuples);
+
+                    while ((tuple = sts_parallel_scan_next(inner_tuples, &hashvalue))) {
+                        ExecForceStoreMinimalTuple(tuple, hjstate->hj_HashTupleSlot, false);
+                        slot = hjstate->hj_HashTupleSlot;
+                        ExecParallelHashTableInsertCurrentBatch(hashtable, slot, hashvalue);
+                    }
+
+                    sts_end_parallel_scan(inner_tuples);
+                    BarrierArriveAndWait(batch_barrier, WAIT_EVENT_HASH_BATCH_LOAD);
+                    // Fall through
+
+                case PHJ_BATCH_PROBE:
+                    // Batch ready for probing - return control to caller
+                    ExecParallelHashTableSetCurrentBatch(hashtable, batchno);
+                    sts_begin_parallel_scan(hashtable->batches[batchno].outer_tuples);
+                    return true;
+
+                case PHJ_BATCH_SCAN:
+                    // Batch in scan phase - detach and try next batch
+                    ExecParallelHashTableSetCurrentBatch(hashtable, batchno);
+                    hashtable->batches[batchno].done = true;
+                    ExecHashTableDetachBatch(hashtable);
+                    break;
+
+                case PHJ_BATCH_FREE:
+                    // Batch already completed - detach and continue
+                    BarrierDetach(batch_barrier);
+                    hashtable->batches[batchno].done = true;
+                    hashtable->curbatch = -1;
+                    break;
+
+                default:
+                    elog(ERROR, "unexpected batch phase %d", BarrierPhase(batch_barrier));
+            }
+        }
+
+        // Try next batch in round-robin fashion
+        batchno = (batchno + 1) % hashtable->nbatch;
+    } while (batchno != start_batchno);
+
+    return false;  // No more batches available
+}
+```

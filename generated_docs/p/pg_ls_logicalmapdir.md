@@ -31,3 +31,15 @@ The pg_logical/mappings directory contains files that are part of PostgreSQL's l
 - Uses the generic pg_ls_dir_files function with hardcoded path "pg_logical/mappings" and false parameter (meaning it lists regular files only)
 - Located in src/backend/utils/adt/genfile.c:705-714
 - The function follows PostgreSQL's standard function calling convention using PG_FUNCTION_ARGS
+
+## Simplified Source
+
+```c
+Datum
+pg_ls_logicalmapdir(PG_FUNCTION_ARGS)
+{
+    // List files in the logical replication mappings directory
+    // Contains mapping files used during logical decoding
+    return pg_ls_dir_files(fcinfo, "pg_logical/mappings", false);
+}
+```

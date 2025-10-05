@@ -33,3 +33,18 @@ The function extracts the input string from the function arguments and passes it
 - Passes the error context from the function call info to enable proper error reporting and soft error handling
 - Acts as a thin wrapper around float8in_internal, which contains the actual parsing implementation
 - Part of PostgreSQL's type input/output system that enables automatic string-to-float8 conversions in SQL operations
+
+## Simplified Source
+
+```c
+Datum
+float8in(PG_FUNCTION_ARGS)
+{
+    // Get the input string to parse
+    char *num = PG_GETARG_CSTRING(0);
+
+    // Parse string to float8 using internal function
+    PG_RETURN_FLOAT8(float8in_internal(num, NULL, "double precision", num,
+                                       fcinfo->context));
+}
+```

@@ -38,3 +38,38 @@ This function creates a properly formatted C preprocessor line directive (`#line
 - Uses careful memory allocation calculation to handle worst-case filename escaping
 - Essential for maintaining source-to-generated code mapping for debugging and error reporting
 - Part of the ECPG preprocessor's line tracking mechanism
+
+## Simplified Source
+
+```c
+char *hashline_number(void) {
+    // Skip line numbers in debug mode or when no input filename
+    if (input_filename
+#ifdef YYDEBUG
+        && !base_yydebug
+#endif
+        ) {
+        // Allocate memory for line directive with escaping
+        char *line = mm_alloc(strlen("\n#line %d \"%s\"\n") + sizeof(int) * CHAR_BIT * 10 / 3 + strlen(input_filename) * 2);
+        char *src, *dest;
+
+        // Start building the line directive
+        sprintf(line, "\n#line %d \"", base_yylineno);
+
+        // Escape filename characters (backslash and quote)
+        src = input_filename;
+        dest = line + strlen(line);
+        while (*src) {
+            if (*src == '\\' || *src == '"')
+                *dest++ = '\\';
+            *dest++ = *src++;
+        }
+        *dest = '\0';
+        strcat(dest, "\"\n");
+
+        return line;
+    }
+
+    return EMPTY;
+}
+```

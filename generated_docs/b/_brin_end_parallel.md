@@ -44,3 +44,28 @@ The function ensures that all parallel resources are properly released and that 
 - The function ensures proper cleanup even if parallel setup partially failed
 - Part of PostgreSQL's parallel index building infrastructure
 - The state parameter is part of the function signature but not currently used
+
+## Simplified Source
+```c
+static void
+_brin_end_parallel(BrinLeader *brinleader, BrinBuildState *state)
+{
+    int i;
+
+    // Wait for all worker processes to finish
+    WaitForParallelWorkersToFinish(brinleader->pcxt);
+
+    // Accumulate WAL and buffer usage statistics from all workers
+    for (i = 0; i < brinleader->pcxt->nworkers_launched; i++)
+        InstrAccumParallelQuery(&brinleader->bufferusage[i],
+                               &brinleader->walusage[i]);
+
+    // Clean up snapshot if using MVCC
+    if (IsMVCCSnapshot(brinleader->snapshot))
+        UnregisterSnapshot(brinleader->snapshot);
+
+    // Destroy parallel context and exit parallel mode
+    DestroyParallelContext(brinleader->pcxt);
+    ExitParallelMode();
+}
+```

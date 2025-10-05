@@ -56,3 +56,77 @@ This function takes no parameters but operates on several global variables:
 - Special handling for INDENT control comments allows fine-grained control over code formatting
 - When  is active, input is passed directly to output without processing
 - The function is essential for the token-based parsing architecture of the indent tool
+
+## Simplified Source
+
+```c
+void
+fill_buffer(void)
+{
+    char *p;
+    int i;
+    FILE *f = input;
+
+    // Restore saved buffer if available
+    if (bp_save != NULL) {
+        buf_ptr = bp_save;
+        buf_end = be_save;
+        bp_save = be_save = NULL;
+        lookahead_bp_save = NULL;
+        if (buf_ptr < buf_end)
+            return;  // Buffer has content
+    }
+
+    // Read input line
+    for (p = in_buffer;;) {
+        // Expand buffer if needed
+        if (p >= in_buffer_limit) {
+            int size = (in_buffer_limit - in_buffer) * 2 + 10;
+            int offset = p - in_buffer;
+            in_buffer = realloc(in_buffer, size);
+            if (in_buffer == NULL)
+                errx(1, "input line too long");
+            p = in_buffer + offset;
+            in_buffer_limit = in_buffer + size - 2;
+        }
+
+        // Get next character from lookahead or input
+        if (lookahead_start < lookahead_end) {
+            i = (unsigned char) *lookahead_start++;
+        } else {
+            lookahead_start = lookahead_ptr = lookahead_end = lookahead_buf;
+            if ((i = getc(f)) == EOF) {
+                *p++ = ' ';
+                *p++ = '\n';
+                had_eof = true;
+                break;
+            }
+        }
+
+        if (i != '\0')  // Skip null characters
+            *p++ = i;
+        if (i == '\n')
+            break;
+    }
+
+    buf_ptr = in_buffer;
+    buf_end = p;
+
+    // Handle INDENT control comments
+    if (p - in_buffer > 2 && p[-2] == '/' && p[-3] == '*') {
+        // Process special formatting directives
+        // [Simplified: complex INDENT directive parsing logic]
+        if (strncmp(in_buffer, "/**INDENT**", 11) == 0)
+            fill_buffer();  // Recursive call for indent messages
+        // Additional directive processing...
+    }
+
+    // Direct output when formatting inhibited
+    if (inhibit_formatting) {
+        p = in_buffer;
+        do
+            putc(*p, output);
+        while (*p++ != '\n');
+    }
+}
+```

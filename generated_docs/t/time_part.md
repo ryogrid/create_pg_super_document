@@ -32,4 +32,15 @@ This function serves as the public interface for PostgreSQL's  function when app
 - All actual functionality is implemented in 
 - This function is typically invoked through PostgreSQL's SQL function system, particularly the  function
 - Returns floating-point values, which may have precision limitations for very large or very precise time values
-- Located in 
+- Located in src/backend/utils/adt/date.c:2243-2248
+
+## Simplified Source
+
+```c
+Datum
+time_part(PG_FUNCTION_ARGS)
+{
+    // Delegate to common implementation with float8 return type
+    return time_part_common(fcinfo, false);
+}
+``` 

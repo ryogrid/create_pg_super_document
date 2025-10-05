@@ -33,3 +33,20 @@ The function works by preparing a pending statistics entry for the subscription 
 
 ## Notes and Other Information
 This function is used in the logical replication worker processes to track errors during subscription operation. Apply errors occur during normal replication when applying changes from the publisher fails, while sync errors occur during initial table synchronization. The statistics collected here can be queried through PostgreSQL's statistics views to monitor subscription health and troubleshoot replication issues.
+
+## Simplified Source
+
+```c
+void pgstat_report_subscription_error(Oid subid, bool is_apply_error) {
+    // Prepare a pending statistics entry for this subscription
+    PgStat_EntryRef *entry_ref = pgstat_prep_pending_entry(PGSTAT_KIND_SUBSCRIPTION,
+                                                           InvalidOid, subid, NULL);
+    PgStat_BackendSubEntry *pending = entry_ref->pending;
+
+    // Increment the appropriate error counter
+    if (is_apply_error)
+        pending->apply_error_count++;
+    else
+        pending->sync_error_count++;
+}
+```

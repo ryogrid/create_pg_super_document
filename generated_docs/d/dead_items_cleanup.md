@@ -32,3 +32,20 @@ The function is designed to be called at the end of vacuum operations to ensure 
 - In parallel mode, it properly terminates parallel workers and cleans up shared state
 - Sets `vacrel->pvs` to NULL after cleanup to prevent accidental reuse
 - The `vacrel->indstats` parameter passed to parallel_vacuum_end contains index statistics gathered during the vacuum operation
+
+## Simplified Source
+
+```c
+static void
+dead_items_cleanup(LVRelState *vacrel)
+{
+    if (!ParallelVacuumIsActive(vacrel)) {
+        // Non-parallel case: rely on memory context cleanup
+        return;
+    }
+
+    // End parallel vacuum mode and clean up resources
+    parallel_vacuum_end(vacrel->pvs, vacrel->indstats);
+    vacrel->pvs = NULL;
+}
+```

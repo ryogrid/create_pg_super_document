@@ -41,3 +41,54 @@ The function handles multibyte characters correctly using pg_mblen() and support
 - Part of PostgreSQL's text search (tsearch) subsystem, specifically used for ISpell dictionary functionality
 - The function assumes the Regis structure has been properly compiled using RS_compile()
 - Error handling includes logging unrecognized node types with elog(ERROR)
+
+## Simplified Source
+
+```c
+bool RS_execute(Regis *r, char *str) {
+    RegisNode *ptr = r->node;
+    char *c = str;
+    int len = 0;
+
+    // Calculate string length in characters
+    while (*c) {
+        len++;
+        c += pg_mblen(c);
+    }
+
+    // Quick length check
+    if (len < r->nchar)
+        return false;
+
+    // Position at start or suffix position
+    c = str;
+    if (r->issuffix) {
+        len -= r->nchar;
+        while (len-- > 0)
+            c += pg_mblen(c);
+    }
+
+    // Check each pattern node against string
+    while (ptr) {
+        switch (ptr->type) {
+            case RSF_ONEOF:
+                // Character must be in the set
+                if (!mb_strchr((char *) ptr->data, c))
+                    return false;
+                break;
+            case RSF_NONEOF:
+                // Character must not be in the set
+                if (mb_strchr((char *) ptr->data, c))
+                    return false;
+                break;
+            default:
+                elog(ERROR, "unrecognized regis node type: %d", ptr->type);
+        }
+
+        ptr = ptr->next;
+        c += pg_mblen(c);
+    }
+
+    return true;
+}
+```

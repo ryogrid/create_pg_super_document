@@ -40,3 +40,12 @@ This function is the most commonly used string-to-Unicode conversion function in
 - Particularly heavily used in trigger argument building (PLy_trigger_build_args) where many string values need conversion
 - Inherits all encoding conversion capabilities from PLyUnicode_FromStringAndSize
 - Simple one-line implementation makes it an efficient wrapper for the most common use case
+
+## Simplified Source
+
+```c
+PyObject *PLyUnicode_FromString(const char *s) {
+    // Simply call the size-aware version with calculated length
+    return PLyUnicode_FromStringAndSize(s, strlen(s));
+}
+```

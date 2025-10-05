@@ -119,3 +119,104 @@ update_symbol_types.py: ScanDirection specifying the current scan direction (for
 - Returns the low_elem index even when no exact match is found, allowing callers to handle beyond-end conditions
 - Early termination occurs when an exact match is found during binary search
 - The optimistic comparison technique leverages spatial locality in B-tree key space
+
+## Simplified Source
+
+```c
+static int
+_bt_binsrch_array_skey(FmgrInfo *orderproc,
+                      bool cur_elem_trig, ScanDirection dir,
+                      Datum tupdatum, bool tupnull,
+                      BTArrayKeyInfo *array, ScanKey cur,
+                      int32 *set_elem_result)
+{
+    int low_elem = 0, mid_elem = -1, high_elem = array->num_elems - 1;
+    int result = 0;
+    Datum arrdatum;
+
+    Assert(cur->sk_flags & SK_SEARCHARRAY);
+    Assert(cur->sk_strategy == BTEqualStrategyNumber);
+
+    // Optimization for required arrays that advance in lockstep
+    if (cur_elem_trig) {
+        Assert(!ScanDirectionIsNoMovement(dir));
+        Assert(cur->sk_flags & SK_BT_REQFWD);
+
+        if (ScanDirectionIsForward(dir)) {
+            // Skip exhausted elements and try optimistic comparison
+            low_elem = array->cur_elem + 1;
+
+            if (high_elem >= low_elem) {
+                arrdatum = array->elem_values[low_elem];
+                result = _bt_compare_array_skey(orderproc, tupdatum, tupnull,
+                                               arrdatum, cur);
+
+                if (result <= 0) {
+                    // Found good match immediately
+                    *set_elem_result = result;
+                    return low_elem;
+                }
+                mid_elem = low_elem;
+                low_elem++;
+            }
+
+            if (high_elem < low_elem) {
+                // Beyond end of array
+                *set_elem_result = 1;
+                return high_elem;
+            }
+        } else {
+            // Backward scan optimization
+            high_elem = array->cur_elem - 1;
+
+            if (high_elem >= low_elem) {
+                arrdatum = array->elem_values[high_elem];
+                result = _bt_compare_array_skey(orderproc, tupdatum, tupnull,
+                                               arrdatum, cur);
+
+                if (result >= 0) {
+                    // Found good match immediately
+                    *set_elem_result = result;
+                    return high_elem;
+                }
+                mid_elem = high_elem;
+                high_elem--;
+            }
+
+            if (high_elem < low_elem) {
+                // Beyond end of array
+                *set_elem_result = -1;
+                return low_elem;
+            }
+        }
+    }
+
+    // Standard binary search
+    while (high_elem > low_elem) {
+        mid_elem = low_elem + ((high_elem - low_elem) / 2);
+        arrdatum = array->elem_values[mid_elem];
+
+        result = _bt_compare_array_skey(orderproc, tupdatum, tupnull,
+                                       arrdatum, cur);
+
+        if (result == 0) {
+            // Found exact match - can quit early
+            low_elem = mid_elem;
+            break;
+        }
+
+        if (result > 0)
+            low_elem = mid_elem + 1;
+        else
+            high_elem = mid_elem;
+    }
+
+    // Get final comparison result for the element we're returning
+    if (low_elem != mid_elem)
+        result = _bt_compare_array_skey(orderproc, tupdatum, tupnull,
+                                       array->elem_values[low_elem], cur);
+
+    *set_elem_result = result;
+    return low_elem;
+}
+```

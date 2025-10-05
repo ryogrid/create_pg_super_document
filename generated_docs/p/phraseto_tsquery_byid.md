@@ -39,3 +39,27 @@ The function treats the entire input text as a single morphological unit using t
 - More restrictive than plainto_tsquery_byid as it requires exact word positioning rather than just presence
 - The function is typically wrapped by the user-facing phraseto_tsquery() function which uses the default text search configuration
 - Part of PostgreSQL's full-text search functionality for precise phrase matching in documents
+
+## Simplified Source
+
+```c
+Datum
+phraseto_tsquery_byid(PG_FUNCTION_ARGS)
+{
+    text *input_text = PG_GETARG_TEXT_PP(1);
+    MorphOpaque data;
+
+    // Set up configuration and operator for phrase parsing
+    data.cfg_id = PG_GETARG_OID(0);
+    data.qoperator = OP_PHRASE;  // Words must match exact positions
+
+    // Parse input as plain text with PHRASE operator for positional matching
+    TSQuery query = parse_tsquery(text_to_cstring(input_text),
+                                 pushval_morph,
+                                 PointerGetDatum(&data),
+                                 P_TSQ_PLAIN,
+                                 NULL);
+
+    PG_RETURN_TSQUERY(query);
+}
+```

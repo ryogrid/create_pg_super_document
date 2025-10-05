@@ -35,3 +35,16 @@ This function implements the subtraction operation for mixed-precision floating-
 - This is the reverse operand order compared to float48mi - float8 comes first, then float4
 - Located in src/backend/utils/adt/float.c:3828-3836
 - Part of a family of float84 functions including float84pl, float84mul, and float84div
+
+## Simplified Source
+
+```c
+Datum float84mi(PG_FUNCTION_ARGS) {
+    // Extract float8 and float4 arguments
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float4 arg2 = PG_GETARG_FLOAT4(1);
+
+    // Promote float4 to float8 and perform subtraction
+    PG_RETURN_FLOAT8(float8_mi(arg1, (float8) arg2));
+}
+```

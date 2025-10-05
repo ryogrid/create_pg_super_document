@@ -38,3 +38,20 @@ pgoutput_stream_stop is a callback function in the pgoutput logical replication 
 - Uses the logical replication protocol message format for communicating with subscribers
 - Critical for proper transaction streaming lifecycle management in logical replication
 - Works in conjunction with pgoutput_stream_start and pgoutput_stream_abort to handle transaction streaming
+
+## Simplified Source
+
+```c
+static void
+pgoutput_stream_stop(struct LogicalDecodingContext *ctx, ReorderBufferTXN *txn) {
+    PGOutputData *data = (PGOutputData *) ctx->output_plugin_private;
+
+    // Write stream stop message to output
+    OutputPluginPrepareWrite(ctx, true);
+    logicalrep_write_stream_stop(ctx->out);
+    OutputPluginWrite(ctx, true);
+
+    // Mark streaming as inactive
+    data->in_streaming = false;
+}
+```

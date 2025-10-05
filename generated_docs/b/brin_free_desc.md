@@ -34,3 +34,17 @@ This function provides proper cleanup for BrinDesc structures created by . Rathe
 - Memory context deletion automatically handles all allocations made within that context
 - This pattern is common in PostgreSQL for managing complex data structures with multiple allocations
 - Should only be called when the descriptor is no longer needed
+
+## Simplified Source
+
+```c
+void
+brin_free_desc(BrinDesc *bdesc)
+{
+    // Verify tuple descriptor is still valid
+    Assert(bdesc->bd_tupdesc->tdrefcount >= 1);
+
+    // Delete entire memory context (frees all allocations at once)
+    MemoryContextDelete(bdesc->bd_context);
+}
+```

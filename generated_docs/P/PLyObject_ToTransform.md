@@ -36,3 +36,22 @@ The simplicity of this function reflects the design philosophy of transform func
 
 ## Notes and Other Information
 Transform functions represent PostgreSQL's extensibility mechanism for type conversions, particularly useful for complex types that don't fit the standard scalar conversion model. The function maintains the standard PL/Python conversion interface while delegating all conversion logic to the specialized transform function. This design enables extensions to provide highly optimized, type-aware conversions while seamlessly integrating with PL/Python's type system.
+
+## Simplified Source
+
+```c
+static Datum
+PLyObject_ToTransform(PLyObToDatum *arg, PyObject *plrv,
+                     bool *isnull, bool inarray)
+{
+    // Handle Python None -> SQL NULL
+    if (plrv == Py_None) {
+        *isnull = true;
+        return (Datum) 0;
+    }
+
+    // Call registered transform function with Python object
+    *isnull = false;
+    return FunctionCall1(&arg->u.transform.typtransform, PointerGetDatum(plrv));
+}
+```

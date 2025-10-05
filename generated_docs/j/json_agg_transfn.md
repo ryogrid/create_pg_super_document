@@ -29,3 +29,14 @@ This function acts as a simple wrapper around json_agg_transfn_worker, providing
 - Located in src/backend/utils/adt/json.c:852-860
 - Registered in system catalogs as the transition function for json_agg
 - Simple delegation pattern that configures the worker function for standard behavior
+
+## Simplified Source
+
+```c
+Datum
+json_agg_transfn(PG_FUNCTION_ARGS)
+{
+    // Standard json_agg behavior: include null values in array
+    return json_agg_transfn_worker(fcinfo, false);
+}
+```

@@ -37,3 +37,22 @@ The function includes an important safety caveat: when returning an existing wri
 - Callers must be careful when modifying returned expanded records to avoid corruption
 - The function automatically handles memory context management when creating new expanded records
 - This is a key function in PostgreSQL's expanded object infrastructure for composite types
+
+## Simplified Source
+
+```c
+ExpandedRecordHeader *
+DatumGetExpandedRecord(Datum d)
+{
+    // Fast path: already a writable expanded record
+    if (VARATT_IS_EXTERNAL_EXPANDED_RW(DatumGetPointer(d))) {
+        ExpandedRecordHeader *erh = (ExpandedRecordHeader *) DatumGetEOHP(d);
+        Assert(erh->er_magic == ER_MAGIC);
+        return erh;
+    }
+
+    // Expand the datum to create a new expanded record
+    d = make_expanded_record_from_datum(d, CurrentMemoryContext);
+    return (ExpandedRecordHeader *) DatumGetEOHP(d);
+}
+```

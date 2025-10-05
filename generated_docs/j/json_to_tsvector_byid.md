@@ -39,3 +39,26 @@ This function provides the most flexible way to convert JSON text data to a TSVe
 - Uses parsed flags from JSONB to control which JSON elements are processed
 - Part of PostgreSQL's full-text search functionality for JSON data types
 - Properly manages memory by freeing both copied text and JSONB arguments
+
+## Simplified Source
+
+```c
+Datum json_to_tsvector_byid(PG_FUNCTION_ARGS)
+{
+    // Extract configuration ID, JSON text, and flags from arguments
+    Oid cfgId = PG_GETARG_OID(0);
+    text *json = PG_GETARG_TEXT_P(1);
+    Jsonb *jbFlags = PG_GETARG_JSONB_P(2);
+
+    // Parse flags for indexing control
+    uint32 flags = parse_jsonb_index_flags(jbFlags);
+
+    // Convert JSON to TSVector with specified configuration and flags
+    TSVector result = json_to_tsvector_worker(cfgId, json, flags);
+
+    // Clean up memory and return result
+    PG_FREE_IF_COPY(json, 1);
+    PG_FREE_IF_COPY(jbFlags, 2);
+    PG_RETURN_TSVECTOR(result);
+}
+```

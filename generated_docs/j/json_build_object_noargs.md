@@ -31,3 +31,12 @@ This function serves as a specialized version of json_build_object for the case 
 - The function avoids the overhead of variadic argument processing when no arguments are provided
 - This is part of PostgreSQL JSON data type support system located in src/backend/utils/adt/json.c:1329-1334
 - The comment in the source explicitly mentions this as a "degenerate case" of json_build_object
+
+## Simplified Source
+
+```c
+Datum json_build_object_noargs(PG_FUNCTION_ARGS) {
+    // Return empty JSON object "{}" as text with length 2
+    PG_RETURN_TEXT_P(cstring_to_text_with_len("{}", 2));
+}
+```

@@ -56,3 +56,59 @@ The merge operation uses a two-pointer approach to efficiently traverse both sor
 - Uses intersection semantics: only elements present in both arrays are retained
 - The function optimizes scan key processing by eliminating redundant array conditions
 - This is a static function, accessible only within nbtutils.c
+
+## Simplified Source
+
+```c
+static bool
+_bt_merge_arrays(IndexScanDesc scan, ScanKey skey, FmgrInfo *sortproc,
+                 bool reverse, Oid origelemtype, Oid nextelemtype,
+                 Datum *elems_orig, int *nelems_orig,
+                 Datum *elems_next, int nelems_next)
+{
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+    Relation rel = scan->indexRelation;
+    BTSortArrayContext cxt;
+    int nelems_orig_start = *nelems_orig;
+    int nelems_orig_merged = 0;
+    FmgrInfo *mergeproc = sortproc;
+    FmgrInfo crosstypeproc;
+
+    // Handle cross-type comparison if needed
+    if (origelemtype != nextelemtype) {
+        RegProcedure cmp_proc = get_opfamily_proc(rel->rd_opfamily[skey->sk_attno - 1],
+                                                  origelemtype, nextelemtype, BTORDER_PROC);
+        if (!RegProcedureIsValid(cmp_proc))
+            return false;  // Can't merge - missing comparison
+
+        mergeproc = &crosstypeproc;
+        fmgr_info_cxt(cmp_proc, mergeproc, so->arrayContext);
+    }
+
+    // Set up comparison context
+    cxt.sortproc = mergeproc;
+    cxt.collation = skey->sk_collation;
+    cxt.reverse = reverse;
+
+    // Merge arrays by finding intersection
+    for (int i = 0, j = 0; i < nelems_orig_start && j < nelems_next;) {
+        Datum *oelem = elems_orig + i;
+        Datum *nelem = elems_next + j;
+        int res = _bt_compare_array_elements(oelem, nelem, &cxt);
+
+        if (res == 0) {
+            // Found matching element - keep it
+            elems_orig[nelems_orig_merged++] = *oelem;
+            i++;
+            j++;
+        } else if (res < 0) {
+            i++;  // Original element is smaller - advance original
+        } else {
+            j++;  // Next element is smaller - advance next
+        }
+    }
+
+    *nelems_orig = nelems_orig_merged;
+    return true;
+}
+```

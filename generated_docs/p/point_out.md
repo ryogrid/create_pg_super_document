@@ -32,3 +32,14 @@ The `point_out` function is responsible for converting PostgreSQL's internal Poi
 - Output function for the Point data type, typically registered in the PostgreSQL type system catalog
 - Reuses the path encoding infrastructure to format single points consistently
 - The resulting string format matches what `point_in` expects as input, ensuring round-trip compatibility
+
+## Simplified Source
+
+```c
+Datum point_out(PG_FUNCTION_ARGS) {
+    Point *pt = PG_GETARG_POINT_P(0);
+
+    // Reuse path encoding infrastructure for single point
+    PG_RETURN_CSTRING(path_encode(PATH_NONE, 1, pt));
+}
+```

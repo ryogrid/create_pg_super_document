@@ -40,3 +40,20 @@ The AffixData array is populated during dictionary import and contains only the 
 - The underlying IsAffixFlagInUse function handles the actual string parsing and comparison
 - Empty affix flags are handled specially by the underlying IsAffixFlagInUse function
 - Used as a validation step to ensure only dictionary-referenced affixes are included in processing
+
+## Simplified Source
+
+```c
+static bool
+isAffixInUse(IspellDict *Conf, char *affixflag)
+{
+    // Check if affix flag exists in any AffixData entry
+    for (int i = 0; i < Conf->nAffixData; i++) {
+        if (IsAffixFlagInUse(Conf, i, affixflag)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+```

@@ -53,3 +53,35 @@ The statistics format expects the last two numbers to contain minimum and maximu
 - The function handles the data transformation needed to use bsearch() for efficient lookups
 - Part of PostgreSQL's statistics-based selectivity estimation for text search
 - Returns to fallback estimation if the statistics format is unexpected
+
+## Simplified Source
+
+```c
+static Selectivity mcelem_tsquery_selec(TSQuery query, Datum *mcelem, int nmcelem,
+                                       float4 *numbers, int nnumbers) {
+    float4 minfreq;
+    TextFreq *lookup;
+    Selectivity selec;
+
+    // Validate statistics format
+    if (nnumbers != nmcelem + 2)
+        return tsquery_opr_selec_no_stats(query);
+
+    // Build lookup structure from parallel arrays
+    lookup = palloc(sizeof(TextFreq) * nmcelem);
+    for (int i = 0; i < nmcelem; i++) {
+        lookup[i].element = (text *) DatumGetPointer(mcelem[i]);
+        lookup[i].frequency = numbers[i];
+    }
+
+    // Extract minimum frequency from statistics
+    minfreq = numbers[nnumbers - 2];
+
+    // Calculate selectivity using query structure
+    selec = tsquery_opr_selec(GETQUERY(query), GETOPERAND(query), lookup,
+                             nmcelem, minfreq);
+
+    pfree(lookup);
+    return selec;
+}
+```

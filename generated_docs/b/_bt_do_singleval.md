@@ -44,3 +44,28 @@ The implementation anticipates that affected workloads will require several dedu
 - Works in coordination with nbtsplitloc.c's single value strategy for page splitting
 - Multiple deduplication passes may be needed before a page splits, but each pass after the first is relatively inexpensive
 - Located at src/backend/access/nbtree/nbtdedup.c:782-821
+
+## Simplified Source
+
+```c
+static bool _bt_do_singleval(Relation rel, Page page, BTDedupState state,
+                            OffsetNumber minoff, IndexTuple newitem) {
+    int nkeyatts = IndexRelationGetNumberOfKeyAttributes(rel);
+
+    // Check if newitem is duplicate of first tuple on page
+    ItemId itemid = PageGetItemId(page, minoff);
+    IndexTuple itup = (IndexTuple) PageGetItem(page, itemid);
+
+    if (_bt_keep_natts_fast(rel, newitem, itup) > nkeyatts) {
+        // Also check against last tuple on page
+        itemid = PageGetItemId(page, PageGetMaxOffsetNumber(page));
+        itup = (IndexTuple) PageGetItem(page, itemid);
+
+        if (_bt_keep_natts_fast(rel, newitem, itup) > nkeyatts) {
+            return true; // All tuples are duplicates - use single value strategy
+        }
+    }
+
+    return false; // Not all duplicates - use normal deduplication
+}
+```

@@ -34,3 +34,11 @@ This function is typically called immediately after a free page is allocated (as
 - Simple wrapper around RecordPageWithFreeSpace with zero free space parameter
 - Maintains FSM consistency during page allocation operations
 - Used primarily for immediate marking of newly allocated pages as unavailable
+
+## Simplified Source
+```c
+void RecordUsedIndexPage(Relation rel, BlockNumber usedBlock) {
+    // Mark page as completely used with no free space
+    RecordPageWithFreeSpace(rel, usedBlock, 0);
+}
+```

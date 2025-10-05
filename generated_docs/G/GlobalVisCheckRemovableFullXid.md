@@ -36,3 +36,15 @@ The function is typically used in scenarios where you have a specific relation c
 - Commonly used in index management code for determining page recyclability
 - The function automatically handles the relation-specific visibility state setup, making it easier to use than the lower-level functions
 - Part of PostgreSQL's global visibility infrastructure used for safe page and tuple recycling
+
+## Simplified Source
+
+```c
+bool GlobalVisCheckRemovableFullXid(Relation rel, FullTransactionId fxid) {
+    // Get relation-specific global visibility state
+    GlobalVisState *state = GlobalVisTestFor(rel);
+
+    // Test if the full transaction ID is removable
+    return GlobalVisTestIsRemovableFullXid(state, fxid);
+}
+```

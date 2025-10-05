@@ -41,3 +41,26 @@ This function handles node extraction for the jsonb_path_ops GIN operator class,
 - More compact than jsonb_ops but cannot answer some types of queries
 - Part of PostgreSQL's GIN indexing infrastructure for efficient JSONB path queries
 - Located in src/backend/utils/adt/jsonb_gin.c:478-503
+
+## Simplified Source
+
+```c
+static List *
+jsonb_path_ops__extract_nodes(JsonPathGinContext *cxt, JsonPathGinPath path,
+                              JsonbValue *scalar, List *nodes)
+{
+    if (scalar)
+    {
+        // Create path hash for equality queries
+        uint32 hash = path.hash;
+        JsonbHashScalarValue(scalar, &hash);
+
+        return lappend(nodes, make_jsp_entry_node(UInt32GetDatum(hash)));
+    }
+    else
+    {
+        // jsonb_path_ops doesn't support EXISTS queries
+        return nodes;
+    }
+}
+```

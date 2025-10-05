@@ -27,3 +27,15 @@ This function serves as a debug print callback in PostgreSQL's resource manageme
 
 ## Notes and Other Information
 This function is registered as the DebugPrint callback in the dsm_resowner_desc structure, making it available for diagnostic operations when PostgreSQL needs to report information about held DSM resources. The returned string is dynamically allocated using psprintf and should be freed by the caller. The function is marked static as it is only used within the DSM subsystem as a callback function. This type of debug callback is crucial for troubleshooting resource leaks and understanding resource ownership patterns in complex PostgreSQL operations.
+
+## Simplified Source
+```c
+static char *ResOwnerPrintDSM(Datum res) {
+    // Extract DSM segment from the Datum parameter
+    dsm_segment *seg = (dsm_segment *) DatumGetPointer(res);
+
+    // Return formatted string identifying the DSM segment
+    return psprintf("dynamic shared memory segment %u",
+                    dsm_segment_handle(seg));
+}
+```

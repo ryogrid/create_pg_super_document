@@ -43,3 +43,14 @@ The function handles various time components including hours, minutes, seconds (
 - Fractional seconds are supported through microsecond and millisecond extraction
 - The function uses the TIMETZ internal representation which stores time as microseconds since midnight and timezone as seconds offset
 - Error handling includes proper reporting for unsupported units and invalid parameter values
+
+## Simplified Source
+
+```c
+Datum
+timetz_part(PG_FUNCTION_ARGS)
+{
+	// Delegate to common implementation with float8 return type
+	return timetz_part_common(fcinfo, false);
+}
+```

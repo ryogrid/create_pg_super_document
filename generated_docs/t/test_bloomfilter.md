@@ -44,3 +44,32 @@ For each test iteration, it calls `create_and_test_bloom` to perform the actual 
 - Designed to emit WARNINGs when false positive rates exceed the 1% threshold
 - The function enables automated testing of Bloom filter performance across different configurations
 - Returns void, with results communicated through PostgreSQL's logging system
+
+## Simplified Source
+
+```c
+Datum test_bloomfilter(PG_FUNCTION_ARGS) {
+    int power = PG_GETARG_INT32(0);
+    int64 nelements = PG_GETARG_INT64(1);
+    int seed = PG_GETARG_INT32(2);
+    int tests = PG_GETARG_INT32(3);
+
+    // Validate parameters
+    if (power < 23 || power > 32)
+        elog(ERROR, "power argument must be between 23 and 32 inclusive");
+
+    if (tests <= 0)
+        elog(ERROR, "invalid number of tests: %d", tests);
+
+    if (nelements < 0)
+        elog(ERROR, "invalid number of elements: %d", tests);
+
+    // Run test iterations
+    for (int i = 0; i < tests; i++) {
+        elog(DEBUG1, "beginning test #%d...", i + 1);
+        create_and_test_bloom(power, nelements, seed);
+    }
+
+    PG_RETURN_VOID();
+}
+```

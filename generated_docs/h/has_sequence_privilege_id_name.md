@@ -35,3 +35,29 @@ This function is a PostgreSQL built-in function that verifies whether a specific
 - Uses pg_class_aclcheck instead of pg_class_aclcheck_ext (doesn't handle missing objects with NULL return)
 - Part of PostgreSQL's privilege checking system for sequence objects
 - Defined in src/backend/utils/adt/acl.c:2240-2267
+
+## Simplified Source
+
+```c
+Datum
+has_sequence_privilege_id_name(PG_FUNCTION_ARGS)
+{
+    Oid   roleid = PG_GETARG_OID(0);
+    text *sequencename = PG_GETARG_TEXT_PP(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+
+    // Parse privilege string to internal mode
+    AclMode mode = convert_sequence_priv_string(priv_type_text);
+
+    // Resolve sequence name to OID
+    Oid sequenceoid = convert_table_name(sequencename);
+
+    // Validate target is actually a sequence
+    if (get_rel_relkind(sequenceoid) != RELKIND_SEQUENCE)
+        ereport(ERROR, "not a sequence");
+
+    // Check privilege and return result
+    AclResult aclresult = pg_class_aclcheck(sequenceoid, roleid, mode);
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

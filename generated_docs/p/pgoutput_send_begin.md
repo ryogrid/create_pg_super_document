@@ -37,3 +37,25 @@ This function is responsible for sending the BEGIN message that marks the start 
 - Conditionally includes replication origin information based on whether the transaction has a valid origin ID
 - Sets the sent_begin_txn flag to true to prevent duplicate BEGIN messages
 - Part of the logical replication output plugin infrastructure
+
+## Simplified Source
+
+```c
+static void pgoutput_send_begin(LogicalDecodingContext *ctx, ReorderBufferTXN *txn) {
+    bool send_replication_origin = txn->origin_id != InvalidRepOriginId;
+    PGOutputTxnData *txndata = (PGOutputTxnData *) txn->output_plugin_private;
+
+    Assert(txndata);
+    Assert(!txndata->sent_begin_txn);
+
+    // Prepare and send BEGIN message
+    OutputPluginPrepareWrite(ctx, !send_replication_origin);
+    logicalrep_write_begin(ctx->out, txn);
+    txndata->sent_begin_txn = true;
+
+    // Include replication origin info if needed
+    send_repl_origin(ctx, txn->origin_id, txn->origin_lsn, send_replication_origin);
+
+    OutputPluginWrite(ctx, true);
+}
+```

@@ -32,3 +32,26 @@ The  function implements the hyperbolic sine mathematical function (sinh) for Po
 - For positive inputs that overflow, returns positive infinity
 - Located in src/backend/utils/adt/float.c:2591-2619
 - Mathematically: sinh(x) = (e^x - e^(-x))/2
+
+## Simplified Source
+
+```c
+Datum dsinh(PG_FUNCTION_ARGS) {
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float8 result;
+
+    // Clear errno and compute hyperbolic sine
+    errno = 0;
+    result = sinh(arg1);
+
+    // Handle overflow: sinh can produce ±infinity for large inputs
+    if (errno == ERANGE) {
+        if (arg1 < 0)
+            result = -get_float8_infinity();   // Negative infinity for negative inputs
+        else
+            result = get_float8_infinity();    // Positive infinity for positive inputs
+    }
+
+    PG_RETURN_FLOAT8(result);
+}
+```

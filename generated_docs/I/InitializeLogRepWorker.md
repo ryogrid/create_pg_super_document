@@ -59,3 +59,74 @@ This function takes no parameters but operates on global variables:
 - Different log messages are generated based on worker type (apply vs tablesync)
 - Worker termination is handled gracefully with proper cleanup when subscriptions become unavailable
 - Registers for dynamic configuration changes to handle subscription modifications during runtime
+
+## Simplified Source
+
+```c
+void
+InitializeLogRepWorker(void)
+{
+    MemoryContext oldctx;
+
+    // Configure security settings
+    SetConfigOption("session_replication_role", "replica",
+                   PGC_SUSET, PGC_S_OVERRIDE);
+
+    // Connect to target database
+    BackgroundWorkerInitializeConnectionByOid(MyLogicalRepWorker->dbid,
+                                             MyLogicalRepWorker->userid, 0);
+
+    // Set secure search path to prevent code redirection attacks
+    SetConfigOption("search_path", "", PGC_SUSET, PGC_S_OVERRIDE);
+
+    // Create persistent memory context for subscription data
+    ApplyContext = AllocSetContextCreate(TopMemoryContext,
+                                       "ApplyContext",
+                                       ALLOCSET_DEFAULT_SIZES);
+
+    StartTransactionCommand();
+    oldctx = MemoryContextSwitchTo(ApplyContext);
+
+    // Lock and load subscription to prevent concurrent drops
+    LockSharedObject(SubscriptionRelationId, MyLogicalRepWorker->subid, 0,
+                    AccessShareLock);
+    MySubscription = GetSubscription(MyLogicalRepWorker->subid, true);
+
+    // Handle missing subscription during startup
+    if (!MySubscription) {
+        ereport(LOG, (errmsg("logical replication worker for subscription %u will not start because the subscription was removed during startup",
+                            MyLogicalRepWorker->subid)));
+        if (am_leader_apply_worker())
+            ApplyLauncherForgetWorkerStartTime(MyLogicalRepWorker->subid);
+        proc_exit(0);
+    }
+
+    MySubscriptionValid = true;
+    MemoryContextSwitchTo(oldctx);
+
+    // Handle disabled subscription
+    if (!MySubscription->enabled) {
+        ereport(LOG, (errmsg("logical replication worker for subscription \"%s\" will not start because the subscription was disabled during startup",
+                            MySubscription->name)));
+        apply_worker_exit();
+    }
+
+    // Configure synchronous commit behavior
+    SetConfigOption("synchronous_commit", MySubscription->synccommit,
+                   PGC_BACKEND, PGC_S_OVERRIDE);
+
+    // Register for subscription and role change notifications
+    CacheRegisterSyscacheCallback(SUBSCRIPTIONOID, subscription_change_cb, (Datum) 0);
+    CacheRegisterSyscacheCallback(AUTHOID, subscription_change_cb, (Datum) 0);
+
+    // Log appropriate startup message based on worker type
+    if (am_tablesync_worker())
+        ereport(LOG, (errmsg("logical replication table synchronization worker for subscription \"%s\", table \"%s\" has started",
+                            MySubscription->name, get_rel_name(MyLogicalRepWorker->relid))));
+    else
+        ereport(LOG, (errmsg("logical replication apply worker for subscription \"%s\" has started",
+                            MySubscription->name)));
+
+    CommitTransactionCommand();
+}
+```

@@ -37,3 +37,20 @@ The `circle_sub_pt` function implements the inverse translation operator for Pos
 - Located in src/backend/utils/adt/geo_ops.c:4980-4998
 - Translation is implemented as vector subtraction: new_center = old_center - translation_vector
 - Complementary function to circle_add_pt, providing bidirectional translation capability
+
+## Simplified Source
+
+```c
+Datum circle_sub_pt(PG_FUNCTION_ARGS) {
+    CIRCLE *circle = PG_GETARG_CIRCLE_P(0);
+    Point *point = PG_GETARG_POINT_P(1);
+    CIRCLE *result;
+
+    // Allocate result and translate center by subtracting point
+    result = (CIRCLE *) palloc(sizeof(CIRCLE));
+    point_sub_point(&result->center, &circle->center, point);
+    result->radius = circle->radius;
+
+    PG_RETURN_CIRCLE_P(result);
+}
+```

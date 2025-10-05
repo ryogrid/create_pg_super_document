@@ -49,3 +49,100 @@ The function uses a temporary memory context to avoid memory leaks during the de
 - Critical for BRIN index maintenance operations like vacuuming and parallel index construction
 - The first parameter (a) is modified in-place, making this function destructive to its first argument
 - Properly handles type-specific copying using typbyval and typlen information from the type cache
+
+## Simplified Source
+```c
+static void
+union_tuples(BrinDesc *bdesc, BrinMemTuple *a, BrinTuple *b)
+{
+    int         keyno;
+    BrinMemTuple *db;
+    MemoryContext cxt;
+    MemoryContext oldcxt;
+
+    // Create temporary memory context for safe operations
+    cxt = AllocSetContextCreate(CurrentMemoryContext, "brin union",
+                               ALLOCSET_DEFAULT_SIZES);
+    oldcxt = MemoryContextSwitchTo(cxt);
+    db = brin_deform_tuple(bdesc, b, NULL);
+    MemoryContextSwitchTo(oldcxt);
+
+    // Case 1: If "b" is empty, use "a" as result (even if "a" is empty)
+    if (db->bt_empty_range)
+    {
+        MemoryContextDelete(cxt);
+        return;
+    }
+
+    // Case 2: If "a" is empty but "b" is not, copy "b" into "a"
+    if (a->bt_empty_range)
+    {
+        for (keyno = 0; keyno < bdesc->bd_tupdesc->natts; keyno++)
+        {
+            BrinValues *col_a = &a->bt_columns[keyno];
+            BrinValues *col_b = &db->bt_columns[keyno];
+            BrinOpcInfo *opcinfo = bdesc->bd_info[keyno];
+
+            // Copy null flags
+            col_a->bv_allnulls = col_b->bv_allnulls;
+            col_a->bv_hasnulls = col_b->bv_hasnulls;
+
+            // Copy values if not all nulls
+            if (!col_b->bv_allnulls)
+            {
+                for (int i = 0; i < opcinfo->oi_nstored; i++)
+                    col_a->bv_values[i] = datumCopy(col_b->bv_values[i],
+                                                   opcinfo->oi_typcache[i]->typbyval,
+                                                   opcinfo->oi_typcache[i]->typlen);
+            }
+        }
+        a->bt_empty_range = false;
+        MemoryContextDelete(cxt);
+        return;
+    }
+
+    // Case 3: Both ranges are non-empty, perform per-key union
+    for (keyno = 0; keyno < bdesc->bd_tupdesc->natts; keyno++)
+    {
+        BrinValues *col_a = &a->bt_columns[keyno];
+        BrinValues *col_b = &db->bt_columns[keyno];
+        BrinOpcInfo *opcinfo = bdesc->bd_info[keyno];
+
+        // Handle null values properly
+        if (opcinfo->oi_regular_nulls)
+        {
+            bool b_has_nulls = (col_b->bv_hasnulls || col_b->bv_allnulls);
+
+            // Update null flags
+            if (!col_a->bv_allnulls && b_has_nulls)
+                col_a->bv_hasnulls = true;
+
+            if (col_b->bv_allnulls)
+                continue;
+
+            // Handle case where "a" has no values but "b" does
+            if (col_a->bv_allnulls)
+            {
+                col_a->bv_allnulls = false;
+                col_a->bv_hasnulls = true;
+                for (int i = 0; i < opcinfo->oi_nstored; i++)
+                    col_a->bv_values[i] = datumCopy(col_b->bv_values[i],
+                                                   opcinfo->oi_typcache[i]->typbyval,
+                                                   opcinfo->oi_typcache[i]->typlen);
+                continue;
+            }
+        }
+
+        // Call index-specific union function to merge values
+        FmgrInfo *unionFn = index_getprocinfo(bdesc->bd_index, keyno + 1,
+                                             BRIN_PROCNUM_UNION);
+        FunctionCall3Coll(unionFn,
+                          bdesc->bd_index->rd_indcollation[keyno],
+                          PointerGetDatum(bdesc),
+                          PointerGetDatum(col_a),
+                          PointerGetDatum(col_b));
+    }
+
+    MemoryContextDelete(cxt);
+}
+```

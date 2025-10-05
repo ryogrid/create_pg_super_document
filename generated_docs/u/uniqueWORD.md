@@ -55,3 +55,74 @@ The function enforces several limits: maximum number of positions per word (), m
 - Position limits prevent excessive memory usage and maintain compatibility with tsvector storage format
 - Located at lines 77-164 in 
 - The function modifies the input array in-place, compacting unique results at the beginning
+
+## Simplified Source
+
+```c
+static int uniqueWORD(ParsedWord *a, int32 l) {
+    ParsedWord *current, *result;
+    int position;
+
+    // Handle single word case
+    if (l == 1) {
+        position = LIMITPOS(a->pos.pos);
+        a->alen = 2;
+        a->pos.apos = (uint16 *) palloc(sizeof(uint16) * a->alen);
+        a->pos.apos[0] = 1;  // position count
+        a->pos.apos[1] = position;  // first position
+        return l;
+    }
+
+    // Sort words by content and position
+    qsort(a, l, sizeof(ParsedWord), compareWORD);
+
+    // Initialize first word's position array
+    result = a;
+    current = a + 1;
+    position = LIMITPOS(a->pos.pos);
+    a->alen = 2;
+    a->pos.apos = (uint16 *) palloc(sizeof(uint16) * a->alen);
+    a->pos.apos[0] = 1;
+    a->pos.apos[1] = position;
+
+    // Process remaining words
+    while (current - a < l) {
+        if (!(current->len == result->len &&
+              strncmp(current->word, result->word, result->len) == 0)) {
+            // New unique word - add to result
+            result++;
+            result->len = current->len;
+            result->word = current->word;
+            position = LIMITPOS(current->pos.pos);
+            result->alen = 2;
+            result->pos.apos = (uint16 *) palloc(sizeof(uint16) * result->alen);
+            result->pos.apos[0] = 1;
+            result->pos.apos[1] = position;
+        } else {
+            // Duplicate word - merge position if within limits
+            pfree(current->word);
+            if (result->pos.apos[0] < MAXNUMPOS - 1 &&
+                result->pos.apos[result->pos.apos[0]] != MAXENTRYPOS - 1 &&
+                result->pos.apos[result->pos.apos[0]] != LIMITPOS(current->pos.pos)) {
+
+                // Expand position array if needed
+                if (result->pos.apos[0] + 1 >= result->alen) {
+                    result->alen *= 2;
+                    result->pos.apos = (uint16 *) repalloc(result->pos.apos,
+                                                          sizeof(uint16) * result->alen);
+                }
+
+                // Add new position if unique
+                if (result->pos.apos[0] == 0 ||
+                    result->pos.apos[result->pos.apos[0]] != LIMITPOS(current->pos.pos)) {
+                    result->pos.apos[result->pos.apos[0] + 1] = LIMITPOS(current->pos.pos);
+                    result->pos.apos[0]++;
+                }
+            }
+        }
+        current++;
+    }
+
+    return result + 1 - a;  // return number of unique words
+}
+```

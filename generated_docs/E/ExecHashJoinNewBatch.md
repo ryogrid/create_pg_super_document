@@ -41,3 +41,95 @@ The function implements several optimization strategies:
 - Manages memory cleanup by closing previous batch files and resetting skew optimization state
 - The function is static and only used internally within the hash join executor node
 - Critical for memory management in large hash join operations that exceed available memory
+
+## Simplified Source
+
+```c
+static bool
+ExecHashJoinNewBatch(HashJoinState *hjstate)
+{
+    HashJoinTable hashtable = hjstate->hj_HashTable;
+    int nbatch = hashtable->nbatch;
+    int curbatch = hashtable->curbatch;
+    BufFile *innerFile;
+    TupleTableSlot *slot;
+    uint32 hashvalue;
+
+    // Clean up previous batch file
+    if (curbatch > 0) {
+        if (hashtable->outerBatchFile[curbatch])
+            BufFileClose(hashtable->outerBatchFile[curbatch]);
+        hashtable->outerBatchFile[curbatch] = NULL;
+    } else {
+        // First batch completed - disable skew optimization
+        hashtable->skewEnabled = false;
+        hashtable->skewBucket = NULL;
+        hashtable->skewBucketNums = NULL;
+        hashtable->nSkewBuckets = 0;
+        hashtable->spaceUsedSkew = 0;
+    }
+
+    // Find next processable batch, skipping empty ones when possible
+    curbatch++;
+    while (curbatch < nbatch &&
+           (hashtable->outerBatchFile[curbatch] == NULL ||
+            hashtable->innerBatchFile[curbatch] == NULL)) {
+
+        // Check if we must process this batch despite being partially empty:
+        // 1. Outer joins need empty inner batches processed
+        // 2. Dynamic batch increases require processing for tuple reassignment
+
+        if (hashtable->outerBatchFile[curbatch] && HJ_FILL_OUTER(hjstate))
+            break;  // Must process for outer join
+        if (hashtable->innerBatchFile[curbatch] && HJ_FILL_INNER(hjstate))
+            break;  // Must process for inner join
+        if (hashtable->innerBatchFile[curbatch] &&
+            nbatch != hashtable->nbatch_original)
+            break;  // Must process due to dynamic batch increase
+        if (hashtable->outerBatchFile[curbatch] &&
+            nbatch != hashtable->nbatch_outstart)
+            break;  // Must process due to outer scan batch increase
+
+        // Skip this batch - clean up files
+        if (hashtable->innerBatchFile[curbatch])
+            BufFileClose(hashtable->innerBatchFile[curbatch]);
+        hashtable->innerBatchFile[curbatch] = NULL;
+        if (hashtable->outerBatchFile[curbatch])
+            BufFileClose(hashtable->outerBatchFile[curbatch]);
+        hashtable->outerBatchFile[curbatch] = NULL;
+        curbatch++;
+    }
+
+    if (curbatch >= nbatch)
+        return false;  // No more batches
+
+    hashtable->curbatch = curbatch;
+
+    // Reset hash table and load new inner batch
+    ExecHashTableReset(hashtable);
+    innerFile = hashtable->innerBatchFile[curbatch];
+
+    if (innerFile != NULL) {
+        // Rewind inner batch file and reload hash table
+        BufFileSeek(innerFile, 0, 0, SEEK_SET);
+
+        while ((slot = ExecHashJoinGetSavedTuple(hjstate, innerFile,
+                                               &hashvalue,
+                                               hjstate->hj_HashTupleSlot))) {
+            // Insert tuple into hash table (may trigger further batching)
+            ExecHashTableInsert(hashtable, slot, hashvalue);
+        }
+
+        // Clean up inner batch file
+        BufFileClose(innerFile);
+        hashtable->innerBatchFile[curbatch] = NULL;
+    }
+
+    // Prepare outer batch file for reading
+    if (hashtable->outerBatchFile[curbatch] != NULL) {
+        BufFileSeek(hashtable->outerBatchFile[curbatch], 0, 0, SEEK_SET);
+    }
+
+    return true;
+}
+```

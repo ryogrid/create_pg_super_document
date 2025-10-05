@@ -46,3 +46,31 @@ The function iterates through all provided ordering scan keys, extracting Point 
 - Supports both k-d tree and quadtree spatial indexing strategies
 - The function assumes scan key arguments are Points, which is enforced by the SP-GiST framework
 - Critical for efficient nearest-neighbor searches in PostgreSQL's geometric indexing system
+
+## Simplified Source
+
+```c
+double *
+spg_key_orderbys_distances(Datum key, bool isLeaf,
+                          ScanKey orderbys, int norderbys)
+{
+    // Allocate array for distance results
+    double *distances = (double *) palloc(norderbys * sizeof(double));
+
+    // Calculate distance from key to each ordering scan key
+    for (int i = 0; i < norderbys; i++) {
+        Point *scan_point = DatumGetPointP(orderbys[i].sk_argument);
+
+        // Choose distance calculation based on key type
+        if (isLeaf) {
+            // Leaf node: key is a Point, calculate point-to-point distance
+            distances[i] = point_point_distance(scan_point, DatumGetPointP(key));
+        } else {
+            // Internal node: key is a BOX, calculate point-to-box distance
+            distances[i] = point_box_distance(scan_point, DatumGetBoxP(key));
+        }
+    }
+
+    return distances;
+}
+```

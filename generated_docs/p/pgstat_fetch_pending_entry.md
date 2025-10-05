@@ -31,3 +31,18 @@ This function serves as a read-only accessor for existing pending statistics ent
 - Should only be used by helper functions in pgstatfuncs.c as noted in the source comments
 - Does not create new entries - purely a read-only operation
 - Part of PostgreSQL's statistics collection infrastructure for monitoring database activity
+
+## Simplified Source
+
+```c
+PgStat_EntryRef *pgstat_fetch_pending_entry(PgStat_Kind kind, Oid dboid, Oid objoid) {
+    // Get entry reference without creating new one
+    PgStat_EntryRef *entry_ref = pgstat_get_entry_ref(kind, dboid, objoid, false, NULL);
+
+    // Return NULL if no entry or no pending data
+    if (entry_ref == NULL || entry_ref->pending == NULL)
+        return NULL;
+
+    return entry_ref;
+}
+```

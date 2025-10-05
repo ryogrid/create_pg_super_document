@@ -32,3 +32,12 @@ The function works by attempting to retrieve the PGPROC structure associated wit
 - The function performs a lightweight check by leveraging the existing BackendPidGetProc infrastructure
 - Returns false for PID 0 (handled by BackendPidGetProc) as this never matches dummy PGPROCs
 - The check is performed under proper locking via BackendPidGetProc to ensure thread safety
+
+## Simplified Source
+
+```c
+bool IsBackendPid(int pid) {
+    // Simple wrapper: check if PID has a valid PGPROC structure
+    return (BackendPidGetProc(pid) != NULL);
+}
+```

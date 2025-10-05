@@ -35,3 +35,20 @@ The int84 function implements type conversion from PostgreSQL's 8-byte integer t
 - Located in src/backend/utils/adt/int8.c in the conversion operators section  
 - Essential for safe downcasting operations in PostgreSQL's type system
 - The function name follows PostgreSQL's convention where the number indicates the byte size (8 for source, 4 for target)
+
+## Simplified Source
+
+```c
+Datum
+int84(PG_FUNCTION_ARGS)
+{
+    int64 bigint_value = PG_GETARG_INT64(0);
+
+    // Check if value fits in 32-bit integer range
+    if (bigint_value < PG_INT32_MIN || bigint_value > PG_INT32_MAX)
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("integer out of range")));
+
+    PG_RETURN_INT32((int32) bigint_value);
+}
+```

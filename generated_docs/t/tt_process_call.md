@@ -42,3 +42,42 @@ The function operates by:
 - Properly manages memory by freeing the alias and description strings after tuple creation
 - The token ID is converted to a string representation for tuple construction
 - The function assumes the token type list was properly initialized by tt_setup_firstcall
+
+## Simplified Source
+
+```c
+static Datum
+tt_process_call(FuncCallContext *funcctx)
+{
+    TSTokenTypeStorage *st = (TSTokenTypeStorage *) funcctx->user_fctx;
+
+    // Check if more token types available
+    if (st->list && st->list[st->cur].lexid)
+    {
+        Datum result;
+        char *values[3];
+        char txtid[16];
+        HeapTuple tuple;
+
+        // Format token type data as strings
+        sprintf(txtid, "%d", st->list[st->cur].lexid);
+        values[0] = txtid;
+        values[1] = st->list[st->cur].alias;
+        values[2] = st->list[st->cur].descr;
+
+        // Build tuple and convert to Datum
+        tuple = BuildTupleFromCStrings(funcctx->attinmeta, values);
+        result = HeapTupleGetDatum(tuple);
+
+        // Clean up allocated strings and advance cursor
+        pfree(values[1]);
+        pfree(values[2]);
+        st->cur++;
+
+        return result;
+    }
+
+    // End of token type list
+    return (Datum) 0;
+}
+```

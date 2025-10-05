@@ -61,3 +61,151 @@ This function implements statistics collection for tsvector columns by finding t
 - Includes min/max frequencies in extra mcelem_freqs slots
 - Frequency calculations are relative to non-null row count, not total lexeme count
 - Based on Zipfian distribution assumptions for natural language lexeme frequencies
+
+## Simplified Source
+
+```c
+static void compute_tsvector_stats(VacAttrStats *stats,
+                                 AnalyzeAttrFetchFunc fetchfunc,
+                                 int samplerows,
+                                 double totalrows) {
+    int num_mcelem = stats->attstattarget * 10;
+    int bucket_width = (num_mcelem + 10) * 1000 / 7;
+    int null_cnt = 0;
+    double total_width = 0;
+    HTAB *lexemes_tab;
+    HASHCTL hash_ctl;
+    int b_current = 1;
+    int lexeme_no = 0;
+    LexemeHashKey hash_key;
+
+    // Create hash table for tracking lexemes
+    hash_ctl.keysize = sizeof(LexemeHashKey);
+    hash_ctl.entrysize = sizeof(TrackItem);
+    hash_ctl.hash = lexeme_hash;
+    hash_ctl.match = lexeme_match;
+    hash_ctl.hcxt = CurrentMemoryContext;
+    lexemes_tab = hash_create("Analyzed lexemes table", num_mcelem, &hash_ctl,
+                             HASH_ELEM | HASH_FUNCTION | HASH_COMPARE | HASH_CONTEXT);
+
+    // Process each tsvector sample
+    for (int vector_no = 0; vector_no < samplerows; vector_no++) {
+        Datum value;
+        bool isnull;
+        TSVector vector;
+
+        vacuum_delay_point();
+        value = fetchfunc(stats, vector_no, &isnull);
+
+        if (isnull) {
+            null_cnt++;
+            continue;
+        }
+
+        total_width += VARSIZE_ANY(DatumGetPointer(value));
+        vector = DatumGetTSVector(value);
+
+        // Process each lexeme in the tsvector
+        char *lexemesptr = STRPTR(vector);
+        WordEntry *curentryptr = ARRPTR(vector);
+        for (int j = 0; j < vector->size; j++) {
+            TrackItem *item;
+            bool found;
+
+            hash_key.lexeme = lexemesptr + curentryptr->pos;
+            hash_key.length = curentryptr->len;
+
+            // Add or update lexeme frequency
+            item = hash_search(lexemes_tab, &hash_key, HASH_ENTER, &found);
+            if (found) {
+                item->frequency++;
+            } else {
+                item->frequency = 1;
+                item->delta = b_current - 1;
+                item->key.lexeme = palloc(hash_key.length);
+                memcpy(item->key.lexeme, hash_key.lexeme, hash_key.length);
+            }
+
+            lexeme_no++;
+
+            // Prune hashtable after each bucket
+            if (lexeme_no % bucket_width == 0) {
+                prune_lexemes_hashtable(lexemes_tab, b_current);
+                b_current++;
+            }
+
+            curentryptr++;
+        }
+
+        if (TSVectorGetDatum(vector) != value)
+            pfree(vector);
+    }
+
+    // Generate final statistics
+    if (null_cnt < samplerows) {
+        int nonnull_cnt = samplerows - null_cnt;
+        int cutoff_freq = 9 * lexeme_no / bucket_width;
+        TrackItem **sort_table;
+        int track_len = 0;
+        int minfreq = lexeme_no, maxfreq = 0;
+
+        // Collect qualifying entries
+        HASH_SEQ_STATUS scan_status;
+        TrackItem *item;
+        int i = hash_get_num_entries(lexemes_tab);
+        sort_table = palloc(sizeof(TrackItem *) * i);
+
+        hash_seq_init(&scan_status, lexemes_tab);
+        while ((item = hash_seq_search(&scan_status)) != NULL) {
+            if (item->frequency > cutoff_freq) {
+                sort_table[track_len++] = item;
+                minfreq = Min(minfreq, item->frequency);
+                maxfreq = Max(maxfreq, item->frequency);
+            }
+        }
+
+        // Sort and store results
+        if (num_mcelem < track_len) {
+            qsort_interruptible(sort_table, track_len, sizeof(TrackItem *),
+                              trackitem_compare_frequencies_desc, NULL);
+            minfreq = sort_table[num_mcelem - 1]->frequency;
+        } else {
+            num_mcelem = track_len;
+        }
+
+        if (num_mcelem > 0) {
+            qsort_interruptible(sort_table, num_mcelem, sizeof(TrackItem *),
+                              trackitem_compare_lexemes, NULL);
+
+            // Store statistics
+            Datum *mcelem_values = palloc(num_mcelem * sizeof(Datum));
+            float4 *mcelem_freqs = palloc((num_mcelem + 2) * sizeof(float4));
+
+            for (i = 0; i < num_mcelem; i++) {
+                TrackItem *titem = sort_table[i];
+                mcelem_values[i] = PointerGetDatum(cstring_to_text_with_len(
+                    titem->key.lexeme, titem->key.length));
+                mcelem_freqs[i] = (double) titem->frequency / (double) nonnull_cnt;
+            }
+            mcelem_freqs[i++] = (double) minfreq / (double) nonnull_cnt;
+            mcelem_freqs[i] = (double) maxfreq / (double) nonnull_cnt;
+
+            stats->stakind[0] = STATISTIC_KIND_MCELEM;
+            stats->stanumbers[0] = mcelem_freqs;
+            stats->numnumbers[0] = num_mcelem + 2;
+            stats->stavalues[0] = mcelem_values;
+            stats->numvalues[0] = num_mcelem;
+        }
+
+        stats->stats_valid = true;
+        stats->stanullfrac = (double) null_cnt / (double) samplerows;
+        stats->stawidth = total_width / (double) nonnull_cnt;
+        stats->stadistinct = -1.0 * (1.0 - stats->stanullfrac);
+    } else {
+        stats->stats_valid = true;
+        stats->stanullfrac = 1.0;
+        stats->stawidth = 0;
+        stats->stadistinct = 0.0;
+    }
+}
+```

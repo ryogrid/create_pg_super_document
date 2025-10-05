@@ -44,3 +44,28 @@ Key responsibilities include:
 - Handles both regular and concurrent index build cleanup through snapshot type checking
 - Critical for maintaining proper parallel execution state in PostgreSQL
 - Function is idempotent and safe to call in error recovery scenarios
+
+## Simplified Source
+
+```c
+static void
+_bt_end_parallel(BTLeader *btleader)
+{
+    // Wait for all worker processes to complete
+    WaitForParallelWorkersToFinish(btleader->pcxt);
+
+    // Accumulate performance statistics from all workers
+    for (int i = 0; i < btleader->pcxt->nworkers_launched; i++) {
+        InstrAccumParallelQuery(&btleader->bufferusage[i], &btleader->walusage[i]);
+    }
+
+    // Clean up snapshot if it was an MVCC snapshot
+    if (IsMVCCSnapshot(btleader->snapshot)) {
+        UnregisterSnapshot(btleader->snapshot);
+    }
+
+    // Destroy parallel context and exit parallel mode
+    DestroyParallelContext(btleader->pcxt);
+    ExitParallelMode();
+}
+```

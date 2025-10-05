@@ -45,3 +45,78 @@ The function implements sophisticated conflict resolution for concurrent inserti
 - Optimizes NULL key handling to avoid O(N^2) behavior with many NULL duplicates
 - Maintains write locks continuously from uniqueness check through insertion completion
 - Returns significance only for UNIQUE_CHECK_PARTIAL mode (true=unique, false=possibly non-unique)
+
+## Simplified Source
+
+```c
+bool _bt_doinsert(Relation rel, IndexTuple itup,
+                  IndexUniqueCheck checkUnique, bool indexUnchanged,
+                  Relation heapRel) {
+    bool is_unique = false;
+    BTInsertStateData insertstate;
+    BTScanInsert itup_key;
+    BTStack stack;
+    bool checkingunique = (checkUnique != UNIQUE_CHECK_NO);
+
+    // Create scan key for the tuple to insert
+    itup_key = _bt_mkscankey(rel, itup);
+
+    // Optimize for NULL keys - skip uniqueness checks since NULL != NULL
+    if (checkingunique && itup_key->anynullkeys) {
+        checkingunique = false;
+        is_unique = true;  // NULL is always unique
+    }
+
+    // Initialize insertion state
+    insertstate.itup = itup;
+    insertstate.itemsz = MAXALIGN(IndexTupleSize(itup));
+    insertstate.itup_key = itup_key;
+    insertstate.buf = InvalidBuffer;
+
+search:
+    // Find and lock the target leaf page
+    stack = _bt_search_insert(rel, heapRel, &insertstate);
+
+    // Check for uniqueness violations if required
+    if (checkingunique) {
+        TransactionId xwait;
+        uint32 speculativeToken;
+
+        xwait = _bt_check_unique(rel, &insertstate, heapRel, checkUnique,
+                                &is_unique, &speculativeToken);
+
+        // If conflicting transaction found, wait and retry
+        if (TransactionIdIsValid(xwait)) {
+            _bt_relbuf(rel, insertstate.buf);
+
+            if (speculativeToken)
+                SpeculativeInsertionWait(xwait, speculativeToken);
+            else
+                XactLockTableWait(xwait, rel, &itup->t_tid, XLTW_InsertIndex);
+
+            if (stack) _bt_freestack(stack);
+            goto search;  // Retry insertion
+        }
+    }
+
+    // Actually insert the tuple (unless just checking)
+    if (checkUnique != UNIQUE_CHECK_EXISTING) {
+        OffsetNumber newitemoff;
+
+        // Find exact insertion location and insert
+        newitemoff = _bt_findinsertloc(rel, &insertstate, checkingunique,
+                                      indexUnchanged, stack, heapRel);
+        _bt_insertonpg(rel, heapRel, itup_key, insertstate.buf, InvalidBuffer,
+                      stack, itup, insertstate.itemsz, newitemoff,
+                      insertstate.postingoff, false);
+    } else {
+        _bt_relbuf(rel, insertstate.buf);
+    }
+
+    // Cleanup
+    if (stack) _bt_freestack(stack);
+    pfree(itup_key);
+
+    return is_unique;
+}
+```

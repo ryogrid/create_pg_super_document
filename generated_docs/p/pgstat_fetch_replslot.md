@@ -33,3 +33,28 @@ This function provides access to replication slot statistics for SQL-callable fu
 - Part of PostgreSQL's user-facing statistics interface
 - The returned pointer should be used carefully as it points to shared memory
 - Works with the get_replslot_index() function to translate names to internal indices
+
+## Simplified Source
+
+```c
+PgStat_StatReplSlotEntry *
+pgstat_fetch_replslot(NameData slotname)
+{
+    int idx;
+    PgStat_StatReplSlotEntry *slotentry = NULL;
+
+    LWLockAcquire(ReplicationSlotControlLock, LW_SHARED);
+
+    // Get the slot index from the name
+    idx = get_replslot_index(NameStr(slotname), false);
+
+    // If slot exists, fetch its statistics entry
+    if (idx != -1)
+        slotentry = (PgStat_StatReplSlotEntry *)
+            pgstat_fetch_entry(PGSTAT_KIND_REPLSLOT, InvalidOid, idx);
+
+    LWLockRelease(ReplicationSlotControlLock);
+
+    return slotentry;
+}
+```

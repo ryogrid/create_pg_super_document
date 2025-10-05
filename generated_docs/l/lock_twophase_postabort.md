@@ -35,3 +35,15 @@ The function is called during the post-abort phase of two-phase commit processin
 - The actual lock cleanup logic is implemented in lock_twophase_postcommit()
 - This is part of PostgreSQL's resource manager interface for two-phase commit processing
 - The function is registered as a callback handler for processing lock-related two-phase commit records during abort
+
+## Simplified Source
+
+```c
+void
+lock_twophase_postabort(TransactionId xid, uint16 info,
+                        void *recdata, uint32 len)
+{
+    // ROLLBACK PREPARED uses the same lock cleanup as COMMIT PREPARED
+    lock_twophase_postcommit(xid, info, recdata, len);
+}
+```

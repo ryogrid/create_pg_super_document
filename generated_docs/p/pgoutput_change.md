@@ -55,3 +55,138 @@ The function supports both regular and streaming replication modes, handling tra
 - Implements row filtering that can potentially transform UPDATE operations into INSERT or DELETE operations
 - Maintains backward compatibility by only sending BEGIN messages when actual changes will be transmitted
 - Critical for logical replication performance as it's called for every DML operation being replicated
+
+## Simplified Source
+
+```c
+static void
+pgoutput_change(LogicalDecodingContext *ctx, ReorderBufferTXN *txn,
+                Relation relation, ReorderBufferChange *change)
+{
+    PGOutputData *data = (PGOutputData *) ctx->output_plugin_private;
+    PGOutputTxnData *txndata = (PGOutputTxnData *) txn->output_plugin_private;
+    RelationSyncEntry *relentry;
+    TransactionId xid = InvalidTransactionId;
+    Relation ancestor = NULL;
+    Relation targetrel = relation;
+    ReorderBufferChangeType action = change->action;
+    TupleTableSlot *old_slot = NULL;
+    TupleTableSlot *new_slot = NULL;
+
+    // Check if relation is publishable
+    if (!is_publishable_relation(relation))
+        return;
+
+    // Get transaction ID for streaming mode
+    if (data->in_streaming)
+        xid = change->txn->xid;
+
+    relentry = get_rel_sync_entry(data, relation);
+
+    // Check publication actions (INSERT/UPDATE/DELETE permissions)
+    switch (action)
+    {
+        case REORDER_BUFFER_CHANGE_INSERT:
+            if (!relentry->pubactions.pubinsert)
+                return;
+            break;
+        case REORDER_BUFFER_CHANGE_UPDATE:
+            if (!relentry->pubactions.pubupdate)
+                return;
+            break;
+        case REORDER_BUFFER_CHANGE_DELETE:
+            if (!relentry->pubactions.pubdelete)
+                return;
+            if (!change->data.tp.oldtuple)
+                return;  // Can't delete without old tuple
+            break;
+    }
+
+    MemoryContext old = MemoryContextSwitchTo(data->context);
+
+    // Handle publishing via root table (partitions)
+    if (relentry->publish_as_relid != RelationGetRelid(relation))
+    {
+        ancestor = RelationIdGetRelation(relentry->publish_as_relid);
+        targetrel = ancestor;
+    }
+
+    // Process old tuple if present
+    if (change->data.tp.oldtuple)
+    {
+        old_slot = relentry->old_slot;
+        ExecStoreHeapTuple(change->data.tp.oldtuple, old_slot, false);
+
+        // Apply attribute mapping if needed
+        if (relentry->attrmap)
+        {
+            TupleTableSlot *slot = MakeTupleTableSlot(RelationGetDescr(targetrel),
+                                                      &TTSOpsVirtual);
+            old_slot = execute_attr_map_slot(relentry->attrmap, old_slot, slot);
+        }
+    }
+
+    // Process new tuple if present
+    if (change->data.tp.newtuple)
+    {
+        new_slot = relentry->new_slot;
+        ExecStoreHeapTuple(change->data.tp.newtuple, new_slot, false);
+
+        // Apply attribute mapping if needed
+        if (relentry->attrmap)
+        {
+            TupleTableSlot *slot = MakeTupleTableSlot(RelationGetDescr(targetrel),
+                                                      &TTSOpsVirtual);
+            new_slot = execute_attr_map_slot(relentry->attrmap, new_slot, slot);
+        }
+    }
+
+    // Apply row filter (may transform action type)
+    if (!pgoutput_row_filter(targetrel, old_slot, &new_slot, relentry, &action))
+        goto cleanup;
+
+    // Send BEGIN if haven't sent it yet
+    if (txndata && !txndata->sent_begin_txn)
+        pgoutput_send_begin(ctx, txn);
+
+    // Send schema information if needed
+    maybe_send_schema(ctx, change, relation, relentry);
+
+    // Send the actual data change
+    OutputPluginPrepareWrite(ctx, true);
+
+    switch (action)
+    {
+        case REORDER_BUFFER_CHANGE_INSERT:
+            logicalrep_write_insert(ctx->out, xid, targetrel, new_slot,
+                                   data->binary, relentry->columns);
+            break;
+        case REORDER_BUFFER_CHANGE_UPDATE:
+            logicalrep_write_update(ctx->out, xid, targetrel, old_slot,
+                                   new_slot, data->binary, relentry->columns);
+            break;
+        case REORDER_BUFFER_CHANGE_DELETE:
+            logicalrep_write_delete(ctx->out, xid, targetrel, old_slot,
+                                   data->binary, relentry->columns);
+            break;
+    }
+
+    OutputPluginWrite(ctx, true);
+
+cleanup:
+    // Clean up resources
+    if (RelationIsValid(ancestor))
+        RelationClose(ancestor);
+
+    if (relentry->attrmap)
+    {
+        if (old_slot)
+            ExecDropSingleTupleTableSlot(old_slot);
+        if (new_slot)
+            ExecDropSingleTupleTableSlot(new_slot);
+    }
+
+    MemoryContextSwitchTo(old);
+    MemoryContextReset(data->context);
+}
+```

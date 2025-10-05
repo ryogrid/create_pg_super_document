@@ -51,3 +51,23 @@ The extended hashing process:
 - Returns a PostgreSQL Datum containing an unsigned 64-bit integer hash value
 - Located in src/backend/utils/adt/date.c:2549-2564
 - Part of PostgreSQL's extended hashing infrastructure for improved performance in complex query scenarios
+
+## Simplified Source
+
+```c
+Datum timetz_hash_extended(PG_FUNCTION_ARGS) {
+    TimeTzADT *key = PG_GETARG_TIMETZADT_P(0);
+    Datum seed = PG_GETARG_DATUM(1);
+
+    // Hash time and zone components separately using extended hash functions with seed
+    uint64 time_hash = DatumGetUInt64(DirectFunctionCall2(hashint8extended,
+                                      Int64GetDatumFast(key->time), seed));
+    uint64 zone_hash = DatumGetUInt64(hash_uint32_extended(key->zone,
+                                      DatumGetInt64(seed)));
+
+    // XOR the two 64-bit hash values together for final result
+    uint64 combined_hash = time_hash ^ zone_hash;
+
+    PG_RETURN_UINT64(combined_hash);
+}
+```

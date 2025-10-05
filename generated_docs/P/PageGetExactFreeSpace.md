@@ -44,3 +44,20 @@ The function uses signed arithmetic to handle edge cases where pd_lower might ex
 - Uses signed arithmetic to handle potential page corruption scenarios gracefully
 - Returns 0 when pd_lower exceeds pd_upper (corrupted page scenario)
 - Located in src/backend/storage/page/bufpage.c:958-990
+
+## Simplified Source
+
+```c
+Size PageGetExactFreeSpace(Page page) {
+    // Calculate exact space between upper and lower pointers
+    int space = ((PageHeader) page)->pd_upper -
+                ((PageHeader) page)->pd_lower;
+
+    // Return 0 if page appears corrupted (lower > upper)
+    if (space < 0) {
+        return 0;
+    }
+
+    return space;
+}
+```

@@ -33,3 +33,47 @@ This static function is a utility within the ECPG preprocessor that handles the 
 - The function directly outputs to base_yyout (the preprocessor's output file)
 - No memory allocation or freeing occurs within this function
 - The function is static, indicating it's only used within the same source file
+
+## Simplified Source
+
+```c
+static void output_escaped_str(char *str, bool quoted) {
+    int i = 0;
+    int len = strlen(str);
+
+    // Handle leading quote for quoted strings
+    if (quoted && str[0] == '"' && str[len - 1] == '"') {
+        i = 1;
+        len--;
+        fputs("\"", base_yyout);
+    }
+
+    // Escape each character as needed
+    for (; i < len; i++) {
+        if (str[i] == '"')
+            fputs("\\\"", base_yyout);
+        else if (str[i] == '\n')
+            fputs("\\\n", base_yyout);
+        else if (str[i] == '\\') {
+            // Handle continuation lines
+            int j = i;
+            do {
+                j++;
+            } while (str[j] == ' ' || str[j] == '\t');
+
+            if ((str[j] != '\n') && (str[j] != '\r' || str[j + 1] != '\n'))
+                fputs("\\\\", base_yyout);
+        }
+        else if (str[i] == '\r' && str[i + 1] == '\n') {
+            fputs("\\\r\n", base_yyout);
+            i++;
+        }
+        else
+            fputc(str[i], base_yyout);
+    }
+
+    // Handle trailing quote for quoted strings
+    if (quoted && str[0] == '"' && str[len] == '"')
+        fputs("\"", base_yyout);
+}
+```

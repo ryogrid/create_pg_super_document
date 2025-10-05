@@ -46,3 +46,52 @@ The function detoasts and copies the source record into the expanded object's pr
 - Returns a read/write Datum pointer to the expanded record using EOHPGetRWDatum
 - Does not populate flat_size information or create deconstructed representation initially
 - Uses MemoryContextAllocZero to ensure all header fields start as 0/null for proper initialization
+
+## Simplified Source
+
+```c
+Datum
+make_expanded_record_from_datum(Datum recorddatum, MemoryContext parentcontext)
+{
+    ExpandedRecordHeader *erh;
+    HeapTupleHeader tuphdr;
+    HeapTupleData tmptup;
+    HeapTuple newtuple;
+    MemoryContext objcxt;
+
+    // Create memory context for expanded object
+    objcxt = AllocSetContextCreate(parentcontext, "expanded record", ALLOCSET_DEFAULT_SIZES);
+
+    // Initialize expanded record header
+    erh = (ExpandedRecordHeader *) MemoryContextAllocZero(objcxt, sizeof(ExpandedRecordHeader));
+    EOH_init_header(&erh->hdr, &ER_methods, objcxt);
+    erh->er_magic = ER_MAGIC;
+
+    // Extract tuple header from datum and set up temporary tuple
+    tuphdr = DatumGetHeapTupleHeader(recorddatum);
+    tmptup.t_len = HeapTupleHeaderGetDatumLength(tuphdr);
+    ItemPointerSetInvalid(&(tmptup.t_self));
+    tmptup.t_tableOid = InvalidOid;
+    tmptup.t_data = tuphdr;
+
+    // Copy tuple into private context
+    MemoryContext oldcxt = MemoryContextSwitchTo(objcxt);
+    newtuple = heap_copytuple(&tmptup);
+    erh->flags |= ER_FLAG_FVALUE_ALLOCED;
+    MemoryContextSwitchTo(oldcxt);
+
+    // Set type identification from tuple header
+    erh->er_decltypeid = erh->er_typeid = HeapTupleHeaderGetTypeId(tuphdr);
+    erh->er_typmod = HeapTupleHeaderGetTypMod(tuphdr);
+
+    // Set up flat representation
+    erh->fvalue = newtuple;
+    erh->fstartptr = (char *) newtuple->t_data;
+    erh->fendptr = ((char *) newtuple->t_data) + newtuple->t_len;
+    erh->flags |= ER_FLAG_FVALUE_VALID;
+
+    Assert(!HeapTupleHeaderHasExternal(tuphdr));
+
+    return EOHPGetRWDatum(&erh->hdr);
+}
+```

@@ -44,3 +44,32 @@ The function balances between providing useful coordination information and avoi
 - Includes optional trace logging for debugging when TRACE_SYNCSCAN is enabled
 - Critical component of PostgreSQL's synchronized scan optimization for reducing I/O in concurrent table scans
 - The non-blocking approach ensures that synchronized scanning never degrades individual scan performance
+
+## Simplified Source
+
+```c
+void ss_report_location(Relation rel, BlockNumber location)
+{
+#ifdef TRACE_SYNCSCAN
+    // Optional debug logging every 1024 pages
+    if (trace_syncscan && (location % 1024) == 0)
+        elog(LOG, "SYNC_SCAN: scanning \"%s\" at %u",
+             RelationGetRelationName(rel), location);
+#endif
+
+    // Only report progress every SYNC_SCAN_REPORT_INTERVAL pages to reduce contention
+    if ((location % SYNC_SCAN_REPORT_INTERVAL) == 0) {
+        // Try to acquire lock non-blocking - missing updates is acceptable
+        if (LWLockConditionalAcquire(SyncScanLock, LW_EXCLUSIVE)) {
+            // Update shared scan state with current location
+            ss_search(rel->rd_locator, location, true);
+            LWLockRelease(SyncScanLock);
+        }
+#ifdef TRACE_SYNCSCAN
+        else if (trace_syncscan)
+            elog(LOG, "SYNC_SCAN: missed update for \"%s\" at %u",
+                 RelationGetRelationName(rel), location);
+#endif
+    }
+}
+```

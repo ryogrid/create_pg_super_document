@@ -31,3 +31,15 @@ The  function is a PostgreSQL output conversion function that transforms a BOX s
 
 ## Notes and Other Information
 This function follows PostgreSQL's standard output function convention using the  interface. It leverages the existing  utility function by treating the box as a 2-point path with no surrounding delimiters (). The function assumes the BOX structure is already in normalized form (with proper high/low corner relationships) as maintained by  and other box manipulation functions. The resulting string format is compatible with the input format expected by , ensuring round-trip consistency.
+
+## Simplified Source
+
+```c
+Datum box_out(PG_FUNCTION_ARGS) {
+    BOX *box = PG_GETARG_BOX_P(0);
+
+    // Convert box to string format using path_encode with no delimiters
+    // Treats box as 2-point path: "(x1,y1),(x2,y2)"
+    PG_RETURN_CSTRING(path_encode(PATH_NONE, 2, &(box->high)));
+}
+```

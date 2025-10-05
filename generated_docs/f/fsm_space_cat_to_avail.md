@@ -36,3 +36,16 @@ This provides a conservative estimate of available free space, ensuring that all
 - Essential for translating stored FSM category information back to usable byte counts
 - Provides conservative estimates to ensure allocation requests succeed
 - Located in src/backend/storage/freespace/freespace.c:413-425
+
+## Simplified Source
+
+```c
+static Size fsm_space_cat_to_avail(uint8 cat) {
+    // Special case: highest category represents exact MaxFSMRequestSize
+    if (cat == 255)
+        return MaxFSMRequestSize;
+
+    // All other categories: multiply by step size
+    return cat * FSM_CAT_STEP;
+}
+```

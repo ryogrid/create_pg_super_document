@@ -55,6 +55,89 @@ The analyze threshold uses similar logic for tuples modified since last analyze.
 ## Notes and Other Information
 - Automatically skips relations with autovacuum_enabled=false unless wraparound protection is needed
 - Special handling for pg_statistic relation (never analyzed)
-- Supports insert-based vacuum thresholds in addition to traditional dead-tuple thresholds  
+- Supports insert-based vacuum thresholds in addition to traditional dead-tuple thresholds
 - Falls back to GUC defaults when reloptions are not specified (-1 values)
 - Critical for preventing transaction ID wraparound which would cause database shutdown
+
+## Simplified Source
+
+```c
+static void
+relation_needs_vacanalyze(Oid relid,
+                         AutoVacOpts *relopts,
+                         Form_pg_class classForm,
+                         PgStat_StatTabEntry *tabentry,
+                         int effective_multixact_freeze_max_age,
+                         bool *dovacuum,
+                         bool *doanalyze,
+                         bool *wraparound)
+{
+    bool force_vacuum;
+    bool av_enabled;
+    float4 reltuples;
+
+    // Get vacuum/analyze thresholds from reloptions or GUC defaults
+    float4 vac_scale_factor = (relopts && relopts->vacuum_scale_factor >= 0) ?
+        relopts->vacuum_scale_factor : autovacuum_vac_scale;
+    int vac_base_thresh = (relopts && relopts->vacuum_threshold >= 0) ?
+        relopts->vacuum_threshold : autovacuum_vac_thresh;
+
+    float4 anl_scale_factor = (relopts && relopts->analyze_scale_factor >= 0) ?
+        relopts->analyze_scale_factor : autovacuum_anl_scale;
+    int anl_base_thresh = (relopts && relopts->analyze_threshold >= 0) ?
+        relopts->analyze_threshold : autovacuum_anl_thresh;
+
+    int freeze_max_age = (relopts && relopts->freeze_max_age >= 0) ?
+        Min(relopts->freeze_max_age, autovacuum_freeze_max_age) : autovacuum_freeze_max_age;
+
+    av_enabled = (relopts ? relopts->enabled : true);
+
+    // Check for transaction ID wraparound risk
+    TransactionId xidForceLimit = recentXid - freeze_max_age;
+    if (xidForceLimit < FirstNormalTransactionId)
+        xidForceLimit -= FirstNormalTransactionId;
+
+    TransactionId relfrozenxid = classForm->relfrozenxid;
+    force_vacuum = (TransactionIdIsNormal(relfrozenxid) &&
+                   TransactionIdPrecedes(relfrozenxid, xidForceLimit));
+
+    // Also check multixact wraparound if not already forced
+    if (!force_vacuum) {
+        MultiXactId multiForceLimit = recentMulti - effective_multixact_freeze_max_age;
+        if (multiForceLimit < FirstMultiXactId)
+            multiForceLimit -= FirstMultiXactId;
+        force_vacuum = MultiXactIdIsValid(classForm->relminmxid) &&
+                      MultiXactIdPrecedes(classForm->relminmxid, multiForceLimit);
+    }
+    *wraparound = force_vacuum;
+
+    // Skip if autovacuum disabled and no wraparound risk
+    if (!av_enabled && !force_vacuum) {
+        *doanalyze = false;
+        *dovacuum = false;
+        return;
+    }
+
+    // Make threshold-based decisions if we have stats
+    if (PointerIsValid(tabentry) && AutoVacuumingActive()) {
+        reltuples = classForm->reltuples;
+        if (reltuples < 0) reltuples = 0;
+
+        // Calculate thresholds: base + scale_factor * reltuples
+        float4 vacthresh = vac_base_thresh + vac_scale_factor * reltuples;
+        float4 anlthresh = anl_base_thresh + anl_scale_factor * reltuples;
+
+        // Compare current stats against thresholds
+        *dovacuum = force_vacuum || (tabentry->dead_tuples > vacthresh);
+        *doanalyze = (tabentry->mod_since_analyze > anlthresh);
+    } else {
+        // No stats available - only vacuum if forced
+        *dovacuum = force_vacuum;
+        *doanalyze = false;
+    }
+
+    // Never analyze pg_statistic
+    if (relid == StatisticRelationId)
+        *doanalyze = false;
+}
+```

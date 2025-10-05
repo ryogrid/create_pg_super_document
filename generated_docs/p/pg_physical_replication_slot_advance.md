@@ -39,3 +39,32 @@ The function ensures data consistency by marking the slot dirty, though the adva
 - Uses spinlock protection for thread-safe updates to the slot data
 - The advanced position persists only after the next checkpoint completes
 - Physical slots use restart_lsn as their primary advancement point, unlike logical slots which track confirmed_flush
+
+## Simplified Source
+
+```c
+static XLogRecPtr pg_physical_replication_slot_advance(XLogRecPtr moveto) {
+    XLogRecPtr startlsn = MyReplicationSlot->data.restart_lsn;
+    XLogRecPtr retlsn = startlsn;
+
+    Assert(moveto != InvalidXLogRecPtr);
+
+    // Only advance forward, never backward
+    if (startlsn < moveto) {
+        // Atomically update the restart LSN
+        SpinLockAcquire(&MyReplicationSlot->mutex);
+        MyReplicationSlot->data.restart_lsn = moveto;
+        SpinLockRelease(&MyReplicationSlot->mutex);
+
+        retlsn = moveto;
+
+        // Mark slot dirty for persistence at next checkpoint
+        ReplicationSlotMarkDirty();
+
+        // Wake up logical WAL senders waiting on failover slots
+        PhysicalWakeupLogicalWalSnd();
+    }
+
+    return retlsn;
+}
+```

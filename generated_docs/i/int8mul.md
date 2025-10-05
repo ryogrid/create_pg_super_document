@@ -36,3 +36,21 @@ This function performs multiplication of two 64-bit signed integer arguments. It
 - Located in src/backend/utils/adt/int8.c:490-503
 - This is a binary arithmetic operator that requires two int64 operands
 - Unlike the other int8 arithmetic functions, this one has several known callers in the codebase, particularly in currency and formatting operations
+
+## Simplified Source
+
+```c
+Datum int8mul(PG_FUNCTION_ARGS) {
+    // Extract two 64-bit integer arguments
+    int64 arg1 = PG_GETARG_INT64(0);
+    int64 arg2 = PG_GETARG_INT64(1);
+    int64 result;
+
+    // Perform safe multiplication with overflow detection
+    if (pg_mul_s64_overflow(arg1, arg2, &result)) {
+        ereport(ERROR, "bigint out of range");
+    }
+
+    return result;
+}
+```

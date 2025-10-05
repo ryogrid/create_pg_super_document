@@ -36,3 +36,17 @@ The function is straightforward and delegates the actual formatting work to the 
 - The output format uses closed path notation with double parentheses
 - Part of the geometric data types subsystem in PostgreSQL
 - Ensures round-trip compatibility: poly_out(poly_in(string)) should preserve the polygon data
+
+## Simplified Source
+
+```c
+Datum
+poly_out(PG_FUNCTION_ARGS)
+{
+    // Extract polygon argument
+    POLYGON *poly = PG_GETARG_POLYGON_P(0);
+
+    // Delegate to path encoding function for closed path format
+    PG_RETURN_CSTRING(path_encode(PATH_CLOSED, poly->npts, poly->p));
+}
+```

@@ -36,3 +36,25 @@ This function serves as a callback hook that is invoked when a dynamic shared me
 - Ensures proper resource cleanup when shared memory segments are destroyed
 - Critical for preventing resource leaks in parallel query execution
 - The function signature matches the DSM callback interface requirements
+
+## Simplified Source
+
+```c
+static void shared_record_typmod_registry_detach(dsm_segment *segment, Datum datum)
+{
+    // Safely clean up shared record table if initialized
+    if (CurrentSession->shared_record_table != NULL) {
+        dshash_detach(CurrentSession->shared_record_table);
+        CurrentSession->shared_record_table = NULL;
+    }
+
+    // Safely clean up shared typmod table if initialized
+    if (CurrentSession->shared_typmod_table != NULL) {
+        dshash_detach(CurrentSession->shared_typmod_table);
+        CurrentSession->shared_typmod_table = NULL;
+    }
+
+    // Clear the registry pointer
+    CurrentSession->shared_typmod_registry = NULL;
+}
+```

@@ -35,3 +35,16 @@ The function follows PostgreSQL's standard function calling convention, using  t
 - Part of PostgreSQL's type system for safe monetary arithmetic operations
 - Follows the standard PostgreSQL function interface pattern for built-in functions
 - The function is designed to prevent overflow issues by using the 64-bit multiplication helper internally
+
+## Simplified Source
+
+```c
+Datum cash_mul_int4(PG_FUNCTION_ARGS) {
+    // Extract cash value and int4 multiplier from arguments
+    Cash c = PG_GETARG_CASH(0);
+    int32 i = PG_GETARG_INT32(1);
+
+    // Delegate to 64-bit multiplication helper for safe arithmetic
+    PG_RETURN_CASH(cash_mul_int64(c, (int64) i));
+}
+```

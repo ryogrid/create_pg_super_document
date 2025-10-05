@@ -45,3 +45,31 @@ This is a convenience function for checking the current user's privileges on a f
 - Part of the Foreign Data Wrapper privilege checking infrastructure
 - Returns true if the current user has the privilege, false if not, NULL if server is missing
 - Located in src/backend/utils/adt/acl.c:4087-4114
+
+## Simplified Source
+
+```c
+Datum
+has_server_privilege_id(PG_FUNCTION_ARGS)
+{
+    Oid         serverid = PG_GETARG_OID(0);
+    text       *priv_type_text = PG_GETARG_TEXT_PP(1);
+
+    // Use current user's ID
+    Oid roleid = GetUserId();
+
+    // Convert privilege string to ACL mode
+    AclMode mode = convert_server_priv_string(priv_type_text);
+
+    // Check access permissions with missing object detection
+    bool is_missing = false;
+    AclResult aclresult = object_aclcheck_ext(ForeignServerRelationId, serverid,
+                                              roleid, mode, &is_missing);
+
+    // Return NULL if server doesn't exist, otherwise return boolean result
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

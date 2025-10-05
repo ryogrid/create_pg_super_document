@@ -43,3 +43,26 @@ This PostgreSQL built-in function computes the point on a line segment that is c
 - Memory for the result point is allocated using PostgreSQL's memory management system
 - The actual geometric computation is delegated to the `lseg_closept_line` helper function
 - Located in the geometric operations module (`geo_ops.c`) at lines 2988-3012
+
+## Simplified Source
+
+```c
+Datum close_ls(PG_FUNCTION_ARGS) {
+    LINE *line = PG_GETARG_LINE_P(0);
+    LSEG *lseg = PG_GETARG_LSEG_P(1);
+    Point *result;
+
+    // Check if line and segment are parallel
+    if (lseg_sl(lseg) == line_sl(line))
+        PG_RETURN_NULL();
+
+    // Allocate memory for result point
+    result = (Point *) palloc(sizeof(Point));
+
+    // Calculate closest point on segment to line
+    if (isnan(lseg_closept_line(result, lseg, line)))
+        PG_RETURN_NULL();
+
+    PG_RETURN_POINT_P(result);
+}
+```

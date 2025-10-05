@@ -40,3 +40,21 @@ The function is designed to be safe to call multiple times and handles cases whe
 - Called automatically by the logical decoding infrastructure during shutdown
 - Safe to call multiple times due to NULL checks on global resources
 - Essential for preventing resource leaks in long-running replication sessions
+
+## Simplified Source
+
+```c
+static void
+pgoutput_shutdown(LogicalDecodingContext *ctx)
+{
+    // Clean up the relation synchronization cache
+    if (RelationSyncCache)
+    {
+        hash_destroy(RelationSyncCache);
+        RelationSyncCache = NULL;
+    }
+
+    // Clear global context pointer for safety
+    pubctx = NULL;
+}
+```

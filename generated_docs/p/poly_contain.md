@@ -33,3 +33,22 @@ poly_contain serves as the PostgreSQL function interface for the polygon contain
 - Acts as a thin wrapper around poly_contain_poly() while handling PostgreSQL-specific argument extraction and memory management
 - The function is designed to be called from SQL queries that use polygon containment operations
 - Critical component of PostgreSQL's geometric operator suite for spatial database applications
+
+## Simplified Source
+
+```c
+Datum poly_contain(PG_FUNCTION_ARGS) {
+    POLYGON *polya = PG_GETARG_POLYGON_P(0);  // Containing polygon
+    POLYGON *polyb = PG_GETARG_POLYGON_P(1);  // Potentially contained polygon
+    bool result;
+
+    // Delegate to core containment algorithm
+    result = poly_contain_poly(polya, polyb);
+
+    // Clean up toasted inputs for memory efficiency
+    PG_FREE_IF_COPY(polya, 0);
+    PG_FREE_IF_COPY(polyb, 1);
+
+    PG_RETURN_BOOL(result);
+}
+```

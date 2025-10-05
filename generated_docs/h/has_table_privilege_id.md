@@ -43,3 +43,29 @@ The function workflow:
 - Both parameters are required and cannot be NULL
 - Located in src/backend/utils/adt/acl.c:1973-1998
 - Ideal for privilege checks on potentially non-existent tables in current user context
+
+## Simplified Source
+
+```c
+Datum has_table_privilege_id(PG_FUNCTION_ARGS) {
+    Oid tableoid = PG_GETARG_OID(0);
+    text *priv_type_text = PG_GETARG_TEXT_PP(1);
+    Oid roleid;
+    AclMode mode;
+    AclResult aclresult;
+    bool is_missing = false;
+
+    // Use current user and convert privilege string
+    roleid = GetUserId();
+    mode = convert_table_priv_string(priv_type_text);
+
+    // Check privilege with missing table detection
+    aclresult = pg_class_aclcheck_ext(tableoid, roleid, mode, &is_missing);
+
+    // Return NULL if table doesn't exist
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

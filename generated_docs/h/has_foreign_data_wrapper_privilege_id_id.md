@@ -37,3 +37,29 @@ This function is a PostgreSQL SQL-callable function that verifies whether a spec
 - No name resolution required, making it the fastest of the privilege checking variants
 - Part of PostgreSQL's access control system for foreign data wrappers
 - Located in src/backend/utils/adt/acl.c:3327-3355
+
+## Simplified Source
+
+```c
+Datum
+has_foreign_data_wrapper_privilege_id_id(PG_FUNCTION_ARGS)
+{
+    Oid roleid = PG_GETARG_OID(0);
+    Oid fdwid = PG_GETARG_OID(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+    bool is_missing = false;
+
+    // Convert privilege string to access mode
+    AclMode mode = convert_foreign_data_wrapper_priv_string(priv_type_text);
+
+    // Check privilege with missing object detection
+    AclResult aclresult = object_aclcheck_ext(ForeignDataWrapperRelationId, fdwid,
+                                               roleid, mode, &is_missing);
+
+    // Return NULL if FDW doesn't exist
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

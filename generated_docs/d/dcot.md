@@ -37,3 +37,28 @@ This function implements the SQL COT function for PostgreSQL, computing the cota
 - Includes error checking for infinite inputs similar to other trigonometric functions
 - Uses errno-based error detection following the same pattern as dcos()
 - Located in src/backend/utils/adt/float.c:1903-1930
+
+## Simplified Source
+
+```c
+Datum dcot(PG_FUNCTION_ARGS) {
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+
+    // Handle NaN input per POSIX spec
+    if (isnan(arg1))
+        PG_RETURN_FLOAT8(get_float8_nan());
+
+    // Compute tangent first, checking for domain errors
+    errno = 0;
+    float8 result = tan(arg1);
+    if (errno != 0 || isinf(arg1))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("input is out of range")));
+
+    // Compute cotangent as reciprocal of tangent
+    result = 1.0 / result;
+    // Note: No overflow check since cot(0) == Inf is valid
+
+    PG_RETURN_FLOAT8(result);
+}
+```

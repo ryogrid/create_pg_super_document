@@ -39,3 +39,17 @@ The  function tests whether two line segments are not equal. Two line segments a
 - The comparison uses OR logic: segments are not equal if ANY corresponding endpoints differ
 - Located in geo_ops.c alongside other geometric utility functions
 - More efficient than negating the result of  due to short-circuit evaluation
+
+## Simplified Source
+
+```c
+Datum lseg_ne(PG_FUNCTION_ARGS) {
+    // Extract two line segments from function arguments
+    LSEG *l1 = PG_GETARG_LSEG_P(0);
+    LSEG *l2 = PG_GETARG_LSEG_P(1);
+
+    // Two segments are not equal if any endpoint differs
+    PG_RETURN_BOOL(!point_eq_point(&l1->p[0], &l2->p[0]) ||
+                   !point_eq_point(&l1->p[1], &l2->p[1]));
+}
+```

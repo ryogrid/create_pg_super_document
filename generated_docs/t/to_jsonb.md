@@ -38,3 +38,28 @@ The to_jsonb function is the PostgreSQL SQL function implementation that convert
 - Acts as a wrapper around the core conversion logic in datum_to_jsonb
 - Supports conversion of any PostgreSQL data type to JSONB format
 - Used extensively in SQL queries for JSON processing and data transformation
+
+## Simplified Source
+
+```c
+Datum
+to_jsonb(PG_FUNCTION_ARGS)
+{
+    // Get input value and determine its type
+    Datum val = PG_GETARG_DATUM(0);
+    Oid val_type = get_fn_expr_argtype(fcinfo->flinfo, 0);
+
+    // Validate input type
+    if (val_type == InvalidOid)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("could not determine input data type")));
+
+    // Categorize the type for conversion
+    JsonTypeCategory tcategory;
+    Oid outfuncoid;
+    json_categorize_type(val_type, true, &tcategory, &outfuncoid);
+
+    // Convert to JSONB and return
+    PG_RETURN_DATUM(datum_to_jsonb(val, tcategory, outfuncoid));
+}
+```

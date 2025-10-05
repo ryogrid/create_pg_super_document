@@ -45,3 +45,51 @@ This PostgreSQL SQL function creates a physical replication slot used for stream
 - Returns NULL for LSN column when immediately_reserve is false
 - Automatically releases the slot after returning the result
 - This function is exposed to SQL as pg_create_physical_replication_slot()
+
+## Simplified Source
+
+```c
+Datum pg_create_physical_replication_slot(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    Name name = PG_GETARG_NAME(0);
+    bool immediately_reserve = PG_GETARG_BOOL(1);
+    bool temporary = PG_GETARG_BOOL(2);
+
+    Datum values[2];
+    bool nulls[2];
+    TupleDesc tupdesc;
+
+    // Validate return type is composite
+    if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+        elog(ERROR, "return type must be a row type");
+
+    // Check permissions and requirements
+    CheckSlotPermissions();
+    CheckSlotRequirements();
+
+    // Create the physical replication slot
+    create_physical_replication_slot(NameStr(*name),
+                                     immediately_reserve,
+                                     temporary,
+                                     InvalidXLogRecPtr);
+
+    // Build return tuple with slot name and LSN
+    values[0] = NameGetDatum(&MyReplicationSlot->data.name);
+    nulls[0] = false;
+
+    if (immediately_reserve) {
+        values[1] = LSNGetDatum(MyReplicationSlot->data.restart_lsn);
+        nulls[1] = false;
+    } else {
+        nulls[1] = true;  // No LSN when not immediately reserved
+    }
+
+    HeapTuple tuple = heap_form_tuple(tupdesc, values, nulls);
+    Datum result = HeapTupleGetDatum(tuple);
+
+    // Release the slot for replication use
+    ReplicationSlotRelease();
+
+    PG_RETURN_DATUM(result);
+}
+```

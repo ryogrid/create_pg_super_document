@@ -49,3 +49,70 @@ The parser handles various delimiter combinations, whitespace, and parenthesis n
 - Uses PostgreSQL's error context system for proper error reporting in different calling contexts
 - Implements a depth-tracking system to handle complex parenthesis nesting
 - Located in src/backend/utils/adt/geo_ops.c:4611-4680
+
+## Simplified Source
+
+```c
+Datum circle_in(PG_FUNCTION_ARGS) {
+    char *str = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    CIRCLE *circle = (CIRCLE *) palloc(sizeof(CIRCLE));
+    char *s = str;
+    int depth = 0;
+
+    // Skip leading whitespace
+    while (isspace(*s)) s++;
+
+    // Handle opening delimiters
+    if (*s == LDELIM_C) {
+        depth++, s++;
+    } else if (*s == LDELIM) {
+        // Check for double left parentheses
+        char *cp = s + 1;
+        while (isspace(*cp)) cp++;
+        if (*cp == LDELIM) {
+            depth++, s = cp;
+        }
+    }
+
+    // Parse center point coordinates
+    if (!pair_decode(s, &circle->center.x, &circle->center.y, &s, "circle", str, escontext))
+        PG_RETURN_NULL();
+
+    // Skip delimiter
+    if (*s == DELIM) s++;
+
+    // Parse radius
+    if (!single_decode(s, &circle->radius, &s, "circle", str, escontext))
+        PG_RETURN_NULL();
+
+    // Validate radius (accept NaN, reject negative)
+    if (circle->radius < 0.0) {
+        ereturn(escontext, (Datum) 0,
+            (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+             errmsg("invalid input syntax for type %s: \"%s\"", "circle", str)));
+    }
+
+    // Handle closing delimiters
+    while (depth > 0) {
+        if ((*s == RDELIM) || ((*s == RDELIM_C) && (depth == 1))) {
+            depth--;
+            s++;
+            while (isspace(*s)) s++;
+        } else {
+            ereturn(escontext, (Datum) 0,
+                (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                 errmsg("invalid input syntax for type %s: \"%s\"", "circle", str)));
+        }
+    }
+
+    // Ensure complete string consumption
+    if (*s != '\0') {
+        ereturn(escontext, (Datum) 0,
+            (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+             errmsg("invalid input syntax for type %s: \"%s\"", "circle", str)));
+    }
+
+    return PG_RETURN_CIRCLE_P(circle);
+}
+```

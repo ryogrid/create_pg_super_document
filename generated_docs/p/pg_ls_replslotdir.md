@@ -38,3 +38,31 @@ The function performs validation to ensure the specified replication slot exists
 - Located in src/backend/utils/adt/genfile.c:715-733
 - Part of PostgreSQL's replication slot management and diagnostic functionality
 - Uses snprintf for safe path construction to prevent buffer overflows
+
+## Simplified Source
+
+```c
+Datum
+pg_ls_replslotdir(PG_FUNCTION_ARGS)
+{
+    text *slotname_t;
+    char path[MAXPGPATH];
+    char *slotname;
+
+    // Extract replication slot name from function arguments
+    slotname_t = PG_GETARG_TEXT_PP(0);
+    slotname = text_to_cstring(slotname_t);
+
+    // Validate that the replication slot exists
+    if (!SearchNamedReplicationSlot(slotname, true))
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("replication slot \"%s\" does not exist", slotname)));
+
+    // Construct path to the replication slot directory
+    snprintf(path, sizeof(path), "pg_replslot/%s", slotname);
+
+    // List files in the replication slot directory
+    return pg_ls_dir_files(fcinfo, path, false);
+}
+```

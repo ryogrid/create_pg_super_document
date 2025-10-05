@@ -41,3 +41,28 @@ pgoutput_stream_start is a callback function in the pgoutput logical replication
 - Sets the in_streaming flag in PGOutputData to track streaming state
 - Uses the logical replication protocol message format for communicating with subscribers
 - Critical for handling large transactions efficiently in logical replication scenarios
+
+## Simplified Source
+
+```c
+static void
+pgoutput_stream_start(struct LogicalDecodingContext *ctx, ReorderBufferTXN *txn) {
+    PGOutputData *data = (PGOutputData *) ctx->output_plugin_private;
+
+    // Determine if we should send replication origin info
+    // Only send for first stream of this transaction
+    bool send_replication_origin = (txn->origin_id != InvalidRepOriginId) &&
+                                  !rbtxn_is_streamed(txn);
+
+    // Write stream start message to output
+    OutputPluginPrepareWrite(ctx, !send_replication_origin);
+    logicalrep_write_stream_start(ctx->out, txn->xid, !rbtxn_is_streamed(txn));
+
+    // Send origin info if needed
+    send_repl_origin(ctx, txn->origin_id, InvalidXLogRecPtr, send_replication_origin);
+
+    // Commit the write and mark streaming as active
+    OutputPluginWrite(ctx, true);
+    data->in_streaming = true;
+}
+```

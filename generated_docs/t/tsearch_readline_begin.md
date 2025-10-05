@@ -42,3 +42,27 @@ The function is designed to be used as part of a three-function sequence: tsearc
 - The filename parameter must remain valid throughout the entire reading session
 - Typical usage pattern involves opening file, reading lines in a loop, then calling cleanup function
 - Used primarily for reading text search configuration files in PostgreSQL's full-text search system
+
+## Simplified Source
+
+```c
+bool tsearch_readline_begin(tsearch_readline_state *stp, const char *filename) {
+    // Try to open file for reading
+    if ((stp->fp = AllocateFile(filename, "r")) == NULL)
+        return false;
+
+    // Initialize state structure
+    stp->filename = filename;
+    stp->lineno = 0;
+    initStringInfo(&stp->buf);
+    stp->curline = NULL;
+
+    // Set up error context for better error reporting
+    stp->cb.callback = tsearch_readline_callback;
+    stp->cb.arg = (void *) stp;
+    stp->cb.previous = error_context_stack;
+    error_context_stack = &stp->cb;
+
+    return true;
+}
+```

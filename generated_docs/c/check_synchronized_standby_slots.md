@@ -41,3 +41,59 @@ This function serves as a GUC (Grand Unified Configuration) check hook for the s
 - Returns true for empty configuration strings (allowing the parameter to be cleared)
 - Performs proper cleanup of temporary memory allocations on both success and failure paths
 - The resulting SyncStandbySlotsConfigData structure contains both the count of slots and the slot names in a contiguous memory layout
+
+## Simplified Source
+
+```c
+bool
+check_synchronized_standby_slots(char **newval, void **extra, GucSource source)
+{
+    char *rawname;
+    char *ptr;
+    List *elemlist;
+    int size;
+    bool ok;
+    SyncStandbySlotsConfigData *config;
+
+    // Allow empty configuration
+    if ((*newval)[0] == '\0')
+        return true;
+
+    // Create modifiable copy and validate
+    rawname = pstrdup(*newval);
+    ok = validate_sync_standby_slots(rawname, &elemlist);
+
+    if (!ok || elemlist == NIL)
+    {
+        pfree(rawname);
+        list_free(elemlist);
+        return ok;
+    }
+
+    // Calculate size needed for config structure
+    size = offsetof(SyncStandbySlotsConfigData, slot_names);
+    foreach_ptr(char, slot_name, elemlist)
+        size += strlen(slot_name) + 1;
+
+    // Allocate config structure (must use guc_malloc)
+    config = (SyncStandbySlotsConfigData *) guc_malloc(LOG, size);
+    if (!config)
+        return false;
+
+    // Pack slot names into structure
+    config->nslotnames = list_length(elemlist);
+    ptr = config->slot_names;
+    foreach_ptr(char, slot_name, elemlist)
+    {
+        strcpy(ptr, slot_name);
+        ptr += strlen(slot_name) + 1;
+    }
+
+    *extra = (void *) config;
+
+    // Cleanup temporary allocations
+    pfree(rawname);
+    list_free(elemlist);
+    return true;
+}
+```

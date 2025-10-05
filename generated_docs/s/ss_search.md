@@ -41,3 +41,47 @@ The function implements an efficient LRU cache where frequently accessed tables 
 - LRU eviction happens automatically when the cache is full and a new entry is needed
 - The search is linear through the LRU list, which is acceptable given the relatively small SYNC_SCAN_NELEM size (20)
 - Critical for coordinating scan starting positions between multiple concurrent scans of the same table
+
+## Simplified Source
+
+```c
+static BlockNumber ss_search(RelFileLocator relfilelocator, BlockNumber location, bool set) {
+    ss_lru_item_t *item = scan_locations->head;
+
+    // Search through LRU list for matching relfilelocator
+    while (item) {
+        bool match = RelFileLocatorEquals(item->location.relfilelocator, relfilelocator);
+
+        if (match || item->next == NULL) {
+            // If no match found, take over the last entry (LRU eviction)
+            if (!match) {
+                item->location.relfilelocator = relfilelocator;
+                item->location.location = location;
+            } else if (set) {
+                // Update existing entry's location if requested
+                item->location.location = location;
+            }
+
+            // Move accessed item to front of LRU list
+            if (item != scan_locations->head) {
+                // Unlink from current position
+                if (item == scan_locations->tail)
+                    scan_locations->tail = item->prev;
+                item->prev->next = item->next;
+                if (item->next)
+                    item->next->prev = item->prev;
+
+                // Link at head
+                item->prev = NULL;
+                item->next = scan_locations->head;
+                scan_locations->head->prev = item;
+                scan_locations->head = item;
+            }
+
+            return item->location.location;
+        }
+
+        item = item->next;
+    }
+}
+```

@@ -38,3 +38,19 @@ This function takes no explicit parameters (uses `PG_FUNCTION_ARGS` macro for Po
 - Returns a boolean value indicating success (true) or failure (false) of the rotation request
 - This is a signal-based operation - the function initiates the request but actual log rotation is performed asynchronously by the postmaster process
 - The function will issue a warning if called when log collection is not active, making it safe to call in various configurations
+
+## Simplified Source
+
+```c
+Datum pg_rotate_logfile(PG_FUNCTION_ARGS) {
+    // Check if log collection is active
+    if (!Logging_collector) {
+        ereport(WARNING, (errmsg("rotation not possible because log collection not active")));
+        PG_RETURN_BOOL(false);
+    }
+
+    // Send rotation signal to postmaster process
+    SendPostmasterSignal(PMSIGNAL_ROTATE_LOGFILE);
+    PG_RETURN_BOOL(true);
+}
+```

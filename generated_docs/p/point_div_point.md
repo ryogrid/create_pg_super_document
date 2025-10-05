@@ -36,3 +36,25 @@ This static helper function implements complex number division for PostgreSQL Po
 - The function assumes valid input pointers
 - Used extensively by other geometric operations requiring point division
 - Located in src/backend/utils/adt/geo_ops.c at lines 4182-4195
+
+## Simplified Source
+
+```c
+static inline void
+point_div_point(Point *result, Point *pt1, Point *pt2)
+{
+    float8 div;
+
+    // Calculate denominator: c² + d² (magnitude squared of pt2)
+    div = float8_pl(float8_mul(pt2->x, pt2->x), float8_mul(pt2->y, pt2->y));
+
+    // Complex division: (a+bi)/(c+di) = ((ac+bd) + (bc-ad)i)/(c²+d²)
+    point_construct(result,
+                    // Real part: (ac + bd) / (c² + d²)
+                    float8_div(float8_pl(float8_mul(pt1->x, pt2->x),
+                                         float8_mul(pt1->y, pt2->y)), div),
+                    // Imaginary part: (bc - ad) / (c² + d²)
+                    float8_div(float8_mi(float8_mul(pt1->y, pt2->x),
+                                         float8_mul(pt1->x, pt2->y)), div));
+}
+```

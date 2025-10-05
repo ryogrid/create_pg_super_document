@@ -36,3 +36,18 @@ This function is part of PostgreSQL's geometric data type output infrastructure,
 - Part of PostgreSQL's comprehensive geometric data type system output formatting
 - Ensures consistent float8 representation across different geometric data types
 - Uses StringInfo for efficient string building, which is PostgreSQL's preferred method for constructing output strings
+
+## Simplified Source
+
+```c
+static void single_encode(float8 x, StringInfo str) {
+    // Convert float8 to string representation
+    char *xstr = float8out_internal(x);
+
+    // Append to output buffer
+    appendStringInfoString(str, xstr);
+
+    // Free temporary string
+    pfree(xstr);
+}
+```

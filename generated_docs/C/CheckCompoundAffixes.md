@@ -39,3 +39,43 @@ When an affix is found, the function calculates the appropriate length to return
 - Modifies the ptr parameter by advancing through the affix array
 - Part of PostgreSQL's text search compound word processing functionality
 - The function handles both prefix and suffix compound affixes differently in its return value calculation
+
+## Simplified Source
+
+```c
+static int
+CheckCompoundAffixes(CMPDAffix **ptr, char *word, int len, bool CheckInPlace)
+{
+    // Handle null pointer case
+    if (*ptr == NULL)
+        return -1;
+
+    if (CheckInPlace) {
+        // Exact prefix matching mode
+        while ((*ptr)->affix) {
+            if (len > (*ptr)->len && strncmp((*ptr)->affix, word, (*ptr)->len) == 0) {
+                len = (*ptr)->len;
+                bool issuffix = (*ptr)->issuffix;
+                (*ptr)++;
+                return issuffix ? len : 0;  // Return position based on affix type
+            }
+            (*ptr)++;
+        }
+    }
+    else {
+        // Substring search mode
+        while ((*ptr)->affix) {
+            char *affbegin = strstr(word, (*ptr)->affix);
+            if (len > (*ptr)->len && affbegin != NULL) {
+                len = (*ptr)->len + (affbegin - word);
+                bool issuffix = (*ptr)->issuffix;
+                (*ptr)++;
+                return issuffix ? len : 0;  // Return position based on affix type
+            }
+            (*ptr)++;
+        }
+    }
+
+    return -1;  // No matching affix found
+}
+```

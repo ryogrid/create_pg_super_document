@@ -37,3 +37,16 @@ This function is part of PostgreSQL's type system infrastructure, specifically d
 - Part of the enum type's operator class, enabling use in indexes, sorting, and range operations
 - The function follows PostgreSQL's fmgr (function manager) calling convention
 - Differs from `enum_ge` by using strict inequality (> 0) rather than greater-or-equal (\>= 0)
+
+## Simplified Source
+
+```c
+Datum enum_gt(PG_FUNCTION_ARGS) {
+    // Extract the two enum OIDs from function arguments
+    Oid a = PG_GETARG_OID(0);
+    Oid b = PG_GETARG_OID(1);
+
+    // Compare enums and return true if first > second
+    PG_RETURN_BOOL(enum_cmp_internal(a, b, fcinfo) > 0);
+}
+```

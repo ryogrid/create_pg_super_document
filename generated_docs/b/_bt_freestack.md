@@ -34,3 +34,20 @@ The implementation uses a simple iterative approach, maintaining a reference to 
 - Each BTStack node contains a bts_parent pointer that links to the next node in the retracement path
 - This function is essential for preventing memory leaks in B-tree operations that use retracement stacks
 - The stack represents the path from a leaf node back toward the root, with each node containing information about a page in the traversal path
+
+## Simplified Source
+
+```c
+void
+_bt_freestack(BTStack stack)
+{
+    BTStack current;
+
+    // Traverse and free each stack node
+    while (stack != NULL) {
+        current = stack;
+        stack = stack->bts_parent;  // Move to next node
+        pfree(current);             // Free current node
+    }
+}
+```

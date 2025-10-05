@@ -44,3 +44,21 @@ This approach simplifies the replication process by avoiding complex type mappin
 - The function intentionally discards type information, placing responsibility for type compatibility on the database administrator
 - Part of the logical replication message dispatch system in PostgreSQL
 - Handles streamed transactions by checking if the message is part of a streaming transaction before processing
+
+## Simplified Source
+
+```c
+static void
+apply_handle_type(StringInfo s)
+{
+    LogicalRepTyp typ;
+
+    // Handle streaming transactions first
+    if (handle_streamed_transaction(LOGICAL_REP_MSG_TYPE, s))
+        return;
+
+    // Read and discard type information
+    // Assumes local schema is compatible with incoming data
+    logicalrep_read_typ(s, &typ);
+}
+```

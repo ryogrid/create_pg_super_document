@@ -47,3 +47,15 @@ The output process:
 - Output format depends on the path_encode implementation
 - Used automatically by PostgreSQL when converting PATH values to text for display or export
 - Counterpart to the path_in function for bidirectional string conversion
+
+## Simplified Source
+
+```c
+Datum path_out(PG_FUNCTION_ARGS) {
+    PATH *path = PG_GETARG_PATH_P(0);
+
+    // Delegate to path_encode with appropriate closed/open flag
+    PG_RETURN_CSTRING(path_encode(path->closed ? PATH_CLOSED : PATH_OPEN,
+                                  path->npts, path->p));
+}
+```

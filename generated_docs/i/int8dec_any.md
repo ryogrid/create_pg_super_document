@@ -23,3 +23,12 @@ int8dec_any is a simple wrapper function that delegates to the int8dec function.
 
 ## Notes and Other Information
 This function appears to be a compatibility or alternative interface wrapper around int8dec. The suffix suggests it may be used in contexts where type flexibility or generic handling is required. The function is defined in src/backend/utils/adt/int8.c:816-825.
+
+## Simplified Source
+
+```c
+Datum int8dec_any(PG_FUNCTION_ARGS) {
+    // Simple wrapper for int8dec for alternative calling contexts
+    return int8dec(fcinfo);
+}
+```

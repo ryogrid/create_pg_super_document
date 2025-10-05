@@ -38,3 +38,57 @@ The  function processes an HBA configuration line and extracts all authenticatio
 - Returns NULL when no options are present, otherwise returns a text array
 - Handles sensitive information like LDAP bind passwords and RADIUS secrets
 - Uses PostgreSQL's array construction utilities for creating the return value
+
+## Simplified Source
+
+```c
+static ArrayType *
+get_hba_options(HbaLine *hba)
+{
+    int noptions = 0;
+    Datum options[MAX_HBA_OPTIONS];
+
+    // GSS/SSPI authentication options
+    if (hba->auth_method == uaGSS || hba->auth_method == uaSSPI) {
+        if (hba->include_realm)
+            options[noptions++] = CStringGetTextDatum("include_realm=true");
+        if (hba->krb_realm)
+            options[noptions++] = CStringGetTextDatum(psprintf("krb_realm=%s", hba->krb_realm));
+    }
+
+    // User mapping option
+    if (hba->usermap)
+        options[noptions++] = CStringGetTextDatum(psprintf("map=%s", hba->usermap));
+
+    // Client certificate option
+    if (hba->clientcert != clientCertOff)
+        options[noptions++] = CStringGetTextDatum(psprintf("clientcert=%s",
+            (hba->clientcert == clientCertCA) ? "verify-ca" : "verify-full"));
+
+    // PAM service option
+    if (hba->pamservice)
+        options[noptions++] = CStringGetTextDatum(psprintf("pamservice=%s", hba->pamservice));
+
+    // LDAP authentication options
+    if (hba->auth_method == uaLDAP) {
+        if (hba->ldapserver)
+            options[noptions++] = CStringGetTextDatum(psprintf("ldapserver=%s", hba->ldapserver));
+        if (hba->ldapport)
+            options[noptions++] = CStringGetTextDatum(psprintf("ldapport=%d", hba->ldapport));
+        // ... other LDAP options follow similar pattern
+    }
+
+    // RADIUS authentication options
+    if (hba->auth_method == uaRADIUS) {
+        if (hba->radiusservers_s)
+            options[noptions++] = CStringGetTextDatum(psprintf("radiusservers=%s", hba->radiusservers_s));
+        // ... other RADIUS options follow similar pattern
+    }
+
+    // Return array if options exist, NULL otherwise
+    if (noptions > 0)
+        return construct_array_builtin(options, noptions, TEXTOID);
+    else
+        return NULL;
+}
+```

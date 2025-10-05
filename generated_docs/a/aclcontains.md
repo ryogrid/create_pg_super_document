@@ -42,3 +42,34 @@ The function iterates through all items in the ACL and returns true if it finds 
 - Returns false if no matching ACL entry is found
 - The function validates the input ACL structure before processing
 - Used internally by PostgreSQL's privilege checking system
+
+## Simplified Source
+
+```c
+Datum
+aclcontains(PG_FUNCTION_ARGS)
+{
+    Acl *acl = PG_GETARG_ACL_P(0);
+    AclItem *aip = PG_GETARG_ACLITEM_P(1);
+    AclItem *aidat;
+    int i, num;
+
+    // Validate ACL structure
+    check_acl(acl);
+
+    // Get ACL data and count
+    num = ACL_NUM(acl);
+    aidat = ACL_DAT(acl);
+
+    // Search through ACL items for match
+    for (i = 0; i < num; ++i) {
+        // Check if grantee, grantor match and all requested privileges are present
+        if (aip->ai_grantee == aidat[i].ai_grantee &&
+            aip->ai_grantor == aidat[i].ai_grantor &&
+            (ACLITEM_GET_RIGHTS(*aip) & ACLITEM_GET_RIGHTS(aidat[i])) == ACLITEM_GET_RIGHTS(*aip))
+            PG_RETURN_BOOL(true);
+    }
+
+    PG_RETURN_BOOL(false);
+}
+```

@@ -35,3 +35,26 @@ This function serves as a wrapper around the core JSONB to TSVector conversion f
 - Uses the current default text search configuration rather than taking it as a parameter
 - Properly manages memory by freeing copied JSONB arguments
 - Part of PostgreSQL's full-text search functionality for JSON/JSONB data types
+
+## Simplified Source
+
+```c
+Datum jsonb_to_tsvector(PG_FUNCTION_ARGS)
+{
+    // Extract JSONB data and flags from function arguments
+    Jsonb *jb = PG_GETARG_JSONB_P(0);
+    Jsonb *jbFlags = PG_GETARG_JSONB_P(1);
+
+    // Parse flags and get current text search configuration
+    uint32 flags = parse_jsonb_index_flags(jbFlags);
+    Oid cfgId = getTSCurrentConfig(true);
+
+    // Convert JSONB to TSVector using worker function
+    TSVector result = jsonb_to_tsvector_worker(cfgId, jb, flags);
+
+    // Clean up memory and return result
+    PG_FREE_IF_COPY(jb, 0);
+    PG_FREE_IF_COPY(jbFlags, 1);
+    PG_RETURN_TSVECTOR(result);
+}
+```

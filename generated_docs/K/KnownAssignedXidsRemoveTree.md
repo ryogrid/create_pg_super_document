@@ -35,3 +35,21 @@ This function is typically called during transaction completion (commit or abort
 - Performs opportunistic array compression after removals to improve performance
 - Used during transaction completion to clean up entire transaction trees
 - The compression operation helps maintain array efficiency by removing invalid entries
+
+## Simplified Source
+
+```c
+static void KnownAssignedXidsRemoveTree(TransactionId xid, int nsubxids,
+                                      TransactionId *subxids) {
+    // Remove main transaction if valid
+    if (TransactionIdIsValid(xid))
+        KnownAssignedXidsRemove(xid);
+
+    // Remove all subtransactions
+    for (int i = 0; i < nsubxids; i++)
+        KnownAssignedXidsRemove(subxids[i]);
+
+    // Compress array to improve performance
+    KnownAssignedXidsCompress(KAX_TRANSACTION_END, true);
+}
+```

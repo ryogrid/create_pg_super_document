@@ -49,3 +49,47 @@ This function implements the SQL function json_typeof(json) -> text, which analy
 - The function follows PostgreSQL's standard function interface using PG_FUNCTION_ARGS and Datum return type
 - Error handling includes proper PostgreSQL error reporting for unexpected token types
 - Part of PostgreSQL's JSON function library for SQL-level JSON manipulation
+
+## Simplified Source
+
+```c
+Datum json_typeof(PG_FUNCTION_ARGS) {
+    text *json = PG_GETARG_TEXT_PP(0);
+    JsonLexContext lex;
+    char *type;
+    JsonParseErrorType result;
+
+    // Lex the first token to determine type
+    makeJsonLexContext(&lex, json, false);
+    result = json_lex(&lex);
+    if (result != JSON_SUCCESS)
+        json_errsave_error(result, &lex, NULL);
+
+    // Map token type to string
+    switch (lex.token_type) {
+        case JSON_TOKEN_OBJECT_START:
+            type = "object";
+            break;
+        case JSON_TOKEN_ARRAY_START:
+            type = "array";
+            break;
+        case JSON_TOKEN_STRING:
+            type = "string";
+            break;
+        case JSON_TOKEN_NUMBER:
+            type = "number";
+            break;
+        case JSON_TOKEN_TRUE:
+        case JSON_TOKEN_FALSE:
+            type = "boolean";
+            break;
+        case JSON_TOKEN_NULL:
+            type = "null";
+            break;
+        default:
+            elog(ERROR, "unexpected json token: %d", lex.token_type);
+    }
+
+    PG_RETURN_TEXT_P(cstring_to_text(type));
+}
+```

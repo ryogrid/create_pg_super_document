@@ -55,3 +55,63 @@ This function serves as the primary entry point for tuple qualification during B
 - Page state management requires proper setup of finaltup for array key scans
 - Look-ahead optimization prevents excessive linear searching when array keys advance frequently
 - Part of PostgreSQL's advanced B-tree array key optimization system
+
+## Simplified Source
+
+```c
+bool
+_bt_checkkeys(IndexScanDesc scan, BTReadPageState *pstate, bool arrayKeys,
+              IndexTuple tuple, int tupnatts)
+{
+    TupleDesc tupdesc = RelationGetDescr(scan->indexRelation);
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+    ScanDirection dir = pstate->dir;
+    int ikey = 0;
+    bool res;
+
+    // Primary tuple qualification check
+    res = _bt_check_compare(scan, dir, tuple, tupnatts, tupdesc,
+                           arrayKeys, pstate->prechecked, pstate->firstmatch,
+                           &pstate->continuescan, &ikey);
+
+    // For non-array scans or when scan can continue, return result
+    if (!arrayKeys || pstate->continuescan)
+        return res;
+
+    // Handle array key advancement when continuescan=false
+    // Check if tuple is before current array keys
+    if (_bt_tuple_before_array_skeys(scan, dir, tuple, tupdesc, tupnatts, true,
+                                    ikey, NULL))
+    {
+        // Handle scan-behind condition for recovery
+        if (unlikely(so->scanBehind) && pstate->finaltup &&
+            _bt_tuple_before_array_skeys(scan, dir, pstate->finaltup, tupdesc,
+                                        BTreeTupleGetNAtts(pstate->finaltup,
+                                                          scan->indexRelation),
+                                        false, 0, NULL))
+        {
+            // Start new primitive scan
+            pstate->continuescan = false;
+            so->needPrimScan = true;
+        }
+        else
+        {
+            // Continue current scan
+            pstate->continuescan = true;
+
+            // Use look-ahead optimization if needed
+            pstate->rechecks++;
+            if (pstate->rechecks >= LOOK_AHEAD_REQUIRED_RECHECKS)
+            {
+                _bt_checkkeys_look_ahead(scan, pstate, tupnatts, tupdesc);
+            }
+        }
+
+        return false;  // Tuple doesn't match current conditions
+    }
+
+    // Tuple is at/past current array keys - advance arrays
+    return _bt_advance_array_keys(scan, pstate, tuple, tupnatts, tupdesc,
+                                 ikey, true);
+}
+```

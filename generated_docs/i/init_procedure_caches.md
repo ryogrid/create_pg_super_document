@@ -35,3 +35,19 @@ This function sets up a hash table that serves as a cache for compiled PL/Python
 - The hash table created has an initial size of 32 entries but can grow as needed
 - The procedure cache is global and persists for the lifetime of the backend process
 - Uses PostgreSQL's built-in hash table implementation for thread safety and memory management
+
+## Simplified Source
+
+```c
+void init_procedure_caches(void) {
+    HASHCTL hash_ctl;
+
+    // Configure hash table for procedure caching
+    hash_ctl.keysize = sizeof(PLyProcedureKey);
+    hash_ctl.entrysize = sizeof(PLyProcedureEntry);
+
+    // Create global procedure cache with 32 initial entries
+    PLy_procedure_cache = hash_create("PL/Python procedures", 32, &hash_ctl,
+                                      HASH_ELEM | HASH_BLOBS);
+}
+```

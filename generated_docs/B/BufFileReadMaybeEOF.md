@@ -43,3 +43,13 @@ The function returns the actual number of bytes read, which will be either 'size
 - Useful for protocols or file formats where EOF at specific points is a valid condition rather than an error
 - The function automatically flushes any pending writes before attempting to read
 - Partial reads (reading some but not all requested bytes) are still treated as errors regardless of the eofOK setting
+
+## Simplified Source
+
+```c
+size_t BufFileReadMaybeEOF(BufFile *file, void *ptr, size_t size, bool eofOK) {
+    // Read exactly the specified size, optionally allowing EOF
+    // Returns size on success, 0 on EOF (if eofOK is true)
+    return BufFileReadCommon(file, ptr, size, true, eofOK);
+}
+```

@@ -31,3 +31,20 @@ This function implements timestamp-interval subtraction using a simple but effec
 - Inherits all the complex calendar arithmetic handling from the addition function
 - Ensures consistent behavior between timestamp addition and subtraction operations
 - Part of the ECPG pgtypes library for embedded SQL applications
+
+## Simplified Source
+
+```c
+int
+PGTYPEStimestamp_sub_interval(timestamp *tin, interval *span, timestamp *tout)
+{
+    interval tspan;
+
+    // Create negated interval for subtraction
+    tspan.month = -span->month;
+    tspan.time = -span->time;
+
+    // Use addition with negated interval
+    return PGTYPEStimestamp_add_interval(tin, &tspan, tout);
+}
+```

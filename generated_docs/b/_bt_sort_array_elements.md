@@ -41,3 +41,31 @@ The function is optimized to handle the case where there are one or fewer elemen
 - Uses BTSortArrayContext to pass sorting parameters to the comparison function
 - The comparison function _bt_compare_array_elements is used for both sorting and deduplication
 - This is a static function, accessible only within nbtutils.c
+
+## Simplified Source
+
+```c
+static int
+_bt_sort_array_elements(ScanKey skey, FmgrInfo *sortproc, bool reverse,
+                        Datum *elems, int nelems)
+{
+    BTSortArrayContext cxt;
+
+    // Early return for small arrays
+    if (nelems <= 1)
+        return nelems;
+
+    // Set up comparison context
+    cxt.sortproc = sortproc;
+    cxt.collation = skey->sk_collation;
+    cxt.reverse = reverse;
+
+    // Sort array elements
+    qsort_arg(elems, nelems, sizeof(Datum),
+              _bt_compare_array_elements, &cxt);
+
+    // Remove duplicates and return new count
+    return qunique_arg(elems, nelems, sizeof(Datum),
+                       _bt_compare_array_elements, &cxt);
+}
+```

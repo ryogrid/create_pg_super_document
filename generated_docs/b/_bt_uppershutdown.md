@@ -64,3 +64,46 @@ The function ensures that all pages are properly written out and that the tree s
 - Memory management includes proper cleanup of BTPageState lowkey pointers
 - The allequalimage flag in the metapage affects whether the index supports certain optimization techniques
 - After this function completes, the index is ready for normal operation and can handle inserts, updates, and queries
+
+## Simplified Source
+
+```c
+static void
+_bt_uppershutdown(BTWriteState *wstate, BTPageState *state)
+{
+    BTPageState *s;
+    BlockNumber rootblkno = P_NONE;
+    uint32 rootlevel = 0;
+
+    // Complete each level of the tree from bottom to top
+    for (s = state; s != NULL; s = s->btps_next) {
+        BlockNumber blkno = s->btps_blkno;
+        BTPageOpaque opaque = BTPageGetOpaque((Page) s->btps_buf);
+
+        // Handle top level - mark as root
+        if (s->btps_next == NULL) {
+            opaque->btpo_flags |= BTP_ROOT;
+            rootblkno = blkno;
+            rootlevel = s->btps_level;
+        }
+        // Handle intermediate levels - add entry to parent
+        else {
+            BTreeTupleSetDownLink(s->btps_lowkey, blkno);
+            _bt_buildadd(wstate, s->btps_next, s->btps_lowkey, 0);
+            pfree(s->btps_lowkey);
+            s->btps_lowkey = NULL;
+        }
+
+        // Finalize rightmost page and write it out
+        _bt_slideleft((Page) s->btps_buf);
+        _bt_blwritepage(wstate, s->btps_buf, s->btps_blkno);
+        s->btps_buf = NULL;
+    }
+
+    // Create metapage to make index valid
+    BulkWriteBuffer metabuf = smgr_bulk_get_buf(wstate->bulkstate);
+    _bt_initmetapage((Page) metabuf, rootblkno, rootlevel,
+                     wstate->inskey->allequalimage);
+    _bt_blwritepage(wstate, metabuf, BTREE_METAPAGE);
+}
+```

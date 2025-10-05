@@ -52,3 +52,82 @@ The function handles special cases like "raw scalar" pseudo-arrays and ensures c
 - Errors on unexpected jbvBinary and jbvDatetime value types during comparison
 - Essential for JSONB ordering operations, equality tests, and index maintenance
 - Located in src/backend/utils/adt/jsonb_util.c:191-340
+
+## Simplified Source
+
+```c
+int compareJsonbContainers(JsonbContainer *a, JsonbContainer *b) {
+    JsonbIterator *ita, *itb;
+    int res = 0;
+
+    // Initialize iterators for both containers
+    ita = JsonbIteratorInit(a);
+    itb = JsonbIteratorInit(b);
+
+    do {
+        JsonbValue va, vb;
+        JsonbIteratorToken ra, rb;
+
+        // Get next tokens/values from both containers
+        ra = JsonbIteratorNext(&ita, &va, false);
+        rb = JsonbIteratorNext(&itb, &vb, false);
+
+        if (ra == rb) {
+            if (ra == WJB_DONE) {
+                break;  // Both containers exhausted - equal
+            }
+
+            if (ra == WJB_END_ARRAY || ra == WJB_END_OBJECT) {
+                continue;  // Skip end markers
+            }
+
+            if (va.type == vb.type) {
+                // Same types - compare values
+                switch (va.type) {
+                    case jbvString:
+                    case jbvNull:
+                    case jbvNumeric:
+                    case jbvBool:
+                        res = compareJsonbScalarValue(&va, &vb);
+                        break;
+                    case jbvArray:
+                        // Compare array properties
+                        if (va.val.array.rawScalar != vb.val.array.rawScalar)
+                            res = (va.val.array.rawScalar) ? -1 : 1;
+                        if (va.val.array.nElems != vb.val.array.nElems)
+                            res = (va.val.array.nElems > vb.val.array.nElems) ? 1 : -1;
+                        break;
+                    case jbvObject:
+                        // Compare object sizes
+                        if (va.val.object.nPairs != vb.val.object.nPairs)
+                            res = (va.val.object.nPairs > vb.val.object.nPairs) ? 1 : -1;
+                        break;
+                    default:
+                        elog(ERROR, "unexpected jbv type");
+                        break;
+                }
+            } else {
+                // Different types - use type hierarchy ordering
+                res = (va.type > vb.type) ? 1 : -1;
+            }
+        } else {
+            // Different tokens - use type hierarchy ordering
+            res = (va.type > vb.type) ? 1 : -1;
+        }
+    } while (res == 0);
+
+    // Clean up iterator chains
+    while (ita != NULL) {
+        JsonbIterator *i = ita->parent;
+        pfree(ita);
+        ita = i;
+    }
+    while (itb != NULL) {
+        JsonbIterator *i = itb->parent;
+        pfree(itb);
+        itb = i;
+    }
+
+    return res;
+}
+```

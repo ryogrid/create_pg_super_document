@@ -55,3 +55,87 @@ The function uses a stack-based approach to track the hierarchical path through 
 - [Hash](../H/Hash.md) values incorporate both the JSON value and all parent keys in the hierarchy
 - More efficient for containment queries but supports fewer query types than jsonb_ops
 - Located in src/backend/utils/adt/jsonb_gin.c:1090-1179
+
+## Simplified Source
+
+```c
+Datum
+gin_extract_jsonb_path(PG_FUNCTION_ARGS)
+{
+    Jsonb *jb = PG_GETARG_JSONB_P(0);
+    int32 *nentries = (int32 *) PG_GETARG_POINTER(1);
+    int total = JB_ROOT_COUNT(jb);
+    JsonbIterator *it;
+    JsonbValue v;
+    JsonbIteratorToken r;
+    PathHashStack tail;
+    PathHashStack *stack;
+    GinEntries entries;
+
+    // Early exit for empty JSON
+    if (total == 0)
+    {
+        *nentries = 0;
+        PG_RETURN_POINTER(NULL);
+    }
+
+    // Initialize entries and hash stack
+    init_gin_entries(&entries, 2 * total);
+    tail.parent = NULL;
+    tail.hash = 0;
+    stack = &tail;
+
+    it = JsonbIteratorInit(&jb->root);
+
+    // Traverse JSON structure and build path hashes
+    while ((r = JsonbIteratorNext(&it, &v, false)) != WJB_DONE)
+    {
+        PathHashStack *parent;
+
+        switch (r)
+        {
+            case WJB_BEGIN_ARRAY:
+            case WJB_BEGIN_OBJECT:
+                // Push new stack level inheriting parent hash
+                parent = stack;
+                stack = (PathHashStack *) palloc(sizeof(PathHashStack));
+                stack->hash = parent->hash;
+                stack->parent = parent;
+                break;
+
+            case WJB_KEY:
+                // Mix key into current hash
+                JsonbHashScalarValue(&v, &stack->hash);
+                break;
+
+            case WJB_ELEM:
+            case WJB_VALUE:
+                // Mix value into hash and emit entry
+                JsonbHashScalarValue(&v, &stack->hash);
+                add_gin_entry(&entries, UInt32GetDatum(stack->hash));
+                // Reset hash for next value
+                stack->hash = stack->parent->hash;
+                break;
+
+            case WJB_END_ARRAY:
+            case WJB_END_OBJECT:
+                // Pop stack level
+                parent = stack->parent;
+                pfree(stack);
+                stack = parent;
+                // Reset hash for next sibling
+                if (stack->parent)
+                    stack->hash = stack->parent->hash;
+                else
+                    stack->hash = 0;
+                break;
+
+            default:
+                elog(ERROR, "invalid JsonbIteratorNext rc: %d", (int) r);
+        }
+    }
+
+    *nentries = entries.count;
+    PG_RETURN_POINTER(entries.buf);
+}
+```

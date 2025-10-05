@@ -50,3 +50,62 @@ The function supports all standard PostgreSQL number formatting patterns includi
 - Works with PostgreSQL's collation system for locale-aware parsing
 - The result precision and scale are derived from the format pattern
 - Part of PostgreSQL's comprehensive formatting system in formatting.c
+
+## Simplified Source
+
+```c
+Datum numeric_to_number(PG_FUNCTION_ARGS) {
+    text *value = PG_GETARG_TEXT_PP(0);
+    text *fmt = PG_GETARG_TEXT_PP(1);
+    NUMDesc Num;
+    Datum result;
+    FormatNode *format;
+    char *numstr;
+    bool shouldFree;
+    int len, scale, precision;
+
+    // Validate format string length
+    len = VARSIZE_ANY_EXHDR(fmt);
+    if (len <= 0 || len >= INT_MAX / NUM_MAX_ITEM_SIZ)
+        PG_RETURN_NULL();
+
+    // Get parsed format from cache or parse new one
+    format = NUM_cache(len, &Num, fmt, &shouldFree);
+
+    // Allocate buffer for converted number string
+    numstr = (char *) palloc((len * NUM_MAX_ITEM_SIZ) + 1);
+
+    // Process input string according to format pattern
+    NUM_processor(format, &Num, VARDATA_ANY(value), numstr,
+                  VARSIZE_ANY_EXHDR(value), 0, 0, false, PG_GET_COLLATION());
+
+    // Determine precision and scale from format
+    scale = Num.post;
+    precision = Num.pre + Num.multi + scale;
+
+    // Clean up format if needed
+    if (shouldFree)
+        pfree(format);
+
+    // Convert string to numeric with proper precision/scale
+    result = DirectFunctionCall3(numeric_in,
+                                CStringGetDatum(numstr),
+                                ObjectIdGetDatum(InvalidOid),
+                                Int32GetDatum(((precision << 16) | scale) + VARHDRSZ));
+
+    // Apply scaling if multiplicative pattern was used
+    if (IS_MULTI(&Num)) {
+        Numeric x;
+        Numeric a = int64_to_numeric(10);
+        Numeric b = int64_to_numeric(-Num.multi);
+
+        x = DatumGetNumeric(DirectFunctionCall2(numeric_power,
+                                               NumericGetDatum(a),
+                                               NumericGetDatum(b)));
+        result = DirectFunctionCall2(numeric_mul, result, NumericGetDatum(x));
+    }
+
+    pfree(numstr);
+    return result;
+}
+```

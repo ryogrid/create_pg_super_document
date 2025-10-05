@@ -48,3 +48,69 @@ When a primitive scan is needed (for array key operations), only workers calling
 - Updates local backend state (needPrimScan, scanBehind) based on scan progress
 - The function may block waiting for other workers to release the scan using condition variables
 - Critical for coordinating page-level parallelism in btree index scans
+
+## Simplified Source
+
+```c
+bool _bt_parallel_seize(IndexScanDesc scan, BlockNumber *pageno, bool first) {
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+    BTParallelScanDesc btscan;
+    bool status = true;
+    bool exit_loop = false;
+
+    *pageno = P_NONE;
+
+    // Initialize or check primitive scan state
+    if (first) {
+        so->needPrimScan = false;
+        so->scanBehind = false;
+    } else if (so->needPrimScan) {
+        return false;  // Can't start primitive scan from non-first call
+    }
+
+    btscan = (BTParallelScanDesc) OffsetToPointer((void *) scan->parallel_scan,
+                                                  scan->parallel_scan->ps_offset);
+
+    // Main coordination loop
+    while (1) {
+        SpinLockAcquire(&btscan->btps_mutex);
+
+        if (btscan->btps_pageStatus == BTPARALLEL_DONE) {
+            status = false;  // Scan completed
+        } else if (btscan->btps_pageStatus == BTPARALLEL_NEED_PRIMSCAN) {
+            if (first) {
+                // Start new primitive scan with array keys
+                btscan->btps_pageStatus = BTPARALLEL_ADVANCING;
+                for (int i = 0; i < so->numArrayKeys; i++) {
+                    BTArrayKeyInfo *array = &so->arrayKeys[i];
+                    ScanKey skey = &so->keyData[array->scan_key];
+                    array->cur_elem = btscan->btps_arrElems[i];
+                    skey->sk_argument = array->elem_values[array->cur_elem];
+                }
+                *pageno = InvalidBlockNumber;
+                exit_loop = true;
+            } else {
+                status = false;  // Can't start primitive scan
+            }
+            so->needPrimScan = true;
+            so->scanBehind = false;
+        } else if (btscan->btps_pageStatus != BTPARALLEL_ADVANCING) {
+            // Successfully seize control for page advancement
+            btscan->btps_pageStatus = BTPARALLEL_ADVANCING;
+            *pageno = btscan->btps_scanPage;
+            exit_loop = true;
+        }
+
+        SpinLockRelease(&btscan->btps_mutex);
+
+        if (exit_loop || !status)
+            break;
+
+        // Wait for scan state change
+        ConditionVariableSleep(&btscan->btps_cv, WAIT_EVENT_BTREE_PAGE);
+    }
+    ConditionVariableCancelSleep();
+
+    return status;
+}
+```

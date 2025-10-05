@@ -38,3 +38,51 @@ The function includes comprehensive error handling using PostgreSQL's exception 
 - Implements proper memory management with Py_DECREF calls and pfree for allocated memory
 - Returns a new Python bytes object with transferred reference ownership to the caller
 - Error handling ensures Python reference counts are properly managed even when PostgreSQL exceptions occur
+
+## Simplified Source
+
+```c
+PyObject *
+PLyUnicode_Bytes(PyObject *unicode)
+{
+    PyObject *bytes, *rv;
+    char *utf8string, *encoded;
+
+    // Convert Unicode to UTF-8 bytes first
+    bytes = PyUnicode_AsUTF8String(unicode);
+    if (bytes == NULL)
+        PLy_elog(ERROR, "could not convert Python Unicode object to bytes");
+
+    utf8string = PyBytes_AsString(bytes);
+    if (utf8string == NULL) {
+        Py_DECREF(bytes);
+        PLy_elog(ERROR, "could not extract bytes from encoded string");
+    }
+
+    // Convert to server encoding if database is not UTF-8
+    if (GetDatabaseEncoding() != PG_UTF8) {
+        PG_TRY();
+        {
+            encoded = pg_any_to_server(utf8string, strlen(utf8string), PG_UTF8);
+        }
+        PG_CATCH();
+        {
+            Py_DECREF(bytes);
+            PG_RE_THROW();
+        }
+        PG_END_TRY();
+    } else {
+        encoded = utf8string;
+    }
+
+    // Create final bytes object in server encoding
+    rv = PyBytes_FromStringAndSize(encoded, strlen(encoded));
+
+    // Clean up allocated memory
+    if (utf8string != encoded)
+        pfree(encoded);
+    Py_DECREF(bytes);
+
+    return rv;
+}
+```

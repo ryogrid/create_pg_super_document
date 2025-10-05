@@ -41,3 +41,21 @@ This function serves as the PostgreSQL SQL function interface for point subtract
 - The function signature follows PostgreSQL's V1 calling convention for internal functions
 - Memory allocated with palloc will be automatically freed at the end of the current memory context
 - Performs the operation result = p1 - p2 (order matters for subtraction)
+
+## Simplified Source
+
+```c
+Datum point_sub(PG_FUNCTION_ARGS) {
+    Point *p1 = PG_GETARG_POINT_P(0);  // First point (minuend)
+    Point *p2 = PG_GETARG_POINT_P(1);  // Second point (subtrahend)
+    Point *result;
+
+    // Allocate memory for result point
+    result = (Point *) palloc(sizeof(Point));
+
+    // Perform point subtraction
+    point_sub_point(result, p1, p2);
+
+    PG_RETURN_POINT_P(result);
+}
+```

@@ -39,3 +39,38 @@ This function implements range-based comparisons for PostgreSQL window functions
 - Used in window function RANGE clauses with PRECEDING/FOLLOWING specifications
 - The function is optimized for performance as noted in the source comments
 - Supports cross-data-type comparisons as part of the int4/int2 function family
+
+## Simplified Source
+
+```c
+Datum in_range_int4_int4(PG_FUNCTION_ARGS) {
+    // Extract arguments
+    int32 val = PG_GETARG_INT32(0);      // Value to test
+    int32 base = PG_GETARG_INT32(1);     // Base point
+    int32 offset = PG_GETARG_INT32(2);   // Range offset
+    bool sub = PG_GETARG_BOOL(3);        // Subtract offset?
+    bool less = PG_GETARG_BOOL(4);       // Less-than comparison?
+
+    // Validate offset is non-negative
+    if (offset < 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PRECEDING_OR_FOLLOWING_SIZE),
+                       errmsg("invalid preceding or following size in window function")));
+
+    // Apply subtraction if requested
+    if (sub)
+        offset = -offset;
+
+    // Calculate range boundary with overflow detection
+    int32 range_boundary;
+    if (pg_add_s32_overflow(base, offset, &range_boundary)) {
+        // Handle overflow: return result based on operation direction
+        return PG_RETURN_BOOL(sub ? !less : less);
+    }
+
+    // Perform the range comparison
+    if (less)
+        PG_RETURN_BOOL(val <= range_boundary);
+    else
+        PG_RETURN_BOOL(val >= range_boundary);
+}
+```

@@ -36,3 +36,20 @@ This function computes the inverse slope of a line given its representation in t
 - Commonly used in perpendicular line calculations and geometric distance computations
 - Part of the line arithmetic routines section in PostgreSQLs geometric operations
 - Handles floating-point precision issues through FPzero macro usage
+
+## Simplified Source
+
+```c
+static inline float8 line_invsl(LINE *line) {
+    // Handle horizontal line: A=0, inverse slope is infinity
+    if (FPzero(line->A))
+        return get_float8_infinity();
+
+    // Handle vertical line: B=0, inverse slope is 0
+    if (FPzero(line->B))
+        return 0.0;
+
+    // Standard case: inverse slope = B/A
+    return float8_div(line->B, line->A);
+}
+```

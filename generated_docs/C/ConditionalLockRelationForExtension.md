@@ -39,3 +39,19 @@ The function creates the same type of lock tag used by LockRelationForExtension 
 - The function uses the same lock tag type (LOCKTAG_RELATION_EXTEND) as the blocking version
 - Commonly used in scenarios where deadlock avoidance or performance optimization requires non-blocking lock attempts
 - The caller should handle the case where the function returns false by either retrying or using an alternative approach
+
+## Simplified Source
+
+```c
+bool ConditionalLockRelationForExtension(Relation relation, LOCKMODE lockmode) {
+    LOCKTAG tag;
+
+    // Set up extension lock tag
+    SET_LOCKTAG_RELATION_EXTEND(tag,
+                                relation->rd_lockInfo.lockRelId.dbId,
+                                relation->rd_lockInfo.lockRelId.relId);
+
+    // Try to acquire lock without waiting
+    return (LockAcquire(&tag, lockmode, false, true) != LOCKACQUIRE_NOT_AVAIL);
+}
+```

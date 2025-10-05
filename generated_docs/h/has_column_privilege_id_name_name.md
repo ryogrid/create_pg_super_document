@@ -40,3 +40,31 @@ The function performs several conversion steps: it converts the text table name 
 - Part of a family of has_column_privilege functions with different parameter combinations
 - Useful when you have a role OID but need to specify table and column names textually
 - The function follows PostgreSQL's standard function calling conventions using PG_FUNCTION_ARGS
+
+## Simplified Source
+
+```c
+Datum
+has_column_privilege_id_name_name(PG_FUNCTION_ARGS)
+{
+    Oid roleid = PG_GETARG_OID(0);
+    text *tablename = PG_GETARG_TEXT_PP(1);
+    text *column = PG_GETARG_TEXT_PP(2);
+    text *priv_type_text = PG_GETARG_TEXT_PP(3);
+    Oid tableoid;
+    AttrNumber colattnum;
+    AclMode mode;
+    int privresult;
+
+    // Convert identifiers to internal representations
+    tableoid = convert_table_name(tablename);
+    colattnum = convert_column_name(tableoid, column);
+    mode = convert_column_priv_string(priv_type_text);
+
+    // Perform privilege check
+    privresult = column_privilege_check(tableoid, colattnum, roleid, mode);
+    if (privresult < 0)
+        PG_RETURN_NULL();
+    PG_RETURN_BOOL(privresult);
+}
+```

@@ -33,3 +33,25 @@ This function serves as the entry point for the SQL function . It accepts a vari
 - NULL values are permitted and will be included in the resulting JSONB object
 - The function returns NULL if no arguments are provided
 - This function does not perform key uniqueness checking or skip NULL values by default
+
+## Simplified Source
+
+```c
+Datum
+jsonb_build_object(PG_FUNCTION_ARGS)
+{
+    // Extract variadic arguments as key-value pairs
+    Datum *args;
+    bool *nulls;
+    Oid *types;
+
+    int nargs = extract_variadic_args(fcinfo, 0, true, &args, &types, &nulls);
+
+    // Return NULL if no arguments provided
+    if (nargs < 0)
+        PG_RETURN_NULL();
+
+    // Build the JSONB object using worker function
+    PG_RETURN_DATUM(jsonb_build_object_worker(nargs, args, nulls, types, false, false));
+}
+```

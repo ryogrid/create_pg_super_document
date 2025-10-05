@@ -54,3 +54,35 @@ The function ensures that all resources allocated during latch initialization ar
 - Currently appears to have no direct callers in the codebase, suggesting it may be used in cleanup paths or error handling
 - Complements InitializeLatchSupport() by undoing all its initialization work
 - Critical for proper resource management in long-running PostgreSQL processes
+
+## Simplified Source
+
+```c
+void ShutdownLatchSupport(void) {
+    // Reset signal handler for poll-based implementation
+    #if defined(WAIT_USE_POLL)
+        pqsignal(SIGURG, SIG_IGN);
+    #endif
+
+    // Clean up the global wait event set
+    if (LatchWaitSet) {
+        FreeWaitEventSet(LatchWaitSet);
+        LatchWaitSet = NULL;
+    }
+
+    // Close self-pipe file descriptors and reset state
+    #if defined(WAIT_USE_SELF_PIPE)
+        close(selfpipe_readfd);
+        close(selfpipe_writefd);
+        selfpipe_readfd = -1;
+        selfpipe_writefd = -1;
+        selfpipe_owner_pid = InvalidPid;
+    #endif
+
+    // Close signal file descriptor
+    #if defined(WAIT_USE_SIGNALFD)
+        close(signal_fd);
+        signal_fd = -1;
+    #endif
+}
+```

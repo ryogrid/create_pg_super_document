@@ -50,3 +50,62 @@ The 4D coordinate system considers each box as having four coordinates: low.x, h
 - Memory allocation uses PostgreSQL's palloc for automatic cleanup
 - Located in src/backend/utils/adt/geo_spgist.c:441-507
 - The split strategy considers boxes as 4D points to enable more precise spatial partitioning than traditional 2D approaches
+
+## Simplified Source
+
+```c
+/* SP-GiST pick-split function - splits boxes into quadrants using median centroid */
+Datum
+spg_box_quad_picksplit(PG_FUNCTION_ARGS)
+{
+    spgPickSplitIn *in = (spgPickSplitIn *) PG_GETARG_POINTER(0);
+    spgPickSplitOut *out = (spgPickSplitOut *) PG_GETARG_POINTER(1);
+
+    // Allocate arrays for all 4D coordinates
+    float8 *lowXs = palloc(sizeof(float8) * in->nTuples);
+    float8 *highXs = palloc(sizeof(float8) * in->nTuples);
+    float8 *lowYs = palloc(sizeof(float8) * in->nTuples);
+    float8 *highYs = palloc(sizeof(float8) * in->nTuples);
+
+    // Extract coordinates from all input boxes
+    for (int i = 0; i < in->nTuples; i++) {
+        BOX *box = DatumGetBoxP(in->datums[i]);
+        lowXs[i] = box->low.x;
+        highXs[i] = box->high.x;
+        lowYs[i] = box->low.y;
+        highYs[i] = box->high.y;
+    }
+
+    // Sort coordinates to find medians
+    qsort(lowXs, in->nTuples, sizeof(float8), compareDoubles);
+    qsort(highXs, in->nTuples, sizeof(float8), compareDoubles);
+    qsort(lowYs, in->nTuples, sizeof(float8), compareDoubles);
+    qsort(highYs, in->nTuples, sizeof(float8), compareDoubles);
+
+    // Create centroid using median coordinates
+    int median = in->nTuples / 2;
+    BOX *centroid = palloc(sizeof(BOX));
+    centroid->low.x = lowXs[median];
+    centroid->high.x = highXs[median];
+    centroid->low.y = lowYs[median];
+    centroid->high.y = highYs[median];
+
+    // Set up output structure with 16 nodes
+    out->hasPrefix = true;
+    out->prefixDatum = BoxPGetDatum(centroid);
+    out->nNodes = 16;
+    out->nodeLabels = NULL;
+    out->mapTuplesToNodes = palloc(sizeof(int) * in->nTuples);
+    out->leafTupleDatums = palloc(sizeof(Datum) * in->nTuples);
+
+    // Assign each box to its appropriate quadrant
+    for (int i = 0; i < in->nTuples; i++) {
+        BOX *box = DatumGetBoxP(in->datums[i]);
+        uint8 quadrant = getQuadrant(centroid, box);
+        out->leafTupleDatums[i] = BoxPGetDatum(box);
+        out->mapTuplesToNodes[i] = quadrant;
+    }
+
+    PG_RETURN_VOID();
+}
+```

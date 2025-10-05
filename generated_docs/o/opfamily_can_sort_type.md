@@ -36,3 +36,16 @@ The function specifically targets btree access methods (BTREE_AM_OID) and return
 - It relies on the related function `opclass_for_family_datatype` which finds the OID of an operator class that belongs to a specified operator family and accepts a given data type as input
 - The function is used in validation contexts across different access methods (GiST, SP-GiST) to ensure proper operator family configuration
 - Returns a boolean value: true if the data type can be sorted by the operator family, false otherwise
+
+## Simplified Source
+
+```c
+bool
+opfamily_can_sort_type(Oid opfamilyoid, Oid datatypeoid)
+{
+    // Check if there's a valid btree opclass for this family and datatype
+    return OidIsValid(opclass_for_family_datatype(BTREE_AM_OID,
+                                                  opfamilyoid,
+                                                  datatypeoid));
+}
+```

@@ -37,3 +37,12 @@ This is a specialized wrapper function that validates operator class options sup
 - Part of the access method validation infrastructure
 - Simple wrapper that encapsulates the specific requirements for options functions
 - Located in src/backend/access/index/amvalidate.c:192-205
+
+## Simplified Source
+
+```c
+bool check_amoptsproc_signature(Oid funcid) {
+    // Validate that function has signature 'void(internal)'
+    return check_amproc_signature(funcid, VOIDOID, true, 1, 1, INTERNALOID);
+}
+```

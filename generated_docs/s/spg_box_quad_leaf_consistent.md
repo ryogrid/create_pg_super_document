@@ -47,3 +47,88 @@ This function implements the leaf consistency check for SP-GiST quadtree indexes
 - Distance calculations require rechecking when the distance function is F_DIST_POLYP (polygon distance)
 - Returns early on first failed condition for efficiency
 - Part of PostgreSQL's SP-GiST framework for spatial indexing
+
+## Simplified Source
+
+```c
+/* SP-GiST leaf consistent function - tests if leaf matches search criteria */
+Datum
+spg_box_quad_leaf_consistent(PG_FUNCTION_ARGS)
+{
+    spgLeafConsistentIn *in = (spgLeafConsistentIn *) PG_GETARG_POINTER(0);
+    spgLeafConsistentOut *out = (spgLeafConsistentOut *) PG_GETARG_POINTER(1);
+
+    Datum leaf = in->leafDatum;
+    bool flag = true;
+
+    // All tests are exact - no recheck needed
+    out->recheck = false;
+
+    // Return leaf value if requested
+    if (in->returnData)
+        out->leafValue = leaf;
+
+    // Test all search constraints
+    for (int i = 0; i < in->nkeys; i++) {
+        StrategyNumber strategy = in->scankeys[i].sk_strategy;
+        BOX *box = spg_box_quad_get_scankey_bbox(&in->scankeys[i], &out->recheck);
+        Datum query = BoxPGetDatum(box);
+
+        // Apply spatial relationship test based on strategy
+        switch (strategy) {
+            case RTOverlapStrategyNumber:
+                flag = DatumGetBool(DirectFunctionCall2(box_overlap, leaf, query));
+                break;
+            case RTContainsStrategyNumber:
+                flag = DatumGetBool(DirectFunctionCall2(box_contain, leaf, query));
+                break;
+            case RTContainedByStrategyNumber:
+                flag = DatumGetBool(DirectFunctionCall2(box_contained, leaf, query));
+                break;
+            case RTSameStrategyNumber:
+                flag = DatumGetBool(DirectFunctionCall2(box_same, leaf, query));
+                break;
+            case RTLeftStrategyNumber:
+                flag = DatumGetBool(DirectFunctionCall2(box_left, leaf, query));
+                break;
+            case RTOverLeftStrategyNumber:
+                flag = DatumGetBool(DirectFunctionCall2(box_overleft, leaf, query));
+                break;
+            case RTRightStrategyNumber:
+                flag = DatumGetBool(DirectFunctionCall2(box_right, leaf, query));
+                break;
+            case RTOverRightStrategyNumber:
+                flag = DatumGetBool(DirectFunctionCall2(box_overright, leaf, query));
+                break;
+            case RTAboveStrategyNumber:
+                flag = DatumGetBool(DirectFunctionCall2(box_above, leaf, query));
+                break;
+            case RTOverAboveStrategyNumber:
+                flag = DatumGetBool(DirectFunctionCall2(box_overabove, leaf, query));
+                break;
+            case RTBelowStrategyNumber:
+                flag = DatumGetBool(DirectFunctionCall2(box_below, leaf, query));
+                break;
+            case RTOverBelowStrategyNumber:
+                flag = DatumGetBool(DirectFunctionCall2(box_overbelow, leaf, query));
+                break;
+            default:
+                elog(ERROR, "unrecognized strategy: %d", strategy);
+        }
+
+        // Exit early on first failure
+        if (!flag)
+            break;
+    }
+
+    // Handle distance calculations for ordering queries
+    if (flag && in->norderbys > 0) {
+        out->distances = spg_key_orderbys_distances(leaf, false,
+                                                   in->orderbys, in->norderbys);
+        // Polygon distance requires recheck
+        out->recheckDistances = (in->orderbys[0].sk_func.fn_oid == F_DIST_POLYP);
+    }
+
+    PG_RETURN_BOOL(flag);
+}
+```

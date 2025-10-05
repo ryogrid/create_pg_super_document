@@ -42,3 +42,50 @@ The converted integer subscripts are stored in the workspace for use by subseque
 - Enforces stricter NULL handling for assignments than for fetch operations
 - Stores converted subscripts in ArraySubWorkspace structure for efficient access
 - The function signature follows the standard ExprEvalStep function pointer pattern used throughout PostgreSQL's expression evaluator
+
+## Simplified Source
+
+```c
+static bool
+array_subscript_check_subscripts(ExprState *state,
+                                 ExprEvalStep *op,
+                                 ExprContext *econtext)
+{
+    SubscriptingRefState *sbsrefstate = op->d.sbsref_subscript.state;
+    ArraySubWorkspace *workspace = (ArraySubWorkspace *) sbsrefstate->workspace;
+
+    // Process upper subscripts
+    for (int i = 0; i < sbsrefstate->numupper; i++) {
+        if (sbsrefstate->upperprovided[i]) {
+            // Handle NULL subscripts
+            if (sbsrefstate->upperindexnull[i]) {
+                if (sbsrefstate->isassignment)
+                    ereport(ERROR, (errcode(ERRCODE_NULL_VALUE_NOT_ALLOWED),
+                                   errmsg("array subscript in assignment must not be null")));
+                *op->resnull = true;
+                return false;  // NULL result for fetch operations
+            }
+            // Convert Datum to integer
+            workspace->upperindex[i] = DatumGetInt32(sbsrefstate->upperindex[i]);
+        }
+    }
+
+    // Process lower subscripts (for slice operations)
+    for (int i = 0; i < sbsrefstate->numlower; i++) {
+        if (sbsrefstate->lowerprovided[i]) {
+            // Handle NULL subscripts
+            if (sbsrefstate->lowerindexnull[i]) {
+                if (sbsrefstate->isassignment)
+                    ereport(ERROR, (errcode(ERRCODE_NULL_VALUE_NOT_ALLOWED),
+                                   errmsg("array subscript in assignment must not be null")));
+                *op->resnull = true;
+                return false;  // NULL result for fetch operations
+            }
+            // Convert Datum to integer
+            workspace->lowerindex[i] = DatumGetInt32(sbsrefstate->lowerindex[i]);
+        }
+    }
+
+    return true;  // All subscripts successfully processed
+}
+```

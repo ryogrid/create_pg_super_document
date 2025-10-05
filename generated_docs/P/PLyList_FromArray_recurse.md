@@ -38,3 +38,63 @@ This function is the core recursive engine for converting PostgreSQL arrays to P
 
 ## Notes and Other Information
 The function uses Python's C API to create list objects and manages reference counting properly. It handles PostgreSQL's internal array representation including NULL bitmaps and memory alignment requirements. The recursive design naturally handles arrays of arbitrary dimensions by processing one dimension level per recursion depth. For performance, it uses PyList_SET_ITEM rather than PyList_SetItem to avoid unnecessary reference count checks on newly created lists.
+
+## Simplified Source
+
+```c
+static PyObject *
+PLyList_FromArray_recurse(PLyDatumToOb *elm, int *dims, int ndim, int dim,
+                          char **dataptr_p, bits8 **bitmap_p, int *bitmask_p)
+{
+    // Create Python list for current dimension
+    PyObject *list = PyList_New(dims[dim]);
+    if (!list)
+        return NULL;
+
+    if (dim < ndim - 1) {
+        // Outer dimension: recurse for each inner slice
+        for (int i = 0; i < dims[dim]; i++) {
+            PyObject *sublist = PLyList_FromArray_recurse(elm, dims, ndim, dim + 1,
+                                                          dataptr_p, bitmap_p, bitmask_p);
+            PyList_SET_ITEM(list, i, sublist);
+        }
+    } else {
+        // Innermost dimension: extract actual values
+        char *dataptr = *dataptr_p;
+        bits8 *bitmap = *bitmap_p;
+        int bitmask = *bitmask_p;
+
+        for (int i = 0; i < dims[dim]; i++) {
+            // Check for NULL value
+            if (bitmap && (*bitmap & bitmask) == 0) {
+                Py_INCREF(Py_None);
+                PyList_SET_ITEM(list, i, Py_None);
+            } else {
+                // Extract datum and convert to Python object
+                Datum itemvalue = fetch_att(dataptr, elm->typbyval, elm->typlen);
+                PyList_SET_ITEM(list, i, elm->func(elm, itemvalue));
+
+                // Advance data pointer with proper alignment
+                dataptr = att_addlength_pointer(dataptr, elm->typlen, dataptr);
+                dataptr = (char *) att_align_nominal(dataptr, elm->typalign);
+            }
+
+            // Advance bitmap if present
+            if (bitmap) {
+                bitmask <<= 1;
+                if (bitmask == 0x100) {
+                    bitmap++;
+                    bitmask = 1;
+                }
+            }
+        }
+
+        // Update caller's pointers
+        *dataptr_p = dataptr;
+        *bitmap_p = bitmap;
+        *bitmask_p = bitmask;
+    }
+
+    return list;
+}
+```

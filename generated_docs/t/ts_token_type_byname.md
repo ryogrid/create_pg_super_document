@@ -54,3 +54,31 @@ This function provides a more user-friendly interface compared to  since users t
 - Throws an error if the specified parser name cannot be found in the system catalog
 - Returns the same composite type structure as  with columns for token ID, alias, and description
 - Part of PostgreSQL's full-text search infrastructure for parser introspection
+
+## Simplified Source
+
+```c
+Datum ts_token_type_byname(PG_FUNCTION_ARGS) {
+    FuncCallContext *funcctx;
+    Datum result;
+
+    // First call: resolve parser name to OID and initialize context
+    if (SRF_IS_FIRSTCALL()) {
+        text *prsname = PG_GETARG_TEXT_PP(0);
+        Oid prsId;
+
+        funcctx = SRF_FIRSTCALL_INIT();
+        // Convert parser name to OID
+        prsId = get_ts_parser_oid(textToQualifiedNameList(prsname), false);
+        tt_setup_firstcall(funcctx, fcinfo, prsId);
+    }
+
+    funcctx = SRF_PERCALL_SETUP();
+
+    // Process each call: return next token type or signal completion
+    if ((result = tt_process_call(funcctx)) != (Datum) 0)
+        SRF_RETURN_NEXT(funcctx, result);
+
+    SRF_RETURN_DONE(funcctx);
+}
+```

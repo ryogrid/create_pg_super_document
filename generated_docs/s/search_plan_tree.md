@@ -47,3 +47,78 @@ The function tracks pending rescans by checking the chgParam field of nodes. If 
 
 ## Notes and Other Information
 The function is marked static as it's only used within execCurrent.c. It returns NULL if no candidate is found or if multiple candidates are discovered (indicating ambiguity). The pending_rescan mechanism helps the caller determine if a found scan node's current position should be trusted. The function deliberately does not descend through certain node types like MergeAppend because their multiple active inputs make it impossible to determine which input produced the current output tuple. This conservative approach ensures correctness for CURRENT OF operations while maintaining reasonable performance.
+
+## Simplified Source
+
+```c
+static ScanState *
+search_plan_tree(PlanState *node, Oid table_oid, bool *pending_rescan)
+{
+    ScanState *result = NULL;
+
+    if (node == NULL)
+        return NULL;
+
+    switch (nodeTag(node)) {
+        // Handle all scan node types that can scan relations
+        case T_SeqScanState:
+        case T_SampleScanState:
+        case T_IndexScanState:
+        case T_IndexOnlyScanState:
+        case T_BitmapHeapScanState:
+        case T_TidScanState:
+        case T_TidRangeScanState:
+        case T_ForeignScanState:
+        case T_CustomScanState:
+        {
+            ScanState *scan_state = (ScanState *) node;
+
+            // Check if this scan node is scanning our target table
+            if (scan_state->ss_currentRelation &&
+                RelationGetRelid(scan_state->ss_currentRelation) == table_oid)
+                result = scan_state;
+            break;
+        }
+
+        // Append nodes: search all input plans, reject if multiple matches
+        case T_AppendState:
+        {
+            AppendState *append_state = (AppendState *) node;
+
+            for (int i = 0; i < append_state->as_nplans; i++) {
+                ScanState *candidate = search_plan_tree(append_state->appendplans[i],
+                                                       table_oid, pending_rescan);
+                if (!candidate)
+                    continue;
+                if (result)
+                    return NULL;  // Multiple matches - ambiguous
+                result = candidate;
+            }
+            break;
+        }
+
+        // Pass-through nodes: safe to descend since they return input's current row
+        case T_ResultState:
+        case T_LimitState:
+            result = search_plan_tree(outerPlanState(node), table_oid, pending_rescan);
+            break;
+
+        // SubqueryScan: child is in subplan field
+        case T_SubqueryScanState:
+            result = search_plan_tree(((SubqueryScanState *) node)->subplan,
+                                    table_oid, pending_rescan);
+            break;
+
+        default:
+            // Other node types: don't descend (unsafe or unknown)
+            break;
+    }
+
+    // If we found a scan and this node has pending parameter changes,
+    // mark that a rescan will be needed
+    if (result && node->chgParam != NULL)
+        *pending_rescan = true;
+
+    return result;
+}
+```

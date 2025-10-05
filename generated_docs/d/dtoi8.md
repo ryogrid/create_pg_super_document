@@ -35,3 +35,23 @@ This function performs a type conversion from PostgreSQL's double-precision floa
 - Includes robust error handling for out-of-range values, NaN, and infinity
 - Throws ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE error with "bigint out of range" message for invalid inputs
 - Part of PostgreSQL's type system for safe numeric conversions
+
+## Simplified Source
+
+```c
+Datum
+dtoi8(PG_FUNCTION_ARGS)
+{
+    float8 double_value = PG_GETARG_FLOAT8(0);
+
+    // Round to nearest integer to handle edge cases
+    double_value = rint(double_value);
+
+    // Check for valid range (not NaN, not infinity, fits in int64)
+    if (isnan(double_value) || !FLOAT8_FITS_IN_INT64(double_value))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("bigint out of range")));
+
+    PG_RETURN_INT64((int64) double_value);
+}
+```

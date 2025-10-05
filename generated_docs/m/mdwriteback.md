@@ -38,3 +38,46 @@ The function works by splitting flush requests at segment boundaries since Postg
 - Uses WAIT_EVENT_DATA_FILE_FLUSH for wait event reporting during flush operations
 - The function is designed for advisory flushing - it hints to the kernel but doesn't guarantee immediate disk writes
 - More efficient than individual block flushes when dealing with consecutive blocks
+
+## Simplified Source
+
+```c
+void
+mdwriteback(SMgrRelation reln, ForkNumber forknum,
+            BlockNumber blocknum, BlockNumber nblocks)
+{
+    // Process flush requests in chunks, splitting at segment boundaries
+    while (nblocks > 0) {
+        BlockNumber nflush = nblocks;
+        off_t seekpos;
+        MdfdVec *v;
+        int segnum_start, segnum_end;
+
+        // Get segment - don't open if not already open
+        v = _mdfd_getseg(reln, forknum, blocknum, true, EXTENSION_DONT_OPEN);
+
+        // Handle case where segment file was removed
+        if (!v)
+            return;
+
+        // Calculate segment boundaries
+        segnum_start = blocknum / RELSEG_SIZE;
+        segnum_end = (blocknum + nblocks - 1) / RELSEG_SIZE;
+
+        // If spanning segments, flush only to end of current segment
+        if (segnum_start != segnum_end)
+            nflush = RELSEG_SIZE - (blocknum % ((BlockNumber) RELSEG_SIZE));
+
+        // Calculate position within segment
+        seekpos = (off_t) BLCKSZ * (blocknum % ((BlockNumber) RELSEG_SIZE));
+
+        // Issue the flush request to the kernel
+        FileWriteback(v->mdfd_vfd, seekpos, (off_t) BLCKSZ * nflush,
+                     WAIT_EVENT_DATA_FILE_FLUSH);
+
+        // Move to next chunk
+        nblocks -= nflush;
+        blocknum += nflush;
+    }
+}
+```

@@ -43,3 +43,23 @@ The worker uses ParallelWorkerNumber (a global variable) to identify which slot 
 - The shared memory lookup uses the plan node ID as the key, which was registered during ExecHashInitializeDSM
 - The established pointer (node->hinstrument) will be used by ExecHashAccumInstrumentation to record statistics
 - This function is part of PostgreSQL's parallel query execution infrastructure for coordinating instrumentation data collection across workers
+
+## Simplified Source
+
+```c
+void ExecHashInitializeWorker(HashState *node, ParallelWorkerContext *pwcxt)
+{
+    SharedHashInfo *shared_info;
+
+    // Skip if instrumentation is disabled
+    if (!node->ps.instrument)
+        return;
+
+    // Find shared instrumentation area using plan node ID
+    shared_info = (SharedHashInfo *)
+        shm_toc_lookup(pwcxt->toc, node->ps.plan->plan_node_id, false);
+
+    // Set up pointer to this worker's instrumentation slot
+    node->hinstrument = &shared_info->hinstrument[ParallelWorkerNumber];
+}
+```

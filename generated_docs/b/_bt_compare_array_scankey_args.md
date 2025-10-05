@@ -54,3 +54,94 @@ The function handles different comparison strategies (less than, equal, greater 
 - Uses binary search for efficient element location in sorted arrays
 - The function is part of PostgreSQL's scan key preprocessing optimization system
 - This is a static function, accessible only within nbtutils.c
+
+## Simplified Source
+
+```c
+static bool
+_bt_compare_array_scankey_args(IndexScanDesc scan, ScanKey arraysk, ScanKey skey,
+                              FmgrInfo *orderproc, BTArrayKeyInfo *array,
+                              bool *qual_ok)
+{
+    Relation rel = scan->indexRelation;
+    Oid opcintype = rel->rd_opcintype[arraysk->sk_attno - 1];
+    int cmpresult = 0, cmpexact = 0, matchelem, new_nelems = 0;
+    FmgrInfo crosstypeproc;
+    FmgrInfo *orderprocp = orderproc;
+
+    // Verify array and scalar scan keys are on same attribute
+    Assert(arraysk->sk_attno == skey->sk_attno);
+    Assert(array->num_elems > 0);
+
+    // Check if we need cross-type comparison procedure
+    if (skey->sk_subtype != opcintype && skey->sk_subtype != InvalidOid) {
+        RegProcedure cmp_proc;
+        Oid arraysk_elemtype = arraysk->sk_subtype;
+
+        if (arraysk_elemtype == InvalidOid)
+            arraysk_elemtype = rel->rd_opcintype[arraysk->sk_attno - 1];
+
+        // Look up cross-type ORDER procedure
+        cmp_proc = get_opfamily_proc(rel->rd_opfamily[arraysk->sk_attno - 1],
+                                    skey->sk_subtype, arraysk_elemtype,
+                                    BTORDER_PROC);
+        if (!RegProcedureIsValid(cmp_proc)) {
+            *qual_ok = false;
+            return false;  // Can't make comparison
+        }
+
+        orderprocp = &crosstypeproc;
+        fmgr_info(cmp_proc, orderprocp);
+    }
+
+    // Find best matching element in array using binary search
+    matchelem = _bt_binsrch_array_skey(orderprocp, false,
+                                      NoMovementScanDirection,
+                                      skey->sk_argument, false, array,
+                                      arraysk, &cmpresult);
+
+    // Apply filtering based on scalar scan key strategy
+    switch (skey->sk_strategy) {
+        case BTLessStrategyNumber:
+            cmpexact = 1;  // exclude exact match
+            // FALL THRU
+        case BTLessEqualStrategyNumber:
+            if (cmpresult >= cmpexact)
+                matchelem++;
+            new_nelems = matchelem;  // Keep elements from start
+            break;
+
+        case BTEqualStrategyNumber:
+            if (cmpresult != 0) {
+                new_nelems = 0;  // Unsatisfiable qual
+            } else {
+                // Keep only matching element at start
+                array->elem_values[0] = array->elem_values[matchelem];
+                new_nelems = 1;
+            }
+            break;
+
+        case BTGreaterEqualStrategyNumber:
+            cmpexact = 1;  // include exact match
+            // FALL THRU
+        case BTGreaterStrategyNumber:
+            if (cmpresult >= cmpexact)
+                matchelem++;
+            // Shift remaining elements to start
+            new_nelems = array->num_elems - matchelem;
+            memmove(array->elem_values, array->elem_values + matchelem,
+                   sizeof(Datum) * new_nelems);
+            break;
+
+        default:
+            elog(ERROR, "unrecognized StrategyNumber: %d", (int) skey->sk_strategy);
+            break;
+    }
+
+    // Update array with filtered elements
+    array->num_elems = new_nelems;
+    *qual_ok = new_nelems > 0;
+
+    return true;
+}
+```

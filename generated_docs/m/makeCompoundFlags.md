@@ -34,3 +34,14 @@ This function retrieves the compound word flags associated with a specific affix
 - Part of the spell-checking node creation process
 - Validates affix index with Assert to ensure it's within bounds
 - Compound flags control how words can be combined in compound word formation
+
+## Simplified Source
+
+```c
+static uint32 makeCompoundFlags(IspellDict *Conf, int affix) {
+    Assert(affix < Conf->nAffixData);
+
+    return (getCompoundAffixFlagValue(Conf, Conf->AffixData[affix]) &
+            FF_COMPOUNDFLAGMASK);
+}
+```

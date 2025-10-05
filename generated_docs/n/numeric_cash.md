@@ -43,3 +43,38 @@ The function uses the locale-specific `frac_digits` setting to determine how man
 - Locale settings are validated to ensure fractional digits are within reasonable bounds (0-10)
 - The conversion process preserves the monetary precision defined by the locale
 - Located in src/backend/utils/adt/cash.c:1102-1135
+
+## Simplified Source
+
+```c
+Datum numeric_cash(PG_FUNCTION_ARGS) {
+    Datum amount = PG_GETARG_DATUM(0);
+    Cash result;
+    int fpoint;
+    int64 scale;
+    int i;
+    Datum numeric_scale;
+    struct lconv *lconvert = PGLC_localeconv();
+
+    // Get fractional digits from locale, default to 2 if invalid
+    fpoint = lconvert->frac_digits;
+    if (fpoint < 0 || fpoint > 10) {
+        fpoint = 2;
+    }
+
+    // Compute scale factor (10^fpoint)
+    scale = 1;
+    for (i = 0; i < fpoint; i++) {
+        scale *= 10;
+    }
+
+    // Multiply input by scale factor to convert to cash internal format
+    numeric_scale = NumericGetDatum(int64_to_numeric(scale));
+    amount = DirectFunctionCall2(numeric_mul, amount, numeric_scale);
+
+    // Convert to int64 (with rounding) and return as cash
+    result = DatumGetInt64(DirectFunctionCall1(numeric_int8, amount));
+
+    PG_RETURN_CASH(result);
+}
+```

@@ -44,3 +44,28 @@ The function follows PostgreSQL's function call conventions using the `PG_FUNCTI
 - Part of PostgreSQL's standard set of object size functions
 - The size includes main table data, TOAST tables, FSM, and VM, but excludes indexes
 - Function signature follows PostgreSQL's C function interface standards
+
+## Simplified Source
+
+```c
+Datum
+pg_table_size(PG_FUNCTION_ARGS)
+{
+    Oid relOid = PG_GETARG_OID(0);
+    Relation rel;
+    int64 size;
+
+    // Try to open the relation safely
+    rel = try_relation_open(relOid, AccessShareLock);
+
+    if (rel == NULL)
+        PG_RETURN_NULL();
+
+    // Calculate table size using core function
+    size = calculate_table_size(rel);
+
+    relation_close(rel, AccessShareLock);
+
+    PG_RETURN_INT64(size);
+}
+```

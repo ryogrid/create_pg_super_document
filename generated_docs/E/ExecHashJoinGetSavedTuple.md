@@ -39,3 +39,43 @@ This function reads tuples that were previously spilled to disk during hash join
 - The function is static and used internally within hash join batch processing
 - Includes interrupt checking for responsiveness during potentially long file reading operations
 - Critical for reconstructing spilled tuples during multi-batch hash join execution
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecHashJoinGetSavedTuple(HashJoinState *hjstate,
+                          BufFile *file,
+                          uint32 *hashvalue,
+                          TupleTableSlot *tupleSlot)
+{
+    uint32 header[2];
+    size_t nread;
+    MinimalTuple tuple;
+
+    // Check for interrupts since this replaces ExecProcNode() calls
+    CHECK_FOR_INTERRUPTS();
+
+    // Read hash value and tuple length in one operation
+    nread = BufFileReadMaybeEOF(file, header, sizeof(header), true);
+    if (nread == 0) {
+        // End of file reached
+        ExecClearTuple(tupleSlot);
+        return NULL;
+    }
+
+    // Extract hash value and allocate tuple memory
+    *hashvalue = header[0];
+    tuple = (MinimalTuple) palloc(header[1]);
+    tuple->t_len = header[1];
+
+    // Read the remaining tuple data
+    BufFileReadExact(file,
+                     (char *) tuple + sizeof(uint32),
+                     header[1] - sizeof(uint32));
+
+    // Store tuple in slot and return
+    ExecForceStoreMinimalTuple(tuple, tupleSlot, true);
+    return tupleSlot;
+}
+```

@@ -55,6 +55,34 @@ The function follows PostgreSQL's SQL function interface:
 - The function is declared with  macro for PostgreSQL function registration
 - WAL records created by this function are marked as unimportant and won't affect recovery semantics
 - Returns the LSN where the record was inserted, allowing callers to track the WAL position
-- Located in 
+- Located in
 - Part of the test custom resource manager module for validating custom WAL resource manager functionality
 - The function demonstrates proper use of PostgreSQL's WAL insertion API for custom extensions
+
+## Simplified Source
+
+```c
+Datum
+test_custom_rmgrs_insert_wal_record(PG_FUNCTION_ARGS)
+{
+    // Extract text argument and its data
+    text *arg = PG_GETARG_TEXT_PP(0);
+    char *payload = VARDATA_ANY(arg);
+    Size len = VARSIZE_ANY_EXHDR(arg);
+
+    // Prepare WAL record structure
+    xl_testcustomrmgrs_message xlrec;
+    xlrec.message_size = len;
+
+    // Begin WAL insertion and register data
+    XLogBeginInsert();
+    XLogRegisterData((char *) &xlrec, SizeOfTestCustomRmgrsMessage);
+    XLogRegisterData((char *) payload, len);
+
+    // Mark as unimportant and insert
+    XLogSetRecordFlags(XLOG_MARK_UNIMPORTANT);
+    XLogRecPtr lsn = XLogInsert(RM_TESTCUSTOMRMGRS_ID, XLOG_TEST_CUSTOM_RMGRS_MESSAGE);
+
+    PG_RETURN_LSN(lsn);
+}
+```

@@ -37,3 +37,16 @@ The function extracts the input polygon from the PostgreSQL function arguments, 
 - The actual conversion algorithm is implemented in the separate `poly_to_circle` static function
 - No input validation is performed at this level; validation and error handling are delegated to the underlying conversion function
 - The function can be used in SQL queries for geometric computations involving polygon-to-circle conversions
+
+## Simplified Source
+
+```c
+Datum poly_circle(PG_FUNCTION_ARGS) {
+    POLYGON *poly = PG_GETARG_POLYGON_P(0);
+    CIRCLE *result = (CIRCLE *) palloc(sizeof(CIRCLE));
+
+    poly_to_circle(result, poly);
+
+    PG_RETURN_CIRCLE_P(result);
+}
+```

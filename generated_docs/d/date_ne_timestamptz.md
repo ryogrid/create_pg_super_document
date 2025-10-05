@@ -33,3 +33,18 @@ This function implements the inequality comparison operator between a DATE and a
 - This is a SQL-callable function that implements the '<>' operator for DATE <> TIMESTAMPTZ comparisons
 - The function handles timezone considerations through the internal comparison function
 - Part of PostgreSQL's type system for cross-type date/timestamp comparisons
+
+## Simplified Source
+
+```c
+Datum
+date_ne_timestamptz(PG_FUNCTION_ARGS)
+{
+    // Extract date and timestamptz arguments
+    DateADT dateVal = PG_GETARG_DATEADT(0);
+    TimestampTz timestamptz = PG_GETARG_TIMESTAMPTZ(1);
+
+    // Return true if date != timestamptz (comparison result != 0)
+    PG_RETURN_BOOL(date_cmp_timestamptz_internal(dateVal, timestamptz) != 0);
+}
+```

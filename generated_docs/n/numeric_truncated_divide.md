@@ -30,3 +30,18 @@ The `numeric_truncated_divide` function provides a convenient wrapper for perfor
 
 ## Notes and Other Information
 This function is designed for use in database size calculations where precise truncated division behavior is required. It's commonly used in size formatting operations where fractional parts need to be discarded rather than rounded. The function is located in src/backend/utils/adt/dbsize.c:660-671.
+
+## Simplified Source
+
+```c
+static Numeric numeric_truncated_divide(Numeric n, int64 divisor) {
+    // Convert inputs to Datum format
+    Datum dividend = NumericGetDatum(n);
+    Datum divisor_numeric = NumericGetDatum(int64_to_numeric(divisor));
+
+    // Perform truncated division (rounds toward zero)
+    Datum result = DirectFunctionCall2(numeric_div_trunc, dividend, divisor_numeric);
+
+    return DatumGetNumeric(result);
+}
+```

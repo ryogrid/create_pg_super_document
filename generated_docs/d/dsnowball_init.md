@@ -39,3 +39,53 @@ The function serves as the initialization entry point for Snowball text search d
 - The function returns a pointer to the initialized DictSnowball structure
 - Memory allocation is done in the current memory context for proper cleanup
 - Unrecognized parameters trigger configuration errors with descriptive messages
+
+## Simplified Source
+
+```c
+Datum dsnowball_init(PG_FUNCTION_ARGS) {
+    List *dictoptions = (List *) PG_GETARG_POINTER(0);
+    DictSnowball *d;
+    bool stoploaded = false;
+    ListCell *l;
+
+    // Allocate dictionary structure
+    d = (DictSnowball *) palloc0(sizeof(DictSnowball));
+
+    // Process configuration options
+    foreach(l, dictoptions) {
+        DefElem *defel = (DefElem *) lfirst(l);
+
+        if (strcmp(defel->defname, "stopwords") == 0) {
+            // Handle stopwords parameter
+            if (stoploaded)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                               errmsg("multiple StopWords parameters")));
+            readstoplist(defGetString(defel), &d->stoplist, lowerstr);
+            stoploaded = true;
+        }
+        else if (strcmp(defel->defname, "language") == 0) {
+            // Handle language parameter
+            if (d->stem)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                               errmsg("multiple Language parameters")));
+            locate_stem_module(d, defGetString(defel));
+        }
+        else {
+            // Unknown parameter
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("unrecognized Snowball parameter: \"%s\"",
+                                  defel->defname)));
+        }
+    }
+
+    // Validate required language parameter
+    if (!d->stem)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("missing Language parameter")));
+
+    d->dictCtx = CurrentMemoryContext;
+
+    PG_RETURN_POINTER(d);
+}
+```

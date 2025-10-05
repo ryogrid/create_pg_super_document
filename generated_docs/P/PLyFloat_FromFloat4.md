@@ -42,3 +42,13 @@ This approach ensures efficient conversion while maintaining numeric precision. 
 - Returns a new Python float object with proper reference counting
 - Maintains numeric precision during the float4 to double conversion
 - Located in src/pl/plpython/plpy_typeio.c at lines 558-563
+
+## Simplified Source
+
+```c
+static PyObject *PLyFloat_FromFloat4(PLyDatumToOb *arg, Datum d)
+{
+    // Convert PostgreSQL float4 to Python float (promotes to double)
+    return PyFloat_FromDouble(DatumGetFloat4(d));
+}
+```

@@ -38,3 +38,47 @@ The  function is a PostgreSQL geometric operator that determines if an infinite 
 - Uses NULL as first parameter to  for boolean-only testing (no intersection point calculation needed)
 - Returns immediately upon finding the first intersection for efficiency
 - Returns a boolean Datum indicating whether intersection occurs
+
+## Simplified Source
+
+```c
+Datum
+inter_lb(PG_FUNCTION_ARGS)
+{
+    // Extract line and box arguments
+    LINE *line = PG_GETARG_LINE_P(0);
+    BOX *box = PG_GETARG_BOX_P(1);
+
+    // Test intersection with each of the 4 box edges
+    LSEG box_edge;
+    Point p1, p2;
+
+    // Left edge (x=low.x, y=low.y to high.y)
+    p1.x = box->low.x; p1.y = box->low.y;
+    p2.x = box->low.x; p2.y = box->high.y;
+    statlseg_construct(&box_edge, &p1, &p2);
+    if (lseg_interpt_line(NULL, &box_edge, line))
+        PG_RETURN_BOOL(true);
+
+    // Top edge (x=low.x to high.x, y=high.y)
+    p1.x = box->high.x; p1.y = box->high.y;
+    statlseg_construct(&box_edge, &p1, &p2);
+    if (lseg_interpt_line(NULL, &box_edge, line))
+        PG_RETURN_BOOL(true);
+
+    // Right edge (x=high.x, y=high.y to low.y)
+    p2.x = box->high.x; p2.y = box->low.y;
+    statlseg_construct(&box_edge, &p1, &p2);
+    if (lseg_interpt_line(NULL, &box_edge, line))
+        PG_RETURN_BOOL(true);
+
+    // Bottom edge (x=high.x to low.x, y=low.y)
+    p1.x = box->low.x; p1.y = box->low.y;
+    statlseg_construct(&box_edge, &p1, &p2);
+    if (lseg_interpt_line(NULL, &box_edge, line))
+        PG_RETURN_BOOL(true);
+
+    // No intersection found
+    PG_RETURN_BOOL(false);
+}
+```

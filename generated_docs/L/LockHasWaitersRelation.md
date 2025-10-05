@@ -30,3 +30,19 @@ This function determines if there are other processes waiting to acquire a lock 
 - Uses false as the third parameter to LockHasWaiters, indicating exact lock mode matching
 - Commonly used in vacuum and maintenance operations to check for contention
 - Located in src/backend/storage/lmgr/lmgr.c:363-386
+
+## Simplified Source
+
+```c
+bool LockHasWaitersRelation(Relation relation, LOCKMODE lockmode) {
+    LOCKTAG tag;
+
+    // Set up lock tag from relation information
+    SET_LOCKTAG_RELATION(tag,
+                         relation->rd_lockInfo.lockRelId.dbId,
+                         relation->rd_lockInfo.lockRelId.relId);
+
+    // Check if anyone is waiting for this lock
+    return LockHasWaiters(&tag, lockmode, false);
+}
+```

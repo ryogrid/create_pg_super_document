@@ -41,3 +41,34 @@ The algorithm works by:
 - Uses circular indexing to handle wraparound when checking forward/backward sequences
 - Critical for geometric operations that need to identify equivalent polygons regardless of representation
 - Part of PostgreSQL's geometric data type support system
+
+## Simplified Source
+
+```c
+static bool plist_same(int npts, Point *p1, Point *p2) {
+    // Find matching starting point in p2 for first point of p1
+    for (int i = 0; i < npts; i++) {
+        if (point_eq_point(&p2[i], &p1[0])) {
+
+            // Try forward direction (same orientation)
+            int ii, j;
+            for (ii = 1, j = i + 1; ii < npts; ii++, j++) {
+                if (j >= npts) j = 0;  // Wrap around
+                if (!point_eq_point(&p2[j], &p1[ii]))
+                    break;
+            }
+            if (ii == npts) return true;  // Complete forward match
+
+            // Try backward direction (opposite orientation)
+            for (ii = 1, j = i - 1; ii < npts; ii++, j--) {
+                if (j < 0) j = npts - 1;  // Wrap around
+                if (!point_eq_point(&p2[j], &p1[ii]))
+                    break;
+            }
+            if (ii == npts) return true;  // Complete backward match
+        }
+    }
+
+    return false;  // No matching sequence found
+}
+```

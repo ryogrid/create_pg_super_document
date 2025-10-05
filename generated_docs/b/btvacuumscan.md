@@ -79,3 +79,76 @@ The function is designed to handle both bulk delete operations (with callback) a
 - Progress reporting is integrated for operations that may take significant time
 - FSM (Free Space Map) operations are optimized and batched for efficiency
 - The function carefully manages statistics to avoid double-counting in multi-scan VACUUM operations
+
+## Simplified Source
+
+```c
+static void btvacuumscan(IndexVacuumInfo *info, IndexBulkDeleteResult *stats,
+                        IndexBulkDeleteCallback callback, void *callback_state,
+                        BTCycleId cycleid) {
+    Relation rel = info->index;
+    BTVacState vstate;
+    BlockNumber num_pages, scanblkno;
+    bool needLock;
+
+    // Reset per-scan statistics
+    stats->num_pages = 0;
+    stats->num_index_tuples = 0;
+    stats->pages_deleted = 0;
+    stats->pages_free = 0;
+
+    // Initialize vacuum state
+    vstate.info = info;
+    vstate.stats = stats;
+    vstate.callback = callback;
+    vstate.callback_state = callback_state;
+    vstate.cycleid = cycleid;
+
+    // Create temporary memory context for page deletion
+    vstate.pagedelcontext = AllocSetContextCreate(CurrentMemoryContext,
+                                                 "_bt_pagedel",
+                                                 ALLOCSET_DEFAULT_SIZES);
+
+    // Initialize FSM optimization
+    vstate.bufsize = 0;
+    vstate.maxbufsize = 0;
+    vstate.pendingpages = NULL;
+    vstate.npendingpages = 0;
+    _bt_pendingfsm_init(rel, &vstate, (callback == NULL));
+
+    needLock = !RELATION_IS_LOCAL(rel);
+    scanblkno = BTREE_METAPAGE + 1;
+
+    // Main scan loop - process all pages except metapage
+    for (;;) {
+        // Get current relation length with locking if needed
+        if (needLock)
+            LockRelationForExtension(rel, ExclusiveLock);
+        num_pages = RelationGetNumberOfBlocks(rel);
+        if (needLock)
+            UnlockRelationForExtension(rel, ExclusiveLock);
+
+        if (info->report_progress)
+            pgstat_progress_update_param(PROGRESS_SCAN_BLOCKS_TOTAL, num_pages);
+
+        // Exit if we've scanned all pages
+        if (scanblkno >= num_pages)
+            break;
+
+        // Process pages in current batch
+        for (; scanblkno < num_pages; scanblkno++) {
+            btvacuumpage(&vstate, scanblkno);
+            if (info->report_progress)
+                pgstat_progress_update_param(PROGRESS_SCAN_BLOCKS_DONE, scanblkno);
+        }
+    }
+
+    stats->num_pages = num_pages;
+
+    // Cleanup and finalize FSM operations
+    MemoryContextDelete(vstate.pagedelcontext);
+    _bt_pendingfsm_finalize(rel, &vstate);
+    if (stats->pages_free > 0)
+        IndexFreeSpaceMapVacuum(rel);
+}
+```

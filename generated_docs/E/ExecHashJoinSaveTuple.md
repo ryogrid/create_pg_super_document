@@ -37,3 +37,27 @@ This function is responsible for spilling tuples to disk when they cannot be pro
 - File format: 4-byte hash value followed by variable-length MinimalTuple data
 - Critical for handling hash joins that exceed available memory by spilling data to disk
 - The function is declared in nodeHashjoin.h and used across multiple hash join implementation files
+
+## Simplified Source
+
+```c
+void
+ExecHashJoinSaveTuple(MinimalTuple tuple, uint32 hashvalue,
+                     BufFile **fileptr, HashJoinTable hashtable)
+{
+    BufFile *file = *fileptr;
+
+    // Create batch file lazily on first tuple write
+    if (file == NULL)
+    {
+        MemoryContext oldctx = MemoryContextSwitchTo(hashtable->spillCxt);
+        file = BufFileCreateTemp(false);
+        *fileptr = file;
+        MemoryContextSwitchTo(oldctx);
+    }
+
+    // Write hash value followed by tuple data
+    BufFileWrite(file, &hashvalue, sizeof(uint32));
+    BufFileWrite(file, tuple, tuple->t_len);
+}
+```

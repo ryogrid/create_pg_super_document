@@ -71,3 +71,38 @@ If an invalid escape sequence is encountered (a backslash not followed by valid 
 - The function performs validation during length calculation, throwing errors for invalid escape sequences
 - Used as part of PostgreSQL's escape encoding scheme for bytea data types
 - The function is referenced in the enclist array alongside esc_enc_len, esc_encode, and esc_decode
+
+## Simplified Source
+
+```c
+static uint64 esc_dec_len(const char *src, size_t srclen) {
+    const char *end = src + srclen;
+    uint64 decoded_length = 0;
+
+    while (src < end) {
+        if (src[0] != '\\') {
+            // Regular character - advance one position
+            src++;
+        } else {
+            // Check for octal escape sequence: \ddd (where d is 0-7)
+            if (src + 3 < end &&
+                (src[1] >= '0' && src[1] <= '3') &&
+                (src[2] >= '0' && src[2] <= '7') &&
+                (src[3] >= '0' && src[3] <= '7')) {
+                // Valid octal sequence - advance 4 positions
+                src += 4;
+            } else if (src + 1 < end && src[1] == '\\') {
+                // Double backslash represents single backslash
+                src += 2;
+            } else {
+                // Invalid escape sequence
+                ereport(ERROR, "invalid escape sequence in bytea");
+            }
+        }
+
+        decoded_length++;  // Each valid sequence produces one byte
+    }
+
+    return decoded_length;
+}
+```

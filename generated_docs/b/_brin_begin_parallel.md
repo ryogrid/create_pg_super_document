@@ -51,3 +51,115 @@ The function creates shared memory segments for coordinating work distribution, 
 - Sets up condition variables and spinlocks for worker coordination
 - The function is part of PostgreSQL's parallel index building infrastructure
 - If DISABLE_LEADER_PARTICIPATION is defined, the leader doesn't participate in scanning
+
+## Simplified Source
+```c
+static void
+_brin_begin_parallel(BrinBuildState *buildstate, Relation heap, Relation index,
+                     bool isconcurrent, int request)
+{
+    ParallelContext *pcxt;
+    int     scantuplesortstates;
+    Snapshot snapshot;
+    Size    estbrinshared, estsort;
+    BrinShared *brinshared;
+    Sharedsort *sharedsort;
+    BrinLeader *brinleader = (BrinLeader *) palloc0(sizeof(BrinLeader));
+    bool    leaderparticipates = true;
+
+    // Enter parallel mode and create context
+    EnterParallelMode();
+    pcxt = CreateParallelContext("postgres", "_brin_parallel_build_main", request);
+
+    scantuplesortstates = leaderparticipates ? request + 1 : request;
+
+    // Set up appropriate snapshot for scanning
+    if (!isconcurrent)
+        snapshot = SnapshotAny;
+    else
+        snapshot = RegisterSnapshot(GetTransactionSnapshot());
+
+    // Estimate shared memory requirements
+    estbrinshared = _brin_parallel_estimate_shared(heap, snapshot);
+    shm_toc_estimate_chunk(&pcxt->estimator, estbrinshared);
+    estsort = tuplesort_estimate_shared(scantuplesortstates);
+    shm_toc_estimate_chunk(&pcxt->estimator, estsort);
+
+    // Estimate space for usage tracking and query text
+    shm_toc_estimate_keys(&pcxt->estimator, 2);
+    shm_toc_estimate_chunk(&pcxt->estimator, mul_size(sizeof(WalUsage), pcxt->nworkers));
+    shm_toc_estimate_chunk(&pcxt->estimator, mul_size(sizeof(BufferUsage), pcxt->nworkers));
+    shm_toc_estimate_keys(&pcxt->estimator, 2);
+
+    if (debug_query_string)
+    {
+        shm_toc_estimate_chunk(&pcxt->estimator, strlen(debug_query_string) + 1);
+        shm_toc_estimate_keys(&pcxt->estimator, 1);
+    }
+
+    // Initialize DSM - fall back to serial if it fails
+    InitializeParallelDSM(pcxt);
+    if (pcxt->seg == NULL)
+    {
+        if (IsMVCCSnapshot(snapshot))
+            UnregisterSnapshot(snapshot);
+        DestroyParallelContext(pcxt);
+        ExitParallelMode();
+        return;
+    }
+
+    // Set up shared BRIN state
+    brinshared = (BrinShared *) shm_toc_allocate(pcxt->toc, estbrinshared);
+    brinshared->heaprelid = RelationGetRelid(heap);
+    brinshared->indexrelid = RelationGetRelid(index);
+    brinshared->isconcurrent = isconcurrent;
+    brinshared->scantuplesortstates = scantuplesortstates;
+    brinshared->pagesPerRange = buildstate->bs_pagesPerRange;
+    ConditionVariableInit(&brinshared->workersdonecv);
+    SpinLockInit(&brinshared->mutex);
+
+    // Initialize counters
+    brinshared->nparticipantsdone = 0;
+    brinshared->reltuples = 0.0;
+    brinshared->indtuples = 0.0;
+
+    // Set up parallel table scan and shared tuplesort
+    table_parallelscan_initialize(heap, ParallelTableScanFromBrinShared(brinshared), snapshot);
+    sharedsort = (Sharedsort *) shm_toc_allocate(pcxt->toc, estsort);
+    tuplesort_initialize_shared(sharedsort, scantuplesortstates, pcxt->seg);
+
+    // Insert shared objects into TOC
+    shm_toc_insert(pcxt->toc, PARALLEL_KEY_BRIN_SHARED, brinshared);
+    shm_toc_insert(pcxt->toc, PARALLEL_KEY_TUPLESORT, sharedsort);
+
+    // Allocate usage tracking space
+    WalUsage *walusage = shm_toc_allocate(pcxt->toc, mul_size(sizeof(WalUsage), pcxt->nworkers));
+    BufferUsage *bufferusage = shm_toc_allocate(pcxt->toc, mul_size(sizeof(BufferUsage), pcxt->nworkers));
+    shm_toc_insert(pcxt->toc, PARALLEL_KEY_WAL_USAGE, walusage);
+    shm_toc_insert(pcxt->toc, PARALLEL_KEY_BUFFER_USAGE, bufferusage);
+
+    // Launch workers and set up leader state
+    LaunchParallelWorkers(pcxt);
+    brinleader->pcxt = pcxt;
+    brinleader->nparticipanttuplesorts = pcxt->nworkers_launched + (leaderparticipates ? 1 : 0);
+    brinleader->brinshared = brinshared;
+    brinleader->sharedsort = sharedsort;
+    brinleader->snapshot = snapshot;
+    brinleader->walusage = walusage;
+    brinleader->bufferusage = bufferusage;
+
+    // Fall back to serial if no workers launched
+    if (pcxt->nworkers_launched == 0)
+    {
+        _brin_end_parallel(brinleader, NULL);
+        return;
+    }
+
+    // Save leader state and optionally participate in scanning
+    buildstate->bs_leader = brinleader;
+    if (leaderparticipates)
+        _brin_leader_participate_as_worker(buildstate, heap, index);
+
+    WaitForParallelWorkersToAttach(pcxt);
+}
+```

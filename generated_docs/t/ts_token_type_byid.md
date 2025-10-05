@@ -49,3 +49,26 @@ This function is typically called from SQL queries to inspect the token types su
 - Returns a composite type with columns for token ID, alias, and description
 - Requires a valid text search parser OID as input parameter
 - Part of PostgreSQL's full-text search infrastructure for parser introspection
+
+## Simplified Source
+
+```c
+Datum ts_token_type_byid(PG_FUNCTION_ARGS) {
+    FuncCallContext *funcctx;
+    Datum result;
+
+    // First call: initialize context and setup token type data
+    if (SRF_IS_FIRSTCALL()) {
+        funcctx = SRF_FIRSTCALL_INIT();
+        tt_setup_firstcall(funcctx, fcinfo, PG_GETARG_OID(0));
+    }
+
+    funcctx = SRF_PERCALL_SETUP();
+
+    // Process each call: return next token type or signal completion
+    if ((result = tt_process_call(funcctx)) != (Datum) 0)
+        SRF_RETURN_NEXT(funcctx, result);
+
+    SRF_RETURN_DONE(funcctx);
+}
+```

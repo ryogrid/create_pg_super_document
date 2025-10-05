@@ -48,3 +48,56 @@ The implementation follows PostgreSQL's standard SRF pattern with initialization
 - Located in src/backend/utils/adt/int8.c:1383-1458
 - Supports both 2-parameter (start, finish) and 3-parameter (start, finish, step) variants
 - Part of PostgreSQL's comprehensive set-returning function family
+
+## Simplified Source
+
+```c
+Datum
+generate_series_step_int8(PG_FUNCTION_ARGS)
+{
+    FuncCallContext *funcctx;
+    generate_series_fctx *fctx;
+    int64 result;
+
+    // First call: initialize the series
+    if (SRF_IS_FIRSTCALL())
+    {
+        int64 start = PG_GETARG_INT64(0);
+        int64 finish = PG_GETARG_INT64(1);
+        int64 step = (PG_NARGS() == 3) ? PG_GETARG_INT64(2) : 1;
+
+        // Validate step is not zero
+        if (step == 0)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("step size cannot equal zero")));
+
+        // Initialize function context
+        funcctx = SRF_FIRSTCALL_INIT();
+
+        // Allocate state structure
+        fctx = (generate_series_fctx *) palloc(sizeof(generate_series_fctx));
+        fctx->current = start;
+        fctx->finish = finish;
+        fctx->step = step;
+        funcctx->user_fctx = fctx;
+    }
+
+    // Per-call setup
+    funcctx = SRF_PERCALL_SETUP();
+    fctx = funcctx->user_fctx;
+    result = fctx->current;
+
+    // Check if we should return more values
+    if ((fctx->step > 0 && fctx->current <= fctx->finish) ||
+        (fctx->step < 0 && fctx->current >= fctx->finish))
+    {
+        // Advance current value with overflow protection
+        if (pg_add_s64_overflow(fctx->current, fctx->step, &fctx->current))
+            fctx->step = 0;  // Stop on overflow
+
+        SRF_RETURN_NEXT(funcctx, Int64GetDatum(result));
+    }
+    else
+        SRF_RETURN_DONE(funcctx);
+}
+```

@@ -38,3 +38,28 @@ This function implements the SQL COS function for PostgreSQL, computing the cosi
 - Includes detailed comments about platform-specific error handling considerations
 - The periodic nature of cosine allows it to work with most finite inputs
 - Located in src/backend/utils/adt/float.c:1862-1902
+
+## Simplified Source
+
+```c
+Datum dcos(PG_FUNCTION_ARGS) {
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+
+    // Handle NaN input per POSIX spec
+    if (isnan(arg1))
+        PG_RETURN_FLOAT8(get_float8_nan());
+
+    // Check for infinite input (domain error per POSIX)
+    errno = 0;
+    float8 result = cos(arg1);
+    if (errno != 0 || isinf(arg1))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("input is out of range")));
+
+    // Check for overflow
+    if (unlikely(isinf(result)))
+        float_overflow_error();
+
+    PG_RETURN_FLOAT8(result);
+}
+```

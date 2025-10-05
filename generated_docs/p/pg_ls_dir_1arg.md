@@ -30,3 +30,13 @@ This function directly delegates to pg_ls_dir by passing through the entire fcin
 - The wrapper pattern allows the same C function to support both single-argument and multi-argument variants
 - Provides backward compatibility for SQL code that only needs basic directory listing without optional parameters
 - The function passes through all function call information unchanged, allowing pg_ls_dir to determine the actual argument count
+
+## Simplified Source
+
+```c
+Datum pg_ls_dir_1arg(PG_FUNCTION_ARGS) {
+    // Simple pass-through wrapper to maintain function signature consistency
+    // Required for PostgreSQL's sanity checks on built-in functions
+    return pg_ls_dir(fcinfo);
+}
+```

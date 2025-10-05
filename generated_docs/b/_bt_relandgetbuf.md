@@ -45,3 +45,28 @@ The function handles the special case where obuf is InvalidBuffer, in which case
 - Primarily serves as a notational convenience rather than performance optimization
 - Returns a locked and pinned buffer ready for safe page access
 - Located in src/backend/access/nbtree/nbtpage.c:1003-1022
+
+## Simplified Source
+
+```c
+Buffer _bt_relandgetbuf(Relation rel, Buffer obuf, BlockNumber blkno, int access) {
+    Buffer buf;
+
+    Assert(BlockNumberIsValid(blkno));
+
+    // Release old buffer if valid
+    if (BufferIsValid(obuf))
+        _bt_unlockbuf(rel, obuf);
+
+    // Get new buffer (handles same-page optimization internally)
+    buf = ReleaseAndReadBuffer(obuf, rel, blkno);
+
+    // Lock new buffer with requested access mode
+    _bt_lockbuf(rel, buf, access);
+
+    // Validate the page structure
+    _bt_checkpage(rel, buf);
+
+    return buf;
+}
+```

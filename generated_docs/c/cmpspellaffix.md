@@ -36,3 +36,13 @@ The function compares the  field within the  union of two SPELL structures. It u
   - Positive value if s1's flag > s2's flag
 - Used specifically during the dictionary compilation phase before the SPELL structures are converted from using string flags to integer affix indices
 - Part of PostgreSQL's Ispell dictionary implementation for full-text search functionality
+
+## Simplified Source
+
+```c
+static int cmpspellaffix(const void *s1, const void *s2) {
+    // Compare SPELL structures by their affix flag strings
+    return strcmp((*(SPELL *const *) s1)->p.flag,
+                  (*(SPELL *const *) s2)->p.flag);
+}
+```

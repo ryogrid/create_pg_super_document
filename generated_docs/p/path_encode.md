@@ -37,3 +37,50 @@ The  function converts an array of Point structures into a properly formatted st
 
 ## Notes and Other Information
 This is a static utility function used internally by various geometric output functions in PostgreSQL. The function handles three distinct formatting styles for paths depending on whether they represent closed polygons, open line segments, or raw coordinate sequences. The resulting string follows PostgreSQL's standard geometric data type output format.
+
+## Simplified Source
+
+```c
+static char *path_encode(enum path_delim path_delim, int npts, Point *pt) {
+    StringInfoData str;
+    int i;
+
+    initStringInfo(&str);
+
+    // Add opening delimiter based on path type
+    switch (path_delim) {
+        case PATH_CLOSED:
+            appendStringInfoChar(&str, LDELIM);    // '('
+            break;
+        case PATH_OPEN:
+            appendStringInfoChar(&str, LDELIM_EP); // '['
+            break;
+        case PATH_NONE:
+            break;
+    }
+
+    // Encode each point as (x,y) with comma separators
+    for (i = 0; i < npts; i++) {
+        if (i > 0)
+            appendStringInfoChar(&str, DELIM);     // ','
+        appendStringInfoChar(&str, LDELIM);        // '('
+        pair_encode(pt->x, pt->y, &str);
+        appendStringInfoChar(&str, RDELIM);        // ')'
+        pt++;
+    }
+
+    // Add closing delimiter based on path type
+    switch (path_delim) {
+        case PATH_CLOSED:
+            appendStringInfoChar(&str, RDELIM);    // ')'
+            break;
+        case PATH_OPEN:
+            appendStringInfoChar(&str, RDELIM_EP); // ']'
+            break;
+        case PATH_NONE:
+            break;
+    }
+
+    return str.data;
+}
+```

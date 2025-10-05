@@ -37,3 +37,21 @@ This function completes the lifecycle of temporary page processing by copying al
 - The complete page content is copied, including both data and special space
 - This is a destructive operation that completely overwrites the original page content
 - The function is located in src/backend/storage/page/bufpage.c:424-436
+
+## Simplified Source
+
+```c
+void PageRestoreTempPage(Page tempPage, Page oldPage)
+{
+    Size pageSize;
+
+    // Get the size of the temporary page
+    pageSize = PageGetPageSize(tempPage);
+
+    // Copy all content from temporary page to original page
+    memcpy((char *) oldPage, (char *) tempPage, pageSize);
+
+    // Free the temporary page memory
+    pfree(tempPage);
+}
+```

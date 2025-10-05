@@ -39,3 +39,17 @@ This estimation is used by the parallel context setup code to allocate an approp
 - [Snapshot](../S/Snapshot.md) type affects the parallel scan estimation (MVCC vs SnapshotAny)
 - Critical for preventing shared memory allocation failures during parallel setup
 - Memory estimation must be accurate to avoid runtime allocation errors
+
+## Simplified Source
+
+```c
+static Size
+_bt_parallel_estimate_shared(Relation heap, Snapshot snapshot)
+{
+    // Calculate total shared memory needed:
+    // - BTShared structure (aligned)
+    // - Parallel table scan state
+    return add_size(BUFFERALIGN(sizeof(BTShared)),
+                    table_parallelscan_estimate(heap, snapshot));
+}
+```

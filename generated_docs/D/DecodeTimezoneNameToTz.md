@@ -31,3 +31,22 @@ This function serves as a simple wrapper around DecodeTimezoneName that ensures 
 - It provides a unified interface for timezone processing that always returns a pg_tz pointer
 - The function is declared in src/include/utils/datetime.h with TZNAME_ZONE constant
 - Error handling is delegated to the underlying DecodeTimezoneName function
+
+## Simplified Source
+
+```c
+pg_tz *DecodeTimezoneNameToTz(const char *tzname) {
+    pg_tz *result;
+    int offset;
+
+    // Use DecodeTimezoneName to determine timezone type and get appropriate data
+    if (DecodeTimezoneName(tzname, &offset, &result) == TZNAME_FIXED_OFFSET) {
+        // For fixed-offset abbreviations, create a pg_tz descriptor
+        // Note: flip sign to match POSIX convention
+        result = pg_tzset_offset(-offset);
+    }
+    // For other cases (TZNAME_DYNTZ, TZNAME_ZONE), result is already set
+
+    return result;
+}
+```

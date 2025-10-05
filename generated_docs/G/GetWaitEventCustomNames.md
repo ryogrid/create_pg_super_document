@@ -45,3 +45,42 @@ This function retrieves all currently defined custom wait event names that belon
 - The returned array contains duplicated strings (pstrdup) for memory safety
 - Function signature indicates it returns char** (array of string pointers)
 - Located at src/backend/utils/activity/wait_event.c:307-349
+
+## Simplified Source
+
+```c
+char **
+GetWaitEventCustomNames(uint32 classId, int *nwaitevents)
+{
+    char **waiteventnames;
+    WaitEventCustomEntryByName *hentry;
+    HASH_SEQ_STATUS hash_seq;
+    int index;
+    int els;
+
+    LWLockAcquire(WaitEventCustomLock, LW_SHARED);
+
+    // Count total entries and allocate array
+    els = hash_get_num_entries(WaitEventCustomHashByName);
+    waiteventnames = palloc(els * sizeof(char *));
+
+    // Scan hash table and collect names for matching class
+    hash_seq_init(&hash_seq, WaitEventCustomHashByName);
+    index = 0;
+
+    while ((hentry = hash_seq_search(&hash_seq)) != NULL) {
+        // Skip events not in our class
+        if ((hentry->wait_event_info & WAIT_EVENT_CLASS_MASK) != classId)
+            continue;
+
+        // Copy event name to result array
+        waiteventnames[index] = pstrdup(hentry->wait_event_name);
+        index++;
+    }
+
+    LWLockRelease(WaitEventCustomLock);
+
+    *nwaitevents = index;
+    return waiteventnames;
+}
+```

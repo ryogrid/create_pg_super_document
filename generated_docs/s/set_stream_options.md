@@ -48,3 +48,50 @@ Key configuration steps include:
 - Always sets twophase to false in the current implementation
 - Uses subscription settings (MySubscription) to determine binary transfer mode, publications, and origin
 - Essential for proper logical replication worker initialization and protocol negotiation
+
+## Simplified Source
+
+```c
+void
+set_stream_options(WalRcvStreamOptions *options,
+                   char *slotname,
+                   XLogRecPtr *origin_startpos)
+{
+    int server_version;
+
+    // Set basic logical replication parameters
+    options->logical = true;
+    options->startpoint = *origin_startpos;
+    options->slotname = slotname;
+
+    // Determine protocol version based on server capabilities
+    server_version = walrcv_server_version(LogRepWorkerWalRcvConn);
+    options->proto.logical.proto_version =
+        server_version >= 160000 ? LOGICALREP_PROTO_STREAM_PARALLEL_VERSION_NUM :
+        server_version >= 150000 ? LOGICALREP_PROTO_TWOPHASE_VERSION_NUM :
+        server_version >= 140000 ? LOGICALREP_PROTO_STREAM_VERSION_NUM :
+        LOGICALREP_PROTO_VERSION_NUM;
+
+    // Set subscription-specific options
+    options->proto.logical.publication_names = MySubscription->publications;
+    options->proto.logical.binary = MySubscription->binary;
+
+    // Configure streaming mode based on server version and subscription settings
+    if (server_version >= 160000 &&
+        MySubscription->stream == LOGICALREP_STREAM_PARALLEL) {
+        options->proto.logical.streaming_str = "parallel";
+        MyLogicalRepWorker->parallel_apply = true;
+    } else if (server_version >= 140000 &&
+               MySubscription->stream != LOGICALREP_STREAM_OFF) {
+        options->proto.logical.streaming_str = "on";
+        MyLogicalRepWorker->parallel_apply = false;
+    } else {
+        options->proto.logical.streaming_str = NULL;
+        MyLogicalRepWorker->parallel_apply = false;
+    }
+
+    // Set remaining options
+    options->proto.logical.twophase = false;
+    options->proto.logical.origin = pstrdup(MySubscription->origin);
+}
+```

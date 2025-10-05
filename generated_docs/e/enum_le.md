@@ -38,3 +38,15 @@ The function follows PostgreSQL's standard function calling convention using PG_
 - Performance relies on enum_cmp_internal's optimization strategies
 - Returns true if left operand has lower or equal sort order compared to right operand in the enum definition
 - Handles both strict inequality (less than) and equality cases
+
+## Simplified Source
+
+```c
+Datum enum_le(PG_FUNCTION_ARGS) {
+    Oid left_enum = PG_GETARG_OID(0);
+    Oid right_enum = PG_GETARG_OID(1);
+
+    // Use internal comparison function and check if result is <= 0
+    PG_RETURN_BOOL(enum_cmp_internal(left_enum, right_enum, fcinfo) <= 0);
+}
+```

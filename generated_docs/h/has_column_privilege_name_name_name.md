@@ -39,3 +39,33 @@ The function is designed to be called from SQL as part of PostgreSQL's privilege
 - All four parameters are required and must be valid string identifiers
 - Uses PostgreSQL's function call interface (PG_FUNCTION_ARGS)
 - Located in src/backend/utils/adt/acl.c:2578-2606
+
+## Simplified Source
+
+```c
+Datum
+has_column_privilege_name_name_name(PG_FUNCTION_ARGS)
+{
+    Name rolename = PG_GETARG_NAME(0);
+    text *tablename = PG_GETARG_TEXT_PP(1);
+    text *column = PG_GETARG_TEXT_PP(2);
+    text *priv_type_text = PG_GETARG_TEXT_PP(3);
+    Oid roleid;
+    Oid tableoid;
+    AttrNumber colattnum;
+    AclMode mode;
+    int privresult;
+
+    // Convert string identifiers to OIDs
+    roleid = get_role_oid_or_public(NameStr(*rolename));
+    tableoid = convert_table_name(tablename);
+    colattnum = convert_column_name(tableoid, column);
+    mode = convert_column_priv_string(priv_type_text);
+
+    // Perform privilege check
+    privresult = column_privilege_check(tableoid, colattnum, roleid, mode);
+    if (privresult < 0)
+        PG_RETURN_NULL();
+    PG_RETURN_BOOL(privresult);
+}
+```

@@ -44,3 +44,25 @@ This function handles the transmission of JSONB data in binary format over Postg
 - Future versions could implement more efficient binary representations
 - Located in 
 - Essential for client-server communication when using binary protocol mode
+
+## Simplified Source
+
+```c
+Datum jsonb_send(PG_FUNCTION_ARGS) {
+    Jsonb *jb = PG_GETARG_JSONB_P(0);
+    StringInfoData buf;
+    StringInfo jtext = makeStringInfo();
+    int version = 1;
+
+    // Convert JSONB to text representation
+    (void) JsonbToCString(jtext, &jb->root, VARSIZE(jb));
+
+    // Build binary message with version + text
+    pq_begintypsend(&buf);
+    pq_sendint8(&buf, version);              // Version number (1)
+    pq_sendtext(&buf, jtext->data, jtext->len); // JSON text
+    destroyStringInfo(jtext);
+
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

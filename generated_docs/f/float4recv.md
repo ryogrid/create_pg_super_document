@@ -33,3 +33,17 @@ The function uses PostgreSQL's StringInfo buffer system to read the binary data 
 - Used in binary protocol communications between client and server
 - Complementary function to float4send for round-trip binary serialization
 - Registered in PostgreSQL's system catalogs as the binary input function for float4 type
+
+## Simplified Source
+
+```c
+Datum
+float4recv(PG_FUNCTION_ARGS)
+{
+    // Get the binary buffer from input
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+
+    // Extract float4 from binary format and return
+    PG_RETURN_FLOAT4(pq_getmsgfloat4(buf));
+}
+```

@@ -39,3 +39,25 @@ This initialization is essential for the SP-GiST geometric indexing algorithm, w
 - Used as the initial traversal value in SP-GiST consistency functions to represent the root node's coverage
 - The infinity values ensure that any real geometric coordinates will fall within the initial boundaries
 - Part of the geometric SP-GiST infrastructure that enables efficient spatial querying by progressive constraint refinement
+
+## Simplified Source
+
+```c
+static RectBox *initRectBox(void) {
+    RectBox *rect_box = (RectBox *) palloc(sizeof(RectBox));
+    float8 infinity = get_float8_infinity();
+
+    // Initialize all boundaries to cover entire 4D space
+    rect_box->range_box_x.left.low = -infinity;
+    rect_box->range_box_x.left.high = infinity;
+    rect_box->range_box_x.right.low = -infinity;
+    rect_box->range_box_x.right.high = infinity;
+
+    rect_box->range_box_y.left.low = -infinity;
+    rect_box->range_box_y.left.high = infinity;
+    rect_box->range_box_y.right.low = -infinity;
+    rect_box->range_box_y.right.high = infinity;
+
+    return rect_box;
+}
+```

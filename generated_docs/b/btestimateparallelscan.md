@@ -33,3 +33,13 @@ The calculation includes the base size of BTParallelScanDescData plus additional
 - The `norderbys` parameter is accepted but not currently used in the size calculation
 - This is part of PostgreSQL's parallel query infrastructure for btree indexes
 - The returned size is used by the parallel scan coordinator to allocate shared memory
+
+## Simplified Source
+
+```c
+Size btestimateparallelscan(int nkeys, int norderbys) {
+    // Calculate size for parallel scan descriptor
+    // Pessimistically assume all keys need array element storage
+    return offsetof(BTParallelScanDescData, btps_arrElems) + sizeof(int) * nkeys;
+}
+```

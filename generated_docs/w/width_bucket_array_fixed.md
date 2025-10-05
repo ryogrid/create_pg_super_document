@@ -49,3 +49,47 @@ The binary search maintains the invariant that all values in [0, left) are less 
 - Handles collation-sensitive comparisons when applicable
 - Static function, only accessible within the same compilation unit
 - Returns bucket number ranging from 0 to N (where N is the number of thresholds)
+
+## Simplified Source
+
+```c
+static int
+width_bucket_array_fixed(Datum operand,
+                        ArrayType *thresholds,
+                        Oid collation,
+                        TypeCacheEntry *typentry)
+{
+    LOCAL_FCINFO(locfcinfo, 2);
+    char *thresholds_data = (char *) ARR_DATA_PTR(thresholds);
+    int typlen = typentry->typlen;
+    bool typbyval = typentry->typbyval;
+
+    // Set up function call info for comparison
+    InitFunctionCallInfoData(*locfcinfo, &typentry->cmp_proc_finfo, 2,
+                           collation, NULL, NULL);
+
+    // Binary search through fixed-width array elements
+    int left = 0;
+    int right = ArrayGetNItems(ARR_NDIM(thresholds), ARR_DIMS(thresholds));
+
+    while (left < right) {
+        int mid = (left + right) / 2;
+        char *ptr = thresholds_data + mid * typlen;
+
+        // Compare operand with threshold at mid position
+        locfcinfo->args[0].value = operand;
+        locfcinfo->args[0].isnull = false;
+        locfcinfo->args[1].value = fetch_att(ptr, typbyval, typlen);
+        locfcinfo->args[1].isnull = false;
+
+        int32 cmpresult = DatumGetInt32(FunctionCallInvoke(locfcinfo));
+
+        if (cmpresult < 0)
+            right = mid;
+        else
+            left = mid + 1;
+    }
+
+    return left;
+}
+```

@@ -47,3 +47,40 @@ Like jsonb_exists, this function only performs top-level matching without recurs
 - For arrays: only matches string elements, not other data types
 - Corresponds to the '?|' operator in PostgreSQL JSONB operations
 - More efficient than checking each key individually when testing multiple possibilities
+
+## Simplified Source
+
+```c
+Datum jsonb_exists_any(PG_FUNCTION_ARGS) {
+    Jsonb *jb = PG_GETARG_JSONB_P(0);
+    ArrayType *keys = PG_GETARG_ARRAYTYPE_P(1);
+    int i;
+    Datum *key_datums;
+    bool *key_nulls;
+    int elem_count;
+
+    // Extract array elements
+    deconstruct_array_builtin(keys, TEXTOID, &key_datums, &key_nulls, &elem_count);
+
+    // Check each key/value for existence
+    for (i = 0; i < elem_count; i++) {
+        JsonbValue strVal;
+
+        if (key_nulls[i])
+            continue;  // Skip null elements
+
+        // Set up search value
+        strVal.type = jbvString;
+        strVal.val.string.val = VARDATA_ANY(key_datums[i]);
+        strVal.val.string.len = VARSIZE_ANY_EXHDR(key_datums[i]);
+
+        // Return true immediately if found (short-circuit)
+        if (findJsonbValueFromContainer(&jb->root,
+                                        JB_FOBJECT | JB_FARRAY,
+                                        &strVal) != NULL)
+            PG_RETURN_BOOL(true);
+    }
+
+    PG_RETURN_BOOL(false);
+}
+```

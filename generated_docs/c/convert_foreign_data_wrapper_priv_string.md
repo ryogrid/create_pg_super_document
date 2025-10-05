@@ -42,3 +42,21 @@ The function leverages the generic convert_any_priv_string utility function to p
 - Foreign data wrappers only support USAGE privilege, unlike other database objects that may support multiple privilege types
 - The function uses the established pattern of delegating to convert_any_priv_string for consistent privilege string parsing across different object types
 - Error handling for invalid privilege strings is handled by the underlying convert_any_priv_string function
+
+## Simplified Source
+
+```c
+static AclMode
+convert_foreign_data_wrapper_priv_string(text *priv_type_text)
+{
+    // Define privilege mapping for foreign data wrappers
+    static const priv_map foreign_data_wrapper_priv_map[] = {
+        {"USAGE", ACL_USAGE},
+        {"USAGE WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_USAGE)},
+        {NULL, 0}
+    };
+
+    // Convert privilege string using the mapping table
+    return convert_any_priv_string(priv_type_text, foreign_data_wrapper_priv_map);
+}
+```

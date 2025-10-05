@@ -35,3 +35,29 @@ The function follows the ECPG (Embedded SQL in C) pattern of returning 0 on succ
 - The overflow check is conditionally compiled based on SIZEOF_LONG vs SIZEOF_INT
 - Part of the ECPG pgtypes library for embedded SQL applications
 - Located in src/interfaces/ecpg/pgtypeslib/numeric.c:1494-1517
+
+## Simplified Source
+
+```c
+int PGTYPESnumeric_to_int(numeric *nv, int *ip)
+{
+    long l;
+    int i;
+
+    // First convert to long
+    if ((i = PGTYPESnumeric_to_long(nv, &l)) != 0)
+        return i;
+
+    // Check for overflow on platforms where long > int
+#if SIZEOF_LONG > SIZEOF_INT
+    if (l < INT_MIN || l > INT_MAX) {
+        errno = PGTYPES_NUM_OVERFLOW;
+        return -1;
+    }
+#endif
+
+    // Cast to int and store result
+    *ip = (int) l;
+    return 0;
+}
+```

@@ -41,3 +41,33 @@ This function calculates the shortest distance from a point to an infinite line 
 - The result parameter can be NULL if only the distance value is needed
 - Returns both the closest point (via result parameter) and the distance (as return value)
 - Fundamental building block for point-to-line distance calculations in PostgreSQL geometric operations
+
+## Simplified Source
+
+```c
+static float8
+line_closept_point(Point *result, LINE *line, Point *point)
+{
+    Point closept;
+    LINE tmp;
+
+    // Create perpendicular line through the point using inverse slope
+    line_construct(&tmp, point, line_invsl(line));
+
+    // Find intersection of perpendicular with original line (closest point)
+    if (!line_interpt_line(&closept, &tmp, line))
+    {
+        // Handle edge cases (NaN coordinates, roundoff issues)
+        if (result != NULL)
+            *result = *point;
+        return get_float8_nan();
+    }
+
+    // Store closest point if requested
+    if (result != NULL)
+        *result = closept;
+
+    // Return distance between original point and closest point on line
+    return point_dt(&closept, point);
+}
+```

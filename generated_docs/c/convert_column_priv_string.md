@@ -38,3 +38,25 @@ This static function parses a privilege string for column-level permissions and 
 - Column privileges are more restrictive than table privileges - only SELECT, INSERT, UPDATE, and REFERENCES are supported
 - The function leverages the generic convert_any_priv_string utility function for the actual string parsing and conversion logic
 - Located in src/backend/utils/adt/acl.c:2956-2989
+
+## Simplified Source
+
+```c
+static AclMode convert_column_priv_string(text *priv_type_text) {
+    // Define mapping of privilege strings to ACL modes
+    static const priv_map column_priv_map[] = {
+        {"SELECT", ACL_SELECT},
+        {"SELECT WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_SELECT)},
+        {"INSERT", ACL_INSERT},
+        {"INSERT WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_INSERT)},
+        {"UPDATE", ACL_UPDATE},
+        {"UPDATE WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_UPDATE)},
+        {"REFERENCES", ACL_REFERENCES},
+        {"REFERENCES WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_REFERENCES)},
+        {NULL, 0}
+    };
+
+    // Use generic conversion function with column privilege mapping
+    return convert_any_priv_string(priv_type_text, column_priv_map);
+}
+```

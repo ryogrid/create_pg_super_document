@@ -31,3 +31,13 @@ Unlike physical slots which only need to update restart_lsn, logical slots requi
 - The NULL parameter passed to LogicalSlotAdvanceAndCheckSnapState indicates no additional snapshot state checking is required
 - Logical slots have more complex advancement requirements than physical slots due to the need to maintain logical decoding consistency
 - The function returns the actual LSN position reached after advancement
+
+## Simplified Source
+
+```c
+static XLogRecPtr pg_logical_replication_slot_advance(XLogRecPtr moveto) {
+    // Delegate to the logical slot advancement function
+    // NULL parameter indicates no additional snapshot state checking needed
+    return LogicalSlotAdvanceAndCheckSnapState(moveto, NULL);
+}
+```

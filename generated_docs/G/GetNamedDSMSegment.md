@@ -48,3 +48,62 @@ The function includes comprehensive error checking for invalid names, empty name
 - The function is designed to be safe for concurrent access from multiple backends
 - Critical component of PostgreSQL's infrastructure for shared data structures like background worker communication and extension-specific shared state
 - Error handling includes specific messages for common failure modes like empty names, oversized names, and size mismatches
+
+## Simplified Source
+```c
+void *GetNamedDSMSegment(const char *name, size_t size,
+                         void (*init_callback)(void *ptr), bool *found) {
+    DSMRegistryEntry *entry;
+    MemoryContext oldcontext;
+    void *ret;
+
+    // Validate input parameters
+    Assert(found);
+    if (!name || *name == '\0')
+        ereport(ERROR, (errmsg("DSM segment name cannot be empty")));
+    if (strlen(name) >= offsetof(DSMRegistryEntry, handle))
+        ereport(ERROR, (errmsg("DSM segment name too long")));
+    if (size == 0)
+        ereport(ERROR, (errmsg("DSM segment size must be nonzero")));
+
+    // Switch to persistent memory context
+    oldcontext = MemoryContextSwitchTo(TopMemoryContext);
+
+    // Initialize registry and find/create entry
+    init_dsm_registry();
+    entry = dshash_find_or_insert(dsm_registry_table, name, found);
+
+    if (!(*found)) {
+        // Create new segment
+        dsm_segment *seg = dsm_create(size, 0);
+        dsm_pin_segment(seg);
+        dsm_pin_mapping(seg);
+        entry->handle = dsm_segment_handle(seg);
+        entry->size = size;
+        ret = dsm_segment_address(seg);
+
+        // Initialize if callback provided
+        if (init_callback)
+            (*init_callback)(ret);
+    } else if (entry->size != size) {
+        // Size mismatch error
+        ereport(ERROR, (errmsg("requested DSM segment size does not match "
+                               "size of existing segment")));
+    } else {
+        // Attach to existing segment
+        dsm_segment *seg = dsm_find_mapping(entry->handle);
+        if (seg == NULL) {
+            seg = dsm_attach(entry->handle);
+            if (seg == NULL)
+                elog(ERROR, "could not map dynamic shared memory segment");
+            dsm_pin_mapping(seg);
+        }
+        ret = dsm_segment_address(seg);
+    }
+
+    // Clean up and return
+    dshash_release_lock(dsm_registry_table, entry);
+    MemoryContextSwitchTo(oldcontext);
+    return ret;
+}
+```

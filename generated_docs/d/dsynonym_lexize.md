@@ -47,3 +47,43 @@ The function respects the case sensitivity setting established during dictionary
 - Returns a TSLexeme array with exactly one synonym entry plus a NULL terminator
 - Preserves prefix flags from the original synonym definition
 - Protects against Solaris bsearch bug by checking array length before searching
+
+## Simplified Source
+
+```c
+Datum
+dsynonym_lexize(PG_FUNCTION_ARGS)
+{
+    DictSyn *d = (DictSyn *) PG_GETARG_POINTER(0);
+    char *in = (char *) PG_GETARG_POINTER(1);
+    int32 len = PG_GETARG_INT32(2);
+    Syn key, *found;
+    TSLexeme *res;
+
+    // Handle empty input or empty dictionary
+    if (len <= 0 || d->len <= 0)
+        PG_RETURN_POINTER(NULL);
+
+    // Create search key with proper case handling
+    if (d->case_sensitive)
+        key.in = pnstrdup(in, len);
+    else
+        key.in = lowerstr_with_len(in, len);
+    key.out = NULL;
+
+    // Binary search for synonym match
+    found = (Syn *) bsearch(&key, d->syn, d->len, sizeof(Syn), compareSyn);
+    pfree(key.in);
+
+    if (!found)
+        PG_RETURN_POINTER(NULL);
+
+    // Return synonym as TSLexeme array
+    res = palloc0(sizeof(TSLexeme) * 2);
+    res[0].lexeme = pnstrdup(found->out, found->outlen);
+    res[0].flags = found->flags;
+    // res[1] is NULL-initialized by palloc0
+
+    PG_RETURN_POINTER(res);
+}
+```

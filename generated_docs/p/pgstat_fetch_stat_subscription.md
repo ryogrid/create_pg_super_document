@@ -29,3 +29,13 @@ The function returns a pointer to the statistics structure containing various co
 
 ## Notes and Other Information
 This function is primarily used by PostgreSQL's built-in statistics functions that are accessible via SQL queries, such as pg_stat_subscription views. The returned PgStat_StatSubEntry structure contains detailed metrics about subscription performance and health, including apply and sync error counts, last error timestamps, and other operational data. The function is designed to be lightweight and efficient since it may be called frequently during statistics queries.
+
+## Simplified Source
+
+```c
+PgStat_StatSubEntry *pgstat_fetch_stat_subscription(Oid subid) {
+    // Fetch and return the statistics entry for this subscription
+    return (PgStat_StatSubEntry *)
+        pgstat_fetch_entry(PGSTAT_KIND_SUBSCRIPTION, InvalidOid, subid);
+}
+```

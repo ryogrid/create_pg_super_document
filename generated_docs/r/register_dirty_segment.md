@@ -52,3 +52,40 @@ This function is critical for maintaining data durability and is called by vario
 - Uses IOCONTEXT_NORMAL for statistical counting when performing immediate fsyncs
 - Part of PostgreSQL's write-ahead logging and crash recovery mechanism
 - Handles error reporting for failed fsync operations with appropriate error contexts
+
+## Simplified Source
+
+```c
+static void register_dirty_segment(SMgrRelation reln, ForkNumber forknum, MdfdVec *seg)
+{
+    FileTag tag;
+
+    // Create file tag to identify the segment
+    INIT_MD_FILETAG(tag, reln->smgr_rlocator.locator, forknum, seg->mdfd_segno);
+
+    // Temp relations should never be fsync'd
+    Assert(!SmgrIsTemp(reln));
+
+    // Try to register sync request with the system
+    if (!RegisterSyncRequest(&tag, SYNC_REQUEST, false))
+    {
+        // Queue is full, perform immediate fsync as fallback
+        instr_time io_start;
+
+        ereport(DEBUG1,
+                (errmsg_internal("could not forward fsync request because request queue is full")));
+
+        io_start = pgstat_prepare_io_time(track_io_timing);
+
+        if (FileSync(seg->mdfd_vfd, WAIT_EVENT_DATA_FILE_SYNC) < 0)
+            ereport(data_sync_elevel(ERROR),
+                    (errcode_for_file_access(),
+                     errmsg("could not fsync file \"%s\": %m",
+                            FilePathName(seg->mdfd_vfd))));
+
+        // Track IO timing statistics
+        pgstat_count_io_op_time(IOOBJECT_RELATION, IOCONTEXT_NORMAL,
+                                IOOP_FSYNC, io_start, 1);
+    }
+}
+```

@@ -42,3 +42,50 @@ The function ensures proper initialization of all header fields including datum 
 - The fast path optimization avoids reconstruction when a valid cached representation exists
 - Works in conjunction with ER_get_flat_size to ensure proper memory allocation
 - Part of PostgreSQL's expanded object system for efficient serialization of complex data types
+
+## Simplified Source
+
+```c
+static void
+ER_flatten_into(ExpandedObjectHeader *eohptr, void *result, Size allocated_size)
+{
+    ExpandedRecordHeader *erh = (ExpandedRecordHeader *) eohptr;
+    HeapTupleHeader tuphdr = (HeapTupleHeader) result;
+    TupleDesc tupdesc;
+
+    Assert(erh->er_magic == ER_MAGIC);
+
+    // Fast path: copy existing valid flattened value
+    if (erh->flags & ER_FLAG_FVALUE_VALID && !(erh->flags & ER_FLAG_HAVE_EXTERNAL)) {
+        Assert(allocated_size == erh->fvalue->t_len);
+        memcpy(tuphdr, erh->fvalue->t_data, allocated_size);
+        // Update header fields
+        HeapTupleHeaderSetDatumLength(tuphdr, allocated_size);
+        HeapTupleHeaderSetTypeId(tuphdr, erh->er_typeid);
+        HeapTupleHeaderSetTypMod(tuphdr, erh->er_typmod);
+        return;
+    }
+
+    // Full reconstruction path
+    Assert(allocated_size == erh->flat_size);
+
+    tupdesc = expanded_record_get_tupdesc(erh);
+
+    // Zero-fill all padding for consistent binary representation
+    memset(tuphdr, 0, allocated_size);
+
+    // Set up header fields
+    HeapTupleHeaderSetDatumLength(tuphdr, allocated_size);
+    HeapTupleHeaderSetTypeId(tuphdr, erh->er_typeid);
+    HeapTupleHeaderSetTypMod(tuphdr, erh->er_typmod);
+    ItemPointerSetInvalid(&(tuphdr->t_ctid));
+    HeapTupleHeaderSetNatts(tuphdr, tupdesc->natts);
+    tuphdr->t_hoff = erh->hoff;
+
+    // Fill data area from dvalues/dnulls
+    heap_fill_tuple(tupdesc, erh->dvalues, erh->dnulls,
+                   (char *) tuphdr + erh->hoff, erh->data_len,
+                   &tuphdr->t_infomask,
+                   (erh->hasnull ? tuphdr->t_bits : NULL));
+}
+```

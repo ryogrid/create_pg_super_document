@@ -34,3 +34,16 @@ This function implements the multiplication operator for mixed-precision floatin
 - This function is part of PostgreSQL's type system for handling mixed-precision arithmetic
 - The float4 argument is implicitly cast to float8 before multiplication to maintain precision
 - Returns a Datum containing the float8 result
+
+## Simplified Source
+
+```c
+Datum float84mul(PG_FUNCTION_ARGS) {
+    // Extract float8 and float4 arguments
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float4 arg2 = PG_GETARG_FLOAT4(1);
+
+    // Promote float4 to float8 and perform multiplication
+    PG_RETURN_FLOAT8(float8_mul(arg1, (float8) arg2));
+}
+```

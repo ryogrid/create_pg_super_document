@@ -37,3 +37,23 @@ The function follows PostgreSQL convention for SQL-callable functions by using P
 - Uses a copy of the input text for safe processing
 - Error handling follows PostgreSQL standards with appropriate error codes
 - The function name suggests it handles encoding conversion by name rather than by ID
+
+## Simplified Source
+
+```c
+Datum to_ascii_encname(PG_FUNCTION_ARGS)
+{
+    text *data = PG_GETARG_TEXT_P_COPY(0);
+    char *encname = NameStr(*PG_GETARG_NAME(1));
+
+    // Convert encoding name to encoding ID
+    int enc = pg_char_to_encoding(encname);
+
+    // Validate encoding name
+    if (enc < 0)
+        ereport(ERROR, "invalid encoding name");
+
+    // Perform ASCII conversion
+    PG_RETURN_TEXT_P(encode_to_ascii(data, enc));
+}
+```

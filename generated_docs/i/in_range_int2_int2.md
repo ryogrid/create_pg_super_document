@@ -37,3 +37,17 @@ The function uses PostgreSQL's function call interface, accepting arguments thro
 - This function exemplifies PostgreSQL's approach to type system completeness while avoiding code duplication
 - The conversion from int2 to int4 for the offset parameter ensures compatibility with the underlying range checking logic
 - Part of PostgreSQL's comprehensive set of range checking functions for different integer type combinations
+
+## Simplified Source
+
+```c
+Datum in_range_int2_int2(PG_FUNCTION_ARGS) {
+    // Delegate to int2_int4 function with int2 offset converted to int4
+    return DirectFunctionCall5(in_range_int2_int4,
+                             PG_GETARG_DATUM(0),  // val (int2)
+                             PG_GETARG_DATUM(1),  // base (int2)
+                             Int32GetDatum((int32) PG_GETARG_INT16(2)),  // offset converted to int4
+                             PG_GETARG_DATUM(3),  // sub flag
+                             PG_GETARG_DATUM(4)); // less flag
+}
+```

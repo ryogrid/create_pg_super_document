@@ -35,3 +35,21 @@ The `point_send` function is responsible for serializing Point data into Postgre
 - Used in binary protocol communications for better performance compared to text format
 - The binary format stores coordinates as IEEE 754 double precision floating point values
 - Uses PostgreSQL's standard binary serialization infrastructure for consistent wire protocol format
+
+## Simplified Source
+```c
+Datum point_send(PG_FUNCTION_ARGS) {
+    Point *pt = PG_GETARG_POINT_P(0);
+    StringInfoData buf;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Write x and y coordinates to buffer
+    pq_sendfloat8(&buf, pt->x);
+    pq_sendfloat8(&buf, pt->y);
+
+    // Finalize and return binary data
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

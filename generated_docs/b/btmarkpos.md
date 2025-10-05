@@ -37,3 +37,24 @@ The btmarkpos function implements a lightweight position marking mechanism for B
 - The actual copying of the full scan position occurs in _bt_steppage when crossing page boundaries
 - Sets markItemIndex to -1 when the current position is invalid
 - This approach optimizes for the common case where marks are moved frequently within the same index page
+
+## Simplified Source
+
+```c
+void btmarkpos(IndexScanDesc scan) {
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+
+    // Release any existing mark position pin
+    BTScanPosUnpinIfPinned(so->markPos);
+
+    // Save current position using lazy approach
+    if (BTScanPosIsValid(so->currPos)) {
+        // Just record the item index for now
+        so->markItemIndex = so->currPos.itemIndex;
+    } else {
+        // No valid current position to mark
+        BTScanPosInvalidate(so->markPos);
+        so->markItemIndex = -1;
+    }
+}
+```

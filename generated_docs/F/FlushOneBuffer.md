@@ -44,3 +44,29 @@ This function is designed for use cases where the caller has already established
 - The function serves as a convenience wrapper around FlushBuffer for single-buffer operations
 - Commonly used in WAL replay operations where specific buffers need to be flushed after modification
 - Uses standard I/O context parameters (relation object, normal context) for the flush operation
+
+## Simplified Source
+
+```c
+void FlushOneBuffer(Buffer buffer) {
+    // Validate buffer state - only shared buffers supported
+    Assert(!BufferIsLocal(buffer));
+    Assert(BufferIsPinned(buffer));
+
+    // Get buffer descriptor
+    BufferDesc *bufHdr = GetBufferDescriptor(buffer - 1);
+
+    // Verify caller holds content lock
+    Assert(LWLockHeldByMe(BufferDescriptorGetContentLock(bufHdr)));
+
+    // Flush the buffer to disk
+    FlushBuffer(bufHdr, NULL, IOOBJECT_RELATION, IOCONTEXT_NORMAL);
+}
+```
+
+**Key Logic:**
+- Simple wrapper for flushing a single pre-locked and pinned buffer
+- Validates buffer is shared (not local), pinned, and content-locked
+- Delegates actual I/O to FlushBuffer with standard parameters
+- Commonly used in WAL replay operations for specific buffer flushes
+- Requires caller to manage buffer pin and content lock state

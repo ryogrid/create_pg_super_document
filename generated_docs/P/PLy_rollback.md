@@ -35,3 +35,46 @@ PLy_rollback implements transaction rollback functionality for PL/Python by wrap
 - Maps PostgreSQL error codes to appropriate Python exceptions through PLy_spi_exceptions hash table
 - Falls back to SPIError for custom/unknown error codes
 - Returns Py_None on successful rollback, NULL on error (which triggers Python exception)
+
+## Simplified Source
+
+```c
+PyObject *
+PLy_rollback(PyObject *self, PyObject *args)
+{
+	MemoryContext oldcontext = CurrentMemoryContext;
+	PLyExecutionContext *exec_ctx = PLy_current_execution_context();
+
+	// Attempt to rollback the transaction
+	PG_TRY();
+	{
+		SPI_rollback();
+		exec_ctx->scratch_ctx = NULL;  // Reset after transaction end
+	}
+	PG_CATCH();
+	{
+		// Handle rollback errors
+		ErrorData *edata;
+		PLyExceptionEntry *entry;
+		PyObject *exc;
+
+		// Capture error details
+		MemoryContextSwitchTo(oldcontext);
+		edata = CopyErrorData();
+		FlushErrorState();
+		exec_ctx->scratch_ctx = NULL;
+
+		// Find appropriate Python exception
+		entry = hash_search(PLy_spi_exceptions, &(edata->sqlerrcode), HASH_FIND, NULL);
+		exc = entry ? entry->exc : PLy_exc_spi_error;
+
+		// Raise Python exception
+		PLy_spi_exception_set(exc, edata);
+		FreeErrorData(edata);
+		return NULL;
+	}
+	PG_END_TRY();
+
+	Py_RETURN_NONE;
+}
+```

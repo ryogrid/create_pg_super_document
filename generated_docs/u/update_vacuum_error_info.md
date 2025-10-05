@@ -43,3 +43,22 @@ This function is essential for maintaining accurate error context during vacuum 
 - Used extensively throughout vacuum operations to maintain accurate error context
 - Works in conjunction with `restore_vacuum_error_info` to provide save/restore functionality
 - The function is static and only used within the vacuumlazy.c module
+
+## Simplified Source
+
+```c
+static void update_vacuum_error_info(LVRelState *vacrel, LVSavedErrInfo *saved_vacrel,
+                                     int phase, BlockNumber blkno, OffsetNumber offnum) {
+    // Optionally save current error state for later restoration
+    if (saved_vacrel) {
+        saved_vacrel->offnum = vacrel->offnum;
+        saved_vacrel->blkno = vacrel->blkno;
+        saved_vacrel->phase = vacrel->phase;
+    }
+
+    // Update current error context with new information
+    vacrel->blkno = blkno;
+    vacrel->offnum = offnum;
+    vacrel->phase = phase;
+}
+```

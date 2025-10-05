@@ -66,3 +66,66 @@ The function includes comprehensive error handling and ensures proper cleanup of
 - Part of the core logical replication message processing pipeline
 - Handles early returns for skipped changes and streamed transactions
 - Maintains error callback context for better error reporting during replication
+
+## Simplified Source
+
+```c
+static void
+apply_handle_insert(StringInfo s)
+{
+    LogicalRepRelMapEntry *rel;
+    LogicalRepTupleData newtup;
+    LogicalRepRelId relid;
+    UserContext ucxt;
+    ApplyExecutionData *edata;
+    TupleTableSlot *remoteslot;
+    bool run_as_owner;
+
+    // Quick exits for skipped changes or streaming transactions
+    if (is_skipping_changes() ||
+        handle_streamed_transaction(LOGICAL_REP_MSG_INSERT, s))
+        return;
+
+    begin_replication_step();
+
+    // Parse INSERT message and open target relation
+    relid = logicalrep_read_insert(s, &newtup);
+    rel = logicalrep_rel_open(relid, RowExclusiveLock);
+    if (!should_apply_changes_for_rel(rel)) {
+        logicalrep_rel_close(rel, RowExclusiveLock);
+        end_replication_step();
+        return;
+    }
+
+    // Set up security context
+    run_as_owner = MySubscription->runasowner;
+    if (!run_as_owner)
+        SwitchToUntrustedUser(rel->localrel->rd_rel->relowner, &ucxt);
+
+    // Initialize executor and prepare tuple slot
+    edata = create_edata_for_relation(rel);
+    remoteslot = ExecInitExtraTupleSlot(edata->estate,
+                                        RelationGetDescr(rel->localrel),
+                                        &TTSOpsVirtual);
+
+    // Process remote tuple data
+    slot_store_data(remoteslot, rel, &newtup);
+    slot_fill_defaults(rel, edata->estate, remoteslot);
+
+    // Route to partition or insert directly
+    if (rel->localrel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+        apply_handle_tuple_routing(edata, remoteslot, NULL, CMD_INSERT);
+    else {
+        ExecOpenIndices(edata->targetRelInfo, false);
+        apply_handle_insert_internal(edata, edata->targetRelInfo, remoteslot);
+        ExecCloseIndices(edata->targetRelInfo);
+    }
+
+    // Cleanup
+    finish_edata(edata);
+    if (!run_as_owner)
+        RestoreUserContext(&ucxt);
+    logicalrep_rel_close(rel, NoLock);
+    end_replication_step();
+}
+```

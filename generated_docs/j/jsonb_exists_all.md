@@ -48,3 +48,40 @@ Like other jsonb_exists variants, this function only performs top-level matching
 - Corresponds to the '?&' operator in PostgreSQL JSONB operations
 - Requires all specified keys/values to be present for a true result
 - More efficient than checking each key individually when all must be verified
+
+## Simplified Source
+
+```c
+Datum jsonb_exists_all(PG_FUNCTION_ARGS) {
+    Jsonb *jb = PG_GETARG_JSONB_P(0);
+    ArrayType *keys = PG_GETARG_ARRAYTYPE_P(1);
+    int i;
+    Datum *key_datums;
+    bool *key_nulls;
+    int elem_count;
+
+    // Extract array elements
+    deconstruct_array_builtin(keys, TEXTOID, &key_datums, &key_nulls, &elem_count);
+
+    // Check that each key/value exists
+    for (i = 0; i < elem_count; i++) {
+        JsonbValue strVal;
+
+        if (key_nulls[i])
+            continue;  // Skip null elements
+
+        // Set up search value
+        strVal.type = jbvString;
+        strVal.val.string.val = VARDATA_ANY(key_datums[i]);
+        strVal.val.string.len = VARSIZE_ANY_EXHDR(key_datums[i]);
+
+        // Return false immediately if any key not found (short-circuit)
+        if (findJsonbValueFromContainer(&jb->root,
+                                        JB_FOBJECT | JB_FARRAY,
+                                        &strVal) == NULL)
+            PG_RETURN_BOOL(false);
+    }
+
+    PG_RETURN_BOOL(true);  // All keys found
+}
+```

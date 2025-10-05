@@ -48,3 +48,49 @@ This reorganization maintains all tuples in memory while redistributing them acr
 - The function rebuilds bucket chains by walking through dense-allocated memory chunks rather than existing bucket chains
 - Interrupt checking allows for query cancellation during potentially long reorganization operations
 - This optimization improves hash table performance without changing the fundamental data or requiring disk I/O
+
+## Simplified Source
+```c
+static void ExecHashIncreaseNumBuckets(HashJoinTable hashtable)
+{
+    // Skip if no increase needed
+    if (hashtable->nbuckets >= hashtable->nbuckets_optimal)
+        return;
+
+    // Update to optimal bucket configuration
+    hashtable->nbuckets = hashtable->nbuckets_optimal;
+    hashtable->log2_nbuckets = hashtable->log2_nbuckets_optimal;
+
+    // Reallocate and clear bucket array
+    hashtable->buckets.unshared = repalloc_array(hashtable->buckets.unshared,
+                                                 HashJoinTuple, hashtable->nbuckets);
+    memset(hashtable->buckets.unshared, 0,
+           hashtable->nbuckets * sizeof(HashJoinTuple));
+
+    // Rebuild hash table by walking through all chunks
+    for (HashMemoryChunk chunk = hashtable->chunks; chunk != NULL; chunk = chunk->next.unshared)
+    {
+        size_t idx = 0;
+
+        // Process all tuples in this chunk
+        while (idx < chunk->used)
+        {
+            HashJoinTuple hashTuple = (HashJoinTuple)(HASH_CHUNK_DATA(chunk) + idx);
+            int bucketno, batchno;
+
+            // Calculate new bucket for this tuple
+            ExecHashGetBucketAndBatch(hashtable, hashTuple->hashvalue,
+                                      &bucketno, &batchno);
+
+            // Link tuple into new bucket chain
+            hashTuple->next.unshared = hashtable->buckets.unshared[bucketno];
+            hashtable->buckets.unshared[bucketno] = hashTuple;
+
+            // Move to next tuple
+            idx += MAXALIGN(HJTUPLE_OVERHEAD + HJTUPLE_MINTUPLE(hashTuple)->t_len);
+        }
+
+        CHECK_FOR_INTERRUPTS();
+    }
+}
+```

@@ -34,3 +34,22 @@ This function implements the PostgreSQL SQL function json_build_array(variadic "
 - Unlike json_build_object, this function does not require an even number of arguments since arrays accept any number of elements
 - The actual JSON array construction logic is handled by json_build_array_worker
 - This is part of PostgreSQL JSON data type support system located in src/backend/utils/adt/json.c:1365-1384
+
+## Simplified Source
+
+```c
+Datum json_build_array(PG_FUNCTION_ARGS) {
+    Datum *args;
+    bool *nulls;
+    Oid *types;
+
+    // Extract variadic arguments (array elements)
+    int nargs = extract_variadic_args(fcinfo, 0, true, &args, &types, &nulls);
+
+    if (nargs < 0)
+        PG_RETURN_NULL();
+
+    // Build JSON array: absent_on_null=false (include nulls)
+    PG_RETURN_DATUM(json_build_array_worker(nargs, args, nulls, types, false));
+}
+```

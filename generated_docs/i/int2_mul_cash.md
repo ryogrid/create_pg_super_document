@@ -36,3 +36,16 @@ The function ensures that multiplication operations are commutative and maintain
 - Part of PostgreSQL's comprehensive monetary arithmetic type system supporting various integer sizes
 - The parameter order differs from `cash_mul_int2` but the internal implementation uses the same multiplication logic
 - Completes the set of commutative multiplication functions for different integer sizes (int2, int4) with Cash values
+
+## Simplified Source
+
+```c
+Datum int2_mul_cash(PG_FUNCTION_ARGS) {
+    // Extract int2 multiplier and cash value from arguments
+    int16 s = PG_GETARG_INT16(0);
+    Cash c = PG_GETARG_CASH(1);
+
+    // Delegate to 64-bit multiplication helper for safe arithmetic
+    PG_RETURN_CASH(cash_mul_int64(c, (int64) s));
+}
+```

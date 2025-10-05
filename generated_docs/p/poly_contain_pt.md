@@ -35,3 +35,15 @@ This function tests whether a given point lies inside a polygon. It extracts a p
 - The point_inside function handles the mathematical complexity of determining point containment within polygon boundaries
 - Located at src/backend/utils/adt/geo_ops.c:4008-4016
 - No explicit memory management is needed as the function doesn't create copies of the input data
+
+## Simplified Source
+
+```c
+Datum poly_contain_pt(PG_FUNCTION_ARGS) {
+    POLYGON *poly = PG_GETARG_POLYGON_P(0);  // The polygon
+    Point *p = PG_GETARG_POINT_P(1);         // The point to test
+
+    // Use point-in-polygon algorithm, return true if point is inside
+    PG_RETURN_BOOL(point_inside(p, poly->npts, poly->p) != 0);
+}
+```

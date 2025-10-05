@@ -37,3 +37,21 @@ This function is the primary entry point for users who want to convert plain tex
 - Part of PostgreSQL's text search functionality that allows precise phrase searches without requiring knowledge of TSQuery syntax
 - The function is typically accessed through SQL as phraseto_tsquery('exact phrase text')
 - Useful when users need to find documents containing exact phrases rather than just all the words
+
+## Simplified Source
+
+```c
+Datum
+phraseto_tsquery(PG_FUNCTION_ARGS)
+{
+    text *input_text = PG_GETARG_TEXT_PP(0);
+
+    // Get current default text search configuration
+    Oid config_id = getTSCurrentConfig(true);
+
+    // Delegate to phraseto_tsquery_byid with default config
+    PG_RETURN_DATUM(DirectFunctionCall2(phraseto_tsquery_byid,
+                                       ObjectIdGetDatum(config_id),
+                                       PointerGetDatum(input_text)));
+}
+```

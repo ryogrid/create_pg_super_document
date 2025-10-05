@@ -33,3 +33,23 @@ This function provides a PostgreSQL-callable interface for dividing two Point ob
 - Part of PostgreSQL's geometric data type operations
 - No explicit division by zero handling at this level
 - Located in src/backend/utils/adt/geo_ops.c at lines 4196-4216
+
+## Simplified Source
+
+```c
+Datum
+point_div(PG_FUNCTION_ARGS)
+{
+    Point *p1 = PG_GETARG_POINT_P(0);
+    Point *p2 = PG_GETARG_POINT_P(1);
+    Point *result;
+
+    // Allocate memory for result point
+    result = (Point *) palloc(sizeof(Point));
+
+    // Perform complex division
+    point_div_point(result, p1, p2);
+
+    PG_RETURN_POINT_P(result);
+}
+```

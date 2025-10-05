@@ -39,3 +39,36 @@ This function creates and initializes a new BTPageState structure that manages t
 - The btps_next field is initialized to NULL as parent levels are created on demand
 - Part of the bulk loading infrastructure that optimizes B-tree construction by managing page state efficiently
 - The btps_lowkey is initially NULL and will be set when the page receives its first tuple
+
+## Simplified Source
+
+```c
+static BTPageState *
+_bt_pagestate(BTWriteState *wstate, uint32 level)
+{
+    BTPageState *state = (BTPageState *) palloc0(sizeof(BTPageState));
+
+    // Create initial page for this level
+    state->btps_buf = _bt_blnewpage(wstate, level);
+
+    // Assign a block number for this page
+    state->btps_blkno = wstate->btws_pages_alloced++;
+
+    // Initialize page state fields
+    state->btps_lowkey = NULL;
+    state->btps_lastoff = P_HIKEY;  // Next item goes to P_FIRSTKEY
+    state->btps_lastextra = 0;
+    state->btps_level = level;
+
+    // Set fill factor threshold based on page level
+    if (level > 0)
+        state->btps_full = (BLCKSZ * (100 - BTREE_NONLEAF_FILLFACTOR) / 100);
+    else
+        state->btps_full = BTGetTargetPageFreeSpace(wstate->index);
+
+    // No parent level yet
+    state->btps_next = NULL;
+
+    return state;
+}
+```

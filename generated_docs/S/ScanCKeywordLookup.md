@@ -46,3 +46,35 @@ Unlike the general ScanKeywordLookup function, this variant uses case-sensitive 
 - The ScanCKeywords structure contains pre-computed keyword data including maximum keyword length for optimization
 - Case-sensitive matching distinguishes this from SQL keyword lookup which is typically case-insensitive
 - File location: src/interfaces/ecpg/preproc/c_keywords.c:36-66
+
+## Simplified Source
+
+```c
+int
+ScanCKeywordLookup(const char *text)
+{
+    size_t len;
+    int h;
+    const char *kw;
+
+    // Quick length check to avoid hashing long strings
+    len = strlen(text);
+    if (len > ScanCKeywords.max_kw_len)
+        return -1;
+
+    // Compute perfect hash for the text
+    h = ScanCKeywords_hash_func(text, len);
+
+    // Validate hash is in range
+    if (h < 0 || h >= ScanCKeywords.num_keywords)
+        return -1;
+
+    // Get keyword at hash position and compare
+    kw = GetScanKeyword(h, &ScanCKeywords);
+
+    if (strcmp(kw, text) == 0)
+        return ScanCKeywordTokens[h];
+
+    return -1;  // No match found
+}
+```

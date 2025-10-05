@@ -31,3 +31,17 @@ This is a static helper function used by the has_database_privilege family of fu
 - The second parameter to get_database_oid is false, meaning it will raise an error if the database does not exist
 - Part of the support routines for the has_database_privilege family of functions
 - Located in src/backend/utils/adt/acl.c:3150-3161
+
+## Simplified Source
+
+```c
+static Oid
+convert_database_name(text *databasename)
+{
+    // Convert PostgreSQL text to C string
+    char *dbname = text_to_cstring(databasename);
+
+    // Look up database OID by name (error if not found)
+    return get_database_oid(dbname, false);
+}
+```

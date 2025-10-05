@@ -33,3 +33,15 @@ The function includes strict validation to ensure it's only called during the ap
 - The function accumulates requests in the global total_addin_request variable
 - Extensions must call this during shared_preload_libraries loading phase
 - The requested memory is allocated as part of the main shared memory segment creation process
+
+## Simplified Source
+```c
+void RequestAddinShmemSpace(Size size) {
+    // Validate that we're in the proper initialization phase
+    if (!process_shmem_requests_in_progress)
+        elog(FATAL, "cannot request additional shared memory outside shmem_request_hook");
+
+    // Accumulate the requested size to the total addon requests
+    total_addin_request = add_size(total_addin_request, size);
+}
+```

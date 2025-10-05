@@ -51,3 +51,34 @@ For logical replication scenarios involving catalog relations, the function also
 - For logical WAL level and catalog relations, replication slot invalidation occurs to maintain logical replication consistency
 - Unlike ResolveRecoveryConflictWithVirtualXIDs, this function doesn't directly consider WaitExceedsMaxStandbyDelay since these conflicts should normally be avoided through physical replication slots
 - Commonly used during index operations, vacuum processes, and visibility map updates during WAL replay
+
+## Simplified Source
+
+```c
+void ResolveRecoveryConflictWithSnapshot(TransactionId snapshotConflictHorizon,
+                                         bool isCatalogRel,
+                                         RelFileLocator locator) {
+    VirtualTransactionId *backends;
+
+    // Skip processing for invalid transaction IDs (no conflict needed)
+    if (!TransactionIdIsValid(snapshotConflictHorizon))
+        return;
+
+    // Ensure we have a normal transaction ID
+    Assert(TransactionIdIsNormal(snapshotConflictHorizon));
+
+    // Find backends with conflicting snapshots
+    backends = GetConflictingVirtualXIDs(snapshotConflictHorizon, locator.dbOid);
+
+    // Resolve conflicts with identified backends
+    ResolveRecoveryConflictWithVirtualXIDs(backends,
+                                           PROCSIG_RECOVERY_CONFLICT_SNAPSHOT,
+                                           WAIT_EVENT_RECOVERY_CONFLICT_SNAPSHOT,
+                                           true);
+
+    // For logical replication on catalog relations, invalidate obsolete slots
+    if (wal_level >= WAL_LEVEL_LOGICAL && isCatalogRel)
+        InvalidateObsoleteReplicationSlots(RS_INVAL_HORIZON, 0, locator.dbOid,
+                                           snapshotConflictHorizon);
+}
+```

@@ -45,3 +45,34 @@ The function is designed to handle recoverable errors gracefully while ensuring 
 - Origin state reset ensures that failed transactions will be retried from the publisher
 - Reports error statistics to help with monitoring and debugging subscription issues
 - Essential component of PostgreSQL's logical replication worker architecture
+
+## Simplified Source
+
+```c
+void
+start_apply(XLogRecPtr origin_startpos)
+{
+    PG_TRY();
+    {
+        // Execute the main logical replication apply loop
+        LogicalRepApplyLoop(origin_startpos);
+    }
+    PG_CATCH();
+    {
+        // Reset origin state to prevent incorrect progress advancement
+        // This ensures failed transactions will be retried from the server
+        replorigin_reset(0, (Datum) 0);
+
+        if (MySubscription->disableonerr) {
+            // Disable subscription and exit on error if configured
+            DisableSubscriptionAndExit();
+        } else {
+            // Report error and re-throw exception
+            AbortOutOfAnyTransaction();
+            pgstat_report_subscription_error(MySubscription->oid, !am_tablesync_worker());
+            PG_RE_THROW();
+        }
+    }
+    PG_END_TRY();
+}
+```

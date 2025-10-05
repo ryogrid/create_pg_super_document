@@ -40,3 +40,17 @@ Like its simpler counterpart, it uses an additive hash approach, summing the thr
 - Returns a 64-bit hash value wrapped in a Datum for PostgreSQL's type system
 - The function signature follows PostgreSQL's V1 calling convention for system functions
 - Maintains the same simple additive hash base as hash_aclitem but with enhanced capabilities
+
+## Simplified Source
+
+```c
+Datum
+hash_aclitem_extended(PG_FUNCTION_ARGS)
+{
+    AclItem *a = PG_GETARG_ACLITEM_P(0);
+    uint64 seed = PG_GETARG_INT64(1);
+    uint32 sum = (uint32) (a->ai_privs + a->ai_grantee + a->ai_grantor);
+
+    return (seed == 0) ? UInt64GetDatum(sum) : hash_uint32_extended(sum, seed);
+}
+```

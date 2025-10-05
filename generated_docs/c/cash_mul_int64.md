@@ -39,3 +39,21 @@ This function multiplies a Cash value by a 64-bit signed integer while checking 
 - Part of the PostgreSQL money/cash data type implementation
 - The function throws a NUMERIC_VALUE_OUT_OF_RANGE error when overflow is detected
 - Used as a building block for various cash multiplication operations with different integer types
+
+## Simplified Source
+
+```c
+static inline Cash
+cash_mul_int64(Cash c, int64 i)
+{
+    Cash res;
+
+    // Check for overflow during multiplication
+    if (unlikely(pg_mul_s64_overflow(c, i, &res)))
+        ereport(ERROR,
+                (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                 errmsg("money out of range")));
+
+    return res;
+}
+```

@@ -33,3 +33,30 @@ This function evaluates row filter expressions in the context of logical replica
 
 ## Notes and Other Information
 The function includes debug logging at level DEBUG3 to help troubleshoot row filtering behavior, showing both the evaluation result and whether it was NULL. The NULL-as-false semantics are important for replication consistency - [when](../w/when.md) a filter expression cannot be evaluated (returns NULL), the safest approach is to exclude the change rather than risk replicating inappropriate data. The function uses ExecEvalExprSwitchContext which handles memory context switching for safe expression evaluation in the replication context.
+
+## Simplified Source
+
+```c
+static bool
+pgoutput_row_filter_exec_expr(ExprState *state, ExprContext *econtext)
+{
+    Datum ret;
+    bool isnull;
+
+    Assert(state != NULL);
+
+    // Evaluate the filter expression
+    ret = ExecEvalExprSwitchContext(state, econtext, &isnull);
+
+    // Debug logging
+    elog(DEBUG3, "row filter evaluates to %s (isnull: %s)",
+         isnull ? "false" : DatumGetBool(ret) ? "true" : "false",
+         isnull ? "true" : "false");
+
+    // NULL evaluates to false (don't replicate)
+    if (isnull)
+        return false;
+
+    return DatumGetBool(ret);
+}
+```

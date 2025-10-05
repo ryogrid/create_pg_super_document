@@ -51,3 +51,67 @@ The result is a single guc_malloc'd memory chunk containing the complete timezon
 - TOKMAXLEN limits abbreviation names to prevent buffer overflows
 - Uses two-pass allocation strategy to ensure exact memory usage calculation
 - All dynamic abbreviations initially have NULL tz pointers - these are resolved lazily during first use
+
+## Simplified Source
+
+```c
+TimeZoneAbbrevTable *ConvertTimeZoneAbbrevs(struct tzEntry *abbrevs, int n) {
+    TimeZoneAbbrevTable *tbl;
+    Size tbl_size;
+
+    // Calculate total memory needed for table and dynamic abbreviations
+    tbl_size = offsetof(TimeZoneAbbrevTable, abbrevs) + n * sizeof(datetkn);
+    tbl_size = MAXALIGN(tbl_size);
+
+    // Count space for dynamic abbreviations
+    for (int i = 0; i < n; i++) {
+        struct tzEntry *abbr = abbrevs + i;
+        if (abbr->zone != NULL) {
+            Size dsize = offsetof(DynamicZoneAbbrev, zone) + strlen(abbr->zone) + 1;
+            tbl_size += MAXALIGN(dsize);
+        }
+    }
+
+    // Allocate the complete table
+    tbl = guc_malloc(LOG, tbl_size);
+    if (!tbl) return NULL;
+
+    // Initialize table header
+    tbl->tblsize = tbl_size;
+    tbl->numabbrevs = n;
+
+    // Fill in abbreviation entries
+    Size current_offset = offsetof(TimeZoneAbbrevTable, abbrevs) + n * sizeof(datetkn);
+    current_offset = MAXALIGN(current_offset);
+
+    for (int i = 0; i < n; i++) {
+        struct tzEntry *abbr = abbrevs + i;
+        datetkn *dtoken = tbl->abbrevs + i;
+
+        // Copy abbreviation name (truncate if necessary)
+        strlcpy(dtoken->token, abbr->abbrev, TOKMAXLEN + 1);
+
+        if (abbr->zone != NULL) {
+            // Dynamic abbreviation - create DynamicZoneAbbrev structure
+            DynamicZoneAbbrev *dtza = (DynamicZoneAbbrev *)((char *)tbl + current_offset);
+            dtza->tz = NULL;  // Resolved lazily
+            strcpy(dtza->zone, abbr->zone);
+
+            dtoken->type = DYNTZ;
+            dtoken->value = (int32)current_offset;  // Offset to DynamicZoneAbbrev
+
+            Size dsize = offsetof(DynamicZoneAbbrev, zone) + strlen(abbr->zone) + 1;
+            current_offset += MAXALIGN(dsize);
+        } else {
+            // Static abbreviation - store offset directly
+            dtoken->type = abbr->is_dst ? DTZ : TZ;
+            dtoken->value = abbr->offset;
+        }
+    }
+
+    Assert(tbl->tblsize == current_offset);
+    Assert(CheckDateTokenTable("timezone abbreviations", tbl->abbrevs, n));
+
+    return tbl;
+}
+```

@@ -45,3 +45,63 @@ This function provides the core functionality for BRIN index maintenance by crea
 - Returns the number of summarized ranges as an integer
 - Only processes valid indexes (indisvalid must be true)
 - Handles race conditions by rechecking index-to-table mapping after acquiring locks
+
+## Simplified Source
+
+```c
+Datum
+brin_summarize_range(PG_FUNCTION_ARGS)
+{
+    Oid indexoid = PG_GETARG_OID(0);
+    int64 heapBlk64 = PG_GETARG_INT64(1);
+    BlockNumber heapBlk;
+    Relation indexRel, heapRel;
+    Oid heapoid, save_userid;
+    int save_sec_context, save_nestlevel;
+    double numSummarized = 0;
+
+    // Block operation during recovery
+    if (RecoveryInProgress())
+        ereport(ERROR, ...);
+
+    // Validate block number range
+    if (heapBlk64 > BRIN_ALL_BLOCKRANGES || heapBlk64 < 0)
+        ereport(ERROR, ...);
+    heapBlk = (BlockNumber) heapBlk64;
+
+    // Get heap relation and handle security context for autovacuum
+    heapoid = IndexGetRelation(indexoid, true);
+    if (OidIsValid(heapoid)) {
+        heapRel = table_open(heapoid, ShareUpdateExclusiveLock);
+        GetUserIdAndSecContext(&save_userid, &save_sec_context);
+        SetUserIdAndSecContext(heapRel->rd_rel->relowner,
+                               save_sec_context | SECURITY_RESTRICTED_OPERATION);
+        save_nestlevel = NewGUCNestLevel();
+        RestrictSearchPath();
+    } else {
+        heapRel = NULL;
+    }
+
+    // Open index and validate it's a BRIN index
+    indexRel = index_open(indexoid, ShareUpdateExclusiveLock);
+    if (indexRel->rd_rel->relkind != RELKIND_INDEX ||
+        indexRel->rd_rel->relam != BRIN_AM_OID)
+        ereport(ERROR, ...);
+
+    // Check ownership permissions
+    if (heapRel != NULL && !object_ownercheck(RelationRelationId, indexoid, save_userid))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_INDEX, ...);
+
+    // Perform summarization if index is valid
+    if (indexRel->rd_index->indisvalid)
+        brinsummarize(indexRel, heapRel, heapBlk, true, &numSummarized, NULL);
+
+    // Cleanup: restore security context and close relations
+    AtEOXact_GUC(false, save_nestlevel);
+    SetUserIdAndSecContext(save_userid, save_sec_context);
+    relation_close(indexRel, ShareUpdateExclusiveLock);
+    relation_close(heapRel, ShareUpdateExclusiveLock);
+
+    PG_RETURN_INT32((int32) numSummarized);
+}
+```

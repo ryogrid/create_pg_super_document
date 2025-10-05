@@ -46,3 +46,33 @@ The function is designed to be non-blocking - it returns immediately after issui
 - Return value follows posix_fadvise conventions: 0 on success, error code on failure
 - The function includes wait event reporting for PostgreSQL's performance monitoring infrastructure
 - Prefetching can significantly improve sequential read performance by overlapping I/O with computation
+
+## Simplified Source
+
+```c
+int FilePrefetch(File file, off_t offset, off_t amount, uint32 wait_event_info) {
+#if defined(USE_POSIX_FADVISE) && defined(POSIX_FADV_WILLNEED)
+    Assert(FileIsValid(file));
+
+    // Ensure file is accessible and open
+    int returnCode = FileAccess(file);
+    if (returnCode < 0)
+        return returnCode;
+
+    // Issue prefetch hint with retry on interruption
+retry:
+    pgstat_report_wait_start(wait_event_info);
+    returnCode = posix_fadvise(VfdCache[file].fd, offset, amount, POSIX_FADV_WILLNEED);
+    pgstat_report_wait_end();
+
+    if (returnCode == EINTR)
+        goto retry;  // Handle signal interruption
+
+    return returnCode;  // 0 on success, error code on failure
+#else
+    // No-op on platforms without posix_fadvise support
+    Assert(FileIsValid(file));
+    return 0;
+#endif
+}
+```

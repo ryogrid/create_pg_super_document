@@ -46,3 +46,73 @@ The implementation uses PostgreSQL's tsearch_readline facility to read the file 
 - The final word list is sorted alphabetically to enable efficient binary search operations
 - Memory management follows PostgreSQL conventions using palloc/pfree
 - The wordop function allows for custom word transformations (e.g., case normalization, stemming)
+
+## Simplified Source
+
+```c
+void
+readstoplist(const char *fname, StopList *s, char *(*wordop) (const char *))
+{
+    char **stop = NULL;
+    s->len = 0;
+
+    if (fname && *fname)
+    {
+        char *filename = get_tsearch_config_filename(fname, "stop");
+        tsearch_readline_state trst;
+        char *line;
+        int reallen = 0;
+
+        // Open stop-word file
+        if (!tsearch_readline_begin(&trst, filename))
+            ereport(ERROR, (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                           errmsg("could not open stop-word file \"%s\": %m", filename)));
+
+        // Read each line
+        while ((line = tsearch_readline(&trst)) != NULL)
+        {
+            // Trim trailing whitespace
+            char *pbuf = line;
+            while (*pbuf && !t_isspace(pbuf))
+                pbuf += pg_mblen(pbuf);
+            *pbuf = '\0';
+
+            // Skip empty lines
+            if (*line == '\0')
+            {
+                pfree(line);
+                continue;
+            }
+
+            // Expand array if needed
+            if (s->len >= reallen)
+            {
+                reallen = (reallen == 0) ? 64 : reallen * 2;
+                stop = (char **) (reallen == 64 ? palloc(sizeof(char *) * reallen) :
+                                 repalloc(stop, sizeof(char *) * reallen));
+            }
+
+            // Apply word transformation if provided
+            if (wordop)
+            {
+                stop[s->len] = wordop(line);
+                if (stop[s->len] != line)
+                    pfree(line);
+            }
+            else
+                stop[s->len] = line;
+
+            (s->len)++;
+        }
+
+        tsearch_readline_end(&trst);
+        pfree(filename);
+    }
+
+    s->stop = stop;
+
+    // Sort for binary search
+    if (s->stop && s->len > 0)
+        qsort(s->stop, s->len, sizeof(char *), pg_qsort_strcmp);
+}
+```

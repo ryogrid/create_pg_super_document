@@ -41,3 +41,38 @@ This function implements range-based comparisons for PostgreSQL window functions
 - Used in window function RANGE clauses with PRECEDING/FOLLOWING specifications involving int4 offsets
 - The function supports scenarios where offset values exceed int2 range but val and base are int2
 - Converting int2 to int32 prevents overflow issues that could occur with pure int2 arithmetic
+
+## Simplified Source
+
+```c
+Datum in_range_int2_int4(PG_FUNCTION_ARGS) {
+    // Convert int2 values to int32 for safe arithmetic
+    int32 val = (int32) PG_GETARG_INT16(0);
+    int32 base = (int32) PG_GETARG_INT16(1);
+    int32 offset = PG_GETARG_INT32(2);
+    bool sub = PG_GETARG_BOOL(3);
+    bool less = PG_GETARG_BOOL(4);
+    int32 sum;
+
+    // Validate offset is non-negative
+    if (offset < 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PRECEDING_OR_FOLLOWING_SIZE),
+                       errmsg("invalid preceding or following size in window function")));
+
+    // Apply subtraction if requested
+    if (sub)
+        offset = -offset;
+
+    // Perform safe addition with overflow checking
+    if (unlikely(pg_add_s32_overflow(base, offset, &sum))) {
+        // Handle overflow: return appropriate result based on operation direction
+        PG_RETURN_BOOL(sub ? !less : less);
+    }
+
+    // Compare value against computed range boundary
+    if (less)
+        PG_RETURN_BOOL(val <= sum);
+    else
+        PG_RETURN_BOOL(val >= sum);
+}
+```

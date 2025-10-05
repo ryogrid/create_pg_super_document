@@ -37,3 +37,16 @@ The implementation uses the standard C library  function with PostgreSQL's  comp
 - Includes safety checks for NULL or empty stop lists, returning false in such cases
 - The search is case-sensitive and depends on the string comparison used during sorting
 - Critical for text search dictionary implementations to filter out common stop words
+
+## Simplified Source
+
+```c
+bool
+searchstoplist(StopList *s, char *key)
+{
+    // Binary search in sorted stop list
+    return (s->stop && s->len > 0 &&
+            bsearch(&key, s->stop, s->len,
+                    sizeof(char *), pg_qsort_strcmp));
+}
+```

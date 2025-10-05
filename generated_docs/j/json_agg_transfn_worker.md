@@ -37,3 +37,76 @@ This function serves as the workhorse for JSON aggregation operations, implement
 - Located in src/backend/utils/adt/json.c:770-851
 - Uses 'internal' transition type for efficient state passing through PostgreSQL's aggregate machinery
 - Supports both null-preserving and null-skipping modes of operation
+
+## Simplified Source
+
+```c
+static Datum
+json_agg_transfn_worker(FunctionCallInfo fcinfo, bool absent_on_null)
+{
+    MemoryContext aggcontext, oldcontext;
+    JsonAggState *state;
+    Datum val;
+
+    // Validate we're called in aggregate context
+    if (!AggCheckCallContext(fcinfo, &aggcontext))
+        elog(ERROR, "json_agg_transfn called in non-aggregate context");
+
+    // Initialize state on first call (when state is NULL)
+    if (PG_ARGISNULL(0))
+    {
+        Oid arg_type = get_fn_expr_argtype(fcinfo->flinfo, 1);
+
+        if (arg_type == InvalidOid)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("could not determine input data type")));
+
+        // Create persistent state in aggregate memory context
+        oldcontext = MemoryContextSwitchTo(aggcontext);
+        state = (JsonAggState *) palloc(sizeof(JsonAggState));
+        state->str = makeStringInfo();
+        MemoryContextSwitchTo(oldcontext);
+
+        // Start JSON array and categorize input type
+        appendStringInfoChar(state->str, '[');
+        json_categorize_type(arg_type, false, &state->val_category,
+                            &state->val_output_func);
+    }
+    else
+    {
+        state = (JsonAggState *) PG_GETARG_POINTER(0);
+    }
+
+    // Skip null values if in strict mode
+    if (absent_on_null && PG_ARGISNULL(1))
+        PG_RETURN_POINTER(state);
+
+    // Add comma separator for non-first elements
+    if (state->str->len > 1)
+        appendStringInfoString(state->str, ", ");
+
+    // Handle null values
+    if (PG_ARGISNULL(1))
+    {
+        datum_to_json_internal((Datum) 0, true, state->str, JSONTYPE_NULL,
+                              InvalidOid, false);
+        PG_RETURN_POINTER(state);
+    }
+
+    val = PG_GETARG_DATUM(1);
+
+    // Add formatting for structured types
+    if (!PG_ARGISNULL(0) && state->str->len > 1 &&
+        (state->val_category == JSONTYPE_ARRAY ||
+         state->val_category == JSONTYPE_COMPOSITE))
+    {
+        appendStringInfoString(state->str, "\n ");
+    }
+
+    // Convert value to JSON and append to array
+    datum_to_json_internal(val, false, state->str, state->val_category,
+                          state->val_output_func, false);
+
+    PG_RETURN_POINTER(state);
+}
+```

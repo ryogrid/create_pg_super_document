@@ -43,3 +43,25 @@ The function follows a two-step conversion process: first extracting the numeric
 - Uses `DirectFunctionCall1` for efficient function call without SQL overhead
 - Follows PostgreSQL's memory management conventions with `PG_FREE_IF_COPY`
 - Error handling delegates to `cannotCastJsonbValue` for consistent error messages
+
+## Simplified Source
+
+```c
+Datum
+jsonb_int2(PG_FUNCTION_ARGS)
+{
+    Jsonb *in = PG_GETARG_JSONB_P(0);
+    JsonbValue v;
+
+    // Extract scalar value and validate it's numeric
+    if (!JsonbExtractScalar(&in->root, &v) || v.type != jbvNumeric)
+        cannotCastJsonbValue(v.type, "smallint");
+
+    // Convert numeric to int2 with range checking
+    Datum retValue = DirectFunctionCall1(numeric_int2,
+                                        NumericGetDatum(v.val.numeric));
+
+    PG_FREE_IF_COPY(in, 0);
+    PG_RETURN_DATUM(retValue);
+}
+```

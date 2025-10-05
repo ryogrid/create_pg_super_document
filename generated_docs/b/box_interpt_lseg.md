@@ -45,3 +45,53 @@ When a result pointer is provided and intersection occurs, the function also com
 - The result point computation is somewhat arbitrary when multiple intersection points exist
 - Uses a systematic approach of testing intersection with all four box edges
 - Part of PostgreSQL's comprehensive geometric data type support system
+
+## Simplified Source
+
+```c
+static bool box_interpt_lseg(Point *result, BOX *box, LSEG *lseg) {
+    // Create bounding box around line segment for quick elimination
+    BOX lbox;
+    lbox.low.x = float8_min(lseg->p[0].x, lseg->p[1].x);
+    lbox.low.y = float8_min(lseg->p[0].y, lseg->p[1].y);
+    lbox.high.x = float8_max(lseg->p[0].x, lseg->p[1].x);
+    lbox.high.y = float8_max(lseg->p[0].y, lseg->p[1].y);
+
+    // Quick check: if bounding boxes don't overlap, no intersection
+    if (!box_ov(&lbox, box))
+        return false;
+
+    // If result point requested, find closest point on segment to box center
+    if (result != NULL) {
+        Point point;
+        box_cn(&point, box);
+        lseg_closept_point(result, lseg, &point);
+    }
+
+    // Check if either endpoint is inside box
+    if (box_contain_point(box, &lseg->p[0]) ||
+        box_contain_point(box, &lseg->p[1]))
+        return true;
+
+    // Test intersection with each of the four box edges
+    LSEG bseg;
+    Point point;
+
+    // Test all four box edges for intersection with line segment
+    point.x = box->low.x; point.y = box->high.y;
+    statlseg_construct(&bseg, &box->low, &point);
+    if (lseg_interpt_lseg(NULL, &bseg, lseg)) return true;
+
+    statlseg_construct(&bseg, &box->high, &point);
+    if (lseg_interpt_lseg(NULL, &bseg, lseg)) return true;
+
+    point.x = box->high.x; point.y = box->low.y;
+    statlseg_construct(&bseg, &box->low, &point);
+    if (lseg_interpt_lseg(NULL, &bseg, lseg)) return true;
+
+    statlseg_construct(&bseg, &box->high, &point);
+    if (lseg_interpt_lseg(NULL, &bseg, lseg)) return true;
+
+    return false;
+}
+```

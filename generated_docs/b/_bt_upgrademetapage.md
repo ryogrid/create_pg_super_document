@@ -40,3 +40,31 @@ This function performs an in-memory upgrade of a B-tree metapage from versions 2
 - The upgrade is purely in-memory and requires proper WAL logging by the caller
 - Version 4 upgrades require REINDEX due to more significant on-disk format changes
 - Multiple assertions ensure the page is valid and upgradable before proceeding
+
+## Simplified Source
+
+```c
+void
+_bt_upgrademetapage(Page page)
+{
+    BTMetaPageData *metad = BTPageGetMeta(page);
+    BTPageOpaque metaopaque = BTPageGetOpaque(page);
+
+    // Validate that this is indeed an upgradable metapage
+    Assert(metaopaque->btpo_flags & BTP_META);
+    Assert(metad->btm_version < BTREE_NOVAC_VERSION);
+    Assert(metad->btm_version >= BTREE_MIN_VERSION);
+
+    // Upgrade to version 3 (BTREE_NOVAC_VERSION)
+    metad->btm_version = BTREE_NOVAC_VERSION;
+
+    // Initialize new fields added in version 3
+    metad->btm_last_cleanup_num_delpages = 0;
+    metad->btm_last_cleanup_num_heap_tuples = -1.0;
+    metad->btm_allequalimage = false;  // Only REINDEX can properly set this
+
+    // Adjust page layout to account for larger metadata structure
+    ((PageHeader) page)->pd_lower =
+        ((char *) metad + sizeof(BTMetaPageData)) - (char *) page;
+}
+```

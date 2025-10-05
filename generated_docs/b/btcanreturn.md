@@ -33,3 +33,11 @@ B-tree indexes in PostgreSQL always support index-only scans because they store 
 - Contrasts with other index types (like hash indexes) that may have limitations on index-only scan support
 - Critical for query optimization decisions in the PostgreSQL planner
 - The function signature follows the standard index AM canreturn interface pattern
+
+## Simplified Source
+
+```c
+bool btcanreturn(Relation index, int attno) {
+    return true;  // B-tree indexes always support index-only scans
+}
+```

@@ -37,3 +37,26 @@ This function implements the default thread locking mechanism for libpq using PO
 - Such failures are reportedly nonexistent in practice
 - Part of libpq's thread safety infrastructure
 - Replaced by custom functions when applications call PQregisterThreadLock()
+
+## Simplified Source
+
+```c
+static void
+default_threadlock(int acquire)
+{
+    static pthread_mutex_t singlethread_lock = PTHREAD_MUTEX_INITIALIZER;
+
+    if (acquire)
+    {
+        // Lock the mutex
+        if (pthread_mutex_lock(&singlethread_lock))
+            Assert(false);  // Mutex failure should never happen
+    }
+    else
+    {
+        // Unlock the mutex
+        if (pthread_mutex_unlock(&singlethread_lock))
+            Assert(false);  // Mutex failure should never happen
+    }
+}
+```

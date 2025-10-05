@@ -40,3 +40,44 @@ Unlike single field validation, this function works with complete tuples and doe
 - Uses the main header's domain cache space for efficient repeated constraint checking
 - Immediately cleans up the short-term context after constraint validation
 - Designed for bulk tuple replacement operations rather than individual field modifications
+
+## Simplified Source
+
+```c
+static void check_domain_for_new_tuple(ExpandedRecordHeader *erh, HeapTuple tuple)
+{
+    // Handle NULL tuple (empty record) case
+    if (tuple == NULL) {
+        MemoryContext oldcxt = MemoryContextSwitchTo(get_short_term_cxt(erh));
+        domain_check((Datum) 0, true, erh->er_decltypeid,
+                    &erh->er_domaininfo, erh->hdr.eoh_context);
+        MemoryContextSwitchTo(oldcxt);
+        MemoryContextReset(erh->er_short_term_cxt);
+        return;
+    }
+
+    // Create dummy header for non-NULL tuple
+    build_dummy_expanded_header(erh);
+    ExpandedRecordHeader *dummy_erh = erh->er_dummy_header;
+
+    // Set up flattened tuple representation
+    dummy_erh->fvalue = tuple;
+    dummy_erh->fstartptr = (char *) tuple->t_data;
+    dummy_erh->fendptr = ((char *) tuple->t_data) + tuple->t_len;
+    dummy_erh->flags |= ER_FLAG_FVALUE_VALID;
+
+    // Track external values
+    if (HeapTupleHasExternal(tuple))
+        dummy_erh->flags |= ER_FLAG_HAVE_EXTERNAL;
+
+    // Run domain constraint check
+    MemoryContext oldcxt = MemoryContextSwitchTo(erh->er_short_term_cxt);
+    domain_check(ExpandedRecordGetRODatum(dummy_erh), false,
+                erh->er_decltypeid, &erh->er_domaininfo,
+                erh->hdr.eoh_context);
+    MemoryContextSwitchTo(oldcxt);
+
+    // Clean up
+    MemoryContextReset(erh->er_short_term_cxt);
+}
+```

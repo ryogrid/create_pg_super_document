@@ -35,3 +35,17 @@ The btoidsortsupport function is a PostgreSQL sort support initialization functi
 - The function follows PostgreSQL's V1 function call convention
 - Used internally by the PostgreSQL query executor when sorting OID columns
 - The SortSupport structure's comparator field is set to enable fast comparison during sorts
+
+## Simplified Source
+
+```c
+Datum btoidsortsupport(PG_FUNCTION_ARGS) {
+    // Get the SortSupport structure from function arguments
+    SortSupport ssup = (SortSupport) PG_GETARG_POINTER(0);
+
+    // Assign the optimized OID comparison function
+    ssup->comparator = btoidfastcmp;
+
+    PG_RETURN_VOID();
+}
+```

@@ -36,3 +36,22 @@ The function uses PostgreSQL's standard binary output functions to create a prop
 - This function is part of the binary I/O interface for the money data type
 - The binary format ensures platform-independent representation of cash values
 - Located in src/backend/utils/adt/cash.c:597-609
+
+## Simplified Source
+
+```c
+// Convert Cash value to binary format
+Datum cash_send(PG_FUNCTION_ARGS) {
+    Cash cash_value = PG_GETARG_CASH(0);
+    StringInfoData buffer;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buffer);
+
+    // Write cash as 64-bit integer to buffer
+    pq_sendint64(&buffer, cash_value);
+
+    // Return finalized binary data
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buffer));
+}
+```

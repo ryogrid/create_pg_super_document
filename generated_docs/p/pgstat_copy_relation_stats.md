@@ -38,3 +38,36 @@ The function first attempts to retrieve the statistics entry for the source rela
 - The statistics copy is performed as an atomic operation with proper locking to ensure consistency
 - If the source relation has no statistics, the function gracefully exits without affecting the destination
 - The function assumes both relations are valid and properly initialized
+
+## Simplified Source
+
+```c
+void
+pgstat_copy_relation_stats(Relation dst, Relation src)
+{
+    PgStat_StatTabEntry *srcstats;
+    PgStatShared_Relation *dstshstats;
+    PgStat_EntryRef *dst_ref;
+
+    // Get source relation statistics
+    srcstats = pgstat_fetch_stat_tabentry_ext(src->rd_rel->relisshared,
+                                              RelationGetRelid(src));
+
+    // If no source stats exist, nothing to copy
+    if (!srcstats)
+        return;
+
+    // Get locked reference to destination relation stats
+    dst_ref = pgstat_get_entry_ref_locked(PGSTAT_KIND_RELATION,
+                                          dst->rd_rel->relisshared ? InvalidOid : MyDatabaseId,
+                                          RelationGetRelid(dst),
+                                          false);
+
+    // Copy all statistics from source to destination
+    dstshstats = (PgStatShared_Relation *) dst_ref->shared_stats;
+    dstshstats->stats = *srcstats;
+
+    // Release the lock
+    pgstat_unlock_entry(dst_ref);
+}
+```

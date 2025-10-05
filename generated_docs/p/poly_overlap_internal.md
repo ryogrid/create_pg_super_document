@@ -40,3 +40,53 @@ This function serves as the core implementation for polygon overlap detection an
 - Handles containment cases where one polygon is completely inside another
 - Essential for accurate polygon overlap detection beyond simple bounding box comparisons
 - Assumes input polygons have at least one point (validated by Assert)
+
+## Simplified Source
+
+```c
+static bool
+poly_overlap_internal(POLYGON *polya, POLYGON *polyb)
+{
+    bool result;
+
+    Assert(polya->npts > 0 && polyb->npts > 0);
+
+    // Quick bounding box overlap check
+    result = box_ov(&polya->boundbox, &polyb->boundbox);
+
+    if (result)
+    {
+        int ia, ib;
+        LSEG edge_a, edge_b;
+
+        // Check for edge intersections between polygons
+        edge_a.p[0] = polya->p[polya->npts - 1];  // Start with last point
+        result = false;
+
+        for (ia = 0; ia < polya->npts && !result; ia++)
+        {
+            edge_a.p[1] = polya->p[ia];  // Current point completes edge
+
+            edge_b.p[0] = polyb->p[polyb->npts - 1];
+
+            for (ib = 0; ib < polyb->npts && !result; ib++)
+            {
+                edge_b.p[1] = polyb->p[ib];
+                result = lseg_interpt_lseg(NULL, &edge_a, &edge_b);
+                edge_b.p[0] = edge_b.p[1];
+            }
+
+            edge_a.p[0] = edge_a.p[1];  // Move to next edge
+        }
+
+        // If no edge intersections, check for containment
+        if (!result)
+        {
+            result = (point_inside(polya->p, polyb->npts, polyb->p) ||
+                      point_inside(polyb->p, polya->npts, polya->p));
+        }
+    }
+
+    return result;
+}
+```

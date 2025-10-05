@@ -42,3 +42,47 @@ The function first attempts to use the cached rightmost leaf page. If the page i
 - Maintains assertion that fastpath inserts should never cause page splits
 - Optimization is most effective for append-only insertion patterns
 - Cache validation includes checking page is rightmost, leaf, not ignored, has space, and new tuple fits after high key
+
+## Simplified Source
+
+```c
+static BTStack _bt_search_insert(Relation rel, Relation heaprel, BTInsertState insertstate) {
+    // Try fastpath optimization using cached rightmost page
+    if (RelationGetTargetBlock(rel) != InvalidBlockNumber) {
+        // Read cached page and try to lock it conditionally
+        insertstate->buf = ReadBuffer(rel, RelationGetTargetBlock(rel));
+
+        if (_bt_conditionallockbuf(rel, insertstate->buf)) {
+            Page page = BufferGetPage(insertstate->buf);
+            BTPageOpaque opaque = BTPageGetOpaque(page);
+
+            // Check if cached page is still suitable for insertion:
+            // - Still rightmost leaf page
+            // - Has enough space for new tuple
+            // - New tuple belongs after existing tuples
+            if (P_RIGHTMOST(opaque) &&
+                P_ISLEAF(opaque) &&
+                !P_IGNORE(opaque) &&
+                PageGetFreeSpace(page) > insertstate->itemsz &&
+                PageGetMaxOffsetNumber(page) >= P_HIKEY &&
+                _bt_compare(rel, insertstate->itup_key, page, P_HIKEY) > 0) {
+
+                // Fastpath optimization successful - use this page
+                return NULL;  // No descent stack needed
+            }
+
+            // Page not suitable, release it
+            _bt_relbuf(rel, insertstate->buf);
+        } else {
+            // Couldn't get lock, release buffer
+            ReleaseBuffer(insertstate->buf);
+        }
+
+        // Invalidate cache since it's not useful
+        RelationSetTargetBlock(rel, InvalidBlockNumber);
+    }
+
+    // Fastpath failed - do full tree search from root
+    return _bt_search(rel, heaprel, insertstate->itup_key, &insertstate->buf, BT_WRITE);
+}
+```

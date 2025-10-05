@@ -33,3 +33,21 @@ This function provides a simple interface for reading complete binary files in P
 - Returns the entire file content as bytea data type
 - Will raise an error if the file doesn't exist or cannot be read
 - Suitable for loading complete configuration files, small binary data files, or other scenarios where the entire file content is needed
+
+## Simplified Source
+
+```c
+Datum pg_read_binary_file_all(PG_FUNCTION_ARGS) {
+    // Extract filename parameter from function arguments
+    text *filename_t = PG_GETARG_TEXT_PP(0);
+
+    // Read entire binary file: offset=0, length=-1 (all), enforce_size=true, missing_ok=false
+    text *ret = pg_read_binary_file_common(filename_t, 0, -1, true, false);
+
+    // Return binary data or NULL if reading failed
+    if (!ret)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BYTEA_P(ret);
+}
+```

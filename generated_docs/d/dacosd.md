@@ -39,3 +39,35 @@ The  function computes the inverse cosine of a floating-point argument and retur
 - Part of PostgreSQL's degree-based trigonometric function suite for improved accuracy
 - The result is always finite for valid inputs within the specified range
 - Initializes degree constants on first use via INIT_DEGREE_CONSTANTS macro
+
+## Simplified Source
+
+```c
+Datum dacosd(PG_FUNCTION_ARGS) {
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float8 result;
+
+    // Return NaN if input is NaN (POSIX compliance)
+    if (isnan(arg1))
+        PG_RETURN_FLOAT8(get_float8_nan());
+
+    INIT_DEGREE_CONSTANTS();
+
+    // Validate input range [-1, 1] for inverse cosine
+    if (arg1 < -1.0 || arg1 > 1.0)
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("input is out of range")));
+
+    // Calculate arccosine in degrees using specialized functions
+    if (arg1 >= 0.0)
+        result = acosd_q1(arg1);          // Direct calculation for non-negative
+    else
+        result = 90.0 + asind_q1(-arg1);  // Use identity for negative values
+
+    // Check for overflow (should not occur with valid inputs)
+    if (unlikely(isinf(result)))
+        float_overflow_error();
+
+    PG_RETURN_FLOAT8(result);
+}
+```

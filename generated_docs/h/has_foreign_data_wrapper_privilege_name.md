@@ -34,3 +34,29 @@ This function is a PostgreSQL SQL-callable function that verifies whether the cu
 - Returns true if the privilege check succeeds (ACLCHECK_OK), false otherwise
 - Part of PostgreSQL's access control system for foreign data wrappers
 - Located in src/backend/utils/adt/acl.c:3222-3245
+
+## Simplified Source
+
+```c
+Datum
+has_foreign_data_wrapper_privilege_name(PG_FUNCTION_ARGS)
+{
+    text *fdw_name = PG_GETARG_TEXT_PP(0);
+    text *privilege_text = PG_GETARG_TEXT_PP(1);
+
+    // Use current user's OID
+    Oid role_oid = GetUserId();
+
+    // Convert FDW name to OID
+    Oid fdw_oid = convert_foreign_data_wrapper_name(fdw_name);
+
+    // Convert privilege string to internal mode
+    AclMode privilege_mode = convert_foreign_data_wrapper_priv_string(privilege_text);
+
+    // Check privilege on foreign data wrapper
+    AclResult result = object_aclcheck(ForeignDataWrapperRelationId, fdw_oid,
+                                     role_oid, privilege_mode);
+
+    PG_RETURN_BOOL(result == ACLCHECK_OK);
+}
+```

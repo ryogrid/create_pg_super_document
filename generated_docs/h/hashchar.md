@@ -33,3 +33,14 @@ This function is also utilized by catcache operations without any direct connect
 - Part of PostgreSQL's comprehensive datatype-specific hash function collection
 - Returns a Datum (PostgreSQL's generic data type) containing the hash value
 - The function is designed to be called through PostgreSQL's function manager (fmgr) interface
+
+## Simplified Source
+
+```c
+Datum
+hashchar(PG_FUNCTION_ARGS)
+{
+    // Extract char argument and hash it as 32-bit integer
+    return hash_uint32((int32) PG_GETARG_CHAR(0));
+}
+```

@@ -35,3 +35,15 @@ The function performs a simple validation check to ensure the provided shared me
 - Includes an assertion to verify the shared memory ID matches the expected value
 - Does not directly handle the Windows-specific cleanup but delegates to the cross-platform detach function
 - Part of PostgreSQL's platform abstraction layer for shared memory management
+
+## Simplified Source
+
+```c
+static void pgwin32_SharedMemoryDelete(int status, Datum shmId) {
+    // Verify we're cleaning up the correct shared memory segment
+    Assert(DatumGetPointer(shmId) == UsedShmemSegID);
+
+    // Detach from shared memory segment
+    PGSharedMemoryDetach();
+}
+```

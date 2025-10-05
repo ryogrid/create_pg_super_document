@@ -122,3 +122,66 @@ views: Directory path to list (pre-validated by caller)
 - Uses MAXPGPATH * 2 buffer size for constructed file paths to handle long directory and file names
 - Completes all directory reading within a single function call for reliability
 - Error reporting uses PostgreSQL's standard ereport mechanism with file access error codes
+
+## Simplified Source
+
+```c
+static Datum
+pg_ls_dir_files(FunctionCallInfo fcinfo, const char *dir, bool missing_ok)
+{
+    ReturnSetInfo *rsinfo = (ReturnSetInfo *) fcinfo->resultinfo;
+    DIR *dirdesc;
+    struct dirent *de;
+
+    // Initialize set-returning function
+    InitMaterializedSRF(fcinfo, 0);
+
+    // Open directory for reading
+    dirdesc = AllocateDir(dir);
+    if (!dirdesc) {
+        // Return empty result if directory missing and that's OK
+        if (missing_ok && errno == ENOENT)
+            return (Datum) 0;
+        // Otherwise let ReadDir() handle the error
+    }
+
+    // Iterate through directory entries
+    while ((de = ReadDir(dirdesc, dir)) != NULL) {
+        Datum values[3];
+        bool nulls[3];
+        char path[MAXPGPATH * 2];
+        struct stat attrib;
+
+        // Skip hidden files (starting with '.')
+        if (de->d_name[0] == '.')
+            continue;
+
+        // Get file information
+        snprintf(path, sizeof(path), "%s/%s", dir, de->d_name);
+        if (stat(path, &attrib) < 0) {
+            // Skip if file was deleted concurrently
+            if (errno == ENOENT)
+                continue;
+            // Report other stat errors
+            ereport(ERROR, (errcode_for_file_access(),
+                           errmsg("could not stat file \"%s\": %m", path)));
+        }
+
+        // Only include regular files
+        if (!S_ISREG(attrib.st_mode))
+            continue;
+
+        // Build result row: filename, size, modification time
+        values[0] = CStringGetTextDatum(de->d_name);
+        values[1] = Int64GetDatum((int64) attrib.st_size);
+        values[2] = TimestampTzGetDatum(time_t_to_timestamptz(attrib.st_mtime));
+        memset(nulls, 0, sizeof(nulls));
+
+        // Add row to result set
+        tuplestore_putvalues(rsinfo->setResult, rsinfo->setDesc, values, nulls);
+    }
+
+    FreeDir(dirdesc);
+    return (Datum) 0;
+}
+```

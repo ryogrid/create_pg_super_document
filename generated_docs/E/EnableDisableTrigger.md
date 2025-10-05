@@ -63,3 +63,83 @@ The function enforces security by requiring superuser privileges for system trig
 - Invalidates relation cache when changes are made to ensure distributed consistency
 - Uses proper tuple copying and cleanup to avoid memory leaks during catalog updates
 - Provides detailed error messages for missing triggers when specific names are requested
+
+## Simplified Source
+
+```c
+void EnableDisableTrigger(Relation rel, const char *tgname, Oid tgparent,
+                         char fires_when, bool skip_system, bool recurse,
+                         LOCKMODE lockmode) {
+    // Open pg_trigger catalog for modification
+    Relation tgrel = table_open(TriggerRelationId, RowExclusiveLock);
+
+    // Setup scan keys based on parameters
+    ScanKeyData keys[2];
+    int nkeys;
+    ScanKeyInit(&keys[0], Anum_pg_trigger_tgrelid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(RelationGetRelid(rel)));
+
+    if (tgname) {
+        ScanKeyInit(&keys[1], Anum_pg_trigger_tgname, BTEqualStrategyNumber,
+                    F_NAMEEQ, CStringGetDatum(tgname));
+        nkeys = 2;
+    } else {
+        nkeys = 1;
+    }
+
+    // Scan triggers matching criteria
+    SysScanDesc tgscan = systable_beginscan(tgrel, TriggerRelidNameIndexId,
+                                           true, NULL, nkeys, keys);
+    bool found = false, changed = false;
+    HeapTuple tuple;
+
+    while (HeapTupleIsValid(tuple = systable_getnext(tgscan))) {
+        Form_pg_trigger oldtrig = (Form_pg_trigger) GETSTRUCT(tuple);
+
+        // Apply filters
+        if (OidIsValid(tgparent) && tgparent != oldtrig->tgparentid)
+            continue;
+        if (oldtrig->tgisinternal && skip_system)
+            continue;
+        if (oldtrig->tgisinternal && !superuser())
+            ereport(ERROR, "permission denied: system trigger");
+
+        found = true;
+
+        // Update trigger state if different
+        if (oldtrig->tgenabled != fires_when) {
+            HeapTuple newtup = heap_copytuple(tuple);
+            Form_pg_trigger newtrig = (Form_pg_trigger) GETSTRUCT(newtup);
+            newtrig->tgenabled = fires_when;
+            CatalogTupleUpdate(tgrel, &newtup->t_self, newtup);
+            heap_freetuple(newtup);
+            changed = true;
+        }
+
+        // Recurse to partitions if needed
+        if (recurse && rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE &&
+            TRIGGER_FOR_ROW(oldtrig->tgtype)) {
+            PartitionDesc partdesc = RelationGetPartitionDesc(rel, true);
+            for (int i = 0; i < partdesc->nparts; i++) {
+                Relation part = relation_open(partdesc->oids[i], lockmode);
+                EnableDisableTrigger(part, NULL, oldtrig->oid, fires_when,
+                                   skip_system, recurse, lockmode);
+                table_close(part, NoLock);
+            }
+        }
+
+        InvokeObjectPostAlterHook(TriggerRelationId, oldtrig->oid, 0);
+    }
+
+    systable_endscan(tgscan);
+    table_close(tgrel, RowExclusiveLock);
+
+    // Error if specific trigger not found
+    if (tgname && !found)
+        ereport(ERROR, "trigger does not exist");
+
+    // Invalidate cache if changes were made
+    if (changed)
+        CacheInvalidateRelcache(rel);
+}
+```

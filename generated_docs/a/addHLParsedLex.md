@@ -45,3 +45,46 @@ The `addHLParsedLex` function is a key component in the headline generation pipe
 - The function serves as a bridge between the parsing phase and the headline generation phase
 - It ensures that both raw and normalized forms are properly integrated into the final headline structure
 - The separation of lexs and norms processing allows for different handling of original tokens vs. normalized search terms
+
+## Simplified Source
+
+```c
+static void addHLParsedLex(HeadlineParsedText *prs, TSQuery query, ParsedLex *lexs, TSLexeme *norms) {
+    ParsedLex *tmplexs;
+    TSLexeme *ptr;
+    int32 savedpos;
+
+    // Process ParsedLex entries
+    while (lexs) {
+        if (lexs->type > 0)
+            hladdword(prs, lexs->lemm, lexs->lenlemm, lexs->type);
+
+        // Process normalized forms for current lexeme
+        ptr = norms;
+        savedpos = prs->vectorpos;
+        while (ptr && ptr->lexeme) {
+            if (ptr->flags & TSL_ADDPOS)
+                savedpos++;
+            hlfinditem(prs, query, savedpos, ptr->lexeme, strlen(ptr->lexeme));
+            ptr++;
+        }
+
+        // Move to next ParsedLex and free current
+        tmplexs = lexs->next;
+        pfree(lexs);
+        lexs = tmplexs;
+    }
+
+    // Clean up normalized forms
+    if (norms) {
+        ptr = norms;
+        while (ptr->lexeme) {
+            if (ptr->flags & TSL_ADDPOS)
+                prs->vectorpos++;
+            pfree(ptr->lexeme);
+            ptr++;
+        }
+        pfree(norms);
+    }
+}
+```

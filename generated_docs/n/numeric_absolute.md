@@ -35,3 +35,17 @@ The numeric_absolute function computes the absolute value of a PostgreSQL Numeri
 - Returns a new Numeric value rather than modifying the input
 - Used internally by size formatting functions that need to work with absolute values for unit selection
 - The function follows PostgreSQL's memory management conventions for Numeric values
+
+## Simplified Source
+
+```c
+static Numeric
+numeric_absolute(Numeric n)
+{
+    Datum d = NumericGetDatum(n);
+    Datum result;
+
+    result = DirectFunctionCall1(numeric_abs, d);
+    return DatumGetNumeric(result);
+}
+```

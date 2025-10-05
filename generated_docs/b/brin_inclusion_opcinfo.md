@@ -43,3 +43,29 @@ This function is the opcinfo handler for BRIN inclusion operator classes. It all
 - The oi_nstored field is set to 3, indicating three stored values per BRIN tuple
 - Regular null handling is enabled (oi_regular_nulls = true)
 - The opaque structure supports cached subtype management for dynamic strategy procedure invalidation
+
+## Simplified Source
+
+```c
+Datum brin_inclusion_opcinfo(PG_FUNCTION_ARGS) {
+    Oid typoid = PG_GETARG_OID(0);
+    BrinOpcInfo *result;
+    TypeCacheEntry *bool_typcache = lookup_type_cache(BOOLOID, 0);
+
+    // Allocate space for BrinOpcInfo + InclusionOpaque in one block
+    result = palloc0(MAXALIGN(SizeofBrinOpcInfo(3)) + sizeof(InclusionOpaque));
+
+    // Configure basic opcinfo properties
+    result->oi_nstored = 3;  // Three stored values: union, unmergeable, contains_empty
+    result->oi_regular_nulls = true;
+    result->oi_opaque = (InclusionOpaque *)
+        MAXALIGN((char *) result + SizeofBrinOpcInfo(3));
+
+    // Set up type cache entries for the three stored values
+    result->oi_typcache[INCLUSION_UNION] = lookup_type_cache(typoid, 0);
+    result->oi_typcache[INCLUSION_UNMERGEABLE] = bool_typcache;
+    result->oi_typcache[INCLUSION_CONTAINS_EMPTY] = bool_typcache;
+
+    PG_RETURN_POINTER(result);
+}
+```

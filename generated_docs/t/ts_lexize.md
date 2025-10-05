@@ -47,3 +47,69 @@ The function supports dictionaries that may require multiple lexization calls, a
 - Supports dictionaries that require multiple processing passes through the getnext mechanism
 - The function converts C-style TSLexeme results into PostgreSQL's text array format for SQL compatibility
 - Input text is processed using VARDATA_ANY and VARSIZE_ANY_EXHDR macros to handle varlena data types properly
+
+## Simplified Source
+
+```c
+Datum ts_lexize(PG_FUNCTION_ARGS)
+{
+    Oid dictId = PG_GETARG_OID(0);
+    text *in = PG_GETARG_TEXT_PP(1);
+    ArrayType *a;
+    TSDictionaryCacheEntry *dict;
+    TSLexeme *res, *ptr;
+    Datum *da;
+    DictSubState dstate = {false, false, NULL};
+
+    // Look up dictionary in cache
+    dict = lookup_ts_dictionary_cache(dictId);
+
+    // Call dictionary's lexize function
+    res = (TSLexeme *) DatumGetPointer(FunctionCall4(&dict->lexize,
+                                                     PointerGetDatum(dict->dictData),
+                                                     PointerGetDatum(VARDATA_ANY(in)),
+                                                     Int32GetDatum(VARSIZE_ANY_EXHDR(in)),
+                                                     PointerGetDatum(&dstate)));
+
+    // Handle multi-pass dictionaries if needed
+    if (dstate.getnext)
+    {
+        dstate.isend = true;
+        ptr = (TSLexeme *) DatumGetPointer(FunctionCall4(&dict->lexize, /* same args */));
+        if (ptr != NULL)
+            res = ptr;
+    }
+
+    // Return NULL if no lexemes produced
+    if (!res)
+        PG_RETURN_NULL();
+
+    // Count lexemes and build datum array
+    ptr = res;
+    while (ptr->lexeme) ptr++;
+    da = (Datum *) palloc(sizeof(Datum) * (ptr - res));
+
+    ptr = res;
+    while (ptr->lexeme)
+    {
+        da[ptr - res] = CStringGetTextDatum(ptr->lexeme);
+        ptr++;
+    }
+
+    // Construct PostgreSQL array from lexemes
+    a = construct_array_builtin(da, ptr - res, TEXTOID);
+
+    // Clean up memory
+    ptr = res;
+    while (ptr->lexeme)
+    {
+        pfree(DatumGetPointer(da[ptr - res]));
+        pfree(ptr->lexeme);
+        ptr++;
+    }
+    pfree(res);
+    pfree(da);
+
+    PG_RETURN_POINTER(a);
+}
+```

@@ -43,3 +43,16 @@ This function is typically invoked through SQL queries using geometric operators
 - Provides the SQL interface for containment operators in geometric contexts involving line segments
 - More restrictive than point-line containment since it requires the point to be within segment bounds
 - Currently shows no direct references in the codebase, suggesting it may be called through PostgreSQL's dynamic function dispatch system or SQL operator resolution
+
+## Simplified Source
+
+```c
+Datum on_ps(PG_FUNCTION_ARGS) {
+    // Extract point and line segment from function arguments
+    Point *pt = PG_GETARG_POINT_P(0);
+    LSEG *lseg = PG_GETARG_LSEG_P(1);
+
+    // Test if point lies on the line segment
+    PG_RETURN_BOOL(lseg_contain_point(lseg, pt));
+}
+```

@@ -34,3 +34,21 @@ This function provides access to LocalPgBackendStatus entries using a 1-based ar
 - Used primarily by SQL-callable statistics functions that need to iterate through all backend entries
 - Part of PostgreSQL's statistics collection system, enabling enumeration of all active backend processes
 - Returns a direct pointer to the array element, providing efficient O(1) access when the index is known
+
+## Simplified Source
+
+```c
+LocalPgBackendStatus *
+pgstat_get_local_beentry_by_index(int idx)
+{
+    // Ensure local status table is current
+    pgstat_read_current_status();
+
+    // Bounds check: valid range is 1 to localNumBackends
+    if (idx < 1 || idx > localNumBackends)
+        return NULL;
+
+    // Return pointer to array element (1-based index)
+    return &localBackendStatusTable[idx - 1];
+}
+```

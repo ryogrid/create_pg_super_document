@@ -37,3 +37,36 @@ This function is designed to fetch the existing slice value from an array before
 - For non-NULL arrays, slices are never considered NULL (prevnull is always set to false)
 - Part of the comprehensive array subscripting framework but unused in practice
 - Future PostgreSQL versions might activate this code path with enhanced array operation support
+
+## Simplified Source
+
+```c
+static void
+array_subscript_fetch_old_slice(ExprState *state,
+                                ExprEvalStep *op,
+                                ExprContext *econtext)
+{
+    SubscriptingRefState *sbsrefstate = op->d.sbsref.state;
+    ArraySubWorkspace *workspace = (ArraySubWorkspace *) sbsrefstate->workspace;
+
+    if (*op->resnull) {
+        // Whole array is null, so any slice is too
+        sbsrefstate->prevvalue = (Datum) 0;
+        sbsrefstate->prevnull = true;
+    } else {
+        // Fetch the current slice value before assignment
+        sbsrefstate->prevvalue = array_get_slice(*op->resvalue,
+                                                 sbsrefstate->numupper,
+                                                 workspace->upperindex,
+                                                 workspace->lowerindex,
+                                                 sbsrefstate->upperprovided,
+                                                 sbsrefstate->lowerprovided,
+                                                 workspace->refattrlength,
+                                                 workspace->refelemlength,
+                                                 workspace->refelembyval,
+                                                 workspace->refelemalign);
+        // Slices of non-null arrays are never null
+        sbsrefstate->prevnull = false;
+    }
+}
+```

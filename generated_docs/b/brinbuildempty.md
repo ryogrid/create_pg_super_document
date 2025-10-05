@@ -47,3 +47,24 @@ The resulting empty BRIN index contains only the essential metadata page and is 
 - WAL logging with  ensures crash recovery consistency
 - The  and  flags optimize buffer extension
 - Complements  function which builds populated indexes
+
+## Simplified Source
+
+```c
+void brinbuildempty(Relation index) {
+    // Create metadata page buffer using initialization fork
+    Buffer metabuf = ExtendBufferedRel(BMR_REL(index), INIT_FORKNUM, NULL,
+                                      EB_LOCK_FIRST | EB_SKIP_EXTENSION_LOCK);
+
+    // Initialize metadata page in critical section
+    START_CRIT_SECTION();
+    brin_metapage_init(BufferGetPage(metabuf), BrinGetPagesPerRange(index),
+                      BRIN_CURRENT_VERSION);
+    MarkBufferDirty(metabuf);
+    log_newpage_buffer(metabuf, true);
+    END_CRIT_SECTION();
+
+    // Release the buffer
+    UnlockReleaseBuffer(metabuf);
+}
+```

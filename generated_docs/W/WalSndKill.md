@@ -36,3 +36,22 @@ The cleanup process involves careful ordering of operations under spinlock prote
 - Thread-safe cleanup ensures other processes can reliably detect slot availability
 - Asserts that MyWalSnd is valid before cleanup to catch programming errors
 - Sets MyWalSnd to NULL after cleanup to prevent accidental reuse
+
+## Simplified Source
+
+```c
+static void WalSndKill(int code, Datum arg) {
+    WalSnd *walsnd = MyWalSnd;
+
+    Assert(walsnd != NULL);
+
+    // Clear global reference first
+    MyWalSnd = NULL;
+
+    // Clean up slot under lock protection
+    SpinLockAcquire(&walsnd->mutex);
+    walsnd->latch = NULL;  // Clear latch safely
+    walsnd->pid = 0;       // Mark slot as available
+    SpinLockRelease(&walsnd->mutex);
+}
+```

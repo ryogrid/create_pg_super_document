@@ -44,3 +44,54 @@ The function maintains visibility map buffer pins and updates vacrel state with 
 - Critical for vacuum performance optimization while maintaining correctness guarantees about XID/MXID processing
 - Updates multiple vacrel fields: next_unskippable_block, next_unskippable_allvis, and next_unskippable_vmbuffer
 - Source location: src/backend/access/heap/vacuumlazy.c:1186-1284
+
+## Simplified Source
+
+```c
+static void
+find_next_unskippable_block(LVRelState *vacrel, bool *skipsallvis)
+{
+    BlockNumber next_block = vacrel->next_unskippable_block + 1;
+    Buffer vmbuffer = vacrel->next_unskippable_vmbuffer;
+    bool is_allvis;
+
+    *skipsallvis = false;
+
+    // Scan forward until we find an unskippable block
+    for (;;)
+    {
+        // Check visibility map status for this block
+        uint8 mapbits = visibilitymap_get_status(vacrel->rel, next_block, &vmbuffer);
+        is_allvis = (mapbits & VISIBILITYMAP_ALL_VISIBLE) != 0;
+
+        // Block is unskippable if not all-visible
+        if (!is_allvis)
+            break;
+
+        // Always scan the last page to set nonempty_pages correctly
+        if (next_block == vacrel->rel_pages - 1)
+            break;
+
+        // Skip page skipping if disabled
+        if (!vacrel->skipwithvm)
+            break;
+
+        // In aggressive mode, can only skip all-frozen blocks
+        if ((mapbits & VISIBILITYMAP_ALL_FROZEN) == 0)
+        {
+            if (vacrel->aggressive)
+                break;
+
+            // Non-aggressive can skip all-visible blocks
+            *skipsallvis = true;
+        }
+
+        next_block++;
+    }
+
+    // Update vacrel state with results
+    vacrel->next_unskippable_block = next_block;
+    vacrel->next_unskippable_allvis = is_allvis;
+    vacrel->next_unskippable_vmbuffer = vmbuffer;
+}
+```

@@ -57,3 +57,119 @@ The function operates within PostgreSQL's aggregate framework and ensures proper
 - Implements performance optimizations for null value skipping and duplicate key detection
 - Returns ERROR for duplicate keys when unique_keys is enabled
 - Part of PostgreSQL's SQL standard JSON aggregate function implementation
+
+## Simplified Source
+
+```c
+static Datum
+json_object_agg_transfn_worker(FunctionCallInfo fcinfo,
+                               bool absent_on_null, bool unique_keys)
+{
+    MemoryContext aggcontext, oldcontext;
+    JsonAggState *state;
+    StringInfo out;
+    Datum arg;
+    bool skip;
+    int key_offset;
+
+    // Validate aggregate context
+    if (!AggCheckCallContext(fcinfo, &aggcontext))
+        elog(ERROR, "json_object_agg_transfn called in non-aggregate context");
+
+    // Initialize state on first call
+    if (PG_ARGISNULL(0))
+    {
+        Oid arg_type;
+
+        // Create persistent state in aggregate memory context
+        oldcontext = MemoryContextSwitchTo(aggcontext);
+        state = (JsonAggState *) palloc(sizeof(JsonAggState));
+        state->str = makeStringInfo();
+
+        // Initialize unique key checking if requested
+        if (unique_keys)
+            json_unique_builder_init(&state->unique_check);
+        else
+            memset(&state->unique_check, 0, sizeof(state->unique_check));
+        MemoryContextSwitchTo(oldcontext);
+
+        // Categorize key type (argument 1)
+        arg_type = get_fn_expr_argtype(fcinfo->flinfo, 1);
+        if (arg_type == InvalidOid)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("could not determine data type for argument %d", 1)));
+        json_categorize_type(arg_type, false, &state->key_category,
+                            &state->key_output_func);
+
+        // Categorize value type (argument 2)
+        arg_type = get_fn_expr_argtype(fcinfo->flinfo, 2);
+        if (arg_type == InvalidOid)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("could not determine data type for argument %d", 2)));
+        json_categorize_type(arg_type, false, &state->val_category,
+                            &state->val_output_func);
+
+        // Start JSON object
+        appendStringInfoString(state->str, "{ ");
+    }
+    else
+    {
+        state = (JsonAggState *) PG_GETARG_POINTER(0);
+    }
+
+    // Keys cannot be null
+    if (PG_ARGISNULL(1))
+        ereport(ERROR, (errcode(ERRCODE_NULL_VALUE_NOT_ALLOWED),
+                       errmsg("null value not allowed for object key")));
+
+    // Skip null values if in strict mode
+    skip = absent_on_null && PG_ARGISNULL(2);
+
+    if (skip)
+    {
+        // For unique keys, still need to check key even if skipping value
+        if (!unique_keys)
+            PG_RETURN_POINTER(state);
+        out = json_unique_builder_get_throwawaybuf(&state->unique_check);
+    }
+    else
+    {
+        out = state->str;
+        // Add comma separator for non-first entries
+        if (out->len > 2)
+            appendStringInfoString(out, ", ");
+    }
+
+    // Convert and append key
+    arg = PG_GETARG_DATUM(1);
+    key_offset = out->len;
+    datum_to_json_internal(arg, false, out, state->key_category,
+                          state->key_output_func, true);
+
+    // Check for duplicate keys if required
+    if (unique_keys)
+    {
+        const char *key = MemoryContextStrdup(aggcontext,
+                                             &out->data[key_offset]);
+        if (!json_unique_check_key(&state->unique_check.check, key, 0))
+            ereport(ERROR, (errcode(ERRCODE_DUPLICATE_JSON_OBJECT_KEY_VALUE),
+                           errmsg("duplicate JSON object key value: %s", key)));
+
+        if (skip)
+            PG_RETURN_POINTER(state);
+    }
+
+    // Add colon separator and convert value
+    appendStringInfoString(state->str, " : ");
+
+    if (PG_ARGISNULL(2))
+        arg = (Datum) 0;
+    else
+        arg = PG_GETARG_DATUM(2);
+
+    datum_to_json_internal(arg, PG_ARGISNULL(2), state->str,
+                          state->val_category, state->val_output_func, false);
+
+    PG_RETURN_POINTER(state);
+}
+```

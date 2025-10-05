@@ -41,3 +41,34 @@ This function creates a new B-tree page during the bulk loading phase of index c
 - Reserves space for P_HIKEY by incrementing pd_lower, ensuring the high key slot is marked as allocated
 - Part of the bulk loading infrastructure that optimizes B-tree index creation performance
 - The btpo_cycleid is initialized to 0, which is appropriate for newly created pages
+
+## Simplified Source
+
+```c
+static BulkWriteBuffer
+_bt_blnewpage(BTWriteState *wstate, uint32 level)
+{
+    BulkWriteBuffer buf;
+    Page page;
+    BTPageOpaque opaque;
+
+    // Allocate buffer from bulk write state
+    buf = smgr_bulk_get_buf(wstate->bulkstate);
+    page = (Page) buf;
+
+    // Initialize page with standard header
+    _bt_pageinit(page, BLCKSZ);
+
+    // Initialize B-tree opaque data
+    opaque = BTPageGetOpaque(page);
+    opaque->btpo_prev = opaque->btpo_next = P_NONE;
+    opaque->btpo_level = level;
+    opaque->btpo_flags = (level > 0) ? 0 : BTP_LEAF;
+    opaque->btpo_cycleid = 0;
+
+    // Reserve space for P_HIKEY line pointer
+    ((PageHeader) page)->pd_lower += sizeof(ItemIdData);
+
+    return buf;
+}
+```

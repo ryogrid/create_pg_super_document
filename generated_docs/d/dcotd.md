@@ -45,3 +45,53 @@ The `dcotd` function implements the cotangent function for degree-based input in
 - Forces minus zero to plain zero for better portability across different platforms
 - Part of PostgreSQL's degree-based trigonometric function family
 - Returns double precision floating point results
+
+## Simplified Source
+
+```c
+Datum dcotd(PG_FUNCTION_ARGS) {
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float8 result;
+    volatile float8 cot_arg1;
+    int sign = 1;
+
+    // Handle special values per POSIX spec
+    if (isnan(arg1))
+        PG_RETURN_FLOAT8(get_float8_nan());
+
+    if (isinf(arg1))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("input is out of range")));
+
+    INIT_DEGREE_CONSTANTS();
+
+    // Range reduction: reduce input to [0, 90] degrees
+    arg1 = fmod(arg1, 360.0);           // Handle full rotations
+
+    if (arg1 < 0.0) {
+        arg1 = -arg1;                   // cot(-x) = -cot(x)
+        sign = -sign;
+    }
+
+    if (arg1 > 180.0) {
+        arg1 = 360.0 - arg1;            // cot(360-x) = -cot(x)
+        sign = -sign;
+    }
+
+    if (arg1 > 90.0) {
+        arg1 = 180.0 - arg1;            // cot(180-x) = -cot(x)
+        sign = -sign;
+    }
+
+    // Calculate cotangent as cos/sin, normalized by cot(45°)
+    cot_arg1 = cosd_q1(arg1) / sind_q1(arg1);
+    result = sign * (cot_arg1 / cot_45);
+
+    // Force minus zero to plain zero for portability
+    if (result == 0.0)
+        result = 0.0;
+
+    // No overflow check - cotangent can be infinite (e.g., cot(0°) = ∞)
+    PG_RETURN_FLOAT8(result);
+}
+```

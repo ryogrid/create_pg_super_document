@@ -45,3 +45,28 @@ This variant is commonly used in SQL queries where users want to check their own
 - Commonly used in application code and SQL scripts where self-privilege checking is needed
 - The function will return NULL if the specified function doesn't exist
 - More concise than the name_name variant when checking current user privileges
+
+## Simplified Source
+
+```c
+Datum
+has_function_privilege_name(PG_FUNCTION_ARGS)
+{
+    text *functionname = PG_GETARG_TEXT_PP(0);
+    text *priv_type_text = PG_GETARG_TEXT_PP(1);
+
+    // Get current user's OID
+    Oid roleid = GetUserId();
+
+    // Convert function name to OID
+    Oid functionoid = convert_function_name(functionname);
+
+    // Convert privilege string to access mode
+    AclMode mode = convert_function_priv_string(priv_type_text);
+
+    // Check if current user has the specified privilege
+    AclResult aclresult = object_aclcheck(ProcedureRelationId, functionoid, roleid, mode);
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

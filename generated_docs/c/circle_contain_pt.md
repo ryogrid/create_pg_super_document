@@ -35,3 +35,16 @@ This function determines if a point lies within a circle by calculating the dist
 - Used in GiST index operations for spatial queries
 - Part of PostgreSQL's geometric containment operations
 - Located in src/backend/utils/adt/geo_ops.c:5082-5093
+
+## Simplified Source
+
+```c
+Datum circle_contain_pt(PG_FUNCTION_ARGS) {
+    CIRCLE *circle = PG_GETARG_CIRCLE_P(0);
+    Point *point = PG_GETARG_POINT_P(1);
+
+    // Check if distance from center to point <= radius
+    float8 distance = point_dt(&circle->center, point);
+    PG_RETURN_BOOL(distance <= circle->radius);
+}
+```

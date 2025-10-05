@@ -38,3 +38,20 @@ This geometric transformation operator enables reversing previous scaling and ro
 - Inverse operation to path_mul_pt, allowing bidirectional scaling/rotation transformations
 - Part of PostgreSQL's comprehensive geometric transformation system
 - Preserves path topology while enabling complex inverse shape transformations
+
+## Simplified Source
+
+```c
+Datum path_div_pt(PG_FUNCTION_ARGS) {
+    // Get a copy of the path and the transformation point
+    PATH *path = PG_GETARG_PATH_P_COPY(0);
+    Point *point = PG_GETARG_POINT_P(1);
+
+    // Apply inverse transformation to each point in the path
+    for (int i = 0; i < path->npts; i++) {
+        point_div_point(&path->p[i], &path->p[i], point);
+    }
+
+    return PG_RETURN_PATH_P(path);
+}
+```

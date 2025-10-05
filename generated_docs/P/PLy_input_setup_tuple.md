@@ -50,3 +50,43 @@ The function is designed to handle re-initialization efficiently, only updating 
 - The caller is responsible for ensuring adequate lifespan of the tuple descriptor for anonymous record types
 - For named composite or registered record types, the tuple descriptor does not need to be long-lived
 - This function works in conjunction with PLy_input_from_tuple to provide complete tuple-to-Python conversion functionality
+
+## Simplified Source
+
+```c
+void PLy_input_setup_tuple(PLyDatumToOb *arg, TupleDesc desc, PLyProcedure *proc) {
+    int i;
+
+    // Validate this is set up for composite type conversion
+    Assert(arg->func == PLyDict_FromComposite);
+
+    // Save tupdesc reference for anonymous record types
+    if (arg->typoid == RECORDOID && arg->typmod < 0)
+        arg->u.tuple.recdesc = desc;
+
+    // Reallocate attributes array if column count changed
+    if (arg->u.tuple.natts != desc->natts) {
+        if (arg->u.tuple.atts)
+            pfree(arg->u.tuple.atts);
+        arg->u.tuple.natts = desc->natts;
+        arg->u.tuple.atts = (PLyDatumToOb *)
+            MemoryContextAllocZero(arg->mcxt, desc->natts * sizeof(PLyDatumToOb));
+    }
+
+    // Setup conversion info for each non-dropped column
+    for (i = 0; i < desc->natts; i++) {
+        Form_pg_attribute attr = TupleDescAttr(desc, i);
+        PLyDatumToOb *att = &arg->u.tuple.atts[i];
+
+        if (attr->attisdropped)
+            continue;
+
+        // Skip if already set up for this type/typmod
+        if (att->typoid == attr->atttypid && att->typmod == attr->atttypmod)
+            continue;
+
+        // Setup conversion function for this column
+        PLy_input_setup_func(att, arg->mcxt, attr->atttypid, attr->atttypmod, proc);
+    }
+}
+```

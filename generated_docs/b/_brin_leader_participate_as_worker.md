@@ -34,3 +34,21 @@ In parallel BRIN index builds, the leader process not only coordinates the paral
 - The function ensures the leader participates with `true` as the final parameter to _brin_parallel_scan_and_build, indicating leader status
 - Memory allocation is based on maintenance_work_mem divided by the actual number of participating workers
 - This approach maximizes CPU utilization by having the leader process contribute to the actual index building work rather than just coordinating
+
+## Simplified Source
+
+```c
+static void _brin_leader_participate_as_worker(BrinBuildState *buildstate,
+                                             Relation heap,
+                                             Relation index) {
+    BrinLeader *leader = buildstate->bs_leader;
+
+    // Calculate fair share of memory for this worker
+    int sortmem = maintenance_work_mem / leader->nparticipanttuplesorts;
+
+    // Do the same work as other workers
+    _brin_parallel_scan_and_build(buildstate, leader->brinshared,
+                                 leader->sharedsort, heap, index,
+                                 sortmem, true); // true = is_leader
+}
+```

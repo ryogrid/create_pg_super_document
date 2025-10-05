@@ -56,3 +56,71 @@ The function includes early exit conditions for skipped changes or streamed tran
 - The function carefully manages memory contexts and security contexts to ensure proper isolation
 - Column change tracking supports per-column triggers and executor optimizations like indexUnchanged hints
 - Error handling is managed through the apply_error_callback_arg global structure
+
+## Simplified Source
+
+```c
+static void
+apply_handle_update(StringInfo s)
+{
+    LogicalRepRelMapEntry *rel;
+    LogicalRepRelId relid;
+    UserContext ucxt;
+    ApplyExecutionData *edata;
+    LogicalRepTupleData oldtup;
+    LogicalRepTupleData newtup;
+    bool has_oldtup;
+    TupleTableSlot *remoteslot;
+    bool run_as_owner;
+
+    // Quick exits for skipped changes or streaming transactions
+    if (is_skipping_changes() ||
+        handle_streamed_transaction(LOGICAL_REP_MSG_UPDATE, s))
+        return;
+
+    begin_replication_step();
+
+    // Parse UPDATE message and open target relation
+    relid = logicalrep_read_update(s, &has_oldtup, &oldtup, &newtup);
+    rel = logicalrep_rel_open(relid, RowExclusiveLock);
+    if (!should_apply_changes_for_rel(rel)) {
+        logicalrep_rel_close(rel, RowExclusiveLock);
+        end_replication_step();
+        return;
+    }
+
+    // Verify relation is updatable
+    check_relation_updatable(rel);
+
+    // Set up security context
+    run_as_owner = MySubscription->runasowner;
+    if (!run_as_owner)
+        SwitchToUntrustedUser(rel->localrel->rd_rel->relowner, &ucxt);
+
+    // Initialize executor and prepare tuple slot
+    edata = create_edata_for_relation(rel);
+    remoteslot = ExecInitExtraTupleSlot(edata->estate,
+                                        RelationGetDescr(rel->localrel),
+                                        &TTSOpsVirtual);
+
+    // Track updated columns for triggers and optimizations
+    // (Column tracking logic simplified for brevity)
+
+    // Build search tuple from old or new tuple data
+    slot_store_data(remoteslot, rel, has_oldtup ? &oldtup : &newtup);
+
+    // Route to partition or update directly
+    if (rel->localrel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+        apply_handle_tuple_routing(edata, remoteslot, &newtup, CMD_UPDATE);
+    else
+        apply_handle_update_internal(edata, edata->targetRelInfo,
+                                    remoteslot, &newtup, rel->localindexoid);
+
+    // Cleanup
+    finish_edata(edata);
+    if (!run_as_owner)
+        RestoreUserContext(&ucxt);
+    logicalrep_rel_close(rel, NoLock);
+    end_replication_step();
+}
+```

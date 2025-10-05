@@ -73,3 +73,57 @@ The function optimizes memory usage when called in an aggregate context by modif
 - Implements overflow detection for finite inputs that produce infinite intermediate results
 - Optimized for aggregate context by modifying arrays in-place when possible
 - Part of PostgreSQL's statistical function infrastructure in src/backend/utils/adt/float.c:3033-3117
+
+## Simplified Source
+
+```c
+Datum float4_accum(PG_FUNCTION_ARGS) {
+    // Get transition array and new float4 value (converted to float8)
+    ArrayType *transarray = PG_GETARG_ARRAYTYPE_P(0);
+    float8 newval = PG_GETARG_FLOAT4(1);  // Convert to float8 for precision
+
+    // Validate and extract current state [N, Sx, Sxx]
+    float8 *transvalues = check_float8_array(transarray, "float4_accum", 3);
+    float8 N = transvalues[0];   // Count
+    float8 Sx = transvalues[1];  // Sum
+    float8 Sxx = transvalues[2]; // Sum of squared deviations
+
+    // Update using Youngs-Cramer algorithm
+    N += 1.0;
+    Sx += newval;
+
+    if (transvalues[0] > 0.0) {
+        // Update sum of squared deviations for N > 1
+        float8 tmp = newval * N - Sx;
+        Sxx += tmp * tmp / (N * transvalues[0]);
+
+        // Handle overflow: finite inputs producing infinite results
+        if (isinf(Sx) || isinf(Sxx)) {
+            if (!isinf(transvalues[1]) && !isinf(newval)) {
+                float_overflow_error();
+            }
+            Sxx = get_float8_nan();  // Set NaN to indicate invalid variance
+        }
+    } else {
+        // First input: handle special cases (NaN/Inf)
+        if (isnan(newval) || isinf(newval)) {
+            Sxx = get_float8_nan();
+        }
+    }
+
+    // Return result (optimize by modifying in-place if in aggregate context)
+    if (AggCheckCallContext(fcinfo, NULL)) {
+        transvalues[0] = N; transvalues[1] = Sx; transvalues[2] = Sxx;
+        PG_RETURN_ARRAYTYPE_P(transarray);
+    } else {
+        Datum transdatums[3] = {
+            Float8GetDatumFast(N),
+            Float8GetDatumFast(Sx),
+            Float8GetDatumFast(Sxx)
+        };
+        ArrayType *result = construct_array(transdatums, 3, FLOAT8OID,
+                                          sizeof(float8), FLOAT8PASSBYVAL, TYPALIGN_DOUBLE);
+        PG_RETURN_ARRAYTYPE_P(result);
+    }
+}
+```

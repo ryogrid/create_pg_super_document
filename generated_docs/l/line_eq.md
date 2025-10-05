@@ -38,3 +38,38 @@ This function determines whether two lines are geometrically equivalent by check
 - Uses floating-point comparison with tolerance for robustness against numerical precision issues
 - Part of PostgreSQLs geometric data type operations for LINE comparisons
 - Returns boolean result indicating whether the two lines represent the same geometric line
+
+## Simplified Source
+
+```c
+Datum
+line_eq(PG_FUNCTION_ARGS)
+{
+    LINE *l1 = PG_GETARG_LINE_P(0);
+    LINE *l2 = PG_GETARG_LINE_P(1);
+    float8 ratio;
+
+    // Handle NaN values with exact equality
+    if (unlikely(isnan(l1->A) || isnan(l1->B) || isnan(l1->C) ||
+                 isnan(l2->A) || isnan(l2->B) || isnan(l2->C))) {
+        PG_RETURN_BOOL(float8_eq(l1->A, l2->A) &&
+                       float8_eq(l1->B, l2->B) &&
+                       float8_eq(l1->C, l2->C));
+    }
+
+    // Find ratio using first non-zero coefficient from l2
+    if (!FPzero(l2->A))
+        ratio = float8_div(l1->A, l2->A);
+    else if (!FPzero(l2->B))
+        ratio = float8_div(l1->B, l2->B);
+    else if (!FPzero(l2->C))
+        ratio = float8_div(l1->C, l2->C);
+    else
+        ratio = 1.0;
+
+    // Check if all coefficients are proportional
+    PG_RETURN_BOOL(FPeq(l1->A, float8_mul(ratio, l2->A)) &&
+                   FPeq(l1->B, float8_mul(ratio, l2->B)) &&
+                   FPeq(l1->C, float8_mul(ratio, l2->C)));
+}
+```

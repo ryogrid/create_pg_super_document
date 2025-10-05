@@ -36,3 +36,13 @@ The conversion process is straightforward, promoting the 32-bit integer to Pytho
 - In Python 3, all integers are long objects internally, so this creates what appears as a regular integer in Python code
 - No precision is lost in the conversion since Python's long type can represent any 32-bit integer value
 - The function follows the standard PLyDatumToOb function pointer pattern used throughout PL/Python's type conversion framework
+
+## Simplified Source
+
+```c
+static PyObject *PLyLong_FromInt32(PLyDatumToOb *arg, Datum d)
+{
+    // Convert PostgreSQL int4 (integer) to Python long
+    return PyLong_FromLong(DatumGetInt32(d));
+}
+```

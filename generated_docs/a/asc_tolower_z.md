@@ -30,3 +30,11 @@ This function is a simplified wrapper around the  function that automatically de
 - Returns a palloc'd string that must be freed by the caller
 - Used specifically in numeric formatting operations within PostgreSQL's formatting system
 - The 'z' suffix indicates this variant works with null-terminated (zero-terminated) strings
+
+## Simplified Source
+
+```c
+static char *asc_tolower_z(const char *buff) {
+    return asc_tolower(buff, strlen(buff));
+}
+```

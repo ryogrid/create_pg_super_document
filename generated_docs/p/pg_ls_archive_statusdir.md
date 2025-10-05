@@ -31,3 +31,15 @@ This function provides access to the contents of PostgreSQL's WAL archive status
 - Status files in this directory have specific meanings (.ready = ready to archive, .done = successfully archived)
 - Part of PostgreSQL's administrative function suite for WAL management and monitoring
 - Useful for database administrators managing backup and recovery operations
+
+## Simplified Source
+
+```c
+Datum
+pg_ls_archive_statusdir(PG_FUNCTION_ARGS)
+{
+    // List files in the WAL archive status directory
+    // Returns details about archiving status files (.ready, .done, etc.)
+    return pg_ls_dir_files(fcinfo, XLOGDIR "/archive_status", true);
+}
+```

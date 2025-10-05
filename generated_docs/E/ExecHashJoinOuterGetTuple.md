@@ -54,3 +54,61 @@ Key behavioral aspects:
 The function is critical for the hybrid hash join algorithm's ability to gracefully degrade to a disk-based algorithm when memory is insufficient, while maintaining optimal performance for memory-resident cases.
 
 Location: src/backend/executor/nodeHashjoin.c:890-963
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecHashJoinOuterGetTuple(PlanState *outerNode,
+                          HashJoinState *hjstate,
+                          uint32 *hashvalue)
+{
+    HashJoinTable hashtable = hjstate->hj_HashTable;
+    int curbatch = hashtable->curbatch;
+    TupleTableSlot *slot;
+
+    if (curbatch == 0) {  // First pass - get tuples from outer plan
+        // Check for pre-fetched tuple from empty-outer optimization
+        slot = hjstate->hj_FirstOuterTupleSlot;
+        if (!TupIsNull(slot)) {
+            hjstate->hj_FirstOuterTupleSlot = NULL;
+        } else {
+            slot = ExecProcNode(outerNode);
+        }
+
+        // Process tuples until we find one with a valid hash value
+        while (!TupIsNull(slot)) {
+            ExprContext *econtext = hjstate->js.ps.ps_ExprContext;
+
+            econtext->ecxt_outertuple = slot;
+            if (ExecHashGetHashValue(hashtable, econtext,
+                                   hjstate->hj_OuterHashKeys,
+                                   true,  // outer tuple
+                                   HJ_FILL_OUTER(hjstate),
+                                   hashvalue)) {
+                // Found valid tuple - remember outer relation is not empty
+                hjstate->hj_OuterNotEmpty = true;
+                return slot;
+            }
+
+            // Tuple had NULL hash value, skip it
+            slot = ExecProcNode(outerNode);
+        }
+    } else if (curbatch < hashtable->nbatch) {  // Later batch - read from file
+        BufFile *file = hashtable->outerBatchFile[curbatch];
+
+        // Handle empty batch files (can happen in outer joins)
+        if (file == NULL)
+            return NULL;
+
+        // Read saved tuple from batch file
+        slot = ExecHashJoinGetSavedTuple(hjstate, file, hashvalue,
+                                       hjstate->hj_OuterTupleSlot);
+        if (!TupIsNull(slot))
+            return slot;
+    }
+
+    // End of current batch
+    return NULL;
+}
+```

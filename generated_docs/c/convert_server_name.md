@@ -28,3 +28,15 @@ The `convert_server_name` function is a support routine for the has_server_privi
 
 ## Notes and Other Information
 This function is declared static, making it internal to the acl.c compilation unit. It serves as a common utility for server name-to-OID conversion within the server privilege checking functions. The function will throw an error if the specified server name does not exist, which is appropriate behavior for privilege checking operations where operating on non-existent objects should fail rather than return a default result.
+
+## Simplified Source
+
+```c
+static Oid
+convert_server_name(text *servername)
+{
+    // Convert text to C string and look up server OID
+    char *serverstr = text_to_cstring(servername);
+    return get_foreign_server_oid(serverstr, false);
+}
+```

@@ -36,3 +36,57 @@ The  function serves as the initialization routine for PostgreSQL's simple dicti
 - Uses PostgreSQL's error reporting system with specific error codes for invalid parameters
 - Part of the text search dictionary framework in PostgreSQL
 - Located in src/backend/tsearch/dict_simple.c:30-74
+
+## Simplified Source
+
+```c
+Datum
+dsimple_init(PG_FUNCTION_ARGS)
+{
+    List *dictoptions = (List *) PG_GETARG_POINTER(0);
+    DictSimple *d = (DictSimple *) palloc0(sizeof(DictSimple));
+    bool stoploaded = false, acceptloaded = false;
+    ListCell *l;
+
+    // Default: accept unrecognized words
+    d->accept = true;
+
+    // Process each configuration option
+    foreach(l, dictoptions)
+    {
+        DefElem *defel = (DefElem *) lfirst(l);
+
+        if (strcmp(defel->defname, "stopwords") == 0)
+        {
+            // Prevent duplicate stopwords parameter
+            if (stoploaded)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                        errmsg("multiple StopWords parameters")));
+
+            // Load stopword list from file
+            readstoplist(defGetString(defel), &d->stoplist, lowerstr);
+            stoploaded = true;
+        }
+        else if (strcmp(defel->defname, "accept") == 0)
+        {
+            // Prevent duplicate accept parameter
+            if (acceptloaded)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                        errmsg("multiple Accept parameters")));
+
+            // Set accept behavior for unrecognized words
+            d->accept = defGetBoolean(defel);
+            acceptloaded = true;
+        }
+        else
+        {
+            // Report unrecognized parameter
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                    errmsg("unrecognized simple dictionary parameter: \"%s\"",
+                           defel->defname)));
+        }
+    }
+
+    PG_RETURN_POINTER(d);
+}
+```

@@ -36,3 +36,19 @@ This function releases a lock on an already-open relation without closing the re
 - Part of PostgreSQL's lock manager subsystem located in src/backend/storage/lmgr/lmgr.c
 - Provides a simpler interface than UnlockRelationId when a Relation structure is available
 - The relation remains open after unlocking, allowing continued access with potentially different lock modes
+
+## Simplified Source
+
+```c
+void UnlockRelation(Relation relation, LOCKMODE lockmode) {
+    LOCKTAG tag;
+
+    // Set up lock tag from relation information
+    SET_LOCKTAG_RELATION(tag,
+                         relation->rd_lockInfo.lockRelId.dbId,
+                         relation->rd_lockInfo.lockRelId.relId);
+
+    // Release the lock
+    LockRelease(&tag, lockmode, false);
+}
+```

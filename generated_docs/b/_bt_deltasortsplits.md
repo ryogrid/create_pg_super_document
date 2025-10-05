@@ -39,3 +39,32 @@ This sorting enables subsequent functions to efficiently examine the best split 
 - The sort is stable and deterministic, using `_bt_splitcmp` as the comparison function
 - This function is crucial for the multi-strategy approach in split point selection, allowing different strategies to work with the same sorted candidate list
 - Fill factor multipliers typically come from relation-specific settings or hardcoded constants for different page types
+
+## Simplified Source
+```c
+static void
+_bt_deltasortsplits(FindSplitData *state, double fillfactormult, bool usemult)
+{
+    // Calculate delta for each split point
+    for (int i = 0; i < state->nsplits; i++) {
+        SplitPoint *split = state->splits + i;
+        int16 delta;
+
+        if (usemult) {
+            // Weighted calculation based on fill factor
+            // Favors splits that achieve desired left page fill factor
+            delta = fillfactormult * split->leftfree -
+                   (1.0 - fillfactormult) * split->rightfree;
+        } else {
+            // Simple balance: difference between left and right free space
+            delta = split->leftfree - split->rightfree;
+        }
+
+        // Store absolute value - lower delta means better balanced split
+        split->curdelta = (delta < 0) ? -delta : delta;
+    }
+
+    // Sort splits by delta (best balanced first)
+    qsort(state->splits, state->nsplits, sizeof(SplitPoint), _bt_splitcmp);
+}
+```

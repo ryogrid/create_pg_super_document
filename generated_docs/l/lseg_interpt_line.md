@@ -42,3 +42,38 @@ This function calculates whether a line segment (LSEG) intersects with an infini
 - Uses a two-phase algorithm: line-line intersection followed by containment verification
 - The result parameter can be NULL if only the boolean intersection result is needed
 - Part of PostgreSQL's geometric intersection calculation system
+
+## Simplified Source
+
+```c
+static bool
+lseg_interpt_line(Point *result, LSEG *lseg, LINE *line)
+{
+    Point interpt;
+    LINE tmp;
+
+    // Convert line segment to infinite line for intersection calculation
+    line_construct(&tmp, &lseg->p[0], lseg_sl(lseg));
+
+    // Find intersection between the two infinite lines
+    if (!line_interpt_line(&interpt, &tmp, line))
+        return false;
+
+    // Check if intersection point lies within the line segment bounds
+    if (!lseg_contain_point(lseg, &interpt))
+        return false;
+
+    // If result requested, handle floating-point precision by checking endpoints
+    if (result != NULL)
+    {
+        if (point_eq_point(&lseg->p[0], &interpt))
+            *result = lseg->p[0];
+        else if (point_eq_point(&lseg->p[1], &interpt))
+            *result = lseg->p[1];
+        else
+            *result = interpt;
+    }
+
+    return true;
+}
+```

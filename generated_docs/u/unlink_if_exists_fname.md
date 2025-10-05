@@ -47,3 +47,20 @@ Key characteristics:
 - Directories must be empty for rmdir() to succeed, which works well with walkdir's post-order traversal
 - Error handling is configurable through the elevel parameter, allowing different cleanup contexts to use different error reporting strategies
 - Designed to work with the walkdir recursive traversal pattern where directories are processed after their contents
+
+## Simplified Source
+
+```c
+static void unlink_if_exists_fname(const char *fname, bool isdir, int elevel) {
+    if (isdir) {
+        // Remove directory, ignoring "not found" errors
+        if (rmdir(fname) != 0 && errno != ENOENT)
+            ereport(elevel,
+                    (errcode_for_file_access(),
+                     errmsg("could not remove directory \"%s\": %m", fname)));
+    } else {
+        // Remove regular file using PostgreSQL's temporary file deletion
+        PathNameDeleteTemporaryFile(fname, false);
+    }
+}
+```

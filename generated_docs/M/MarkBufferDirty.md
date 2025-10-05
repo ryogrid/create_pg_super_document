@@ -47,3 +47,55 @@ The function implements a retry loop with atomic operations to handle concurrent
 - The BM_JUST_DIRTIED flag is used for performance optimizations in checkpoint timing
 - VacuumPageDirty and pgBufferUsage.shared_blks_dirtied counters are incremented for newly dirty buffers
 - Integrates with vacuum cost accounting system when VacuumCostActive is enabled
+
+## Simplified Source
+
+```c
+void MarkBufferDirty(Buffer buffer) {
+    // Validate buffer and handle local buffers separately
+    if (!BufferIsValid(buffer))
+        elog(ERROR, "bad buffer ID: %d", buffer);
+
+    if (BufferIsLocal(buffer)) {
+        MarkLocalBufferDirty(buffer);
+        return;
+    }
+
+    // Get buffer descriptor for shared buffer
+    BufferDesc *bufHdr = GetBufferDescriptor(buffer - 1);
+
+    // Verify buffer is pinned and exclusively locked
+    Assert(BufferIsPinned(buffer));
+    Assert(LWLockHeldByMeInMode(BufferDescriptorGetContentLock(bufHdr), LW_EXCLUSIVE));
+
+    // Atomically set dirty flags using compare-and-swap loop
+    uint32 old_buf_state = pg_atomic_read_u32(&bufHdr->state);
+    for (;;) {
+        // Wait if buffer header is locked
+        if (old_buf_state & BM_LOCKED)
+            old_buf_state = WaitBufHdrUnlocked(bufHdr);
+
+        // Set dirty and just-dirtied flags
+        uint32 buf_state = old_buf_state | BM_DIRTY | BM_JUST_DIRTIED;
+
+        // Try to update atomically; retry if state changed concurrently
+        if (pg_atomic_compare_exchange_u32(&bufHdr->state, &old_buf_state, buf_state))
+            break;
+    }
+
+    // Update vacuum accounting if buffer wasn't already dirty
+    if (!(old_buf_state & BM_DIRTY)) {
+        VacuumPageDirty++;
+        pgBufferUsage.shared_blks_dirtied++;
+        if (VacuumCostActive)
+            VacuumCostBalance += VacuumCostPageDirty;
+    }
+}
+```
+
+**Key Logic:**
+- Validates buffer ID and delegates local buffers to specialized handler
+- Atomically sets BM_DIRTY and BM_JUST_DIRTIED flags using compare-and-swap
+- Handles concurrent access through retry loop and buffer header locking
+- Updates vacuum statistics only when buffer transitions from clean to dirty
+- Requires buffer to be pinned and exclusively locked for safe modification

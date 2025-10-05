@@ -48,3 +48,71 @@ This function implements the core logic for morphological analysis during TSQuer
 - Memory management includes proper cleanup of allocated ParsedWord structures
 - Supports both regular and prefix search modes depending on TSL_PREFIX flag and prefix parameter
 - The function builds a query tree that accurately represents the morphological relationships in the original text
+
+## Simplified Source
+
+```c
+static void pushval_morph(Datum opaque, TSQueryParserState state, char *strval, int lenval, int16 weight, bool prefix)
+{
+    MorphOpaque *data = (MorphOpaque *) DatumGetPointer(opaque);
+    ParsedText prs;
+
+    // Initialize parsing structures
+    prs.lenwords = 4;
+    prs.curwords = 0;
+    prs.pos = 0;
+    prs.words = (ParsedWord *) palloc(sizeof(ParsedWord) * prs.lenwords);
+
+    // Parse text into lexemes using dictionary
+    parsetext(data->cfg_id, &prs, strval, lenval);
+
+    if (prs.curwords > 0) {
+        uint32 pos = 0, cntpos = 0;
+        int32 count = 0;
+
+        // Process all parsed words
+        while (count < prs.curwords) {
+            // Handle stopword gaps with placeholders
+            while (pos + 1 < prs.words[count].pos.pos) {
+                pushStop(state);
+                if (cntpos) pushOperator(state, data->qoperator, 1);
+                cntpos++;
+                pos++;
+            }
+
+            pos = prs.words[count].pos.pos;
+            uint32 cntvar = 0;
+
+            // Group variants at same position
+            while (count < prs.curwords && pos == prs.words[count].pos.pos) {
+                uint32 variant = prs.words[count].nvariant;
+                uint32 cnt = 0;
+
+                // AND together words from same variant
+                while (count < prs.curwords &&
+                       pos == prs.words[count].pos.pos &&
+                       variant == prs.words[count].nvariant) {
+                    pushValue(state, prs.words[count].word, prs.words[count].len,
+                             weight, ((prs.words[count].flags & TSL_PREFIX) || prefix));
+                    pfree(prs.words[count].word);
+                    if (cnt) pushOperator(state, OP_AND, 0);
+                    cnt++;
+                    count++;
+                }
+
+                // OR together different variants
+                if (cntvar) pushOperator(state, OP_OR, 0);
+                cntvar++;
+            }
+
+            // Connect positions with configured operator
+            if (cntpos) pushOperator(state, data->qoperator, 1);
+            cntpos++;
+        }
+
+        pfree(prs.words);
+    } else {
+        pushStop(state);
+    }
+}
+```

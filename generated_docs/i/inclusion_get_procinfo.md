@@ -50,3 +50,42 @@ This function provides cached access to support procedures for BRIN inclusion op
 - Error messages include both function number and column number for debugging
 - The caching mechanism prevents repeated failed lookups for non-existent optional procedures
 - Support functions are essential for inclusion operations like empty testing, containment checking, mergeability testing, and union operations
+
+## Simplified Source
+
+```c
+static FmgrInfo *inclusion_get_procinfo(BrinDesc *bdesc, uint16 attno, uint16 procnum,
+                                       bool missing_ok) {
+    InclusionOpaque *opaque = (InclusionOpaque *) bdesc->bd_info[attno - 1]->oi_opaque;
+    uint16 basenum = procnum - PROCNUM_BASE;
+
+    // Check if we already searched for this procedure and it was missing
+    if (opaque->extra_proc_missing[basenum])
+        return NULL;
+
+    // Check if procedure is already cached
+    if (opaque->extra_procinfos[basenum].fn_oid == InvalidOid) {
+        // Cache miss - need to look up procedure
+        if (RegProcedureIsValid(index_getprocid(bdesc->bd_index, attno, procnum))) {
+            // Copy procedure info into cache
+            fmgr_info_copy(&opaque->extra_procinfos[basenum],
+                          index_getprocinfo(bdesc->bd_index, attno, procnum),
+                          bdesc->bd_context);
+        } else {
+            // Procedure doesn't exist
+            if (!missing_ok) {
+                ereport(ERROR,
+                       errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                       errmsg_internal("invalid opclass definition"),
+                       errdetail_internal("The operator class is missing support function %d for column %d.",
+                                        procnum, attno));
+            }
+            // Mark as missing to avoid future lookups
+            opaque->extra_proc_missing[basenum] = true;
+            return NULL;
+        }
+    }
+
+    return &opaque->extra_procinfos[basenum];
+}
+```

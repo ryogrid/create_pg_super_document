@@ -58,3 +58,98 @@ The function encapsulates all aspects of parallelism management, allowing the ca
 - Implements sophisticated memory management to ensure  represents an absolute high watermark regardless of parallelism
 - Progress reporting integration allows monitoring of long-running index builds
 - Returns the total number of heap tuples scanned for statistics and validation purposes
+
+## Simplified Source
+
+```c
+static double
+_bt_spools_heapscan(Relation heap, Relation index, BTBuildState *buildstate,
+                    IndexInfo *indexInfo)
+{
+    BTSpool *btspool = (BTSpool *) palloc0(sizeof(BTSpool));
+    SortCoordinate coordinate = NULL;
+    double reltuples = 0;
+
+    // Initialize primary spool
+    btspool->heap = heap;
+    btspool->index = index;
+    btspool->isunique = indexInfo->ii_Unique;
+    btspool->nulls_not_distinct = indexInfo->ii_NullsNotDistinct;
+    buildstate->spool = btspool;
+
+    // Report scan phase started
+    pgstat_progress_update_param(PROGRESS_CREATEIDX_SUBPHASE,
+                                 PROGRESS_BTREE_PHASE_INDEXBUILD_TABLESCAN);
+
+    // Setup parallel processing if workers available
+    if (indexInfo->ii_ParallelWorkers > 0)
+        _bt_begin_parallel(buildstate, indexInfo->ii_Concurrent,
+                           indexInfo->ii_ParallelWorkers);
+
+    // Setup coordination for parallel workers
+    if (buildstate->btleader) {
+        coordinate = (SortCoordinate) palloc0(sizeof(SortCoordinateData));
+        coordinate->isWorker = false;
+        coordinate->nParticipants = buildstate->btleader->nparticipanttuplesorts;
+        coordinate->sharedsort = buildstate->btleader->sharedsort;
+    }
+
+    // Initialize primary tuplesort
+    buildstate->spool->sortstate =
+        tuplesort_begin_index_btree(heap, index, buildstate->isunique,
+                                    buildstate->nulls_not_distinct,
+                                    maintenance_work_mem, coordinate,
+                                    TUPLESORT_NONE);
+
+    // Setup secondary spool for unique indexes (dead tuples)
+    if (indexInfo->ii_Unique) {
+        BTSpool *btspool2 = (BTSpool *) palloc0(sizeof(BTSpool));
+        btspool2->heap = heap;
+        btspool2->index = index;
+        btspool2->isunique = false;
+        buildstate->spool2 = btspool2;
+
+        // Setup parallel coordination for second spool if needed
+        SortCoordinate coordinate2 = NULL;
+        if (buildstate->btleader) {
+            coordinate2 = (SortCoordinate) palloc0(sizeof(SortCoordinateData));
+            coordinate2->isWorker = false;
+            coordinate2->nParticipants = buildstate->btleader->nparticipanttuplesorts;
+            coordinate2->sharedsort = buildstate->btleader->sharedsort2;
+        }
+
+        buildstate->spool2->sortstate =
+            tuplesort_begin_index_btree(heap, index, false, false, work_mem,
+                                        coordinate2, TUPLESORT_NONE);
+    }
+
+    // Perform heap scan (serial or parallel)
+    if (!buildstate->btleader)
+        reltuples = table_index_build_scan(heap, index, indexInfo, true, true,
+                                           _bt_build_callback, (void *) buildstate,
+                                           NULL);
+    else
+        reltuples = _bt_parallel_heapscan(buildstate,
+                                          &indexInfo->ii_BrokenHotChain);
+
+    // Update progress reporting
+    const int progress_index[] = {
+        PROGRESS_CREATEIDX_TUPLES_TOTAL,
+        PROGRESS_SCAN_BLOCKS_TOTAL,
+        PROGRESS_SCAN_BLOCKS_DONE
+    };
+    const int64 progress_vals[] = {
+        buildstate->indtuples,
+        0, 0
+    };
+    pgstat_progress_update_multi_param(3, progress_index, progress_vals);
+
+    // Cleanup unnecessary secondary spool if no dead tuples found
+    if (buildstate->spool2 && !buildstate->havedead) {
+        _bt_spooldestroy(buildstate->spool2);
+        buildstate->spool2 = NULL;
+    }
+
+    return reltuples;
+}
+```

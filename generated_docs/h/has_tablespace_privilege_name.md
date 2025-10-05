@@ -39,3 +39,28 @@ This is one of several overloaded variants of the `has_tablespace_privilege` fun
 - Part of PostgreSQL's SQL-accessible privilege checking system
 - Returns boolean true if privilege exists, false otherwise
 - Located in `src/backend/utils/adt/acl.c:4233-4256`
+
+## Simplified Source
+
+```c
+Datum
+has_tablespace_privilege_name(PG_FUNCTION_ARGS)
+{
+    text       *tablespacename = PG_GETARG_TEXT_PP(0);
+    text       *priv_type_text = PG_GETARG_TEXT_PP(1);
+
+    // Use current user's ID
+    Oid roleid = GetUserId();
+
+    // Convert tablespace name to OID
+    Oid tablespaceoid = convert_tablespace_name(tablespacename);
+
+    // Convert privilege string to ACL mode
+    AclMode mode = convert_tablespace_priv_string(priv_type_text);
+
+    // Check access permissions
+    AclResult aclresult = object_aclcheck(TableSpaceRelationId, tablespaceoid, roleid, mode);
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

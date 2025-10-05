@@ -79,3 +79,56 @@ The combination algorithm preserves the mathematical properties required for acc
 - Part of PostgreSQL's sophisticated parallel aggregation infrastructure
 - Implements mathematically sound combination preserving numerical accuracy
 - Supports the Youngs-Cramer algorithm for numerically stable statistical computation
+
+## Simplified Source
+
+```c
+Datum float8_combine(PG_FUNCTION_ARGS) {
+    // Get two transition arrays [N, Sx, Sxx]
+    ArrayType *transarray1 = PG_GETARG_ARRAYTYPE_P(0);
+    ArrayType *transarray2 = PG_GETARG_ARRAYTYPE_P(1);
+
+    // Validate and extract values
+    float8 *transvalues1 = check_float8_array(transarray1, "float8_combine", 3);
+    float8 *transvalues2 = check_float8_array(transarray2, "float8_combine", 3);
+
+    float8 N1 = transvalues1[0], Sx1 = transvalues1[1], Sxx1 = transvalues1[2];
+    float8 N2 = transvalues2[0], Sx2 = transvalues2[1], Sxx2 = transvalues2[2];
+
+    // Combine using Youngs-Cramer algorithm
+    float8 N, Sx, Sxx;
+    if (N1 == 0.0) {
+        // First array is empty, use second
+        N = N2; Sx = Sx2; Sxx = Sxx2;
+    } else if (N2 == 0.0) {
+        // Second array is empty, use first
+        N = N1; Sx = Sx1; Sxx = Sxx1;
+    } else {
+        // Combine both arrays
+        N = N1 + N2;
+        Sx = float8_pl(Sx1, Sx2);
+        float8 tmp = Sx1 / N1 - Sx2 / N2;
+        Sxx = Sxx1 + Sxx2 + N1 * N2 * tmp * tmp / N;
+
+        // Check for overflow
+        if (unlikely(isinf(Sxx)) && !isinf(Sxx1) && !isinf(Sxx2)) {
+            float_overflow_error();
+        }
+    }
+
+    // Return result (optimize by modifying in-place if in aggregate context)
+    if (AggCheckCallContext(fcinfo, NULL)) {
+        transvalues1[0] = N; transvalues1[1] = Sx; transvalues1[2] = Sxx;
+        PG_RETURN_ARRAYTYPE_P(transarray1);
+    } else {
+        Datum transdatums[3] = {
+            Float8GetDatumFast(N),
+            Float8GetDatumFast(Sx),
+            Float8GetDatumFast(Sxx)
+        };
+        ArrayType *result = construct_array(transdatums, 3, FLOAT8OID,
+                                          sizeof(float8), FLOAT8PASSBYVAL, TYPALIGN_DOUBLE);
+        PG_RETURN_ARRAYTYPE_P(result);
+    }
+}
+```

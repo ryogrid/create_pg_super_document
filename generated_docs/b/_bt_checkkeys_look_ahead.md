@@ -42,3 +42,62 @@ This function implements a look-ahead optimization for B-tree scans with array k
 - Sets pstate->skip to instruct _bt_readpage where to continue scanning
 - Critical optimization for array key performance in PostgreSQL B-tree indexes
 - Located in src/backend/access/nbtree/nbtutils.c:4072-4170
+
+## Simplified Source
+
+```c
+static void
+_bt_checkkeys_look_ahead(IndexScanDesc scan, BTReadPageState *pstate,
+                         int tupnatts, TupleDesc tupdesc)
+{
+    ScanDirection dir = pstate->dir;
+    OffsetNumber aheadoffnum;
+    IndexTuple ahead;
+
+    // Skip if comparing page high key or insufficient tuples remain
+    if (pstate->offnum < pstate->minoff)
+        return;
+
+    if (ScanDirectionIsForward(dir) &&
+        pstate->offnum >= pstate->maxoff - LOOK_AHEAD_DEFAULT_DISTANCE)
+        return;
+    else if (ScanDirectionIsBackward(dir) &&
+             pstate->offnum <= pstate->minoff + LOOK_AHEAD_DEFAULT_DISTANCE)
+        return;
+
+    // Adaptive distance heuristics: start small, ramp up on success
+    if (!pstate->targetdistance)
+        pstate->targetdistance = LOOK_AHEAD_DEFAULT_DISTANCE;
+    else if (pstate->targetdistance < MaxIndexTuplesPerPage / 2)
+        pstate->targetdistance *= 2;
+
+    // Calculate look-ahead offset, staying within page bounds
+    if (ScanDirectionIsForward(dir))
+        aheadoffnum = Min((int) pstate->maxoff,
+                         (int) pstate->offnum + pstate->targetdistance);
+    else
+        aheadoffnum = Max((int) pstate->minoff,
+                         (int) pstate->offnum - pstate->targetdistance);
+
+    // Get the tuple at look-ahead position
+    ahead = (IndexTuple) PageGetItem(pstate->page,
+                                    PageGetItemId(pstate->page, aheadoffnum));
+
+    // Test if the ahead tuple is still before current array keys
+    if (_bt_tuple_before_array_skeys(scan, dir, ahead, tupdesc, tupnatts,
+                                    false, 0, NULL))
+    {
+        // Success: skip to next tuple after the ahead position
+        if (ScanDirectionIsForward(dir))
+            pstate->skip = aheadoffnum + 1;
+        else
+            pstate->skip = aheadoffnum - 1;
+    }
+    else
+    {
+        // Failure: ahead tuple is too far, reduce target distance aggressively
+        pstate->rechecks = 0;
+        pstate->targetdistance = Max(pstate->targetdistance / 8, 1);
+    }
+}
+```

@@ -35,3 +35,16 @@ This function implements the not-equal comparison operator (<>) between a timest
 - Returns a PostgreSQL Datum boolean value using PG_RETURN_BOOL macro
 - Used internally by the PostgreSQL executor when processing '<>' operators between timestamptz and date types
 - Location: src/backend/utils/adt/date.c:979-987
+
+## Simplified Source
+
+```c
+Datum timestamptz_ne_date(PG_FUNCTION_ARGS) {
+    // Extract timestamptz and date arguments
+    TimestampTz timestamptz = PG_GETARG_TIMESTAMPTZ(0);
+    DateADT date = PG_GETARG_DATEADT(1);
+
+    // Return true if not equal (comparison result != 0)
+    return PG_RETURN_BOOL(date_cmp_timestamptz_internal(date, timestamptz) != 0);
+}
+```

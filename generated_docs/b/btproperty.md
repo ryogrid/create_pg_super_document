@@ -35,3 +35,28 @@ For B-tree indexes, columns are always returnable since B-tree stores the actual
 
 ## Notes and Other Information
 This function is part of PostgreSQL's access method interface and is called during query planning to determine index capabilities. The AMPROP_RETURNABLE property is crucial for enabling index-only scans, which can significantly improve query performance by avoiding heap access when all required data is available in the index.
+
+## Simplified Source
+
+```c
+bool
+btproperty(Oid index_oid, int attno,
+           IndexAMProperty prop, const char *propname,
+           bool *res, bool *isnull)
+{
+    switch (prop) {
+        case AMPROP_RETURNABLE:
+            // Only answer for specific columns, not whole index
+            if (attno == 0)
+                return false;
+
+            // B-tree can always return indexed data
+            *res = true;
+            return true;
+
+        default:
+            // Let generic code handle other properties
+            return false;
+    }
+}
+```

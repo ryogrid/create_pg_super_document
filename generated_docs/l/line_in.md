@@ -45,3 +45,50 @@ When given two points, the function internally converts them to the standard Ax 
 - Uses soft error handling through `escontext` for graceful error reporting
 - Memory allocation for LINE structure uses `palloc()`
 - Line numbers: 979-1022 in geo_ops.c
+
+## Simplified Source
+
+```c
+Datum
+line_in(PG_FUNCTION_ARGS)
+{
+    char *str = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    LINE *line = (LINE *) palloc(sizeof(LINE));
+    LSEG lseg;
+    bool isopen;
+    char *s = str;
+
+    // Skip leading whitespace
+    while (isspace(*s))
+        s++;
+
+    // Parse equation format: {A,B,C}
+    if (*s == LDELIM_L) {
+        if (!line_decode(s + 1, str, line, escontext))
+            PG_RETURN_NULL();
+
+        // Validate that A and B aren't both zero
+        if (FPzero(line->A) && FPzero(line->B))
+            ereturn(escontext, (Datum) 0,
+                    (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                     errmsg("invalid line specification: A and B cannot both be zero")));
+    }
+    // Parse two-point format: [(x1,y1),(x2,y2)]
+    else {
+        if (!path_decode(s, true, 2, &lseg.p[0], &isopen, NULL, "line", str, escontext))
+            PG_RETURN_NULL();
+
+        // Validate that points are distinct
+        if (point_eq_point(&lseg.p[0], &lseg.p[1]))
+            ereturn(escontext, (Datum) 0,
+                    (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                     errmsg("invalid line specification: must be two distinct points")));
+
+        // Convert two points to line equation form
+        line_construct(line, &lseg.p[0], lseg_sl(&lseg));
+    }
+
+    PG_RETURN_LINE_P(line);
+}
+```

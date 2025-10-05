@@ -48,3 +48,42 @@ The `mdextend` function is responsible for extending a relation by writing a new
 - The function assumes that the underlying filesystem will zero-fill any gaps when writing beyond EOF
 - Includes debug assertions to verify that block numbers are appropriate for extension operations
 - Part of PostgreSQL's storage manager interface, providing the core mechanism for relation growth
+
+## Simplified Source
+
+```c
+void
+mdextend(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
+         const void *buffer, bool skipFsync)
+{
+    off_t seekpos;
+    int nbytes;
+    MdfdVec *v;
+
+    // Prevent extending beyond maximum block number
+    if (blocknum == InvalidBlockNumber)
+        ereport(ERROR, "cannot extend file beyond maximum blocks");
+
+    // Get or create the appropriate segment for this block
+    v = _mdfd_getseg(reln, forknum, blocknum, skipFsync, EXTENSION_CREATE);
+
+    // Calculate position within the segment file
+    seekpos = (off_t) BLCKSZ * (blocknum % ((BlockNumber) RELSEG_SIZE));
+
+    // Write the block data to the file
+    nbytes = FileWrite(v->mdfd_vfd, buffer, BLCKSZ, seekpos, WAIT_EVENT_DATA_FILE_EXTEND);
+
+    // Handle write errors
+    if (nbytes != BLCKSZ) {
+        if (nbytes < 0)
+            ereport(ERROR, "could not extend file: %m");
+        else
+            ereport(ERROR, "could not extend file: wrote only %d of %d bytes",
+                   nbytes, BLCKSZ);
+    }
+
+    // Register for fsync if needed (unless skipped or temporary relation)
+    if (!skipFsync && !SmgrIsTemp(reln))
+        register_dirty_segment(reln, forknum, v);
+}
+```

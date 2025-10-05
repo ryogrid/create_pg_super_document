@@ -45,3 +45,89 @@ The algorithm handles the complexity of concurrent B-tree modifications by check
 - Handles concurrent page deletions and splits gracefully through retry mechanisms
 - Uses CHECK_FOR_INTERRUPTS() to allow query cancellation during potentially long operations
 - This is a static function only accessible within nbtsearch.c
+
+## Simplified Source
+
+```c
+static Buffer
+_bt_walk_left(Relation rel, Buffer buf)
+{
+    Page page;
+    BTPageOpaque opaque;
+
+    page = BufferGetPage(buf);
+    opaque = BTPageGetOpaque(page);
+
+    for (;;) {
+        BlockNumber originalBlock;
+        BlockNumber leftBlock;
+        BlockNumber currentBlock;
+        int retryCount;
+
+        // Check if we're at the leftmost page
+        if (P_LEFTMOST(opaque)) {
+            _bt_relbuf(rel, buf);
+            break;
+        }
+
+        // Remember current page and step left
+        originalBlock = BufferGetBlockNumber(buf);
+        currentBlock = leftBlock = opaque->btpo_prev;
+        _bt_relbuf(rel, buf);
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Get the left page
+        buf = _bt_getbuf(rel, currentBlock, BT_READ);
+        page = BufferGetPage(buf);
+        opaque = BTPageGetOpaque(page);
+
+        // Search for correct sibling page (limited to 4 hops)
+        retryCount = 0;
+        for (;;) {
+            if (!P_ISDELETED(opaque) && opaque->btpo_next == originalBlock) {
+                return buf;  // Found the correct page
+            }
+
+            if (P_RIGHTMOST(opaque) || ++retryCount > 4)
+                break;
+
+            currentBlock = opaque->btpo_next;
+            buf = _bt_relandgetbuf(rel, buf, currentBlock, BT_READ);
+            page = BufferGetPage(buf);
+            opaque = BTPageGetOpaque(page);
+        }
+
+        // Return to original page to check its status
+        buf = _bt_relandgetbuf(rel, buf, originalBlock, BT_READ);
+        page = BufferGetPage(buf);
+        opaque = BTPageGetOpaque(page);
+
+        if (P_ISDELETED(opaque)) {
+            // Original page was deleted, find first non-deleted page
+            for (;;) {
+                if (P_RIGHTMOST(opaque))
+                    elog(ERROR, "fell off the end of index \"%s\"",
+                         RelationGetRelationName(rel));
+
+                currentBlock = opaque->btpo_next;
+                buf = _bt_relandgetbuf(rel, buf, currentBlock, BT_READ);
+                page = BufferGetPage(buf);
+                opaque = BTPageGetOpaque(page);
+
+                if (!P_ISDELETED(opaque))
+                    break;
+            }
+            // Continue loop with new starting point
+        } else {
+            // Check for infinite loop condition
+            if (opaque->btpo_prev == leftBlock)
+                elog(ERROR, "could not find left sibling of block %u in index \"%s\"",
+                     originalBlock, RelationGetRelationName(rel));
+            // Retry with updated left block pointer
+        }
+    }
+
+    return InvalidBuffer;
+}
+```

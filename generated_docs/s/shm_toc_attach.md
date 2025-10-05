@@ -44,3 +44,21 @@ The function also includes assertion checks to verify internal consistency of th
 - Returning NULL on magic mismatch allows calling code to gracefully handle invalid shared memory regions
 - The function performs minimal work and is designed to be fast, as it's often called during process initialization
 - Assertion checks are only active in debug builds and help catch programming errors during development
+
+## Simplified Source
+
+```c
+shm_toc *shm_toc_attach(uint64 magic, void *address) {
+    shm_toc *toc = (shm_toc *) address;
+
+    // Validate magic number to ensure this is the correct TOC
+    if (toc->toc_magic != magic)
+        return NULL;
+
+    // Verify internal consistency
+    Assert(toc->toc_total_bytes >= toc->toc_allocated_bytes);
+    Assert(toc->toc_total_bytes > offsetof(shm_toc, toc_entry));
+
+    return toc;
+}
+```

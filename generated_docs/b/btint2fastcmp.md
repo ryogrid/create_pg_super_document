@@ -32,3 +32,16 @@ btint2fastcmp is a static helper function that implements an optimized compariso
 - The function signature matches the comparator function pointer type expected by PostgreSQL's sort support system
 - The int casting prevents overflow that could occur with direct int16 subtraction
 - Part of PostgreSQL's optimization strategy for common data type operations during sorting and indexing
+
+## Simplified Source
+
+```c
+static int btint2fastcmp(Datum x, Datum y, SortSupport ssup) {
+    // Extract 16-bit integers from Datum values
+    int16 a = DatumGetInt16(x);
+    int16 b = DatumGetInt16(y);
+
+    // Return comparison result (cast to int to prevent overflow)
+    return (int) a - (int) b;
+}
+```

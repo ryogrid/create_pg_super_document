@@ -44,3 +44,114 @@ The function can operate in two modes: normal mode where it finds the optimal fr
 - Falls back to showing the first min_words of the document if no suitable query-based fragment is found
 - The 'cover' concept refers to a continuous span of text that contains query words from the search
 - Optimizes for readability by avoiding fragments that end at awkward positions (bad endpoints)
+
+## Simplified Source
+
+```c
+static void mark_hl_words(HeadlineParsedText *prs, TSQuery query, List *locations,
+                         bool highlightall, int shortword, int min_words, int max_words) {
+    int nextpos = 0, p = 0, q = 0;
+    int bestb = -1, beste = -1, bestlen = -1;
+    bool bestcover = false;
+    int pose, posb, poslen, curlen;
+    bool poscover;
+
+    if (!highlightall) {
+        // Find best cover among all possible covers
+        while (hlCover(prs, query, locations, &nextpos, &p, &q)) {
+            // Count words and interesting words within cover up to max_words
+            curlen = 0;
+            poslen = 0;
+            posb = pose = p;
+
+            for (int i = p; i <= q && curlen < max_words; i++) {
+                if (!NONWORDTOKEN(prs->words[i].type))
+                    curlen++;
+                if (INTERESTINGWORD(i))
+                    poslen++;
+                pose = i;
+            }
+
+            if (curlen < max_words) {
+                // Try to extend headline forward to max_words or good endpoint
+                for (int i = i - 1; i < prs->curwords && curlen < max_words; i++) {
+                    if (i > q) {
+                        if (!NONWORDTOKEN(prs->words[i].type))
+                            curlen++;
+                        if (INTERESTINGWORD(i))
+                            poslen++;
+                    }
+                    pose = i;
+                    if (BADENDPOINT(i))
+                        continue;
+                    if (curlen >= min_words)
+                        break;
+                }
+
+                // If still too short, try extending backward
+                if (curlen < min_words) {
+                    for (int i = p - 1; i >= 0; i--) {
+                        if (!NONWORDTOKEN(prs->words[i].type))
+                            curlen++;
+                        if (INTERESTINGWORD(i))
+                            poslen++;
+                        if (curlen >= max_words)
+                            break;
+                        if (BADENDPOINT(i))
+                            continue;
+                        if (curlen >= min_words)
+                            break;
+                    }
+                    posb = (i >= 0) ? i : 0;
+                }
+            } else {
+                // Fragment too long - try to shorten from end to avoid bad endpoint
+                if (i > q)
+                    i = q;
+                for (; curlen > min_words; i--) {
+                    if (!BADENDPOINT(i))
+                        break;
+                    if (!NONWORDTOKEN(prs->words[i].type))
+                        curlen--;
+                    if (INTERESTINGWORD(i))
+                        poslen--;
+                    pose = i - 1;
+                }
+            }
+
+            // Check if proposed headline includes original cover
+            poscover = (posb <= p && pose >= q);
+
+            // Choose best headline: cover inclusion > interesting words > good endpoints
+            if (poscover > bestcover ||
+                (poscover == bestcover && poslen > bestlen) ||
+                (poscover == bestcover && poslen == bestlen &&
+                 !BADENDPOINT(pose) && BADENDPOINT(beste))) {
+                bestb = posb;
+                beste = pose;
+                bestlen = poslen;
+                bestcover = poscover;
+            }
+        }
+
+        // Fallback: show first min_words if no acceptable headline found
+        if (bestlen < 0) {
+            curlen = 0;
+            pose = -1;
+            for (int i = 0; i < prs->curwords && curlen < min_words; i++) {
+                if (!NONWORDTOKEN(prs->words[i].type))
+                    curlen++;
+                pose = i;
+            }
+            bestb = 0;
+            beste = pose;
+        }
+    } else {
+        // Highlightall mode: show entire document
+        bestb = 0;
+        beste = prs->curwords - 1;
+    }
+
+    mark_fragment(prs, highlightall, bestb, beste);
+}
+```

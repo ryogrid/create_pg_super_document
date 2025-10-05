@@ -60,3 +60,61 @@ Key operations include:
 - Releases locks before recursive calls to avoid deadlocks, relying on leaf page lock for consistency
 - Avoids completing incomplete splits to minimize disk space usage during VACUUM
 - The function establishes both the height of the deletable subtree and provides the locked parent buffer needed for the actual deletion operation
+
+## Simplified Source
+
+```c
+static bool _bt_lock_subtree_parent(Relation rel, Relation heaprel, BlockNumber child,
+                                    BTStack stack, Buffer *subtreeparent,
+                                    OffsetNumber *poffset, BlockNumber *topparent,
+                                    BlockNumber *topparentrightsib)
+{
+    // Find and lock the parent page containing downlink to child
+    Buffer pbuf = _bt_getstackbuf(rel, heaprel, stack, child);
+    if (pbuf == InvalidBuffer) {
+        // Index corruption - cannot find parent downlink
+        ereport(LOG, "failed to re-find parent key for deletion target page %u", child);
+        return false;
+    }
+
+    BlockNumber parent = stack->bts_blkno;
+    OffsetNumber parentoffset = stack->bts_offset;
+    Page page = BufferGetPage(pbuf);
+    BTPageOpaque opaque = BTPageGetOpaque(page);
+    OffsetNumber maxoff = PageGetMaxOffsetNumber(page);
+
+    // Check if child is not the rightmost child
+    if (parentoffset < maxoff) {
+        // Safe to delete - child is not rightmost
+        *subtreeparent = pbuf;
+        *poffset = parentoffset;
+        return true;
+    }
+
+    // Child is rightmost - can only delete if parent can also be deleted
+    Assert(parentoffset == maxoff);
+
+    // Check if parent is also deletable (only child OR rightmost on level)
+    if (parentoffset != P_FIRSTDATAKEY(opaque) || P_RIGHTMOST(opaque)) {
+        // Parent has multiple children or is rightmost - unsafe
+        _bt_relbuf(rel, pbuf);
+        return false;
+    }
+
+    // Parent can be deleted - update top parent info and recurse
+    *topparent = parent;
+    *topparentrightsib = opaque->btpo_next;
+    BlockNumber leftsibparent = opaque->btpo_prev;
+
+    _bt_relbuf(rel, pbuf);
+
+    // Check parent's left sibling for incomplete split
+    if (_bt_leftsib_splitflag(rel, leftsibparent, parent))
+        return false;
+
+    // Recursively check if parent's parent allows deletion
+    return _bt_lock_subtree_parent(rel, heaprel, parent, stack->bts_parent,
+                                   subtreeparent, poffset,
+                                   topparent, topparentrightsib);
+}
+```

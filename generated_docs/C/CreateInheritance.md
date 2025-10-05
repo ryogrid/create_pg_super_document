@@ -50,3 +50,56 @@ The function performs several key steps:
 - The function validates against duplicate inheritance relationships by checking if the child already inherits from the same parent
 - For partition relationships, additional validation ensures the child is not already inheriting from other relations
 - The function does not reject cases where indirect inheritance already exists, consistent with CREATE TABLE behavior
+
+## Simplified Source
+
+```c
+static void CreateInheritance(Relation child_rel, Relation parent_rel, bool ispartition) {
+    Relation catalogRelation;
+    SysScanDesc scan;
+    ScanKeyData key;
+    HeapTuple inheritsTuple;
+    int32 inhseqno;
+
+    // Open pg_inherits catalog for writing
+    catalogRelation = table_open(InheritsRelationId, RowExclusiveLock);
+
+    // Scan existing inheritance entries for this child
+    ScanKeyInit(&key, Anum_pg_inherits_inhrelid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(RelationGetRelid(child_rel)));
+    scan = systable_beginscan(catalogRelation, InheritsRelidSeqnoIndexId, true, NULL, 1, &key);
+
+    // Find highest sequence number and check for duplicates
+    inhseqno = 0;
+    while (HeapTupleIsValid(inheritsTuple = systable_getnext(scan))) {
+        Form_pg_inherits inh = (Form_pg_inherits) GETSTRUCT(inheritsTuple);
+
+        // Error if already inheriting from this parent
+        if (inh->inhparent == RelationGetRelid(parent_rel))
+            ereport(ERROR, (errcode(ERRCODE_DUPLICATE_TABLE),
+                           errmsg("relation \"%s\" would be inherited from more than once",
+                                  RelationGetRelationName(parent_rel))));
+
+        // Track highest sequence number
+        if (inh->inhseqno > inhseqno)
+            inhseqno = inh->inhseqno;
+    }
+    systable_endscan(scan);
+
+    // Merge attributes from parent to child (handles attinhcount)
+    MergeAttributesIntoExisting(child_rel, parent_rel, ispartition);
+
+    // Merge constraints from parent to child (handles coninhcount)
+    MergeConstraintsIntoExisting(child_rel, parent_rel);
+
+    // Create the inheritance catalog entry
+    StoreCatalogInheritance1(RelationGetRelid(child_rel),
+                            RelationGetRelid(parent_rel),
+                            inhseqno + 1,
+                            catalogRelation,
+                            parent_rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE);
+
+    // Close catalog relation
+    table_close(catalogRelation, RowExclusiveLock);
+}
+```

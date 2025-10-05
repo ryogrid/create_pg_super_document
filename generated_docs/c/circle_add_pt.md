@@ -37,3 +37,20 @@ The `circle_add_pt` function implements the translation operator for PostgreSQL'
 - Located in src/backend/utils/adt/geo_ops.c:4965-4979
 - Translation is implemented as vector addition: new_center = old_center + translation_vector
 - Part of the geometric operator family alongside circle_sub_pt
+
+## Simplified Source
+
+```c
+Datum circle_add_pt(PG_FUNCTION_ARGS) {
+    CIRCLE *circle = PG_GETARG_CIRCLE_P(0);
+    Point *point = PG_GETARG_POINT_P(1);
+    CIRCLE *result;
+
+    // Allocate result and translate center by adding point
+    result = (CIRCLE *) palloc(sizeof(CIRCLE));
+    point_add_point(&result->center, &circle->center, point);
+    result->radius = circle->radius;
+
+    PG_RETURN_CIRCLE_P(result);
+}
+```

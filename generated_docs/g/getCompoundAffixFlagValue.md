@@ -43,3 +43,40 @@ The function efficiently handles multiple flag formats and returns 0 immediately
 - Part of PostgreSQL's Hunspell-compatible spell checking system
 - Efficiently handles multiple flag representations through the flag parsing infrastructure
 - The returned integer can be used as a bitmask for compound word processing rules
+
+## Simplified Source
+
+```c
+static int getCompoundAffixFlagValue(IspellDict *Conf, char *s) {
+    uint32 flag = 0;
+    CompoundAffixFlag *found, key;
+    char sflag[BUFSIZ];
+    char *flagcur;
+
+    // Return 0 if no compound flags configured
+    if (Conf->nCompoundAffixFlag == 0)
+        return 0;
+
+    // Process each flag in the input string
+    flagcur = s;
+    while (*flagcur) {
+        // Extract next flag from string
+        getNextFlagFromString(Conf, &flagcur, sflag);
+
+        // Create search key for binary search
+        setCompoundAffixFlagValue(Conf, &key, sflag, 0);
+
+        // Find flag in sorted array
+        found = (CompoundAffixFlag *)
+            bsearch(&key, Conf->CompoundAffixFlags,
+                   Conf->nCompoundAffixFlag, sizeof(CompoundAffixFlag),
+                   cmpcmdflag);
+
+        // Combine flag value if found
+        if (found != NULL)
+            flag |= found->value;
+    }
+
+    return flag;
+}
+```

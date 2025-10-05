@@ -35,3 +35,15 @@ The function expects the input to be a pointer to an array of two OffsetNumber v
 - The arrow notation ("->" indicates redirection from source to target offset
 - Part of PostgreSQL's HOT (Heap-Only Tuples) infrastructure for tracking tuple redirections
 - The data parameter is unused but required to match the standard callback interface
+
+## Simplified Source
+
+```c
+void redirect_elem_desc(StringInfo buf, void *offset, void *data) {
+    // Cast to array of two OffsetNumbers
+    OffsetNumber *new_offset = (OffsetNumber *) offset;
+
+    // Format as "source->target" redirection
+    appendStringInfo(buf, "%u->%u", new_offset[0], new_offset[1]);
+}
+```

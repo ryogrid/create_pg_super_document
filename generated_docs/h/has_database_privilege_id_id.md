@@ -33,3 +33,29 @@ This SQL-callable function determines whether a user (specified by role OID) has
 - Part of the has_database_privilege family of functions that provide different parameter combinations
 - The is_missing flag allows detection of non-existent databases
 - Located in src/backend/utils/adt/acl.c:3121-3149
+
+## Simplified Source
+
+```c
+Datum
+has_database_privilege_id_id(PG_FUNCTION_ARGS)
+{
+    Oid role_oid = PG_GETARG_OID(0);
+    Oid database_oid = PG_GETARG_OID(1);
+    text *privilege_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert privilege string to internal mode
+    AclMode privilege_mode = convert_database_priv_string(privilege_text);
+
+    // Check privilege, handling missing database
+    bool is_missing = false;
+    AclResult result = object_aclcheck_ext(DatabaseRelationId, database_oid,
+                                         role_oid, privilege_mode, &is_missing);
+
+    // Return NULL if database doesn't exist, otherwise return privilege check result
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(result == ACLCHECK_OK);
+}
+```

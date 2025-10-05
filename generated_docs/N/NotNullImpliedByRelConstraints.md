@@ -51,3 +51,36 @@ This function is crucial for optimizing ALTER TABLE operations where adding NOT 
 - Debug messages at level DEBUG1 help administrators understand when this optimization is being applied
 - This optimization can prevent expensive full-table scans during ALTER TABLE operations on large tables
 - The constraint analysis leverages PostgreSQL's sophisticated constraint reasoning system to detect logical implications
+
+## Simplified Source
+
+```c
+static bool NotNullImpliedByRelConstraints(Relation rel, Form_pg_attribute attr) {
+    // Create a "NOT NULL" test expression for the column
+    NullTest *nnulltest = makeNode(NullTest);
+
+    // Set up the variable reference for this column
+    nnulltest->arg = (Expr *) makeVar(1,
+                                     attr->attnum,
+                                     attr->atttypid,
+                                     attr->atttypmod,
+                                     attr->attcollation,
+                                     0);
+    nnulltest->nulltesttype = IS_NOT_NULL;
+
+    // Use IS DISTINCT FROM NULL semantics for composite columns
+    nnulltest->argisrow = false;
+    nnulltest->location = -1;
+
+    // Check if existing constraints already prove column is NOT NULL
+    if (ConstraintImpliedByRelConstraint(rel, list_make1(nnulltest), NIL)) {
+        ereport(DEBUG1,
+                (errmsg_internal("existing constraints on column \"%s.%s\" "
+                               "are sufficient to prove that it does not contain nulls",
+                               RelationGetRelationName(rel), NameStr(attr->attname))));
+        return true;
+    }
+
+    return false;
+}
+```

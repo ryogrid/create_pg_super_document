@@ -46,3 +46,47 @@ The function iterates through all possible fork numbers (0 to MAX_FORKNUM) for b
 - Essential component of PostgreSQL's table size calculation system when TOAST storage is involved
 - Provides complete accounting of TOAST-related storage overhead, which can be significant for tables with large attributes
 - Memory management includes proper cleanup of the index list using list_free()
+
+## Simplified Source
+
+```c
+static int64 calculate_toast_table_size(Oid toastrelid) {
+    int64 size = 0;
+    Relation toastRel;
+    ForkNumber forkNum;
+    ListCell *lc;
+    List *indexlist;
+
+    // Open the TOAST relation
+    toastRel = relation_open(toastrelid, AccessShareLock);
+
+    // Calculate size of TOAST heap including all forks (main, FSM, VM, etc.)
+    for (forkNum = 0; forkNum <= MAX_FORKNUM; forkNum++)
+        size += calculate_relation_size(&(toastRel->rd_locator),
+                                        toastRel->rd_backend, forkNum);
+
+    // Get list of indexes on the TOAST table
+    indexlist = RelationGetIndexList(toastRel);
+
+    // Calculate size of all TOAST indexes including all their forks
+    foreach(lc, indexlist) {
+        Relation toastIdxRel;
+
+        // Open each index
+        toastIdxRel = relation_open(lfirst_oid(lc), AccessShareLock);
+
+        // Add size of all forks for this index
+        for (forkNum = 0; forkNum <= MAX_FORKNUM; forkNum++)
+            size += calculate_relation_size(&(toastIdxRel->rd_locator),
+                                            toastIdxRel->rd_backend, forkNum);
+
+        relation_close(toastIdxRel, AccessShareLock);
+    }
+
+    // Clean up
+    list_free(indexlist);
+    relation_close(toastRel, AccessShareLock);
+
+    return size;
+}
+```

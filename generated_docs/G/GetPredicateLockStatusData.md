@@ -50,3 +50,48 @@ The returned data structure contains arrays of PREDICATELOCKTARGETTAG and SERIAL
 - The locking order (ascending for acquisition, descending for release) prevents deadlocks
 - Part of PostgreSQL's Serializable Snapshot Isolation (SSI) monitoring infrastructure
 - Located in src/backend/storage/lmgr/predicate.c:1435-1492
+
+## Simplified Source
+
+```c
+PredicateLockData *GetPredicateLockStatusData(void)
+{
+    PredicateLockData *data;
+    int i;
+    int els, el;
+    HASH_SEQ_STATUS seqstat;
+    PREDICATELOCK *predlock;
+
+    data = (PredicateLockData *) palloc(sizeof(PredicateLockData));
+
+    // Acquire all partition locks in ascending order for consistency
+    for (i = 0; i < NUM_PREDICATELOCK_PARTITIONS; i++)
+        LWLockAcquire(PredicateLockHashPartitionLockByIndex(i), LW_SHARED);
+    LWLockAcquire(SerializableXactHashLock, LW_SHARED);
+
+    // Get number of locks and allocate arrays
+    els = hash_get_num_entries(PredicateLockHash);
+    data->nelements = els;
+    data->locktags = (PREDICATELOCKTARGETTAG *)
+        palloc(sizeof(PREDICATELOCKTARGETTAG) * els);
+    data->xacts = (SERIALIZABLEXACT *)
+        palloc(sizeof(SERIALIZABLEXACT) * els);
+
+    // Scan through PredicateLockHash and copy contents
+    hash_seq_init(&seqstat, PredicateLockHash);
+    el = 0;
+    while ((predlock = (PREDICATELOCK *) hash_seq_search(&seqstat)))
+    {
+        data->locktags[el] = predlock->tag.myTarget->tag;
+        data->xacts[el] = *predlock->tag.myXact;
+        el++;
+    }
+
+    // Release locks in reverse order
+    LWLockRelease(SerializableXactHashLock);
+    for (i = NUM_PREDICATELOCK_PARTITIONS - 1; i >= 0; i--)
+        LWLockRelease(PredicateLockHashPartitionLockByIndex(i));
+
+    return data;
+}
+```

@@ -29,3 +29,14 @@ This function acts as a wrapper around json_agg_transfn_worker, providing the st
 - Located in src/backend/utils/adt/json.c:861-869
 - Registered in system catalogs as the transition function for the strict json_agg variant
 - Simple delegation pattern that configures the worker function for strict null-filtering behavior
+
+## Simplified Source
+
+```c
+Datum
+json_agg_strict_transfn(PG_FUNCTION_ARGS)
+{
+    // Strict json_agg behavior: skip null values entirely
+    return json_agg_transfn_worker(fcinfo, true);
+}
+```

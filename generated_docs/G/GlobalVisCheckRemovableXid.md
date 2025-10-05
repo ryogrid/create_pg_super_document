@@ -35,3 +35,15 @@ Similar to `GlobalVisCheckRemovableFullXid()` but works with 32-bit transaction 
 - Commonly used in GIN index management code for determining page recyclability
 - Part of PostgreSQL's global visibility infrastructure used for safe page and tuple recycling
 - Provides the same functionality as `GlobalVisCheckRemovableFullXid()` but for 32-bit transaction IDs
+
+## Simplified Source
+
+```c
+bool GlobalVisCheckRemovableXid(Relation rel, TransactionId xid) {
+    // Get relation-specific global visibility state
+    GlobalVisState *state = GlobalVisTestFor(rel);
+
+    // Test if the 32-bit transaction ID is removable
+    return GlobalVisTestIsRemovableXid(state, xid);
+}
+```

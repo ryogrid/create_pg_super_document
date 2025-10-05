@@ -32,3 +32,16 @@ This function implements the PostgreSQL SQL operator for multiplying a float8 va
 - Uses the same underlying cash_mul_float8 implementation as cash_mul_flt8
 - Arguments are in reverse order compared to cash_mul_flt8 but produce identical results due to multiplication commutativity
 - Part of PostgreSQL's money data type implementation in src/backend/utils/adt/cash.c
+
+## Simplified Source
+
+```c
+// Multiply double precision float by cash (commutative operation)
+Datum flt8_mul_cash(PG_FUNCTION_ARGS) {
+    float8 multiplier = PG_GETARG_FLOAT8(0);
+    Cash cash_value = PG_GETARG_CASH(1);
+
+    // Delegate to internal function for safe multiplication
+    PG_RETURN_CASH(cash_mul_float8(cash_value, multiplier));
+}
+```

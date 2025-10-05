@@ -37,3 +37,16 @@ This function serves as an efficient precondition check that can be used before 
 - This is a read-only operation that does not modify or create statistics entries
 - The function provides an efficient way to check statistics existence without the overhead of actually fetching the data
 - Particularly useful in SQL functions and administrative tools that need to conditionally display statistics information
+
+## Simplified Source
+
+```c
+bool pgstat_have_entry(PgStat_Kind kind, Oid dboid, Oid objoid) {
+    // Fixed-amount stats always exist (like shared system stats)
+    if (pgstat_get_kind_info(kind)->fixed_amount)
+        return true;
+
+    // Check if entry exists in stats registry
+    return pgstat_get_entry_ref(kind, dboid, objoid, false, NULL) != NULL;
+}
+```

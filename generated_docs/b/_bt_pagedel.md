@@ -174,3 +174,85 @@ The algorithm maintains strict safety checks to prevent deletion of rightmost pa
 - Handles legacy half-dead internal pages from pre-9.4 PostgreSQL versions
 - The function may iterate multiple times when processing chains of deletable siblings
 - Drops and reacquires locks strategically to avoid deadlocks during parent page searches
+
+## Simplified Source
+
+```c
+void _bt_pagedel(Relation rel, Buffer leafbuf, BTVacState *vstate)
+{
+    BlockNumber scanblkno = BufferGetBlockNumber(leafbuf);
+    BTStack stack = NULL;
+    bool rightsib_empty;
+
+    for (;;) {
+        Page page = BufferGetPage(leafbuf);
+        BTPageOpaque opaque = BTPageGetOpaque(page);
+
+        // Basic safety checks - cannot delete these page types
+        if (!P_ISLEAF(opaque) || P_ISDELETED(opaque) ||
+            P_RIGHTMOST(opaque) || P_ISROOT(opaque) ||
+            P_FIRSTDATAKEY(opaque) <= PageGetMaxOffsetNumber(page) ||
+            P_INCOMPLETE_SPLIT(opaque)) {
+            _bt_relbuf(rel, leafbuf);
+            return;
+        }
+
+        // Phase 1: Mark page half-dead and remove parent downlinks
+        if (!P_ISHALFDEAD(opaque)) {
+            if (!stack) {
+                // Find parent by searching for page's high key
+                IndexTuple targetkey = /* get high key from page */;
+
+                // Check left sibling for incomplete split
+                if (_bt_leftsib_splitflag(rel, opaque->btpo_prev,
+                                          BufferGetBlockNumber(leafbuf))) {
+                    ReleaseBuffer(leafbuf);
+                    return;
+                }
+
+                // Build search key and find parent
+                BTScanInsert itup_key = _bt_mkscankey(rel, targetkey);
+                itup_key->nextkey = false;
+                itup_key->backward = true;
+
+                Buffer sleafbuf;
+                stack = _bt_search(rel, NULL, itup_key, &sleafbuf, BT_READ);
+                _bt_relbuf(rel, sleafbuf);
+
+                _bt_lockbuf(rel, leafbuf, BT_WRITE);
+                continue;  // Recheck after reacquiring lock
+            }
+
+            // Mark page as half-dead and remove downlinks
+            if (!_bt_mark_page_halfdead(rel, vstate->info->heaprel,
+                                        leafbuf, stack)) {
+                _bt_relbuf(rel, leafbuf);
+                return;
+            }
+        }
+
+        // Phase 2: Unlink half-dead pages from siblings
+        rightsib_empty = false;
+        while (P_ISHALFDEAD(opaque)) {
+            if (!_bt_unlink_halfdead_page(rel, leafbuf, scanblkno,
+                                          &rightsib_empty, vstate)) {
+                Assert(false);  // Should never fail
+                return;
+            }
+        }
+
+        Assert(P_ISLEAF(opaque) && P_ISDELETED(opaque));
+
+        BlockNumber rightsib = opaque->btpo_next;
+        _bt_relbuf(rel, leafbuf);
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Continue with right sibling if it's now deletable
+        if (!rightsib_empty)
+            break;
+
+        leafbuf = _bt_getbuf(rel, rightsib, BT_WRITE);
+    }
+}
+```

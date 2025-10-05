@@ -30,3 +30,13 @@ This function serves as a wrapper around the main  function, providing a single-
 - Provides the single-argument version of file statistics functionality
 - All functionality and return values are identical to pg_stat_file when called with one argument
 - The function demonstrates PostgreSQL's approach to handling function overloading through separate wrapper functions
+
+## Simplified Source
+
+```c
+Datum pg_stat_file_1arg(PG_FUNCTION_ARGS) {
+    // Simple pass-through wrapper to maintain function signature consistency
+    // Required for PostgreSQL's sanity checks on built-in functions
+    return pg_stat_file(fcinfo);
+}
+```

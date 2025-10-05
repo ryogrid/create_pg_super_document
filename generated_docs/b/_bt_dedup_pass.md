@@ -49,3 +49,121 @@ The deduplication process creates a new temporary page, copies tuples while merg
 - WAL logging ensures crash recovery can replay the deduplication operation
 - If no deduplication intervals are created, the function returns early without modifying the page
 - The maxpostingsize is limited to 1/6 of a page to ensure good split points for pages with many duplicates
+
+## Simplified Source
+
+```c
+void _bt_dedup_pass(Relation rel, Buffer buf, IndexTuple newitem, Size newitemsz, bool bottomupdedup) {
+    Page page = BufferGetPage(buf);
+    BTPageOpaque opaque = BTPageGetOpaque(page);
+    Page newpage;
+    BTDedupState state;
+    bool singlevalstrat = false;
+    int nkeyatts = IndexRelationGetNumberOfKeyAttributes(rel);
+
+    // Include line pointer in size calculation
+    newitemsz += sizeof(ItemIdData);
+
+    // Initialize deduplication state
+    state = (BTDedupState) palloc(sizeof(BTDedupStateData));
+    state->deduplicate = true;
+    state->maxpostingsize = Min(BTMaxItemSize(page) / 2, INDEX_SIZE_MASK);
+    state->htids = palloc(state->maxpostingsize);
+    // ... initialize other state fields
+
+    OffsetNumber minoff = P_FIRSTDATAKEY(opaque);
+    OffsetNumber maxoff = PageGetMaxOffsetNumber(page);
+
+    // Consider single value strategy for non-bottom-up calls
+    if (!bottomupdedup)
+        singlevalstrat = _bt_do_singleval(rel, page, state, minoff, newitem);
+
+    // Create temporary page copy for deduplication
+    newpage = PageGetTempPageCopySpecial(page);
+    PageSetLSN(newpage, PageGetLSN(page));
+
+    // Copy high key if present
+    if (!P_RIGHTMOST(opaque)) {
+        // Copy high key to new page
+    }
+
+    // Process each tuple on the page
+    for (OffsetNumber offnum = minoff; offnum <= maxoff; offnum++) {
+        ItemId itemid = PageGetItemId(page, offnum);
+        IndexTuple itup = (IndexTuple) PageGetItem(page, itemid);
+
+        if (offnum == minoff) {
+            // Start first pending posting list
+            _bt_dedup_start_pending(state, itup, offnum);
+        }
+        else if (state->deduplicate &&
+                 _bt_keep_natts_fast(rel, state->base, itup) > nkeyatts &&
+                 _bt_dedup_save_htid(state, itup)) {
+            // Tuple matches current posting list - TIDs saved
+        }
+        else {
+            // Finish current posting list and start new one
+            _bt_dedup_finish_pending(newpage, state);
+
+            // Apply single value strategy adjustments
+            if (singlevalstrat) {
+                if (state->nmaxitems == 5)
+                    _bt_singleval_fillfactor(page, state, newitemsz);
+                else if (state->nmaxitems == 6) {
+                    state->deduplicate = false;
+                    singlevalstrat = false;
+                }
+            }
+
+            // Start new pending posting list
+            _bt_dedup_start_pending(state, itup, offnum);
+        }
+    }
+
+    // Finish the last pending posting list
+    _bt_dedup_finish_pending(newpage, state);
+
+    // Return early if no deduplication was possible
+    if (state->nintervals == 0) {
+        pfree(newpage);
+        pfree(state->htids);
+        pfree(state);
+        return;
+    }
+
+    // Clear garbage flag and apply changes
+    if (P_HAS_GARBAGE(opaque)) {
+        BTPageOpaque nopaque = BTPageGetOpaque(newpage);
+        nopaque->btpo_flags &= ~BTP_HAS_GARBAGE;
+    }
+
+    START_CRIT_SECTION();
+
+    // Replace original page with deduplicated version
+    PageRestoreTempPage(newpage, page);
+    MarkBufferDirty(buf);
+
+    // WAL logging for crash recovery
+    if (RelationNeedsWAL(rel)) {
+        XLogRecPtr recptr;
+        xl_btree_dedup xlrec_dedup;
+
+        xlrec_dedup.nintervals = state->nintervals;
+
+        XLogBeginInsert();
+        XLogRegisterBuffer(0, buf, REGBUF_STANDARD);
+        XLogRegisterData((char *) &xlrec_dedup, SizeOfBtreeDedup);
+        XLogRegisterBufData(0, (char *) state->intervals,
+                           state->nintervals * sizeof(BTDedupInterval));
+
+        recptr = XLogInsert(RM_BTREE_ID, XLOG_BTREE_DEDUP);
+        PageSetLSN(page, recptr);
+    }
+
+    END_CRIT_SECTION();
+
+    // Cleanup allocated memory
+    pfree(state->htids);
+    pfree(state);
+}
+```

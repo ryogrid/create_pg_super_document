@@ -41,3 +41,18 @@ This allows converting subscripts (i,j,k) to linear offset: i*prod[0] + j*prod[1
 - Essential for multidimensional array indexing in PostgreSQL's array implementation
 - Used in array slicing operations to calculate memory offsets
 - Located in src/backend/utils/adt/arrayutils.c:167-182
+
+## Simplified Source
+
+```c
+void mda_get_prod(int n, const int *range, int *prod)
+{
+    // Calculate scale factors for multidimensional subscripts
+    // Rightmost dimension has scale factor 1
+    prod[n - 1] = 1;
+
+    // Each dimension's scale factor = product of all dimensions to its right
+    for (int i = n - 2; i >= 0; i--)
+        prod[i] = prod[i + 1] * range[i + 1];
+}
+```

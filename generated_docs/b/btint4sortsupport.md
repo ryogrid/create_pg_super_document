@@ -30,3 +30,17 @@ This function is a PostgreSQL internal function that configures sort support for
 - Located in 
 - The function follows PostgreSQL's standard pattern for sort support functions by setting up the appropriate comparator for the data type
 - Returns void as it only modifies the passed SortSupport structure
+
+## Simplified Source
+
+```c
+Datum btint4sortsupport(PG_FUNCTION_ARGS) {
+    // Get the SortSupport structure from function arguments
+    SortSupport ssup = (SortSupport) PG_GETARG_POINTER(0);
+
+    // Assign the optimized 32-bit integer comparison function
+    ssup->comparator = ssup_datum_int32_cmp;
+
+    PG_RETURN_VOID();
+}
+```

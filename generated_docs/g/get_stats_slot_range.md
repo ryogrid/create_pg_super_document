@@ -38,3 +38,58 @@ This function examines all values in a statistics slot (AttStatsSlot) to determi
 
 ## Notes and Other Information
 This is a static helper function specifically designed for range estimation in PostgreSQL's query planner. It uses the function manager (fmgr) system to call comparison operators dynamically, allowing it to work with any orderable data type. The function optimizes by caching the comparison function in the FmgrInfo structure to avoid repeated lookups. Memory management is handled carefully by copying found extreme values to prevent issues with temporary or freed memory.
+
+## Simplified Source
+
+```c
+static void
+get_stats_slot_range(AttStatsSlot *sslot, Oid opfuncoid, FmgrInfo *opproc,
+                     Oid collation, int16 typLen, bool typByVal,
+                     Datum *min, Datum *max, bool *p_have_data)
+{
+    Datum current_min = *min;
+    Datum current_max = *max;
+    bool have_data = *p_have_data;
+    bool updated_min = false;
+    bool updated_max = false;
+
+    // Cache the comparison function if not already done
+    if (opproc->fn_oid != opfuncoid)
+        fmgr_info(opfuncoid, opproc);
+
+    // Scan all values in the statistics slot
+    for (int i = 0; i < sslot->nvalues; i++)
+    {
+        // Initialize min/max with first value if no data yet
+        if (!have_data)
+        {
+            current_min = current_max = sslot->values[i];
+            updated_min = updated_max = true;
+            *p_have_data = have_data = true;
+            continue;
+        }
+
+        // Check if current value is smaller than min
+        if (DatumGetBool(FunctionCall2Coll(opproc, collation,
+                                           sslot->values[i], current_min)))
+        {
+            current_min = sslot->values[i];
+            updated_min = true;
+        }
+
+        // Check if current value is larger than max
+        if (DatumGetBool(FunctionCall2Coll(opproc, collation,
+                                           current_max, sslot->values[i])))
+        {
+            current_max = sslot->values[i];
+            updated_max = true;
+        }
+    }
+
+    // Copy new extreme values if found
+    if (updated_min)
+        *min = datumCopy(current_min, typByVal, typLen);
+    if (updated_max)
+        *max = datumCopy(current_max, typByVal, typLen);
+}
+```

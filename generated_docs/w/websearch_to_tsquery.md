@@ -36,8 +36,26 @@ The parsing is done with `P_TSQ_WEB` flag, which enables web-style query parsing
   - No direct references found in the codebase (likely called via SQL function interface)
 
 ## Notes and Other Information
-- This function is typically exposed as the SQL function `websearch_to_tsquery(text)` 
+- This function is typically exposed as the SQL function `websearch_to_tsquery(text)`
 - The function automatically uses the current text search configuration, making it convenient for applications that dont need to specify a particular configuration
 - The underlying `websearch_to_tsquery_byid` uses `OP_PHRASE` as the default query operator, ensuring that word positions in complex morphemes match exactly with the tsvector
 - Web search syntax is more user-friendly than the standard tsquery syntax, allowing natural language-like queries
 - Located in `src/backend/tsearch/to_tsany.c` at lines 718-727
+
+## Simplified Source
+
+```c
+Datum
+websearch_to_tsquery(PG_FUNCTION_ARGS)
+{
+    text *input_text = PG_GETARG_TEXT_PP(0);
+
+    // Get current default text search configuration
+    Oid config_id = getTSCurrentConfig(true);
+
+    // Delegate to websearch_to_tsquery_byid with default config
+    PG_RETURN_DATUM(DirectFunctionCall2(websearch_to_tsquery_byid,
+                                       ObjectIdGetDatum(config_id),
+                                       PointerGetDatum(input_text)));
+}
+```

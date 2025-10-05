@@ -33,3 +33,19 @@ The function performs validation to ensure the worker doesn't already have an ac
 - The handle is treated as an opaque pointer but is actually a pointer to a SERIALIZABLEXACT structure
 - Essential for maintaining ACID properties and serializable isolation semantics in parallel queries
 - Part of the broader parallel query infrastructure that ensures transaction consistency across multiple processes
+
+## Simplified Source
+
+```c
+void AttachSerializableXact(SerializableXactHandle handle)
+{
+    Assert(MySerializableXact == InvalidSerializableXact);
+
+    // Attach to the leader's serializable transaction
+    MySerializableXact = (SERIALIZABLEXACT *) handle;
+
+    // If we have a valid transaction, set up local predicate lock tracking
+    if (MySerializableXact != InvalidSerializableXact)
+        CreateLocalPredicateLockHash();
+}
+```

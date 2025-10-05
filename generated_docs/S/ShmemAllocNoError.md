@@ -35,3 +35,15 @@ The function is implemented as a simple wrapper around ShmemAllocRaw, directly r
 - Requires ShmemLock and ShmemSegHdr to be initialized before use
 - More lightweight than ShmemAlloc since it doesn't include error reporting overhead
 - Located in src/backend/storage/ipc/shmem.c:172-185
+
+## Simplified Source
+
+```c
+void *ShmemAllocNoError(Size size) {
+    Size allocated_size;
+
+    // Delegate to raw allocation function
+    // Returns NULL on failure instead of throwing error
+    return ShmemAllocRaw(size, &allocated_size);
+}
+```

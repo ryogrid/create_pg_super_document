@@ -35,3 +35,16 @@ The callback follows PostgreSQL's standard error context callback pattern, where
 - Follows PostgreSQL's error context callback pattern with void pointer argument
 - Helps distinguish between trusted and untrusted PL/Tcl startup procedure errors
 - Simple implementation that only adds context - does not handle or suppress errors
+
+## Simplified Source
+
+```c
+static void
+start_proc_error_callback(void *arg)
+{
+    const char *gucname = (const char *) arg;
+
+    // Add context to error messages showing which GUC parameter was being processed
+    errcontext("processing %s parameter", gucname);
+}
+```

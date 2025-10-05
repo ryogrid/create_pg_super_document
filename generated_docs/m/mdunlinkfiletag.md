@@ -38,3 +38,20 @@ Unlike other file tag operations, this function specifically uses MAIN_FORKNUM a
 - Simple implementation compared to other file tag operations - no need to handle open file descriptors
 - The path output parameter allows callers to report exactly which file failed to be unlinked
 - Used for permanent file removal, not temporary operations
+
+## Simplified Source
+
+```c
+int mdunlinkfiletag(const FileTag *ftag, char *path)
+{
+    char *temp_path;
+
+    // Build the permanent relation file path
+    temp_path = relpathperm(ftag->rlocator, MAIN_FORKNUM);
+    strlcpy(path, temp_path, MAXPGPATH);
+    pfree(temp_path);
+
+    // Remove the file from filesystem
+    return unlink(path);
+}
+```

@@ -40,3 +40,29 @@ This mechanism ensures that the BRIN index maintains complete coverage of the ta
 - The function handles the special case where prevRange is InvalidBlockNumber by starting from block 0
 - Page ranges are incremented by state->bs_pagesPerRange, which defines the granularity of BRIN index coverage
 - This function is critical for maintaining BRIN index integrity and ensuring complete coverage of table address space during both initial index construction and parallel merge operations
+
+## Simplified Source
+
+```c
+static void brin_fill_empty_ranges(BrinBuildState *state,
+                                  BlockNumber prevRange,
+                                  BlockNumber nextRange) {
+    // Determine starting block number
+    BlockNumber blkno = (prevRange == InvalidBlockNumber) ?
+                       0 : (prevRange + state->bs_pagesPerRange);
+
+    // Fill gaps with empty BRIN tuples
+    while (blkno < nextRange) {
+        // Build empty tuple template if not already done
+        brin_build_empty_tuple(state, blkno);
+
+        // Insert the empty tuple for this range
+        brin_doinsert(state->bs_irel, state->bs_pagesPerRange,
+                     state->bs_rmAccess, &state->bs_currentInsertBuf,
+                     blkno, state->bs_emptyTuple, state->bs_emptyTupleLen);
+
+        // Move to next page range
+        blkno += state->bs_pagesPerRange;
+    }
+}
+```

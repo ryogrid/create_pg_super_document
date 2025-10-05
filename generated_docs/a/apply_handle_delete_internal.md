@@ -55,3 +55,49 @@ The function is designed to handle both direct table deletions and partition-spe
 - The function is more lightweight than its UPDATE counterpart since it doesn't need to handle data modification or column mapping
 - Unlike the update internal function, this one doesn't need to manage memory contexts for tuple data modification since it only performs lookups and deletions
 - The function is called from both direct delete operations and partition routing scenarios
+
+## Simplified Source
+
+```c
+static void
+apply_handle_delete_internal(ApplyExecutionData *edata,
+                            ResultRelInfo *relinfo,
+                            TupleTableSlot *remoteslot,
+                            Oid localindexoid)
+{
+    EState *estate = edata->estate;
+    Relation localrel = relinfo->ri_RelationDesc;
+    LogicalRepRelation *remoterel = &edata->targetRel->remoterel;
+    EPQState epqstate;
+    TupleTableSlot *localslot;
+    bool found;
+
+    // Initialize concurrency control
+    EvalPlanQualInit(&epqstate, estate, NULL, NIL, -1, NIL);
+
+    // Verify indexes are properly opened
+    Assert(relinfo->ri_IndexRelationDescs != NULL ||
+           !localrel->rd_rel->relhasindex ||
+           RelationGetIndexList(localrel) == NIL);
+
+    // Find the tuple to delete
+    found = FindReplTupleInLocalRel(edata, localrel, remoterel, localindexoid,
+                                   remoteslot, &localslot);
+
+    if (found) {
+        // Perform the delete
+        EvalPlanQualSetSlot(&epqstate, localslot);
+        TargetPrivilegesCheck(relinfo->ri_RelationDesc, ACL_DELETE);
+        ExecSimpleRelationDelete(relinfo, estate, &epqstate, localslot);
+    } else {
+        // Tuple not found - log but don't fail
+        elog(DEBUG1,
+             "logical replication did not find row to be deleted "
+             "in replication target relation \"%s\"",
+             RelationGetRelationName(localrel));
+    }
+
+    // Cleanup
+    EvalPlanQualEnd(&epqstate);
+}
+```

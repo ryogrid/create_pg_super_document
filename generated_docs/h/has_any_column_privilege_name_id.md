@@ -41,3 +41,36 @@ Like other variants in this family, it performs hierarchical checking: table-lev
 - Part of the overloaded 'has_any_column_privilege' family of functions at the SQL level
 - The NULL return behavior makes it safer for use in SQL queries that might reference non-existent tables
 - Located in src/backend/utils/adt/acl.c:2392-2426
+
+## Simplified Source
+
+```c
+Datum
+has_any_column_privilege_name_id(PG_FUNCTION_ARGS)
+{
+    Name username = PG_GETARG_NAME(0);
+    Oid  tableoid = PG_GETARG_OID(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+    bool is_missing = false;
+
+    // Convert username to role OID
+    Oid roleid = get_role_oid_or_public(NameStr(*username));
+
+    // Parse privilege string to internal mode
+    AclMode mode = convert_column_priv_string(priv_type_text);
+
+    // Check table-level privileges first with missing object detection
+    AclResult aclresult = pg_class_aclcheck_ext(tableoid, roleid, mode, &is_missing);
+
+    // If table-level fails, check column-level privileges
+    if (aclresult != ACLCHECK_OK) {
+        if (is_missing)
+            PG_RETURN_NULL();
+        aclresult = pg_attribute_aclcheck_all_ext(tableoid, roleid, mode, ACLMASK_ANY, &is_missing);
+        if (is_missing)
+            PG_RETURN_NULL();
+    }
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

@@ -38,3 +38,12 @@ The function may allocate memory during the conversion process, potentially lead
 - Located in src/pl/tcl/pltcl.c:85-89
 - Primarily used in trigger and event trigger handlers where database values need to be passed to Tcl
 - Also used in PL/Perl for similar encoding conversion purposes
+
+## Simplified Source
+
+```c
+static inline char *utf_e2u(const char *src) {
+    // Convert database server encoding to UTF-8
+    return pg_server_to_any(src, strlen(src), PG_UTF8);
+}
+```

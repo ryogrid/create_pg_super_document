@@ -312,3 +312,90 @@ Text creation and manipulation
 - Delegates final validation and deletion to gistdeletepage, which re-verifies conditions under proper locking
 - Handles concurrent modifications gracefully - if conditions change during lock cycling, gistdeletepage detects this
 - Uses integer set iteration to process internal pages in an efficient manner
+
+## Simplified Source
+
+```c
+static void
+gistvacuum_delete_empty_pages(IndexVacuumInfo *info, GistVacState *vstate)
+{
+    Relation rel = info->index;
+    BlockNumber empty_pages_remaining;
+    uint64 blkno;
+
+    // Count empty pages to process
+    empty_pages_remaining = intset_num_entries(vstate->empty_leaf_set);
+    intset_begin_iterate(vstate->internal_page_set);
+
+    // Iterate through all internal pages
+    while (empty_pages_remaining > 0 &&
+           intset_iterate_next(vstate->internal_page_set, &blkno)) {
+        Buffer buffer;
+        Page page;
+        OffsetNumber off, maxoff;
+        OffsetNumber todelete[MaxOffsetNumber];
+        BlockNumber leafs_to_delete[MaxOffsetNumber];
+        int ntodelete;
+        int deleted;
+
+        // Read and lock the internal page
+        buffer = ReadBufferExtended(rel, MAIN_FORKNUM, (BlockNumber) blkno,
+                                   RBM_NORMAL, info->strategy);
+        LockBuffer(buffer, GIST_SHARE);
+        page = (Page) BufferGetPage(buffer);
+
+        // Verify page is still an internal page
+        if (PageIsNew(page) || GistPageIsDeleted(page) || GistPageIsLeaf(page)) {
+            Assert(false);
+            UnlockReleaseBuffer(buffer);
+            continue;
+        }
+
+        // Find downlinks pointing to empty leaf pages
+        maxoff = PageGetMaxOffsetNumber(page);
+        ntodelete = 0;
+        for (off = FirstOffsetNumber;
+             off <= maxoff && ntodelete < maxoff - 1;
+             off = OffsetNumberNext(off)) {
+            ItemId iid = PageGetItemId(page, off);
+            IndexTuple idxtuple = (IndexTuple) PageGetItem(page, iid);
+            BlockNumber leafblk = ItemPointerGetBlockNumber(&(idxtuple->t_tid));
+
+            if (intset_is_member(vstate->empty_leaf_set, leafblk)) {
+                leafs_to_delete[ntodelete] = leafblk;
+                todelete[ntodelete++] = off;
+            }
+        }
+
+        // Release parent lock to avoid deadlock
+        LockBuffer(buffer, GIST_UNLOCK);
+
+        // Try to delete each empty child page
+        deleted = 0;
+        for (int i = 0; i < ntodelete; i++) {
+            Buffer leafbuf;
+
+            // Don't remove last downlink from parent
+            if (PageGetMaxOffsetNumber(page) == FirstOffsetNumber)
+                break;
+
+            // Lock child page first, then parent (deadlock avoidance)
+            leafbuf = ReadBufferExtended(rel, MAIN_FORKNUM, leafs_to_delete[i],
+                                        RBM_NORMAL, info->strategy);
+            LockBuffer(leafbuf, GIST_EXCLUSIVE);
+            gistcheckpage(rel, leafbuf);
+
+            LockBuffer(buffer, GIST_EXCLUSIVE);
+            if (gistdeletepage(info, vstate->stats, buffer,
+                              todelete[i] - deleted, leafbuf))
+                deleted++;
+            LockBuffer(buffer, GIST_UNLOCK);
+
+            UnlockReleaseBuffer(leafbuf);
+        }
+
+        ReleaseBuffer(buffer);
+        empty_pages_remaining -= ntodelete;
+    }
+}
+```

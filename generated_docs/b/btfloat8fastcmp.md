@@ -35,3 +35,16 @@ This function is an optimized comparison function specifically designed for use 
 - The SortSupport parameter is part of the required interface but is not used by this specific function
 - Returns an int value following the standard comparison convention (-1, 0, 1)
 - Part of PostgreSQL's sort support infrastructure for efficient sorting and indexing
+
+## Simplified Source
+
+```c
+static int btfloat8fastcmp(Datum x, Datum y, SortSupport ssup) {
+    // Extract float8 values from Datums
+    float8 arg1 = DatumGetFloat8(x);
+    float8 arg2 = DatumGetFloat8(y);
+
+    // Delegate to internal comparison function
+    return float8_cmp_internal(arg1, arg2);
+}
+```

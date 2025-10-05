@@ -36,3 +36,51 @@ This function validates the synchronized_standby_slots GUC parameter by first pa
 - Uses shared lock on ReplicationSlotControlLock to safely access slot information
 - Returns false and sets detailed error messages via GUC_check_errdetail when validation fails
 - Only accepts physical replication slots, rejecting logical slots
+
+## Simplified Source
+
+```c
+static bool
+validate_sync_standby_slots(char *rawname, List **elemlist)
+{
+    bool ok;
+
+    // Parse comma-separated slot names
+    ok = SplitIdentifierString(rawname, ',', elemlist);
+
+    if (!ok)
+    {
+        GUC_check_errdetail("List syntax is invalid.");
+    }
+    else if (MyProc)  // Skip checks if no PGPROC
+    {
+        // Validate each slot exists and is physical
+        LWLockAcquire(ReplicationSlotControlLock, LW_SHARED);
+
+        foreach_ptr(char, name, *elemlist)
+        {
+            ReplicationSlot *slot;
+
+            slot = SearchNamedReplicationSlot(name, false);
+
+            if (!slot)
+            {
+                GUC_check_errdetail("replication slot \"%s\" does not exist", name);
+                ok = false;
+                break;
+            }
+
+            if (!SlotIsPhysical(slot))
+            {
+                GUC_check_errdetail("\"%s\" is not a physical replication slot", name);
+                ok = false;
+                break;
+            }
+        }
+
+        LWLockRelease(ReplicationSlotControlLock);
+    }
+
+    return ok;
+}
+```

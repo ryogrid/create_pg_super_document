@@ -43,3 +43,25 @@ The function process:
 - All parameters are required and cannot be NULL
 - Located in src/backend/utils/adt/acl.c:1999-2021
 - Useful when caller has precise user OID but prefers human-readable table names
+
+## Simplified Source
+
+```c
+Datum has_table_privilege_id_name(PG_FUNCTION_ARGS) {
+    Oid roleid = PG_GETARG_OID(0);
+    text *tablename = PG_GETARG_TEXT_PP(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+    Oid tableoid;
+    AclMode mode;
+    AclResult aclresult;
+
+    // Convert table name to OID and privilege string to mode
+    tableoid = convert_table_name(tablename);
+    mode = convert_table_priv_string(priv_type_text);
+
+    // Check if specified user has the privilege
+    aclresult = pg_class_aclcheck(tableoid, roleid, mode);
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

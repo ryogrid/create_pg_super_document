@@ -54,3 +54,86 @@ The function ensures WAL logging consistency and handles both deletions and upda
 - WAL logging is conditional based on 
 - The function clears the  flag to indicate removal of dead items
 - Memory allocated for updated tuples is properly freed to prevent leaks
+
+## Simplified Source
+
+```c
+static void _bt_delitems_delete(Relation rel, Buffer buf,
+                               TransactionId snapshotConflictHorizon, bool isCatalogRel,
+                               OffsetNumber *deletable, int ndeletable,
+                               BTVacuumPosting *updatable, int nupdatable) {
+    Page page = BufferGetPage(buf);
+    BTPageOpaque opaque;
+    bool needswal = RelationNeedsWAL(rel);
+    char *updatedbuf = NULL;
+    Size updatedbuflen = 0;
+    OffsetNumber updatedoffsets[MaxIndexTuplesPerPage];
+
+    Assert(ndeletable > 0 || nupdatable > 0);
+
+    // Generate new posting lists with dead TIDs removed
+    if (nupdatable > 0)
+        updatedbuf = _bt_delitems_update(updatable, nupdatable,
+                                       updatedoffsets, &updatedbuflen,
+                                       needswal);
+
+    START_CRIT_SECTION();
+
+    // Update posting lists first
+    for (int i = 0; i < nupdatable; i++) {
+        OffsetNumber updatedoffset = updatedoffsets[i];
+        IndexTuple itup = updatable[i]->itup;
+        Size itemsz = MAXALIGN(IndexTupleSize(itup));
+
+        if (!PageIndexTupleOverwrite(page, updatedoffset, (Item) itup, itemsz))
+            elog(PANIC, "failed to update partially dead item in block %u",
+                 BufferGetBlockNumber(buf));
+    }
+
+    // Delete entire tuples
+    if (ndeletable > 0)
+        PageIndexMultiDelete(page, deletable, ndeletable);
+
+    // Clear garbage flag (but NOT vacuum cycle ID like _bt_delitems_vacuum does)
+    opaque = BTPageGetOpaque(page);
+    opaque->btpo_flags &= ~BTP_HAS_GARBAGE;
+
+    MarkBufferDirty(buf);
+
+    // WAL logging for DELETE operation (includes conflict horizon)
+    if (needswal) {
+        XLogRecPtr recptr;
+        xl_btree_delete xlrec_delete;
+
+        xlrec_delete.snapshotConflictHorizon = snapshotConflictHorizon;
+        xlrec_delete.ndeleted = ndeletable;
+        xlrec_delete.nupdated = nupdatable;
+        xlrec_delete.isCatalogRel = isCatalogRel;
+
+        XLogBeginInsert();
+        XLogRegisterBuffer(0, buf, REGBUF_STANDARD);
+        XLogRegisterData((char *) &xlrec_delete, SizeOfBtreeDelete);
+
+        if (ndeletable > 0)
+            XLogRegisterBufData(0, (char *) deletable,
+                              ndeletable * sizeof(OffsetNumber));
+
+        if (nupdatable > 0) {
+            XLogRegisterBufData(0, (char *) updatedoffsets,
+                              nupdatable * sizeof(OffsetNumber));
+            XLogRegisterBufData(0, updatedbuf, updatedbuflen);
+        }
+
+        recptr = XLogInsert(RM_BTREE_ID, XLOG_BTREE_DELETE);
+        PageSetLSN(page, recptr);
+    }
+
+    END_CRIT_SECTION();
+
+    // Cleanup allocated memory
+    if (updatedbuf != NULL)
+        pfree(updatedbuf);
+    for (int i = 0; i < nupdatable; i++)
+        pfree(updatable[i]->itup);
+}
+```

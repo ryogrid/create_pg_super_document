@@ -50,3 +50,82 @@ The function maintains atomicity by using a two-phase approach: first collecting
 - The LW_FLAG_RELEASE_OK flag is managed to prevent additional releases until retrying processes get a chance to run
 - Memory barriers ensure proper ordering of operations when unlinking processes from wait lists
 - The function handles different wait modes (LW_EXCLUSIVE, LW_SHARED, LW_WAIT_UNTIL_FREE) with different wakeup strategies
+
+## Simplified Source
+
+```c
+static void
+LWLockWakeup(LWLock *lock)
+{
+    bool new_release_ok;
+    bool wokeup_somebody = false;
+    proclist_head wakeup;
+    proclist_mutable_iter iter;
+
+    proclist_init(&wakeup);
+    new_release_ok = true;
+
+    // Lock wait list while collecting backends to wake up
+    LWLockWaitListLock(lock);
+
+    proclist_foreach_modify(iter, &lock->waiters, lwWaitLink)
+    {
+        PGPROC *waiter = GetPGProcByNumber(iter.cur);
+
+        // Stop if we already woke somebody and this is exclusive
+        if (wokeup_somebody && waiter->lwWaitMode == LW_EXCLUSIVE)
+            continue;
+
+        // Move waiter from wait list to wakeup list
+        proclist_delete(&lock->waiters, iter.cur, lwWaitLink);
+        proclist_push_tail(&wakeup, iter.cur, lwWaitLink);
+
+        if (waiter->lwWaitMode != LW_WAIT_UNTIL_FREE) {
+            // Prevent additional wakeups until retryer gets to run
+            new_release_ok = false;
+            wokeup_somebody = true;
+        }
+
+        // Mark waiter as pending wakeup
+        Assert(waiter->lwWaiting == LW_WS_WAITING);
+        waiter->lwWaiting = LW_WS_PENDING_WAKEUP;
+
+        // Only one exclusive lock can be woken up
+        if (waiter->lwWaitMode == LW_EXCLUSIVE)
+            break;
+    }
+
+    // Update lock state atomically
+    uint32 old_state = pg_atomic_read_u32(&lock->state);
+    while (true) {
+        uint32 desired_state = old_state;
+
+        // Set release OK flag based on what we woke up
+        if (new_release_ok)
+            desired_state |= LW_FLAG_RELEASE_OK;
+        else
+            desired_state &= ~LW_FLAG_RELEASE_OK;
+
+        // Clear waiters flag if no more waiters
+        if (proclist_is_empty(&wakeup))
+            desired_state &= ~LW_FLAG_HAS_WAITERS;
+
+        desired_state &= ~LW_FLAG_LOCKED;  // Release lock
+
+        if (pg_atomic_compare_exchange_u32(&lock->state, &old_state, desired_state))
+            break;
+    }
+
+    // Actually wake up the collected waiters
+    proclist_foreach_modify(iter, &wakeup, lwWaitLink)
+    {
+        PGPROC *waiter = GetPGProcByNumber(iter.cur);
+        proclist_delete(&wakeup, iter.cur, lwWaitLink);
+
+        // Ensure proper memory ordering
+        pg_write_barrier();
+        waiter->lwWaiting = LW_WS_NOT_WAITING;
+        PGSemaphoreUnlock(waiter->sem);
+    }
+}
+```

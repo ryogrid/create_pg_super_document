@@ -35,3 +35,17 @@ The  function is a PostgreSQL geometric operator that determines if a line segme
 - Part of the inter_* family of intersection testing functions
 - Uses NULL as first parameter to  to indicate boolean-only testing (no intersection point calculation needed)
 - Returns a boolean Datum indicating whether intersection occurs
+
+## Simplified Source
+
+```c
+Datum inter_sl(PG_FUNCTION_ARGS) {
+    // Extract line segment and line from function arguments
+    LSEG *lseg = PG_GETARG_LSEG_P(0);
+    LINE *line = PG_GETARG_LINE_P(1);
+
+    // Test if line segment intersects with infinite line
+    // NULL parameter means we only want boolean result, not intersection point
+    PG_RETURN_BOOL(lseg_interpt_line(NULL, lseg, line));
+}
+```

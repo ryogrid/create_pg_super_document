@@ -33,3 +33,12 @@ This function serves as a debugging and diagnostic tool, helping developers and 
 - Helps identify buffer IO resource leaks during development and debugging
 - The generated message format: "lost track of buffer IO on buffer %d"
 - Critical for diagnosing resource management issues in PostgreSQL's buffer system
+
+## Simplified Source
+```c
+static char *ResOwnerPrintBufferIO(Datum res) {
+    // Convert Datum to Buffer and generate diagnostic message
+    Buffer buffer = DatumGetInt32(res);
+    return psprintf("lost track of buffer IO on buffer %d", buffer);
+}
+```

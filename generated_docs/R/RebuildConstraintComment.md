@@ -50,3 +50,42 @@ This function is a specialized subroutine used by ATPostAlterTypeParse to preser
 - Constructs fully qualified object names to avoid ambiguity during comment restoration
 - Uses AT_ReAddComment subtype for the generated command
 - Essential for maintaining constraint documentation during ALTER TABLE operations that require constraint rebuilding
+
+## Simplified Source
+
+```c
+static void RebuildConstraintComment(AlteredTableInfo *tab, AlterTablePass pass,
+                                   Oid objid, Relation rel, List *domname,
+                                   const char *conname) {
+    // Look up the existing comment for this constraint
+    char *comment_str = GetComment(objid, ConstraintRelationId, 0);
+    if (comment_str == NULL)
+        return;  // No comment to preserve
+
+    // Create a comment statement to restore the comment
+    CommentStmt *cmd = makeNode(CommentStmt);
+
+    if (rel) {
+        // Table constraint: build qualified table.constraint reference
+        cmd->objtype = OBJECT_TABCONSTRAINT;
+        cmd->object = (Node *)
+            list_make3(makeString(get_namespace_name(RelationGetNamespace(rel))),
+                      makeString(pstrdup(RelationGetRelationName(rel))),
+                      makeString(pstrdup(conname)));
+    } else {
+        // Domain constraint: build qualified domain.constraint reference
+        cmd->objtype = OBJECT_DOMCONSTRAINT;
+        cmd->object = (Node *)
+            list_make2(makeTypeNameFromNameList(copyObject(domname)),
+                      makeString(pstrdup(conname)));
+    }
+
+    cmd->comment = comment_str;
+
+    // Queue the comment restoration command for later execution
+    AlterTableCmd *newcmd = makeNode(AlterTableCmd);
+    newcmd->subtype = AT_ReAddComment;
+    newcmd->def = (Node *) cmd;
+    tab->subcmds[pass] = lappend(tab->subcmds[pass], newcmd);
+}
+```

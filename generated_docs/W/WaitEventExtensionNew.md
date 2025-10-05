@@ -39,3 +39,12 @@ Extensions can use the returned wait event ID to monitor specific waiting condit
 - The function is thread-safe and can be called from multiple processes concurrently
 - Extensions should typically call this function during initialization to register their wait events
 - The wait event will appear in system monitoring views with the 'Extension' wait event type
+
+## Simplified Source
+
+```c
+uint32 WaitEventExtensionNew(const char *wait_event_name) {
+    // Create a new custom wait event under the Extension category
+    return WaitEventCustomNew(PG_WAIT_EXTENSION, wait_event_name);
+}
+```

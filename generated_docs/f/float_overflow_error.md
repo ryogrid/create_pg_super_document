@@ -43,3 +43,14 @@ The design philosophy follows PostgreSQL's practice of centralizing common error
 - This centralized approach means that specific error location indicators are not available, which is a trade-off for code size efficiency
 - The function is part of a trio of similar error reporting functions for different floating-point exceptional conditions (overflow, underflow, zero-divide)
 - Used extensively throughout PostgreSQL's floating-point arithmetic operations to provide consistent error handling
+
+## Simplified Source
+
+```c
+pg_noinline void float_overflow_error(void)
+{
+    ereport(ERROR,
+            (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+             errmsg("value out of range: overflow")));
+}
+```

@@ -53,3 +53,134 @@ This function takes no parameters but operates on several global state variables
 - **Historical Context**: Originally written in November 1976 by D A Willcox, with modifications for UNIX-style comments in December 1976
 
 The function is critical for maintaining consistent comment formatting in PostgreSQL's codebase when using the BSD indent tool.
+
+## Simplified Source
+
+```c
+void
+pr_comment(void)
+{
+    int now_col;
+    int adj_max_col;
+    char *last_bl = NULL;
+    int break_delim = comment_delimiter_on_blankline;
+
+    ps.box_com = false;
+    ++ps.out_coms;
+
+    // Determine comment alignment and formatting
+    if (ps.col_1 && !format_col1_comments) {
+        // Column 1 comments should not be touched
+        ps.box_com = true;
+        break_delim = false;
+        ps.com_col = 1;
+    } else {
+        // Check for boxed comments (starting with - or *)
+        if (*buf_ptr == '-' || *buf_ptr == '*' ||
+            (*buf_ptr == '\n' && !format_block_comments)) {
+            ps.box_com = true;
+            break_delim = false;
+        }
+
+        // Calculate comment column position
+        if ((s_lab == e_lab) && (s_code == e_code)) {
+            // Blank line - use indentation level
+            ps.com_col = (ps.ind_level - ps.unindent_displace) * ps.ind_size + 1;
+            adj_max_col = block_comment_max_col;
+        } else {
+            // Position relative to code or labels
+            int target_col = (s_code != e_code) ?
+                count_spaces(compute_code_target(), s_code) : 1;
+            ps.com_col = ps.decl_on_line || ps.ind_level == 0 ?
+                ps.decl_com_ind : ps.com_ind;
+            if (ps.com_col <= target_col)
+                ps.com_col = tabsize * (1 + (target_col - 1) / tabsize) + 1;
+        }
+    }
+
+    // Handle comment indentation calculation
+    if (ps.box_com) {
+        char *start = buf_ptr >= save_com && buf_ptr < save_com + sc_size ?
+            sc_buf : in_buffer;
+        ps.n_comment_delta = 1 - count_spaces_until(1, start, buf_ptr - 2);
+    } else {
+        ps.n_comment_delta = 0;
+        while (*buf_ptr == ' ' || *buf_ptr == '\t')
+            buf_ptr++;
+    }
+
+    // Start comment with /*
+    *e_com++ = '/';
+    *e_com++ = '*';
+    if (*buf_ptr != ' ' && !ps.box_com)
+        *e_com++ = ' ';
+
+    // Copy comment content
+    while (1) {
+        switch (*buf_ptr) {
+        case '\n':
+            // Handle newlines and line breaking
+            last_bl = NULL;
+            if (ps.box_com || ps.last_nl) {
+                if (s_com == e_com)
+                    *e_com++ = ' ';
+                dump_line();
+                if (!ps.box_com && star_comment_cont)
+                    *e_com++ = ' ', *e_com++ = '*', *e_com++ = ' ';
+            } else {
+                ps.last_nl = 1;
+                last_bl = e_com;
+                *e_com++ = ' ';
+            }
+            ++line_no;
+            ++buf_ptr;
+            break;
+
+        case '*':
+            ++buf_ptr;
+            if (*buf_ptr == '/') {
+                // End of comment
+                ++buf_ptr;
+                if (e_com[-1] != ' ' && e_com[-1] != '\t' && !ps.box_com)
+                    *e_com++ = ' ';
+                *e_com++ = '*';
+                *e_com++ = '/';
+                *e_com = '\0';
+                return;
+            } else {
+                *e_com++ = '*';
+            }
+            break;
+
+        default:
+            // Copy regular characters with line wrapping
+            now_col = count_spaces_until(ps.com_col, s_com, e_com);
+            do {
+                *e_com = *buf_ptr++;
+                if (*e_com == ' ' || *e_com == '\t')
+                    last_bl = e_com;
+                ++e_com;
+                ++now_col;
+            } while (*buf_ptr != '*' && *buf_ptr != '\n' &&
+                    (now_col <= adj_max_col || !last_bl));
+
+            // Handle line overflow
+            if (now_col > adj_max_col && !ps.box_com && last_bl) {
+                *e_com = '\0';
+                e_com = last_bl;
+                dump_line();
+                if (!ps.box_com && star_comment_cont)
+                    *e_com++ = ' ', *e_com++ = '*', *e_com++ = ' ';
+                // Skip whitespace and continue
+                for (char *t_ptr = last_bl + 1; *t_ptr == ' ' || *t_ptr == '\t'; t_ptr++);
+                while (*t_ptr != '\0') {
+                    if (*t_ptr == ' ' || *t_ptr == '\t')
+                        last_bl = e_com;
+                    *e_com++ = *t_ptr++;
+                }
+            }
+            break;
+        }
+    }
+}
+```

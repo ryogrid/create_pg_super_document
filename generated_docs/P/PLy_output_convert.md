@@ -40,3 +40,13 @@ Unlike PLy_input_convert, this function does not manage memory contexts explicit
 - This is a simple wrapper function that provides a consistent interface for output conversions
 - The function works in conjunction with the PL/Python type conversion system to enable seamless data exchange between Python and PostgreSQL
 - Unlike input conversion, output conversion does not use a scratch memory context for intermediate allocations
+
+## Simplified Source
+
+```c
+Datum PLy_output_convert(PLyObToDatum *arg, PyObject *val, bool *isnull) {
+    // Delegate to type-specific conversion function
+    // Pass false to indicate this is not an array element conversion
+    return arg->func(arg, val, isnull, false);
+}
+```

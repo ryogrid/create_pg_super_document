@@ -44,3 +44,60 @@ This function translates a numeric wait event information value into a human-rea
 - Used extensively in PostgreSQL's monitoring and statistics reporting system
 - The function performs bitwise masking to extract class information from the wait event info
 - Located at src/backend/utils/activity/wait_event.c:374-431
+
+## Simplified Source
+
+```c
+const char *
+pgstat_get_wait_event_type(uint32 wait_event_info)
+{
+    uint32 classId;
+    const char *event_type;
+
+    // Return NULL if process is not waiting
+    if (wait_event_info == 0)
+        return NULL;
+
+    // Extract wait event class from info
+    classId = wait_event_info & WAIT_EVENT_CLASS_MASK;
+
+    // Map class ID to event type name
+    switch (classId) {
+        case PG_WAIT_LWLOCK:
+            event_type = "LWLock";
+            break;
+        case PG_WAIT_LOCK:
+            event_type = "Lock";
+            break;
+        case PG_WAIT_BUFFERPIN:
+            event_type = "BufferPin";
+            break;
+        case PG_WAIT_ACTIVITY:
+            event_type = "Activity";
+            break;
+        case PG_WAIT_CLIENT:
+            event_type = "Client";
+            break;
+        case PG_WAIT_EXTENSION:
+            event_type = "Extension";
+            break;
+        case PG_WAIT_IPC:
+            event_type = "IPC";
+            break;
+        case PG_WAIT_TIMEOUT:
+            event_type = "Timeout";
+            break;
+        case PG_WAIT_IO:
+            event_type = "IO";
+            break;
+        case PG_WAIT_INJECTIONPOINT:
+            event_type = "InjectionPoint";
+            break;
+        default:
+            event_type = "???";
+            break;
+    }
+
+    return event_type;
+}
+```

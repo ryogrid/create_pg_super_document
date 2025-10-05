@@ -41,3 +41,56 @@ The function operates by first locating the local lock entry in the current back
 - The function is read-only and doesn't modify any lock state
 - Critical for implementing efficient lock release strategies in high-concurrency scenarios
 - Relies on the conflict matrix in LockMethods to determine potential waiter conflicts
+
+## Simplified Source
+```c
+bool LockHasWaiters(const LOCKTAG *locktag, LOCKMODE lockmode, bool sessionLock)
+{
+    LOCKMETHODID lockmethodid = locktag->locktag_lockmethodid;
+    LockMethod lockMethodTable;
+    LOCALLOCKTTAG localtag;
+    LOCALLOCK *locallock;
+    LOCK *lock;
+    PROCLOCK *proclock;
+    LWLock *partitionLock;
+    bool hasWaiters = false;
+
+    // Validate lock method and mode
+    if (lockmethodid <= 0 || lockmethodid >= lengthof(LockMethods))
+        elog(ERROR, "unrecognized lock method: %d", lockmethodid);
+
+    lockMethodTable = LockMethods[lockmethodid];
+    if (lockmode <= 0 || lockmode > lockMethodTable->numLockModes)
+        elog(ERROR, "unrecognized lock mode: %d", lockmode);
+
+    // Find local lock entry
+    MemSet(&localtag, 0, sizeof(localtag));
+    localtag.lock = *locktag;
+    localtag.mode = lockmode;
+
+    locallock = (LOCALLOCK *) hash_search(LockMethodLocalHash, &localtag, HASH_FIND, NULL);
+
+    if (!locallock || locallock->nLocks <= 0)
+        return false;
+
+    // Check shared lock table for waiters
+    partitionLock = LockHashPartitionLock(locallock->hashcode);
+    LWLockAcquire(partitionLock, LW_SHARED);
+
+    lock = locallock->lock;
+    proclock = locallock->proclock;
+
+    // Verify we hold the lock
+    if (!(proclock->holdMask & LOCKBIT_ON(lockmode))) {
+        LWLockRelease(partitionLock);
+        return false;
+    }
+
+    // Check if releasing this lock would wake waiters
+    if ((lockMethodTable->conflictTab[lockmode] & lock->waitMask) != 0)
+        hasWaiters = true;
+
+    LWLockRelease(partitionLock);
+    return hasWaiters;
+}
+```

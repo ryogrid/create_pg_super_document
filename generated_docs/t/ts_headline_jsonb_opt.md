@@ -37,3 +37,18 @@ This function serves as a wrapper around `ts_headline_jsonb_byid_opt` that autom
 - The function automatically determines the appropriate text search configuration using `getTSCurrentConfig(true)`
 - Part of PostgreSQL text search functionality for generating highlighted snippets from JSONB documents
 - The actual headline processing logic is implemented in `ts_headline_jsonb_byid_opt`
+
+## Simplified Source
+
+```c
+Datum
+ts_headline_jsonb_opt(PG_FUNCTION_ARGS)
+{
+    // Wrapper: use current default config with custom options, delegate to full implementation
+    PG_RETURN_DATUM(DirectFunctionCall4(ts_headline_jsonb_byid_opt,
+                                       ObjectIdGetDatum(getTSCurrentConfig(true)),
+                                       PG_GETARG_DATUM(0),  // JSONB document
+                                       PG_GETARG_DATUM(1),  // TSQuery
+                                       PG_GETARG_DATUM(2))); // Options
+}
+```

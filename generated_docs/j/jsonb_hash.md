@@ -49,3 +49,45 @@ The hashing ensures that structurally and semantically identical JSONB values pr
 - The iteration-based approach ensures all nested elements contribute to the final hash
 - [Hash](../H/Hash.md) consistency is maintained across identical JSONB structures regardless of key ordering in objects
 - Error handling includes detection of invalid JsonbIteratorNext return codes
+
+## Simplified Source
+
+```c
+Datum jsonb_hash(PG_FUNCTION_ARGS) {
+    Jsonb *jb = PG_GETARG_JSONB_P(0);
+    JsonbIterator *it;
+    JsonbValue v;
+    JsonbIteratorToken r;
+    uint32 hash = 0;
+
+    // Quick exit for empty JSONB
+    if (JB_ROOT_COUNT(jb) == 0)
+        PG_RETURN_INT32(0);
+
+    // Iterate through all JSONB elements
+    it = JsonbIteratorInit(&jb->root);
+    while ((r = JsonbIteratorNext(&it, &v, false)) != WJB_DONE) {
+        switch (r) {
+            case WJB_BEGIN_ARRAY:
+                hash ^= JB_FARRAY;      // XOR array type flag
+                break;
+            case WJB_BEGIN_OBJECT:
+                hash ^= JB_FOBJECT;     // XOR object type flag
+                break;
+            case WJB_KEY:
+            case WJB_VALUE:
+            case WJB_ELEM:
+                JsonbHashScalarValue(&v, &hash);  // Hash scalar values
+                break;
+            case WJB_END_ARRAY:
+            case WJB_END_OBJECT:
+                break;  // Ignore end markers
+            default:
+                elog(ERROR, "invalid JsonbIteratorNext rc: %d", (int) r);
+        }
+    }
+
+    PG_FREE_IF_COPY(jb, 0);
+    PG_RETURN_INT32(hash);
+}
+```

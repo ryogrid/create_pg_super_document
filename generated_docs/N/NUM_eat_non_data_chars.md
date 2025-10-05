@@ -36,3 +36,22 @@ The function identifies numeric data characters as digits (0-9), decimal points 
 - The character set "0123456789.,+-" defines what constitutes numeric data
 - Stops early if it encounters numeric data, ensuring actual number content is preserved
 - Part of PostgreSQL's comprehensive number formatting system in src/backend/utils/adt/formatting.c
+
+## Simplified Source
+
+```c
+static void NUM_eat_non_data_chars(NUMProc *Np, int n, int input_len) {
+    while (n-- > 0) {
+        // Stop if we've reached end of input
+        if (OVERLOAD_TEST)
+            break;
+
+        // Stop if current character is numeric data (digits, decimal, comma, sign)
+        if (strchr("0123456789.,+-", *Np->inout_p) != NULL)
+            break;
+
+        // Skip this non-data character (respecting multibyte boundaries)
+        Np->inout_p += pg_mblen(Np->inout_p);
+    }
+}
+```

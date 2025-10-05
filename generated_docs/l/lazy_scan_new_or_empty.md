@@ -62,3 +62,72 @@ lazy_scan_new_or_empty provides specialized handling for new and empty heap page
 - Maintains crash safety by ensuring proper WAL logging sequence
 - Does not enter new pages into visibility map to support promoted standby discovery
 - Source location: src/backend/access/heap/vacuumlazy.c:1285-1388
+
+## Simplified Source
+
+```c
+static bool
+lazy_scan_new_or_empty(LVRelState *vacrel, Buffer buf, BlockNumber blkno,
+                       Page page, bool sharelock, Buffer vmbuffer)
+{
+    Size freespace;
+
+    // Handle new (all-zeroes) pages
+    if (PageIsNew(page))
+    {
+        // Release the page and record its free space in FSM
+        UnlockReleaseBuffer(buf);
+
+        if (GetRecordedFreeSpace(vacrel->rel, blkno) == 0)
+        {
+            freespace = BLCKSZ - SizeOfPageHeaderData;
+            RecordPageWithFreeSpace(vacrel->rel, blkno, freespace);
+        }
+
+        return true; // Page processing complete
+    }
+
+    // Handle empty pages (no tuples allocated)
+    if (PageIsEmpty(page))
+    {
+        // Escalate to exclusive lock if needed
+        if (sharelock)
+        {
+            LockBuffer(buf, BUFFER_LOCK_UNLOCK);
+            LockBuffer(buf, BUFFER_LOCK_EXCLUSIVE);
+
+            // Recheck after lock escalation
+            if (!PageIsEmpty(page))
+                return false; // Page changed, needs normal processing
+        }
+
+        // Mark empty pages as all-visible and all-frozen
+        if (!PageIsAllVisible(page))
+        {
+            START_CRIT_SECTION();
+
+            MarkBufferDirty(buf);
+
+            // Ensure page is WAL-logged to prevent recovery issues
+            if (RelationNeedsWAL(vacrel->rel) &&
+                PageGetLSN(page) == InvalidXLogRecPtr)
+                log_newpage_buffer(buf, true);
+
+            PageSetAllVisible(page);
+            visibilitymap_set(vacrel->rel, blkno, buf, InvalidXLogRecPtr,
+                            vmbuffer, InvalidTransactionId,
+                            VISIBILITYMAP_ALL_VISIBLE | VISIBILITYMAP_ALL_FROZEN);
+            END_CRIT_SECTION();
+        }
+
+        // Record free space and release page
+        freespace = PageGetHeapFreeSpace(page);
+        UnlockReleaseBuffer(buf);
+        RecordPageWithFreeSpace(vacrel->rel, blkno, freespace);
+        return true; // Page processing complete
+    }
+
+    // Page is neither new nor empty - needs normal processing
+    return false;
+}
+```

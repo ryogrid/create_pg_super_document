@@ -33,3 +33,17 @@ PLyBytes_FromBytea is a conversion function within PostgreSQL's PL/Python extens
 - The function preserves binary data integrity during conversion
 - Returns a new Python bytes object reference that must be properly managed by the caller
 - Uses detoasting-aware functions to handle potentially compressed/external bytea values
+
+## Simplified Source
+
+```c
+static PyObject *
+PLyBytes_FromBytea(PLyDatumToOb *arg, Datum d)
+{
+    text *txt = DatumGetByteaPP(d);
+    char *str = VARDATA_ANY(txt);
+    size_t size = VARSIZE_ANY_EXHDR(txt);
+
+    return PyBytes_FromStringAndSize(str, size);
+}
+```

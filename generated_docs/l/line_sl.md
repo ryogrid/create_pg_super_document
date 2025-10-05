@@ -35,3 +35,22 @@ This function computes the slope of a line given its representation in the stand
 - Uses the mathematical relationship slope = -A/B derived from the implicit line equation
 - Part of the line arithmetic routines section in PostgreSQLs geometric operations
 - Handles floating-point precision issues through FPzero macro usage
+
+## Simplified Source
+
+```c
+static inline float8
+line_sl(LINE *line)
+{
+    // Horizontal line (A=0): slope is 0
+    if (FPzero(line->A))
+        return 0.0;
+
+    // Vertical line (B=0): slope is infinity
+    if (FPzero(line->B))
+        return get_float8_infinity();
+
+    // General case: slope = -A/B
+    return float8_div(line->A, -line->B);
+}
+```

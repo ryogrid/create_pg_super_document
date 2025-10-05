@@ -38,3 +38,29 @@ This PostgreSQL function implements privilege checking for database types using 
 - Uses object_aclcheck with TypeRelationId to perform the actual privilege verification
 - The function handles both regular users and the special "public" pseudo-role
 - Follows PostgreSQL's standard pattern for privilege checking functions
+
+## Simplified Source
+
+```c
+Datum
+has_type_privilege_name_name(PG_FUNCTION_ARGS)
+{
+    Name username = PG_GETARG_NAME(0);
+    text *typename = PG_GETARG_TEXT_PP(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert username to role OID
+    Oid roleid = get_role_oid_or_public(NameStr(*username));
+
+    // Convert type name to OID
+    Oid typeoid = convert_type_name(typename);
+
+    // Convert privilege string to access mode
+    AclMode mode = convert_type_priv_string(priv_type_text);
+
+    // Check access control
+    AclResult aclresult = object_aclcheck(TypeRelationId, typeoid, roleid, mode);
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

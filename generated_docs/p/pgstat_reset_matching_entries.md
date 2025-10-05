@@ -40,3 +40,38 @@ The function uses a sequential scan pattern through the distributed hash table, 
 - Uses exclusive locking () when actually resetting statistics to ensure consistency
 - The callback pattern allows for flexible filtering of which statistics entries to reset
 - Part of PostgreSQL's shared memory statistics infrastructure
+
+## Simplified Source
+
+```c
+void pgstat_reset_matching_entries(bool (*do_reset)(PgStatShared_HashEntry *, Datum),
+                                   Datum match_data, TimestampTz ts) {
+    dshash_seq_status scan_state;
+    PgStatShared_HashEntry *entry;
+
+    // Initialize sequential scan of shared hash table
+    dshash_seq_init(&scan_state, pgStatLocal.shared_hash, false);
+
+    // Scan through all entries in the hash table
+    while ((entry = dshash_seq_next(&scan_state)) != NULL) {
+        // Skip dropped entries
+        if (entry->dropped)
+            continue;
+
+        // Check if this entry should be reset using callback
+        if (!do_reset(entry, match_data))
+            continue;
+
+        // Get the statistics data for this entry
+        PgStatShared_Common *stats_data = dsa_get_address(pgStatLocal.dsa, entry->body);
+
+        // Reset the statistics with exclusive lock
+        LWLockAcquire(&stats_data->lock, LW_EXCLUSIVE);
+        shared_stat_reset_contents(entry->key.kind, stats_data, ts);
+        LWLockRelease(&stats_data->lock);
+    }
+
+    // Clean up the scan
+    dshash_seq_term(&scan_state);
+}
+```

@@ -36,3 +36,21 @@ This function computes the distance from a point to the closest point on a circl
 - Useful for proximity calculations and spatial queries
 - Part of PostgreSQL's geometric distance operations
 - Located in src/backend/utils/adt/geo_ops.c:5109-5126
+
+## Simplified Source
+
+```c
+Datum dist_pc(PG_FUNCTION_ARGS) {
+    Point *point = PG_GETARG_POINT_P(0);
+    CIRCLE *circle = PG_GETARG_CIRCLE_P(1);
+
+    // Distance from point to center minus radius
+    float8 result = float8_mi(point_dt(point, &circle->center), circle->radius);
+
+    // Return 0 if point is inside circle
+    if (result < 0.0)
+        result = 0.0;
+
+    PG_RETURN_FLOAT8(result);
+}
+```

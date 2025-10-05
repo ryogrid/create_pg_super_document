@@ -29,3 +29,17 @@ This function provides access to the current I/O statistics by taking a snapshot
 - The snapshot ensures consistency of the statistics data at the time of the call
 - This is part of PostgreSQL's statistics collection system for monitoring I/O operations
 - Located in src/backend/utils/activity/pgstat_io.c:157-172
+
+## Simplified Source
+
+```c
+PgStat_IO *
+pgstat_fetch_stat_io(void)
+{
+    // Take snapshot of current I/O statistics from shared memory
+    pgstat_snapshot_fixed(PGSTAT_KIND_IO);
+
+    // Return pointer to I/O stats in local snapshot
+    return &pgStatLocal.snapshot.io;
+}
+```

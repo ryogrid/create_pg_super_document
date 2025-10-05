@@ -31,3 +31,15 @@ This function is primarily used for monitoring buffer strategy usage and for mak
 - The returned value represents the nbuffers field of the strategy structure
 - Used primarily in vacuum operations and relation block counting scenarios
 - Part of the buffer access strategy API that provides controlled buffer ring management
+
+## Simplified Source
+```c
+int GetAccessStrategyBufferCount(BufferAccessStrategy strategy) {
+    // Return 0 for NULL strategy (consistent with other API functions)
+    if (strategy == NULL)
+        return 0;
+
+    // Return the number of buffers in the ring
+    return strategy->nbuffers;
+}
+```

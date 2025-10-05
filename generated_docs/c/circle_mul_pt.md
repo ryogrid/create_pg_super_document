@@ -35,3 +35,21 @@ The `circle_mul_pt` function performs a geometric transformation on a circle by 
 - The radius scaling is calculated using the hypotenuse (HYPOT) of the point coordinates, representing the distance from origin
 - This is part of PostgreSQLs geometric data type operators for circle manipulation
 - The transformation combines point multiplication for the center with magnitude-based scaling for the radius
+
+## Simplified Source
+
+```c
+Datum circle_mul_pt(PG_FUNCTION_ARGS) {
+    CIRCLE *circle = PG_GETARG_CIRCLE_P(0);
+    Point *point = PG_GETARG_POINT_P(1);
+    CIRCLE *result = (CIRCLE *) palloc(sizeof(CIRCLE));
+
+    // Transform center by multiplying with point
+    point_mul_point(&result->center, &circle->center, point);
+
+    // Scale radius by point's magnitude (distance from origin)
+    result->radius = float8_mul(circle->radius, HYPOT(point->x, point->y));
+
+    PG_RETURN_CIRCLE_P(result);
+}
+```

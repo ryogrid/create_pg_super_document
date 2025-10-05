@@ -36,3 +36,14 @@ This function provides an interface for converting JSONB data to a formatted str
 - The estimated_len parameter becomes more important with indentation due to the additional formatting characters
 - Part of PostgreSQL's JSONB API specifically for human-readable output
 - The indentation format follows standard JSON pretty-printing conventions
+
+## Simplified Source
+
+```c
+char *
+JsonbToCStringIndent(StringInfo out, JsonbContainer *in, int estimated_len)
+{
+    // Convert JSONB to string with indentation enabled
+    return JsonbToCStringWorker(out, in, estimated_len, true);
+}
+```

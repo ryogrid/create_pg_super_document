@@ -51,3 +51,76 @@ The function supports both unique and non-unique indexes, with unique indexes re
 - Sets up monitoring infrastructure for WAL and buffer usage tracking
 - The caller must eventually call _bt_end_parallel() to properly shutdown parallel mode
 - Shared memory layout includes keys for B-tree state, tuplesort data, WAL/buffer usage, and query text
+
+## Simplified Source
+
+```c
+static void
+_bt_begin_parallel(BTBuildState *buildstate, bool isconcurrent, int request)
+{
+    ParallelContext *pcxt;
+    BTShared *btshared;
+    BTLeader *btleader = (BTLeader *) palloc0(sizeof(BTLeader));
+    bool leaderparticipates = true;
+
+    // Enter parallel mode and create context
+    EnterParallelMode();
+    pcxt = CreateParallelContext("postgres", "_bt_parallel_build_main", request);
+
+    // Choose appropriate snapshot for scanning
+    Snapshot snapshot = isconcurrent ?
+                       RegisterSnapshot(GetTransactionSnapshot()) :
+                       SnapshotAny;
+
+    // Estimate shared memory requirements
+    Size estbtshared = _bt_parallel_estimate_shared(buildstate->spool->heap, snapshot);
+    Size estsort = tuplesort_estimate_shared(leaderparticipates ? request + 1 : request);
+
+    // Add space estimates for B-tree state, tuplesort, WAL/buffer usage, query text
+    shm_toc_estimate_chunk(&pcxt->estimator, estbtshared);
+    shm_toc_estimate_chunk(&pcxt->estimator, estsort);
+
+    if (buildstate->spool->isunique) {
+        shm_toc_estimate_chunk(&pcxt->estimator, estsort); // Second spool
+    }
+
+    estimate_instrumentation_space(&pcxt->estimator, pcxt->nworkers);
+
+    // Initialize shared memory
+    InitializeParallelDSM(pcxt);
+    if (pcxt->seg == NULL) {
+        // Fallback to serial build
+        cleanup_and_exit(snapshot, pcxt);
+        return;
+    }
+
+    // Set up shared B-tree state
+    btshared = setup_shared_btree_state(pcxt, buildstate, isconcurrent, snapshot);
+
+    // Initialize tuplesort shared states
+    Sharedsort *sharedsort = setup_tuplesort_shared(pcxt, estsort);
+    Sharedsort *sharedsort2 = buildstate->spool->isunique ?
+                             setup_tuplesort_shared(pcxt, estsort) : NULL;
+
+    // Store query string and setup instrumentation
+    store_query_string_and_instrumentation(pcxt);
+
+    // Launch workers
+    LaunchParallelWorkers(pcxt);
+    if (pcxt->nworkers_launched == 0) {
+        _bt_end_parallel(btleader);
+        return;
+    }
+
+    // Initialize leader state
+    initialize_btleader(btleader, pcxt, btshared, sharedsort, sharedsort2, snapshot);
+    buildstate->btleader = btleader;
+
+    // Leader participates as worker if enabled
+    if (leaderparticipates) {
+        _bt_leader_participate_as_worker(buildstate);
+    }
+
+    WaitForParallelWorkersToAttach(pcxt);
+}
+```

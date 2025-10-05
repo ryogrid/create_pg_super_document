@@ -37,3 +37,17 @@ The  function is the fundamental comparison function for Point equality in Postg
 - Central to many geometric operations including box, line segment, circle, and polygon comparisons
 - Uses PostgreSQL's standard floating-point comparison utilities for consistent behavior
 - The NaN handling ensures IEEE 754 compliance and predictable behavior in edge cases
+
+## Simplified Source
+```c
+static inline bool point_eq_point(Point *pt1, Point *pt2) {
+    // Handle NaN values with exact equality
+    if (unlikely(isnan(pt1->x) || isnan(pt1->y) ||
+                 isnan(pt2->x) || isnan(pt2->y))) {
+        return (float8_eq(pt1->x, pt2->x) && float8_eq(pt1->y, pt2->y));
+    }
+
+    // Normal case: use tolerance-based comparison
+    return (FPeq(pt1->x, pt2->x) && FPeq(pt1->y, pt2->y));
+}
+```

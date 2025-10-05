@@ -35,3 +35,14 @@ The match_data parameter is not used in the current implementation, as the funct
 - The function follows the standard PostgreSQL pattern of using predicate functions for hash table filtering operations
 - Returns true when the entry belongs to the current database, false otherwise
 - The unused match_data parameter maintains compatibility with the expected function signature for hash table filter functions
+
+## Simplified Source
+
+```c
+static bool
+match_db_entries(PgStatShared_HashEntry *entry, Datum match_data)
+{
+    // Check if entry belongs to current database
+    return entry->key.dboid == DatumGetObjectId(MyDatabaseId);
+}
+```

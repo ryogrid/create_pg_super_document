@@ -36,3 +36,14 @@ The  function is a PostgreSQL geometric operator that computes the straight-line
 - Used extensively in spatial indexing (GiST, SP-GiST) for nearest-neighbor queries
 - Returns a float8 (double precision) value representing the distance between the points
 - Can be used in SQL queries like  which returns 5.0
+
+## Simplified Source
+```c
+Datum point_distance(PG_FUNCTION_ARGS) {
+    Point *pt1 = PG_GETARG_POINT_P(0);
+    Point *pt2 = PG_GETARG_POINT_P(1);
+
+    // Delegate to point_dt for distance calculation
+    PG_RETURN_FLOAT8(point_dt(pt1, pt2));
+}
+```

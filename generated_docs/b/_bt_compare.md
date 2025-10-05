@@ -57,3 +57,106 @@ The function returns standard comparison results: <0 if scankey < tuple, 0 if eq
 - Critical for maintaining B-tree structural integrity and search correctness
 - The comparison logic must account for different data types and collations
 - Returns consistent results essential for B-tree balance and search efficiency
+
+## Simplified Source
+
+```c
+int32
+_bt_compare(Relation rel, BTScanInsert key, Page page, OffsetNumber offnum)
+{
+    TupleDesc itupdesc = RelationGetDescr(rel);
+    BTPageOpaque opaque = BTPageGetOpaque(page);
+    IndexTuple itup;
+    ItemPointer heapTid;
+    ScanKey scankey;
+    int ncmpkey, ntupatts;
+    int32 result;
+
+    // Special case: first data item on internal page is treated as minus infinity
+    if (!P_ISLEAF(opaque) && offnum == P_FIRSTDATAKEY(opaque))
+        return 1;
+
+    // Get tuple and determine comparison bounds
+    itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, offnum));
+    ntupatts = BTreeTupleGetNAtts(itup, rel);
+    ncmpkey = Min(ntupatts, key->keysz);
+    scankey = key->scankeys;
+
+    // Compare each key attribute
+    for (int i = 1; i <= ncmpkey; i++)
+    {
+        Datum datum;
+        bool isNull;
+
+        datum = index_getattr(itup, scankey->sk_attno, itupdesc, &isNull);
+
+        // Handle NULL comparisons
+        if (scankey->sk_flags & SK_ISNULL)
+        {
+            if (isNull)
+                result = 0; // NULL "=" NULL
+            else if (scankey->sk_flags & SK_BT_NULLS_FIRST)
+                result = -1; // NULL "<" NOT_NULL
+            else
+                result = 1; // NULL ">" NOT_NULL
+        }
+        else if (isNull)
+        {
+            if (scankey->sk_flags & SK_BT_NULLS_FIRST)
+                result = 1; // NOT_NULL ">" NULL
+            else
+                result = -1; // NOT_NULL "<" NULL
+        }
+        else
+        {
+            // Call comparison function and flip sign if needed
+            result = DatumGetInt32(FunctionCall2Coll(&scankey->sk_func,
+                                                    scankey->sk_collation,
+                                                    datum,
+                                                    scankey->sk_argument));
+
+            if (!(scankey->sk_flags & SK_BT_DESC))
+                INVERT_COMPARE_RESULT(result);
+        }
+
+        // Return early if keys are unequal
+        if (result != 0)
+            return result;
+
+        scankey++;
+    }
+
+    // Handle truncated attributes
+    if (key->keysz > ntupatts)
+        return 1;
+
+    // Handle heap TID comparison
+    heapTid = BTreeTupleGetHeapTID(itup);
+    if (key->scantid == NULL)
+    {
+        // Special case for truncated pivot tuples
+        if (!key->backward && key->keysz == ntupatts && heapTid == NULL &&
+            key->heapkeyspace)
+            return 1;
+
+        return 0;
+    }
+
+    // Compare with heap TID or posting list range
+    if (heapTid == NULL)
+        return 1;
+
+    result = ItemPointerCompare(key->scantid, heapTid);
+    if (result <= 0 || !BTreeTupleIsPosting(itup))
+        return result;
+    else
+    {
+        result = ItemPointerCompare(key->scantid,
+                                   BTreeTupleGetMaxHeapTID(itup));
+        if (result > 0)
+            return 1;
+    }
+
+    return 0;
+}
+```

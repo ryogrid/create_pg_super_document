@@ -40,3 +40,35 @@ This function implements the PostgreSQL SQL function  with degree output. It tak
 - Part of PostgreSQL's mathematical function library located in src/backend/utils/adt/float.c:2138-2174
 - Includes overflow checking to ensure finite results
 - Implements the SQL standard ASIN function with degree output rather than radian output
+
+## Simplified Source
+
+```c
+Datum dasind(PG_FUNCTION_ARGS) {
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float8 result;
+
+    // Return NaN if input is NaN (POSIX compliance)
+    if (isnan(arg1))
+        PG_RETURN_FLOAT8(get_float8_nan());
+
+    INIT_DEGREE_CONSTANTS();
+
+    // Validate input range [-1, 1] for inverse sine
+    if (arg1 < -1.0 || arg1 > 1.0)
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("input is out of range")));
+
+    // Calculate arcsine in degrees using symmetry
+    if (arg1 >= 0.0)
+        result = asind_q1(arg1);        // Direct calculation for non-negative
+    else
+        result = -asind_q1(-arg1);      // Use symmetry: asin(-x) = -asin(x)
+
+    // Check for overflow (should not occur with valid inputs)
+    if (unlikely(isinf(result)))
+        float_overflow_error();
+
+    PG_RETURN_FLOAT8(result);
+}
+```

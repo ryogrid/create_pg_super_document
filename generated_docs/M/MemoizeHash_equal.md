@@ -44,3 +44,55 @@ The function supports two comparison modes:
 - Uses memory context switching to ecxt_per_tuple_memory in binary mode
 - In standard mode, leverages PostgreSQL's expression evaluation for complex equality semantics
 - Short-circuits on NULL mismatches and continues on both-NULL cases
+
+## Simplified Source
+
+```c
+static bool
+MemoizeHash_equal(struct memoize_hash *tb, const MemoizeKey *key1, const MemoizeKey *key2)
+{
+    MemoizeState *mstate = (MemoizeState *) tb->private_data;
+    TupleTableSlot *tableslot = mstate->tableslot;
+    TupleTableSlot *probeslot = mstate->probeslot;
+
+    // Store cached tuple in tableslot for comparison
+    ExecStoreMinimalTuple(key1->params, tableslot, false);
+
+    if (mstate->binary_mode) {
+        // Fast binary comparison mode
+        int numkeys = mstate->nkeys;
+        bool match = true;
+
+        slot_getallattrs(tableslot);
+        slot_getallattrs(probeslot);
+
+        for (int i = 0; i < numkeys; i++) {
+            // Check NULL flags first
+            if (tableslot->tts_isnull[i] != probeslot->tts_isnull[i]) {
+                match = false;
+                break;
+            }
+
+            // Both NULL? Continue to next attribute
+            if (tableslot->tts_isnull[i])
+                continue;
+
+            // Binary comparison of values
+            FormData_pg_attribute *attr = &tableslot->tts_tupleDescriptor->attrs[i];
+            if (!datum_image_eq(tableslot->tts_values[i], probeslot->tts_values[i],
+                               attr->attbyval, attr->attlen)) {
+                match = false;
+                break;
+            }
+        }
+        return match;
+    }
+    else {
+        // Standard mode using expression evaluation
+        ExprContext *econtext = mstate->ss.ps.ps_ExprContext;
+        econtext->ecxt_innertuple = tableslot;
+        econtext->ecxt_outertuple = probeslot;
+        return ExecQual(mstate->cache_eq_expr, econtext);
+    }
+}
+```

@@ -37,3 +37,22 @@ This function serves as a resource release callback for PostgreSQL's ResourceOwn
 - Works with the Virtual File Descriptor (VFD) system that manages file handles
 - Critical for preventing file descriptor leaks during error conditions or transaction cleanup
 - Function is defined in src/backend/storage/file/fd.c:4031-4044
+
+## Simplified Source
+
+```c
+static void ResOwnerReleaseFile(Datum res) {
+    // Extract file descriptor from resource datum
+    File file = (File) DatumGetInt32(res);
+
+    // Validate file descriptor
+    Assert(FileIsValid(file));
+
+    // Clear resource owner association
+    Vfd *vfdP = &VfdCache[file];
+    vfdP->resowner = NULL;
+
+    // Close the file
+    FileClose(file);
+}
+```

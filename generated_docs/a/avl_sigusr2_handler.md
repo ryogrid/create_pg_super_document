@@ -41,3 +41,16 @@ This design follows PostgreSQL's standard pattern for signal handling: keep the 
 - Critical for maintaining synchronization between worker allocation and actual worker processes
 - Enables prompt response to worker lifecycle changes without polling
 - Follows PostgreSQL's standard signal handling patterns for reliability and safety
+
+## Simplified Source
+
+```c
+static void avl_sigusr2_handler(SIGNAL_ARGS)
+{
+    // Set flag to indicate SIGUSR2 received
+    got_SIGUSR2 = true;
+
+    // Wake up the launcher main loop
+    SetLatch(MyLatch);
+}
+```

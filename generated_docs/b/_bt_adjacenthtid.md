@@ -37,3 +37,25 @@ This adjacency information helps the B-tree split algorithm make better decision
 - The adjacency test is heuristic-based and makes optimistic assumptions to improve performance
 - Adjacent TIDs typically indicate related data that should be kept together during page splits
 - The function helps maintain good clustering properties in B-tree indexes by preserving heap insertion order locality
+
+## Simplified Source
+```c
+static bool
+_bt_adjacenthtid(ItemPointer lowhtid, ItemPointer highhtid)
+{
+    BlockNumber lowblk = ItemPointerGetBlockNumber(lowhtid);
+    BlockNumber highblk = ItemPointerGetBlockNumber(highhtid);
+
+    // Case 1: Same heap block - assume adjacent
+    if (lowblk == highblk)
+        return true;
+
+    // Case 2: Sequential blocks, high TID is first item on next block
+    if (lowblk + 1 == highblk &&
+        ItemPointerGetOffsetNumber(highhtid) == FirstOffsetNumber)
+        return true;
+
+    // Not adjacent
+    return false;
+}
+```

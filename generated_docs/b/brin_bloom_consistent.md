@@ -48,3 +48,48 @@ The function assumes all keys match initially and looks for evidence that the pa
 - Early termination optimization: stops checking additional keys once any key fails the consistency check
 - Error handling for unsupported strategies with elog(ERROR, ...)
 - The bloom filter's probabilistic nature means this function may indicate matches for ranges that don't actually contain the sought value, but it will never miss ranges that do contain the value
+
+## Simplified Source
+
+```c
+Datum brin_bloom_consistent(PG_FUNCTION_ARGS) {
+    BrinDesc *bdesc = (BrinDesc *) PG_GETARG_POINTER(0);
+    BrinValues *column = (BrinValues *) PG_GETARG_POINTER(1);
+    ScanKey *keys = (ScanKey *) PG_GETARG_POINTER(2);
+    int nkeys = PG_GETARG_INT32(3);
+    Oid colloid = PG_GET_COLLATION();
+
+    // Extract bloom filter from column data
+    BloomFilter *filter = (BloomFilter *) PG_DETOAST_DATUM(column->bv_values[0]);
+
+    // Assume all keys match, look for eliminating evidence
+    bool matches = true;
+
+    // Check each scan key
+    for (int keyno = 0; keyno < nkeys; keyno++) {
+        ScanKey key = keys[keyno];
+        AttrNumber attno = key->sk_attno;
+        Datum value = key->sk_argument;
+
+        switch (key->sk_strategy) {
+            case BloomEqualStrategyNumber:
+                // Hash the search value and check if bloom filter contains it
+                FmgrInfo *finfo = bloom_get_procinfo(bdesc, attno, PROCNUM_HASH);
+                uint32 hashValue = DatumGetUInt32(FunctionCall1Coll(finfo, colloid, value));
+                matches &= bloom_contains_value(filter, hashValue);
+                break;
+
+            default:
+                elog(ERROR, "invalid strategy number %d", key->sk_strategy);
+                matches = false;
+                break;
+        }
+
+        // Early exit if any key fails
+        if (!matches)
+            break;
+    }
+
+    PG_RETURN_BOOL(matches);
+}
+```

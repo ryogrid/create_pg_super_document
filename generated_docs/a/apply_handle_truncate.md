@@ -50,3 +50,107 @@ The function includes comprehensive handling of edge cases such as temporary tab
 - Includes special handling for temporary tables of other backends (similar to ExecuteTruncate)
 - The runasowner subscription setting controls whether operations execute as subscription owner or table owner
 - Maintains logged relation lists separately for proper WAL logging of the truncation operation
+
+## Simplified Source
+
+```c
+static void
+apply_handle_truncate(StringInfo s)
+{
+    bool cascade = false;
+    bool restart_seqs = false;
+    List *remote_relids = NIL;
+    List *remote_rels = NIL;
+    List *rels = NIL;
+    List *part_rels = NIL;
+    List *relids = NIL;
+    List *relids_logged = NIL;
+    ListCell *lc;
+    LOCKMODE lockmode = AccessExclusiveLock;
+
+    // Skip if not applying changes or handling streamed transactions
+    if (is_skipping_changes() ||
+        handle_streamed_transaction(LOGICAL_REP_MSG_TRUNCATE, s))
+        return;
+
+    begin_replication_step();
+
+    // Parse truncate message to get relation OIDs and options
+    remote_relids = logicalrep_read_truncate(s, &cascade, &restart_seqs);
+
+    // Process each target relation
+    foreach(lc, remote_relids)
+    {
+        LogicalRepRelId relid = lfirst_oid(lc);
+        LogicalRepRelMapEntry *rel;
+
+        // Open relation and check if we should apply changes
+        rel = logicalrep_rel_open(relid, lockmode);
+        if (!should_apply_changes_for_rel(rel))
+        {
+            logicalrep_rel_close(rel, lockmode);
+            continue;
+        }
+
+        // Add to processing lists
+        remote_rels = lappend(remote_rels, rel);
+        TargetPrivilegesCheck(rel->localrel, ACL_TRUNCATE);
+        rels = lappend(rels, rel->localrel);
+        relids = lappend_oid(relids, rel->localreloid);
+        if (RelationIsLogicallyLogged(rel->localrel))
+            relids_logged = lappend_oid(relids_logged, rel->localreloid);
+
+        // Handle partitioned tables - include all partitions
+        if (rel->localrel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+        {
+            List *children = find_all_inheritors(rel->localreloid, lockmode, NULL);
+            ListCell *child;
+
+            foreach(child, children)
+            {
+                Oid childrelid = lfirst_oid(child);
+                Relation childrel;
+
+                if (list_member_oid(relids, childrelid))
+                    continue;
+
+                childrel = table_open(childrelid, NoLock);
+
+                // Skip temp tables from other backends
+                if (RELATION_IS_OTHER_TEMP(childrel))
+                {
+                    table_close(childrel, lockmode);
+                    continue;
+                }
+
+                // Add partition to truncation list
+                TargetPrivilegesCheck(childrel, ACL_TRUNCATE);
+                rels = lappend(rels, childrel);
+                part_rels = lappend(part_rels, childrel);
+                relids = lappend_oid(relids, childrelid);
+                if (RelationIsLogicallyLogged(childrel))
+                    relids_logged = lappend_oid(relids_logged, childrelid);
+            }
+        }
+    }
+
+    // Execute the truncation operation
+    // Use DROP_RESTRICT for safety regardless of upstream cascade setting
+    ExecuteTruncateGuts(rels, relids, relids_logged, DROP_RESTRICT,
+                       restart_seqs, !MySubscription->runasowner);
+
+    // Clean up - close all opened relations
+    foreach(lc, remote_rels)
+    {
+        LogicalRepRelMapEntry *rel = lfirst(lc);
+        logicalrep_rel_close(rel, NoLock);
+    }
+    foreach(lc, part_rels)
+    {
+        Relation rel = lfirst(lc);
+        table_close(rel, NoLock);
+    }
+
+    end_replication_step();
+}
+```

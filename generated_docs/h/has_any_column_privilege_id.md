@@ -41,3 +41,39 @@ The function follows the standard two-tier privilege checking approach: first ch
 - Part of the overloaded 'has_any_column_privilege' family of functions at the SQL level
 - Most efficient variant when you know the table OID and want to check current user's privileges
 - Located in src/backend/utils/adt/acl.c:2427-2459
+
+## Simplified Source
+
+```c
+Datum
+has_any_column_privilege_id(PG_FUNCTION_ARGS)
+{
+    Oid tableoid = PG_GETARG_OID(0);
+    text *priv_type_text = PG_GETARG_TEXT_PP(1);
+    Oid roleid;
+    AclMode mode;
+    AclResult aclresult;
+    bool is_missing = false;
+
+    // Get current user and convert privilege string
+    roleid = GetUserId();
+    mode = convert_column_priv_string(priv_type_text);
+
+    // Check table-level privileges first
+    aclresult = pg_class_aclcheck_ext(tableoid, roleid, mode, &is_missing);
+
+    // If table-level check fails, check individual columns
+    if (aclresult != ACLCHECK_OK) {
+        if (is_missing)
+            PG_RETURN_NULL();
+
+        // Check if any column has the privilege
+        aclresult = pg_attribute_aclcheck_all_ext(tableoid, roleid, mode,
+                                                ACLMASK_ANY, &is_missing);
+        if (is_missing)
+            PG_RETURN_NULL();
+    }
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

@@ -37,3 +37,20 @@ This function implements the addition operator for mixed-precision integer arith
 - Promotes the 16-bit argument to 32-bit before performing the addition operation
 - Complementary function to int24pl, handling the opposite operand order (int4 + int2 vs int2 + int4)
 - Provides commutative addition support for mixed integer type operations in PostgreSQL
+
+## Simplified Source
+
+```c
+Datum int42pl(PG_FUNCTION_ARGS) {
+    int32 arg1 = PG_GETARG_INT32(0);  // Get 32-bit integer
+    int16 arg2 = PG_GETARG_INT16(1);  // Get 16-bit integer
+    int32 result;
+
+    // Perform addition with overflow check
+    if (pg_add_s32_overflow(arg1, (int32) arg2, &result))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("integer out of range")));
+
+    PG_RETURN_INT32(result);
+}
+```

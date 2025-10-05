@@ -39,3 +39,29 @@ PLyList_FromArray is a comprehensive array conversion function within PostgreSQL
 - The conversion maintains the logical structure of multi-dimensional arrays as nested lists
 - Returns empty list for zero-dimensional arrays
 - Properly handles PostgreSQL's variable-length array format including null bitmaps
+
+## Simplified Source
+
+```c
+static PyObject *
+PLyList_FromArray(PLyDatumToOb *arg, Datum d)
+{
+    ArrayType *array = DatumGetArrayTypeP(d);
+    PLyDatumToOb *elm = arg->u.array.elm;
+
+    // Handle empty arrays
+    if (ARR_NDIM(array) == 0)
+        return PyList_New(0);
+
+    // Extract array metadata
+    int ndim = ARR_NDIM(array);
+    int *dims = ARR_DIMS(array);
+    char *dataptr = ARR_DATA_PTR(array);
+    bits8 *bitmap = ARR_NULLBITMAP(array);
+    int bitmask = 1;
+
+    // Recursively build nested Python lists
+    return PLyList_FromArray_recurse(elm, dims, ndim, 0,
+                                     &dataptr, &bitmap, &bitmask);
+}
+```

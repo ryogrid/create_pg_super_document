@@ -47,3 +47,32 @@ The function follows PostgreSQL's standard privilege checking workflow:
 - The function is typically invoked through SQL function calls rather than direct C code calls
 - Part of a family of has_sequence_privilege functions with different parameter combinations
 - Located in src/backend/utils/adt/acl.c:2108-2138
+
+## Simplified Source
+
+```c
+Datum
+has_sequence_privilege_name_name(PG_FUNCTION_ARGS)
+{
+    Name       rolename = PG_GETARG_NAME(0);
+    text      *sequencename = PG_GETARG_TEXT_PP(1);
+    text      *priv_type_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert role name to OID
+    Oid roleid = get_role_oid_or_public(NameStr(*rolename));
+
+    // Parse privilege string to internal mode
+    AclMode mode = convert_sequence_priv_string(priv_type_text);
+
+    // Resolve sequence name to OID
+    Oid sequenceoid = convert_table_name(sequencename);
+
+    // Validate target is actually a sequence
+    if (get_rel_relkind(sequenceoid) != RELKIND_SEQUENCE)
+        ereport(ERROR, "not a sequence");
+
+    // Check privilege and return result
+    AclResult aclresult = pg_class_aclcheck(sequenceoid, roleid, mode);
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

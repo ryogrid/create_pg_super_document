@@ -49,3 +49,116 @@ For unsupported operations like NOT EXISTS or inequality comparisons with negati
 - The function uses recursive descent parsing with stack depth checking to prevent overflow
 - Scalar value extraction handles all JSON scalar types: null, boolean, numeric, and string
 - Returns NULL for unsupported operations, allowing the query planner to fall back to sequential scans
+
+## Simplified Source
+
+```c
+static JsonPathGinNode *
+extract_jsp_bool_expr(JsonPathGinContext *cxt, JsonPathGinPath path,
+                      JsonPathItem *jsp, bool not)
+{
+    check_stack_depth();
+
+    switch (jsp->type)
+    {
+        case jpiAnd:
+        case jpiOr:
+            {
+                // Process left and right arguments
+                JsonPathItem arg;
+                JsonPathGinNode *larg, *rarg;
+
+                jspGetLeftArg(jsp, &arg);
+                larg = extract_jsp_bool_expr(cxt, path, &arg, not);
+
+                jspGetRightArg(jsp, &arg);
+                rarg = extract_jsp_bool_expr(cxt, path, &arg, not);
+
+                if (!larg || !rarg)
+                {
+                    if (jsp->type == jpiOr)
+                        return NULL;
+                    return larg ? larg : rarg;
+                }
+
+                // Apply De Morgan's law with negation
+                JsonPathGinNodeType type = not ^ (jsp->type == jpiAnd) ? JSP_GIN_AND : JSP_GIN_OR;
+                return make_jsp_expr_node_binary(type, larg, rarg);
+            }
+
+        case jpiNot:
+            {
+                // Invert negation flag and process child
+                JsonPathItem arg;
+                jspGetArg(jsp, &arg);
+                return extract_jsp_bool_expr(cxt, path, &arg, !not);
+            }
+
+        case jpiExists:
+            {
+                if (not)
+                    return NULL; // NOT EXISTS not supported
+
+                JsonPathItem arg;
+                jspGetArg(jsp, &arg);
+                return extract_jsp_path_expr(cxt, path, &arg, NULL);
+            }
+
+        case jpiEqual:
+            {
+                if (not)
+                    return NULL; // Negated equality not supported
+
+                // Extract path and scalar from equality expression
+                JsonPathItem left_item, right_item;
+                JsonPathItem *path_item, *scalar_item;
+
+                jspGetLeftArg(jsp, &left_item);
+                jspGetRightArg(jsp, &right_item);
+
+                // Determine which operand is the path vs scalar
+                if (jspIsScalar(left_item.type))
+                {
+                    scalar_item = &left_item;
+                    path_item = &right_item;
+                }
+                else if (jspIsScalar(right_item.type))
+                {
+                    scalar_item = &right_item;
+                    path_item = &left_item;
+                }
+                else
+                    return NULL; // Need one scalar operand
+
+                // Convert scalar to JsonbValue
+                JsonbValue scalar;
+                switch (scalar_item->type)
+                {
+                    case jpiNull:
+                        scalar.type = jbvNull;
+                        break;
+                    case jpiBool:
+                        scalar.type = jbvBool;
+                        scalar.val.boolean = !!*scalar_item->content.value.data;
+                        break;
+                    case jpiNumeric:
+                        scalar.type = jbvNumeric;
+                        scalar.val.numeric = (Numeric) scalar_item->content.value.data;
+                        break;
+                    case jpiString:
+                        scalar.type = jbvString;
+                        scalar.val.string.val = scalar_item->content.value.data;
+                        scalar.val.string.len = scalar_item->content.value.datalen;
+                        break;
+                    default:
+                        return NULL; // Invalid scalar type
+                }
+
+                return extract_jsp_path_expr(cxt, path, path_item, &scalar);
+            }
+
+        default:
+            return NULL; // Unsupported expression type
+    }
+}
+```

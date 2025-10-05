@@ -33,3 +33,18 @@ float8mi is a PostgreSQL built-in function wrapper that implements the subtracti
 - The actual arithmetic is delegated to float8_mi() which includes overflow detection
 - Part of PostgreSQL's type system for double-precision floating-point arithmetic
 - Located in src/backend/utils/adt/float.c:772-780
+
+## Simplified Source
+
+```c
+Datum
+float8mi(PG_FUNCTION_ARGS)
+{
+    // Get the two float8 operands
+    float8 arg1 = PG_GETARG_FLOAT8(0);  // minuend
+    float8 arg2 = PG_GETARG_FLOAT8(1);  // subtrahend
+
+    // Perform subtraction and return result
+    PG_RETURN_FLOAT8(float8_mi(arg1, arg2));
+}
+```

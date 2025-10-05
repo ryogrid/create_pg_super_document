@@ -58,3 +58,69 @@ The function includes extensive special case handling for scalar types, providin
 - Provides specialized conversion functions for common PostgreSQL scalar types for optimal performance
 - Memory allocation for nested structures uses the provided memory context for proper cleanup
 - Located in src/pl/plpython/plpy_typeio.c at lines 418-549
+
+## Simplified Source
+
+```c
+void PLy_input_setup_func(PLyDatumToOb *arg, MemoryContext arg_mcxt,
+                         Oid typeOid, int32 typmod, PLyProcedure *proc)
+{
+    check_stack_depth(); // Prevent recursion overflow
+
+    // Initialize basic arg fields
+    arg->typoid = typeOid;
+    arg->typmod = typmod;
+    arg->mcxt = arg_mcxt;
+
+    // Get type information (RECORD is special case)
+    if (typeOid != RECORDOID) {
+        TypeCacheEntry *typentry = lookup_type_cache(typeOid, TYPECACHE_DOMAIN_BASE_INFO);
+        arg->typbyval = typentry->typbyval;
+        arg->typlen = typentry->typlen;
+        arg->typalign = typentry->typalign;
+
+        // Choose conversion method based on type
+        if (typentry->typtype == TYPTYPE_DOMAIN) {
+            // Domain: recurse directly to base type
+            PLy_input_setup_func(arg, arg_mcxt, typentry->domainBaseType,
+                                typentry->domainBaseTypmod, proc);
+        }
+        else if (IsTrueArrayType(typentry)) {
+            // Array: recurse to element type
+            arg->func = PLyList_FromArray;
+            arg->u.array.elm = MemoryContextAllocZero(arg_mcxt, sizeof(PLyDatumToOb));
+            PLy_input_setup_func(arg->u.array.elm, arg_mcxt, typentry->typelem, typmod, proc);
+        }
+        else if (get_transform_fromsql(typeOid, proc->langid, proc->trftypes)) {
+            // Transform function available
+            arg->func = PLyObject_FromTransform;
+        }
+        else if (typentry->typtype == TYPTYPE_COMPOSITE) {
+            // Composite type
+            arg->func = PLyDict_FromComposite;
+            // Initialize tuple fields
+        }
+        else {
+            // Scalar type with optimized converters
+            switch (typeOid) {
+                case BOOLOID:    arg->func = PLyBool_FromBool; break;
+                case FLOAT4OID:  arg->func = PLyFloat_FromFloat4; break;
+                case FLOAT8OID:  arg->func = PLyFloat_FromFloat8; break;
+                case NUMERICOID: arg->func = PLyDecimal_FromNumeric; break;
+                case INT2OID:    arg->func = PLyLong_FromInt16; break;
+                case INT4OID:    arg->func = PLyLong_FromInt32; break;
+                case INT8OID:    arg->func = PLyLong_FromInt64; break;
+                case OIDOID:     arg->func = PLyLong_FromOid; break;
+                case BYTEAOID:   arg->func = PLyBytes_FromBytea; break;
+                default:         arg->func = PLyUnicode_FromScalar; break;
+            }
+        }
+    } else {
+        // RECORD type: treat as composite
+        arg->typbyval = false;
+        arg->typlen = -1;
+        arg->typalign = TYPALIGN_DOUBLE;
+        arg->func = PLyDict_FromComposite;
+    }
+}
+```

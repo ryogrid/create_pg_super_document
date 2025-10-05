@@ -44,7 +44,29 @@ The function handles parsing errors gracefully and provides appropriate error co
 - Automatically invoked when PostgreSQL needs to convert text to lseg type
 - Supports multiple string formats for maximum compatibility and usability
 - Uses  with parameters:  for allowing open paths,  for exactly 2 points required
-- Memory allocation via  ensures proper PostgreSQL memory context management  
+- Memory allocation via  ensures proper PostgreSQL memory context management
 - Returns NULL on parsing failure with appropriate error context for user feedback
 - Part of PostgreSQL's geometric type system infrastructure
 - The  parameter from  is used but not critically important for line segments (which are always "open" by definition)
+
+## Simplified Source
+
+```c
+Datum
+lseg_in(PG_FUNCTION_ARGS)
+{
+    char *str = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+
+    // Allocate memory for line segment structure
+    LSEG *lseg = (LSEG *) palloc(sizeof(LSEG));
+    bool isopen;
+
+    // Parse string into two points using path_decode
+    // Supports formats like "[(x1,y1),(x2,y2)]", "(x1,y1),(x2,y2)", "x1,y1,x2,y2"
+    if (!path_decode(str, true, 2, &lseg->p[0], &isopen, NULL, "lseg", str, escontext))
+        PG_RETURN_NULL();
+
+    PG_RETURN_LSEG_P(lseg);
+}
+```

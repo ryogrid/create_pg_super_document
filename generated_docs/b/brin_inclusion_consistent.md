@@ -53,3 +53,67 @@ This function is the consistent handler for BRIN inclusion operator classes, imp
 - Adjacent strategy combines overlap test with actual adjacency operator call
 - Basic comparison strategies account for empty elements being considered less than others
 - Contains extensive strategy-specific logic optimized for different geometric and set operations
+
+## Simplified Source
+
+```c
+Datum brin_inclusion_consistent(PG_FUNCTION_ARGS) {
+    BrinDesc *bdesc = (BrinDesc *) PG_GETARG_POINTER(0);
+    BrinValues *column = (BrinValues *) PG_GETARG_POINTER(1);
+    ScanKey key = (ScanKey) PG_GETARG_POINTER(2);
+    Oid colloid = PG_GET_COLLATION();
+
+    // Early return for unmergeable ranges (conservative: might contain anything)
+    if (DatumGetBool(column->bv_values[INCLUSION_UNMERGEABLE]))
+        PG_RETURN_BOOL(true);
+
+    AttrNumber attno = key->sk_attno;
+    Oid subtype = key->sk_subtype;
+    Datum query = key->sk_argument;
+    Datum unionval = column->bv_values[INCLUSION_UNION];
+    FmgrInfo *finfo;
+    Datum result;
+
+    switch (key->sk_strategy) {
+        // Placement strategies - use negation of converse operators
+        case RTLeftStrategyNumber:
+            finfo = inclusion_get_strategy_procinfo(bdesc, attno, subtype, RTOverRightStrategyNumber);
+            result = FunctionCall2Coll(finfo, colloid, unionval, query);
+            PG_RETURN_BOOL(!DatumGetBool(result));
+
+        case RTRightStrategyNumber:
+            finfo = inclusion_get_strategy_procinfo(bdesc, attno, subtype, RTOverLeftStrategyNumber);
+            result = FunctionCall2Coll(finfo, colloid, unionval, query);
+            PG_RETURN_BOOL(!DatumGetBool(result));
+
+        // Overlap and containment strategies - direct operator call
+        case RTOverlapStrategyNumber:
+        case RTContainsStrategyNumber:
+        case RTContainsElemStrategyNumber:
+            finfo = inclusion_get_strategy_procinfo(bdesc, attno, subtype, key->sk_strategy);
+            result = FunctionCall2Coll(finfo, colloid, unionval, query);
+            PG_RETURN_DATUM(result);
+
+        // Contained-by strategies - use overlap + check empty elements
+        case RTContainedByStrategyNumber:
+            finfo = inclusion_get_strategy_procinfo(bdesc, attno, subtype, RTOverlapStrategyNumber);
+            result = FunctionCall2Coll(finfo, colloid, unionval, query);
+            if (DatumGetBool(result))
+                PG_RETURN_BOOL(true);
+            PG_RETURN_DATUM(column->bv_values[INCLUSION_CONTAINS_EMPTY]);
+
+        // Equality strategies - use contains operator + check empty elements
+        case RTEqualStrategyNumber:
+            finfo = inclusion_get_strategy_procinfo(bdesc, attno, subtype, RTContainsStrategyNumber);
+            result = FunctionCall2Coll(finfo, colloid, unionval, query);
+            if (DatumGetBool(result))
+                PG_RETURN_BOOL(true);
+            PG_RETURN_DATUM(column->bv_values[INCLUSION_CONTAINS_EMPTY]);
+
+        // Additional strategies follow similar patterns...
+        default:
+            elog(ERROR, "invalid strategy number %d", key->sk_strategy);
+            PG_RETURN_BOOL(false);
+    }
+}
+```

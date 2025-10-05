@@ -40,3 +40,31 @@ This function is a PostgreSQL reloption handler that defines and initializes the
   2. `false_positive_rate`: Desired false-positive rate for bloom filters (default from BLOOM_DEFAULT_FALSE_POSITIVE_RATE, constrained by MIN/MAX constants)
 - The function is part of PostgreSQL's extensible index AM (Access Method) framework
 - These options directly affect bloom filter sizing and accuracy in BRIN indexes
+
+## Simplified Source
+
+```c
+Datum brin_bloom_options(PG_FUNCTION_ARGS) {
+    local_relopts *relopts = (local_relopts *) PG_GETARG_POINTER(0);
+
+    // Initialize reloptions structure for BloomOptions
+    init_local_reloptions(relopts, sizeof(BloomOptions));
+
+    // Add n_distinct_per_range option
+    add_local_real_reloption(relopts, "n_distinct_per_range",
+                            "number of distinct items expected in a BRIN page range",
+                            BLOOM_DEFAULT_NDISTINCT_PER_RANGE,
+                            -1.0, INT_MAX,
+                            offsetof(BloomOptions, nDistinctPerRange));
+
+    // Add false_positive_rate option
+    add_local_real_reloption(relopts, "false_positive_rate",
+                            "desired false-positive rate for the bloom filters",
+                            BLOOM_DEFAULT_FALSE_POSITIVE_RATE,
+                            BLOOM_MIN_FALSE_POSITIVE_RATE,
+                            BLOOM_MAX_FALSE_POSITIVE_RATE,
+                            offsetof(BloomOptions, falsePositiveRate));
+
+    PG_RETURN_VOID();
+}
+```

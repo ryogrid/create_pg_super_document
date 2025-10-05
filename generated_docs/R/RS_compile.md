@@ -50,3 +50,75 @@ The compiled pattern is stored in the Regis structure, which tracks whether it's
 - Must end in RS_IN_WAIT state for valid patterns
 - Part of PostgreSQL's text search regex compilation infrastructure
 - Works in tandem with RS_isRegis for pattern validation
+
+## Simplified Source
+
+```c
+void RS_compile(Regis *r, bool issuffix, const char *str) {
+    int len = strlen(str);
+    int state = RS_IN_WAIT;
+    const char *c = str;
+    RegisNode *ptr = NULL;
+
+    // Initialize regex structure
+    memset(r, 0, sizeof(Regis));
+    r->issuffix = (issuffix) ? 1 : 0;
+
+    // Parse and compile pattern into linked list
+    while (*c) {
+        if (state == RS_IN_WAIT) {
+            if (t_isalpha(c)) {
+                // Create node for single character
+                ptr = ptr ? newRegisNode(ptr, len) : (r->node = newRegisNode(NULL, len));
+                COPYCHAR(ptr->data, c);
+                ptr->type = RSF_ONEOF;
+                ptr->len = pg_mblen(c);
+            }
+            else if (t_iseq(c, '[')) {
+                // Start character class
+                ptr = ptr ? newRegisNode(ptr, len) : (r->node = newRegisNode(NULL, len));
+                ptr->type = RSF_ONEOF;
+                state = RS_IN_ONEOF;
+            }
+            else
+                elog(ERROR, "invalid regis pattern: \"%s\"", str);
+        }
+        else if (state == RS_IN_ONEOF) {
+            if (t_iseq(c, '^')) {
+                ptr->type = RSF_NONEOF;  // Negated character class
+                state = RS_IN_NONEOF;
+            }
+            else if (t_isalpha(c)) {
+                COPYCHAR(ptr->data, c);
+                ptr->len = pg_mblen(c);
+                state = RS_IN_ONEOF_IN;
+            }
+            else
+                elog(ERROR, "invalid regis pattern: \"%s\"", str);
+        }
+        else if (state == RS_IN_ONEOF_IN || state == RS_IN_NONEOF) {
+            if (t_isalpha(c)) {
+                // Add more characters to class
+                COPYCHAR(ptr->data + ptr->len, c);
+                ptr->len += pg_mblen(c);
+            }
+            else if (t_iseq(c, ']'))
+                state = RS_IN_WAIT;  // End character class
+            else
+                elog(ERROR, "invalid regis pattern: \"%s\"", str);
+        }
+
+        c += pg_mblen(c);
+    }
+
+    if (state != RS_IN_WAIT)
+        elog(ERROR, "invalid regis pattern: \"%s\"", str);
+
+    // Count total characters in pattern
+    ptr = r->node;
+    while (ptr) {
+        r->nchar++;
+        ptr = ptr->next;
+    }
+}
+```

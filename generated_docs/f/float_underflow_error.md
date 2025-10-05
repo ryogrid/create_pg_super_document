@@ -45,3 +45,14 @@ Underflow occurs when a floating-point operation results in a value that is too 
 - Underflow detection is particularly important in scientific and financial calculations where very small values need to be handled appropriately
 - The error reporting follows PostgreSQL's standard error handling conventions with appropriate error codes and messages
 - Used less frequently than overflow errors but critical for mathematical operations that can produce very small results
+
+## Simplified Source
+
+```c
+pg_noinline void float_underflow_error(void)
+{
+    ereport(ERROR,
+            (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+             errmsg("value out of range: underflow")));
+}
+```

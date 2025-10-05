@@ -63,3 +63,64 @@ The function handles memory management carefully, allocating structures for pars
 - The HeadlineParsedText structure is initialized with a default capacity of 32 words
 - Returns an error if the specified parser doesn't support headline functionality
 - Properly handles both required and optional function arguments
+
+## Simplified Source
+
+```c
+Datum ts_headline_byid_opt(PG_FUNCTION_ARGS) {
+    Oid tsconfig = PG_GETARG_OID(0);
+    text *in = PG_GETARG_TEXT_PP(1);
+    TSQuery query = PG_GETARG_TSQUERY(2);
+    text *opt = (PG_NARGS() > 3 && PG_GETARG_POINTER(3)) ? PG_GETARG_TEXT_PP(3) : NULL;
+
+    HeadlineParsedText prs;
+    List *prsoptions;
+    text *out;
+    TSConfigCacheEntry *cfg;
+    TSParserCacheEntry *prsobj;
+
+    // Look up configuration and parser
+    cfg = lookup_ts_config_cache(tsconfig);
+    prsobj = lookup_ts_parser_cache(cfg->prsId);
+
+    // Verify parser supports headlines
+    if (!OidIsValid(prsobj->headlineOid))
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("text search parser does not support headline creation")));
+
+    // Initialize parsed text structure
+    memset(&prs, 0, sizeof(HeadlineParsedText));
+    prs.lenwords = 32;
+    prs.words = (HeadlineWordEntry *) palloc(sizeof(HeadlineWordEntry) * prs.lenwords);
+
+    // Parse input text and identify query matches
+    hlparsetext(cfg->cfgId, &prs, query,
+                VARDATA_ANY(in), VARSIZE_ANY_EXHDR(in));
+
+    // Process optional formatting parameters
+    if (opt)
+        prsoptions = deserialize_deflist(PointerGetDatum(opt));
+    else
+        prsoptions = NIL;
+
+    // Generate headline using parser's headline function
+    FunctionCall3(&(prsobj->prsheadline),
+                  PointerGetDatum(&prs),
+                  PointerGetDatum(prsoptions),
+                  PointerGetDatum(query));
+
+    out = generateHeadline(&prs);
+
+    // Clean up memory
+    PG_FREE_IF_COPY(in, 1);
+    PG_FREE_IF_COPY(query, 2);
+    if (opt)
+        PG_FREE_IF_COPY(opt, 3);
+    pfree(prs.words);
+    pfree(prs.startsel);
+    pfree(prs.stopsel);
+
+    PG_RETURN_POINTER(out);
+}
+```

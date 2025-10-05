@@ -37,3 +37,30 @@ The function uses PostgreSQL's function call interface, accessing arguments thro
 - Returns NULL if the input is not a JSONB object or if the specified key is not found
 - The function handles both regular and short-header text values through VARDATA_ANY and VARSIZE_ANY_EXHDR macros
 - Located in src/backend/utils/adt/jsonfuncs.c:860-881
+
+## Simplified Source
+
+```c
+Datum jsonb_object_field(PG_FUNCTION_ARGS) {
+    // Extract JSONB and key from arguments
+    Jsonb *jb = PG_GETARG_JSONB_P(0);
+    text *key = PG_GETARG_TEXT_PP(1);
+
+    // Ensure input is an object
+    if (!JB_ROOT_IS_OBJECT(jb))
+        PG_RETURN_NULL();
+
+    // Search for the key in the JSONB container
+    JsonbValue vbuf;
+    JsonbValue *v = getKeyJsonValueFromContainer(&jb->root,
+                                                VARDATA_ANY(key),
+                                                VARSIZE_ANY_EXHDR(key),
+                                                &vbuf);
+
+    // Return JSONB value if found, NULL otherwise
+    if (v != NULL)
+        PG_RETURN_JSONB_P(JsonbValueToJsonb(v));
+
+    PG_RETURN_NULL();
+}
+```

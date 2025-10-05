@@ -52,3 +52,128 @@ The function processes each page range by:
 - Handles both regular scan keys and IS NULL/IS NOT NULL conditions separately
 - Processes scan keys by grouping them per indexed attribute for efficient evaluation
 - Empty ranges (bt_empty_range = true) are automatically excluded from results
+
+## Simplified Source
+
+```c
+int64 bringetbitmap(IndexScanDesc scan, TIDBitmap *tbm) {
+    Relation idxRel = scan->indexRelation;
+    BrinOpaque *opaque = (BrinOpaque *) scan->opaque;
+    BrinDesc *bdesc = opaque->bo_bdesc;
+
+    // Get heap relation size to know iteration bounds
+    Oid heapOid = IndexGetRelation(RelationGetRelid(idxRel), false);
+    Relation heapRel = table_open(heapOid, AccessShareLock);
+    BlockNumber nblocks = RelationGetNumberOfBlocks(heapRel);
+    table_close(heapRel, AccessShareLock);
+
+    // Prepare consistent support functions for each indexed attribute
+    FmgrInfo *consistentFn = palloc0_array(FmgrInfo, bdesc->bd_tupdesc->natts);
+
+    // Organize scan keys by attribute for efficient processing
+    ScanKey **keys, **nullkeys;
+    int *nkeys, *nnullkeys;
+    // ... allocate and populate key arrays per attribute ...
+
+    // Preprocess scan keys - group by attribute
+    for (int keyno = 0; keyno < scan->numberOfKeys; keyno++) {
+        ScanKey key = &scan->keyData[keyno];
+        AttrNumber keyattno = key->sk_attno;
+
+        // Get consistent function for this attribute if first time
+        if (consistentFn[keyattno - 1].fn_oid == InvalidOid) {
+            FmgrInfo *tmp = index_getprocinfo(idxRel, keyattno, BRIN_PROCNUM_CONSISTENT);
+            fmgr_info_copy(&consistentFn[keyattno - 1], tmp, CurrentMemoryContext);
+        }
+
+        // Categorize as null or regular key
+        if (key->sk_flags & SK_ISNULL) {
+            nullkeys[keyattno - 1][nnullkeys[keyattno - 1]++] = key;
+        } else {
+            keys[keyattno - 1][nkeys[keyattno - 1]++] = key;
+        }
+    }
+
+    int64 totalpages = 0;
+    BrinMemTuple *dtup = brin_new_memtuple(bdesc);
+
+    // Scan each page range in the index
+    for (BlockNumber heapBlk = 0; heapBlk < nblocks; heapBlk += opaque->bo_pagesPerRange) {
+        bool addrange = false;
+
+        // Get BRIN tuple for this page range
+        BrinTuple *tup = brinGetTupleForHeapBlock(opaque->bo_rmAccess, heapBlk, &buf, &off, &size, BUFFER_LOCK_SHARE);
+
+        if (!tup) {
+            // No summary exists - must include entire range
+            addrange = true;
+        } else {
+            // Check if summary matches scan keys
+            dtup = brin_deform_tuple(bdesc, tup, dtup);
+
+            if (dtup->bt_placeholder) {
+                // Placeholder tuples always match
+                addrange = true;
+            } else {
+                // Compare each indexed attribute against scan keys
+                addrange = true; // Default to include unless excluded
+
+                for (int attno = 1; attno <= bdesc->bd_tupdesc->natts; attno++) {
+                    // Skip attributes with no scan keys
+                    if (nkeys[attno - 1] == 0 && nnullkeys[attno - 1] == 0)
+                        continue;
+
+                    BrinValues *bval = &dtup->bt_columns[attno - 1];
+
+                    // Empty ranges never match
+                    if (dtup->bt_empty_range) {
+                        addrange = false;
+                        break;
+                    }
+
+                    // Check IS NULL/IS NOT NULL conditions
+                    if (nnullkeys[attno - 1] > 0 &&
+                        !check_null_keys(bval, nullkeys[attno - 1], nnullkeys[attno - 1])) {
+                        addrange = false;
+                        break;
+                    }
+
+                    // Check regular scan keys using consistent function
+                    if (nkeys[attno - 1] > 0) {
+                        if (bval->bv_allnulls) {
+                            addrange = false;
+                            break;
+                        }
+
+                        // Call consistent function to check if range matches
+                        Datum result = FunctionCall4Coll(&consistentFn[attno - 1],
+                                                       keys[attno - 1][0]->sk_collation,
+                                                       PointerGetDatum(bdesc),
+                                                       PointerGetDatum(bval),
+                                                       PointerGetDatum(keys[attno - 1]),
+                                                       Int32GetDatum(nkeys[attno - 1]));
+                        addrange = DatumGetBool(result);
+
+                        if (!addrange)
+                            break;
+                    }
+                }
+            }
+            LockBuffer(buf, BUFFER_LOCK_UNLOCK);
+        }
+
+        // Add all pages in matching ranges to bitmap
+        if (addrange) {
+            for (BlockNumber pageno = heapBlk;
+                 pageno <= Min(nblocks, heapBlk + opaque->bo_pagesPerRange) - 1;
+                 pageno++) {
+                tbm_add_page(tbm, pageno);
+                totalpages++;
+            }
+        }
+    }
+
+    // Return approximate tuple count
+    return totalpages * 10;
+}
+```

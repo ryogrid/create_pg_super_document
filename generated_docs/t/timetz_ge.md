@@ -35,3 +35,17 @@ Like timetz_gt, the comparison is performed by first converting both times to GM
 - Returns a PostgreSQL Datum containing a boolean value indicating whether time1 >= time2
 - Located in src/backend/utils/adt/date.c:2515-2523
 - Very similar to timetz_gt but includes equality in the comparison (>= 0 instead of > 0)
+
+## Simplified Source
+
+```c
+Datum timetz_ge(PG_FUNCTION_ARGS) {
+    // Extract two time-with-timezone values from arguments
+    TimeTzADT *time1 = PG_GETARG_TIMETZADT_P(0);
+    TimeTzADT *time2 = PG_GETARG_TIMETZADT_P(1);
+
+    // Compare times using internal comparison function
+    // Returns true if time1 >= time2 (accounting for timezone differences)
+    PG_RETURN_BOOL(timetz_cmp_internal(time1, time2) >= 0);
+}
+```

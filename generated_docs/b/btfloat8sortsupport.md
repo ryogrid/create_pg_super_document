@@ -36,3 +36,17 @@ This function initializes a SortSupport structure for double-precision floating-
 - The SortSupport framework allows PostgreSQL to use faster comparison functions that avoid function call overhead
 - Essential for efficient sorting and indexing operations on double-precision floating-point columns
 - Returns void since it only configures the SortSupport structure
+
+## Simplified Source
+
+```c
+Datum btfloat8sortsupport(PG_FUNCTION_ARGS) {
+    // Get the SortSupport structure from function arguments
+    SortSupport ssup = (SortSupport) PG_GETARG_POINTER(0);
+
+    // Configure with fast comparison function
+    ssup->comparator = btfloat8fastcmp;
+
+    PG_RETURN_VOID();
+}
+```

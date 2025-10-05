@@ -39,3 +39,16 @@ This function serves as an interface layer between PostgreSQL's wait event monit
 - Parameter validation is performed via assertion, meaning invalid parameters will cause process termination in debug builds
 - The function provides a clean abstraction layer, allowing the wait event system to obtain LWLock names without directly accessing LWLock internal data structures
 - Return value is a const char pointer, indicating the caller should not modify the returned string
+
+## Simplified Source
+
+```c
+const char *
+GetLWLockIdentifier(uint32 classId, uint16 eventId)
+{
+    Assert(classId == PG_WAIT_LWLOCK);
+
+    // Event IDs are tranche numbers for LWLocks
+    return GetLWTrancheName(eventId);
+}
+```

@@ -50,3 +50,78 @@ The function ensures that both dictionary and affix files are provided (as they 
 - File paths are resolved using PostgreSQL's text search configuration directory structure
 - Memory allocation uses PostgreSQL's memory management system (`palloc0`)
 - The function returns a `Datum` containing a pointer to the initialized `DictISpell` structure
+
+## Simplified Source
+
+```c
+Datum dispell_init(PG_FUNCTION_ARGS)
+{
+    List *dictoptions = (List *) PG_GETARG_POINTER(0);
+    DictISpell *d;
+    bool affloaded = false, dictloaded = false, stoploaded = false;
+    ListCell *l;
+
+    // Allocate and initialize dictionary structure
+    d = (DictISpell *) palloc0(sizeof(DictISpell));
+    NIStartBuild(&(d->obj));
+
+    // Process configuration parameters
+    foreach(l, dictoptions)
+    {
+        DefElem *defel = (DefElem *) lfirst(l);
+
+        if (strcmp(defel->defname, "dictfile") == 0)
+        {
+            if (dictloaded)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                               errmsg("multiple DictFile parameters")));
+            NIImportDictionary(&(d->obj),
+                              get_tsearch_config_filename(defGetString(defel), "dict"));
+            dictloaded = true;
+        }
+        else if (strcmp(defel->defname, "afffile") == 0)
+        {
+            if (affloaded)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                               errmsg("multiple AffFile parameters")));
+            NIImportAffixes(&(d->obj),
+                           get_tsearch_config_filename(defGetString(defel), "affix"));
+            affloaded = true;
+        }
+        else if (strcmp(defel->defname, "stopwords") == 0)
+        {
+            if (stoploaded)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                               errmsg("multiple StopWords parameters")));
+            readstoplist(defGetString(defel), &(d->stoplist), lowerstr);
+            stoploaded = true;
+        }
+        else
+        {
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("unrecognized Ispell parameter: \"%s\"", defel->defname)));
+        }
+    }
+
+    // Validate required parameters and finalize
+    if (affloaded && dictloaded)
+    {
+        NISortDictionary(&(d->obj));
+        NISortAffixes(&(d->obj));
+    }
+    else if (!affloaded)
+    {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("missing AffFile parameter")));
+    }
+    else
+    {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("missing DictFile parameter")));
+    }
+
+    NIFinishBuild(&(d->obj));
+
+    PG_RETURN_POINTER(d);
+}
+```

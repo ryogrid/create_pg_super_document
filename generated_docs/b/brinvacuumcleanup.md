@@ -13,17 +13,49 @@ IndexBulkDeleteResult *
 brinvacuumcleanup(IndexVacuumInfo *info, IndexBulkDeleteResult *stats)
 ```
 ## Detailed Description
- is responsible for the cleanup phase of VACUUM operations on BRIN indexes. Unlike bulk delete operations which have limited applicability to BRIN's summarized structure, the vacuum cleanup phase performs meaningful work by ensuring all block ranges are properly summarized.
+brinvacuumcleanup is responsible for the cleanup phase of VACUUM operations on BRIN indexes. Unlike bulk delete operations which have limited applicability to BRIN's summarized structure, the vacuum cleanup phase performs meaningful work by ensuring all block ranges are properly summarized.
 
 The function performs the following key operations:
 1. **Analyze-Only Check**: Returns immediately if running in ANALYZE ONLY mode without performing cleanup
-2. **Statistics Setup**: Allocates new IndexBulkDeleteResult if needed and initializes page count statistics  
+2. **Statistics Setup**: Allocates new IndexBulkDeleteResult if needed and initializes page count statistics
 3. **Heap Access**: Opens the corresponding heap relation with AccessShareLock
-4. **Vacuum Scan**: Calls  to identify and process any maintenance needed
-5. **Summarization**: Uses  to summarize all unsummarized block ranges, updating index tuple counts
+4. **Vacuum Scan**: Calls brin_vacuum_scan to identify and process any maintenance needed
+5. **Summarization**: Uses brinsummarize to summarize all unsummarized block ranges, updating index tuple counts
 6. **Resource Cleanup**: Closes heap relation and returns updated statistics
 
 This ensures that after a vacuum operation, the BRIN index contains summary information for all block ranges in the heap relation.
+
+## Simplified Source
+
+```c
+IndexBulkDeleteResult *
+brinvacuumcleanup(IndexVacuumInfo *info, IndexBulkDeleteResult *stats)
+{
+    Relation heapRel;
+
+    // Skip cleanup if analyze-only mode
+    if (info->analyze_only)
+        return stats;
+
+    // Initialize statistics structure
+    if (!stats)
+        stats = palloc0_object(IndexBulkDeleteResult);
+    stats->num_pages = RelationGetNumberOfBlocks(info->index);
+
+    // Open heap relation for processing
+    heapRel = table_open(IndexGetRelation(RelationGetRelid(info->index), false),
+                         AccessShareLock);
+
+    // Perform vacuum scan and summarization
+    brin_vacuum_scan(info->index, info->strategy);
+    brinsummarize(info->index, heapRel, BRIN_ALL_BLOCKRANGES, false,
+                  &stats->num_index_tuples, &stats->num_index_tuples);
+
+    // Clean up and return results
+    table_close(heapRel, AccessShareLock);
+    return stats;
+}
+```
 
 ## Parameters / Member Variables
 - File: dir,	Node: Top,	This is the top of the INFO tree.

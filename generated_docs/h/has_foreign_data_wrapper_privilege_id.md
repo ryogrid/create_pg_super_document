@@ -37,3 +37,31 @@ This function is a PostgreSQL SQL-callable function that verifies whether the cu
 - More efficient than name-based lookup since it directly uses the OID
 - Part of PostgreSQL's access control system for foreign data wrappers
 - Located in src/backend/utils/adt/acl.c:3276-3303
+
+## Simplified Source
+
+```c
+Datum
+has_foreign_data_wrapper_privilege_id(PG_FUNCTION_ARGS)
+{
+    Oid fdw_oid = PG_GETARG_OID(0);
+    text *privilege_text = PG_GETARG_TEXT_PP(1);
+
+    // Use current user's OID
+    Oid role_oid = GetUserId();
+
+    // Convert privilege string to internal mode
+    AclMode privilege_mode = convert_foreign_data_wrapper_priv_string(privilege_text);
+
+    // Check privilege, handling missing FDW
+    bool is_missing = false;
+    AclResult result = object_aclcheck_ext(ForeignDataWrapperRelationId, fdw_oid,
+                                         role_oid, privilege_mode, &is_missing);
+
+    // Return NULL if FDW doesn't exist, otherwise return privilege check result
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(result == ACLCHECK_OK);
+}
+```

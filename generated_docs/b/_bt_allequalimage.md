@@ -48,3 +48,52 @@ The result is typically stored in the index metapage during index builds and det
 - [Result](../R/Result.md) affects index metapage settings and runtime deduplication behavior
 - Deduplication safety is an all-or-nothing property - all attributes must be compatible
 - Essential for determining posting list tuple support and other deduplication optimizations
+
+## Simplified Source
+
+```c
+bool _bt_allequalimage(Relation rel, bool debugmessage)
+{
+    bool allequalimage = true;
+
+    // INCLUDE indexes cannot support deduplication
+    if (IndexRelationGetNumberOfAttributes(rel) !=
+        IndexRelationGetNumberOfKeyAttributes(rel))
+        return false;
+
+    // Check each key attribute for equality image support
+    for (int i = 0; i < IndexRelationGetNumberOfKeyAttributes(rel); i++)
+    {
+        Oid opfamily = rel->rd_opfamily[i];
+        Oid opcintype = rel->rd_opcintype[i];
+        Oid collation = rel->rd_indcollation[i];
+        Oid equalimageproc;
+
+        // Get the BTEQUALIMAGE_PROC for this attribute
+        equalimageproc = get_opfamily_proc(opfamily, opcintype, opcintype,
+                                          BTEQUALIMAGE_PROC);
+
+        // If no procedure exists or it returns false, deduplication is unsafe
+        if (!OidIsValid(equalimageproc) ||
+            !DatumGetBool(OidFunctionCall1Coll(equalimageproc, collation,
+                                              ObjectIdGetDatum(opcintype))))
+        {
+            allequalimage = false;
+            break;
+        }
+    }
+
+    // Log the result if debug messages are enabled
+    if (debugmessage)
+    {
+        if (allequalimage)
+            elog(DEBUG1, "index \"%s\" can safely use deduplication",
+                 RelationGetRelationName(rel));
+        else
+            elog(DEBUG1, "index \"%s\" cannot use deduplication",
+                 RelationGetRelationName(rel));
+    }
+
+    return allequalimage;
+}
+```

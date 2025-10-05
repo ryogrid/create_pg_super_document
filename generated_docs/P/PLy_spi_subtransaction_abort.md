@@ -40,3 +40,31 @@ PLy_spi_subtransaction_abort is called when an error occurs during SPI operation
 - Unlike the commit function, this function sets up Python exceptions to propagate errors to Python code
 - Part of the three-function subtransaction management suite (begin/commit/abort)
 - The subtransaction rollback ensures that any changes made within the subtransaction are discarded
+
+## Simplified Source
+
+```c
+void PLy_spi_subtransaction_abort(MemoryContext oldcontext, ResourceOwner oldowner) {
+    ErrorData *edata;
+    PLyExceptionEntry *entry;
+    PyObject *exc;
+
+    // Save error information before cleanup
+    MemoryContextSwitchTo(oldcontext);
+    edata = CopyErrorData();
+    FlushErrorState();
+
+    // Rollback the subtransaction and restore context
+    RollbackAndReleaseCurrentSubTransaction();
+    MemoryContextSwitchTo(oldcontext);
+    CurrentResourceOwner = oldowner;
+
+    // Find appropriate Python exception for the SQL error code
+    entry = hash_search(PLy_spi_exceptions, &(edata->sqlerrcode), HASH_FIND, NULL);
+    exc = entry ? entry->exc : PLy_exc_spi_error;  // fallback for custom codes
+
+    // Convert to Python exception and cleanup
+    PLy_spi_exception_set(exc, edata);
+    FreeErrorData(edata);
+}
+```

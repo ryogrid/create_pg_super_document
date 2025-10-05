@@ -39,3 +39,32 @@ The function is essential for building GIN index entries during JSONB processing
 - The initial allocation size is 8 entries when starting from an unallocated buffer
 - Memory operations use PostgreSQL's palloc/repalloc functions for proper memory context integration
 - The returned index can be used to reference the entry later, though this functionality appears to be primarily for tracking purposes
+
+## Simplified Source
+
+```c
+static int
+add_gin_entry(GinEntries *entries, Datum entry)
+{
+    int id = entries->count;
+
+    // Expand buffer if needed
+    if (entries->count >= entries->allocated) {
+        if (entries->allocated) {
+            // Double the current allocation
+            entries->allocated *= 2;
+            entries->buf = repalloc(entries->buf,
+                                   sizeof(Datum) * entries->allocated);
+        } else {
+            // Initial allocation of 8 entries
+            entries->allocated = 8;
+            entries->buf = palloc(sizeof(Datum) * entries->allocated);
+        }
+    }
+
+    // Add entry and increment count
+    entries->buf[entries->count++] = entry;
+
+    return id;
+}
+```

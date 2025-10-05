@@ -32,3 +32,15 @@ int2recv is a PostgreSQL receive function that handles binary input conversion f
 - Error handling for malformed binary data is handled by pq_getmsgint
 - The function follows PostgreSQL's standard function calling convention using PG_FUNCTION_ARGS
 - Returns a Datum containing the converted int2 value
+
+## Simplified Source
+
+```c
+Datum
+int2recv(PG_FUNCTION_ARGS)
+{
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+
+    PG_RETURN_INT16((int16) pq_getmsgint(buf, sizeof(int16)));
+}
+```

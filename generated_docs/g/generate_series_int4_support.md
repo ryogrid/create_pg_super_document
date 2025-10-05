@@ -47,3 +47,52 @@ The `generate_series_int4_support` function serves as a planner support function
 - Returns NULL (PG_RETURN_POINTER(ret)) if estimation cannot be performed
 - Part of PostgreSQL's planner support function infrastructure for better query optimization
 - Validates step != 0 to avoid division by zero errors
+
+## Simplified Source
+
+```c
+Datum generate_series_int4_support(PG_FUNCTION_ARGS) {
+    Node *rawreq = (Node *) PG_GETARG_POINTER(0);
+    Node *ret = NULL;
+
+    // Handle row count estimation requests
+    if (IsA(rawreq, SupportRequestRows)) {
+        SupportRequestRows *req = (SupportRequestRows *) rawreq;
+
+        // Verify this is a function call and extract arguments
+        if (is_funcclause(req->node)) {
+            List *args = ((FuncExpr *) req->node)->args;
+
+            // Estimate argument values
+            Node *arg1 = estimate_expression_value(req->root, linitial(args));
+            Node *arg2 = estimate_expression_value(req->root, lsecond(args));
+            Node *arg3 = (list_length(args) >= 3) ?
+                        estimate_expression_value(req->root, lthird(args)) : NULL;
+
+            // If any argument is NULL, return zero rows
+            if ((IsA(arg1, Const) && ((Const *) arg1)->constisnull) ||
+                (IsA(arg2, Const) && ((Const *) arg2)->constisnull) ||
+                (arg3 != NULL && IsA(arg3, Const) && ((Const *) arg3)->constisnull)) {
+                req->rows = 0;
+                ret = (Node *) req;
+            }
+            // If all arguments are constants, calculate row count
+            else if (IsA(arg1, Const) && IsA(arg2, Const) &&
+                    (arg3 == NULL || IsA(arg3, Const))) {
+
+                double start = DatumGetInt32(((Const *) arg1)->constvalue);
+                double finish = DatumGetInt32(((Const *) arg2)->constvalue);
+                double step = arg3 ? DatumGetInt32(((Const *) arg3)->constvalue) : 1;
+
+                // Calculate rows using formula: floor((finish - start + step) / step)
+                if (step != 0) {
+                    req->rows = floor((finish - start + step) / step);
+                    ret = (Node *) req;
+                }
+            }
+        }
+    }
+
+    PG_RETURN_POINTER(ret);
+}
+```

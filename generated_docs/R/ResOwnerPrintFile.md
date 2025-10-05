@@ -33,3 +33,12 @@ This function serves as a debug print callback for PostgreSQL's ResourceOwner sy
 - Used primarily for debugging and diagnostic purposes when resource leaks are suspected
 - The returned string format is "File %d" where %d is the file descriptor number
 - Function is defined in src/backend/storage/file/fd.c:4045-4048
+
+## Simplified Source
+
+```c
+static char * ResOwnerPrintFile(Datum res) {
+    // Format file descriptor for debug output
+    return psprintf("File %d", DatumGetInt32(res));
+}
+```

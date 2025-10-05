@@ -57,3 +57,79 @@ For unique indexes, the function manages two separate tuplesort states - one for
 - Uses spin locks for thread-safe updates to shared statistics
 - Worker completion is signaled through condition variables to minimize leader polling
 - Tuplesort states are ended immediately after sorting completion to free resources promptly
+
+## Simplified Source
+
+```c
+static void
+_bt_parallel_scan_and_sort(BTSpool *btspool, BTSpool *btspool2,
+                           BTShared *btshared, Sharedsort *sharedsort,
+                           Sharedsort *sharedsort2, int sortmem, bool progress)
+{
+    SortCoordinate coordinate;
+    BTBuildState buildstate;
+    TableScanDesc scan;
+    double reltuples;
+    IndexInfo *indexInfo;
+
+    // Initialize tuplesort coordination for primary spool
+    coordinate = setup_sort_coordinate(sharedsort, true);
+    btspool->sortstate = tuplesort_begin_index_btree(btspool->heap,
+                                                     btspool->index,
+                                                     btspool->isunique,
+                                                     btspool->nulls_not_distinct,
+                                                     sortmem, coordinate,
+                                                     TUPLESORT_NONE);
+
+    // Set up secondary spool for unique indexes (dead tuples)
+    if (btspool2) {
+        SortCoordinate coordinate2 = setup_sort_coordinate(sharedsort2, true);
+        btspool2->sortstate = tuplesort_begin_index_btree(btspool->heap,
+                                                          btspool->index,
+                                                          false, false,
+                                                          Min(sortmem, work_mem),
+                                                          coordinate2, false);
+    }
+
+    // Initialize build state for callback
+    initialize_buildstate(&buildstate, btshared, btspool, btspool2);
+
+    // Join parallel table scan and collect tuples
+    indexInfo = BuildIndexInfo(btspool->index);
+    indexInfo->ii_Concurrent = btshared->isconcurrent;
+    scan = table_beginscan_parallel(btspool->heap,
+                                    ParallelTableScanFromBTShared(btshared));
+    reltuples = table_index_build_scan(btspool->heap, btspool->index, indexInfo,
+                                       true, progress, _bt_build_callback,
+                                       (void *) &buildstate, scan);
+
+    // Perform sorting for both spools
+    if (progress) {
+        pgstat_progress_update_param(PROGRESS_CREATEIDX_SUBPHASE,
+                                     PROGRESS_BTREE_PHASE_PERFORMSORT_1);
+    }
+    tuplesort_performsort(btspool->sortstate);
+
+    if (btspool2) {
+        if (progress) {
+            pgstat_progress_update_param(PROGRESS_CREATEIDX_SUBPHASE,
+                                         PROGRESS_BTREE_PHASE_PERFORMSORT_2);
+        }
+        tuplesort_performsort(btspool2->sortstate);
+    }
+
+    // Update shared statistics
+    SpinLockAcquire(&btshared->mutex);
+    btshared->nparticipantsdone++;
+    btshared->reltuples += reltuples;
+    if (buildstate.havedead) btshared->havedead = true;
+    btshared->indtuples += buildstate.indtuples;
+    if (indexInfo->ii_BrokenHotChain) btshared->brokenhotchain = true;
+    SpinLockRelease(&btshared->mutex);
+
+    // Notify leader and clean up
+    ConditionVariableSignal(&btshared->workersdonecv);
+    tuplesort_end(btspool->sortstate);
+    if (btspool2) tuplesort_end(btspool2->sortstate);
+}
+```

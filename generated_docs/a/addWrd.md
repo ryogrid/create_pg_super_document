@@ -45,3 +45,66 @@ The function uses static variables to track the current result array size, allow
 - Dynamic array growth follows a doubling strategy starting from initial capacities (16 for substitutions, 2 for results)
 - The DT_USEASIS flag prevents morphological processing of the replacement word during text search
 - Memory management relies on PostgreSQL's palloc system with automatic cleanup on transaction end
+
+## Simplified Source
+
+```c
+static void
+addWrd(DictThesaurus *d, char *b, char *e, uint32 idsubst, uint16 nwrd, uint16 posinsubst, bool useasis)
+{
+    static int nres = 0;    // Current result array size
+    static int ntres = 0;   // Total result array capacity
+    TheSubstitute *ptr;
+
+    // Initialize static counters for new substitution
+    if (nwrd == 0)
+    {
+        nres = ntres = 0;
+
+        // Expand substitution array if needed
+        if (idsubst >= d->nsubst)
+        {
+            if (d->nsubst == 0)
+            {
+                d->nsubst = 16;
+                d->subst = (TheSubstitute *) palloc(sizeof(TheSubstitute) * d->nsubst);
+            }
+            else
+            {
+                d->nsubst *= 2;
+                d->subst = (TheSubstitute *) repalloc(d->subst, sizeof(TheSubstitute) * d->nsubst);
+            }
+        }
+    }
+
+    ptr = d->subst + idsubst;
+    ptr->lastlexeme = posinsubst - 1;
+
+    // Expand result array if needed
+    if (nres + 1 >= ntres)
+    {
+        if (ntres == 0)
+        {
+            ntres = 2;
+            ptr->res = (TSLexeme *) palloc(sizeof(TSLexeme) * ntres);
+        }
+        else
+        {
+            ntres *= 2;
+            ptr->res = (TSLexeme *) repalloc(ptr->res, sizeof(TSLexeme) * ntres);
+        }
+    }
+
+    // Copy replacement word
+    ptr->res[nres].lexeme = palloc(e - b + 1);
+    memcpy(ptr->res[nres].lexeme, b, e - b);
+    ptr->res[nres].lexeme[e - b] = '\0';
+
+    // Set lexeme properties
+    ptr->res[nres].nvariant = nwrd;
+    ptr->res[nres].flags = useasis ? DT_USEASIS : 0;
+
+    // Null-terminate the result array
+    ptr->res[++nres].lexeme = NULL;
+}
+```

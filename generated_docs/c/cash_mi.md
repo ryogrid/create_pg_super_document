@@ -35,3 +35,16 @@ This function is a PostgreSQL built-in function that implements the '-' operator
 - Will raise an ERROR with ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE if overflow/underflow occurs
 - This function is typically invoked through PostgreSQL's operator system rather than direct function calls
 - Critical for financial calculations where accuracy and overflow protection are essential
+
+## Simplified Source
+
+```c
+// Subtract two cash values with overflow protection
+Datum cash_mi(PG_FUNCTION_ARGS) {
+    Cash minuend = PG_GETARG_CASH(0);
+    Cash subtrahend = PG_GETARG_CASH(1);
+
+    // Delegate to internal function for safe subtraction
+    PG_RETURN_CASH(cash_mi_cash(minuend, subtrahend));
+}
+```

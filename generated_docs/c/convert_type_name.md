@@ -38,3 +38,23 @@ This static function serves as a support routine for the has_type_privilege fami
 - Part of the type privilege checking infrastructure
 - Handles schema-qualified type names through the regtype mechanism
 - Located in src/backend/utils/adt/acl.c:4566-4586
+
+## Simplified Source
+
+```c
+static Oid convert_type_name(text *typename) {
+    // Convert PostgreSQL text to C string
+    char *typname = text_to_cstring(typename);
+
+    // Use regtype system to convert type name to OID
+    Oid oid = DatumGetObjectId(DirectFunctionCall1(regtypein, CStringGetDatum(typname)));
+
+    // Validate the result and error if type doesn't exist
+    if (!OidIsValid(oid)) {
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("type \"%s\" does not exist", typname)));
+    }
+
+    return oid;
+}
+```

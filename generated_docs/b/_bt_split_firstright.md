@@ -37,3 +37,19 @@ This function complements _bt_split_lastleft to provide the complete boundary in
 - Works in tandem with _bt_split_lastleft to define the complete split boundary
 - The returned IndexTuple is used in penalty scoring algorithms and key truncation processes
 - Critical for maintaining B-tree structural integrity during page split operations
+
+## Simplified Source
+
+```c
+static inline IndexTuple
+_bt_split_firstright(FindSplitData *state, SplitPoint *split)
+{
+    // Special case: new item becomes first right tuple
+    if (!split->newitemonleft && split->firstrightoff == state->newitemoff)
+        return state->newitem;
+
+    // Normal case: get tuple at first right position
+    ItemId itemid = PageGetItemId(state->origpage, split->firstrightoff);
+    return (IndexTuple) PageGetItem(state->origpage, itemid);
+}
+```

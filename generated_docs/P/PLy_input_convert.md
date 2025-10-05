@@ -38,3 +38,28 @@ Internally, the function delegates the actual conversion work to the appropriate
 - The function is part of the PL/Python type conversion system, where "input" refers to data flowing from PostgreSQL into Python
 - Memory context switching ensures that temporary allocations during conversion are properly cleaned up
 - The conversion functions can recurse directly to each other, but this outer wrapper ensures proper memory management at the top level
+
+## Simplified Source
+
+```c
+PyObject *PLy_input_convert(PLyDatumToOb *arg, Datum val) {
+    PyObject *result;
+    PLyExecutionContext *exec_ctx = PLy_current_execution_context();
+    MemoryContext scratch_context = PLy_get_scratch_context(exec_ctx);
+    MemoryContext oldcontext;
+
+    // Reset scratch context to prevent memory leaks from conversion functions
+    MemoryContextReset(scratch_context);
+
+    // Switch to scratch context for conversion work
+    oldcontext = MemoryContextSwitchTo(scratch_context);
+
+    // Perform the actual conversion using the type-specific function
+    result = arg->func(arg, val);
+
+    // Restore original memory context
+    MemoryContextSwitchTo(oldcontext);
+
+    return result;
+}
+```

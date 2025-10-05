@@ -59,3 +59,53 @@ The function is designed to handle both direct table updates and partition-speci
 - EPQ (EvalPlanQual) integration ensures proper handling of concurrent transactions and snapshot isolation
 - The function is designed to work with both regular tables and partitioned tables through the relinfo parameter
 - There's an XXX comment suggesting that the missing tuple case might be promoted to a higher log level in the future
+
+## Simplified Source
+
+```c
+static void
+apply_handle_update_internal(ApplyExecutionData *edata,
+                            ResultRelInfo *relinfo,
+                            TupleTableSlot *remoteslot,
+                            LogicalRepTupleData *newtup,
+                            Oid localindexoid)
+{
+    EState *estate = edata->estate;
+    LogicalRepRelMapEntry *relmapentry = edata->targetRel;
+    Relation localrel = relinfo->ri_RelationDesc;
+    EPQState epqstate;
+    TupleTableSlot *localslot;
+    bool found;
+
+    // Initialize concurrency control and open indexes
+    EvalPlanQualInit(&epqstate, estate, NULL, NIL, -1, NIL);
+    ExecOpenIndices(relinfo, false);
+
+    // Find the tuple to update
+    found = FindReplTupleInLocalRel(edata, localrel,
+                                   &relmapentry->remoterel,
+                                   localindexoid,
+                                   remoteslot, &localslot);
+    ExecClearTuple(remoteslot);
+
+    if (found) {
+        // Process new tuple data and perform update
+        slot_modify_data(remoteslot, localslot, relmapentry, newtup);
+        EvalPlanQualSetSlot(&epqstate, remoteslot);
+
+        TargetPrivilegesCheck(relinfo->ri_RelationDesc, ACL_UPDATE);
+        ExecSimpleRelationUpdate(relinfo, estate, &epqstate, localslot,
+                                remoteslot);
+    } else {
+        // Tuple not found - log but don't fail
+        elog(DEBUG1,
+             "logical replication did not find row to be updated "
+             "in replication target relation \"%s\"",
+             RelationGetRelationName(localrel));
+    }
+
+    // Cleanup
+    ExecCloseIndices(relinfo);
+    EvalPlanQualEnd(&epqstate);
+}
+```

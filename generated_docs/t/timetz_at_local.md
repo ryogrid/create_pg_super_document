@@ -42,3 +42,19 @@ The function retrieves the session timezone name and passes it to `timetz_zone` 
 - Particularly useful for applications that need to display times in the user's preferred timezone
 - More efficient than manually querying the session timezone and calling `timetz_zone`
 - Inherits all timezone conversion logic and DST handling from the underlying `timetz_zone` function
+
+## Simplified Source
+
+```c
+Datum
+timetz_at_local(PG_FUNCTION_ARGS)
+{
+	// Get input time and session timezone
+	Datum time = PG_GETARG_DATUM(0);
+	const char *tzn = pg_get_timezone_name(session_timezone);
+	Datum zone = PointerGetDatum(cstring_to_text(tzn));
+
+	// Delegate to timetz_zone for actual conversion
+	return DirectFunctionCall2(timetz_zone, zone, time);
+}
+```

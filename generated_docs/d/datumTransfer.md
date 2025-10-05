@@ -41,3 +41,21 @@ This function is particularly valuable when working with expanded objects that w
 - The returned pointer may differ from the input pointer even for expanded objects, as TransferExpandedObject returns the standard R/W pointer
 - This function is part of the expanded object infrastructure that provides efficient in-memory representations for complex data types
 - Primarily used in contexts where datum ownership needs to be transferred between memory contexts while preserving expanded object benefits
+
+## Simplified Source
+
+```c
+Datum datumTransfer(Datum value, bool typByVal, int typLen) {
+    // Check if this is a read-write expanded object that can be reparented
+    if (!typByVal && typLen == -1 &&
+        VARATT_IS_EXTERNAL_EXPANDED_RW(DatumGetPointer(value))) {
+        // For expanded objects: reparent instead of copying to preserve expanded format
+        value = TransferExpandedObject(value, CurrentMemoryContext);
+    } else {
+        // For all other types: use standard copy operation
+        value = datumCopy(value, typByVal, typLen);
+    }
+
+    return value;
+}
+```

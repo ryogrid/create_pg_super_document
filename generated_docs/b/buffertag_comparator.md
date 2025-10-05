@@ -40,3 +40,26 @@ The function returns -1 if ba < bb, 0 if ba == bb, and 1 if ba > bb, following s
 - The hierarchical comparison ensures a consistent total ordering of BufferTag structures
 - Used primarily in radix tree implementations for efficient buffer lookup and management
 - The comparison order prioritizes RelFileLocator, then fork number, then block number
+
+## Simplified Source
+```c
+static inline int buffertag_comparator(const BufferTag *ba, const BufferTag *bb) {
+    // Compare RelFileLocator components first
+    RelFileLocator rlocatora = BufTagGetRelFileLocator(ba);
+    RelFileLocator rlocatorb = BufTagGetRelFileLocator(bb);
+
+    int ret = rlocator_comparator(&rlocatora, &rlocatorb);
+    if (ret != 0)
+        return ret;
+
+    // Compare fork numbers if RelFileLocators are equal
+    if (BufTagGetForkNum(ba) != BufTagGetForkNum(bb))
+        return (BufTagGetForkNum(ba) < BufTagGetForkNum(bb)) ? -1 : 1;
+
+    // Compare block numbers if everything else is equal
+    if (ba->blockNum != bb->blockNum)
+        return (ba->blockNum < bb->blockNum) ? -1 : 1;
+
+    return 0;  // BufferTags are equal
+}
+```

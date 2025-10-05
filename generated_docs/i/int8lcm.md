@@ -39,3 +39,36 @@ The function follows PostgreSQL's function calling convention, taking arguments 
 - Validates that result is not INT64_MIN, which cannot be properly represented 
 - Always returns the absolute value of the computed LCM
 - Part of PostgreSQL's bigint arithmetic functions in src/backend/utils/adt/int8.c:682-718
+
+## Simplified Source
+
+```c
+Datum int8lcm(PG_FUNCTION_ARGS) {
+    // Extract two 64-bit integer arguments
+    int64 arg1 = PG_GETARG_INT64(0);
+    int64 arg2 = PG_GETARG_INT64(1);
+    int64 gcd, result;
+
+    // Handle special case: lcm(x, 0) = 0
+    if (arg1 == 0 || arg2 == 0) {
+        return 0;
+    }
+
+    // Calculate LCM using formula: lcm(x, y) = abs(x / gcd(x, y) * y)
+    gcd = int8gcd_internal(arg1, arg2);
+    arg1 = arg1 / gcd;
+
+    // Check for overflow in multiplication
+    if (pg_mul_s64_overflow(arg1, arg2, &result)) {
+        ereport(ERROR, "bigint out of range");
+    }
+
+    // Ensure result is not INT64_MIN (cannot be represented)
+    if (result == PG_INT64_MIN) {
+        ereport(ERROR, "bigint out of range");
+    }
+
+    // Return absolute value
+    return (result < 0) ? -result : result;
+}
+```

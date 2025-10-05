@@ -30,3 +30,14 @@ The  function serves as the transition function for PostgreSQL's  aggregate func
 - Part of PostgreSQL's aggregate function infrastructure for JSONB operations
 - Counterpart to jsonb_agg_strict_transfn which omits null values
 - Used internally by the PostgreSQL query executor during aggregate processing
+
+## Simplified Source
+
+```c
+Datum
+jsonb_agg_transfn(PG_FUNCTION_ARGS)
+{
+    // Delegate to worker function with null inclusion enabled
+    return jsonb_agg_transfn_worker(fcinfo, false);
+}
+```

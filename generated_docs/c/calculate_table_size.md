@@ -38,3 +38,24 @@ The function works correctly when applied to indexes or TOAST tables themselves,
 - Handles both regular tables and special cases (indexes, TOAST tables) gracefully
 - TOAST table size calculation is conditional on the existence of a valid TOAST relation OID
 - This is a core utility function for PostgreSQL's size reporting system functions
+
+## Simplified Source
+
+```c
+static int64
+calculate_table_size(Relation rel)
+{
+    int64 size = 0;
+    ForkNumber forkNum;
+
+    // Calculate size of all table forks (main heap, FSM, VM)
+    for (forkNum = 0; forkNum <= MAX_FORKNUM; forkNum++)
+        size += calculate_relation_size(&(rel->rd_locator), rel->rd_backend, forkNum);
+
+    // Add TOAST table size if present
+    if (OidIsValid(rel->rd_rel->reltoastrelid))
+        size += calculate_toast_table_size(rel->rd_rel->reltoastrelid);
+
+    return size;
+}
+```

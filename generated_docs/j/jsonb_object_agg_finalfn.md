@@ -44,3 +44,33 @@ The function includes safety checks to ensure it's called within a proper aggreg
 - Contains assertion to ensure proper aggregate calling context
 - Located in src/backend/utils/adt/jsonb.c:1930-1967
 - The shallow clone strategy is sufficient since the function only adds the end marker without modifying existing values
+
+## Simplified Source
+
+```c
+Datum
+jsonb_object_agg_finalfn(PG_FUNCTION_ARGS)
+{
+    JsonbAggState *aggregate_state;
+    JsonbInState result;
+    Jsonb *final_jsonb;
+
+    // Return NULL if no input values were provided
+    if (PG_ARGISNULL(0))
+        PG_RETURN_NULL();
+
+    aggregate_state = (JsonbAggState *) PG_GETARG_POINTER(0);
+
+    // Shallow clone to avoid modifying original state
+    // (allows final function to be called multiple times)
+    memset(&result, 0, sizeof(JsonbInState));
+    result.parseState = clone_parse_state(aggregate_state->res->parseState);
+
+    // Add final object end marker to complete the JSONB object
+    result.res = pushJsonbValue(&result.parseState, WJB_END_OBJECT, NULL);
+
+    // Convert to final JSONB format and return
+    final_jsonb = JsonbValueToJsonb(result.res);
+    PG_RETURN_POINTER(final_jsonb);
+}
+```

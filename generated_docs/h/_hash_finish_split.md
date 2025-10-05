@@ -51,3 +51,84 @@ The function handles the case where a split operation was interrupted (e.g., due
 - The function maintains pins on the metapage and old bucket buffers as required by the caller
 - This is part of PostgreSQL's hash index implementation for handling interrupted split operations gracefully
 - The function handles both the primary bucket page and any overflow pages in the new bucket
+
+## Simplified Source
+
+```c
+void _hash_finish_split(Relation rel, Buffer metabuf, Buffer obuf, Bucket obucket,
+                       uint32 maxbucket, uint32 highmask, uint32 lowmask) {
+    // Create hash table to track TIDs already moved to new bucket
+    HASHCTL hash_ctl;
+    hash_ctl.keysize = sizeof(ItemPointerData);
+    hash_ctl.entrysize = sizeof(ItemPointerData);
+    hash_ctl.hcxt = CurrentMemoryContext;
+
+    HTAB *tidhtab = hash_create("bucket ctids", 256, &hash_ctl,
+                               HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+
+    // Get new bucket's block number
+    BlockNumber bucket_nblkno = _hash_get_newblock_from_oldbucket(rel, obucket);
+    BlockNumber nblkno = bucket_nblkno;
+    Buffer bucket_nbuf = InvalidBuffer;
+
+    // Scan new bucket and all overflow pages to build TID hash table
+    for (;;) {
+        Buffer nbuf = _hash_getbuf(rel, nblkno, HASH_READ,
+                                  LH_BUCKET_PAGE | LH_OVERFLOW_PAGE);
+
+        // Remember primary bucket buffer for cleanup lock
+        if (nblkno == bucket_nblkno)
+            bucket_nbuf = nbuf;
+
+        Page npage = BufferGetPage(nbuf);
+        HashPageOpaque npageopaque = HashPageGetOpaque(npage);
+
+        // Add all TIDs from this page to hash table
+        OffsetNumber nmaxoffnum = PageGetMaxOffsetNumber(npage);
+        for (OffsetNumber noffnum = FirstOffsetNumber;
+             noffnum <= nmaxoffnum;
+             noffnum = OffsetNumberNext(noffnum)) {
+
+            IndexTuple itup = (IndexTuple) PageGetItem(npage,
+                                     PageGetItemId(npage, noffnum));
+            bool found;
+            hash_search(tidhtab, &itup->t_tid, HASH_ENTER, &found);
+        }
+
+        nblkno = npageopaque->hasho_nextblkno;
+
+        // Release buffer (keep pin on primary bucket)
+        if (nbuf == bucket_nbuf)
+            LockBuffer(nbuf, BUFFER_LOCK_UNLOCK);
+        else
+            _hash_relbuf(rel, nbuf);
+
+        // Exit if no more overflow pages
+        if (!BlockNumberIsValid(nblkno))
+            break;
+    }
+
+    // Try to get cleanup locks on both buckets
+    if (!ConditionalLockBufferForCleanup(obuf)) {
+        hash_destroy(tidhtab);
+        return;
+    }
+    if (!ConditionalLockBufferForCleanup(bucket_nbuf)) {
+        LockBuffer(obuf, BUFFER_LOCK_UNLOCK);
+        hash_destroy(tidhtab);
+        return;
+    }
+
+    // Complete the split operation using TID hash table
+    Page npage = BufferGetPage(bucket_nbuf);
+    HashPageOpaque npageopaque = HashPageGetOpaque(npage);
+    Bucket nbucket = npageopaque->hasho_bucket;
+
+    _hash_splitbucket(rel, metabuf, obucket, nbucket, obuf, bucket_nbuf,
+                     tidhtab, maxbucket, highmask, lowmask);
+
+    // Cleanup
+    _hash_dropbuf(rel, bucket_nbuf);
+    hash_destroy(tidhtab);
+}
+```

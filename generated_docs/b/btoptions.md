@@ -36,3 +36,26 @@ The function supports three specific B-tree options:
 
 ## Notes and Other Information
 This function is part of PostgreSQL's B-tree access method implementation and is called during index creation/alteration to process storage parameters. The returned bytea structure contains the parsed options that will be stored with the index metadata and used during index operations.
+
+## Simplified Source
+
+```c
+bytea *
+btoptions(Datum reloptions, bool validate)
+{
+    // Define supported B-tree options and their types
+    static const relopt_parse_elt tab[] = {
+        {"fillfactor", RELOPT_TYPE_INT, offsetof(BTOptions, fillfactor)},
+        {"vacuum_cleanup_index_scale_factor", RELOPT_TYPE_REAL,
+         offsetof(BTOptions, vacuum_cleanup_index_scale_factor)},
+        {"deduplicate_items", RELOPT_TYPE_BOOL,
+         offsetof(BTOptions, deduplicate_items)}
+    };
+
+    // Parse and validate the options using generic reloptions infrastructure
+    return (bytea *) build_reloptions(reloptions, validate,
+                                      RELOPT_KIND_BTREE,
+                                      sizeof(BTOptions),
+                                      tab, lengthof(tab));
+}
+```

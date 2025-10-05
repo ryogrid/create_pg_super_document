@@ -39,3 +39,19 @@ The function creates a StringInfo buffer, initializes it for binary output, writ
 - The resulting bytea contains the binary representation suitable for wire protocol transmission
 - Part of the binary I/O functions that enable efficient data transfer without string conversion overhead
 - Located in src/backend/utils/adt/int8.c alongside other 64-bit integer utility functions
+
+## Simplified Source
+
+```c
+Datum int8send(PG_FUNCTION_ARGS) {
+    int64 arg1 = PG_GETARG_INT64(0);  // Get 64-bit integer value
+    StringInfoData buf;
+
+    // Initialize binary buffer and write integer
+    pq_begintypsend(&buf);
+    pq_sendint64(&buf, arg1);
+
+    // Finalize and return binary data
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

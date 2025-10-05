@@ -31,3 +31,30 @@ The bool_accum function serves as the state transition function for PostgreSQL's
 
 ## Notes and Other Information
 This function follows the standard PostgreSQL aggregate function protocol, taking the current state as the first argument and the new value as the second argument. It's designed to be used with window functions and supports both regular aggregation and moving window aggregation scenarios. The function ensures proper NULL handling according to SQL standards where NULLs are ignored in boolean aggregation.
+
+## Simplified Source
+
+```c
+Datum
+bool_accum(PG_FUNCTION_ARGS)
+{
+    BoolAggState *state;
+
+    // Get current state, or NULL on first call
+    state = PG_ARGISNULL(0) ? NULL : (BoolAggState *) PG_GETARG_POINTER(0);
+
+    // Create state on first call
+    if (state == NULL)
+        state = makeBoolAggState(fcinfo);
+
+    // Process non-NULL values
+    if (!PG_ARGISNULL(1))
+    {
+        state->aggcount++;           // Count total non-NULL values
+        if (PG_GETARG_BOOL(1))
+            state->aggtrue++;        // Count true values
+    }
+
+    PG_RETURN_POINTER(state);
+}
+```

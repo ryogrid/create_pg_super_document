@@ -51,3 +51,133 @@ The algorithm evaluates all possible split points, calculates space utilization 
 - Considers posting list items and ensures newitem cannot be a posting list item
 - The split location affects both space utilization and suffix truncation effectiveness on leaf pages
 - Uses different fill factor strategies for leaf vs non-leaf pages
+
+## Simplified Source
+```c
+OffsetNumber
+_bt_findsplitloc(Relation rel, Page origpage, OffsetNumber newitemoff,
+                 Size newitemsz, IndexTuple newitem, bool *newitemonleft)
+{
+    BTPageOpaque opaque = BTPageGetOpaque(origpage);
+    OffsetNumber maxoff = PageGetMaxOffsetNumber(origpage);
+    FindSplitData state;
+
+    // Calculate available space on left and right pages
+    int leftspace = rightspace =
+        PageGetPageSize(origpage) - SizeOfPageHeaderData -
+        MAXALIGN(sizeof(BTPageOpaqueData));
+
+    // Account for high key on right page
+    if (!P_RIGHTMOST(opaque)) {
+        ItemId itemid = PageGetItemId(origpage, P_HIKEY);
+        rightspace -= MAXALIGN(ItemIdGetLength(itemid)) + sizeof(ItemIdData);
+    }
+
+    // Initialize split state
+    state.rel = rel;
+    state.origpage = origpage;
+    state.newitem = newitem;
+    state.newitemsz = newitemsz + sizeof(ItemIdData);
+    state.is_leaf = P_ISLEAF(opaque);
+    state.is_rightmost = P_RIGHTMOST(opaque);
+    state.leftspace = leftspace;
+    state.rightspace = rightspace;
+    state.olddataitemstotal = rightspace - PageGetExactFreeSpace(origpage);
+    state.newitemoff = newitemoff;
+
+    // Allocate space for candidate split points
+    state.maxsplits = maxoff;
+    state.splits = palloc(sizeof(SplitPoint) * state.maxsplits);
+    state.nsplits = 0;
+
+    // Scan through existing items and record potential split points
+    int olddataitemstoleft = 0;
+    for (OffsetNumber offnum = P_FIRSTDATAKEY(opaque);
+         offnum <= maxoff;
+         offnum = OffsetNumberNext(offnum))
+    {
+        ItemId itemid = PageGetItemId(origpage, offnum);
+        Size itemsz = MAXALIGN(ItemIdGetLength(itemid)) + sizeof(ItemIdData);
+
+        // Record split points relative to newitemoff position
+        if (offnum < newitemoff)
+            _bt_recsplitloc(&state, offnum, false, olddataitemstoleft, itemsz);
+        else if (offnum > newitemoff)
+            _bt_recsplitloc(&state, offnum, true, olddataitemstoleft, itemsz);
+        else {
+            // At newitemoff - record splits before and after newitem
+            _bt_recsplitloc(&state, offnum, false, olddataitemstoleft, itemsz);
+            _bt_recsplitloc(&state, offnum, true, olddataitemstoleft, itemsz);
+        }
+
+        olddataitemstoleft += itemsz;
+    }
+
+    // Record split after all existing items if newitem goes at end
+    if (newitemoff > maxoff)
+        _bt_recsplitloc(&state, newitemoff, false, state.olddataitemstotal, 0);
+
+    // Determine fill factor strategy based on page type and position
+    double fillfactormult;
+    bool usemult;
+
+    if (!state.is_leaf) {
+        // Non-leaf page
+        usemult = state.is_rightmost;
+        fillfactormult = BTREE_NONLEAF_FILLFACTOR / 100.0;
+    } else if (state.is_rightmost) {
+        // Rightmost leaf page
+        usemult = true;
+        fillfactormult = BTGetFillFactor(rel) / 100.0;
+    } else if (_bt_afternewitemoff(&state, maxoff, BTGetFillFactor(rel), &usemult)) {
+        // Split-after-newitem optimization
+        if (usemult) {
+            fillfactormult = BTGetFillFactor(rel) / 100.0;
+        } else {
+            // Find exact split point after newitem
+            for (int i = 0; i < state.nsplits; i++) {
+                SplitPoint *split = state.splits + i;
+                if (split->newitemonleft && newitemoff == split->firstrightoff) {
+                    pfree(state.splits);
+                    *newitemonleft = true;
+                    return newitemoff;
+                }
+            }
+            fillfactormult = 0.50;
+        }
+    } else {
+        // Regular leaf page - 50:50 split
+        usemult = false;
+        fillfactormult = 0.50;
+    }
+
+    // Sort split points by delta from ideal fill factor
+    _bt_deltasortsplits(&state, fillfactormult, usemult);
+
+    // Determine split strategy and interval
+    state.interval = _bt_defaultinterval(&state);
+    SplitPoint leftpage = state.splits[0];
+    SplitPoint rightpage = state.splits[state.nsplits - 1];
+
+    FindSplitStrat strategy;
+    int perfectpenalty = _bt_strategy(&state, &leftpage, &rightpage, &strategy);
+
+    // Adjust strategy if needed
+    if (strategy == SPLIT_MANY_DUPLICATES) {
+        state.interval = state.nsplits;  // Consider all split points
+    } else if (strategy == SPLIT_SINGLE_VALUE) {
+        // Single value - split near end of page
+        usemult = true;
+        fillfactormult = BTREE_SINGLEVAL_FILLFACTOR / 100.0;
+        _bt_deltasortsplits(&state, fillfactormult, usemult);
+        state.interval = 1;
+    }
+
+    // Find the best split point from acceptable candidates
+    OffsetNumber firstrightoff = _bt_bestsplitloc(&state, perfectpenalty,
+                                                  newitemonleft, strategy);
+    pfree(state.splits);
+
+    return firstrightoff;
+}
+```

@@ -46,4 +46,47 @@ The function handles NULL value comparisons based on the SK_BT_NULLS_FIRST flag 
 - Cross-type comparisons are handled carefully by passing tupdatum as the left operand
 - NULL handling follows B-tree index NULL ordering policies
 - Unlike , this function uses natural argument ordering (tuple first, array second)
-- The comparison result sign is flipped for DESC columns without the compensatory logic needed in 
+- The comparison result sign is flipped for DESC columns without the compensatory logic needed in other comparison functions
+
+## Simplified Source
+
+```c
+static inline int32
+_bt_compare_array_skey(FmgrInfo *orderproc,
+                      Datum tupdatum, bool tupnull,
+                      Datum arrdatum, ScanKey cur)
+{
+    int32 result = 0;
+
+    Assert(cur->sk_strategy == BTEqualStrategyNumber);
+
+    // Handle NULL tupdatum
+    if (tupnull) {
+        if (cur->sk_flags & SK_ISNULL)
+            result = 0;    // NULL == NULL
+        else if (cur->sk_flags & SK_BT_NULLS_FIRST)
+            result = -1;   // NULL < NOT_NULL
+        else
+            result = 1;    // NULL > NOT_NULL
+    }
+    // Handle NULL arrdatum with NOT_NULL tupdatum
+    else if (cur->sk_flags & SK_ISNULL) {
+        if (cur->sk_flags & SK_BT_NULLS_FIRST)
+            result = 1;    // NOT_NULL > NULL
+        else
+            result = -1;   // NOT_NULL < NULL
+    }
+    // Both values are NOT_NULL - perform actual comparison
+    else {
+        // Use collation-aware comparison with tupdatum as left operand
+        result = DatumGetInt32(FunctionCall2Coll(orderproc, cur->sk_collation,
+                                                tupdatum, arrdatum));
+
+        // Invert result for DESC columns
+        if (cur->sk_flags & SK_BT_DESC)
+            INVERT_COMPARE_RESULT(result);
+    }
+
+    return result;
+}
+``` 

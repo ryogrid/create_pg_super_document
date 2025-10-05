@@ -43,3 +43,29 @@ The function operates by:
 - The nodeN value is automatically set by the SP-GiST core when allTheSame flag is true
 - The function always returns spgMatchNode, indicating that the operation should continue with the selected child node
 - Located in src/backend/utils/adt/geo_spgist.c:417-440
+
+## Simplified Source
+
+```c
+/* SP-GiST choose function for box quadtree indexing */
+Datum
+spg_box_quad_choose(PG_FUNCTION_ARGS)
+{
+    spgChooseIn *in = (spgChooseIn *) PG_GETARG_POINTER(0);
+    spgChooseOut *out = (spgChooseOut *) PG_GETARG_POINTER(1);
+
+    // Extract centroid and target box from input
+    BOX *centroid = DatumGetBoxP(in->prefixDatum);
+    BOX *box = DatumGetBoxP(in->leafDatum);
+
+    // Set result to match node and preserve the box
+    out->resultType = spgMatchNode;
+    out->result.matchNode.restDatum = BoxPGetDatum(box);
+
+    // Determine which quadrant to use (unless all values are same)
+    if (!in->allTheSame)
+        out->result.matchNode.nodeN = getQuadrant(centroid, box);
+
+    PG_RETURN_VOID();
+}
+```

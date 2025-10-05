@@ -35,3 +35,24 @@ This function converts a PostgreSQL timestamp value into a formatted ASCII strin
 - The function converts timestamp to intermediate representations (date, day of week, tm structure) before final formatting
 - Part of the ECPG pgtypes library for embedded SQL applications
 - Used extensively in test cases for timestamp formatting validation
+
+## Simplified Source
+
+```c
+int
+PGTYPEStimestamp_fmt_asc(timestamp *ts, char *output, int str_len, const char *fmtstr)
+{
+    struct tm tm;
+    fsec_t fsec;
+    date dDate;
+    int dow;
+
+    // Convert timestamp to date components
+    dDate = PGTYPESdate_from_timestamp(*ts);
+    dow = PGTYPESdate_dayofweek(dDate);
+    timestamp2tm(*ts, NULL, &tm, &fsec, NULL);
+
+    // Format the timestamp using the replacement function
+    return dttofmtasc_replace(ts, dDate, dow, &tm, output, &str_len, fmtstr);
+}
+```

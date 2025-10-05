@@ -45,3 +45,41 @@ The function maintains a global character pool for all timezone abbreviations us
 - Warnings are only issued when the global `noise` flag is enabled
 - Enforces POSIX compliance for timezone abbreviation format
 - Part of the zic (zone information compiler) timezone data generation system
+
+## Simplified Source
+
+```c
+static void newabbr(const char *string) {
+    int i;
+
+    // Validate abbreviation format (skip GRANDPARENTED)
+    if (strcmp(string, GRANDPARENTED) != 0) {
+        const char *cp = string;
+        const char *mp = NULL;
+
+        // Check valid characters (alphanumeric, -, +)
+        while (is_alpha(*cp) || ('0' <= *cp && *cp <= '9') || *cp == '-' || *cp == '+')
+            ++cp;
+
+        // Validate length and character requirements
+        if (noise && cp - string < 3)
+            mp = _("time zone abbreviation has fewer than 3 characters");
+        if (cp - string > ZIC_MAX_ABBR_LEN_WO_WARN)
+            mp = _("time zone abbreviation has too many characters");
+        if (*cp != '\0')
+            mp = _("time zone abbreviation differs from POSIX standard");
+
+        if (mp != NULL)
+            warning("%s (%s)", mp, string);
+    }
+
+    // Check storage capacity and add to global character array
+    i = strlen(string) + 1;
+    if (charcnt + i > TZ_MAX_CHARS) {
+        error(_("too many, or too long, time zone abbreviations"));
+        exit(EXIT_FAILURE);
+    }
+    strcpy(&chars[charcnt], string);
+    charcnt += i;
+}
+```

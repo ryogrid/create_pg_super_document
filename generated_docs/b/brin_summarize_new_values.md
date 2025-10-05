@@ -31,3 +31,19 @@ This function serves as a wrapper that calls  with a special argument to process
 - The function is designed to be exposed to SQL users for maintenance operations
 - Uses the special value  to indicate that all ranges should be summarized rather than a specific range
 - Returns a Datum as required by PostgreSQL's function call interface
+
+## Simplified Source
+
+```c
+Datum
+brin_summarize_new_values(PG_FUNCTION_ARGS)
+{
+    // Extract relation argument
+    Datum relation = PG_GETARG_DATUM(0);
+
+    // Call brin_summarize_range with special value for all ranges
+    return DirectFunctionCall2(brin_summarize_range,
+                               relation,
+                               Int64GetDatum((int64) BRIN_ALL_BLOCKRANGES));
+}
+```

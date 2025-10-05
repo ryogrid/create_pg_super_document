@@ -39,3 +39,26 @@ This function is crucial for the statistics collection infrastructure as it ensu
 - For shared relations, uses InvalidOid as the database ID; otherwise uses MyDatabaseId
 - Essential building block for relation statistics infrastructure, used by both regular and two-phase commit statistics handling
 - Ensures that statistics entries are properly initialized and ready for accumulation of statistics data
+
+## Simplified Source
+
+```c
+static PgStat_TableStatus *
+pgstat_prep_relation_pending(Oid rel_id, bool isshared)
+{
+    PgStat_EntryRef *entry_ref;
+    PgStat_TableStatus *pending;
+
+    // Create or find pending statistics entry for the relation
+    entry_ref = pgstat_prep_pending_entry(PGSTAT_KIND_RELATION,
+                                          isshared ? InvalidOid : MyDatabaseId,
+                                          rel_id, NULL);
+
+    // Initialize the pending entry with basic information
+    pending = entry_ref->pending;
+    pending->id = rel_id;
+    pending->shared = isshared;
+
+    return pending;
+}
+```

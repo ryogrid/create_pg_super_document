@@ -33,3 +33,22 @@ This function is the begin prepare callback for the pgoutput logical replication
 - Works in conjunction with pgoutput_prepare_txn and pgoutput_commit_prepared_txn
 - Simpler than regular begin callback as it doesn't track transaction state like sent_begin_txn flag
 - Essential for maintaining consistency in distributed transaction scenarios
+
+## Simplified Source
+
+```c
+static void
+pgoutput_begin_prepare_txn(LogicalDecodingContext *ctx, ReorderBufferTXN *txn)
+{
+    bool send_replication_origin = txn->origin_id != InvalidRepOriginId;
+
+    // Send BEGIN PREPARE message
+    OutputPluginPrepareWrite(ctx, !send_replication_origin);
+    logicalrep_write_begin_prepare(ctx->out, txn);
+
+    // Include origin info if transaction came from another node
+    send_repl_origin(ctx, txn->origin_id, txn->origin_lsn, send_replication_origin);
+
+    OutputPluginWrite(ctx, true);
+}
+```

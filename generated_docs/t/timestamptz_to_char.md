@@ -47,3 +47,44 @@ Like its timestamp counterpart, it manually calculates day-of-week and day-of-ye
 - Part of PostgreSQL's public SQL function interface, accessible via SQL to_char() calls
 - Timezone information enables format codes like TZ, OF, etc. to display timezone details
 - Handles timestamp overflow with appropriate error reporting using ERRCODE_DATETIME_VALUE_OUT_OF_RANGE
+
+## Simplified Source
+
+```c
+Datum timestamptz_to_char(PG_FUNCTION_ARGS) {
+    TimestampTz dt = PG_GETARG_TIMESTAMP(0);
+    text *fmt = PG_GETARG_TEXT_PP(1);
+    TmToChar tmtc;
+    int tz;
+    struct pg_tm tt;
+    struct fmt_tm *tm;
+    int thisdate;
+
+    // Return NULL for empty format or invalid timestamp
+    if (VARSIZE_ANY_EXHDR(fmt) <= 0 || TIMESTAMP_NOT_FINITE(dt))
+        PG_RETURN_NULL();
+
+    // Initialize time conversion structure
+    ZERO_tmtc(&tmtc);
+    tm = tmtcTm(&tmtc);
+
+    // Convert timestamptz to broken-down time with timezone info
+    if (timestamp2tm(dt, &tz, &tt, &tmtcFsec(&tmtc), &tmtcTzn(&tmtc), NULL) != 0)
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                       errmsg("timestamp out of range")));
+
+    // Calculate day of week and day of year (not provided by timestamp2tm)
+    thisdate = date2j(tt.tm_year, tt.tm_mon, tt.tm_mday);
+    tt.tm_wday = (thisdate + 1) % 7;
+    tt.tm_yday = thisdate - date2j(tt.tm_year, 1, 1) + 1;
+
+    // Copy time structure and delegate to formatting function
+    COPY_tm(tm, &tt);
+
+    text *res = datetime_to_char_body(&tmtc, fmt, false, PG_GET_COLLATION());
+    if (!res)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(res);
+}
+```

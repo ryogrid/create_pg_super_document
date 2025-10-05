@@ -34,3 +34,21 @@ This function serves as the entry point for PostgreSQL's array subscripting fram
 - Must be referenced in the element type's pg_type.typarray field to function properly
 - Part of PostgreSQL's pluggable subscripting architecture introduced to support custom subscripting behavior
 - The function follows PostgreSQL's PG_FUNCTION_ARGS calling convention
+
+## Simplified Source
+
+```c
+Datum array_subscript_handler(PG_FUNCTION_ARGS)
+{
+    // Static structure defining array subscripting behavior
+    static const SubscriptRoutines sbsroutines = {
+        .transform = array_subscript_transform,
+        .exec_setup = array_exec_setup,
+        .fetch_strict = true,     // Returns NULL for NULL inputs
+        .fetch_leakproof = true,  // Returns NULL for bad subscripts
+        .store_leakproof = false  // Assignment throws errors
+    };
+
+    PG_RETURN_POINTER(&sbsroutines);
+}
+```

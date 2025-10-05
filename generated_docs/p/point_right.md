@@ -38,3 +38,14 @@ The function is the complement to point_left and is part of a family of relation
 - Primarily used in spatial indexing operations, particularly SP-GiST quadtree implementations
 - Returns true if pt1->x > pt2->x using floating-point comparison
 - Complementary function to point_left for horizontal position comparisons
+
+## Simplified Source
+```c
+Datum point_right(PG_FUNCTION_ARGS) {
+    Point *pt1 = PG_GETARG_POINT_P(0);
+    Point *pt2 = PG_GETARG_POINT_P(1);
+
+    // Return true if pt1 is to the right of pt2 (larger x-coordinate)
+    PG_RETURN_BOOL(FPgt(pt1->x, pt2->x));
+}
+```

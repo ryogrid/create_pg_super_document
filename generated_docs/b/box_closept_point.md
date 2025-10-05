@@ -39,3 +39,55 @@ This static function finds the closest point on a box (rectangle) to a given poi
 - Used extensively in distance calculations between points and rectangular regions
 - Returns float8 (double precision) distance value
 - Critical for PostgreSQL's geometric operations involving box proximity calculations
+
+## Simplified Source
+
+```c
+static float8 box_closept_point(Point *result, BOX *box, Point *pt) {
+    float8 dist, d;
+    Point corner, closept;
+    LSEG edge;
+
+    // If point is inside box, distance is 0
+    if (box_contain_point(box, pt)) {
+        if (result != NULL)
+            *result = *pt;
+        return 0.0;
+    }
+
+    // Check distance to each of the 4 box edges
+    // Bottom edge: low -> (low.x, high.y)
+    corner.x = box->low.x;
+    corner.y = box->high.y;
+    statlseg_construct(&edge, &box->low, &corner);
+    dist = lseg_closept_point(result, &edge, pt);
+
+    // Top edge: (low.x, high.y) -> high
+    statlseg_construct(&edge, &box->high, &corner);
+    d = lseg_closept_point(&closept, &edge, pt);
+    if (d < dist) {
+        dist = d;
+        if (result != NULL) *result = closept;
+    }
+
+    // Left edge: low -> (high.x, low.y)
+    corner.x = box->high.x;
+    corner.y = box->low.y;
+    statlseg_construct(&edge, &box->low, &corner);
+    d = lseg_closept_point(&closept, &edge, pt);
+    if (d < dist) {
+        dist = d;
+        if (result != NULL) *result = closept;
+    }
+
+    // Right edge: (high.x, low.y) -> high
+    statlseg_construct(&edge, &box->high, &corner);
+    d = lseg_closept_point(&closept, &edge, pt);
+    if (d < dist) {
+        dist = d;
+        if (result != NULL) *result = closept;
+    }
+
+    return dist;
+}
+```

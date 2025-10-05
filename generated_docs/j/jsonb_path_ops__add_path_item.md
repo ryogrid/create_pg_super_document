@@ -38,3 +38,39 @@ The function returns false for unsupported path item types (wildcards, item meth
 
 ## Notes and Other Information
 This function is specifically designed for the jsonb_path_ops GIN operator class, which provides path-aware indexing capabilities. It only supports a subset of JSON path operations that can be efficiently indexed. Complex path expressions with wildcards or method calls are not supported and will cause the function to return false, indicating the query cannot be optimized using this index strategy.
+
+## Simplified Source
+
+```c
+static bool
+jsonb_path_ops__add_path_item(JsonPathGinPath *path, JsonPathItem *jsp)
+{
+    switch (jsp->type)
+    {
+        case jpiRoot:
+            // Reset path hash for new path
+            path->hash = 0;
+            return true;
+
+        case jpiKey:
+            {
+                // Extract string key and combine with existing hash
+                JsonbValue jbv;
+                jbv.type = jbvString;
+                jbv.val.string.val = jspGetString(jsp, &jbv.val.string.len);
+
+                JsonbHashScalarValue(&jbv, &path->hash);
+                return true;
+            }
+
+        case jpiIndexArray:
+        case jpiAnyArray:
+            // Path hash unchanged for array navigation
+            return true;
+
+        default:
+            // Unsupported items (wildcards, methods) not indexable
+            return false;
+    }
+}
+```

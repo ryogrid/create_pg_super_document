@@ -61,3 +61,44 @@ The btrescan function reinitializes an existing B-tree index scan with new scan 
 - The tuple workspace allocation includes a safety mechanism for name_ops columns to prevent memory access violations
 - Resets scan position markers and key counts, which will be properly set later by _bt_preprocess_keys
 - Only allocates tuple workspace when xs_want_itup is true, indicating an index-only scan is desired
+
+## Simplified Source
+
+```c
+void btrescan(IndexScanDesc scan, ScanKey scankey, int nscankeys,
+             ScanKey orderbys, int norderbys) {
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+
+    // Clean up current scan position
+    if (BTScanPosIsValid(so->currPos)) {
+        // Process any killed items before leaving page
+        if (so->numKilled > 0)
+            _bt_killitems(scan);
+        BTScanPosUnpinIfPinned(so->currPos);
+        BTScanPosInvalidate(so->currPos);
+    }
+
+    // Reset scan state
+    so->markItemIndex = -1;
+    so->needPrimScan = false;
+    so->scanBehind = false;
+    BTScanPosUnpinIfPinned(so->markPos);
+    BTScanPosInvalidate(so->markPos);
+
+    // Allocate tuple workspace for index-only scans if needed
+    if (scan->xs_want_itup && so->currTuples == NULL) {
+        so->currTuples = (char *) palloc(BLCKSZ * 2);
+        so->markTuples = so->currTuples + BLCKSZ;  // Second half of allocation
+    }
+
+    // Copy new scan keys
+    if (scankey && scan->numberOfKeys > 0) {
+        memmove(scan->keyData, scankey,
+                scan->numberOfKeys * sizeof(ScanKeyData));
+    }
+
+    // Reset key counts (will be set by _bt_preprocess_keys)
+    so->numberOfKeys = 0;
+    so->numArrayKeys = 0;
+}
+```

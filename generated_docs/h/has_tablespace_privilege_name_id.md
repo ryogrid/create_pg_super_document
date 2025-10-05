@@ -40,3 +40,32 @@ This variant uses the extended ACL check (`object_aclcheck_ext`) which provides 
 - Part of the overloaded `has_tablespace_privilege` function family
 - Located in `src/backend/utils/adt/acl.c:4257-4286`
 - The `is_missing` flag allows graceful handling of non-existent tablespaces
+
+## Simplified Source
+
+```c
+Datum
+has_tablespace_privilege_name_id(PG_FUNCTION_ARGS)
+{
+    Name        username = PG_GETARG_NAME(0);
+    Oid         tablespaceoid = PG_GETARG_OID(1);
+    text       *priv_type_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert username to role OID (handles 'public' role)
+    Oid roleid = get_role_oid_or_public(NameStr(*username));
+
+    // Convert privilege string to ACL mode
+    AclMode mode = convert_tablespace_priv_string(priv_type_text);
+
+    // Check access permissions with missing object detection
+    bool is_missing = false;
+    AclResult aclresult = object_aclcheck_ext(TableSpaceRelationId, tablespaceoid,
+                                              roleid, mode, &is_missing);
+
+    // Return NULL if tablespace doesn't exist, otherwise return boolean result
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

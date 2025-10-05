@@ -38,3 +38,14 @@ The function operates on the vertical axis and is part of a family of relational
 - Primarily used in spatial indexing operations, particularly SP-GiST quadtree implementations
 - Returns true if pt1->y > pt2->y using floating-point comparison
 - Operates on the vertical axis, complementary to point_left/point_right which operate on the horizontal axis
+
+## Simplified Source
+```c
+Datum point_above(PG_FUNCTION_ARGS) {
+    Point *pt1 = PG_GETARG_POINT_P(0);
+    Point *pt2 = PG_GETARG_POINT_P(1);
+
+    // Return true if pt1 is above pt2 (larger y-coordinate)
+    PG_RETURN_BOOL(FPgt(pt1->y, pt2->y));
+}
+```

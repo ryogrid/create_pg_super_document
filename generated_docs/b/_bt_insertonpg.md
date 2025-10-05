@@ -9,10 +9,18 @@ _bt_insertonpg is a recursive function that performs tuple insertion on a specif
 ## Definition
 
 ```c
-struct final itup (as well as nposting) using
-				 * _bt_swap_posting().
-				 */
-				upostingoff = postingoff;
+static void
+_bt_insertonpg(Relation rel,
+			   Relation heaprel,
+			   BTScanInsert itup_key,
+			   Buffer buf,
+			   Buffer cbuf,
+			   BTStack stack,
+			   IndexTuple itup,
+			   Size itemsz,
+			   OffsetNumber newitemoff,
+			   int postingoff,
+			   bool split_only_page)
 ```
 ## Detailed Description
 This recursive procedure is the core insertion mechanism for B-tree indexes. It handles several complex scenarios:
@@ -30,17 +38,17 @@ This recursive procedure is the core insertion mechanism for B-tree indexes. It 
 The function ensures WAL logging for crash recovery and maintains B-tree invariants throughout the insertion process. It operates with the assumption that the caller has already acquired the necessary buffer locks and handles buffer cleanup upon completion.
 
 ## Parameters / Member Variables
-- : The B-tree index relation being modified
-- : The heap relation that the index references  
-- : BTScanInsert structure containing search/insertion key information
-- : Buffer containing the target page for insertion (must be pinned and write-locked)
-- : Left-sibling buffer when inserting to non-leaf page (used to clear INCOMPLETE_SPLIT flag)
-- : BTStack containing parent page information for potential recursive calls
-- : The IndexTuple to be inserted
-- : Size of the item being inserted (MAXALIGN'd size of itup)
-- : Offset number where the new item should be inserted
-- : Offset within posting list for duplicate handling (0 if not splitting posting list)
-- : True if inserting because we split the only page on a tree level
+- `rel`: The B-tree index relation being modified
+- `heaprel`: The heap relation that the index references
+- `itup_key`: BTScanInsert structure containing search/insertion key information
+- `buf`: Buffer containing the target page for insertion (must be pinned and write-locked)
+- `cbuf`: Left-sibling buffer when inserting to non-leaf page (used to clear INCOMPLETE_SPLIT flag)
+- `stack`: BTStack containing parent page information for potential recursive calls
+- `itup`: The IndexTuple to be inserted
+- `itemsz`: Size of the item being inserted (MAXALIGN'd size of itup)
+- `newitemoff`: Offset number where the new item should be inserted
+- `postingoff`: Offset within posting list for duplicate handling (0 if not splitting posting list)
+- `split_only_page`: True if inserting because we split the only page on a tree level
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -62,3 +70,125 @@ The function ensures WAL logging for crash recovery and maintains B-tree invaria
 - Critical sections are used around page modifications to ensure atomicity
 - The function includes extensive assertion checking for debugging and correctness validation
 - Handles both simple insertions and complex scenarios involving posting list splits and page splits
+
+## Simplified Source
+
+```c
+static void _bt_insertonpg(Relation rel, Relation heaprel, BTScanInsert itup_key,
+                          Buffer buf, Buffer cbuf, BTStack stack, IndexTuple itup,
+                          Size itemsz, OffsetNumber newitemoff, int postingoff,
+                          bool split_only_page) {
+    Page page;
+    BTPageOpaque opaque;
+    bool isleaf, isroot, isrightmost, isonly;
+    IndexTuple oposting = NULL;
+    IndexTuple nposting = NULL;
+
+    page = BufferGetPage(buf);
+    opaque = BTPageGetOpaque(page);
+    isleaf = P_ISLEAF(opaque);
+    isroot = P_ISROOT(opaque);
+    isrightmost = P_RIGHTMOST(opaque);
+    isonly = P_LEFTMOST(opaque) && P_RIGHTMOST(opaque);
+
+    // Handle posting list split if needed
+    if (postingoff != 0) {
+        ItemId itemid = PageGetItemId(page, newitemoff);
+        oposting = (IndexTuple) PageGetItem(page, itemid);
+
+        // Create modified copy of itup and split posting list
+        IndexTuple origitup = itup;
+        itup = CopyIndexTuple(origitup);
+        nposting = _bt_swap_posting(itup, oposting, postingoff);
+
+        // Adjust offset for new item after posting list
+        newitemoff = OffsetNumberNext(newitemoff);
+    }
+
+    // Check if page split is needed
+    if (PageGetFreeSpace(page) < itemsz) {
+        Buffer rbuf;
+
+        // Split the page
+        rbuf = _bt_split(rel, heaprel, itup_key, buf, cbuf, newitemoff, itemsz,
+                        itup, origitup, nposting, postingoff);
+
+        // Insert parent downlink to complete split
+        _bt_insert_parent(rel, heaprel, buf, rbuf, stack, isroot, isonly);
+    } else {
+        // Direct insertion without split
+        Buffer metabuf = InvalidBuffer;
+
+        // Handle fast root updates if needed
+        if (unlikely(split_only_page)) {
+            metabuf = _bt_getbuf(rel, BTREE_METAPAGE, BT_WRITE);
+            // Update metapage fast root if appropriate
+        }
+
+        START_CRIT_SECTION();
+
+        // Apply posting list split if needed
+        if (postingoff != 0)
+            memcpy(oposting, nposting, MAXALIGN(IndexTupleSize(nposting)));
+
+        // Insert the tuple
+        if (PageAddItem(page, (Item) itup, itemsz, newitemoff, false, false) == InvalidOffsetNumber)
+            elog(PANIC, "failed to add new item to block %u in index \"%s\"",
+                 BufferGetBlockNumber(buf), RelationGetRelationName(rel));
+
+        MarkBufferDirty(buf);
+
+        // Update metapage if needed
+        if (BufferIsValid(metabuf)) {
+            Page metapg = BufferGetPage(metabuf);
+            BTMetaPageData *metad = BTPageGetMeta(metapg);
+            metad->btm_fastroot = BufferGetBlockNumber(buf);
+            metad->btm_fastlevel = opaque->btpo_level;
+            MarkBufferDirty(metabuf);
+        }
+
+        // Clear INCOMPLETE_SPLIT flag on child if needed
+        if (!isleaf) {
+            Page cpage = BufferGetPage(cbuf);
+            BTPageOpaque cpageop = BTPageGetOpaque(cpage);
+            cpageop->btpo_flags &= ~BTP_INCOMPLETE_SPLIT;
+            MarkBufferDirty(cbuf);
+        }
+
+        // WAL logging
+        if (RelationNeedsWAL(rel)) {
+            xl_btree_insert xlrec;
+            xlrec.offnum = newitemoff;
+
+            XLogBeginInsert();
+            XLogRegisterData((char *) &xlrec, SizeOfBtreeInsert);
+            XLogRegisterBuffer(0, buf, REGBUF_STANDARD);
+            XLogRegisterBufData(0, (char *) itup, IndexTupleSize(itup));
+
+            XLogRecPtr recptr = XLogInsert(RM_BTREE_ID, XLOG_BTREE_INSERT_LEAF);
+            PageSetLSN(page, recptr);
+        }
+
+        END_CRIT_SECTION();
+
+        // Cleanup
+        if (BufferIsValid(metabuf)) _bt_relbuf(rel, metabuf);
+        if (!isleaf) _bt_relbuf(rel, cbuf);
+
+        // Cache rightmost leaf page for fastpath optimization
+        if (isrightmost && isleaf && !isroot) {
+            BlockNumber blockcache = BufferGetBlockNumber(buf);
+            if (_bt_getrootheight(rel) >= BTREE_FASTPATH_MIN_LEVEL)
+                RelationSetTargetBlock(rel, blockcache);
+        }
+
+        _bt_relbuf(rel, buf);
+    }
+
+    // Cleanup posting split copies
+    if (postingoff != 0) {
+        pfree(nposting);
+        pfree(itup);
+    }
+}
+```

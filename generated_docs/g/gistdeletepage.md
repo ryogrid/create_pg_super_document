@@ -325,4 +325,79 @@ Text creation and manipulation
 - Uses conservative transaction ID-based recycling to ensure deleted pages aren't reused until all concurrent scans complete
 - Implements critical section protection during the actual deletion to ensure atomicity
 - Designed to be safe under high concurrency - gives up rather than risking corruption when conditions change
-- Part of the GiST index vacuum subsystem located in 
+- Part of the GiST index vacuum subsystem located in src/backend/access/gist/gistvacuum.c
+
+## Simplified Source
+
+```c
+static bool
+gistdeletepage(IndexVacuumInfo *info, IndexBulkDeleteResult *stats,
+               Buffer parentBuffer, OffsetNumber downlink,
+               Buffer leafBuffer)
+{
+    Page parentPage = BufferGetPage(parentBuffer);
+    Page leafPage = BufferGetPage(leafBuffer);
+    ItemId iid;
+    IndexTuple idxtuple;
+    XLogRecPtr recptr;
+    FullTransactionId txid;
+
+    // Validate leaf page is still deletable
+    if (!GistPageIsLeaf(leafPage)) {
+        Assert(false);
+        return false;
+    }
+
+    if (GistFollowRight(leafPage))
+        return false;  // Concurrent page split in progress
+
+    if (PageGetMaxOffsetNumber(leafPage) != InvalidOffsetNumber)
+        return false;  // Page is no longer empty
+
+    // Validate parent page and downlink
+    if (PageIsNew(parentPage) || GistPageIsDeleted(parentPage) ||
+        GistPageIsLeaf(parentPage)) {
+        Assert(false);
+        return false;
+    }
+
+    if (PageGetMaxOffsetNumber(parentPage) < downlink ||
+        PageGetMaxOffsetNumber(parentPage) <= FirstOffsetNumber)
+        return false;
+
+    // Verify downlink still points to correct leaf page
+    iid = PageGetItemId(parentPage, downlink);
+    idxtuple = (IndexTuple) PageGetItem(parentPage, iid);
+    if (BufferGetBlockNumber(leafBuffer) !=
+        ItemPointerGetBlockNumber(&(idxtuple->t_tid)))
+        return false;
+
+    // All checks passed - proceed with deletion
+    txid = ReadNextFullTransactionId();
+
+    START_CRIT_SECTION();
+
+    // Mark leaf page as deleted with transaction ID
+    MarkBufferDirty(leafBuffer);
+    GistPageSetDeleted(leafPage, txid);
+    stats->pages_newly_deleted++;
+    stats->pages_deleted++;
+
+    // Remove downlink from parent page
+    MarkBufferDirty(parentBuffer);
+    PageIndexTupleDelete(parentPage, downlink);
+
+    // Write WAL record if needed
+    if (RelationNeedsWAL(info->index))
+        recptr = gistXLogPageDelete(leafBuffer, txid, parentBuffer, downlink);
+    else
+        recptr = gistGetFakeLSN(info->index);
+
+    PageSetLSN(parentPage, recptr);
+    PageSetLSN(leafPage, recptr);
+
+    END_CRIT_SECTION();
+
+    return true;
+}
+```

@@ -39,3 +39,34 @@ The function performs validation on the conpfeqop array to ensure it's properly 
 - The extracted operator OIDs are stored as a List in the old_conpfeqop field
 - This optimization allows foreign key constraint revalidation to be skipped when operators remain compatible after column type changes
 - The validation logic mirrors that used in ri_FetchConstraintInfo() for consistency
+
+## Simplified Source
+
+```c
+static void TryReuseForeignKey(Oid oldId, Constraint *con) {
+    Assert(con->contype == CONSTR_FOREIGN);
+    Assert(con->old_conpfeqop == NIL);  // Should not already be prepared
+
+    // Look up the existing foreign key constraint
+    HeapTuple tup = SearchSysCache1(CONSTROID, ObjectIdGetDatum(oldId));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for constraint %u", oldId);
+
+    // Extract the equality operators array from pg_constraint
+    Datum adatum = SysCacheGetAttrNotNull(CONSTROID, tup,
+                                         Anum_pg_constraint_conpfeqop);
+    ArrayType *arr = DatumGetArrayTypeP(adatum);
+
+    // Validate the array format (same checks as ri_FetchConstraintInfo)
+    int numkeys = ARR_DIMS(arr)[0];
+    if (ARR_NDIM(arr) != 1 || ARR_HASNULL(arr) || ARR_ELEMTYPE(arr) != OIDOID)
+        elog(ERROR, "conpfeqop is not a 1-D Oid array");
+
+    // Extract operator OIDs and store them in the constraint node
+    Oid *rawarr = (Oid *) ARR_DATA_PTR(arr);
+    for (int i = 0; i < numkeys; i++)
+        con->old_conpfeqop = lappend_oid(con->old_conpfeqop, rawarr[i]);
+
+    ReleaseSysCache(tup);
+}
+```

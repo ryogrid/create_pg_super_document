@@ -44,3 +44,55 @@ The function includes robust error handling, setting errno to PGTYPES_TS_BAD_TIM
 - Part of the ECPG pgtypes library for embedded SQL applications
 - The commented-out AdjustTimestampForTypmod line suggests potential future support for timestamp precision adjustment
 - Error handling uses PGTYPES_TS_BAD_TIMESTAMP errno value consistently across different failure modes
+
+## Simplified Source
+
+```c
+timestamp PGTYPEStimestamp_from_asc(char *str, char **endptr) {
+    timestamp result;
+    struct tm tt, *tm = &tt;
+    int dtype, nf;
+    char *field[MAXDATEFIELDS];
+    int ftype[MAXDATEFIELDS];
+    char lowstr[MAXDATELEN + MAXDATEFIELDS];
+    fsec_t fsec;
+
+    // Check string length limit
+    if (strlen(str) > MAXDATELEN) {
+        errno = PGTYPES_TS_BAD_TIMESTAMP;
+        return 0;
+    }
+
+    // Parse and decode the datetime string
+    if (ParseDateTime(str, lowstr, field, ftype, &nf, endptr) != 0 ||
+        DecodeDateTime(field, ftype, nf, &dtype, tm, &fsec, 0) != 0) {
+        errno = PGTYPES_TS_BAD_TIMESTAMP;
+        return 0;
+    }
+
+    // Handle different timestamp types
+    switch (dtype) {
+        case DTK_DATE:
+            if (tm2timestamp(tm, fsec, NULL, &result) != 0) {
+                errno = PGTYPES_TS_BAD_TIMESTAMP;
+                return 0;
+            }
+            break;
+        case DTK_EPOCH:
+            result = SetEpochTimestamp();
+            break;
+        case DTK_LATE:
+            TIMESTAMP_NOEND(result);
+            break;
+        case DTK_EARLY:
+            TIMESTAMP_NOBEGIN(result);
+            break;
+        default:
+            errno = PGTYPES_TS_BAD_TIMESTAMP;
+            return 0;
+    }
+
+    errno = 0;  // Clear errno on success
+    return result;
+}
+```

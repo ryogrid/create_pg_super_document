@@ -37,3 +37,29 @@ Unlike other variants in this family, this function does not handle missing sche
 - Uses the standard PostgreSQL function calling convention with PG_FUNCTION_ARGS
 - Part of the Access Control List (ACL) system in PostgreSQL
 - Located in src/backend/utils/adt/acl.c:3913-3935
+
+## Simplified Source
+
+```c
+Datum
+has_schema_privilege_id_name(PG_FUNCTION_ARGS)
+{
+    Oid        roleid = PG_GETARG_OID(0);
+    text      *schemaname = PG_GETARG_TEXT_PP(1);
+    text      *priv_type_text = PG_GETARG_TEXT_PP(2);
+    Oid        schemaoid;
+    AclMode    mode;
+    AclResult  aclresult;
+
+    // Convert schema name to schema OID
+    schemaoid = convert_schema_name(schemaname);
+
+    // Convert privilege string to access mode
+    mode = convert_schema_priv_string(priv_type_text);
+
+    // Check if role has the specified privilege on the schema
+    aclresult = object_aclcheck(NamespaceRelationId, schemaoid, roleid, mode);
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

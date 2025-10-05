@@ -34,3 +34,28 @@ This function is a helper routine used during B-tree page scanning to store inde
 - Tuple copying is conditional based on whether  is allocated, allowing for memory-efficient scanning when full tuple data isn't needed
 - Uses MAXALIGN to ensure proper memory alignment of stored tuples
 - Part of the B-tree scanning infrastructure in nbtsearch.c
+
+## Simplified Source
+
+```c
+static void
+_bt_saveitem(BTScanOpaque so, int itemIndex,
+             OffsetNumber offnum, IndexTuple itup)
+{
+    BTScanPosItem *currItem = &so->currPos.items[itemIndex];
+
+    // Store heap tuple ID and page offset
+    currItem->heapTid = itup->t_tid;
+    currItem->indexOffset = offnum;
+
+    // Copy tuple data if caching is enabled
+    if (so->currTuples) {
+        Size tupleSize = IndexTupleSize(itup);
+        currItem->tupleOffset = so->currPos.nextTupleOffset;
+
+        // Copy tuple data with proper alignment
+        memcpy(so->currTuples + so->currPos.nextTupleOffset, itup, tupleSize);
+        so->currPos.nextTupleOffset += MAXALIGN(tupleSize);
+    }
+}
+```

@@ -38,3 +38,14 @@ The function is part of a family of relational operators for Points that maintai
 - Results may be approximate due to floating-point epsilon handling
 - Primarily used in spatial indexing operations, particularly SP-GiST quadtree implementations
 - Returns true if pt1->x < pt2->x using floating-point comparison
+
+## Simplified Source
+```c
+Datum point_left(PG_FUNCTION_ARGS) {
+    Point *pt1 = PG_GETARG_POINT_P(0);
+    Point *pt2 = PG_GETARG_POINT_P(1);
+
+    // Return true if pt1 is to the left of pt2 (smaller x-coordinate)
+    PG_RETURN_BOOL(FPlt(pt1->x, pt2->x));
+}
+```

@@ -40,3 +40,38 @@ The function also handles cases where the selected database is not present in th
 - Works in conjunction with  to provide complete worker lifecycle management
 - The  parameter controls the minimum interval between worker launches for the same database
 - Critical for preventing database starvation and ensuring balanced autovacuum scheduling across the cluster
+
+## Simplified Source
+
+```c
+static void launch_worker(TimestampTz now)
+{
+    // Start a worker and get the selected database OID
+    Oid dbid = do_start_worker();
+
+    if (OidIsValid(dbid)) {
+        bool found = false;
+
+        // Find the database in our schedule list and update its next worker time
+        dlist_foreach(iter, &DatabaseList) {
+            avl_dbase *db_entry = dlist_container(avl_dbase, adl_node, iter.cur);
+
+            if (db_entry->adl_datid == dbid) {
+                found = true;
+
+                // Schedule next worker for this database after naptime
+                db_entry->adl_next_worker =
+                    TimestampTzPlusMilliseconds(now, autovacuum_naptime * 1000);
+
+                // Move to front of list for efficiency
+                dlist_move_head(&DatabaseList, iter.cur);
+                break;
+            }
+        }
+
+        // If database not in list, rebuild the entire list
+        if (!found)
+            rebuild_database_list(dbid);
+    }
+}
+```

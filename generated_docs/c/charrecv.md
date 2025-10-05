@@ -39,3 +39,15 @@ This function is used when data is sent in PostgreSQL's binary format (format co
 - Works in conjunction with charsend() for round-trip binary serialization
 - The external binary representation is exactly one byte
 - Used by prepared statements and other binary protocol operations
+
+## Simplified Source
+
+```c
+Datum charrecv(PG_FUNCTION_ARGS) {
+    // Get the message buffer containing binary data
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+
+    // Read one byte from buffer and return as char
+    PG_RETURN_CHAR(pq_getmsgbyte(buf));
+}
+```

@@ -30,3 +30,32 @@ This function updates the archiver statistics in shared memory based on the outc
 
 ## Notes and Other Information
 The function uses the changecount mechanism to ensure atomic updates to shared memory statistics, preventing readers from seeing inconsistent intermediate states during updates. The statistics are maintained separately for successful and failed archival attempts, with each category tracking count, last WAL file name, and timestamp.
+
+## Simplified Source
+
+```c
+void pgstat_report_archiver(const char *xlog, bool failed) {
+    PgStatShared_Archiver *stats_shmem = &pgStatLocal.shmem->archiver;
+    TimestampTz now = GetCurrentTimestamp();
+
+    // Begin atomic update
+    pgstat_begin_changecount_write(&stats_shmem->changecount);
+
+    if (failed) {
+        // Record failed archival
+        ++stats_shmem->stats.failed_count;
+        memcpy(&stats_shmem->stats.last_failed_wal, xlog,
+               sizeof(stats_shmem->stats.last_failed_wal));
+        stats_shmem->stats.last_failed_timestamp = now;
+    } else {
+        // Record successful archival
+        ++stats_shmem->stats.archived_count;
+        memcpy(&stats_shmem->stats.last_archived_wal, xlog,
+               sizeof(stats_shmem->stats.last_archived_wal));
+        stats_shmem->stats.last_archived_timestamp = now;
+    }
+
+    // End atomic update
+    pgstat_end_changecount_write(&stats_shmem->changecount);
+}
+```

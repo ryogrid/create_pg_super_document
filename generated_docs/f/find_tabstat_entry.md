@@ -37,3 +37,43 @@ The function ensures that live subtransaction counts are properly reconciled int
 - This function reconciles subtransaction statistics even if the caller may not need all the data
 - Memory management: The caller is responsible for freeing the returned PgStat_TableStatus using pfree()
 - The function first searches in the current database, then falls back to shared tables for system relations
+
+## Simplified Source
+
+```c
+PgStat_TableStatus *
+find_tabstat_entry(Oid rel_id)
+{
+    PgStat_EntryRef *entry_ref;
+    PgStat_TableStatus *tabentry = NULL;
+    PgStat_TableStatus *tablestatus = NULL;
+
+    // Try to find entry in current database first
+    entry_ref = pgstat_fetch_pending_entry(PGSTAT_KIND_RELATION, MyDatabaseId, rel_id);
+    if (!entry_ref)
+    {
+        // If not found, try shared tables
+        entry_ref = pgstat_fetch_pending_entry(PGSTAT_KIND_RELATION, InvalidOid, rel_id);
+        if (!entry_ref)
+            return NULL;
+    }
+
+    // Create a copy of the found entry
+    tabentry = (PgStat_TableStatus *) entry_ref->pending;
+    tablestatus = palloc(sizeof(PgStat_TableStatus));
+    *tablestatus = *tabentry;
+
+    // Clear shared memory pointer in copy
+    tablestatus->trans = NULL;
+
+    // Accumulate subtransaction counters into main counters
+    for (PgStat_TableXactStatus *trans = tabentry->trans; trans != NULL; trans = trans->upper)
+    {
+        tablestatus->counts.tuples_inserted += trans->tuples_inserted;
+        tablestatus->counts.tuples_updated += trans->tuples_updated;
+        tablestatus->counts.tuples_deleted += trans->tuples_deleted;
+    }
+
+    return tablestatus;
+}
+```

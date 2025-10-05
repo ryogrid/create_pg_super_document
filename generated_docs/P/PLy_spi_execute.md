@@ -42,3 +42,30 @@ The function uses Python's argument parsing to handle the different calling conv
 - Provides clear error messages when neither query string nor plan object is provided
 - The limit parameter is optional in both calling conventions, defaulting to 0 (no limit)
 - This design allows the same Python function (plpy.execute) to work with both raw queries and prepared statements
+
+## Simplified Source
+
+```c
+PyObject *PLy_spi_execute(PyObject *self, PyObject *args) {
+    char *query;
+    PyObject *plan;
+    PyObject *list = NULL;
+    long limit = 0;
+
+    // Try parsing as query string with optional limit
+    if (PyArg_ParseTuple(args, "s|l", &query, &limit))
+        return PLy_spi_execute_query(query, limit);
+
+    // Clear error from first parsing attempt
+    PyErr_Clear();
+
+    // Try parsing as plan object with optional values and limit
+    if (PyArg_ParseTuple(args, "O|Ol", &plan, &list, &limit) &&
+        is_PLyPlanObject(plan))
+        return PLy_spi_execute_plan(plan, list, limit);
+
+    // Neither format matched - set error
+    PLy_exception_set(PLy_exc_error, "plpy.execute expected a query or a plan");
+    return NULL;
+}
+```

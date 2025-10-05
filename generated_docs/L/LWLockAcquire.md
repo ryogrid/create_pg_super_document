@@ -63,3 +63,74 @@ The design philosophy emphasizes efficiency for the common case where locks are 
 - Semaphore count is carefully managed to handle spurious wakeups correctly
 - The function enforces a maximum number of simultaneously held locks per backend
 - Critical for PostgreSQL's concurrency control and shared memory protection
+
+## Simplified Source
+
+```c
+bool
+LWLockAcquire(LWLock *lock, LWLockMode mode)
+{
+    PGPROC *proc = MyProc;
+    bool result = true;
+    int extraWaits = 0;
+
+    Assert(mode == LW_SHARED || mode == LW_EXCLUSIVE);
+
+    // Ensure we have room to track this lock
+    if (num_held_lwlocks >= MAX_SIMUL_LWLOCKS)
+        elog(ERROR, "too many LWLocks taken");
+
+    // Disable interrupts while holding lock
+    HOLD_INTERRUPTS();
+
+    // Retry loop for lock acquisition
+    for (;;) {
+        bool mustwait;
+
+        // Try to grab the lock immediately
+        mustwait = LWLockAttemptLock(lock, mode);
+        if (!mustwait) {
+            break;  // Got the lock
+        }
+
+        // Add ourselves to wait queue
+        LWLockQueueSelf(lock, mode);
+
+        // Try again after queuing
+        mustwait = LWLockAttemptLock(lock, mode);
+        if (!mustwait) {
+            // Got it on second try, undo queuing
+            LWLockDequeueSelf(lock);
+            break;
+        }
+
+        // Wait until awakened
+        LWLockReportWaitStart(lock);
+
+        for (;;) {
+            PGSemaphoreLock(proc->sem);
+            if (proc->lwWaiting == LW_WS_NOT_WAITING)
+                break;
+            extraWaits++;  // Handle spurious wakeups
+        }
+
+        // Allow releases again
+        pg_atomic_fetch_or_u32(&lock->state, LW_FLAG_RELEASE_OK);
+
+        LWLockReportWaitEnd();
+
+        // Loop back and try to acquire again
+        result = false;
+    }
+
+    // Track this lock in our held locks list
+    held_lwlocks[num_held_lwlocks].lock = lock;
+    held_lwlocks[num_held_lwlocks++].mode = mode;
+
+    // Fix semaphore count for any extra wakeups
+    while (extraWaits-- > 0)
+        PGSemaphoreUnlock(proc->sem);
+
+    return result;
+}
+```

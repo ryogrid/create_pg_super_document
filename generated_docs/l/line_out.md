@@ -35,3 +35,23 @@ The function uses `float8out_internal` to ensure consistent formatting of floati
 - Output format matches the input format accepted by `line_in`
 - Memory management handled by PostgreSQL's memory context system
 - Line numbers: 1023-1037 in geo_ops.c
+
+## Simplified Source
+
+```c
+Datum
+line_out(PG_FUNCTION_ARGS)
+{
+    LINE *line = PG_GETARG_LINE_P(0);
+
+    // Convert each coefficient to string
+    char *astr = float8out_internal(line->A);
+    char *bstr = float8out_internal(line->B);
+    char *cstr = float8out_internal(line->C);
+
+    // Format as {A,B,C}
+    PG_RETURN_CSTRING(psprintf("%c%s%c%s%c%s%c",
+                               LDELIM_L, astr, DELIM, bstr,
+                               DELIM, cstr, RDELIM_L));
+}
+```

@@ -40,3 +40,31 @@ The function handles SupportRequestRows requests by examining the array argument
 - Returns NULL if the request type is not SupportRequestRows or if estimation fails
 - Uses paranoid checking with is_funcclause() to ensure the node structure is valid
 - The row estimate helps the planner make better decisions about join algorithms and memory usage
+
+## Simplified Source
+
+```c
+Datum
+array_unnest_support(PG_FUNCTION_ARGS)
+{
+    Node *rawreq = (Node *) PG_GETARG_POINTER(0);
+    Node *ret = NULL;
+
+    // Handle row count estimation requests
+    if (IsA(rawreq, SupportRequestRows)) {
+        SupportRequestRows *req = (SupportRequestRows *) rawreq;
+
+        // Validate this is a function call node
+        if (is_funcclause(req->node)) {
+            List *args = ((FuncExpr *) req->node)->args;
+
+            // Estimate array length for first argument
+            Node *arg1 = estimate_expression_value(req->root, linitial(args));
+            req->rows = estimate_array_length(req->root, arg1);
+            ret = (Node *) req;
+        }
+    }
+
+    PG_RETURN_POINTER(ret);
+}
+```

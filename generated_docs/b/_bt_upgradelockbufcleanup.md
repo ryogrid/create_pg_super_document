@@ -41,3 +41,16 @@ The upgrade is atomic in the sense that the function maintains continuous exclus
 - Cleanup locks are necessary for operations that temporarily leave pages in inconsistent states
 - Valgrind memory validation ensures buffer accessibility before proceeding with lock operations
 - After acquiring cleanup lock, the calling backend has exclusive access until explicitly releasing or downgrading the lock
+
+## Simplified Source
+
+```c
+void _bt_upgradelockbufcleanup(Relation rel, Buffer buf) {
+    // Validate buffer memory is accessible
+    VALGRIND_CHECK_MEM_IS_DEFINED(BufferGetPage(buf), BLCKSZ);
+
+    // Release current lock and acquire cleanup lock atomically
+    LockBuffer(buf, BUFFER_LOCK_UNLOCK);
+    LockBufferForCleanup(buf);
+}
+```

@@ -50,3 +50,40 @@ The raciness is intentional for testing purposes - between checking if a buffer 
 - **Buffer States**: Handles both clean and dirty buffers, attempting to flush dirty buffers before eviction
 - **Resource Management**: Properly manages buffer pins and resource ownership during the eviction process
 - **Location**: src/backend/storage/buffer/bufmgr.c:6070-6114
+
+## Simplified Source
+```c
+bool EvictUnpinnedBuffer(Buffer buf) {
+    BufferDesc *desc;
+    uint32 buf_state;
+
+    // Prepare resources for buffer operations
+    ResourceOwnerEnlarge(CurrentResourceOwner);
+    ReservePrivateRefCountEntry();
+
+    desc = GetBufferDescriptor(buf - 1);
+
+    // Check if buffer is valid and unpinned
+    buf_state = LockBufHdr(desc);
+    if (!(buf_state & BM_VALID) || BUF_STATE_GET_REFCOUNT(buf_state) > 0) {
+        UnlockBufHdr(desc, buf_state);
+        return false;
+    }
+
+    // Pin buffer temporarily for safe operation
+    PinBuffer_Locked(desc);
+
+    // Flush dirty buffer before eviction
+    if (buf_state & BM_DIRTY) {
+        LWLockAcquire(BufferDescriptorGetContentLock(desc), LW_SHARED);
+        FlushBuffer(desc, NULL, IOOBJECT_RELATION, IOCONTEXT_NORMAL);
+        LWLockRelease(BufferDescriptorGetContentLock(desc));
+    }
+
+    // Attempt to invalidate the buffer
+    bool result = InvalidateVictimBuffer(desc);
+
+    UnpinBuffer(desc);
+    return result;
+}
+```

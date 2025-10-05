@@ -42,3 +42,93 @@ This function performs a critical validation step during heap truncation by scan
 
 ## Notes and Other Information
 The function uses sophisticated I/O optimization with block prefetching and avoids vacuum delay points since it holds an exclusive lock that should be released quickly. It implements a time-based lock conflict detection mechanism that checks for waiting processes every 32 blocks but only performs the expensive lock waiter check after a specified time interval has elapsed. The backward scanning approach with prefetching allows for efficient verification while minimizing the time spent holding the exclusive lock.
+
+## Simplified Source
+
+```c
+static BlockNumber
+count_nondeletable_pages(LVRelState *vacrel, bool *lock_waiter_detected)
+{
+    BlockNumber blkno;
+    BlockNumber prefetchedUntil;
+    instr_time starttime;
+
+    // Initialize timing for lock conflict detection
+    INSTR_TIME_SET_CURRENT(starttime);
+
+    // Scan backwards from relation end with prefetching
+    blkno = vacrel->rel_pages;
+    prefetchedUntil = InvalidBlockNumber;
+
+    while (blkno > vacrel->nonempty_pages) {
+        Buffer buf;
+        Page page;
+        OffsetNumber offnum, maxoff;
+        bool hastup;
+
+        // Check for lock conflicts every 32 blocks
+        if ((blkno % 32) == 0) {
+            instr_time currenttime, elapsed;
+            INSTR_TIME_SET_CURRENT(currenttime);
+            elapsed = currenttime;
+            INSTR_TIME_SUBTRACT(elapsed, starttime);
+
+            if ((INSTR_TIME_GET_MICROSEC(elapsed) / 1000) >=
+                VACUUM_TRUNCATE_LOCK_CHECK_INTERVAL) {
+                if (LockHasWaitersRelation(vacrel->rel, AccessExclusiveLock)) {
+                    ereport(vacrel->verbose ? INFO : DEBUG2,
+                            (errmsg("suspending truncate due to conflicting lock request")));
+                    *lock_waiter_detected = true;
+                    return blkno;
+                }
+                starttime = currenttime;
+            }
+        }
+
+        CHECK_FOR_INTERRUPTS();
+        blkno--;
+
+        // Prefetch blocks for better I/O performance
+        if (prefetchedUntil > blkno) {
+            BlockNumber prefetchStart = blkno & ~(PREFETCH_SIZE - 1);
+            for (BlockNumber pblkno = prefetchStart; pblkno <= blkno; pblkno++) {
+                PrefetchBuffer(vacrel->rel, MAIN_FORKNUM, pblkno);
+                CHECK_FOR_INTERRUPTS();
+            }
+            prefetchedUntil = prefetchStart;
+        }
+
+        // Read and examine the page
+        buf = ReadBufferExtended(vacrel->rel, MAIN_FORKNUM, blkno,
+                                RBM_NORMAL, vacrel->bstrategy);
+        LockBuffer(buf, BUFFER_LOCK_SHARE);
+        page = BufferGetPage(buf);
+
+        if (PageIsNew(page) || PageIsEmpty(page)) {
+            UnlockReleaseBuffer(buf);
+            continue;
+        }
+
+        // Check if page has any used items
+        hastup = false;
+        maxoff = PageGetMaxOffsetNumber(page);
+        for (offnum = FirstOffsetNumber; offnum <= maxoff;
+             offnum = OffsetNumberNext(offnum)) {
+            ItemId itemid = PageGetItemId(page, offnum);
+            if (ItemIdIsUsed(itemid)) {
+                hastup = true;
+                break;
+            }
+        }
+
+        UnlockReleaseBuffer(buf);
+
+        // If page has tuples, we found the end
+        if (hastup)
+            return blkno + 1;
+    }
+
+    // All pages are empty
+    return vacrel->nonempty_pages;
+}
+```

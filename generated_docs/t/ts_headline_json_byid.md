@@ -36,3 +36,17 @@ This function serves as a wrapper around `ts_headline_json_byid_opt` that allows
 - No headline options are passed (NULL options parameter), so default highlighting behavior is used
 - Part of PostgreSQL full-text search functionality specifically designed for JSON document processing
 - The actual headline processing logic is implemented in `ts_headline_json_byid_opt`
+
+## Simplified Source
+
+```c
+Datum
+ts_headline_json_byid(PG_FUNCTION_ARGS)
+{
+    // Wrapper: use specified config but default options, delegate to full implementation
+    PG_RETURN_DATUM(DirectFunctionCall3(ts_headline_json_byid_opt,
+                                       PG_GETARG_DATUM(0),  // Config OID
+                                       PG_GETARG_DATUM(1),  // JSON document
+                                       PG_GETARG_DATUM(2))); // TSQuery
+}
+```

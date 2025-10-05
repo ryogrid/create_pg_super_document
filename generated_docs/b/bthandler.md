@@ -43,3 +43,68 @@ This function takes no specific parameters (uses PG_FUNCTION_ARGS macro for Post
 - Configures vacuum options to support both parallel bulk delete and conditional cleanup
 - The function is typically called by PostgreSQL's access method framework, not directly by user code
 - All B-tree specific callback functions are registered here, making this the central hub for B-tree functionality
+
+## Simplified Source
+
+```c
+Datum bthandler(PG_FUNCTION_ARGS)
+{
+    IndexAmRoutine *amroutine = makeNode(IndexAmRoutine);
+
+    // Set access method capabilities
+    amroutine->amstrategies = BTMaxStrategyNumber;
+    amroutine->amsupport = BTNProcs;
+    amroutine->amoptsprocnum = BTOPTIONS_PROC;
+
+    // Define what B-tree indexes can do
+    amroutine->amcanorder = true;        // Supports ordered scans
+    amroutine->amcanorderbyop = false;   // No ORDER BY operator support
+    amroutine->amcanbackward = true;     // Supports backward scans
+    amroutine->amcanunique = true;       // Supports unique constraints
+    amroutine->amcanmulticol = true;     // Supports multi-column indexes
+    amroutine->amoptionalkey = true;     // Can handle scans without keys
+    amroutine->amsearcharray = true;     // Supports array searches
+    amroutine->amsearchnulls = true;     // Can search for nulls
+    amroutine->amstorage = false;        // No TOAST storage needed
+    amroutine->amclusterable = true;     // Supports CLUSTER operation
+    amroutine->ampredlocks = true;       // Uses predicate locks
+    amroutine->amcanparallel = true;     // Supports parallel scans
+    amroutine->amcanbuildparallel = true; // Supports parallel builds
+    amroutine->amcaninclude = true;      // Supports INCLUDE columns
+    amroutine->amusemaintenanceworkmem = false;
+    amroutine->amsummarizing = false;
+
+    // Parallel vacuum options
+    amroutine->amparallelvacuumoptions =
+        VACUUM_OPTION_PARALLEL_BULKDEL | VACUUM_OPTION_PARALLEL_COND_CLEANUP;
+
+    amroutine->amkeytype = InvalidOid;
+
+    // Assign all callback functions
+    amroutine->ambuild = btbuild;
+    amroutine->ambuildempty = btbuildempty;
+    amroutine->aminsert = btinsert;
+    amroutine->aminsertcleanup = NULL;
+    amroutine->ambulkdelete = btbulkdelete;
+    amroutine->amvacuumcleanup = btvacuumcleanup;
+    amroutine->amcanreturn = btcanreturn;
+    amroutine->amcostestimate = btcostestimate;
+    amroutine->amoptions = btoptions;
+    amroutine->amproperty = btproperty;
+    amroutine->ambuildphasename = btbuildphasename;
+    amroutine->amvalidate = btvalidate;
+    amroutine->amadjustmembers = btadjustmembers;
+    amroutine->ambeginscan = btbeginscan;
+    amroutine->amrescan = btrescan;
+    amroutine->amgettuple = btgettuple;
+    amroutine->amgetbitmap = btgetbitmap;
+    amroutine->amendscan = btendscan;
+    amroutine->ammarkpos = btmarkpos;
+    amroutine->amrestrpos = btrestrpos;
+    amroutine->amestimateparallelscan = btestimateparallelscan;
+    amroutine->aminitparallelscan = btinitparallelscan;
+    amroutine->amparallelrescan = btparallelrescan;
+
+    PG_RETURN_POINTER(amroutine);
+}
+```

@@ -43,3 +43,64 @@ The function is the core lexical analysis routine for Snowball dictionaries in P
 - Uses memory context switching to ensure stemmer operations occur in the dictionary's memory context
 - Returns TSLexeme structure containing the processed lexeme or NULL for stopwords/empty strings
 - The function is designed to never reject input as 'unknown' - all strings are processed in some form
+
+## Simplified Source
+
+```c
+Datum dsnowball_lexize(PG_FUNCTION_ARGS) {
+    DictSnowball *d = (DictSnowball *) PG_GETARG_POINTER(0);
+    char *in = (char *) PG_GETARG_POINTER(1);
+    int32 len = PG_GETARG_INT32(2);
+
+    // Convert to lowercase
+    char *txt = lowerstr_with_len(in, len);
+    TSLexeme *res = palloc0(sizeof(TSLexeme) * 2);
+
+    // Safety check: strings over 1000 bytes are returned as-is
+    if (len > 1000) {
+        res->lexeme = txt;  // Return lowercased but unstemmed
+    }
+    // Check for empty string or stopword
+    else if (*txt == '\0' || searchstoplist(&(d->stoplist), txt)) {
+        pfree(txt);  // Return NULL (stopword)
+    }
+    else {
+        MemoryContext saveCtx;
+
+        // Convert to UTF-8 if stemmer requires it
+        if (d->needrecode) {
+            char *recoded = pg_server_to_any(txt, strlen(txt), PG_UTF8);
+            if (recoded != txt) {
+                pfree(txt);
+                txt = recoded;
+            }
+        }
+
+        // Apply stemming algorithm
+        saveCtx = MemoryContextSwitchTo(d->dictCtx);
+        SN_set_current(d->z, strlen(txt), (symbol *) txt);
+        d->stem(d->z);
+        MemoryContextSwitchTo(saveCtx);
+
+        // Extract stemmed result
+        if (d->z->p && d->z->l) {
+            txt = repalloc(txt, d->z->l + 1);
+            memcpy(txt, d->z->p, d->z->l);
+            txt[d->z->l] = '\0';
+        }
+
+        // Convert back from UTF-8 if needed
+        if (d->needrecode) {
+            char *recoded = pg_any_to_server(txt, strlen(txt), PG_UTF8);
+            if (recoded != txt) {
+                pfree(txt);
+                txt = recoded;
+            }
+        }
+
+        res->lexeme = txt;
+    }
+
+    PG_RETURN_POINTER(res);
+}
+```

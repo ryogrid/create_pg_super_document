@@ -26,3 +26,17 @@ This function serves as a cleanup callback in PostgreSQL's resource management s
 
 ## Notes and Other Information
 This function is part of PostgreSQL's robust resource management system that ensures proper cleanup of resources even in error conditions. It is registered as the ReleaseResource callback in the dsm_resowner_desc structure, making it automatically invoked whenever a ResourceOwner holding DSM segments is destroyed. The function is marked static as it is only used within the DSM subsystem as a callback function. The clearing of seg->resowner prevents potential issues during the detach process and maintains clean state transitions.
+
+## Simplified Source
+```c
+static void ResOwnerReleaseDSM(Datum res) {
+    // Extract DSM segment from the Datum parameter
+    dsm_segment *seg = (dsm_segment *) DatumGetPointer(res);
+
+    // Clear resource owner to prevent circular references
+    seg->resowner = NULL;
+
+    // Detach the DSM segment
+    dsm_detach(seg);
+}
+```

@@ -43,3 +43,35 @@ The function ensures that the multiplication does not cause integer overflow by 
 - The scaling preserves the monetary precision defined by the current locale
 - Input values are treated as whole currency units before scaling to the internal representation
 - Located in src/backend/utils/adt/cash.c:1136-1165
+
+## Simplified Source
+
+```c
+Datum int4_cash(PG_FUNCTION_ARGS) {
+    int32 amount = PG_GETARG_INT32(0);
+    Cash result;
+    int fpoint;
+    int64 scale;
+    int i;
+    struct lconv *lconvert = PGLC_localeconv();
+
+    // Get fractional digits from locale, default to 2 if invalid
+    fpoint = lconvert->frac_digits;
+    if (fpoint < 0 || fpoint > 10) {
+        fpoint = 2;
+    }
+
+    // Compute scale factor (10^fpoint)
+    scale = 1;
+    for (i = 0; i < fpoint; i++) {
+        scale *= 10;
+    }
+
+    // Multiply amount by scale with overflow checking
+    result = DatumGetInt64(DirectFunctionCall2(int8mul,
+                                             Int64GetDatum(amount),
+                                             Int64GetDatum(scale)));
+
+    PG_RETURN_CASH(result);
+}
+```

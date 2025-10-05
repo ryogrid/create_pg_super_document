@@ -43,3 +43,31 @@ If the right sibling is found to be half-dead, the deletion operation is deferre
 - Includes assertions to verify the target page is a leaf page and not already deleted
 - Part of the B-tree page deletion safety mechanism to handle concurrent VACUUM operations
 - The function helps prevent issues where parent pages may lack pivot tuples pointing to half-dead siblings
+
+## Simplified Source
+
+```c
+static bool _bt_rightsib_halfdeadflag(Relation rel, BlockNumber leafrightsib)
+{
+    Buffer buf;
+    Page page;
+    BTPageOpaque opaque;
+    bool result;
+
+    Assert(leafrightsib != P_NONE);
+
+    // Read the right sibling leaf page
+    buf = _bt_getbuf(rel, leafrightsib, BT_READ);
+    page = BufferGetPage(buf);
+    opaque = BTPageGetOpaque(page);
+
+    // Verify it's a valid leaf page
+    Assert(P_ISLEAF(opaque) && !P_ISDELETED(opaque));
+
+    // Check if page is half-dead (deletion in progress)
+    result = P_ISHALFDEAD(opaque);
+
+    _bt_relbuf(rel, buf);
+    return result;
+}
+```

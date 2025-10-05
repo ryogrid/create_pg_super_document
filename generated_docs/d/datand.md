@@ -44,3 +44,30 @@ This function implements the PostgreSQL SQL function  with degree output. It tak
 - Part of PostgreSQL's mathematical function library located in src/backend/utils/adt/float.c:2175-2206
 - Implements the SQL standard ATAN function with degree output rather than radian output
 - The use of volatile storage for  may help ensure consistent floating-point behavior across different compiler optimizations
+
+## Simplified Source
+
+```c
+Datum datand(PG_FUNCTION_ARGS) {
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float8 result;
+    volatile float8 atan_arg1;
+
+    // Return NaN if input is NaN (POSIX compliance)
+    if (isnan(arg1))
+        PG_RETURN_FLOAT8(get_float8_nan());
+
+    INIT_DEGREE_CONSTANTS();
+
+    // Calculate arctangent in radians, then convert to degrees
+    // Formula ensures atan(1.0) = exactly 45.0 degrees
+    atan_arg1 = atan(arg1);
+    result = (atan_arg1 / atan_1_0) * 45.0;
+
+    // Check for overflow (should not occur as atan range is [-90, 90])
+    if (unlikely(isinf(result)))
+        float_overflow_error();
+
+    PG_RETURN_FLOAT8(result);
+}
+```

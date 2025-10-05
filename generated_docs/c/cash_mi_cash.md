@@ -37,3 +37,21 @@ The  function provides safe subtraction of two Cash values (64-bit signed intege
 - The error message "money out of range" provides clear indication of overflow/underflow conditions
 - Returns the difference result (c1 - c2) only if no overflow occurs, otherwise throws an error
 - Complementary function to  for subtraction operations
+
+## Simplified Source
+
+```c
+static inline Cash
+cash_mi_cash(Cash c1, Cash c2)
+{
+    Cash res;
+
+    // Check for overflow/underflow during subtraction
+    if (unlikely(pg_sub_s64_overflow(c1, c2, &res)))
+        ereport(ERROR,
+                (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                 errmsg("money out of range")));
+
+    return res;
+}
+```

@@ -48,3 +48,61 @@ The function handles malformed entries gracefully by truncating invalid flag seq
 - Invalid characters in affix flags cause the flag string to be truncated at that point
 - Trailing whitespace is automatically removed from dictionary words
 - Error handling includes reporting file access issues with appropriate error codes
+
+## Simplified Source
+
+```c
+void
+NIImportDictionary(IspellDict *Conf, const char *filename)
+{
+    tsearch_readline_state trst;
+    char *line;
+
+    // Open dictionary file for reading
+    if (!tsearch_readline_begin(&trst, filename))
+        ereport(ERROR, /* could not open file */);
+
+    // Process each line in the dictionary file
+    while ((line = tsearch_readline(&trst)) != NULL) {
+        char *s, *pstr;
+        const char *flag;
+
+        // Extract affix flags after '/' separator
+        flag = NULL;
+        if ((s = findchar(line, '/'))) {
+            *s++ = '\0';  // Terminate word part
+            flag = s;
+
+            // Validate flags (single-byte printable chars only)
+            while (*s) {
+                if (pg_mblen(s) == 1 && t_isprint(s) && !t_isspace(s))
+                    s++;
+                else {
+                    *s = '\0';  // Truncate at invalid character
+                    break;
+                }
+            }
+        } else {
+            flag = "";  // No flags specified
+        }
+
+        // Remove trailing whitespace from word
+        s = line;
+        while (*s) {
+            if (t_isspace(s)) {
+                *s = '\0';
+                break;
+            }
+            s += pg_mblen(s);
+        }
+
+        // Convert to lowercase and add to dictionary
+        pstr = lowerstr_ctx(Conf, line);
+        NIAddSpell(Conf, pstr, flag);
+        pfree(pstr);
+        pfree(line);
+    }
+
+    tsearch_readline_end(&trst);
+}
+```

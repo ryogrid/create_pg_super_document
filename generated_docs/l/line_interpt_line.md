@@ -51,3 +51,47 @@ The algorithm works by:
 - Returns true for lines with NaN constants, producing NaN intersection coordinates
 - Includes floating-point precision handling to normalize -0.0 to 0.0
 - Core mathematical implementation used by multiple geometric functions in PostgreSQL
+
+## Simplified Source
+
+```c
+static bool line_interpt_line(Point *result, LINE *l1, LINE *l2) {
+    float8 x, y;
+
+    // Use l1->B as primary calculation path
+    if (!FPzero(l1->B)) {
+        // Check if lines are parallel: l2->A == l1->A * (l2->B / l1->B)
+        if (FPeq(l2->A, float8_mul(l1->A, float8_div(l2->B, l1->B))))
+            return false;
+
+        // Calculate intersection coordinates using cross-multiplication
+        x = float8_div(float8_mi(float8_mul(l1->B, l2->C), float8_mul(l2->B, l1->C)),
+                       float8_mi(float8_mul(l1->A, l2->B), float8_mul(l2->A, l1->B)));
+        y = float8_div(-float8_pl(float8_mul(l1->A, x), l1->C), l1->B);
+    }
+    // Fallback to l2->B if l1->B is zero
+    else if (!FPzero(l2->B)) {
+        // Check parallel condition with roles reversed
+        if (FPeq(l1->A, float8_mul(l2->A, float8_div(l1->B, l2->B))))
+            return false;
+
+        // Calculate intersection with l2 as reference
+        x = float8_div(float8_mi(float8_mul(l2->B, l1->C), float8_mul(l1->B, l2->C)),
+                       float8_mi(float8_mul(l2->A, l1->B), float8_mul(l1->A, l2->B)));
+        y = float8_div(-float8_pl(float8_mul(l2->A, x), l2->C), l2->B);
+    }
+    // Both lines are vertical (B=0), no intersection
+    else
+        return false;
+
+    // Normalize -0.0 to 0.0 for platform consistency
+    if (x == 0.0) x = 0.0;
+    if (y == 0.0) y = 0.0;
+
+    // Store result if requested
+    if (result != NULL)
+        point_construct(result, x, y);
+
+    return true;
+}
+```

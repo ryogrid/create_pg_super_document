@@ -36,3 +36,15 @@ This function serves as the final step in the B-tree page creation process durin
 - The 'true' parameter passed to smgr_bulk_write likely indicates that the write should be performed immediately or marked as ready
 - Simple wrapper function that provides a clean interface for the bulk loading subsystem
 - Critical for maintaining proper memory management during index construction
+
+## Simplified Source
+
+```c
+static void
+_bt_blwritepage(BTWriteState *wstate, BulkWriteBuffer buf, BlockNumber blkno)
+{
+    // Write the completed page to storage
+    smgr_bulk_write(wstate->bulkstate, blkno, buf, true);
+    // Buffer ownership transferred to smgr_bulk_write
+}
+```

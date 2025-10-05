@@ -43,3 +43,101 @@ The  function serves as the core implementation for JSONB array aggregation tran
 - Validates that it's called within proper aggregate context
 - Supports conditional null handling based on absent_on_null parameter
 - Uses JsonbIterator to traverse complex JSONB structures element by element
+
+## Simplified Source
+
+```c
+static Datum
+jsonb_agg_transfn_worker(FunctionCallInfo fcinfo, bool absent_on_null)
+{
+    MemoryContext oldcontext, aggcontext;
+    JsonbAggState *state;
+    JsonbInState elem;
+    Datum val;
+    JsonbInState *result;
+    bool single_scalar = false;
+    JsonbIterator *it;
+    Jsonb *jbelem;
+    JsonbValue v;
+    JsonbIteratorToken type;
+
+    // Validate aggregate context
+    if (!AggCheckCallContext(fcinfo, &aggcontext))
+        elog(ERROR, "jsonb_agg_transfn called in non-aggregate context");
+
+    // Initialize state on first call
+    if (PG_ARGISNULL(0)) {
+        Oid arg_type = get_fn_expr_argtype(fcinfo->flinfo, 1);
+        if (arg_type == InvalidOid)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("could not determine input data type")));
+
+        // Set up aggregate state
+        oldcontext = MemoryContextSwitchTo(aggcontext);
+        state = palloc(sizeof(JsonbAggState));
+        result = palloc0(sizeof(JsonbInState));
+        state->res = result;
+        result->res = pushJsonbValue(&result->parseState, WJB_BEGIN_ARRAY, NULL);
+        MemoryContextSwitchTo(oldcontext);
+
+        json_categorize_type(arg_type, true, &state->val_category, &state->val_output_func);
+    } else {
+        state = (JsonbAggState *) PG_GETARG_POINTER(0);
+        result = state->res;
+    }
+
+    // Skip null values if absent_on_null is true
+    if (absent_on_null && PG_ARGISNULL(1))
+        PG_RETURN_POINTER(state);
+
+    // Convert input value to JSONB
+    val = PG_ARGISNULL(1) ? (Datum) 0 : PG_GETARG_DATUM(1);
+    memset(&elem, 0, sizeof(JsonbInState));
+    datum_to_jsonb_internal(val, PG_ARGISNULL(1), &elem,
+                           state->val_category, state->val_output_func, false);
+    jbelem = JsonbValueToJsonb(elem.res);
+
+    // Switch to aggregate context for accumulation
+    oldcontext = MemoryContextSwitchTo(aggcontext);
+    it = JsonbIteratorInit(&jbelem->root);
+
+    // Iterate through JSONB structure and add to result array
+    while ((type = JsonbIteratorNext(&it, &v, false)) != WJB_DONE) {
+        switch (type) {
+            case WJB_BEGIN_ARRAY:
+                if (v.val.array.rawScalar)
+                    single_scalar = true;
+                else
+                    result->res = pushJsonbValue(&result->parseState, type, NULL);
+                break;
+            case WJB_END_ARRAY:
+                if (!single_scalar)
+                    result->res = pushJsonbValue(&result->parseState, type, NULL);
+                break;
+            case WJB_BEGIN_OBJECT:
+            case WJB_END_OBJECT:
+                result->res = pushJsonbValue(&result->parseState, type, NULL);
+                break;
+            case WJB_ELEM:
+            case WJB_KEY:
+            case WJB_VALUE:
+                // Copy strings and numerics into aggregate context
+                if (v.type == jbvString) {
+                    char *buf = palloc(v.val.string.len + 1);
+                    snprintf(buf, v.val.string.len + 1, "%s", v.val.string.val);
+                    v.val.string.val = buf;
+                } else if (v.type == jbvNumeric) {
+                    v.val.numeric = DatumGetNumeric(DirectFunctionCall1(numeric_uplus,
+                                                   NumericGetDatum(v.val.numeric)));
+                }
+                result->res = pushJsonbValue(&result->parseState, type, &v);
+                break;
+            default:
+                elog(ERROR, "unknown jsonb iterator token type");
+        }
+    }
+
+    MemoryContextSwitchTo(oldcontext);
+    PG_RETURN_POINTER(state);
+}
+```

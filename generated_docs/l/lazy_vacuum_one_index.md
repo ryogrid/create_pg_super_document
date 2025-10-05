@@ -46,3 +46,42 @@ The function carefully manages error context information, temporarily storing th
 - Updates vacuum error phase to VACUUM_ERRCB_PHASE_VACUUM_INDEX during execution
 - The actual deletion logic is delegated to the index access method via vac_bulkdel_one_index
 - Uses the same buffer access strategy as the heap vacuum operations
+
+## Simplified Source
+
+```c
+static IndexBulkDeleteResult *
+lazy_vacuum_one_index(Relation indrel, IndexBulkDeleteResult *istat,
+                      double reltuples, LVRelState *vacrel)
+{
+    IndexVacuumInfo ivinfo;
+    LVSavedErrInfo saved_err_info;
+
+    // Set up index vacuum parameters
+    ivinfo.index = indrel;
+    ivinfo.heaprel = vacrel->rel;
+    ivinfo.analyze_only = false;
+    ivinfo.report_progress = false;
+    ivinfo.estimated_count = true;
+    ivinfo.message_level = DEBUG2;
+    ivinfo.num_heap_tuples = reltuples;
+    ivinfo.strategy = vacrel->bstrategy;
+
+    // Set up error tracking with index name
+    vacrel->indname = pstrdup(RelationGetRelationName(indrel));
+    update_vacuum_error_info(vacrel, &saved_err_info,
+                            VACUUM_ERRCB_PHASE_VACUUM_INDEX,
+                            InvalidBlockNumber, InvalidOffsetNumber);
+
+    // Perform bulk deletion of dead index tuples
+    istat = vac_bulkdel_one_index(&ivinfo, istat, (void *) vacrel->dead_items,
+                                  vacrel->dead_items_info);
+
+    // Clean up error tracking
+    restore_vacuum_error_info(vacrel, &saved_err_info);
+    pfree(vacrel->indname);
+    vacrel->indname = NULL;
+
+    return istat;
+}
+```

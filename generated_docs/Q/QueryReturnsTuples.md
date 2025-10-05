@@ -38,3 +38,37 @@ This function is essential for the query processing infrastructure to determine 
 - For utility commands, the function delegates to the specialized UtilityReturnsTuples() function
 - [Edge](../E/Edge.md) cases like CMD_UNKNOWN and CMD_NOTHING are handled gracefully by returning false
 - Part of the query processing pipeline that helps optimize execution strategies based on expected output
+
+## Simplified Source
+
+```c
+bool QueryReturnsTuples(Query *parsetree)
+{
+    switch (parsetree->commandType)
+    {
+        case CMD_SELECT:
+            // SELECT always returns tuples
+            return true;
+
+        case CMD_INSERT:
+        case CMD_UPDATE:
+        case CMD_DELETE:
+        case CMD_MERGE:
+            // DML commands return tuples only with RETURNING clause
+            if (parsetree->returningList)
+                return true;
+            break;
+
+        case CMD_UTILITY:
+            // Delegate to utility-specific function
+            return UtilityReturnsTuples(parsetree->utilityStmt);
+
+        case CMD_UNKNOWN:
+        case CMD_NOTHING:
+            // Edge cases - no tuples
+            break;
+    }
+
+    return false; // Default: no tuples
+}
+```

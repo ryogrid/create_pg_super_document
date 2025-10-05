@@ -44,3 +44,15 @@ This provides the logical combination of the < and = operators, essential for ra
 - Part of PostgreSQL's operator function framework for the timetz data type
 - The function signature follows PostgreSQL's standard function calling convention
 - Used extensively in WHERE clauses, ORDER BY statements, and constraint checking
+
+## Simplified Source
+
+```c
+Datum timetz_le(PG_FUNCTION_ARGS) {
+    TimeTzADT *time1 = PG_GETARG_TIMETZADT_P(0);
+    TimeTzADT *time2 = PG_GETARG_TIMETZADT_P(1);
+
+    // Compare if first timetz is less than or equal to second
+    PG_RETURN_BOOL(timetz_cmp_internal(time1, time2) <= 0);
+}
+```

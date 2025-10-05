@@ -45,3 +45,30 @@ The resulting Datum uses PostgreSQL's standard text format with a flag byte as t
 
 ## Notes and Other Information
 The function is critical for ensuring consistent key representation in JSONB GIN indexes while managing storage efficiency. The hashing mechanism prevents extremely long text values from consuming excessive index space, though it does introduce the possibility of hash collisions for very long strings. The flag byte encoding allows the GIN index to efficiently distinguish between different types of JSONB elements and their processing requirements. The function always builds 4-byte header varlena structures for simplicity, relying on PostgreSQL's automatic compression to short header format during index storage.
+
+## Simplified Source
+
+```c
+static Datum make_text_key(char flag, const char *str, int len) {
+    text *item;
+    char hashbuf[10];
+
+    // Hash overlength strings to keep keys manageable
+    if (len > JGIN_MAXLENGTH) {
+        uint32 hashval = DatumGetUInt32(hash_any((const unsigned char *) str, len));
+        snprintf(hashbuf, sizeof(hashbuf), "%08x", hashval);
+        str = hashbuf;
+        len = 8;
+        flag |= JGINFLAG_HASHED;  // Mark as hashed
+    }
+
+    // Build text Datum with flag byte + content
+    item = (text *) palloc(VARHDRSZ + len + 1);
+    SET_VARSIZE(item, VARHDRSZ + len + 1);
+
+    *VARDATA(item) = flag;                    // First byte: flag
+    memcpy(VARDATA(item) + 1, str, len);     // Rest: string content
+
+    return PointerGetDatum(item);
+}
+```

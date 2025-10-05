@@ -45,3 +45,29 @@ The function uses a fast-path optimization with the likely() macro, assuming tha
 - Transaction skipping is typically used as a recovery mechanism for problematic transactions
 - The fast-path optimization assumes skipping is rarely needed in normal operations
 - The function must be called at transaction boundaries for proper functionality
+
+## Simplified Source
+
+```c
+static void
+maybe_start_skipping_changes(XLogRecPtr finish_lsn)
+{
+    // Safety checks - ensure we're not already skipping and not in transaction
+    Assert(!is_skipping_changes());
+    Assert(!in_remote_transaction);
+    Assert(!in_streamed_transaction);
+
+    // Fast path: skip if no skip LSN set or doesn't match
+    if (likely(XLogRecPtrIsInvalid(MySubscription->skiplsn) ||
+               MySubscription->skiplsn != finish_lsn))
+        return;
+
+    // Start skipping this transaction
+    skip_xact_finish_lsn = finish_lsn;
+
+    // Log the skipping action
+    ereport(LOG,
+            errmsg("logical replication starts skipping transaction at LSN %X/%X",
+                   LSN_FORMAT_ARGS(skip_xact_finish_lsn)));
+}
+```

@@ -49,3 +49,73 @@ The function handles the complex logic of merging potentially overlapping page r
 - The merge process is optimized for mostly non-overlapping ranges (typical case)
 - Union operations may be expensive, so memory context is reset periodically
 - Maintains block number ordering which is crucial for BRIN index scan performance
+
+## Simplified Source
+
+```c
+static double _brin_parallel_merge(BrinBuildState *state) {
+    BrinTuple *btup;
+    BrinMemTuple *memtuple = NULL;
+    BlockNumber prevblkno = InvalidBlockNumber;
+    MemoryContext rangeCxt;
+
+    // Wait for all workers to complete their scans
+    double reltuples = _brin_parallel_heapscan(state);
+
+    // Sort all collected tuples by block number
+    tuplesort_performsort(state->bs_sortstate);
+
+    // Initialize tuple for merging overlapping ranges
+    memtuple = brin_new_memtuple(state->bs_bdesc);
+
+    // Create temporary context for union operations
+    rangeCxt = AllocSetContextCreate(CurrentMemoryContext, "brin union",
+                                    ALLOCSET_DEFAULT_SIZES);
+
+    // Process sorted tuples and merge overlapping ranges
+    while ((btup = tuplesort_getbrintuple(state->bs_sortstate, &tuplen, true)) != NULL) {
+
+        if (prevblkno == InvalidBlockNumber) {
+            // First tuple - just deform it
+            memtuple = brin_deform_tuple(state->bs_bdesc, btup, memtuple);
+        }
+        else if (memtuple->bt_blkno == btup->bt_blkno) {
+            // Same range - merge with existing tuple
+            union_tuples(state->bs_bdesc, memtuple, btup);
+            continue;
+        }
+        else {
+            // New range - insert previous tuple and start new one
+            BrinTuple *tmp = brin_form_tuple(state->bs_bdesc, memtuple->bt_blkno,
+                                           memtuple, &len);
+            brin_doinsert(state->bs_irel, state->bs_pagesPerRange,
+                         state->bs_rmAccess, &state->bs_currentInsertBuf,
+                         tmp->bt_blkno, tmp, len);
+
+            MemoryContextReset(rangeCxt);
+            memtuple = brin_deform_tuple(state->bs_bdesc, btup, memtuple);
+        }
+
+        // Fill any gaps with empty ranges
+        brin_fill_empty_ranges(state, prevblkno, btup->bt_blkno);
+        prevblkno = btup->bt_blkno;
+    }
+
+    tuplesort_end(state->bs_sortstate);
+
+    // Insert the final tuple if we processed any
+    if (prevblkno != InvalidBlockNumber) {
+        BrinTuple *tmp = brin_form_tuple(state->bs_bdesc, memtuple->bt_blkno,
+                                       memtuple, &len);
+        brin_doinsert(state->bs_irel, state->bs_pagesPerRange,
+                     state->bs_rmAccess, &state->bs_currentInsertBuf,
+                     tmp->bt_blkno, tmp, len);
+    }
+
+    // Fill remaining empty ranges at the end
+    brin_fill_empty_ranges(state, prevblkno, state->bs_maxRangeStart);
+
+    MemoryContextDelete(rangeCxt);
+    return reltuples;
+}
+```

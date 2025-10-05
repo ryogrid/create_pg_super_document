@@ -40,9 +40,45 @@ The function returns success/failure status, allowing callers to handle cases wh
   - [brininsert](../b/brininsert.md)
 
 ## Notes and Other Information
-- Returns  if no unused work item slots are available (pool is full)
+- Returns false if no unused work item slots are available (pool is full)
 - Work items are processed asynchronously by autovacuum workers in the same database
 - Uses exclusive locking to prevent race conditions during work item allocation
 - Each work item is marked as 'used' but not 'active' initially - activation occurs when processed
 - The function automatically sets the current database ID for the work item
 - Block numbers are optional and may be InvalidBlockNumber for relation-wide operations
+
+## Simplified Source
+
+```c
+bool
+AutoVacuumRequestWork(AutoVacuumWorkItemType type, Oid relationId,
+                     BlockNumber blkno)
+{
+    int i;
+    bool result = false;
+
+    // Acquire exclusive lock on autovacuum shared memory
+    LWLockAcquire(AutovacuumLock, LW_EXCLUSIVE);
+
+    // Search for an unused work item slot
+    for (i = 0; i < NUM_WORKITEMS; i++) {
+        AutoVacuumWorkItem *workitem = &AutoVacuumShmem->av_workItems[i];
+
+        if (workitem->avw_used)
+            continue;
+
+        // Found unused slot - populate work item details
+        workitem->avw_used = true;
+        workitem->avw_active = false;
+        workitem->avw_type = type;
+        workitem->avw_database = MyDatabaseId;
+        workitem->avw_relation = relationId;
+        workitem->avw_blockNumber = blkno;
+        result = true;
+        break;
+    }
+
+    LWLockRelease(AutovacuumLock);
+    return result;
+}
+```

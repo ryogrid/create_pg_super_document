@@ -34,3 +34,17 @@ This is a support function for PostgreSQL's SQL-callable pgstat* functions that 
 - Essential for SQL functions that need to enumerate all active backend sessions
 - Part of PostgreSQL's statistics collection system, enabling monitoring of the total number of active database connections
 - The count may change between calls as backends start and stop, so it should be retrieved fresh when needed
+
+## Simplified Source
+
+```c
+int
+pgstat_fetch_stat_numbackends(void)
+{
+    // Ensure local status table is current
+    pgstat_read_current_status();
+
+    // Return the count of active backends
+    return localNumBackends;
+}
+```

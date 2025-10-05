@@ -36,3 +36,18 @@ The function operates on a volatile slock_t pointer to ensure proper memory orde
 - Index validation through s_check_valid helps catch corruption or invalid lock states
 - This implementation provides better behavior than busy-waiting in environments where hardware spinlocks are not optimal
 - The volatile qualifier on the lock parameter ensures proper memory semantics for concurrent access
+
+## Simplified Source
+
+```c
+void s_unlock_sema(volatile slock_t *lock)
+{
+    int lockndx = *lock;  // Extract semaphore array index
+
+    // Validate the index is within bounds
+    s_check_valid(lockndx);
+
+    // Unlock the corresponding semaphore (wake up waiters)
+    PGSemaphoreUnlock(SpinlockSemaArray[lockndx - 1]);
+}
+```

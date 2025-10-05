@@ -43,3 +43,40 @@ This enables database administrators to monitor autovacuum work item progress th
 - Block numbers are included in the activity string when valid, providing granular progress information
 - Uses STATE_RUNNING status to indicate active processing in pg_stat_activity
 - The function ensures proper timestamp setting for accurate statistics reporting
+
+## Simplified Source
+
+```c
+static void
+autovac_report_workitem(AutoVacuumWorkItem *workitem,
+                       const char *nspname, const char *relname)
+{
+    char activity[MAX_AUTOVAC_ACTIV_LEN + 12 + 2];
+    char blk[12 + 2];
+    int len;
+
+    // Create activity description based on work item type
+    switch (workitem->avw_type) {
+        case AVW_BRINSummarizeRange:
+            snprintf(activity, MAX_AUTOVAC_ACTIV_LEN,
+                    "autovacuum: BRIN summarize");
+            break;
+    }
+
+    len = strlen(activity);
+
+    // Add block number if specified
+    if (BlockNumberIsValid(workitem->avw_blockNumber))
+        snprintf(blk, sizeof(blk), " %u", workitem->avw_blockNumber);
+    else
+        blk[0] = '\0';
+
+    // Append qualified relation name and block info
+    snprintf(activity + len, MAX_AUTOVAC_ACTIV_LEN - len,
+            " %s.%s%s", nspname, relname, blk);
+
+    // Update statistics with current activity
+    SetCurrentStatementStartTimestamp();
+    pgstat_report_activity(STATE_RUNNING, activity);
+}
+```

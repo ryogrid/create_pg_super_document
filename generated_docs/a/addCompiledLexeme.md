@@ -44,3 +44,41 @@ This function is part of the compilation phase that transforms the raw parsed th
 - Each compiled lexeme gets a single LexemeInfo entry (no linked list like the parsing phase)
 - The function preserves substitution rule metadata (idsubst and posinsubst) from the source
 - Memory management relies on PostgreSQL's palloc system with automatic cleanup
+
+## Simplified Source
+
+```c
+static TheLexeme *
+addCompiledLexeme(TheLexeme *newwrds, int *nnw, int *tnm, TSLexeme *lexeme, LexemeInfo *src, uint16 tnvariant)
+{
+    // Expand array if needed (doubling strategy)
+    if (*nnw >= *tnm)
+    {
+        *tnm *= 2;
+        newwrds = (TheLexeme *) repalloc(newwrds, sizeof(TheLexeme) * *tnm);
+    }
+
+    // Initialize new lexeme entry
+    newwrds[*nnw].entries = (LexemeInfo *) palloc(sizeof(LexemeInfo));
+
+    // Copy lexeme data or set as NULL placeholder
+    if (lexeme && lexeme->lexeme)
+    {
+        newwrds[*nnw].lexeme = pstrdup(lexeme->lexeme);
+        newwrds[*nnw].entries->tnvariant = tnvariant;
+    }
+    else
+    {
+        newwrds[*nnw].lexeme = NULL;  // Placeholder (stop word marker)
+        newwrds[*nnw].entries->tnvariant = 1;
+    }
+
+    // Copy substitution metadata from source
+    newwrds[*nnw].entries->idsubst = src->idsubst;
+    newwrds[*nnw].entries->posinsubst = src->posinsubst;
+    newwrds[*nnw].entries->nextentry = NULL;
+
+    (*nnw)++;
+    return newwrds;  // May be reallocated address
+}
+```

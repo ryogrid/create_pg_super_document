@@ -46,3 +46,26 @@ The function performs three main operations:
 - Memory allocated by brin_form_tuple() is properly freed using pfree() to prevent memory leaks
 - The function assumes that the build state contains valid deformed tuple data ready for conversion
 - Part of the BRIN index build pipeline that processes block ranges sequentially
+
+## Simplified Source
+```c
+static void
+form_and_insert_tuple(BrinBuildState *state)
+{
+    BrinTuple  *tup;
+    Size        size;
+
+    // Convert in-memory summary data to on-disk format
+    tup = brin_form_tuple(state->bs_bdesc, state->bs_currRangeStart,
+                         state->bs_dtuple, &size);
+
+    // Insert tuple into index and update revmap
+    brin_doinsert(state->bs_irel, state->bs_pagesPerRange, state->bs_rmAccess,
+                  &state->bs_currentInsertBuf, state->bs_currRangeStart,
+                  tup, size);
+
+    // Update tuple counter and cleanup
+    state->bs_numtuples++;
+    pfree(tup);
+}
+```

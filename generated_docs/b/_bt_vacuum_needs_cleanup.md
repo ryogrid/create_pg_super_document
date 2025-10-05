@@ -37,3 +37,40 @@ This function is called by btvacuumcleanup when btbulkdelete was never invoked b
 - Cleanup allows recycling deleted pages and updating metapage statistics
 - Used only when btbulkdelete was not called (no tuples needed deletion)
 - See nbtree/README for details on deleted page management and FSM placement
+
+## Simplified Source
+
+```c
+bool
+_bt_vacuum_needs_cleanup(Relation rel)
+{
+    Buffer metabuf;
+    Page metapg;
+    BTMetaPageData *metad;
+    uint32 btm_version;
+    BlockNumber prev_num_delpages;
+
+    // Read metapage directly (avoid cached version for current info)
+    metabuf = _bt_getbuf(rel, BTREE_METAPAGE, BT_READ);
+    metapg = BufferGetPage(metabuf);
+    metad = BTPageGetMeta(metapg);
+    btm_version = metad->btm_version;
+
+    // Check if metapage version needs upgrade
+    if (btm_version < BTREE_NOVAC_VERSION) {
+        _bt_relbuf(rel, metabuf);
+        return true;  // Cleanup needed for metapage upgrade
+    }
+
+    // Check if we have too many deleted pages relative to index size
+    prev_num_delpages = metad->btm_last_cleanup_num_delpages;
+    _bt_relbuf(rel, metabuf);
+
+    // Trigger cleanup if deleted pages > 5% of total index size
+    if (prev_num_delpages > 0 &&
+        prev_num_delpages > RelationGetNumberOfBlocks(rel) / 20)
+        return true;
+
+    return false;
+}
+```

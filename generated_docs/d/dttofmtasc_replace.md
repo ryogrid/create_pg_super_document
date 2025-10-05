@@ -51,3 +51,104 @@ The function operates recursively for composite format specifiers (like %D which
 - Comments indicate areas where locale awareness could be improved (marked with XXX)
 - The function is quite large (spanning nearly 500 lines) due to comprehensive format specifier support
 - Default case copies unknown format specifiers literally to output rather than failing
+
+## Simplified Source
+
+```c
+static int
+dttofmtasc_replace(timestamp *ts, date dDate, int dow, struct tm *tm,
+                   char *output, int *pstr_len, const char *fmtstr)
+{
+    union un_fmt_comb replace_val;
+    int replace_type;
+    const char *p = fmtstr;
+    char *q = output;
+
+    while (*p) {
+        if (*p == '%') {
+            p++;
+            replace_type = PGTYPES_TYPE_NOTHING;
+
+            switch (*p) {
+                // Day/month/year formats
+                case 'a': replace_val.str_val = pgtypes_date_weekdays_short[dow];
+                         replace_type = PGTYPES_TYPE_STRING_CONSTANT; break;
+                case 'A': replace_val.str_val = days[dow];
+                         replace_type = PGTYPES_TYPE_STRING_CONSTANT; break;
+                case 'b': case 'h': replace_val.str_val = months[tm->tm_mon - 1];
+                         replace_type = PGTYPES_TYPE_STRING_CONSTANT; break;
+                case 'B': replace_val.str_val = pgtypes_date_months[tm->tm_mon - 1];
+                         replace_type = PGTYPES_TYPE_STRING_CONSTANT; break;
+                case 'd': replace_val.uint_val = tm->tm_mday;
+                         replace_type = PGTYPES_TYPE_UINT_2_LZ; break;
+                case 'm': replace_val.uint_val = tm->tm_mon;
+                         replace_type = PGTYPES_TYPE_UINT_2_LZ; break;
+                case 'y': replace_val.uint_val = tm->tm_year % 100;
+                         replace_type = PGTYPES_TYPE_UINT_2_LZ; break;
+                case 'Y': replace_val.uint_val = tm->tm_year;
+                         replace_type = PGTYPES_TYPE_UINT; break;
+
+                // Time formats
+                case 'H': replace_val.uint_val = tm->tm_hour;
+                         replace_type = PGTYPES_TYPE_UINT_2_LZ; break;
+                case 'I': replace_val.uint_val = tm->tm_hour % 12;
+                         replace_type = PGTYPES_TYPE_UINT_2_LZ; break;
+                case 'M': replace_val.uint_val = tm->tm_min;
+                         replace_type = PGTYPES_TYPE_UINT_2_LZ; break;
+                case 'S': replace_val.uint_val = tm->tm_sec;
+                         replace_type = PGTYPES_TYPE_UINT_2_LZ; break;
+                case 'p': replace_val.str_val = (tm->tm_hour < 12) ? "AM" : "PM";
+                         replace_type = PGTYPES_TYPE_STRING_CONSTANT; break;
+
+                // Composite formats (recursive calls)
+                case 'D': return dttofmtasc_replace(ts, dDate, dow, tm, q, pstr_len, "%m/%d/%y");
+                case 'r': return dttofmtasc_replace(ts, dDate, dow, tm, q, pstr_len, "%I:%M:%S %p");
+                case 'R': return dttofmtasc_replace(ts, dDate, dow, tm, q, pstr_len, "%H:%M");
+                case 'T': return dttofmtasc_replace(ts, dDate, dow, tm, q, pstr_len, "%H:%M:%S");
+
+                // Special characters
+                case 'n': replace_val.char_val = '\n'; replace_type = PGTYPES_TYPE_CHAR; break;
+                case 't': replace_val.char_val = '\t'; replace_type = PGTYPES_TYPE_CHAR; break;
+                case '%': replace_val.char_val = '%'; replace_type = PGTYPES_TYPE_CHAR; break;
+
+                // Epoch seconds
+                case 's': replace_val.int64_val = (*ts - SetEpochTimestamp()) / 1000000.0;
+                         replace_type = PGTYPES_TYPE_INT64; break;
+
+                // Complex formats delegated to strftime
+                case 'E': case 'G': case 'g': case 'U': case 'V': case 'W':
+                case 'x': case 'X': case 'z': case 'Z':
+                    tm->tm_mon -= 1;  // Adjust for strftime 0-based months
+                    // Use strftime for complex locale-dependent formatting
+                    tm->tm_mon += 1;  // Restore PostgreSQL 1-based months
+                    replace_type = PGTYPES_TYPE_NOTHING;
+                    break;
+
+                default:
+                    // Copy unknown format specifiers literally
+                    if (*pstr_len > 1) {
+                        *q++ = '%'; (*pstr_len)--;
+                        if (*pstr_len > 1) {
+                            *q++ = *p; (*pstr_len)--;
+                        }
+                        *q = '\0';
+                    } else return -1;
+                    break;
+            }
+
+            // Format and write the replacement value
+            if (replace_type != PGTYPES_TYPE_NOTHING) {
+                int result = pgtypes_fmt_replace(replace_val, replace_type, &q, pstr_len);
+                if (result) return result;
+            }
+        } else {
+            // Copy literal character
+            if (*pstr_len > 1) {
+                *q++ = *p; (*pstr_len)--; *q = '\0';
+            } else return -1;
+        }
+        p++;
+    }
+    return 0;
+}
+```

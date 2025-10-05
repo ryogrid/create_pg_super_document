@@ -42,3 +42,26 @@ For JSONB objects, it searches for object keys that match the provided string. F
 - For arrays: only matches string elements, not other data types
 - Returns true if the key/element exists, false otherwise
 - Corresponds to the '?' operator in PostgreSQL JSONB operations
+
+## Simplified Source
+
+```c
+Datum jsonb_exists(PG_FUNCTION_ARGS) {
+    Jsonb *jb = PG_GETARG_JSONB_P(0);
+    text *key = PG_GETARG_TEXT_PP(1);
+    JsonbValue kval;
+    JsonbValue *v = NULL;
+
+    // Set up search key as a string value
+    kval.type = jbvString;
+    kval.val.string.val = VARDATA_ANY(key);
+    kval.val.string.len = VARSIZE_ANY_EXHDR(key);
+
+    // Search for key in object keys or string array elements (top-level only)
+    v = findJsonbValueFromContainer(&jb->root,
+                                    JB_FOBJECT | JB_FARRAY,
+                                    &kval);
+
+    PG_RETURN_BOOL(v != NULL);
+}
+```

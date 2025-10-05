@@ -42,3 +42,23 @@ The function is extensively used throughout PostgreSQL's text search parsing inf
 - One of the most frequently used functions in PostgreSQL's text search system
 - Part of PostgreSQL's text search locale abstraction layer defined in ts_locale.h
 - Critical for proper tokenization and parsing across different languages and character encodings
+
+## Simplified Source
+
+```c
+int
+t_isspace(const char *ptr)
+{
+    int char_len = pg_mblen(ptr);
+
+    // Fast path for single-byte characters or C locale
+    if (char_len == 1 || database_ctype_is_c)
+        return isspace(TOUCHAR(ptr));
+
+    // Multi-byte character: convert to wide char and test
+    wchar_t wide_char[WC_BUF_LEN];
+    char2wchar(wide_char, WC_BUF_LEN, ptr, char_len, 0);
+
+    return iswspace((wint_t) wide_char[0]);
+}
+```

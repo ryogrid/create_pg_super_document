@@ -47,3 +47,39 @@ The function safely handles cases where it's applied to an index itself (returns
 - Returns 0 when applied to an index relation or relations without indexes
 - The function is static, limiting its scope to the dbsize.c compilation unit
 - Includes all index storage components (main data, FSM, VM) for comprehensive size reporting
+
+## Simplified Source
+
+```c
+static int64
+calculate_indexes_size(Relation rel)
+{
+    int64 size = 0;
+
+    // Only process if relation has indexes
+    if (rel->rd_rel->relhasindex)
+    {
+        List *index_oids = RelationGetIndexList(rel);
+        ListCell *cell;
+
+        // Iterate through each index
+        foreach(cell, index_oids)
+        {
+            Oid idxOid = lfirst_oid(cell);
+            Relation idxRel = relation_open(idxOid, AccessShareLock);
+            ForkNumber forkNum;
+
+            // Sum all forks for this index
+            for (forkNum = 0; forkNum <= MAX_FORKNUM; forkNum++)
+                size += calculate_relation_size(&(idxRel->rd_locator),
+                                              idxRel->rd_backend, forkNum);
+
+            relation_close(idxRel, AccessShareLock);
+        }
+
+        list_free(index_oids);
+    }
+
+    return size;
+}
+```

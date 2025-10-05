@@ -40,3 +40,22 @@ The function includes an assertion to verify that temporary tablespaces have bee
 - Return value indicates the actual number of entries copied, which may be less than numSpaces
 - Performs safe array copying with bounds checking to prevent buffer overflows
 - Used primarily by subsystems that need to manage their own temporary file distribution across multiple tablespaces
+
+## Simplified Source
+
+```c
+int
+GetTempTablespaces(Oid *tableSpaces, int numSpaces)
+{
+    int i;
+
+    // Verify temporary tablespaces are configured
+    Assert(TempTablespacesAreSet());
+
+    // Copy configured tablespace OIDs to output array
+    for (i = 0; i < numTempTableSpaces && i < numSpaces; ++i)
+        tableSpaces[i] = tempTableSpaces[i];
+
+    return i; // Return number of entries copied
+}
+```

@@ -320,3 +320,132 @@ Text creation and manipulation
 - WAL logging is performed when updating the metapage tuple count to ensure crash recovery consistency
 - Returns statistics including the number of tuples removed and the total number of remaining index tuples
 - The function may need to refresh its cached metapage data if bucket splits occur during processing
+
+## Simplified Source
+
+```c
+IndexBulkDeleteResult *
+hashbulkdelete(IndexVacuumInfo *info, IndexBulkDeleteResult *stats,
+               IndexBulkDeleteCallback callback, void *callback_state)
+{
+    Relation rel = info->index;
+    double tuples_removed = 0;
+    double num_index_tuples = 0;
+    double orig_ntuples;
+    Bucket orig_maxbucket;
+    Bucket cur_maxbucket;
+    Bucket cur_bucket;
+    Buffer metabuf = InvalidBuffer;
+    HashMetaPage metap;
+    HashMetaPage cachedmetap;
+
+    // Get cached metapage to determine bucket addresses
+    cachedmetap = _hash_getcachedmetap(rel, &metabuf, false);
+    orig_maxbucket = cachedmetap->hashm_maxbucket;
+    orig_ntuples = cachedmetap->hashm_ntuples;
+
+    // Scan all existing buckets
+    cur_bucket = 0;
+    cur_maxbucket = orig_maxbucket;
+
+loop_top:
+    while (cur_bucket <= cur_maxbucket) {
+        BlockNumber bucket_blkno;
+        Buffer bucket_buf;
+        HashPageOpaque bucket_opaque;
+        Page page;
+        bool split_cleanup = false;
+
+        // Get bucket's start page and acquire cleanup lock
+        bucket_blkno = BUCKET_TO_BLKNO(cachedmetap, cur_bucket);
+        bucket_buf = ReadBufferExtended(rel, MAIN_FORKNUM, bucket_blkno,
+                                        RBM_NORMAL, info->strategy);
+        LockBufferForCleanup(bucket_buf);
+        _hash_checkpage(rel, bucket_buf, LH_BUCKET_PAGE);
+
+        page = BufferGetPage(bucket_buf);
+        bucket_opaque = HashPageGetOpaque(page);
+
+        // Check if bucket needs split cleanup
+        if (!H_BUCKET_BEING_SPLIT(bucket_opaque) &&
+            H_NEEDS_SPLIT_CLEANUP(bucket_opaque)) {
+            split_cleanup = true;
+
+            // Update cached metapage if bucket was split since we started
+            if (bucket_opaque->hasho_prevblkno > cachedmetap->hashm_maxbucket) {
+                cachedmetap = _hash_getcachedmetap(rel, &metabuf, true);
+            }
+        }
+
+        // Perform actual cleanup on this bucket
+        hashbucketcleanup(rel, cur_bucket, bucket_buf, bucket_blkno, info->strategy,
+                          cachedmetap->hashm_maxbucket,
+                          cachedmetap->hashm_highmask,
+                          cachedmetap->hashm_lowmask, &tuples_removed,
+                          &num_index_tuples, split_cleanup,
+                          callback, callback_state);
+
+        _hash_dropbuf(rel, bucket_buf);
+        cur_bucket++;
+    }
+
+    // Check for splits that occurred during processing
+    if (BufferIsInvalid(metabuf))
+        metabuf = _hash_getbuf(rel, HASH_METAPAGE, HASH_NOLOCK, LH_META_PAGE);
+
+    LockBuffer(metabuf, BUFFER_LOCK_EXCLUSIVE);
+    metap = HashPageGetMeta(BufferGetPage(metabuf));
+
+    if (cur_maxbucket != metap->hashm_maxbucket) {
+        // Process additional buckets created by splits
+        LockBuffer(metabuf, BUFFER_LOCK_UNLOCK);
+        cachedmetap = _hash_getcachedmetap(rel, &metabuf, true);
+        cur_maxbucket = cachedmetap->hashm_maxbucket;
+        goto loop_top;
+    }
+
+    // Update tuple count in metapage
+    START_CRIT_SECTION();
+
+    if (orig_maxbucket == metap->hashm_maxbucket &&
+        orig_ntuples == metap->hashm_ntuples) {
+        // No concurrent changes - use our exact count
+        metap->hashm_ntuples = num_index_tuples;
+    } else {
+        // Concurrent changes detected - use dead-reckoning
+        if (metap->hashm_ntuples > tuples_removed)
+            metap->hashm_ntuples -= tuples_removed;
+        else
+            metap->hashm_ntuples = 0;
+        num_index_tuples = metap->hashm_ntuples;
+    }
+
+    MarkBufferDirty(metabuf);
+
+    // WAL logging for metapage update
+    if (RelationNeedsWAL(rel)) {
+        xl_hash_update_meta_page xlrec;
+        XLogRecPtr recptr;
+
+        xlrec.ntuples = metap->hashm_ntuples;
+        XLogBeginInsert();
+        XLogRegisterData((char *) &xlrec, SizeOfHashUpdateMetaPage);
+        XLogRegisterBuffer(0, metabuf, REGBUF_STANDARD);
+        recptr = XLogInsert(RM_HASH_ID, XLOG_HASH_UPDATE_META_PAGE);
+        PageSetLSN(BufferGetPage(metabuf), recptr);
+    }
+
+    END_CRIT_SECTION();
+
+    _hash_relbuf(rel, metabuf);
+
+    // Return statistics
+    if (stats == NULL)
+        stats = (IndexBulkDeleteResult *) palloc0(sizeof(IndexBulkDeleteResult));
+    stats->estimated_count = false;
+    stats->num_index_tuples = num_index_tuples;
+    stats->tuples_removed += tuples_removed;
+
+    return stats;
+}
+```

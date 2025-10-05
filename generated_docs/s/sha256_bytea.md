@@ -37,3 +37,15 @@ This function implements PostgreSQLs SHA256() SQL function for bytea input. It s
 - Accessible via SQL as the SHA256() function for bytea arguments
 - Uses PostgreSQLs standard function calling conventions and return mechanisms
 - Provides better security than older hash algorithms like MD5 and SHA-1
+
+## Simplified Source
+
+```c
+Datum sha256_bytea(PG_FUNCTION_ARGS) {
+    // Compute SHA-256 hash using internal function
+    bytea *result = cryptohash_internal(PG_SHA256, PG_GETARG_BYTEA_PP(0));
+
+    // Return the binary hash result
+    PG_RETURN_BYTEA_P(result);
+}
+```

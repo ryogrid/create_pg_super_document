@@ -38,3 +38,35 @@ This function manages file operations for streaming changes in PostgreSQL logica
 - Includes DEBUG1 logging to track file opening operations
 - The function assumes stream_fd is NULL when called (enforced by assertion)
 - File operations are managed through MyLogicalRepWorker->stream_fileset for consistency
+
+## Simplified Source
+
+```c
+static void stream_open_file(Oid subid, TransactionId xid, bool first_segment) {
+    char path[MAXPGPATH];
+    MemoryContext oldcxt;
+
+    Assert(OidIsValid(subid));
+    Assert(TransactionIdIsValid(xid));
+    Assert(stream_fd == NULL);
+
+    // Generate filename for changes file
+    changes_filename(path, subid, xid);
+    elog(DEBUG1, "opening file \"%s\" for streamed changes", path);
+
+    // Switch to LogicalStreamingContext for file operations
+    oldcxt = MemoryContextSwitchTo(LogicalStreamingContext);
+
+    if (first_segment) {
+        // Create new file for first segment
+        stream_fd = BufFileCreateFileSet(MyLogicalRepWorker->stream_fileset, path);
+    } else {
+        // Open existing file and seek to end for append
+        stream_fd = BufFileOpenFileSet(MyLogicalRepWorker->stream_fileset,
+                                       path, O_RDWR, false);
+        BufFileSeek(stream_fd, 0, 0, SEEK_END);
+    }
+
+    MemoryContextSwitchTo(oldcxt);
+}
+```

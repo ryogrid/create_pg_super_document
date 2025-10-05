@@ -48,4 +48,60 @@ The original IndexTuple pointers in the  array are replaced with pointers to the
 - Caller is responsible for freeing the updated tuples when done
 - The returned buffer (when WAL logging is needed) contains an array of  structs for WAL record construction
 - The  array is populated as a convenience for the caller, even when WAL logging is not required
-- Memory allocation for the WAL buffer only occurs when  is true
+- Memory allocation for the WAL buffer only occurs when needswal is true
+
+## Simplified Source
+
+```c
+static char *_bt_delitems_update(BTVacuumPosting *updatable, int nupdatable,
+                                OffsetNumber *updatedoffsets, Size *updatedbuflen,
+                                bool needswal) {
+    char *updatedbuf = NULL;
+    Size buflen = 0;
+
+    Assert(nupdatable > 0);
+
+    // Process each posting list tuple to be updated
+    for (int i = 0; i < nupdatable; i++) {
+        BTVacuumPosting vacposting = updatable[i];
+        Size itemsz;
+
+        // Replace IndexTuple with updated version (TIDs removed)
+        _bt_update_posting(vacposting);
+
+        // Calculate buffer size for WAL logging
+        itemsz = SizeOfBtreeUpdate + vacposting->ndeletedtids * sizeof(uint16);
+        buflen += itemsz;
+
+        // Build offset array for caller
+        updatedoffsets[i] = vacposting->updatedoffset;
+    }
+
+    // Create WAL logging buffer if needed
+    if (needswal) {
+        Size offset = 0;
+
+        updatedbuf = palloc(buflen);
+        *updatedbuflen = buflen;
+
+        // Build array of xl_btree_update structs for WAL
+        for (int i = 0; i < nupdatable; i++) {
+            BTVacuumPosting vacposting = updatable[i];
+            Size itemsz;
+            xl_btree_update update;
+
+            // Copy update metadata
+            update.ndeletedtids = vacposting->ndeletedtids;
+            memcpy(updatedbuf + offset, &update.ndeletedtids, SizeOfBtreeUpdate);
+            offset += SizeOfBtreeUpdate;
+
+            // Copy deleted TID array
+            itemsz = update.ndeletedtids * sizeof(uint16);
+            memcpy(updatedbuf + offset, vacposting->deletetids, itemsz);
+            offset += itemsz;
+        }
+    }
+
+    return updatedbuf;
+}
+```

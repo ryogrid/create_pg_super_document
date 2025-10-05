@@ -51,3 +51,57 @@ The main difference from btree_xlog_vacuum is the conflict resolution step and t
 - Processes both updated posting lists and completely deleted tuples
 - Part of PostgreSQL's transaction visibility and hot standby replication system
 - Critical for maintaining MVCC consistency during recovery on standby servers
+
+## Simplified Source
+
+```c
+static void
+btree_xlog_delete(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_btree_delete *xlrec = (xl_btree_delete *) XLogRecGetData(record);
+    Buffer buffer;
+    Page page;
+    BTPageOpaque opaque;
+
+    // Handle hot standby conflicts before updating page
+    if (InHotStandby)
+    {
+        RelFileLocator rlocator;
+        XLogRecGetBlockTag(record, 0, &rlocator, NULL, NULL);
+        ResolveRecoveryConflictWithSnapshot(xlrec->snapshotConflictHorizon,
+                                           xlrec->isCatalogRel,
+                                           rlocator);
+    }
+
+    // Apply changes (uses regular lock, not cleanup lock)
+    if (XLogReadBufferForRedo(record, 0, &buffer) == BLK_NEEDS_REDO)
+    {
+        char *ptr = XLogRecGetBlockData(record, 0, NULL);
+        page = (Page) BufferGetPage(buffer);
+
+        // Process posting list updates first
+        if (xlrec->nupdated > 0)
+        {
+            OffsetNumber *updatedoffsets = (OffsetNumber *)(ptr + xlrec->ndeleted * sizeof(OffsetNumber));
+            xl_btree_update *updates = (xl_btree_update *)((char *)updatedoffsets + xlrec->nupdated * sizeof(OffsetNumber));
+
+            btree_xlog_updates(page, updatedoffsets, updates, xlrec->nupdated);
+        }
+
+        // Delete tuples completely
+        if (xlrec->ndeleted > 0)
+            PageIndexMultiDelete(page, (OffsetNumber *)ptr, xlrec->ndeleted);
+
+        // Clear garbage flag
+        opaque = BTPageGetOpaque(page);
+        opaque->btpo_flags &= ~BTP_HAS_GARBAGE;
+
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+}
+```

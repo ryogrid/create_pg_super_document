@@ -43,3 +43,23 @@ The function is designed to be used in performance-critical code paths where vec
 - Part of PostgreSQL's SIMD infrastructure that enables vectorized operations for improved performance
 - The unaligned load () is used in the SSE2 version to handle arbitrary memory addresses
 - Performance-critical: used in hot code paths like radix tree operations and string processing functions
+
+## Simplified Source
+
+```c
+static inline void
+vector8_load(Vector8 *v, const uint8 *s)
+{
+    // Load 8 bytes of memory into SIMD vector using platform-specific instructions
+#if defined(USE_SSE2)
+    // x86/x64: Use SSE2 unaligned load
+    *v = _mm_loadu_si128((const __m128i *) s);
+#elif defined(USE_NEON)
+    // ARM: Use NEON vector load
+    *v = vld1q_u8(s);
+#else
+    // Fallback: Standard memory copy when no SIMD available
+    memcpy(v, s, sizeof(Vector8));
+#endif
+}
+```

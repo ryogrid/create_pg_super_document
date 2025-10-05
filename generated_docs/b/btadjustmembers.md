@@ -52,3 +52,70 @@ This approach optimizes dependency management while avoiding the creation of inc
 - The function processes operators and functions identically by concatenating their lists, reducing code duplication
 - Automatically "fixes" incorrectly bound cross-type operators by making them loose family members rather than throwing errors
 - The dependency strategy balances system consistency with operational flexibility, preferring specific operator class dependencies when available but gracefully falling back to family dependencies when necessary
+
+## Simplified Source
+
+```c
+void btadjustmembers(Oid opfamilyoid, Oid opclassoid, List *operators, List *functions)
+{
+    Oid opcintype;
+    ListCell *lc;
+
+    // Get operator class input type if available
+    if (OidIsValid(opclassoid))
+    {
+        CommandCounterIncrement();  // Ensure visibility during CREATE OPERATOR CLASS
+        opcintype = get_opclass_input_type(opclassoid);
+    }
+    else
+        opcintype = InvalidOid;
+
+    // Process both operators and functions together
+    foreach(lc, list_concat_copy(operators, functions))
+    {
+        OpFamilyMember *op = (OpFamilyMember *) lfirst(lc);
+
+        if (op->is_func && op->number != BTORDER_PROC)
+        {
+            // Optional support functions: always loose family members
+            op->ref_is_hard = false;
+            op->ref_is_family = true;
+            op->refobjid = opfamilyoid;
+        }
+        else if (op->lefttype != op->righttype)
+        {
+            // Cross-type operations: always loose family members
+            op->ref_is_hard = false;
+            op->ref_is_family = true;
+            op->refobjid = opfamilyoid;
+        }
+        else
+        {
+            // Same-type operations: try to bind to appropriate opclass
+            if (op->lefttype != opcintype)
+            {
+                // Cache lookup optimization
+                opcintype = op->lefttype;
+                opclassoid = opclass_for_family_datatype(BTREE_AM_OID,
+                                                        opfamilyoid,
+                                                        opcintype);
+            }
+
+            if (OidIsValid(opclassoid))
+            {
+                // Hard dependency on specific operator class
+                op->ref_is_hard = true;
+                op->ref_is_family = false;
+                op->refobjid = opclassoid;
+            }
+            else
+            {
+                // Fallback: soft dependency on operator family
+                op->ref_is_hard = false;
+                op->ref_is_family = true;
+                op->refobjid = opfamilyoid;
+            }
+        }
+    }
+}
+```

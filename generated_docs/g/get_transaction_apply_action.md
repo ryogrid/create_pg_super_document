@@ -41,3 +41,34 @@ get_transaction_apply_action is a critical decision-making function in PostgreSQ
 - For streamed transactions without parallel workers, changes are serialized to handle large transactions that might not fit in memory
 - The TransApplyAction enum values guide the caller on how to process subsequent transaction operations
 - This function is central to PostgreSQL's ability to efficiently handle large-scale logical replication workloads through parallelization and streaming
+
+## Simplified Source
+
+```c
+static TransApplyAction get_transaction_apply_action(TransactionId xid, ParallelApplyWorkerInfo **winfo) {
+    *winfo = NULL;
+
+    // If we're a parallel worker, just apply directly
+    if (am_parallel_apply_worker()) {
+        return TRANS_PARALLEL_APPLY;
+    }
+
+    // Find if parallel worker exists for this transaction
+    *winfo = pa_find_worker(xid);
+
+    if (*winfo && (*winfo)->serialize_changes) {
+        // Worker busy, serialize for later processing
+        return TRANS_LEADER_PARTIAL_SERIALIZE;
+    } else if (*winfo) {
+        // Send directly to parallel worker
+        return TRANS_LEADER_SEND_TO_PARALLEL;
+    }
+
+    // No parallel worker - decide based on streaming state
+    if (in_streamed_transaction) {
+        return TRANS_LEADER_SERIALIZE;  // Large transaction, serialize
+    } else {
+        return TRANS_LEADER_APPLY;      // Apply directly
+    }
+}
+```

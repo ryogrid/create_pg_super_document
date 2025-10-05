@@ -25,3 +25,21 @@ This function provides shared (read-only) locking for PostgreSQL statistics entr
 
 ## Notes and Other Information
 Separated from pgstat_lock_entry() as most callers need exclusive locks. The shared lock allows concurrent read access while preventing modifications. The function always returns true when nowait is false.
+
+## Simplified Source
+
+```c
+bool
+pgstat_lock_entry_shared(PgStat_EntryRef *entry_ref, bool nowait)
+{
+    LWLock *lock = &entry_ref->shared_stats->lock;
+
+    // Try non-blocking acquire if nowait is true
+    if (nowait)
+        return LWLockConditionalAcquire(lock, LW_SHARED);
+
+    // Otherwise block until lock is acquired
+    LWLockAcquire(lock, LW_SHARED);
+    return true;
+}
+```

@@ -38,3 +38,40 @@ The function is typically used when a relation needs to be fully synchronized, s
 - Distinguishes between active segments (kept open) and inactive segments (closed after marking)
 - The function is designed to be robust - if some inactive segments remain open due to errors, it's considered harmless
 - Essential for ensuring full relation durability during checkpoints and recovery scenarios
+
+## Simplified Source
+
+```c
+void mdregistersync(SMgrRelation reln, ForkNumber forknum)
+{
+    int segno;
+    int min_inactive_seg;
+
+    // Ensure all active segments are opened
+    mdnblocks(reln, forknum);
+
+    min_inactive_seg = segno = reln->md_num_open_segs[forknum];
+
+    // Temporarily open any inactive segments beyond active ones
+    while (_mdfd_openseg(reln, forknum, segno, 0) != NULL)
+        segno++;
+
+    // Process all segments in reverse order, marking each as dirty
+    while (segno > 0)
+    {
+        MdfdVec *v = &reln->md_seg_fds[forknum][segno - 1];
+
+        // Mark segment as needing fsync
+        register_dirty_segment(reln, forknum, v);
+
+        // Close inactive segments immediately to avoid keeping too many FDs open
+        if (segno > min_inactive_seg)
+        {
+            FileClose(v->mdfd_vfd);
+            _fdvec_resize(reln, forknum, segno - 1);
+        }
+
+        segno--;
+    }
+}
+```

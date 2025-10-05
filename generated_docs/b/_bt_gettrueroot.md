@@ -49,3 +49,69 @@ The function is primarily used in specialized scenarios where the exact root pag
 - Used primarily in non-performance-critical paths where the exact root is required
 - May return a page that gets split immediately after acquisition, but this is acceptable for current uses
 - The function is located in src/backend/access/nbtree/nbtpage.c:580-674
+
+## Simplified Source
+
+```c
+Buffer _bt_gettrueroot(Relation rel) {
+    Buffer metabuf, rootbuf;
+    Page metapg, rootpage;
+    BTPageOpaque metaopaque, rootopaque;
+    BlockNumber rootblkno;
+    uint32 rootlevel;
+    BTMetaPageData *metad;
+
+    // Clear cached metadata since it's likely stale
+    if (rel->rd_amcache) {
+        pfree(rel->rd_amcache);
+        rel->rd_amcache = NULL;
+    }
+
+    // Read metadata page and validate
+    metabuf = _bt_getbuf(rel, BTREE_METAPAGE, BT_READ);
+    metapg = BufferGetPage(metabuf);
+    metaopaque = BTPageGetOpaque(metapg);
+    metad = BTPageGetMeta(metapg);
+
+    // Basic metadata validation
+    if (!P_ISMETA(metaopaque) || metad->btm_magic != BTREE_MAGIC)
+        ereport(ERROR, "index is not a btree");
+
+    // Version compatibility check
+    if (metad->btm_version < BTREE_MIN_VERSION ||
+        metad->btm_version > BTREE_VERSION)
+        ereport(ERROR, "version mismatch in index");
+
+    // Check if root exists
+    if (metad->btm_root == P_NONE) {
+        _bt_relbuf(rel, metabuf);
+        return InvalidBuffer;
+    }
+
+    // Get root page location and level
+    rootblkno = metad->btm_root;
+    rootlevel = metad->btm_level;
+    rootbuf = metabuf;
+
+    // Find live root page (skip deleted pages)
+    for (;;) {
+        rootbuf = _bt_relandgetbuf(rel, rootbuf, rootblkno, BT_READ);
+        rootpage = BufferGetPage(rootbuf);
+        rootopaque = BTPageGetOpaque(rootpage);
+
+        if (!P_IGNORE(rootopaque))
+            break;
+
+        // Page is deleted, try next page
+        if (P_RIGHTMOST(rootopaque))
+            elog(ERROR, "no live root page found");
+        rootblkno = rootopaque->btpo_next;
+    }
+
+    // Verify root page level matches metadata
+    if (rootopaque->btpo_level != rootlevel)
+        elog(ERROR, "root page level mismatch");
+
+    return rootbuf;
+}
+```

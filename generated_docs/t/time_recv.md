@@ -39,3 +39,30 @@ The function performs strict range validation to ensure the time value falls wit
 - [Range](../R/Range.md) validation ensures time values are within a single day (0 ≤ time < USECS_PER_DAY)
 - Type modifier adjustments handle precision constraints (e.g., TIME(3) for 3 decimal places)
 - Located in src/backend/utils/adt/date.c:1521-1546
+
+## Simplified Source
+
+```c
+Datum
+time_recv(PG_FUNCTION_ARGS)
+{
+    // Extract arguments
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    int32 typmod = PG_GETARG_INT32(2);
+    TimeADT result;
+
+    // Read 64-bit time value from binary buffer
+    result = pq_getmsgint64(buf);
+
+    // Validate time range (0 to microseconds per day)
+    if (result < INT64CONST(0) || result > USECS_PER_DAY)
+        ereport(ERROR,
+                (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                 errmsg("time out of range")));
+
+    // Apply type modifier precision constraints
+    AdjustTimeForTypmod(&result, typmod);
+
+    PG_RETURN_TIMEADT(result);
+}
+```

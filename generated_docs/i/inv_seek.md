@@ -43,3 +43,41 @@ The function performs bounds checking to ensure the new position is valid, rejec
 - Uses errmsg_internal for error messages to avoid exposing INT64_FORMAT in translatable strings
 - The maximum seek position is limited by MAX_LARGE_OBJECT_SIZE constant
 - Position changes are immediately reflected in the obj_desc->offset field
+
+## Simplified Source
+
+```c
+int64 inv_seek(LargeObjectDesc *obj_desc, int64 offset, int whence) {
+    int64 newoffset;
+
+    Assert(PointerIsValid(obj_desc));
+
+    // Calculate new position based on seek mode
+    switch (whence) {
+        case SEEK_SET:
+            newoffset = offset;  // Absolute position from start
+            break;
+        case SEEK_CUR:
+            newoffset = obj_desc->offset + offset;  // Relative to current position
+            break;
+        case SEEK_END:
+            newoffset = inv_getsize(obj_desc) + offset;  // Relative to end
+            break;
+        default:
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("invalid whence setting: %d", whence)));
+            newoffset = 0;
+            break;
+    }
+
+    // Validate the new position is within acceptable bounds
+    if (newoffset < 0 || newoffset > MAX_LARGE_OBJECT_SIZE)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg_internal("invalid large object seek target: " INT64_FORMAT,
+                                      newoffset)));
+
+    // Update descriptor and return new position
+    obj_desc->offset = newoffset;
+    return newoffset;
+}
+```

@@ -34,3 +34,17 @@ This function generates and outputs a C preprocessor line number directive to th
 - Memory management is handled properly by freeing the allocated line string
 - Essential for maintaining source line correspondence in generated code
 - Used extensively in error handling and statement output contexts
+
+## Simplified Source
+
+```c
+void
+output_line_number(void)
+{
+    char *line = hashline_number();
+
+    // Output the line number directive to preprocessor output
+    fprintf(base_yyout, "%s", line);
+    free(line);
+}
+```

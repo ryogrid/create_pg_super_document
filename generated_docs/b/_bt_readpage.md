@@ -61,3 +61,191 @@ The function implements several optimizations including precheck logic to avoid 
 - Implements sophisticated array key handling with skip-ahead optimization
 - Maintains proper tuple ordering in the items array for both scan directions
 - Essential component of PostgreSQL's B-tree access method implementation
+
+## Simplified Source
+
+```c
+static bool
+_bt_readpage(IndexScanDesc scan, ScanDirection dir, OffsetNumber offnum, bool firstPage)
+{
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+    Page page;
+    BTPageOpaque opaque;
+    OffsetNumber minoff, maxoff;
+    BTReadPageState pstate;
+    int itemIndex, indnatts;
+
+    page = BufferGetPage(so->currPos.buf);
+    opaque = BTPageGetOpaque(page);
+
+    // Handle parallel scan coordination
+    if (scan->parallel_scan)
+    {
+        BlockNumber next_page = ScanDirectionIsForward(dir) ?
+                               opaque->btpo_next :
+                               BufferGetBlockNumber(so->currPos.buf);
+        _bt_parallel_release(scan, next_page);
+    }
+
+    // Initialize page scanning state
+    indnatts = IndexRelationGetNumberOfAttributes(scan->indexRelation);
+    minoff = P_FIRSTDATAKEY(opaque);
+    maxoff = PageGetMaxOffsetNumber(page);
+
+    pstate.dir = dir;
+    pstate.continuescan = true;
+    pstate.prechecked = false;
+
+    // Save page information for scan state
+    so->currPos.currPage = BufferGetBlockNumber(so->currPos.buf);
+    so->currPos.lsn = BufferGetLSNAtomic(so->currPos.buf);
+    so->currPos.nextPage = opaque->btpo_next;
+    so->currPos.dir = dir;
+    so->currPos.nextTupleOffset = 0;
+
+    // Perform precheck optimization on representative tuple
+    if (!firstPage && !so->scanBehind && minoff < maxoff)
+    {
+        ItemId iid = PageGetItemId(page, ScanDirectionIsForward(dir) ? maxoff : minoff);
+        IndexTuple itup = (IndexTuple) PageGetItem(page, iid);
+        _bt_checkkeys(scan, &pstate, false, itup, indnatts);
+        pstate.prechecked = pstate.continuescan;
+        pstate.continuescan = true;
+    }
+
+    if (ScanDirectionIsForward(dir))
+    {
+        // Forward scan: load items in ascending order
+        itemIndex = 0;
+        offnum = Max(offnum, minoff);
+
+        while (offnum <= maxoff)
+        {
+            ItemId iid = PageGetItemId(page, offnum);
+            IndexTuple itup;
+
+            // Skip killed tuples if requested
+            if (scan->ignore_killed_tuples && ItemIdIsDead(iid))
+            {
+                offnum = OffsetNumberNext(offnum);
+                continue;
+            }
+
+            itup = (IndexTuple) PageGetItem(page, iid);
+            pstate.offnum = offnum;
+
+            // Check if tuple qualifies
+            if (_bt_checkkeys(scan, &pstate, (so->numArrayKeys != 0), itup, indnatts))
+            {
+                // Save qualifying tuple(s)
+                if (!BTreeTupleIsPosting(itup))
+                {
+                    _bt_saveitem(so, itemIndex, offnum, itup);
+                    itemIndex++;
+                }
+                else
+                {
+                    // Handle posting list tuple
+                    int tupleOffset = _bt_setuppostingitems(so, itemIndex, offnum,
+                                                          BTreeTupleGetPostingN(itup, 0), itup);
+                    itemIndex++;
+                    // Save additional TIDs from posting list
+                    for (int i = 1; i < BTreeTupleGetNPosting(itup); i++)
+                    {
+                        _bt_savepostingitem(so, itemIndex, offnum,
+                                          BTreeTupleGetPostingN(itup, i), tupleOffset);
+                        itemIndex++;
+                    }
+                }
+            }
+
+            if (!pstate.continuescan)
+                break;
+
+            offnum = OffsetNumberNext(offnum);
+        }
+
+        // Check high key to determine if more pages needed
+        if (pstate.continuescan && !P_RIGHTMOST(opaque))
+        {
+            ItemId iid = PageGetItemId(page, P_HIKEY);
+            IndexTuple itup = (IndexTuple) PageGetItem(page, iid);
+            int truncatt = BTreeTupleGetNAtts(itup, scan->indexRelation);
+            _bt_checkkeys(scan, &pstate, (so->numArrayKeys != 0), itup, truncatt);
+        }
+
+        if (!pstate.continuescan)
+            so->currPos.moreRight = false;
+
+        so->currPos.firstItem = 0;
+        so->currPos.lastItem = itemIndex - 1;
+        so->currPos.itemIndex = 0;
+    }
+    else
+    {
+        // Backward scan: load items in descending order
+        itemIndex = MaxTIDsPerBTreePage;
+        offnum = Min(offnum, maxoff);
+
+        while (offnum >= minoff)
+        {
+            ItemId iid = PageGetItemId(page, offnum);
+            IndexTuple itup;
+            bool tuple_alive = true;
+
+            // Handle killed tuples for backward scan
+            if (scan->ignore_killed_tuples && ItemIdIsDead(iid))
+            {
+                if (offnum > P_FIRSTDATAKEY(opaque))
+                {
+                    offnum = OffsetNumberPrev(offnum);
+                    continue;
+                }
+                tuple_alive = false;
+            }
+
+            itup = (IndexTuple) PageGetItem(page, iid);
+            pstate.offnum = offnum;
+
+            // Check if tuple qualifies
+            if (_bt_checkkeys(scan, &pstate, (so->numArrayKeys != 0), itup, indnatts) && tuple_alive)
+            {
+                // Save qualifying tuple(s) in reverse order
+                if (!BTreeTupleIsPosting(itup))
+                {
+                    itemIndex--;
+                    _bt_saveitem(so, itemIndex, offnum, itup);
+                }
+                else
+                {
+                    // Handle posting list tuple
+                    itemIndex--;
+                    int tupleOffset = _bt_setuppostingitems(so, itemIndex, offnum,
+                                                          BTreeTupleGetPostingN(itup, 0), itup);
+                    // Save additional TIDs from posting list
+                    for (int i = 1; i < BTreeTupleGetNPosting(itup); i++)
+                    {
+                        itemIndex--;
+                        _bt_savepostingitem(so, itemIndex, offnum,
+                                          BTreeTupleGetPostingN(itup, i), tupleOffset);
+                    }
+                }
+            }
+
+            if (!pstate.continuescan)
+            {
+                so->currPos.moreLeft = false;
+                break;
+            }
+
+            offnum = OffsetNumberPrev(offnum);
+        }
+
+        so->currPos.firstItem = itemIndex;
+        so->currPos.lastItem = MaxTIDsPerBTreePage - 1;
+        so->currPos.itemIndex = MaxTIDsPerBTreePage - 1;
+    }
+
+    return (so->currPos.firstItem <= so->currPos.lastItem);
+}
+```

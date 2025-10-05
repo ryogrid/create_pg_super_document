@@ -40,3 +40,44 @@ The function is designed to help developers and testers understand what type of 
 - Returns "unknown command type" for any command types not explicitly handled
 - The function maps command type enums to user-friendly strings for debugging and testing purposes
 - Located in the test_ddl_deparse extension module, indicating it's primarily for testing functionality
+
+## Simplified Source
+
+```c
+Datum get_command_type(PG_FUNCTION_ARGS) {
+    // Extract CollectedCommand pointer from arguments
+    CollectedCommand *cmd = (CollectedCommand *) PG_GETARG_POINTER(0);
+    const char *type;
+
+    // Map command type enum to string representation
+    switch (cmd->type) {
+        case SCT_Simple:
+            type = "simple";
+            break;
+        case SCT_AlterTable:
+            type = "alter table";
+            break;
+        case SCT_Grant:
+            type = "grant";
+            break;
+        case SCT_AlterOpFamily:
+            type = "alter operator family";
+            break;
+        case SCT_AlterDefaultPrivileges:
+            type = "alter default privileges";
+            break;
+        case SCT_CreateOpClass:
+            type = "create operator class";
+            break;
+        case SCT_AlterTSConfig:
+            type = "alter text search configuration";
+            break;
+        default:
+            type = "unknown command type";
+            break;
+    }
+
+    // Convert C string to PostgreSQL text and return
+    PG_RETURN_TEXT_P(cstring_to_text(type));
+}
+```

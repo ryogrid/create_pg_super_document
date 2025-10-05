@@ -33,3 +33,15 @@ The `circle_lt` function compares two circles to determine if the first circle h
 - Employs floating-point accuracy constraints via `FPlt` for reliable comparison
 - Located in `src/backend/utils/adt/geo_ops.c:4921-4929`
 - Part of PostgreSQL's geometric data type comparison operators for sorting and ordering operations
+
+## Simplified Source
+
+```c
+Datum circle_lt(PG_FUNCTION_ARGS) {
+    CIRCLE *circle1 = PG_GETARG_CIRCLE_P(0);
+    CIRCLE *circle2 = PG_GETARG_CIRCLE_P(1);
+
+    // Compare areas: circle1.area < circle2.area
+    PG_RETURN_BOOL(FPlt(circle_ar(circle1), circle_ar(circle2)));
+}
+```

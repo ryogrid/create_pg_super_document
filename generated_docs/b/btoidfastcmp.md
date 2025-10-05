@@ -35,3 +35,21 @@ The btoidfastcmp function is an optimized comparison function for OID values tha
 - Returns the same comparison semantics as btoidcmp but with lower overhead
 - The SortSupport parameter is required by the interface but not used in this simple comparison
 - Static linkage indicates this function is an internal implementation detail of the B-tree comparison system
+
+## Simplified Source
+
+```c
+static int btoidfastcmp(Datum x, Datum y, SortSupport ssup) {
+    // Extract OID values from Datum arguments
+    Oid a = DatumGetObjectId(x);
+    Oid b = DatumGetObjectId(y);
+
+    // Compare OIDs and return standard comparison result
+    if (a > b)
+        return A_GREATER_THAN_B;
+    else if (a == b)
+        return 0;
+    else
+        return A_LESS_THAN_B;
+}
+```

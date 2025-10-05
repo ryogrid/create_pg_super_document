@@ -51,3 +51,42 @@ The wait-free approach prevents deadlocks that could occur if workers blocked wa
 - Handles the skip_unmatched optimization where scanning may be bypassed entirely
 - Tracks space usage statistics normally handled by ExecHashTableDetachBatch()
 - Essential for correctness of parallel RIGHT JOIN and FULL OUTER JOIN operations
+
+## Simplified Source
+```c
+bool
+ExecParallelPrepHashTableForUnmatched(HashJoinState *hjstate)
+{
+    HashJoinTable hashtable = hjstate->hj_HashTable;
+    int curbatch = hashtable->curbatch;
+    ParallelHashJoinBatch *batch = hashtable->batches[curbatch].shared;
+
+    // Only one worker can proceed to unmatched scan phase
+    // Others detach from this batch to avoid deadlock
+    if (!BarrierArriveAndDetachExceptLast(&batch->batch_barrier))
+    {
+        // Mark batch done and cleanup for non-elected workers
+        hashtable->batches[hashtable->curbatch].done = true;
+        sts_end_parallel_scan(hashtable->batches[curbatch].inner_tuples);
+        sts_end_parallel_scan(hashtable->batches[curbatch].outer_tuples);
+
+        // Track memory usage statistics
+        hashtable->spacePeak = Max(hashtable->spacePeak,
+                                   batch->size + sizeof(dsa_pointer_atomic) * hashtable->nbuckets);
+        hashtable->curbatch = -1;
+        return false;
+    }
+
+    // Check if another process signaled to skip unmatched scan
+    if (batch->skip_unmatched)
+    {
+        hashtable->batches[hashtable->curbatch].done = true;
+        ExecHashTableDetachBatch(hashtable);
+        return false;
+    }
+
+    // Prepare local state for unmatched scan
+    ExecPrepHashTableForUnmatched(hjstate);
+    return true;
+}
+```

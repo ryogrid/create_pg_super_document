@@ -41,3 +41,41 @@ The function performs similar validation to enum_in but works with binary protoc
 - The binary protocol provides more efficient data transfer compared to text representation
 - Essential for COPY BINARY operations and prepared statements with binary parameter formats
 - Maintains the same error reporting patterns as the text input function for consistency
+
+## Simplified Source
+
+```c
+Datum enum_recv(PG_FUNCTION_ARGS) {
+    StringInfo buffer = (StringInfo) PG_GETARG_POINTER(0);
+    Oid enum_type_oid = PG_GETARG_OID(1);
+    int name_length;
+
+    // Extract enum name from binary protocol buffer
+    char *enum_name = pq_getmsgtext(buffer, buffer->len - buffer->cursor, &name_length);
+
+    // Validate input length to prevent cache lookup failures
+    if (strlen(enum_name) >= NAMEDATALEN) {
+        ereport(ERROR, "invalid input value for enum: name too long");
+    }
+
+    // Look up the enum value in system catalog
+    HeapTuple enum_tuple = SearchSysCache2(ENUMTYPOIDNAME,
+                                          ObjectIdGetDatum(enum_type_oid),
+                                          CStringGetDatum(enum_name));
+
+    if (!HeapTupleIsValid(enum_tuple)) {
+        ereport(ERROR, "invalid input value for enum: value not found");
+    }
+
+    // Ensure the enum value is safe to use (committed transaction)
+    check_safe_enum_use(enum_tuple);
+
+    // Extract the OID of the enum value
+    Oid enum_value_oid = ((Form_pg_enum) GETSTRUCT(enum_tuple))->oid;
+
+    ReleaseSysCache(enum_tuple);
+    pfree(enum_name);  // Clean up allocated memory
+
+    PG_RETURN_OID(enum_value_oid);
+}
+```

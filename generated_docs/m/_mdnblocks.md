@@ -42,3 +42,23 @@ The function is part of PostgreSQL's magnetic disk storage manager (md.c) and is
 - Error handling is robust - if FileSize() fails, an appropriate error is reported with the file path
 - The function is fundamental to PostgreSQL's block-oriented storage system
 - Returns BlockNumber type, which is typically a 32-bit unsigned integer representing block numbers
+
+## Simplified Source
+
+```c
+static BlockNumber _mdnblocks(SMgrRelation reln, ForkNumber forknum, MdfdVec *seg)
+{
+    off_t len;
+
+    // Get the file size in bytes
+    len = FileSize(seg->mdfd_vfd);
+    if (len < 0)
+        ereport(ERROR,
+                (errcode_for_file_access(),
+                 errmsg("could not seek to end of file \"%s\": %m",
+                        FilePathName(seg->mdfd_vfd))));
+
+    // Convert bytes to block count (ignores partial blocks at EOF)
+    return (BlockNumber) (len / BLCKSZ);
+}
+```

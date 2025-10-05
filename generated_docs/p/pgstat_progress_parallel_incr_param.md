@@ -43,3 +43,28 @@ This design allows parallel operations to maintain consistent progress reporting
 - This function provides a unified interface that works correctly in both parallel and non-parallel contexts
 - Essential for maintaining accurate progress reporting in parallel operations like parallel VACUUM
 - The parallel messaging mechanism ensures that progress updates from all workers are properly aggregated by the leader
+
+## Simplified Source
+
+```c
+void
+pgstat_progress_parallel_incr_param(int index, int64 incr)
+{
+    // Workers send progress updates to leader via message
+    if (IsParallelWorker()) {
+        static StringInfoData progress_message;
+
+        initStringInfo(&progress_message);
+
+        // Send progress message to leader
+        pq_beginmessage(&progress_message, PqMsg_Progress);
+        pq_sendint32(&progress_message, index);
+        pq_sendint64(&progress_message, incr);
+        pq_endmessage(&progress_message);
+    }
+    else {
+        // Leaders update progress directly
+        pgstat_progress_incr_param(index, incr);
+    }
+}
+```

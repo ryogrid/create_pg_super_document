@@ -45,3 +45,61 @@ The function configures different extraction behaviors for the two supported ope
 - The extra_data array's first element always contains the root expression node for query execution
 - Different operator classes use different extraction strategies optimized for their respective indexing approaches
 - Memory allocation for extra_data is sized based on the number of entries but only the first element is currently used
+
+## Simplified Source
+
+```c
+static Datum *
+extract_jsp_query(JsonPath *jp, StrategyNumber strat, bool pathOps,
+                  int32 *nentries, Pointer **extra_data)
+{
+    JsonPathGinContext cxt;
+    JsonPathItem root;
+    JsonPathGinNode *node;
+    JsonPathGinPath path = {0};
+    GinEntries entries = {0};
+
+    // Configure extraction context
+    cxt.lax = (jp->header & JSONPATH_LAX) != 0;
+
+    if (pathOps)
+    {
+        // Use path-ops specific handlers
+        cxt.add_path_item = jsonb_path_ops__add_path_item;
+        cxt.extract_nodes = jsonb_path_ops__extract_nodes;
+    }
+    else
+    {
+        // Use standard jsonb_ops handlers
+        cxt.add_path_item = jsonb_ops__add_path_item;
+        cxt.extract_nodes = jsonb_ops__extract_nodes;
+    }
+
+    // Initialize root path item
+    jspInit(&root, jp);
+
+    // Extract query tree based on strategy
+    node = strat == JsonbJsonpathExistsStrategyNumber
+        ? extract_jsp_path_expr(&cxt, path, &root, NULL)
+        : extract_jsp_bool_expr(&cxt, path, &root, false);
+
+    if (!node)
+    {
+        *nentries = 0;
+        return NULL;
+    }
+
+    // Collect all GIN entries from the tree
+    emit_jsp_gin_entries(node, &entries);
+
+    *nentries = entries.count;
+    if (!*nentries)
+        return NULL;
+
+    // Store root node in extra_data for query execution
+    *extra_data = palloc0(sizeof(**extra_data) * entries.count);
+    **extra_data = (Pointer) node;
+
+    return entries.buf;
+}
+```

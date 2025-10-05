@@ -46,3 +46,56 @@ The algorithm determines the minimum number of attributes needed by calling _bt_
 
 ## Notes and Other Information
 This function is critical for B-tree space efficiency and performance. Truncated pivot tuples reduce internal page size, allowing for higher fanout and better cache utilization. The function must carefully maintain Lehman & Yao invariants for concurrent B-tree operations, ensuring that pivot values serve as proper separators between left and right pages. The heap TID tiebreaker mechanism handles cases where key attributes alone cannot provide sufficient discrimination between split points.
+
+## Simplified Source
+
+```c
+IndexTuple
+_bt_truncate(Relation rel, IndexTuple lastleft, IndexTuple firstright,
+             BTScanInsert itup_key)
+{
+    TupleDesc itupdesc = RelationGetDescr(rel);
+    int16 nkeyatts = IndexRelationGetNumberOfKeyAttributes(rel);
+    int keepnatts;
+    IndexTuple pivot;
+
+    // Should only truncate non-pivot tuples from leaf pages
+    Assert(!BTreeTupleIsPivot(lastleft) && !BTreeTupleIsPivot(firstright));
+
+    // Determine minimum attributes needed for proper separation
+    keepnatts = _bt_keep_natts(rel, lastleft, firstright, itup_key);
+
+    // Create basic truncated tuple
+    pivot = index_truncate_tuple(itupdesc, firstright,
+                                 Min(keepnatts, nkeyatts));
+
+    // Handle posting list truncation if needed
+    if (BTreeTupleIsPosting(pivot)) {
+        pivot->t_info &= ~INDEX_SIZE_MASK;
+        pivot->t_info |= MAXALIGN(BTreeTupleGetPostingOffset(firstright));
+    }
+
+    // If key attributes provide sufficient separation, we're done
+    if (keepnatts <= nkeyatts) {
+        BTreeTupleSetNAtts(pivot, keepnatts, false);
+        return pivot;
+    }
+
+    // Need heap TID as tiebreaker - create enlarged pivot tuple
+    Size newsize = MAXALIGN(IndexTupleSize(pivot)) + MAXALIGN(sizeof(ItemPointerData));
+    IndexTuple tidpivot = palloc0(newsize);
+    memcpy(tidpivot, pivot, MAXALIGN(IndexTupleSize(pivot)));
+    pfree(pivot);
+
+    // Set up enlarged tuple with heap TID
+    tidpivot->t_info &= ~INDEX_SIZE_MASK;
+    tidpivot->t_info |= newsize;
+    BTreeTupleSetNAtts(tidpivot, nkeyatts, true);
+
+    // Use lastleft's heap TID as tiebreaker value
+    ItemPointer pivotheaptid = BTreeTupleGetHeapTID(tidpivot);
+    ItemPointerCopy(BTreeTupleGetMaxHeapTID(lastleft), pivotheaptid);
+
+    return tidpivot;
+}
+```

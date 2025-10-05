@@ -38,3 +38,14 @@ The function is used internally by PostgreSQL's array slicing operations to dete
 - Simple computation: span[i] = endp[i] - st[i] + 1 for each dimension
 - Used as a utility function in various array slicing operations throughout PostgreSQL's array handling code
 - Located in src/backend/utils/adt/arrayutils.c:153-166
+
+## Simplified Source
+
+```c
+void mda_get_range(int n, int *span, const int *st, const int *endp)
+{
+    // Calculate range for each dimension: span[i] = end[i] - start[i] + 1
+    for (int i = 0; i < n; i++)
+        span[i] = endp[i] - st[i] + 1;
+}
+```

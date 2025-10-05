@@ -44,3 +44,60 @@ The function handles the complex task of mapping table column numbers to index c
 - Maintains proper locking by opening and closing each index with the specified lock mode
 - Invokes post-alter hooks to notify other subsystems of the changes
 - Works with both storage and compression properties independently based on the boolean flags
+
+## Simplified Source
+
+```c
+static void SetIndexStorageProperties(Relation rel, Relation attrelation,
+                                    AttrNumber attnum,
+                                    bool setstorage, char newstorage,
+                                    bool setcompression, char newcompression,
+                                    LOCKMODE lockmode) {
+    // Iterate through all indexes on this table
+    foreach(lc, RelationGetIndexList(rel)) {
+        Oid indexoid = lfirst_oid(lc);
+        Relation indrel = index_open(indexoid, lockmode);
+        AttrNumber indattnum = 0;
+
+        // Find the index column that corresponds to our table column
+        for (int i = 0; i < indrel->rd_index->indnatts; i++) {
+            if (indrel->rd_index->indkey.values[i] == attnum) {
+                indattnum = i + 1;
+                break;
+            }
+        }
+
+        // Skip this index if it doesn't include our column
+        if (indattnum == 0) {
+            index_close(indrel, lockmode);
+            continue;
+        }
+
+        // Get the index column's attribute tuple
+        HeapTuple tuple = SearchSysCacheCopyAttNum(RelationGetRelid(indrel),
+                                                  indattnum);
+
+        if (HeapTupleIsValid(tuple)) {
+            Form_pg_attribute attrtuple = (Form_pg_attribute) GETSTRUCT(tuple);
+
+            // Update storage and/or compression properties
+            if (setstorage)
+                attrtuple->attstorage = newstorage;
+            if (setcompression)
+                attrtuple->attcompression = newcompression;
+
+            // Save changes to catalog
+            CatalogTupleUpdate(attrelation, &tuple->t_self, tuple);
+
+            // Notify other subsystems of the change
+            InvokeObjectPostAlterHook(RelationRelationId,
+                                    RelationGetRelid(rel),
+                                    attrtuple->attnum);
+
+            heap_freetuple(tuple);
+        }
+
+        index_close(indrel, lockmode);
+    }
+}
+```

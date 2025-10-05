@@ -45,3 +45,29 @@ The function expects two arguments: a parser OID and the text to be parsed. It r
 - The parser OID must correspond to a valid text search parser in the system catalog
 - Returns tuples with two columns: token type (integer) and lexeme (text)
 - Companion function to ts_parse_byname which takes a parser name instead of OID
+
+## Simplified Source
+
+```c
+Datum ts_parse_byid(PG_FUNCTION_ARGS) {
+    FuncCallContext *funcctx;
+    Datum result;
+
+    // First call: initialize parser and tokenize input text
+    if (SRF_IS_FIRSTCALL()) {
+        text *txt = PG_GETARG_TEXT_PP(1);
+
+        funcctx = SRF_FIRSTCALL_INIT();
+        prs_setup_firstcall(funcctx, fcinfo, PG_GETARG_OID(0), txt);
+        PG_FREE_IF_COPY(txt, 1);
+    }
+
+    funcctx = SRF_PERCALL_SETUP();
+
+    // Process each call: return next token or signal completion
+    if ((result = prs_process_call(funcctx)) != (Datum) 0)
+        SRF_RETURN_NEXT(funcctx, result);
+
+    SRF_RETURN_DONE(funcctx);
+}
+```

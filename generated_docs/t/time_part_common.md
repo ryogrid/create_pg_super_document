@@ -45,4 +45,94 @@ This function is the core implementation for extracting time components from a t
 - The epoch extraction returns seconds since Unix epoch as a fractional value
 - Input unit names are case-insensitive due to downcase_truncate_identifier processing
 - Error handling includes both ERRCODE_FEATURE_NOT_SUPPORTED and ERRCODE_INVALID_PARAMETER_VALUE
-- Located in 
+- Located in src/backend/utils/adt/date.c:2140-2242
+
+## Simplified Source
+
+```c
+static Datum
+time_part_common(PG_FUNCTION_ARGS, bool retnumeric)
+{
+    // Extract function arguments
+    text *units = PG_GETARG_TEXT_PP(0);
+    TimeADT time = PG_GETARG_TIMEADT(1);
+
+    // Parse the unit name (case-insensitive)
+    char *lowunits = downcase_truncate_identifier(VARDATA_ANY(units),
+                                                 VARSIZE_ANY_EXHDR(units),
+                                                 false);
+
+    // Decode the unit type
+    int type, val;
+    type = DecodeUnits(0, lowunits, &val);
+    if (type == UNKNOWN_FIELD)
+        type = DecodeSpecial(0, lowunits, &val);
+
+    if (type == UNITS) {
+        // Convert time to tm structure for component extraction
+        fsec_t fsec;
+        struct pg_tm tt, *tm = &tt;
+        time2tm(time, tm, &fsec);
+
+        int64 intresult;
+        switch (val) {
+            case DTK_MICROSEC:
+                intresult = tm->tm_sec * INT64CONST(1000000) + fsec;
+                break;
+
+            case DTK_MILLISEC:
+                if (retnumeric)
+                    PG_RETURN_NUMERIC(int64_div_fast_to_numeric(
+                        tm->tm_sec * INT64CONST(1000000) + fsec, 3));
+                else
+                    PG_RETURN_FLOAT8(tm->tm_sec * 1000.0 + fsec / 1000.0);
+                break;
+
+            case DTK_SECOND:
+                if (retnumeric)
+                    PG_RETURN_NUMERIC(int64_div_fast_to_numeric(
+                        tm->tm_sec * INT64CONST(1000000) + fsec, 6));
+                else
+                    PG_RETURN_FLOAT8(tm->tm_sec + fsec / 1000000.0);
+                break;
+
+            case DTK_MINUTE:
+                intresult = tm->tm_min;
+                break;
+
+            case DTK_HOUR:
+                intresult = tm->tm_hour;
+                break;
+
+            default:
+                // Reject unsupported units for TIME type
+                ereport(ERROR,
+                        (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                         errmsg("unit \"%s\" not supported for type %s",
+                                lowunits, format_type_be(TIMEOID))));
+                intresult = 0;
+        }
+
+        // Return integer result
+        if (retnumeric)
+            PG_RETURN_NUMERIC(int64_to_numeric(intresult));
+        else
+            PG_RETURN_FLOAT8(intresult);
+    }
+    else if (type == RESERV && val == DTK_EPOCH) {
+        // Special case: epoch conversion
+        if (retnumeric)
+            PG_RETURN_NUMERIC(int64_div_fast_to_numeric(time, 6));
+        else
+            PG_RETURN_FLOAT8(time / 1000000.0);
+    }
+    else {
+        // Unrecognized unit
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("unit \"%s\" not recognized for type %s",
+                        lowunits, format_type_be(TIMEOID))));
+        PG_RETURN_FLOAT8(0);  // Never reached
+    }
+}
+``` 

@@ -42,3 +42,32 @@ The implementation is straightforward and focuses on creating a minimal, efficie
 - Part of PostgreSQLs binary data interchange system
 - Ensures efficient network transmission of polygon data
 - Produces compact binary format suitable for high-performance applications
+
+## Simplified Source
+
+```c
+Datum
+poly_send(PG_FUNCTION_ARGS)
+{
+    // Extract polygon argument
+    POLYGON *poly = PG_GETARG_POLYGON_P(0);
+    StringInfoData buf;
+    int32 i;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Send point count
+    pq_sendint32(&buf, poly->npts);
+
+    // Send coordinate data for each point
+    for (i = 0; i < poly->npts; i++)
+    {
+        pq_sendfloat8(&buf, poly->p[i].x);
+        pq_sendfloat8(&buf, poly->p[i].y);
+    }
+
+    // Finalize and return binary data
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

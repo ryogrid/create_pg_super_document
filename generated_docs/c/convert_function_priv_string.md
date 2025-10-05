@@ -38,3 +38,19 @@ This is a static helper function used by all has_function_privilege functions to
 - Part of the support routines for the has_function_privilege family of functions
 - Leverages the generic convert_any_priv_string function for actual string parsing and conversion
 - Located in src/backend/utils/adt/acl.c:3577-3604
+
+## Simplified Source
+
+```c
+static AclMode convert_function_priv_string(text *priv_type_text) {
+    // Function privilege mapping table
+    static const priv_map function_priv_map[] = {
+        {"EXECUTE", ACL_EXECUTE},
+        {"EXECUTE WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_EXECUTE)},
+        {NULL, 0}
+    };
+
+    // Use generic privilege conversion with function-specific mappings
+    return convert_any_priv_string(priv_type_text, function_priv_map);
+}
+```

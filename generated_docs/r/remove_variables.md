@@ -46,3 +46,65 @@ This function is critical for maintaining proper scoping semantics and preventin
 - The brace_level parameter typically corresponds to C block nesting depth
 - More complex than  due to the need to handle cursor references
 - Prevents variable pollution across scope boundaries and cursor corruption
+
+## Simplified Source
+
+```c
+void
+remove_variables(int brace_level)
+{
+    struct variable *p, *prev, *next;
+
+    // Traverse all variables in the global list
+    for (p = allvariables, prev = NULL; p; p = next) {
+        next = p->next;
+
+        if (p->brace_level >= brace_level) {
+            // Remove cursor references before deleting variable
+            struct cursor *cursor_ptr;
+            for (cursor_ptr = cur; cursor_ptr != NULL; cursor_ptr = cursor_ptr->next) {
+                // Clean insert arguments list
+                remove_variable_from_cursor_args(&cursor_ptr->argsinsert, p);
+                // Clean result arguments list
+                remove_variable_from_cursor_args(&cursor_ptr->argsresult, p);
+            }
+
+            // Remove variable from global list
+            if (prev)
+                prev->next = next;
+            else
+                allvariables = next;
+
+            // Free memory
+            ECPGfree_type(p->type);
+            free(p->name);
+            free(p);
+        }
+        else {
+            prev = p;
+        }
+    }
+}
+
+// Helper function to remove variable references from cursor argument lists
+static void
+remove_variable_from_cursor_args(struct arguments **args_list, struct variable *target_var)
+{
+    struct arguments *arg_ptr, *prev_arg, *next_arg;
+
+    for (arg_ptr = *args_list, prev_arg = NULL; arg_ptr != NULL; arg_ptr = next_arg) {
+        next_arg = arg_ptr->next;
+
+        if (arg_ptr->variable == target_var) {
+            // Remove from list
+            if (prev_arg)
+                prev_arg->next = next_arg;
+            else
+                *args_list = next_arg;
+        }
+        else {
+            prev_arg = arg_ptr;
+        }
+    }
+}
+```

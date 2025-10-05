@@ -34,3 +34,42 @@ This function performs the reverse operation of timestamp formatting - it takes 
 - Creates temporary copies of input strings for safe processing
 - Extensively tested with various date/time format combinations
 - Part of the ECPG pgtypes library for embedded SQL applications
+
+## Simplified Source
+
+```c
+int
+PGTYPEStimestamp_defmt_asc(const char *str, const char *fmt, timestamp *d)
+{
+    int year, month, day;
+    int hour, minute, second;
+    int tz;
+    char *mstr, *mfmt;
+    int result;
+
+    // Use default format if none provided
+    if (!fmt)
+        fmt = "%Y-%m-%d %H:%M:%S";
+    if (!fmt[0])
+        return 1;
+
+    // Create working copies of input strings
+    mstr = pgtypes_strdup(str);
+    mfmt = pgtypes_strdup(fmt);
+
+    // Initialize components with sentinel values to detect unspecified fields
+    year = -1; month = -1; day = -1;
+    hour = 0; minute = -1; second = -1;
+    tz = 0;
+
+    // Parse the string according to format
+    result = PGTYPEStimestamp_defmt_scan(&mstr, mfmt, d, &year, &month, &day,
+                                         &hour, &minute, &second, &tz);
+
+    // Clean up allocated memory
+    free(mstr);
+    free(mfmt);
+
+    return result;
+}
+```

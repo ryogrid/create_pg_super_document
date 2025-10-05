@@ -34,3 +34,19 @@ The `int4inc` function implements an increment operation for PostgreSQL 32-bit i
 - The overflow check is particularly important for increment operations as they are commonly used in loops and counters where overflow could lead to infinite loops or other unexpected behavior
 - This function demonstrates PostgreSQLs commitment to safe arithmetic operations even for simple operations like increment
 - The function is essentially equivalent to `int4pl(arg, 1)` but optimized for the common case of incrementing by exactly 1
+
+## Simplified Source
+
+```c
+Datum int4inc(PG_FUNCTION_ARGS) {
+    int32 arg = PG_GETARG_INT32(0);
+    int32 result;
+
+    // Increment by 1 with overflow checking
+    if (unlikely(pg_add_s32_overflow(arg, 1, &result)))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("integer out of range")));
+
+    PG_RETURN_INT32(result);
+}
+```

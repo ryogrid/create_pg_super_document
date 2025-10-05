@@ -39,3 +39,29 @@ This design allows the caller to use PG_TRY blocks around the start_vacuum opera
 - Must be called for every successful _bt_start_vacuum call to prevent resource leaks
 - Protected by BtreeVacuumLock to ensure thread-safe access to shared vacuum info
 - The robust error handling makes it suitable for use in error cleanup paths
+
+## Simplified Source
+
+```c
+void
+_bt_end_vacuum(Relation rel)
+{
+    // Get exclusive lock for modifying vacuum info
+    LWLockAcquire(BtreeVacuumLock, LW_EXCLUSIVE);
+
+    // Find and remove the vacuum entry for this relation
+    for (int i = 0; i < btvacinfo->num_vacuums; i++) {
+        BTOneVacInfo *vac = &btvacinfo->vacuums[i];
+
+        if (vac->relid.relId == rel->rd_lockInfo.lockRelId.relId &&
+            vac->relid.dbId == rel->rd_lockInfo.lockRelId.dbId) {
+            // Remove efficiently by copying last entry to this position
+            *vac = btvacinfo->vacuums[btvacinfo->num_vacuums - 1];
+            btvacinfo->num_vacuums--;
+            break;
+        }
+    }
+
+    LWLockRelease(BtreeVacuumLock);
+}
+```

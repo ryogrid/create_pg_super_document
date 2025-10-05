@@ -55,3 +55,47 @@ The function maintains the same structural iteration pattern as jsonb_hash but p
 - Structural elements use 64-bit XOR with duplicated 32-bit patterns for consistent bit distribution
 - Essential for advanced hash-based operations requiring higher-quality hash functions
 - Maintains compatibility with JSONB iterator patterns while providing extended functionality
+
+## Simplified Source
+
+```c
+Datum jsonb_hash_extended(PG_FUNCTION_ARGS) {
+    Jsonb *jb = PG_GETARG_JSONB_P(0);
+    uint64 seed = PG_GETARG_INT64(1);
+    JsonbIterator *it;
+    JsonbValue v;
+    JsonbIteratorToken r;
+    uint64 hash = 0;
+
+    // Return seed for empty JSONB
+    if (JB_ROOT_COUNT(jb) == 0)
+        PG_RETURN_UINT64(seed);
+
+    // Iterate through all JSONB elements
+    it = JsonbIteratorInit(&jb->root);
+    while ((r = JsonbIteratorNext(&it, &v, false)) != WJB_DONE) {
+        switch (r) {
+            case WJB_BEGIN_ARRAY:
+                // 64-bit XOR with duplicated 32-bit pattern
+                hash ^= ((uint64) JB_FARRAY) << 32 | JB_FARRAY;
+                break;
+            case WJB_BEGIN_OBJECT:
+                hash ^= ((uint64) JB_FOBJECT) << 32 | JB_FOBJECT;
+                break;
+            case WJB_KEY:
+            case WJB_VALUE:
+            case WJB_ELEM:
+                JsonbHashScalarValueExtended(&v, &hash, seed);
+                break;
+            case WJB_END_ARRAY:
+            case WJB_END_OBJECT:
+                break;  // Ignore end markers
+            default:
+                elog(ERROR, "invalid JsonbIteratorNext rc: %d", (int) r);
+        }
+    }
+
+    PG_FREE_IF_COPY(jb, 0);
+    PG_RETURN_UINT64(hash);
+}
+```

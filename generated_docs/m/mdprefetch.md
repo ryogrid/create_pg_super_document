@@ -46,3 +46,48 @@ The function includes several safety checks: it ensures the block range doesn't 
 - During recovery (InRecovery), uses EXTENSION_RETURN_NULL to gracefully handle missing segments
 - Calculates file offsets using modular arithmetic to handle segment-relative positioning
 - Part of PostgreSQL's I/O optimization strategy to reduce seek times and improve throughput
+
+## Simplified Source
+
+```c
+bool
+mdprefetch(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
+           int nblocks)
+{
+#ifdef USE_PREFETCH
+    // Verify block range is valid
+    if ((uint64) blocknum + nblocks > (uint64) MaxBlockNumber + 1)
+        return false;
+
+    // Process prefetch requests across segments
+    while (nblocks > 0) {
+        off_t seekpos;
+        MdfdVec *v;
+        int nblocks_this_segment;
+
+        // Get the segment containing this block
+        v = _mdfd_getseg(reln, forknum, blocknum, false,
+                        InRecovery ? EXTENSION_RETURN_NULL : EXTENSION_FAIL);
+        if (v == NULL)
+            return false;
+
+        // Calculate position within segment
+        seekpos = (off_t) BLCKSZ * (blocknum % ((BlockNumber) RELSEG_SIZE));
+
+        // Calculate how many blocks to prefetch in this segment
+        nblocks_this_segment = Min(nblocks,
+                                 RELSEG_SIZE - (blocknum % ((BlockNumber) RELSEG_SIZE)));
+
+        // Initiate asynchronous prefetch
+        FilePrefetch(v->mdfd_vfd, seekpos, BLCKSZ * nblocks_this_segment,
+                    WAIT_EVENT_DATA_FILE_PREFETCH);
+
+        // Move to next chunk
+        blocknum += nblocks_this_segment;
+        nblocks -= nblocks_this_segment;
+    }
+#endif
+
+    return true;
+}
+```

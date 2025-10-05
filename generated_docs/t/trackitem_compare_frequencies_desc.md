@@ -31,3 +31,17 @@ This function implements a comparator for sorting TrackItem structures based on 
 - Used in the Lossy Counting algorithm for text search statistics
 - Part of PostgreSQL's ANALYZE functionality for tsvector columns
 - Located in src/backend/tsearch/ts_typanalyze.c:518-529
+
+## Simplified Source
+
+```c
+static int
+trackitem_compare_frequencies_desc(const void *e1, const void *e2, void *arg)
+{
+    const TrackItem *const *t1 = (const TrackItem *const *) e1;
+    const TrackItem *const *t2 = (const TrackItem *const *) e2;
+
+    // Return difference for descending frequency sort
+    return (*t2)->frequency - (*t1)->frequency;
+}
+```

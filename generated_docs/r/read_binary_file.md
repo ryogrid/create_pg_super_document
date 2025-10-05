@@ -43,3 +43,89 @@ This function provides low-level binary file reading capabilities with flexible 
 - Returns bytea format compatible with PostgreSQL's binary data handling
 - Error messages include filename for better debugging
 - The function properly handles partial reads and file errors
+
+## Simplified Source
+
+```c
+static bytea *
+read_binary_file(const char *filename, int64 seek_offset, int64 bytes_to_read,
+                 bool missing_ok)
+{
+    bytea *buf;
+    size_t nbytes = 0;
+    FILE *file;
+
+    // Validate request size to prevent memory exhaustion
+    if (bytes_to_read > (int64) (MaxAllocSize - VARHDRSZ))
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("requested length too large")));
+
+    // Open file for binary reading
+    if ((file = AllocateFile(filename, PG_BINARY_R)) == NULL) {
+        if (missing_ok && errno == ENOENT)
+            return NULL;
+        else
+            ereport(ERROR,
+                    (errcode_for_file_access(),
+                     errmsg("could not open file \"%s\" for reading: %m", filename)));
+    }
+
+    // Seek to specified position (from start if positive, from end if negative)
+    if (fseeko(file, (off_t) seek_offset,
+               (seek_offset >= 0) ? SEEK_SET : SEEK_END) != 0)
+        ereport(ERROR,
+                (errcode_for_file_access(),
+                 errmsg("could not seek in file \"%s\": %m", filename)));
+
+    if (bytes_to_read >= 0) {
+        // Read specified number of bytes
+        buf = (bytea *) palloc((Size) bytes_to_read + VARHDRSZ);
+        nbytes = fread(VARDATA(buf), 1, (size_t) bytes_to_read, file);
+    } else {
+        // Read entire remaining file using dynamic buffer
+        StringInfoData sbuf;
+        initStringInfo(&sbuf);
+        sbuf.len += VARHDRSZ;  // Reserve space for varlena header
+
+        while (!(feof(file) || ferror(file))) {
+            size_t rbytes;
+
+            // Check for file size limit
+            if (sbuf.len == MaxAllocSize - 1) {
+                char rbuf[1];
+                if (fread(rbuf, 1, 1, file) != 0 || !feof(file))
+                    ereport(ERROR,
+                            (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                             errmsg("file length too large")));
+                else
+                    break;
+            }
+
+            // Ensure buffer has space for reading
+            enlargeStringInfo(&sbuf, MIN_READ_SIZE);
+
+            // Read available data into buffer
+            rbytes = fread(sbuf.data + sbuf.len, 1,
+                          (size_t) (sbuf.maxlen - sbuf.len - 1), file);
+            sbuf.len += rbytes;
+            nbytes += rbytes;
+        }
+
+        // Use the stringinfo buffer as result
+        buf = (bytea *) sbuf.data;
+    }
+
+    // Check for read errors
+    if (ferror(file))
+        ereport(ERROR,
+                (errcode_for_file_access(),
+                 errmsg("could not read file \"%s\": %m", filename)));
+
+    // Set final size and cleanup
+    SET_VARSIZE(buf, nbytes + VARHDRSZ);
+    FreeFile(file);
+
+    return buf;
+}
+```

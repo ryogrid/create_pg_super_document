@@ -53,3 +53,76 @@ The conversion process involves:
 - The volatile qualifiers on loop variables ensure proper behavior across exception boundaries
 - Memory allocation and cleanup is handled carefully to prevent leaks in error conditions
 - More restrictive than PLyMapping_ToComposite as it requires exact positional correspondence
+
+## Simplified Source
+
+```c
+static Datum
+PLySequence_ToComposite(PLyObToDatum *arg, TupleDesc desc, PyObject *sequence)
+{
+    Datum result;
+    HeapTuple tuple;
+    Datum *values;
+    bool *nulls;
+    volatile int idx;
+    volatile int i;
+
+    Assert(PySequence_Check(sequence));
+
+    // Count non-dropped columns and validate sequence length
+    idx = 0;
+    for (i = 0; i < desc->natts; i++) {
+        if (!TupleDescAttr(desc, i)->attisdropped)
+            idx++;
+    }
+    if (PySequence_Length(sequence) != idx)
+        ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                       errmsg("length of returned sequence did not match number of columns in row")));
+
+    // Allocate arrays for tuple construction
+    values = palloc(sizeof(Datum) * desc->natts);
+    nulls = palloc(sizeof(bool) * desc->natts);
+
+    // Convert each sequence element to corresponding tuple attribute
+    idx = 0;
+    for (i = 0; i < desc->natts; ++i) {
+        PyObject *volatile value;
+        PLyObToDatum *att;
+
+        if (TupleDescAttr(desc, i)->attisdropped) {
+            values[i] = (Datum) 0;
+            nulls[i] = true;
+            continue;
+        }
+
+        value = NULL;
+        att = &arg->u.tuple.atts[i];
+        PG_TRY();
+        {
+            value = PySequence_GetItem(sequence, idx);
+            Assert(value);
+            values[i] = att->func(att, value, &nulls[i], false);
+            Py_XDECREF(value);
+            value = NULL;
+        }
+        PG_CATCH();
+        {
+            Py_XDECREF(value);
+            PG_RE_THROW();
+        }
+        PG_END_TRY();
+
+        idx++;
+    }
+
+    // Build final tuple and convert to Datum
+    tuple = heap_form_tuple(desc, values, nulls);
+    result = heap_copy_tuple_as_datum(tuple, desc);
+    heap_freetuple(tuple);
+
+    pfree(values);
+    pfree(nulls);
+
+    return result;
+}
+```

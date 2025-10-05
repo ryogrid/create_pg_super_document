@@ -49,3 +49,57 @@ This function creates a comprehensive descriptor for a BRIN index by collecting 
 - The  array contains one BrinOpcInfo pointer per indexed column
 - Memory management follows PostgreSQL conventions with proper context switching
 - The structure size is calculated dynamically based on the number of indexed attributes
+
+## Simplified Source
+
+```c
+BrinDesc *
+brin_build_desc(Relation rel)
+{
+    BrinOpcInfo **opcinfo;
+    BrinDesc *bdesc;
+    TupleDesc tupdesc;
+    int totalstored = 0;
+    int keyno;
+    long totalsize;
+    MemoryContext cxt, oldcxt;
+
+    // Create dedicated memory context for descriptor
+    cxt = AllocSetContextCreate(CurrentMemoryContext,
+                                "brin desc cxt",
+                                ALLOCSET_SMALL_SIZES);
+    oldcxt = MemoryContextSwitchTo(cxt);
+    tupdesc = RelationGetDescr(rel);
+
+    // Get opclass information for each indexed column
+    opcinfo = palloc_array(BrinOpcInfo *, tupdesc->natts);
+    for (keyno = 0; keyno < tupdesc->natts; keyno++) {
+        FmgrInfo *opcInfoFn;
+        Form_pg_attribute attr = TupleDescAttr(tupdesc, keyno);
+
+        opcInfoFn = index_getprocinfo(rel, keyno + 1, BRIN_PROCNUM_OPCINFO);
+        opcinfo[keyno] = (BrinOpcInfo *)
+            DatumGetPointer(FunctionCall1(opcInfoFn, attr->atttypid));
+        totalstored += opcinfo[keyno]->oi_nstored;
+    }
+
+    // Allocate and initialize BrinDesc structure
+    totalsize = offsetof(BrinDesc, bd_info) +
+        sizeof(BrinOpcInfo *) * tupdesc->natts;
+
+    bdesc = palloc(totalsize);
+    bdesc->bd_context = cxt;
+    bdesc->bd_index = rel;
+    bdesc->bd_tupdesc = tupdesc;
+    bdesc->bd_disktdesc = NULL;  // Generated lazily
+    bdesc->bd_totalstored = totalstored;
+
+    // Copy opclass info pointers
+    for (keyno = 0; keyno < tupdesc->natts; keyno++)
+        bdesc->bd_info[keyno] = opcinfo[keyno];
+    pfree(opcinfo);
+
+    MemoryContextSwitchTo(oldcxt);
+    return bdesc;
+}
+```

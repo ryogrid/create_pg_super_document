@@ -47,3 +47,46 @@ This function is primarily used by PostgreSQL's WAL inspection tools and logging
 - Cache invalidation handling delegates to the shared `standby_desc_invalidations` utility function
 - Each transaction operation type has its own specialized description helper function
 - Located in src/backend/access/rmgrdesc/xactdesc.c:438-485
+
+## Simplified Source
+
+```c
+void xact_desc(StringInfo buf, XLogReaderState *record) {
+    char *rec = XLogRecGetData(record);
+    uint8 info = XLogRecGetInfo(record) & XLOG_XACT_OPMASK;
+
+    // Handle commit operations (regular and prepared)
+    if (info == XLOG_XACT_COMMIT || info == XLOG_XACT_COMMIT_PREPARED) {
+        xl_xact_commit *xlrec = (xl_xact_commit *) rec;
+        xact_desc_commit(buf, XLogRecGetInfo(record), xlrec,
+                        XLogRecGetOrigin(record));
+    }
+    // Handle abort operations (regular and prepared)
+    else if (info == XLOG_XACT_ABORT || info == XLOG_XACT_ABORT_PREPARED) {
+        xl_xact_abort *xlrec = (xl_xact_abort *) rec;
+        xact_desc_abort(buf, XLogRecGetInfo(record), xlrec,
+                       XLogRecGetOrigin(record));
+    }
+    // Handle prepare operations (two-phase commit)
+    else if (info == XLOG_XACT_PREPARE) {
+        xl_xact_prepare *xlrec = (xl_xact_prepare *) rec;
+        xact_desc_prepare(buf, XLogRecGetInfo(record), xlrec,
+                         XLogRecGetOrigin(record));
+    }
+    // Handle subtransaction assignments
+    else if (info == XLOG_XACT_ASSIGNMENT) {
+        xl_xact_assignment *xlrec = (xl_xact_assignment *) rec;
+
+        // Show top-level transaction ID and assignments
+        appendStringInfo(buf, "xtop %u: ", xlrec->xtop);
+        xact_desc_assignment(buf, xlrec);
+    }
+    // Handle cache invalidation messages
+    else if (info == XLOG_XACT_INVALIDATIONS) {
+        xl_xact_invals *xlrec = (xl_xact_invals *) rec;
+
+        standby_desc_invalidations(buf, xlrec->nmsgs, xlrec->msgs, InvalidOid,
+                                  InvalidOid, false);
+    }
+}
+```

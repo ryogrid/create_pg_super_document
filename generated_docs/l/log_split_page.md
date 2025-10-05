@@ -47,3 +47,26 @@ This ensures that the split operation can be properly replayed during crash reco
 - The function is part of PostgreSQL's crash recovery mechanism for hash indexes
 - Only logs if RelationNeedsWAL returns true, allowing for optimization when WAL is not required
 - The LSN is set on the page to maintain consistency between the page and the WAL record
+
+## Simplified Source
+
+```c
+static void log_split_page(Relation rel, Buffer buf) {
+    // Only log if relation requires WAL
+    if (RelationNeedsWAL(rel)) {
+        XLogRecPtr recptr;
+
+        // Begin WAL insert operation
+        XLogBeginInsert();
+
+        // Register buffer with force image flag (logs entire page)
+        XLogRegisterBuffer(0, buf, REGBUF_FORCE_IMAGE | REGBUF_STANDARD);
+
+        // Insert WAL record for hash split page operation
+        recptr = XLogInsert(RM_HASH_ID, XLOG_HASH_SPLIT_PAGE);
+
+        // Set LSN on page for consistency
+        PageSetLSN(BufferGetPage(buf), recptr);
+    }
+}
+```

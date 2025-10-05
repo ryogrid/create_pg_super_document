@@ -68,3 +68,150 @@ The function deliberately does not copy the failover option to prevent synchroni
 - Logical slots copy both restart_lsn and confirmed_flush positions
 - Thread-safe through careful lock ordering and validation checks
 - The destination slot inherits most properties from source but can override temporariness and plugin
+
+## Simplified Source
+
+```c
+static Datum copy_replication_slot(FunctionCallInfo fcinfo, bool logical_slot) {
+    // Extract function arguments
+    Name src_name = PG_GETARG_NAME(0);
+    Name dst_name = PG_GETARG_NAME(1);
+    ReplicationSlot *src = NULL;
+    ReplicationSlot first_slot_contents, second_slot_contents;
+    XLogRecPtr src_restart_lsn;
+    bool src_islogical, temporary;
+    char *plugin = NULL;
+
+    // Validate function and permissions
+    if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+        elog(ERROR, "return type must be a row type");
+
+    CheckSlotPermissions();
+    if (logical_slot)
+        CheckLogicalDecodingRequirements();
+    else
+        CheckSlotRequirements();
+
+    // Phase 1: Find and snapshot source slot
+    LWLockAcquire(ReplicationSlotControlLock, LW_SHARED);
+    for (int i = 0; i < max_replication_slots; i++) {
+        ReplicationSlot *s = &ReplicationSlotCtl->replication_slots[i];
+        if (s->in_use && strcmp(NameStr(s->data.name), NameStr(*src_name)) == 0) {
+            SpinLockAcquire(&s->mutex);
+            first_slot_contents = *s;
+            SpinLockRelease(&s->mutex);
+            src = s;
+            break;
+        }
+    }
+    LWLockRelease(ReplicationSlotControlLock);
+
+    if (src == NULL)
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                        errmsg("replication slot \"%s\" does not exist",
+                               NameStr(*src_name))));
+
+    // Extract source slot properties
+    src_islogical = SlotIsLogical(&first_slot_contents);
+    src_restart_lsn = first_slot_contents.data.restart_lsn;
+    temporary = (first_slot_contents.data.persistency == RS_TEMPORARY);
+    if (logical_slot)
+        plugin = NameStr(first_slot_contents.data.plugin);
+
+    // Validate source slot state and type compatibility
+    if (src_islogical != logical_slot)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                        errmsg("cannot copy %s slot as %s slot",
+                               src_islogical ? "logical" : "physical",
+                               logical_slot ? "logical" : "physical")));
+
+    if (XLogRecPtrIsInvalid(src_restart_lsn))
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                        errmsg("cannot copy a replication slot that doesn't reserve WAL")));
+
+    if (first_slot_contents.data.invalidated != RS_INVAL_NONE)
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                        errmsg("cannot copy invalidated replication slot \"%s\"",
+                               NameStr(*src_name))));
+
+    // Override parameters from optional arguments
+    if (PG_NARGS() >= 3)
+        temporary = PG_GETARG_BOOL(2);
+    if (PG_NARGS() >= 4) {
+        Assert(logical_slot);
+        plugin = NameStr(*(PG_GETARG_NAME(3)));
+    }
+
+    // Phase 2: Create destination slot
+    if (logical_slot) {
+        create_logical_replication_slot(NameStr(*dst_name), plugin,
+                                        temporary, false, false,
+                                        src_restart_lsn, false);
+    } else {
+        create_physical_replication_slot(NameStr(*dst_name), true,
+                                         temporary, src_restart_lsn);
+    }
+
+    // Phase 3: Verify source consistency and update destination
+    SpinLockAcquire(&src->mutex);
+    second_slot_contents = *src;
+    SpinLockRelease(&src->mutex);
+
+    // Validate source slot hasn't changed incompatibly
+    XLogRecPtr copy_restart_lsn = second_slot_contents.data.restart_lsn;
+    bool copy_islogical = SlotIsLogical(&second_slot_contents);
+    char *copy_name = NameStr(second_slot_contents.data.name);
+
+    if (copy_restart_lsn < src_restart_lsn ||
+        src_islogical != copy_islogical ||
+        strcmp(copy_name, NameStr(*src_name)) != 0) {
+        ereport(ERROR, (errmsg("could not copy replication slot \"%s\"",
+                               NameStr(*src_name)),
+                        errdetail("The source replication slot was modified incompatibly.")));
+    }
+
+    // For logical slots, ensure valid confirmed_flush
+    if (src_islogical && XLogRecPtrIsInvalid(second_slot_contents.data.confirmed_flush))
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                        errmsg("cannot copy unfinished logical replication slot \"%s\"",
+                               NameStr(*src_name))));
+
+    // Copy all slot data to destination
+    SpinLockAcquire(&MyReplicationSlot->mutex);
+    MyReplicationSlot->effective_xmin = second_slot_contents.effective_xmin;
+    MyReplicationSlot->effective_catalog_xmin = second_slot_contents.effective_catalog_xmin;
+    MyReplicationSlot->data.xmin = second_slot_contents.data.xmin;
+    MyReplicationSlot->data.catalog_xmin = second_slot_contents.data.catalog_xmin;
+    MyReplicationSlot->data.restart_lsn = second_slot_contents.data.restart_lsn;
+    MyReplicationSlot->data.confirmed_flush = second_slot_contents.data.confirmed_flush;
+    SpinLockRelease(&MyReplicationSlot->mutex);
+
+    // Persist changes and update global state
+    ReplicationSlotMarkDirty();
+    ReplicationSlotsComputeRequiredXmin(false);
+    ReplicationSlotsComputeRequiredLSN();
+    ReplicationSlotSave();
+
+    // Make persistent if needed
+    if (logical_slot && !temporary)
+        ReplicationSlotPersist();
+
+    // Build return tuple
+    Datum values[2];
+    bool nulls[2];
+    values[0] = NameGetDatum(dst_name);
+    nulls[0] = false;
+
+    if (!XLogRecPtrIsInvalid(MyReplicationSlot->data.confirmed_flush)) {
+        values[1] = LSNGetDatum(MyReplicationSlot->data.confirmed_flush);
+        nulls[1] = false;
+    } else {
+        nulls[1] = true;
+    }
+
+    HeapTuple tuple = heap_form_tuple(tupdesc, values, nulls);
+    ReplicationSlotRelease();
+
+    PG_RETURN_DATUM(HeapTupleGetDatum(tuple));
+}
+```

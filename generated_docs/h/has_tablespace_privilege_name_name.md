@@ -32,3 +32,29 @@ The `has_tablespace_privilege_name_name` function is part of PostgreSQL's built-
 
 ## Notes and Other Information
 This function follows PostgreSQL's naming convention for privilege-checking functions where the suffix indicates the parameter types: "name_name" means both the user and object are specified by name rather than OID. The function uses `get_role_oid_or_public` which handles both regular usernames and the special "public" role. Tablespaces in PostgreSQL are storage locations that can be referenced by name or OID, and this function provides the name-based interface for privilege checking. The result is a boolean indicating whether the specified user has the requested privilege on the target tablespace.
+
+## Simplified Source
+
+```c
+Datum
+has_tablespace_privilege_name_name(PG_FUNCTION_ARGS)
+{
+    Name        username = PG_GETARG_NAME(0);
+    text       *tablespacename = PG_GETARG_TEXT_PP(1);
+    text       *priv_type_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert username to role OID (handles 'public' role)
+    Oid roleid = get_role_oid_or_public(NameStr(*username));
+
+    // Convert tablespace name to OID
+    Oid tablespaceoid = convert_tablespace_name(tablespacename);
+
+    // Convert privilege string to ACL mode
+    AclMode mode = convert_tablespace_priv_string(priv_type_text);
+
+    // Check access permissions
+    AclResult aclresult = object_aclcheck(TableSpaceRelationId, tablespaceoid, roleid, mode);
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

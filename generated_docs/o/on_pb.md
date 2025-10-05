@@ -34,3 +34,16 @@ The  function is a PostgreSQL geometric operator that determines if a point is c
 - The function name 'on_pb' likely stands for 'on point-box'
 - Located in src/backend/utils/adt/geo_ops.c:3137-3145
 - Returns true if the point is inside the box or on its boundary
+
+## Simplified Source
+
+```c
+Datum on_pb(PG_FUNCTION_ARGS) {
+    // Extract point and box from function arguments
+    Point *pt = PG_GETARG_POINT_P(0);
+    BOX *box = PG_GETARG_BOX_P(1);
+
+    // Test if point is contained within box
+    PG_RETURN_BOOL(box_contain_point(box, pt));
+}
+```

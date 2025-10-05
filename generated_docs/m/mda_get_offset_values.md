@@ -41,3 +41,22 @@ This enables efficient traversal of sub-arrays without having to recompute offse
 - The rightmost dimension always has dist[n-1] = 0 since no stepping is needed
 - Essential for implementing array slicing operations in PostgreSQL
 - Located in src/backend/utils/adt/arrayutils.c:183-207
+
+## Simplified Source
+
+```c
+void mda_get_offset_values(int n, int *dist, const int *prod, const int *span)
+{
+    // Calculate step distances for navigating sub-arrays within parent arrays
+    dist[n - 1] = 0;  // Rightmost dimension needs no stepping
+
+    for (int j = n - 2; j >= 0; j--) {
+        // Start with full array step distance
+        dist[j] = prod[j] - 1;
+
+        // Subtract portions covered by inner sub-array dimensions
+        for (int i = j + 1; i < n; i++)
+            dist[j] -= (span[i] - 1) * prod[i];
+    }
+}
+```

@@ -32,3 +32,14 @@ The `lseg_invsl` function is a utility function that calculates the inverse slop
 - Returns infinity for horizontal line segments (when y-coordinates are equal)
 - The inverse slope is particularly useful for perpendicularity calculations, as two lines are perpendicular if one's slope equals the negative inverse of the other's slope
 - Used less frequently than regular slope calculations but essential for certain geometric relationship computations
+
+## Simplified Source
+
+```c
+static inline float8
+lseg_invsl(LSEG *lseg)
+{
+    // Calculate inverse slope between the two endpoints of the line segment
+    return point_invsl(&lseg->p[0], &lseg->p[1]);
+}
+```

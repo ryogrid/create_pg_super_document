@@ -285,9 +285,55 @@ Text creation and manipulation
 * M4: (m4).                     A powerful macro processor.
 * Word differences: (wdiff).    GNU wdiff and diff related tools.
 * grep: (grep).                 Print lines that match patterns.
-* sed: (sed).                   Stream EDitor.  : 8-bit info field containing commit record metadata and flags
-- : Pointer to xl_xact_commit structure containing the commit record data
-- : Replication origin identifier for the transaction
+* sed: (sed).                   Stream EDitor.
+
+## Simplified Source
+
+```c
+static void xact_desc_commit(StringInfo buf, uint8 info, xl_xact_commit *xlrec, RepOriginId origin_id) {
+    xl_xact_parsed_commit parsed;
+
+    // Parse the commit record into structured format
+    ParseCommitRecord(info, xlrec, &parsed);
+
+    // Show original transaction ID for prepared transactions
+    if (TransactionIdIsValid(parsed.twophase_xid))
+        appendStringInfo(buf, "%u: ", parsed.twophase_xid);
+
+    // Show transaction timestamp
+    appendStringInfoString(buf, timestamptz_to_str(xlrec->xact_time));
+
+    // Show relations, subtransactions, and statistics
+    xact_desc_relations(buf, "rels", parsed.nrels, parsed.xlocators);
+    xact_desc_subxacts(buf, parsed.nsubxacts, parsed.subxacts);
+    xact_desc_stats(buf, "", parsed.nstats, parsed.stats);
+
+    // Show cache invalidation messages
+    standby_desc_invalidations(buf, parsed.nmsgs, parsed.msgs, parsed.dbId,
+                              parsed.tsId,
+                              XactCompletionRelcacheInitFileInval(parsed.xinfo));
+
+    // Show special commit flags
+    if (XactCompletionApplyFeedback(parsed.xinfo))
+        appendStringInfoString(buf, "; apply_feedback");
+
+    if (XactCompletionForceSyncCommit(parsed.xinfo))
+        appendStringInfoString(buf, "; sync");
+
+    // Show replication origin information if present
+    if (parsed.xinfo & XACT_XINFO_HAS_ORIGIN) {
+        appendStringInfo(buf, "; origin: node %u, lsn %X/%X, at %s",
+                        origin_id,
+                        LSN_FORMAT_ARGS(parsed.origin_lsn),
+                        timestamptz_to_str(parsed.origin_timestamp));
+    }
+}
+```
+
+## Parameters / Member Variables
+- info: 8-bit info field containing commit record metadata and flags
+- xlrec: Pointer to xl_xact_commit structure containing the commit record data
+- origin_id: Replication origin identifier for the transaction
 
 ## Dependencies
 - Functions called/Symbols referenced:

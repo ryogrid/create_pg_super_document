@@ -36,3 +36,29 @@ The `path_send` function serializes a PATH structure into PostgreSQL's binary fo
 - Output format: closed flag (1 byte) + point count (4 bytes) + point coordinates (16 bytes per point)
 - Uses StringInfoData buffer for efficient binary data construction
 - Part of PostgreSQL's type input/output function framework for the PATH geometric data type
+
+## Simplified Source
+
+```c
+Datum path_send(PG_FUNCTION_ARGS) {
+    PATH *path = PG_GETARG_PATH_P(0);
+    StringInfoData buf;
+    int32 i;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Write closed flag and point count
+    pq_sendbyte(&buf, path->closed ? 1 : 0);
+    pq_sendint32(&buf, path->npts);
+
+    // Write coordinate data for each point
+    for (i = 0; i < path->npts; i++) {
+        pq_sendfloat8(&buf, path->p[i].x);
+        pq_sendfloat8(&buf, path->p[i].y);
+    }
+
+    // Return finalized binary data
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

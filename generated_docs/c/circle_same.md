@@ -43,3 +43,22 @@ This function serves as the implementation for the PostgreSQL SQL operator  for 
 - Used as the underlying implementation for the circle equality operator  in SQL
 - The function follows PostgreSQL's standard function interface using PG_FUNCTION_ARGS and PG_RETURN_BOOL macros
 - Located in the geometric operations module alongside other circle comparison functions
+
+## Simplified Source
+
+```c
+Datum circle_same(PG_FUNCTION_ARGS) {
+    CIRCLE *circle1 = PG_GETARG_CIRCLE_P(0);
+    CIRCLE *circle2 = PG_GETARG_CIRCLE_P(1);
+
+    // Check if circles are identical:
+    // 1. Radii are equal (with NaN == NaN semantics)
+    // 2. Centers are equal
+    bool radii_equal = (isnan(circle1->radius) && isnan(circle2->radius)) ||
+                       FPeq(circle1->radius, circle2->radius);
+
+    bool centers_equal = point_eq_point(&circle1->center, &circle2->center);
+
+    return PG_RETURN_BOOL(radii_equal && centers_equal);
+}
+```

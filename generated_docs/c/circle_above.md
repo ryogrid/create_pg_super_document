@@ -37,3 +37,17 @@ This ensures that there is no vertical overlap between the two circles - circle1
 - Returns true only when there is a clear vertical separation between the circles
 - This operator is the complement of circle_below for comprehensive vertical positioning queries
 - Used for vertical spatial relationship queries and spatial indexing operations
+
+## Simplified Source
+
+```c
+Datum circle_above(PG_FUNCTION_ARGS) {
+    CIRCLE *circle1 = PG_GETARG_CIRCLE_P(0);
+    CIRCLE *circle2 = PG_GETARG_CIRCLE_P(1);
+
+    // Check if circle1 is strictly above circle2:
+    // bottom of circle1 > top of circle2
+    PG_RETURN_BOOL(FPgt(circle1->center.y - circle1->radius,
+                        circle2->center.y + circle2->radius));
+}
+```

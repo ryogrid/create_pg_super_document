@@ -36,3 +36,87 @@ This function multiplies two numeric variables using a digit-by-digit multiplica
 - Handles sign determination: same signs result in positive, different signs result in negative
 - Manages dynamic memory allocation for the result digit buffer
 - Part of the ECPG (Embedded SQL in C) pgtypes library for client-side numeric operations
+
+## Simplified Source
+```c
+int
+PGTYPESnumeric_mul(numeric *var1, numeric *var2, numeric *result)
+{
+    NumericDigit *res_buf, *res_digits;
+    int res_ndigits, res_weight, res_sign;
+    int i, ri, i1, i2;
+    long sum = 0;
+    int global_rscale = var1->rscale + var2->rscale;
+
+    // Calculate result dimensions and sign
+    res_weight = var1->weight + var2->weight + 2;
+    res_ndigits = var1->ndigits + var2->ndigits + 1;
+    res_sign = (var1->sign == var2->sign) ? NUMERIC_POS : NUMERIC_NEG;
+
+    // Allocate result buffer
+    if ((res_buf = digitbuf_alloc(res_ndigits)) == NULL)
+        return -1;
+    res_digits = res_buf;
+    memset(res_digits, 0, res_ndigits);
+
+    // Perform digit-by-digit multiplication
+    ri = res_ndigits;
+    for (i1 = var1->ndigits - 1; i1 >= 0; i1--)
+    {
+        sum = 0;
+        i = --ri;
+        for (i2 = var2->ndigits - 1; i2 >= 0; i2--)
+        {
+            sum += res_digits[i] + var1->digits[i1] * var2->digits[i2];
+            res_digits[i--] = sum % 10;
+            sum /= 10;
+        }
+        res_digits[i] = sum;
+    }
+
+    // Handle rounding if needed
+    i = res_weight + global_rscale + 2;
+    if (i >= 0 && i < res_ndigits)
+    {
+        // Round and propagate carry
+        sum = (res_digits[i] > 4) ? 1 : 0;
+        res_ndigits = i;
+        i--;
+        while (sum)
+        {
+            sum += res_digits[i];
+            res_digits[i--] = sum % 10;
+            sum /= 10;
+        }
+    }
+
+    // Remove leading and trailing zeros
+    while (res_ndigits > 0 && *res_digits == 0)
+    {
+        res_digits++;
+        res_weight--;
+        res_ndigits--;
+    }
+    while (res_ndigits > 0 && res_digits[res_ndigits - 1] == 0)
+        res_ndigits--;
+
+    // Handle zero result
+    if (res_ndigits == 0)
+    {
+        res_sign = NUMERIC_POS;
+        res_weight = 0;
+    }
+
+    // Store result
+    digitbuf_free(result->buf);
+    result->buf = res_buf;
+    result->digits = res_digits;
+    result->ndigits = res_ndigits;
+    result->weight = res_weight;
+    result->rscale = global_rscale;
+    result->sign = res_sign;
+    result->dscale = var1->dscale + var2->dscale;
+
+    return 0;
+}
+```

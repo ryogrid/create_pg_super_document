@@ -36,3 +36,24 @@ If the validation fails, the function provides detailed error messages to help a
 - Returns true if the validation passes, false if the proposed value is too large
 - Provides helpful error messages and hints when validation fails
 - The validation only occurs if a positive stack limit is available from the system
+
+## Simplified Source
+
+```c
+bool check_max_stack_depth(int *newval, void **extra, GucSource source)
+{
+    long requested_bytes = *newval * 1024L;
+    long system_limit = get_stack_depth_rlimit();
+
+    // Check if requested stack depth exceeds system limit minus safety margin
+    if (system_limit > 0 && requested_bytes > system_limit - STACK_DEPTH_SLOP)
+    {
+        GUC_check_errdetail("\"max_stack_depth\" must not exceed %ldkB.",
+                            (system_limit - STACK_DEPTH_SLOP) / 1024L);
+        GUC_check_errhint("Increase the platform's stack depth limit via \"ulimit -s\" or local equivalent.");
+        return false;
+    }
+
+    return true;
+}
+```

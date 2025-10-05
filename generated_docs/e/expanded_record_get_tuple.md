@@ -34,3 +34,22 @@ The function is optimized to avoid unnecessary tuple construction when possible.
 - Returns NULL for empty expanded records (neither ER_FLAG_FVALUE_VALID nor ER_FLAG_DVALUES_VALID are set)
 - This function provides a bridge between the expanded object system and traditional HeapTuple-based code
 - Part of PostgreSQL's expanded object infrastructure for efficient composite data manipulation
+
+## Simplified Source
+
+```c
+HeapTuple
+expanded_record_get_tuple(ExpandedRecordHeader *erh)
+{
+    // Fast path: return cached original tuple if valid
+    if (erh->flags & ER_FLAG_FVALUE_VALID)
+        return erh->fvalue;
+
+    // Reconstruction path: build tuple from field data
+    if (erh->flags & ER_FLAG_DVALUES_VALID)
+        return heap_form_tuple(erh->er_tupdesc, erh->dvalues, erh->dnulls);
+
+    // Empty record
+    return NULL;
+}
+```

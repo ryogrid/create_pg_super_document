@@ -38,3 +38,14 @@ This function computes the sum of two Point structures by adding their correspon
 - Uses PostgreSQL's float8_pl function rather than direct C addition to handle special floating-point cases (NaN, infinity)
 - Part of PostgreSQL's geometric data type operations infrastructure
 - The function modifies the result parameter in-place rather than returning a new Point structure
+
+## Simplified Source
+
+```c
+static inline void point_add_point(Point *result, Point *pt1, Point *pt2) {
+    // Add corresponding coordinates using PostgreSQL's float8 addition
+    point_construct(result,
+                    float8_pl(pt1->x, pt2->x),  // Sum x coordinates
+                    float8_pl(pt1->y, pt2->y)); // Sum y coordinates
+}
+```

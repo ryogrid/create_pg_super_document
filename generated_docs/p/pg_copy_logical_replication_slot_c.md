@@ -37,3 +37,14 @@ The function enables users to duplicate existing logical replication slots while
 - Only works with logical replication slots; attempting to copy a physical slot will result in an error
 - The copied slot inherits most properties from the source slot but does not copy the failover option to prevent synchronization issues
 - Returns a composite type containing the new slot name and confirmed flush LSN
+
+## Simplified Source
+
+```c
+Datum
+pg_copy_logical_replication_slot_c(PG_FUNCTION_ARGS)
+{
+    // Delegate to shared copy function with logical=true flag
+    return copy_replication_slot(fcinfo, true);
+}
+```

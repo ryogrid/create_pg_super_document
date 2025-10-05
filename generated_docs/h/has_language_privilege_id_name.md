@@ -37,3 +37,22 @@ This function provides a mixed approach to privilege checking where the user is 
 - All has_language_privilege variants are named 'has_language_privilege' at the SQL level
 - Returns NULL if the language object doesn't exist (via convert_language_name behavior)
 - Located in src/backend/utils/adt/acl.c:3713-3735
+
+## Simplified Source
+
+```c
+Datum has_language_privilege_id_name(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    Oid roleid = PG_GETARG_OID(0);
+    text *languagename = PG_GETARG_TEXT_PP(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert language name and privilege string
+    Oid languageoid = convert_language_name(languagename);
+    AclMode mode = convert_language_priv_string(priv_type_text);
+
+    // Check privilege and return boolean result
+    AclResult aclresult = object_aclcheck(LanguageRelationId, languageoid, roleid, mode);
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

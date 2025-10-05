@@ -52,3 +52,59 @@ The function handles the complexities of variable-width data storage, including 
 - Maintains O(log N) search complexity while keeping array access overhead to O(N) instead of O(N^2)
 - Static function, only accessible within the same compilation unit
 - Returns bucket number ranging from 0 to N (where N is the number of thresholds)
+
+## Simplified Source
+
+```c
+static int
+width_bucket_array_variable(Datum operand,
+                            ArrayType *thresholds,
+                            Oid collation,
+                            TypeCacheEntry *typentry)
+{
+    LOCAL_FCINFO(locfcinfo, 2);
+    char *thresholds_data = (char *) ARR_DATA_PTR(thresholds);
+    int typlen = typentry->typlen;
+    bool typbyval = typentry->typbyval;
+    char typalign = typentry->typalign;
+
+    // Initialize comparison function
+    InitFunctionCallInfoData(*locfcinfo, &typentry->cmp_proc_finfo, 2,
+                             collation, NULL, NULL);
+
+    // Binary search to find bucket
+    int left = 0;
+    int right = ArrayGetNItems(ARR_NDIM(thresholds), ARR_DIMS(thresholds));
+
+    while (left < right) {
+        int mid = (left + right) / 2;
+        char *ptr = thresholds_data;
+
+        // Navigate to mid element (sequential traversal for variable-width)
+        for (int i = left; i < mid; i++) {
+            ptr = att_addlength_pointer(ptr, typlen, ptr);
+            ptr = (char *) att_align_nominal(ptr, typalign);
+        }
+
+        // Compare operand with threshold at mid position
+        locfcinfo->args[0].value = operand;
+        locfcinfo->args[0].isnull = false;
+        locfcinfo->args[1].value = fetch_att(ptr, typbyval, typlen);
+        locfcinfo->args[1].isnull = false;
+
+        int32 cmpresult = DatumGetInt32(FunctionCallInvoke(locfcinfo));
+
+        if (cmpresult < 0) {
+            right = mid;  // operand < threshold, search left half
+        } else {
+            left = mid + 1;  // operand >= threshold, search right half
+
+            // Optimization: advance base pointer to avoid re-traversing
+            ptr = att_addlength_pointer(ptr, typlen, ptr);
+            thresholds_data = (char *) att_align_nominal(ptr, typalign);
+        }
+    }
+
+    return left;  // bucket number
+}
+```

@@ -37,3 +37,17 @@ The function extracts a StringInfo buffer containing the binary data and uses th
 - Handles network byte order conversion if necessary (handled by pq_getmsgfloat8)
 - Complementary to float8send() for binary protocol communication
 - Enables efficient transfer of float8 values without text conversion overhead
+
+## Simplified Source
+
+```c
+Datum
+float8recv(PG_FUNCTION_ARGS)
+{
+    // Get the binary buffer from input
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+
+    // Extract float8 from binary format and return
+    PG_RETURN_FLOAT8(pq_getmsgfloat8(buf));
+}
+```

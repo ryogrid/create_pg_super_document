@@ -35,3 +35,38 @@ The function searches for a compatible Snowball stemmer module through a two-pha
 - The function prioritizes exact encoding matches over UTF-8 fallbacks to avoid unnecessary encoding conversions
 - ASCII stemmers are treated as encoding-agnostic and compatible with any database encoding
 - If a UTF-8 stemmer is used with a non-UTF-8 database encoding, the needrecode flag is set to enable automatic encoding conversion during stemming operations
+
+## Simplified Source
+
+```c
+static void locate_stem_module(DictSnowball *d, const char *lang) {
+    const stemmer_module *m;
+
+    // First pass: Look for exact encoding match (ASCII matches any encoding)
+    for (m = stemmer_modules; m->name; m++) {
+        if ((m->enc == PG_SQL_ASCII || m->enc == GetDatabaseEncoding()) &&
+            pg_strcasecmp(m->name, lang) == 0) {
+            d->stem = m->stem;
+            d->z = m->create();
+            d->needrecode = false;  // No encoding conversion needed
+            return;
+        }
+    }
+
+    // Second pass: Look for UTF-8 version as fallback
+    for (m = stemmer_modules; m->name; m++) {
+        if (m->enc == PG_UTF8 && pg_strcasecmp(m->name, lang) == 0) {
+            d->stem = m->stem;
+            d->z = m->create();
+            d->needrecode = true;   // Encoding conversion required
+            return;
+        }
+    }
+
+    // No suitable stemmer found - report error
+    ereport(ERROR,
+            (errcode(ERRCODE_UNDEFINED_OBJECT),
+             errmsg("no Snowball stemmer available for language \"%s\" and encoding \"%s\"",
+                    lang, GetDatabaseEncodingName())));
+}
+```

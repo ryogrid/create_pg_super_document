@@ -43,3 +43,20 @@ This function computes the complex multiplication of two Point structures by tre
 - Part of PostgreSQL's geometric data type operations infrastructure supporting complex geometric transformations
 - The function modifies the result parameter in-place rather than returning a new Point structure
 - This operation is useful for rotations and scaling transformations in 2D geometry
+
+## Simplified Source
+
+```c
+static inline void
+point_mul_point(Point *result, Point *pt1, Point *pt2)
+{
+    // Complex multiplication: (a+bi)(c+di) = (ac-bd) + (ad+bc)i
+    // Real part: pt1.x * pt2.x - pt1.y * pt2.y
+    // Imaginary part: pt1.x * pt2.y + pt1.y * pt2.x
+    point_construct(result,
+                    float8_mi(float8_mul(pt1->x, pt2->x),
+                              float8_mul(pt1->y, pt2->y)),
+                    float8_pl(float8_mul(pt1->x, pt2->y),
+                              float8_mul(pt1->y, pt2->x)));
+}
+```

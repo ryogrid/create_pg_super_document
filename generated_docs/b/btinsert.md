@@ -48,3 +48,26 @@ This function is part of PostgreSQL's index access method interface and is calle
 - Supports uniqueness checking and handles various insertion scenarios
 - The indexUnchanged parameter allows for optimizations when index values haven't actually changed
 - Part of the standard PostgreSQL index access method framework
+
+## Simplified Source
+
+```c
+bool btinsert(Relation rel, Datum *values, bool *isnull,
+             ItemPointer ht_ctid, Relation heapRel,
+             IndexUniqueCheck checkUnique,
+             bool indexUnchanged,
+             IndexInfo *indexInfo) {
+
+    // Create index tuple from provided values
+    IndexTuple itup = index_form_tuple(RelationGetDescr(rel), values, isnull);
+    itup->t_tid = *ht_ctid;  // Set heap tuple pointer
+
+    // Perform the actual B-tree insertion
+    bool result = _bt_doinsert(rel, itup, checkUnique, indexUnchanged, heapRel);
+
+    // Clean up allocated tuple
+    pfree(itup);
+
+    return result;
+}
+```

@@ -40,3 +40,22 @@ The function reads the complete contents of a text file and returns it as a Post
 - Located in src/backend/utils/adt/genfile.c:333-347
 - Part of PostgreSQL's file reading functionality accessible via SQL
 - Combines the simplicity of reading complete file contents with flexible error handling for missing files
+
+## Simplified Source
+
+```c
+Datum pg_read_file_all_missing(PG_FUNCTION_ARGS) {
+    // Extract filename and missing_ok flag from function arguments
+    text *filename_t = PG_GETARG_TEXT_PP(0);
+    bool missing_ok = PG_GETARG_BOOL(1);
+
+    // Read entire file: offset=0, length=-1 (all), validate=true, with missing file handling
+    text *ret = pg_read_file_common(filename_t, 0, -1, true, missing_ok);
+
+    // Return file contents or NULL if reading failed
+    if (!ret)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(ret);
+}
+```

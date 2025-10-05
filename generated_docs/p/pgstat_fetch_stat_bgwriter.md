@@ -34,3 +34,15 @@ The  function serves as a support function for PostgreSQL's SQL-callable pgstat*
 - The function ensures that statistics are current by calling  before returning the data
 - The returned pointer references the bgwriter statistics from the local snapshot, providing consistent data for callers
 - This function is primarily used by SQL-accessible functions that expose background writer statistics to users through system views and functions
+
+## Simplified Source
+
+```c
+PgStat_BgWriterStats *pgstat_fetch_stat_bgwriter(void) {
+    // Create snapshot of background writer statistics
+    pgstat_snapshot_fixed(PGSTAT_KIND_BGWRITER);
+
+    // Return pointer to local snapshot
+    return &pgStatLocal.snapshot.bgwriter;
+}
+```

@@ -37,3 +37,20 @@ The function handles negative indices and out-of-bounds access by returning NULL
 - The function delegates the actual JSON parsing and extraction logic to get_worker
 - The false parameter to get_worker indicates that the result should be returned as JSON text, not as plain text
 - Located in src/backend/utils/adt/jsonfuncs.c:920-934
+
+## Simplified Source
+
+```c
+Datum json_array_element(PG_FUNCTION_ARGS) {
+    text *json = PG_GETARG_TEXT_PP(0);
+    int element = PG_GETARG_INT32(1);
+
+    // Extract array element using common worker function
+    text *result = get_worker(json, NULL, &element, 1, false);
+
+    if (result != NULL)
+        PG_RETURN_TEXT_P(result);
+    else
+        PG_RETURN_NULL();
+}
+```

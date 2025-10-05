@@ -37,3 +37,25 @@ This function is another variant of the column privilege checking functions that
 - Returns NULL if the column doesn't exist in the specified table or other error conditions occur
 - Part of PostgreSQL's SQL-accessible privilege checking system, callable from SQL as has_column_privilege(table_oid, column_name, privilege)
 - Located in src/backend/utils/adt/acl.c:2843-2869
+
+## Simplified Source
+
+```c
+Datum has_column_privilege_id_name(PG_FUNCTION_ARGS) {
+    // Extract arguments
+    Oid tableoid = PG_GETARG_OID(0);
+    text *column = PG_GETARG_TEXT_PP(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+
+    // Get current user and convert column name
+    Oid roleid = GetUserId();
+    AttrNumber colattnum = convert_column_name(tableoid, column);
+    AclMode mode = convert_column_priv_string(priv_type_text);
+
+    // Check privilege and return result
+    int privresult = column_privilege_check(tableoid, colattnum, roleid, mode);
+    if (privresult < 0)
+        PG_RETURN_NULL();
+    PG_RETURN_BOOL(privresult);
+}
+```

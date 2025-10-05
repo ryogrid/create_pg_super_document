@@ -44,3 +44,49 @@ The conversion process involves:
 - Follows PostgreSQL convention of returning zero-dimensional arrays for empty inputs
 - Maximum array dimensions limited by MAXDIM constant
 - Array lower bounds are set to 1 following SQL standard conventions
+
+## Simplified Source
+
+```c
+static Datum
+PLySequence_ToArray(PLyObToDatum *arg, PyObject *plrv,
+                   bool *isnull, bool inarray)
+{
+    ArrayBuildState *astate = NULL;
+    int ndims = 1;
+    int dims[MAXDIM];
+    int lbs[MAXDIM];
+
+    // Handle Python None -> SQL NULL
+    if (plrv == Py_None) {
+        *isnull = true;
+        return (Datum) 0;
+    }
+    *isnull = false;
+
+    // Validate input is a sequence
+    if (!PySequence_Check(plrv))
+        ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                       errmsg("return value must be a Python sequence")));
+
+    // Initialize array dimensions
+    memset(dims, 0, sizeof(dims));
+    dims[0] = PySequence_Length(plrv);
+
+    // Recursively collect elements from nested structure
+    PLySequence_ToArray_recurse(plrv, &astate, &ndims, dims, 1,
+                               arg->u.array.elm, arg->u.array.elmbasetype);
+
+    // Handle empty array case
+    if (astate == NULL)
+        return PointerGetDatum(construct_empty_array(arg->u.array.elmbasetype));
+
+    // Set array lower bounds to 1 (SQL standard)
+    for (int i = 0; i < ndims; i++)
+        lbs[i] = 1;
+
+    // Build final multi-dimensional array
+    return makeMdArrayResult(astate, ndims, dims, lbs,
+                            CurrentMemoryContext, true);
+}
+```

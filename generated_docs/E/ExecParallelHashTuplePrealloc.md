@@ -47,3 +47,54 @@ The estimation is approximate because actual tuple packing differs between the p
 - Critical for preventing out-of-memory conditions in parallel hash joins with large datasets
 - Part of PostgreSQL's adaptive hash join strategy that dynamically adjusts partitioning based on memory pressure
 - Located in src/backend/executor/nodeHash.c:3541-3601
+
+## Simplified Source
+
+```c
+static bool
+ExecParallelHashTuplePrealloc(HashJoinTable hashtable, int batchno, size_t size)
+{
+    ParallelHashJoinState *pstate = hashtable->parallel_state;
+    ParallelHashJoinBatchAccessor *batch = &hashtable->batches[batchno];
+    size_t want = Max(size, HASH_CHUNK_SIZE - HASH_CHUNK_HEADER_SIZE);
+
+    LWLockAcquire(&pstate->lock, LW_EXCLUSIVE);
+
+    // Check if other workers commanded us to help with growth
+    if (pstate->growth == PHJ_GROWTH_NEED_MORE_BATCHES ||
+        pstate->growth == PHJ_GROWTH_NEED_MORE_BUCKETS)
+    {
+        ParallelHashGrowth growth = pstate->growth;
+        LWLockRelease(&pstate->lock);
+
+        // Help with the requested growth operation
+        if (growth == PHJ_GROWTH_NEED_MORE_BATCHES)
+            ExecParallelHashIncreaseNumBatches(hashtable);
+        else if (growth == PHJ_GROWTH_NEED_MORE_BUCKETS)
+            ExecParallelHashIncreaseNumBuckets(hashtable);
+
+        return false; // Caller should reconsider batch assignment
+    }
+
+    // Check if this batch would exceed memory limit
+    if (pstate->growth != PHJ_GROWTH_DISABLED &&
+        batch->at_least_one_chunk &&
+        (batch->shared->estimated_size + want + HASH_CHUNK_HEADER_SIZE >
+         pstate->space_allowed))
+    {
+        // This batch would be too large - trigger repartitioning
+        batch->shared->space_exhausted = true;
+        pstate->growth = PHJ_GROWTH_NEED_MORE_BATCHES;
+        LWLockRelease(&pstate->lock);
+        return false;
+    }
+
+    // Update preallocation tracking
+    batch->at_least_one_chunk = true;
+    batch->shared->estimated_size += want + HASH_CHUNK_HEADER_SIZE;
+    batch->preallocated = want;
+
+    LWLockRelease(&pstate->lock);
+    return true;
+}
+```

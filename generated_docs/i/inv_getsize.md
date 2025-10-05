@@ -41,3 +41,52 @@ The function uses a backwards scan of the pg_largeobject index to efficiently lo
 - Returns the size as a uint64 to support large objects exceeding 4GB
 - Includes paranoia check for null fields in the pg_largeobject tuple
 - The size calculation is: (last_page_number * LOBLKSIZE) + length_of_data_in_last_page
+
+## Simplified Source
+
+```c
+static uint64 inv_getsize(LargeObjectDesc *obj_desc) {
+    uint64 lastbyte = 0;
+    ScanKeyData skey[1];
+
+    Assert(PointerIsValid(obj_desc));
+
+    // Ensure large object relations are open
+    open_lo_relation();
+
+    // Set up scan key to find all pages for this large object
+    ScanKeyInit(&skey[0],
+                Anum_pg_largeobject_loid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(obj_desc->id));
+
+    // Start backwards scan to efficiently find the last page
+    SysScanDesc sd = systable_beginscan_ordered(lo_heap_r, lo_index_r,
+                                              obj_desc->snapshot, 1, skey);
+
+    // Get first tuple from backwards scan (which is the last page)
+    HeapTuple tuple = systable_getnext_ordered(sd, BackwardScanDirection);
+    if (HeapTupleIsValid(tuple)) {
+        Form_pg_largeobject data;
+        bytea *datafield;
+        int len;
+        bool pfreeit;
+
+        // Extract data from the last page
+        if (HeapTupleHasNulls(tuple))
+            elog(ERROR, "null field found in pg_largeobject");
+
+        data = (Form_pg_largeobject) GETSTRUCT(tuple);
+        getdatafield(data, &datafield, &len, &pfreeit);
+
+        // Calculate total size: page_number * page_size + data_length_in_last_page
+        lastbyte = (uint64) data->pageno * LOBLKSIZE + len;
+
+        if (pfreeit)
+            pfree(datafield);
+    }
+
+    systable_endscan_ordered(sd);
+    return lastbyte;
+}
+```

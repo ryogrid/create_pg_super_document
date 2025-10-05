@@ -33,3 +33,21 @@ PageGetTempPage creates a temporary page buffer in local memory that matches the
 - Memory is allocated in the current memory context and should be freed appropriately
 - Does not copy any data from the source page - only allocates matching size
 - Commonly used in conjunction with page copying or initialization functions
+
+## Simplified Source
+
+```c
+Page PageGetTempPage(Page page)
+{
+    Size pageSize;
+    Page temp;
+
+    // Get the size of the source page
+    pageSize = PageGetPageSize(page);
+
+    // Allocate uninitialized memory of the same size
+    temp = (Page) palloc(pageSize);
+
+    return temp;  // Caller must initialize
+}
+```

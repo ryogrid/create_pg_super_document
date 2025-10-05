@@ -48,3 +48,22 @@ This function is designed to be called from multiple contexts, including direct 
 - Supports both direct insertions and partition routing scenarios
 - Part of the separation between high-level message processing and low-level database operations
 - Critical component in maintaining consistency between replicated and local insertions
+
+## Simplified Source
+
+```c
+static void
+apply_handle_insert_internal(ApplyExecutionData *edata,
+                             ResultRelInfo *relinfo,
+                             TupleTableSlot *remoteslot)
+{
+    // Verify indexes are properly opened
+    Assert(relinfo->ri_IndexRelationDescs != NULL ||
+           !relinfo->ri_RelationDesc->rd_rel->relhasindex ||
+           RelationGetIndexList(relinfo->ri_RelationDesc) == NIL);
+
+    // Check privileges and perform the insert
+    TargetPrivilegesCheck(relinfo->ri_RelationDesc, ACL_INSERT);
+    ExecSimpleRelationInsert(relinfo, edata->estate, remoteslot);
+}
+```

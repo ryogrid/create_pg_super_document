@@ -39,3 +39,26 @@ This function serves as the PostgreSQL SQL interface for finding the closest poi
 - Properly handles edge cases by returning NULL for parallel segments or invalid calculations
 - Part of PostgreSQL's geometric data type system for 2D geometry operations
 - Returns NULL when line segments are parallel, as the concept of "closest point" is not well-defined for parallel lines
+
+## Simplified Source
+
+```c
+Datum close_lseg(PG_FUNCTION_ARGS) {
+    LSEG *l1 = PG_GETARG_LSEG_P(0);
+    LSEG *l2 = PG_GETARG_LSEG_P(1);
+    Point *result;
+
+    // Check if segments are parallel (same slope)
+    if (lseg_sl(l1) == lseg_sl(l2))
+        PG_RETURN_NULL();
+
+    // Allocate memory for result point
+    result = (Point *) palloc(sizeof(Point));
+
+    // Calculate closest point between segments
+    if (isnan(lseg_closept_lseg(result, l2, l1)))
+        PG_RETURN_NULL();
+
+    PG_RETURN_POINT_P(result);
+}
+```

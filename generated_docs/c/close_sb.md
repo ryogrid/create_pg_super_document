@@ -40,3 +40,22 @@ This PostgreSQL built-in function computes the point on or inside a box that is 
 - The actual geometric computation is delegated to the `box_closept_lseg` helper function
 - This function finds the closest point on or within the box boundary, not just on the box edges
 - Located in the geometric operations module (`geo_ops.c`) at lines 3063-3086
+
+## Simplified Source
+
+```c
+Datum close_sb(PG_FUNCTION_ARGS) {
+    LSEG *lseg = PG_GETARG_LSEG_P(0);
+    BOX *box = PG_GETARG_BOX_P(1);
+    Point *result;
+
+    // Allocate memory for result point
+    result = (Point *) palloc(sizeof(Point));
+
+    // Calculate closest point on/in box to segment
+    if (isnan(box_closept_lseg(result, box, lseg)))
+        PG_RETURN_NULL();
+
+    PG_RETURN_POINT_P(result);
+}
+```

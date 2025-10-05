@@ -39,3 +39,27 @@ This function is commonly used in parallel query execution where one process (ty
 - The returned accessor allows the backend to perform tuple operations on the shared store
 - This is part of PostgreSQL's parallel execution infrastructure, commonly used in parallel hash joins where multiple workers need to share tuples
 - The accessor maintains a reference to the current memory context for proper cleanup
+
+## Simplified Source
+
+```c
+SharedTuplestoreAccessor *
+sts_attach(SharedTuplestore *sts,
+           int my_participant_number,
+           SharedFileSet *fileset)
+{
+    SharedTuplestoreAccessor *accessor;
+
+    // Validate participant number
+    Assert(my_participant_number < sts->nparticipants);
+
+    // Create and initialize accessor
+    accessor = palloc0(sizeof(SharedTuplestoreAccessor));
+    accessor->participant = my_participant_number;
+    accessor->sts = sts;
+    accessor->fileset = fileset;
+    accessor->context = CurrentMemoryContext;
+
+    return accessor;
+}
+```

@@ -29,3 +29,27 @@ The makeBoolAggState function is a static helper function that allocates and ini
 
 ## Notes and Other Information
 This function is essential for the initialization phase of boolean aggregation operations. It validates that the function is being called in the correct aggregate context and will throw an error if called outside of an aggregation context. The allocated BoolAggState structure persists for the duration of the aggregation operation and is automatically cleaned up when the aggregate context is destroyed.
+
+## Simplified Source
+
+```c
+static BoolAggState *
+makeBoolAggState(FunctionCallInfo fcinfo)
+{
+    BoolAggState *state;
+    MemoryContext agg_context;
+
+    // Verify we're in an aggregate context and get memory context
+    if (!AggCheckCallContext(fcinfo, &agg_context))
+        elog(ERROR, "aggregate function called in non-aggregate context");
+
+    // Allocate state structure in aggregate memory context
+    state = (BoolAggState *) MemoryContextAlloc(agg_context, sizeof(BoolAggState));
+
+    // Initialize counters to zero
+    state->aggcount = 0;
+    state->aggtrue = 0;
+
+    return state;
+}
+```

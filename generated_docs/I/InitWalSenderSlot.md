@@ -44,3 +44,57 @@ The slot reservation process is protected by spinlocks to prevent race condition
 - Registers WalSndKill as cleanup handler for process exit
 - Critical that this succeeds due to prior free slot validation in InitProcess()
 - Thread-safe slot reservation using spinlock protection around each slot check
+
+## Simplified Source
+
+```c
+static void InitWalSenderSlot(void) {
+    int i;
+
+    Assert(WalSndCtl != NULL);
+    Assert(MyWalSnd == NULL);
+
+    // Find and reserve a free WAL sender slot
+    for (i = 0; i < max_wal_senders; i++) {
+        WalSnd *walsnd = &WalSndCtl->walsnds[i];
+
+        SpinLockAcquire(&walsnd->mutex);
+
+        if (walsnd->pid != 0) {
+            // Slot is occupied
+            SpinLockRelease(&walsnd->mutex);
+            continue;
+        }
+
+        // Found free slot - initialize it
+        walsnd->pid = MyProcPid;
+        walsnd->state = WALSNDSTATE_STARTUP;
+        walsnd->sentPtr = InvalidXLogRecPtr;
+        walsnd->needreload = false;
+        walsnd->write = InvalidXLogRecPtr;
+        walsnd->flush = InvalidXLogRecPtr;
+        walsnd->apply = InvalidXLogRecPtr;
+        walsnd->writeLag = -1;
+        walsnd->flushLag = -1;
+        walsnd->applyLag = -1;
+        walsnd->sync_standby_priority = 0;
+        walsnd->latch = &MyProc->procLatch;
+        walsnd->replyTime = 0;
+
+        // Set replication kind based on database context
+        if (MyDatabaseId == InvalidOid)
+            walsnd->kind = REPLICATION_KIND_PHYSICAL;
+        else
+            walsnd->kind = REPLICATION_KIND_LOGICAL;
+
+        SpinLockRelease(&walsnd->mutex);
+        MyWalSnd = walsnd;
+        break;
+    }
+
+    Assert(MyWalSnd != NULL);
+
+    // Register cleanup handler for process exit
+    on_shmem_exit(WalSndKill, 0);
+}
+```

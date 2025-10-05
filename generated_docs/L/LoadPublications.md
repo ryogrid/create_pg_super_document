@@ -30,3 +30,24 @@ LoadPublications is a utility function in the pgoutput logical replication outpu
 - Uses the GetPublicationByName function with the second parameter as false, meaning it will raise an error if a publication doesn't exist
 - Returns NIL (empty list) if the input list is empty
 - Part of the PostgreSQL logical replication infrastructure specifically for the pgoutput plugin
+
+## Simplified Source
+
+```c
+static List *
+LoadPublications(List *pubnames)
+{
+    List *result = NIL;
+    ListCell *lc;
+
+    // Convert each publication name to Publication object
+    foreach(lc, pubnames)
+    {
+        char *pubname = (char *) lfirst(lc);
+        Publication *pub = GetPublicationByName(pubname, false);
+        result = lappend(result, pub);
+    }
+
+    return result;
+}
+```

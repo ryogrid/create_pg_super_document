@@ -38,3 +38,15 @@ The function performs the calculation: A*x + B*y + C, where A, B, and C are the 
 - Part of PostgreSQL's geometric data type operations infrastructure
 - The function assumes the LINE structure follows the standard mathematical representation Ax + By + C = 0
 - Critical for geometric containment queries in PostgreSQL's geometric types system
+
+## Simplified Source
+
+```c
+static bool line_contain_point(LINE *line, Point *point) {
+    // Evaluate line equation: Ax + By + C = 0
+    // Return true if result is approximately zero
+    return FPzero(float8_pl(float8_pl(float8_mul(line->A, point->x),
+                                      float8_mul(line->B, point->y)),
+                            line->C));
+}
+```

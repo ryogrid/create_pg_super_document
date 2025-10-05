@@ -39,3 +39,18 @@ The function performs name resolution without acquiring locks on the target rela
 - Handles schema-qualified names by parsing them into namespace and relation components
 - Used extensively throughout the privilege checking system for name-to-OID conversion
 - Located in src/backend/utils/adt/acl.c:2049-2063
+
+## Simplified Source
+
+```c
+static Oid convert_table_name(text *tablename) {
+    RangeVar *relrv;
+
+    // Parse table name into qualified name list and create RangeVar
+    relrv = makeRangeVarFromNameList(textToQualifiedNameList(tablename));
+
+    // Convert RangeVar to relation OID without locking
+    // (we might not have permissions, so don't lock)
+    return RangeVarGetRelid(relrv, NoLock, false);
+}
+```

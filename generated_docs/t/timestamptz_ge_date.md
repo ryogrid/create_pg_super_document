@@ -36,3 +36,18 @@ This function implements the greater-than-or-equal-to comparison operator (>=) b
 - Used internally by the PostgreSQL executor when processing '>=' operators between timestamptz and date types
 - The comparison logic checks if  to determine if timestamptz >= date
 - Location: src/backend/utils/adt/date.c:1015-1023
+
+## Simplified Source
+
+```c
+Datum
+timestamptz_ge_date(PG_FUNCTION_ARGS)
+{
+    // Extract timestamptz and date arguments
+    TimestampTz dt1 = PG_GETARG_TIMESTAMPTZ(0);
+    DateADT dateVal = PG_GETARG_DATEADT(1);
+
+    // Return true if timestamptz >= date (comparison result <= 0)
+    PG_RETURN_BOOL(date_cmp_timestamptz_internal(dateVal, dt1) <= 0);
+}
+```

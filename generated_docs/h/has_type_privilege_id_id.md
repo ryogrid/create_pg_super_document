@@ -36,3 +36,29 @@ This function is a PostgreSQL built-in function that checks whether a specific u
 - Part of PostgreSQL's access control system for type privileges
 - Typically used in SQL queries where both role OID and type OID are known
 - Located in src/backend/utils/adt/acl.c:4537-4565
+
+## Simplified Source
+
+```c
+Datum
+has_type_privilege_id_id(PG_FUNCTION_ARGS)
+{
+    Oid roleid = PG_GETARG_OID(0);
+    Oid typeoid = PG_GETARG_OID(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+    bool is_missing = false;
+
+    // Convert privilege string to access mode
+    AclMode mode = convert_type_priv_string(priv_type_text);
+
+    // Check access control with missing object detection
+    AclResult aclresult = object_aclcheck_ext(TypeRelationId, typeoid,
+                                              roleid, mode, &is_missing);
+
+    // Return NULL if type doesn't exist
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

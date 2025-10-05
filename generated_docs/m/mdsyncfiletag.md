@@ -47,3 +47,54 @@ The function returns 0 on success and -1 on failure, following standard Unix con
 - The path parameter serves dual purpose: output for caller and internal path handling
 - Proper errno handling ensures error information is preserved for the caller
 - The function is designed to work with PostgreSQL's file tag system for identifying specific relation segments
+
+## Simplified Source
+
+```c
+int mdsyncfiletag(const FileTag *ftag, char *path)
+{
+    SMgrRelation reln = smgropen(ftag->rlocator, INVALID_PROC_NUMBER);
+    File file;
+    instr_time io_start;
+    bool need_to_close;
+    int result, save_errno;
+
+    // Check if file is already open, or need to open it
+    if (ftag->segno < reln->md_num_open_segs[ftag->forknum])
+    {
+        // Use already-open file descriptor
+        file = reln->md_seg_fds[ftag->forknum][ftag->segno].mdfd_vfd;
+        strlcpy(path, FilePathName(file), MAXPGPATH);
+        need_to_close = false;
+    }
+    else
+    {
+        // Construct path and open file temporarily
+        char *p = _mdfd_segpath(reln, ftag->forknum, ftag->segno);
+        strlcpy(path, p, MAXPGPATH);
+        pfree(p);
+
+        file = PathNameOpenFile(path, _mdfd_open_flags());
+        if (file < 0)
+            return -1;
+        need_to_close = true;
+    }
+
+    io_start = pgstat_prepare_io_time(track_io_timing);
+
+    // Perform the file sync
+    result = FileSync(file, WAIT_EVENT_DATA_FILE_SYNC);
+    save_errno = errno;
+
+    // Close file if we opened it temporarily
+    if (need_to_close)
+        FileClose(file);
+
+    // Record I/O statistics
+    pgstat_count_io_op_time(IOOBJECT_RELATION, IOCONTEXT_NORMAL,
+                            IOOP_FSYNC, io_start, 1);
+
+    errno = save_errno;
+    return result;
+}
+```

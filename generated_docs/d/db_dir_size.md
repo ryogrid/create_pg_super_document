@@ -36,3 +36,49 @@ The  function performs a directory traversal to calculate the total size of all 
 - File size accumulation uses int64 to handle large directory sizes
 - The function is designed to be resilient to files that disappear during traversal (ENOENT handling)
 - Error handling follows PostgreSQL conventions using ereport for non-recoverable errors
+
+## Simplified Source
+
+```c
+static int64 db_dir_size(const char *path) {
+    int64 dirsize = 0;
+    struct dirent *direntry;
+    DIR *dirdesc;
+    char filename[MAXPGPATH * 2];
+
+    // Open directory for reading
+    dirdesc = AllocateDir(path);
+    if (!dirdesc)
+        return 0;
+
+    // Iterate through all directory entries
+    while ((direntry = ReadDir(dirdesc, path)) != NULL) {
+        struct stat fst;
+
+        // Allow query cancellation
+        CHECK_FOR_INTERRUPTS();
+
+        // Skip current and parent directory entries
+        if (strcmp(direntry->d_name, ".") == 0 ||
+            strcmp(direntry->d_name, "..") == 0)
+            continue;
+
+        // Build full path to file
+        snprintf(filename, sizeof(filename), "%s/%s", path, direntry->d_name);
+
+        // Get file stats and add size to total
+        if (stat(filename, &fst) < 0) {
+            if (errno == ENOENT)
+                continue;  // File disappeared, skip it
+            else
+                ereport(ERROR, (errcode_for_file_access(),
+                    errmsg("could not stat file \"%s\": %m", filename)));
+        }
+
+        dirsize += fst.st_size;
+    }
+
+    FreeDir(dirdesc);
+    return dirsize;
+}
+```

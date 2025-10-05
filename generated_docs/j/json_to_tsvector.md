@@ -37,3 +37,26 @@ This function serves as a PostgreSQL SQL-callable wrapper that converts JSON tex
 - Implements proper PostgreSQL function calling conventions with PG_FUNCTION_ARGS
 - Memory management follows PostgreSQL patterns with PG_FREE_IF_COPY for varlena types
 - The actual JSON parsing and TSVector construction is delegated to json_to_tsvector_worker
+
+## Simplified Source
+
+```c
+Datum json_to_tsvector(PG_FUNCTION_ARGS)
+{
+    // Extract JSON text and flags from arguments
+    text *json = PG_GETARG_TEXT_P(0);
+    Jsonb *jbFlags = PG_GETARG_JSONB_P(1);
+
+    // Parse flags and get current text search configuration
+    uint32 flags = parse_jsonb_index_flags(jbFlags);
+    Oid cfgId = getTSCurrentConfig(true);
+
+    // Convert JSON to TSVector using worker function
+    TSVector result = json_to_tsvector_worker(cfgId, json, flags);
+
+    // Clean up memory and return result
+    PG_FREE_IF_COPY(json, 0);
+    PG_FREE_IF_COPY(jbFlags, 1);
+    PG_RETURN_TSVECTOR(result);
+}
+```

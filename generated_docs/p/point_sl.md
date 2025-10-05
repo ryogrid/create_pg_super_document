@@ -43,3 +43,22 @@ This is an internal utility function used by various geometric operations throug
 - Uses PostgreSQL's safe floating-point arithmetic functions to ensure consistent cross-platform behavior
 - The function handles the special case where both points are identical by returning infinity (since x-coordinates would be equal)
 - Critical building block for line and slope-related geometric calculations in PostgreSQL
+
+## Simplified Source
+
+```c
+static inline float8
+point_sl(Point *pt1, Point *pt2)
+{
+    // Handle vertical line case (same x-coordinates)
+    if (FPeq(pt1->x, pt2->x))
+        return get_float8_infinity();
+
+    // Handle horizontal line case (same y-coordinates)
+    if (FPeq(pt1->y, pt2->y))
+        return 0.0;
+
+    // Calculate slope: (y2-y1)/(x2-x1)
+    return float8_div(float8_mi(pt1->y, pt2->y), float8_mi(pt1->x, pt2->x));
+}
+```

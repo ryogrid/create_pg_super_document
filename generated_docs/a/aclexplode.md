@@ -51,3 +51,77 @@ The output table has four columns: grantor (OID), grantee (OID), privilege_type 
 - The function can handle empty ACLs gracefully
 - [Result](../R/Result.md) format matches PostgreSQL's standard privilege display conventions
 - Used by system views and administrative functions for privilege reporting
+
+## Simplified Source
+
+```c
+Datum aclexplode(PG_FUNCTION_ARGS) {
+    Acl *acl = PG_GETARG_ACL_P(0);
+    FuncCallContext *funcctx;
+    int *idx;  // [0] = ACL item index, [1] = privilege bit index
+    AclItem *aidat;
+
+    if (SRF_IS_FIRSTCALL()) {
+        TupleDesc tupdesc;
+        MemoryContext oldcontext;
+
+        check_acl(acl);
+        funcctx = SRF_FIRSTCALL_INIT();
+        oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
+
+        // Build result tuple descriptor: (grantor, grantee, privilege_type, is_grantable)
+        tupdesc = CreateTemplateTupleDesc(4);
+        TupleDescInitEntry(tupdesc, 1, "grantor", OIDOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 2, "grantee", OIDOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 3, "privilege_type", TEXTOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 4, "is_grantable", BOOLOID, -1, 0);
+        funcctx->tuple_desc = BlessTupleDesc(tupdesc);
+
+        // Initialize iteration state
+        idx = (int *) palloc(sizeof(int[2]));
+        idx[0] = 0;   // ACL array item index
+        idx[1] = -1;  // privilege type counter
+        funcctx->user_fctx = idx;
+
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    funcctx = SRF_PERCALL_SETUP();
+    idx = (int *) funcctx->user_fctx;
+    aidat = ACL_DAT(acl);
+
+    // Iterate through ACL items and privilege bits
+    while (idx[0] < ACL_NUM(acl)) {
+        AclItem *aidata;
+        AclMode priv_bit;
+
+        idx[1]++;
+        if (idx[1] == N_ACL_RIGHTS) {
+            idx[1] = 0;
+            idx[0]++;
+            if (idx[0] >= ACL_NUM(acl))
+                break;
+        }
+
+        aidata = &aidat[idx[0]];
+        priv_bit = UINT64CONST(1) << idx[1];
+
+        // If this privilege bit is set, return a row
+        if (ACLITEM_GET_PRIVS(*aidata) & priv_bit) {
+            Datum values[4];
+            bool nulls[4] = {0};
+            HeapTuple tuple;
+
+            values[0] = ObjectIdGetDatum(aidata->ai_grantor);
+            values[1] = ObjectIdGetDatum(aidata->ai_grantee);
+            values[2] = CStringGetTextDatum(convert_aclright_to_string(priv_bit));
+            values[3] = BoolGetDatum((ACLITEM_GET_GOPTIONS(*aidata) & priv_bit) != 0);
+
+            tuple = heap_form_tuple(funcctx->tuple_desc, values, nulls);
+            SRF_RETURN_NEXT(funcctx, HeapTupleGetDatum(tuple));
+        }
+    }
+
+    SRF_RETURN_DONE(funcctx);
+}
+```

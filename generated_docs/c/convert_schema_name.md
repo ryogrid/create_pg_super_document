@@ -32,3 +32,15 @@ The function will raise an error if the specified schema does not exist, as it c
 - Will raise an error if the schema does not exist rather than returning InvalidOid
 - The conversion from text to C string is necessary for compatibility with catalog lookup functions
 - Located in src/backend/utils/adt/acl.c:3965-3976
+
+## Simplified Source
+
+```c
+static Oid
+convert_schema_name(text *schemaname)
+{
+    char *nspname = text_to_cstring(schemaname);
+
+    return get_namespace_oid(nspname, false);
+}
+```

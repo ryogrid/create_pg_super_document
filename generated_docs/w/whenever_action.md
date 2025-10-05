@@ -45,3 +45,36 @@ This function generates appropriate error handling code based on the ECPG WHENEV
 - Uses global when_* structures to track active WHENEVER directives
 - Maintains proper line number correspondence in generated code
 - The mode parameter provides flexible control over when and how error handling is applied
+
+## Simplified Source
+
+```c
+void whenever_action(int mode) {
+    // Handle NOT_FOUND condition if mode bit 0 is set
+    if ((mode & 1) == 1 && when_nf.code != W_NOTHING) {
+        output_line_number();
+        fprintf(base_yyout, "\nif (sqlca.sqlcode == ECPG_NOT_FOUND) ");
+        print_action(&when_nf);
+    }
+
+    // Handle WARNING condition
+    if (when_warn.code != W_NOTHING) {
+        output_line_number();
+        fprintf(base_yyout, "\nif (sqlca.sqlwarn[0] == 'W') ");
+        print_action(&when_warn);
+    }
+
+    // Handle ERROR condition
+    if (when_error.code != W_NOTHING) {
+        output_line_number();
+        fprintf(base_yyout, "\nif (sqlca.sqlcode < 0) ");
+        print_action(&when_error);
+    }
+
+    // Close code block if mode bit 1 is set
+    if ((mode & 2) == 2)
+        fputc('}', base_yyout);
+
+    output_line_number();
+}
+```

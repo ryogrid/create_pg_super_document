@@ -39,3 +39,15 @@ This function ensures that error context information remains consistent and accu
 - Essential for maintaining proper error context in nested vacuum operations
 - The function is static and only used within the vacuumlazy.c module
 - Simple implementation that directly copies saved values back to the active error context
+
+## Simplified Source
+
+```c
+static void restore_vacuum_error_info(LVRelState *vacrel,
+                                     const LVSavedErrInfo *saved_vacrel) {
+    // Restore error context from saved state
+    vacrel->blkno = saved_vacrel->blkno;
+    vacrel->offnum = saved_vacrel->offnum;
+    vacrel->phase = saved_vacrel->phase;
+}
+```

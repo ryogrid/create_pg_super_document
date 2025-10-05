@@ -40,3 +40,42 @@ The bsysscan flag reset is specifically related to transaction monitoring during
 - Part of the paired beginscan/endscan API for system catalog access
 - Critical for preventing memory leaks and resource exhaustion in catalog scanning operations
 - The bsysscan flag management is related to logical replication's transaction monitoring system
+
+## Simplified Source
+
+```c
+void
+systable_endscan(SysScanDesc sysscan)
+{
+    // Clean up tuple table slot if one exists
+    if (sysscan->slot)
+    {
+        ExecDropSingleTupleTableSlot(sysscan->slot);
+        sysscan->slot = NULL;
+    }
+
+    // End the scan and close index/table as appropriate
+    if (sysscan->irel)
+    {
+        // Index-based scan cleanup
+        index_endscan(sysscan->iscan);
+        index_close(sysscan->irel, AccessShareLock);
+    }
+    else
+    {
+        // Sequential scan cleanup
+        table_endscan(sysscan->scan);
+    }
+
+    // Clean up snapshot if we registered one
+    if (sysscan->snapshot)
+        UnregisterSnapshot(sysscan->snapshot);
+
+    // Reset transaction monitoring flag for logical replication
+    if (TransactionIdIsValid(CheckXidAlive))
+        bsysscan = false;
+
+    // Free the scan descriptor
+    pfree(sysscan);
+}
+```

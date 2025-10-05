@@ -44,3 +44,146 @@ SplitToVariants is a complex recursive function that analyzes compound words by 
 - The function can generate multiple splitting variants for the same word
 - Critical for text search in languages with extensive compound word usage
 - Part of PostgreSQL's Ispell-based spell checking infrastructure
+
+## Simplified Source
+
+```c
+static SplitVar *
+SplitToVariants(IspellDict *Conf, SPNode *snode, SplitVar *orig, char *word, int wordlen, int startpos, int minpos)
+{
+    check_stack_depth();  // Prevent stack overflow
+
+    // Initialize tracking and result structures
+    char *notprobed = (char *) palloc(wordlen);
+    memset(notprobed, 1, wordlen);
+    SplitVar *var = CopyVar(orig, 1);
+
+    SPNode *node = snode ? snode : Conf->Dictionary;
+    int level = snode ? minpos : startpos;
+
+    while (level < wordlen) {
+        // Check for compound affixes
+        CMPDAffix *caff = Conf->CompoundAffix;
+        while (level > startpos) {
+            int lenaff = CheckCompoundAffixes(&caff, word + level, wordlen - level, node ? true : false);
+            if (lenaff < 0) break;
+
+            // Process found compound affix
+            char buf[MAXNORMLEN];
+            lenaff = level - startpos + lenaff;
+
+            if (!notprobed[startpos + lenaff - 1] ||
+                level + lenaff - 1 <= minpos ||
+                lenaff >= MAXNORMLEN)
+                continue;
+
+            if (lenaff > 0)
+                memcpy(buf, word + startpos, lenaff);
+            buf[lenaff] = '\0';
+
+            // Determine compound flag
+            int compoundflag;
+            if (level == 0)
+                compoundflag = FF_COMPOUNDBEGIN;
+            else if (level == wordlen - 1)
+                compoundflag = FF_COMPOUNDLAST;
+            else
+                compoundflag = FF_COMPOUNDMIDDLE;
+
+            // Try to normalize the compound part
+            char **subres = NormalizeSubWord(Conf, buf, compoundflag);
+            if (subres) {
+                // Found valid compound part - create new variant
+                SplitVar *new = CopyVar(var, 0);
+                notprobed[startpos + lenaff - 1] = 0;
+
+                // Add all normalized forms to the new variant
+                char **sptr = subres;
+                while (*sptr) {
+                    AddStem(new, *sptr);
+                    sptr++;
+                }
+                pfree(subres);
+
+                // Continue recursively with remaining word
+                SplitVar *ptr = var;
+                while (ptr->next)
+                    ptr = ptr->next;
+                ptr->next = SplitToVariants(Conf, NULL, new, word, wordlen,
+                    startpos + lenaff, startpos + lenaff);
+
+                pfree(new->stem);
+                pfree(new);
+            }
+        }
+
+        if (!node) break;
+
+        // Binary search in dictionary trie
+        SPNodeData *StopLow = node->data;
+        SPNodeData *StopHigh = node->data + node->length;
+        SPNodeData *StopMiddle = NULL;
+
+        while (StopLow < StopHigh) {
+            StopMiddle = StopLow + ((StopHigh - StopLow) >> 1);
+            uint8 ch = ((uint8 *) word)[level];
+
+            if (StopMiddle->val == ch)
+                break;
+            else if (StopMiddle->val < ch)
+                StopLow = StopMiddle + 1;
+            else
+                StopHigh = StopMiddle;
+        }
+
+        // Process if character found in trie
+        if (StopLow < StopHigh) {
+            // Set compound flag based on position
+            int compoundflag;
+            if (startpos == 0)
+                compoundflag = FF_COMPOUNDBEGIN;
+            else if (level == wordlen - 1)
+                compoundflag = FF_COMPOUNDLAST;
+            else
+                compoundflag = FF_COMPOUNDMIDDLE;
+
+            // Check if this is a valid word boundary
+            if (StopMiddle->isword &&
+                (StopMiddle->compoundflag & compoundflag) &&
+                notprobed[level] &&
+                level > minpos) {
+
+                if (wordlen == level + 1) {
+                    // Found complete word
+                    AddStem(var, pnstrdup(word + startpos, wordlen - startpos));
+                    pfree(notprobed);
+                    return var;
+                }
+                else {
+                    // Continue searching for longer words
+                    SplitVar *ptr = var;
+                    while (ptr->next)
+                        ptr = ptr->next;
+                    ptr->next = SplitToVariants(Conf, node, var, word, wordlen, startpos, level);
+
+                    level++;
+                    AddStem(var, pnstrdup(word + startpos, level - startpos));
+                    node = Conf->Dictionary;
+                    startpos = level;
+                    continue;
+                }
+            }
+            node = StopMiddle->node;
+        }
+        else {
+            node = NULL;
+        }
+        level++;
+    }
+
+    // Add remaining word part as stem
+    AddStem(var, pnstrdup(word + startpos, wordlen - startpos));
+    pfree(notprobed);
+    return var;
+}
+```

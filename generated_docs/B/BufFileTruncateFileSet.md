@@ -41,3 +41,58 @@ BufFileTruncateFileSet performs a comprehensive truncation operation on a filese
 - Used primarily by logical replication worker processes for stream abort operations
 - The function maintains buffer consistency by handling three cases: truncation within current buffer, truncation before current position in same file, and truncation in earlier files
 - Physical file operations are performed before buffer state adjustments to ensure atomicity
+
+## Simplified Source
+
+```c
+void BufFileTruncateFileSet(BufFile *file, int fileno, off_t offset) {
+    int numFiles = file->numFiles;
+    int newFile = fileno;
+    off_t newOffset = file->curOffset;
+    char segment_name[MAXPGPATH];
+
+    // Remove files beyond target fileno and truncate target file
+    for (int i = file->numFiles - 1; i >= fileno; i--) {
+        if ((i != fileno || offset == 0) && i != 0) {
+            // Delete this segment file
+            FileSetSegmentName(segment_name, file->name, i);
+            FileClose(file->files[i]);
+            if (!FileSetDelete(file->fileset, segment_name, true))
+                ereport(ERROR, /* deletion error */);
+            numFiles--;
+            newOffset = MAX_PHYSICAL_FILESIZE;
+            if (i == fileno)
+                newFile--;
+        } else {
+            // Truncate this file to the specified offset
+            if (FileTruncate(file->files[i], offset, WAIT_EVENT_BUFFILE_TRUNCATE) < 0)
+                ereport(ERROR, /* truncation error */);
+            newOffset = offset;
+        }
+    }
+
+    file->numFiles = numFiles;
+
+    // Adjust buffer state based on truncation point location
+    if (newFile == file->curFile &&
+        newOffset >= file->curOffset &&
+        newOffset <= file->curOffset + file->nbytes) {
+        // Truncation within current buffer - adjust position and size
+        if (newOffset <= file->curOffset + file->pos)
+            file->pos = (int)(newOffset - file->curOffset);
+        file->nbytes = (int)(newOffset - file->curOffset);
+    } else if (newFile == file->curFile && newOffset < file->curOffset) {
+        // Truncation before current position - reset buffer
+        file->curOffset = newOffset;
+        file->pos = 0;
+        file->nbytes = 0;
+    } else if (newFile < file->curFile) {
+        // Truncation in earlier file - reset to new position
+        file->curFile = newFile;
+        file->curOffset = newOffset;
+        file->pos = 0;
+        file->nbytes = 0;
+    }
+    // No action needed if truncation is beyond current position
+}
+```

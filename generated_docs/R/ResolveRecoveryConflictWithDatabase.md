@@ -42,3 +42,22 @@ The function assumes that AccessExclusiveLock has already been acquired on the d
 - The function is specifically designed for DROP DATABASE operations during WAL replay on standby servers
 - The loop continues until CountDBBackends returns 0, ensuring complete cleanup before the database can be safely removed
 - This represents one of the most disruptive types of recovery conflicts, as it forces immediate disconnection of all users of a database
+
+## Simplified Source
+
+```c
+void ResolveRecoveryConflictWithDatabase(Oid dbid) {
+    // Keep canceling backends until none remain connected to the database
+    while (CountDBBackends(dbid) > 0) {
+        // Force immediate cancellation of all backends in this database
+        CancelDBBackends(dbid, PROCSIG_RECOVERY_CONFLICT_DATABASE, true);
+
+        // Brief sleep to avoid overwhelming unresponsive backends
+        pg_usleep(10000);  // 10ms
+    }
+
+    // Note: AccessExclusiveLock assumed to be held, preventing new connections
+    // Any connection attempts will block in InitPostgres() and fail when
+    // they discover the database has been removed
+}
+```

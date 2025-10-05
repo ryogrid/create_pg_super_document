@@ -34,3 +34,26 @@ The `lseg_send` function is a PostgreSQL binary output function that serializes 
 - Part of the binary protocol infrastructure enabling efficient data transfer
 - The binary format is platform-independent and follows PostgreSQL's standard wire protocol
 - More efficient than text-based output for network communication and bulk data operations
+
+## Simplified Source
+
+```c
+Datum
+lseg_send(PG_FUNCTION_ARGS)
+{
+    LSEG *ls = PG_GETARG_LSEG_P(0);
+    StringInfoData buf;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Write coordinates to buffer: x1, y1, x2, y2
+    pq_sendfloat8(&buf, ls->p[0].x);  // First point x
+    pq_sendfloat8(&buf, ls->p[0].y);  // First point y
+    pq_sendfloat8(&buf, ls->p[1].x);  // Second point x
+    pq_sendfloat8(&buf, ls->p[1].y);  // Second point y
+
+    // Finalize buffer and return as bytea
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

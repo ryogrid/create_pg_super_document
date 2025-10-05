@@ -39,3 +39,23 @@ The function uses the standard C library cbrt() function but adds PostgreSQL-spe
 - Unlike dsqrt, this function accepts negative inputs since cube root is defined for all real numbers
 - Implements overflow/underflow detection beyond what the standard cbrt() provides
 - Follows standard PostgreSQL function conventions for SQL-callable functions
+
+## Simplified Source
+
+```c
+Datum dcbrt(PG_FUNCTION_ARGS) {
+    // Extract input argument (accepts any real number)
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+
+    // Compute cube root
+    float8 result = cbrt(arg1);
+
+    // Check for overflow and underflow
+    if (unlikely(isinf(result)) && !isinf(arg1))
+        float_overflow_error();
+    if (unlikely(result == 0.0) && arg1 != 0.0)
+        float_underflow_error();
+
+    PG_RETURN_FLOAT8(result);
+}
+```

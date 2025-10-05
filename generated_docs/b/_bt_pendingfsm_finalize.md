@@ -46,3 +46,49 @@ The function includes debugging support (DEBUG_BTREE_PENDING_FSM) that introduce
 - Early termination optimization assumes pages are stored in safexid order, which is guaranteed by _bt_pendingfsm_add()
 - Updates vacuum statistics (pages_free counter) for successfully recycled pages
 - The DEBUG_BTREE_PENDING_FSM build option adds a 5-second sleep to improve testing effectiveness by allowing XID horizon advancement
+
+## Simplified Source
+
+```c
+void _bt_pendingfsm_finalize(Relation rel, BTVacState *vstate)
+{
+    IndexBulkDeleteResult *stats = vstate->stats;
+    Relation heaprel = vstate->info->heaprel;
+
+    // Early exit if no pending pages
+    if (vstate->npendingpages == 0) {
+        if (vstate->pendingpages)
+            pfree(vstate->pendingpages);
+        return;
+    }
+
+#ifdef DEBUG_BTREE_PENDING_FSM
+    // Debugging: sleep to increase chances of recycling pages
+    pg_usleep(5000000L);
+#endif
+
+    // Update XID horizon state for this backend
+    // This is essential for reliable recycling checks
+    GetOldestNonRemovableTransactionId(heaprel);
+
+    // Process pending pages in safexid order
+    for (int i = 0; i < vstate->npendingpages; i++) {
+        BlockNumber target = vstate->pendingpages[i].target;
+        FullTransactionId safexid = vstate->pendingpages[i].safexid;
+
+        // Check if page is safe to recycle
+        if (!GlobalVisCheckRemovableFullXid(heaprel, safexid)) {
+            // First non-recyclable page found
+            // All later pages must also be non-recyclable due to ordering
+            break;
+        }
+
+        // Safe to recycle - add to FSM and update statistics
+        RecordFreeIndexPage(rel, target);
+        stats->pages_free++;
+    }
+
+    // Clean up allocated memory
+    pfree(vstate->pendingpages);
+}
+```

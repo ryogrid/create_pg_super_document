@@ -40,3 +40,43 @@ The  function is a static helper function that parses a string representation of
 - The line coefficients A, B, C represent the standard form of a line equation: Ax + By + C = 0
 - Uses PostgreSQL's consistent error reporting with specific error codes for invalid text representations
 - The function assumes the leading delimiter has already been consumed by the caller
+
+## Simplified Source
+
+```c
+static bool
+line_decode(char *s, const char *str, LINE *line, Node *escontext)
+{
+    // Parse coefficient A
+    if (!single_decode(s, &line->A, &s, "line", str, escontext))
+        return false;
+
+    // Check delimiter and parse coefficient B
+    if (*s++ != DELIM)
+        goto fail;
+    if (!single_decode(s, &line->B, &s, "line", str, escontext))
+        return false;
+
+    // Check delimiter and parse coefficient C
+    if (*s++ != DELIM)
+        goto fail;
+    if (!single_decode(s, &line->C, &s, "line", str, escontext))
+        return false;
+
+    // Validate ending delimiter and trailing whitespace
+    if (*s++ != RDELIM_L)
+        goto fail;
+    while (isspace(*s))
+        s++;
+    if (*s != '\0')
+        goto fail;
+
+    return true;
+
+fail:
+    ereturn(escontext, false,
+            (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+             errmsg("invalid input syntax for type %s: \"%s\"",
+                    "line", str)));
+}
+```

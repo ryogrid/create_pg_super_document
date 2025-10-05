@@ -49,3 +49,43 @@ This function is critical for maintaining the integrity of the predicate locking
 - Uses double-linked lists (dlist) for efficient traversal and removal of predicate locks
 - Critical for preventing memory leaks in long-running serializable transactions
 - The function maintains strict locking order to avoid deadlocks during cleanup operations
+
+## Simplified Source
+
+```c
+static void DeleteLockTarget(PREDICATELOCKTARGET *target, uint32 targettaghash)
+{
+    dlist_mutable_iter iter;
+
+    // Verify caller holds required locks
+    Assert(LWLockHeldByMeInMode(SerializablePredicateListLock, LW_EXCLUSIVE));
+    Assert(LWLockHeldByMe(PredicateLockHashPartitionLock(targettaghash)));
+
+    LWLockAcquire(SerializableXactHashLock, LW_EXCLUSIVE);
+
+    // Remove all predicate locks associated with this target
+    dlist_foreach_modify(iter, &target->predicateLocks)
+    {
+        PREDICATELOCK *predlock =
+            dlist_container(PREDICATELOCK, targetLink, iter.cur);
+        bool found;
+
+        // Remove from transaction and target lists
+        dlist_delete(&(predlock->xactLink));
+        dlist_delete(&(predlock->targetLink));
+
+        // Remove from hash table
+        hash_search_with_hash_value(PredicateLockHash,
+                                    &predlock->tag,
+                                    PredicateLockHashCodeFromTargetHashCode(&predlock->tag,
+                                                                            targettaghash),
+                                    HASH_REMOVE, &found);
+        Assert(found);
+    }
+
+    LWLockRelease(SerializableXactHashLock);
+
+    // Remove the target itself if no longer needed
+    RemoveTargetIfNoLongerUsed(target, targettaghash);
+}
+```

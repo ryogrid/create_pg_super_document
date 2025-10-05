@@ -27,3 +27,14 @@ This function implements the hash operation for PostgreSQL's time data type (Tim
 - The function is a simple wrapper around hashint8, maintaining consistency with PostgreSQL's approach of reusing existing hash functions for similar data representations
 - Located in src/backend/utils/adt/date.c at lines 1747-1752
 - Part of PostgreSQL's type system infrastructure for supporting hash-based operations on time values
+
+## Simplified Source
+
+```c
+Datum
+time_hash(PG_FUNCTION_ARGS)
+{
+    // Delegate to int8 hash function since TimeADT is a 64-bit integer
+    return hashint8(fcinfo);
+}
+```

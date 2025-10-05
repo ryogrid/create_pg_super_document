@@ -50,3 +50,68 @@ This function implements platform-specific mechanisms to retrieve backend parame
 - Sets startup_data to NULL when no startup data is present
 - Always calls restore_backend_variables() at the end to apply the loaded parameters
 - Part of the backend launch mechanism that enables parameter passing from postmaster to backend processes
+
+## Simplified Source
+
+```c
+static void read_backend_variables(char *id, char **startup_data, size_t *startup_data_len) {
+    BackendParameters param;
+
+#ifndef WIN32
+    // Unix/Linux: Read from temporary file
+    FILE *fp = AllocateFile(id, PG_BINARY_R);
+    if (!fp) {
+        write_stderr("could not open backend variables file \"%s\": %m\n", id);
+        exit(1);
+    }
+
+    // Read backend parameters structure
+    if (fread(&param, sizeof(param), 1, fp) != 1) {
+        write_stderr("could not read from backend variables file \"%s\": %m\n", id);
+        exit(1);
+    }
+
+    // Read startup data if present
+    *startup_data_len = param.startup_data_len;
+    if (param.startup_data_len > 0) {
+        *startup_data = palloc(*startup_data_len);
+        if (fread(*startup_data, *startup_data_len, 1, fp) != 1) {
+            write_stderr("could not read startup data from file \"%s\": %m\n", id);
+            exit(1);
+        }
+    } else {
+        *startup_data = NULL;
+    }
+
+    // Cleanup: close file and delete it
+    FreeFile(fp);
+    unlink(id);
+
+#else
+    // Windows: Use memory-mapped file
+    HANDLE paramHandle = (HANDLE) _atoi64(id);  // or atol() for 32-bit
+    BackendParameters *paramp = MapViewOfFile(paramHandle, FILE_MAP_READ, 0, 0, 0);
+    if (!paramp) {
+        write_stderr("could not map view of backend variables\n");
+        exit(1);
+    }
+
+    // Copy parameters and startup data
+    memcpy(&param, paramp, sizeof(BackendParameters));
+    *startup_data_len = param.startup_data_len;
+    if (param.startup_data_len > 0) {
+        *startup_data = palloc(param.startup_data_len);
+        memcpy(*startup_data, paramp->startup_data, param.startup_data_len);
+    } else {
+        *startup_data = NULL;
+    }
+
+    // Cleanup: unmap and close handle
+    UnmapViewOfFile(paramp);
+    CloseHandle(paramHandle);
+#endif
+
+    // Apply the loaded parameters to current process
+    restore_backend_variables(&param);
+}
+```

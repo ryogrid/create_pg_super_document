@@ -45,3 +45,44 @@ The `replace_s` function performs string replacement operations in PostgreSQL's 
 - Handles cursor position (`z->c`) and string length (`z->l`) adjustments automatically
 - Uses efficient `memmove` operations for shifting existing symbols
 - Critical function for text manipulation in stemming algorithms
+
+## Simplified Source
+
+```c
+extern int replace_s(struct SN_env *z, int c_bra, int c_ket, int s_size, const symbol *s, int *adjptr) {
+    // Initialize buffer if needed
+    if (z->p == NULL) {
+        z->p = create_s();
+        if (z->p == NULL) return -1;
+    }
+
+    // Calculate size adjustment needed
+    int adjustment = s_size - (c_ket - c_bra);
+    int len = SIZE(z->p);
+
+    // Expand buffer if necessary
+    if (adjustment != 0) {
+        if (adjustment + len > CAPACITY(z->p)) {
+            z->p = increase_size(z->p, adjustment + len);
+            if (z->p == NULL) return -1;
+        }
+
+        // Shift existing content to make room
+        memmove(z->p + c_ket + adjustment, z->p + c_ket, (len - c_ket) * sizeof(symbol));
+        SET_SIZE(z->p, adjustment + len);
+
+        // Update environment state
+        z->l += adjustment;
+        if (z->c >= c_ket) z->c += adjustment;
+        else if (z->c > c_bra) z->c = c_bra;
+    }
+
+    // Copy new symbols into place
+    if (s_size) memmove(z->p + c_bra, s, s_size * sizeof(symbol));
+
+    // Return adjustment value if requested
+    if (adjptr != NULL) *adjptr = adjustment;
+
+    return 0;
+}
+```

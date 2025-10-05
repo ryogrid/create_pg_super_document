@@ -35,3 +35,31 @@ This function resets the statistics counters for a named replication slot. It fi
 - Uses shared locking to safely access replication slot information
 - Throws an error if the specified slot name does not exist
 - Part of PostgreSQL's statistics collection system for replication monitoring
+
+## Simplified Source
+
+```c
+void
+pgstat_reset_replslot(const char *name)
+{
+    ReplicationSlot *slot;
+
+    Assert(name != NULL);
+
+    LWLockAcquire(ReplicationSlotControlLock, LW_SHARED);
+
+    // Find the named replication slot
+    slot = SearchNamedReplicationSlot(name, false);
+
+    if (!slot)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("replication slot \"%s\" does not exist", name)));
+
+    // Reset statistics only for logical slots (physical slots don't have stats)
+    if (SlotIsLogical(slot))
+        pgstat_reset(PGSTAT_KIND_REPLSLOT, InvalidOid, ReplicationSlotIndex(slot));
+
+    LWLockRelease(ReplicationSlotControlLock);
+}
+```

@@ -38,3 +38,28 @@ The `box_mul` function implements geometric multiplication (scaling) between a b
 - The scaling is performed independently on x and y coordinates, allowing for non-uniform scaling
 - Memory for the result is allocated using palloc and will be managed by PostgreSQL's memory context system
 - Negative scaling factors in the point will flip the box orientation, which is handled correctly by `box_construct`
+
+## Simplified Source
+
+```c
+Datum
+box_mul(PG_FUNCTION_ARGS)
+{
+    BOX *box = PG_GETARG_BOX_P(0);
+    Point *p = PG_GETARG_POINT_P(1);
+    BOX *result;
+    Point high, low;
+
+    // Allocate memory for result box
+    result = (BOX *) palloc(sizeof(BOX));
+
+    // Scale both corners by multiplying with the point
+    point_mul_point(&high, &box->high, p);
+    point_mul_point(&low, &box->low, p);
+
+    // Construct properly oriented box (handles corner ordering)
+    box_construct(result, &high, &low);
+
+    PG_RETURN_BOX_P(result);
+}
+```

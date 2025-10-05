@@ -30,3 +30,14 @@ The function follows PostgreSQL's version-1 calling convention, accepting argume
 - It specifically handles TIME type values as opposed to timestamp or other temporal types
 - The function relies on time_part_common to perform the actual component extraction logic
 - Typically invoked indirectly through SQL EXTRACT expressions rather than direct function calls
+
+## Simplified Source
+
+```c
+Datum
+extract_time(PG_FUNCTION_ARGS)
+{
+    // Delegate to common implementation with numeric return type
+    return time_part_common(fcinfo, true);
+}
+```

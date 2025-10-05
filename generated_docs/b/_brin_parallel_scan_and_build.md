@@ -49,3 +49,53 @@ This function implements the main work loop for parallel BRIN index building. Ea
 - The function handles both regular workers and the leader when it participates as a worker
 - Memory allocation (sortmem) is pre-calculated and passed in to ensure fair resource distribution
 - Completion is signaled through condition variables to allow efficient coordination
+
+## Simplified Source
+
+```c
+static void _brin_parallel_scan_and_build(BrinBuildState *state,
+                                         BrinShared *brinshared,
+                                         Sharedsort *sharedsort,
+                                         Relation heap, Relation index,
+                                         int sortmem, bool progress) {
+    SortCoordinate coordinate;
+    TableScanDesc scan;
+    IndexInfo *indexInfo;
+
+    // Initialize coordination for parallel tuplesort
+    coordinate = palloc0(sizeof(SortCoordinateData));
+    coordinate->isWorker = true;
+    coordinate->nParticipants = -1;
+    coordinate->sharedsort = sharedsort;
+
+    // Start tuplesort for this worker's BRIN ranges
+    state->bs_sortstate = tuplesort_begin_index_brin(sortmem, coordinate,
+                                                    TUPLESORT_NONE);
+
+    // Setup parallel table scan
+    indexInfo = BuildIndexInfo(index);
+    indexInfo->ii_Concurrent = brinshared->isconcurrent;
+    scan = table_beginscan_parallel(heap,
+                                   ParallelTableScanFromBrinShared(brinshared));
+
+    // Scan this worker's portion of the table
+    double reltuples = table_index_build_scan(heap, index, indexInfo, true, true,
+                                             brinbuildCallbackParallel, state, scan);
+
+    // Finalize last BRIN range and sort all ranges
+    form_and_spill_tuple(state);
+    tuplesort_performsort(state->bs_sortstate);
+
+    state->bs_reltuples += reltuples;
+
+    // Update shared statistics and signal completion
+    SpinLockAcquire(&brinshared->mutex);
+    brinshared->nparticipantsdone++;
+    brinshared->reltuples += state->bs_reltuples;
+    brinshared->indtuples += state->bs_numtuples;
+    SpinLockRelease(&brinshared->mutex);
+
+    ConditionVariableSignal(&brinshared->workersdonecv);
+    tuplesort_end(state->bs_sortstate);
+}
+```

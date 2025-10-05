@@ -45,3 +45,92 @@ The function uses PostgreSQL's standard formatting infrastructure with NUMDesc a
 - The function handles sign display explicitly, adding space padding for positive numbers in scientific notation to maintain alignment
 - Overflow conditions are handled by filling the output with '#' characters when the number exceeds the specified format width
 - Part of PostgreSQL's comprehensive text formatting system in src/backend/utils/adt/formatting.c
+
+## Simplified Source
+
+```c
+Datum
+int8_to_char(PG_FUNCTION_ARGS)
+{
+    int64 value = PG_GETARG_INT64(0);
+    text *fmt = PG_GETARG_TEXT_PP(1);
+    NUMDesc Num;
+    FormatNode *format;
+    text *result;
+    int out_pre_spaces = 0, sign = 0;
+    char *numstr, *orgnum;
+
+    // Parse format pattern and initialize formatting structures
+    NUM_TOCHAR_prepare;
+
+    // Handle Roman numeral formatting (limited to int4 range)
+    if (IS_ROMAN(&Num)) {
+        // Convert int8 to int4 first, then to Roman numerals
+        numstr = int_to_roman(DatumGetInt32(DirectFunctionCall1(int84, Int64GetDatum(value))));
+    }
+    // Handle scientific notation formatting
+    else if (IS_EEEE(&Num)) {
+        // Use numeric to preserve precision (avoid float8 conversion)
+        orgnum = numeric_out_sci(int64_to_numeric(value), Num.post);
+
+        // Add leading space for positive numbers for alignment
+        if (*orgnum != '-') {
+            numstr = (char *) palloc(strlen(orgnum) + 2);
+            *numstr = ' ';
+            strcpy(numstr + 1, orgnum);
+        } else {
+            numstr = orgnum;
+        }
+    }
+    // Handle standard numeric formatting
+    else {
+        // Apply multiplicative scaling if specified
+        if (IS_MULTI(&Num)) {
+            double multi = pow((double) 10, (double) Num.multi);
+            value = DatumGetInt64(DirectFunctionCall2(int8mul,
+                                                    Int64GetDatum(value),
+                                                    DirectFunctionCall1(dtoi8,
+                                                                       Float8GetDatum(multi))));
+            Num.pre += Num.multi;
+        }
+
+        // Convert to string representation
+        orgnum = DatumGetCString(DirectFunctionCall1(int8out, Int64GetDatum(value)));
+
+        // Extract sign
+        if (*orgnum == '-') {
+            sign = '-';
+            orgnum++;
+        } else {
+            sign = '+';
+        }
+
+        int numstr_pre_len = strlen(orgnum);
+
+        // Add decimal places if specified (pad with zeros)
+        if (Num.post) {
+            numstr = (char *) palloc(numstr_pre_len + Num.post + 2);
+            strcpy(numstr, orgnum);
+            *(numstr + numstr_pre_len) = '.';
+            memset(numstr + numstr_pre_len + 1, '0', Num.post);
+            *(numstr + numstr_pre_len + Num.post + 1) = '\0';
+        } else {
+            numstr = orgnum;
+        }
+
+        // Calculate padding and handle overflow
+        if (numstr_pre_len < Num.pre)
+            out_pre_spaces = Num.pre - numstr_pre_len;
+        else if (numstr_pre_len > Num.pre) {
+            // Create overflow output with '#' characters
+            numstr = (char *) palloc(Num.pre + Num.post + 2);
+            fill_str(numstr, '#', Num.pre + Num.post + 1);
+            *(numstr + Num.pre) = '.';
+        }
+    }
+
+    // Apply formatting and return result
+    NUM_TOCHAR_finish;
+    PG_RETURN_TEXT_P(result);
+}
+```

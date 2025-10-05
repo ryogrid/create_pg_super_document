@@ -285,9 +285,49 @@ Text creation and manipulation
 * M4: (m4).                     A powerful macro processor.
 * Word differences: (wdiff).    GNU wdiff and diff related tools.
 * grep: (grep).                 Print lines that match patterns.
-* sed: (sed).                   Stream EDitor.  : 8-bit info field containing prepare record metadata and flags
-- : Pointer to xl_xact_prepare structure containing the prepare record data
-- : Replication origin identifier for the transaction
+* sed: (sed).                   Stream EDitor.
+
+## Simplified Source
+
+```c
+static void xact_desc_prepare(StringInfo buf, uint8 info, xl_xact_prepare *xlrec, RepOriginId origin_id) {
+    xl_xact_parsed_prepare parsed;
+
+    // Parse the prepare record into structured format
+    ParsePrepareRecord(info, xlrec, &parsed);
+
+    // Show global transaction ID and timestamp
+    appendStringInfo(buf, "gid %s: ", parsed.twophase_gid);
+    appendStringInfoString(buf, timestamptz_to_str(parsed.xact_time));
+
+    // Show relations for both commit and abort phases
+    xact_desc_relations(buf, "rels(commit)", parsed.nrels, parsed.xlocators);
+    xact_desc_relations(buf, "rels(abort)", parsed.nabortrels, parsed.abortlocators);
+
+    // Show statistics for both commit and abort phases
+    xact_desc_stats(buf, "commit ", parsed.nstats, parsed.stats);
+    xact_desc_stats(buf, "abort ", parsed.nabortstats, parsed.abortstats);
+
+    // Show subtransactions
+    xact_desc_subxacts(buf, parsed.nsubxacts, parsed.subxacts);
+
+    // Show cache invalidation messages
+    standby_desc_invalidations(buf, parsed.nmsgs, parsed.msgs, parsed.dbId,
+                              parsed.tsId, xlrec->initfileinval);
+
+    // Show replication origin information if present
+    if (origin_id != InvalidRepOriginId)
+        appendStringInfo(buf, "; origin: node %u, lsn %X/%X, at %s",
+                        origin_id,
+                        LSN_FORMAT_ARGS(parsed.origin_lsn),
+                        timestamptz_to_str(parsed.origin_timestamp));
+}
+```
+
+## Parameters / Member Variables
+- info: 8-bit info field containing prepare record metadata and flags
+- xlrec: Pointer to xl_xact_prepare structure containing the prepare record data
+- origin_id: Replication origin identifier for the transaction
 
 ## Dependencies
 - Functions called/Symbols referenced:

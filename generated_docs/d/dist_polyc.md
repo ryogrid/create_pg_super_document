@@ -36,3 +36,18 @@ This function serves as a PostgreSQL SQL-callable wrapper for polygon-to-circle 
 - The actual distance computation logic is implemented in 
 - Complementary to  which calculates circle-to-polygon distance using the same internal function
 - Despite different parameter order, both functions use the same internal implementation due to the symmetric nature of distance calculations
+
+## Simplified Source
+
+```c
+Datum
+dist_polyc(PG_FUNCTION_ARGS)
+{
+    // Extract polygon and circle arguments
+    POLYGON *poly = PG_GETARG_POLYGON_P(0);
+    CIRCLE *circle = PG_GETARG_CIRCLE_P(1);
+
+    // Calculate distance using internal function (distance is symmetric)
+    PG_RETURN_FLOAT8(dist_cpoly_internal(circle, poly));
+}
+```

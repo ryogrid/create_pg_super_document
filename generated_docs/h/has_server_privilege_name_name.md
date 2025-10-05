@@ -46,3 +46,33 @@ This function supports checking privileges for foreign servers, which are part o
 - Handles both regular users and the special 'public' role through get_role_oid_or_public
 - Uses the standard PostgreSQL access control framework via object_aclcheck
 - Located in src/backend/utils/adt/acl.c:4007-4032
+
+## Simplified Source
+
+```c
+Datum
+has_server_privilege_name_name(PG_FUNCTION_ARGS)
+{
+    Name       username = PG_GETARG_NAME(0);
+    text      *servername = PG_GETARG_TEXT_PP(1);
+    text      *priv_type_text = PG_GETARG_TEXT_PP(2);
+    Oid        roleid;
+    Oid        serverid;
+    AclMode    mode;
+    AclResult  aclresult;
+
+    // Convert username to role OID
+    roleid = get_role_oid_or_public(NameStr(*username));
+
+    // Convert server name to server OID
+    serverid = convert_server_name(servername);
+
+    // Convert privilege string to access mode
+    mode = convert_server_priv_string(priv_type_text);
+
+    // Check if role has the specified privilege on the foreign server
+    aclresult = object_aclcheck(ForeignServerRelationId, serverid, roleid, mode);
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

@@ -39,3 +39,24 @@ This PostgreSQL function implements one variant of the has_database_privilege SQ
 - Uses name-to-OID conversion for both username and database name, making it user-friendly but potentially slower than OID-based variants
 - The actual privilege checking is delegated to the generic object_aclcheck function with DatabaseRelationId
 - Located in src/backend/utils/adt/acl.c:2990-3015
+
+## Simplified Source
+
+```c
+Datum has_database_privilege_name_name(PG_FUNCTION_ARGS) {
+    // Extract arguments
+    Name username = PG_GETARG_NAME(0);
+    text *databasename = PG_GETARG_TEXT_PP(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert names to OIDs and privilege to mode
+    Oid roleid = get_role_oid_or_public(NameStr(*username));
+    Oid databaseoid = convert_database_name(databasename);
+    AclMode mode = convert_database_priv_string(priv_type_text);
+
+    // Check privilege using generic object access control
+    AclResult aclresult = object_aclcheck(DatabaseRelationId, databaseoid, roleid, mode);
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

@@ -35,3 +35,16 @@ The numeric_is_less function provides a convenient boolean comparison interface 
 - Handles all numeric comparison logic including special values, NaN, and different scales
 - Used internally by size formatting functions that need to compare numeric thresholds
 - The comparison follows PostgreSQL's standard numeric ordering rules
+
+## Simplified Source
+
+```c
+static bool
+numeric_is_less(Numeric a, Numeric b)
+{
+    Datum da = NumericGetDatum(a);
+    Datum db = NumericGetDatum(b);
+
+    return DatumGetBool(DirectFunctionCall2(numeric_lt, da, db));
+}
+```

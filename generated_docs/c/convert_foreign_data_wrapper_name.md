@@ -31,3 +31,15 @@ The function is straightforward: it converts the text parameter to a C string an
 - Part of the support routines for the has_foreign_data_wrapper_privilege family of functions
 - The function assumes the input text is valid and relies on get_foreign_data_wrapper_oid for error handling
 - Uses the  parameter for get_foreign_data_wrapper_oid, meaning it will throw an error if the FDW doesn't exist rather than returning InvalidOid
+
+## Simplified Source
+
+```c
+static Oid
+convert_foreign_data_wrapper_name(text *fdwname)
+{
+    // Convert text to C string and lookup FDW by name
+    char *fdwstr = text_to_cstring(fdwname);
+    return get_foreign_data_wrapper_oid(fdwstr, false);
+}
+```

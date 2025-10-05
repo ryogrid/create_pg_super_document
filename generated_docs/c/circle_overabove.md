@@ -32,3 +32,16 @@ The `circle_overabove` function performs a positional comparison between two cir
 - Uses floating-point arithmetic with proper precision handling via `FPge` and `float8_mi`
 - Located in `src/backend/utils/adt/geo_ops.c:4889-4902`
 - Part of PostgreSQL's geometric data type operators for spatial queries
+
+## Simplified Source
+
+```c
+Datum circle_overabove(PG_FUNCTION_ARGS) {
+    CIRCLE *circle1 = PG_GETARG_CIRCLE_P(0);
+    CIRCLE *circle2 = PG_GETARG_CIRCLE_P(1);
+
+    // Check if lower edge of circle1 >= lower edge of circle2
+    PG_RETURN_BOOL(FPge(circle1->center.y - circle1->radius,
+                        circle2->center.y - circle2->radius));
+}
+```

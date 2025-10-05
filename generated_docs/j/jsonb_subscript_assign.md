@@ -46,3 +46,51 @@ The function leverages the workspace expectArray flag (set during subscript chec
 - Uses the workspace index array populated by jsonb_subscript_check_subscripts
 - Delegates actual assignment logic to jsonb_set_element function
 - Part of the expression evaluation framework for JSONB subscripting assignment operations
+
+## Simplified Source
+
+```c
+static void jsonb_subscript_assign(ExprState *state,
+                                  ExprEvalStep *op,
+                                  ExprContext *econtext) {
+    SubscriptingRefState *sbsrefstate = op->d.sbsref.state;
+    JsonbSubWorkspace *workspace = (JsonbSubWorkspace *) sbsrefstate->workspace;
+    Jsonb *jsonbSource;
+    JsonbValue replacevalue;
+
+    // Prepare replacement value
+    if (sbsrefstate->replacenull) {
+        replacevalue.type = jbvNull;
+    } else {
+        JsonbToJsonbValue(DatumGetJsonbP(sbsrefstate->replacevalue),
+                         &replacevalue);
+    }
+
+    // Handle NULL source by creating empty container
+    if (*op->resnull) {
+        JsonbValue newSource;
+
+        // Create array if first subscript is integer, otherwise object
+        if (workspace->expectArray) {
+            newSource.type = jbvArray;
+            newSource.val.array.nElems = 0;
+            newSource.val.array.rawScalar = false;
+        } else {
+            newSource.type = jbvObject;
+            newSource.val.object.nPairs = 0;
+        }
+
+        jsonbSource = JsonbValueToJsonb(&newSource);
+        *op->resnull = false;
+    } else {
+        jsonbSource = DatumGetJsonbP(*op->resvalue);
+    }
+
+    // Perform the assignment
+    *op->resvalue = jsonb_set_element(jsonbSource,
+                                    workspace->index,
+                                    sbsrefstate->numupper,
+                                    &replacevalue);
+    // Result is never NULL, so no need to change *op->resnull
+}
+```

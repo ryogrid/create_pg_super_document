@@ -35,3 +35,37 @@ The function implements a safety mechanism to detect postmaster death, returning
 - Handles interrupts via CHECK_FOR_INTERRUPTS() in the polling loop
 - Returns BGWH_POSTMASTER_DIED if postmaster dies during wait
 - Located in src/backend/postmaster/bgworker.c:1137-1181
+
+## Simplified Source
+
+```c
+BgwHandleStatus WaitForBackgroundWorkerStartup(BackgroundWorkerHandle *handle, pid_t *pidp) {
+    BgwHandleStatus status;
+
+    for (;;) {
+        pid_t pid;
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Check current worker status
+        status = GetBackgroundWorkerPid(handle, &pid);
+        if (status == BGWH_STARTED)
+            *pidp = pid;
+        if (status != BGWH_NOT_YET_STARTED)
+            break;
+
+        // Wait for state change or postmaster death
+        int rc = WaitLatch(MyLatch, WL_LATCH_SET | WL_POSTMASTER_DEATH, 0,
+                          WAIT_EVENT_BGWORKER_STARTUP);
+
+        if (rc & WL_POSTMASTER_DEATH) {
+            status = BGWH_POSTMASTER_DIED;
+            break;
+        }
+
+        ResetLatch(MyLatch);
+    }
+
+    return status;
+}
+```

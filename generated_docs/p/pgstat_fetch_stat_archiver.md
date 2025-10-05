@@ -25,3 +25,15 @@ This function serves as a support function for SQL-callable pgstat functions tha
 
 ## Notes and Other Information
 This function is specifically designed to support PostgreSQL's SQL-level statistics access functions. The snapshot mechanism ensures that the returned statistics represent a consistent point-in-time view, preventing inconsistencies that could arise if the underlying shared memory statistics were updated during SQL function execution.
+
+## Simplified Source
+
+```c
+PgStat_ArchiverStats *pgstat_fetch_stat_archiver(void) {
+    // Create snapshot of archiver statistics
+    pgstat_snapshot_fixed(PGSTAT_KIND_ARCHIVER);
+
+    // Return pointer to local snapshot
+    return &pgStatLocal.snapshot.archiver;
+}
+```

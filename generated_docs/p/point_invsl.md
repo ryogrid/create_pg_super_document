@@ -42,3 +42,22 @@ The function handles special cases appropriately:
 - Essential for perpendicular line calculations and geometric operations requiring orthogonal relationships
 - Uses PostgreSQL's safe floating-point arithmetic functions for consistent cross-platform behavior
 - When both points are identical, returns 0.0 (since x-coordinates would be equal)
+
+## Simplified Source
+
+```c
+static inline float8
+point_invsl(Point *pt1, Point *pt2)
+{
+    // Handle vertical line case (same x-coordinates) - perpendicular is horizontal
+    if (FPeq(pt1->x, pt2->x))
+        return 0.0;
+
+    // Handle horizontal line case (same y-coordinates) - perpendicular is vertical
+    if (FPeq(pt1->y, pt2->y))
+        return get_float8_infinity();
+
+    // Calculate inverse slope: (x2-x1)/(y1-y2) - negative reciprocal of standard slope
+    return float8_div(float8_mi(pt1->x, pt2->x), float8_mi(pt2->y, pt1->y));
+}
+```

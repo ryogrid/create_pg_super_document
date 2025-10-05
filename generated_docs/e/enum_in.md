@@ -42,3 +42,39 @@ The function performs several validation steps: it checks the input string lengt
 - The returned OID is crucial for binary upgrade compatibility
 - Supports soft error reporting through escontext for better error handling
 - Part of the basic I/O support for enum types in PostgreSQL
+
+## Simplified Source
+
+```c
+Datum enum_in(PG_FUNCTION_ARGS) {
+    char *enum_name = PG_GETARG_CSTRING(0);
+    Oid enum_type_oid = PG_GETARG_OID(1);
+    Node *error_context = fcinfo->context;
+
+    // Validate input length to prevent cache lookup failures
+    if (strlen(enum_name) >= NAMEDATALEN) {
+        ereturn(error_context, (Datum) 0,
+                "invalid input value for enum: name too long");
+    }
+
+    // Look up the enum value in system catalog
+    HeapTuple enum_tuple = SearchSysCache2(ENUMTYPOIDNAME,
+                                          ObjectIdGetDatum(enum_type_oid),
+                                          CStringGetDatum(enum_name));
+
+    if (!HeapTupleIsValid(enum_tuple)) {
+        ereturn(error_context, (Datum) 0,
+                "invalid input value for enum: value not found");
+    }
+
+    // Ensure the enum value is safe to use (committed transaction)
+    check_safe_enum_use(enum_tuple);
+
+    // Extract the OID of the enum value
+    Oid enum_value_oid = ((Form_pg_enum) GETSTRUCT(enum_tuple))->oid;
+
+    ReleaseSysCache(enum_tuple);
+
+    PG_RETURN_OID(enum_value_oid);
+}
+```

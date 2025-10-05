@@ -39,3 +39,31 @@ The function implements overflow detection using pg_add_s64_overflow to ensure t
 - Always checks for overflow conditions and reports appropriate errors
 - Uses two different code paths: optimized aggregate path and standard function path
 - Located in src/backend/utils/adt/int8.c:719-756
+
+## Simplified Source
+
+```c
+Datum int8inc(PG_FUNCTION_ARGS) {
+    // Optimization for aggregate context when int8 is pass-by-reference
+    if (AggCheckCallContext(fcinfo, NULL)) {
+        // In-place increment for aggregate operations like COUNT()
+        int64 *arg = (int64 *) PG_GETARG_POINTER(0);
+
+        if (pg_add_s64_overflow(*arg, 1, arg)) {
+            ereport(ERROR, "bigint out of range");
+        }
+
+        return (Datum) arg;
+    } else {
+        // Standard increment operation
+        int64 arg = PG_GETARG_INT64(0);
+        int64 result;
+
+        if (pg_add_s64_overflow(arg, 1, &result)) {
+            ereport(ERROR, "bigint out of range");
+        }
+
+        return result;
+    }
+}
+```

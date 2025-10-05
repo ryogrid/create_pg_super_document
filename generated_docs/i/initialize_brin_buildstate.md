@@ -42,3 +42,46 @@ This static function creates and initializes a BrinBuildState structure that ser
 - Initializes fields for both serial and parallel BRIN index building
 - Sets up memory context management for empty tuples that may be needed during the build process
 - The bs_maxRangeStart calculation ensures proper handling of the last page range in the table
+
+## Simplified Source
+
+```c
+static BrinBuildState *
+initialize_brin_buildstate(Relation idxRel, BrinRevmap *revmap,
+                           BlockNumber pagesPerRange, BlockNumber tablePages)
+{
+    BrinBuildState *state;
+    BlockNumber lastRange = 0;
+
+    // Allocate and initialize the build state structure
+    state = palloc_object(BrinBuildState);
+
+    // Set up basic state fields
+    state->bs_irel = idxRel;
+    state->bs_numtuples = 0;
+    state->bs_reltuples = 0;
+    state->bs_currentInsertBuf = InvalidBuffer;
+    state->bs_pagesPerRange = pagesPerRange;
+    state->bs_currRangeStart = 0;
+    state->bs_rmAccess = revmap;
+
+    // Initialize descriptor and tuple handling
+    state->bs_bdesc = brin_build_desc(idxRel);
+    state->bs_dtuple = brin_new_memtuple(state->bs_bdesc);
+
+    // Set up parallel processing and memory context fields
+    state->bs_leader = NULL;
+    state->bs_worker_id = 0;
+    state->bs_sortstate = NULL;
+    state->bs_context = CurrentMemoryContext;
+    state->bs_emptyTuple = NULL;
+    state->bs_emptyTupleLen = 0;
+
+    // Calculate the maximum range start for proper boundary handling
+    if (tablePages > 0)
+        lastRange = ((tablePages - 1) / pagesPerRange) * pagesPerRange;
+    state->bs_maxRangeStart = lastRange + state->bs_pagesPerRange;
+
+    return state;
+}
+```

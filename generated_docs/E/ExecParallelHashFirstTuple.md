@@ -39,3 +39,15 @@ The function operates on shared hash table buckets, which are implemented as arr
 - Returns NULL if the bucket is empty (when DSA pointer is invalid)
 - The function assumes the bucket number is valid and within the hash table bounds
 - Part of the parallel hash join tuple scanning infrastructure
+
+## Simplified Source
+
+```c
+static inline HashJoinTuple ExecParallelHashFirstTuple(HashJoinTable hashtable, int bucketno) {
+    // Atomically read the first tuple pointer from the specified bucket
+    dsa_pointer p = dsa_pointer_atomic_read(&hashtable->buckets.shared[bucketno]);
+
+    // Convert DSA pointer to local address and return tuple
+    return (HashJoinTuple) dsa_get_address(hashtable->area, p);
+}
+```

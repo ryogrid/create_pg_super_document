@@ -47,3 +47,93 @@ The function handles the complete SRF lifecycle, including initialization on fir
 - Converts internal Datum values to text representations using type-specific output functions
 - Essential for introspecting extended statistics data and understanding query planner decisions
 - The function will return no rows if the input statistics contains no MCV data
+
+## Simplified Source
+
+```c
+Datum pg_stats_ext_mcvlist_items(PG_FUNCTION_ARGS) {
+    FuncCallContext *funcctx;
+
+    // First call: initialize SRF
+    if (SRF_IS_FIRSTCALL()) {
+        MemoryContext oldcontext;
+        MCVList *mcvlist;
+        TupleDesc tupdesc;
+
+        funcctx = SRF_FIRSTCALL_INIT();
+        oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
+
+        // Deserialize MCV list
+        mcvlist = statext_mcv_deserialize(PG_GETARG_BYTEA_P(0));
+        funcctx->user_fctx = mcvlist;
+
+        // Set max calls based on number of items
+        funcctx->max_calls = 0;
+        if (funcctx->user_fctx != NULL)
+            funcctx->max_calls = mcvlist->nitems;
+
+        // Setup tuple descriptor
+        if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                    errmsg("function returning record called in context that cannot accept type record")));
+        tupdesc = BlessTupleDesc(tupdesc);
+        funcctx->attinmeta = TupleDescGetAttInMetadata(tupdesc);
+
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    // Per-call processing
+    funcctx = SRF_PERCALL_SETUP();
+
+    if (funcctx->call_cntr < funcctx->max_calls) {
+        Datum values[5];
+        bool nulls[5];
+        HeapTuple tuple;
+        ArrayBuildState *astate_values = NULL;
+        ArrayBuildState *astate_nulls = NULL;
+
+        MCVList *mcvlist = (MCVList *) funcctx->user_fctx;
+        MCVItem *item = &mcvlist->items[funcctx->call_cntr];
+
+        // Build arrays for values and nulls
+        for (int i = 0; i < mcvlist->ndimensions; i++) {
+            // Add null flag to array
+            astate_nulls = accumArrayResult(astate_nulls, BoolGetDatum(item->isnull[i]),
+                                          false, BOOLOID, CurrentMemoryContext);
+
+            if (!item->isnull[i]) {
+                // Convert value to text and add to array
+                bool isvarlena;
+                Oid outfunc;
+                FmgrInfo fmgrinfo;
+
+                getTypeOutputInfo(mcvlist->types[i], &outfunc, &isvarlena);
+                fmgr_info(outfunc, &fmgrinfo);
+
+                Datum val = FunctionCall1(&fmgrinfo, item->values[i]);
+                text *txt = cstring_to_text(DatumGetPointer(val));
+
+                astate_values = accumArrayResult(astate_values, PointerGetDatum(txt),
+                                               false, TEXTOID, CurrentMemoryContext);
+            } else {
+                astate_values = accumArrayResult(astate_values, (Datum) 0,
+                                               true, TEXTOID, CurrentMemoryContext);
+            }
+        }
+
+        // Build result tuple: (item_id, values[], nulls[], frequency, base_frequency)
+        values[0] = Int32GetDatum(funcctx->call_cntr);
+        values[1] = makeArrayResult(astate_values, CurrentMemoryContext);
+        values[2] = makeArrayResult(astate_nulls, CurrentMemoryContext);
+        values[3] = Float8GetDatum(item->frequency);
+        values[4] = Float8GetDatum(item->base_frequency);
+
+        memset(nulls, 0, sizeof(nulls));
+
+        tuple = heap_form_tuple(funcctx->attinmeta->tupdesc, values, nulls);
+        SRF_RETURN_NEXT(funcctx, HeapTupleGetDatum(tuple));
+    } else {
+        SRF_RETURN_DONE(funcctx);
+    }
+}
+```

@@ -35,4 +35,24 @@ The function extracts the array datum from the function arguments, creates a Str
 - For formatted JSON output with line breaks, use  instead
 - The function handles all PostgreSQL array types by delegating type-specific processing to 
 - Empty arrays are represented as  in the JSON output
-- Located in 
+- Located in src/backend/utils/adt/json.c:621-636
+
+## Simplified Source
+
+```c
+Datum
+array_to_json(PG_FUNCTION_ARGS)
+{
+    Datum array = PG_GETARG_DATUM(0);
+    StringInfo result;
+
+    // Create output buffer
+    result = makeStringInfo();
+
+    // Convert array to JSON format (compact, no line feeds)
+    array_to_json_internal(array, result, false);
+
+    // Return as PostgreSQL text
+    PG_RETURN_TEXT_P(cstring_to_text_with_len(result->data, result->len));
+}
+``` 

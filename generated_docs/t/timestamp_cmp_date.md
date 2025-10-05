@@ -35,3 +35,16 @@ The comparison is performed by delegating to `date_cmp_timestamp_internal(dateVa
 - Returns < 0 if timestamp < date, 0 if timestamp = date, > 0 if timestamp > date
 - The result negation (`-date_cmp_timestamp_internal`) converts the date-to-timestamp comparison result to a timestamp-to-date comparison result
 - Part of PostgreSQL's date/time ADT (Abstract Data Type) implementation in src/backend/utils/adt/date.c
+
+## Simplified Source
+
+```c
+Datum timestamp_cmp_date(PG_FUNCTION_ARGS) {
+    // Extract timestamp and date arguments
+    Timestamp timestamp = PG_GETARG_TIMESTAMP(0);
+    DateADT date = PG_GETARG_DATEADT(1);
+
+    // Return three-way comparison result (negated for proper ordering)
+    return PG_RETURN_INT32(-date_cmp_timestamp_internal(date, timestamp));
+}
+```

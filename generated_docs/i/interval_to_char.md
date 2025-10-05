@@ -48,3 +48,43 @@ The function calls `datetime_to_char_body()` with `is_interval=true` to enable i
 - Part of PostgreSQL's public SQL function interface, accessible via SQL to_char() calls
 - Supports negative intervals and interval-specific format codes
 - Microseconds stored in tmtc.fsec field for sub-second precision formatting
+
+## Simplified Source
+
+```c
+Datum interval_to_char(PG_FUNCTION_ARGS) {
+    Interval *it = PG_GETARG_INTERVAL_P(0);
+    text *fmt = PG_GETARG_TEXT_PP(1);
+    TmToChar tmtc;
+    struct fmt_tm *tm;
+    struct pg_itm tt, *itm = &tt;
+
+    // Return NULL for empty format or invalid interval
+    if (VARSIZE_ANY_EXHDR(fmt) <= 0 || INTERVAL_NOT_FINITE(it))
+        PG_RETURN_NULL();
+
+    // Initialize time conversion structure
+    ZERO_tmtc(&tmtc);
+    tm = tmtcTm(&tmtc);
+
+    // Convert interval to broken-down time components
+    interval2itm(*it, itm);
+    tmtc.fsec = itm->tm_usec;
+    tm->tm_sec = itm->tm_sec;
+    tm->tm_min = itm->tm_min;
+    tm->tm_hour = itm->tm_hour;
+    tm->tm_mday = itm->tm_mday;
+    tm->tm_mon = itm->tm_mon;
+    tm->tm_year = itm->tm_year;
+
+    // Calculate approximate total days for interval formatting
+    // (wday is meaningless for intervals)
+    tm->tm_yday = (tm->tm_year * MONTHS_PER_YEAR + tm->tm_mon) * DAYS_PER_MONTH + tm->tm_mday;
+
+    text *res = datetime_to_char_body(&tmtc, fmt, true, PG_GET_COLLATION());
+    if (!res)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(res);
+}
+```

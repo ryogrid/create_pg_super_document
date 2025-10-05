@@ -40,3 +40,32 @@ The function creates the hash table with an initial size of 128 buckets and tran
 - Updates bitmap status from TBM_ONE_PAGE to TBM_HASH after successful creation
 - Uses assertions to ensure the bitmap is in a valid state before creating the hash table
 - The expensive hash table creation is deferred until actually needed (lazy initialization)
+
+## Simplified Source
+
+```c
+static void tbm_create_pagetable(TIDBitmap *tbm) {
+    Assert(tbm->status != TBM_HASH);
+    Assert(tbm->pagetable == NULL);
+
+    // Create hash table with 128 initial buckets
+    tbm->pagetable = pagetable_create(tbm->mcxt, 128, tbm);
+
+    // If we had a single page entry, migrate it to the hash table
+    if (tbm->status == TBM_ONE_PAGE) {
+        PagetableEntry *page;
+        bool found;
+
+        page = pagetable_insert(tbm->pagetable, tbm->entry1.blockno, &found);
+        Assert(!found);
+
+        // Copy the single entry data to the hash table
+        char oldstatus = page->status;
+        memcpy(page, &tbm->entry1, sizeof(PagetableEntry));
+        page->status = oldstatus;
+    }
+
+    // Transition to hash table mode
+    tbm->status = TBM_HASH;
+}
+```

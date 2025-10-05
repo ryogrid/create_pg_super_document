@@ -44,3 +44,84 @@ None - This function takes no parameters.
 - Updates synchronous_commit configuration when subscription changes
 - Memory management uses ApplyContext for permanent allocations
 - Exits cleanly on subscription removal or disabling to prevent resource leaks
+
+## Simplified Source
+
+```c
+void maybe_reread_subscription(void) {
+    MemoryContext oldctx;
+    Subscription *newsub;
+    bool started_tx = false;
+
+    // Skip if cache is still valid
+    if (MySubscriptionValid)
+        return;
+
+    // Start transaction if not already in one
+    if (!IsTransactionState()) {
+        StartTransactionCommand();
+        started_tx = true;
+    }
+
+    // Switch to permanent memory context
+    oldctx = MemoryContextSwitchTo(ApplyContext);
+
+    // Get current subscription configuration
+    newsub = GetSubscription(MyLogicalRepWorker->subid, true);
+
+    // Exit if subscription was removed
+    if (!newsub) {
+        ereport(LOG, (errmsg("subscription removed, stopping worker")));
+        if (am_leader_apply_worker())
+            ApplyLauncherForgetWorkerStartTime(MyLogicalRepWorker->subid);
+        proc_exit(0);
+    }
+
+    // Exit if subscription was disabled
+    if (!newsub->enabled) {
+        ereport(LOG, (errmsg("subscription disabled, stopping worker")));
+        apply_worker_exit();
+    }
+
+    // Check for parameter changes that require restart
+    if (strcmp(newsub->conninfo, MySubscription->conninfo) != 0 ||
+        strcmp(newsub->name, MySubscription->name) != 0 ||
+        strcmp(newsub->slotname, MySubscription->slotname) != 0 ||
+        newsub->binary != MySubscription->binary ||
+        newsub->stream != MySubscription->stream ||
+        newsub->passwordrequired != MySubscription->passwordrequired ||
+        strcmp(newsub->origin, MySubscription->origin) != 0 ||
+        newsub->owner != MySubscription->owner ||
+        !equal(newsub->publications, MySubscription->publications)) {
+
+        ereport(LOG, (errmsg("parameter change detected, restarting worker")));
+        apply_worker_exit();
+    }
+
+    // Exit if owner lost superuser privileges
+    if (!newsub->ownersuperuser && MySubscription->ownersuperuser) {
+        ereport(LOG, (errmsg("owner privileges revoked, restarting worker")));
+        apply_worker_exit();
+    }
+
+    // Validate critical parameters haven't changed unexpectedly
+    if (newsub->dbid != MySubscription->dbid) {
+        elog(ERROR, "subscription %u changed unexpectedly", MyLogicalRepWorker->subid);
+    }
+
+    // Update subscription and restore memory context
+    FreeSubscription(MySubscription);
+    MySubscription = newsub;
+    MemoryContextSwitchTo(oldctx);
+
+    // Update synchronous commit setting
+    SetConfigOption("synchronous_commit", MySubscription->synccommit,
+                    PGC_BACKEND, PGC_S_OVERRIDE);
+
+    // Commit transaction if we started it
+    if (started_tx)
+        CommitTransactionCommand();
+
+    MySubscriptionValid = true;
+}
+```

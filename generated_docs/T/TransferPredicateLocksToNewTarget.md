@@ -57,3 +57,151 @@ The function is essential for maintaining serializable isolation during index ma
 - Preserves commit sequence numbers during lock transfer to maintain serialization semantics
 - Part of the infrastructure supporting index page splits/combines in serializable transactions
 - Handles duplicate lock detection by updating commit sequence numbers to the maximum value
+
+## Simplified Source
+
+```c
+static bool TransferPredicateLocksToNewTarget(PREDICATELOCKTARGETTAG oldtargettag,
+                                              PREDICATELOCKTARGETTAG newtargettag,
+                                              bool removeOld)
+{
+    uint32 oldtargettaghash, newtargettaghash;
+    LWLock *oldpartitionLock, *newpartitionLock;
+    PREDICATELOCKTARGET *oldtarget;
+    bool found;
+    bool outOfShmem = false;
+
+    Assert(LWLockHeldByMeInMode(SerializablePredicateListLock, LW_EXCLUSIVE));
+
+    // Calculate hash values and get partition locks
+    oldtargettaghash = PredicateLockTargetTagHashCode(&oldtargettag);
+    newtargettaghash = PredicateLockTargetTagHashCode(&newtargettag);
+    oldpartitionLock = PredicateLockHashPartitionLock(oldtargettaghash);
+    newpartitionLock = PredicateLockHashPartitionLock(newtargettaghash);
+
+    // If removing old, prepare scratch space
+    if (removeOld)
+        RemoveScratchTarget(false);
+
+    // Acquire partition locks in ascending order to avoid deadlocks
+    if (oldpartitionLock < newpartitionLock)
+    {
+        LWLockAcquire(oldpartitionLock, (removeOld ? LW_EXCLUSIVE : LW_SHARED));
+        LWLockAcquire(newpartitionLock, LW_EXCLUSIVE);
+    }
+    else if (oldpartitionLock > newpartitionLock)
+    {
+        LWLockAcquire(newpartitionLock, LW_EXCLUSIVE);
+        LWLockAcquire(oldpartitionLock, (removeOld ? LW_EXCLUSIVE : LW_SHARED));
+    }
+    else
+        LWLockAcquire(newpartitionLock, LW_EXCLUSIVE);
+
+    // Find the old target
+    oldtarget = hash_search_with_hash_value(PredicateLockTargetHash,
+                                            &oldtargettag, oldtargettaghash,
+                                            HASH_FIND, NULL);
+
+    if (oldtarget)
+    {
+        PREDICATELOCKTARGET *newtarget;
+        PREDICATELOCKTAG newpredlocktag;
+        dlist_mutable_iter iter;
+
+        // Create or find new target
+        newtarget = hash_search_with_hash_value(PredicateLockTargetHash,
+                                                &newtargettag, newtargettaghash,
+                                                HASH_ENTER_NULL, &found);
+        if (!newtarget)
+        {
+            outOfShmem = true;
+            goto exit;
+        }
+
+        if (!found)
+            dlist_init(&newtarget->predicateLocks);
+
+        newpredlocktag.myTarget = newtarget;
+
+        // Transfer all locks from old to new target
+        LWLockAcquire(SerializableXactHashLock, LW_EXCLUSIVE);
+
+        dlist_foreach_modify(iter, &oldtarget->predicateLocks)
+        {
+            PREDICATELOCK *oldpredlock =
+                dlist_container(PREDICATELOCK, targetLink, iter.cur);
+            PREDICATELOCK *newpredlock;
+            SerCommitSeqNo oldCommitSeqNo = oldpredlock->commitSeqNo;
+
+            newpredlocktag.myXact = oldpredlock->tag.myXact;
+
+            // Remove old lock if requested
+            if (removeOld)
+            {
+                dlist_delete(&(oldpredlock->xactLink));
+                dlist_delete(&(oldpredlock->targetLink));
+                hash_search_with_hash_value(PredicateLockHash,
+                                            &oldpredlock->tag,
+                                            PredicateLockHashCodeFromTargetHashCode(&oldpredlock->tag,
+                                                                                    oldtargettaghash),
+                                            HASH_REMOVE, &found);
+            }
+
+            // Create new lock
+            newpredlock = (PREDICATELOCK *)
+                hash_search_with_hash_value(PredicateLockHash,
+                                            &newpredlocktag,
+                                            PredicateLockHashCodeFromTargetHashCode(&newpredlocktag,
+                                                                                    newtargettaghash),
+                                            HASH_ENTER_NULL, &found);
+            if (!newpredlock)
+            {
+                LWLockRelease(SerializableXactHashLock);
+                DeleteLockTarget(newtarget, newtargettaghash);
+                outOfShmem = true;
+                goto exit;
+            }
+
+            if (!found)
+            {
+                // Link new lock to target and transaction
+                dlist_push_tail(&(newtarget->predicateLocks), &(newpredlock->targetLink));
+                dlist_push_tail(&(newpredlocktag.myXact->predicateLocks), &(newpredlock->xactLink));
+                newpredlock->commitSeqNo = oldCommitSeqNo;
+            }
+            else
+            {
+                // Update commit sequence number to maximum
+                if (newpredlock->commitSeqNo < oldCommitSeqNo)
+                    newpredlock->commitSeqNo = oldCommitSeqNo;
+            }
+        }
+
+        LWLockRelease(SerializableXactHashLock);
+
+        // Clean up old target if removing
+        if (removeOld)
+            RemoveTargetIfNoLongerUsed(oldtarget, oldtargettaghash);
+    }
+
+exit:
+    // Release partition locks in reverse order
+    if (oldpartitionLock < newpartitionLock)
+    {
+        LWLockRelease(newpartitionLock);
+        LWLockRelease(oldpartitionLock);
+    }
+    else if (oldpartitionLock > newpartitionLock)
+    {
+        LWLockRelease(oldpartitionLock);
+        LWLockRelease(newpartitionLock);
+    }
+    else
+        LWLockRelease(newpartitionLock);
+
+    if (removeOld)
+        RestoreScratchTarget(false);
+
+    return !outOfShmem;
+}
+```

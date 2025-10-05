@@ -36,3 +36,24 @@ The function includes safety checks to ensure it's only called in appropriate co
 - Works in conjunction with ExecFindMatchingSubPlans to implement complete runtime pruning
 - Part of PostgreSQL's partition-wise join and partition pruning optimization features
 - Helps prevent unnecessary I/O and CPU usage in parallel query execution
+
+## Simplified Source
+```c
+static void mark_invalid_subplans_as_finished(AppendState *node)
+{
+    // Verify preconditions: parallel mode and runtime pruning enabled
+    Assert(node->as_pstate);
+    Assert(node->as_prune_state);
+
+    // Early exit if all plans are valid (no pruning needed)
+    if (bms_num_members(node->as_valid_subplans) == node->as_nplans)
+        return;
+
+    // Mark all invalid subplans as finished
+    for (int i = 0; i < node->as_nplans; i++)
+    {
+        if (!bms_is_member(i, node->as_valid_subplans))
+            node->as_pstate->pa_finished[i] = true;
+    }
+}
+```

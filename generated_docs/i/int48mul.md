@@ -34,3 +34,20 @@ The `int48mul` function performs multiplication between a 32-bit integer and a 6
 - Uses PostgreSQLs overflow-safe multiplication function to prevent silent overflow
 - Follows PostgreSQLs standard function calling convention using PG_FUNCTION_ARGS
 - Located in src/backend/utils/adt/int8.c at lines 999-1012
+
+## Simplified Source
+
+```c
+Datum int48mul(PG_FUNCTION_ARGS) {
+    int32 arg1 = PG_GETARG_INT32(0);  // Get first 32-bit argument
+    int64 arg2 = PG_GETARG_INT64(1);  // Get second 64-bit argument
+    int64 result;
+
+    // Perform multiplication with overflow check (cast arg1 to 64-bit)
+    if (pg_mul_s64_overflow((int64) arg1, arg2, &result))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("bigint out of range")));
+
+    PG_RETURN_INT64(result);
+}
+```

@@ -62,3 +62,63 @@ The resulting tree structures enable fast affix matching during word transformat
 - Void affixes are handled separately to support deletion-only transformations
 - This function must be called after affix import but before dictionary can be used for spell checking
 - The resulting Prefix and Suffix trees are the core data structures for affix matching operations
+
+## Simplified Source
+
+```c
+void
+NISortAffixes(IspellDict *Conf)
+{
+    if (Conf->naffixes == 0)
+        return;
+
+    // Sort affixes for efficient processing
+    if (Conf->naffixes > 1)
+        qsort(Conf->Affix, Conf->naffixes, sizeof(AFFIX), cmpaffix);
+
+    // Build compound affix array with unique minimal patterns
+    Conf->CompoundAffix = (CMPDAffix *) palloc(sizeof(CMPDAffix) * Conf->naffixes);
+    CMPDAffix *ptr = Conf->CompoundAffix;
+    ptr->affix = NULL;
+
+    int firstsuffix = Conf->naffixes;
+
+    // Process affixes and find first suffix position
+    for (int i = 0; i < Conf->naffixes; i++) {
+        AFFIX *Affix = &(((AFFIX *) Conf->Affix)[i]);
+
+        if (Affix->type == FF_SUFFIX && i < firstsuffix)
+            firstsuffix = i;
+
+        // Add compound affixes that are actually used
+        if ((Affix->flagflags & FF_COMPOUNDFLAG) &&
+            Affix->replen > 0 &&
+            isAffixInUse(Conf, Affix->flag)) {
+
+            bool issuffix = (Affix->type == FF_SUFFIX);
+
+            // Store unique compound patterns only
+            if (should_add_compound_affix(ptr, Conf->CompoundAffix, Affix, issuffix)) {
+                ptr->affix = Affix->repl;
+                ptr->len = Affix->replen;
+                ptr->issuffix = issuffix;
+                ptr++;
+            }
+        }
+    }
+
+    ptr->affix = NULL;
+
+    // Resize compound affix array to actual size
+    Conf->CompoundAffix = (CMPDAffix *) repalloc(Conf->CompoundAffix,
+        sizeof(CMPDAffix) * (ptr - Conf->CompoundAffix + 1));
+
+    // Build prefix and suffix trees
+    Conf->Prefix = mkANode(Conf, 0, firstsuffix, 0, FF_PREFIX);
+    Conf->Suffix = mkANode(Conf, firstsuffix, Conf->naffixes, 0, FF_SUFFIX);
+
+    // Handle void (empty) affixes for both trees
+    mkVoidAffix(Conf, true, firstsuffix);   // prefix
+    mkVoidAffix(Conf, false, firstsuffix);  // suffix
+}
+```

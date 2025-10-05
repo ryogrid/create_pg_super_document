@@ -39,3 +39,27 @@ This function creates a TSQuery from input text using a specified text search co
 - The MorphOpaque structure carries both the configuration ID and the chosen query operator (OP_PHRASE)
 - Implements the PostgreSQL function calling conventions for SQL-callable functions
 - The choice of OP_PHRASE operator makes this function suitable for applications requiring exact phrase matching rather than loose word proximity
+
+## Simplified Source
+
+```c
+Datum to_tsquery_byid(PG_FUNCTION_ARGS)
+{
+    // Extract input text and configuration ID
+    text *in = PG_GETARG_TEXT_PP(1);
+    MorphOpaque data;
+    data.cfg_id = PG_GETARG_OID(0);
+
+    // Use OP_PHRASE operator for exact position matching
+    data.qoperator = OP_PHRASE;
+
+    // Parse text into TSQuery using morphological analysis
+    TSQuery query = parse_tsquery(text_to_cstring(in),
+                                  pushval_morph,
+                                  PointerGetDatum(&data),
+                                  0,
+                                  NULL);
+
+    PG_RETURN_TSQUERY(query);
+}
+```

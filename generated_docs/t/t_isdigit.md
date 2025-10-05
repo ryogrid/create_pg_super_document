@@ -38,3 +38,23 @@ The function is part of PostgreSQL's text search locale handling infrastructure,
 - Falls back to single-byte character handling when database_ctype_is_c is true
 - Part of PostgreSQL's text search locale abstraction layer defined in ts_locale.h
 - WC_BUF_LEN constant is used for wide character buffer sizing
+
+## Simplified Source
+
+```c
+int
+t_isdigit(const char *ptr)
+{
+    int char_len = pg_mblen(ptr);
+
+    // Fast path for single-byte characters or C locale
+    if (char_len == 1 || database_ctype_is_c)
+        return isdigit(TOUCHAR(ptr));
+
+    // Multi-byte character: convert to wide char and test
+    wchar_t wide_char[WC_BUF_LEN];
+    char2wchar(wide_char, WC_BUF_LEN, ptr, char_len, 0);
+
+    return iswdigit((wint_t) wide_char[0]);
+}
+```

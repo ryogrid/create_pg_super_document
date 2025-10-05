@@ -33,3 +33,24 @@ pgwin32_accept is a wrapper around the Windows WSAAccept() function that provide
 - Uses WSAAccept() instead of accept() for enhanced Windows socket functionality
 - Returns INVALID_SOCKET on error after proper error translation
 - The comment indicates that EINTR handling is deliberately avoided as it's not handled in pqcomm.c
+
+## Simplified Source
+
+```c
+SOCKET
+pgwin32_accept(SOCKET s, struct sockaddr *addr, int *addrlen)
+{
+    SOCKET rs;
+
+    // Check for pending signals before accepting
+    pgwin32_poll_signals();
+
+    // Accept the connection using Windows socket API
+    rs = WSAAccept(s, addr, addrlen, NULL, 0);
+    if (rs == INVALID_SOCKET) {
+        TranslateSocketError();
+        return INVALID_SOCKET;
+    }
+    return rs;
+}
+```

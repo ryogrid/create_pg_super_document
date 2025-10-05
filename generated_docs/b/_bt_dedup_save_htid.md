@@ -48,3 +48,42 @@ For the single value strategy, the function tracks when posting lists become lar
 - When size limits are exceeded, the caller typically finalizes the current pending list and starts a new one
 - Physical size tracking includes both tuple data and line pointer overhead for accurate space accounting
 - The function only works with leaf tuples, never pivot tuples (enforced by assertion)
+
+## Simplified Source
+
+```c
+bool _bt_dedup_save_htid(BTDedupState state, IndexTuple itup) {
+    Assert(!BTreeTupleIsPivot(itup));
+
+    // Extract heap TID(s) from input tuple
+    int nhtids;
+    ItemPointer htids;
+    if (!BTreeTupleIsPosting(itup)) {
+        nhtids = 1;
+        htids = &itup->t_tid;
+    } else {
+        nhtids = BTreeTupleGetNPosting(itup);
+        htids = BTreeTupleGetPosting(itup);
+    }
+
+    // Check if adding these TIDs would exceed size limit
+    Size mergedtupsz = MAXALIGN(state->basetupsize +
+                               (state->nhtids + nhtids) * sizeof(ItemPointerData));
+
+    if (mergedtupsz > state->maxpostingsize) {
+        // Track large posting lists for single value strategy
+        if (state->nhtids > 50)
+            state->nmaxitems++;
+        return false; // Cannot merge - size limit exceeded
+    }
+
+    // Merge successful - add TIDs to pending list
+    state->nitems++;
+    memcpy(state->htids + state->nhtids, htids,
+           sizeof(ItemPointerData) * nhtids);
+    state->nhtids += nhtids;
+    state->phystupsize += MAXALIGN(IndexTupleSize(itup)) + sizeof(ItemIdData);
+
+    return true; // Successfully added TIDs
+}
+```

@@ -33,3 +33,24 @@ This function implements the SQL ATAN function for PostgreSQL, computing the inv
 - The principal branch ensures results are always in [-π/2, π/2]
 - Includes overflow checking as a safety measure, though mathematically unnecessary for arctangent
 - Located in src/backend/utils/adt/float.c:1810-1835
+
+## Simplified Source
+
+```c
+Datum datan(PG_FUNCTION_ARGS) {
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+
+    // Handle NaN input per POSIX spec
+    if (isnan(arg1))
+        PG_RETURN_FLOAT8(get_float8_nan());
+
+    // Compute arctangent (maps all inputs to [-π/2, π/2])
+    float8 result = atan(arg1);
+
+    // Safety check for overflow (unlikely for arctangent)
+    if (unlikely(isinf(result)))
+        float_overflow_error();
+
+    PG_RETURN_FLOAT8(result);
+}
+```

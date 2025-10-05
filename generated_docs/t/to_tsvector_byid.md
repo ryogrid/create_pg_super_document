@@ -58,3 +58,37 @@ Returns:  containing the resulting TSVector
 - Located at lines 243-269 in 
 - Part of PostgreSQL's full-text search infrastructure, enabling efficient text search operations
 - Handles memory bounds checking to prevent allocation failures with very large texts
+
+## Simplified Source
+
+```c
+Datum to_tsvector_byid(PG_FUNCTION_ARGS) {
+    Oid config_id = PG_GETARG_OID(0);
+    text *input_text = PG_GETARG_TEXT_PP(1);
+    ParsedText parsed_data;
+    TSVector result;
+
+    // Estimate word count (heuristic: 6 bytes per word)
+    parsed_data.lenwords = VARSIZE_ANY_EXHDR(input_text) / 6;
+    if (parsed_data.lenwords < 2)
+        parsed_data.lenwords = 2;
+    else if (parsed_data.lenwords > MaxAllocSize / sizeof(ParsedWord))
+        parsed_data.lenwords = MaxAllocSize / sizeof(ParsedWord);
+
+    // Initialize ParsedText structure
+    parsed_data.curwords = 0;
+    parsed_data.pos = 0;
+    parsed_data.words = (ParsedWord *) palloc(sizeof(ParsedWord) * parsed_data.lenwords);
+
+    // Parse the input text using specified configuration
+    parsetext(config_id, &parsed_data, VARDATA_ANY(input_text), VARSIZE_ANY_EXHDR(input_text));
+
+    // Free input text if copied
+    PG_FREE_IF_COPY(input_text, 1);
+
+    // Create TSVector from parsed data
+    result = make_tsvector(&parsed_data);
+
+    PG_RETURN_TSVECTOR(result);
+}
+```

@@ -41,3 +41,24 @@ The function initializes a TSVectorBuildState and ParsedText structure to manage
 - The flags parameter allows selective processing of JSONB components (keys vs values, etc.)
 - Located in 
 - Part of PostgreSQL's full-text search system for JSON data
+
+## Simplified Source
+
+```c
+static TSVector jsonb_to_tsvector_worker(Oid cfgId, Jsonb *jb, uint32 flags) {
+    TSVectorBuildState state;
+    ParsedText parsed_data;
+
+    // Initialize parsing structures
+    parsed_data.words = NULL;
+    parsed_data.curwords = 0;
+    state.prs = &parsed_data;
+    state.cfgId = cfgId;
+
+    // Iterate through JSONB and extract text values
+    iterate_jsonb_values(jb, flags, &state, add_to_tsvector);
+
+    // Build final TSVector from parsed text
+    return make_tsvector(&parsed_data);
+}
+```

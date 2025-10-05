@@ -38,3 +38,24 @@ This function is a PostgreSQL built-in function that provides controlled binary 
 - The missing_ok parameter allows for non-fatal handling of missing files, making it suitable for optional file operations
 - Returns bytea data type on success, NULL when file is missing and missing_ok is true
 - Uses the common file reading infrastructure to ensure consistent security and error handling
+
+## Simplified Source
+
+```c
+Datum pg_read_binary_file_off_len_missing(PG_FUNCTION_ARGS) {
+    // Extract filename, offset, length, and missing_ok flag from function arguments
+    text *filename_t = PG_GETARG_TEXT_PP(0);
+    int64 seek_offset = PG_GETARG_INT64(1);
+    int64 bytes_to_read = PG_GETARG_INT64(2);
+    bool missing_ok = PG_GETARG_BOOL(3);
+
+    // Read binary file with specified offset and length: read_all=false, with missing file handling
+    text *ret = pg_read_binary_file_common(filename_t, seek_offset, bytes_to_read, false, missing_ok);
+
+    // Return binary data or NULL if reading failed
+    if (!ret)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BYTEA_P(ret);
+}
+```

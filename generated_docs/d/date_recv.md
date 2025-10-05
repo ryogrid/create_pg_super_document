@@ -33,3 +33,27 @@ The `date_recv` function is responsible for converting date values from PostgreS
 - [Range](../R/Range.md) validation uses the same limits as the text input function date_in()
 - Returns ERRCODE_DATETIME_VALUE_OUT_OF_RANGE error for invalid dates
 - The function follows PostgreSQL's standard function calling conventions using PG_FUNCTION_ARGS
+
+## Simplified Source
+
+```c
+Datum date_recv(PG_FUNCTION_ARGS)
+{
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    DateADT result;
+
+    // Extract date value from binary message buffer
+    result = (DateADT) pq_getmsgint(buf, sizeof(DateADT));
+
+    // Validate date range (allow infinite values)
+    if (DATE_NOT_FINITE(result)) {
+        // Special infinite values are always valid
+    } else if (!IS_VALID_DATE(result)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                 errmsg("date out of range")));
+    }
+
+    PG_RETURN_DATEADT(result);
+}
+```

@@ -43,3 +43,20 @@ This separation ensures proper cleanup without creating circular dependencies in
 - Avoids ResourceOwnerForgetBuffer call to prevent circular cleanup issues
 - Critical for preventing buffer pin leaks during abnormal termination scenarios
 - Works in conjunction with PostgreSQL's transaction and error handling systems
+
+## Simplified Source
+```c
+static void ResOwnerReleaseBufferPin(Datum res) {
+    Buffer buffer = DatumGetInt32(res);
+
+    // Validate buffer ID
+    if (!BufferIsValid(buffer))
+        elog(ERROR, "bad buffer ID: %d", buffer);
+
+    // Unpin buffer based on type (local vs shared)
+    if (BufferIsLocal(buffer))
+        UnpinLocalBufferNoOwner(buffer);
+    else
+        UnpinBufferNoOwner(GetBufferDescriptor(buffer - 1));
+}
+```

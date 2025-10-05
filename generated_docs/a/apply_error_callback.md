@@ -49,3 +49,60 @@ This rich error context is crucial for debugging logical replication issues, esp
 - The function gracefully handles cases where various pieces of context information may not be available
 - This is part of PostgreSQL's logical replication worker infrastructure
 - Located in src/backend/replication/logical/worker.c:4969-5040
+
+## Simplified Source
+
+```c
+void
+apply_error_callback(void *arg)
+{
+    ApplyErrorCallbackArg *errarg = &apply_error_callback_arg;
+
+    // Skip if no command set
+    if (apply_error_callback_arg.command == 0)
+        return;
+
+    Assert(errarg->origin_name);
+
+    if (errarg->rel == NULL) {
+        // General transaction context - no specific relation
+        if (!TransactionIdIsValid(errarg->remote_xid))
+            errcontext("processing remote data for replication origin \"%s\" during message type \"%s\"",
+                       errarg->origin_name, logicalrep_message_type(errarg->command));
+        else if (XLogRecPtrIsInvalid(errarg->finish_lsn))
+            errcontext("processing remote data for replication origin \"%s\" during message type \"%s\" in transaction %u",
+                       errarg->origin_name, logicalrep_message_type(errarg->command), errarg->remote_xid);
+        else
+            errcontext("processing remote data for replication origin \"%s\" during message type \"%s\" in transaction %u, finished at %X/%X",
+                       errarg->origin_name, logicalrep_message_type(errarg->command),
+                       errarg->remote_xid, LSN_FORMAT_ARGS(errarg->finish_lsn));
+    } else {
+        // Relation-specific context
+        if (errarg->remote_attnum < 0) {
+            // Table-level operations
+            if (XLogRecPtrIsInvalid(errarg->finish_lsn))
+                errcontext("processing remote data for replication origin \"%s\" during message type \"%s\" for replication target relation \"%s.%s\" in transaction %u",
+                           errarg->origin_name, logicalrep_message_type(errarg->command),
+                           errarg->rel->remoterel.nspname, errarg->rel->remoterel.relname, errarg->remote_xid);
+            else
+                errcontext("processing remote data for replication origin \"%s\" during message type \"%s\" for replication target relation \"%s.%s\" in transaction %u, finished at %X/%X",
+                           errarg->origin_name, logicalrep_message_type(errarg->command),
+                           errarg->rel->remoterel.nspname, errarg->rel->remoterel.relname,
+                           errarg->remote_xid, LSN_FORMAT_ARGS(errarg->finish_lsn));
+        } else {
+            // Column-specific operations
+            if (XLogRecPtrIsInvalid(errarg->finish_lsn))
+                errcontext("processing remote data for replication origin \"%s\" during message type \"%s\" for replication target relation \"%s.%s\" column \"%s\" in transaction %u",
+                           errarg->origin_name, logicalrep_message_type(errarg->command),
+                           errarg->rel->remoterel.nspname, errarg->rel->remoterel.relname,
+                           errarg->rel->remoterel.attnames[errarg->remote_attnum], errarg->remote_xid);
+            else
+                errcontext("processing remote data for replication origin \"%s\" during message type \"%s\" for replication target relation \"%s.%s\" column \"%s\" in transaction %u, finished at %X/%X",
+                           errarg->origin_name, logicalrep_message_type(errarg->command),
+                           errarg->rel->remoterel.nspname, errarg->rel->remoterel.relname,
+                           errarg->rel->remoterel.attnames[errarg->remote_attnum],
+                           errarg->remote_xid, LSN_FORMAT_ARGS(errarg->finish_lsn));
+        }
+    }
+}
+```

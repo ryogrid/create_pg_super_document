@@ -52,3 +52,96 @@ The transformation process includes:
 - Uses implicit coercion context similar to overloaded function resolution
 - Always sets the result type to JSONBOID regardless of the subscript types used
 - Error messages include parser position information for better user experience
+
+## Simplified Source
+
+```c
+static void jsonb_subscript_transform(SubscriptingRef *sbsref,
+                                    List *indirection,
+                                    ParseState *pstate,
+                                    bool isSlice,
+                                    bool isAssignment) {
+    List *upperIndexpr = NIL;
+    ListCell *idx;
+
+    // Process each subscript expression
+    foreach(idx, indirection) {
+        A_Indices *ai = lfirst_node(A_Indices, idx);
+        Node *subExpr;
+
+        // JSONB doesn't support slicing operations
+        if (isSlice) {
+            Node *expr = ai->uidx ? ai->uidx : ai->lidx;
+            ereport(ERROR,
+                (errcode(ERRCODE_DATATYPE_MISMATCH),
+                 errmsg("jsonb subscript does not support slices"),
+                 parser_errposition(pstate, exprLocation(expr))));
+        }
+
+        if (ai->uidx) {
+            Oid subExprType = InvalidOid, targetType = UNKNOWNOID;
+
+            // Transform the subscript expression
+            subExpr = transformExpr(pstate, ai->uidx, pstate->p_expr_kind);
+            subExprType = exprType(subExpr);
+
+            if (subExprType != UNKNOWNOID) {
+                Oid targets[2] = {INT4OID, TEXTOID};
+
+                // Check which target types are possible (int or text)
+                for (int i = 0; i < 2; i++) {
+                    if (can_coerce_type(1, &subExprType, &targets[i], COERCION_IMPLICIT)) {
+                        // Error if already found a valid target (ambiguous)
+                        if (targetType != UNKNOWNOID) {
+                            ereport(ERROR,
+                                (errcode(ERRCODE_DATATYPE_MISMATCH),
+                                 errmsg("subscript type %s is not supported", format_type_be(subExprType)),
+                                 errhint("jsonb subscript must be coercible to only one type, integer or text."),
+                                 parser_errposition(pstate, exprLocation(subExpr))));
+                        }
+                        targetType = targets[i];
+                    }
+                }
+
+                // No valid target type found
+                if (targetType == UNKNOWNOID) {
+                    ereport(ERROR,
+                        (errcode(ERRCODE_DATATYPE_MISMATCH),
+                         errmsg("subscript type %s is not supported", format_type_be(subExprType)),
+                         errhint("jsonb subscript must be coercible to either integer or text."),
+                         parser_errposition(pstate, exprLocation(subExpr))));
+                }
+            } else {
+                targetType = TEXTOID;  // Default to text for unknown types
+            }
+
+            // Perform type coercion
+            subExpr = coerce_type(pstate, subExpr, subExprType,
+                                targetType, -1,
+                                COERCION_IMPLICIT,
+                                COERCE_IMPLICIT_CAST, -1);
+
+            if (subExpr == NULL) {
+                ereport(ERROR,
+                    (errcode(ERRCODE_DATATYPE_MISMATCH),
+                     errmsg("jsonb subscript must have text type"),
+                     parser_errposition(pstate, exprLocation(subExpr))));
+            }
+        } else {
+            // Handle missing upper bound (should not happen due to slice check)
+            ereport(ERROR,
+                (errcode(ERRCODE_DATATYPE_MISMATCH),
+                 errmsg("jsonb subscript does not support slices"),
+                 parser_errposition(pstate, exprLocation(ai->uidx))));
+        }
+
+        upperIndexpr = lappend(upperIndexpr, subExpr);
+    }
+
+    // Set the transformed subscript expressions and result type
+    sbsref->refupperindexpr = upperIndexpr;
+    sbsref->reflowerindexpr = NIL;
+    sbsref->refrestype = JSONBOID;
+    sbsref->reftypmod = -1;
+}
+```

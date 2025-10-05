@@ -54,3 +54,89 @@ This function rebuilds the global DatabaseList used by the autovacuum launcher t
 - Memory management creates a new context for the database list and cleans up the old context
 - The scheduling algorithm ensures databases are distributed evenly across the naptime interval
 - Critical for autovacuum performance and preventing database maintenance backlogs
+
+## Simplified Source
+
+```c
+static void rebuild_database_list(Oid newdb)
+{
+    // Create memory contexts for the new database list
+    MemoryContext newcxt = AllocSetContextCreate(AutovacMemCxt, "Autovacuum database list", ALLOCSET_DEFAULT_SIZES);
+    MemoryContext tmpcxt = AllocSetContextCreate(newcxt, "Autovacuum database list (tmp)", ALLOCSET_DEFAULT_SIZES);
+    MemoryContextSwitchTo(tmpcxt);
+
+    // Create hash table to track databases by OID and assign scores
+    HTAB *dbhash = hash_create("autovacuum db hash", 20, &hctl, HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+
+    int score = 0;
+
+    // Phase 1: Add the new database with lowest score (highest priority)
+    if (OidIsValid(newdb)) {
+        PgStat_StatDBEntry *entry = pgstat_fetch_stat_dbentry(newdb);
+        if (entry != NULL) {
+            avl_dbase *db = hash_search(dbhash, &newdb, HASH_ENTER, NULL);
+            db->adl_score = score++;
+        }
+    }
+
+    // Phase 2: Add existing databases from current list, preserving order
+    dlist_foreach(iter, &DatabaseList) {
+        avl_dbase *existing_db = dlist_container(avl_dbase, adl_node, iter.cur);
+        PgStat_StatDBEntry *entry = pgstat_fetch_stat_dbentry(existing_db->adl_datid);
+
+        if (entry != NULL) {
+            bool found;
+            avl_dbase *db = hash_search(dbhash, &(existing_db->adl_datid), HASH_ENTER, &found);
+            if (!found)
+                db->adl_score = score++;
+        }
+    }
+
+    // Phase 3: Add remaining databases from system catalog
+    List *dblist = get_database_list();
+    foreach(cell, dblist) {
+        avw_dbase *catalog_db = lfirst(cell);
+        PgStat_StatDBEntry *entry = pgstat_fetch_stat_dbentry(catalog_db->adw_datid);
+
+        if (entry != NULL) {
+            bool found;
+            avl_dbase *db = hash_search(dbhash, &(catalog_db->adw_datid), HASH_ENTER, &found);
+            if (!found)
+                db->adl_score = score++;
+        }
+    }
+
+    // Build sorted array and schedule databases evenly across naptime
+    MemoryContextSwitchTo(newcxt);
+    dlist_init(&DatabaseList);
+
+    if (score > 0) {
+        // Copy hash entries to array and sort by score
+        avl_dbase *dbary = palloc(score * sizeof(avl_dbase));
+        hash_seq_init(&seq, dbhash);
+        for (int i = 0; i < score; i++) {
+            avl_dbase *db = hash_seq_search(&seq);
+            memcpy(&(dbary[i]), db, sizeof(avl_dbase));
+        }
+        qsort(dbary, score, sizeof(avl_dbase), db_comparator);
+
+        // Calculate time intervals and assign schedule times
+        int millis_increment = 1000.0 * autovacuum_naptime / score;
+        if (millis_increment <= MIN_AUTOVAC_SLEEPTIME)
+            millis_increment = MIN_AUTOVAC_SLEEPTIME * 1.1;
+
+        TimestampTz current_time = GetCurrentTimestamp();
+        for (int i = 0; i < score; i++) {
+            current_time = TimestampTzPlusMilliseconds(current_time, millis_increment);
+            dbary[i].adl_next_worker = current_time;
+            dlist_push_head(&DatabaseList, &dbary[i].adl_node);
+        }
+    }
+
+    // Clean up old context and switch to new one
+    if (DatabaseListCxt != NULL)
+        MemoryContextDelete(DatabaseListCxt);
+    MemoryContextDelete(tmpcxt);
+    DatabaseListCxt = newcxt;
+}
+```

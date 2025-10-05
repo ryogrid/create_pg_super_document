@@ -37,3 +37,24 @@ This function handles the size parameter explicitly, making it suitable for stri
 - Uses PyUnicode_FromString for converted strings since pg_server_to_any returns null-terminated UTF-8
 - Properly manages memory by freeing converted UTF-8 strings when they differ from the original input
 - Essential for converting PostgreSQL string data to Python Unicode objects in the PL/Python interface
+
+## Simplified Source
+
+```c
+PyObject *PLyUnicode_FromStringAndSize(const char *s, Py_ssize_t size) {
+    // Convert server encoding to UTF-8
+    char *utf8_string = pg_server_to_any(s, size, PG_UTF8);
+
+    PyObject *unicode_obj;
+    if (utf8_string == s) {
+        // No conversion needed (already UTF-8)
+        unicode_obj = PyUnicode_FromStringAndSize(s, size);
+    } else {
+        // Use converted UTF-8 string
+        unicode_obj = PyUnicode_FromString(utf8_string);
+        pfree(utf8_string);
+    }
+
+    return unicode_obj;
+}
+```

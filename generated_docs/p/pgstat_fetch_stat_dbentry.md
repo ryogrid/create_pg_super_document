@@ -42,3 +42,16 @@ The underlying pgstat_fetch_entry() function handles various consistency modes, 
 - Part of PostgreSQL's statistics framework for monitoring database activity
 - Handles memory allocation and snapshot consistency internally through pgstat_fetch_entry
 - The returned data includes counters for sessions, transactions, temporary files, checksum failures, and other database-level metrics
+
+## Simplified Source
+
+```c
+PgStat_StatDBEntry *
+pgstat_fetch_stat_dbentry(Oid dboid)
+{
+    // Fetch database statistics entry using general statistics fetcher
+    // Returns NULL if no statistics exist (not if database doesn't exist)
+    return (PgStat_StatDBEntry *)
+        pgstat_fetch_entry(PGSTAT_KIND_DATABASE, dboid, InvalidOid);
+}
+```

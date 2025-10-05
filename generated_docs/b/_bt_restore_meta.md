@@ -59,3 +59,58 @@ The restoration process includes validation checks to ensure the data integrity 
 - Initializes btm_last_cleanup_num_heap_tuples to -1.0 as a default value
 - Requires B-tree version to be at least BTREE_NOVAC_VERSION for proper operation
 - Properly manages buffer lifecycle with MarkBufferDirty and UnlockReleaseBuffer calls
+
+## Simplified Source
+
+```c
+static void _bt_restore_meta(XLogReaderState *record, uint8 block_id)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    Buffer metabuf;
+    Page metapg;
+    BTMetaPageData *md;
+    BTPageOpaque pageop;
+    xl_btree_metadata *xlrec;
+    char *ptr;
+    Size len;
+
+    // Initialize buffer and get WAL record data
+    metabuf = XLogInitBufferForRedo(record, block_id);
+    ptr = XLogRecGetBlockData(record, block_id, &len);
+
+    // Validate the record
+    Assert(len == sizeof(xl_btree_metadata));
+    Assert(BufferGetBlockNumber(metabuf) == BTREE_METAPAGE);
+
+    xlrec = (xl_btree_metadata *) ptr;
+    metapg = BufferGetPage(metabuf);
+
+    // Initialize the metapage
+    _bt_pageinit(metapg, BufferGetPageSize(metabuf));
+
+    // Restore metadata from WAL record
+    md = BTPageGetMeta(metapg);
+    md->btm_magic = BTREE_MAGIC;
+    md->btm_version = xlrec->version;
+    md->btm_root = xlrec->root;
+    md->btm_level = xlrec->level;
+    md->btm_fastroot = xlrec->fastroot;
+    md->btm_fastlevel = xlrec->fastlevel;
+    md->btm_last_cleanup_num_delpages = xlrec->last_cleanup_num_delpages;
+    md->btm_last_cleanup_num_heap_tuples = -1.0;  // Default value
+    md->btm_allequalimage = xlrec->allequalimage;
+
+    // Set page opaque data to mark as metapage
+    pageop = BTPageGetOpaque(metapg);
+    pageop->btpo_flags = BTP_META;
+
+    // Set page boundary to prevent metadata loss during compression
+    ((PageHeader) metapg)->pd_lower =
+        ((char *) md + sizeof(BTMetaPageData)) - (char *) metapg;
+
+    // Finalize the restoration
+    PageSetLSN(metapg, lsn);
+    MarkBufferDirty(metabuf);
+    UnlockReleaseBuffer(metabuf);
+}
+```

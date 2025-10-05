@@ -32,3 +32,12 @@ This function serves as a specialized version of json_build_array for the case w
 - This is part of PostgreSQL JSON data type support system located in src/backend/utils/adt/json.c:1385-1396
 - The comment in the source explicitly mentions this as a "degenerate case" of json_build_array
 - Parallel to json_build_object_noargs which serves the same purpose for JSON objects
+
+## Simplified Source
+
+```c
+Datum json_build_array_noargs(PG_FUNCTION_ARGS) {
+    // Return empty JSON array "[]" as text with length 2
+    PG_RETURN_TEXT_P(cstring_to_text_with_len("[]", 2));
+}
+```

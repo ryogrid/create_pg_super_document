@@ -47,3 +47,21 @@ The hashing process:
 - Returns a PostgreSQL Datum containing an unsigned 32-bit integer hash value
 - Located in src/backend/utils/adt/date.c:2533-2548
 - Part of the type system infrastructure required for efficient hash-based algorithms
+
+## Simplified Source
+
+```c
+Datum timetz_hash(PG_FUNCTION_ARGS) {
+    TimeTzADT *key = PG_GETARG_TIMETZADT_P(0);
+
+    // Hash time and zone components separately to avoid padding byte issues
+    uint32 time_hash = DatumGetUInt32(DirectFunctionCall1(hashint8,
+                                      Int64GetDatumFast(key->time)));
+    uint32 zone_hash = DatumGetUInt32(hash_uint32(key->zone));
+
+    // XOR the two hash values together for final result
+    uint32 combined_hash = time_hash ^ zone_hash;
+
+    PG_RETURN_UINT32(combined_hash);
+}
+```

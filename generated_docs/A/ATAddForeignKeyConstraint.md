@@ -59,3 +59,115 @@ The implementation follows a three-phase approach: first creating the catalog en
 - Integrates with PostgreSQL's work queue system for managing complex multi-table operations
 - Essential component of PostgreSQL's referential integrity implementation
 - One of the most complex functions in the ALTER TABLE subsystem due to the inherent complexity of foreign key semantics
+
+## Simplified Source
+
+```c
+static ObjectAddress ATAddForeignKeyConstraint(List **wqueue, AlteredTableInfo *tab, Relation rel,
+                                              Constraint *fkconstraint,
+                                              bool recurse, bool recursing, LOCKMODE lockmode) {
+    Relation pkrel;
+    int16 pkattnum[INDEX_MAX_KEYS] = {0};
+    int16 fkattnum[INDEX_MAX_KEYS] = {0};
+    Oid pktypoid[INDEX_MAX_KEYS] = {0};
+    Oid fktypoid[INDEX_MAX_KEYS] = {0};
+    Oid opclasses[INDEX_MAX_KEYS] = {0};
+    Oid pfeqoperators[INDEX_MAX_KEYS] = {0};
+    Oid ppeqoperators[INDEX_MAX_KEYS] = {0};
+    Oid ffeqoperators[INDEX_MAX_KEYS] = {0};
+    int16 fkdelsetcols[INDEX_MAX_KEYS] = {0};
+    int numfks, numpks, numfkdelsetcols;
+    Oid indexOid;
+    bool old_check_ok;
+    ObjectAddress address;
+
+    // Open referenced table with appropriate lock
+    if (OidIsValid(fkconstraint->old_pktable_oid))
+        pkrel = table_open(fkconstraint->old_pktable_oid, ShareRowExclusiveLock);
+    else
+        pkrel = table_openrv(fkconstraint->pktable, ShareRowExclusiveLock);
+
+    // Validate table types and persistence compatibility
+    if (rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE) {
+        if (!recurse)
+            ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                           errmsg("cannot use ONLY for foreign key on partitioned table")));
+    }
+
+    // Check table persistence compatibility (temp/permanent/unlogged)
+    switch (rel->rd_rel->relpersistence) {
+        case RELPERSISTENCE_PERMANENT:
+            if (!RelationIsPermanent(pkrel))
+                ereport(ERROR, (errcode(ERRCODE_INVALID_TABLE_DEFINITION),
+                               errmsg("constraints on permanent tables may reference only permanent tables")));
+            break;
+        case RELPERSISTENCE_TEMP:
+            if (pkrel->rd_rel->relpersistence != RELPERSISTENCE_TEMP)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_TABLE_DEFINITION),
+                               errmsg("constraints on temporary tables may reference only temporary tables")));
+            break;
+        // ... other persistence checks
+    }
+
+    // Transform and validate column lists
+    numfks = transformColumnNameList(RelationGetRelid(rel), fkconstraint->fk_attrs,
+                                    fkattnum, fktypoid);
+
+    if (fkconstraint->pk_attrs == NIL) {
+        // Use primary key if no columns specified
+        numpks = transformFkeyGetPrimaryKey(pkrel, &indexOid, &fkconstraint->pk_attrs,
+                                           pkattnum, pktypoid, opclasses);
+    } else {
+        // Validate specified columns
+        numpks = transformColumnNameList(RelationGetRelid(pkrel), fkconstraint->pk_attrs,
+                                        pkattnum, pktypoid);
+        indexOid = transformFkeyCheckAttrs(pkrel, numpks, pkattnum, opclasses);
+    }
+
+    // Check permissions and validate column count
+    checkFkeyPermissions(pkrel, pkattnum, numpks);
+    if (numfks != numpks)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_FOREIGN_KEY),
+                       errmsg("number of referencing and referenced columns disagree")));
+
+    // Resolve equality operators for each column pair
+    old_check_ok = (fkconstraint->old_conpfeqop != NIL);
+    for (int i = 0; i < numpks; i++) {
+        Oid pktype = pktypoid[i];
+        Oid fktype = fktypoid[i];
+
+        // Find appropriate equality operators (simplified logic)
+        Oid pfeqop = get_opfamily_member(opfamily, opcintype, fktype, BTEqualStrategyNumber);
+        Oid ppeqop = get_opfamily_member(opfamily, opcintype, opcintype, BTEqualStrategyNumber);
+        Oid ffeqop = get_opfamily_member(opfamily, fktype, fktype, BTEqualStrategyNumber);
+
+        if (!OidIsValid(pfeqop) || !OidIsValid(ffeqop))
+            ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                           errmsg("foreign key constraint cannot be implemented"),
+                           errdetail("Key columns are of incompatible types")));
+
+        pfeqoperators[i] = pfeqop;
+        ppeqoperators[i] = ppeqop;
+        ffeqoperators[i] = ffeqop;
+    }
+
+    // Create the constraint catalog entry
+    address = addFkConstraint(addFkBothSides, fkconstraint->conname, fkconstraint,
+                             rel, pkrel, indexOid, InvalidOid, numfks,
+                             pkattnum, fkattnum, pfeqoperators, ppeqoperators, ffeqoperators,
+                             numfkdelsetcols, fkdelsetcols, false);
+
+    // Add action triggers on referenced side and recurse
+    addFkRecurseReferenced(fkconstraint, rel, pkrel, indexOid, address.objectId,
+                          numfks, pkattnum, fkattnum, pfeqoperators, ppeqoperators, ffeqoperators,
+                          numfkdelsetcols, fkdelsetcols, old_check_ok, InvalidOid, InvalidOid);
+
+    // Add check triggers on referencing side and recurse
+    addFkRecurseReferencing(wqueue, fkconstraint, rel, pkrel, indexOid, address.objectId,
+                           numfks, pkattnum, fkattnum, pfeqoperators, ppeqoperators, ffeqoperators,
+                           numfkdelsetcols, fkdelsetcols, old_check_ok, lockmode, InvalidOid, InvalidOid);
+
+    table_close(pkrel, NoLock);
+    return address;
+}
+```

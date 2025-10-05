@@ -36,3 +36,12 @@ The function takes a void pointer to an OffsetNumber, casts it appropriately, de
 - The function follows the standard element description callback signature
 - The data parameter is not used but must be present to match the expected callback interface
 - Commonly used in heap and btree WAL record descriptions to format arrays of tuple offsets
+
+## Simplified Source
+
+```c
+void offset_elem_desc(StringInfo buf, void *offset, void *data) {
+    // Format OffsetNumber as unsigned integer
+    appendStringInfo(buf, "%u", *(OffsetNumber *) offset);
+}
+```

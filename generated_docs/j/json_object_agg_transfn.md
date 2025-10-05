@@ -34,3 +34,14 @@ This represents the standard SQL json_object_agg function that accumulates key-v
 - Uses PG_FUNCTION_ARGS calling convention for SQL-callable functions
 - Returns Datum as required by PostgreSQL's function interface
 - Allows duplicate keys and preserves null values in the resulting JSON object
+
+## Simplified Source
+
+```c
+Datum
+json_object_agg_transfn(PG_FUNCTION_ARGS)
+{
+    // Standard json_object_agg: allow duplicates, include nulls
+    return json_object_agg_transfn_worker(fcinfo, false, false);
+}
+```

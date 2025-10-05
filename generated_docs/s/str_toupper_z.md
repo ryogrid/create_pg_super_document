@@ -31,3 +31,11 @@ This function is part of PostgreSQL's internal formatting utilities and provides
 - Part of a family of convenience functions for string case conversion in PostgreSQL's formatting system
 - Supports collation-aware conversion for proper locale handling
 - Companion function to str_tolower_z, providing uppercase conversion functionality
+
+## Simplified Source
+
+```c
+static char *str_toupper_z(const char *buff, Oid collid) {
+    return str_toupper(buff, strlen(buff), collid);
+}
+```

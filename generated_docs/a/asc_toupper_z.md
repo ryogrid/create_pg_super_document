@@ -30,3 +30,11 @@ This function is a simplified wrapper around the `asc_toupper` function that aut
 - Returns a palloc'd string that must be freed by the caller
 - The 'z' suffix indicates this variant works with null-terminated (zero-terminated) strings
 - Currently appears to be unused in the codebase, potentially prepared for future use or legacy code
+
+## Simplified Source
+
+```c
+static char *asc_toupper_z(const char *buff) {
+    return asc_toupper(buff, strlen(buff));
+}
+```

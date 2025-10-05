@@ -45,3 +45,38 @@ A key difference from normal processing is that during recovery, subtransactions
 - Critical for maintaining consistent subtransaction visibility on Hot Standby servers
 - The direct parent-child linking (bypassing intermediate levels) is a recovery-specific optimization
 - Updates lastOverflowedXid to ensure proper snapshot overflow tracking
+
+## Simplified Source
+
+```c
+void ProcArrayApplyXidAssignment(TransactionId topxid, int nsubxids, TransactionId *subxids) {
+    Assert(standbyState >= STANDBY_INITIALIZED);
+
+    // Find the highest XID among all transactions
+    TransactionId max_xid = TransactionIdLatest(topxid, nsubxids, subxids);
+
+    // Mark all subtransactions as observed
+    RecordKnownAssignedTransactionIds(max_xid);
+
+    // Link each subtransaction directly to the top-level transaction
+    // (Recovery optimization: skip intermediate subtransaction levels)
+    for (int i = 0; i < nsubxids; i++) {
+        SubTransSetParent(subxids[i], topxid);
+    }
+
+    // Early return if KnownAssignedXids isn't maintained yet
+    if (standbyState == STANDBY_INITIALIZED)
+        return;
+
+    // Remove assigned subtransactions from known-assigned-xacts
+    LWLockAcquire(ProcArrayLock, LW_EXCLUSIVE);
+
+    KnownAssignedXidsRemoveTree(InvalidTransactionId, nsubxids, subxids);
+
+    // Update overflow tracking to the highest assigned XID
+    if (TransactionIdPrecedes(procArray->lastOverflowedXid, max_xid))
+        procArray->lastOverflowedXid = max_xid;
+
+    LWLockRelease(ProcArrayLock);
+}
+```

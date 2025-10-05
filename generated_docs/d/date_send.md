@@ -33,3 +33,22 @@ The `date_send` function is responsible for converting date values from PostgreS
 - No validation is performed since the input is assumed to be a valid DateADT value
 - The function follows PostgreSQL's standard function calling conventions using PG_FUNCTION_ARGS
 - Used by the PostgreSQL binary protocol when clients request date values in binary format rather than text format
+
+## Simplified Source
+
+```c
+Datum date_send(PG_FUNCTION_ARGS)
+{
+    DateADT date = PG_GETARG_DATEADT(0);
+    StringInfoData buf;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Send date as 32-bit integer
+    pq_sendint32(&buf, date);
+
+    // Finalize and return binary result
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

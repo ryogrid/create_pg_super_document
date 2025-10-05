@@ -38,3 +38,23 @@ The  function is a callback used in PostgreSQL's logical replication system to h
 - The function is registered as a callback during plugin initialization in _PG_output_plugin_init
 - After writing the commit message, it cleans up the relation synchronization cache for the committed transaction
 - The commit_lsn parameter allows downstream systems to track the exact WAL position of the commit
+
+## Simplified Source
+
+```c
+static void
+pgoutput_stream_commit(struct LogicalDecodingContext *ctx,
+                      ReorderBufferTXN *txn,
+                      XLogRecPtr commit_lsn) {
+    // Update replication progress
+    OutputPluginUpdateProgress(ctx, false);
+
+    // Write stream commit message to output
+    OutputPluginPrepareWrite(ctx, true);
+    logicalrep_write_stream_commit(ctx->out, txn, commit_lsn);
+    OutputPluginWrite(ctx, true);
+
+    // Clean up relation sync cache for committed transaction
+    cleanup_rel_sync_cache(txn->xid, true);
+}
+```

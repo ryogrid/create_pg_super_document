@@ -40,3 +40,22 @@ Bitmap scans are typically used when an index scan would return a significant po
 - Bitmap scans are particularly effective for queries that would return a moderate number of rows spread across the table
 - Uses a different scan type flag (SO_TYPE_BITMAPSCAN) compared to sequential scans
 - The scan leverages bitmap structures created by index scans to optimize page access patterns
+
+## Simplified Source
+
+```c
+static inline TableScanDesc
+table_beginscan_bm(Relation rel, Snapshot snapshot,
+                   int nkeys, struct ScanKeyData *key, bool need_tuple)
+{
+    // Set up bitmap scan flags
+    uint32 flags = SO_TYPE_BITMAPSCAN | SO_ALLOW_PAGEMODE;
+
+    // Optionally enable tuple retrieval
+    if (need_tuple)
+        flags |= SO_NEED_TUPLES;
+
+    // Initialize the bitmap scan using table access method
+    return rel->rd_tableam->scan_begin(rel, snapshot, nkeys, key, NULL, flags);
+}
+```

@@ -39,3 +39,22 @@ The function uses PostgreSQL's pg_mul_s64_overflow utility to detect overflow co
 - Automatically promotes the smaller integer type to match the larger one before computation
 - Reports NUMERIC_VALUE_OUT_OF_RANGE error when overflow occurs
 - Multiplication is commutative, so the order of operands doesn't affect the mathematical result
+
+## Simplified Source
+
+```c
+Datum
+int28mul(PG_FUNCTION_ARGS)
+{
+    int16 smallint_arg = PG_GETARG_INT16(0);
+    int64 bigint_arg = PG_GETARG_INT64(1);
+    int64 result;
+
+    // Multiply with overflow checking
+    if (pg_mul_s64_overflow((int64) smallint_arg, bigint_arg, &result))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("bigint out of range")));
+
+    PG_RETURN_INT64(result);
+}
+```

@@ -50,3 +50,63 @@ The function preserves existing NULL value information even when operator classe
 - Critical for maintaining accurate BRIN index summaries as data is inserted or updated in the underlying table
 - Preserves NULL value tracking information across operator class calls that might modify summary structures
 - Part of the core BRIN index maintenance infrastructure used during both index construction and ongoing maintenance
+
+## Simplified Source
+```c
+static bool
+add_values_to_range(Relation idxRel, BrinDesc *bdesc, BrinMemTuple *dtup,
+                    const Datum *values, const bool *nulls)
+{
+    int     keyno;
+    bool    modified = dtup->bt_empty_range;  // Empty ranges are always modified
+
+    // Process each indexed column
+    for (keyno = 0; keyno < bdesc->bd_tupdesc->natts; keyno++)
+    {
+        Datum       result;
+        BrinValues *bval = &dtup->bt_columns[keyno];
+        FmgrInfo   *addValue;
+        bool        has_nulls;
+
+        // Remember if range already had NULL values before this update
+        has_nulls = ((!dtup->bt_empty_range) &&
+                     (bval->bv_hasnulls || bval->bv_allnulls));
+
+        // Handle NULL values separately if using regular null semantics
+        if (bdesc->bd_info[keyno]->oi_regular_nulls && nulls[keyno])
+        {
+            // First NULL in this range? Mark it
+            if (!bval->bv_hasnulls)
+            {
+                bval->bv_hasnulls = true;
+                modified = true;
+            }
+            continue;
+        }
+
+        // Call operator class specific addvalue function
+        addValue = index_getprocinfo(idxRel, keyno + 1,
+                                    BRIN_PROCNUM_ADDVALUE);
+        result = FunctionCall4Coll(addValue,
+                                  idxRel->rd_indcollation[keyno],
+                                  PointerGetDatum(bdesc),
+                                  PointerGetDatum(bval),
+                                  values[keyno],
+                                  nulls[keyno]);
+
+        // Track if addvalue function modified the summary
+        modified |= DatumGetBool(result);
+
+        // Preserve NULL tracking if range originally had NULLs
+        if (has_nulls && !(bval->bv_hasnulls || bval->bv_allnulls))
+        {
+            bval->bv_hasnulls = true;
+        }
+    }
+
+    // Mark range as non-empty after processing values
+    dtup->bt_empty_range = false;
+
+    return modified;
+}
+```

@@ -36,3 +36,15 @@ This function serves as a relation-oriented wrapper around the more general smgr
 - This function automatically determines WAL logging requirements by checking if the relation needs WAL logging or if the operation is on the INIT_FORKNUM
 - The INIT_FORKNUM always requires WAL logging regardless of the relation's WAL requirements
 - This is a higher-level interface compared to smgr_bulk_start_smgr, making it more convenient for operations that work with Relation objects
+
+## Simplified Source
+
+```c
+BulkWriteState *smgr_bulk_start_rel(Relation rel, ForkNumber forknum) {
+    // Extract storage manager from relation and determine WAL requirements
+    bool needs_wal = RelationNeedsWAL(rel) || forknum == INIT_FORKNUM;
+
+    // Delegate to the underlying smgr function
+    return smgr_bulk_start_smgr(RelationGetSmgr(rel), forknum, needs_wal);
+}
+```

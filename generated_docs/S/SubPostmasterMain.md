@@ -47,3 +47,82 @@ This approach enables PostgreSQL to work on platforms where fork() is unavailabl
 - The function never returns as it calls the child process main function which should be noreturn
 - Located in src/backend/postmaster/launch_backend.c:581-695
 - Critical for cross-platform compatibility and EXEC_BACKEND functionality
+
+## Simplified Source
+
+```c
+void
+SubPostmasterMain(int argc, char *argv[])
+{
+    char *startup_data;
+    size_t startup_data_len;
+    char *child_kind;
+    BackendType child_type;
+    bool found = false;
+
+    // Configure environment for child process
+    IsPostmasterEnvironment = true;
+    whereToSendOutput = DestNone;
+
+    // Initialize basic subsystems
+    InitializeGUCOptions();
+
+    // Validate command line arguments
+    if (argc != 3)
+        elog(FATAL, "invalid subpostmaster invocation");
+
+    // Parse child process type from --forkchild=<name> argument
+    if (strncmp(argv[1], "--forkchild=", 12) != 0)
+        elog(FATAL, "invalid subpostmaster invocation (--forkchild argument missing)");
+
+    child_kind = argv[1] + 12;
+
+    // Find the child process type in the registry
+    for (int idx = 0; idx < lengthof(child_process_kinds); idx++)
+    {
+        if (strcmp(child_process_kinds[idx].name, child_kind) == 0)
+        {
+            child_type = (BackendType) idx;
+            found = true;
+            break;
+        }
+    }
+    if (!found)
+        elog(ERROR, "unknown child kind %s", child_kind);
+
+    // Read serialized backend variables from parameter file
+    read_backend_variables(argv[2], &startup_data, &startup_data_len);
+
+    // Close inherited postmaster sockets
+    ClosePostmasterPorts(child_type == B_LOGGER);
+
+    // Initialize child process environment
+    InitPostmasterChild();
+
+    // Re-attach to shared memory if needed for this process type
+    if (child_process_kinds[child_type].shmem_attach)
+        PGSharedMemoryReAttach();
+    else
+        PGSharedMemoryNoReAttach();
+
+    // Restore GUC configuration
+    read_nondefault_variables();
+
+    // Validate data directory and set file permissions
+    checkDataDir();
+
+    // Read control file for configuration
+    LocalProcessControlFile(false);
+
+    // Reload preloaded libraries
+    process_shared_preload_libraries();
+
+    // Restore shared memory access
+    if (UsedShmemSegAddr != NULL)
+        InitShmemAccess(UsedShmemSegAddr);
+
+    // Launch the specific child process main function
+    child_process_kinds[child_type].main_fn(startup_data, startup_data_len);
+    pg_unreachable(); // main_fn never returns
+}
+```

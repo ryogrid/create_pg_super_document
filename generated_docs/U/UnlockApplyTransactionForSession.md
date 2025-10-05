@@ -32,5 +32,20 @@ This function is part of PostgreSQL's logical replication locking mechanism. It 
 ## Notes and Other Information
 - This function is specifically designed for logical replication's parallel apply workers
 - The lock tag is constructed using MyDatabaseId, ensuring database-specific locking
-- The  parameter passed to LockRelease indicates this is a session-level lock
+- The true parameter passed to LockRelease indicates this is a session-level lock
 - Part of the apply transaction locking infrastructure that prevents conflicts between parallel workers processing the same subscription
+
+## Simplified Source
+```c
+void UnlockApplyTransactionForSession(Oid suboid, TransactionId xid, uint16 objid,
+                                      LOCKMODE lockmode)
+{
+    LOCKTAG tag;
+
+    // Create lock tag for apply transaction
+    SET_LOCKTAG_APPLY_TRANSACTION(tag, MyDatabaseId, suboid, xid, objid);
+
+    // Release session-level lock
+    LockRelease(&tag, lockmode, true);
+}
+```

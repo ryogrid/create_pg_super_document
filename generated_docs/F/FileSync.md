@@ -40,3 +40,23 @@ FileSync performs a synchronous write operation on a virtual file descriptor, en
 - Wait event reporting allows PostgreSQL to track sync operations for performance monitoring
 - This is part of PostgreSQL's Virtual File Descriptor (VFD) system that manages file handles efficiently
 - Critical for ensuring ACID properties, particularly durability
+
+## Simplified Source
+
+```c
+int FileSync(File file, uint32 wait_event_info) {
+    Assert(FileIsValid(file));
+
+    // Ensure file is accessible and open
+    int returnCode = FileAccess(file);
+    if (returnCode < 0)
+        return returnCode;
+
+    // Synchronize file to persistent storage with wait event tracking
+    pgstat_report_wait_start(wait_event_info);
+    returnCode = pg_fsync(VfdCache[file].fd);
+    pgstat_report_wait_end();
+
+    return returnCode;  // 0 on success, negative on error
+}
+```

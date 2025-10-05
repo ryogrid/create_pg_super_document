@@ -43,3 +43,32 @@ This is a convenience function for checking the current user's privileges withou
 - Returns true if the current user has the privilege, false otherwise
 - Uses the standard PostgreSQL access control framework via object_aclcheck
 - Located in src/backend/utils/adt/acl.c:4033-4056
+
+## Simplified Source
+
+```c
+Datum
+has_server_privilege_name(PG_FUNCTION_ARGS)
+{
+    text      *servername = PG_GETARG_TEXT_PP(0);
+    text      *priv_type_text = PG_GETARG_TEXT_PP(1);
+    Oid        roleid;
+    Oid        serverid;
+    AclMode    mode;
+    AclResult  aclresult;
+
+    // Use current user ID
+    roleid = GetUserId();
+
+    // Convert server name to server OID
+    serverid = convert_server_name(servername);
+
+    // Convert privilege string to access mode
+    mode = convert_server_priv_string(priv_type_text);
+
+    // Check if current user has the specified privilege on the foreign server
+    aclresult = object_aclcheck(ForeignServerRelationId, serverid, roleid, mode);
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

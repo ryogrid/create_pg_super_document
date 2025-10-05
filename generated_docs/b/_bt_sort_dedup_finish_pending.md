@@ -46,3 +46,36 @@ The posting list overhead calculation () is important for the caller to make inf
 - The truncextra calculation provides the size of the posting list portion, which is useful for space management decisions in the calling code
 - Memory management is handled properly with pfree() calls for dynamically allocated posting tuples
 - This function is only used during index creation/building, not during normal index operations
+
+## Simplified Source
+
+```c
+static void
+_bt_sort_dedup_finish_pending(BTWriteState *wstate, BTPageState *state,
+                              BTDedupState dstate)
+{
+    // Handle single item case - add base tuple directly
+    if (dstate->nitems == 1) {
+        _bt_buildadd(wstate, state, dstate->base, 0);
+    }
+    else {
+        // Handle multiple items - create posting list
+        IndexTuple posting_tuple = _bt_form_posting(dstate->base,
+                                                   dstate->htids,
+                                                   dstate->nhtids);
+
+        // Calculate posting list overhead for space management
+        Size overhead = IndexTupleSize(posting_tuple) -
+                       BTreeTupleGetPostingOffset(posting_tuple);
+
+        _bt_buildadd(wstate, state, posting_tuple, overhead);
+        pfree(posting_tuple);
+    }
+
+    // Reset deduplication state for next group
+    dstate->nmaxitems = 0;
+    dstate->nhtids = 0;
+    dstate->nitems = 0;
+    dstate->phystupsize = 0;
+}
+```

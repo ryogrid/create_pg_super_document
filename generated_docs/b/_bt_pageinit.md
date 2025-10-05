@@ -44,3 +44,12 @@ The function is used throughout the B-tree implementation whenever a fresh page 
 - After initialization, pages are ready for B-tree-specific operations like setting page type and adding tuples
 - The function does not set B-tree-specific page attributes - those are handled by subsequent operations
 - Essential for maintaining B-tree page format consistency throughout the system
+
+## Simplified Source
+
+```c
+void _bt_pageinit(Page page, Size size) {
+    // Initialize page with B-tree-specific special space size
+    PageInit(page, size, sizeof(BTPageOpaqueData));
+}
+```

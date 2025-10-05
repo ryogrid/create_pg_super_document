@@ -36,3 +36,34 @@ This function prepares the PostgreSQL executor infrastructure needed to evaluate
 
 ## Notes and Other Information
 This function is part of PostgreSQL's logical replication row filtering infrastructure. The executor state it creates provides the necessary context for evaluating WHERE-clause-like expressions that determine which rows should be replicated. The use of AccessShareLock ensures that the relation structure remains stable during filter evaluation without blocking concurrent operations. The function sets the command ID to the current command, which is important for visibility and transaction isolation when evaluating expressions.
+
+## Simplified Source
+
+```c
+static EState *
+create_estate_for_relation(Relation rel)
+{
+    EState *estate;
+    RangeTblEntry *rte;
+    List *perminfos = NIL;
+
+    // Create executor state
+    estate = CreateExecutorState();
+
+    // Create range table entry for the relation
+    rte = makeNode(RangeTblEntry);
+    rte->rtekind = RTE_RELATION;
+    rte->relid = RelationGetRelid(rel);
+    rte->relkind = rel->rd_rel->relkind;
+    rte->rellockmode = AccessShareLock;
+
+    // Set up permission info and initialize range table
+    addRTEPermissionInfo(&perminfos, rte);
+    ExecInitRangeTable(estate, list_make1(rte), perminfos);
+
+    // Set command ID for transaction visibility
+    estate->es_output_cid = GetCurrentCommandId(false);
+
+    return estate;
+}
+```

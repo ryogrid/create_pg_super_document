@@ -43,3 +43,36 @@ Each SPELL entry is allocated with enough space for the header (`SPELLHDRSZ`) pl
 - Uses temporary memory allocation for both the array and individual entries
 - Handles empty flags by setting them to VoidString rather than duplicating empty strings
 - Located in src/backend/tsearch/spell.c:487-517
+
+## Simplified Source
+
+```c
+static void
+NIAddSpell(IspellDict *Conf, const char *word, const char *flag)
+{
+    // Expand array if needed
+    if (Conf->nspell >= Conf->mspell) {
+        if (Conf->mspell) {
+            // Double the size of existing array
+            Conf->mspell *= 2;
+            Conf->Spell = (SPELL **) repalloc(Conf->Spell,
+                                              Conf->mspell * sizeof(SPELL *));
+        } else {
+            // Initial allocation: 20,480 entries
+            Conf->mspell = 1024 * 20;
+            Conf->Spell = (SPELL **) tmpalloc(Conf->mspell * sizeof(SPELL *));
+        }
+    }
+
+    // Allocate space for new word entry
+    Conf->Spell[Conf->nspell] = (SPELL *) tmpalloc(SPELLHDRSZ + strlen(word) + 1);
+
+    // Copy word and set flags
+    strcpy(Conf->Spell[Conf->nspell]->word, word);
+    Conf->Spell[Conf->nspell]->p.flag = (*flag != '\0')
+        ? cpstrdup(Conf, flag)  // Duplicate flag string
+        : VoidString;           // Use empty string constant
+
+    Conf->nspell++;  // Increment word count
+}
+```

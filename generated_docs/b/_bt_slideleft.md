@@ -38,3 +38,32 @@ This function performs a specialized optimization for rightmost pages in B-tree 
 - Part of the space optimization during B-tree construction that ensures efficient page layout
 - The Assert ensures the page has at least one real data item (P_FIRSTKEY) before sliding
 - Critical for maintaining proper page space accounting in the final index structure
+
+## Simplified Source
+
+```c
+static void
+_bt_slideleft(Page rightmostpage)
+{
+    OffsetNumber off;
+    OffsetNumber maxoff;
+    ItemId previi;
+
+    // Get the highest valid offset on the page
+    maxoff = PageGetMaxOffsetNumber(rightmostpage);
+    Assert(maxoff >= P_FIRSTKEY);
+
+    // Start with P_HIKEY position
+    previi = PageGetItemId(rightmostpage, P_HIKEY);
+
+    // Slide all ItemIds left by one position
+    for (off = P_FIRSTKEY; off <= maxoff; off = OffsetNumberNext(off)) {
+        ItemId thisii = PageGetItemId(rightmostpage, off);
+        *previi = *thisii;  // Copy current ItemId to previous position
+        previi = thisii;    // Move to next position
+    }
+
+    // Reclaim space from eliminated P_HIKEY line pointer
+    ((PageHeader) rightmostpage)->pd_lower -= sizeof(ItemIdData);
+}
+```

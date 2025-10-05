@@ -32,3 +32,21 @@ This function implements a standard linked list deallocation pattern for ECPGstr
 - Part of the memory management system for ECPG type structures
 - This function is essential for preventing memory leaks when struct definitions are no longer needed
 - The type field being freed likely points to an ECPGtype structure that should be freed separately if it's not shared
+
+## Simplified Source
+
+```c
+void ECPGfree_struct_member(struct ECPGstruct_member *rm) {
+    // Traverse and free the linked list of struct members
+    while (rm) {
+        struct ECPGstruct_member *p = rm;
+
+        rm = rm->next;  // Advance to next before freeing current
+
+        // Free member components
+        free(p->name);
+        free(p->type);
+        free(p);
+    }
+}
+```

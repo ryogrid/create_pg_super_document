@@ -316,3 +316,83 @@ Text creation and manipulation
 - Maintains separate tracking for internal pages and empty leaf pages using integer sets
 - Forces FSM updates when recyclable pages are found to ensure they become available quickly
 - The function is static (internal) and serves as the common implementation for both bulk delete and cleanup phases
+
+## Simplified Source
+
+```c
+static void
+gistvacuumscan(IndexVacuumInfo *info, IndexBulkDeleteResult *stats,
+               IndexBulkDeleteCallback callback, void *callback_state)
+{
+    Relation rel = info->index;
+    GistVacState vstate;
+    BlockNumber num_pages;
+    bool needLock;
+    BlockNumber blkno;
+    MemoryContext oldctx;
+
+    // Reset statistics for this scan
+    stats->num_pages = 0;
+    stats->estimated_count = false;
+    stats->num_index_tuples = 0;
+    stats->pages_deleted = 0;
+    stats->pages_free = 0;
+
+    // Create memory context for page tracking sets
+    vstate.page_set_context = GenerationContextCreate(CurrentMemoryContext,
+                                                      "GiST VACUUM page set context",
+                                                      16 * 1024, 16 * 1024, 16 * 1024);
+    oldctx = MemoryContextSwitchTo(vstate.page_set_context);
+    vstate.internal_page_set = intset_create();
+    vstate.empty_leaf_set = intset_create();
+    MemoryContextSwitchTo(oldctx);
+
+    // Initialize vacuum state
+    vstate.info = info;
+    vstate.stats = stats;
+    vstate.callback = callback;
+    vstate.callback_state = callback_state;
+    if (RelationNeedsWAL(rel))
+        vstate.startNSN = GetInsertRecPtr();
+    else
+        vstate.startNSN = gistGetFakeLSN(rel);
+
+    // Determine if we need relation extension locking
+    needLock = !RELATION_IS_LOCAL(rel);
+
+    // Scan all pages starting from root
+    blkno = GIST_ROOT_BLKNO;
+    for (;;) {
+        // Get current relation length with proper locking
+        if (needLock)
+            LockRelationForExtension(rel, ExclusiveLock);
+        num_pages = RelationGetNumberOfBlocks(rel);
+        if (needLock)
+            UnlockRelationForExtension(rel, ExclusiveLock);
+
+        // Exit if we've scanned all pages
+        if (blkno >= num_pages)
+            break;
+
+        // Process pages in this batch
+        for (; blkno < num_pages; blkno++)
+            gistvacuumpage(&vstate, blkno, blkno);
+    }
+
+    // Update FSM if we found recyclable pages
+    if (stats->pages_free > 0)
+        IndexFreeSpaceMapVacuum(rel);
+
+    // Update final statistics
+    stats->num_pages = num_pages;
+
+    // Delete empty pages that were identified
+    gistvacuum_delete_empty_pages(info, &vstate);
+
+    // Clean up memory context and page sets
+    MemoryContextDelete(vstate.page_set_context);
+    vstate.page_set_context = NULL;
+    vstate.internal_page_set = NULL;
+    vstate.empty_leaf_set = NULL;
+}
+```

@@ -36,3 +36,53 @@ The  function implements the tangent function for degree-based input, following 
 - Forces minus zero results to plain zero for portability
 - Does not check for overflow since tand(90°) legitimately equals infinity
 - Located in src/backend/utils/adt/float.c:2488-2553
+
+## Simplified Source
+
+```c
+Datum dtand(PG_FUNCTION_ARGS) {
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float8 result;
+    volatile float8 tan_arg1;
+    int sign = 1;
+
+    // Handle special values per POSIX spec
+    if (isnan(arg1))
+        PG_RETURN_FLOAT8(get_float8_nan());
+
+    if (isinf(arg1))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("input is out of range")));
+
+    INIT_DEGREE_CONSTANTS();
+
+    // Range reduction: reduce input to [0, 90] degrees
+    arg1 = fmod(arg1, 360.0);           // Handle full rotations
+
+    if (arg1 < 0.0) {
+        arg1 = -arg1;                   // tan(-x) = -tan(x)
+        sign = -sign;
+    }
+
+    if (arg1 > 180.0) {
+        arg1 = 360.0 - arg1;            // tan(360-x) = -tan(x)
+        sign = -sign;
+    }
+
+    if (arg1 > 90.0) {
+        arg1 = 180.0 - arg1;            // tan(180-x) = -tan(x)
+        sign = -sign;
+    }
+
+    // Calculate tangent as sin/cos, normalized by tan(45°)
+    tan_arg1 = sind_q1(arg1) / cosd_q1(arg1);
+    result = sign * (tan_arg1 / tan_45);
+
+    // Force minus zero to plain zero for portability
+    if (result == 0.0)
+        result = 0.0;
+
+    // No overflow check - tangent can be infinite (e.g., tan(90°) = ∞)
+    PG_RETURN_FLOAT8(result);
+}
+```

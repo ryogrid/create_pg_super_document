@@ -40,3 +40,36 @@ The function uses Unicode-aware character classification via `pg_u_isalnum` to p
 - Properly handles UTF-8 multibyte characters by using Unicode-aware functions
 - The iterator maintains state between calls, advancing through the string one boundary at a time
 - This is a simplified word boundary algorithm compared to full Unicode word boundary rules (UAX #29)
+
+## Simplified Source
+
+```c
+static size_t initcap_wbnext(void *state) {
+    struct WordBoundaryState *wbstate = (struct WordBoundaryState *) state;
+
+    // Scan through string looking for word boundaries
+    while (wbstate->offset < wbstate->len && wbstate->str[wbstate->offset] != '\0') {
+        // Get Unicode character at current position
+        pg_wchar u = utf8_to_unicode((unsigned char *) wbstate->str + wbstate->offset);
+        bool curr_alnum = pg_u_isalnum(u, true);
+
+        // Found word boundary: first character or alphanumeric property changed
+        if (!wbstate->init || curr_alnum != wbstate->prev_alnum) {
+            size_t prev_offset = wbstate->offset;
+
+            // Update state for next iteration
+            wbstate->init = true;
+            wbstate->offset += unicode_utf8len(u);
+            wbstate->prev_alnum = curr_alnum;
+
+            return prev_offset;  // Return boundary position
+        }
+
+        // No boundary found, advance to next character
+        wbstate->offset += unicode_utf8len(u);
+    }
+
+    // End of string reached
+    return wbstate->len;
+}
+```

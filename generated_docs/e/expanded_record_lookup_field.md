@@ -48,3 +48,39 @@ When a matching field is found, the function populates the ExpandedRecordFieldIn
 - The function is case-sensitive for field name matching
 - Returns false if the field doesn't exist, making it safe for conditional field access
 - The ExpandedRecordFieldInfo structure contains: fnumber (attribute number), ftypeid (type OID), ftypmod (type modifier), and fcollation (collation OID)
+
+## Simplified Source
+
+```c
+bool expanded_record_lookup_field(ExpandedRecordHeader *erh, const char *fieldname,
+                                 ExpandedRecordFieldInfo *finfo)
+{
+    TupleDesc tupdesc = expanded_record_get_tupdesc(erh);
+
+    // Search user-defined attributes
+    for (int fno = 0; fno < tupdesc->natts; fno++) {
+        Form_pg_attribute attr = TupleDescAttr(tupdesc, fno);
+        if (namestrcmp(&attr->attname, fieldname) == 0 && !attr->attisdropped) {
+            // Found matching field - populate field info
+            finfo->fnumber = attr->attnum;
+            finfo->ftypeid = attr->atttypid;
+            finfo->ftypmod = attr->atttypmod;
+            finfo->fcollation = attr->attcollation;
+            return true;
+        }
+    }
+
+    // Check system attributes if not found
+    const FormData_pg_attribute *sysattr = SystemAttributeByName(fieldname);
+    if (sysattr != NULL) {
+        // Found system attribute - populate field info
+        finfo->fnumber = sysattr->attnum;
+        finfo->ftypeid = sysattr->atttypid;
+        finfo->ftypmod = sysattr->atttypmod;
+        finfo->fcollation = sysattr->attcollation;
+        return true;
+    }
+
+    return false; // Field not found
+}
+```

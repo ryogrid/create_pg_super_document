@@ -30,3 +30,26 @@ The `has_server_privilege_id_name` function is a PostgreSQL built-in function th
 
 ## Notes and Other Information
 This function is part of PostgreSQL's privilege checking system for foreign servers. It serves as one of the has_*_privilege family of functions that allow checking access permissions programmatically. The function follows the standard PostgreSQL function calling convention using PG_FUNCTION_ARGS and returns a Datum. The actual privilege checking is delegated to the generic object_aclcheck function with ForeignServerRelationId as the object class.
+
+## Simplified Source
+
+```c
+Datum
+has_server_privilege_id_name(PG_FUNCTION_ARGS)
+{
+    Oid         roleid = PG_GETARG_OID(0);
+    text       *servername = PG_GETARG_TEXT_PP(1);
+    text       *priv_type_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert server name to OID
+    Oid serverid = convert_server_name(servername);
+
+    // Convert privilege string to ACL mode
+    AclMode mode = convert_server_priv_string(priv_type_text);
+
+    // Check access permissions
+    AclResult aclresult = object_aclcheck(ForeignServerRelationId, serverid, roleid, mode);
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

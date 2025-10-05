@@ -62,4 +62,77 @@ The returned tuple contains the following fields:
 - The  field is read without holding a spinlock for performance reasons, which means it may not be perfectly consistent with other fields, but this inconsistency is acceptable for monitoring purposes
 - This function is typically used by database administrators to monitor replication lag and connection status in streaming replication setups
 - The function is designed to be safe for concurrent access and provides consistent snapshots of WAL receiver state
-- Located in 
+- Located in
+
+## Simplified Source
+
+```c
+Datum pg_stat_get_wal_receiver(PG_FUNCTION_ARGS) {
+    TupleDesc tupdesc;
+    Datum *values;
+    bool *nulls;
+
+    // Read WAL receiver state under lock
+    SpinLockAcquire(&WalRcv->mutex);
+    int pid = WalRcv->pid;
+    bool ready_to_display = WalRcv->ready_to_display;
+    WalRcvState state = WalRcv->walRcvState;
+    XLogRecPtr receive_start_lsn = WalRcv->receiveStart;
+    TimeLineID receive_start_tli = WalRcv->receiveStartTLI;
+    XLogRecPtr flushed_lsn = WalRcv->flushedUpto;
+    TimeLineID received_tli = WalRcv->receivedTLI;
+    TimestampTz last_send_time = WalRcv->lastMsgSendTime;
+    TimestampTz last_receipt_time = WalRcv->lastMsgReceiptTime;
+    XLogRecPtr latest_end_lsn = WalRcv->latestWalEnd;
+    TimestampTz latest_end_time = WalRcv->latestWalEndTime;
+
+    // Copy string fields
+    char slotname[NAMEDATALEN], sender_host[NI_MAXHOST], conninfo[MAXCONNINFO];
+    strlcpy(slotname, WalRcv->slotname, sizeof(slotname));
+    strlcpy(sender_host, WalRcv->sender_host, sizeof(sender_host));
+    int sender_port = WalRcv->sender_port;
+    strlcpy(conninfo, WalRcv->conninfo, sizeof(conninfo));
+    SpinLockRelease(&WalRcv->mutex);
+
+    // Return NULL if no WAL receiver running
+    if (pid == 0 || !ready_to_display)
+        PG_RETURN_NULL();
+
+    // Read written LSN atomically (may be slightly inconsistent)
+    XLogRecPtr written_lsn = pg_atomic_read_u64(&WalRcv->writtenUpto);
+
+    // Prepare result tuple
+    if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+        elog(ERROR, "return type must be a row type");
+
+    values = palloc0(sizeof(Datum) * tupdesc->natts);
+    nulls = palloc0(sizeof(bool) * tupdesc->natts);
+
+    // Always include PID
+    values[0] = Int32GetDatum(pid);
+
+    // Check privileges for detailed information
+    if (!has_privs_of_role(GetUserId(), ROLE_PG_READ_ALL_STATS)) {
+        // Non-privileged users only get PID
+        memset(&nulls[1], true, sizeof(bool) * (tupdesc->natts - 1));
+    } else {
+        // Populate all fields for privileged users
+        values[1] = CStringGetTextDatum(WalRcvGetStateString(state));
+        values[2] = XLogRecPtrIsInvalid(receive_start_lsn) ? (nulls[2] = true, 0) : LSNGetDatum(receive_start_lsn);
+        values[3] = Int32GetDatum(receive_start_tli);
+        values[4] = XLogRecPtrIsInvalid(written_lsn) ? (nulls[4] = true, 0) : LSNGetDatum(written_lsn);
+        values[5] = XLogRecPtrIsInvalid(flushed_lsn) ? (nulls[5] = true, 0) : LSNGetDatum(flushed_lsn);
+        values[6] = Int32GetDatum(received_tli);
+        values[7] = last_send_time == 0 ? (nulls[7] = true, 0) : TimestampTzGetDatum(last_send_time);
+        values[8] = last_receipt_time == 0 ? (nulls[8] = true, 0) : TimestampTzGetDatum(last_receipt_time);
+        values[9] = XLogRecPtrIsInvalid(latest_end_lsn) ? (nulls[9] = true, 0) : LSNGetDatum(latest_end_lsn);
+        values[10] = latest_end_time == 0 ? (nulls[10] = true, 0) : TimestampTzGetDatum(latest_end_time);
+        values[11] = *slotname == '\0' ? (nulls[11] = true, 0) : CStringGetTextDatum(slotname);
+        values[12] = *sender_host == '\0' ? (nulls[12] = true, 0) : CStringGetTextDatum(sender_host);
+        values[13] = sender_port == 0 ? (nulls[13] = true, 0) : Int32GetDatum(sender_port);
+        values[14] = *conninfo == '\0' ? (nulls[14] = true, 0) : CStringGetTextDatum(conninfo);
+    }
+
+    PG_RETURN_DATUM(HeapTupleGetDatum(heap_form_tuple(tupdesc, values, nulls)));
+}
+``` 

@@ -43,3 +43,45 @@ This function reads previously stored subtransaction information from a file bac
 - The function uses BufFileReadExact for reliable file reading operations
 - Memory allocated here is later freed by cleanup_subxact_info() when the stream completes
 - The implementation handles the case where len > 0 before reading actual subtransaction data
+
+## Simplified Source
+
+```c
+static void subxact_info_read(Oid subid, TransactionId xid) {
+    char path[MAXPGPATH];
+    Size len;
+    BufFile *fd;
+    MemoryContext oldctx;
+
+    Assert(!subxact_data.subxacts);
+    Assert(subxact_data.nsubxacts == 0);
+    Assert(subxact_data.nsubxacts_max == 0);
+
+    // Generate filename and try to open subxact info file
+    subxact_filename(path, subid, xid);
+    fd = BufFileOpenFileSet(MyLogicalRepWorker->stream_fileset, path, O_RDONLY, true);
+
+    // If file doesn't exist, no subxact info available
+    if (fd == NULL)
+        return;
+
+    // Read number of subtransactions
+    BufFileReadExact(fd, &subxact_data.nsubxacts, sizeof(subxact_data.nsubxacts));
+
+    len = sizeof(SubXactInfo) * subxact_data.nsubxacts;
+
+    // Set maximum as power of 2 for efficient memory management
+    subxact_data.nsubxacts_max = 1 << my_log2(subxact_data.nsubxacts);
+
+    // Allocate memory in LogicalStreamingContext
+    oldctx = MemoryContextSwitchTo(LogicalStreamingContext);
+    subxact_data.subxacts = palloc(subxact_data.nsubxacts_max * sizeof(SubXactInfo));
+    MemoryContextSwitchTo(oldctx);
+
+    // Read actual subtransaction data if any exists
+    if (len > 0)
+        BufFileReadExact(fd, subxact_data.subxacts, len);
+
+    BufFileClose(fd);
+}
+```

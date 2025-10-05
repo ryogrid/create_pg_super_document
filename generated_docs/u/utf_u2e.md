@@ -40,3 +40,12 @@ Note that this function may allocate memory via palloc during conversion, which 
 - Wrapper macros are available for scenarios where memory management is critical
 - Located in src/pl/tcl/pltcl.c:79-84
 - Used extensively throughout PL/Tcl for encoding conversions when interfacing with PostgreSQL internals
+
+## Simplified Source
+
+```c
+static inline char *utf_u2e(const char *src) {
+    // Convert UTF-8 string to database server encoding
+    return pg_any_to_server(src, strlen(src), PG_UTF8);
+}
+```

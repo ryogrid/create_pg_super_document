@@ -39,3 +39,26 @@ The function reads text files and returns the content as a PostgreSQL text datum
 - Located in src/backend/utils/adt/genfile.c:301-318
 - Part of PostgreSQL's file reading functionality accessible via SQL
 - The missing_ok parameter provides more flexible error handling compared to the three-parameter variant
+
+## Simplified Source
+
+```c
+Datum
+pg_read_file_off_len_missing(PG_FUNCTION_ARGS)
+{
+    text *filename_t = PG_GETARG_TEXT_PP(0);
+    int64 seek_offset = PG_GETARG_INT64(1);
+    int64 bytes_to_read = PG_GETARG_INT64(2);
+    bool missing_ok = PG_GETARG_BOOL(3);
+    text *ret;
+
+    // Read file using common implementation (not read_to_eof, with missing_ok option)
+    ret = pg_read_file_common(filename_t, seek_offset, bytes_to_read,
+                             false, missing_ok);
+
+    if (!ret)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(ret);
+}
+```

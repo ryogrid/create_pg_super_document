@@ -60,3 +60,46 @@ The parsing process involves multiple stages: first parsing the input string int
 - Error handling includes detailed error messages through DateTimeParseError
 - Used internally by PostgreSQL when converting string literals to time values
 - Supports timezone parsing but ignores timezone information for plain time values
+
+## Simplified Source
+
+```c
+Datum
+time_in(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments
+    char *str = PG_GETARG_CSTRING(0);
+    int32 typmod = PG_GETARG_INT32(2);
+    Node *escontext = fcinfo->context;
+
+    TimeADT result;
+    fsec_t fsec;
+    struct pg_tm tt, *tm = &tt;
+    int tz, nf, dterr;
+    char workbuf[MAXDATELEN + 1];
+    char *field[MAXDATEFIELDS];
+    int dtype, ftype[MAXDATEFIELDS];
+    DateTimeErrorExtra extra;
+
+    // Parse the input string into date/time fields
+    dterr = ParseDateTime(str, workbuf, sizeof(workbuf),
+                         field, ftype, MAXDATEFIELDS, &nf);
+
+    // Decode the fields as time-only values
+    if (dterr == 0)
+        dterr = DecodeTimeOnly(field, ftype, nf,
+                              &dtype, tm, &fsec, &tz, &extra);
+
+    // Handle parsing errors
+    if (dterr != 0) {
+        DateTimeParseError(dterr, &extra, str, "time", escontext);
+        PG_RETURN_NULL();
+    }
+
+    // Convert parsed time to internal format and apply type modifier
+    tm2time(tm, fsec, &result);
+    AdjustTimeForTypmod(&result, typmod);
+
+    PG_RETURN_TIMEADT(result);
+}
+```

@@ -41,3 +41,32 @@ This function is the non-blocking variant of LockRelation. It attempts to acquir
 - Part of PostgreSQL's lock manager subsystem located in src/backend/storage/lmgr/lmgr.c
 - Commonly used in vacuum operations where lock contention should be avoided to prevent blocking other operations
 - The non-blocking behavior makes it suitable for opportunistic locking scenarios
+
+## Simplified Source
+
+```c
+bool ConditionalLockRelation(Relation relation, LOCKMODE lockmode) {
+    LOCKTAG tag;
+    LOCALLOCK *locallock;
+    LockAcquireResult res;
+
+    // Set up lock tag from relation information
+    SET_LOCKTAG_RELATION(tag,
+                         relation->rd_lockInfo.lockRelId.dbId,
+                         relation->rd_lockInfo.lockRelId.relId);
+
+    // Try to acquire lock without waiting
+    res = LockAcquireExtended(&tag, lockmode, false, true, true, &locallock);
+
+    if (res == LOCKACQUIRE_NOT_AVAIL)
+        return false;
+
+    // Handle cache invalidation if lock was acquired
+    if (res != LOCKACQUIRE_ALREADY_CLEAR) {
+        AcceptInvalidationMessages();
+        MarkLockClear(locallock);
+    }
+
+    return true;
+}
+```

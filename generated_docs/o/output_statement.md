@@ -33,3 +33,40 @@ This function is part of the ECPG (Embedded SQL in C) preprocessor and is respon
 - The function outputs both input variables (argsinsert) and result variables (argsresult) to the generated C code
 - Memory management: The function calls free() on the stmt parameter after processing
 - The generated code includes line number information for debugging purposes
+
+## Simplified Source
+
+```c
+void output_statement(char *stmt, int whenever_mode, enum ECPG_statement_type st) {
+    // Generate ECPGdo function call with context information
+    fprintf(base_yyout, "{ ECPGdo(__LINE__, %d, %d, %s, %d, ", compat, force_indicator,
+            connection ? connection : "NULL", questionmarks);
+
+    // Convert prepared normal to normal if auto_prepare is off
+    if (st == ECPGst_prepnormal && !auto_prepare)
+        st = ECPGst_normal;
+
+    // Output statement type
+    fprintf(base_yyout, "%s, ", ecpg_statement_type_name[st]);
+
+    // Handle statement string based on type
+    if (st == ECPGst_execute || st == ECPGst_exec_immediate)
+        fprintf(base_yyout, "%s, ", stmt);
+    else {
+        fputs("\"", base_yyout);
+        output_escaped_str(stmt, false);
+        fputs("\", ", base_yyout);
+    }
+
+    // Output input and result variables
+    dump_variables(argsinsert, 1);
+    fputs("ECPGt_EOIT, ", base_yyout);
+    dump_variables(argsresult, 1);
+    fputs("ECPGt_EORT);", base_yyout);
+    reset_variables();
+
+    // Generate error handling and cleanup
+    whenever_action(whenever_mode | 2);
+    free(stmt);
+}
+```

@@ -41,3 +41,18 @@ The  function serves as a safe wrapper around the standard  function specificall
 - Provides consistent error handling behavior across the entire ECPG codebase for string operations
 - The returned string must be freed using free() when no longer needed
 - Located in  at lines 25-36
+
+## Simplified Source
+
+```c
+char *mm_strdup(const char *string) {
+    // Duplicate the string and check for failure
+    char *new = strdup(string);
+
+    // Terminate program if allocation fails
+    if (new == NULL)
+        mmfatal(OUT_OF_MEMORY, "out of memory");
+
+    return new;
+}
+```

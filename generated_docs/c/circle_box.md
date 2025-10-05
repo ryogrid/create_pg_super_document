@@ -43,3 +43,23 @@ The  function performs a geometric conversion from a CIRCLE to a BOX (rectangula
 - The resulting box has equal width and height (making it a square)
 - Can be called from SQL to convert circle geometric types to box types
 - Memory allocation is handled by PostgreSQL's memory context system
+
+## Simplified Source
+
+```c
+Datum circle_box(PG_FUNCTION_ARGS) {
+    CIRCLE *circle = PG_GETARG_CIRCLE_P(0);
+    BOX *box = (BOX *) palloc(sizeof(BOX));
+
+    // Calculate distance from center to inscribed square edge
+    float8 delta = float8_div(circle->radius, sqrt(2.0));
+
+    // Set box corners: center ± delta for both x and y
+    box->high.x = float8_pl(circle->center.x, delta);
+    box->low.x = float8_mi(circle->center.x, delta);
+    box->high.y = float8_pl(circle->center.y, delta);
+    box->low.y = float8_mi(circle->center.y, delta);
+
+    PG_RETURN_BOX_P(box);
+}
+```

@@ -31,3 +31,15 @@ The function follows the standard PostgreSQL statistics pattern of taking a snap
 - Used primarily by SQL functions that expose WAL statistics to users through system views
 - Part of PostgreSQL's comprehensive statistics collection framework
 - The returned pointer should not be modified as it points to shared statistics data
+
+## Simplified Source
+
+```c
+PgStat_WalStats *pgstat_fetch_stat_wal(void) {
+    // Take a snapshot of WAL statistics
+    pgstat_snapshot_fixed(PGSTAT_KIND_WAL);
+
+    // Return pointer to the local WAL statistics snapshot
+    return &pgStatLocal.snapshot.wal;
+}
+```

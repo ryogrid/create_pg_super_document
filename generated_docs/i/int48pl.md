@@ -36,3 +36,20 @@ This function implements the addition operation for PostgreSQL's integer (int4) 
 - The 32-bit argument is implicitly cast to 64-bit before the addition operation
 - This is the complement to int84pl (bigint + int), handling int + bigint operations
 - Located in src/backend/utils/adt/int8.c:971-984
+
+## Simplified Source
+
+```c
+Datum int48pl(PG_FUNCTION_ARGS) {
+    int32 arg1 = PG_GETARG_INT32(0);  // Get first 32-bit argument
+    int64 arg2 = PG_GETARG_INT64(1);  // Get second 64-bit argument
+    int64 result;
+
+    // Perform addition with overflow check (cast arg1 to 64-bit)
+    if (pg_add_s64_overflow((int64) arg1, arg2, &result))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("bigint out of range")));
+
+    PG_RETURN_INT64(result);
+}
+```

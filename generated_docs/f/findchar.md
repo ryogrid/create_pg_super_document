@@ -38,3 +38,20 @@ The function is primarily used during dictionary file parsing to locate delimite
 - Used specifically in dictionary file parsing where '/' separates words from affix flags
 - More robust than standard strchr() for PostgreSQL's internationalization requirements
 - Part of PostgreSQL's text search infrastructure for processing Ispell/Hunspell dictionaries
+
+## Simplified Source
+
+```c
+static char *
+findchar(char *str, int c)
+{
+    // Search through string for target character
+    while (*str) {
+        if (t_iseq(str, c))     // Compare current char with target
+            return str;         // Found it - return pointer
+        str += pg_mblen(str);   // Advance by multibyte char length
+    }
+
+    return NULL;  // Character not found
+}
+```

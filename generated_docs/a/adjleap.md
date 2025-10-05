@@ -38,3 +38,42 @@ The adjleap function performs post-processing of leap second data within Postgre
 - Adjusts the global hi_time boundary when leap second expiration constrains the valid time range
 - Uses overflow-safe arithmetic functions (tadd, oadd) for robust time calculations
 - Critical for maintaining leap second data integrity and temporal consistency in timezone files
+
+## Simplified Source
+
+```c
+static void adjleap(void) {
+    int i;
+    zic_t last = 0;
+    zic_t prevtrans = 0;
+
+    // Propagate leap seconds forward, validate spacing
+    for (i = 0; i < leapcnt; ++i) {
+        if (trans[i] - prevtrans < 28 * SECSPERDAY) {
+            error(_("Leap seconds too close together"));
+            exit(EXIT_FAILURE);
+        }
+        prevtrans = trans[i];
+        trans[i] = tadd(trans[i], last);    // Add cumulative correction
+        last = corr[i] += last;             // Update correction total
+    }
+
+    // Handle leap expiration settings
+    if (leapexpires < 0) {
+        leapexpires = comment_leapexpires;
+        if (0 <= leapexpires)
+            warning(_("\"#expires\" is obsolescent; use \"Expires\""));
+    }
+
+    // Validate expiration time consistency
+    if (0 <= leapexpires) {
+        leapexpires = oadd(leapexpires, last);
+        if (!(leapcnt == 0 || (trans[leapcnt - 1] < leapexpires))) {
+            error(_("last Leap time does not precede Expires time"));
+            exit(EXIT_FAILURE);
+        }
+        if (leapexpires <= hi_time)
+            hi_time = leapexpires - 1;      // Adjust time boundary
+    }
+}
+```

@@ -41,3 +41,34 @@ The function specifically handles cases where columns or tables might be dropped
 - Checks column-level privileges first, then table-level as fallback
 - Designed to avoid errors in system catalog scanning operations
 - Located in src/backend/utils/adt/acl.c:2538-2577
+
+## Simplified Source
+
+```c
+static int
+column_privilege_check(Oid tableoid, AttrNumber attnum, Oid roleid, AclMode mode)
+{
+    AclResult aclresult;
+    bool is_missing = false;
+
+    // Check for invalid column number
+    if (attnum == InvalidAttrNumber)
+        return -1;
+
+    // Check column-level privileges first
+    aclresult = pg_attribute_aclcheck_ext(tableoid, attnum, roleid, mode, &is_missing);
+    if (aclresult == ACLCHECK_OK)
+        return 1;
+    else if (is_missing)
+        return -1;
+
+    // Fallback to table-level privileges
+    aclresult = pg_class_aclcheck_ext(tableoid, roleid, mode, &is_missing);
+    if (aclresult == ACLCHECK_OK)
+        return 1;
+    else if (is_missing)
+        return -1;
+    else
+        return 0;
+}
+```

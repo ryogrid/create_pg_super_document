@@ -53,3 +53,87 @@ This static function provides the core implementation for extracting various tim
 - Located in src/backend/utils/adt/date.c with other date/time utility functions
 - Comprehensive error handling with appropriate error codes for invalid or unsupported units
 - Special handling for millisecond and second extraction to maintain precision when returning numeric values
+
+## Simplified Source
+
+```c
+static Datum
+timetz_part_common(PG_FUNCTION_ARGS, bool retnumeric)
+{
+	text *units = PG_GETARG_TEXT_PP(0);
+	TimeTzADT *time = PG_GETARG_TIMETZADT_P(1);
+	int64 intresult;
+	int type, val;
+	char *lowunits;
+
+	// Parse the unit specification
+	lowunits = downcase_truncate_identifier(VARDATA_ANY(units), VARSIZE_ANY_EXHDR(units), false);
+	type = DecodeUnits(0, lowunits, &val);
+	if (type == UNKNOWN_FIELD)
+		type = DecodeSpecial(0, lowunits, &val);
+
+	if (type == UNITS) {
+		// Extract time components
+		int tz;
+		fsec_t fsec;
+		struct pg_tm tt, *tm = &tt;
+
+		timetz2tm(time, tm, &fsec, &tz);
+
+		switch (val) {
+			case DTK_TZ:
+				intresult = -tz;  // Timezone offset in seconds
+				break;
+			case DTK_TZ_MINUTE:
+				intresult = (-tz / SECS_PER_MINUTE) % MINS_PER_HOUR;
+				break;
+			case DTK_TZ_HOUR:
+				intresult = -tz / SECS_PER_HOUR;
+				break;
+			case DTK_MICROSEC:
+				intresult = tm->tm_sec * INT64CONST(1000000) + fsec;
+				break;
+			case DTK_MILLISEC:
+				if (retnumeric)
+					PG_RETURN_NUMERIC(int64_div_fast_to_numeric(tm->tm_sec * INT64CONST(1000000) + fsec, 3));
+				else
+					PG_RETURN_FLOAT8(tm->tm_sec * 1000.0 + fsec / 1000.0);
+				break;
+			case DTK_SECOND:
+				if (retnumeric)
+					PG_RETURN_NUMERIC(int64_div_fast_to_numeric(tm->tm_sec * INT64CONST(1000000) + fsec, 6));
+				else
+					PG_RETURN_FLOAT8(tm->tm_sec + fsec / 1000000.0);
+				break;
+			case DTK_MINUTE:
+				intresult = tm->tm_min;
+				break;
+			case DTK_HOUR:
+				intresult = tm->tm_hour;
+				break;
+			default:
+				// Unsupported units for TIMETZ
+				ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+						errmsg("unit \"%s\" not supported for type %s", lowunits, format_type_be(TIMETZOID))));
+				intresult = 0;
+		}
+	} else if (type == RESERV && val == DTK_EPOCH) {
+		// Epoch extraction
+		if (retnumeric)
+			PG_RETURN_NUMERIC(int64_div_fast_to_numeric(time->time + time->zone * INT64CONST(1000000), 6));
+		else
+			PG_RETURN_FLOAT8(time->time / 1000000.0 + time->zone);
+	} else {
+		// Invalid unit
+		ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+				errmsg("unit \"%s\" not recognized for type %s", lowunits, format_type_be(TIMETZOID))));
+		intresult = 0;
+	}
+
+	// Return result as numeric or float8
+	if (retnumeric)
+		PG_RETURN_NUMERIC(int64_to_numeric(intresult));
+	else
+		PG_RETURN_FLOAT8(intresult);
+}
+```

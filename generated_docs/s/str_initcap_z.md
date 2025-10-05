@@ -31,3 +31,11 @@ This function is part of PostgreSQL's internal formatting utilities and provides
 - Part of a family of convenience functions for string case conversion in PostgreSQL's formatting system
 - Supports collation-aware conversion for proper locale handling
 - Completes the trio of null-terminated string convenience wrappers along with str_tolower_z and str_toupper_z
+
+## Simplified Source
+
+```c
+static char *str_initcap_z(const char *buff, Oid collid) {
+    return str_initcap(buff, strlen(buff), collid);
+}
+```

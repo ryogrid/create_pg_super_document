@@ -41,3 +41,51 @@ The function handles the complete parsing workflow: initializing the scanner, pa
 - If the new value is NULL or empty string, sets *extra to NULL and returns true (allowing empty configuration)
 - Validates that num_sync (number of synchronous standbys) is greater than zero
 - This is part of the GUC hook system that ensures configuration changes are validated before being applied
+
+## Simplified Source
+
+```c
+bool check_synchronous_standby_names(char **newval, void **extra, GucSource source) {
+    // Handle empty/NULL configuration
+    if (*newval == NULL || (*newval)[0] == '\0') {
+        *extra = NULL;
+        return true;
+    }
+
+    // Parse the configuration string
+    syncrep_parse_result = NULL;
+    syncrep_parse_error_msg = NULL;
+
+    syncrep_scanner_init(*newval);
+    int parse_rc = syncrep_yyparse();
+    syncrep_scanner_finish();
+
+    // Check parsing result
+    if (parse_rc != 0 || syncrep_parse_result == NULL) {
+        GUC_check_errcode(ERRCODE_SYNTAX_ERROR);
+        if (syncrep_parse_error_msg)
+            GUC_check_errdetail("%s", syncrep_parse_error_msg);
+        else
+            GUC_check_errdetail("\"synchronous_standby_names\" parser failed");
+        return false;
+    }
+
+    // Validate number of synchronous standbys
+    if (syncrep_parse_result->num_sync <= 0) {
+        GUC_check_errmsg("number of synchronous standbys (%d) must be greater than zero",
+                         syncrep_parse_result->num_sync);
+        return false;
+    }
+
+    // Allocate and store validated configuration
+    SyncRepConfigData *pconf = (SyncRepConfigData *)
+        guc_malloc(LOG, syncrep_parse_result->config_size);
+    if (pconf == NULL)
+        return false;
+
+    memcpy(pconf, syncrep_parse_result, syncrep_parse_result->config_size);
+    *extra = (void *) pconf;
+
+    return true;
+}
+```

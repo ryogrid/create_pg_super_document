@@ -38,3 +38,22 @@ This function is part of the pg_combinebackup utility's reconstruction module, s
 - Two types of errors are handled: system-level read errors (errno-based) and incomplete reads
 - The function is designed for binary file operations where exact byte counts are critical
 - Used primarily in backup reconstruction scenarios where data integrity is paramount
+
+## Simplified Source
+
+```c
+static void read_bytes(rfile *rf, void *buffer, unsigned length) {
+    // Read the requested number of bytes from file
+    int bytes_read = read(rf->fd, buffer, length);
+
+    // Ensure we read exactly the expected amount
+    if (bytes_read != length) {
+        if (bytes_read < 0) {
+            pg_fatal("could not read file \"%s\": %m", rf->filename);
+        } else {
+            pg_fatal("could not read file \"%s\": read %d of %u",
+                     rf->filename, bytes_read, length);
+        }
+    }
+}
+```

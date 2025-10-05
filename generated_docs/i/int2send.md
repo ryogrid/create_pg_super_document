@@ -36,3 +36,18 @@ int2send is a PostgreSQL send function that handles binary output conversion for
 - The pq_begintypsend/pq_endtypsend pair handles proper message framing
 - The function follows PostgreSQL's standard function calling convention using PG_FUNCTION_ARGS
 - Works in conjunction with int2recv for bidirectional binary conversion
+
+## Simplified Source
+
+```c
+Datum
+int2send(PG_FUNCTION_ARGS)
+{
+    int16 arg1 = PG_GETARG_INT16(0);
+    StringInfoData buf;
+
+    pq_begintypsend(&buf);
+    pq_sendint16(&buf, arg1);
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

@@ -40,3 +40,30 @@ The function uses the same key lookup mechanism as jsonb_object_field but conver
 - Handles JSON null values explicitly by checking v->type != jbvNull before conversion
 - The function handles both regular and short-header text values through VARDATA_ANY and VARSIZE_ANY_EXHDR macros
 - Located in src/backend/utils/adt/jsonfuncs.c:898-919
+
+## Simplified Source
+
+```c
+Datum jsonb_object_field_text(PG_FUNCTION_ARGS) {
+    // Extract JSONB and key from arguments
+    Jsonb *jb = PG_GETARG_JSONB_P(0);
+    text *key = PG_GETARG_TEXT_PP(1);
+
+    // Ensure input is an object
+    if (!JB_ROOT_IS_OBJECT(jb))
+        PG_RETURN_NULL();
+
+    // Search for the key in the JSONB container
+    JsonbValue vbuf;
+    JsonbValue *v = getKeyJsonValueFromContainer(&jb->root,
+                                                VARDATA_ANY(key),
+                                                VARSIZE_ANY_EXHDR(key),
+                                                &vbuf);
+
+    // Return text value if found and not null, NULL otherwise
+    if (v != NULL && v->type != jbvNull)
+        PG_RETURN_TEXT_P(JsonbValueAsText(v));
+
+    PG_RETURN_NULL();
+}
+```

@@ -35,3 +35,31 @@ pgwin32_connect is a sophisticated wrapper around the Windows WSAConnect() funct
 - Uses WSAConnect() instead of the standard connect() function for enhanced Windows functionality
 - The waiting loop continues indefinitely while signals are being delivered, ensuring proper signal handling
 - Returns 0 on success, -1 on error after proper error translation
+
+## Simplified Source
+
+```c
+int
+pgwin32_connect(SOCKET s, const struct sockaddr *addr, int addrlen)
+{
+    int r;
+
+    // Attempt connection using Windows socket API
+    r = WSAConnect(s, addr, addrlen, NULL, NULL, NULL, NULL);
+    if (r == 0)
+        return 0;  // Connection succeeded immediately
+
+    // Handle non-blocking connection
+    if (WSAGetLastError() != WSAEWOULDBLOCK) {
+        TranslateSocketError();
+        return -1;
+    }
+
+    // Wait for connection to complete, allowing signal delivery
+    while (pgwin32_waitforsinglesocket(s, FD_CONNECT, INFINITE) == 0) {
+        // Continue waiting while signals are delivered
+    }
+
+    return 0;
+}
+```

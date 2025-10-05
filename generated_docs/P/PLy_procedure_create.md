@@ -42,3 +42,119 @@ This comprehensive function constructs a complete PLyProcedure object from Postg
 - Uses exception-safe patterns to ensure cleanup on compilation errors
 - The procedure name format is '__plpython_procedure_[original_name]_[oid]' for uniqueness
 - Critical for transforming PostgreSQL function definitions into executable Python procedures
+
+## Simplified Source
+
+```c
+static PLyProcedure *PLy_procedure_create(HeapTuple procTup, Oid fn_oid, bool is_trigger) {
+    char procName[NAMEDATALEN + 256];
+    Form_pg_proc procStruct;
+    PLyProcedure *proc;
+    MemoryContext cxt, oldcxt;
+    char *ptr;
+
+    procStruct = (Form_pg_proc) GETSTRUCT(procTup);
+
+    // Generate unique Python function name
+    snprintf(procName, sizeof(procName), "__plpython_procedure_%s_%u",
+             NameStr(procStruct->proname), fn_oid);
+
+    // Replace non-Python-safe characters with underscores
+    for (ptr = procName; *ptr; ptr++) {
+        if (!((*ptr >= 'A' && *ptr <= 'Z') ||
+              (*ptr >= 'a' && *ptr <= 'z') ||
+              (*ptr >= '0' && *ptr <= '9')))
+            *ptr = '_';
+    }
+
+    // Create dedicated memory context for this procedure
+    cxt = AllocSetContextCreate(TopMemoryContext, "PL/Python function",
+                                ALLOCSET_DEFAULT_SIZES);
+    oldcxt = MemoryContextSwitchTo(cxt);
+
+    proc = (PLyProcedure *) palloc0(sizeof(PLyProcedure));
+    proc->mcxt = cxt;
+
+    PG_TRY(); {
+        // Set basic procedure properties
+        proc->proname = pstrdup(NameStr(procStruct->proname));
+        proc->pyname = pstrdup(procName);
+        proc->fn_xmin = HeapTupleHeaderGetRawXmin(procTup->t_data);
+        proc->fn_tid = procTup->t_self;
+        proc->is_trigger = is_trigger;
+        proc->is_setof = procStruct->proretset;
+
+        // Setup return type conversion for non-trigger functions
+        if (!is_trigger) {
+            Oid rettype = procStruct->prorettype;
+            HeapTuple rvTypeTup = SearchSysCache1(TYPEOID, ObjectIdGetDatum(rettype));
+
+            // Validate return type (reject most pseudotypes)
+            Form_pg_type rvTypeStruct = (Form_pg_type) GETSTRUCT(rvTypeTup);
+            if (rvTypeStruct->typtype == TYPTYPE_PSEUDO) {
+                if (!(rettype == VOIDOID || rettype == RECORDOID))
+                    ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                            errmsg("PL/Python functions cannot return type %s",
+                                   format_type_be(rettype))));
+            }
+
+            PLy_output_setup_func(&proc->result, proc->mcxt, rettype, -1, proc);
+            ReleaseSysCache(rvTypeTup);
+        }
+
+        // Setup input argument conversion
+        if (procStruct->pronargs) {
+            Oid *types;
+            char **names, *modes;
+            int total = get_func_arg_info(procTup, &types, &names, &modes);
+
+            // Count input arguments (exclude OUT parameters)
+            proc->nargs = 0;
+            for (int i = 0; i < total; i++) {
+                if (!modes || (modes[i] != PROARGMODE_OUT && modes[i] != PROARGMODE_TABLE))
+                    (proc->nargs)++;
+            }
+
+            // Setup conversion for each input argument
+            proc->argnames = (char **) palloc0(sizeof(char *) * proc->nargs);
+            proc->args = (PLyDatumToOb *) palloc0(sizeof(PLyDatumToOb) * proc->nargs);
+
+            for (int i = 0, pos = 0; i < total; i++) {
+                if (modes && (modes[i] == PROARGMODE_OUT || modes[i] == PROARGMODE_TABLE))
+                    continue; // Skip OUT arguments
+
+                // Validate argument type
+                HeapTuple argTypeTup = SearchSysCache1(TYPEOID, ObjectIdGetDatum(types[i]));
+                Form_pg_type argTypeStruct = (Form_pg_type) GETSTRUCT(argTypeTup);
+
+                if (argTypeStruct->typtype == TYPTYPE_PSEUDO)
+                    ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                            errmsg("PL/Python functions cannot accept type %s",
+                                   format_type_be(types[i]))));
+
+                PLy_input_setup_func(&proc->args[pos], proc->mcxt, types[i], -1, proc);
+                proc->argnames[pos] = names ? pstrdup(names[i]) : NULL;
+
+                ReleaseSysCache(argTypeTup);
+                pos++;
+            }
+        }
+
+        // Get function source and compile it
+        Datum prosrcdatum = SysCacheGetAttrNotNull(PROCOID, procTup, Anum_pg_proc_prosrc);
+        char *procSource = TextDatumGetCString(prosrcdatum);
+
+        PLy_procedure_compile(proc, procSource);
+        pfree(procSource);
+    }
+    PG_CATCH(); {
+        MemoryContextSwitchTo(oldcxt);
+        PLy_procedure_delete(proc);
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    MemoryContextSwitchTo(oldcxt);
+    return proc;
+}
+```

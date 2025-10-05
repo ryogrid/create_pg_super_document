@@ -34,3 +34,28 @@ This function iterates through the local lock hash table and releases all sessio
 - The function performs bounds checking on the lock method ID and will throw an error for invalid values
 - Only processes locks that match the specified lock method, ignoring others during the hash table scan
 - The session parameter (true) passed to ReleaseLockIfHeld indicates these are session-level locks rather than transaction-level locks
+
+## Simplified Source
+```c
+void LockReleaseSession(LOCKMETHODID lockmethodid)
+{
+    HASH_SEQ_STATUS status;
+    LOCALLOCK *locallock;
+
+    // Validate lock method ID
+    if (lockmethodid <= 0 || lockmethodid >= lengthof(LockMethods))
+        elog(ERROR, "unrecognized lock method: %d", lockmethodid);
+
+    // Scan through all local locks
+    hash_seq_init(&status, LockMethodLocalHash);
+
+    while ((locallock = (LOCALLOCK *) hash_seq_search(&status)) != NULL) {
+        // Skip locks not matching our lock method
+        if (LOCALLOCK_LOCKMETHOD(*locallock) != lockmethodid)
+            continue;
+
+        // Release this session lock
+        ReleaseLockIfHeld(locallock, true);
+    }
+}
+```

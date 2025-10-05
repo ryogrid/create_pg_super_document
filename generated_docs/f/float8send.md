@@ -41,3 +41,20 @@ The function creates a StringInfo buffer, writes the float8 value in network byt
 - Returns bytea format suitable for network transmission
 - Enables efficient transfer of float8 values without text conversion overhead
 - Used by PostgreSQL client libraries when binary protocol is enabled
+
+## Simplified Source
+
+```c
+Datum
+float8send(PG_FUNCTION_ARGS)
+{
+    // Get the float8 input value
+    float8 num = PG_GETARG_FLOAT8(0);
+    StringInfoData buf;
+
+    // Create binary representation
+    pq_begintypsend(&buf);         // Initialize buffer
+    pq_sendfloat8(&buf, num);      // Write float8 in binary format
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));  // Return binary data
+}
+```

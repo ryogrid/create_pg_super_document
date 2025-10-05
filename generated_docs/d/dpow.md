@@ -56,3 +56,97 @@ The function uses the standard C library pow() function but adds extensive Postg
 - Handles all infinity and NaN cases explicitly rather than relying on platform pow() behavior
 - Includes extensive commentary explaining the rationale for various edge case handling
 - Follows standard PostgreSQL function conventions for SQL-callable functions
+
+## Simplified Source
+
+```c
+Datum dpow(PG_FUNCTION_ARGS) {
+    // Extract base and exponent arguments
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float8 arg2 = PG_GETARG_FLOAT8(1);
+    float8 result;
+
+    // Handle NaN cases per POSIX (NaN^0 = 1, 1^NaN = 1)
+    if (isnan(arg1)) {
+        if (isnan(arg2) || arg2 != 0.0)
+            PG_RETURN_FLOAT8(get_float8_nan());
+        PG_RETURN_FLOAT8(1.0);
+    }
+    if (isnan(arg2)) {
+        if (arg1 != 1.0)
+            PG_RETURN_FLOAT8(get_float8_nan());
+        PG_RETURN_FLOAT8(1.0);
+    }
+
+    // Domain validation
+    if (arg1 == 0 && arg2 < 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_ARGUMENT_FOR_POWER_FUNCTION),
+                       errmsg("zero raised to a negative power is undefined")));
+    if (arg1 < 0 && floor(arg2) != arg2)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_ARGUMENT_FOR_POWER_FUNCTION),
+                       errmsg("a negative number raised to a non-integer power yields a complex result")));
+
+    // Handle infinity cases
+    if (isinf(arg2)) {
+        float8 absx = fabs(arg1);
+        if (absx == 1.0)
+            result = 1.0;
+        else if (arg2 > 0.0)
+            result = (absx > 1.0) ? arg2 : 0.0;
+        else
+            result = (absx > 1.0) ? 0.0 : -arg2;
+    }
+    else if (isinf(arg1)) {
+        // Handle +/-Inf base cases
+        if (arg2 == 0.0)
+            result = 1.0;
+        else if (arg1 > 0.0)
+            result = (arg2 > 0.0) ? arg1 : 0.0;
+        else {
+            // Handle sign for negative infinity base
+            float8 halfy = arg2 / 2;
+            bool yisoddinteger = (floor(halfy) != halfy);
+            if (arg2 > 0.0)
+                result = yisoddinteger ? arg1 : -arg1;
+            else
+                result = yisoddinteger ? -0.0 : 0.0;
+        }
+    }
+    else {
+        // Standard pow() with comprehensive error checking
+        errno = 0;
+        result = pow(arg1, arg2);
+
+        // Handle various error conditions and platform bugs
+        if (errno == EDOM || isnan(result)) {
+            // Handle large exponent case
+            if (arg1 == 0.0)
+                result = 0.0;
+            else {
+                float8 absx = fabs(arg1);
+                if (absx == 1.0)
+                    result = 1.0;
+                else if (arg2 >= 0.0 ? (absx > 1.0) : (absx < 1.0))
+                    float_overflow_error();
+                else
+                    float_underflow_error();
+            }
+        }
+        else if (errno == ERANGE) {
+            if (result != 0.0)
+                float_overflow_error();
+            else
+                float_underflow_error();
+        }
+        else {
+            // Final overflow/underflow checks
+            if (unlikely(isinf(result)))
+                float_overflow_error();
+            if (unlikely(result == 0.0) && arg1 != 0.0)
+                float_underflow_error();
+        }
+    }
+
+    PG_RETURN_FLOAT8(result);
+}
+```

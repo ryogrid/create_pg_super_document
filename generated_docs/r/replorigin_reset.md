@@ -47,3 +47,16 @@ Global variables modified:
 - Simple but essential for proper resource cleanup in logical replication infrastructure
 - The function parameters follow the standard PostgreSQL exit callback pattern but are not utilized in this specific implementation
 - Ensures that global replication origin tracking variables return to a clean state upon worker termination
+
+## Simplified Source
+
+```c
+static void
+replorigin_reset(int code, Datum arg)
+{
+    // Reset replication origin session state to initial values
+    replorigin_session_origin = InvalidRepOriginId;
+    replorigin_session_origin_lsn = InvalidXLogRecPtr;
+    replorigin_session_origin_timestamp = 0;
+}
+```

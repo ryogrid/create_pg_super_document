@@ -40,3 +40,29 @@ This function computes the distance between two lines using geometric principles
 - Uses robust floating-point arithmetic with NaN checking for numerical stability
 - Part of PostgreSQLs geometric data type operations for LINE distance calculations
 - The distance calculation uses the point-to-line distance formula adapted for line-to-line distance
+
+## Simplified Source
+
+```c
+Datum line_distance(PG_FUNCTION_ARGS) {
+    LINE *l1 = PG_GETARG_LINE_P(0);
+    LINE *l2 = PG_GETARG_LINE_P(1);
+    float8 ratio;
+
+    // If lines intersect, distance is 0
+    if (line_interpt_line(NULL, l1, l2))
+        PG_RETURN_FLOAT8(0.0);
+
+    // Calculate coefficient ratio for parallel lines
+    if (!FPzero(l1->A) && !isnan(l1->A) && !FPzero(l2->A) && !isnan(l2->A))
+        ratio = float8_div(l1->A, l2->A);
+    else if (!FPzero(l1->B) && !isnan(l1->B) && !FPzero(l2->B) && !isnan(l2->B))
+        ratio = float8_div(l1->B, l2->B);
+    else
+        ratio = 1.0;
+
+    // Return perpendicular distance: |C1 - ratio*C2| / sqrt(A^2 + B^2)
+    PG_RETURN_FLOAT8(float8_div(fabs(float8_mi(l1->C, float8_mul(ratio, l2->C))),
+                                HYPOT(l1->A, l1->B)));
+}
+```

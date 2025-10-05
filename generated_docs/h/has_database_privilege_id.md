@@ -41,3 +41,31 @@ This PostgreSQL function implements the most efficient variant of the has_databa
 - The is_missing flag allows proper NULL return when the database doesn't exist
 - Ideal for internal PostgreSQL code that already has database OIDs available
 - Located in src/backend/utils/adt/acl.c:3070-3097
+
+## Simplified Source
+
+```c
+Datum
+has_database_privilege_id(PG_FUNCTION_ARGS)
+{
+    Oid database_oid = PG_GETARG_OID(0);
+    text *privilege_text = PG_GETARG_TEXT_PP(1);
+
+    // Use current user's OID
+    Oid role_oid = GetUserId();
+
+    // Convert privilege string to internal mode
+    AclMode privilege_mode = convert_database_priv_string(privilege_text);
+
+    // Check privilege, handling missing database
+    bool is_missing = false;
+    AclResult result = object_aclcheck_ext(DatabaseRelationId, database_oid,
+                                         role_oid, privilege_mode, &is_missing);
+
+    // Return NULL if database doesn't exist, otherwise return privilege check result
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(result == ACLCHECK_OK);
+}
+```

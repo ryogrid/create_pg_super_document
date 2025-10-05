@@ -31,3 +31,15 @@ This function provides access to the contents of PostgreSQL's logical replicatio
 - [Snapshot](../S/Snapshot.md) files in this directory are created and managed by logical replication slots
 - Part of PostgreSQL's administrative function suite for logical replication management
 - Useful for database administrators managing logical replication setups and monitoring replication slot states
+
+## Simplified Source
+
+```c
+Datum
+pg_ls_logicalsnapdir(PG_FUNCTION_ARGS)
+{
+    // List files in the logical replication snapshots directory
+    // Contains snapshot files for logical replication consistency
+    return pg_ls_dir_files(fcinfo, "pg_logical/snapshots", false);
+}
+```

@@ -42,3 +42,50 @@ The function respects the read-only status of the current procedure context and 
 - Provides detailed error messages including SPI result codes when execution fails
 - Does not support parameterized queries - parameters must be embedded in the query string
 - Memory management is handled through the subtransaction mechanism
+
+## Simplified Source
+
+```c
+static PyObject *PLy_spi_execute_query(char *query, long limit) {
+    // Set up subtransaction for atomic execution
+    volatile MemoryContext oldcontext = CurrentMemoryContext;
+    volatile ResourceOwner oldowner = CurrentResourceOwner;
+    PLy_spi_subtransaction_begin(oldcontext, oldowner);
+
+    PyObject *ret = NULL;
+
+    PG_TRY();
+    {
+        // Get current execution context to check read-only status
+        PLyExecutionContext *exec_ctx = PLy_current_execution_context();
+
+        // Validate query string encoding
+        pg_verifymbstr(query, strlen(query), false);
+
+        // Execute the SQL query through SPI
+        int rv = SPI_execute(query, exec_ctx->curr_proc->fn_readonly, limit);
+
+        // Process results into Python objects
+        ret = PLy_spi_execute_fetch_result(SPI_tuptable, SPI_processed, rv);
+
+        PLy_spi_subtransaction_commit(oldcontext, oldowner);
+    }
+    PG_CATCH();
+    {
+        // Abort subtransaction on error
+        PLy_spi_subtransaction_abort(oldcontext, oldowner);
+        return NULL;
+    }
+    PG_END_TRY();
+
+    // Check for SPI execution errors
+    if (rv < 0) {
+        Py_XDECREF(ret);
+        PLy_exception_set(PLy_exc_spi_error, "SPI_execute failed: %s",
+                          SPI_result_code_string(rv));
+        return NULL;
+    }
+
+    return ret;
+}
+```

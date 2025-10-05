@@ -39,3 +39,60 @@ For float8 ORDER BY types, the function directly stores the distance value. For 
 - Only supports conversion to float8 and float4 ORDER BY types; other types result in NULL unless recheck is required
 - The recheck mechanism allows for handling of lossy distance calculations where exact ordering verification is needed
 - Essential for implementing nearest-neighbor queries and distance-based ordering in spatial and other specialized indexes
+
+## Simplified Source
+
+```c
+void
+index_store_float8_orderby_distances(IndexScanDesc scan, Oid *orderByTypes,
+                                     IndexOrderByDistance *distances,
+                                     bool recheckOrderBy)
+{
+    Assert(distances || !recheckOrderBy);
+    scan->xs_recheckorderby = recheckOrderBy;
+
+    // Process each ORDER BY expression
+    for (int i = 0; i < scan->numberOfOrderBys; i++)
+    {
+        if (orderByTypes[i] == FLOAT8OID)
+        {
+            // Handle float8 ORDER BY type
+#ifndef USE_FLOAT8_BYVAL
+            if (!scan->xs_orderbynulls[i])
+                pfree(DatumGetPointer(scan->xs_orderbyvals[i]));  // Free old value
+#endif
+            if (distances && !distances[i].isnull)
+            {
+                scan->xs_orderbyvals[i] = Float8GetDatum(distances[i].value);
+                scan->xs_orderbynulls[i] = false;
+            }
+            else
+            {
+                scan->xs_orderbyvals[i] = (Datum) 0;
+                scan->xs_orderbynulls[i] = true;
+            }
+        }
+        else if (orderByTypes[i] == FLOAT4OID)
+        {
+            // Handle float4 ORDER BY type - convert from float8
+            if (distances && !distances[i].isnull)
+            {
+                scan->xs_orderbyvals[i] = Float4GetDatum((float4) distances[i].value);
+                scan->xs_orderbynulls[i] = false;
+            }
+            else
+            {
+                scan->xs_orderbyvals[i] = (Datum) 0;
+                scan->xs_orderbynulls[i] = true;
+            }
+        }
+        else
+        {
+            // For other types, only NULL values are supported
+            if (scan->xs_recheckorderby)
+                elog(ERROR, "ORDER BY operator must return float8 or float4 if the distance function is lossy");
+            scan->xs_orderbynulls[i] = true;
+        }
+    }
+}
+```

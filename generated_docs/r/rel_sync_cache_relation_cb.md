@@ -77,3 +77,35 @@ The function uses a conservative approach - it only marks entries as invalid rat
 - Handles both specific relation invalidation and global cache flushes
 - Can receive invalidations for relations not in the cache, which is considered normal behavior
 - Invalidation events can occur during syscache access within other logical decoding callbacks
+
+## Simplified Source
+
+```c
+static void
+rel_sync_cache_relation_cb(Datum arg, Oid relid)
+{
+    RelationSyncEntry *entry;
+
+    // Early exit if cache doesn't exist
+    if (RelationSyncCache == NULL)
+        return;
+
+    if (OidIsValid(relid))
+    {
+        // Invalidate specific relation entry
+        entry = hash_search(RelationSyncCache, &relid, HASH_FIND, NULL);
+        if (entry != NULL)
+            entry->replicate_valid = false;
+    }
+    else
+    {
+        // Invalidate entire cache
+        HASH_SEQ_STATUS status;
+        hash_seq_init(&status, RelationSyncCache);
+        while ((entry = hash_seq_search(&status)) != NULL)
+        {
+            entry->replicate_valid = false;
+        }
+    }
+}
+```

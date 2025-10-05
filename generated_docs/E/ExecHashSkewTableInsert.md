@@ -49,3 +49,48 @@ The function matches the behavior of the current-batch case in ExecHashTableInse
 - Includes assertion to prevent circular references in the linked list
 - Handles both owned and borrowed MinimalTuple scenarios with shouldFree flag
 - Space tracking includes both the HashJoinTuple overhead and the actual tuple data size
+
+## Simplified Source
+```c
+static void ExecHashSkewTableInsert(HashJoinTable hashtable,
+                                    TupleTableSlot *slot,
+                                    uint32 hashvalue,
+                                    int bucketNumber)
+{
+    // Extract tuple from slot
+    bool shouldFree;
+    MinimalTuple tuple = ExecFetchSlotMinimalTuple(slot, &shouldFree);
+
+    // Create HashJoinTuple wrapper
+    int hashTupleSize = HJTUPLE_OVERHEAD + tuple->t_len;
+    HashJoinTuple hashTuple = (HashJoinTuple)
+        MemoryContextAlloc(hashtable->batchCxt, hashTupleSize);
+
+    // Store hash value and copy tuple data
+    hashTuple->hashvalue = hashvalue;
+    memcpy(HJTUPLE_MINTUPLE(hashTuple), tuple, tuple->t_len);
+    HeapTupleHeaderClearMatch(HJTUPLE_MINTUPLE(hashTuple));
+
+    // Insert at front of skew bucket list
+    hashTuple->next.unshared = hashtable->skewBucket[bucketNumber]->tuples;
+    hashtable->skewBucket[bucketNumber]->tuples = hashTuple;
+
+    // Update space tracking
+    hashtable->spaceUsed += hashTupleSize;
+    hashtable->spaceUsedSkew += hashTupleSize;
+    if (hashtable->spaceUsed > hashtable->spacePeak)
+        hashtable->spacePeak = hashtable->spaceUsed;
+
+    // Remove skew buckets if over skew limit
+    while (hashtable->spaceUsedSkew > hashtable->spaceAllowedSkew)
+        ExecHashRemoveNextSkewBucket(hashtable);
+
+    // Increase batches if over total limit
+    if (hashtable->spaceUsed > hashtable->spaceAllowed)
+        ExecHashIncreaseNumBatches(hashtable);
+
+    // Clean up temporary tuple if needed
+    if (shouldFree)
+        heap_free_minimal_tuple(tuple);
+}
+```

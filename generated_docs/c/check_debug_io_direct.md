@@ -51,3 +51,72 @@ For platforms without direct I/O support, the parameter must be empty. The funct
 - Critical for ensuring safe direct I/O configuration
 - Part of PostgreSQL's comprehensive I/O configuration system
 - Used primarily for testing and performance analysis scenarios
+
+## Simplified Source
+
+```c
+bool check_debug_io_direct(char **newval, void **extra, GucSource source) {
+    bool result = true;
+    int flags = 0;
+
+#if PG_O_DIRECT == 0
+    // Platform doesn't support direct I/O
+    if (strcmp(*newval, "") != 0) {
+        GUC_check_errdetail("\"debug_io_direct\" is not supported on this platform.");
+        return false;
+    }
+#else
+    // Parse comma-separated list of options
+    char *rawstring = pstrdup(*newval);
+    List *elemlist;
+
+    if (!SplitGUCList(rawstring, ',', &elemlist)) {
+        GUC_check_errdetail("Invalid list syntax in parameter \"debug_io_direct\"");
+        pfree(rawstring);
+        list_free(elemlist);
+        return false;
+    }
+
+    // Process each option in the list
+    ListCell *l;
+    foreach(l, elemlist) {
+        char *item = (char *) lfirst(l);
+
+        if (pg_strcasecmp(item, "data") == 0)
+            flags |= IO_DIRECT_DATA;
+        else if (pg_strcasecmp(item, "wal") == 0)
+            flags |= IO_DIRECT_WAL;
+        else if (pg_strcasecmp(item, "wal_init") == 0)
+            flags |= IO_DIRECT_WAL_INIT;
+        else {
+            GUC_check_errdetail("Invalid option \"%s\"", item);
+            result = false;
+            break;
+        }
+    }
+
+    // Check block size compatibility with direct I/O alignment
+    if (result && (flags & (IO_DIRECT_WAL | IO_DIRECT_WAL_INIT)) &&
+        XLOG_BLCKSZ < PG_IO_ALIGN_SIZE) {
+        GUC_check_errdetail("\"debug_io_direct\" is not supported for WAL because XLOG_BLCKSZ is too small");
+        result = false;
+    }
+
+    if (result && (flags & IO_DIRECT_DATA) && BLCKSZ < PG_IO_ALIGN_SIZE) {
+        GUC_check_errdetail("\"debug_io_direct\" is not supported for data because BLCKSZ is too small");
+        result = false;
+    }
+
+    pfree(rawstring);
+    list_free(elemlist);
+#endif
+
+    if (result) {
+        // Store parsed flags for assign function
+        *extra = guc_malloc(ERROR, sizeof(int));
+        *((int *) *extra) = flags;
+    }
+
+    return result;
+}
+```

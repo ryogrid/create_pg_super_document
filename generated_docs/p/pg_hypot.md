@@ -55,3 +55,42 @@ This function implements a numerically stable algorithm to compute the hypotenus
 - The IEEE compliance ensures consistent behavior with hypot(inf,nan) returning INF rather than NaN
 - Part of PostgreSQL's geometric operations infrastructure in geo_ops.c
 - Uses float8 type which is PostgreSQL's double-precision floating-point type
+
+## Simplified Source
+
+```c
+float8 pg_hypot(float8 x, float8 y) {
+    // Handle special IEEE values
+    if (isinf(x) || isinf(y))
+        return get_float8_infinity();
+    if (isnan(x) || isnan(y))
+        return get_float8_nan();
+
+    // Work with absolute values
+    x = fabs(x);
+    y = fabs(y);
+
+    // Ensure x >= y for numerical stability
+    if (x < y) {
+        float8 temp = x;
+        x = y;
+        y = temp;
+    }
+
+    // Handle zero case
+    if (y == 0.0)
+        return x;
+
+    // Use numerically stable formula: x * sqrt(1 + (y/x)²)
+    float8 yx = y / x;
+    float8 result = x * sqrt(1.0 + (yx * yx));
+
+    // Check for overflow/underflow
+    if (unlikely(isinf(result)))
+        float_overflow_error();
+    if (unlikely(result == 0.0))
+        float_underflow_error();
+
+    return result;
+}
+```

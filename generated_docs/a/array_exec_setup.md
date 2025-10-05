@@ -48,3 +48,48 @@ This function serves as the setup phase for array subscript operations within Po
 - Validates that upper and lower index lists have matching lengths for slice operations  
 - Central dispatching function that routes to element vs. slice-specific implementations
 - Part of PostgreSQL's pluggable subscripting framework architecture
+
+## Simplified Source
+
+```c
+static void array_exec_setup(const SubscriptingRef *sbsref,
+                             SubscriptingRefState *sbsrefstate,
+                             SubscriptExecSteps *methods)
+{
+    bool is_slice = (sbsrefstate->numlower != 0);
+    ArraySubWorkspace *workspace;
+
+    // Validate array dimensions don't exceed limits
+    if (sbsrefstate->numupper > MAXDIM)
+        ereport(ERROR, "number of array dimensions exceeds maximum");
+
+    // Ensure upper and lower index lists match for slices
+    if (sbsrefstate->numlower != 0 &&
+        sbsrefstate->numupper != sbsrefstate->numlower)
+        elog(ERROR, "upper and lower index lists are not same length");
+
+    // Allocate workspace for type-specific data
+    workspace = (ArraySubWorkspace *) palloc(sizeof(ArraySubWorkspace));
+    sbsrefstate->workspace = workspace;
+
+    // Collect datatype information for execution
+    workspace->refelemtype = sbsref->refelemtype;
+    workspace->refattrlength = get_typlen(sbsref->refcontainertype);
+    get_typlenbyvalalign(sbsref->refelemtype,
+                        &workspace->refelemlength,
+                        &workspace->refelembyval,
+                        &workspace->refelemalign);
+
+    // Set function pointers based on slice vs element access
+    methods->sbs_check_subscripts = array_subscript_check_subscripts;
+    if (is_slice) {
+        methods->sbs_fetch = array_subscript_fetch_slice;
+        methods->sbs_assign = array_subscript_assign_slice;
+        methods->sbs_fetch_old = array_subscript_fetch_old_slice;
+    } else {
+        methods->sbs_fetch = array_subscript_fetch;
+        methods->sbs_assign = array_subscript_assign;
+        methods->sbs_fetch_old = array_subscript_fetch_old;
+    }
+}
+```

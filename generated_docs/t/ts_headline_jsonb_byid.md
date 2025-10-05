@@ -38,3 +38,17 @@ This function is useful when you need to use a specific text search configuratio
 - Allows specification of text search configuration but uses default highlighting options
 - Processes all string values within the JSONB document recursively
 - Uses DirectFunctionCall3 because it doesn't pass custom options (NULL is passed for the options parameter)
+
+## Simplified Source
+
+```c
+Datum
+ts_headline_jsonb_byid(PG_FUNCTION_ARGS)
+{
+    // Wrapper: use specified config but default options, delegate to full implementation
+    PG_RETURN_DATUM(DirectFunctionCall3(ts_headline_jsonb_byid_opt,
+                                       PG_GETARG_DATUM(0),  // Config OID
+                                       PG_GETARG_DATUM(1),  // JSONB document
+                                       PG_GETARG_DATUM(2))); // TSQuery
+}
+```

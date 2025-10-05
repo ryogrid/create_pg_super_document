@@ -42,3 +42,31 @@ FileTruncate reduces the size of a file to the specified offset by using Postgre
 - Critical for space management, especially during relation maintenance and temporary file cleanup
 - Wait event reporting allows monitoring of potentially long-running truncation operations
 - Used extensively in storage management for both permanent and temporary file maintenance
+
+## Simplified Source
+
+```c
+int FileTruncate(File file, off_t offset, uint32 wait_event_info) {
+    // Validate file descriptor
+    Assert(FileIsValid(file));
+
+    // Ensure file is accessible
+    int returnCode = FileAccess(file);
+    if (returnCode < 0)
+        return returnCode;
+
+    // Perform truncation with wait event reporting
+    pgstat_report_wait_start(wait_event_info);
+    returnCode = pg_ftruncate(VfdCache[file].fd, offset);
+    pgstat_report_wait_end();
+
+    // Update temporary file size tracking if truncated
+    if (returnCode == 0 && VfdCache[file].fileSize > offset) {
+        // Adjust global temporary file size counter
+        temporary_files_size -= VfdCache[file].fileSize - offset;
+        VfdCache[file].fileSize = offset;
+    }
+
+    return returnCode;
+}
+```

@@ -36,3 +36,18 @@ Note that this compares a plain timestamp (without timezone) against a date, whi
 - Returns true only when both values represent the exact same date
 - Part of the cross-type comparison functions for dates in PostgreSQL
 - Located in src/backend/utils/adt/date.c:907-915
+
+## Simplified Source
+
+```c
+Datum
+timestamp_eq_date(PG_FUNCTION_ARGS)
+{
+    // Extract timestamp and date arguments
+    Timestamp timestamp = PG_GETARG_TIMESTAMP(0);
+    DateADT dateVal = PG_GETARG_DATEADT(1);
+
+    // Return true if timestamp equals date (comparison result == 0)
+    PG_RETURN_BOOL(date_cmp_timestamp_internal(dateVal, timestamp) == 0);
+}
+```

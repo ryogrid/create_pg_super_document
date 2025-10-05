@@ -44,3 +44,26 @@ This function serves as a wrapper around extract_jsp_path_expr_nodes to create a
 - Combines multiple extracted nodes using AND logic for complex path expressions
 - Part of PostgreSQL's GIN indexing infrastructure for efficient JSONB path queries
 - Located in src/backend/utils/adt/jsonb_gin.c:564-582
+
+## Simplified Source
+
+```c
+static JsonPathGinNode *
+extract_jsp_path_expr(JsonPathGinContext *cxt, JsonPathGinPath path,
+                      JsonPathItem *jsp, JsonbValue *scalar)
+{
+    // Extract nodes that need to be AND-ed together
+    List *nodes = extract_jsp_path_expr_nodes(cxt, path, jsp, scalar);
+
+    if (nodes == NIL)
+        // No extractable nodes - full scan needed
+        return NULL;
+
+    if (list_length(nodes) == 1)
+        // Single node - return directly
+        return linitial(nodes);
+
+    // Multiple nodes - create AND expression
+    return make_jsp_expr_node_args(JSP_GIN_AND, nodes);
+}
+```

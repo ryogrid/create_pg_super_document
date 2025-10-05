@@ -30,3 +30,13 @@ This function is part of PostgreSQL's destination receiver infrastructure and se
 - Used for both shutdown and destroy method implementations as noted in the comment
 - Commonly reused across multiple DestReceiver struct definitions that do not require cleanup
 - Has an empty function body, performing no actual cleanup operations
+
+## Simplified Source
+
+```c
+static void donothingCleanup(DestReceiver *self)
+{
+    // No-op cleanup function for DestReceiver objects
+    // Used when no cleanup is required
+}
+```

@@ -29,3 +29,14 @@ This function serves as the transition function for the  aggregate function, whi
 - Allows NULL values in the resulting object
 - Does not enforce key uniqueness (duplicate keys result in value overwriting)
 - Part of PostgreSQL's JSONB aggregate function family located in src/backend/utils/adt/jsonb.c:1896-1905
+
+## Simplified Source
+
+```c
+Datum
+jsonb_object_agg_transfn(PG_FUNCTION_ARGS)
+{
+    // Delegate to worker function with null inclusion and duplicate keys allowed
+    return jsonb_object_agg_transfn_worker(fcinfo, false, false);
+}
+```

@@ -40,3 +40,62 @@ The  function is a PostgreSQL function that initializes a thesaurus text search 
 - The dictionary parameter specifies the sub-dictionary to use for word processing
 - Throws errors for missing required parameters, duplicate parameters, or unrecognized parameters
 - Returns a pointer to the initialized DictThesaurus structure
+
+## Simplified Source
+
+```c
+Datum thesaurus_init(PG_FUNCTION_ARGS) {
+    List *dictoptions = (List *) PG_GETARG_POINTER(0);
+    DictThesaurus *d;
+    char *subdictname = NULL;
+    bool fileloaded = false;
+    ListCell *l;
+
+    // Initialize thesaurus dictionary structure
+    d = (DictThesaurus *) palloc0(sizeof(DictThesaurus));
+
+    // Process configuration options
+    foreach(l, dictoptions) {
+        DefElem *defel = (DefElem *) lfirst(l);
+
+        if (strcmp(defel->defname, "dictfile") == 0) {
+            if (fileloaded)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                               errmsg("multiple DictFile parameters")));
+            // Load thesaurus data from file
+            thesaurusRead(defGetString(defel), d);
+            fileloaded = true;
+        }
+        else if (strcmp(defel->defname, "dictionary") == 0) {
+            if (subdictname)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                               errmsg("multiple Dictionary parameters")));
+            subdictname = pstrdup(defGetString(defel));
+        }
+        else {
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("unrecognized Thesaurus parameter: \"%s\"",
+                                  defel->defname)));
+        }
+    }
+
+    // Validate required parameters
+    if (!fileloaded)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("missing DictFile parameter")));
+    if (!subdictname)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("missing Dictionary parameter")));
+
+    // Setup sub-dictionary reference
+    namelist = stringToQualifiedNameList(subdictname, NULL);
+    d->subdictOid = get_ts_dict_oid(namelist, false);
+    d->subdict = lookup_ts_dictionary_cache(d->subdictOid);
+
+    // Compile thesaurus patterns
+    compileTheLexeme(d);
+    compileTheSubstitute(d);
+
+    PG_RETURN_POINTER(d);
+}
+```

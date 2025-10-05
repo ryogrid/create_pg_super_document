@@ -35,3 +35,20 @@ The `int82pl` function performs addition between a 64-bit integer and a 16-bit i
 - Follows PostgreSQLs standard function calling convention using PG_FUNCTION_ARGS
 - The smaller 16-bit operand is cast to 64-bit before the operation
 - Located in src/backend/utils/adt/int8.c at lines 1032-1045
+
+## Simplified Source
+
+```c
+Datum int82pl(PG_FUNCTION_ARGS) {
+    int64 arg1 = PG_GETARG_INT64(0);  // Get first 64-bit argument
+    int16 arg2 = PG_GETARG_INT16(1);  // Get second 16-bit argument
+    int64 result;
+
+    // Perform addition with overflow check (cast arg2 to 64-bit)
+    if (pg_add_s64_overflow(arg1, (int64) arg2, &result))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("bigint out of range")));
+
+    PG_RETURN_INT64(result);
+}
+```

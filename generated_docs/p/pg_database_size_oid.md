@@ -35,3 +35,22 @@ The  function serves as a PostgreSQL built-in function that can be called from S
 - Size is returned in bytes as a 64-bit integer to handle very large databases
 - This function is typically exposed to SQL as pg_database_size(oid) and may also be used by higher-level functions
 - Access control is handled by the underlying calculate_database_size function
+
+## Simplified Source
+
+```c
+Datum pg_database_size_oid(PG_FUNCTION_ARGS) {
+    Oid dbOid = PG_GETARG_OID(0);
+    int64 size;
+
+    // Calculate the database size using internal function
+    size = calculate_database_size(dbOid);
+
+    // Return NULL if size is 0 (database doesn't exist or no access)
+    if (size == 0)
+        PG_RETURN_NULL();
+
+    // Return the size in bytes
+    PG_RETURN_INT64(size);
+}
+```

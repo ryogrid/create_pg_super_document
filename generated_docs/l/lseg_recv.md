@@ -33,3 +33,24 @@ The `lseg_recv` function is a PostgreSQL binary input function that deserializes
 - Uses PostgreSQL's memory management system (palloc) for allocation
 - Part of the binary protocol infrastructure enabling efficient data transfer
 - The binary format is platform-independent and follows PostgreSQL's standard wire protocol
+
+## Simplified Source
+
+```c
+Datum
+lseg_recv(PG_FUNCTION_ARGS)
+{
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+
+    // Allocate memory for line segment structure
+    LSEG *lseg = (LSEG *) palloc(sizeof(LSEG));
+
+    // Read coordinates from binary buffer: x1, y1, x2, y2
+    lseg->p[0].x = pq_getmsgfloat8(buf);  // First point x
+    lseg->p[0].y = pq_getmsgfloat8(buf);  // First point y
+    lseg->p[1].x = pq_getmsgfloat8(buf);  // Second point x
+    lseg->p[1].y = pq_getmsgfloat8(buf);  // Second point y
+
+    PG_RETURN_LSEG_P(lseg);
+}
+```

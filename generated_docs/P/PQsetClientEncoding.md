@@ -37,3 +37,37 @@ PQsetClientEncoding sets the client character encoding for the given database co
 - Includes buffer overflow protection when constructing the SQL query
 - The function relies on the backend to report the actual parameter change through the parameter status mechanism
 - Connection must be in CONNECTION_OK state for the function to succeed
+
+## Simplified Source
+
+```c
+int PQsetClientEncoding(PGconn *conn, const char *encoding) {
+    char qbuf[128];
+    PGresult *res;
+
+    // Validate connection and encoding parameters
+    if (!conn || conn->status != CONNECTION_OK || !encoding)
+        return -1;
+
+    // Handle special "auto" encoding by resolving from locale
+    if (strcmp(encoding, "auto") == 0)
+        encoding = pg_encoding_to_char(pg_get_encoding_from_locale(NULL, true));
+
+    // Check for buffer overflow protection
+    if (sizeof(qbuf) < (sizeof("set client_encoding to '%s'") + strlen(encoding)))
+        return -1;
+
+    // Execute SET client_encoding command
+    sprintf(qbuf, "set client_encoding to '%s'", encoding);
+    res = PQexec(conn, qbuf);
+
+    // Check execution result
+    if (res == NULL || res->resultStatus != PGRES_COMMAND_OK) {
+        if (res) PQclear(res);
+        return -1;
+    }
+
+    PQclear(res);
+    return 0; // Backend will report parameter change
+}
+```

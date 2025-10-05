@@ -45,3 +45,25 @@ The function follows a two-step conversion process: first extracting the numeric
 - Follows PostgreSQL's memory management conventions with `PG_FREE_IF_COPY`
 - Error handling delegates to `cannotCastJsonbValue` for consistent error messages
 - Preferred conversion for large integer values that may exceed int4 range
+
+## Simplified Source
+
+```c
+Datum
+jsonb_int8(PG_FUNCTION_ARGS)
+{
+    Jsonb *in = PG_GETARG_JSONB_P(0);
+    JsonbValue v;
+
+    // Extract scalar value and validate it's numeric
+    if (!JsonbExtractScalar(&in->root, &v) || v.type != jbvNumeric)
+        cannotCastJsonbValue(v.type, "bigint");
+
+    // Convert numeric to int8 with range checking
+    Datum retValue = DirectFunctionCall1(numeric_int8,
+                                        NumericGetDatum(v.val.numeric));
+
+    PG_FREE_IF_COPY(in, 0);
+    PG_RETURN_DATUM(retValue);
+}
+```

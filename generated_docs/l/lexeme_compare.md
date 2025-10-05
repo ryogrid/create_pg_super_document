@@ -30,3 +30,23 @@ This function implements a lexeme comparison algorithm for PostgreSQL's text sea
 - Used in sorting and searching operations for text search statistics
 - The lexeme strings are not NULL-terminated, hence the use of strncmp with explicit length
 - Located in src/backend/tsearch/ts_typanalyze.c:500-517
+
+## Simplified Source
+
+```c
+static int
+lexeme_compare(const void *key1, const void *key2)
+{
+    const LexemeHashKey *d1 = (const LexemeHashKey *) key1;
+    const LexemeHashKey *d2 = (const LexemeHashKey *) key2;
+
+    // Compare by length first
+    if (d1->length > d2->length)
+        return 1;
+    else if (d1->length < d2->length)
+        return -1;
+
+    // Lengths equal, compare content byte-by-byte
+    return strncmp(d1->lexeme, d2->lexeme, d1->length);
+}
+```

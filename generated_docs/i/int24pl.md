@@ -35,3 +35,20 @@ This function implements the addition operator for mixed-precision integer arith
 - Throws ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE error if addition would overflow
 - The function follows PostgreSQL's function call convention using PG_FUNCTION_ARGS
 - Promotes the 16-bit argument to 32-bit before performing the addition operation
+
+## Simplified Source
+
+```c
+Datum int24pl(PG_FUNCTION_ARGS) {
+    int16 arg1 = PG_GETARG_INT16(0);  // int2 operand
+    int32 arg2 = PG_GETARG_INT32(1);  // int4 operand
+    int32 result;
+
+    // Add with int2 promoted to int4, check for overflow
+    if (unlikely(pg_add_s32_overflow((int32) arg1, arg2, &result)))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("integer out of range")));
+
+    PG_RETURN_INT32(result);
+}
+```

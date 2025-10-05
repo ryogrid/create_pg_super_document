@@ -47,3 +47,48 @@ The function operates in 100-millisecond intervals, checking process existence u
 - Emits a pluralized warning message on timeout using errmsg_plural
 - Designed to be interruptible - can be canceled by query cancellation or other interrupts
 - Does not attempt to kill the process - only waits for its natural or externally-induced termination
+
+## Simplified Source
+
+```c
+static bool pg_wait_until_termination(int pid, int64 timeout) {
+    int64 waittime = 100;        // Poll every 100ms
+    int64 remainingtime = timeout;
+
+    do {
+        // Adjust wait time for final iteration
+        if (remainingtime < waittime)
+            waittime = remainingtime;
+
+        // Check if process still exists
+        if (kill(pid, 0) == -1) {
+            if (errno == ESRCH)
+                return true;    // Process terminated
+            else
+                ereport(ERROR,
+                        (errcode(ERRCODE_INTERNAL_ERROR),
+                         errmsg("could not check the existence of the backend with PID %d: %m", pid)));
+        }
+
+        // Handle interrupts before waiting
+        CHECK_FOR_INTERRUPTS();
+
+        // Wait using latch mechanism
+        (void) WaitLatch(MyLatch,
+                        WL_LATCH_SET | WL_TIMEOUT | WL_EXIT_ON_PM_DEATH,
+                        waittime,
+                        WAIT_EVENT_BACKEND_TERMINATION);
+
+        ResetLatch(MyLatch);
+        remainingtime -= waittime;
+    } while (remainingtime > 0);
+
+    // Timeout reached
+    ereport(WARNING,
+            (errmsg_plural("backend with PID %d did not terminate within %lld millisecond",
+                          "backend with PID %d did not terminate within %lld milliseconds",
+                          timeout, pid, (long long int) timeout)));
+
+    return false;
+}
+```

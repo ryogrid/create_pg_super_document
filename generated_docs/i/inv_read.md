@@ -48,3 +48,85 @@ Key behaviors include:
 - Requires IFS_RDLOCK permission flag to be set in the object descriptor
 - Uses ordered index scans for efficient sequential access to large object pages
 - Handles variable-length data fields with proper memory management
+
+## Simplified Source
+
+```c
+int inv_read(LargeObjectDesc *obj_desc, char *buf, int nbytes) {
+    int nread = 0;
+    int32 pageno = (int32) (obj_desc->offset / LOBLKSIZE);
+    ScanKeyData skey[2];
+
+    Assert(PointerIsValid(obj_desc));
+    Assert(buf != NULL);
+
+    // Check read permission
+    if ((obj_desc->flags & IFS_RDLOCK) == 0)
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                       errmsg("permission denied for large object %u", obj_desc->id)));
+
+    if (nbytes <= 0)
+        return 0;
+
+    // Ensure large object relations are open
+    open_lo_relation();
+
+    // Set up scan keys to find pages starting from current position
+    ScanKeyInit(&skey[0], Anum_pg_largeobject_loid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(obj_desc->id));
+
+    ScanKeyInit(&skey[1], Anum_pg_largeobject_pageno,
+                BTGreaterEqualStrategyNumber, F_INT4GE,
+                Int32GetDatum(pageno));
+
+    // Begin ordered scan of large object pages
+    SysScanDesc sd = systable_beginscan_ordered(lo_heap_r, lo_index_r,
+                                              obj_desc->snapshot, 2, skey);
+
+    // Process each page in sequence
+    while ((tuple = systable_getnext_ordered(sd, ForwardScanDirection)) != NULL) {
+        Form_pg_largeobject data;
+        bytea *datafield;
+        bool pfreeit;
+
+        if (HeapTupleHasNulls(tuple))
+            elog(ERROR, "null field found in pg_largeobject");
+
+        data = (Form_pg_largeobject) GETSTRUCT(tuple);
+
+        // Handle holes (missing pages) by filling with zeros
+        uint64 pageoff = ((uint64) data->pageno) * LOBLKSIZE;
+        if (pageoff > obj_desc->offset) {
+            int64 n = pageoff - obj_desc->offset;
+            n = (n <= (nbytes - nread)) ? n : (nbytes - nread);
+            MemSet(buf + nread, 0, n);
+            nread += n;
+            obj_desc->offset += n;
+        }
+
+        // Read data from current page if more bytes needed
+        if (nread < nbytes) {
+            int64 off = obj_desc->offset - pageoff;
+            int len;
+
+            getdatafield(data, &datafield, &len, &pfreeit);
+            if (len > off) {
+                int64 n = len - off;
+                n = (n <= (nbytes - nread)) ? n : (nbytes - nread);
+                memcpy(buf + nread, VARDATA(datafield) + off, n);
+                nread += n;
+                obj_desc->offset += n;
+            }
+            if (pfreeit)
+                pfree(datafield);
+        }
+
+        if (nread >= nbytes)
+            break;
+    }
+
+    systable_endscan_ordered(sd);
+    return nread;
+}
+```

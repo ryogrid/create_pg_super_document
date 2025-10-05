@@ -43,3 +43,24 @@ When conflicts are possible, the function truncates the FullTransactionId to a s
 - Primarily used in page reuse scenarios during WAL replay where extended transaction ID ranges are logged
 - The truncation from FullTransactionId to TransactionId is safe due to the wraparound check that ensures the value is still within the relevant range
 - This design maintains backward compatibility with existing conflict resolution mechanisms while supporting PostgreSQL's extended transaction ID capabilities
+
+## Simplified Source
+
+```c
+void ResolveRecoveryConflictWithSnapshotFullXid(FullTransactionId snapshotConflictHorizon,
+                                                 bool isCatalogRel,
+                                                 RelFileLocator locator) {
+    // Get current transaction ID and check if conflict horizon is still relevant
+    FullTransactionId nextXid = ReadNextFullTransactionId();
+    uint64 diff = U64FromFullTransactionId(nextXid) -
+                  U64FromFullTransactionId(snapshotConflictHorizon);
+
+    // Only process conflicts if horizon hasn't wrapped around
+    if (diff < MaxTransactionId / 2) {
+        // Truncate to 32-bit and delegate to standard conflict resolution
+        TransactionId truncated = XidFromFullTransactionId(snapshotConflictHorizon);
+        ResolveRecoveryConflictWithSnapshot(truncated, isCatalogRel, locator);
+    }
+    // If diff >= MaxTransactionId/2, the horizon is too old - no conflicts possible
+}
+```

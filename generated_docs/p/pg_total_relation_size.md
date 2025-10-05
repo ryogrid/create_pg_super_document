@@ -39,3 +39,28 @@ The function safely handles relations that may not exist or be accessible by ret
 - [Result](../R/Result.md) is in bytes as a 64-bit integer
 - This is the SQL-callable version of the total relation size calculation
 - Commonly used in database administration for monitoring disk usage
+
+## Simplified Source
+
+```c
+Datum
+pg_total_relation_size(PG_FUNCTION_ARGS)
+{
+    Oid relOid = PG_GETARG_OID(0);
+    Relation rel;
+    int64 size;
+
+    // Try to open the relation safely
+    rel = try_relation_open(relOid, AccessShareLock);
+
+    if (rel == NULL)
+        PG_RETURN_NULL();
+
+    // Calculate total relation size (table + indexes + TOAST)
+    size = calculate_total_relation_size(rel);
+
+    relation_close(rel, AccessShareLock);
+
+    PG_RETURN_INT64(size);
+}
+```

@@ -31,3 +31,14 @@ The `circle_diameter` function computes the diameter of a circle using the stand
 - Part of PostgreSQLs geometric data type functions for circle operations
 - Returns the result as a PostgreSQL float8 (double precision) value
 - The function follows PostgreSQLs V1 calling convention for SQL functions
+
+## Simplified Source
+
+```c
+Datum circle_diameter(PG_FUNCTION_ARGS) {
+    CIRCLE *circle = PG_GETARG_CIRCLE_P(0);
+
+    // Diameter = 2 × radius
+    PG_RETURN_FLOAT8(float8_mul(circle->radius, 2.0));
+}
+```

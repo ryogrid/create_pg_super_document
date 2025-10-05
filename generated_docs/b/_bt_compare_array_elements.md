@@ -39,3 +39,27 @@ The function supports both forward and reverse sorting through the reverse flag 
 - Returns standard comparison values: negative for a < b, zero for a = b, positive for a > b
 - Essential component of PostgreSQL's B-tree array preprocessing system
 - This is a static function, accessible only within nbtutils.c
+
+## Simplified Source
+
+```c
+static int
+_bt_compare_array_elements(const void *a, const void *b, void *arg)
+{
+    Datum da = *((const Datum *) a);
+    Datum db = *((const Datum *) b);
+    BTSortArrayContext *cxt = (BTSortArrayContext *) arg;
+    int32 compare;
+
+    // Call the comparison function with collation support
+    compare = DatumGetInt32(FunctionCall2Coll(cxt->sortproc,
+                                             cxt->collation,
+                                             da, db));
+
+    // Invert result if reverse sorting is requested
+    if (cxt->reverse)
+        INVERT_COMPARE_RESULT(compare);
+
+    return compare;
+}
+```

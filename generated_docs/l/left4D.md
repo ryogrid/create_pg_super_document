@@ -28,3 +28,16 @@ This function is part of PostgreSQL's SP-GiST (Space-Partitioned Generalized Sea
 
 ## Notes and Other Information
 This function is used in SP-GiST index operations for spatial queries involving box geometries. It specifically checks the x-axis positioning relationship and is part of a set of directional predicates (left4D, right4D, overLeft4D, overRight4D, below4D) used for efficient spatial indexing and query processing. The function is declared static, indicating it's only used within the geo_spgist.c file.
+
+## Simplified Source
+
+```c
+/* Check if any rectangle from rect_box can be left of this query */
+static bool
+left4D(RectBox *rect_box, RangeBox *query)
+{
+    // Delegate to lower2D to check if rectangle's x-range
+    // can be positioned lower (left) than query's left boundary
+    return lower2D(&rect_box->range_box_x, &query->left);
+}
+```

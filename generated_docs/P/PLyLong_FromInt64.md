@@ -37,3 +37,13 @@ Unlike the smaller integer conversion functions, this function uses PyLong_FromL
 - In Python 3, all integers are long objects internally, so this creates what appears as a regular integer in Python code
 - The function signature follows the standard PLyDatumToOb function pointer pattern used throughout PL/Python's type conversion system
 - Critical for maintaining data integrity when working with PostgreSQL's bigint columns that contain values beyond the 32-bit integer range
+
+## Simplified Source
+
+```c
+static PyObject *PLyLong_FromInt64(PLyDatumToOb *arg, Datum d)
+{
+    // Convert PostgreSQL int8 (bigint) to Python long using long long for full 64-bit range
+    return PyLong_FromLongLong(DatumGetInt64(d));
+}
+```

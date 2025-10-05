@@ -33,3 +33,13 @@ This function compares two SPELL structures by comparing their word fields lexic
 - Essential for maintaining sorted dictionary entries for efficient lookup operations
 - Follows the standard C library comparison function contract for use with sorting algorithms
 - Part of the ISpell dictionary processing system in PostgreSQL's full-text search functionality
+
+## Simplified Source
+
+```c
+static int cmpspell(const void *s1, const void *s2) {
+    // Compare SPELL structures by their word field
+    return strcmp((*(SPELL *const *) s1)->word,
+                  (*(SPELL *const *) s2)->word);
+}
+```

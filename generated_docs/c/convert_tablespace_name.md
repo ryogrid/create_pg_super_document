@@ -31,3 +31,17 @@ This is a utility function within the tablespace privilege checking system that 
 - The function will raise an error if the tablespace name doesn't exist (due to the false parameter passed to get_tablespace_oid)
 - Part of the has_tablespace_privilege family of functions that check tablespace access permissions
 - The function assumes the input text is valid and non-null
+
+## Simplified Source
+
+```c
+static Oid
+convert_tablespace_name(text *tablespacename)
+{
+    // Convert PostgreSQL text to C string
+    char *spcname = text_to_cstring(tablespacename);
+
+    // Look up tablespace OID by name (error if not found)
+    return get_tablespace_oid(spcname, false);
+}
+```

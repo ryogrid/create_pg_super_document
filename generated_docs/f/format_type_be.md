@@ -34,3 +34,13 @@ The function uses default formatting behavior: no type modifier handling (typemo
 - Hardcoded typemod of -1 means no type modifier information is included
 - Intended for backend-only use where type validity is assumed and errors are appropriate
 - Part of a family of type formatting functions with different use cases and error handling strategies
+
+## Simplified Source
+
+```c
+char *format_type_be(Oid type_oid) {
+    // Backend-specific type formatting with strict error handling
+    // Uses default typemod (-1) and no special flags (0)
+    return format_type_extended(type_oid, -1, 0);
+}
+```

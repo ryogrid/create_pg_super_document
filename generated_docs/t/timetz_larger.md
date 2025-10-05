@@ -37,4 +37,20 @@ The comparison is performed by , which normalizes both times to a common referen
 - This function is typically invoked through SQL's  function or direct comparison operations
 - The comparison accounts for timezone offsets, so 14:00+00 is considered larger than 13:00-01 even though the local times might suggest otherwise
 - Returns a pointer to one of the input arguments rather than creating a new copy, which is efficient for immutable data types
-- Part of PostgreSQL's date/time function family located in 
+- Part of PostgreSQL's date/time function family located in src/backend/utils/adt/date.c
+
+## Simplified Source
+
+```c
+Datum timetz_larger(PG_FUNCTION_ARGS) {
+    // Extract two time-with-timezone values from arguments
+    TimeTzADT *time1 = PG_GETARG_TIMETZADT_P(0);
+    TimeTzADT *time2 = PG_GETARG_TIMETZADT_P(1);
+
+    // Compare times and return the larger one
+    // Uses internal comparison that accounts for timezone differences
+    TimeTzADT *result = (timetz_cmp_internal(time1, time2) > 0) ? time1 : time2;
+
+    PG_RETURN_TIMETZADT_P(result);
+}
+``` 

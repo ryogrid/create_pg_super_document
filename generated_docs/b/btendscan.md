@@ -38,3 +38,41 @@ The btendscan function performs cleanup operations when ending a B-tree index sc
 - Array-related memory (arrayKeys and orderProcs) is freed by deleting the arrayContext memory context
 - Position invalidation is skipped since the entire scan structure will be freed
 - Ensures all buffer pins are released to avoid holding unnecessary locks on index pages
+
+## Simplified Source
+
+```c
+void btendscan(IndexScanDesc scan) {
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+
+    // Clean up current scan position
+    if (BTScanPosIsValid(so->currPos)) {
+        // Process any remaining killed items
+        if (so->numKilled > 0)
+            _bt_killitems(scan);
+        BTScanPosUnpinIfPinned(so->currPos);
+    }
+
+    // Reset mark position
+    so->markItemIndex = -1;
+    BTScanPosUnpinIfPinned(so->markPos);
+
+    // Free allocated memory
+    if (so->keyData != NULL)
+        pfree(so->keyData);
+
+    // Free array context (contains arrayKeys and orderProcs)
+    if (so->arrayContext != NULL)
+        MemoryContextDelete(so->arrayContext);
+
+    if (so->killedItems != NULL)
+        pfree(so->killedItems);
+
+    if (so->currTuples != NULL)
+        pfree(so->currTuples);
+    // Note: markTuples shares same allocation as currTuples, don't free separately
+
+    // Free the scan opaque structure
+    pfree(so);
+}
+```

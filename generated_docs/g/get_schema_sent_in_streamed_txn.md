@@ -32,3 +32,13 @@ The `get_schema_sent_in_streamed_txn` function is a utility function used in Pos
 - The RelationSyncEntry structure maintains a list of transaction IDs (streamed_txns) for which schema has been sent
 - Returns true if the transaction ID is found in the relation's streamed transactions list, false otherwise
 - This optimization helps reduce network traffic and processing overhead in logical replication by preventing unnecessary schema retransmissions
+
+## Simplified Source
+
+```c
+static bool
+get_schema_sent_in_streamed_txn(RelationSyncEntry *entry, TransactionId xid) {
+    // Check if this transaction ID is in the list of streamed transactions
+    return list_member_xid(entry->streamed_txns, xid);
+}
+```

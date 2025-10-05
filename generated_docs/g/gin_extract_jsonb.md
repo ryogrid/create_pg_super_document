@@ -51,3 +51,53 @@ The function uses an intelligent pre-allocation strategy, initially allocating s
 - The function signature follows PostgreSQL's V1 calling convention
 - Memory management is handled by the GinEntries buffer system
 - Critical for enabling JSONB containment operators (@>, <@) and key existence operators (?, ?&, ?|)
+
+## Simplified Source
+
+```c
+Datum
+gin_extract_jsonb(PG_FUNCTION_ARGS)
+{
+    Jsonb *jb = (Jsonb *) PG_GETARG_JSONB_P(0);
+    int32 *nentries = (int32 *) PG_GETARG_POINTER(1);
+    int total = JB_ROOT_COUNT(jb);
+
+    // Handle empty JSONB
+    if (total == 0) {
+        *nentries = 0;
+        PG_RETURN_POINTER(NULL);
+    }
+
+    // Initialize entry buffer with 2x root count estimate
+    GinEntries entries;
+    init_gin_entries(&entries, 2 * total);
+
+    // Iterate through all JSONB elements
+    JsonbIterator *it = JsonbIteratorInit(&jb->root);
+    JsonbValue v;
+    JsonbIteratorToken r;
+
+    while ((r = JsonbIteratorNext(&it, &v, false)) != WJB_DONE) {
+        switch (r) {
+            case WJB_KEY:
+                // Add object keys as key entries
+                add_gin_entry(&entries, make_scalar_key(&v, true));
+                break;
+            case WJB_ELEM:
+                // Treat string array elements as keys, others as values
+                add_gin_entry(&entries, make_scalar_key(&v, v.type == jbvString));
+                break;
+            case WJB_VALUE:
+                // Add object values as value entries
+                add_gin_entry(&entries, make_scalar_key(&v, false));
+                break;
+            default:
+                // Ignore structural items (object/array markers)
+                break;
+        }
+    }
+
+    *nentries = entries.count;
+    PG_RETURN_POINTER(entries.buf);
+}
+```

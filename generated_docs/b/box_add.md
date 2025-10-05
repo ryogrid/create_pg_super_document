@@ -34,3 +34,24 @@ This function performs vector addition between a BOX and a Point, translating th
 - Part of PostgreSQL's geometric data type arithmetic operations
 - The operation is commutative: box + point = point + box
 - Located in src/backend/utils/adt/geo_ops.c at lines 4231-4245
+
+## Simplified Source
+
+```c
+Datum
+box_add(PG_FUNCTION_ARGS)
+{
+    BOX *box = PG_GETARG_BOX_P(0);
+    Point *p = PG_GETARG_POINT_P(1);
+    BOX *result;
+
+    // Allocate memory for result box
+    result = (BOX *) palloc(sizeof(BOX));
+
+    // Translate both corners by the point offset
+    point_add_point(&result->high, &box->high, p);
+    point_add_point(&result->low, &box->low, p);
+
+    PG_RETURN_BOX_P(result);
+}
+```

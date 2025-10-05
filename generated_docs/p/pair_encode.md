@@ -40,3 +40,20 @@ This function is essential to PostgreSQL's geometric data type output infrastruc
 - Uses StringInfo for efficient string building, which is PostgreSQL's preferred method for constructing output strings
 - Produces comma-separated format without parentheses, suitable for embedding in larger geometric constructs
 - The comma separator matches PostgreSQL's standard geometric data representation format
+
+## Simplified Source
+
+```c
+static void pair_encode(float8 x, float8 y, StringInfo str) {
+    // Convert coordinates to string representations
+    char *xstr = float8out_internal(x);
+    char *ystr = float8out_internal(y);
+
+    // Format as comma-separated pair and append to buffer
+    appendStringInfo(str, "%s,%s", xstr, ystr);
+
+    // Free temporary strings
+    pfree(xstr);
+    pfree(ystr);
+}
+```

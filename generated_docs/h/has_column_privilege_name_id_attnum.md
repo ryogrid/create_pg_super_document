@@ -40,3 +40,29 @@ The function performs the privilege check by first resolving the username to a r
 - Returns NULL if the privilege check encounters error conditions (missing table, dropped column, etc.)
 - Part of a family of has_column_privilege functions with different parameter combinations
 - The function follows PostgreSQL's standard function calling conventions using PG_FUNCTION_ARGS
+
+## Simplified Source
+
+```c
+Datum
+has_column_privilege_name_id_attnum(PG_FUNCTION_ARGS)
+{
+    Name username = PG_GETARG_NAME(0);
+    Oid tableoid = PG_GETARG_OID(1);
+    AttrNumber colattnum = PG_GETARG_INT16(2);
+    text *priv_type_text = PG_GETARG_TEXT_PP(3);
+    Oid roleid;
+    AclMode mode;
+    int privresult;
+
+    // Convert identifiers to internal representations
+    roleid = get_role_oid_or_public(NameStr(*username));
+    mode = convert_column_priv_string(priv_type_text);
+
+    // Perform privilege check
+    privresult = column_privilege_check(tableoid, colattnum, roleid, mode);
+    if (privresult < 0)
+        PG_RETURN_NULL();
+    PG_RETURN_BOOL(privresult);
+}
+```

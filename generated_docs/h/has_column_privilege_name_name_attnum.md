@@ -39,3 +39,31 @@ Like other privilege checking functions, it converts the input parameters to the
 - Part of the SQL-callable has_column_privilege function family
 - More efficient than name-based variants when attribute number is known
 - Located in src/backend/utils/adt/acl.c:2607-2633
+
+## Simplified Source
+
+```c
+Datum
+has_column_privilege_name_name_attnum(PG_FUNCTION_ARGS)
+{
+    Name rolename = PG_GETARG_NAME(0);
+    text *tablename = PG_GETARG_TEXT_PP(1);
+    AttrNumber colattnum = PG_GETARG_INT16(2);
+    text *priv_type_text = PG_GETARG_TEXT_PP(3);
+    Oid roleid;
+    Oid tableoid;
+    AclMode mode;
+    int privresult;
+
+    // Convert identifiers to internal representations
+    roleid = get_role_oid_or_public(NameStr(*rolename));
+    tableoid = convert_table_name(tablename);
+    mode = convert_column_priv_string(priv_type_text);
+
+    // Perform privilege check
+    privresult = column_privilege_check(tableoid, colattnum, roleid, mode);
+    if (privresult < 0)
+        PG_RETURN_NULL();
+    PG_RETURN_BOOL(privresult);
+}
+```

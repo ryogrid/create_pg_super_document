@@ -41,3 +41,28 @@ The return value indicates which dimension advanced, which can be useful for opt
 - The function assumes caller has validated dimensions to prevent overflow
 - Essential for systematic traversal of array slices in PostgreSQL
 - Located in src/backend/utils/adt/arrayutils.c:208-232
+
+## Simplified Source
+
+```c
+int mda_next_tuple(int n, int *curr, const int *span)
+{
+    if (n <= 0)
+        return -1;
+
+    // Increment rightmost coordinate (like odometer)
+    curr[n - 1] = (curr[n - 1] + 1) % span[n - 1];
+
+    // Handle carry-over to left dimensions when rightmost wraps to 0
+    for (int i = n - 1; i && curr[i] == 0; i--)
+        curr[i - 1] = (curr[i - 1] + 1) % span[i - 1];
+
+    // Return dimension that was advanced, or -1 if iteration complete
+    if (i)
+        return i;
+    if (curr[0])
+        return 0;
+
+    return -1;  // All tuples exhausted
+}
+```

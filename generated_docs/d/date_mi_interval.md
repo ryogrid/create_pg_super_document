@@ -42,3 +42,22 @@ The result is returned as a timestamp since subtracting an interval from a date 
 - Leverages existing timestamp interval arithmetic to ensure consistent behavior
 - Companion function to `date_pl_interval` for complete date arithmetic support
 - Used internally by PostgreSQL when processing SQL expressions like `date_value - interval_value`
+
+## Simplified Source
+
+```c
+Datum
+date_mi_interval(PG_FUNCTION_ARGS)
+{
+    // Extract date and interval arguments
+    DateADT dateVal = PG_GETARG_DATEADT(0);
+    Interval *span = PG_GETARG_INTERVAL_P(1);
+
+    // Convert date to timestamp and delegate to timestamp interval subtraction
+    Timestamp dateStamp = date2timestamp(dateVal);
+
+    return DirectFunctionCall2(timestamp_mi_interval,
+                              TimestampGetDatum(dateStamp),
+                              PointerGetDatum(span));
+}
+```

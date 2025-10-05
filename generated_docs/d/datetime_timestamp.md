@@ -51,3 +51,31 @@ This function is essential for reconstructing complete datetime information from
 - Error handling includes validation of the final timestamp range
 - The function assumes the time component represents local time (no timezone handling)
 - Located in src/backend/utils/adt/date.c:1966-1988
+
+## Simplified Source
+
+```c
+Datum
+datetime_timestamp(PG_FUNCTION_ARGS)
+{
+    // Extract date and time components
+    DateADT date = PG_GETARG_DATEADT(0);
+    TimeADT time = PG_GETARG_TIMEADT(1);
+
+    // Convert date to timestamp
+    Timestamp result = date2timestamp(date);
+
+    // Add time component if timestamp is finite
+    if (!TIMESTAMP_NOT_FINITE(result)) {
+        result += time;
+
+        // Validate the combined result is within valid range
+        if (!IS_VALID_TIMESTAMP(result))
+            ereport(ERROR,
+                    (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                     errmsg("timestamp out of range")));
+    }
+
+    PG_RETURN_TIMESTAMP(result);
+}
+```

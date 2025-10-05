@@ -36,3 +36,21 @@ The  function provides safe addition of two Cash values (64-bit signed integers 
 - Part of PostgreSQL's cash data type implementation for monetary arithmetic
 - The error message "money out of range" provides clear indication of overflow conditions
 - Returns the sum result only if no overflow occurs, otherwise throws an error
+
+## Simplified Source
+
+```c
+static inline Cash
+cash_pl_cash(Cash c1, Cash c2)
+{
+    Cash res;
+
+    // Check for overflow during addition
+    if (unlikely(pg_add_s64_overflow(c1, c2, &res)))
+        ereport(ERROR,
+                (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                 errmsg("money out of range")));
+
+    return res;
+}
+```

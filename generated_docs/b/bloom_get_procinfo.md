@@ -51,3 +51,32 @@ The caching mechanism significantly improves performance by avoiding repeated sy
 - The caching is scoped to the lifetime of the BrinDesc structure, typically the duration of an index operation
 - Memory allocation uses the BRIN descriptor's memory context (bdesc->bd_context) to ensure proper cleanup
 - Essential for performance in BRIN bloom operations as hash functions are called frequently during value processing
+
+## Simplified Source
+
+```c
+static FmgrInfo *bloom_get_procinfo(BrinDesc *bdesc, uint16 attno, uint16 procnum) {
+    BloomOpaque *opaque = (BloomOpaque *) bdesc->bd_info[attno - 1]->oi_opaque;
+    uint16 basenum = procnum - PROCNUM_BASE;
+
+    // Check if procedure is already cached
+    if (opaque->extra_procinfos[basenum].fn_oid == InvalidOid) {
+        // Cache miss - need to look up procedure
+        if (RegProcedureIsValid(index_getprocid(bdesc->bd_index, attno, procnum))) {
+            // Copy procedure info into cache
+            fmgr_info_copy(&opaque->extra_procinfos[basenum],
+                          index_getprocinfo(bdesc->bd_index, attno, procnum),
+                          bdesc->bd_context);
+        } else {
+            // Report error for missing support function
+            ereport(ERROR,
+                   errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                   errmsg_internal("invalid opclass definition"),
+                   errdetail_internal("The operator class is missing support function %d for column %d.",
+                                    procnum, attno));
+        }
+    }
+
+    return &opaque->extra_procinfos[basenum];
+}
+```

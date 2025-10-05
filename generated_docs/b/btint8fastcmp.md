@@ -34,3 +34,21 @@ This is an optimized comparison function specifically designed for fast sorting 
 - Optimized for performance in sort operations by working directly with Datum values
 - Part of PostgreSQL's sort support infrastructure for efficient B-tree index operations
 - Returns the same comparison semantics as btint8cmp but with optimized execution path
+
+## Simplified Source
+
+```c
+static int btint8fastcmp(Datum x, Datum y, SortSupport ssup) {
+    // Extract 64-bit integers from Datum values
+    int64 a = DatumGetInt64(x);
+    int64 b = DatumGetInt64(y);
+
+    // Compare values and return standard comparison result
+    if (a > b)
+        return A_GREATER_THAN_B;
+    else if (a == b)
+        return 0;
+    else
+        return A_LESS_THAN_B;
+}
+```

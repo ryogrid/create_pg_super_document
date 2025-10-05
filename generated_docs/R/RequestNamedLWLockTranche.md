@@ -43,3 +43,41 @@ Key behaviors include:
 - Uses power-of-2 allocation strategy to minimize memory fragmentation and reallocation overhead
 - Requests are stored in a global array that gets processed during CreateLWLocks()
 - Part of PostgreSQL's extension mechanism for requesting shared resources during startup
+
+## Simplified Source
+
+```c
+void
+RequestNamedLWLockTranche(const char *tranche_name, int num_lwlocks)
+{
+    NamedLWLockTrancheRequest *request;
+
+    // Can only be called during shmem_request_hook phase
+    if (!process_shmem_requests_in_progress)
+        elog(FATAL, "cannot request additional LWLocks outside shmem_request_hook");
+
+    // Initialize request array if first time
+    if (NamedLWLockTrancheRequestArray == NULL) {
+        NamedLWLockTrancheRequestsAllocated = 16;
+        NamedLWLockTrancheRequestArray = (NamedLWLockTrancheRequest *)
+            MemoryContextAlloc(TopMemoryContext,
+                               NamedLWLockTrancheRequestsAllocated * sizeof(NamedLWLockTrancheRequest));
+    }
+
+    // Expand array if needed using power-of-2 growth
+    if (NamedLWLockTrancheRequests >= NamedLWLockTrancheRequestsAllocated) {
+        int new_size = pg_nextpower2_32(NamedLWLockTrancheRequests + 1);
+        NamedLWLockTrancheRequestArray = (NamedLWLockTrancheRequest *)
+            repalloc(NamedLWLockTrancheRequestArray,
+                     new_size * sizeof(NamedLWLockTrancheRequest));
+        NamedLWLockTrancheRequestsAllocated = new_size;
+    }
+
+    // Store the request
+    request = &NamedLWLockTrancheRequestArray[NamedLWLockTrancheRequests];
+    Assert(strlen(tranche_name) + 1 <= NAMEDATALEN);
+    strlcpy(request->tranche_name, tranche_name, NAMEDATALEN);
+    request->num_lwlocks = num_lwlocks;
+    NamedLWLockTrancheRequests++;
+}
+```

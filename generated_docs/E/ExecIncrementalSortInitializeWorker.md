@@ -33,3 +33,15 @@ The function uses the shared memory table of contents (TOC) to locate the Shared
 - This function is only called in parallel query execution contexts where multiple worker processes cooperate on incremental sorting
 - The shared_info pointer established here will be used throughout the incremental sort operation to coordinate statistics and state between parallel workers
 - The am_worker flag is set to distinguish worker processes from the leader process, affecting how certain operations are handled during execution
+
+## Simplified Source
+
+```c
+void ExecIncrementalSortInitializeWorker(IncrementalSortState *node, ParallelWorkerContext *pwcxt) {
+    // Attach to shared memory for sort statistics
+    node->shared_info = shm_toc_lookup(pwcxt->toc, node->ss.ps.plan->plan_node_id, true);
+
+    // Mark this process as a parallel worker
+    node->am_worker = true;
+}
+```

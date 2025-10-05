@@ -51,3 +51,39 @@ The function includes comprehensive range checking to prevent invalid time and t
 - Memory for the result is allocated using palloc, managed by PostgreSQL's memory context system
 - Errors are reported using ereport with appropriate error codes for out-of-range conditions
 - Type modifiers are applied to enforce precision constraints on the time component
+
+## Simplified Source
+
+```c
+Datum timetz_recv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    int32 typmod = PG_GETARG_INT32(2);
+    TimeTzADT *result;
+
+    // Allocate memory for result
+    result = (TimeTzADT *) palloc(sizeof(TimeTzADT));
+
+    // Read time value (microseconds since midnight)
+    result->time = pq_getmsgint64(buf);
+
+    // Validate time is within 24-hour range
+    if (result->time < 0 || result->time > USECS_PER_DAY)
+        ereport(ERROR,
+                (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                 errmsg("time out of range")));
+
+    // Read timezone offset
+    result->zone = pq_getmsgint(buf, sizeof(result->zone));
+
+    // Validate timezone displacement is reasonable
+    if (result->zone <= -TZDISP_LIMIT || result->zone >= TZDISP_LIMIT)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_TIME_ZONE_DISPLACEMENT_VALUE),
+                 errmsg("time zone displacement out of range")));
+
+    // Apply precision constraints from typmod
+    AdjustTimeForTypmod(&(result->time), typmod);
+
+    PG_RETURN_TIMETZADT_P(result);
+}
+```

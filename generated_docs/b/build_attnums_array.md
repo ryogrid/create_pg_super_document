@@ -36,3 +36,34 @@ This function converts a Bitmapset containing attribute references into a dynami
 - Memory is allocated using palloc() and should be freed by the caller when no longer needed
 - The function adjusts bitmap member values by subtracting nexprs to account for expression indices
 - Located in src/backend/statistics/extended_stats.c:941-985
+
+## Simplified Source
+
+```c
+AttrNumber *build_attnums_array(Bitmapset *attrs, int nexprs, int *numattrs) {
+    int num = bms_num_members(attrs);
+
+    // Return count if requested
+    if (numattrs) *numattrs = num;
+
+    // Allocate result array
+    AttrNumber *attnums = (AttrNumber *) palloc(sizeof(AttrNumber) * num);
+
+    // Convert bitmap members to attribute numbers
+    int i = 0;
+    int j = -1;
+    while ((j = bms_next_member(attrs, j)) >= 0) {
+        int attnum = (j - nexprs);
+
+        // Validate attribute number
+        Assert(AttributeNumberIsValid(attnum));
+        Assert(attnum <= MaxAttrNumber);
+        Assert(attnum >= (-nexprs));
+
+        attnums[i++] = (AttrNumber) attnum;
+        Assert(i <= num);
+    }
+
+    return attnums;
+}
+```

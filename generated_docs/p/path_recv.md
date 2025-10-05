@@ -37,3 +37,42 @@ The  function is responsible for deserializing path data from PostgreSQL's binar
 - Sets unused pad bytes to zero for stability
 - External binary format: closed flag (1 byte) + point count (4 bytes) + point coordinates (16 bytes per point)
 - Throws ERROR with ERRCODE_INVALID_BINARY_REPRESENTATION for invalid point counts
+
+## Simplified Source
+
+```c
+Datum path_recv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    PATH *path;
+    int closed;
+    int32 npts, i;
+    int size;
+
+    // Read binary format: closed flag + point count
+    closed = pq_getmsgbyte(buf);
+    npts = pq_getmsgint(buf, sizeof(int32));
+
+    // Validate point count to prevent overflow
+    if (npts <= 0 || npts >= (int32) ((INT_MAX - offsetof(PATH, p)) / sizeof(Point)))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_BINARY_REPRESENTATION),
+                       errmsg("invalid number of points in external \"path\" value")));
+
+    // Allocate PATH structure
+    size = offsetof(PATH, p) + sizeof(path->p[0]) * npts;
+    path = (PATH *) palloc(size);
+
+    // Initialize PATH fields
+    SET_VARSIZE(path, size);
+    path->npts = npts;
+    path->closed = (closed ? 1 : 0);
+    path->dummy = 0;  // Prevent padding instability
+
+    // Read coordinate data for each point
+    for (i = 0; i < npts; i++) {
+        path->p[i].x = pq_getmsgfloat8(buf);
+        path->p[i].y = pq_getmsgfloat8(buf);
+    }
+
+    PG_RETURN_PATH_P(path);
+}
+```

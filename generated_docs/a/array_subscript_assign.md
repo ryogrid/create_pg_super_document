@@ -44,3 +44,43 @@ For variable-length arrays, when the original array is NULL, the function create
 - Works in conjunction with array_subscript_check_subscripts which must be called first to prepare subscripts
 - Performance-optimized by using workspace storage for type metadata and pre-computed subscripts
 - The refattrlength field in the workspace distinguishes between fixed-length and variable-length array types
+
+## Simplified Source
+
+```c
+static void
+array_subscript_assign(ExprState *state,
+                       ExprEvalStep *op,
+                       ExprContext *econtext)
+{
+    SubscriptingRefState *sbsrefstate = op->d.sbsref.state;
+    ArraySubWorkspace *workspace = (ArraySubWorkspace *) sbsrefstate->workspace;
+    Datum arraySource = *op->resvalue;
+
+    // Handle fixed-length arrays: both array and replacement must be non-NULL
+    if (workspace->refattrlength > 0) {
+        if (*op->resnull || sbsrefstate->replacenull)
+            return;  // Keep original array unchanged
+    }
+
+    // Handle NULL original array for variable-length arrays
+    if (*op->resnull) {
+        // Create empty array to assign into
+        arraySource = PointerGetDatum(construct_empty_array(workspace->refelemtype));
+        *op->resnull = false;
+    }
+
+    // Perform the actual element assignment
+    *op->resvalue = array_set_element(arraySource,
+                                      sbsrefstate->numupper,
+                                      workspace->upperindex,
+                                      sbsrefstate->replacevalue,
+                                      sbsrefstate->replacenull,
+                                      workspace->refattrlength,
+                                      workspace->refelemlength,
+                                      workspace->refelembyval,
+                                      workspace->refelemalign);
+
+    // Result is never NULL
+}
+```

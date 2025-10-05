@@ -40,3 +40,48 @@ This function is a core component of PostgreSQL's hot standby locking mechanism.
 - Skips processing for invalid, committed, or aborted transactions
 - [Hash](../H/Hash.md) table entries link locks to their original transaction IDs for efficient cleanup
 - Part of the recovery locking infrastructure that prevents query conflicts in hot standby mode
+
+## Simplified Source
+
+```c
+void StandbyAcquireAccessExclusiveLock(TransactionId xid, Oid dbOid, Oid relOid) {
+    RecoveryLockXidEntry *xidentry;
+    RecoveryLockEntry *lockentry;
+    xl_standby_lock key;
+    LOCKTAG locktag;
+    bool found;
+
+    // Skip if transaction is invalid, committed, or aborted
+    if (!TransactionIdIsValid(xid) ||
+        TransactionIdDidCommit(xid) ||
+        TransactionIdDidAbort(xid))
+        return;
+
+    elog(DEBUG4, "adding recovery lock: db %u rel %u", dbOid, relOid);
+    Assert(OidIsValid(relOid));
+
+    // Create/find hash entry for this transaction ID
+    xidentry = hash_search(RecoveryLockXidHash, &xid, HASH_ENTER, &found);
+    if (!found) {
+        Assert(xidentry->xid == xid);
+        xidentry->head = NULL;
+    }
+
+    // Create/find hash entry for this specific lock
+    key.xid = xid;
+    key.dbOid = dbOid;
+    key.relOid = relOid;
+    lockentry = hash_search(RecoveryLockHash, &key, HASH_ENTER, &found);
+
+    if (!found) {
+        // New lock - link it to transaction's lock list
+        lockentry->next = xidentry->head;
+        xidentry->head = lockentry;
+
+        // Acquire the AccessExclusive lock locally
+        SET_LOCKTAG_RELATION(locktag, dbOid, relOid);
+        (void) LockAcquire(&locktag, AccessExclusiveLock, true, false);
+    }
+    // If lock already exists, deduplication - no action needed
+}
+```

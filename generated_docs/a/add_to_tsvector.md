@@ -36,3 +36,31 @@ This function serves as a callback for JSON processing that takes individual JSO
 - Position tracking (`prs->pos`) is incremented between elements to prevent phrase search artifacts
 - The function maintains proper separation between different JSON elements for accurate phrase search behavior
 - Memory management relies on palloc for ParsedWord array allocation, with automatic reallocation handled by parsetext when needed
+
+## Simplified Source
+
+```c
+static void add_to_tsvector(void *_state, char *elem_value, int elem_len)
+{
+    TSVectorBuildState *state = (TSVectorBuildState *) _state;
+    ParsedText *prs = state->prs;
+
+    // Initialize words array on first use
+    if (prs->words == NULL) {
+        prs->lenwords = 16;
+        prs->words = (ParsedWord *) palloc(sizeof(ParsedWord) * prs->lenwords);
+        prs->curwords = 0;
+        prs->pos = 0;
+    }
+
+    // Remember current word count before parsing
+    int32 prevwords = prs->curwords;
+
+    // Parse text element into lexemes
+    parsetext(state->cfgId, prs, elem_value, elem_len);
+
+    // Add artificial break between elements if words were extracted
+    if (prs->curwords > prevwords)
+        prs->pos += 1;
+}
+```

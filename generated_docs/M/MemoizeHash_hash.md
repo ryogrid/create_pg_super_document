@@ -42,3 +42,47 @@ The function combines hash values from multiple key attributes by rotating the a
 - Binary mode provides better performance for types that support binary hashing
 - The rotating XOR combination helps distribute hash values across multiple key attributes
 - Final murmurhash32 step improves hash distribution quality
+
+## Simplified Source
+
+```c
+static uint32
+MemoizeHash_hash(struct memoize_hash *tb, const MemoizeKey *key)
+{
+    MemoizeState *mstate = (MemoizeState *) tb->private_data;
+    TupleTableSlot *probeslot = mstate->probeslot;
+    uint32 hashkey = 0;
+    int numkeys = mstate->nkeys;
+
+    if (mstate->binary_mode) {
+        // Fast binary hashing mode
+        for (int i = 0; i < numkeys; i++) {
+            hashkey = pg_rotate_left32(hashkey, 1);
+
+            if (!probeslot->tts_isnull[i]) {
+                FormData_pg_attribute *attr = &probeslot->tts_tupleDescriptor->attrs[i];
+                uint32 hkey = datum_image_hash(probeslot->tts_values[i], attr->attbyval, attr->attlen);
+                hashkey ^= hkey;
+            }
+        }
+    }
+    else {
+        // Standard mode using hash functions
+        FmgrInfo *hashfunctions = mstate->hashfunctions;
+        Oid *collations = mstate->collations;
+
+        for (int i = 0; i < numkeys; i++) {
+            hashkey = pg_rotate_left32(hashkey, 1);
+
+            if (!probeslot->tts_isnull[i]) {
+                uint32 hkey = DatumGetUInt32(FunctionCall1Coll(&hashfunctions[i],
+                                                               collations[i],
+                                                               probeslot->tts_values[i]));
+                hashkey ^= hkey;
+            }
+        }
+    }
+
+    return murmurhash32(hashkey);
+}
+```

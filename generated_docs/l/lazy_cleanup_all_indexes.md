@@ -41,3 +41,51 @@ The function manages detailed progress reporting throughout the cleanup process,
 - In parallel mode, delegates progress tracking to the parallel cleanup function
 - Index cleanup updates index statistics and metadata but doesn't remove tuples
 - Critical for maintaining accurate index statistics after vacuum operations
+
+## Simplified Source
+
+```c
+static void
+lazy_cleanup_all_indexes(LVRelState *vacrel)
+{
+    double reltuples = vacrel->new_rel_tuples;
+    bool estimated_count = vacrel->scanned_pages < vacrel->rel_pages;
+
+    Assert(vacrel->do_index_cleanup);
+    Assert(vacrel->nindexes > 0);
+
+    // Report progress
+    pgstat_progress_update_multi_param(2,
+        (int[]){PROGRESS_VACUUM_PHASE, PROGRESS_VACUUM_INDEXES_TOTAL},
+        (int64[]){PROGRESS_VACUUM_PHASE_INDEX_CLEANUP, vacrel->nindexes});
+
+    if (!ParallelVacuumIsActive(vacrel))
+    {
+        // Serial execution - cleanup each index
+        for (int idx = 0; idx < vacrel->nindexes; idx++)
+        {
+            Relation indrel = vacrel->indrels[idx];
+            IndexBulkDeleteResult *istat = vacrel->indstats[idx];
+
+            // Cleanup this index
+            vacrel->indstats[idx] = lazy_cleanup_one_index(indrel, istat, reltuples,
+                                                          estimated_count, vacrel);
+
+            // Update progress
+            pgstat_progress_update_param(PROGRESS_VACUUM_INDEXES_PROCESSED, idx + 1);
+        }
+    }
+    else
+    {
+        // Parallel execution - delegate to parallel workers
+        parallel_vacuum_cleanup_all_indexes(vacrel->pvs, reltuples,
+                                           vacrel->num_index_scans,
+                                           estimated_count);
+    }
+
+    // Reset progress counters
+    pgstat_progress_update_multi_param(2,
+        (int[]){PROGRESS_VACUUM_INDEXES_TOTAL, PROGRESS_VACUUM_INDEXES_PROCESSED},
+        (int64[]){0, 0});
+}
+```

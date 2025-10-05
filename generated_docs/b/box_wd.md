@@ -30,3 +30,12 @@ The  function is a static helper function in PostgreSQL's geometric operations m
 - The function assumes the BOX structure is properly initialized with valid high and low coordinates
 - Uses PostgreSQL's float8_mi function for proper floating-point arithmetic handling
 - The width is calculated as high.x - low.x, which should always be positive for a properly formed box
+
+## Simplified Source
+
+```c
+static float8 box_wd(BOX *box) {
+    // Calculate width = high.x - low.x (horizontal magnitude)
+    return float8_mi(box->high.x, box->low.x);
+}
+```

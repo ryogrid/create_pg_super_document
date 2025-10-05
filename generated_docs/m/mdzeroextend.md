@@ -50,3 +50,61 @@ The `mdzeroextend` function extends a relation by adding multiple blocks filled 
 - Includes debug assertions to verify that block numbers are appropriate for extension operations
 - More efficient than multiple calls to `mdextend()` when adding multiple blocks
 - Part of PostgreSQL's storage manager interface, optimized for bulk relation extension operations
+
+## Simplified Source
+
+```c
+void
+mdzeroextend(SMgrRelation reln, ForkNumber forknum,
+             BlockNumber blocknum, int nblocks, bool skipFsync)
+{
+    MdfdVec *v;
+    BlockNumber curblocknum = blocknum;
+    int remblocks = nblocks;
+
+    // Prevent extending beyond maximum block number
+    if ((uint64) blocknum + nblocks >= (uint64) InvalidBlockNumber)
+        ereport(ERROR, "cannot extend file beyond maximum blocks");
+
+    // Process extension in chunks, respecting segment boundaries
+    while (remblocks > 0) {
+        BlockNumber segstartblock = curblocknum % ((BlockNumber) RELSEG_SIZE);
+        off_t seekpos = (off_t) BLCKSZ * segstartblock;
+        int numblocks;
+
+        // Calculate blocks to write in this segment
+        if (segstartblock + remblocks > RELSEG_SIZE)
+            numblocks = RELSEG_SIZE - segstartblock;
+        else
+            numblocks = remblocks;
+
+        // Get or create the segment
+        v = _mdfd_getseg(reln, forknum, curblocknum, skipFsync, EXTENSION_CREATE);
+
+        // Choose extension method based on block count
+        if (numblocks > 8) {
+            // Use fallocate for large extensions (more efficient)
+            int ret = FileFallocate(v->mdfd_vfd, seekpos,
+                                  (off_t) BLCKSZ * numblocks,
+                                  WAIT_EVENT_DATA_FILE_EXTEND);
+            if (ret != 0)
+                ereport(ERROR, "could not extend file with FileFallocate(): %m");
+        } else {
+            // Use zero-writing for small extensions
+            int ret = FileZero(v->mdfd_vfd, seekpos,
+                             (off_t) BLCKSZ * numblocks,
+                             WAIT_EVENT_DATA_FILE_EXTEND);
+            if (ret < 0)
+                ereport(ERROR, "could not extend file: %m");
+        }
+
+        // Register for fsync if needed
+        if (!skipFsync && !SmgrIsTemp(reln))
+            register_dirty_segment(reln, forknum, v);
+
+        // Move to next chunk
+        remblocks -= numblocks;
+        curblocknum += numblocks;
+    }
+}
+```

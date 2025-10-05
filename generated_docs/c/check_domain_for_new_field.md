@@ -42,3 +42,54 @@ The function handles both empty and populated records appropriately - copying ex
 - Uses the main header's domain cache space for efficient repeated constraint checking
 - Immediately cleans up the short-term context after constraint validation
 - Function name suggests it's specifically for single field operations (vs. bulk operations)
+
+## Simplified Source
+
+```c
+static void check_domain_for_new_field(ExpandedRecordHeader *erh, int fnumber,
+                                      Datum newValue, bool isnull)
+{
+    // Create dummy header for constraint checking
+    build_dummy_expanded_header(erh);
+    ExpandedRecordHeader *dummy_erh = erh->er_dummy_header;
+
+    // Copy existing field values or initialize to nulls
+    if (!ExpandedRecordIsEmpty(erh)) {
+        deconstruct_expanded_record(erh);
+        memcpy(dummy_erh->dvalues, erh->dvalues, dummy_erh->nfields * sizeof(Datum));
+        memcpy(dummy_erh->dnulls, erh->dnulls, dummy_erh->nfields * sizeof(bool));
+        dummy_erh->flags |= erh->flags & ER_FLAG_HAVE_EXTERNAL;
+    } else {
+        memset(dummy_erh->dvalues, 0, dummy_erh->nfields * sizeof(Datum));
+        memset(dummy_erh->dnulls, true, dummy_erh->nfields * sizeof(bool));
+    }
+
+    dummy_erh->flags |= ER_FLAG_DVALUES_VALID;
+
+    // Validate field number
+    if (fnumber <= 0 || fnumber > dummy_erh->nfields)
+        elog(ERROR, "cannot assign to field %d of expanded record", fnumber);
+
+    // Insert proposed new value
+    dummy_erh->dvalues[fnumber - 1] = newValue;
+    dummy_erh->dnulls[fnumber - 1] = isnull;
+
+    // Track external values
+    if (!isnull) {
+        Form_pg_attribute attr = TupleDescAttr(erh->er_tupdesc, fnumber - 1);
+        if (!attr->attbyval && attr->attlen == -1 &&
+            VARATT_IS_EXTERNAL(DatumGetPointer(newValue)))
+            dummy_erh->flags |= ER_FLAG_HAVE_EXTERNAL;
+    }
+
+    // Run domain constraint check
+    MemoryContext oldcxt = MemoryContextSwitchTo(erh->er_short_term_cxt);
+    domain_check(ExpandedRecordGetRODatum(dummy_erh), false,
+                erh->er_decltypeid, &erh->er_domaininfo,
+                erh->hdr.eoh_context);
+    MemoryContextSwitchTo(oldcxt);
+
+    // Clean up
+    MemoryContextReset(erh->er_short_term_cxt);
+}
+```

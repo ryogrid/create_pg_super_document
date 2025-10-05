@@ -38,3 +38,23 @@ This PostgreSQL function implements a variant of the has_database_privilege SQL 
 - Uses GetUserId() to automatically determine the current user's OID rather than requiring it as a parameter
 - The actual privilege checking is delegated to the generic object_aclcheck function with DatabaseRelationId
 - Located in src/backend/utils/adt/acl.c:3016-3039
+
+## Simplified Source
+
+```c
+Datum has_database_privilege_name(PG_FUNCTION_ARGS) {
+    // Extract arguments
+    text *databasename = PG_GETARG_TEXT_PP(0);
+    text *priv_type_text = PG_GETARG_TEXT_PP(1);
+
+    // Get current user and convert database name and privilege
+    Oid roleid = GetUserId();
+    Oid databaseoid = convert_database_name(databasename);
+    AclMode mode = convert_database_priv_string(priv_type_text);
+
+    // Check privilege using generic object access control
+    AclResult aclresult = object_aclcheck(DatabaseRelationId, databaseoid, roleid, mode);
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

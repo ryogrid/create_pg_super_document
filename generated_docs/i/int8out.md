@@ -38,3 +38,23 @@ The function uses an optimized approach by pre-calculating the string length usi
 - The buffer size  accommodates the maximum possible digits plus null terminator for a 64-bit integer
 - Memory allocated with  is automatically freed at the end of the current memory context
 - Located in src/backend/utils/adt/int8.c alongside other 64-bit integer utility functions
+
+## Simplified Source
+
+```c
+Datum int8out(PG_FUNCTION_ARGS) {
+    int64 val = PG_GETARG_INT64(0);  // Get 64-bit integer value
+    char buf[MAXINT8LEN + 1];
+    char *result;
+    int len;
+
+    // Convert integer to string and get length
+    len = pg_lltoa(val, buf) + 1;
+
+    // Allocate memory and copy string (optimized to avoid strlen)
+    result = palloc(len);
+    memcpy(result, buf, len);
+
+    PG_RETURN_CSTRING(result);
+}
+```

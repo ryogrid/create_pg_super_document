@@ -38,3 +38,86 @@ The  function is a PostgreSQL SQL function that takes either a one-dimensional a
 - Null values are converted to JSON null values in the resulting object
 - Uses JsonbInState for incremental JSONB construction
 - Memory management includes freeing temporary arrays after processing
+
+## Simplified Source
+
+```c
+Datum
+jsonb_object(PG_FUNCTION_ARGS)
+{
+    ArrayType *in_array = PG_GETARG_ARRAYTYPE_P(0);
+    int ndims = ARR_NDIM(in_array);
+    Datum *in_datums;
+    bool *in_nulls;
+    int in_count, count, i;
+    JsonbInState result;
+
+    // Initialize JSONB object construction
+    memset(&result, 0, sizeof(JsonbInState));
+    pushJsonbValue(&result.parseState, WJB_BEGIN_OBJECT, NULL);
+
+    // Validate array dimensions
+    switch (ndims) {
+        case 0:
+            goto close_object;  // Empty array
+        case 1:
+            // 1D array must have even number of elements
+            if ((ARR_DIMS(in_array)[0]) % 2)
+                ereport(ERROR, (errcode(ERRCODE_ARRAY_SUBSCRIPT_ERROR),
+                               errmsg("array must have even number of elements")));
+            break;
+        case 2:
+            // 2D array must have exactly 2 columns
+            if ((ARR_DIMS(in_array)[1]) != 2)
+                ereport(ERROR, (errcode(ERRCODE_ARRAY_SUBSCRIPT_ERROR),
+                               errmsg("array must have two columns")));
+            break;
+        default:
+            ereport(ERROR, (errcode(ERRCODE_ARRAY_SUBSCRIPT_ERROR),
+                           errmsg("wrong number of array subscripts")));
+    }
+
+    // Extract array elements
+    deconstruct_array_builtin(in_array, TEXTOID, &in_datums, &in_nulls, &in_count);
+    count = in_count / 2;
+
+    // Process key-value pairs
+    for (i = 0; i < count; ++i) {
+        JsonbValue v;
+        char *str;
+        int len;
+
+        // Process key (null keys not allowed)
+        if (in_nulls[i * 2])
+            ereport(ERROR, (errcode(ERRCODE_NULL_VALUE_NOT_ALLOWED),
+                           errmsg("null value not allowed for object key")));
+
+        str = TextDatumGetCString(in_datums[i * 2]);
+        len = strlen(str);
+        v.type = jbvString;
+        v.val.string.len = len;
+        v.val.string.val = str;
+        pushJsonbValue(&result.parseState, WJB_KEY, &v);
+
+        // Process value (nulls become JSON null)
+        if (in_nulls[i * 2 + 1]) {
+            v.type = jbvNull;
+        } else {
+            str = TextDatumGetCString(in_datums[i * 2 + 1]);
+            len = strlen(str);
+            v.type = jbvString;
+            v.val.string.len = len;
+            v.val.string.val = str;
+        }
+        pushJsonbValue(&result.parseState, WJB_VALUE, &v);
+    }
+
+    // Cleanup and close object
+    pfree(in_datums);
+    pfree(in_nulls);
+
+close_object:
+    result.res = pushJsonbValue(&result.parseState, WJB_END_OBJECT, NULL);
+    PG_RETURN_POINTER(JsonbValueToJsonb(result.res));
+}
+```

@@ -48,3 +48,32 @@ The key difference from other variants is the use of object_aclcheck_ext, which 
 - The is_missing flag provides explicit detection of non-existent functions
 - Handles the "public" role specially through get_role_oid_or_public
 - Uses ProcedureRelationId to indicate that privilege checking is being done on functions/procedures
+
+## Simplified Source
+
+```c
+Datum
+has_function_privilege_name_id(PG_FUNCTION_ARGS)
+{
+    Name username = PG_GETARG_NAME(0);
+    Oid functionoid = PG_GETARG_OID(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+    bool is_missing = false;
+
+    // Convert username to role OID (handles "public" role)
+    Oid roleid = get_role_oid_or_public(NameStr(*username));
+
+    // Convert privilege string to access mode
+    AclMode mode = convert_function_priv_string(priv_type_text);
+
+    // Check privilege with missing object detection
+    AclResult aclresult = object_aclcheck_ext(ProcedureRelationId, functionoid,
+                                               roleid, mode, &is_missing);
+
+    // Return NULL if function doesn't exist
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

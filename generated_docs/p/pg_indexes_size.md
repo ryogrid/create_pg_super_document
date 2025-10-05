@@ -45,3 +45,28 @@ The function is designed to be safe for concurrent use and handles edge cases gr
 - Includes all index storage components (main data, FSM, VM) for comprehensive reporting
 - Part of PostgreSQL's standard object size function family
 - Function follows PostgreSQL's C function interface conventions
+
+## Simplified Source
+
+```c
+Datum
+pg_indexes_size(PG_FUNCTION_ARGS)
+{
+    Oid relOid = PG_GETARG_OID(0);
+    Relation rel;
+    int64 size;
+
+    // Try to open the relation safely
+    rel = try_relation_open(relOid, AccessShareLock);
+
+    if (rel == NULL)
+        PG_RETURN_NULL();
+
+    // Calculate indexes size using core function
+    size = calculate_indexes_size(rel);
+
+    relation_close(rel, AccessShareLock);
+
+    PG_RETURN_INT64(size);
+}
+```

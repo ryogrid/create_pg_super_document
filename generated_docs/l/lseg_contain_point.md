@@ -44,3 +44,14 @@ The comment notes that this algorithm behaves well even with least significant b
 - Critical for accurate geometric computations in PostgreSQL's spatial data types
 - The distance-based approach provides better numerical stability than alternative parametric methods
 - Part of the broader geometric operations infrastructure supporting PostgreSQL's geometric types
+
+## Simplified Source
+
+```c
+static bool lseg_contain_point(LSEG *lseg, Point *pt) {
+    // Use triangle inequality to test collinearity:
+    // If point is on segment, then distance(pt,p0) + distance(pt,p1) = distance(p0,p1)
+    return FPeq(point_dt(pt, &lseg->p[0]) + point_dt(pt, &lseg->p[1]),
+                point_dt(&lseg->p[0], &lseg->p[1]));
+}
+```

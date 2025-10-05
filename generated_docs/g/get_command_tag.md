@@ -37,3 +37,21 @@ The function includes a null check for the parse tree and returns NULL if no par
 - The command tag is generated using PostgreSQL's internal CreateCommandName function
 - Used in conjunction with other test functions to analyze DDL command parsing results
 - Located in the test_ddl_deparse extension module for testing DDL deparsing functionality
+
+## Simplified Source
+
+```c
+Datum
+get_command_tag(PG_FUNCTION_ARGS)
+{
+    // Extract CollectedCommand structure from arguments
+    CollectedCommand *cmd = (CollectedCommand *) PG_GETARG_POINTER(0);
+
+    // Return NULL if no parse tree is present
+    if (!cmd->parsetree)
+        PG_RETURN_NULL();
+
+    // Generate command tag from parse tree and return as text
+    PG_RETURN_TEXT_P(cstring_to_text(CreateCommandName(cmd->parsetree)));
+}
+```

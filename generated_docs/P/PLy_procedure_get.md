@@ -39,3 +39,57 @@ This function implements a sophisticated caching mechanism for PL/Python procedu
 - Validates cached procedures against current system catalog to handle schema changes
 - Critical for PL/Python performance by avoiding repeated compilation of the same functions
 - The returned procedure object is managed by the cache and should not be freed directly by callers
+
+## Simplified Source
+
+```c
+PLyProcedure *PLy_procedure_get(Oid fn_oid, Oid fn_rel, bool is_trigger) {
+    bool use_cache = !(is_trigger && fn_rel == InvalidOid);
+    HeapTuple procTup;
+    PLyProcedureKey key;
+    PLyProcedureEntry *entry = NULL;
+    PLyProcedure *proc = NULL;
+    bool found = false;
+
+    // Look up function in system catalog
+    procTup = SearchSysCache1(PROCOID, ObjectIdGetDatum(fn_oid));
+    if (!HeapTupleIsValid(procTup))
+        elog(ERROR, "cache lookup failed for function %u", fn_oid);
+
+    // Check cache if we have enough info (not during trigger validation)
+    if (use_cache) {
+        key.fn_oid = fn_oid;
+        key.fn_rel = fn_rel;
+        entry = hash_search(PLy_procedure_cache, &key, HASH_ENTER, &found);
+        proc = entry->proc;
+    }
+
+    PG_TRY(); {
+        if (!found) {
+            // Create new procedure and cache it
+            proc = PLy_procedure_create(procTup, fn_oid, is_trigger);
+            if (use_cache)
+                entry->proc = proc;
+        }
+        else if (!PLy_procedure_valid(proc, procTup)) {
+            // Cached version is stale, recreate
+            entry->proc = NULL;
+            if (proc)
+                PLy_procedure_delete(proc);
+            proc = PLy_procedure_create(procTup, fn_oid, is_trigger);
+            entry->proc = proc;
+        }
+        // Else: found valid cached procedure, use it
+    }
+    PG_CATCH(); {
+        // Clean up incomplete cache entry on error
+        if (use_cache)
+            hash_search(PLy_procedure_cache, &key, HASH_REMOVE, NULL);
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    ReleaseSysCache(procTup);
+    return proc;
+}
+```

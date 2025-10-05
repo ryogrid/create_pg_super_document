@@ -43,3 +43,22 @@ This creates a binary representation that can be efficiently transmitted over th
 - Used when clients request binary format (format code 1) instead of text format
 - Part of PostgreSQL's type system infrastructure for efficient binary I/O operations
 - The pq_begintypsend/pq_endtypsend functions handle the bytea header and length information
+
+## Simplified Source
+
+```c
+Datum charsend(PG_FUNCTION_ARGS) {
+    // Extract the character from function arguments
+    char arg1 = PG_GETARG_CHAR(0);
+    StringInfoData buf;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Write the single character byte to buffer
+    pq_sendbyte(&buf, arg1);
+
+    // Finalize buffer and return as bytea
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

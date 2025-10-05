@@ -39,3 +39,11 @@ The use of BLCKSZ - 1 as the free space amount indicates that virtually the enti
 - Enables efficient page reuse across all index access methods
 - Simple wrapper around RecordPageWithFreeSpace with maximum free space parameter
 - Critical for maintaining index storage efficiency and preventing unnecessary growth
+
+## Simplified Source
+```c
+void RecordFreeIndexPage(Relation rel, BlockNumber freeBlock) {
+    // Mark page as completely free with maximum available space
+    RecordPageWithFreeSpace(rel, freeBlock, BLCKSZ - 1);
+}
+```

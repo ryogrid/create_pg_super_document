@@ -43,3 +43,30 @@ The function handles empty arrays by outputting "[]" and non-empty arrays by ite
 - Output format follows PostgreSQL's standard array representation with square brackets
 - Located in the rmgrdesc_utils.c file which contains utilities for resource manager descriptions
 - The function is declared in rmgrdesc_utils.h for use across different resource manager description modules
+
+## Simplified Source
+
+```c
+void array_desc(StringInfo buf, void *array, size_t elem_size, int count,
+               void (*elem_desc) (StringInfo buf, void *elem, void *data),
+               void *data) {
+    // Handle empty arrays
+    if (count == 0) {
+        appendStringInfoString(buf, " []");
+        return;
+    }
+
+    // Start array output
+    appendStringInfoString(buf, " [");
+
+    // Process each element using callback function
+    for (int i = 0; i < count; i++) {
+        elem_desc(buf, (char *) array + elem_size * i, data);
+        if (i < count - 1)
+            appendStringInfoString(buf, ", ");
+    }
+
+    // Close array output
+    appendStringInfoChar(buf, ']');
+}
+```

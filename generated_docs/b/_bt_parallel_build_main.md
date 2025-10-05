@@ -46,3 +46,76 @@ The function handles both unique and non-unique index builds, setting up seconda
 - Memory allocation for sorting is divided among worker processes based on maintenance_work_mem
 - Includes conditional compilation support for B-tree build statistics collection
 - Worker process responsibility ends after calling this function - no further coordination required
+
+## Simplified Source
+
+```c
+void
+_bt_parallel_build_main(dsm_segment *seg, shm_toc *toc)
+{
+    BTSpool *btspool, *btspool2;
+    BTShared *btshared;
+    Sharedsort *sharedsort, *sharedsort2;
+    Relation heapRel, indexRel;
+    LOCKMODE heapLockmode, indexLockmode;
+    WalUsage *walusage;
+    BufferUsage *bufferusage;
+    int sortmem;
+
+    // Set up debug query string for worker
+    char *sharedquery = shm_toc_lookup(toc, PARALLEL_KEY_QUERY_TEXT, true);
+    debug_query_string = sharedquery;
+    pgstat_report_activity(STATE_RUNNING, debug_query_string);
+
+    // Get shared B-tree state
+    btshared = shm_toc_lookup(toc, PARALLEL_KEY_BTREE_SHARED, false);
+
+    // Determine lock modes based on concurrent vs regular build
+    if (!btshared->isconcurrent) {
+        heapLockmode = ShareLock;
+        indexLockmode = AccessExclusiveLock;
+    } else {
+        heapLockmode = ShareUpdateExclusiveLock;
+        indexLockmode = RowExclusiveLock;
+    }
+
+    // Open relations
+    heapRel = table_open(btshared->heaprelid, heapLockmode);
+    indexRel = index_open(btshared->indexrelid, indexLockmode);
+
+    // Initialize primary spool
+    btspool = setup_worker_spool(heapRel, indexRel, btshared);
+
+    // Set up tuplesort shared state
+    sharedsort = shm_toc_lookup(toc, PARALLEL_KEY_TUPLESORT, false);
+    tuplesort_attach_shared(sharedsort, seg);
+
+    // Initialize secondary spool for unique indexes
+    if (!btshared->isunique) {
+        btspool2 = NULL;
+        sharedsort2 = NULL;
+    } else {
+        btspool2 = setup_secondary_spool(btspool);
+        sharedsort2 = shm_toc_lookup(toc, PARALLEL_KEY_TUPLESORT_SPOOL2, false);
+        tuplesort_attach_shared(sharedsort2, seg);
+    }
+
+    // Start instrumentation tracking
+    InstrStartParallelQuery();
+
+    // Perform the actual scanning and sorting work
+    sortmem = maintenance_work_mem / btshared->scantuplesortstates;
+    _bt_parallel_scan_and_sort(btspool, btspool2, btshared, sharedsort,
+                               sharedsort2, sortmem, false);
+
+    // Report usage statistics
+    bufferusage = shm_toc_lookup(toc, PARALLEL_KEY_BUFFER_USAGE, false);
+    walusage = shm_toc_lookup(toc, PARALLEL_KEY_WAL_USAGE, false);
+    InstrEndParallelQuery(&bufferusage[ParallelWorkerNumber],
+                          &walusage[ParallelWorkerNumber]);
+
+    // Clean up
+    index_close(indexRel, indexLockmode);
+    table_close(heapRel, heapLockmode);
+}
+```

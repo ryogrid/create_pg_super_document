@@ -38,3 +38,22 @@ This function is a PostgreSQL built-in function that computes the point on the b
 - Memory for the result point is allocated using PostgreSQL's memory management system (`palloc`)
 - The actual geometric computation is delegated to the `box_closept_point` helper function
 - Located in the geometric operations module (`geo_ops.c`) at lines 2933-2959
+
+## Simplified Source
+
+```c
+Datum close_pb(PG_FUNCTION_ARGS) {
+    Point *pt = PG_GETARG_POINT_P(0);
+    BOX *box = PG_GETARG_BOX_P(1);
+    Point *result;
+
+    // Allocate memory for result point
+    result = (Point *) palloc(sizeof(Point));
+
+    // Calculate closest point on box to point
+    if (isnan(box_closept_point(result, box, pt)))
+        PG_RETURN_NULL();
+
+    PG_RETURN_POINT_P(result);
+}
+```

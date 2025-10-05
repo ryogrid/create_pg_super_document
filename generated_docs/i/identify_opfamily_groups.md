@@ -42,3 +42,80 @@ This function analyzes an operator family's operators and support functions to c
 - Supports operator strategies and function numbers 1-63 (bit positions in uint64)
 - Critical component of access method validation infrastructure
 - Located in src/backend/access/index/amvalidate.c:43-151
+
+## Simplified Source
+
+```c
+List *identify_opfamily_groups(CatCList *oprlist, CatCList *proclist) {
+    List *result = NIL;
+    OpFamilyOpFuncGroup *thisgroup = NULL;
+    Form_pg_amop oprform = NULL;
+    Form_pg_amproc procform = NULL;
+    int io = 0, ip = 0;
+
+    // Verify that input lists are ordered for correct processing
+    if (!oprlist->ordered || !proclist->ordered)
+        elog(ERROR, "cannot validate operator family without ordered data");
+
+    // Initialize iterators for both lists
+    if (io < oprlist->n_members) {
+        oprform = (Form_pg_amop) GETSTRUCT(&oprlist->members[io]->tuple);
+        io++;
+    }
+    if (ip < proclist->n_members) {
+        procform = (Form_pg_amproc) GETSTRUCT(&proclist->members[ip]->tuple);
+        ip++;
+    }
+
+    // Process all operators and functions concurrently
+    while (oprform || procform) {
+        // Add operator to current group if it matches
+        if (oprform && thisgroup &&
+            oprform->amoplefttype == thisgroup->lefttype &&
+            oprform->amoprighttype == thisgroup->righttype) {
+
+            if (oprform->amopstrategy > 0 && oprform->amopstrategy < 64)
+                thisgroup->operatorset |= ((uint64) 1) << oprform->amopstrategy;
+
+            // Advance to next operator
+            oprform = (io < oprlist->n_members) ?
+                     (Form_pg_amop) GETSTRUCT(&oprlist->members[io++]->tuple) : NULL;
+            continue;
+        }
+
+        // Add function to current group if it matches
+        if (procform && thisgroup &&
+            procform->amproclefttype == thisgroup->lefttype &&
+            procform->amprocrighttype == thisgroup->righttype) {
+
+            if (procform->amprocnum > 0 && procform->amprocnum < 64)
+                thisgroup->functionset |= ((uint64) 1) << procform->amprocnum;
+
+            // Advance to next function
+            procform = (ip < proclist->n_members) ?
+                      (Form_pg_amproc) GETSTRUCT(&proclist->members[ip++]->tuple) : NULL;
+            continue;
+        }
+
+        // Create new group for next datatype combination
+        thisgroup = (OpFamilyOpFuncGroup *) palloc(sizeof(OpFamilyOpFuncGroup));
+
+        // Determine datatypes from whichever comes first
+        if (oprform && (!procform ||
+            (oprform->amoplefttype < procform->amproclefttype ||
+             (oprform->amoplefttype == procform->amproclefttype &&
+              oprform->amoprighttype < procform->amprocrighttype)))) {
+            thisgroup->lefttype = oprform->amoplefttype;
+            thisgroup->righttype = oprform->amoprighttype;
+        } else {
+            thisgroup->lefttype = procform->amproclefttype;
+            thisgroup->righttype = procform->amprocrighttype;
+        }
+
+        thisgroup->operatorset = thisgroup->functionset = 0;
+        result = lappend(result, thisgroup);
+    }
+
+    return result;
+}
+```

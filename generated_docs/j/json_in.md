@@ -39,3 +39,23 @@ The function performs JSON validation using PostgreSQL's JSON parser with a null
 - JSON validation is performed at input time to ensure only valid JSON is stored
 - Uses error-safe parsing that returns NULL instead of throwing errors on invalid JSON when called in appropriate contexts
 - The function is part of PostgreSQL's type input/output infrastructure and is automatically invoked during type conversions
+
+## Simplified Source
+
+```c
+Datum
+json_in(PG_FUNCTION_ARGS)
+{
+    char *json_string = PG_GETARG_CSTRING(0);
+    text *result = cstring_to_text(json_string);
+    JsonLexContext lex;
+
+    // Validate JSON syntax
+    makeJsonLexContext(&lex, result, false);
+    if (!pg_parse_json_or_errsave(&lex, &nullSemAction, fcinfo->context))
+        PG_RETURN_NULL();
+
+    // Return as text (internal JSON representation)
+    PG_RETURN_TEXT_P(result);
+}
+```

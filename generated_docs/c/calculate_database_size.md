@@ -44,3 +44,49 @@ The  function computes the total size of a database by scanning all tablespaces 
 - The function handles interruption checking during tablespace scanning for long operations
 - Total size includes all database files across all tablespaces where the database has objects
 - [Path](../P/Path.md) construction follows PostgreSQL's internal directory structure: base/dbOid for default, pg_tblspc/tblspc_oid/version_dir/dbOid for custom tablespaces
+
+## Simplified Source
+
+```c
+static int64 calculate_database_size(Oid dbOid) {
+    int64 totalsize;
+    DIR *dirdesc;
+    struct dirent *direntry;
+    char dirpath[MAXPGPATH];
+    char pathname[MAXPGPATH + 21 + sizeof(TABLESPACE_VERSION_DIRECTORY)];
+
+    // Check privileges - user needs CONNECT on database or pg_read_all_stats role
+    AclResult aclresult = object_aclcheck(DatabaseRelationId, dbOid, GetUserId(), ACL_CONNECT);
+    if (aclresult != ACLCHECK_OK &&
+        !has_privs_of_role(GetUserId(), ROLE_PG_READ_ALL_STATS)) {
+        aclcheck_error(aclresult, OBJECT_DATABASE, get_database_name(dbOid));
+    }
+
+    // Calculate size in default tablespace (base directory)
+    snprintf(pathname, sizeof(pathname), "base/%u", dbOid);
+    totalsize = db_dir_size(pathname);
+
+    // Scan all custom tablespaces in pg_tblspc directory
+    snprintf(dirpath, MAXPGPATH, "pg_tblspc");
+    dirdesc = AllocateDir(dirpath);
+
+    while ((direntry = ReadDir(dirdesc, dirpath)) != NULL) {
+        CHECK_FOR_INTERRUPTS();
+
+        // Skip current and parent directory entries
+        if (strcmp(direntry->d_name, ".") == 0 ||
+            strcmp(direntry->d_name, "..") == 0)
+            continue;
+
+        // Build path to database directory in this tablespace
+        snprintf(pathname, sizeof(pathname), "pg_tblspc/%s/%s/%u",
+                 direntry->d_name, TABLESPACE_VERSION_DIRECTORY, dbOid);
+
+        // Add this tablespace's contribution to total size
+        totalsize += db_dir_size(pathname);
+    }
+
+    FreeDir(dirdesc);
+    return totalsize;
+}
+```

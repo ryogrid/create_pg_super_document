@@ -52,3 +52,97 @@ The function also implements throttling by skipping databases that were recently
 - Implements temporal throttling to avoid repeatedly selecting the same database
 - Creates temporary memory context to prevent memory leaks during database list processing
 - Critical for maintaining database health in PostgreSQL clusters with multiple databases
+
+## Simplified Source
+
+```c
+static Oid do_start_worker(void)
+{
+    // Quick exit if no workers available
+    LWLockAcquire(AutovacuumLock, LW_SHARED);
+    if (dlist_is_empty(&AutoVacuumShmem->av_freeWorkers)) {
+        LWLockRelease(AutovacuumLock);
+        return InvalidOid;
+    }
+    LWLockRelease(AutovacuumLock);
+
+    // Create temporary context and get database list
+    MemoryContext tmpcxt = AllocSetContextCreate(CurrentMemoryContext,
+                                                "Autovacuum start worker (tmp)",
+                                                ALLOCSET_DEFAULT_SIZES);
+    MemoryContextSwitchTo(tmpcxt);
+    List *dblist = get_database_list();
+
+    // Calculate wraparound thresholds
+    TransactionId xidForceLimit = ReadNextTransactionId() - autovacuum_freeze_max_age;
+    MultiXactId multiForceLimit = ReadNextMultiXactId() - MultiXactMemberFreezeThreshold();
+
+    // Select database using priority algorithm
+    avw_dbase *selected_db = NULL;
+    bool for_xid_wrap = false;
+    bool for_multi_wrap = false;
+    TimestampTz current_time = GetCurrentTimestamp();
+
+    foreach(cell, dblist) {
+        avw_dbase *db = lfirst(cell);
+
+        // Priority 1: XID wraparound danger
+        if (TransactionIdPrecedes(db->adw_frozenxid, xidForceLimit)) {
+            if (selected_db == NULL ||
+                TransactionIdPrecedes(db->adw_frozenxid, selected_db->adw_frozenxid)) {
+                selected_db = db;
+                for_xid_wrap = true;
+            }
+            continue;
+        }
+        if (for_xid_wrap) continue;
+
+        // Priority 2: MultiXact wraparound danger
+        if (MultiXactIdPrecedes(db->adw_minmulti, multiForceLimit)) {
+            if (selected_db == NULL ||
+                MultiXactIdPrecedes(db->adw_minmulti, selected_db->adw_minmulti)) {
+                selected_db = db;
+                for_multi_wrap = true;
+            }
+            continue;
+        }
+        if (for_multi_wrap) continue;
+
+        // Priority 3: Oldest last autovac time (with throttling check)
+        db->adw_entry = pgstat_fetch_stat_dbentry(db->adw_datid);
+        if (!db->adw_entry) continue;
+
+        // Skip if recently processed
+        if (database_recently_processed(db->adw_datid, current_time))
+            continue;
+
+        if (selected_db == NULL ||
+            db->adw_entry->last_autovac_time < selected_db->adw_entry->last_autovac_time) {
+            selected_db = db;
+        }
+    }
+
+    // Start worker if database selected
+    Oid result = InvalidOid;
+    if (selected_db != NULL) {
+        LWLockAcquire(AutovacuumLock, LW_EXCLUSIVE);
+
+        WorkerInfo worker = dlist_container(WorkerInfoData, wi_links,
+                                          dlist_pop_head_node(&AutoVacuumShmem->av_freeWorkers));
+        worker->wi_dboid = selected_db->adw_datid;
+        worker->wi_proc = NULL;
+        worker->wi_launchtime = GetCurrentTimestamp();
+
+        AutoVacuumShmem->av_startingWorker = worker;
+        LWLockRelease(AutovacuumLock);
+
+        SendPostmasterSignal(PMSIGNAL_START_AUTOVAC_WORKER);
+        result = selected_db->adw_datid;
+    }
+
+    // Clean up and return
+    MemoryContextSwitchTo(oldcxt);
+    MemoryContextDelete(tmpcxt);
+    return result;
+}
+```

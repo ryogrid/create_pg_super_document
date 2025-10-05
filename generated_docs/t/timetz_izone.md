@@ -47,3 +47,43 @@ The conversion adjusts the time component by the difference between the original
 - Error reporting provides detailed interval representation in error messages for debugging
 - More suitable for programmatic use cases where timezone offsets are calculated rather than named
 - Provides exact control over timezone offset without DST rule interpretation
+
+## Simplified Source
+
+```c
+Datum
+timetz_izone(PG_FUNCTION_ARGS)
+{
+	Interval *zone = PG_GETARG_INTERVAL_P(0);
+	TimeTzADT *time = PG_GETARG_TIMETZADT_P(1);
+	TimeTzADT *result;
+	int tz;
+
+	// Validate interval constraints
+	if (INTERVAL_NOT_FINITE(zone))
+		ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+				errmsg("interval time zone \"%s\" must be finite",
+						DatumGetCString(DirectFunctionCall1(interval_out, PointerGetDatum(zone))))));
+
+	if (zone->month != 0 || zone->day != 0)
+		ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+				errmsg("interval time zone \"%s\" must not include months or days",
+						DatumGetCString(DirectFunctionCall1(interval_out, PointerGetDatum(zone))))));
+
+	// Convert interval to timezone offset
+	tz = -(zone->time / USECS_PER_SEC);
+
+	// Convert time to new timezone
+	result = (TimeTzADT *) palloc(sizeof(TimeTzADT));
+	result->time = time->time + (time->zone - tz) * USECS_PER_SEC;
+
+	// Ensure time stays within 24-hour range
+	while (result->time < INT64CONST(0))
+		result->time += USECS_PER_DAY;
+	if (result->time >= USECS_PER_DAY)
+		result->time %= USECS_PER_DAY;
+
+	result->zone = tz;
+	PG_RETURN_TIMETZADT_P(result);
+}
+```

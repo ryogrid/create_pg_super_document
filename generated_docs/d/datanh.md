@@ -35,3 +35,31 @@ The datanh function is a PostgreSQL wrapper around the standard C library atanh(
 - The function is part of PostgreSQL mathematical function library in src/backend/utils/adt/float.c
 - Located at src/backend/utils/adt/float.c:2707-2744
 - Error code ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE is used for invalid domain inputs
+
+## Simplified Source
+
+```c
+Datum datanh(PG_FUNCTION_ARGS) {
+    // Get input float8 value
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+
+    // Validate domain: atanh is only defined for inputs in range (-1, 1)
+    if (arg1 < -1.0 || arg1 > 1.0) {
+        ereport(ERROR,
+                (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                 errmsg("input is out of range")));
+    }
+
+    // Handle boundary cases explicitly for consistent behavior
+    float8 result;
+    if (arg1 == -1.0) {
+        result = -get_float8_infinity();
+    } else if (arg1 == 1.0) {
+        result = get_float8_infinity();
+    } else {
+        result = atanh(arg1);
+    }
+
+    PG_RETURN_FLOAT8(result);
+}
+```

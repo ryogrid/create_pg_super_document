@@ -53,3 +53,52 @@ The function is primarily used in PostgreSQL text search functionality to normal
 - Error handling includes conversion failure detection with appropriate error reporting
 - Originally adapted from backend/utils/adt/oracle_compat.c according to code comments
 - The TODO comment indicates the locale parameter (mylocale) is not currently utilized but reserved for future enhancement
+
+## Simplified Source
+
+```c
+char *lowerstr_with_len(const char *str, int len) {
+    char *out;
+
+    if (len == 0)
+        return pstrdup("");
+
+    // Multi-byte encoding with non-C locale
+    if (pg_database_encoding_max_length() > 1 && !database_ctype_is_c) {
+        // Convert to wide chars for proper Unicode handling
+        wchar_t *wstr = (wchar_t *) palloc(sizeof(wchar_t) * (len + 1));
+        int wlen = char2wchar(wstr, len + 1, str, len, 0);
+
+        // Apply lowercase to each wide char
+        wchar_t *wptr = wstr;
+        while (*wptr) {
+            *wptr = towlower((wint_t) *wptr);
+            wptr++;
+        }
+
+        // Convert back to multi-byte
+        len = pg_database_encoding_max_length() * wlen + 1;
+        out = (char *) palloc(len);
+        wlen = wchar2char(out, wstr, len, 0);
+        pfree(wstr);
+
+        if (wlen < 0)
+            ereport(ERROR, (errcode(ERRCODE_CHARACTER_NOT_IN_REPERTOIRE),
+                           errmsg("conversion from wchar_t to server encoding failed: %m")));
+    }
+    else {
+        // Single-byte path: simple tolower on each byte
+        out = (char *) palloc(sizeof(char) * (len + 1));
+        const char *ptr = str;
+        char *outptr = out;
+
+        while ((ptr - str) < len && *ptr) {
+            *outptr++ = tolower(TOUCHAR(ptr));
+            ptr++;
+        }
+        *outptr = '\0';
+    }
+
+    return out;
+}
+```

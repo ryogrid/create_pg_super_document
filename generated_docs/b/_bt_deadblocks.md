@@ -54,3 +54,53 @@ The final array is sorted and deduplicated to enable efficient binary search ope
 - The newitem is validated to be neither posting nor pivot tuple type
 - Returns ownership of allocated array to caller (must be freed)
 - Array size optimization balances initial allocation with growth needs
+
+## Simplified Source
+
+```c
+static BlockNumber *
+_bt_deadblocks(Page page, OffsetNumber *deletable, int ndeletable,
+              IndexTuple newitem, int *nblocks)
+{
+    int spacentids = ndeletable + 1;  // Initial space for dead tuples + newitem
+    int ntids = 0;
+    BlockNumber *tidblocks = (BlockNumber *) palloc(sizeof(BlockNumber) * spacentids);
+
+    // Always include the newitem's table block (optimization for recent locality)
+    tidblocks[ntids++] = ItemPointerGetBlockNumber(&newitem->t_tid);
+
+    // Process all LP_DEAD marked tuples
+    for (int i = 0; i < ndeletable; i++) {
+        ItemId itemid = PageGetItemId(page, deletable[i]);
+        IndexTuple itup = (IndexTuple) PageGetItem(page, itemid);
+
+        if (!BTreeTupleIsPosting(itup)) {
+            // Regular tuple - add its block number
+            if (ntids + 1 > spacentids) {
+                spacentids *= 2;
+                tidblocks = (BlockNumber *) repalloc(tidblocks, sizeof(BlockNumber) * spacentids);
+            }
+            tidblocks[ntids++] = ItemPointerGetBlockNumber(&itup->t_tid);
+        } else {
+            // Posting list tuple - add all TID blocks
+            int nposting = BTreeTupleGetNPosting(itup);
+
+            if (ntids + nposting > spacentids) {
+                spacentids = Max(spacentids * 2, ntids + nposting);
+                tidblocks = (BlockNumber *) repalloc(tidblocks, sizeof(BlockNumber) * spacentids);
+            }
+
+            for (int j = 0; j < nposting; j++) {
+                ItemPointer tid = BTreeTupleGetPostingN(itup, j);
+                tidblocks[ntids++] = ItemPointerGetBlockNumber(tid);
+            }
+        }
+    }
+
+    // Sort and deduplicate the block array for efficient binary search
+    qsort(tidblocks, ntids, sizeof(BlockNumber), _bt_blk_cmp);
+    *nblocks = qunique(tidblocks, ntids, sizeof(BlockNumber), _bt_blk_cmp);
+
+    return tidblocks;
+}
+```

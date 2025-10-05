@@ -30,3 +30,15 @@ This function serves as a wrapper around the generic pg_ls_tmpdir function, desi
 - More versatile than pg_ls_tmpdir_noargs but requires knowledge of tablespace OIDs
 - Part of PostgreSQL's administrative function suite for comprehensive temporary file monitoring
 - Useful for database administrators managing multiple tablespaces who need to monitor temporary file usage across different storage locations
+
+## Simplified Source
+
+```c
+Datum
+pg_ls_tmpdir_1arg(PG_FUNCTION_ARGS)
+{
+    // List files in the specified tablespace's temporary directory
+    // Takes tablespace OID as argument
+    return pg_ls_tmpdir(fcinfo, PG_GETARG_OID(0));
+}
+```

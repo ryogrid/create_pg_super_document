@@ -32,3 +32,13 @@ The function follows the standard PLy conversion pattern used throughout the PL/
 - The function is part of the larger type conversion system in PL/Python that handles bidirectional data type mapping between PostgreSQL and Python
 - The conversion is direct and doesn't require any special handling for null values or error cases, as those are typically handled at a higher level in the conversion framework
 - The function signature follows the standard PLyDatumToOb function pointer pattern used for input conversions in PL/Python
+
+## Simplified Source
+
+```c
+static PyObject *PLyFloat_FromFloat8(PLyDatumToOb *arg, Datum d)
+{
+    // Convert PostgreSQL float8 to Python float (direct double conversion)
+    return PyFloat_FromDouble(DatumGetFloat8(d));
+}
+```

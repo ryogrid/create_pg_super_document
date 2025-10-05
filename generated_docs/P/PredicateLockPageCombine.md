@@ -36,3 +36,16 @@ The function ensures that all serializable transactions continue to detect poten
 - May lead to false positives in serialization conflict detection, but these should be rare in practice
 - The design prioritizes correctness over optimal performance, ensuring that no serialization conflicts are missed
 - Skip processing for temporary tables and toast tables as they don't require predicate locking
+
+## Simplified Source
+
+```c
+void PredicateLockPageCombine(Relation relation, BlockNumber oldblkno,
+                             BlockNumber newblkno)
+{
+    // Page combines use same logic as page splits due to implementation constraints
+    // Ideally would remove old locks, but can't edit other backends' local lock tables
+    // So we duplicate locks instead, which may cause false positives but is safe
+    PredicateLockPageSplit(relation, oldblkno, newblkno);
+}
+```

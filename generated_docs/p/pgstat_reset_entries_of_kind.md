@@ -35,3 +35,12 @@ The function converts the kind parameter to a  and passes it along with the  pre
 - Part of PostgreSQL's layered statistics reset infrastructure
 - Efficiently filters entries by statistics kind without having to examine entry contents
 - The function is synchronous and will complete the reset of all matching entries before returning
+
+## Simplified Source
+
+```c
+void pgstat_reset_entries_of_kind(PgStat_Kind kind, TimestampTz ts) {
+    // Delegate to general reset function with kind-matching callback
+    pgstat_reset_matching_entries(match_kind, Int32GetDatum(kind), ts);
+}
+```

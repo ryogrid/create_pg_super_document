@@ -42,3 +42,40 @@ The function performs complete scans in forward direction only, handling array k
 - Essential for bitmap heap scan optimization in PostgreSQL query execution
 - Part of PostgreSQL's bitmap scan infrastructure for efficient multi-tuple access
 - The bitmap can later be used to access heap tuples in physical order for better I/O performance
+
+## Simplified Source
+
+```c
+int64 btgetbitmap(IndexScanDesc scan, TIDBitmap *tbm) {
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+    int64 ntids = 0;
+
+    // Process all primitive scans (for array keys)
+    do {
+        // Get first tuple in scan
+        if (_bt_first(scan, ForwardScanDirection)) {
+            // Add first tuple to bitmap
+            tbm_add_tuples(tbm, &scan->xs_heaptid, 1, false);
+            ntids++;
+
+            // Continue scanning for more tuples
+            for (;;) {
+                // Try to advance within current page
+                if (++so->currPos.itemIndex > so->currPos.lastItem) {
+                    // Move to next page if needed
+                    if (!_bt_next(scan, ForwardScanDirection))
+                        break;
+                }
+
+                // Add current tuple to bitmap
+                ItemPointer heapTid = &so->currPos.items[so->currPos.itemIndex].heapTid;
+                tbm_add_tuples(tbm, heapTid, 1, false);
+                ntids++;
+            }
+        }
+        // Continue with next primitive scan if array keys exist
+    } while (so->numArrayKeys && _bt_start_prim_scan(scan, ForwardScanDirection));
+
+    return ntids;
+}
+```

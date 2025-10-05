@@ -44,3 +44,78 @@ If the wait_event_info parameter is 0, the function returns NULL, indicating tha
 - Wait event monitoring is essential for performance analysis and troubleshooting in PostgreSQL, as it provides visibility into what resources backends are waiting for
 - The function is designed to be safe and will never return undefined behavior, always providing either a valid string pointer or NULL
 - Each wait event class has its own dedicated helper function for generating appropriate event names, maintaining modularity and code organization
+
+## Simplified Source
+
+```c
+const char *
+pgstat_get_wait_event(uint32 wait_event_info)
+{
+    uint32 classId;
+    uint16 eventId;
+    const char *event_name;
+
+    // Return NULL if process is not waiting
+    if (wait_event_info == 0)
+        return NULL;
+
+    // Extract class and event ID from wait event info
+    classId = wait_event_info & WAIT_EVENT_CLASS_MASK;
+    eventId = wait_event_info & WAIT_EVENT_ID_MASK;
+
+    // Dispatch to appropriate handler based on event class
+    switch (classId) {
+        case PG_WAIT_LWLOCK:
+            event_name = GetLWLockIdentifier(classId, eventId);
+            break;
+        case PG_WAIT_LOCK:
+            event_name = GetLockNameFromTagType(eventId);
+            break;
+        case PG_WAIT_EXTENSION:
+        case PG_WAIT_INJECTIONPOINT:
+            event_name = GetWaitEventCustomIdentifier(wait_event_info);
+            break;
+        case PG_WAIT_BUFFERPIN:
+            {
+                WaitEventBufferPin w = (WaitEventBufferPin) wait_event_info;
+                event_name = pgstat_get_wait_bufferpin(w);
+                break;
+            }
+        case PG_WAIT_ACTIVITY:
+            {
+                WaitEventActivity w = (WaitEventActivity) wait_event_info;
+                event_name = pgstat_get_wait_activity(w);
+                break;
+            }
+        case PG_WAIT_CLIENT:
+            {
+                WaitEventClient w = (WaitEventClient) wait_event_info;
+                event_name = pgstat_get_wait_client(w);
+                break;
+            }
+        case PG_WAIT_IPC:
+            {
+                WaitEventIPC w = (WaitEventIPC) wait_event_info;
+                event_name = pgstat_get_wait_ipc(w);
+                break;
+            }
+        case PG_WAIT_TIMEOUT:
+            {
+                WaitEventTimeout w = (WaitEventTimeout) wait_event_info;
+                event_name = pgstat_get_wait_timeout(w);
+                break;
+            }
+        case PG_WAIT_IO:
+            {
+                WaitEventIO w = (WaitEventIO) wait_event_info;
+                event_name = pgstat_get_wait_io(w);
+                break;
+            }
+        default:
+            event_name = "unknown wait event";
+            break;
+    }
+
+    return event_name;
+}
+```

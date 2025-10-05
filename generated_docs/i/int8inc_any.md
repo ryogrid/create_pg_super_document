@@ -31,3 +31,12 @@ The function exists as a separate entry to maintain proper pg_proc catalog organ
 - Simply delegates all functionality to int8inc without additional processing
 - Used specifically for aggregates counting non-null values rather than all values
 - Located in src/backend/utils/adt/int8.c:804-809
+
+## Simplified Source
+
+```c
+Datum int8inc_any(PG_FUNCTION_ARGS) {
+    // Simple wrapper for int8inc for null-safe aggregate counting
+    return int8inc(fcinfo);
+}
+```

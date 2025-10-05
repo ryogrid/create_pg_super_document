@@ -36,3 +36,22 @@ Like PageGetFreeSpace, this function uses signed arithmetic to handle edge cases
 - Returns 0 when insufficient space is available for all required line pointers
 - Useful for bulk insertion planning and space management
 - Located in src/backend/storage/page/bufpage.c:934-957
+
+## Simplified Source
+
+```c
+Size PageGetFreeSpaceForMultipleTuples(Page page, int ntups) {
+    // Calculate available space between lower and upper pointers
+    int available_space = ((PageHeader) page)->pd_upper -
+                         ((PageHeader) page)->pd_lower;
+
+    // Check if we have enough space for all line pointers
+    int required_space = ntups * sizeof(ItemIdData);
+    if (available_space < required_space) {
+        return 0;  // Not enough space
+    }
+
+    // Return remaining space after accounting for line pointers
+    return available_space - required_space;
+}
+```

@@ -33,3 +33,15 @@ The numeric_to_cstring function is a utility function that converts a PostgreSQL
 - The returned string should be managed according to PostgreSQL's memory management rules
 - Used internally by size formatting functions that work with numeric values
 - The conversion handles all numeric formats supported by PostgreSQL including integers, decimals, and special values
+
+## Simplified Source
+
+```c
+static char *
+numeric_to_cstring(Numeric n)
+{
+    Datum d = NumericGetDatum(n);
+
+    return DatumGetCString(DirectFunctionCall1(numeric_out, d));
+}
+```

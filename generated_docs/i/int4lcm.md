@@ -44,3 +44,37 @@ The function follows the mathematical definition where LCM is the smallest posit
 - Always returns a positive result by taking the absolute value
 - Part of PostgreSQL's integer arithmetic functions in `src/backend/utils/adt/int.c`
 - The `unlikely()` macro is used for branch prediction optimization on overflow checks
+
+## Simplified Source
+
+```c
+Datum int4lcm(PG_FUNCTION_ARGS) {
+    int32 arg1 = PG_GETARG_INT32(0);
+    int32 arg2 = PG_GETARG_INT32(1);
+    int32 gcd, result;
+
+    // Handle special case: lcm(x, 0) = 0
+    if (arg1 == 0 || arg2 == 0)
+        PG_RETURN_INT32(0);
+
+    // Calculate LCM using formula: lcm(x,y) = abs(x / gcd(x,y) * y)
+    gcd = int4gcd_internal(arg1, arg2);
+    arg1 = arg1 / gcd;
+
+    // Check for multiplication overflow
+    if (pg_mul_s32_overflow(arg1, arg2, &result))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("integer out of range")));
+
+    // Check for INT_MIN which cannot be represented positively
+    if (result == PG_INT32_MIN)
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("integer out of range")));
+
+    // Return absolute value
+    if (result < 0)
+        result = -result;
+
+    PG_RETURN_INT32(result);
+}
+```

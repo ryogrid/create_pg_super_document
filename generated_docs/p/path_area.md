@@ -47,3 +47,27 @@ The shoelace formula implementation:
 - Returns the absolute area value (always positive)
 - Handles self-intersecting polygons by computing the absolute value of the signed area
 - The PATH structure contains an array of points with coordinates accessible as path->p[i].x and path->p[i].y
+
+## Simplified Source
+
+```c
+Datum path_area(PG_FUNCTION_ARGS) {
+    PATH *path = PG_GETARG_PATH_P(0);
+    float8 area = 0.0;
+    int i, j;
+
+    // Only closed paths have area
+    if (!path->closed)
+        PG_RETURN_NULL();
+
+    // Apply shoelace formula: sum of (x_i * y_j) - (y_i * x_j)
+    for (i = 0; i < path->npts; i++) {
+        j = (i + 1) % path->npts;  // Next vertex, wrapping to first
+        area = float8_pl(area, float8_mul(path->p[i].x, path->p[j].y));
+        area = float8_mi(area, float8_mul(path->p[i].y, path->p[j].x));
+    }
+
+    // Return absolute area divided by 2
+    PG_RETURN_FLOAT8(float8_div(fabs(area), 2.0));
+}
+```

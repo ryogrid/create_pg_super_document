@@ -42,3 +42,15 @@ This specialized converter is more efficient than generic scalar conversion sinc
 - Uses PostgreSQL's DatumGetBool macro for efficient boolean extraction
 - Returns Python boolean singletons, ensuring proper memory management
 - Located in src/pl/plpython/plpy_typeio.c at lines 550-557
+
+## Simplified Source
+
+```c
+static PyObject *PLyBool_FromBool(PLyDatumToOb *arg, Datum d)
+{
+    // Convert PostgreSQL boolean to Python boolean singleton
+    if (DatumGetBool(d))
+        Py_RETURN_TRUE;
+    Py_RETURN_FALSE;
+}
+```

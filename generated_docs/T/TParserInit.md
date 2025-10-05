@@ -40,3 +40,41 @@ The function allocates memory for the parser structure and sets up the input str
 - Initial parser state is always set to TPS_Base
 - Memory allocation uses palloc0 ensuring zero-initialized structure
 - Includes conditional compilation for WPARSER_TRACE debugging support
+
+## Simplified Source
+
+```c
+static TParser *
+TParserInit(char *str, int len)
+{
+    // Allocate and initialize parser structure
+    TParser *prs = (TParser *) palloc0(sizeof(TParser));
+
+    // Set up basic input string information
+    prs->charmaxlen = pg_database_encoding_max_length();
+    prs->str = str;
+    prs->lenstr = len;
+
+    // Handle multi-byte character encodings
+    if (prs->charmaxlen > 1) {
+        prs->usewide = true;
+        if (database_ctype_is_c) {
+            // Convert to wide chars for C locale
+            prs->pgwstr = (pg_wchar *) palloc(sizeof(pg_wchar) * (prs->lenstr + 1));
+            pg_mb2wchar_with_len(prs->str, prs->pgwstr, prs->lenstr);
+        } else {
+            // Convert to wide chars for other locales
+            prs->wstr = (wchar_t *) palloc(sizeof(wchar_t) * (prs->lenstr + 1));
+            char2wchar(prs->wstr, prs->lenstr + 1, prs->str, prs->lenstr, 0);
+        }
+    } else {
+        prs->usewide = false;
+    }
+
+    // Initialize parser state to base state
+    prs->state = newTParserPosition(NULL);
+    prs->state->state = TPS_Base;
+
+    return prs;
+}
+```

@@ -32,3 +32,17 @@ int2out is a PostgreSQL output function that serves as the int2-to-string conver
 - Memory is allocated using palloc, which is automatically freed by PostgreSQL's memory context system
 - The function follows PostgreSQL's standard function calling convention using PG_FUNCTION_ARGS
 - Returns a Datum containing a C-string pointer
+
+## Simplified Source
+
+```c
+Datum
+int2out(PG_FUNCTION_ARGS)
+{
+    int16 arg1 = PG_GETARG_INT16(0);
+    char *result = (char *) palloc(7);  // sign, 5 digits, '\0'
+
+    pg_itoa(arg1, result);
+    PG_RETURN_CSTRING(result);
+}
+```

@@ -41,3 +41,33 @@ The output format is a JSON-like structure where each entry shows the attribute 
 - The output format resembles JSON with attribute combinations as keys and n-distinct values as values
 - The function handles multiple attribute combinations within a single n-distinct statistics object
 - Located in src/backend/statistics/mvdistinct.c:355-391
+
+## Simplified Source
+
+```c
+Datum pg_ndistinct_out(PG_FUNCTION_ARGS) {
+    bytea *data = PG_GETARG_BYTEA_PP(0);
+    MVNDistinct *ndist = statext_ndistinct_deserialize(data);
+    StringInfoData str;
+
+    // Build JSON-like output string
+    initStringInfo(&str);
+    appendStringInfoChar(&str, '{');
+
+    for (int i = 0; i < ndist->nitems; i++) {
+        MVNDistinctItem item = ndist->items[i];
+
+        if (i > 0) appendStringInfoString(&str, ", ");
+
+        // Format as "attr1, attr2, ...": ndistinct_value
+        for (int j = 0; j < item.nattributes; j++) {
+            AttrNumber attnum = item.attributes[j];
+            appendStringInfo(&str, "%s%d", (j == 0) ? "\"" : ", ", attnum);
+        }
+        appendStringInfo(&str, "\": %d", (int) item.ndistinct);
+    }
+
+    appendStringInfoChar(&str, '}');
+    PG_RETURN_CSTRING(str.data);
+}
+```

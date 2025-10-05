@@ -53,3 +53,70 @@ This optimization helps maintain consistent page density in composite indexes wi
 - Helps with "low cardinality leading column, high cardinality suffix column" index patterns
 - The optimization is conservative to avoid misapplication in random insertion patterns
 - Returns false for first key insertions since they dont indicate ascending patterns
+
+## Simplified Source
+```c
+static bool
+_bt_afternewitemoff(FindSplitData *state, OffsetNumber maxoff,
+                    int leaffillfactor, bool *usemult)
+{
+    int16 nkeyatts = IndexRelationGetNumberOfKeyAttributes(state->rel);
+
+    // Basic eligibility checks
+    if (nkeyatts == 1)  // Single key indexes not supported
+        return false;
+    if (state->newitemoff == P_FIRSTKEY)  // First insertion doesn't indicate pattern
+        return false;
+
+    // Verify all tuples are same size (equisized)
+    if (state->newitemsz != state->minfirstrightsz)
+        return false;
+    if (state->newitemsz * (maxoff - 1) != state->olddataitemstotal)
+        return false;
+
+    // Reject oversized tuples (limit to ~2 int64 or 4 int32 attributes)
+    Size max_tuple_size = MAXALIGN(sizeof(IndexTupleData) + sizeof(int64) * 2) +
+                         sizeof(ItemIdData);
+    if (state->newitemsz > max_tuple_size)
+        return false;
+
+    // Case 1: New item goes after all existing items (rightmost insertion)
+    if (state->newitemoff > maxoff) {
+        ItemId itemid = PageGetItemId(state->origpage, maxoff);
+        IndexTuple tup = (IndexTuple) PageGetItem(state->origpage, itemid);
+
+        // Check if leading attributes match between last tuple and new item
+        int keepnatts = _bt_keep_natts_fast(state->rel, tup, state->newitem);
+
+        if (keepnatts > 1 && keepnatts <= nkeyatts) {
+            *usemult = true;  // Use fill factor approach
+            return true;
+        }
+        return false;
+    }
+
+    // Case 2: New item goes in middle - check heap TID adjacency
+    ItemId itemid = PageGetItemId(state->origpage, OffsetNumberPrev(state->newitemoff));
+    IndexTuple tup = (IndexTuple) PageGetItem(state->origpage, itemid);
+
+    // Quick checks: no posting lists, heap TIDs must be adjacent
+    if (BTreeTupleIsPosting(tup) ||
+        !_bt_adjacenthtid(&tup->t_tid, &state->newitem->t_tid))
+        return false;
+
+    // Check attribute matching like rightmost case
+    int keepnatts = _bt_keep_natts_fast(state->rel, tup, state->newitem);
+
+    if (keepnatts > 1 && keepnatts <= nkeyatts) {
+        // Calculate position interpolation
+        double interp = (double) state->newitemoff / ((double) maxoff + 1);
+        double leaffillfactormult = (double) leaffillfactor / 100.0;
+
+        // Use fill factor if split would be too far right, exact split otherwise
+        *usemult = (interp > leaffillfactormult);
+        return true;
+    }
+
+    return false;
+}
+```

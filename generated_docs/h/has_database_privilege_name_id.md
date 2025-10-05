@@ -54,3 +54,32 @@ This PostgreSQL function implements a hybrid variant of the has_database_privile
 - Hybrid approach: resolves username to OID but uses database OID directly, making it efficient when database OID is known
 - The is_missing flag from object_aclcheck_ext allows proper NULL return when the database doesn't exist
 - Located in src/backend/utils/adt/acl.c:3040-3069
+
+## Simplified Source
+
+```c
+Datum
+has_database_privilege_name_id(PG_FUNCTION_ARGS)
+{
+    Name username = PG_GETARG_NAME(0);
+    Oid database_oid = PG_GETARG_OID(1);
+    text *privilege_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert username to role OID
+    Oid role_oid = get_role_oid_or_public(NameStr(*username));
+
+    // Convert privilege string to internal mode
+    AclMode privilege_mode = convert_database_priv_string(privilege_text);
+
+    // Check privilege, handling missing database
+    bool is_missing = false;
+    AclResult result = object_aclcheck_ext(DatabaseRelationId, database_oid,
+                                         role_oid, privilege_mode, &is_missing);
+
+    // Return NULL if database doesn't exist, otherwise return privilege check result
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(result == ACLCHECK_OK);
+}
+```

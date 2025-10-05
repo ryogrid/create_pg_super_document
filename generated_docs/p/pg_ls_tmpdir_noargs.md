@@ -29,3 +29,15 @@ This function serves as a wrapper around the generic pg_ls_tmpdir function, spec
 - Specifically targets the default tablespace, making it the most commonly used variant
 - Part of PostgreSQL's administrative function suite for monitoring temporary file usage
 - Useful for database administrators to monitor temporary file accumulation in the default location
+
+## Simplified Source
+
+```c
+Datum
+pg_ls_tmpdir_noargs(PG_FUNCTION_ARGS)
+{
+    // List files in the default tablespace's temporary directory
+    // No arguments required - uses the default tablespace
+    return pg_ls_tmpdir(fcinfo, DEFAULTTABLESPACE_OID);
+}
+```

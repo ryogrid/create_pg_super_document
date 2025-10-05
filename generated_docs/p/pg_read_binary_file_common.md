@@ -36,3 +36,25 @@ This function provides a comprehensive binary file reading interface that mirror
 - No encoding validation is performed, preserving exact binary content
 - Uses the same security model as the text reading functions through convert_and_check_filename
 - Provides consistent error handling and parameter validation across the file reading API family
+
+## Simplified Source
+
+```c
+static bytea *
+pg_read_binary_file_common(text *filename_t,
+                           int64 seek_offset, int64 bytes_to_read,
+                           bool read_to_eof, bool missing_ok)
+{
+    // Validate parameters based on read mode
+    if (read_to_eof)
+        Assert(bytes_to_read == -1);
+    else if (bytes_to_read < 0)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("requested length cannot be negative")));
+
+    // Validate filename security and read binary file
+    return read_binary_file(convert_and_check_filename(filename_t),
+                           seek_offset, bytes_to_read, missing_ok);
+}
+```

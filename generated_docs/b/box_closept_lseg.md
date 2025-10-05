@@ -42,3 +42,52 @@ This static function computes the closest point on or inside a box to a given li
 - Part of PostgreSQL's comprehensive geometric data type support system
 - The function efficiently handles the case where the line segment intersects the box by returning immediately with distance 0
 - Located in `geo_ops.c` at lines 3013-3062
+
+## Simplified Source
+
+```c
+static float8 box_closept_lseg(Point *result, BOX *box, LSEG *lseg) {
+    float8 dist, d;
+    Point corner, closept;
+    LSEG box_edge;
+
+    // If segment intersects box, distance is 0
+    if (box_interpt_lseg(result, box, lseg))
+        return 0.0;
+
+    // Check distance to each of the 4 box edges
+    // Bottom edge: low -> (low.x, high.y)
+    corner.x = box->low.x;
+    corner.y = box->high.y;
+    statlseg_construct(&box_edge, &box->low, &corner);
+    dist = lseg_closept_lseg(result, &box_edge, lseg);
+
+    // Top edge: (low.x, high.y) -> high
+    statlseg_construct(&box_edge, &box->high, &corner);
+    d = lseg_closept_lseg(&closept, &box_edge, lseg);
+    if (d < dist) {
+        dist = d;
+        if (result != NULL) *result = closept;
+    }
+
+    // Left edge: low -> (high.x, low.y)
+    corner.x = box->high.x;
+    corner.y = box->low.y;
+    statlseg_construct(&box_edge, &box->low, &corner);
+    d = lseg_closept_lseg(&closept, &box_edge, lseg);
+    if (d < dist) {
+        dist = d;
+        if (result != NULL) *result = closept;
+    }
+
+    // Right edge: (high.x, low.y) -> high
+    statlseg_construct(&box_edge, &box->high, &corner);
+    d = lseg_closept_lseg(&closept, &box_edge, lseg);
+    if (d < dist) {
+        dist = d;
+        if (result != NULL) *result = closept;
+    }
+
+    return dist;
+}
+```

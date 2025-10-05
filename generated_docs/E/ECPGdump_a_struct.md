@@ -42,3 +42,64 @@ This function penetrates a struct definition and recursively dumps the contents 
 - Memory allocated for prefix buffers (pbuf, ind_pbuf) is properly freed at function end
 - Passes struct_sizeof information to child calls for proper offset calculations in nested structures
 - Warning messages are generated when indicator struct has too few or too many members compared to main struct
+
+## Simplified Source
+
+```c
+static void ECPGdump_a_struct(FILE *o, const char *name, const char *ind_name, char *arrsize,
+                              struct ECPGtype *type, struct ECPGtype *ind_type,
+                              const char *prefix, const char *ind_prefix) {
+
+    // Allocate buffers for member access prefixes
+    char *pbuf = mm_alloc(strlen(name) + (prefix ? strlen(prefix) : 0) + 3);
+    char *ind_pbuf = mm_alloc(strlen(ind_name) + (ind_prefix ? strlen(ind_prefix) : 0) + 3);
+
+    // Determine access method: dot for value, arrow for pointer
+    if (atoi(arrsize) == 1)
+        sprintf(pbuf, "%s%s.", prefix ? prefix : "", name);
+    else
+        sprintf(pbuf, "%s%s->", prefix ? prefix : "", name);
+
+    prefix = pbuf;
+
+    // Setup indicator struct access if present
+    struct ECPGstruct_member *ind_p = NULL;
+    if (ind_type == &ecpg_no_indicator)
+        ind_p = &struct_no_indicator;
+    else if (ind_type != NULL) {
+        if (atoi(arrsize) == 1)
+            sprintf(ind_pbuf, "%s%s.", ind_prefix ? ind_prefix : "", ind_name);
+        else
+            sprintf(ind_pbuf, "%s%s->", ind_prefix ? ind_prefix : "", ind_name);
+
+        ind_prefix = ind_pbuf;
+        ind_p = ind_type->u.members;
+    }
+
+    // Process each struct member
+    for (struct ECPGstruct_member *p = type->u.members; p; p = p->next) {
+        ECPGdump_a_type(o, p->name, p->type, -1,
+                        (ind_p != NULL) ? ind_p->name : NULL,
+                        (ind_p != NULL) ? ind_p->type : NULL, -1,
+                        prefix, ind_prefix, arrsize, type->struct_sizeof,
+                        (ind_p != NULL) ? ind_type->struct_sizeof : NULL);
+
+        // Advance indicator pointer with error checking
+        if (ind_p != NULL && ind_p != &struct_no_indicator) {
+            ind_p = ind_p->next;
+            if (ind_p == NULL && p->next != NULL) {
+                mmerror(PARSE_ERROR, ET_WARNING, "indicator struct \"%s\" has too few members", ind_name);
+                ind_p = &struct_no_indicator;
+            }
+        }
+    }
+
+    // Check for excess indicator members
+    if (ind_type != NULL && ind_p != NULL && ind_p != &struct_no_indicator) {
+        mmerror(PARSE_ERROR, ET_WARNING, "indicator struct \"%s\" has too many members", ind_name);
+    }
+
+    free(pbuf);
+    free(ind_pbuf);
+}
+```

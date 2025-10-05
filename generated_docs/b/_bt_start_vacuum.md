@@ -41,3 +41,47 @@ The caller must guarantee that  will eventually be called to prevent permanent r
 - The function checks for existing VACUUM operations on the same relation to prevent conflicts
 - Resource management is critical - failure to call _bt_end_vacuum causes permanent slot leakage
 - Uses BtreeVacuumLock for synchronization across all B-tree VACUUM operations
+
+## Simplified Source
+
+```c
+BTCycleId
+_bt_start_vacuum(Relation rel)
+{
+    BTCycleId result;
+    BTOneVacInfo *vac;
+
+    // Get exclusive lock for modifying vacuum info
+    LWLockAcquire(BtreeVacuumLock, LW_EXCLUSIVE);
+
+    // Assign next cycle ID, avoiding zero and high reserved values
+    result = ++(btvacinfo->cycle_ctr);
+    if (result == 0 || result > MAX_BT_CYCLE_ID)
+        result = btvacinfo->cycle_ctr = 1;
+
+    // Check for duplicate vacuum on same relation
+    for (int i = 0; i < btvacinfo->num_vacuums; i++) {
+        vac = &btvacinfo->vacuums[i];
+        if (vac->relid.relId == rel->rd_lockInfo.lockRelId.relId &&
+            vac->relid.dbId == rel->rd_lockInfo.lockRelId.dbId) {
+            LWLockRelease(BtreeVacuumLock);
+            elog(ERROR, "multiple active vacuums for index \"%s\"",
+                 RelationGetRelationName(rel));
+        }
+    }
+
+    // Add new vacuum entry
+    if (btvacinfo->num_vacuums >= btvacinfo->max_vacuums) {
+        LWLockRelease(BtreeVacuumLock);
+        elog(ERROR, "out of btvacinfo slots");
+    }
+
+    vac = &btvacinfo->vacuums[btvacinfo->num_vacuums];
+    vac->relid = rel->rd_lockInfo.lockRelId;
+    vac->cycleid = result;
+    btvacinfo->num_vacuums++;
+
+    LWLockRelease(BtreeVacuumLock);
+    return result;
+}
+```

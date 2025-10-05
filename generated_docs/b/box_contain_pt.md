@@ -36,3 +36,16 @@ The  function is a PostgreSQL geometric operator that determines if a box contai
 - Located in src/backend/utils/adt/geo_ops.c:3146-3165
 - The argument order (box first, point second) distinguishes this from  which takes point first
 - Returns true if the point is inside the box or on its boundary
+
+## Simplified Source
+
+```c
+Datum box_contain_pt(PG_FUNCTION_ARGS) {
+    // Extract box and point from function arguments
+    BOX *box = PG_GETARG_BOX_P(0);
+    Point *pt = PG_GETARG_POINT_P(1);
+
+    // Test if box contains the point
+    PG_RETURN_BOOL(box_contain_point(box, pt));
+}
+```

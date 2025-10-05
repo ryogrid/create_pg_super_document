@@ -36,3 +36,21 @@ This translation operator allows paths to be repositioned in 2D space while main
 - The translation preserves the path's topology - open/closed status and point relationships remain unchanged
 - Inverse operation to path_add_pt, allowing bidirectional translation of paths
 - Part of PostgreSQL's comprehensive geometric transformation system for 2D paths
+
+## Simplified Source
+
+```c
+Datum
+path_sub_pt(PG_FUNCTION_ARGS)
+{
+    PATH *path = PG_GETARG_PATH_P_COPY(0);
+    Point *point = PG_GETARG_POINT_P(1);
+    int i;
+
+    // Translate each point in the path by subtracting the offset
+    for (i = 0; i < path->npts; i++)
+        point_sub_point(&path->p[i], &path->p[i], point);
+
+    PG_RETURN_PATH_P(path);
+}
+```

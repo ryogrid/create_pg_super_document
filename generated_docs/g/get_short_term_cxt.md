@@ -37,3 +37,21 @@ The function prevents memory leaks during domain constraint checking and detoast
 - Context is created as a child of the expanded record's main context (erh->hdr.eoh_context)
 - Reset pattern avoids repeated allocation/deallocation overhead while preventing memory leaks
 - Primarily used for domain constraint evaluation and TOAST value decompression operations
+
+## Simplified Source
+
+```c
+static MemoryContext get_short_term_cxt(ExpandedRecordHeader *erh)
+{
+    // Create context on first use, reset it on subsequent uses
+    if (erh->er_short_term_cxt == NULL) {
+        erh->er_short_term_cxt = AllocSetContextCreate(erh->hdr.eoh_context,
+                                                      "expanded record short-term context",
+                                                      ALLOCSET_SMALL_SIZES);
+    } else {
+        MemoryContextReset(erh->er_short_term_cxt);
+    }
+
+    return erh->er_short_term_cxt;
+}
+```

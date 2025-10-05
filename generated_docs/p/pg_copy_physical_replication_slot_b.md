@@ -37,3 +37,14 @@ The function enables users to duplicate existing physical replication slots whil
 - Physical replication slots track WAL position for streaming replication but do not decode logical changes
 - Returns a composite type containing the new slot name and LSN information
 - The copied slot will have the same restart_lsn as the source slot at the time of copying
+
+## Simplified Source
+
+```c
+Datum
+pg_copy_physical_replication_slot_b(PG_FUNCTION_ARGS)
+{
+    // Delegate to shared copy function with logical=false flag
+    return copy_replication_slot(fcinfo, false);
+}
+```

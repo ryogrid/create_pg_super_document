@@ -40,3 +40,22 @@ The function creates a FileTag to identify the specific segment and uses Registe
 - Deferred deletion prevents issues with WAL replay during crash recovery
 - Works in conjunction with the checkpointer process to safely remove files
 - Critical for operations like DROP TABLE, TRUNCATE, and relation fork deletion
+
+## Simplified Source
+
+```c
+static void register_unlink_segment(RelFileLocatorBackend rlocator, ForkNumber forknum,
+                                   BlockNumber segno)
+{
+    FileTag tag;
+
+    // Create file tag to identify the segment to unlink
+    INIT_MD_FILETAG(tag, rlocator.locator, forknum, segno);
+
+    // Should never be used with temp relations
+    Assert(!RelFileLocatorBackendIsTemp(rlocator));
+
+    // Schedule segment deletion after next checkpoint
+    RegisterSyncRequest(&tag, SYNC_UNLINK_REQUEST, true /* retryOnError */);
+}
+```

@@ -41,3 +41,37 @@ The conversion process involves:
 - When inarray is true, validates that the string starts with '(' to catch malformed record literals
 - Provides specific error hints suggesting the use of Python tuples instead of nested lists for composite array elements
 - The error checking logic is designed to match record_in's validation to avoid false positives
+
+## Simplified Source
+
+```c
+static Datum
+PLyUnicode_ToComposite(PLyObToDatum *arg, PyObject *string, bool inarray)
+{
+    char *str;
+
+    // Initialize record_in function if not already set up
+    if (!OidIsValid(arg->u.tuple.recinfunc.fn_oid))
+        fmgr_info_cxt(F_RECORD_IN, &arg->u.tuple.recinfunc, arg->mcxt);
+
+    str = PLyObject_AsString(string);
+
+    // Special validation for array context - check for common user errors
+    if (inarray) {
+        char *ptr = str;
+
+        // Skip leading whitespace and check for opening parenthesis
+        while (*ptr && isspace((unsigned char) *ptr))
+            ptr++;
+        if (*ptr++ != '(')
+            ereport(ERROR,
+                    (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                     errmsg("malformed record literal: \"%s\"", str),
+                     errdetail("Missing left parenthesis."),
+                     errhint("To return a composite type in an array, return the composite type as a Python tuple, e.g., \"[('foo',)]\".")));
+    }
+
+    // Parse string as record literal using PostgreSQL's record_in
+    return InputFunctionCall(&arg->u.tuple.recinfunc, str, arg->typoid, arg->typmod);
+}
+```

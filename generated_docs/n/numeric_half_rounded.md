@@ -37,3 +37,25 @@ This approach ensures that positive numbers are rounded up when the fractional p
 
 ## Notes and Other Information
 This function is specifically designed for use in database size formatting operations. The half-rounding behavior is tailored for displaying human-readable size values where consistent rounding behavior is important for user experience. The function is located in .
+
+## Simplified Source
+
+```c
+static Numeric numeric_half_rounded(Numeric n) {
+    Datum input = NumericGetDatum(n);
+    Datum zero = NumericGetDatum(int64_to_numeric(0));
+    Datum one = NumericGetDatum(int64_to_numeric(1));
+    Datum two = NumericGetDatum(int64_to_numeric(2));
+
+    // Add 1 if positive, subtract 1 if negative, then divide by 2
+    if (DatumGetBool(DirectFunctionCall2(numeric_ge, input, zero))) {
+        input = DirectFunctionCall2(numeric_add, input, one);
+    } else {
+        input = DirectFunctionCall2(numeric_sub, input, one);
+    }
+
+    // Truncated division by 2
+    Datum result = DirectFunctionCall2(numeric_div_trunc, input, two);
+    return DatumGetNumeric(result);
+}
+```

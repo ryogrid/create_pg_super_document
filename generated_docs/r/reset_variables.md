@@ -30,3 +30,15 @@ The function is part of PostgreSQL's Embedded SQL (ECPG) preprocessor, which tra
 - These variables are used throughout the ECPG preprocessor to build argument lists for SQL statements
 - The function provides a clean slate for processing new SQL statements by clearing any previously accumulated argument lists
 - This is a simple utility function with no error handling, as setting pointers to NULL is a safe operation
+
+## Simplified Source
+
+```c
+void
+reset_variables(void)
+{
+    // Clear global argument lists for SQL statement processing
+    argsinsert = NULL;
+    argsresult = NULL;
+}
+```

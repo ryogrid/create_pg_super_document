@@ -39,3 +39,34 @@ The function runs in the leader process and blocks until all parallel workers ha
 - Copies both reltuples (heap tuples) and indtuples (index tuples) statistics
 - Part of the coordination mechanism between leader and worker processes
 - The leader may also participate as a worker, in which case it waits for itself and all other workers
+
+## Simplified Source
+
+```c
+static double _brin_parallel_heapscan(BrinBuildState *state) {
+    BrinShared *shared = state->bs_leader->brinshared;
+    int expected_workers = state->bs_leader->nparticipanttuplesorts;
+
+    // Wait for all workers to complete
+    while (true) {
+        SpinLockAcquire(&shared->mutex);
+
+        if (shared->nparticipantsdone == expected_workers) {
+            // All workers finished - copy final statistics
+            state->bs_reltuples = shared->reltuples;
+            state->bs_numtuples = shared->indtuples;
+            SpinLockRelease(&shared->mutex);
+            break;
+        }
+
+        SpinLockRelease(&shared->mutex);
+
+        // Sleep until workers signal completion
+        ConditionVariableSleep(&shared->workersdonecv,
+                             WAIT_EVENT_PARALLEL_CREATE_INDEX_SCAN);
+    }
+
+    ConditionVariableCancelSleep();
+    return state->bs_reltuples;
+}
+```

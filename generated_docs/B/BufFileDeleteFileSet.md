@@ -39,3 +39,28 @@ This function provides proactive deletion capability, allowing backends to expli
 - The function expects that only one backend will attempt deletion of a given BufFile name
 - Uses CHECK_FOR_INTERRUPTS to remain responsive during deletion of many segments
 - Part of PostgreSQL's comprehensive temporary file management system for inter-backend file sharing
+
+## Simplified Source
+```c
+void BufFileDeleteFileSet(FileSet *fileset, const char *name, bool missing_ok) {
+    char segment_name[MAXPGPATH];
+    int segment = 0;
+    bool found = false;
+
+    // Delete all segments until none remain
+    for (;;) {
+        // Generate segment name and attempt deletion
+        FileSetSegmentName(segment_name, name, segment);
+        if (!FileSetDelete(fileset, segment_name, true))
+            break;  // No more segments to delete
+
+        found = true;
+        segment++;
+        CHECK_FOR_INTERRUPTS();
+    }
+
+    // Report error if no segments found and missing_ok is false
+    if (!found && !missing_ok)
+        elog(ERROR, "could not delete unknown BufFile \"%s\"", name);
+}
+```

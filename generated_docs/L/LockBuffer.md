@@ -43,3 +43,38 @@ This function provides the primary interface for acquiring and releasing content
 - Critical component of PostgreSQL's concurrency control for buffer access
 - Must be paired with appropriate buffer pinning operations
 - Used extensively throughout the storage layer for safe buffer access
+
+## Simplified Source
+
+```c
+void LockBuffer(Buffer buffer, int mode) {
+    // Verify buffer is pinned before attempting to lock
+    Assert(BufferIsPinned(buffer));
+
+    // Local buffers don't need locking
+    if (BufferIsLocal(buffer))
+        return;
+
+    // Get buffer descriptor for shared buffer
+    BufferDesc *buf = GetBufferDescriptor(buffer - 1);
+
+    // Handle different lock modes
+    if (mode == BUFFER_LOCK_UNLOCK) {
+        LWLockRelease(BufferDescriptorGetContentLock(buf));
+    } else if (mode == BUFFER_LOCK_SHARE) {
+        LWLockAcquire(BufferDescriptorGetContentLock(buf), LW_SHARED);
+    } else if (mode == BUFFER_LOCK_EXCLUSIVE) {
+        LWLockAcquire(BufferDescriptorGetContentLock(buf), LW_EXCLUSIVE);
+    } else {
+        elog(ERROR, "unrecognized buffer lock mode: %d", mode);
+    }
+}
+```
+
+**Key Logic:**
+- Primary interface for buffer content locking in PostgreSQL
+- Handles three modes: unlock, shared lock, and exclusive lock
+- Local buffers bypass locking (no-op for temporary tables)
+- Uses lightweight locks for actual locking implementation
+- Requires buffer to be pinned before locking (assertion enforced)
+- Critical for safe concurrent access to buffer contents

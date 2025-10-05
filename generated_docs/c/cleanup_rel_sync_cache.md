@@ -41,3 +41,32 @@ The function handles both commit and abort scenarios differently - committed tra
 - Transaction ID cleanup prevents memory leaks in long-running replication slots
 - The foreach_delete_current macro ensures safe list modification during iteration
 - Only affects entries that actually contain the specified transaction ID in their streamed_txns list
+
+## Simplified Source
+
+```c
+static void
+cleanup_rel_sync_cache(TransactionId xid, bool is_commit) {
+    HASH_SEQ_STATUS hash_seq;
+    RelationSyncEntry *entry;
+
+    // Initialize sequential scan of the relation sync cache
+    hash_seq_init(&hash_seq, RelationSyncCache);
+
+    // Process each cache entry
+    while ((entry = hash_seq_search(&hash_seq)) != NULL) {
+        // Look for the completed transaction ID in this entry's list
+        foreach_xid(streamed_txn, entry->streamed_txns) {
+            if (xid == streamed_txn) {
+                // For committed transactions, mark schema as sent to subscriber
+                if (is_commit)
+                    entry->schema_sent = true;
+
+                // Remove the transaction ID from the list
+                entry->streamed_txns = foreach_delete_current(entry->streamed_txns, streamed_txn);
+                break;
+            }
+        }
+    }
+}
+```

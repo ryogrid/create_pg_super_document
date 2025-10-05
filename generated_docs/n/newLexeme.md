@@ -41,3 +41,43 @@ The function implements a dynamic array growth strategy, starting with an initia
 - Memory allocation uses PostgreSQL's palloc/repalloc functions which provide error handling and memory context management
 - The dynamic array growth strategy (doubling) provides O(1) amortized insertion time
 - Each lexeme maintains a linked list of LexemeInfo entries to support multiple substitution rules
+
+## Simplified Source
+
+```c
+static void
+newLexeme(DictThesaurus *d, char *b, char *e, uint32 idsubst, uint16 posinsubst)
+{
+    TheLexeme *ptr;
+
+    // Expand lexeme array if needed
+    if (d->nwrds >= d->ntwrds)
+    {
+        if (d->ntwrds == 0)
+        {
+            d->ntwrds = 16;
+            d->wrds = (TheLexeme *) palloc(sizeof(TheLexeme) * d->ntwrds);
+        }
+        else
+        {
+            d->ntwrds *= 2;
+            d->wrds = (TheLexeme *) repalloc(d->wrds, sizeof(TheLexeme) * d->ntwrds);
+        }
+    }
+
+    // Initialize new lexeme entry
+    ptr = d->wrds + d->nwrds;
+    d->nwrds++;
+
+    // Copy lexeme string from buffer range [b,e)
+    ptr->lexeme = palloc(e - b + 1);
+    memcpy(ptr->lexeme, b, e - b);
+    ptr->lexeme[e - b] = '\0';
+
+    // Initialize substitution info
+    ptr->entries = (LexemeInfo *) palloc(sizeof(LexemeInfo));
+    ptr->entries->nextentry = NULL;
+    ptr->entries->idsubst = idsubst;
+    ptr->entries->posinsubst = posinsubst;
+}
+```

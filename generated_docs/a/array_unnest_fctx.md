@@ -51,3 +51,23 @@ The structure works in conjunction with PostgreSQL's array iterator mechanism an
 - Memory for this structure is allocated in multi_call_memory_ctx to ensure proper cleanup
 - Supports both regular arrays and expanded array headers for optimal performance
 - Element type information is cached to avoid repeated lookups during iteration
+
+## Simplified Source
+
+```c
+// This is a local struct type definition used within array_unnest function
+typedef struct {
+    ArrayIterator iter;    // Iterator for traversing array elements
+    int nextelem;         // Index of next element to return
+    int numelems;         // Total number of elements in array
+    int16 elmlen;         // Element length (-1 for variable-length)
+    bool elmbyval;        // Element pass-by-value flag
+    char elmalign;        // Element alignment requirement
+} array_unnest_fctx;
+
+// Usage context within array_unnest function:
+// - Allocated in multi_call_memory_ctx for SRF persistence
+// - Initialized with array_iter_setup() for iteration
+// - Used to track state across multiple function calls
+// - Handles both regular and expanded array formats
+```

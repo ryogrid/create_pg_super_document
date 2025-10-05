@@ -36,3 +36,23 @@ This function is typically used internally by PostgreSQL when sending boolean da
 - This is the binary output function counterpart to  (binary input function)
 - Part of PostgreSQL's type system infrastructure for boolean data type
 - Located in  at lines 187-203
+
+## Simplified Source
+
+```c
+Datum
+boolsend(PG_FUNCTION_ARGS)
+{
+    bool arg1 = PG_GETARG_BOOL(0);
+    StringInfoData buf;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Send 1 for true, 0 for false
+    pq_sendbyte(&buf, arg1 ? 1 : 0);
+
+    // Return the binary data
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

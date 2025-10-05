@@ -46,3 +46,57 @@ This function provides the opposite functionality to  by removing existing summa
 - Uses a do-while loop to ensure  completes successfully
 - Only processes valid indexes (indisvalid must be true)
 - The actual tuple removal is handled by the revmap subsystem
+
+## Simplified Source
+
+```c
+Datum
+brin_desummarize_range(PG_FUNCTION_ARGS)
+{
+    Oid indexoid = PG_GETARG_OID(0);
+    int64 heapBlk64 = PG_GETARG_INT64(1);
+    BlockNumber heapBlk;
+    Relation heapRel, indexRel;
+    Oid heapoid;
+    bool done;
+
+    // Block operation during recovery
+    if (RecoveryInProgress())
+        ereport(ERROR, ...);
+
+    // Validate block number range
+    if (heapBlk64 > MaxBlockNumber || heapBlk64 < 0)
+        ereport(ERROR, ...);
+    heapBlk = (BlockNumber) heapBlk64;
+
+    // Get heap relation (no security context switching needed)
+    heapoid = IndexGetRelation(indexoid, true);
+    if (OidIsValid(heapoid))
+        heapRel = table_open(heapoid, ShareUpdateExclusiveLock);
+    else
+        heapRel = NULL;
+
+    // Open index and validate it's a BRIN index
+    indexRel = index_open(indexoid, ShareUpdateExclusiveLock);
+    if (indexRel->rd_rel->relkind != RELKIND_INDEX ||
+        indexRel->rd_rel->relam != BRIN_AM_OID)
+        ereport(ERROR, ...);
+
+    // Check ownership permissions
+    if (!object_ownercheck(RelationRelationId, indexoid, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_INDEX, ...);
+
+    // Perform desummarization if index is valid
+    if (indexRel->rd_index->indisvalid) {
+        do {
+            done = brinRevmapDesummarizeRange(indexRel, heapBlk);
+        } while (!done);
+    }
+
+    // Close relations and cleanup
+    relation_close(indexRel, ShareUpdateExclusiveLock);
+    relation_close(heapRel, ShareUpdateExclusiveLock);
+
+    PG_RETURN_VOID();
+}
+```

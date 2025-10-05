@@ -55,3 +55,76 @@ This static function performs the core BRIN summarization operation for a specif
 - Handles partial ranges at table end by recalculating table size after placeholder insertion
 - Critical for maintaining BRIN index accuracy in multi-user environments
 - The range start block must be aligned to pagesPerRange boundaries (asserted in code)
+
+## Simplified Source
+```c
+static void
+summarize_range(IndexInfo *indexInfo, BrinBuildState *state, Relation heapRel,
+                BlockNumber heapBlk, BlockNumber heapNumBlks)
+{
+    Buffer      phbuf;
+    BrinTuple  *phtup;
+    Size        phsz;
+    OffsetNumber offset;
+    BlockNumber scanNumBlks;
+
+    // Step 1: Insert placeholder tuple to handle concurrent insertions
+    phbuf = InvalidBuffer;
+    phtup = brin_form_placeholder_tuple(state->bs_bdesc, heapBlk, &phsz);
+    offset = brin_doinsert(state->bs_irel, state->bs_pagesPerRange,
+                          state->bs_rmAccess, &phbuf,
+                          heapBlk, phtup, phsz);
+
+    // Step 2: Determine scan range (handle partial ranges at table end)
+    if (heapBlk + state->bs_pagesPerRange > heapNumBlks)
+    {
+        // Partial range: recompute table size to catch recent extensions
+        scanNumBlks = Min(RelationGetNumberOfBlocks(heapRel) - heapBlk,
+                         state->bs_pagesPerRange);
+    }
+    else
+    {
+        // Complete range
+        scanNumBlks = state->bs_pagesPerRange;
+    }
+
+    // Step 3: Scan heap blocks and summarize tuples
+    state->bs_currRangeStart = heapBlk;
+    table_index_build_range_scan(heapRel, state->bs_irel, indexInfo, false, true, false,
+                                heapBlk, scanNumBlks,
+                                brinbuildCallback, (void *) state, NULL);
+
+    // Step 4: Update placeholder with scan results (retry until success)
+    for (;;)
+    {
+        BrinTuple  *newtup;
+        Size        newsize;
+        bool        didupdate;
+        bool        samepage;
+
+        // Form new summary tuple and attempt update
+        newtup = brin_form_tuple(state->bs_bdesc, heapBlk, state->bs_dtuple, &newsize);
+        samepage = brin_can_do_samepage_update(phbuf, phsz, newsize);
+        didupdate = brin_doupdate(state->bs_irel, state->bs_pagesPerRange,
+                                 state->bs_rmAccess, heapBlk, phbuf, offset,
+                                 phtup, phsz, newtup, newsize, samepage);
+
+        brin_free_tuple(phtup);
+        brin_free_tuple(newtup);
+
+        if (didupdate)
+            break;  // Success!
+
+        // Update failed - re-read placeholder and merge concurrent changes
+        phtup = brinGetTupleForHeapBlock(state->bs_rmAccess, heapBlk, &phbuf,
+                                        &offset, &phsz, BUFFER_LOCK_SHARE);
+        phtup = brin_copy_tuple(phtup, phsz, NULL, NULL);
+        LockBuffer(phbuf, BUFFER_LOCK_UNLOCK);
+
+        // Union concurrent changes with our scan results
+        union_tuples(state->bs_bdesc, state->bs_dtuple, phtup);
+    }
+
+    ReleaseBuffer(phbuf);
+}
+```

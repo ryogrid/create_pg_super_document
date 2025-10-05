@@ -40,3 +40,32 @@ The binary search algorithm efficiently narrows down the search space by compari
 - The search algorithm finds the rightmost position among equal threshold values
 - Returns the bucket number (0 to N, where N is the number of thresholds)
 - Static function, only accessible within the same compilation unit
+
+## Simplified Source
+
+```c
+static int
+width_bucket_array_float8(Datum operand, ArrayType *thresholds)
+{
+    float8 op = DatumGetFloat8(operand);
+    float8 *thresholds_data = (float8 *) ARR_DATA_PTR(thresholds);
+    int left = 0;
+    int right = ArrayGetNItems(ARR_NDIM(thresholds), ARR_DIMS(thresholds));
+
+    // Special case: NaN is greater than all values
+    if (isnan(op))
+        return right;
+
+    // Binary search for the correct bucket
+    while (left < right) {
+        int mid = (left + right) / 2;
+
+        if (isnan(thresholds_data[mid]) || op < thresholds_data[mid])
+            right = mid;
+        else
+            left = mid + 1;
+    }
+
+    return left;
+}
+```

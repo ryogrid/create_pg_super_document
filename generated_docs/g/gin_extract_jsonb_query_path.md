@@ -56,3 +56,47 @@ The function handles different query strategies appropriately: containment queri
 - Sets search mode to GIN_SEARCH_MODE_ALL when no specific keys can guide the search
 - Supports only containment (@>) and JSONPath query strategies
 - Located in src/backend/utils/adt/jsonb_gin.c:1180-1219
+
+## Simplified Source
+
+```c
+Datum
+gin_extract_jsonb_query_path(PG_FUNCTION_ARGS)
+{
+    int32 *nentries = (int32 *) PG_GETARG_POINTER(1);
+    StrategyNumber strategy = PG_GETARG_UINT16(2);
+    int32 *searchMode = (int32 *) PG_GETARG_POINTER(6);
+    Datum *entries;
+
+    if (strategy == JsonbContainsStrategyNumber)
+    {
+        // Handle containment queries using path extraction
+        entries = (Datum *) DatumGetPointer(DirectFunctionCall2(gin_extract_jsonb_path,
+                                                                PG_GETARG_DATUM(0),
+                                                                PointerGetDatum(nentries)));
+
+        // Empty containment requires full scan
+        if (*nentries == 0)
+            *searchMode = GIN_SEARCH_MODE_ALL;
+    }
+    else if (strategy == JsonbJsonpathPredicateStrategyNumber ||
+             strategy == JsonbJsonpathExistsStrategyNumber)
+    {
+        // Handle jsonpath queries with path-ops extraction
+        JsonPath *jp = PG_GETARG_JSONPATH_P(0);
+        Pointer **extra_data = (Pointer **) PG_GETARG_POINTER(4);
+
+        entries = extract_jsp_query(jp, strategy, true, nentries, extra_data);
+
+        if (!entries)
+            *searchMode = GIN_SEARCH_MODE_ALL;
+    }
+    else
+    {
+        elog(ERROR, "unrecognized strategy number: %d", strategy);
+        entries = NULL;
+    }
+
+    PG_RETURN_POINTER(entries);
+}
+```

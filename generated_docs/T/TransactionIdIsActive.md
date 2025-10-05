@@ -49,3 +49,37 @@ This simplified approach makes the function significantly faster than Transactio
 - No caching mechanism since the function is relatively lightweight
 - Atomic access to XIDs prevents torn reads during concurrent transaction ID updates
 - Primarily used internally where specific semantics (active backends only) are required
+
+## Simplified Source
+
+```c
+bool TransactionIdIsActive(TransactionId xid) {
+    // Quick check: ignore transactions older than RecentXmin
+    if (TransactionIdPrecedes(xid, RecentXmin))
+        return false;
+
+    LWLockAcquire(ProcArrayLock, LW_SHARED);
+
+    // Scan through active processes
+    for (int i = 0; i < procArray->numProcs; i++) {
+        int pgprocno = procArray->pgprocnos[i];
+        PGPROC *proc = &allProcs[pgprocno];
+
+        // Get current XID atomically
+        TransactionId pxid = UINT32_ACCESS_ONCE(ProcGlobal->xids[i]);
+
+        // Skip invalid XIDs and prepared transactions (pid == 0)
+        if (!TransactionIdIsValid(pxid) || proc->pid == 0)
+            continue;
+
+        // Found matching active transaction
+        if (TransactionIdEquals(pxid, xid)) {
+            LWLockRelease(ProcArrayLock);
+            return true;
+        }
+    }
+
+    LWLockRelease(ProcArrayLock);
+    return false;
+}
+```

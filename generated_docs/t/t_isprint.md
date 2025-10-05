@@ -37,3 +37,20 @@ A printable character is any character that produces visible output, including l
 - Least frequently used among the character classification functions in the text search system
 - Primarily used for data validation during dictionary import operations
 - Helps ensure that only valid, printable characters are processed in text search operations
+
+## Simplified Source
+
+```c
+int t_isprint(const char *ptr) {
+    int clen = pg_mblen(ptr);
+
+    // For single-byte chars or C locale, use standard isprint
+    if (clen == 1 || database_ctype_is_c)
+        return isprint(TOUCHAR(ptr));
+
+    // For multi-byte chars, convert to wide char and check
+    wchar_t character[WC_BUF_LEN];
+    char2wchar(character, WC_BUF_LEN, ptr, clen, 0);
+    return iswprint((wint_t) character[0]);
+}
+```

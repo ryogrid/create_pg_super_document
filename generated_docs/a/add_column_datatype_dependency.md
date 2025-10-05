@@ -35,3 +35,24 @@ The function constructs two ObjectAddress structures: one representing the colum
 - The objectSubId for the data type is set to 0 since types don't have sub-components
 - Part of PostgreSQL's dependency tracking system that prevents unsafe object deletions
 - Essential for maintaining data integrity when types are involved in DDL operations
+
+## Simplified Source
+
+```c
+static void add_column_datatype_dependency(Oid relid, int32 attnum, Oid typid) {
+    ObjectAddress column_ref, type_ref;
+
+    // Set up column reference (table + attribute number)
+    column_ref.classId = RelationRelationId;
+    column_ref.objectId = relid;
+    column_ref.objectSubId = attnum;
+
+    // Set up data type reference
+    type_ref.classId = TypeRelationId;
+    type_ref.objectId = typid;
+    type_ref.objectSubId = 0;
+
+    // Record dependency: column depends on its data type
+    recordDependencyOn(&column_ref, &type_ref, DEPENDENCY_NORMAL);
+}
+```

@@ -38,3 +38,27 @@ The  function is responsible for dynamically adding word entries to the  structu
 - Each word entry is zero-initialized before setting its properties to ensure clean state
 - Memory allocation is handled through PostgreSQL's memory management functions (palloc/repalloc)
 - The function is part of the headline generation framework used in full-text search operations
+
+## Simplified Source
+
+```c
+static void hladdword(HeadlineParsedText *prs, char *buf, int buflen, int type) {
+    // Expand words array if needed
+    if (prs->curwords >= prs->lenwords) {
+        prs->lenwords *= 2;
+        prs->words = (HeadlineWordEntry *) repalloc(prs->words,
+                                                  prs->lenwords * sizeof(HeadlineWordEntry));
+    }
+
+    // Initialize new word entry
+    memset(&(prs->words[prs->curwords]), 0, sizeof(HeadlineWordEntry));
+    prs->words[prs->curwords].type = (uint8) type;
+    prs->words[prs->curwords].len = buflen;
+
+    // Copy word content
+    prs->words[prs->curwords].word = palloc(buflen);
+    memcpy(prs->words[prs->curwords].word, buf, buflen);
+
+    prs->curwords++;
+}
+```

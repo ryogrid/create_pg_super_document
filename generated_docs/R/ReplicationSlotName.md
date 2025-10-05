@@ -35,3 +35,25 @@ The function includes a warning about Time-of-Check-Time-of-Use (TOCTOU) issues,
 - Has inherent TOCTOU issues that limit its usefulness in most contexts
 - Does not validate the index parameter - caller must ensure it's within valid range
 - The slot name cannot change once set, so no additional synchronization is needed beyond preventing slot deletion
+
+## Simplified Source
+
+```c
+bool
+ReplicationSlotName(int index, Name name)
+{
+    ReplicationSlot *slot;
+    bool found;
+
+    slot = &ReplicationSlotCtl->replication_slots[index];
+
+    // Lock to prevent slot deletion while copying name
+    LWLockAcquire(ReplicationSlotControlLock, LW_SHARED);
+    found = slot->in_use;
+    if (slot->in_use)
+        namestrcpy(name, NameStr(slot->data.name));
+    LWLockRelease(ReplicationSlotControlLock);
+
+    return found;
+}
+```

@@ -35,3 +35,13 @@ The conversion is direct and handles the type promotion from the smaller 16-bit 
 - The conversion automatically handles the promotion from the smaller integer type to Python's long type without any precision loss
 - In Python 3, the distinction between int and long was removed, so PyLong_FromLong creates what appears as a regular integer in Python code
 - The function signature follows the standard PLyDatumToOb function pointer pattern used throughout the PL/Python type conversion system
+
+## Simplified Source
+
+```c
+static PyObject *PLyLong_FromInt16(PLyDatumToOb *arg, Datum d)
+{
+    // Convert PostgreSQL int2 (smallint) to Python long
+    return PyLong_FromLong(DatumGetInt16(d));
+}
+```

@@ -32,3 +32,17 @@ publication_invalidation_cb is a syscache invalidation callback function in the 
 - Ensures both publication-level and relation-level caches are properly invalidated
 - Registered during pgoutput plugin startup to handle pg_publication catalog changes
 - Critical for maintaining data consistency in logical replication scenarios
+
+## Simplified Source
+
+```c
+static void
+publication_invalidation_cb(Datum arg, int cacheid, uint32 hashvalue)
+{
+    // Mark publications cache as invalid
+    publications_valid = false;
+
+    // Also invalidate per-relation cache to ensure filtering info is updated
+    rel_sync_cache_publication_cb(arg, cacheid, hashvalue);
+}
+```

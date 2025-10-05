@@ -38,3 +38,17 @@ The function accounts for floating-point precision by using a containment test t
 - Located in src/backend/utils/adt/geo_ops.c:3201-3216
 - Handles floating-point precision issues through the  function's tolerance mechanisms
 - Returns true only if both endpoints of the segment lie on the line
+
+## Simplified Source
+
+```c
+Datum on_sl(PG_FUNCTION_ARGS) {
+    // Extract line segment and line from function arguments
+    LSEG *lseg = PG_GETARG_LSEG_P(0);
+    LINE *line = PG_GETARG_LINE_P(1);
+
+    // Check if both endpoints of segment lie on the line
+    PG_RETURN_BOOL(line_contain_point(line, &lseg->p[0]) &&
+                   line_contain_point(line, &lseg->p[1]));
+}
+```

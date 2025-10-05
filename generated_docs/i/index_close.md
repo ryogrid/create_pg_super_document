@@ -42,3 +42,22 @@ The function first extracts the lock relation ID from the relation structure, th
 - Includes an assertion to validate that lockmode is within valid bounds
 - Should be paired with corresponding `index_open` or `try_index_open` calls
 - Located in src/backend/access/index/indexam.c:177-196
+
+## Simplified Source
+
+```c
+void
+index_close(Relation relation, LOCKMODE lockmode)
+{
+    LockRelId relid = relation->rd_lockInfo.lockRelId;
+
+    Assert(lockmode >= NoLock && lockmode < MAX_LOCKMODES);
+
+    // Close the relation via the relcache
+    RelationClose(relation);
+
+    // Release the lock if requested
+    if (lockmode != NoLock)
+        UnlockRelationId(&relid, lockmode);
+}
+```

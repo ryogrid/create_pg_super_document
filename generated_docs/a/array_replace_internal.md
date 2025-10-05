@@ -53,3 +53,97 @@ For remove operations on multi-dimensional arrays, the function raises an error 
 - Performs size overflow checking to prevent exceeding MaxAllocSize limits
 - Returns original array unmodified when no changes are made for efficiency
 - Maintains original array dimensions and bounds in the result (except first dimension for removals)
+
+## Simplified Source
+
+```c
+static ArrayType *
+array_replace_internal(ArrayType *array,
+                      Datum search, bool search_isnull,
+                      Datum replace, bool replace_isnull,
+                      bool remove, Oid collation,
+                      FunctionCallInfo fcinfo)
+{
+    Oid element_type = ARR_ELEMTYPE(array);
+    int ndim = ARR_NDIM(array);
+    int nitems = ArrayGetNItems(ndim, ARR_DIMS(array));
+
+    // Return unmodified for empty arrays
+    if (nitems <= 0)
+        return array;
+
+    // Multi-dimensional arrays cannot be used for removal
+    if (remove && ndim > 1)
+        ereport(ERROR, "removing elements from multidimensional arrays is not supported");
+
+    // Get or cache equality operator for element type
+    TypeCacheEntry *typentry = get_cached_equality_operator(fcinfo, element_type);
+
+    // Detoast search and replace values if needed
+    if (typentry->typlen == -1) {
+        if (!search_isnull)
+            search = PointerGetDatum(PG_DETOAST_DATUM(search));
+        if (!replace_isnull)
+            replace = PointerGetDatum(PG_DETOAST_DATUM(replace));
+    }
+
+    // Scan array and build result
+    Datum *values = palloc(nitems * sizeof(Datum));
+    bool *nulls = palloc(nitems * sizeof(bool));
+    bool changed = false;
+    int nresult = 0;
+
+    // Iterate through array elements
+    array_element_iterator iter;
+    init_array_iterator(&iter, array);
+
+    for (int i = 0; i < nitems; i++) {
+        Datum elt;
+        bool isNull;
+        bool matches = false;
+
+        elt = get_next_array_element(&iter, &isNull);
+
+        // Check if element matches search value
+        if (isNull && search_isnull) {
+            matches = true;
+        } else if (!isNull && !search_isnull) {
+            matches = element_equals(elt, search, typentry, collation);
+        }
+
+        if (matches) {
+            changed = true;
+            if (remove) {
+                continue; // Skip this element
+            } else {
+                // Replace with new value
+                values[nresult] = replace;
+                nulls[nresult] = replace_isnull;
+            }
+        } else {
+            // Keep original element
+            values[nresult] = elt;
+            nulls[nresult] = isNull;
+        }
+        nresult++;
+    }
+
+    // Return original array if no changes
+    if (!changed) {
+        pfree(values);
+        pfree(nulls);
+        return array;
+    }
+
+    // Build result array
+    if (nresult == 0)
+        return construct_empty_array(element_type);
+
+    ArrayType *result = construct_array_from_elements(values, nulls, nresult,
+                                                     element_type, ndim, ARR_DIMS(array),
+                                                     ARR_LBOUND(array), remove);
+    pfree(values);
+    pfree(nulls);
+    return result;
+}
+```

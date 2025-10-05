@@ -32,3 +32,21 @@ int84pl performs addition between a bigint (64-bit) and an integer (32-bit) valu
 
 ## Notes and Other Information
 This function is part of PostgreSQL's mixed-type arithmetic operations, allowing addition between bigint and integer types. The overflow checking ensures mathematical correctness and prevents silent wraparound that could lead to incorrect results. The function is defined in src/backend/utils/adt/int8.c:890-903.
+
+## Simplified Source
+
+```c
+Datum int84pl(PG_FUNCTION_ARGS) {
+    // Extract 64-bit and 32-bit integer arguments
+    int64 arg1 = PG_GETARG_INT64(0);
+    int32 arg2 = PG_GETARG_INT32(1);
+    int64 result;
+
+    // Perform safe addition with 32-bit to 64-bit promotion
+    if (pg_add_s64_overflow(arg1, (int64) arg2, &result)) {
+        ereport(ERROR, "bigint out of range");
+    }
+
+    return result;
+}
+```

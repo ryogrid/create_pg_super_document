@@ -37,3 +37,27 @@ The function uses the P_TSQ_PLAIN flag during parsing, which instructs the parse
 - The OP_AND operator ensures that all terms in the query must match, making it more restrictive than phrase queries
 - The function is typically wrapped by the user-facing plainto_tsquery() function which uses the default text search configuration
 - Part of PostgreSQL's full-text search functionality introduced to provide user-friendly query creation from plain text input
+
+## Simplified Source
+
+```c
+Datum
+plainto_tsquery_byid(PG_FUNCTION_ARGS)
+{
+    text *input_text = PG_GETARG_TEXT_PP(1);
+    MorphOpaque data;
+
+    // Set up configuration and operator for plain text parsing
+    data.cfg_id = PG_GETARG_OID(0);
+    data.qoperator = OP_AND;  // All words must match
+
+    // Parse input as plain text with AND operator between terms
+    TSQuery query = parse_tsquery(text_to_cstring(input_text),
+                                 pushval_morph,
+                                 PointerGetDatum(&data),
+                                 P_TSQ_PLAIN,
+                                 NULL);
+
+    PG_RETURN_POINTER(query);
+}
+```

@@ -60,3 +60,71 @@ Each operation type has its own specialized recovery function that reconstructs 
 - The memory context is reset after each operation to clean up temporary allocations
 - This function is registered as the redo handler for B-tree access method in PostgreSQL's WAL system
 - Operation types include: INSERT_LEAF, INSERT_UPPER, INSERT_META, SPLIT_L, SPLIT_R, INSERT_POST, DEDUP, VACUUM, DELETE, MARK_PAGE_HALFDEAD, UNLINK_PAGE, NEWROOT, REUSE_PAGE, META_CLEANUP
+
+## Simplified Source
+
+```c
+void
+btree_redo(XLogReaderState *record)
+{
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+    MemoryContext oldCtx;
+
+    // Switch to dedicated recovery memory context
+    oldCtx = MemoryContextSwitchTo(opCtx);
+
+    // Dispatch to appropriate recovery handler
+    switch (info)
+    {
+        case XLOG_BTREE_INSERT_LEAF:
+            btree_xlog_insert(true, false, false, record);
+            break;
+        case XLOG_BTREE_INSERT_UPPER:
+            btree_xlog_insert(false, false, false, record);
+            break;
+        case XLOG_BTREE_INSERT_META:
+            btree_xlog_insert(false, true, false, record);
+            break;
+        case XLOG_BTREE_SPLIT_L:
+            btree_xlog_split(true, record);
+            break;
+        case XLOG_BTREE_SPLIT_R:
+            btree_xlog_split(false, record);
+            break;
+        case XLOG_BTREE_INSERT_POST:
+            btree_xlog_insert(true, false, true, record);
+            break;
+        case XLOG_BTREE_DEDUP:
+            btree_xlog_dedup(record);
+            break;
+        case XLOG_BTREE_VACUUM:
+            btree_xlog_vacuum(record);
+            break;
+        case XLOG_BTREE_DELETE:
+            btree_xlog_delete(record);
+            break;
+        case XLOG_BTREE_MARK_PAGE_HALFDEAD:
+            btree_xlog_mark_page_halfdead(info, record);
+            break;
+        case XLOG_BTREE_UNLINK_PAGE:
+        case XLOG_BTREE_UNLINK_PAGE_META:
+            btree_xlog_unlink_page(info, record);
+            break;
+        case XLOG_BTREE_NEWROOT:
+            btree_xlog_newroot(record);
+            break;
+        case XLOG_BTREE_REUSE_PAGE:
+            btree_xlog_reuse_page(record);
+            break;
+        case XLOG_BTREE_META_CLEANUP:
+            _bt_restore_meta(record, 0);
+            break;
+        default:
+            elog(PANIC, "btree_redo: unknown op code %u", info);
+    }
+
+    // Restore previous context and clean up
+    MemoryContextSwitchTo(oldCtx);
+    MemoryContextReset(opCtx);
+}
+```

@@ -39,3 +39,28 @@ The function follows the standard PostgreSQL privilege checking workflow:
 - Uses PostgreSQL's internal access control list (ACL) system for privilege verification
 - The function is typically invoked through SQL function calls rather than direct C code calls
 - Located in src/backend/utils/adt/acl.c:2022-2048
+
+## Simplified Source
+
+```c
+Datum has_table_privilege_id_id(PG_FUNCTION_ARGS) {
+    Oid roleid = PG_GETARG_OID(0);
+    Oid tableoid = PG_GETARG_OID(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+    AclMode mode;
+    AclResult aclresult;
+    bool is_missing = false;
+
+    // Convert privilege string to mode
+    mode = convert_table_priv_string(priv_type_text);
+
+    // Check privilege with missing table detection
+    aclresult = pg_class_aclcheck_ext(tableoid, roleid, mode, &is_missing);
+
+    // Return NULL if table doesn't exist
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

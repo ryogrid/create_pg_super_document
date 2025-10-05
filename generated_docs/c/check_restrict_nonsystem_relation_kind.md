@@ -38,3 +38,53 @@ This function serves as a validation hook for the  GUC parameter. It parses a co
 - Memory management includes proper cleanup of temporary strings and lists on both success and failure paths
 - Case-insensitive keyword matching allows flexible user input
 - Returns false on any validation error, preventing invalid configurations from being applied
+
+## Simplified Source
+
+```c
+bool check_restrict_nonsystem_relation_kind(char **newval, void **extra, GucSource source)
+{
+    char *rawstring;
+    List *elemlist;
+    ListCell *l;
+    int flags = 0;
+
+    // Create modifiable copy and parse comma-separated list
+    rawstring = pstrdup(*newval);
+
+    if (!SplitIdentifierString(rawstring, ',', &elemlist))
+    {
+        GUC_check_errdetail("List syntax is invalid.");
+        pfree(rawstring);
+        list_free(elemlist);
+        return false;
+    }
+
+    // Process each relation kind identifier
+    foreach(l, elemlist)
+    {
+        char *tok = (char *) lfirst(l);
+
+        if (pg_strcasecmp(tok, "view") == 0)
+            flags |= RESTRICT_RELKIND_VIEW;
+        else if (pg_strcasecmp(tok, "foreign-table") == 0)
+            flags |= RESTRICT_RELKIND_FOREIGN_TABLE;
+        else
+        {
+            GUC_check_errdetail("Unrecognized key word: \"%s\".", tok);
+            pfree(rawstring);
+            list_free(elemlist);
+            return false;
+        }
+    }
+
+    // Cleanup and save parsed flags for assign hook
+    pfree(rawstring);
+    list_free(elemlist);
+
+    *extra = guc_malloc(ERROR, sizeof(int));
+    *((int *) *extra) = flags;
+
+    return true;
+}
+```

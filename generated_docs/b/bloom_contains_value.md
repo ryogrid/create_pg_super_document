@@ -45,3 +45,27 @@ The function uses the same double hashing approach as bloom_add_value to ensure 
 - Short-circuits on the first unset bit for efficiency
 - The double hashing technique mirrors that used in bloom_add_value
 - Located in src/backend/access/brin/brin_bloom.c:407-433
+
+## Simplified Source
+
+```c
+static bool bloom_contains_value(BloomFilter *filter, uint32 value) {
+    // Compute same hash values as used in bloom_add_value
+    uint64 h1 = hash_bytes_uint32_extended(value, BLOOM_SEED_1) % filter->nbits;
+    uint64 h2 = hash_bytes_uint32_extended(value, BLOOM_SEED_2) % filter->nbits;
+
+    // Check all required hash positions
+    for (int i = 0; i < filter->nhashes; i++) {
+        uint32 h = (h1 + i * h2) % filter->nbits;
+        uint32 byte = h / 8;
+        uint32 bit = h % 8;
+
+        // If any bit is not set, value is definitely not in filter
+        if (!(filter->data[byte] & (0x01 << bit)))
+            return false;
+    }
+
+    // All bits are set - value might be in filter
+    return true;
+}
+```

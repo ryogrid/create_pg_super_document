@@ -34,3 +34,17 @@ The function allocates memory for a new Point structure and uses the  utility fu
 - Memory allocation is performed using  which integrates with PostgreSQL's memory management
 - The function ignores return values from  as error handling is managed through PostgreSQL's error context system
 - This is an input function for the Point data type, typically registered in the PostgreSQL type system catalog
+
+## Simplified Source
+
+```c
+Datum point_in(PG_FUNCTION_ARGS) {
+    char *str = PG_GETARG_CSTRING(0);
+    Point *point = (Point *) palloc(sizeof(Point));
+
+    // Parse coordinates from string - error handling managed by pair_decode
+    pair_decode(str, &point->x, &point->y, NULL, "point", str, fcinfo->context);
+
+    PG_RETURN_POINT_P(point);
+}
+```

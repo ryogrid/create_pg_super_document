@@ -33,3 +33,16 @@ This function implements the multiplication operation for mixed-precision floati
 - The result is always returned as float8 (double precision) to preserve precision
 - The function follows PostgreSQL's naming convention: float48mul indicates float4 * float8 multiplication
 - Located in src/backend/utils/adt/float.c:3795-3803
+
+## Simplified Source
+
+```c
+Datum float48mul(PG_FUNCTION_ARGS) {
+    // Extract float4 and float8 arguments
+    float4 arg1 = PG_GETARG_FLOAT4(0);
+    float8 arg2 = PG_GETARG_FLOAT8(1);
+
+    // Promote float4 to float8 and perform multiplication
+    PG_RETURN_FLOAT8(float8_mul((float8) arg1, arg2));
+}
+```

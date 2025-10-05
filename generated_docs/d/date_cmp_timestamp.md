@@ -38,3 +38,18 @@ This function implements the comparison function used for sorting and ordering o
 - Returns -1, 0, or 1 following standard comparison function conventions
 - The actual comparison logic is implemented in date_cmp_timestamp_internal() for code reuse
 - Used as the basis for all other date/timestamp comparison operators
+
+## Simplified Source
+
+```c
+Datum
+date_cmp_timestamp(PG_FUNCTION_ARGS)
+{
+    // Extract date and timestamp arguments
+    DateADT dateVal = PG_GETARG_DATEADT(0);
+    Timestamp timestamp = PG_GETARG_TIMESTAMP(1);
+
+    // Return three-way comparison result (-1, 0, or 1)
+    PG_RETURN_INT32(date_cmp_timestamp_internal(dateVal, timestamp));
+}
+```

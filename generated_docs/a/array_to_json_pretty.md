@@ -36,4 +36,25 @@ The function extracts both the array datum and the boolean flag from the functio
 - When  is true, the output includes line breaks and indentation
 - When  is false, the output is compact (same as )
 - The function handles all PostgreSQL array types by delegating processing to 
-- Located in 
+- Located in src/backend/utils/adt/json.c:637-653
+
+## Simplified Source
+
+```c
+Datum
+array_to_json_pretty(PG_FUNCTION_ARGS)
+{
+    Datum array = PG_GETARG_DATUM(0);
+    bool use_line_feeds = PG_GETARG_BOOL(1);
+    StringInfo result;
+
+    // Create output buffer
+    result = makeStringInfo();
+
+    // Convert array to JSON format with optional pretty-printing
+    array_to_json_internal(array, result, use_line_feeds);
+
+    // Return as PostgreSQL text
+    PG_RETURN_TEXT_P(cstring_to_text_with_len(result->data, result->len));
+}
+``` 

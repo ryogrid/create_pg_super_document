@@ -53,3 +53,106 @@ The function is essential for scan key preprocessing and redundancy elimination 
 - May shrink caller's array by eliminating redundant elements during processing
 - Uses InvalidOid convention where sk_subtype defaults to opclass input type
 - Part of PostgreSQL's scan key optimization and redundancy elimination system
+
+## Simplified Source
+
+```c
+static bool
+_bt_compare_scankey_args(IndexScanDesc scan, ScanKey op,
+                         ScanKey leftarg, ScanKey rightarg,
+                         BTArrayKeyInfo *array, FmgrInfo *orderproc,
+                         bool *result)
+{
+    Relation rel = scan->indexRelation;
+    Oid lefttype, righttype, optype, opcintype, cmp_op;
+    StrategyNumber strat;
+
+    // Handle NULL values using NULLS FIRST/LAST semantics
+    if ((leftarg->sk_flags | rightarg->sk_flags) & SK_ISNULL)
+    {
+        bool leftnull = (leftarg->sk_flags & SK_ISNULL);
+        bool rightnull = (rightarg->sk_flags & SK_ISNULL);
+
+        strat = op->sk_strategy;
+        if (op->sk_flags & SK_BT_NULLS_FIRST)
+            strat = BTCommuteStrategyNumber(strat);
+
+        // Perform NULL comparison based on strategy
+        switch (strat)
+        {
+            case BTLessStrategyNumber:
+                *result = (leftnull < rightnull);
+                break;
+            case BTEqualStrategyNumber:
+                *result = (leftnull == rightnull);
+                break;
+            case BTGreaterStrategyNumber:
+                *result = (leftnull > rightnull);
+                break;
+            // Other cases...
+        }
+        return true;
+    }
+
+    // Handle array scan keys specially
+    if (array)
+    {
+        bool leftarray = ((leftarg->sk_flags & SK_SEARCHARRAY) &&
+                         leftarg->sk_strategy == BTEqualStrategyNumber);
+        bool rightarray = ((rightarg->sk_flags & SK_SEARCHARRAY) &&
+                          rightarg->sk_strategy == BTEqualStrategyNumber);
+
+        if (leftarray && rightarray)
+            return false;  // Can't compare two arrays
+
+        // Delegate to specialized array comparison function
+        if (leftarray)
+            return _bt_compare_array_scankey_args(scan, leftarg, rightarg,
+                                                 orderproc, array, result);
+        else if (rightarray)
+            return _bt_compare_array_scankey_args(scan, rightarg, leftarg,
+                                                 orderproc, array, result);
+    }
+
+    // Get data types for comparison
+    opcintype = rel->rd_opcintype[leftarg->sk_attno - 1];
+
+    lefttype = (leftarg->sk_subtype != InvalidOid) ? leftarg->sk_subtype : opcintype;
+    righttype = (rightarg->sk_subtype != InvalidOid) ? rightarg->sk_subtype : opcintype;
+    optype = (op->sk_subtype != InvalidOid) ? op->sk_subtype : opcintype;
+
+    // Use pre-loaded function if types match
+    if (lefttype == opcintype && righttype == optype)
+    {
+        *result = DatumGetBool(FunctionCall2Coll(&op->sk_func,
+                                                op->sk_collation,
+                                                leftarg->sk_argument,
+                                                rightarg->sk_argument));
+        return true;
+    }
+
+    // Look up cross-type operator in opfamily
+    strat = op->sk_strategy;
+    if (op->sk_flags & SK_BT_DESC)
+        strat = BTCommuteStrategyNumber(strat);
+
+    cmp_op = get_opfamily_member(rel->rd_opfamily[leftarg->sk_attno - 1],
+                                lefttype, righttype, strat);
+
+    if (OidIsValid(cmp_op))
+    {
+        RegProcedure cmp_proc = get_opcode(cmp_op);
+        if (RegProcedureIsValid(cmp_proc))
+        {
+            *result = DatumGetBool(OidFunctionCall2Coll(cmp_proc,
+                                                       op->sk_collation,
+                                                       leftarg->sk_argument,
+                                                       rightarg->sk_argument));
+            return true;
+        }
+    }
+
+    // Comparison not possible
+    return false;
+}
+```

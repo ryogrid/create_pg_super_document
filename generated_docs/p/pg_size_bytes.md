@@ -57,3 +57,107 @@ The function handles whitespace trimming, validates input format, and provides d
 
 ## Notes and Other Information
 This function is designed to be called from SQL as `pg_size_bytes(text)`. It provides robust parsing with comprehensive error handling and supports both standard units (bytes, kB, MB, GB, TB, PB) and their aliases. The function can handle fractional values and scientific notation. Input validation includes checking for valid numeric format and recognized units, with helpful error messages guiding users to correct formats. The function is the inverse of `pg_size_pretty` functions, enabling round-trip conversions between byte counts and human-readable representations. Located in src/backend/utils/adt/dbsize.c:713-878.
+
+## Simplified Source
+
+```c
+Datum pg_size_bytes(PG_FUNCTION_ARGS) {
+    text *arg = PG_GETARG_TEXT_PP(0);
+    char *str = text_to_cstring(arg);
+    char *strptr = str;
+    char *endptr;
+    Numeric num;
+    int64 result;
+
+    // Skip leading whitespace
+    while (isspace((unsigned char) *strptr)) {
+        strptr++;
+    }
+
+    // Parse the numeric part (sign, digits, decimal point, exponent)
+    endptr = strptr;
+    bool have_digits = false;
+
+    // Parse sign, digits, decimal point, and optional exponent
+    if (*endptr == '-' || *endptr == '+') endptr++;
+
+    if (isdigit((unsigned char) *endptr)) {
+        have_digits = true;
+        while (isdigit((unsigned char) *endptr)) endptr++;
+    }
+
+    if (*endptr == '.') {
+        endptr++;
+        if (isdigit((unsigned char) *endptr)) {
+            have_digits = true;
+            while (isdigit((unsigned char) *endptr)) endptr++;
+        }
+    }
+
+    if (!have_digits) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("invalid size: \"%s\"", str)));
+    }
+
+    // Handle optional scientific notation
+    if (*endptr == 'e' || *endptr == 'E') {
+        char *cp;
+        strtol(endptr + 1, &cp, 10);
+        if (cp > endptr + 1) endptr = cp;
+    }
+
+    // Convert the numeric part to Numeric
+    char saved_char = *endptr;
+    *endptr = '\0';
+    num = DatumGetNumeric(DirectFunctionCall3(numeric_in,
+                                             CStringGetDatum(strptr),
+                                             ObjectIdGetDatum(InvalidOid),
+                                             Int32GetDatum(-1)));
+    *endptr = saved_char;
+
+    // Skip whitespace before unit
+    strptr = endptr;
+    while (isspace((unsigned char) *strptr)) strptr++;
+
+    // Handle unit if present
+    if (*strptr != '\0') {
+        const struct size_pretty_unit *unit = NULL;
+
+        // Look for unit in standard units table
+        for (const struct size_pretty_unit *u = size_pretty_units; u->name != NULL; u++) {
+            if (pg_strcasecmp(strptr, u->name) == 0) {
+                unit = u;
+                break;
+            }
+        }
+
+        // Look in aliases table if not found
+        if (unit == NULL) {
+            for (const struct size_bytes_unit_alias *a = size_bytes_aliases; a->alias != NULL; a++) {
+                if (pg_strcasecmp(strptr, a->alias) == 0) {
+                    unit = &size_pretty_units[a->unit_index];
+                    break;
+                }
+            }
+        }
+
+        if (unit == NULL) {
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("invalid size: \"%s\"", text_to_cstring(arg))));
+        }
+
+        // Apply unit multiplier
+        int64 multiplier = ((int64) 1) << unit->unitbits;
+        if (multiplier > 1) {
+            Numeric mul_num = int64_to_numeric(multiplier);
+            num = DatumGetNumeric(DirectFunctionCall2(numeric_mul,
+                                                     NumericGetDatum(mul_num),
+                                                     NumericGetDatum(num)));
+        }
+    }
+
+    // Convert to int64 and return
+    result = DatumGetInt64(DirectFunctionCall1(numeric_int8, NumericGetDatum(num)));
+    PG_RETURN_INT64(result);
+}
+```

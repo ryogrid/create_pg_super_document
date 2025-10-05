@@ -37,3 +37,24 @@ The function handles null salary values by returning false rather than null, tho
 - The function explicitly handles null salary values by returning false, but includes a comment suggesting that  could be used as an alternative
 - This is a demonstration function showing proper techniques for working with composite types in PostgreSQL C functions
 - The function uses PostgreSQL's standard macros for argument handling and return values, following established patterns for C language functions
+
+## Simplified Source
+
+```c
+Datum c_overpaid(PG_FUNCTION_ARGS) {
+    // Extract arguments: employee composite type and salary limit
+    HeapTupleHeader t = PG_GETARG_HEAPTUPLEHEADER(0);
+    int32 limit = PG_GETARG_INT32(1);
+
+    // Get salary from employee record
+    bool isnull;
+    int32 salary = DatumGetInt32(GetAttributeByName(t, "salary", &isnull));
+
+    // Handle null salary - return false (alternative: PG_RETURN_NULL())
+    if (isnull)
+        PG_RETURN_BOOL(false);
+
+    // Return true if salary exceeds limit
+    PG_RETURN_BOOL(salary > limit);
+}
+```

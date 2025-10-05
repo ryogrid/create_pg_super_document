@@ -34,3 +34,12 @@ This function is part of PostgreSQL's geometric SP-GiST implementation for 2D sp
 - It uses the `FPlt` function for robust floating-point comparisons to avoid precision issues
 - The function implements a "strictly lower" comparison, requiring both left and right range lower bounds to be less than the query's lower bound
 - This function is utilized by higher-level 4D positioning functions like `left4D` and `below4D`
+
+## Simplified Source
+
+```c
+static bool lower2D(RangeBox *range_box, Range *query) {
+    return FPlt(range_box->left.low, query->low) &&
+           FPlt(range_box->right.low, query->low);
+}
+```

@@ -38,3 +38,40 @@ For basic integer types, the function simply allows them. For composite types (s
 - Performs recursive validation for composite data structures
 - Essential for ensuring type safety in embedded SQL indicator variable usage
 - Generates parse errors for invalid indicator variable types
+
+## Simplified Source
+
+```c
+void
+check_indicator(struct ECPGtype *var)
+{
+    switch (var->type) {
+        // Valid integer types for indicators
+        case ECPGt_short:
+        case ECPGt_int:
+        case ECPGt_long:
+        case ECPGt_long_long:
+        case ECPGt_unsigned_short:
+        case ECPGt_unsigned_int:
+        case ECPGt_unsigned_long:
+        case ECPGt_unsigned_long_long:
+            break;  // These are valid
+
+        case ECPGt_struct:
+        case ECPGt_union:
+            // Recursively check all members
+            for (struct ECPGstruct_member *p = var->u.members; p; p = p->next)
+                check_indicator(p->type);
+            break;
+
+        case ECPGt_array:
+            // Check the array element type
+            check_indicator(var->u.element);
+            break;
+
+        default:
+            mmerror(PARSE_ERROR, ET_ERROR, "indicator variable must have an integer type");
+            break;
+    }
+}
+```

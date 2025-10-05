@@ -56,3 +56,32 @@ The function handles range transitions by:
 - [Range](../R/Range.md) boundary detection accounts for potential block wraparound in parallel scans
 - The leader process is responsible for merging worker results and filling empty ranges
 - Debug logging helps track range completion during parallel builds
+
+## Simplified Source
+
+```c
+static void brinbuildCallbackParallel(Relation index, ItemPointer tid,
+                                     Datum *values, bool *isnull,
+                                     bool tupleIsAlive, void *brstate) {
+    BrinBuildState *state = (BrinBuildState *) brstate;
+    BlockNumber thisblock = ItemPointerGetBlockNumber(tid);
+
+    // Check if we've moved to a different range (past or future due to parallel scan)
+    if ((thisblock < state->bs_currRangeStart) ||
+        (thisblock > state->bs_currRangeStart + state->bs_pagesPerRange - 1)) {
+
+        // Complete current range and write to shared tuplesort
+        form_and_spill_tuple(state);
+
+        // Calculate range start for the new block
+        state->bs_currRangeStart =
+            state->bs_pagesPerRange * (thisblock / state->bs_pagesPerRange);
+
+        // Initialize summary state for new range
+        brin_memtuple_initialize(state->bs_dtuple, state->bs_bdesc);
+    }
+
+    // Add current tuple's values to the range summary
+    add_values_to_range(index, state->bs_bdesc, state->bs_dtuple, values, isnull);
+}
+```

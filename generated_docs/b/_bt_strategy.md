@@ -50,3 +50,63 @@ The function returns a "perfect penalty" value that represents the theoretical b
 - The single value strategy is used for rightmost pages with ever-increasing heap TIDs
 - Returns indnkeyatts instead of true perfect penalty for many duplicates to prevent unbalanced splits in low cardinality composite indexes
 - Strategy selection affects both split point choice and subsequent split interval calculation
+
+## Simplified Source
+```c
+static int
+_bt_strategy(FindSplitData *state, SplitPoint *leftpage,
+             SplitPoint *rightpage, FindSplitStrat *strategy)
+{
+    int indnkeyatts = IndexRelationGetNumberOfKeyAttributes(state->rel);
+
+    // Default to standard strategy
+    *strategy = SPLIT_DEFAULT;
+
+    // Internal pages: use minimum first-right tuple size as perfect penalty
+    if (!state->is_leaf)
+        return state->minfirstrightsz;
+
+    // Leaf pages: analyze current split interval for duplicate patterns
+    SplitPoint *leftinterval, *rightinterval;
+    _bt_interval_edges(state, &leftinterval, &rightinterval);
+
+    IndexTuple leftmost = _bt_split_lastleft(state, leftinterval);
+    IndexTuple rightmost = _bt_split_firstright(state, rightinterval);
+
+    // Check if current interval can avoid heap TID appendage
+    int perfectpenalty = _bt_keep_natts_fast(state->rel, leftmost, rightmost);
+    if (perfectpenalty <= indnkeyatts)
+        return perfectpenalty;  // Default strategy works
+
+    // Analyze entire page range for alternative strategies
+    leftmost = _bt_split_lastleft(state, leftpage);
+    rightmost = _bt_split_firstright(state, rightpage);
+
+    perfectpenalty = _bt_keep_natts_fast(state->rel, leftmost, rightmost);
+
+    if (perfectpenalty <= indnkeyatts) {
+        // Many duplicates strategy: page has duplicates but not entirely full
+        *strategy = SPLIT_MANY_DUPLICATES;
+        // Return indnkeyatts to ensure balanced split around duplicate group
+        return indnkeyatts;
+    }
+
+    // Check for single value strategy (page full of identical values)
+    if (state->is_rightmost) {
+        // Rightmost page with ever-increasing heap TIDs
+        *strategy = SPLIT_SINGLE_VALUE;
+    } else {
+        // Check if page appears to be rightmost for this duplicate value
+        ItemId itemid = PageGetItemId(state->origpage, P_HIKEY);
+        IndexTuple hikey = (IndexTuple) PageGetItem(state->origpage, itemid);
+
+        int hikey_penalty = _bt_keep_natts_fast(state->rel, hikey, state->newitem);
+        if (hikey_penalty <= indnkeyatts) {
+            *strategy = SPLIT_SINGLE_VALUE;
+        }
+        // Otherwise stick with default strategy
+    }
+
+    return perfectpenalty;
+}
+```

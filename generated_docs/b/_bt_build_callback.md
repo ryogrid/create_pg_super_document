@@ -43,3 +43,30 @@ This function serves as the callback mechanism for table_index_build_scan during
 - Dead tuples are only handled separately when spool2 exists (buildstate->spool2 != NULL)
 - Sets the havedead flag when dead tuples are encountered, which affects subsequent processing phases
 - Part of the PostgreSQL B-tree index building infrastructure that supports concurrent index creation
+
+## Simplified Source
+
+```c
+static void
+_bt_build_callback(Relation index,
+                   ItemPointer tid,
+                   Datum *values,
+                   bool *isnull,
+                   bool tupleIsAlive,
+                   void *state)
+{
+    BTBuildState *buildstate = (BTBuildState *) state;
+
+    // Insert tuple into appropriate spool based on visibility status
+    if (tupleIsAlive || buildstate->spool2 == NULL)
+        _bt_spool(buildstate->spool, tid, values, isnull);
+    else {
+        // Dead tuples go into secondary spool for unique indexes
+        buildstate->havedead = true;
+        _bt_spool(buildstate->spool2, tid, values, isnull);
+    }
+
+    // Track total number of tuples processed
+    buildstate->indtuples += 1;
+}
+```

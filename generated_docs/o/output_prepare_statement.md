@@ -30,3 +30,23 @@ This function is part of the ECPG (Embedded SQL in C) preprocessor and generates
 - Memory management: The function calls free() on the name parameter after processing
 - The generated code includes line number information for debugging purposes
 - Error handling is managed through whenever_action(2) call
+
+## Simplified Source
+
+```c
+void output_prepare_statement(char *name, char *stmt) {
+    // Generate ECPGprepare function call
+    fprintf(base_yyout, "{ ECPGprepare(__LINE__, %s, %d, ",
+            connection ? connection : "NULL", questionmarks);
+
+    // Output escaped statement name and SQL statement
+    output_escaped_str(name, true);
+    fputs(", ", base_yyout);
+    output_escaped_str(stmt, true);
+    fputs(");", base_yyout);
+
+    // Generate error handling and cleanup
+    whenever_action(2);
+    free(name);
+}
+```

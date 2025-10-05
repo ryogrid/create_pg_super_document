@@ -34,3 +34,34 @@ This function is a Python method implementation that extracts type modifier info
 - Type modifier values are PostgreSQL-specific integers that provide additional type information
 - The function is registered as a METH_NOARGS method in the PLyResult method table
 - Memory management for the returned list is handled by Python's reference counting system
+
+## Simplified Source
+
+```c
+static PyObject *
+PLy_result_coltypmods(PyObject *self, PyObject *unused)
+{
+    PLyResultObject *ob = (PLyResultObject *) self;
+    PyObject *list;
+    int i;
+
+    // Check if result set has tuple descriptor
+    if (!ob->tupdesc) {
+        PLy_exception_set(PLy_exc_error, "command did not produce a result set");
+        return NULL;
+    }
+
+    // Create list to hold type modifiers for all columns
+    list = PyList_New(ob->tupdesc->natts);
+    if (!list)
+        return NULL;
+
+    // Extract type modifier for each column attribute
+    for (i = 0; i < ob->tupdesc->natts; i++) {
+        Form_pg_attribute attr = TupleDescAttr(ob->tupdesc, i);
+        PyList_SET_ITEM(list, i, PyLong_FromLong(attr->atttypmod));
+    }
+
+    return list;
+}
+```

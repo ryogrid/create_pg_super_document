@@ -34,3 +34,19 @@ The function handles two scenarios: when a current line is available (and safe t
 - Essential for providing meaningful error messages with precise location information in configuration files
 - Automatically invoked by PostgreSQL's error reporting system when ereport() is called
 - Part of PostgreSQL's error context callback mechanism for enhanced error diagnostics
+
+## Simplified Source
+
+```c
+static void tsearch_readline_callback(void *arg) {
+    tsearch_readline_state *stp = (tsearch_readline_state *) arg;
+
+    // Provide error context with line info
+    if (stp->curline)
+        errcontext("line %d of configuration file \"%s\": \"%s\"",
+                   stp->lineno, stp->filename, stp->curline);
+    else
+        errcontext("line %d of configuration file \"%s\"",
+                   stp->lineno, stp->filename);
+}
+```

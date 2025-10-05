@@ -32,3 +32,22 @@ This function implements the PostgreSQL SQL function json_build_object(variadic 
 - If argument extraction fails (nargs < 0), the function returns NULL
 - The actual JSON object construction logic is handled by json_build_object_worker with parameters set to disable absent_on_null behavior and unique key checking
 - This is part of PostgreSQL JSON data type support system located in src/backend/utils/adt/json.c:1309-1328
+
+## Simplified Source
+
+```c
+Datum json_build_object(PG_FUNCTION_ARGS) {
+    Datum *args;
+    bool *nulls;
+    Oid *types;
+
+    // Extract variadic arguments (key-value pairs)
+    int nargs = extract_variadic_args(fcinfo, 0, true, &args, &types, &nulls);
+
+    if (nargs < 0)
+        PG_RETURN_NULL();
+
+    // Build JSON object: absent_on_null=false, unique_keys=false
+    PG_RETURN_DATUM(json_build_object_worker(nargs, args, nulls, types, false, false));
+}
+```

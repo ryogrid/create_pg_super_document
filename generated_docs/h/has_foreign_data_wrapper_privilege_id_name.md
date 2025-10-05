@@ -36,3 +36,26 @@ This function is a PostgreSQL SQL-callable function that verifies whether a spec
 - Uses object_aclcheck() instead of object_aclcheck_ext(), so doesn't handle missing objects gracefully
 - Part of PostgreSQL's comprehensive access control system for foreign data wrappers
 - Located in src/backend/utils/adt/acl.c:3304-3326
+
+## Simplified Source
+
+```c
+Datum
+has_foreign_data_wrapper_privilege_id_name(PG_FUNCTION_ARGS)
+{
+    Oid roleid = PG_GETARG_OID(0);
+    text *fdwname = PG_GETARG_TEXT_PP(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert FDW name to OID
+    Oid fdwid = convert_foreign_data_wrapper_name(fdwname);
+
+    // Convert privilege string to access mode
+    AclMode mode = convert_foreign_data_wrapper_priv_string(priv_type_text);
+
+    // Check if role has the specified privilege on the FDW
+    AclResult aclresult = object_aclcheck(ForeignDataWrapperRelationId, fdwid, roleid, mode);
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

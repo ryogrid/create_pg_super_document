@@ -48,3 +48,118 @@ This function is responsible for initializing row filters for a synchronized rel
 - The function performs early exit optimization when no filtering is needed for any DML operation
 - Static function only accessible within pgoutput.c
 - Part of the lazy initialization pattern - row filters are only prepared when actually needed
+
+## Simplified Source
+
+```c
+static void
+pgoutput_row_filter_init(PGOutputData *data, List *publications,
+                         RelationSyncEntry *entry)
+{
+    ListCell *lc;
+    List *rfnodes[3] = {NIL, NIL, NIL};  // One per DML action
+    bool no_filter[3] = {false, false, false};
+    bool has_filter = true;
+    Oid schemaid = get_rel_namespace(entry->publish_as_relid);
+
+    // Check each publication for row filters
+    foreach(lc, publications)
+    {
+        Publication *pub = lfirst(lc);
+        HeapTuple rftuple = NULL;
+        Datum rfdatum = 0;
+        bool pub_no_filter = true;
+
+        // Skip if publication covers all tables or schema
+        if (!pub->alltables &&
+            !SearchSysCacheExists2(PUBLICATIONNAMESPACEMAP,
+                                   ObjectIdGetDatum(schemaid),
+                                   ObjectIdGetDatum(pub->oid)))
+        {
+            // Look for row filter in this publication
+            rftuple = SearchSysCache2(PUBLICATIONRELMAP,
+                                     ObjectIdGetDatum(entry->publish_as_relid),
+                                     ObjectIdGetDatum(pub->oid));
+
+            if (HeapTupleIsValid(rftuple))
+            {
+                rfdatum = SysCacheGetAttr(PUBLICATIONRELMAP, rftuple,
+                                         Anum_pg_publication_rel_prqual,
+                                         &pub_no_filter);
+            }
+        }
+
+        if (pub_no_filter)
+        {
+            // Mark actions as having no filter
+            no_filter[PUBACTION_INSERT] |= pub->pubactions.pubinsert;
+            no_filter[PUBACTION_UPDATE] |= pub->pubactions.pubupdate;
+            no_filter[PUBACTION_DELETE] |= pub->pubactions.pubdelete;
+
+            // Early exit if all actions have no filter
+            if (no_filter[PUBACTION_INSERT] &&
+                no_filter[PUBACTION_UPDATE] &&
+                no_filter[PUBACTION_DELETE])
+            {
+                has_filter = false;
+                break;
+            }
+        }
+        else
+        {
+            // Add filter expressions to appropriate action lists
+            if (pub->pubactions.pubinsert && !no_filter[PUBACTION_INSERT])
+                rfnodes[PUBACTION_INSERT] = lappend(rfnodes[PUBACTION_INSERT],
+                                                   TextDatumGetCString(rfdatum));
+            if (pub->pubactions.pubupdate && !no_filter[PUBACTION_UPDATE])
+                rfnodes[PUBACTION_UPDATE] = lappend(rfnodes[PUBACTION_UPDATE],
+                                                   TextDatumGetCString(rfdatum));
+            if (pub->pubactions.pubdelete && !no_filter[PUBACTION_DELETE])
+                rfnodes[PUBACTION_DELETE] = lappend(rfnodes[PUBACTION_DELETE],
+                                                   TextDatumGetCString(rfdatum));
+        }
+
+        if (rftuple)
+            ReleaseSysCache(rftuple);
+    }
+
+    // Clean up filter lists for actions that have no_filter
+    for (int idx = 0; idx < NUM_ROWFILTER_PUBACTIONS; idx++)
+    {
+        if (no_filter[idx])
+        {
+            list_free_deep(rfnodes[idx]);
+            rfnodes[idx] = NIL;
+        }
+    }
+
+    // Build expression states if filters exist
+    if (has_filter)
+    {
+        Relation relation = RelationIdGetRelation(entry->publish_as_relid);
+        pgoutput_ensure_entry_cxt(data, entry);
+
+        MemoryContext oldctx = MemoryContextSwitchTo(entry->entry_cxt);
+        entry->estate = create_estate_for_relation(relation);
+
+        for (int idx = 0; idx < NUM_ROWFILTER_PUBACTIONS; idx++)
+        {
+            if (rfnodes[idx] != NIL)
+            {
+                List *filters = NIL;
+
+                // Convert string filters to expression nodes
+                foreach(lc, rfnodes[idx])
+                    filters = lappend(filters, stringToNode((char *) lfirst(lc)));
+
+                // Combine filters with OR and prepare expression
+                Expr *rfnode = make_orclause(filters);
+                entry->exprstate[idx] = ExecPrepareExpr(rfnode, entry->estate);
+            }
+        }
+
+        MemoryContextSwitchTo(oldctx);
+        RelationClose(relation);
+    }
+}
+```

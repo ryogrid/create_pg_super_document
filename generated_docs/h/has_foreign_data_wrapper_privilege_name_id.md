@@ -38,3 +38,32 @@ This function is a PostgreSQL SQL-callable function that verifies whether a spec
 - Supports checking privileges for any user, not just the current user
 - Part of PostgreSQL's comprehensive access control system for foreign data wrappers
 - Located in src/backend/utils/adt/acl.c:3246-3275
+
+## Simplified Source
+
+```c
+Datum
+has_foreign_data_wrapper_privilege_name_id(PG_FUNCTION_ARGS)
+{
+    Name username = PG_GETARG_NAME(0);
+    Oid fdw_oid = PG_GETARG_OID(1);
+    text *privilege_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert username to role OID (handles "public" role)
+    Oid role_oid = get_role_oid_or_public(NameStr(*username));
+
+    // Convert privilege string to internal mode
+    AclMode privilege_mode = convert_foreign_data_wrapper_priv_string(privilege_text);
+
+    // Check privilege, handling missing FDW
+    bool is_missing = false;
+    AclResult result = object_aclcheck_ext(ForeignDataWrapperRelationId, fdw_oid,
+                                         role_oid, privilege_mode, &is_missing);
+
+    // Return NULL if FDW doesn't exist, otherwise return privilege check result
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(result == ACLCHECK_OK);
+}
+```

@@ -50,3 +50,60 @@ This cooperative repartitioning allows multiple parallel workers to efficiently 
 - The function includes interrupt checking to allow for query cancellation during long repartitioning operations
 - Memory allocated for tuplestore accessors is properly freed after processing to prevent memory leaks
 - Only processes batches 1..n, as batch 0 is handled separately by ExecParallelHashRepartitionFirst
+
+## Simplified Source
+
+```c
+static void
+ExecParallelHashRepartitionRest(HashJoinTable hashtable)
+{
+    ParallelHashJoinState *pstate = hashtable->parallel_state;
+    int old_nbatch = pstate->old_nbatch;
+    SharedTuplestoreAccessor **old_inner_tuples;
+    ParallelHashJoinBatch *old_batches;
+    int i;
+
+    // Access previous generation of batches
+    old_batches = (ParallelHashJoinBatch *)
+        dsa_get_address(hashtable->area, pstate->old_batches);
+
+    // Set up accessors for old batches (1..n, skip batch 0)
+    old_inner_tuples = palloc0_array(SharedTuplestoreAccessor *, old_nbatch);
+    for (i = 1; i < old_nbatch; ++i) {
+        ParallelHashJoinBatch *shared = NthParallelHashJoinBatch(old_batches, i);
+        old_inner_tuples[i] = sts_attach(ParallelHashJoinBatchInner(shared),
+                                        ParallelWorkerNumber + 1,
+                                        &pstate->fileset);
+    }
+
+    // Repartition each old batch
+    for (i = 1; i < old_nbatch; ++i) {
+        MinimalTuple tuple;
+        uint32 hashvalue;
+
+        // Scan tuples from old batch
+        sts_begin_parallel_scan(old_inner_tuples[i]);
+        while ((tuple = sts_parallel_scan_next(old_inner_tuples[i], &hashvalue))) {
+            size_t tuple_size = MAXALIGN(HJTUPLE_OVERHEAD + tuple->t_len);
+            int bucketno, batchno;
+
+            // Recalculate batch assignment with new batch count
+            ExecHashGetBucketAndBatch(hashtable, hashvalue, &bucketno, &batchno);
+
+            // Update statistics
+            hashtable->batches[batchno].estimated_size += tuple_size;
+            ++hashtable->batches[batchno].ntuples;
+            ++hashtable->batches[i].old_ntuples;
+
+            // Write tuple to new target batch
+            sts_puttuple(hashtable->batches[batchno].inner_tuples,
+                        &hashvalue, tuple);
+
+            CHECK_FOR_INTERRUPTS();
+        }
+        sts_end_parallel_scan(old_inner_tuples[i]);
+    }
+
+    pfree(old_inner_tuples);
+}
+```

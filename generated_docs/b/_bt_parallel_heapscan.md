@@ -48,3 +48,37 @@ Key responsibilities include:
 - Broken HOT chain detection is important for index build correctness
 - Statistics aggregation enables proper reporting of parallel build performance
 - Must be called after _bt_begin_parallel() has successfully launched workers
+
+## Simplified Source
+
+```c
+static double
+_bt_parallel_heapscan(BTBuildState *buildstate, bool *brokenhotchain)
+{
+    BTShared *btshared = buildstate->btleader->btshared;
+    int nparticipanttuplesorts = buildstate->btleader->nparticipanttuplesorts;
+    double reltuples;
+
+    // Wait for all participants to finish
+    for (;;) {
+        SpinLockAcquire(&btshared->mutex);
+        if (btshared->nparticipantsdone == nparticipanttuplesorts) {
+            // All workers done - collect aggregate statistics
+            buildstate->havedead = btshared->havedead;
+            buildstate->indtuples = btshared->indtuples;
+            *brokenhotchain = btshared->brokenhotchain;
+            reltuples = btshared->reltuples;
+            SpinLockRelease(&btshared->mutex);
+            break;
+        }
+        SpinLockRelease(&btshared->mutex);
+
+        // Sleep until notified by completing worker
+        ConditionVariableSleep(&btshared->workersdonecv,
+                               WAIT_EVENT_PARALLEL_CREATE_INDEX_SCAN);
+    }
+
+    ConditionVariableCancelSleep();
+    return reltuples;
+}
+```

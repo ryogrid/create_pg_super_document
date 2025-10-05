@@ -38,3 +38,20 @@ The function uses PostgreSQL's StringInfoData buffer system along with the pq_be
 - Used in binary protocol communications between client and server
 - Used in COPY BINARY operations for efficient bulk data transfer
 - Registered in PostgreSQL's system catalogs as the binary output function for float4 type
+
+## Simplified Source
+
+```c
+Datum
+float4send(PG_FUNCTION_ARGS)
+{
+    // Get the float4 input value
+    float4 num = PG_GETARG_FLOAT4(0);
+    StringInfoData buf;
+
+    // Create binary representation
+    pq_begintypsend(&buf);         // Initialize buffer
+    pq_sendfloat4(&buf, num);      // Write float4 in binary format
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));  // Return binary data
+}
+```

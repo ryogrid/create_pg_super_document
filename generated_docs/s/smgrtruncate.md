@@ -37,3 +37,20 @@ The  function provides a backward-compatible interface for truncating multiple f
 - Automatically determines the current block count for each fork before truncation
 - The function creates a local  array to store current block counts for each fork
 - Located in src/backend/storage/smgr/smgr.c:701-726
+
+## Simplified Source
+
+```c
+void smgrtruncate(SMgrRelation reln, ForkNumber *forknum, int nforks,
+                  BlockNumber *nblocks)
+{
+    BlockNumber old_nblocks[MAX_FORKNUM + 1];
+
+    // Get current block count for each fork before truncation
+    for (int i = 0; i < nforks; ++i)
+        old_nblocks[i] = smgrnblocks(reln, forknum[i]);
+
+    // Delegate to the comprehensive truncation function
+    smgrtruncate2(reln, forknum, nforks, old_nblocks, nblocks);
+}
+```

@@ -37,3 +37,47 @@ This function combines two existing affix flag sets identified by their indices 
 - For character modes (FM_CHAR, FM_LONG), concatenates flags directly
 - Memory allocation uses cpalloc for proper memory context management
 - Function maintains NULL termination of the AffixData array
+
+## Simplified Source
+
+```c
+static int MergeAffix(IspellDict *Conf, int a1, int a2) {
+    char **ptr;
+
+    Assert(a1 < Conf->nAffixData && a2 < Conf->nAffixData);
+
+    // Return non-empty set if one is empty
+    if (*Conf->AffixData[a1] == '\0')
+        return a2;
+    else if (*Conf->AffixData[a2] == '\0')
+        return a1;
+
+    // Expand array if needed
+    if (Conf->nAffixData + 1 >= Conf->lenAffixData) {
+        Conf->lenAffixData *= 2;
+        Conf->AffixData = (char **) repalloc(Conf->AffixData,
+                                           sizeof(char *) * Conf->lenAffixData);
+    }
+
+    // Create new merged flag string
+    ptr = Conf->AffixData + Conf->nAffixData;
+    if (Conf->flagMode == FM_NUM) {
+        // Numeric mode: separate with comma
+        *ptr = cpalloc(strlen(Conf->AffixData[a1]) +
+                      strlen(Conf->AffixData[a2]) + 2); // +1 for comma, +1 for \0
+        sprintf(*ptr, "%s,%s", Conf->AffixData[a1], Conf->AffixData[a2]);
+    } else {
+        // Character mode: concatenate directly
+        *ptr = cpalloc(strlen(Conf->AffixData[a1]) +
+                      strlen(Conf->AffixData[a2]) + 1); // +1 for \0
+        sprintf(*ptr, "%s%s", Conf->AffixData[a1], Conf->AffixData[a2]);
+    }
+
+    // Maintain NULL termination and update count
+    ptr++;
+    *ptr = NULL;
+    Conf->nAffixData++;
+
+    return Conf->nAffixData - 1;
+}
+```

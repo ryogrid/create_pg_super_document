@@ -36,3 +36,18 @@ The function is part of PostgreSQL's date/time comparison infrastructure and han
 - The actual comparison logic is handled by  which properly handles timezone conversion and edge cases like infinity values
 - Returns a PostgreSQL Datum boolean value wrapped by PG_RETURN_BOOL macro
 - Located in src/backend/utils/adt/date.c:889-897
+
+## Simplified Source
+
+```c
+Datum
+date_ge_timestamptz(PG_FUNCTION_ARGS)
+{
+    // Extract date and timestamptz arguments
+    DateADT dateVal = PG_GETARG_DATEADT(0);
+    TimestampTz timestamptz = PG_GETARG_TIMESTAMPTZ(1);
+
+    // Return true if date >= timestamptz (comparison result >= 0)
+    PG_RETURN_BOOL(date_cmp_timestamptz_internal(dateVal, timestamptz) >= 0);
+}
+```

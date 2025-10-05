@@ -39,3 +39,23 @@ The function includes a safety check to avoid unnecessary operations if skipping
 - Typically called at transaction completion points (prepare, commit)
 - Forms a pair with maybe_start_skipping_changes for complete skip control
 - Essential for ensuring skipping mode doesn't persist beyond the intended transaction boundaries
+
+## Simplified Source
+
+```c
+static void
+stop_skipping_changes(void)
+{
+    // Exit early if not currently skipping
+    if (!is_skipping_changes())
+        return;
+
+    // Log completion of skipping
+    ereport(LOG,
+            errmsg("logical replication completed skipping transaction at LSN %X/%X",
+                   LSN_FORMAT_ARGS(skip_xact_finish_lsn)));
+
+    // Reset skip state
+    skip_xact_finish_lsn = InvalidXLogRecPtr;
+}
+```

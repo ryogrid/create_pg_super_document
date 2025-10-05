@@ -35,3 +35,18 @@ This function is typically used by PostgreSQL's sorting and indexing infrastruct
 - The actual comparison logic is handled by `date_cmp_timestamptz_internal()` which manages timezone conversion and edge cases
 - This function serves as the basis for other comparison operators (=, <, >, <=, >=, <>)
 - Located in src/backend/utils/adt/date.c:898-906
+
+## Simplified Source
+
+```c
+Datum
+date_cmp_timestamptz(PG_FUNCTION_ARGS)
+{
+    // Extract date and timestamptz arguments
+    DateADT dateVal = PG_GETARG_DATEADT(0);
+    TimestampTz timestamptz = PG_GETARG_TIMESTAMPTZ(1);
+
+    // Return three-way comparison result (-1, 0, or 1)
+    PG_RETURN_INT32(date_cmp_timestamptz_internal(dateVal, timestamptz));
+}
+```

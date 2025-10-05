@@ -41,3 +41,17 @@ This function is part of PostgreSQL's geometric data type parsing infrastructure
 - Part of PostgreSQL's comprehensive geometric data type system that supports points, lines, boxes, paths, and polygons
 - Uses PostgreSQL's soft error handling mechanism to allow graceful error recovery during parsing
 - The function is designed to be consistent with PostgreSQL's overall approach to geometric data representation and parsing
+
+## Simplified Source
+
+```c
+static bool single_decode(char *num, float8 *x, char **endptr_p,
+                         const char *type_name, const char *orig_string,
+                         Node *escontext) {
+    // Parse floating-point number from string
+    *x = float8in_internal(num, endptr_p, type_name, orig_string, escontext);
+
+    // Return true if parsing succeeded, false if error occurred
+    return (!SOFT_ERROR_OCCURRED(escontext));
+}
+```

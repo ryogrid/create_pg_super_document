@@ -66,3 +66,95 @@ The function gracefully handles cases with insufficient or missing statistics by
 - Includes comprehensive bounds checking and error handling
 - Central to PostgreSQL's cost-based optimization for full-text search queries
 - The algorithm assumes that MCELEM statistics are representative of the overall lexeme distribution
+
+## Simplified Source
+
+```c
+static Selectivity tsquery_opr_selec(QueryItem *item, char *operand,
+                                    TextFreq *lookup, int length, float4 minfreq) {
+    Selectivity selec;
+
+    check_stack_depth();
+
+    if (item->type == QI_VAL) {
+        QueryOperand *oper = (QueryOperand *) item;
+        LexemeKey key;
+
+        key.lexeme = operand + oper->distance;
+        key.length = oper->length;
+
+        if (oper->prefix) {
+            // Prefix match: scan all MCELEMs for matches
+            if (lookup == NULL || length < 100)
+                return (Selectivity) (DEFAULT_TS_MATCH_SEL * 4);
+
+            Selectivity matched = 0, allmces = 0;
+            int n_matched = 0;
+
+            for (int i = 0; i < length; i++) {
+                TextFreq *t = lookup + i;
+                int tlen = VARSIZE_ANY_EXHDR(t->element);
+
+                if (tlen >= key.length &&
+                    strncmp(key.lexeme, VARDATA_ANY(t->element), key.length) == 0) {
+                    matched += t->frequency - matched * t->frequency;
+                    n_matched++;
+                }
+                allmces += t->frequency - allmces * t->frequency;
+            }
+
+            CLAMP_PROBABILITY(matched);
+            CLAMP_PROBABILITY(allmces);
+
+            selec = matched + (1.0 - allmces) * ((double) n_matched / length);
+            selec = Max(Min(DEFAULT_TS_MATCH_SEL, minfreq / 2), selec);
+        } else {
+            // Exact lexeme match
+            if (lookup == NULL)
+                return (Selectivity) DEFAULT_TS_MATCH_SEL;
+
+            TextFreq *searchres = bsearch(&key, lookup, length,
+                                        sizeof(TextFreq), compare_lexeme_textfreq);
+
+            if (searchres) {
+                selec = searchres->frequency;
+            } else {
+                selec = Min(DEFAULT_TS_MATCH_SEL, minfreq / 2);
+            }
+        }
+    } else {
+        // Operator node
+        Selectivity s1, s2;
+
+        switch (item->qoperator.oper) {
+            case OP_NOT:
+                selec = 1.0 - tsquery_opr_selec(item + 1, operand,
+                                               lookup, length, minfreq);
+                break;
+
+            case OP_PHRASE:
+            case OP_AND:
+                s1 = tsquery_opr_selec(item + 1, operand, lookup, length, minfreq);
+                s2 = tsquery_opr_selec(item + item->qoperator.left, operand,
+                                     lookup, length, minfreq);
+                selec = s1 * s2;
+                break;
+
+            case OP_OR:
+                s1 = tsquery_opr_selec(item + 1, operand, lookup, length, minfreq);
+                s2 = tsquery_opr_selec(item + item->qoperator.left, operand,
+                                     lookup, length, minfreq);
+                selec = s1 + s2 - s1 * s2;
+                break;
+
+            default:
+                elog(ERROR, "unrecognized operator: %d", item->qoperator.oper);
+                selec = 0;
+                break;
+        }
+    }
+
+    CLAMP_PROBABILITY(selec);
+    return selec;
+}
+```

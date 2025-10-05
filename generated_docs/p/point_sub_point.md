@@ -38,3 +38,14 @@ This function computes the difference between two Point structures by subtractin
 - Part of PostgreSQL's geometric data type operations infrastructure
 - The function modifies the result parameter in-place rather than returning a new Point structure
 - Performs the operation result = pt1 - pt2 (order matters for subtraction)
+
+## Simplified Source
+
+```c
+static inline void point_sub_point(Point *result, Point *pt1, Point *pt2) {
+    // Subtract corresponding coordinates using PostgreSQL's float8 subtraction
+    point_construct(result,
+                    float8_mi(pt1->x, pt2->x),  // Subtract x coordinates
+                    float8_mi(pt1->y, pt2->y)); // Subtract y coordinates
+}
+```

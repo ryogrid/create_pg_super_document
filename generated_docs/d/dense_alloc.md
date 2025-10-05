@@ -44,3 +44,66 @@ The allocation strategy maintains a linked list of memory chunks, with the most 
 - The chunk list is managed as a singly-linked list with new chunks added at the head
 - Memory is allocated from the hashtable's batch memory context (batchCxt)
 - The function tracks both used space and tuple count within each chunk for memory management purposes
+
+## Simplified Source
+
+```c
+static void *
+dense_alloc(HashJoinTable hashtable, Size size)
+{
+    HashMemoryChunk newChunk;
+    char *ptr;
+
+    size = MAXALIGN(size);
+
+    // Handle oversized tuples with dedicated chunks
+    if (size > HASH_CHUNK_THRESHOLD)
+    {
+        // Allocate dedicated chunk for large tuple
+        newChunk = (HashMemoryChunk) MemoryContextAlloc(hashtable->batchCxt,
+                                                       HASH_CHUNK_HEADER_SIZE + size);
+        newChunk->maxlen = size;
+        newChunk->used = size;
+        newChunk->ntuples = 1;
+
+        // Insert after first chunk to preserve current chunk
+        if (hashtable->chunks != NULL)
+        {
+            newChunk->next = hashtable->chunks->next;
+            hashtable->chunks->next.unshared = newChunk;
+        }
+        else
+        {
+            newChunk->next.unshared = hashtable->chunks;
+            hashtable->chunks = newChunk;
+        }
+
+        return HASH_CHUNK_DATA(newChunk);
+    }
+
+    // Check if current chunk has enough space
+    if ((hashtable->chunks == NULL) ||
+        (hashtable->chunks->maxlen - hashtable->chunks->used) < size)
+    {
+        // Allocate new standard-sized chunk
+        newChunk = (HashMemoryChunk) MemoryContextAlloc(hashtable->batchCxt,
+                                                       HASH_CHUNK_HEADER_SIZE + HASH_CHUNK_SIZE);
+        newChunk->maxlen = HASH_CHUNK_SIZE;
+        newChunk->used = size;
+        newChunk->ntuples = 1;
+
+        // Add to head of chunk list
+        newChunk->next.unshared = hashtable->chunks;
+        hashtable->chunks = newChunk;
+
+        return HASH_CHUNK_DATA(newChunk);
+    }
+
+    // Use space in current chunk
+    ptr = HASH_CHUNK_DATA(hashtable->chunks) + hashtable->chunks->used;
+    hashtable->chunks->used += size;
+    hashtable->chunks->ntuples += 1;
+
+    return ptr;
+}
+```

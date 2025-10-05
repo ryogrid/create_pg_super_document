@@ -42,3 +42,28 @@ For polygon queries, the function uses the is_bounding_box_test_exact helper to 
 - The recheck mechanism optimizes query performance by avoiding unnecessary exact calculations
 - Located in src/backend/utils/adt/geo_spgist.c:531-552
 - Part of PostgreSQL's SP-GiST spatial indexing infrastructure
+
+## Simplified Source
+
+```c
+/* Extract bounding box from scan key for different geometry types */
+static BOX *
+spg_box_quad_get_scankey_bbox(ScanKey sk, bool *recheck)
+{
+    switch (sk->sk_subtype) {
+        case BOXOID:
+            // Direct return for box geometries
+            return DatumGetBoxP(sk->sk_argument);
+
+        case POLYGONOID:
+            // For polygons, check if exact validation needed
+            if (recheck && !is_bounding_box_test_exact(sk->sk_strategy))
+                *recheck = true;
+            return &DatumGetPolygonP(sk->sk_argument)->boundbox;
+
+        default:
+            elog(ERROR, "unrecognized scankey subtype: %d", sk->sk_subtype);
+            return NULL;
+    }
+}
+```

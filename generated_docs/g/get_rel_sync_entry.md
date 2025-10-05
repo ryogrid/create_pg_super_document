@@ -53,3 +53,124 @@ The function handles complex scenarios including partitioned tables, schema-leve
 - Special handling for partitioned tables based on pubviaroot publication settings
 - The function supports both direct relation publication and schema-level publication
 - Row filters and column lists are only initialized when DML operations are published
+
+## Simplified Source
+
+```c
+static RelationSyncEntry *
+get_rel_sync_entry(PGOutputData *data, Relation relation) {
+    Oid relid = RelationGetRelid(relation);
+    bool found;
+
+    // Find or create cache entry
+    RelationSyncEntry *entry = hash_search(RelationSyncCache, &relid, HASH_ENTER, &found);
+
+    // Initialize new entry
+    if (!found) {
+        entry->replicate_valid = false;
+        entry->schema_sent = false;
+        entry->streamed_txns = NIL;
+        entry->pubactions.pubinsert = entry->pubactions.pubupdate =
+            entry->pubactions.pubdelete = entry->pubactions.pubtruncate = false;
+        entry->new_slot = entry->old_slot = NULL;
+        entry->publish_as_relid = InvalidOid;
+        entry->columns = NULL;
+        entry->attrmap = NULL;
+        // ... other initialization
+    }
+
+    // Validate and rebuild entry if needed
+    if (!entry->replicate_valid) {
+        // Get publication lists for this relation and its schema
+        List *pubids = GetRelationPublications(relid);
+        List *schemaPubids = GetSchemaPublications(get_rel_namespace(relid));
+
+        // Reload publications if needed
+        if (!publications_valid) {
+            data->publications = LoadPublications(data->publication_names);
+            publications_valid = true;
+        }
+
+        // Reset entry state
+        entry->schema_sent = false;
+        list_free(entry->streamed_txns);
+        entry->streamed_txns = NIL;
+        // ... cleanup old slots, maps, filters
+
+        // Determine publication actions and ancestor relationships
+        Oid publish_as_relid = relid;
+        int publish_ancestor_level = 0;
+        bool am_partition = get_rel_relispartition(relid);
+        List *rel_publications = NIL;
+
+        // Process each publication to determine actions
+        foreach(lc, data->publications) {
+            Publication *pub = lfirst(lc);
+            bool publish = false;
+            Oid pub_relid = relid;
+            int ancestor_level = 0;
+
+            // Check if this publication applies to our relation
+            if (pub->alltables) {
+                publish = true;
+                if (pub->pubviaroot && am_partition) {
+                    List *ancestors = get_partition_ancestors(relid);
+                    pub_relid = llast_oid(ancestors);
+                    ancestor_level = list_length(ancestors);
+                }
+            } else {
+                // Check direct publication, schema publication, or ancestor publication
+                if (list_member_oid(pubids, pub->oid) ||
+                    list_member_oid(schemaPubids, pub->oid)) {
+                    publish = true;
+                } else if (am_partition) {
+                    // Check if any ancestor is published
+                    List *ancestors = get_partition_ancestors(relid);
+                    Oid ancestor = GetTopMostAncestorInPublication(pub->oid, ancestors, &ancestor_level);
+                    if (ancestor != InvalidOid) {
+                        publish = true;
+                        if (pub->pubviaroot) {
+                            pub_relid = ancestor;
+                        }
+                    }
+                }
+            }
+
+            // Set publication actions if this publication applies
+            if (publish && (get_rel_relkind(relid) != RELKIND_PARTITIONED_TABLE || pub->pubviaroot)) {
+                entry->pubactions.pubinsert |= pub->pubactions.pubinsert;
+                entry->pubactions.pubupdate |= pub->pubactions.pubupdate;
+                entry->pubactions.pubdelete |= pub->pubactions.pubdelete;
+                entry->pubactions.pubtruncate |= pub->pubactions.pubtruncate;
+
+                // Track the topmost ancestor across all publications
+                if (publish_ancestor_level <= ancestor_level) {
+                    if (publish_ancestor_level < ancestor_level) {
+                        publish_as_relid = pub_relid;
+                        publish_ancestor_level = ancestor_level;
+                        rel_publications = NIL;
+                    }
+                    rel_publications = lappend(rel_publications, pub);
+                }
+            }
+        }
+
+        entry->publish_as_relid = publish_as_relid;
+
+        // Initialize tuple slots, row filters, and column lists for DML operations
+        if (entry->pubactions.pubinsert || entry->pubactions.pubupdate || entry->pubactions.pubdelete) {
+            init_tuple_slot(data, relation, entry);
+            pgoutput_row_filter_init(data, rel_publications, entry);
+            pgoutput_column_list_init(data, rel_publications, entry);
+        }
+
+        // Cleanup and mark as valid
+        list_free(pubids);
+        list_free(schemaPubids);
+        list_free(rel_publications);
+        entry->replicate_valid = true;
+    }
+
+    return entry;
+}
+```

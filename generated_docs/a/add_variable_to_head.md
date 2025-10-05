@@ -36,3 +36,22 @@ The comment in the source code explains an important implementation detail: sinc
 - Both the main variable and indicator can be passed; indicator variables are used for NULL handling in ECPG
 - The function modifies the list head pointer through the double pointer parameter
 - No error checking is performed on the memory allocation, following ECPG's memory management conventions
+
+## Simplified Source
+
+```c
+void
+add_variable_to_head(struct arguments **list, struct variable *var, struct variable *ind)
+{
+    // Create new argument node
+    struct arguments *new_arg = (struct arguments *) mm_alloc(sizeof(struct arguments));
+
+    // Set up the new node with variable and indicator
+    new_arg->variable = var;
+    new_arg->indicator = ind;
+
+    // Insert at head (LIFO - Last In, First Out)
+    new_arg->next = *list;
+    *list = new_arg;
+}
+```

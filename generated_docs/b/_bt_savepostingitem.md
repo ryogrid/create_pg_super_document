@@ -34,3 +34,22 @@ This inline function is used to save additional heap TIDs from a posting list tu
 - The tupleOffset parameter ensures all items from the same posting list reference the same base tuple in memory
 - Declared as inline for performance optimization since it's called frequently during posting list processing
 - Part of PostgreSQL's posting list feature that reduces index size by storing multiple heap TIDs per index entry
+
+## Simplified Source
+
+```c
+static inline void
+_bt_savepostingitem(BTScanOpaque so, int itemIndex, OffsetNumber offnum,
+                    ItemPointer heapTid, int tupleOffset)
+{
+    BTScanPosItem *currItem = &so->currPos.items[itemIndex];
+
+    // Store TID and page offset
+    currItem->heapTid = *heapTid;
+    currItem->indexOffset = offnum;
+
+    // Reuse same base tuple for all TIDs from this posting list
+    if (so->currTuples)
+        currItem->tupleOffset = tupleOffset;
+}
+```

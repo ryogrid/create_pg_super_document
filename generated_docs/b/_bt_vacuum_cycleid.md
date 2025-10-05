@@ -34,3 +34,31 @@ This function provides coordination between B-tree maintenance operations and ac
 - Caller must hold exclusive lock on buffers where cycle ID will be stored
 - Part of PostgreSQL's B-tree concurrency control mechanism
 - Located in src/backend/access/nbtree/nbtutils.c:4394-4427
+
+## Simplified Source
+
+```c
+BTCycleId
+_bt_vacuum_cycleid(Relation rel)
+{
+    BTCycleId result = 0;
+
+    // Get shared lock to read vacuum info safely
+    LWLockAcquire(BtreeVacuumLock, LW_SHARED);
+
+    // Search through active vacuums for this relation
+    for (int i = 0; i < btvacinfo->num_vacuums; i++) {
+        BTOneVacInfo *vac = &btvacinfo->vacuums[i];
+
+        // Check if vacuum matches this relation's database and table
+        if (vac->relid.relId == rel->rd_lockInfo.lockRelId.relId &&
+            vac->relid.dbId == rel->rd_lockInfo.lockRelId.dbId) {
+            result = vac->cycleid;
+            break;
+        }
+    }
+
+    LWLockRelease(BtreeVacuumLock);
+    return result;
+}
+```

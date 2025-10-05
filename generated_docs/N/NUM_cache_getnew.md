@@ -37,3 +37,49 @@ This function manages the allocation of cache entries in the numeric formatting 
 - Each cache entry can hold format strings up to NUM_CACHE_SIZE characters
 - Debug logging available when DEBUG_TO_FROM_CHAR is defined
 - Part of the numeric formatting cache management system located in src/backend/utils/adt/formatting.c:5072-5130
+
+## Simplified Source
+
+```c
+static NUMCacheEntry *NUM_cache_getnew(const char *str) {
+    NUMCacheEntry *ent;
+
+    // Prevent counter overflow before incrementing
+    NUM_prevent_counter_overflow();
+
+    // Handle cache overflow by finding oldest/invalid entry to recycle
+    if (n_NUMCache >= NUM_CACHE_ENTRIES) {
+        NUMCacheEntry *old = NUMCache[0];
+
+        // Find best candidate: invalid entry if available, otherwise oldest
+        if (old->valid) {
+            for (int i = 1; i < NUM_CACHE_ENTRIES; i++) {
+                ent = NUMCache[i];
+                if (!ent->valid) {
+                    old = ent;
+                    break;
+                }
+                if (ent->age < old->age)
+                    old = ent;
+            }
+        }
+
+        // Recycle the selected entry
+        old->valid = false;
+        strlcpy(old->str, str, NUM_CACHE_SIZE + 1);
+        old->age = (++NUMCounter);
+        return old;
+    }
+    else {
+        // Allocate new cache entry
+        ent = (NUMCacheEntry *) MemoryContextAllocZero(TopMemoryContext,
+                                                       sizeof(NUMCacheEntry));
+        NUMCache[n_NUMCache] = ent;
+        ent->valid = false;
+        strlcpy(ent->str, str, NUM_CACHE_SIZE + 1);
+        ent->age = (++NUMCounter);
+        ++n_NUMCache;
+        return ent;
+    }
+}
+```

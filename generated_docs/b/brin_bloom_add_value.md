@@ -48,3 +48,41 @@ The function handles the transition from all-null state to having actual data an
 - Handles TOAST decompression for existing bloom filters that may be stored compressed
 - The return value indicates whether the bloom filter summary was actually updated, which is important for BRIN's change tracking
 - The function manages memory by ensuring the updated bloom filter is properly stored back in the BrinValues structure
+
+## Simplified Source
+
+```c
+Datum brin_bloom_add_value(PG_FUNCTION_ARGS) {
+    BrinDesc *bdesc = (BrinDesc *) PG_GETARG_POINTER(0);
+    BrinValues *column = (BrinValues *) PG_GETARG_POINTER(1);
+    Datum newval = PG_GETARG_DATUM(2);
+    BloomOptions *opts = (BloomOptions *) PG_GET_OPCLASS_OPTIONS();
+    Oid colloid = PG_GET_COLLATION();
+
+    bool updated = false;
+    AttrNumber attno = column->bv_attno;
+    BloomFilter *filter;
+
+    // Initialize bloom filter if this is first non-null value
+    if (column->bv_allnulls) {
+        filter = bloom_init(brin_bloom_get_ndistinct(bdesc, opts),
+                           BloomGetFalsePositiveRate(opts));
+        column->bv_values[0] = PointerGetDatum(filter);
+        column->bv_allnulls = false;
+        updated = true;
+    } else {
+        // Extract existing bloom filter
+        filter = (BloomFilter *) PG_DETOAST_DATUM(column->bv_values[0]);
+    }
+
+    // Compute hash of new value and add to bloom filter
+    FmgrInfo *hashFn = bloom_get_procinfo(bdesc, attno, PROCNUM_HASH);
+    uint32 hashValue = DatumGetUInt32(FunctionCall1Coll(hashFn, colloid, newval));
+    filter = bloom_add_value(filter, hashValue, &updated);
+
+    // Store updated filter back
+    column->bv_values[0] = PointerGetDatum(filter);
+
+    PG_RETURN_BOOL(updated);
+}
+```

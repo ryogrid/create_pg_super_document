@@ -45,3 +45,50 @@ The  function implements the core logic for populating the pg_hba_file_rules sys
 - File I/O errors result in exceptions rather than view entries
 - Memory management includes proper cleanup of both file resources and memory contexts
 - Part of PostgreSQL's system view infrastructure for exposing configuration
+
+## Simplified Source
+
+```c
+static void
+fill_hba_view(Tuplestorestate *tuple_store, TupleDesc tupdesc)
+{
+    FILE *file;
+    List *hba_lines = NIL;
+    ListCell *line;
+    int rule_number = 0;
+    MemoryContext hbacxt, oldcxt;
+
+    // Open and tokenize HBA configuration file
+    file = open_auth_file(HbaFileName, ERROR, 0, NULL);
+    tokenize_auth_file(HbaFileName, file, &hba_lines, DEBUG3, 0);
+
+    // Create temporary memory context for parsing
+    hbacxt = AllocSetContextCreate(CurrentMemoryContext,
+                                   "hba parser context",
+                                   ALLOCSET_SMALL_SIZES);
+    oldcxt = MemoryContextSwitchTo(hbacxt);
+
+    // Process each line from the HBA file
+    foreach(line, hba_lines)
+    {
+        TokenizedAuthLine *tok_line = (TokenizedAuthLine *) lfirst(line);
+        HbaLine *hbaline = NULL;
+
+        // Parse valid lines only
+        if (tok_line->err_msg == NULL) {
+            hbaline = parse_hba_line(tok_line, DEBUG3);
+            rule_number++;  // Increment only for valid rules
+        }
+
+        // Add line to tuplestore (both valid and invalid)
+        fill_hba_line(tuple_store, tupdesc, rule_number,
+                      tok_line->file_name, tok_line->line_num,
+                      hbaline, tok_line->err_msg);
+    }
+
+    // Cleanup resources
+    free_auth_file(file, 0);
+    MemoryContextSwitchTo(oldcxt);
+    MemoryContextDelete(hbacxt);
+}
+```

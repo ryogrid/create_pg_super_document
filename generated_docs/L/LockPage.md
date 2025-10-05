@@ -33,3 +33,20 @@ LockPage is a PostgreSQL locking function that acquires a page-level lock on a s
 - The function uses the relations lockInfo to identify the database and relation for lock tagging
 - The function always passes false for both session lock and dontWait parameters to LockAcquire
 - Page-level locking is primarily used by index access methods for fine-grained concurrency control
+
+## Simplified Source
+
+```c
+void LockPage(Relation relation, BlockNumber blkno, LOCKMODE lockmode) {
+    LOCKTAG tag;
+
+    // Set up page lock tag
+    SET_LOCKTAG_PAGE(tag,
+                     relation->rd_lockInfo.lockRelId.dbId,
+                     relation->rd_lockInfo.lockRelId.relId,
+                     blkno);
+
+    // Acquire the page lock
+    (void) LockAcquire(&tag, lockmode, false, false);
+}
+```

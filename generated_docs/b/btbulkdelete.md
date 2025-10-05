@@ -57,3 +57,31 @@ The function uses PostgreSQL's PG_ENSURE_ERROR_CLEANUP mechanism to guarantee th
 - The error cleanup mechanism ensures that shared memory resources are properly released even if the operation fails
 - This is part of the standard PostgreSQL access method interface for bulk delete operations
 - The actual deletion work is delegated to btvacuumscan, making this function primarily a coordinator and error handler
+
+## Simplified Source
+
+```c
+IndexBulkDeleteResult *btbulkdelete(IndexVacuumInfo *info,
+                                   IndexBulkDeleteResult *stats,
+                                   IndexBulkDeleteCallback callback,
+                                   void *callback_state) {
+    Relation rel = info->index;
+    BTCycleId cycleid;
+
+    // Allocate or reuse statistics structure
+    if (stats == NULL)
+        stats = (IndexBulkDeleteResult *) palloc0(sizeof(IndexBulkDeleteResult));
+
+    // Perform bulk delete with error cleanup protection
+    PG_ENSURE_ERROR_CLEANUP(_bt_end_vacuum_callback, PointerGetDatum(rel));
+    {
+        cycleid = _bt_start_vacuum(rel);
+        btvacuumscan(info, stats, callback, callback_state, cycleid);
+    }
+    PG_END_ENSURE_ERROR_CLEANUP(_bt_end_vacuum_callback, PointerGetDatum(rel));
+
+    _bt_end_vacuum(rel);
+
+    return stats;
+}
+```

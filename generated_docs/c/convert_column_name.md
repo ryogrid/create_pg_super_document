@@ -43,3 +43,45 @@ This function serves as a support routine for the has_column_privilege family of
 - Memory management: properly frees the converted C string using pfree()
 - Part of the internal support infrastructure for PostgreSQL's column privilege checking system
 - Located in src/backend/utils/adt/acl.c:2898-2955
+
+## Simplified Source
+
+```c
+static AttrNumber convert_column_name(Oid tableoid, text *column) {
+    // Convert text to C string
+    char *colname = text_to_cstring(column);
+
+    // Look up column in system catalog
+    HeapTuple attTuple = SearchSysCache2(ATTNAME,
+                                        ObjectIdGetDatum(tableoid),
+                                        CStringGetDatum(colname));
+
+    AttrNumber attnum;
+    if (HeapTupleIsValid(attTuple)) {
+        Form_pg_attribute attributeForm = (Form_pg_attribute) GETSTRUCT(attTuple);
+
+        // Return InvalidAttrNumber for dropped columns
+        if (attributeForm->attisdropped)
+            attnum = InvalidAttrNumber;
+        else
+            attnum = attributeForm->attnum;
+
+        ReleaseSysCache(attTuple);
+    } else {
+        // Check if table exists
+        char *tablename = get_rel_name(tableoid);
+        if (tablename != NULL) {
+            // Table exists but column doesn't - error
+            ereport(ERROR,
+                    (errcode(ERRCODE_UNDEFINED_COLUMN),
+                     errmsg("column \"%s\" of relation \"%s\" does not exist",
+                            colname, tablename)));
+        }
+        // Table doesn't exist - return InvalidAttrNumber
+        attnum = InvalidAttrNumber;
+    }
+
+    pfree(colname);
+    return attnum;
+}
+```

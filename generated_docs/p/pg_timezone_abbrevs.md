@@ -54,3 +54,103 @@ The function uses PostgreSQL's Set-Returning Function (SRF) framework to iterate
 - Results reflect the currently active timezone_abbreviations configuration setting
 - Memory allocated during function execution is automatically cleaned up by the SRF framework
 - Returns empty result set if no timezone abbreviation table is loaded
+
+## Simplified Source
+
+```c
+Datum pg_timezone_abbrevs(PG_FUNCTION_ARGS) {
+    FuncCallContext *funcctx;
+    int *pindex;
+
+    // First call setup
+    if (SRF_IS_FIRSTCALL()) {
+        TupleDesc tupdesc;
+        MemoryContext oldcontext;
+
+        funcctx = SRF_FIRSTCALL_INIT();
+        oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
+
+        // Initialize index counter
+        pindex = (int *)palloc(sizeof(int));
+        *pindex = 0;
+        funcctx->user_fctx = (void *)pindex;
+
+        // Set up return tuple descriptor
+        if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+            elog(ERROR, "return type must be a row type");
+        funcctx->tuple_desc = tupdesc;
+
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    // Per-call setup
+    funcctx = SRF_PERCALL_SETUP();
+    pindex = (int *)funcctx->user_fctx;
+
+    // Check if we're done iterating
+    if (zoneabbrevtbl == NULL || *pindex >= zoneabbrevtbl->numabbrevs)
+        SRF_RETURN_DONE(funcctx);
+
+    const datetkn *tp = zoneabbrevtbl->abbrevs + *pindex;
+    int gmtoffset;
+    bool is_dst;
+
+    // Determine offset and DST status based on timezone type
+    switch (tp->type) {
+        case TZ:
+            gmtoffset = tp->value;
+            is_dst = false;
+            break;
+        case DTZ:
+            gmtoffset = tp->value;
+            is_dst = true;
+            break;
+        case DYNTZ:
+            // Dynamic timezone - resolve at current time
+            pg_tz *tzp;
+            DateTimeErrorExtra extra;
+            TimestampTz now;
+            int isdst;
+
+            tzp = FetchDynamicTimeZone(zoneabbrevtbl, tp, &extra);
+            if (tzp == NULL)
+                DateTimeParseError(DTERR_BAD_ZONE_ABBREV, &extra, NULL, NULL, NULL);
+
+            now = GetCurrentTransactionStartTimestamp();
+            gmtoffset = -DetermineTimeZoneAbbrevOffsetTS(now, tp->token, tzp, &isdst);
+            is_dst = (bool)isdst;
+            break;
+        default:
+            elog(ERROR, "unrecognized timezone type %d", (int)tp->type);
+    }
+
+    // Convert abbreviation to uppercase
+    char buffer[TOKMAXLEN + 1];
+    strlcpy(buffer, tp->token, sizeof(buffer));
+    for (unsigned char *p = (unsigned char *)buffer; *p; p++)
+        *p = pg_toupper(*p);
+
+    // Build result tuple
+    Datum values[3];
+    bool nulls[3] = {0};
+
+    values[0] = CStringGetTextDatum(buffer);
+
+    // Convert offset to interval
+    struct pg_itm_in itm_in;
+    MemSet(&itm_in, 0, sizeof(struct pg_itm_in));
+    itm_in.tm_usec = (int64)gmtoffset * USECS_PER_SEC;
+    Interval *resInterval = (Interval *)palloc(sizeof(Interval));
+    (void)itmin2interval(&itm_in, resInterval);
+    values[1] = IntervalPGetDatum(resInterval);
+
+    values[2] = BoolGetDatum(is_dst);
+
+    (*pindex)++;
+
+    HeapTuple tuple = heap_form_tuple(funcctx->tuple_desc, values, nulls);
+    Datum result = HeapTupleGetDatum(tuple);
+
+    SRF_RETURN_NEXT(funcctx, result);
+}
+```

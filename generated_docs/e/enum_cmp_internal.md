@@ -46,3 +46,46 @@ The function uses caching via fcinfo->flinfo->fn_extra to avoid repeated type ca
 - Includes assertion checking to ensure fcinfo->flinfo is available even when taking fast-path exits
 - Error handling for invalid enum OIDs with appropriate error codes
 - Uses PostgreSQL's type cache system for efficient metadata lookup and caching
+
+## Simplified Source
+
+```c
+static int enum_cmp_internal(Oid arg1, Oid arg2, FunctionCallInfo fcinfo) {
+    TypeCacheEntry *type_cache;
+
+    Assert(fcinfo->flinfo != NULL);
+
+    // Fast path: equal OIDs are equal
+    if (arg1 == arg2)
+        return 0;
+
+    // Optimization: even-numbered OIDs have correct ordering
+    if ((arg1 & 1) == 0 && (arg2 & 1) == 0) {
+        if (arg1 < arg2)
+            return -1;
+        else
+            return 1;
+    }
+
+    // Get or create type cache entry
+    type_cache = (TypeCacheEntry *) fcinfo->flinfo->fn_extra;
+    if (type_cache == NULL) {
+        // Look up enum type from first argument
+        HeapTuple enum_tuple = SearchSysCache1(ENUMOID, ObjectIdGetDatum(arg1));
+        if (!HeapTupleIsValid(enum_tuple)) {
+            ereport(ERROR, "invalid internal value for enum");
+        }
+
+        Form_pg_enum enum_data = (Form_pg_enum) GETSTRUCT(enum_tuple);
+        Oid enum_type_oid = enum_data->enumtypid;
+        ReleaseSysCache(enum_tuple);
+
+        // Cache the type information for future calls
+        type_cache = lookup_type_cache(enum_type_oid, 0);
+        fcinfo->flinfo->fn_extra = (void *) type_cache;
+    }
+
+    // Delegate to type cache comparison function
+    return compare_values_of_enum(type_cache, arg1, arg2);
+}
+```

@@ -222,3 +222,67 @@ write_data_to_archive_lz4_doc.md: ScanDirection - The scan direction (forward fr
 - Includes error handling for invalid scan directions
 - May advance to subsequent pages if the endpoint page contains no qualifying data
 - Sets up the scan state including heap tuple ID and index tuple references for the first qualifying item
+
+## Simplified Source
+
+```c
+static bool
+_bt_endpoint(IndexScanDesc scan, ScanDirection dir)
+{
+    Relation rel = scan->indexRelation;
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+    Buffer buf;
+    Page page;
+    BTPageOpaque opaque;
+    OffsetNumber start;
+    BTScanPosItem *currItem;
+
+    // Find leftmost or rightmost leaf page
+    buf = _bt_get_endpoint(rel, 0, ScanDirectionIsBackward(dir));
+
+    if (!BufferIsValid(buf)) {
+        // Empty index - lock entire relation
+        PredicateLockRelation(rel, scan->xs_snapshot);
+        BTScanPosInvalidate(so->currPos);
+        return false;
+    }
+
+    // Setup page access and locking
+    PredicateLockPage(rel, BufferGetBlockNumber(buf), scan->xs_snapshot);
+    page = BufferGetPage(buf);
+    opaque = BTPageGetOpaque(page);
+
+    // Determine starting offset based on scan direction
+    if (ScanDirectionIsForward(dir)) {
+        start = P_FIRSTDATAKEY(opaque);
+    } else if (ScanDirectionIsBackward(dir)) {
+        start = PageGetMaxOffsetNumber(page);
+    } else {
+        elog(ERROR, "invalid scan direction: %d", (int) dir);
+        start = 0;
+    }
+
+    // Setup scan state
+    so->currPos.buf = buf;
+    _bt_initialize_more_data(so, dir);
+
+    // Read data from the first page
+    if (!_bt_readpage(scan, dir, start, true)) {
+        // No matching data on this page, try to advance
+        _bt_unlockbuf(scan->indexRelation, so->currPos.buf);
+        if (!_bt_steppage(scan, dir))
+            return false;
+    } else {
+        // Have data to return
+        _bt_drop_lock_and_maybe_pin(scan, &so->currPos);
+    }
+
+    // Set up scan result
+    currItem = &so->currPos.items[so->currPos.itemIndex];
+    scan->xs_heaptid = currItem->heapTid;
+    if (scan->xs_want_itup)
+        scan->xs_itup = (IndexTuple) (so->currTuples + currItem->tupleOffset);
+
+    return true;
+}
+```

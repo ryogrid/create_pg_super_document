@@ -81,3 +81,58 @@ The function includes extensive safety checks and optimizations, particularly ar
 - The function invalidates cached flattened representations when fields are modified
 - Detoasting operations use a short-term memory context to prevent memory bloat
 - Old field values are safely freed, but only if they're not part of the original flat record
+
+## Simplified Source
+
+```c
+void expanded_record_set_field_internal(ExpandedRecordHeader *erh, int fnumber,
+                                       Datum newValue, bool isnull,
+                                       bool expand_external, bool check_constraints)
+{
+    // Validate domain constraints if required
+    if ((erh->flags & ER_FLAG_IS_DOMAIN) && check_constraints)
+        check_domain_for_new_field(erh, fnumber, newValue, isnull);
+
+    // Ensure record is deconstructed
+    if (!(erh->flags & ER_FLAG_DVALUES_VALID))
+        deconstruct_expanded_record(erh);
+
+    // Validate field number
+    if (fnumber <= 0 || fnumber > erh->nfields)
+        elog(ERROR, "cannot assign to field %d of expanded record", fnumber);
+
+    // Handle non-null, non-byval values
+    if (!isnull && !TupleDescAttr(erh->er_tupdesc, fnumber - 1)->attbyval) {
+        MemoryContext oldcxt = MemoryContextSwitchTo(erh->hdr.eoh_context);
+
+        // Detoast external values if requested
+        if (expand_external && VARATT_IS_EXTERNAL(DatumGetPointer(newValue))) {
+            newValue = PointerGetDatum(detoast_external_attr((struct varlena *) DatumGetPointer(newValue)));
+        }
+
+        // Copy value to record's context
+        newValue = datumCopy(newValue, false, TupleDescAttr(erh->er_tupdesc, fnumber - 1)->attlen);
+        MemoryContextSwitchTo(oldcxt);
+
+        erh->flags |= ER_FLAG_DVALUES_ALLOCED;
+    }
+
+    // Update record state
+    erh->flags &= ~ER_FLAG_FVALUE_VALID;
+    erh->flat_size = 0;
+
+    // Save old value for cleanup
+    char *oldValue = NULL;
+    if (!TupleDescAttr(erh->er_tupdesc, fnumber - 1)->attbyval && !erh->dnulls[fnumber - 1])
+        oldValue = (char *) DatumGetPointer(erh->dvalues[fnumber - 1]);
+
+    // Set new field value
+    erh->dvalues[fnumber - 1] = newValue;
+    erh->dnulls[fnumber - 1] = isnull;
+
+    // Free old value if safe to do so
+    if (oldValue && !(erh->flags & ER_FLAG_IS_DUMMY) &&
+        (oldValue < erh->fstartptr || oldValue >= erh->fendptr))
+        pfree(oldValue);
+}
+```

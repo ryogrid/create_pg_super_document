@@ -43,3 +43,27 @@ The P_TSQ_WEB flag enables parsing of web search syntax such as quoted phrases f
 - Part of PostgreSQL's full-text search functionality designed to provide familiar web search interface semantics
 - The function is typically wrapped by the user-facing websearch_to_tsquery() function which uses the default text search configuration
 - More sophisticated than both plainto_tsquery_byid and phraseto_tsquery_byid as it can handle mixed query syntax
+
+## Simplified Source
+
+```c
+Datum
+websearch_to_tsquery_byid(PG_FUNCTION_ARGS)
+{
+    text *input_text = PG_GETARG_TEXT_PP(1);
+    MorphOpaque data;
+
+    // Set up configuration for web search syntax parsing
+    data.cfg_id = PG_GETARG_OID(0);
+    data.qoperator = OP_PHRASE;  // Quoted phrases maintain word positions
+
+    // Parse input using web search syntax (handles quotes, +/- operators, etc.)
+    TSQuery query = parse_tsquery(text_to_cstring(input_text),
+                                 pushval_morph,
+                                 PointerGetDatum(&data),
+                                 P_TSQ_WEB,  // Enable web search syntax
+                                 NULL);
+
+    PG_RETURN_TSQUERY(query);
+}
+```

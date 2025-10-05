@@ -36,3 +36,14 @@ The function returns true only when both conditions are met:
 - Part of the public API as declared in logicalworker.h
 - Commonly used in message queue operations where parallel workers need special handling
 - The parallel apply functionality is part of PostgreSQL's performance optimization for logical replication
+
+## Simplified Source
+
+```c
+bool
+IsLogicalParallelApplyWorker(void)
+{
+    // Check if this process is both a logical worker AND a parallel apply worker
+    return IsLogicalWorker() && am_parallel_apply_worker();
+}
+```

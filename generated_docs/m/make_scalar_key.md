@@ -46,3 +46,47 @@ All processing ultimately delegates to make_text_key() for the actual Datum cons
 
 ## Notes and Other Information
 The function includes assertions that null and boolean values cannot be object keys, reflecting JSON semantic constraints. For numeric values, the use of textual representation in the index is acknowledged as suboptimal for storage efficiency, but provides notational convenience for the GIN B-Tree union type storage and prioritizes string indexing performance. The normalization of numeric values is crucial for ensuring that mathematically equivalent numbers (like 1.0 and 1.00) produce identical index keys, enabling proper equality matching. The distinction between JGINFLAG_KEY and JGINFLAG_STR allows the index to support different query semantics for object keys versus string values, which is important for operators like the existence operator (?). The function serves as a critical bridge between JSONB's varied scalar types and the uniform text-based key format required by the GIN index infrastructure.
+
+## Simplified Source
+
+```c
+static Datum make_scalar_key(const JsonbValue *scalarVal, bool is_key) {
+    Datum item;
+    char *cstr;
+
+    switch (scalarVal->type) {
+        case jbvNull:
+            Assert(!is_key);
+            item = make_text_key(JGINFLAG_NULL, "", 0);
+            break;
+
+        case jbvBool:
+            Assert(!is_key);
+            item = make_text_key(JGINFLAG_BOOL,
+                                scalarVal->val.boolean ? "t" : "f", 1);
+            break;
+
+        case jbvNumeric:
+            Assert(!is_key);
+            // Normalize numeric to ensure 1.0 and 1.00 produce same key
+            cstr = numeric_normalize(scalarVal->val.numeric);
+            item = make_text_key(JGINFLAG_NUM, cstr, strlen(cstr));
+            pfree(cstr);
+            break;
+
+        case jbvString:
+            // Use different flags for object keys vs string values
+            item = make_text_key(is_key ? JGINFLAG_KEY : JGINFLAG_STR,
+                                scalarVal->val.string.val,
+                                scalarVal->val.string.len);
+            break;
+
+        default:
+            elog(ERROR, "unrecognized jsonb scalar type: %d", scalarVal->type);
+            item = 0;
+            break;
+    }
+
+    return item;
+}
+```

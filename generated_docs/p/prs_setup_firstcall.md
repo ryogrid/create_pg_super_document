@@ -57,3 +57,67 @@ The parsing process extracts all tokens from the input text in a single pass dur
 - Each lexeme is stored with its text content and token type for later retrieval
 - The function properly manages parser lifecycle by calling start, token (repeatedly), and end methods
 - Handles variable-length input text through VARDATA_ANY and VARSIZE_ANY_EXHDR macros
+
+## Simplified Source
+
+```c
+static void prs_setup_firstcall(FuncCallContext *funcctx, FunctionCallInfo fcinfo,
+                                Oid prsid, text *txt) {
+    TupleDesc tupdesc;
+    MemoryContext oldcontext;
+    PrsStorage *st;
+    TSParserCacheEntry *prs = lookup_ts_parser_cache(prsid);
+    char *lex = NULL;
+    int llen = 0, type = 0;
+    void *prsdata;
+
+    // Switch to persistent memory context
+    oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
+
+    // Initialize storage for lexemes (starting with 16 entries)
+    st = (PrsStorage *) palloc(sizeof(PrsStorage));
+    st->cur = 0;
+    st->len = 16;
+    st->list = (LexemeEntry *) palloc(sizeof(LexemeEntry) * st->len);
+
+    // Start parsing the input text
+    prsdata = (void *) DatumGetPointer(FunctionCall2(&prs->prsstart,
+                                                     PointerGetDatum(VARDATA_ANY(txt)),
+                                                     Int32GetDatum(VARSIZE_ANY_EXHDR(txt))));
+
+    // Extract all tokens from input text
+    while ((type = DatumGetInt32(FunctionCall3(&prs->prstoken,
+                                              PointerGetDatum(prsdata),
+                                              PointerGetDatum(&lex),
+                                              PointerGetDatum(&llen)))) != 0) {
+        // Expand storage if needed
+        if (st->cur >= st->len) {
+            st->len = 2 * st->len;
+            st->list = (LexemeEntry *) repalloc(st->list, sizeof(LexemeEntry) * st->len);
+        }
+
+        // Store lexeme text and type
+        st->list[st->cur].lexeme = palloc(llen + 1);
+        memcpy(st->list[st->cur].lexeme, lex, llen);
+        st->list[st->cur].lexeme[llen] = '\0';
+        st->list[st->cur].type = type;
+        st->cur++;
+    }
+
+    // End parsing
+    FunctionCall1(&prs->prsend, PointerGetDatum(prsdata));
+
+    // Finalize storage and setup function context
+    st->len = st->cur;
+    st->cur = 0;
+    funcctx->user_fctx = (void *) st;
+
+    // Setup tuple descriptor for return type
+    if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+        elog(ERROR, "return type must be a row type");
+    funcctx->tuple_desc = tupdesc;
+    funcctx->attinmeta = TupleDescGetAttInMetadata(tupdesc);
+
+    MemoryContextSwitchTo(oldcontext);
+}
+```

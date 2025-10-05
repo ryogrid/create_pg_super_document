@@ -33,3 +33,20 @@ UnlockPage is a PostgreSQL locking function that releases a previously acquired 
 - The function passes false for the sessionLock parameter to LockRelease, indicating it is not a session-level lock
 - Proper lock/unlock pairing is critical for avoiding deadlocks and ensuring correct concurrency control
 - Used primarily by index access methods as the counterpart to page-level lock acquisition functions
+
+## Simplified Source
+```c
+void UnlockPage(Relation relation, BlockNumber blkno, LOCKMODE lockmode)
+{
+    LOCKTAG tag;
+
+    // Create lock tag for the specific page
+    SET_LOCKTAG_PAGE(tag,
+                     relation->rd_lockInfo.lockRelId.dbId,
+                     relation->rd_lockInfo.lockRelId.relId,
+                     blkno);
+
+    // Release the lock
+    LockRelease(&tag, lockmode, false);
+}
+```

@@ -39,3 +39,81 @@ This function manages page transitions during B-tree index scans. It handles sev
 - Includes logic to handle array key scans and primitive index scan cancellation
 - Properly coordinates buffer management, ensuring pins are maintained correctly between page transitions
 - The function maintains scan consistency by updating moreLeft/moreRight indicators based on scan direction and page transitions
+
+## Simplified Source
+
+```c
+static bool
+_bt_steppage(IndexScanDesc scan, ScanDirection dir)
+{
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+    BlockNumber blkno = InvalidBlockNumber;
+
+    // Process any killed items before leaving current page
+    if (so->numKilled > 0)
+        _bt_killitems(scan);
+
+    // Save current position state if mark position is active
+    if (so->markItemIndex >= 0) {
+        if (BTScanPosIsPinned(so->currPos))
+            IncrBufferRefCount(so->currPos.buf);
+
+        // Copy current position to mark position
+        memcpy(&so->markPos, &so->currPos,
+               offsetof(BTScanPosData, items[1]) + so->currPos.lastItem * sizeof(BTScanPosItem));
+
+        if (so->markTuples)
+            memcpy(so->markTuples, so->currTuples, so->currPos.nextTupleOffset);
+
+        so->markPos.itemIndex = so->markItemIndex;
+        so->markItemIndex = -1;
+
+        // Handle array scan direction changes
+        if (so->needPrimScan) {
+            if (ScanDirectionIsForward(so->currPos.dir))
+                so->markPos.moreRight = true;
+            else
+                so->markPos.moreLeft = true;
+        }
+    }
+
+    // Cancel primitive scans if direction changed
+    if (so->currPos.dir != dir)
+        so->needPrimScan = false;
+
+    // Determine next page based on scan direction
+    if (ScanDirectionIsForward(dir)) {
+        // Get next page (parallel or sequential)
+        if (scan->parallel_scan != NULL) {
+            if (!_bt_parallel_seize(scan, &blkno, false)) {
+                BTScanPosUnpinIfPinned(so->currPos);
+                BTScanPosInvalidate(so->currPos);
+                return false;
+            }
+        } else {
+            blkno = so->currPos.nextPage;
+        }
+        so->currPos.moreLeft = true;
+        BTScanPosUnpinIfPinned(so->currPos);
+    } else {
+        // Backward scan
+        so->currPos.moreRight = true;
+        if (scan->parallel_scan != NULL) {
+            BTScanPosUnpinIfPinned(so->currPos);
+            if (!_bt_parallel_seize(scan, &blkno, false)) {
+                BTScanPosInvalidate(so->currPos);
+                return false;
+            }
+        } else {
+            blkno = so->currPos.currPage;
+        }
+    }
+
+    // Read next page and setup for continued scanning
+    if (!_bt_readnextpage(scan, blkno, dir))
+        return false;
+
+    _bt_drop_lock_and_maybe_pin(scan, &so->currPos);
+    return true;
+}
+```

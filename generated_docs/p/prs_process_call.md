@@ -38,3 +38,37 @@ The function builds tuples with two string values: the numeric token type identi
 - Responsible for proper memory management by freeing lexeme strings after tuple creation
 - Works in conjunction with prs_setup_firstcall for complete parser function implementation
 - Token types are converted to string format using sprintf for tuple compatibility
+
+## Simplified Source
+
+```c
+static Datum prs_process_call(FuncCallContext *funcctx) {
+    PrsStorage *st;
+
+    st = (PrsStorage *) funcctx->user_fctx;
+
+    // Check if more tokens are available
+    if (st->cur < st->len) {
+        Datum result;
+        char *values[2];
+        char tid[16];
+        HeapTuple tuple;
+
+        // Build tuple with token type and lexeme
+        values[0] = tid;
+        sprintf(tid, "%d", st->list[st->cur].type);
+        values[1] = st->list[st->cur].lexeme;
+
+        tuple = BuildTupleFromCStrings(funcctx->attinmeta, values);
+        result = HeapTupleGetDatum(tuple);
+
+        // Free memory and advance to next token
+        pfree(values[1]);
+        st->cur++;
+        return result;
+    }
+
+    // No more tokens - signal completion
+    return (Datum) 0;
+}
+```

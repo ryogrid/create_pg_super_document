@@ -48,3 +48,61 @@ This repartitioning is essential for maintaining optimal memory usage and ensuri
 - The function processes all chunks in the shared work queue, which were populated during the batch increase operation
 - Memory chunks are freed immediately after processing to avoid memory leaks
 - The function includes interrupt checking to allow for query cancellation during long repartitioning operations
+
+## Simplified Source
+
+```c
+static void
+ExecParallelHashRepartitionFirst(HashJoinTable hashtable)
+{
+    dsa_pointer chunk_shared;
+    HashMemoryChunk chunk;
+
+    // Process all memory chunks from the shared queue
+    while ((chunk = ExecParallelHashPopChunkQueue(hashtable, &chunk_shared))) {
+        size_t idx = 0;
+
+        // Repartition all tuples in this chunk
+        while (idx < chunk->used) {
+            HashJoinTuple hashTuple = (HashJoinTuple) (HASH_CHUNK_DATA(chunk) + idx);
+            MinimalTuple tuple = HJTUPLE_MINTUPLE(hashTuple);
+            int bucketno, batchno;
+
+            // Recalculate batch assignment with new batch count
+            ExecHashGetBucketAndBatch(hashtable, hashTuple->hashvalue,
+                                     &bucketno, &batchno);
+
+            if (batchno == 0) {
+                // Tuple stays in batch 0 - copy to new memory location
+                HashJoinTuple copyTuple;
+                dsa_pointer shared;
+
+                copyTuple = ExecParallelHashTupleAlloc(hashtable,
+                                                      HJTUPLE_OVERHEAD + tuple->t_len,
+                                                      &shared);
+                copyTuple->hashvalue = hashTuple->hashvalue;
+                memcpy(HJTUPLE_MINTUPLE(copyTuple), tuple, tuple->t_len);
+                ExecParallelHashPushTuple(&hashtable->buckets.shared[bucketno],
+                                         copyTuple, shared);
+            }
+            else {
+                // Tuple moves to later batch - write to disk storage
+                size_t tuple_size = MAXALIGN(HJTUPLE_OVERHEAD + tuple->t_len);
+                hashtable->batches[batchno].estimated_size += tuple_size;
+                sts_puttuple(hashtable->batches[batchno].inner_tuples,
+                           &hashTuple->hashvalue, tuple);
+            }
+
+            // Update tuple counts
+            ++hashtable->batches[0].old_ntuples;
+            ++hashtable->batches[batchno].ntuples;
+
+            idx += MAXALIGN(HJTUPLE_OVERHEAD + HJTUPLE_MINTUPLE(hashTuple)->t_len);
+        }
+
+        // Free processed chunk
+        dsa_free(hashtable->area, chunk_shared);
+        CHECK_FOR_INTERRUPTS();
+    }
+}
+```

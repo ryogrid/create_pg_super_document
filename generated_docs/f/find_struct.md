@@ -45,3 +45,52 @@ This is a critical component of ECPG's variable resolution system, enabling embe
 - Supports array indexing syntax for both simple arrays and arrays of structs
 - Temporarily modifies the input string by null-terminating sections, then restores them
 - Essential for ECPG's ability to handle complex C variable references in embedded SQL contexts
+
+## Simplified Source
+
+```c
+static struct variable *
+find_struct(char *name, char *next, char *end)
+{
+    struct variable *p;
+    char c = *next;
+
+    // Find the base variable by temporarily null-terminating the name
+    *next = '\0';
+    p = find_variable(name);
+
+    if (c == '-') {
+        // Handle pointer access (struct->member)
+        if (p->type->type != ECPGt_array)
+            mmfatal(PARSE_ERROR, "variable \"%s\" is not a pointer", name);
+
+        if (p->type->u.element->type != ECPGt_struct && p->type->u.element->type != ECPGt_union)
+            mmfatal(PARSE_ERROR, "variable \"%s\" is not a pointer to a structure or a union", name);
+
+        *next = c; // Restore the name
+        return find_struct_member(name, ++end, p->type->u.element->u.members, p->brace_level);
+    }
+    else {
+        // Handle direct access (struct.member or struct[index].member)
+        if (next == end) {
+            // Direct member access
+            if (p->type->type != ECPGt_struct && p->type->type != ECPGt_union)
+                mmfatal(PARSE_ERROR, "variable \"%s\" is neither a structure nor a union", name);
+
+            *next = c;
+            return find_struct_member(name, end, p->type->u.members, p->brace_level);
+        }
+        else {
+            // Array element access
+            if (p->type->type != ECPGt_array)
+                mmfatal(PARSE_ERROR, "variable \"%s\" is not an array", name);
+
+            if (p->type->u.element->type != ECPGt_struct && p->type->u.element->type != ECPGt_union)
+                mmfatal(PARSE_ERROR, "variable \"%s\" is not a pointer to a structure or a union", name);
+
+            *next = c;
+            return find_struct_member(name, end, p->type->u.element->u.members, p->brace_level);
+        }
+    }
+}
+```

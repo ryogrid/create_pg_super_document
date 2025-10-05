@@ -45,3 +45,42 @@ The function returns status codes to indicate success or the specific type of fa
 - Includes race condition commentary noting the extremely low probability of PID recycling issues
 - Uses WARNING level logging for non-fatal errors to allow batch operations to continue
 - Cannot be used to signal auxiliary processes or the postmaster - only regular backend processes
+
+## Simplified Source
+
+```c
+static int pg_signal_backend(int pid, int sig) {
+    PGPROC *proc = BackendPidGetProc(pid);
+
+    // Validate that PID corresponds to a backend process
+    if (proc == NULL) {
+        ereport(WARNING,
+                (errmsg("PID %d is not a PostgreSQL backend process", pid)));
+        return SIGNAL_BACKEND_ERROR;
+    }
+
+    // Check superuser permissions
+    if ((!OidIsValid(proc->roleId) || superuser_arg(proc->roleId)) &&
+        !superuser())
+        return SIGNAL_BACKEND_NOSUPERUSER;
+
+    // Check role membership permissions
+    if (!has_privs_of_role(GetUserId(), proc->roleId) &&
+        !has_privs_of_role(GetUserId(), ROLE_PG_SIGNAL_BACKEND))
+        return SIGNAL_BACKEND_NOPERMISSION;
+
+    // Send signal (to process group if setsid available)
+#ifdef HAVE_SETSID
+    if (kill(-pid, sig))
+#else
+    if (kill(pid, sig))
+#endif
+    {
+        ereport(WARNING,
+                (errmsg("could not send signal to process %d: %m", pid)));
+        return SIGNAL_BACKEND_ERROR;
+    }
+
+    return SIGNAL_BACKEND_SUCCESS;
+}
+```

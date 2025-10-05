@@ -34,3 +34,16 @@ This function is used in spatial indexing operations to optimize geometric queri
 - It's part of the SP-GiST indexing infrastructure for efficient spatial queries in PostgreSQL
 - The function returns a boolean value indicating whether any rectangle from the rect_box can be above the query range
 - This function is complementary to `overBelow4D`, handling the opposite spatial relationship
+
+## Simplified Source
+
+```c
+/* Check if any rectangle from rect_box can be above this query */
+static bool
+above4D(RectBox *rect_box, RangeBox *query)
+{
+    // Delegate to higher2D to check if rectangle's y-range
+    // can be positioned higher (above) than query's right boundary
+    return higher2D(&rect_box->range_box_y, &query->right);
+}
+```

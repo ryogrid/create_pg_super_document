@@ -35,3 +35,27 @@ The function allocates a 32-byte buffer for the output string, which is sufficie
 - Uses shortest decimal representation when extra_float_digits > 0 for more compact output
 - Allocates exactly 32 bytes for the output string buffer
 - Returns a palloc'd C-string that will be automatically freed by PostgreSQL's memory management
+
+## Simplified Source
+
+```c
+Datum
+float4out(PG_FUNCTION_ARGS)
+{
+    // Get the float4 input value
+    float4 num = PG_GETARG_FLOAT4(0);
+    char *result = (char *) palloc(32);
+
+    // Choose output format based on extra_float_digits setting
+    if (extra_float_digits > 0) {
+        // Use shortest decimal representation
+        float_to_shortest_decimal_buf(num, result);
+    } else {
+        // Use standard precision format
+        int digits = FLT_DIG + extra_float_digits;
+        pg_strfromd(result, 32, digits, num);
+    }
+
+    PG_RETURN_CSTRING(result);
+}
+```

@@ -50,3 +50,59 @@ When a member is found, it creates and returns a new variable object with the ap
 - Handles bracket counting to properly skip array index expressions
 - Returns NULL if the specified member path cannot be resolved
 - Critical for ECPG's ability to handle complex C struct variables in embedded SQL
+
+## Simplified Source
+
+```c
+static struct variable *find_struct_member(char *name, char *str, struct ECPGstruct_member *members, int brace_level) {
+    // Parse the next component of the member access path
+    char *next = strpbrk(++str, ".-[");
+    char *end, c = '\0';
+
+    if (next != NULL) {
+        c = *next;
+        *next = '\0';  // Temporarily terminate string
+    }
+
+    // Search for the member name
+    for (; members; members = members->next) {
+        if (strcmp(members->name, str) == 0) {
+            if (next == NULL) {
+                // End of path - create variable based on member type
+                switch (members->type->type) {
+                    case ECPGt_array:
+                        return new_variable(name, ECPGmake_array_type(...), brace_level);
+                    case ECPGt_struct:
+                    case ECPGt_union:
+                        return new_variable(name, ECPGmake_struct_type(...), brace_level);
+                    default:
+                        return new_variable(name, ECPGmake_simple_type(...), brace_level);
+                }
+            } else {
+                // More path components - handle array access and recursion
+                *next = c;  // Restore character
+
+                if (c == '[') {
+                    // Skip array bracket content
+                    end = skip_array_brackets(next);
+                } else {
+                    end = next;
+                }
+
+                // Continue recursion based on next character
+                switch (*end) {
+                    case '\0':  // Array element at end
+                        return handle_array_element_access(name, members, brace_level);
+                    case '-':
+                    case '.':
+                        return find_struct_member(name, end, get_next_members(members, *end), brace_level);
+                    default:
+                        mmfatal(PARSE_ERROR, "incorrectly formed variable \"%s\"", name);
+                }
+            }
+        }
+    }
+
+    return NULL;  // Member not found
+}
+```

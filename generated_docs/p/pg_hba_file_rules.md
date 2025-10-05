@@ -37,3 +37,23 @@ The  function serves as the SQL interface for the pg_hba_file_rules system view,
 - Returns Datum type as required by PostgreSQL's function interface
 - The actual logic is implemented in fill_hba_view for better code organization
 - Registered in the system catalog to enable SQL access to HBA configuration
+
+## Simplified Source
+
+```c
+Datum
+pg_hba_file_rules(PG_FUNCTION_ARGS)
+{
+    ReturnSetInfo *rsi;
+
+    // Initialize materialized set-returning function
+    // Uses Materialize mode for safety against file changes
+    InitMaterializedSRF(fcinfo, 0);
+
+    // Fill the tuplestore with HBA file data
+    rsi = (ReturnSetInfo *) fcinfo->resultinfo;
+    fill_hba_view(rsi->setResult, rsi->setDesc);
+
+    PG_RETURN_NULL();
+}
+```

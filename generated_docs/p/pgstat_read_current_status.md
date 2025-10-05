@@ -46,3 +46,103 @@ This function takes no parameters but operates on several global structures:
 - The resulting local table is ordered by ProcNumber, which is relied upon by other functions
 - Once created, the snapshot persists for the entire transaction to ensure consistency
 - Critical for providing stable views of system activity for monitoring and diagnostic queries
+
+## Simplified Source
+
+```c
+static void
+pgstat_read_current_status(void)
+{
+    volatile PgBackendStatus *beentry;
+    LocalPgBackendStatus *localtable;
+    LocalPgBackendStatus *localentry;
+    char *localappname, *localclienthostname, *localactivity;
+    ProcNumber procNumber;
+
+    // Return if already done in this transaction
+    if (localBackendStatusTable)
+        return;
+
+    // Setup memory context for backend status snapshot
+    pgstat_setup_backend_status_context();
+
+    // Allocate memory for local copies of all status data
+    localtable = (LocalPgBackendStatus *)
+        MemoryContextAlloc(backendStatusSnapContext,
+                          sizeof(LocalPgBackendStatus) * NumBackendStatSlots);
+    localappname = (char *)
+        MemoryContextAlloc(backendStatusSnapContext,
+                          NAMEDATALEN * NumBackendStatSlots);
+    localclienthostname = (char *)
+        MemoryContextAlloc(backendStatusSnapContext,
+                          NAMEDATALEN * NumBackendStatSlots);
+    localactivity = (char *)
+        MemoryContextAllocHuge(backendStatusSnapContext,
+                              pgstat_track_activity_query_size * NumBackendStatSlots);
+
+    localNumBackends = 0;
+    beentry = BackendStatusArray;
+    localentry = localtable;
+
+    // Copy each backend status entry
+    for (procNumber = 0; procNumber < NumBackendStatSlots; procNumber++) {
+        // Atomic read protocol with retry on concurrent updates
+        for (;;) {
+            int before_changecount, after_changecount;
+
+            pgstat_begin_read_activity(beentry, before_changecount);
+
+            // Get process ID first to check if entry is active
+            localentry->backendStatus.st_procpid = beentry->st_procpid;
+
+            if (localentry->backendStatus.st_procpid > 0) {
+                // Copy the main status structure
+                memcpy(&localentry->backendStatus, unvolatize(PgBackendStatus *, beentry),
+                       sizeof(PgBackendStatus));
+
+                // Copy string data and update pointers to local copies
+                strcpy(localappname, (char *) beentry->st_appname);
+                localentry->backendStatus.st_appname = localappname;
+                strcpy(localclienthostname, (char *) beentry->st_clienthostname);
+                localentry->backendStatus.st_clienthostname = localclienthostname;
+                strcpy(localactivity, (char *) beentry->st_activity_raw);
+                localentry->backendStatus.st_activity_raw = localactivity;
+
+                // Copy SSL/GSS status if enabled (conditionally compiled)
+            }
+
+            pgstat_end_read_activity(beentry, after_changecount);
+
+            // Check if read was consistent
+            if (pgstat_read_activity_complete(before_changecount, after_changecount))
+                break;
+
+            CHECK_FOR_INTERRUPTS(); // Allow interruption if stuck
+        }
+
+        // Include only valid entries in local array
+        if (localentry->backendStatus.st_procpid > 0) {
+            localentry->proc_number = procNumber;
+
+            // Get transaction IDs for this backend
+            ProcNumberGetTransactionIds(procNumber,
+                                       &localentry->backend_xid,
+                                       &localentry->backend_xmin,
+                                       &localentry->backend_subxact_count,
+                                       &localentry->backend_subxact_overflowed);
+
+            // Advance pointers to next slot
+            localentry++;
+            localappname += NAMEDATALEN;
+            localclienthostname += NAMEDATALEN;
+            localactivity += pgstat_track_activity_query_size;
+            localNumBackends++;
+        }
+
+        beentry++;
+    }
+
+    // Set global pointer only after successful completion
+    localBackendStatusTable = localtable;
+}
+```

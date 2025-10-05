@@ -39,3 +39,27 @@ The function is designed to be called during heap scanning phases of VACUUM when
 - The function updates two progress statistics atomically using pgstat_progress_update_multi_param
 - Memory usage tracking helps monitor vacuum's resource consumption during operation
 - The dead items collection is used later in the vacuum process for index cleanup and heap cleanup phases
+
+## Simplified Source
+
+```c
+static void
+dead_items_add(LVRelState *vacrel, BlockNumber blkno, OffsetNumber *offsets,
+               int num_offsets)
+{
+    const int prog_index[2] = {
+        PROGRESS_VACUUM_NUM_DEAD_ITEM_IDS,
+        PROGRESS_VACUUM_DEAD_TUPLE_BYTES
+    };
+    int64 prog_val[2];
+
+    // Add dead tuple locations to TidStore
+    TidStoreSetBlockOffsets(vacrel->dead_items, blkno, offsets, num_offsets);
+    vacrel->dead_items_info->num_items += num_offsets;
+
+    // Update progress statistics
+    prog_val[0] = vacrel->dead_items_info->num_items;
+    prog_val[1] = TidStoreMemoryUsage(vacrel->dead_items);
+    pgstat_progress_update_multi_param(2, prog_index, prog_val);
+}
+```

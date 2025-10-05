@@ -35,3 +35,14 @@ The  function is a utility function that calculates the slope of a line segment.
 - Returns infinity for vertical line segments (when x-coordinates are equal)
 - Returns 0.0 for horizontal line segments (when y-coordinates are equal)
 - Used extensively in geometric calculations involving line segment relationships such as parallelism, perpendicularity, and intersections
+
+## Simplified Source
+
+```c
+static inline float8
+lseg_sl(LSEG *lseg)
+{
+    // Calculate slope between the two endpoints of the line segment
+    return point_sl(&lseg->p[0], &lseg->p[1]);
+}
+```

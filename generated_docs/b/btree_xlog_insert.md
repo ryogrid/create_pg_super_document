@@ -62,3 +62,74 @@ If the insertion involves metadata changes (ismeta=true), the function also upda
 - Includes panic-level error handling for critical insertion failures
 - Optimized for replay scenarios where concurrent access isn't a concern
 - The function ensures atomic completion of operations that may have been interrupted during the original crash
+
+## Simplified Source
+
+```c
+static void btree_xlog_insert(bool isleaf, bool ismeta, bool posting,
+                             XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_btree_insert *xlrec = (xl_btree_insert *) XLogRecGetData(record);
+    Buffer buffer;
+    Page page;
+
+    // For internal pages, clear incomplete split flag from child
+    if (!isleaf)
+        _bt_clear_incomplete_split(record, 1);
+
+    // Process the main insertion if buffer needs redo
+    if (XLogReadBufferForRedo(record, 0, &buffer) == BLK_NEEDS_REDO)
+    {
+        Size datalen;
+        char *datapos = XLogRecGetBlockData(record, 0, &datalen);
+        page = BufferGetPage(buffer);
+
+        if (!posting)
+        {
+            // Simple insertion: add the new item to the page
+            if (PageAddItem(page, (Item) datapos, datalen, xlrec->offnum,
+                           false, false) == InvalidOffsetNumber)
+                elog(PANIC, "failed to add new item");
+        }
+        else
+        {
+            // Posting list split: more complex handling
+            ItemId itemid;
+            IndexTuple oposting, newitem, nposting;
+            uint16 postingoff;
+
+            // Extract posting split offset from WAL data
+            postingoff = *((uint16 *) datapos);
+            datapos += sizeof(uint16);
+            datalen -= sizeof(uint16);
+
+            // Get the existing posting list that was split
+            itemid = PageGetItemId(page, OffsetNumberPrev(xlrec->offnum));
+            oposting = (IndexTuple) PageGetItem(page, itemid);
+
+            // Recreate the posting list split
+            newitem = CopyIndexTuple((IndexTuple) datapos);
+            nposting = _bt_swap_posting(newitem, oposting, postingoff);
+
+            // Replace old posting list with split version
+            memcpy(oposting, nposting, MAXALIGN(IndexTupleSize(nposting)));
+
+            // Insert the final new item
+            if (PageAddItem(page, (Item) newitem, datalen, xlrec->offnum,
+                           false, false) == InvalidOffsetNumber)
+                elog(PANIC, "failed to add posting split new item");
+        }
+
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+
+    // Update metapage if required
+    if (ismeta)
+        _bt_restore_meta(record, 2);
+}
+```

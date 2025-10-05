@@ -48,3 +48,27 @@ The function includes extensive comments discussing alternative behaviors for mi
 - The origin_lsn parameter preserves the original LSN from the source system
 - Uses the standard OutputPlugin API for message boundaries and writing
 - The conservative error handling approach prioritizes replication stability over strict origin tracking
+
+## Simplified Source
+
+```c
+static void
+send_repl_origin(LogicalDecodingContext *ctx, RepOriginId origin_id,
+                 XLogRecPtr origin_lsn, bool send_origin)
+{
+    if (send_origin)
+    {
+        char *origin;
+
+        // Try to resolve origin ID to name
+        if (replorigin_by_oid(origin_id, true, &origin))
+        {
+            // Prepare message boundary and write origin info
+            OutputPluginWrite(ctx, false);
+            OutputPluginPrepareWrite(ctx, true);
+            logicalrep_write_origin(ctx->out, origin, origin_lsn);
+        }
+        // Silently skip if origin name not found (conservative approach)
+    }
+}
+```

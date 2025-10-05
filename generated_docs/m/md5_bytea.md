@@ -39,3 +39,28 @@ This function implements PostgreSQLs MD5() SQL function for bytea (binary data) 
 - Part of PostgreSQLs cryptographic hash function suite accessible via SQL
 - Returns a 32-character hexadecimal string representation of the MD5 hash
 - Handles variable-length binary data efficiently using varlena macros
+
+## Simplified Source
+
+```c
+Datum md5_bytea(PG_FUNCTION_ARGS) {
+    // Extract input bytea (binary data)
+    bytea *in = PG_GETARG_BYTEA_PP(0);
+    size_t len;
+    char hexsum[MD5_HASH_LEN + 1];
+    const char *errstr = NULL;
+
+    // Calculate binary data length
+    len = VARSIZE_ANY_EXHDR(in);
+
+    // Compute MD5 hash of the binary data
+    if (pg_md5_hash(VARDATA_ANY(in), len, hexsum, &errstr) == false) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INTERNAL_ERROR),
+                 errmsg("could not compute %s hash: %s", "MD5", errstr)));
+    }
+
+    // Convert hex string to text and return
+    PG_RETURN_TEXT_P(cstring_to_text(hexsum));
+}
+```

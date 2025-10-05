@@ -38,3 +38,24 @@ This function creates a new large object in the PostgreSQL system with initially
 - [Command](../C/Command.md) counter increment ensures immediate visibility within the transaction
 - Part of the public large object API (not static)
 - Integrates with PostgreSQL's dependency tracking system for proper cleanup
+
+## Simplified Source
+
+```c
+Oid inv_create(Oid lobjId) {
+    // Create the large object with empty data pages
+    Oid lobjId_new = LargeObjectCreate(lobjId);
+
+    // Establish ownership dependency for proper cleanup
+    // Note: Uses LargeObjectRelationId for backward compatibility with pg_dump
+    recordDependencyOnOwner(LargeObjectRelationId, lobjId_new, GetUserId());
+
+    // Trigger post-creation hooks for extensions
+    InvokeObjectPostCreateHook(LargeObjectRelationId, lobjId_new, 0);
+
+    // Make the new object visible to subsequent operations in this transaction
+    CommandCounterIncrement();
+
+    return lobjId_new;
+}
+```

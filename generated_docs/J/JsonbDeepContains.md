@@ -72,3 +72,111 @@ The function includes stack depth checking to prevent overflow from deeply neste
 - Memory management includes careful cleanup of temporary iterators in nested array comparisons
 - Critical performance consideration: nested array containment has quadratic complexity
 - The function implements injective mapping requirement for container node relationships
+
+## Simplified Source
+
+```c
+bool JsonbDeepContains(JsonbIterator **val, JsonbIterator **mContained) {
+    JsonbValue vval, vcontained;
+    JsonbIteratorToken rval, rcont;
+
+    // Guard against stack overflow from complex JSONB
+    check_stack_depth();
+
+    rval = JsonbIteratorNext(val, &vval, false);
+    rcont = JsonbIteratorNext(mContained, &vcontained, false);
+
+    // Different container types cannot contain each other
+    if (rval != rcont) {
+        return false;
+    }
+
+    if (rcont == WJB_BEGIN_OBJECT) {
+        // Object containment: all rhs pairs must exist in lhs
+        if (vval.val.object.nPairs < vcontained.val.object.nPairs)
+            return false;
+
+        // Check each key-value pair in contained object
+        for (;;) {
+            rcont = JsonbIteratorNext(mContained, &vcontained, false);
+            if (rcont == WJB_END_OBJECT)
+                return true;
+
+            // Find matching key in containing object
+            JsonbValue *lhsVal = getKeyJsonValueFromContainer(
+                (*val)->container,
+                vcontained.val.string.val,
+                vcontained.val.string.len,
+                &lhsValBuf);
+            if (!lhsVal)
+                return false;
+
+            // Compare values for matching key
+            rcont = JsonbIteratorNext(mContained, &vcontained, true);
+            if (lhsVal->type != vcontained.type)
+                return false;
+
+            if (IsAJsonbScalar(lhsVal)) {
+                if (!equalsJsonbScalarValue(lhsVal, &vcontained))
+                    return false;
+            } else {
+                // Recursively check nested containers
+                JsonbIterator *nestval = JsonbIteratorInit(lhsVal->val.binary.data);
+                JsonbIterator *nestContained = JsonbIteratorInit(vcontained.val.binary.data);
+                if (!JsonbDeepContains(&nestval, &nestContained))
+                    return false;
+            }
+        }
+    }
+    else if (rcont == WJB_BEGIN_ARRAY) {
+        // Array containment: all rhs elements must be found in lhs
+        JsonbValue *lhsConts = NULL;
+        uint32 nLhsElems = vval.val.array.nElems;
+
+        // Raw scalar can't contain regular array
+        if (vval.val.array.rawScalar && !vcontained.val.array.rawScalar)
+            return false;
+
+        // Check each element in contained array
+        for (;;) {
+            rcont = JsonbIteratorNext(mContained, &vcontained, true);
+            if (rcont == WJB_END_ARRAY)
+                return true;
+
+            if (IsAJsonbScalar(&vcontained)) {
+                // Simple scalar search in array
+                if (!findJsonbValueFromContainer((*val)->container, JB_FARRAY, &vcontained))
+                    return false;
+            } else {
+                // Complex nested container search (O(N^2))
+                if (lhsConts == NULL) {
+                    // Initialize array of lhs containers
+                    lhsConts = palloc(sizeof(JsonbValue) * nLhsElems);
+                    uint32 j = 0;
+                    for (uint32 i = 0; i < nLhsElems; i++) {
+                        JsonbIteratorNext(val, &vval, true);
+                        if (vval.type == jbvBinary)
+                            lhsConts[j++] = vval;
+                    }
+                    if (j == 0) return false;
+                    nLhsElems = j;
+                }
+
+                // Try to match against each lhs container
+                bool found = false;
+                for (uint32 i = 0; i < nLhsElems; i++) {
+                    JsonbIterator *nestval = JsonbIteratorInit(lhsConts[i].val.binary.data);
+                    JsonbIterator *nestContained = JsonbIteratorInit(vcontained.val.binary.data);
+                    if (JsonbDeepContains(&nestval, &nestContained)) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) return false;
+            }
+        }
+    }
+
+    return false; // Should never reach here
+}
+```

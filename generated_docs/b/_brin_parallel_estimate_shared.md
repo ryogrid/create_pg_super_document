@@ -33,3 +33,15 @@ The function calculates the total shared memory requirement for a parallel BRIN 
 - The BUFFERALIGN usage follows PostgreSQL's shared memory alignment conventions to ensure proper memory layout
 - The estimation is crucial for allocating sufficient shared memory before starting the parallel build process
 - The function combines two distinct memory requirements: BRIN-specific coordination data and generic parallel scan state
+
+## Simplified Source
+
+```c
+static Size _brin_parallel_estimate_shared(Relation heap, Snapshot snapshot) {
+    // Calculate total shared memory needed:
+    // 1. BrinShared structure (properly aligned)
+    // 2. Parallel table scan state
+    return add_size(BUFFERALIGN(sizeof(BrinShared)),
+                   table_parallelscan_estimate(heap, snapshot));
+}
+```

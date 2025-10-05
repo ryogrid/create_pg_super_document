@@ -50,3 +50,66 @@ This function takes no explicit parameters but uses the standard PostgreSQL func
 - The UTC offset is returned as a negative interval (positive values indicate time zones west of UTC)
 - Handles conversion failures gracefully by skipping problematic timezones
 - Part of PostgreSQL's timezone support infrastructure
+
+## Simplified Source
+
+```c
+Datum pg_timezone_names(PG_FUNCTION_ARGS) {
+    ReturnSetInfo *rsinfo = (ReturnSetInfo *)fcinfo->resultinfo;
+    pg_tzenum *tzenum;
+    pg_tz *tz;
+
+    InitMaterializedSRF(fcinfo, 0);
+
+    // Start enumerating through all available timezones
+    tzenum = pg_tzenumerate_start();
+
+    // Process each timezone
+    for (;;) {
+        tz = pg_tzenumerate_next(tzenum);
+        if (!tz) break;
+
+        // Convert current time to local time in this timezone
+        int tzoff;
+        struct pg_tm tm;
+        fsec_t fsec;
+        const char *tzn;
+
+        if (timestamp2tm(GetCurrentTransactionStartTimestamp(),
+                        &tzoff, &tm, &fsec, &tzn, tz) != 0)
+            continue;  // Skip if conversion fails
+
+        // Filter out ridiculously long abbreviations (> 31 chars)
+        // Some versions of IANA "Factory" timezone produce these
+        if (tzn && strlen(tzn) > 31)
+            continue;
+
+        // Build result tuple with 4 columns
+        Datum values[4];
+        bool nulls[4] = {0};
+
+        // Column 1: Timezone name
+        values[0] = CStringGetTextDatum(pg_get_timezone_name(tz));
+
+        // Column 2: Current abbreviation
+        values[1] = CStringGetTextDatum(tzn ? tzn : "");
+
+        // Column 3: UTC offset as interval
+        struct pg_itm_in itm_in;
+        MemSet(&itm_in, 0, sizeof(struct pg_itm_in));
+        itm_in.tm_usec = (int64)-tzoff * USECS_PER_SEC;  // Note: negative for display
+        Interval *resInterval = (Interval *)palloc(sizeof(Interval));
+        (void)itmin2interval(&itm_in, resInterval);
+        values[2] = IntervalPGetDatum(resInterval);
+
+        // Column 4: DST status
+        values[3] = BoolGetDatum(tm.tm_isdst > 0);
+
+        // Add tuple to result set
+        tuplestore_putvalues(rsinfo->setResult, rsinfo->setDesc, values, nulls);
+    }
+
+    pg_tzenumerate_end(tzenum);
+    return (Datum)0;
+}
+```

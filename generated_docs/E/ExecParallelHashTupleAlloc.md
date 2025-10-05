@@ -56,3 +56,112 @@ The function ensures thread-safe allocation while maintaining optimal performanc
 - Uses DSA (Dynamic Shared Area) for cross-process memory management
 - Fast path allocation avoids locking for optimal performance in common cases
 - Growth decisions are based on NTUP_PER_BUCKET load factor limits and memory constraints
+
+## Simplified Source
+
+```c
+static HashJoinTuple
+ExecParallelHashTupleAlloc(HashJoinTable hashtable, size_t size,
+                          dsa_pointer *shared)
+{
+    ParallelHashJoinState *pstate = hashtable->parallel_state;
+    HashMemoryChunk chunk;
+    Size chunk_size;
+    HashJoinTuple result;
+
+    size = MAXALIGN(size);
+
+    // Fast path: try current chunk without locking
+    chunk = hashtable->current_chunk;
+    if (chunk != NULL && size <= HASH_CHUNK_THRESHOLD &&
+        chunk->maxlen - chunk->used >= size)
+    {
+        *shared = hashtable->current_chunk_shared + HASH_CHUNK_HEADER_SIZE + chunk->used;
+        result = (HashJoinTuple) (HASH_CHUNK_DATA(chunk) + chunk->used);
+        chunk->used += size;
+        return result;
+    }
+
+    // Slow path: acquire lock for new chunk allocation
+    LWLockAcquire(&pstate->lock, LW_EXCLUSIVE);
+
+    // Check if growth is needed (more batches or buckets)
+    if (pstate->growth == PHJ_GROWTH_NEED_MORE_BATCHES ||
+        pstate->growth == PHJ_GROWTH_NEED_MORE_BUCKETS)
+    {
+        ParallelHashGrowth growth = pstate->growth;
+        hashtable->current_chunk = NULL;
+        LWLockRelease(&pstate->lock);
+
+        // Help with growth operation
+        if (growth == PHJ_GROWTH_NEED_MORE_BATCHES)
+            ExecParallelHashIncreaseNumBatches(hashtable);
+        else if (growth == PHJ_GROWTH_NEED_MORE_BUCKETS)
+            ExecParallelHashIncreaseNumBuckets(hashtable);
+
+        return NULL; // Caller must retry
+    }
+
+    // Determine chunk size (oversized tuples get dedicated chunks)
+    if (size > HASH_CHUNK_THRESHOLD)
+        chunk_size = size + HASH_CHUNK_HEADER_SIZE;
+    else
+        chunk_size = HASH_CHUNK_SIZE;
+
+    // Check memory and load factor limits for growth
+    if (pstate->growth != PHJ_GROWTH_DISABLED)
+    {
+        // Check space limit
+        if (hashtable->batches[0].at_least_one_chunk &&
+            hashtable->batches[0].shared->size + chunk_size > pstate->space_allowed)
+        {
+            pstate->growth = PHJ_GROWTH_NEED_MORE_BATCHES;
+            hashtable->batches[0].shared->space_exhausted = true;
+            LWLockRelease(&pstate->lock);
+            return NULL;
+        }
+
+        // Check load factor limit
+        if (hashtable->nbatch == 1)
+        {
+            hashtable->batches[0].shared->ntuples += hashtable->batches[0].ntuples;
+            hashtable->batches[0].ntuples = 0;
+            if (hashtable->batches[0].shared->ntuples + 1 >
+                hashtable->nbuckets * NTUP_PER_BUCKET &&
+                hashtable->nbuckets < (INT_MAX / 2) &&
+                hashtable->nbuckets * 2 <= MaxAllocSize / sizeof(dsa_pointer_atomic))
+            {
+                pstate->growth = PHJ_GROWTH_NEED_MORE_BUCKETS;
+                LWLockRelease(&pstate->lock);
+                return NULL;
+            }
+        }
+    }
+
+    // Allocate new chunk
+    dsa_pointer chunk_shared = dsa_allocate(hashtable->area, chunk_size);
+    hashtable->batches[hashtable->curbatch].shared->size += chunk_size;
+    hashtable->batches[hashtable->curbatch].at_least_one_chunk = true;
+
+    // Initialize chunk
+    chunk = (HashMemoryChunk) dsa_get_address(hashtable->area, chunk_shared);
+    *shared = chunk_shared + HASH_CHUNK_HEADER_SIZE;
+    chunk->maxlen = chunk_size - HASH_CHUNK_HEADER_SIZE;
+    chunk->used = size;
+
+    // Add chunk to linked list
+    chunk->next.shared = hashtable->batches[hashtable->curbatch].shared->chunks;
+    hashtable->batches[hashtable->curbatch].shared->chunks = chunk_shared;
+
+    // Set as current chunk for future fast-path allocations
+    if (size <= HASH_CHUNK_THRESHOLD)
+    {
+        hashtable->current_chunk = chunk;
+        hashtable->current_chunk_shared = chunk_shared;
+    }
+
+    LWLockRelease(&pstate->lock);
+    result = (HashJoinTuple) HASH_CHUNK_DATA(chunk);
+    return result;
+}
+```

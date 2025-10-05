@@ -30,3 +30,13 @@ PLyLong_FromOid is a specialized conversion function within PostgreSQL's PL/Pyth
 - The function assumes the datum contains a valid Oid value
 - Returns a new Python object reference that must be properly managed by the caller
 - Part of the datum-to-Python object conversion infrastructure in PL/Python
+
+## Simplified Source
+
+```c
+static PyObject *PLyLong_FromOid(PLyDatumToOb *arg, Datum d)
+{
+    // Convert PostgreSQL Oid datum to Python long integer
+    return PyLong_FromUnsignedLong(DatumGetObjectId(d));
+}
+```

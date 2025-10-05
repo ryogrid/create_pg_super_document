@@ -34,3 +34,16 @@ The  function tests whether two line segments are perpendicular to each other. T
 - Uses floating-point comparison which accounts for precision issues
 - Part of PostgreSQL's geometric data type operations located in geo_ops.c
 - The perpendicularity test is based on the mathematical principle that two lines are perpendicular if the product of their slopes equals -1
+
+## Simplified Source
+
+```c
+Datum lseg_perp(PG_FUNCTION_ARGS) {
+    // Extract two line segments from function arguments
+    LSEG *l1 = PG_GETARG_LSEG_P(0);
+    LSEG *l2 = PG_GETARG_LSEG_P(1);
+
+    // Two segments are perpendicular if slope of l1 equals inverse slope of l2
+    PG_RETURN_BOOL(FPeq(lseg_sl(l1), lseg_invsl(l2)));
+}
+```

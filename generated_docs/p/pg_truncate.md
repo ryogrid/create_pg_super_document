@@ -43,3 +43,32 @@ Both implementations ensure reliable file truncation with proper error handling 
 - On Unix, implements automatic retry on EINTR signal interruption
 - Part of PostgreSQL's cross-platform file management system
 - Used primarily in storage management operations like relation truncation
+
+## Simplified Source
+
+```c
+int pg_truncate(const char *path, off_t length) {
+    int ret;
+
+#ifdef WIN32
+    // Windows: use file descriptor approach since no path-based truncate
+    int fd = OpenTransientFile(path, O_RDWR | PG_BINARY);
+    if (fd >= 0) {
+        ret = pg_ftruncate(fd, length);
+        int save_errno = errno;
+        CloseTransientFile(fd);
+        errno = save_errno;  // Preserve error from truncate
+    } else {
+        ret = -1;
+    }
+#else
+    // Unix: use direct truncate system call with interrupt retry
+retry:
+    ret = truncate(path, length);
+    if (ret == -1 && errno == EINTR)
+        goto retry;  // Handle signal interruption
+#endif
+
+    return ret;  // 0 on success, -1 on error
+}
+```

@@ -51,3 +51,45 @@ The function respects the publication's message configuration and only sends mes
 - Commonly used for application-level notifications, progress tracking, and custom coordination protocols
 - The prefix parameter allows applications to categorize different types of messages
 - Message content is treated as opaque binary data by the replication system
+
+## Simplified Source
+
+```c
+static void
+pgoutput_message(LogicalDecodingContext *ctx, ReorderBufferTXN *txn,
+                 XLogRecPtr message_lsn, bool transactional, const char *prefix, Size sz,
+                 const char *message)
+{
+    PGOutputData *data = (PGOutputData *) ctx->output_plugin_private;
+    TransactionId xid = InvalidTransactionId;
+
+    // Check if message replication is enabled
+    if (!data->messages)
+        return;
+
+    // Get transaction ID for streaming mode
+    if (data->in_streaming)
+        xid = txn->xid;
+
+    // Handle transactional messages
+    if (transactional)
+    {
+        PGOutputTxnData *txndata = (PGOutputTxnData *) txn->output_plugin_private;
+
+        // Send BEGIN if haven't sent it yet
+        if (txndata && !txndata->sent_begin_txn)
+            pgoutput_send_begin(ctx, txn);
+    }
+
+    // Send the message
+    OutputPluginPrepareWrite(ctx, true);
+    logicalrep_write_message(ctx->out,
+                            xid,
+                            message_lsn,
+                            transactional,
+                            prefix,
+                            sz,
+                            message);
+    OutputPluginWrite(ctx, true);
+}
+```

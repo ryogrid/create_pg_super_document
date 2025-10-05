@@ -36,3 +36,52 @@ lazy_vacuum serves as the main entry point for the index and heap vacuuming phas
 - Always calls dead_items_reset to free memory after processing
 - The bypass optimization improves performance consistency for tables with sporadic non-HOT updates
 - Coordinates the two-phase approach of index vacuuming followed by heap vacuuming
+
+## Simplified Source
+
+```c
+static void
+lazy_vacuum(LVRelState *vacrel)
+{
+    bool bypass = false;
+
+    Assert(vacrel->nindexes > 0);
+    Assert(vacrel->lpdead_item_pages > 0);
+
+    // Skip vacuuming if disabled
+    if (!vacrel->do_index_vacuuming)
+    {
+        dead_items_reset(vacrel);
+        return;
+    }
+
+    // Consider bypassing index vacuuming for optimization
+    if (vacrel->consider_bypass_optimization && vacrel->rel_pages > 0)
+    {
+        BlockNumber threshold = (double) vacrel->rel_pages * BYPASS_THRESHOLD_PAGES;
+
+        // Bypass if very few dead items and memory usage is low
+        bypass = (vacrel->lpdead_item_pages < threshold &&
+                 (TidStoreMemoryUsage(vacrel->dead_items) < (32L * 1024L * 1024L)));
+    }
+
+    if (bypass)
+    {
+        // Bypass index vacuuming but do cleanup
+        vacrel->do_index_vacuuming = false;
+    }
+    else if (lazy_vacuum_all_indexes(vacrel))
+    {
+        // Successfully completed index vacuuming, now vacuum heap
+        lazy_vacuum_heap_rel(vacrel);
+    }
+    else
+    {
+        // Failsafe case - couldn't complete due to wraparound risk
+        Assert(VacuumFailsafeActive);
+    }
+
+    // Clean up dead items memory
+    dead_items_reset(vacrel);
+}
+```

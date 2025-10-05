@@ -36,3 +36,14 @@ This function provides a simple interface to close the currently active streamin
 - Simple wrapper around BufFileClose that also handles state management
 - Part of the streaming file management infrastructure for logical replication
 - The assertion helps catch bugs where the function might be called when no file is open
+
+## Simplified Source
+
+```c
+static void stream_close_file(void) {
+    Assert(stream_fd != NULL);
+
+    BufFileClose(stream_fd);
+    stream_fd = NULL;
+}
+```

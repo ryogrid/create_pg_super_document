@@ -39,3 +39,28 @@ This function implements the SQL SIN function for PostgreSQL, computing the sine
 - Includes overflow checking for the computed result
 - The periodic nature of sine allows it to theoretically work with all finite inputs
 - Located in src/backend/utils/adt/float.c:1931-1957
+
+## Simplified Source
+
+```c
+Datum dsin(PG_FUNCTION_ARGS) {
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+
+    // Handle NaN input per POSIX spec
+    if (isnan(arg1))
+        PG_RETURN_FLOAT8(get_float8_nan());
+
+    // Check for infinite input (domain error per POSIX)
+    errno = 0;
+    float8 result = sin(arg1);
+    if (errno != 0 || isinf(arg1))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("input is out of range")));
+
+    // Check for overflow
+    if (unlikely(isinf(result)))
+        float_overflow_error();
+
+    PG_RETURN_FLOAT8(result);
+}
+```

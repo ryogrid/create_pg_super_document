@@ -32,3 +32,16 @@ This function implements the PostgreSQL SQL operator for multiplying a money amo
 - The helper function performs range checking and raises errors for out-of-range results
 - [Result](../R/Result.md) is rounded to nearest integer to maintain Cash type precision
 - Part of PostgreSQL's money data type implementation in src/backend/utils/adt/cash.c
+
+## Simplified Source
+
+```c
+// Multiply cash by double precision float
+Datum cash_mul_flt8(PG_FUNCTION_ARGS) {
+    Cash cash_value = PG_GETARG_CASH(0);
+    float8 multiplier = PG_GETARG_FLOAT8(1);
+
+    // Delegate to internal function for safe multiplication
+    PG_RETURN_CASH(cash_mul_float8(cash_value, multiplier));
+}
+```

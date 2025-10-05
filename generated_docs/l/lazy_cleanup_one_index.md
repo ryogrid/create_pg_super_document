@@ -37,3 +37,42 @@ This function handles the cleanup phase of vacuum operations for individual inde
 
 ## Notes and Other Information
 The function is part of the lazy vacuum implementation and specifically handles the cleanup phase after bulk deletion operations. It ensures proper error reporting by temporarily updating the vacuum error context with the current index name. The estimated_count parameter is passed through to the index access method to inform it whether tuple count statistics are precise or estimated, which may affect optimization decisions during cleanup.
+
+## Simplified Source
+
+```c
+static IndexBulkDeleteResult *
+lazy_cleanup_one_index(Relation indrel, IndexBulkDeleteResult *istat,
+                       double reltuples, bool estimated_count,
+                       LVRelState *vacrel)
+{
+    IndexVacuumInfo ivinfo;
+    LVSavedErrInfo saved_err_info;
+
+    // Set up index cleanup parameters
+    ivinfo.index = indrel;
+    ivinfo.heaprel = vacrel->rel;
+    ivinfo.analyze_only = false;
+    ivinfo.report_progress = false;
+    ivinfo.estimated_count = estimated_count;
+    ivinfo.message_level = DEBUG2;
+    ivinfo.num_heap_tuples = reltuples;
+    ivinfo.strategy = vacrel->bstrategy;
+
+    // Set up error tracking with index name
+    vacrel->indname = pstrdup(RelationGetRelationName(indrel));
+    update_vacuum_error_info(vacrel, &saved_err_info,
+                            VACUUM_ERRCB_PHASE_INDEX_CLEANUP,
+                            InvalidBlockNumber, InvalidOffsetNumber);
+
+    // Perform index cleanup
+    istat = vac_cleanup_one_index(&ivinfo, istat);
+
+    // Clean up error tracking
+    restore_vacuum_error_info(vacrel, &saved_err_info);
+    pfree(vacrel->indname);
+    vacrel->indname = NULL;
+
+    return istat;
+}
+```

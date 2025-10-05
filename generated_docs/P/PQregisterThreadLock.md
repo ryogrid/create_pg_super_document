@@ -36,3 +36,21 @@ The default_threadlock function uses pthread mutex operations to provide basic t
 - Applications using this function should ensure their custom locking implementation is robust, as libpq provides no error-return convention in the pgthreadlock_t API
 - The default_threadlock implementation uses pthread_mutex operations and will Assert(false) on mutex failures
 - Thread safety is essential when multiple threads share PostgreSQL connections or use libpq concurrently
+
+## Simplified Source
+
+```c
+pgthreadlock_t PQregisterThreadLock(pgthreadlock_t newhandler) {
+    // Store the current thread lock handler
+    pgthreadlock_t prev = pg_g_threadlock;
+
+    // Set new handler or revert to default
+    if (newhandler)
+        pg_g_threadlock = newhandler;
+    else
+        pg_g_threadlock = default_threadlock;
+
+    // Return the previous handler
+    return prev;
+}
+```

@@ -50,3 +50,54 @@ This PostgreSQL SQL function creates a logical replication slot for logical deco
 - Always returns the confirmed_flush LSN as the second column in the result
 - This function is exposed to SQL as pg_create_logical_replication_slot()
 - Supports advanced features like two-phase commit and failover capabilities for modern replication scenarios
+
+## Simplified Source
+
+```c
+Datum pg_create_logical_replication_slot(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    Name name = PG_GETARG_NAME(0);
+    Name plugin = PG_GETARG_NAME(1);
+    bool temporary = PG_GETARG_BOOL(2);
+    bool two_phase = PG_GETARG_BOOL(3);
+    bool failover = PG_GETARG_BOOL(4);
+
+    TupleDesc tupdesc;
+    Datum values[2];
+    bool nulls[2];
+
+    // Validate return type is composite
+    if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+        elog(ERROR, "return type must be a row type");
+
+    // Check permissions and logical decoding requirements
+    CheckSlotPermissions();
+    CheckLogicalDecodingRequirements();
+
+    // Create the logical replication slot with automatic startpoint finding
+    create_logical_replication_slot(NameStr(*name),
+                                    NameStr(*plugin),
+                                    temporary,
+                                    two_phase,
+                                    failover,
+                                    InvalidXLogRecPtr,
+                                    true);  // find_startpoint = true
+
+    // Build return tuple with slot name and confirmed flush LSN
+    values[0] = NameGetDatum(&MyReplicationSlot->data.name);
+    values[1] = LSNGetDatum(MyReplicationSlot->data.confirmed_flush);
+    memset(nulls, 0, sizeof(nulls));
+
+    HeapTuple tuple = heap_form_tuple(tupdesc, values, nulls);
+    Datum result = HeapTupleGetDatum(tuple);
+
+    // Make slot persistent if not temporary
+    if (!temporary)
+        ReplicationSlotPersist();
+
+    // Release the slot for replication use
+    ReplicationSlotRelease();
+
+    PG_RETURN_DATUM(result);
+}
+```

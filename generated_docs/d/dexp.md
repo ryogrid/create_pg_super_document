@@ -41,3 +41,38 @@ The function explicitly handles:
 - Includes platform-independent handling of edge cases since different platforms may handle exp() differently
 - Uses errno checking and explicit result validation for robust error detection
 - The function follows PostgreSQL's standard function interface using PG_FUNCTION_ARGS and PG_RETURN_FLOAT8
+
+## Simplified Source
+
+```c
+Datum dexp(PG_FUNCTION_ARGS) {
+    // Extract input argument
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float8 result;
+
+    // Handle special cases explicitly
+    if (isnan(arg1))
+        result = arg1;  // NaN -> NaN
+    else if (isinf(arg1))
+        result = (arg1 > 0.0) ? arg1 : 0;  // +Inf -> +Inf, -Inf -> 0
+    else {
+        // Standard exponential with error checking
+        errno = 0;
+        result = exp(arg1);
+
+        // Check for overflow/underflow
+        if (unlikely(errno == ERANGE)) {
+            if (result != 0.0)
+                float_overflow_error();
+            else
+                float_underflow_error();
+        }
+        else if (unlikely(isinf(result)))
+            float_overflow_error();
+        else if (unlikely(result == 0.0))
+            float_underflow_error();
+    }
+
+    PG_RETURN_FLOAT8(result);
+}
+```

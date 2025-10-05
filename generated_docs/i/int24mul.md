@@ -36,3 +36,20 @@ This function implements the multiplication operator for mixed-precision integer
 - The function follows PostgreSQL's function call convention using PG_FUNCTION_ARGS
 - Promotes the 16-bit argument to 32-bit before performing the multiplication operation
 - Part of the int24 family of functions (int24pl, int24mi, int24mul, int24div) for mixed-precision arithmetic
+
+## Simplified Source
+
+```c
+Datum int24mul(PG_FUNCTION_ARGS) {
+    int16 arg1 = PG_GETARG_INT16(0);  // int2 multiplicand
+    int32 arg2 = PG_GETARG_INT32(1);  // int4 multiplicand
+    int32 result;
+
+    // Multiply with int2 promoted to int4, check for overflow
+    if (unlikely(pg_mul_s32_overflow((int32) arg1, arg2, &result)))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("integer out of range")));
+
+    PG_RETURN_INT32(result);
+}
+```

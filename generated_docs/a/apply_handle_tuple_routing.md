@@ -59,3 +59,124 @@ For UPDATE operations, it performs additional validation to check if the updated
 - Uses memory context switching to manage temporary allocations during tuple processing
 - The function validates that partitions have supported relation kinds for replication
 - For cross-partition moves, it performs both DELETE and INSERT operations atomically within the same transaction
+
+## Simplified Source
+
+```c
+static void
+apply_handle_tuple_routing(ApplyExecutionData *edata,
+                          TupleTableSlot *remoteslot,
+                          LogicalRepTupleData *newtup,
+                          CmdType operation)
+{
+    EState *estate = edata->estate;
+    LogicalRepRelMapEntry *relmapentry = edata->targetRel;
+    ResultRelInfo *relinfo = edata->targetRelInfo;
+    Relation parentrel = relinfo->ri_RelationDesc;
+    ModifyTableState *mtstate;
+    PartitionTupleRouting *proute;
+    ResultRelInfo *partrelinfo;
+    Relation partrel;
+    TupleTableSlot *remoteslot_part;
+    LogicalRepRelMapEntry *part_entry = NULL;
+
+    // Set up partition tuple routing infrastructure
+    edata->mtstate = mtstate = makeNode(ModifyTableState);
+    mtstate->ps.state = estate;
+    mtstate->operation = operation;
+    mtstate->resultRelInfo = relinfo;
+
+    edata->proute = proute = ExecSetupPartitionTupleRouting(estate, parentrel);
+
+    // Find the target partition for this tuple
+    partrelinfo = ExecFindPartition(mtstate, relinfo, proute,
+                                   remoteslot, estate);
+    partrel = partrelinfo->ri_RelationDesc;
+
+    // Validate partition is supported
+    CheckSubscriptionRelkind(partrel->rd_rel->relkind,
+                           get_namespace_name(RelationGetNamespace(partrel)),
+                           RelationGetRelationName(partrel));
+
+    // Convert tuple to partition's rowtype if needed
+    remoteslot_part = partrelinfo->ri_PartitionTupleSlot;
+    if (remoteslot_part == NULL)
+        remoteslot_part = table_slot_create(partrel, &estate->es_tupleTable);
+
+    TupleConversionMap *map = ExecGetRootToChildMap(partrelinfo, estate);
+    if (map != NULL)
+    {
+        remoteslot_part = execute_attr_map_slot(map->attrMap, remoteslot,
+                                              remoteslot_part);
+    }
+    else
+    {
+        remoteslot_part = ExecCopySlot(remoteslot_part, remoteslot);
+        slot_getallattrs(remoteslot_part);
+    }
+
+    // Handle operation-specific logic
+    switch (operation)
+    {
+        case CMD_INSERT:
+            apply_handle_insert_internal(edata, partrelinfo, remoteslot_part);
+            break;
+
+        case CMD_DELETE:
+            part_entry = logicalrep_partition_open(relmapentry, partrel,
+                                                 map ? map->attrMap : NULL);
+            apply_handle_delete_internal(edata, partrelinfo, remoteslot_part,
+                                        part_entry->localindexoid);
+            break;
+
+        case CMD_UPDATE:
+            part_entry = logicalrep_partition_open(relmapentry, partrel,
+                                                 map ? map->attrMap : NULL);
+
+            // Find existing tuple in partition
+            TupleTableSlot *localslot;
+            bool found = FindReplTupleInLocalRel(edata, partrel,
+                                               &part_entry->remoterel,
+                                               part_entry->localindexoid,
+                                               remoteslot_part, &localslot);
+            if (!found)
+            {
+                elog(DEBUG1, "tuple to update not found in partition");
+                return;
+            }
+
+            // Apply update to create new tuple
+            slot_modify_data(remoteslot_part, localslot, part_entry, newtup);
+
+            // Check if updated tuple still belongs to this partition
+            if (!partrel->rd_rel->relispartition ||
+                ExecPartitionCheck(partrelinfo, remoteslot_part, estate, false))
+            {
+                // Simple update within same partition
+                EPQState epqstate;
+                EvalPlanQualInit(&epqstate, estate, NULL, NIL, -1, NIL);
+                EvalPlanQualSetSlot(&epqstate, remoteslot_part);
+                TargetPrivilegesCheck(partrelinfo->ri_RelationDesc, ACL_UPDATE);
+                ExecSimpleRelationUpdate(partrelinfo, estate, &epqstate,
+                                       localslot, remoteslot_part);
+                EvalPlanQualEnd(&epqstate);
+            }
+            else
+            {
+                // Cross-partition move: delete old + insert new
+                apply_handle_delete_internal(edata, partrelinfo, localslot,
+                                           part_entry->localindexoid);
+
+                // Find new partition and insert there
+                ResultRelInfo *new_partrelinfo = ExecFindPartition(mtstate, relinfo,
+                                                                  proute, remoteslot,
+                                                                  estate);
+                apply_handle_insert_internal(edata, new_partrelinfo, remoteslot_part);
+            }
+            break;
+
+        default:
+            elog(ERROR, "unrecognized CmdType: %d", (int) operation);
+    }
+}
+```

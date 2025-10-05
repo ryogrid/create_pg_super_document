@@ -42,3 +42,19 @@ This function is used both as a direct interface for callers who already know th
 - The function serves as a thin wrapper around the generic `pgstat_fetch_entry()` mechanism
 - Used extensively by autovacuum to make decisions about when tables need maintenance
 - Returns NULL if no statistics entry exists for the specified relation
+
+## Simplified Source
+
+```c
+PgStat_StatTabEntry *
+pgstat_fetch_stat_tabentry_ext(bool shared, Oid reloid)
+{
+    // Determine database OID: shared relations use InvalidOid,
+    // regular relations use current database
+    Oid dboid = (shared ? InvalidOid : MyDatabaseId);
+
+    // Fetch the statistics entry from the hash table
+    return (PgStat_StatTabEntry *)
+        pgstat_fetch_entry(PGSTAT_KIND_RELATION, dboid, reloid);
+}
+```

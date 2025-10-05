@@ -38,3 +38,25 @@ This comparison strategy matches exactly how the ANALYZE code sorted data before
 - The comparison logic ensures that lexemes are found correctly in the pre-sorted statistics arrays created during ANALYZE
 - Used in conjunction with binary search to efficiently locate specific lexemes in text search statistics for query planning and selectivity estimation
 - The function handles PostgreSQL's variable-length text types (varlena) through the VARSIZE_ANY_EXHDR and VARDATA_ANY macros
+
+## Simplified Source
+
+```c
+static int compare_lexeme_textfreq(const void *e1, const void *e2) {
+    const LexemeKey *key = (const LexemeKey *) e1;
+    const TextFreq *t = (const TextFreq *) e2;
+    int len1, len2;
+
+    len1 = key->length;
+    len2 = VARSIZE_ANY_EXHDR(t->element);
+
+    // Compare lengths first
+    if (len1 > len2)
+        return 1;
+    else if (len1 < len2)
+        return -1;
+
+    // Same length: compare string content
+    return strncmp(key->lexeme, VARDATA_ANY(t->element), len1);
+}
+```

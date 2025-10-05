@@ -51,3 +51,77 @@ This function takes no parameters but operates on several important local variab
 - Includes comprehensive error handling with transaction abort and recovery
 - Updates global vacuum cost parameters and worker balancing information
 - Skips template and non-connectable databases by using zero freeze ages
+
+## Simplified Source
+
+```c
+static void
+do_autovacuum(void)
+{
+    List *table_oids = NIL;
+    List *orphan_oids = NIL;
+    HTAB *table_toast_map;
+    BufferAccessStrategy bstrategy;
+    bool did_vacuum = false;
+    bool found_concurrent_worker = false;
+
+    // Setup memory contexts and transaction
+    AutovacMemCxt = AllocSetContextCreate(TopMemoryContext, "Autovacuum worker", ALLOCSET_DEFAULT_SIZES);
+    StartTransactionCommand();
+
+    // Get database settings and freeze age thresholds
+    effective_multixact_freeze_max_age = MultiXactMemberFreezeThreshold();
+    // Set freeze ages based on database template/connection status
+
+    // Create TOAST-to-main table mapping
+    table_toast_map = hash_create("TOAST to main relid map", 100, &ctl, HASH_ELEM | HASH_BLOBS);
+
+    // Phase 1: Scan for regular tables and materialized views
+    classRel = table_open(RelationRelationId, AccessShareLock);
+    relScan = table_beginscan_catalog(classRel, 0, NULL);
+    while ((tuple = heap_getnext(relScan, ForwardScanDirection)) != NULL)
+    {
+        // Skip non-target relation types, temp tables from other backends
+        // Extract autovac options and check if vacuum/analyze needed
+        // Add to table_oids list if maintenance required
+        // Build TOAST mapping for second pass
+    }
+    table_endscan(relScan);
+
+    // Phase 2: Scan TOAST tables specifically
+    // Use similar logic but inherit options from main table if needed
+
+    table_close(classRel, AccessShareLock);
+
+    // Phase 3: Clean up orphaned temp tables
+    foreach(cell, orphan_oids)
+    {
+        // Lock table, verify it's still orphaned, and drop if so
+    }
+
+    // Phase 4: Process collected tables
+    bstrategy = GetAccessStrategyWithSize(BAS_VACUUM, VacuumBufferUsageLimit);
+    foreach(cell, table_oids)
+    {
+        // Check for interrupts and config changes
+        // Verify table still exists and get shared/local status
+        // Check for concurrent workers and claim table
+        // Recheck if table still needs maintenance
+        // Set up cost balancing and perform vacuum/analyze
+        // Handle errors and continue with next table
+    }
+
+    // Phase 5: Process additional work items
+    for (i = 0; i < NUM_WORKITEMS; i++)
+    {
+        // Process pending work items for this database
+        perform_work_item(workitem);
+    }
+
+    // Update database frozen XID if work was done
+    if (did_vacuum || !found_concurrent_worker)
+        vac_update_datfrozenxid();
+
+    CommitTransactionCommand();
+}
+```

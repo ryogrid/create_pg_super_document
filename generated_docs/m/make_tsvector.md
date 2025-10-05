@@ -63,3 +63,82 @@ The function enforces size limits () and handles proper alignment requirements f
 - All intermediate parsing data is freed, making this function responsible for cleanup
 - Located at lines 165-242 in 
 - The function modifies and frees the input ParsedText structure as part of its operation
+
+## Simplified Source
+
+```c
+TSVector make_tsvector(ParsedText *prs) {
+    int i, j, string_length = 0, total_length;
+    TSVector result;
+    WordEntry *word_entries;
+    char *string_data;
+    int string_offset;
+
+    // Remove duplicates and consolidate positions
+    if (prs->curwords > 0)
+        prs->curwords = uniqueWORD(prs->words, prs->curwords);
+
+    // Calculate space needed for words and position arrays
+    for (i = 0; i < prs->curwords; i++) {
+        string_length += prs->words[i].len;
+        if (prs->words[i].alen) {
+            string_length = SHORTALIGN(string_length);
+            string_length += sizeof(uint16) + prs->words[i].pos.apos[0] * sizeof(WordEntryPos);
+        }
+    }
+
+    // Check size limits
+    if (string_length > MAXSTRPOS)
+        ereport(ERROR, "string is too long for tsvector");
+
+    // Allocate TSVector structure
+    total_length = CALCDATASIZE(prs->curwords, string_length);
+    result = (TSVector) palloc0(total_length);
+    SET_VARSIZE(result, total_length);
+    result->size = prs->curwords;
+
+    // Setup pointers for data areas
+    word_entries = ARRPTR(result);
+    string_data = STRPTR(result);
+    string_offset = 0;
+
+    // Populate TSVector with words and positions
+    for (i = 0; i < prs->curwords; i++) {
+        // Store word entry metadata
+        word_entries->len = prs->words[i].len;
+        word_entries->pos = string_offset;
+
+        // Copy word string
+        memcpy(string_data + string_offset, prs->words[i].word, prs->words[i].len);
+        string_offset += prs->words[i].len;
+        pfree(prs->words[i].word);
+
+        // Handle position data if present
+        if (prs->words[i].alen) {
+            int position_count = prs->words[i].pos.apos[0];
+            WordEntryPos *position_ptr;
+
+            word_entries->haspos = 1;
+            string_offset = SHORTALIGN(string_offset);
+            *(uint16 *) (string_data + string_offset) = (uint16) position_count;
+
+            position_ptr = POSDATAPTR(result, word_entries);
+            for (j = 0; j < position_count; j++) {
+                WEP_SETWEIGHT(position_ptr[j], 0);  // default weight
+                WEP_SETPOS(position_ptr[j], prs->words[i].pos.apos[j + 1]);
+            }
+            string_offset += sizeof(uint16) + position_count * sizeof(WordEntryPos);
+            pfree(prs->words[i].pos.apos);
+        } else {
+            word_entries->haspos = 0;
+        }
+        word_entries++;
+    }
+
+    // Cleanup parsed text structure
+    if (prs->words)
+        pfree(prs->words);
+
+    return result;
+}
+```

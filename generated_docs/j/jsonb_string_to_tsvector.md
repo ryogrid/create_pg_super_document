@@ -42,3 +42,24 @@ Like its  counterpart, this function specifically targets only string values wit
 - Located in 
 - Memory management includes proper cleanup of JSONB input parameter
 - Provides a simpler interface compared to the  variant by eliminating configuration parameter
+
+## Simplified Source
+
+```c
+Datum jsonb_string_to_tsvector(PG_FUNCTION_ARGS) {
+    Jsonb *jsonb_input = PG_GETARG_JSONB_P(0);
+    Oid config_id;
+    TSVector result;
+
+    // Get current default text search configuration
+    config_id = getTSCurrentConfig(true);
+
+    // Convert JSONB string values to TSVector using default config
+    result = jsonb_to_tsvector_worker(config_id, jsonb_input, jtiString);
+
+    // Clean up input parameter
+    PG_FREE_IF_COPY(jsonb_input, 0);
+
+    PG_RETURN_TSVECTOR(result);
+}
+```

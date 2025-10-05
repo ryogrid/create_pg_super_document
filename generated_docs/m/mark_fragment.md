@@ -37,3 +37,33 @@ The `mark_fragment` function is responsible for marking words within a specified
 - Manages repeated word handling by setting the "in" flag to 0 for repeated words
 - Part of PostgreSQL's text search highlighting pipeline
 - Located in src/backend/tsearch/wparser_def.c:2184-2219
+
+## Simplified Source
+
+```c
+static void mark_fragment(HeadlineParsedText *prs, bool highlightall,
+                         int startpos, int endpos) {
+    // Mark words in the specified range for highlighting
+    for (int i = startpos; i <= endpos; i++) {
+        // Mark words containing query items
+        if (prs->words[i].item)
+            prs->words[i].selected = 1;
+
+        // Apply highlighting mode-specific logic
+        if (!highlightall) {
+            // Standard highlighting mode
+            if (HLIDREPLACE(prs->words[i].type))
+                prs->words[i].replace = 1;
+            else if (HLIDSKIP(prs->words[i].type))
+                prs->words[i].skip = 1;
+        } else {
+            // XML-aware highlighting mode
+            if (XMLHLIDSKIP(prs->words[i].type))
+                prs->words[i].skip = 1;
+        }
+
+        // Handle repeated words (set in=0 for repeated, in=1 for normal)
+        prs->words[i].in = (prs->words[i].repeated) ? 0 : 1;
+    }
+}
+```

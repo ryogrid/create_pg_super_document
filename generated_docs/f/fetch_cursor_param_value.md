@@ -34,3 +34,43 @@ Type safety is enforced by verifying that the parameter is of REFCURSOR type (OI
 
 ## Notes and Other Information
 The function is marked static as it's only used within execCurrent.c. It raises ERRCODE_DATATYPE_MISMATCH for type mismatches and ERRCODE_UNDEFINED_OBJECT when no value is found for the specified parameter. The 1-based parameter indexing matches PostgreSQL's parameter numbering convention. The function handles the paramFetch hook mechanism which allows for dynamic parameter resolution in prepared statements and other contexts.
+
+## Simplified Source
+
+```c
+static char *
+fetch_cursor_param_value(ExprContext *econtext, int paramId)
+{
+    ParamListInfo paramInfo = econtext->ecxt_param_list_info;
+
+    // Check if parameter exists and is in valid range
+    if (paramInfo && paramId > 0 && paramId <= paramInfo->numParams) {
+        ParamExternData *param;
+        ParamExternData param_data;
+
+        // Get parameter using hook if available, otherwise direct access
+        if (paramInfo->paramFetch != NULL)
+            param = paramInfo->paramFetch(paramInfo, paramId, false, &param_data);
+        else
+            param = &paramInfo->params[paramId - 1];
+
+        // Verify parameter has valid type and is not null
+        if (OidIsValid(param->ptype) && !param->isnull) {
+            // Ensure parameter is REFCURSOR type
+            if (param->ptype != REFCURSOROID)
+                ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                    errmsg("parameter %d type mismatch: got %s, expected %s",
+                        paramId, format_type_be(param->ptype),
+                        format_type_be(REFCURSOROID))));
+
+            // Convert REFCURSOR value to C string
+            return TextDatumGetCString(param->value);
+        }
+    }
+
+    // Parameter not found or invalid
+    ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+        errmsg("no value found for parameter %d", paramId)));
+    return NULL;
+}
+```

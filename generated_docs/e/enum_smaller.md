@@ -38,3 +38,16 @@ This function serves as the implementation for aggregate functions like MIN() wh
 - Part of PostgreSQL's support for aggregate operations on enum types
 - Essential for implementing proper MIN() behavior on enum columns in GROUP BY operations
 - The function follows PostgreSQL's fmgr (function manager) calling convention
+
+## Simplified Source
+
+```c
+Datum enum_smaller(PG_FUNCTION_ARGS) {
+    // Extract the two enum OIDs from function arguments
+    Oid a = PG_GETARG_OID(0);
+    Oid b = PG_GETARG_OID(1);
+
+    // Return the smaller enum value (a if a < b, otherwise b)
+    PG_RETURN_OID(enum_cmp_internal(a, b, fcinfo) < 0 ? a : b);
+}
+```

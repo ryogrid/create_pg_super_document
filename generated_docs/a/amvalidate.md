@@ -47,3 +47,35 @@ The function ensures that operator classes are properly structured and contain a
 - The function will error if the access method doesn't provide a validation routine
 - Validation typically checks operator class completeness, operator signatures, and support function availability
 - Essential for database consistency and preventing malformed operator class definitions
+
+## Simplified Source
+
+```c
+Datum amvalidate(PG_FUNCTION_ARGS) {
+    Oid opclassoid = PG_GETARG_OID(0);
+    HeapTuple classtup;
+    Form_pg_opclass classform;
+    Oid amoid;
+    IndexAmRoutine *amroutine;
+    bool result;
+
+    // Look up the operator class in pg_opclass
+    classtup = SearchSysCache1(CLAOID, ObjectIdGetDatum(opclassoid));
+    if (!HeapTupleIsValid(classtup))
+        elog(ERROR, "cache lookup failed for operator class %u", opclassoid);
+
+    classform = (Form_pg_opclass) GETSTRUCT(classtup);
+    amoid = classform->opcmethod; // Get access method OID
+    ReleaseSysCache(classtup);
+
+    // Get the access method routine and call its validator
+    amroutine = GetIndexAmRoutineByAmId(amoid, false);
+    if (amroutine->amvalidate == NULL)
+        elog(ERROR, "function amvalidate is not defined for index access method %u", amoid);
+
+    result = amroutine->amvalidate(opclassoid);
+    pfree(amroutine);
+
+    PG_RETURN_BOOL(result);
+}
+```

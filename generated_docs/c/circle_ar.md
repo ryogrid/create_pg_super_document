@@ -39,3 +39,12 @@ The  function computes the area of a circle given a CIRCLE structure. It impleme
 - Uses PostgreSQL's safe arithmetic functions to prevent overflow/underflow issues
 - The area calculation follows the standard mathematical formula: Area = π × r²
 - All circle comparison operators use this function to determine relative sizes
+
+## Simplified Source
+
+```c
+static float8 circle_ar(CIRCLE *circle) {
+    // Area = π × radius²
+    return float8_mul(float8_mul(circle->radius, circle->radius), M_PI);
+}
+```

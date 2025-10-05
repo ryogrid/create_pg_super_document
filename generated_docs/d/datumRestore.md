@@ -47,3 +47,39 @@ The function updates the `start_address` pointer to point immediately after the 
 - The function does not validate the serialized data format - corrupted input may cause undefined behavior
 - Declared in src/include/utils/datum.h as part of the public PostgreSQL utility API
 - Works in conjunction with `datumEstimateSpace` and `datumSerialize` as part of the complete serialization framework
+
+## Simplified Source
+
+```c
+Datum datumRestore(char **start_address, bool *isnull) {
+    int header;
+
+    // Read header to determine data type
+    memcpy(&header, *start_address, sizeof(int));
+    *start_address += sizeof(int);
+
+    // Handle NULL datum
+    if (header == -2) {
+        *isnull = true;
+        return (Datum) 0;
+    }
+
+    *isnull = false;
+
+    // Handle pass-by-value datum
+    if (header == -1) {
+        Datum val;
+        memcpy(&val, *start_address, sizeof(Datum));
+        *start_address += sizeof(Datum);
+        return val;
+    }
+
+    // Handle pass-by-reference datum
+    // Allocate memory and copy data
+    void *data = palloc(header);
+    memcpy(data, *start_address, header);
+    *start_address += header;
+
+    return PointerGetDatum(data);
+}
+```

@@ -311,3 +311,21 @@ Text creation and manipulation
 - Always returns a valid IndexBulkDeleteResult structure for vacuum statistics
 - Part of the standard index access method interface but has limited functionality for BRIN
 - Works in conjunction with  for complete vacuum operations
+
+## Simplified Source
+
+```c
+IndexBulkDeleteResult *brinbulkdelete(IndexVacuumInfo *info,
+                                     IndexBulkDeleteResult *stats,
+                                     IndexBulkDeleteCallback callback,
+                                     void *callback_state) {
+    // Allocate stats structure if first time, otherwise reuse existing
+    if (stats == NULL)
+        stats = palloc0_object(IndexBulkDeleteResult);
+
+    // Currently no actual work done - BRIN stores summaries, not individual tuples
+    // Future enhancement: could mark ranges as "dirty" when min/max values deleted
+
+    return stats;
+}
+```

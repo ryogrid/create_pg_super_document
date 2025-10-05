@@ -47,3 +47,50 @@ The  function constructs a complete row for the pg_ident_file_mappings system vi
 - Memory management is simplified due to short-lived execution context
 - Part of PostgreSQL's system view infrastructure for configuration introspection
 - Supports the same error reporting pattern as other configuration view functions
+
+## Simplified Source
+
+```c
+static void
+fill_ident_line(Tuplestorestate *tuple_store, TupleDesc tupdesc,
+                int map_number, char *filename, int lineno, IdentLine *ident,
+                const char *err_msg)
+{
+    Datum values[NUM_PG_IDENT_FILE_MAPPINGS_ATTS];
+    bool nulls[NUM_PG_IDENT_FILE_MAPPINGS_ATTS];
+    int index = 0;
+
+    memset(values, 0, sizeof(values));
+    memset(nulls, 0, sizeof(nulls));
+
+    // Map number (NULL on error)
+    if (err_msg)
+        nulls[index++] = true;
+    else
+        values[index++] = Int32GetDatum(map_number);
+
+    // File name and line number
+    values[index++] = CStringGetTextDatum(filename);
+    values[index++] = Int32GetDatum(lineno);
+
+    if (ident != NULL) {
+        // Identity mapping data: usermap, system_user, pg_user
+        values[index++] = CStringGetTextDatum(ident->usermap);
+        values[index++] = CStringGetTextDatum(ident->system_user->string);
+        values[index++] = CStringGetTextDatum(ident->pg_user->string);
+    } else {
+        // Set mapping fields to NULL for parse errors
+        memset(&nulls[3], true, (NUM_PG_IDENT_FILE_MAPPINGS_ATTS - 4) * sizeof(bool));
+    }
+
+    // Error message
+    if (err_msg)
+        values[NUM_PG_IDENT_FILE_MAPPINGS_ATTS - 1] = CStringGetTextDatum(err_msg);
+    else
+        nulls[NUM_PG_IDENT_FILE_MAPPINGS_ATTS - 1] = true;
+
+    // Create and store tuple
+    HeapTuple tuple = heap_form_tuple(tupdesc, values, nulls);
+    tuplestore_puttuple(tuple_store, tuple);
+}
+```

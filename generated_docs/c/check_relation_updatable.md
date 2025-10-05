@@ -53,3 +53,37 @@ This validation is essential for maintaining data consistency in logical replica
 - Part of PostgreSQL's replica identity enforcement mechanism
 - The function intentionally uses slower validation in error cases to provide more accurate diagnostics
 - Handles the distinction between missing replica identity configuration and missing replica identity data
+
+## Simplified Source
+
+```c
+static void
+check_relation_updatable(LogicalRepRelMapEntry *rel)
+{
+    // Skip check for partitioned tables
+    if (rel->localrel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+        return;
+
+    // If already marked as updatable, no need to check further
+    if (rel->updatable)
+        return;
+
+    // Check if relation has replica identity or primary key
+    if (OidIsValid(GetRelationIdentityOrPK(rel->localrel))) {
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("publisher did not send replica identity column "
+                        "expected by the logical replication target relation \"%s.%s\"",
+                        rel->remoterel.nspname, rel->remoterel.relname)));
+    }
+
+    // No replica identity or primary key found
+    ereport(ERROR,
+            (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+             errmsg("logical replication target relation \"%s.%s\" has "
+                    "neither REPLICA IDENTITY index nor PRIMARY "
+                    "KEY and published relation does not have "
+                    "REPLICA IDENTITY FULL",
+                    rel->remoterel.nspname, rel->remoterel.relname)));
+}
+```

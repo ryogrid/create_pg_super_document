@@ -36,3 +36,29 @@ This function serves as the primary interface for obtaining a cached numeric for
 - Critical function for numeric formatting performance as it manages the boundary between cached and uncached operations
 - Always returns a valid, ready-to-use cache entry
 - Part of the numeric formatting cache management system located in src/backend/utils/adt/formatting.c:5152-5179
+
+## Simplified Source
+
+```c
+static NUMCacheEntry *NUM_cache_fetch(const char *str) {
+    NUMCacheEntry *ent;
+
+    // Try to find existing cache entry
+    if ((ent = NUM_cache_search(str)) == NULL) {
+        // Not cached - create new entry and parse format
+        ent = NUM_cache_getnew(str);
+
+        // Initialize format descriptor
+        zeroize_NUM(&ent->Num);
+
+        // Parse format string into cache entry
+        parse_format(ent->format, str, NUM_keywords,
+                    NULL, NUM_index, NUM_FLAG, &ent->Num);
+
+        // Mark entry as ready for use
+        ent->valid = true;
+    }
+
+    return ent;
+}
+```

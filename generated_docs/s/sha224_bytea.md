@@ -36,3 +36,15 @@ This function implements PostgreSQLs SHA224() SQL function for bytea input. It s
 - SHA-224 produces a 224-bit (28-byte) digest, shorter than SHA-256 but from the same SHA-2 family
 - Accessible via SQL as the SHA224() function for bytea arguments
 - Uses PostgreSQLs standard function calling conventions and return mechanisms
+
+## Simplified Source
+
+```c
+Datum sha224_bytea(PG_FUNCTION_ARGS) {
+    // Compute SHA-224 hash using internal function
+    bytea *result = cryptohash_internal(PG_SHA224, PG_GETARG_BYTEA_PP(0));
+
+    // Return the binary hash result
+    PG_RETURN_BYTEA_P(result);
+}
+```

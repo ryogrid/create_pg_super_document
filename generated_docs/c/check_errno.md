@@ -45,3 +45,47 @@ This function is primarily used in PostgreSQL's ECPG test suite to provide clear
 - The function provides consistent error reporting format across different test scenarios
 - Error messages are formatted with trailing dashes to allow for additional context in test output
 - For unknown errno values, it provides both the numeric code and the system error description
+
+## Simplified Source
+
+```c
+static void
+check_errno(void)
+{
+    // Check current error state and print descriptive message
+    switch(errno)
+    {
+        case 0:
+            printf("(no errno set) - ");
+            break;
+
+        // ECPG Informix compatibility errors
+        case ECPG_INFORMIX_NUM_OVERFLOW:
+            printf("(errno == ECPG_INFORMIX_NUM_OVERFLOW) - ");
+            break;
+        case ECPG_INFORMIX_NUM_UNDERFLOW:
+            printf("(errno == ECPG_INFORMIX_NUM_UNDERFLOW) - ");
+            break;
+
+        // PostgreSQL numeric type errors
+        case PGTYPES_NUM_OVERFLOW:
+            printf("(errno == PGTYPES_NUM_OVERFLOW) - ");
+            break;
+        case PGTYPES_NUM_UNDERFLOW:
+            printf("(errno == PGTYPES_NUM_UNDERFLOW) - ");
+            break;
+        case PGTYPES_NUM_BAD_NUMERIC:
+            printf("(errno == PGTYPES_NUM_BAD_NUMERIC) - ");
+            break;
+        case PGTYPES_NUM_DIVIDE_ZERO:
+            printf("(errno == PGTYPES_NUM_DIVIDE_ZERO) - ");
+            break;
+
+        default:
+            // Unknown error: show both numeric code and system description
+            printf("(unknown errno (%d))\n", errno);
+            printf("(libc: (%s)) ", strerror(errno));
+            break;
+    }
+}
+```

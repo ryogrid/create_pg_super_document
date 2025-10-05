@@ -29,3 +29,14 @@ This function efficiently computes the previous (lower) power of 2 for 32-bit un
 - If the input has multiple bits set, the result will be the largest power of 2 that fits within the input
 - Commonly used in scenarios where you need to find the largest power-of-2 chunk size that fits within a given limit
 - The function assumes num > 0; behavior with num = 0 is undefined
+
+## Simplified Source
+
+```c
+static inline uint32
+pg_prevpower2_32(uint32 num)
+{
+    // Find leftmost bit position and create power of 2 at that position
+    return ((uint32) 1) << pg_leftmost_one_pos32(num);
+}
+```

@@ -41,3 +41,39 @@ The `init_rel_sync_cache` function sets up the relation synchronization cache us
 - The cache is automatically destroyed when the decoding session ends
 - Cache invalidations during session will invoke the registered callbacks to maintain consistency
 - This function is essential for efficient logical replication performance by avoiding repeated catalog lookups
+
+## Simplified Source
+
+```c
+static void
+init_rel_sync_cache(MemoryContext cachectx) {
+    static bool relation_callbacks_registered = false;
+
+    // Return early if cache already exists
+    if (RelationSyncCache != NULL)
+        return;
+
+    // Create hash table for relation sync cache
+    HASHCTL ctl;
+    ctl.keysize = sizeof(Oid);
+    ctl.entrysize = sizeof(RelationSyncEntry);
+    ctl.hcxt = cachectx;
+
+    RelationSyncCache = hash_create("logical replication output relation cache",
+                                   128, &ctl,
+                                   HASH_ELEM | HASH_CONTEXT | HASH_BLOBS);
+
+    // Register callbacks only once
+    if (!relation_callbacks_registered) {
+        // Register relation cache callback for relation changes
+        CacheRegisterRelcacheCallback(rel_sync_cache_relation_cb, (Datum) 0);
+
+        // Register syscache callbacks for schema/publication changes
+        CacheRegisterSyscacheCallback(NAMESPACEOID, rel_sync_cache_publication_cb, (Datum) 0);
+        CacheRegisterSyscacheCallback(PUBLICATIONRELMAP, rel_sync_cache_publication_cb, (Datum) 0);
+        CacheRegisterSyscacheCallback(PUBLICATIONNAMESPACEMAP, rel_sync_cache_publication_cb, (Datum) 0);
+
+        relation_callbacks_registered = true;
+    }
+}
+```

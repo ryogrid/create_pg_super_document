@@ -40,3 +40,53 @@ This function converts a Cash value to PostgreSQL's Numeric data type, which pro
 - Performs exact division by ensuring proper scale factors are set before division
 - The conversion preserves the monetary precision defined by the current locale
 - Essential for interoperability between Cash and Numeric data types in SQL operations
+
+## Simplified Source
+
+```c
+Datum cash_numeric(PG_FUNCTION_ARGS) {
+    Cash money = PG_GETARG_CASH(0);
+    Datum result;
+    int fpoint;
+    struct lconv *lconvert = PGLC_localeconv();
+
+    // Get fractional digits from locale, default to 2 if invalid
+    fpoint = lconvert->frac_digits;
+    if (fpoint < 0 || fpoint > 10) {
+        fpoint = 2;
+    }
+
+    // Convert cash to numeric
+    result = NumericGetDatum(int64_to_numeric(money));
+
+    // Scale for fractional digits if needed
+    if (fpoint > 0) {
+        int64 scale;
+        int i;
+        Datum numeric_scale;
+        Datum quotient;
+
+        // Compute scale factor (10^fpoint)
+        scale = 1;
+        for (i = 0; i < fpoint; i++) {
+            scale *= 10;
+        }
+        numeric_scale = NumericGetDatum(int64_to_numeric(scale));
+
+        // Ensure exact division by setting proper scale
+        numeric_scale = DirectFunctionCall2(numeric_round,
+                                          numeric_scale,
+                                          Int32GetDatum(fpoint));
+
+        // Divide to get proper decimal places
+        quotient = DirectFunctionCall2(numeric_div, result, numeric_scale);
+
+        // Round to exact fractional digits
+        result = DirectFunctionCall2(numeric_round,
+                                   quotient,
+                                   Int32GetDatum(fpoint));
+    }
+
+    PG_RETURN_DATUM(result);
+}
+```

@@ -37,3 +37,20 @@ This is one of PostgreSQL's geometric transformation operators, allowing complex
 - [Point](../P/Point.md) multiplication follows complex number arithmetic rules
 - Part of PostgreSQL's geometric transformation system alongside translation operators
 - Preserves path topology while allowing complex shape transformations
+
+## Simplified Source
+
+```c
+Datum path_mul_pt(PG_FUNCTION_ARGS) {
+    // Get a copy of the path and the transformation point
+    PATH *path = PG_GETARG_PATH_P_COPY(0);
+    Point *point = PG_GETARG_POINT_P(1);
+
+    // Apply transformation to each point in the path
+    for (int i = 0; i < path->npts; i++) {
+        point_mul_point(&path->p[i], &path->p[i], point);
+    }
+
+    return PG_RETURN_PATH_P(path);
+}
+```

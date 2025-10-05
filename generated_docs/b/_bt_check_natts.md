@@ -57,3 +57,81 @@ The validation logic differs significantly based on:
 - Heap TID cannot be untruncated when other key attributes are truncated
 - Pivot tuples must have at least one untruncated key attribute (except minus infinity)
 - Preferred alternative: BTreeTupleGetNAtts() for direct tuple testing when context allows
+
+## Simplified Source
+
+```c
+bool _bt_check_natts(Relation rel, bool heapkeyspace, Page page, OffsetNumber offnum)
+{
+    int16 natts = IndexRelationGetNumberOfAttributes(rel);
+    int16 nkeyatts = IndexRelationGetNumberOfKeyAttributes(rel);
+    BTPageOpaque opaque = BTPageGetOpaque(page);
+    IndexTuple itup;
+    int tupnatts;
+
+    // Skip validation on deleted or half-dead pages
+    if (P_IGNORE(opaque))
+        return true;
+
+    // Get tuple and its attribute count
+    itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, offnum));
+    tupnatts = BTreeTupleGetNAtts(itup, rel);
+
+    // Basic posting list validation
+    if (!heapkeyspace && BTreeTupleIsPosting(itup))
+        return false;
+    if (BTreeTupleIsPosting(itup) &&
+        (ItemPointerGetOffsetNumberNoCheck(&itup->t_tid) & BT_PIVOT_HEAP_TID_ATTR) != 0)
+        return false;
+    if (natts != nkeyatts && BTreeTupleIsPosting(itup))
+        return false;
+
+    if (P_ISLEAF(opaque))
+    {
+        if (offnum >= P_FIRSTDATAKEY(opaque))
+        {
+            // Regular leaf tuple: must not be pivot, should have all attributes
+            if (BTreeTupleIsPivot(itup))
+                return false;
+            return tupnatts == natts;
+        }
+        else
+        {
+            // High key tuple validation
+            if (!heapkeyspace)
+                return tupnatts == nkeyatts;
+            // Fall through to heapkeyspace pivot handling
+        }
+    }
+    else  // Internal page
+    {
+        if (offnum == P_FIRSTDATAKEY(opaque))
+        {
+            // Negative infinity tuple: should be truncated to zero
+            if (heapkeyspace)
+                return tupnatts == 0;
+            // Pre-v11 compatibility check
+            return tupnatts == 0 ||
+                   ItemPointerGetOffsetNumber(&(itup->t_tid)) == P_HIKEY;
+        }
+        else
+        {
+            // Regular downlink tuple
+            if (!heapkeyspace)
+                return tupnatts == nkeyatts;
+            // Fall through to heapkeyspace pivot handling
+        }
+    }
+
+    // Heapkeyspace pivot tuple validation
+    if (!BTreeTupleIsPivot(itup))
+        return false;
+    if (BTreeTupleIsPosting(itup))
+        return false;
+    if (BTreeTupleGetHeapTID(itup) != NULL && tupnatts != nkeyatts)
+        return false;
+
+    // Must have at least one attribute, not exceed key attributes
+    return tupnatts > 0 && tupnatts <= nkeyatts;
+}
+```

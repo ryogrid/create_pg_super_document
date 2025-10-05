@@ -39,3 +39,22 @@ The allocated hash table uses atomic pointers for thread-safe access across para
 - The number of buckets is determined by the parallel_state->nbuckets value stored in the hashtable
 - All bucket pointers are atomically initialized to support concurrent access by multiple worker processes
 - Memory allocation failures will be handled by the underlying DSA allocation mechanism
+
+## Simplified Source
+
+```c
+void ExecParallelHashTableAlloc(HashJoinTable hashtable, int batchno) {
+    ParallelHashJoinBatch *batch = hashtable->batches[batchno].shared;
+    int nbuckets = hashtable->parallel_state->nbuckets;
+
+    // Allocate shared memory for bucket array
+    batch->buckets = dsa_allocate(hashtable->area,
+                                  sizeof(dsa_pointer_atomic) * nbuckets);
+
+    // Get pointer to bucket array and initialize all buckets to empty
+    dsa_pointer_atomic *buckets = dsa_get_address(hashtable->area, batch->buckets);
+    for (int i = 0; i < nbuckets; ++i) {
+        dsa_pointer_atomic_init(&buckets[i], InvalidDsaPointer);
+    }
+}
+```

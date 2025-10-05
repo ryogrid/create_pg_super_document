@@ -34,3 +34,27 @@ This SQL-callable function determines whether a user (specified by role OID) has
 - Part of the has_database_privilege family of functions that provide different parameter combinations
 - The function performs error checking through the convert_* helper functions
 - Located in src/backend/utils/adt/acl.c:3098-3120
+
+## Simplified Source
+
+```c
+Datum
+has_database_privilege_id_name(PG_FUNCTION_ARGS)
+{
+    Oid role_oid = PG_GETARG_OID(0);
+    text *database_name = PG_GETARG_TEXT_PP(1);
+    text *privilege_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert database name to OID
+    Oid database_oid = convert_database_name(database_name);
+
+    // Convert privilege string to internal mode
+    AclMode privilege_mode = convert_database_priv_string(privilege_text);
+
+    // Check privilege (database must exist for this variant)
+    AclResult result = object_aclcheck(DatabaseRelationId, database_oid,
+                                     role_oid, privilege_mode);
+
+    PG_RETURN_BOOL(result == ACLCHECK_OK);
+}
+```

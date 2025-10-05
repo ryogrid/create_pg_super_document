@@ -43,3 +43,52 @@ The function also flushes IO statistics immediately after updating the relation 
 - Uses timestamping to track when the last vacuum occurred for scheduling future maintenance
 - Immediately flushes IO statistics to ensure timely reporting of vacuum-related IO metrics
 - Handles both shared and non-shared relations by determining the appropriate database OID
+
+## Simplified Source
+
+```c
+void
+pgstat_report_vacuum(Oid tableoid, bool shared,
+                     PgStat_Counter livetuples, PgStat_Counter deadtuples)
+{
+    PgStat_EntryRef *entry_ref;
+    PgStatShared_Relation *shtabentry;
+    PgStat_StatTabEntry *tabentry;
+    Oid dboid = (shared ? InvalidOid : MyDatabaseId);
+    TimestampTz ts;
+
+    // Return early if statistics tracking is disabled
+    if (!pgstat_track_counts)
+        return;
+
+    // Get current timestamp for recording vacuum time
+    ts = GetCurrentTimestamp();
+
+    // Get locked reference to relation statistics
+    entry_ref = pgstat_get_entry_ref_locked(PGSTAT_KIND_RELATION,
+                                            dboid, tableoid, false);
+
+    shtabentry = (PgStatShared_Relation *) entry_ref->shared_stats;
+    tabentry = &shtabentry->stats;
+
+    // Update tuple counts and reset insert counter
+    tabentry->live_tuples = livetuples;
+    tabentry->dead_tuples = deadtuples;
+    tabentry->ins_since_vacuum = 0;
+
+    // Update appropriate vacuum counters based on process type
+    if (AmAutoVacuumWorkerProcess()) {
+        tabentry->last_autovacuum_time = ts;
+        tabentry->autovacuum_count++;
+    } else {
+        tabentry->last_vacuum_time = ts;
+        tabentry->vacuum_count++;
+    }
+
+    // Release lock
+    pgstat_unlock_entry(entry_ref);
+
+    // Flush IO statistics immediately after vacuum
+    pgstat_flush_io(false);
+}
+```

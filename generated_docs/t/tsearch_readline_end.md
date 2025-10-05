@@ -40,3 +40,23 @@ The function carefully manages memory by freeing the current line buffer (if it 
 - Part of the three-function sequence: tsearch_readline_begin(), tsearch_readline(), tsearch_readline_end()
 - Does not return any value (void function)
 - Essential for preventing memory leaks in text search file processing
+
+## Simplified Source
+
+```c
+void tsearch_readline_end(tsearch_readline_state *stp) {
+    // Clean up current line buffer
+    if (stp->curline) {
+        if (stp->curline != stp->buf.data)
+            pfree(stp->curline);
+        stp->curline = NULL;
+    }
+
+    // Release other resources
+    pfree(stp->buf.data);
+    FreeFile(stp->fp);
+
+    // Restore error context stack
+    error_context_stack = stp->cb.previous;
+}
+```

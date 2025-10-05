@@ -55,3 +55,75 @@ The function implements several important concurrency considerations:
 4. Returns a stack of parent positions but no entry for the leaf level itself
 5. In BT_READ mode with empty index, returns InvalidBuffer rather than creating pages
 6. The heaprel parameter is required for BT_WRITE access since root page allocation may be needed
+
+## Simplified Source
+
+```c
+BTStack
+_bt_search(Relation rel, Relation heaprel, BTScanInsert key, Buffer *bufP, int access)
+{
+    BTStack stack_in = NULL;
+    int page_access = BT_READ;
+
+    // Get the root page to start search
+    *bufP = _bt_getroot(rel, heaprel, access);
+
+    // Handle empty index for read access
+    if (!BufferIsValid(*bufP))
+        return (BTStack) NULL;
+
+    // Traverse tree level by level until we reach a leaf
+    for (;;)
+    {
+        Page page;
+        BTPageOpaque opaque;
+        OffsetNumber offnum;
+        ItemId itemid;
+        IndexTuple itup;
+        BlockNumber child;
+        BTStack new_stack;
+
+        // Handle page splits that may have occurred since reading downlink
+        *bufP = _bt_moveright(rel, heaprel, key, *bufP, (access == BT_WRITE),
+                             stack_in, page_access);
+
+        // Check if we've reached a leaf page
+        page = BufferGetPage(*bufP);
+        opaque = BTPageGetOpaque(page);
+        if (P_ISLEAF(opaque))
+            break;
+
+        // Find appropriate pivot tuple pointing to child page
+        offnum = _bt_binsrch(rel, key, *bufP);
+        itemid = PageGetItemId(page, offnum);
+        itup = (IndexTuple) PageGetItem(page, itemid);
+        child = BTreeTupleGetDownLink(itup);
+
+        // Save this page's position in the stack for potential splits
+        new_stack = (BTStack) palloc(sizeof(BTStackData));
+        new_stack->bts_blkno = BufferGetBlockNumber(*bufP);
+        new_stack->bts_offset = offnum;
+        new_stack->bts_parent = stack_in;
+
+        // If next level is leaf and we need write access, prepare for it
+        if (opaque->btpo_level == 1 && access == BT_WRITE)
+            page_access = BT_WRITE;
+
+        // Move to child page
+        *bufP = _bt_relandgetbuf(rel, *bufP, child, page_access);
+        stack_in = new_stack;
+    }
+
+    // Handle special case: root page is also leaf and we need write lock
+    if (access == BT_WRITE && page_access == BT_READ)
+    {
+        _bt_unlockbuf(rel, *bufP);
+        _bt_lockbuf(rel, *bufP, BT_WRITE);
+
+        // Check for splits after lock upgrade
+        *bufP = _bt_moveright(rel, heaprel, key, *bufP, true, stack_in, BT_WRITE);
+    }
+
+    return stack_in;
+}
+```

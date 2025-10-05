@@ -56,3 +56,74 @@ The function modifies the  structure by:
 - The function maintains consistency between the three parallel arrays (procs, locks, waiter_pids) using index ranges
 - Lock instance data includes both holding and waiting processes for the contested lock
 - Process group leader PID is captured for each lock holder to support lock group analysis
+
+## Simplified Source
+
+```c
+static void
+GetSingleProcBlockerStatusData(PGPROC *blocked_proc, BlockedProcsData *data)
+{
+    LOCK *theLock = blocked_proc->waitLock;
+    BlockedProcData *bproc;
+
+    // Skip if process is not actually blocked
+    if (theLock == NULL)
+        return;
+
+    // Set up process entry
+    bproc = &data->procs[data->nprocs++];
+    bproc->pid = blocked_proc->pid;
+    bproc->first_lock = data->nlocks;
+    bproc->first_waiter = data->npids;
+
+    // Collect all lock holders for this contested lock
+    dlist_foreach(proclock_iter, &theLock->procLocks)
+    {
+        PROCLOCK *proclock = dlist_container(PROCLOCK, lockLink, proclock_iter.cur);
+        PGPROC *proc = proclock->tag.myProc;
+        LOCK *lock = proclock->tag.myLock;
+
+        // Expand locks array if needed
+        if (data->nlocks >= data->maxlocks) {
+            data->maxlocks += MaxBackends;
+            data->locks = repalloc(data->locks, sizeof(LockInstanceData) * data->maxlocks);
+        }
+
+        // Record lock instance data
+        LockInstanceData *instance = &data->locks[data->nlocks];
+        memcpy(&instance->locktag, &lock->tag, sizeof(LOCKTAG));
+        instance->holdMask = proclock->holdMask;
+        instance->waitLockMode = (proc->waitLock == lock) ? proc->waitLockMode : NoLock;
+        instance->vxid.procNumber = proc->vxid.procNumber;
+        instance->vxid.localTransactionId = proc->vxid.lxid;
+        instance->pid = proc->pid;
+        instance->leaderPid = proclock->groupLeader->pid;
+        instance->fastpath = false;
+        data->nlocks++;
+    }
+
+    // Collect wait queue PIDs (processes ahead of blocked_proc)
+    dclist_head *waitQueue = &(theLock->waitProcs);
+    int queue_size = dclist_count(waitQueue);
+
+    // Expand waiter PIDs array if needed
+    if (queue_size > data->maxpids - data->npids) {
+        data->maxpids = Max(data->maxpids + MaxBackends, data->npids + queue_size);
+        data->waiter_pids = repalloc(data->waiter_pids, sizeof(int) * data->maxpids);
+    }
+
+    // Walk wait queue until we reach blocked_proc
+    dclist_foreach(proc_iter, waitQueue)
+    {
+        PGPROC *queued_proc = dlist_container(PGPROC, links, proc_iter.cur);
+
+        if (queued_proc == blocked_proc)
+            break;
+        data->waiter_pids[data->npids++] = queued_proc->pid;
+    }
+
+    // Record counts for this process
+    bproc->num_locks = data->nlocks - bproc->first_lock;
+    bproc->num_waiters = data->npids - bproc->first_waiter;
+}
+```

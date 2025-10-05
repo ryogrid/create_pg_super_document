@@ -55,3 +55,55 @@ The function handles the transition between posting list tuples and standard tup
 - Used in critical index maintenance operations including VACUUM and WAL recovery
 - The original tuple is not modified; a completely new tuple is created
 - Located at src/backend/access/nbtree/nbtdedup.c:924-1021
+
+## Simplified Source
+
+```c
+void _bt_update_posting(BTVacuumPosting vacposting) {
+    IndexTuple origtuple = vacposting->itup;
+
+    // Calculate remaining TIDs after deletion
+    int nhtids = BTreeTupleGetNPosting(origtuple) - vacposting->ndeletedtids;
+    Assert(nhtids > 0 && nhtids < BTreeTupleGetNPosting(origtuple));
+
+    // Determine new tuple size (matches _bt_form_posting logic)
+    uint32 keysize = BTreeTupleGetPostingOffset(origtuple);
+    uint32 newsize;
+    if (nhtids > 1)
+        newsize = MAXALIGN(keysize + nhtids * sizeof(ItemPointerData));
+    else
+        newsize = keysize; // Standard tuple for single TID
+
+    // Allocate and initialize new tuple
+    IndexTuple itup = palloc0(newsize);
+    memcpy(itup, origtuple, keysize); // Copy key data
+    itup->t_info = (itup->t_info & ~INDEX_SIZE_MASK) | newsize;
+
+    // Set up TID storage based on result type
+    ItemPointer htids;
+    if (nhtids > 1) {
+        // Create posting list tuple
+        BTreeTupleSetPosting(itup, nhtids, keysize);
+        htids = BTreeTupleGetPosting(itup);
+    } else {
+        // Create standard non-pivot tuple
+        itup->t_info &= ~INDEX_ALT_TID_MASK;
+        htids = &itup->t_tid;
+    }
+
+    // Copy non-deleted TIDs to new tuple
+    int ui = 0, d = 0;
+    for (int i = 0; i < BTreeTupleGetNPosting(origtuple); i++) {
+        if (d < vacposting->ndeletedtids && vacposting->deletetids[d] == i) {
+            d++; // Skip this TID - it's marked for deletion
+            continue;
+        }
+        htids[ui++] = *BTreeTupleGetPostingN(origtuple, i);
+    }
+
+    Assert(ui == nhtids && d == vacposting->ndeletedtids);
+
+    // Update vacposting to point to new tuple
+    vacposting->itup = itup;
+}
+```

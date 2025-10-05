@@ -35,3 +35,38 @@ This function initializes the processing of a posting list tuple during B-tree s
 - Must be followed by calls to _bt_savepostingitem() for processing additional TIDs from the same posting list
 - Only handles posting list tuples (verified by assertion)
 - Part of PostgreSQL's posting list optimization for reducing index size when many tuples have identical key values
+
+## Simplified Source
+
+```c
+static int
+_bt_setuppostingitems(BTScanOpaque so, int itemIndex, OffsetNumber offnum,
+                      ItemPointer heapTid, IndexTuple itup)
+{
+    BTScanPosItem *currItem = &so->currPos.items[itemIndex];
+
+    // Store first TID from posting list and page offset
+    currItem->heapTid = *heapTid;
+    currItem->indexOffset = offnum;
+
+    // Create base tuple (without posting list) if caching enabled
+    if (so->currTuples) {
+        // Calculate base tuple size (excludes posting list)
+        Size baseSize = BTreeTupleGetPostingOffset(itup);
+        baseSize = MAXALIGN(baseSize);
+
+        currItem->tupleOffset = so->currPos.nextTupleOffset;
+        IndexTuple base = (IndexTuple)(so->currTuples + so->currPos.nextTupleOffset);
+
+        // Copy base tuple data and adjust header size
+        memcpy(base, itup, baseSize);
+        base->t_info &= ~INDEX_SIZE_MASK;
+        base->t_info |= baseSize;
+
+        so->currPos.nextTupleOffset += baseSize;
+        return currItem->tupleOffset;
+    }
+
+    return 0;
+}
+```

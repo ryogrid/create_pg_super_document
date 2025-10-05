@@ -39,3 +39,23 @@ The conditional pin release logic ensures that the buffer pin is only dropped wh
 3. The scan doesn't need index tuples (xs_want_itup is false)
 
 This careful conditional release prevents issues with concurrent TID recycling while still allowing vacuum to proceed efficiently when safe.
+
+## Simplified Source
+
+```c
+static void
+_bt_drop_lock_and_maybe_pin(IndexScanDesc scan, BTScanPos sp)
+{
+    // Always unlock the buffer first
+    _bt_unlockbuf(scan->indexRelation, sp->buf);
+
+    // Release buffer pin only when safe for concurrent operations
+    if (IsMVCCSnapshot(scan->xs_snapshot) &&
+        RelationNeedsWAL(scan->indexRelation) &&
+        !scan->xs_want_itup)
+    {
+        ReleaseBuffer(sp->buf);
+        sp->buf = InvalidBuffer;
+    }
+}
+```

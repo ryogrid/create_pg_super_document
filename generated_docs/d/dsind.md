@@ -44,3 +44,48 @@ The `dsind` function implements the sine function for degree-based input in Post
 - Returns double precision floating point results
 - Handles overflow conditions by calling appropriate error reporting functions
 - Uses the same range reduction pattern as `dcosd` but applies sine-specific trigonometric identities
+
+## Simplified Source
+
+```c
+Datum dsind(PG_FUNCTION_ARGS) {
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float8 result;
+    int sign = 1;
+
+    // Handle special values per POSIX spec
+    if (isnan(arg1))
+        PG_RETURN_FLOAT8(get_float8_nan());
+
+    if (isinf(arg1))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("input is out of range")));
+
+    INIT_DEGREE_CONSTANTS();
+
+    // Range reduction: reduce input to [0, 90] degrees
+    arg1 = fmod(arg1, 360.0);           // Handle full rotations
+
+    if (arg1 < 0.0) {
+        arg1 = -arg1;                   // sin(-x) = -sin(x)
+        sign = -sign;
+    }
+
+    if (arg1 > 180.0) {
+        arg1 = 360.0 - arg1;            // sin(360-x) = -sin(x)
+        sign = -sign;
+    }
+
+    if (arg1 > 90.0) {
+        arg1 = 180.0 - arg1;            // sin(180-x) = sin(x)
+    }
+
+    // Calculate using optimized first quadrant function
+    result = sign * sind_q1(arg1);
+
+    if (unlikely(isinf(result)))
+        float_overflow_error();
+
+    PG_RETURN_FLOAT8(result);
+}
+```

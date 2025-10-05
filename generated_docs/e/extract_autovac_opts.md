@@ -39,3 +39,26 @@ The function handles the case where no autovacuum options are explicitly set by 
 - Returns NULL when no autovacuum-specific reloptions are configured
 - The extracted options include parameters like vacuum_threshold, vacuum_scale_factor, analyze_threshold, analyze_scale_factor, and vacuum cost settings
 - Memory allocation uses palloc, making the result subject to PostgreSQL's memory context management
+
+## Simplified Source
+
+```c
+static AutoVacOpts *
+extract_autovac_opts(HeapTuple tup, TupleDesc pg_class_desc)
+{
+    bytea *relopts;
+    AutoVacOpts *av;
+
+    // Extract the full reloptions bytea from the tuple
+    relopts = extractRelOptions(tup, pg_class_desc, NULL);
+    if (relopts == NULL)
+        return NULL;
+
+    // Copy the autovacuum portion from the standard reloptions
+    av = palloc(sizeof(AutoVacOpts));
+    memcpy(av, &(((StdRdOptions *) relopts)->autovacuum), sizeof(AutoVacOpts));
+    pfree(relopts);
+
+    return av;
+}
+```

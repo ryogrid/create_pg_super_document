@@ -51,3 +51,70 @@ The  function constructs a complete row for the pg_hba_file_rules system view, w
 - Uses PostgreSQL's standard tuple construction and storage mechanisms
 - Network address formatting includes IPv6 address cleaning for proper display
 - Memory management is simplified due to short-lived execution context
+
+## Simplified Source
+
+```c
+static void
+fill_hba_line(Tuplestorestate *tuple_store, TupleDesc tupdesc,
+              int rule_number, char *filename, int lineno, HbaLine *hba,
+              const char *err_msg)
+{
+    Datum values[NUM_PG_HBA_FILE_RULES_ATTS];
+    bool nulls[NUM_PG_HBA_FILE_RULES_ATTS];
+    int index = 0;
+
+    memset(values, 0, sizeof(values));
+    memset(nulls, 0, sizeof(nulls));
+
+    // Rule number (NULL on error)
+    if (err_msg)
+        nulls[index++] = true;
+    else
+        values[index++] = Int32GetDatum(rule_number);
+
+    // File name and line number
+    values[index++] = CStringGetTextDatum(filename);
+    values[index++] = Int32GetDatum(lineno);
+
+    if (hba != NULL) {
+        // Connection type (local, host, hostssl, etc.)
+        const char *typestr = get_connection_type_string(hba->conntype);
+        if (typestr)
+            values[index++] = CStringGetTextDatum(typestr);
+        else
+            nulls[index++] = true;
+
+        // Database and user lists
+        values[index++] = convert_auth_tokens_to_array(hba->databases);
+        values[index++] = convert_auth_tokens_to_array(hba->roles);
+
+        // Address and netmask handling
+        process_address_info(hba, &values[index], &nulls[index]);
+        index += 2;
+
+        // Authentication method
+        values[index++] = CStringGetTextDatum(hba_authname(hba->auth_method));
+
+        // Authentication options
+        ArrayType *options = get_hba_options(hba);
+        if (options)
+            values[index++] = PointerGetDatum(options);
+        else
+            nulls[index++] = true;
+    } else {
+        // Set remaining fields to NULL for parse errors
+        memset(&nulls[3], true, (NUM_PG_HBA_FILE_RULES_ATTS - 4) * sizeof(bool));
+    }
+
+    // Error message
+    if (err_msg)
+        values[NUM_PG_HBA_FILE_RULES_ATTS - 1] = CStringGetTextDatum(err_msg);
+    else
+        nulls[NUM_PG_HBA_FILE_RULES_ATTS - 1] = true;
+
+    // Create and store tuple
+    HeapTuple tuple = heap_form_tuple(tupdesc, values, nulls);
+    tuplestore_puttuple(tuple_store, tuple);
+}
+```

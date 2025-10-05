@@ -50,3 +50,29 @@ When batching is not active (nbatch == 1), all tuples are assigned to batch 0. F
 - nbatch is always a power of 2 and only increases by doubling
 - In very large joins, bit rotation may cause batch numbers to use bits from bucket numbers when virtual buckets exceed 2^32
 - The function prioritizes maintaining batch creation capability over minimizing bucket chain length
+
+## Simplified Source
+
+```c
+void
+ExecHashGetBucketAndBatch(HashJoinTable hashtable,
+                         uint32 hashvalue,
+                         int *bucketno,
+                         int *batchno)
+{
+    uint32 nbuckets = (uint32) hashtable->nbuckets;
+    uint32 nbatch = (uint32) hashtable->nbatch;
+
+    // Calculate bucket number using bit masking
+    *bucketno = hashvalue & (nbuckets - 1);
+
+    if (nbatch > 1) {
+        // Multi-batch mode: rotate hash bits and calculate batch number
+        *batchno = pg_rotate_right32(hashvalue, hashtable->log2_nbuckets) & (nbatch - 1);
+    }
+    else {
+        // Single batch mode: all tuples go to batch 0
+        *batchno = 0;
+    }
+}
+```

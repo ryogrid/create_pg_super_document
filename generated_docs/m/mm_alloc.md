@@ -41,3 +41,18 @@ The  function serves as a safe wrapper around the standard  function specificall
 - Used extensively throughout the ECPG preprocessor for all dynamic memory allocations
 - Provides consistent error handling behavior across the entire ECPG codebase
 - Located in  at lines 13-24
+
+## Simplified Source
+
+```c
+void *mm_alloc(size_t size) {
+    // Allocate memory and check for failure
+    void *ptr = malloc(size);
+
+    // Terminate program if allocation fails
+    if (ptr == NULL)
+        mmfatal(OUT_OF_MEMORY, "out of memory");
+
+    return ptr;
+}
+```

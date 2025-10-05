@@ -36,3 +36,16 @@ Like other Cash arithmetic functions, it follows PostgreSQL's standard function 
 - The int16 parameter is promoted to int64 internally for unified arithmetic handling
 - Follows the same safe arithmetic pattern as `cash_mul_int4` but works with smaller 16-bit integers
 - Provides support for multiplication operations where the multiplier fits in a smaller integer range
+
+## Simplified Source
+
+```c
+Datum cash_mul_int2(PG_FUNCTION_ARGS) {
+    // Extract cash value and int2 multiplier from arguments
+    Cash c = PG_GETARG_CASH(0);
+    int16 s = PG_GETARG_INT16(1);
+
+    // Delegate to 64-bit multiplication helper for safe arithmetic
+    PG_RETURN_CASH(cash_mul_int64(c, (int64) s));
+}
+```

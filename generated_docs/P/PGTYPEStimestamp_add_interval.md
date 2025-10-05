@@ -38,3 +38,50 @@ This function performs timestamp arithmetic by adding an interval to a timestamp
 - Adjusts for end-of-month boundary problems (e.g., February 29 + 1 year)
 - Processes month and time components separately for accurate results
 - Part of the ECPG pgtypes library for embedded SQL applications
+
+## Simplified Source
+
+```c
+int
+PGTYPEStimestamp_add_interval(timestamp *tin, interval *span, timestamp *tout)
+{
+    // Handle infinite timestamps
+    if (TIMESTAMP_NOT_FINITE(*tin)) {
+        *tout = *tin;
+    } else {
+        // Process month component if present
+        if (span->month != 0) {
+            struct tm tt, *tm = &tt;
+            fsec_t fsec;
+
+            // Convert timestamp to tm structure
+            if (timestamp2tm(*tin, NULL, tm, &fsec, NULL) != 0)
+                return -1;
+
+            // Add months with year overflow handling
+            tm->tm_mon += span->month;
+            if (tm->tm_mon > MONTHS_PER_YEAR) {
+                tm->tm_year += (tm->tm_mon - 1) / MONTHS_PER_YEAR;
+                tm->tm_mon = (tm->tm_mon - 1) % MONTHS_PER_YEAR + 1;
+            } else if (tm->tm_mon < 1) {
+                tm->tm_year += tm->tm_mon / MONTHS_PER_YEAR - 1;
+                tm->tm_mon = tm->tm_mon % MONTHS_PER_YEAR + MONTHS_PER_YEAR;
+            }
+
+            // Adjust for end-of-month boundary problems (e.g., Jan 31 + 1 month = Feb 28/29)
+            if (tm->tm_mday > day_tab[isleap(tm->tm_year)][tm->tm_mon - 1])
+                tm->tm_mday = day_tab[isleap(tm->tm_year)][tm->tm_mon - 1];
+
+            // Convert back to timestamp
+            if (tm2timestamp(tm, fsec, NULL, tin) != 0)
+                return -1;
+        }
+
+        // Add time component
+        *tin += span->time;
+        *tout = *tin;
+    }
+
+    return 0;
+}
+```

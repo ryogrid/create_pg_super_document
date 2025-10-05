@@ -35,3 +35,16 @@ This function implements the multiplication operation between a 64-bit integer (
 - Uses the same underlying cash_mul_int64 helper function as cash_mul_int8, ensuring consistent behavior
 - Leverages safe arithmetic with overflow protection through the helper function
 - Related to the already processed cash_mul_int64 helper function that provides safe multiplication with overflow detection
+
+## Simplified Source
+
+```c
+// Multiply 64-bit integer by cash (commutative operation)
+Datum int8_mul_cash(PG_FUNCTION_ARGS) {
+    int64 multiplier = PG_GETARG_INT64(0);
+    Cash cash_value = PG_GETARG_CASH(1);
+
+    // Delegate to internal function for safe multiplication
+    PG_RETURN_CASH(cash_mul_int64(cash_value, multiplier));
+}
+```

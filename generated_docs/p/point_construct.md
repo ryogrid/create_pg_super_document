@@ -36,3 +36,12 @@ The `point_construct` function is a simple inline utility function that initiali
 - Provides a clean abstraction over direct field assignment
 - Essential building block for various geometric calculations and operations
 - Part of PostgreSQL's geometric data type implementation infrastructure
+
+## Simplified Source
+```c
+static inline void point_construct(Point *result, float8 x, float8 y) {
+    // Initialize point coordinates
+    result->x = x;
+    result->y = y;
+}
+```

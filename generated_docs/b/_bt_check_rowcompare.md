@@ -212,3 +212,124 @@ write_data_to_archive_lz4_doc.md: Scan direction (forward or backward)
 - Critical for multi-column index performance in PostgreSQL
 - Part of the B-tree access method's scan key evaluation system
 - Located in src/backend/access/nbtree/nbtutils.c:3888-4071
+
+## Simplified Source
+
+```c
+static bool
+_bt_check_rowcompare(ScanKey skey, IndexTuple tuple, int tupnatts,
+                     TupleDesc tupdesc, ScanDirection dir, bool *continuescan)
+{
+    ScanKey subkey = (ScanKey) DatumGetPointer(skey->sk_argument);
+    int32 cmpresult = 0;
+    bool result;
+
+    // Loop over columns of the row condition
+    for (;;)
+    {
+        Datum datum;
+        bool isNull;
+
+        Assert(subkey->sk_flags & SK_ROW_MEMBER);
+
+        // Handle truncated attributes in pivot tuples
+        if (subkey->sk_attno > tupnatts)
+        {
+            Assert(BTreeTupleIsPivot(tuple));
+            cmpresult = 0;  // Assume truncated attributes pass
+            if (subkey->sk_flags & SK_ROW_END)
+                break;
+            subkey++;
+            continue;
+        }
+
+        // Get tuple attribute value
+        datum = index_getattr(tuple, subkey->sk_attno, tupdesc, &isNull);
+
+        // Handle NULL values based on NULLS FIRST/LAST ordering
+        if (isNull)
+        {
+            if (subkey->sk_flags & SK_BT_NULLS_FIRST)
+            {
+                if ((subkey->sk_flags & (SK_BT_REQFWD | SK_BT_REQBKWD)) &&
+                    ScanDirectionIsBackward(dir))
+                    *continuescan = false;
+            }
+            else
+            {
+                if ((subkey->sk_flags & (SK_BT_REQFWD | SK_BT_REQBKWD)) &&
+                    ScanDirectionIsForward(dir))
+                    *continuescan = false;
+            }
+            return false;
+        }
+
+        // Handle IS NULL search in row comparison (not allowed but check anyway)
+        if (subkey->sk_flags & SK_ISNULL)
+        {
+            if (subkey != (ScanKey) DatumGetPointer(skey->sk_argument))
+                subkey--;
+            if ((subkey->sk_flags & SK_BT_REQFWD) &&
+                ScanDirectionIsForward(dir))
+                *continuescan = false;
+            else if ((subkey->sk_flags & SK_BT_REQBKWD) &&
+                     ScanDirectionIsBackward(dir))
+                *continuescan = false;
+            return false;
+        }
+
+        // Perform three-way comparison
+        cmpresult = DatumGetInt32(FunctionCall2Coll(&subkey->sk_func,
+                                                   subkey->sk_collation,
+                                                   datum,
+                                                   subkey->sk_argument));
+
+        // Apply DESC ordering if needed
+        if (subkey->sk_flags & SK_BT_DESC)
+            INVERT_COMPARE_RESULT(cmpresult);
+
+        // Stop if unequal, else advance to next column
+        if (cmpresult != 0)
+            break;
+
+        if (subkey->sk_flags & SK_ROW_END)
+            break;
+        subkey++;
+    }
+
+    // Apply the final strategy to the comparison result
+    switch (subkey->sk_strategy)
+    {
+        case BTLessStrategyNumber:
+            result = (cmpresult < 0);
+            break;
+        case BTLessEqualStrategyNumber:
+            result = (cmpresult <= 0);
+            break;
+        case BTGreaterEqualStrategyNumber:
+            result = (cmpresult >= 0);
+            break;
+        case BTGreaterStrategyNumber:
+            result = (cmpresult > 0);
+            break;
+        default:
+            elog(ERROR, "unrecognized RowCompareType: %d",
+                 (int) subkey->sk_strategy);
+            result = 0;
+            break;
+    }
+
+    // Set continuescan if qualification failed and key is required
+    if (!result)
+    {
+        if ((subkey->sk_flags & SK_BT_REQFWD) &&
+            ScanDirectionIsForward(dir))
+            *continuescan = false;
+        else if ((subkey->sk_flags & SK_BT_REQBKWD) &&
+                 ScanDirectionIsBackward(dir))
+            *continuescan = false;
+    }
+
+    return result;
+}
+```

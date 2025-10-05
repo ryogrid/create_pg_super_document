@@ -35,3 +35,21 @@ This function is the primary entry point for users who want to convert plain tex
 - Automatically uses the current session's default text search configuration, making it user-friendly
 - Part of PostgreSQL's text search functionality that allows natural language queries without requiring knowledge of TSQuery syntax
 - The function is typically accessed through SQL as plainto_tsquery('search text')
+
+## Simplified Source
+
+```c
+Datum
+plainto_tsquery(PG_FUNCTION_ARGS)
+{
+    text *input_text = PG_GETARG_TEXT_PP(0);
+
+    // Get current default text search configuration
+    Oid config_id = getTSCurrentConfig(true);
+
+    // Delegate to plainto_tsquery_byid with default config
+    PG_RETURN_DATUM(DirectFunctionCall2(plainto_tsquery_byid,
+                                       ObjectIdGetDatum(config_id),
+                                       PointerGetDatum(input_text)));
+}
+```

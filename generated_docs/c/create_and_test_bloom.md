@@ -43,3 +43,35 @@ The function includes intelligent alerting - it issues a WARNING if the false po
 - Automatically cleans up allocated memory via bloom_free
 - This is a static function, only accessible within the test_bloomfilter.c file
 - The function provides both performance validation and debugging information for Bloom filter behavior
+
+## Simplified Source
+
+```c
+static void create_and_test_bloom(int power, int64 nelements, int callerseed) {
+    int bloom_work_mem;
+    uint64 seed;
+    int64 nfalsepos;
+    bloom_filter *filter;
+
+    // Calculate memory size from power parameter
+    bloom_work_mem = (1L << power) / 8L / 1024L;
+    elog(DEBUG1, "bloom_work_mem (KB): %d", bloom_work_mem);
+
+    // Generate or use provided seed
+    seed = callerseed < 0 ? pg_prng_int32p(&pg_global_prng_state) : callerseed;
+
+    // Create and test Bloom filter
+    filter = bloom_create(nelements, bloom_work_mem, seed);
+    populate_with_dummy_strings(filter, nelements);
+    nfalsepos = nfalsepos_for_missing_strings(filter, nelements);
+
+    // Report results - warn if false positive rate exceeds threshold
+    ereport((nfalsepos > nelements * FPOSITIVE_THRESHOLD) ? WARNING : DEBUG1,
+            (errmsg_internal("seed: " UINT64_FORMAT " false positives: " INT64_FORMAT
+                           " (%.6f%%) bitset %.2f%% set",
+                           seed, nfalsepos, (double) nfalsepos / nelements,
+                           100.0 * bloom_prop_bits_set(filter))));
+
+    bloom_free(filter);
+}
+```

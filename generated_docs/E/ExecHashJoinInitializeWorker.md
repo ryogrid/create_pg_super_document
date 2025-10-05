@@ -47,3 +47,27 @@ This initialization is essential for coordinating multiple worker processes that
 - The shared file set attachment enables workers to coordinate when hash table data needs to be spilled to temporary files
 - This is a void function that modifies the passed HashJoinState structure in place
 - Located in src/backend/executor/nodeHashjoin.c:1647-1663
+
+## Simplified Source
+
+```c
+void
+ExecHashJoinInitializeWorker(HashJoinState *state,
+                             ParallelWorkerContext *pwcxt)
+{
+    HashState *hashNode;
+    int plan_node_id = state->js.ps.plan->plan_node_id;
+    ParallelHashJoinState *pstate =
+        shm_toc_lookup(pwcxt->toc, plan_node_id, false);
+
+    // Attach to shared temporary file system for spilling
+    SharedFileSetAttach(&pstate->fileset, pwcxt->seg);
+
+    // Connect hash node to parallel shared state
+    hashNode = (HashState *) innerPlanState(state);
+    hashNode->parallel_state = pstate;
+
+    // Switch to parallel execution function
+    ExecSetExecProcNode(&state->js.ps, ExecParallelHashJoin);
+}
+```

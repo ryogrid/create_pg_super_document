@@ -37,3 +37,33 @@ The aclitemin function is a PostgreSQL input function that converts a text strin
 - Returns NULL on parsing failure when error context allows soft errors
 - Raises ERRCODE_INVALID_TEXT_REPRESENTATION for trailing garbage in input
 - Part of PostgreSQL's type system infrastructure for ACL item input/output
+
+## Simplified Source
+
+```c
+Datum
+aclitemin(PG_FUNCTION_ARGS)
+{
+    const char *s = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    AclItem *aip;
+
+    // Allocate memory for new ACL item
+    aip = (AclItem *) palloc(sizeof(AclItem));
+
+    // Parse the ACL string
+    s = aclparse(s, aip, escontext);
+    if (s == NULL)
+        PG_RETURN_NULL();
+
+    // Skip any trailing whitespace
+    while (isspace((unsigned char) *s))
+        ++s;
+
+    // Error if there's trailing garbage
+    if (*s)
+        ereturn(escontext, (Datum) 0, "extra garbage at end of ACL specification");
+
+    PG_RETURN_ACLITEM_P(aip);
+}
+```

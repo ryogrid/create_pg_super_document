@@ -37,3 +37,45 @@ This function is an extended version of JsonbHashScalarValue that produces 64-bi
 
 ## Notes and Other Information
 The function uses ROTATE_HIGH_AND_LOW_32BITS macro for hash combination instead of the simple left rotation used in the 32-bit version. This provides better mixing properties for 64-bit hash values. The seed parameter allows for creating different hash families, which is useful for hash table resizing and reducing hash collisions. Boolean handling is more sophisticated than the basic version, using the extended hash infrastructure when a seed is present.
+
+## Simplified Source
+
+```c
+void JsonbHashScalarValueExtended(const JsonbValue *scalarVal, uint64 *hash, uint64 seed) {
+    uint64 tmp;
+
+    // Compute 64-bit hash with seed based on scalar type
+    switch (scalarVal->type) {
+        case jbvNull:
+            tmp = seed + 0x01;
+            break;
+        case jbvString:
+            tmp = DatumGetUInt64(hash_any_extended(
+                (const unsigned char *) scalarVal->val.string.val,
+                scalarVal->val.string.len,
+                seed));
+            break;
+        case jbvNumeric:
+            tmp = DatumGetUInt64(DirectFunctionCall2(hash_numeric_extended,
+                NumericGetDatum(scalarVal->val.numeric),
+                UInt64GetDatum(seed)));
+            break;
+        case jbvBool:
+            if (seed) {
+                tmp = DatumGetUInt64(DirectFunctionCall2(hashcharextended,
+                    BoolGetDatum(scalarVal->val.boolean),
+                    UInt64GetDatum(seed)));
+            } else {
+                tmp = scalarVal->val.boolean ? 0x02 : 0x04;
+            }
+            break;
+        default:
+            elog(ERROR, "invalid jsonb scalar type");
+            break;
+    }
+
+    // Combine hash using 64-bit rotation and XOR
+    *hash = ROTATE_HIGH_AND_LOW_32BITS(*hash);
+    *hash ^= tmp;
+}
+```

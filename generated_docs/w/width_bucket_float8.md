@@ -40,3 +40,59 @@ The width_bucket_float8 function implements the SQL2003 standard width_bucket() 
 - Uses precise floating-point arithmetic with special handling for extreme values
 - Located in src/backend/utils/adt/float.c:3989-4082
 - Part of PostgreSQL's statistical and analytical function suite
+
+## Simplified Source
+
+```c
+Datum width_bucket_float8(PG_FUNCTION_ARGS) {
+    // Extract arguments
+    float8 operand = PG_GETARG_FLOAT8(0);
+    float8 bound1 = PG_GETARG_FLOAT8(1);
+    float8 bound2 = PG_GETARG_FLOAT8(2);
+    int32 count = PG_GETARG_INT32(3);
+    int32 result;
+
+    // Validate inputs: count > 0, no NaN values, finite bounds
+    if (count <= 0 || isnan(operand) || isnan(bound1) || isnan(bound2) ||
+        isinf(bound1) || isinf(bound2) || bound1 == bound2) {
+        ereport(ERROR, /* appropriate error */);
+    }
+
+    if (bound1 < bound2) {
+        // Ascending histogram
+        if (operand < bound1)
+            result = 0;  // Below range
+        else if (operand >= bound2)
+            result = count + 1;  // Above range
+        else {
+            // Calculate bucket within range
+            if (!isinf(bound2 - bound1)) {
+                result = count * ((operand - bound1) / (bound2 - bound1));
+            } else {
+                // Handle overflow case by dividing by 2
+                result = count * ((operand/2 - bound1/2) / (bound2/2 - bound1/2));
+            }
+            // Ensure result is in valid range and add 1
+            if (result >= count) result = count - 1;
+            result++;
+        }
+    } else {
+        // Descending histogram (bound1 > bound2)
+        if (operand > bound1)
+            result = 0;
+        else if (operand <= bound2)
+            result = count + 1;
+        else {
+            // Calculate bucket for descending range
+            if (!isinf(bound1 - bound2))
+                result = count * ((bound1 - operand) / (bound1 - bound2));
+            else
+                result = count * ((bound1/2 - operand/2) / (bound1/2 - bound2/2));
+            if (result >= count) result = count - 1;
+            result++;
+        }
+    }
+
+    PG_RETURN_INT32(result);
+}
+```

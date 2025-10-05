@@ -38,3 +38,19 @@ Importantly, the function inverts the return value of PGSemaphoreTryLock because
 - Index validation helps detect lock corruption or programming errors
 - Non-blocking operation makes it suitable for use in busy-wait loops with backoff strategies
 - Provides better CPU utilization than pure busy-waiting in environments where hardware spinlocks are suboptimal
+
+## Simplified Source
+
+```c
+int tas_sema(volatile slock_t *lock)
+{
+    int lockndx = *lock;  // Extract semaphore array index
+
+    // Validate the index is within bounds
+    s_check_valid(lockndx);
+
+    // Try to acquire semaphore non-blocking
+    // Note: TAS returns 0 for success, but PGSemaphoreTryLock returns true for success
+    return !PGSemaphoreTryLock(SpinlockSemaArray[lockndx - 1]);
+}
+```

@@ -37,3 +37,22 @@ The function acquires a spinlock for consistency even though, in theory, no othe
 - After reset, the parallel scan can be restarted with new scan keys or parameters
 - The BTParallelScanDesc is accessed through an offset from the ParallelIndexScanDesc base
 - This function is part of the btree index access method's parallel scan infrastructure
+
+## Simplified Source
+
+```c
+void btparallelrescan(IndexScanDesc scan) {
+    BTParallelScanDesc btscan;
+    ParallelIndexScanDesc parallel_scan = scan->parallel_scan;
+
+    // Get parallel scan descriptor from offset
+    btscan = (BTParallelScanDesc) OffsetToPointer((void *) parallel_scan,
+                                                  parallel_scan->ps_offset);
+
+    // Reset scan state with mutex protection for consistency
+    SpinLockAcquire(&btscan->btps_mutex);
+    btscan->btps_scanPage = InvalidBlockNumber;
+    btscan->btps_pageStatus = BTPARALLEL_NOT_INITIALIZED;
+    SpinLockRelease(&btscan->btps_mutex);
+}
+```

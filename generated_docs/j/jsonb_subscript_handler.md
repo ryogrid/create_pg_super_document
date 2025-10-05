@@ -40,3 +40,21 @@ The function is designed to be called by PostgreSQL's type system when subscript
 - The leakproof settings indicate security characteristics: fetch operations are safe and don't leak information through errors, while store operations may reveal information through error messages
 - This handler specifically configures JSONB to have strict fetch behavior (NULL for NULL) but non-leakproof store behavior
 - Located in `src/backend/utils/adt/jsonbsubs.c:402-413`
+
+## Simplified Source
+
+```c
+Datum jsonb_subscript_handler(PG_FUNCTION_ARGS) {
+    // Define static subscript routines for JSONB operations
+    static const SubscriptRoutines routines = {
+        .transform = jsonb_subscript_transform,       // Parse-time transformation
+        .exec_setup = jsonb_exec_setup,              // Execution setup
+        .fetch_strict = true,                        // NULL for NULL inputs
+        .fetch_leakproof = true,                     // Safe fetch (no error leaks)
+        .store_leakproof = false                     // Store can throw errors
+    };
+
+    // Return pointer to the routine structure
+    PG_RETURN_POINTER(&routines);
+}
+```

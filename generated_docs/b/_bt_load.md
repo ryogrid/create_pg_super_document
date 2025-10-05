@@ -72,3 +72,95 @@ The function coordinates with other components like  for page management and  fo
 - The bulk write mechanism provides significant performance improvements over individual page writes
 - Posting list size limits prevent excessively large tuples that could impact page utilization and query performance
 - The function properly handles edge cases like empty tuple streams and ensures clean memory management throughout
+
+## Simplified Source
+
+```c
+static void
+_bt_load(BTWriteState *wstate, BTSpool *btspool, BTSpool *btspool2)
+{
+    BTPageState *state = NULL;
+    bool merge = (btspool2 != NULL);
+    IndexTuple itup, itup2 = NULL;
+    int64 tuples_done = 0;
+    bool deduplicate;
+
+    // Initialize bulk write state
+    wstate->bulkstate = smgr_bulk_start_rel(wstate->index, MAIN_FORKNUM);
+
+    // Check if deduplication should be enabled
+    deduplicate = wstate->inskey->allequalimage && !btspool->isunique &&
+                  BTGetDeduplicateItems(wstate->index);
+
+    if (merge) {
+        // Merge two sorted streams (typically live + dead tuples)
+        SortSupport sortKeys = setup_sort_support(wstate);
+
+        itup = tuplesort_getindextuple(btspool->sortstate, true);
+        itup2 = tuplesort_getindextuple(btspool2->sortstate, true);
+
+        // Merge loop: compare tuples and load in sorted order
+        while (itup || itup2) {
+            bool load_from_first = choose_tuple_to_load(itup, itup2, sortKeys);
+
+            if (state == NULL)
+                state = _bt_pagestate(wstate, 0);
+
+            if (load_from_first) {
+                _bt_buildadd(wstate, state, itup, 0);
+                itup = tuplesort_getindextuple(btspool->sortstate, true);
+            } else {
+                _bt_buildadd(wstate, state, itup2, 0);
+                itup2 = tuplesort_getindextuple(btspool2->sortstate, true);
+            }
+
+            pgstat_progress_update_param(PROGRESS_CREATEIDX_TUPLES_DONE, ++tuples_done);
+        }
+        pfree(sortKeys);
+    }
+    else if (deduplicate) {
+        // Build with deduplication - group identical keys into posting lists
+        BTDedupState dstate = initialize_dedup_state();
+
+        while ((itup = tuplesort_getindextuple(btspool->sortstate, true)) != NULL) {
+            if (state == NULL) {
+                state = _bt_pagestate(wstate, 0);
+                setup_posting_size_limit(dstate, state);
+                _bt_dedup_start_pending(dstate, CopyIndexTuple(itup), InvalidOffsetNumber);
+            }
+            else if (tuples_are_equal(dstate->base, itup) &&
+                     _bt_dedup_save_htid(dstate, itup)) {
+                // Add TID to current posting list
+            }
+            else {
+                // Finish current posting list and start new one
+                _bt_sort_dedup_finish_pending(wstate, state, dstate);
+                pfree(dstate->base);
+                _bt_dedup_start_pending(dstate, CopyIndexTuple(itup), InvalidOffsetNumber);
+            }
+
+            pgstat_progress_update_param(PROGRESS_CREATEIDX_TUPLES_DONE, ++tuples_done);
+        }
+
+        // Handle final pending posting list
+        if (state) {
+            _bt_sort_dedup_finish_pending(wstate, state, dstate);
+            cleanup_dedup_state(dstate);
+        }
+    }
+    else {
+        // Simple case: no merging or deduplication needed
+        while ((itup = tuplesort_getindextuple(btspool->sortstate, true)) != NULL) {
+            if (state == NULL)
+                state = _bt_pagestate(wstate, 0);
+
+            _bt_buildadd(wstate, state, itup, 0);
+            pgstat_progress_update_param(PROGRESS_CREATEIDX_TUPLES_DONE, ++tuples_done);
+        }
+    }
+
+    // Finalize index structure and write metapage
+    _bt_uppershutdown(wstate, state);
+    smgr_bulk_finish(wstate->bulkstate);
+}
+```

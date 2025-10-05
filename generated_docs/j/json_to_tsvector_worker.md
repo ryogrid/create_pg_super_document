@@ -39,3 +39,25 @@ This function serves as the core worker for converting JSON text data to TSVecto
 - Initializes ParsedText structure with NULL words and 0 curwords
 - Uses callback-based iteration through JSON values for flexible processing
 - Part of PostgreSQL's full-text search functionality for JSON data types
+
+## Simplified Source
+
+```c
+static TSVector json_to_tsvector_worker(Oid cfgId, text *json, uint32 flags)
+{
+    // Initialize parsing structures
+    TSVectorBuildState state;
+    ParsedText prs;
+
+    prs.words = NULL;
+    prs.curwords = 0;
+    state.prs = &prs;
+    state.cfgId = cfgId;
+
+    // Iterate through JSON values and build TSVector
+    iterate_json_values(json, flags, &state, add_to_tsvector);
+
+    // Create and return the final TSVector
+    return make_tsvector(&prs);
+}
+```

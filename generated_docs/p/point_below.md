@@ -38,3 +38,14 @@ The function operates on the vertical axis and is the complement to point_above.
 - Primarily used in spatial indexing operations, particularly SP-GiST quadtree implementations
 - Returns true if pt1->y < pt2->y using floating-point comparison
 - Operates on the vertical axis, complementary function to point_above for vertical position comparisons
+
+## Simplified Source
+```c
+Datum point_below(PG_FUNCTION_ARGS) {
+    Point *pt1 = PG_GETARG_POINT_P(0);
+    Point *pt2 = PG_GETARG_POINT_P(1);
+
+    // Return true if pt1 is below pt2 (smaller y-coordinate)
+    PG_RETURN_BOOL(FPlt(pt1->y, pt2->y));
+}
+```

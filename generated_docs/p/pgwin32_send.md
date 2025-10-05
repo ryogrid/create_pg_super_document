@@ -48,3 +48,47 @@ Key features:
 - Part of PostgreSQL's Windows socket abstraction layer
 - Contains retry loop specifically for UDP socket edge cases where readiness may be transient
 - Error handling includes both Windows socket errors and PostgreSQL signal interruptions
+
+## Simplified Source
+
+```c
+int
+pgwin32_send(SOCKET s, const void *buf, int len, int flags)
+{
+    WSABUF wbuf;
+    int r;
+    DWORD b;
+
+    // Check for pending signals
+    if (pgwin32_poll_signals())
+        return -1;
+
+    wbuf.len = len;
+    wbuf.buf = (char *) buf;
+
+    // Loop until send succeeds or error occurs
+    for (;;) {
+        r = WSASend(s, &wbuf, 1, &b, flags, NULL, NULL);
+        if (r != SOCKET_ERROR && b > 0)
+            return b;  // Send succeeded
+
+        // Handle errors
+        if (r == SOCKET_ERROR && WSAGetLastError() != WSAEWOULDBLOCK) {
+            TranslateSocketError();
+            return -1;
+        }
+
+        // Handle non-blocking mode
+        if (pgwin32_noblock) {
+            errno = EWOULDBLOCK;
+            return -1;
+        }
+
+        // Wait for socket to become ready for writing
+        if (pgwin32_waitforsinglesocket(s, FD_WRITE | FD_CLOSE, INFINITE) == 0)
+            return -1;
+    }
+
+    return -1;
+}
+```

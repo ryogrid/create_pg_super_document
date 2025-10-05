@@ -45,3 +45,26 @@ The function allocates memory for the result string and is designed to be reusab
 - When , uses the shortest representation for better round-trip accuracy
 - Designed for reuse in composite geometric types (point, line, etc.) that contain floating-point coordinates
 - Platform-independent alternative to standard C library functions like sprintf/snprintf for double formatting
+
+## Simplified Source
+
+```c
+char *
+float8out_internal(double num)
+{
+    // Allocate buffer for result string
+    char *result = (char *) palloc(32);
+
+    // Choose output format based on extra_float_digits setting
+    if (extra_float_digits > 0) {
+        // Use shortest decimal representation for better precision
+        double_to_shortest_decimal_buf(num, result);
+    } else {
+        // Use standard precision format
+        int digits = DBL_DIG + extra_float_digits;
+        pg_strfromd(result, 32, digits, num);
+    }
+
+    return result;
+}
+```

@@ -36,3 +36,32 @@ This function retrieves the existing value of an array element before assignment
 - Handles NULL arrays by setting both prevvalue to 0 and prevnull to true
 - The fetched previous value is stored in SubscriptingRefState for later reference
 - Only called when new-value subexpression contains SubscriptingRef or FieldStore operations
+
+## Simplified Source
+
+```c
+static void
+array_subscript_fetch_old(ExprState *state,
+                          ExprEvalStep *op,
+                          ExprContext *econtext)
+{
+    SubscriptingRefState *sbsrefstate = op->d.sbsref.state;
+    ArraySubWorkspace *workspace = (ArraySubWorkspace *) sbsrefstate->workspace;
+
+    if (*op->resnull) {
+        // Whole array is null, so any element is too
+        sbsrefstate->prevvalue = (Datum) 0;
+        sbsrefstate->prevnull = true;
+    } else {
+        // Fetch the current element value before assignment
+        sbsrefstate->prevvalue = array_get_element(*op->resvalue,
+                                                   sbsrefstate->numupper,
+                                                   workspace->upperindex,
+                                                   workspace->refattrlength,
+                                                   workspace->refelemlength,
+                                                   workspace->refelembyval,
+                                                   workspace->refelemalign,
+                                                   &sbsrefstate->prevnull);
+    }
+}
+```

@@ -36,3 +36,33 @@ BecomeLockGroupMember allows a process to join an existing lock group under a de
 - Essential for parallel workers to coordinate lock management with their leader
 - The PID interlock ensures safety even if the leader PGPROC gets recycled
 - Adds the process to the tail of the leader's member list upon successful join
+
+## Simplified Source
+
+```c
+bool BecomeLockGroupMember(PGPROC *leader, int pid)
+{
+    LWLock *leader_lwlock;
+    bool ok = false;
+
+    // Validate: not already leader or member, PID is valid
+    Assert(MyProc != leader);
+    Assert(MyProc->lockGroupLeader == NULL);
+    Assert(pid != 0);
+
+    // Get exclusive lock on leader's partition
+    leader_lwlock = LockHashPartitionLockByProc(leader);
+    LWLockAcquire(leader_lwlock, LW_EXCLUSIVE);
+
+    // Verify leader is still valid and is group leader
+    if (leader->pid == pid && leader->lockGroupLeader == leader) {
+        // Join the group: set leader and add to member list
+        ok = true;
+        MyProc->lockGroupLeader = leader;
+        dlist_push_tail(&leader->lockGroupMembers, &MyProc->lockGroupLink);
+    }
+
+    LWLockRelease(leader_lwlock);
+    return ok;
+}
+```

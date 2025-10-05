@@ -42,3 +42,52 @@ The function also removes cost-based delays and buffer access strategy limitatio
 - Provides hints about increasing maintenance_work_mem or autovacuum_work_mem
 - Critical for preventing database shutdown due to transaction ID wraparound
 - Should trigger only in emergency situations when normal vacuum maintenance has fallen behind
+
+## Simplified Source
+
+```c
+static bool
+lazy_check_wraparound_failsafe(LVRelState *vacrel)
+{
+    // Don't warn more than once per VACUUM
+    if (VacuumFailsafeActive)
+        return true;
+
+    // Check if we're in danger of transaction ID wraparound
+    if (unlikely(vacuum_xid_failsafe_check(&vacrel->cutoffs)))
+    {
+        VacuumFailsafeActive = true;
+
+        // Abandon buffer access strategy to use all shared buffers
+        vacrel->bstrategy = NULL;
+
+        // Disable non-essential operations
+        vacrel->do_index_vacuuming = false;
+        vacrel->do_index_cleanup = false;
+        vacrel->do_rel_truncate = false;
+
+        // Reset progress counters
+        pgstat_progress_update_multi_param(2,
+            (int[]){PROGRESS_VACUUM_INDEXES_TOTAL, PROGRESS_VACUUM_INDEXES_PROCESSED},
+            (int64[]){0, 0});
+
+        // Warn administrator about the failsafe activation
+        ereport(WARNING,
+                (errmsg("bypassing nonessential maintenance of table \"%s.%s.%s\" "
+                        "as a failsafe after %d index scans",
+                        vacrel->dbname, vacrel->relnamespace, vacrel->relname,
+                        vacrel->num_index_scans),
+                 errdetail("The table's relfrozenxid or relminmxid is too far in the past."),
+                 errhint("Consider increasing configuration parameter \"maintenance_work_mem\" or \"autovacuum_work_mem\".\n"
+                        "You might also need to consider other ways for VACUUM to keep up with the allocation of transaction IDs.")));
+
+        // Disable cost-based delays to speed up remaining work
+        VacuumCostActive = false;
+        VacuumCostBalance = 0;
+
+        return true;
+    }
+
+    return false;
+}
+```

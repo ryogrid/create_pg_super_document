@@ -45,3 +45,24 @@ For numeric flags (FM_NUM), it performs integer comparison, while for character-
 - The assertion ensures both structures use the same flag representation mode before comparison
 - Used specifically in Hunspell dictionary processing where compound word affixes need to be efficiently searched and organized
 - Part of PostgreSQL's advanced text search functionality supporting Hunspell dictionary format
+
+## Simplified Source
+
+```c
+static int cmpcmdflag(const void *f1, const void *f2) {
+    CompoundAffixFlag *fv1 = (CompoundAffixFlag *) f1;
+    CompoundAffixFlag *fv2 = (CompoundAffixFlag *) f2;
+
+    Assert(fv1->flagMode == fv2->flagMode);
+
+    // Compare numeric flags by integer value
+    if (fv1->flagMode == FM_NUM) {
+        if (fv1->flag.i == fv2->flag.i)
+            return 0;
+        return (fv1->flag.i > fv2->flag.i) ? 1 : -1;
+    }
+
+    // Compare string flags lexicographically
+    return strcmp(fv1->flag.s, fv2->flag.s);
+}
+```

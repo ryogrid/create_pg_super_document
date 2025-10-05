@@ -34,3 +34,20 @@ The `int4mul` function implements the multiplication operation for PostgreSQL 32
 - Follows PostgreSQLs standard function calling conventions using PG_FUNCTION_ARGS
 - The overflow check ensures that operations that would exceed the range of 32-bit signed integers (approximately ±2.1 billion) are properly handled with error reporting
 - Multiplication overflow is particularly common and dangerous, making this check essential for data integrity
+
+## Simplified Source
+
+```c
+Datum int4mul(PG_FUNCTION_ARGS) {
+    int32 arg1 = PG_GETARG_INT32(0);
+    int32 arg2 = PG_GETARG_INT32(1);
+    int32 result;
+
+    // Perform multiplication with overflow checking
+    if (unlikely(pg_mul_s32_overflow(arg1, arg2, &result)))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("integer out of range")));
+
+    PG_RETURN_INT32(result);
+}
+```

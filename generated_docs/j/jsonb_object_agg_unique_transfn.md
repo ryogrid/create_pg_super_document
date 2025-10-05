@@ -31,3 +31,14 @@ The function is part of PostgreSQL's JSONB aggregate functionality, which allows
 - The function enforces unique key constraints, meaning duplicate keys will be handled according to the unique policy
 - Located in src/backend/utils/adt/jsonb.c:1915-1923
 - Part of PostgreSQL's extensive JSONB manipulation and aggregation capabilities
+
+## Simplified Source
+
+```c
+Datum
+jsonb_object_agg_unique_transfn(PG_FUNCTION_ARGS)
+{
+    // Delegate to worker function with null inclusion and unique key enforcement
+    return jsonb_object_agg_transfn_worker(fcinfo, false, true);
+}
+```

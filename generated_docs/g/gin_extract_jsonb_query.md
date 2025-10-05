@@ -47,3 +47,85 @@ This function uses PostgreSQL's function call convention with PG_FUNCTION_ARGS:
 - Sets GIN_SEARCH_MODE_ALL for queries that cannot be optimized, ensuring correctness at the cost of performance
 - Filters out NULL values from text arrays in exists-any/exists-all operations
 - The extra_data parameter is only populated for jsonpath operations and contains the query execution tree
+
+## Simplified Source
+
+```c
+Datum
+gin_extract_jsonb_query(PG_FUNCTION_ARGS)
+{
+    int32 *nentries = (int32 *) PG_GETARG_POINTER(1);
+    StrategyNumber strategy = PG_GETARG_UINT16(2);
+    int32 *searchMode = (int32 *) PG_GETARG_POINTER(6);
+    Datum *entries;
+
+    if (strategy == JsonbContainsStrategyNumber)
+    {
+        // Handle containment queries (@>)
+        entries = (Datum *) DatumGetPointer(DirectFunctionCall2(gin_extract_jsonb,
+                                                                PG_GETARG_DATUM(0),
+                                                                PointerGetDatum(nentries)));
+        // Empty containment requires full scan
+        if (*nentries == 0)
+            *searchMode = GIN_SEARCH_MODE_ALL;
+    }
+    else if (strategy == JsonbExistsStrategyNumber)
+    {
+        // Handle key existence queries (?)
+        text *query = PG_GETARG_TEXT_PP(0);
+
+        *nentries = 1;
+        entries = (Datum *) palloc(sizeof(Datum));
+        entries[0] = make_text_key(JGINFLAG_KEY,
+                                   VARDATA_ANY(query),
+                                   VARSIZE_ANY_EXHDR(query));
+    }
+    else if (strategy == JsonbExistsAnyStrategyNumber ||
+             strategy == JsonbExistsAllStrategyNumber)
+    {
+        // Handle multi-key existence queries (?| and ?&)
+        ArrayType *query = PG_GETARG_ARRAYTYPE_P(0);
+        Datum *key_datums;
+        bool *key_nulls;
+        int key_count;
+
+        deconstruct_array_builtin(query, TEXTOID, &key_datums, &key_nulls, &key_count);
+
+        entries = (Datum *) palloc(sizeof(Datum) * key_count);
+
+        // Create entries for non-null keys
+        for (int i = 0, j = 0; i < key_count; i++)
+        {
+            if (key_nulls[i])
+                continue;
+            entries[j++] = make_text_key(JGINFLAG_KEY,
+                                         VARDATA_ANY(key_datums[i]),
+                                         VARSIZE_ANY_EXHDR(key_datums[i]));
+        }
+
+        *nentries = j;
+        // ExistsAll with no keys requires full scan
+        if (j == 0 && strategy == JsonbExistsAllStrategyNumber)
+            *searchMode = GIN_SEARCH_MODE_ALL;
+    }
+    else if (strategy == JsonbJsonpathPredicateStrategyNumber ||
+             strategy == JsonbJsonpathExistsStrategyNumber)
+    {
+        // Handle jsonpath queries (@@ and @?)
+        JsonPath *jp = PG_GETARG_JSONPATH_P(0);
+        Pointer **extra_data = (Pointer **) PG_GETARG_POINTER(4);
+
+        entries = extract_jsp_query(jp, strategy, false, nentries, extra_data);
+
+        if (!entries)
+            *searchMode = GIN_SEARCH_MODE_ALL;
+    }
+    else
+    {
+        elog(ERROR, "unrecognized strategy number: %d", strategy);
+        entries = NULL;
+    }
+
+    PG_RETURN_POINTER(entries);
+}
+```

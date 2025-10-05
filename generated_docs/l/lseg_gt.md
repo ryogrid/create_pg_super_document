@@ -41,3 +41,17 @@ The comparison is performed by:
 - The comparison is based on Euclidean distance between the segment endpoints
 - Typically used in SQL queries with the '>' operator between LSEG values
 - Complementary to the  function for opposite direction comparison
+
+## Simplified Source
+
+```c
+Datum lseg_gt(PG_FUNCTION_ARGS) {
+    // Extract two line segments from function arguments
+    LSEG *l1 = PG_GETARG_LSEG_P(0);
+    LSEG *l2 = PG_GETARG_LSEG_P(1);
+
+    // Compare lengths: l1 > l2 if length of l1 is greater than length of l2
+    PG_RETURN_BOOL(FPgt(point_dt(&l1->p[0], &l1->p[1]),
+                        point_dt(&l2->p[0], &l2->p[1])));
+}
+```

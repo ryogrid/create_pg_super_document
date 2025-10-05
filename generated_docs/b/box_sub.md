@@ -34,3 +34,24 @@ The  function implements geometric subtraction between a box and a point. It cre
 - Returns a new box rather than modifying the input box in place
 - The subtraction is performed on both corner points to maintain the box's shape while translating its position
 - Memory for the result is allocated using palloc and will be managed by PostgreSQL's memory context system
+
+## Simplified Source
+
+```c
+Datum
+box_sub(PG_FUNCTION_ARGS)
+{
+    BOX *box = PG_GETARG_BOX_P(0);
+    Point *p = PG_GETARG_POINT_P(1);
+    BOX *result;
+
+    // Allocate memory for result box
+    result = (BOX *) palloc(sizeof(BOX));
+
+    // Subtract point from both corners to translate the box
+    point_sub_point(&result->high, &box->high, p);
+    point_sub_point(&result->low, &box->low, p);
+
+    PG_RETURN_BOX_P(result);
+}
+```

@@ -39,3 +39,19 @@ This function provides range-based comparison functionality for PostgreSQL windo
 - Uses PostgreSQL's DirectFunctionCall5 mechanism for efficient function delegation
 - The int2 offset is safely converted to int4 without overflow concerns since int2 range fits within int4
 - Maintains the same error handling and overflow detection as the underlying in_range_int4_int4 function
+
+## Simplified Source
+
+```c
+Datum in_range_int4_int2(PG_FUNCTION_ARGS) {
+    // This is a wrapper function that converts int2 offset to int4
+    // and delegates to in_range_int4_int4 to avoid code duplication
+
+    return DirectFunctionCall5(in_range_int4_int4,
+                              PG_GETARG_DATUM(0),    // val (int4)
+                              PG_GETARG_DATUM(1),    // base (int4)
+                              Int32GetDatum((int32) PG_GETARG_INT16(2)), // offset (int2→int4)
+                              PG_GETARG_DATUM(3),    // sub (bool)
+                              PG_GETARG_DATUM(4));   // less (bool)
+}
+```

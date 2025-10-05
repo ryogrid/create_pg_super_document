@@ -32,3 +32,12 @@ This function is part of PostgreSQL's resource management infrastructure, ensuri
 - Ensures buffer IO operations are properly aborted during error conditions or resource cleanup
 - Works in conjunction with PostgreSQL's transaction and error handling systems
 - Critical for preventing buffer IO leaks during abnormal termination scenarios
+
+## Simplified Source
+```c
+static void ResOwnerReleaseBufferIO(Datum res) {
+    // Convert Datum to Buffer and abort its IO operation
+    Buffer buffer = DatumGetInt32(res);
+    AbortBufferIO(buffer);
+}
+```

@@ -41,3 +41,12 @@ This naming convention allows the shared tuple store system to:
 - Files created with these names are temporary and managed by PostgreSQL's buffer file system
 - The participant numbering starts from 0 and corresponds to the parallel worker process index
 - Used extensively in parallel hash join operations where tuple redistribution requires temporary storage
+
+## Simplified Source
+
+```c
+static void sts_filename(char *name, SharedTuplestoreAccessor *accessor, int participant) {
+    // Generate filename: [base_name].p[participant_number]
+    snprintf(name, MAXPGPATH, "%s.p%d", accessor->sts->name, participant);
+}
+```

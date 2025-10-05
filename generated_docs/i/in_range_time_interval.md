@@ -45,4 +45,38 @@ This function is a support function for PostgreSQL's window function RANGE claus
 - Overflow detection is performed when adding intervals to prevent integer overflow
 - Subtraction operations cannot overflow in this context
 - The function returns a boolean result indicating whether the value is within the specified range
-- Located in 
+- Located in src/backend/utils/adt/date.c:2098-2139
+
+## Simplified Source
+
+```c
+Datum
+in_range_time_interval(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments
+    TimeADT val = PG_GETARG_TIMEADT(0);     // Value to test
+    TimeADT base = PG_GETARG_TIMEADT(1);    // Base time
+    Interval *offset = PG_GETARG_INTERVAL_P(2);  // Range offset
+    bool sub = PG_GETARG_BOOL(3);           // Subtract offset?
+    bool less = PG_GETARG_BOOL(4);          // Less-than comparison?
+
+    // Reject negative intervals (including -infinity)
+    if (offset->time < 0)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PRECEDING_OR_FOLLOWING_SIZE),
+                 errmsg("invalid preceding or following size in window function")));
+
+    // Calculate range boundary (no wraparound behavior like regular time arithmetic)
+    TimeADT sum;
+    if (sub)
+        sum = base - offset->time;  // Subtraction cannot overflow
+    else if (pg_add_s64_overflow(base, offset->time, &sum))
+        PG_RETURN_BOOL(less);       // Overflow means out of range
+
+    // Check if value is within range
+    if (less)
+        PG_RETURN_BOOL(val <= sum);
+    else
+        PG_RETURN_BOOL(val >= sum);
+}
+``` 

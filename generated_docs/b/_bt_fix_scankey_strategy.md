@@ -50,3 +50,75 @@ The function must handle rescan scenarios carefully to avoid re-commuting strate
 - Handles both simple scankeys and complex row-comparison scankeys with subkey processing
 - Part of PostgreSQL's index option and NULL handling infrastructure
 - The SK_BT_INDOPTION_SHIFT ensures index options don't conflict with system-defined flag bits
+
+## Simplified Source
+
+```c
+static bool
+_bt_fix_scankey_strategy(ScanKey skey, int16 *indoption)
+{
+    int addflags;
+
+    addflags = indoption[skey->sk_attno - 1] << SK_BT_INDOPTION_SHIFT;
+
+    // Handle NULL scan keys (IS NULL/NOT NULL conditions)
+    if (skey->sk_flags & SK_ISNULL)
+    {
+        skey->sk_flags |= addflags;
+
+        if (skey->sk_flags & SK_SEARCHNULL)
+        {
+            // IS NULL becomes equality search
+            skey->sk_strategy = BTEqualStrategyNumber;
+            skey->sk_subtype = InvalidOid;
+            skey->sk_collation = InvalidOid;
+        }
+        else if (skey->sk_flags & SK_SEARCHNOTNULL)
+        {
+            // IS NOT NULL becomes inequality based on null ordering
+            if (skey->sk_flags & SK_BT_NULLS_FIRST)
+                skey->sk_strategy = BTGreaterStrategyNumber;
+            else
+                skey->sk_strategy = BTLessStrategyNumber;
+            skey->sk_subtype = InvalidOid;
+            skey->sk_collation = InvalidOid;
+        }
+        else
+        {
+            // NULL comparison value for regular operator - invalid
+            return false;
+        }
+
+        return true;
+    }
+
+    // Skip already-eliminated array keys
+    if (skey->sk_strategy == InvalidStrategy)
+        return true;
+
+    // Apply DESC column transformation (commute strategy)
+    if ((addflags & SK_BT_DESC) && !(skey->sk_flags & SK_BT_DESC))
+        skey->sk_strategy = BTCommuteStrategyNumber(skey->sk_strategy);
+    skey->sk_flags |= addflags;
+
+    // Handle row comparison keys by processing subkeys
+    if (skey->sk_flags & SK_ROW_HEADER)
+    {
+        ScanKey subkey = (ScanKey) DatumGetPointer(skey->sk_argument);
+
+        for (;;)
+        {
+            addflags = indoption[subkey->sk_attno - 1] << SK_BT_INDOPTION_SHIFT;
+            if ((addflags & SK_BT_DESC) && !(subkey->sk_flags & SK_BT_DESC))
+                subkey->sk_strategy = BTCommuteStrategyNumber(subkey->sk_strategy);
+            subkey->sk_flags |= addflags;
+
+            if (subkey->sk_flags & SK_ROW_END)
+                break;
+            subkey++;
+        }
+    }
+
+    return true;
+}
+```

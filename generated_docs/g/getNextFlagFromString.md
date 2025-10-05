@@ -46,3 +46,76 @@ The function advances through the input string, extracting one flag at a time wh
 - Handles Unicode characters properly through PostgreSQL's character handling functions
 - The function does not return a value but updates the sflag output buffer
 - Located in src/backend/tsearch/spell.c:349-454
+
+## Simplified Source
+
+```c
+static void
+getNextFlagFromString(IspellDict *Conf, char **sflagset, char *sflag)
+{
+    int32 s;
+    char *next, *sbuf = *sflagset;
+    int maxstep;
+    bool stop = false;
+    bool met_comma = false;
+
+    maxstep = (Conf->flagMode == FM_LONG) ? 2 : 1;
+
+    while (**sflagset) {
+        switch (Conf->flagMode) {
+            case FM_LONG:
+            case FM_CHAR:
+                // Copy character(s) to flag buffer
+                COPYCHAR(sflag, *sflagset);
+                sflag += pg_mblen(*sflagset);
+                *sflagset += pg_mblen(*sflagset);
+
+                // Check if we got all characters for this flag
+                maxstep--;
+                stop = (maxstep == 0);
+                break;
+
+            case FM_NUM:
+                // Parse numeric flag
+                s = strtol(*sflagset, &next, 10);
+
+                // Validate numeric conversion and range
+                if (*sflagset == next || s < 0 || s > FLAGNUM_MAXSIZE)
+                    ereport(ERROR, /* flag format error */);
+
+                sflag += sprintf(sflag, "%0d", s);
+                *sflagset = next;
+
+                // Skip to next number, handling comma separation
+                while (**sflagset) {
+                    if (t_isdigit(*sflagset)) {
+                        if (!met_comma)
+                            ereport(ERROR, /* missing comma */);
+                        break;
+                    } else if (t_iseq(*sflagset, ',')) {
+                        if (met_comma)
+                            ereport(ERROR, /* duplicate comma */);
+                        met_comma = true;
+                    } else if (!t_isspace(*sflagset)) {
+                        ereport(ERROR, /* invalid character */);
+                    }
+                    *sflagset += pg_mblen(*sflagset);
+                }
+                stop = true;
+                break;
+
+            default:
+                elog(ERROR, "unrecognized flagMode: %d", Conf->flagMode);
+        }
+
+        if (stop)
+            break;
+    }
+
+    // Validate FM_LONG flag completeness
+    if (Conf->flagMode == FM_LONG && maxstep > 0)
+        ereport(ERROR, /* incomplete long flag */);
+
+    *sflag = '\0';  // Null-terminate flag string
+}
+```

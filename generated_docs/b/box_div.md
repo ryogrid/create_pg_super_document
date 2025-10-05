@@ -39,3 +39,28 @@ The `box_div` function implements geometric division (inverse scaling) between a
 - Memory for the result is allocated using palloc and will be managed by PostgreSQL's memory context system
 - Division by zero will be handled by the underlying `point_div_point` function, which may raise an error or produce infinite/NaN values depending on PostgreSQL's floating-point handling
 - Negative divisors in the point will flip the box orientation, which is handled correctly by `box_construct`
+
+## Simplified Source
+
+```c
+Datum
+box_div(PG_FUNCTION_ARGS)
+{
+    BOX *box = PG_GETARG_BOX_P(0);
+    Point *p = PG_GETARG_POINT_P(1);
+    BOX *result;
+    Point high, low;
+
+    // Allocate memory for result box
+    result = (BOX *) palloc(sizeof(BOX));
+
+    // Scale down both corners by dividing by the point
+    point_div_point(&high, &box->high, p);
+    point_div_point(&low, &box->low, p);
+
+    // Construct properly oriented box (handles corner ordering)
+    box_construct(result, &high, &low);
+
+    PG_RETURN_BOX_P(result);
+}
+```

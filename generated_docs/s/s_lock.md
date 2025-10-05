@@ -46,3 +46,26 @@ The function returns the total number of delays encountered, which can be used f
 - Delay handling prevents excessive CPU usage during contention
 - Debug information (file, line, func) is used for error reporting if the lock becomes stuck
 - Part of PostgreSQL's low-level synchronization infrastructure used throughout the system
+
+## Simplified Source
+
+```c
+int s_lock(volatile slock_t *lock, const char *file, int line, const char *func)
+{
+    SpinDelayStatus delayStatus;
+
+    // Initialize delay tracking for this lock attempt
+    init_spin_delay(&delayStatus, file, line, func);
+
+    // Busy-wait loop: keep trying until lock is acquired
+    while (TAS_SPIN(lock)) {
+        // Handle delay and check for stuck locks
+        perform_spin_delay(&delayStatus);
+    }
+
+    // Cleanup and collect statistics
+    finish_spin_delay(&delayStatus);
+
+    return delayStatus.delays;  // Return number of delays encountered
+}
+```

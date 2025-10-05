@@ -34,3 +34,15 @@ The implementation mirrors other hash functions in the same file: it extracts th
 - SHA-512 is part of the SHA-2 family of cryptographic hash functions and provides stronger security than SHA-256 at the cost of slightly more computation
 - As with all cryptographic hash functions, the output is deterministic - the same input will always produce the same hash
 - This function is typically exposed to SQL users as a built-in function for computing SHA-512 hashes of binary data
+
+## Simplified Source
+
+```c
+Datum sha512_bytea(PG_FUNCTION_ARGS) {
+    // Compute SHA-512 hash using internal function
+    bytea *result = cryptohash_internal(PG_SHA512, PG_GETARG_BYTEA_PP(0));
+
+    // Return the binary hash result
+    PG_RETURN_BYTEA_P(result);
+}
+```

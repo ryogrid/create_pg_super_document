@@ -50,3 +50,49 @@ Unsupported path items (like method calls) cause the function to return false, i
 - The function supports only path operations that can be efficiently indexed, excluding complex operations like method calls
 - Key names are stored as Datum values using the make_text_key utility with appropriate flags
 - Wildcard operations are represented uniformly with NULL Datum values, allowing the index to handle pattern matching efficiently
+
+## Simplified Source
+
+```c
+static bool
+jsonb_ops__add_path_item(JsonPathGinPath *path, JsonPathItem *jsp)
+{
+    JsonPathGinPathItem *pentry;
+    Datum keyName;
+
+    switch (jsp->type) {
+        case jpiRoot:
+            // Reset path for root items
+            path->items = NULL;
+            return true;
+
+        case jpiKey:
+            // Extract key name and create text key entry
+            int len;
+            char *key = jspGetString(jsp, &len);
+            keyName = make_text_key(JGINFLAG_KEY, key, len);
+            break;
+
+        case jpiAny:
+        case jpiAnyKey:
+        case jpiAnyArray:
+        case jpiIndexArray:
+            // Wildcard operations use NULL key name
+            keyName = PointerGetDatum(NULL);
+            break;
+
+        default:
+            // Unsupported path items (e.g., method calls)
+            return false;
+    }
+
+    // Create new path item and link to existing path
+    pentry = palloc(sizeof(*pentry));
+    pentry->type = jsp->type;
+    pentry->keyName = keyName;
+    pentry->parent = path->items;
+    path->items = pentry;
+
+    return true;
+}
+```

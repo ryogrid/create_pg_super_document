@@ -32,3 +32,21 @@ The function uses shared locking to ensure consistent reads of the xmin values w
 - Provides the counterpart to ProcArraySetReplicationSlotXmin for reading the limits
 - Critical for vacuum operations to determine the oldest data that must be preserved
 - Used during table rewrites and other operations that need to understand replication slot requirements
+
+## Simplified Source
+
+```c
+void ProcArrayGetReplicationSlotXmin(TransactionId *xmin, TransactionId *catalog_xmin) {
+    LWLockAcquire(ProcArrayLock, LW_SHARED);
+
+    // Return regular data xmin limit if requested
+    if (xmin != NULL)
+        *xmin = procArray->replication_slot_xmin;
+
+    // Return catalog data xmin limit if requested
+    if (catalog_xmin != NULL)
+        *catalog_xmin = procArray->replication_slot_catalog_xmin;
+
+    LWLockRelease(ProcArrayLock);
+}
+```

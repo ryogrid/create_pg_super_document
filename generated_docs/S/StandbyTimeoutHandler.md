@@ -31,3 +31,12 @@ This function serves as a timeout handler specifically for standby operations in
 - The function only sets a boolean flag and performs no other operations to maintain signal safety
 - The actual timeout handling logic is implemented elsewhere in the standby system
 - Part of PostgreSQL's hot standby infrastructure for handling timeout scenarios
+
+## Simplified Source
+
+```c
+void StandbyTimeoutHandler(void) {
+    // Signal that standby delay timeout has occurred
+    got_standby_delay_timeout = true;
+}
+```

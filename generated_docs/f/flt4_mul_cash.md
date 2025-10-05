@@ -33,3 +33,16 @@ This function implements the multiplication operation between a single-precision
 - Located in src/backend/utils/adt/cash.c:786-799
 - Part of PostgreSQL's monetary data type arithmetic operations
 - Handles overflow and underflow through the underlying cash_mul_float8 implementation
+
+## Simplified Source
+
+```c
+// Multiply single precision float by cash (commutative operation)
+Datum flt4_mul_cash(PG_FUNCTION_ARGS) {
+    float4 multiplier = PG_GETARG_FLOAT4(0);
+    Cash cash_value = PG_GETARG_CASH(1);
+
+    // Convert float4 to float8 and delegate to common implementation
+    PG_RETURN_CASH(cash_mul_float8(cash_value, (float8) multiplier));
+}
+```

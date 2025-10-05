@@ -40,3 +40,26 @@ This variant combines the efficiency of OID-based user identification with name-
 - Part of the overloaded `has_tablespace_privilege` function family
 - Located in `src/backend/utils/adt/acl.c:4315-4337`
 - Does not handle missing tablespace objects gracefully (unlike extended variants)
+
+## Simplified Source
+
+```c
+Datum
+has_tablespace_privilege_id_name(PG_FUNCTION_ARGS)
+{
+    Oid roleid = PG_GETARG_OID(0);
+    text *tablespacename = PG_GETARG_TEXT_PP(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert tablespace name to OID
+    Oid tablespaceoid = convert_tablespace_name(tablespacename);
+
+    // Convert privilege string to access mode
+    AclMode mode = convert_tablespace_priv_string(priv_type_text);
+
+    // Check access control
+    AclResult aclresult = object_aclcheck(TableSpaceRelationId, tablespaceoid, roleid, mode);
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

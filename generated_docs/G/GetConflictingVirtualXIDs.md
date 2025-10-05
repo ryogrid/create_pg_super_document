@@ -44,3 +44,54 @@ The conflict detection logic is based on transaction snapshot horizons - transac
 - Uses shared locking to allow concurrent snapshot operations while ensuring consistency
 - Invalid pxmin values are ignored because backends without snapshots cannot conflict with cleanup operations
 - The function's conflict detection logic is optimized for cleanup records that remove tuple versions from committed transactions
+
+## Simplified Source
+
+```c
+VirtualTransactionId *GetConflictingVirtualXIDs(TransactionId limitXmin, Oid dbOid) {
+    static VirtualTransactionId *vxids;
+    int count = 0;
+
+    // Allocate static array on first use (reused for performance)
+    if (vxids == NULL) {
+        vxids = malloc(sizeof(VirtualTransactionId) * (procArray->maxProcs + 1));
+        if (vxids == NULL)
+            ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY), errmsg("out of memory")));
+    }
+
+    LWLockAcquire(ProcArrayLock, LW_SHARED);
+
+    // Scan all active processes
+    for (int index = 0; index < procArray->numProcs; index++) {
+        int pgprocno = procArray->pgprocnos[index];
+        PGPROC *proc = &allProcs[pgprocno];
+
+        // Skip prepared transactions (pid == 0)
+        if (proc->pid == 0)
+            continue;
+
+        // Filter by database if specified
+        if (OidIsValid(dbOid) && proc->databaseId != dbOid)
+            continue;
+
+        // Check if transaction conflicts with cleanup operations
+        TransactionId pxmin = UINT32_ACCESS_ONCE(proc->xmin);
+        if (!TransactionIdIsValid(limitXmin) ||
+            (TransactionIdIsValid(pxmin) && !TransactionIdFollows(pxmin, limitXmin))) {
+
+            VirtualTransactionId vxid;
+            GET_VXID_FROM_PGPROC(vxid, *proc);
+            if (VirtualTransactionIdIsValid(vxid))
+                vxids[count++] = vxid;
+        }
+    }
+
+    LWLockRelease(ProcArrayLock);
+
+    // Add terminator entry
+    vxids[count].procNumber = INVALID_PROC_NUMBER;
+    vxids[count].localTransactionId = InvalidLocalTransactionId;
+
+    return vxids;
+}
+```

@@ -43,3 +43,23 @@ The function uses PostgreSQL's pq_send* family of functions to efficiently seria
 - Part of PostgreSQL's type system for binary I/O operations
 - The binary format consists of exactly 24 bytes (3 × 8-byte float8 values)
 - Located in src/backend/utils/adt/geo_ops.c:4727-4750
+
+## Simplified Source
+
+```c
+Datum circle_send(PG_FUNCTION_ARGS) {
+    CIRCLE *circle = PG_GETARG_CIRCLE_P(0);
+    StringInfoData buf;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Write circle data: center x, y, then radius
+    pq_sendfloat8(&buf, circle->center.x);
+    pq_sendfloat8(&buf, circle->center.y);
+    pq_sendfloat8(&buf, circle->radius);
+
+    // Finalize and return binary data
+    return PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

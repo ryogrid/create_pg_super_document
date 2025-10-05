@@ -46,3 +46,49 @@ This function verifies that a support function has the correct signature for use
 - Uses variable argument list to handle different numbers of expected arguments
 - Critical validation component used across all access method validators
 - Located in src/backend/access/index/amvalidate.c:152-191
+
+## Simplified Source
+
+```c
+bool check_amproc_signature(Oid funcid, Oid restype, bool exact,
+                           int minargs, int maxargs, ...) {
+    HeapTuple tp;
+    Form_pg_proc procform;
+    bool result = true;
+    va_list ap;
+    int i;
+
+    // Look up function in pg_proc catalog
+    tp = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for function %u", funcid);
+
+    procform = (Form_pg_proc) GETSTRUCT(tp);
+
+    // Validate basic function properties
+    if (procform->prorettype != restype ||      // Wrong return type
+        procform->proretset ||                  // Set-returning function
+        procform->pronargs < minargs ||         // Too few arguments
+        procform->pronargs > maxargs)           // Too many arguments
+        result = false;
+
+    // Check argument types against expected types
+    va_start(ap, maxargs);
+    for (i = 0; i < maxargs; i++) {
+        Oid expected_argtype = va_arg(ap, Oid);
+
+        if (i >= procform->pronargs)
+            continue; // No more actual arguments
+
+        // Either exact match or binary coercible based on 'exact' flag
+        if (exact ?
+            (expected_argtype != procform->proargtypes.values[i]) :
+            !IsBinaryCoercible(expected_argtype, procform->proargtypes.values[i]))
+            result = false;
+    }
+    va_end(ap);
+
+    ReleaseSysCache(tp);
+    return result;
+}
+```

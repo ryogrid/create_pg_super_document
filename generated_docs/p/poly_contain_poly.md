@@ -33,3 +33,32 @@ poly_contain_poly implements a comprehensive polygon containment test by first p
 - Returns false immediately if any edge of the contained polygon lies outside the containing polygon
 - Critical component of PostgreSQL's geometric containment operators for polygon data types
 - The bounding box check provides significant performance improvement by avoiding expensive edge testing when containment is impossible
+
+## Simplified Source
+
+```c
+static bool poly_contain_poly(POLYGON *contains_poly, POLYGON *contained_poly) {
+    int i;
+    LSEG s;
+
+    // Validate both polygons have vertices
+    Assert(contains_poly->npts > 0 && contained_poly->npts > 0);
+
+    // Quick bounding box containment check for early rejection
+    if (!box_contain_box(&contains_poly->boundbox, &contained_poly->boundbox))
+        return false;
+
+    // Test each edge of contained polygon for full containment
+    s.p[0] = contained_poly->p[contained_poly->npts - 1];
+
+    for (i = 0; i < contained_poly->npts; i++) {
+        s.p[1] = contained_poly->p[i];
+        // If any edge is not inside containing polygon, return false
+        if (!lseg_inside_poly(s.p, s.p + 1, contains_poly, 0))
+            return false;
+        s.p[0] = s.p[1];  // Move to next edge
+    }
+
+    return true;  // All edges contained
+}
+```

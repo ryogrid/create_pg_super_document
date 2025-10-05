@@ -59,3 +59,92 @@ This static function performs bulk summarization of BRIN index ranges by scannin
 - Implements proper resource cleanup including buffer release and state termination
 - Critical function for BRIN index maintenance and ensuring summary coverage of heap data
 - Handles the case where start block is beyond table end by early return
+
+## Simplified Source
+```c
+static void
+brinsummarize(Relation index, Relation heapRel, BlockNumber pageRange,
+              bool include_partial, double *numSummarized, double *numExisting)
+{
+    BrinRevmap *revmap;
+    BrinBuildState *state = NULL;
+    IndexInfo  *indexInfo = NULL;
+    BlockNumber heapNumBlocks;
+    BlockNumber pagesPerRange;
+    Buffer      buf;
+    BlockNumber startBlk;
+
+    // Initialize reverse map to track existing summaries
+    revmap = brinRevmapInitialize(index, &pagesPerRange);
+
+    // Determine range of pages to process
+    heapNumBlocks = RelationGetNumberOfBlocks(heapRel);
+    if (pageRange == BRIN_ALL_BLOCKRANGES)
+        startBlk = 0;  // Process entire table
+    else
+    {
+        // Process specific range
+        startBlk = (pageRange / pagesPerRange) * pagesPerRange;
+        heapNumBlocks = Min(heapNumBlocks, startBlk + pagesPerRange);
+    }
+
+    if (startBlk > heapNumBlocks)
+    {
+        // Nothing to do if beyond table end
+        brinRevmapTerminate(revmap);
+        return;
+    }
+
+    // Scan each range and summarize missing ones
+    buf = InvalidBuffer;
+    for (; startBlk < heapNumBlocks; startBlk += pagesPerRange)
+    {
+        BrinTuple  *tup;
+        OffsetNumber off;
+
+        // Skip partial ranges if not requested
+        if (!include_partial && (startBlk + pagesPerRange > heapNumBlocks))
+            break;
+
+        // Check if this range already has a summary
+        tup = brinGetTupleForHeapBlock(revmap, startBlk, &buf, &off, NULL,
+                                      BUFFER_LOCK_SHARE);
+        if (tup == NULL)
+        {
+            // No summary exists - create one
+            if (state == NULL)
+            {
+                // Lazy initialization on first use
+                state = initialize_brin_buildstate(index, revmap,
+                                                  pagesPerRange,
+                                                  InvalidBlockNumber);
+                indexInfo = BuildIndexInfo(index);
+            }
+
+            // Summarize this range
+            summarize_range(indexInfo, state, heapRel, startBlk, heapNumBlocks);
+            brin_memtuple_initialize(state->bs_dtuple, state->bs_bdesc);
+
+            if (numSummarized)
+                *numSummarized += 1.0;
+        }
+        else
+        {
+            // Summary already exists
+            if (numExisting)
+                *numExisting += 1.0;
+            LockBuffer(buf, BUFFER_LOCK_UNLOCK);
+        }
+    }
+
+    // Cleanup resources
+    if (BufferIsValid(buf))
+        ReleaseBuffer(buf);
+    brinRevmapTerminate(revmap);
+    if (state)
+    {
+        terminate_brin_buildstate(state);
+        pfree(indexInfo);
+    }
+}
+```

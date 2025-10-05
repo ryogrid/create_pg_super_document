@@ -36,3 +36,28 @@ This PostgreSQL function provides a convenient way to check type privileges for 
 - Part of the has_type_privilege family with different parameter combinations
 - Uses object_aclcheck with TypeRelationId to perform the actual privilege verification
 - Commonly used in application code where the current user's permissions need to be verified
+
+## Simplified Source
+
+```c
+Datum
+has_type_privilege_name(PG_FUNCTION_ARGS)
+{
+    text *typename = PG_GETARG_TEXT_PP(0);
+    text *priv_type_text = PG_GETARG_TEXT_PP(1);
+
+    // Use current user ID
+    Oid roleid = GetUserId();
+
+    // Convert type name to OID
+    Oid typeoid = convert_type_name(typename);
+
+    // Convert privilege string to access mode
+    AclMode mode = convert_type_priv_string(priv_type_text);
+
+    // Check access control
+    AclResult aclresult = object_aclcheck(TypeRelationId, typeoid, roleid, mode);
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

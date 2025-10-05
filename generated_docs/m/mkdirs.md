@@ -54,3 +54,40 @@ The function is essential for timezone compiler operations where output director
 - Called primarily after file operations fail with ENOENT to ensure directory structure
 - Part of the zic (zone information compiler) file management system
 - Uses MKDIR_UMASK for consistent directory permissions
+
+## Simplified Source
+
+```c
+static void mkdirs(char const *argname, bool ancestors) {
+    char *name;
+    char *cp;
+
+    // Copy path for modification
+    cp = name = ecpyalloc(argname);
+
+    // Skip root directory
+    while (*cp == '/')
+        cp++;
+
+    // Create directories along the path
+    while (cp && ((cp = strchr(cp, '/')) || !ancestors)) {
+        if (cp)
+            *cp = '\0';
+
+        // Try to create directory
+        if (mkdir(name, MKDIR_UMASK) != 0) {
+            int err = errno;
+            // Only error if not exists and not a directory
+            if (err != EEXIST && !itsdir(name)) {
+                error(_("%s: Cannot create directory %s: %s"),
+                      progname, name, strerror(err));
+                exit(EXIT_FAILURE);
+            }
+        }
+
+        if (cp)
+            *cp++ = '/';    // Restore separator and continue
+    }
+    free(name);
+}
+```

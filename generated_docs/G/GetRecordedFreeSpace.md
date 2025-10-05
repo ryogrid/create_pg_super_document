@@ -39,3 +39,25 @@ The function includes proper error handling for cases where the FSM page doesn't
 - Less commonly used compared to the search and update functions
 - Part of PostgreSQL's Free Space Map public API
 - Located in src/backend/storage/freespace/freespace.c:244-274
+
+## Simplified Source
+
+```c
+Size GetRecordedFreeSpace(Relation rel, BlockNumber heapBlk) {
+    // Get FSM location for this heap block
+    FSMAddress addr;
+    uint16 slot;
+    addr = fsm_get_location(heapBlk, &slot);
+
+    // Read FSM page (return 0 if doesn't exist)
+    Buffer buf = fsm_readbuf(rel, addr, false);
+    if (!BufferIsValid(buf))
+        return 0;
+
+    // Get free space category and convert to bytes
+    uint8 cat = fsm_get_avail(BufferGetPage(buf), slot);
+    ReleaseBuffer(buf);
+
+    return fsm_space_cat_to_avail(cat);
+}
+```

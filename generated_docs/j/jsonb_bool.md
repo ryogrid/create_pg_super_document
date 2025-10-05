@@ -36,3 +36,24 @@ The function follows PostgreSQL's standard function calling convention, taking a
 - Performs strict type checking - only accepts JSONB boolean scalars
 - Follows PostgreSQL's memory management conventions with `PG_FREE_IF_COPY`
 - Error handling delegates to `cannotCastJsonbValue` for consistent error messages
+
+## Simplified Source
+
+```c
+Datum
+jsonb_bool(PG_FUNCTION_ARGS)
+{
+    Jsonb *input_jsonb = PG_GETARG_JSONB_P(0);
+    JsonbValue extracted_value;
+
+    // Extract scalar value and validate it's a boolean
+    if (!JsonbExtractScalar(&input_jsonb->root, &extracted_value) ||
+        extracted_value.type != jbvBool) {
+        cannotCastJsonbValue(extracted_value.type, "boolean");
+    }
+
+    // Clean up memory and return the boolean value
+    PG_FREE_IF_COPY(input_jsonb, 0);
+    PG_RETURN_BOOL(extracted_value.val.boolean);
+}
+```

@@ -54,3 +54,65 @@ The function handles the RECORD type as a special case, treating it as a composi
 - RECORD type handling uses hard-coded type characteristics (not typbyval, length -1, double alignment)
 - Memory allocation for nested structures uses the provided memory context for proper cleanup
 - Located in src/pl/plpython/plpy_typeio.c at lines 296-417
+
+## Simplified Source
+
+```c
+void PLy_output_setup_func(PLyObToDatum *arg, MemoryContext arg_mcxt,
+                          Oid typeOid, int32 typmod, PLyProcedure *proc)
+{
+    check_stack_depth(); // Prevent recursion overflow
+
+    // Initialize basic arg fields
+    arg->typoid = typeOid;
+    arg->typmod = typmod;
+    arg->mcxt = arg_mcxt;
+
+    // Get type information (RECORD is special case)
+    if (typeOid != RECORDOID) {
+        TypeCacheEntry *typentry = lookup_type_cache(typeOid, TYPECACHE_DOMAIN_BASE_INFO);
+        arg->typbyval = typentry->typbyval;
+        arg->typlen = typentry->typlen;
+        arg->typalign = typentry->typalign;
+
+        // Choose conversion method based on type
+        if (typentry->typtype == TYPTYPE_DOMAIN) {
+            // Domain: recurse to base type
+            arg->func = PLyObject_ToDomain;
+            arg->u.domain.base = MemoryContextAllocZero(arg_mcxt, sizeof(PLyObToDatum));
+            PLy_output_setup_func(arg->u.domain.base, arg_mcxt,
+                                 typentry->domainBaseType, typentry->domainBaseTypmod, proc);
+        }
+        else if (IsTrueArrayType(typentry)) {
+            // Array: recurse to element type
+            arg->func = PLySequence_ToArray;
+            arg->u.array.elmbasetype = getBaseType(typentry->typelem);
+            arg->u.array.elm = MemoryContextAllocZero(arg_mcxt, sizeof(PLyObToDatum));
+            PLy_output_setup_func(arg->u.array.elm, arg_mcxt, typentry->typelem, typmod, proc);
+        }
+        else if (get_transform_tosql(typeOid, proc->langid, proc->trftypes)) {
+            // Transform function available
+            arg->func = PLyObject_ToTransform;
+        }
+        else if (typentry->typtype == TYPTYPE_COMPOSITE) {
+            // Composite type
+            arg->func = PLyObject_ToComposite;
+            // Initialize tuple fields
+        }
+        else {
+            // Scalar type with special cases
+            switch (typeOid) {
+                case BOOLOID:   arg->func = PLyObject_ToBool; break;
+                case BYTEAOID:  arg->func = PLyObject_ToBytea; break;
+                default:        arg->func = PLyObject_ToScalar; break;
+            }
+        }
+    } else {
+        // RECORD type: treat as composite
+        arg->typbyval = false;
+        arg->typlen = -1;
+        arg->typalign = TYPALIGN_DOUBLE;
+        arg->func = PLyObject_ToComposite;
+    }
+}
+```

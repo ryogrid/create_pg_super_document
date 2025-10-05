@@ -46,3 +46,53 @@ The algorithm considers the segment from (prev_x, prev_y) to (x, y) and determin
 - Handles floating-point precision issues through specialized comparison macros rather than direct equality testing  
 - Critical component for robust point-in-polygon algorithms that must handle edge cases correctly
 - The complex logic ensures proper handling of segments that are tangent to or pass through coordinate axes
+
+## Simplified Source
+
+```c
+static int lseg_crossing(float8 x, float8 y, float8 prev_x, float8 prev_y) {
+    if (FPzero(y)) {  // Current point on X-axis
+        if (FPzero(x))  // Point is origin
+            return POINT_ON_POLYGON;
+
+        if (FPgt(x, 0)) {  // Point on positive X-axis
+            if (FPzero(prev_y))  // Both points on X-axis
+                return FPgt(prev_x, 0.0) ? 0 : POINT_ON_POLYGON;
+            return FPlt(prev_y, 0.0) ? 1 : -1;  // Endpoint crossing
+        } else {  // Point on negative X-axis
+            if (FPzero(prev_y))
+                return FPlt(prev_x, 0.0) ? 0 : POINT_ON_POLYGON;
+            return 0;  // No positive X-axis involvement
+        }
+    }
+
+    // Current point not on X-axis
+    int y_sign = FPgt(y, 0.0) ? 1 : -1;
+
+    if (FPzero(prev_y)) {  // Previous point on X-axis
+        return FPlt(prev_x, 0.0) ? 0 : y_sign;
+    }
+
+    // Check if both points on same side of X-axis
+    if ((y_sign < 0 && FPlt(prev_y, 0.0)) || (y_sign > 0 && FPgt(prev_y, 0.0)))
+        return 0;  // No crossing
+
+    // Segment crosses X-axis - check if it crosses positive part
+    if (FPge(x, 0.0) && FPgt(prev_x, 0.0))
+        return 2 * y_sign;  // Definite positive crossing
+
+    if (FPlt(x, 0.0) && FPle(prev_x, 0.0))
+        return 0;  // Crosses only negative X-axis
+
+    // Mixed case - use determinant to check crossing point
+    float8 z = (x - prev_x) * y - (y - prev_y) * x;
+    if (FPzero(z))
+        return POINT_ON_POLYGON;
+
+    // Check crossing direction
+    if ((y_sign < 0 && FPlt(z, 0.0)) || (y_sign > 0 && FPgt(z, 0.0)))
+        return 0;
+
+    return 2 * y_sign;
+}
+```

@@ -61,3 +61,68 @@ Key internal variables:
 - Critical component of PostgreSQL's array construction infrastructure
 - Demonstrates sophisticated memory management and type system integration
 - Provides foundation for SQL functions array_fill(value, dims) and array_fill(value, dims, lbs)
+
+## Simplified Source
+
+```c
+static ArrayType *
+array_fill_internal(ArrayType *dims, ArrayType *lbs,
+                   Datum value, bool isnull, Oid elmtype,
+                   FunctionCallInfo fcinfo)
+{
+    // Validate dimensions array
+    if (ARR_NDIM(dims) > 1 || array_contains_nulls(dims))
+        ereport(ERROR, ...);
+
+    int *dimv = (int *) ARR_DATA_PTR(dims);
+    int ndims = (ARR_NDIM(dims) > 0) ? ARR_DIMS(dims)[0] : 0;
+
+    // Validate bounds and set up lower bounds
+    int *lbsv;
+    if (lbs != NULL) {
+        // Validate lower bounds array
+        if (ARR_NDIM(lbs) > 1 || array_contains_nulls(lbs) ||
+            ndims != ((ARR_NDIM(lbs) > 0) ? ARR_DIMS(lbs)[0] : 0))
+            ereport(ERROR, ...);
+        lbsv = (int *) ARR_DATA_PTR(lbs);
+    } else {
+        // Use default lower bounds (all 1s)
+        static int deflbs[MAXDIM] = {1, 1, 1, ...};
+        lbsv = deflbs;
+    }
+
+    // Calculate total number of items and validate bounds
+    int nitems = ArrayGetNItems(ndims, dimv);
+    ArrayCheckBounds(ndims, dimv, lbsv);
+
+    // Handle empty array case
+    if (nitems <= 0)
+        return construct_empty_array(elmtype);
+
+    // Get or cache element type information
+    ArrayMetaState *my_extra = get_cached_element_info(fcinfo, elmtype);
+
+    if (!isnull) {
+        // Fill with non-null values
+        if (my_extra->typlen == -1)
+            value = PointerGetDatum(PG_DETOAST_DATUM(value));
+
+        // Calculate space needed and create array
+        int nbytes = calculate_array_size(nitems, value, my_extra);
+        ArrayType *result = create_array_envelope(ndims, dimv, lbsv,
+                                                 nbytes + ARR_OVERHEAD_NONULLS(ndims),
+                                                 elmtype, 0);
+
+        // Fill array with the value
+        char *p = ARR_DATA_PTR(result);
+        for (int i = 0; i < nitems; i++)
+            p += ArrayCastAndSet(value, my_extra->typlen, my_extra->typbyval, my_extra->typalign, p);
+
+        return result;
+    } else {
+        // Fill with NULL values - create array with null bitmap
+        int dataoffset = ARR_OVERHEAD_WITHNULLS(ndims, nitems);
+        return create_array_envelope(ndims, dimv, lbsv, dataoffset, elmtype, dataoffset);
+    }
+}
+```

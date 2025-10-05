@@ -42,3 +42,21 @@ The function handles memory management automatically, expanding the buffer if ne
 - Memory management is handled internally - the buffer is expanded if necessary
 - Part of the external API for Snowball stemmer implementations
 - Used extensively in generated stemming code for various languages including English, Portuguese, Turkish, and Greek
+
+## Simplified Source
+
+```c
+extern int insert_s(struct SN_env *z, int bra, int ket, int s_size, const symbol *s) {
+    int adjustment;
+
+    // Perform the insertion via replace_s
+    if (replace_s(z, bra, ket, s_size, s, &adjustment))
+        return -1;
+
+    // Adjust cursor positions if affected by insertion
+    if (bra <= z->bra) z->bra += adjustment;
+    if (bra <= z->ket) z->ket += adjustment;
+
+    return 0;
+}
+```

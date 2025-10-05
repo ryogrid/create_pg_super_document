@@ -31,3 +31,12 @@ The function name suggests it's used for operations that involve two float8 para
 - Maintains separate function identity for proper aggregate system integration
 - Part of PostgreSQL's aggregate function infrastructure for type-specific operations
 - Located in src/backend/utils/adt/int8.c:810-815
+
+## Simplified Source
+
+```c
+Datum int8inc_float8_float8(PG_FUNCTION_ARGS) {
+    // Wrapper for int8inc used in float8 aggregate contexts
+    return int8inc(fcinfo);
+}
+```

@@ -45,3 +45,61 @@ The function optimizes vacuum performance by balancing I/O efficiency (avoiding 
 - Manages vacrel->next_unskippable_vmbuffer for visibility map buffer lifecycle
 - Maintains vacrel->current_block state for iteration tracking
 - Source location: src/backend/access/heap/vacuumlazy.c:1088-1185
+
+## Simplified Source
+
+```c
+static bool heap_vac_scan_next_block(LVRelState *vacrel, BlockNumber *blkno,
+                                     bool *all_visible_according_to_vm) {
+    BlockNumber next_block;
+
+    // Get next sequential block (InvalidBlockNumber + 1 overflows to 0 on first call)
+    next_block = vacrel->current_block + 1;
+
+    // Check if we've reached the end of the relation
+    if (next_block >= vacrel->rel_pages) {
+        // Clean up visibility map buffer if still held
+        if (BufferIsValid(vacrel->next_unskippable_vmbuffer)) {
+            ReleaseBuffer(vacrel->next_unskippable_vmbuffer);
+            vacrel->next_unskippable_vmbuffer = InvalidBuffer;
+        }
+        *blkno = vacrel->rel_pages;
+        return false;  // No more blocks to process
+    }
+
+    // State 1: Find next unskippable block using visibility map
+    if (next_block > vacrel->next_unskippable_block ||
+        vacrel->next_unskippable_block == InvalidBlockNumber) {
+
+        bool skipsallvis;
+
+        // Use visibility map to find next block that must be processed
+        find_next_unskippable_block(vacrel, &skipsallvis);
+
+        // Optimization: Only skip if we can skip a significant range
+        // This avoids disrupting OS sequential readahead for small skips
+        if (vacrel->next_unskippable_block - next_block >= SKIP_PAGES_THRESHOLD) {
+            next_block = vacrel->next_unskippable_block;
+            if (skipsallvis)
+                vacrel->skippedallvis = true;  // Track for relfrozenxid safety
+        }
+    }
+
+    // State 2: Process sequential blocks in a range we chose not to skip
+    if (next_block < vacrel->next_unskippable_block) {
+        // These blocks are all-visible but we're processing them sequentially
+        *blkno = vacrel->current_block = next_block;
+        *all_visible_according_to_vm = true;
+        return true;
+    }
+    // State 3: Process the unskippable block we found
+    else {
+        // This is the exact block that must be processed
+        Assert(next_block == vacrel->next_unskippable_block);
+
+        *blkno = vacrel->current_block = next_block;
+        *all_visible_according_to_vm = vacrel->next_unskippable_allvis;
+        return true;
+    }
+}
+```

@@ -51,3 +51,38 @@ This is an optimization mechanism - when memory pressure forces the system to us
 - Only operates when bitmap is in TBM_HASH state (asserted)
 - Essential for bitmap operations to understand when exact tuple information is unavailable
 - Part of the memory management strategy for large TID bitmaps
+
+## Simplified Source
+
+```c
+static bool tbm_page_is_lossy(const TIDBitmap *tbm, BlockNumber pageno)
+{
+    PagetableEntry *page;
+    BlockNumber chunk_pageno;
+    int bitno;
+
+    // Quick exit if no lossy chunks exist
+    if (tbm->nchunks == 0)
+        return false;
+    Assert(tbm->status == TBM_HASH);
+
+    // Calculate which chunk this page belongs to
+    bitno = pageno % PAGES_PER_CHUNK;
+    chunk_pageno = pageno - bitno;
+
+    // Look up the chunk entry
+    page = pagetable_lookup(tbm->pagetable, chunk_pageno);
+
+    // Check if chunk exists and contains this page
+    if (page != NULL && page->ischunk) {
+        int wordnum = WORDNUM(bitno);
+        int bitnum = BITNUM(bitno);
+
+        // Check the specific bit for this page in the chunk
+        if ((page->words[wordnum] & ((bitmapword) 1 << bitnum)) != 0)
+            return true;
+    }
+
+    return false;
+}
+```

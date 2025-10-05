@@ -45,3 +45,79 @@ This function is responsible for generating the appropriate C code representatio
 - The size parameter enables offset calculation for struct members, supporting nested data structures
 - Output format follows the pattern: 
 - Memory allocated for variable and offset strings is freed at the end of the function
+
+## Simplified Source
+
+```c
+static void ECPGdump_a_simple(FILE *o, const char *name, enum ECPGttype type,
+                              char *varcharsize, char *arrsize, const char *size,
+                              const char *prefix, int counter) {
+
+    // Handle special indicator and descriptor types
+    if (type == ECPGt_NO_INDICATOR) {
+        fprintf(o, "\n\tECPGt_NO_INDICATOR, NULL , 0L, 0L, 0L, ");
+        return;
+    }
+    if (type == ECPGt_descriptor) {
+        fprintf(o, "\n\tECPGt_descriptor, %s, 1L, 1L, 1L, ", name);
+        return;
+    }
+    if (type == ECPGt_sqlda) {
+        fprintf(o, "\n\tECPGt_sqlda, &%s, 0L, 0L, 0L, ", name);
+        return;
+    }
+
+    // Allocate buffers for variable name and offset calculation
+    char *variable = mm_alloc(strlen(name) + (prefix ? strlen(prefix) : 0) + 4);
+    char *offset = mm_alloc(strlen(name) + strlen("sizeof(struct varchar_)") + 1 + strlen(varcharsize) + 100);
+
+    // Generate variable reference and offset based on type
+    switch (type) {
+        case ECPGt_varchar:
+        case ECPGt_bytea:
+            format_varchar_bytea_variable(variable, offset, name, prefix, arrsize, size, type, counter);
+            break;
+
+        case ECPGt_char:
+        case ECPGt_unsigned_char:
+        case ECPGt_char_variable:
+        case ECPGt_string:
+            format_string_variable(variable, offset, name, prefix, varcharsize, arrsize, size, type);
+            break;
+
+        case ECPGt_numeric:
+            sprintf(variable, "&(%s%s)", prefix ? prefix : "", name);
+            sprintf(offset, "sizeof(numeric)");
+            break;
+
+        case ECPGt_interval:
+        case ECPGt_date:
+        case ECPGt_timestamp:
+            sprintf(variable, "&(%s%s)", prefix ? prefix : "", name);
+            sprintf(offset, "sizeof(%s)", type == ECPGt_interval ? "interval" :
+                           type == ECPGt_date ? "date" : "timestamp");
+            break;
+
+        case ECPGt_const:
+            sprintf(variable, "\"%s\"", name);
+            sprintf(offset, "strlen(\"%s\")", name);
+            break;
+
+        default:
+            format_default_variable(variable, offset, name, prefix, arrsize, size, type);
+            break;
+    }
+
+    // Handle array size adjustments
+    if (atoi(arrsize) < 0 && !size)
+        strcpy(arrsize, "1");
+
+    // Output the formatted variable information
+    const char *size_param = (size && strlen(size) > 0) ? size : offset;
+    fprintf(o, "\n\t%s,%s,(long)%s,(long)%s,%s, ",
+            get_type(type), variable, varcharsize, arrsize, size_param);
+
+    free(variable);
+    free(offset);
+}
+```

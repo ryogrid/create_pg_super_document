@@ -31,3 +31,15 @@ This function serves as a wrapper around lexeme_compare for use in PostgreSQL ha
 - Returns 0 for equal keys, non-zero for different keys (following lexeme_compare semantics)
 - [lexeme_compare](lexeme_compare.md) first compares by length, then byte-by-byte using strncmp()
 - Used in conjunction with lexeme_hash for complete hash table key operations
+
+## Simplified Source
+
+```c
+static int
+lexeme_match(const void *key1, const void *key2, Size keysize)
+{
+    // Delegate to lexeme_compare for actual matching logic
+    // keysize is superfluous since keys store their own lengths
+    return lexeme_compare(key1, key2);
+}
+```

@@ -49,3 +49,106 @@ The function is essential for preparing efficient substitute phrase matching dur
 - Ensures substitute phrases are never empty and all constituent lexemes are valid
 - The compiled substitute arrays enable efficient phrase substitution during query processing
 - Memory-efficient approach that replaces original arrays in-place and manages variable-length results dynamically
+
+## Simplified Source
+
+```c
+static void
+compileTheSubstitute(DictThesaurus *d)
+{
+    int i;
+
+    // Process each substitution rule
+    for (i = 0; i < d->nsubst; i++)
+    {
+        TSLexeme *rem = d->subst[i].res;  // Original substitute words
+        TSLexeme *outptr, *inptr;
+        int n = 2;  // Initial capacity
+
+        // Create new compiled result array
+        outptr = d->subst[i].res = (TSLexeme *) palloc(sizeof(TSLexeme) * n);
+        outptr->lexeme = NULL;
+        inptr = rem;
+
+        // Process each substitute word
+        while (inptr && inptr->lexeme)
+        {
+            TSLexeme *lexized, tmplex[2];
+
+            // Check if word should be used as-is
+            if (inptr->flags & DT_USEASIS)
+            {
+                // Don't lexize - use as-is
+                tmplex[0] = *inptr;
+                tmplex[0].flags = 0;
+                tmplex[1].lexeme = NULL;
+                lexized = tmplex;
+            }
+            else
+            {
+                // Normalize through subdictionary
+                lexized = (TSLexeme *) DatumGetPointer(FunctionCall4(&(d->subdict->lexize),
+                        PointerGetDatum(d->subdict->dictData),
+                        PointerGetDatum(inptr->lexeme),
+                        Int32GetDatum(strlen(inptr->lexeme)),
+                        PointerGetDatum(NULL)));
+            }
+
+            if (lexized && lexized->lexeme)
+            {
+                int toset = (lexized->lexeme && outptr != d->subst[i].res) ? (outptr - d->subst[i].res) : -1;
+
+                // Add all lexemes returned by subdictionary
+                while (lexized->lexeme)
+                {
+                    // Expand array if needed
+                    if (outptr - d->subst[i].res + 1 >= n)
+                    {
+                        int diff = outptr - d->subst[i].res;
+                        n *= 2;
+                        d->subst[i].res = (TSLexeme *) repalloc(d->subst[i].res, sizeof(TSLexeme) * n);
+                        outptr = d->subst[i].res + diff;
+                    }
+
+                    // Copy lexeme
+                    *outptr = *lexized;
+                    outptr->lexeme = pstrdup(lexized->lexeme);
+
+                    outptr++;
+                    lexized++;
+                }
+
+                // Set position flag if needed
+                if (toset > 0)
+                    d->subst[i].res[toset].flags |= TSL_ADDPOS;
+            }
+            else if (lexized)
+            {
+                ereport(ERROR, (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                        errmsg("thesaurus substitute word \"%s\" is a stop word (rule %d)",
+                               inptr->lexeme, i + 1)));
+            }
+            else
+            {
+                ereport(ERROR, (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                        errmsg("thesaurus substitute word \"%s\" isn't recognized by subdictionary (rule %d)",
+                               inptr->lexeme, i + 1)));
+            }
+
+            // Free original substitute word
+            if (inptr->lexeme)
+                pfree(inptr->lexeme);
+            inptr++;
+        }
+
+        // Validate substitute phrase is not empty
+        if (outptr == d->subst[i].res)
+            ereport(ERROR, (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                    errmsg("thesaurus substitute phrase is empty (rule %d)", i + 1)));
+
+        // Set final length and clean up
+        d->subst[i].reslen = outptr - d->subst[i].res;
+        pfree(rem);
+    }
+}
+```

@@ -91,3 +91,41 @@ views: ScanDirection indicating whether to scan forward or backward
 - Memory for killed items array is allocated on-demand
 - The killed items array prevents memory overruns when scan direction is reversed
 - Part of PostgreSQL's standard index access method interface for tuple-at-a-time retrieval
+
+## Simplified Source
+
+```c
+bool btgettuple(IndexScanDesc scan, ScanDirection dir) {
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+
+    // B-tree indexes are never lossy - no recheck needed
+    scan->xs_recheck = false;
+
+    do {
+        bool res;
+
+        // Initialize scan or advance to next tuple
+        if (!BTScanPosIsValid(so->currPos)) {
+            res = _bt_first(scan, dir);  // First tuple
+        } else {
+            // Handle tuple killing optimization
+            if (scan->kill_prior_tuple) {
+                if (so->killedItems == NULL)
+                    so->killedItems = palloc(MaxTIDsPerBTreePage * sizeof(int));
+                if (so->numKilled < MaxTIDsPerBTreePage)
+                    so->killedItems[so->numKilled++] = so->currPos.itemIndex;
+            }
+
+            res = _bt_next(scan, dir);  // Next tuple
+        }
+
+        // Return if we found a tuple
+        if (res)
+            return true;
+
+        // Continue with next primitive scan if array keys exist
+    } while (so->numArrayKeys && _bt_start_prim_scan(scan, dir));
+
+    return false;
+}
+```

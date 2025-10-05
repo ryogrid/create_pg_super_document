@@ -43,3 +43,21 @@ This function is primarily used for serializing binary metadata associated with 
 - Updates both destptr and maxbytes parameters in-place like its string counterpart
 - Essential for maintaining exact binary representation of GUC metadata during parallel processing
 - Performs bounds checking to prevent buffer overruns
+
+## Simplified Source
+
+```c
+static void do_serialize_binary(char **destptr, Size *maxbytes, void *val, Size valsize)
+{
+    // Check if binary data fits in remaining buffer space
+    if (valsize > *maxbytes)
+        elog(ERROR, "not enough space to serialize GUC state");
+
+    // Copy binary data directly
+    memcpy(*destptr, val, valsize);
+
+    // Update destination pointer and remaining space
+    *destptr += valsize;
+    *maxbytes -= valsize;
+}
+```

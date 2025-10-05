@@ -60,3 +60,54 @@ Key responsibilities include:
 - Critical for database recovery scenarios where normal server startup is not possible
 - Sets up the complete PostgreSQL backend environment including shared memory, even though only one process will use it
 - Records startup time similar to postmaster for consistency in timing operations
+
+## Simplified Source
+
+```c
+void PostgresSingleUserMain(int argc, char *argv[], const char *username)
+{
+    const char *dbname = NULL;
+
+    Assert(!IsUnderPostmaster);
+
+    // Initialize process environment and options
+    InitStandaloneProcess(argv[0]);
+    InitializeGUCOptions();
+
+    // Parse command line arguments
+    process_postgres_switches(argc, argv, PGC_POSTMASTER, &dbname);
+
+    // Set database name (default to username if not specified)
+    if (dbname == NULL)
+    {
+        dbname = username;
+        if (dbname == NULL)
+            ereport(FATAL, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("%s: no database nor user name specified", progname)));
+    }
+
+    // Load configuration and validate data directory
+    if (!SelectConfigFiles(userDoption, progname))
+        proc_exit(1);
+
+    checkDataDir();
+    ChangeToDataDir();
+    CreateDataDirLockFile(false);
+    LocalProcessControlFile(false);
+
+    // Load libraries and initialize shared resources
+    process_shared_preload_libraries();
+    InitializeMaxBackends();
+    process_shmem_requests();
+    InitializeShmemGUCs();
+    InitializeWalConsistencyChecking();
+    CreateSharedMemoryAndSemaphores();
+
+    // Record startup time and initialize process
+    PgStartTime = GetCurrentTimestamp();
+    InitProcess();
+
+    // Transfer control to main query processor
+    PostgresMain(dbname, username);
+}
+```

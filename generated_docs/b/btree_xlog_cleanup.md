@@ -32,3 +32,15 @@ The function is part of PostgreSQL's resource manager framework and is automatic
 - The function sets  to NULL after deletion to maintain clean state
 - This cleanup function is essential for preventing memory leaks during PostgreSQL shutdown or resource manager reinitialization
 - Part of the broader B-tree WAL recovery subsystem that handles redo operations for B-tree index modifications
+
+## Simplified Source
+
+```c
+void
+btree_xlog_cleanup(void)
+{
+    // Clean up the B-tree recovery memory context
+    MemoryContextDelete(opCtx);
+    opCtx = NULL;
+}
+```

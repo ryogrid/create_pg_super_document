@@ -39,3 +39,31 @@ The function implements underflow detection using pg_sub_s64_overflow to ensure 
 - Always checks for underflow conditions and reports appropriate errors
 - Uses two different code paths: optimized aggregate path and standard function path
 - Located in src/backend/utils/adt/int8.c:757-803
+
+## Simplified Source
+
+```c
+Datum int8dec(PG_FUNCTION_ARGS) {
+    // Optimization for aggregate context when int8 is pass-by-reference
+    if (AggCheckCallContext(fcinfo, NULL)) {
+        // In-place decrement for aggregate operations
+        int64 *arg = (int64 *) PG_GETARG_POINTER(0);
+
+        if (pg_sub_s64_overflow(*arg, 1, arg)) {
+            ereport(ERROR, "bigint out of range");
+        }
+
+        return (Datum) arg;
+    } else {
+        // Standard decrement operation
+        int64 arg = PG_GETARG_INT64(0);
+        int64 result;
+
+        if (pg_sub_s64_overflow(arg, 1, &result)) {
+            ereport(ERROR, "bigint out of range");
+        }
+
+        return result;
+    }
+}
+```

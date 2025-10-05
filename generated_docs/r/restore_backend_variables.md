@@ -49,3 +49,77 @@ This function is responsible for restoring the complete state of a backend proce
 - Restores file descriptor management state by calling ReserveExternalFD() for postmaster alive pipes
 - Uses safe string copying (strlcpy) for path variables
 - Critical for backend process initialization - ensures the child process has access to all shared resources
+
+## Simplified Source
+
+```c
+static void restore_backend_variables(BackendParameters *param) {
+    // Restore client socket if valid
+    if (param->client_sock.sock != PGINVALID_SOCKET) {
+        MyClientSocket = MemoryContextAlloc(TopMemoryContext, sizeof(ClientSocket));
+        memcpy(MyClientSocket, &param->client_sock, sizeof(ClientSocket));
+        read_inheritable_socket(&MyClientSocket->sock, &param->inh_sock);
+    }
+
+    // Restore basic process information
+    SetDataDir(param->DataDir);
+    MyCancelKey = param->MyCancelKey;
+    MyPMChildSlot = param->MyPMChildSlot;
+
+    // Restore shared memory segment information
+    UsedShmemSegID = param->UsedShmemSegID;
+    UsedShmemSegAddr = param->UsedShmemSegAddr;
+
+    // Restore shared memory lock structures
+    ShmemLock = param->ShmemLock;
+    ShmemBackendArray = param->ShmemBackendArray;
+    NamedLWLockTrancheRequests = param->NamedLWLockTrancheRequests;
+    NamedLWLockTrancheArray = param->NamedLWLockTrancheArray;
+    MainLWLockArray = param->MainLWLockArray;
+    ProcStructLock = param->ProcStructLock;
+
+    // Restore process management structures
+    ProcGlobal = param->ProcGlobal;
+    AuxiliaryProcs = param->AuxiliaryProcs;
+    PreparedXactProcs = param->PreparedXactProcs;
+    PMSignalState = param->PMSignalState;
+
+    // Restore timing and process information
+    PostmasterPid = param->PostmasterPid;
+    PgStartTime = param->PgStartTime;
+    PgReloadTime = param->PgReloadTime;
+    first_syslogger_file_time = param->first_syslogger_file_time;
+
+    // Restore configuration flags
+    redirection_done = param->redirection_done;
+    IsBinaryUpgrade = param->IsBinaryUpgrade;
+    query_id_enabled = param->query_id_enabled;
+    max_safe_fds = param->max_safe_fds;
+    MaxBackends = param->MaxBackends;
+
+#ifdef WIN32
+    // Windows-specific variables
+    ShmemProtectiveRegion = param->ShmemProtectiveRegion;
+    PostmasterHandle = param->PostmasterHandle;
+    pgwin32_initial_signal_pipe = param->initial_signal_pipe;
+#else
+    // Unix/Linux-specific variables
+    memcpy(&postmaster_alive_fds, &param->postmaster_alive_fds, sizeof(postmaster_alive_fds));
+#endif
+
+    // Restore logging pipe
+    memcpy(&syslogPipe, &param->syslogPipe, sizeof(syslogPipe));
+
+    // Restore path variables
+    strlcpy(my_exec_path, param->my_exec_path, MAXPGPATH);
+    strlcpy(pkglib_path, param->pkglib_path, MAXPGPATH);
+
+#ifndef WIN32
+    // Reserve external file descriptors for postmaster alive pipes
+    if (postmaster_alive_fds[0] >= 0)
+        ReserveExternalFD();
+    if (postmaster_alive_fds[1] >= 0)
+        ReserveExternalFD();
+#endif
+}
+```

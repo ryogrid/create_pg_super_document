@@ -49,3 +49,118 @@ For internal pages, it validates tuple integrity and detects legacy "invalid tup
 - Detects and reports legacy invalid tuples from pre-9.1 PostgreSQL versions with detailed diagnostic information
 - Only adds pages to tracking sets when blkno == orig_blkno to maintain ascending order requirement for IntegerSet
 - The function is static (internal to gistvacuum.c) and serves as the core page-processing routine
+
+## Simplified Source
+
+```c
+static void
+gistvacuumpage(GistVacState *vstate, BlockNumber blkno, BlockNumber orig_blkno)
+{
+    IndexVacuumInfo *info = vstate->info;
+    IndexBulkDeleteCallback callback = vstate->callback;
+    void *callback_state = vstate->callback_state;
+    Relation rel = info->index;
+    Buffer buffer;
+    Page page;
+    BlockNumber recurse_to;
+
+restart:
+    recurse_to = InvalidBlockNumber;
+
+    // Allow vacuum delay and read the page
+    vacuum_delay_point();
+    buffer = ReadBufferExtended(rel, MAIN_FORKNUM, blkno, RBM_NORMAL, info->strategy);
+    LockBuffer(buffer, GIST_EXCLUSIVE);
+    page = (Page) BufferGetPage(buffer);
+
+    if (gistPageRecyclable(page)) {
+        // Page can be recycled immediately
+        RecordFreeIndexPage(rel, blkno);
+        vstate->stats->pages_deleted++;
+        vstate->stats->pages_free++;
+    }
+    else if (GistPageIsDeleted(page)) {
+        // Page already deleted but not recyclable yet
+        vstate->stats->pages_deleted++;
+    }
+    else if (GistPageIsLeaf(page)) {
+        // Process leaf page
+        OffsetNumber todelete[MaxOffsetNumber];
+        int ntodelete = 0;
+        int nremain;
+        GISTPageOpaque opaque = GistPageGetOpaque(page);
+        OffsetNumber maxoff = PageGetMaxOffsetNumber(page);
+
+        // Check for concurrent page splits that require recursion
+        if ((GistFollowRight(page) || vstate->startNSN < GistPageGetNSN(page)) &&
+            (opaque->rightlink != InvalidBlockNumber) &&
+            (opaque->rightlink < orig_blkno)) {
+            recurse_to = opaque->rightlink;
+        }
+
+        // Find tuples to delete using callback
+        if (callback) {
+            for (OffsetNumber off = FirstOffsetNumber; off <= maxoff; off = OffsetNumberNext(off)) {
+                ItemId iid = PageGetItemId(page, off);
+                IndexTuple idxtuple = (IndexTuple) PageGetItem(page, iid);
+                if (callback(&(idxtuple->t_tid), callback_state))
+                    todelete[ntodelete++] = off;
+            }
+        }
+
+        // Delete tuples if any were marked
+        if (ntodelete > 0) {
+            START_CRIT_SECTION();
+            MarkBufferDirty(buffer);
+            PageIndexMultiDelete(page, todelete, ntodelete);
+            GistMarkTuplesDeleted(page);
+
+            // Write WAL record
+            if (RelationNeedsWAL(rel)) {
+                XLogRecPtr recptr = gistXLogUpdate(buffer, todelete, ntodelete,
+                                                  NULL, 0, InvalidBuffer);
+                PageSetLSN(page, recptr);
+            } else {
+                PageSetLSN(page, gistGetFakeLSN(rel));
+            }
+            END_CRIT_SECTION();
+
+            vstate->stats->tuples_removed += ntodelete;
+            maxoff = PageGetMaxOffsetNumber(page);
+        }
+
+        // Check if page is now empty
+        nremain = maxoff - FirstOffsetNumber + 1;
+        if (nremain == 0) {
+            // Mark empty page for later deletion
+            if (blkno == orig_blkno)
+                intset_add_member(vstate->empty_leaf_set, blkno);
+        } else {
+            vstate->stats->num_index_tuples += nremain;
+        }
+    }
+    else {
+        // Process internal page - check for invalid tuples
+        OffsetNumber maxoff = PageGetMaxOffsetNumber(page);
+        for (OffsetNumber off = FirstOffsetNumber; off <= maxoff; off = OffsetNumberNext(off)) {
+            ItemId iid = PageGetItemId(page, off);
+            IndexTuple idxtuple = (IndexTuple) PageGetItem(page, iid);
+            if (GistTupleIsInvalid(idxtuple))
+                ereport(LOG, (errmsg("index \"%s\" contains an inner tuple marked as invalid",
+                                   RelationGetRelationName(rel))));
+        }
+
+        // Track internal page for empty page deletion phase
+        if (blkno == orig_blkno)
+            intset_add_member(vstate->internal_page_set, blkno);
+    }
+
+    UnlockReleaseBuffer(buffer);
+
+    // Handle tail recursion for page splits
+    if (recurse_to != InvalidBlockNumber) {
+        blkno = recurse_to;
+        goto restart;
+    }
+}
+```

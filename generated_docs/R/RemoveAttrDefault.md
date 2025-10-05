@@ -40,3 +40,53 @@ This function removes an attribute default entry from the pg_attrdef system cata
 
 ## Notes and Other Information
 The function uses a systematic scan of pg_attrdef with the AttrDefaultIndexId index for efficient lookup. Although the comment indicates there should be at most one matching tuple, the implementation uses a loop to handle potential edge cases robustly. The function integrates with PostgreSQL's object deletion framework, ensuring proper dependency cascade handling. When performing internal deletions, special flags are passed to performDeletion to distinguish from user-initiated operations. The function maintains proper locking throughout the operation to ensure catalog consistency.
+
+## Simplified Source
+
+```c
+void RemoveAttrDefault(Oid relid, AttrNumber attnum,
+                      DropBehavior behavior, bool complain, bool internal) {
+    Relation attrdef_rel;
+    ScanKeyData scankeys[2];
+    SysScanDesc scan;
+    HeapTuple tuple;
+    bool found = false;
+
+    // Open pg_attrdef catalog for modification
+    attrdef_rel = table_open(AttrDefaultRelationId, RowExclusiveLock);
+
+    // Set up scan keys to find the default for this specific column
+    ScanKeyInit(&scankeys[0], Anum_pg_attrdef_adrelid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(relid));
+    ScanKeyInit(&scankeys[1], Anum_pg_attrdef_adnum, BTEqualStrategyNumber, F_INT2EQ,
+                Int16GetDatum(attnum));
+
+    // Scan for matching default entries
+    scan = systable_beginscan(attrdef_rel, AttrDefaultIndexId, true, NULL, 2, scankeys);
+
+    // Remove any matching default entries (should be at most one)
+    while (HeapTupleIsValid(tuple = systable_getnext(scan))) {
+        ObjectAddress object;
+        Form_pg_attrdef attrtuple = (Form_pg_attrdef) GETSTRUCT(tuple);
+
+        // Set up object address for deletion
+        object.classId = AttrDefaultRelationId;
+        object.objectId = attrtuple->oid;
+        object.objectSubId = 0;
+
+        // Delete the default using the object deletion framework
+        performDeletion(&object, behavior,
+                       internal ? PERFORM_DELETION_INTERNAL : 0);
+
+        found = true;
+    }
+
+    systable_endscan(scan);
+    table_close(attrdef_rel, RowExclusiveLock);
+
+    // Error if no default found and complain is true
+    if (complain && !found)
+        elog(ERROR, "could not find attrdef tuple for relation %u attnum %d",
+             relid, attnum);
+}
+```

@@ -52,3 +52,97 @@ PageAddItemExtended is the core function for adding items to PostgreSQL pages. I
 - Includes Valgrind integration for detecting uninitialized memory access
 - Updates both pd_lower and pd_upper boundaries to reflect new page state
 - WARNING: ereport(ERROR) is explicitly disallowed in this function to prevent corruption during critical operations
+
+## Simplified Source
+
+```c
+OffsetNumber PageAddItemExtended(Page page, Item item, Size size,
+                                OffsetNumber offsetNumber, int flags)
+{
+    PageHeader phdr = (PageHeader) page;
+    Size alignedSize;
+    int lower, upper;
+    ItemId itemId;
+    OffsetNumber limit;
+    bool needshuffle = false;
+
+    // Validate page structure integrity
+    if (phdr->pd_lower < SizeOfPageHeaderData ||
+        phdr->pd_lower > phdr->pd_upper ||
+        phdr->pd_upper > phdr->pd_special ||
+        phdr->pd_special > BLCKSZ) {
+        ereport(PANIC, (errmsg("corrupted page pointers")));
+    }
+
+    // Determine where to place the item
+    limit = OffsetNumberNext(PageGetMaxOffsetNumber(page));
+
+    if (OffsetNumberIsValid(offsetNumber)) {
+        // Use specified offset
+        if ((flags & PAI_OVERWRITE) != 0) {
+            // Check if we can overwrite at this position
+            if (offsetNumber < limit) {
+                itemId = PageGetItemId(page, offsetNumber);
+                if (ItemIdIsUsed(itemId) || ItemIdHasStorage(itemId)) {
+                    return InvalidOffsetNumber;  // Can't overwrite used slot
+                }
+            }
+        } else {
+            // Insert at position, may need to shuffle existing items
+            if (offsetNumber < limit)
+                needshuffle = true;
+        }
+    } else {
+        // Find a free slot automatically
+        offsetNumber = limit;  // Default to end
+        if (PageHasFreeLinePointers(page)) {
+            // Search for recyclable unused slot
+            for (offsetNumber = FirstOffsetNumber; offsetNumber < limit; offsetNumber++) {
+                itemId = PageGetItemId(page, offsetNumber);
+                if (!ItemIdIsUsed(itemId) && !ItemIdHasStorage(itemId))
+                    break;
+            }
+            if (offsetNumber >= limit) {
+                PageClearHasFreeLinePointers(page);  // Reset hint
+                offsetNumber = limit;
+            }
+        }
+    }
+
+    // Validate placement constraints
+    if (offsetNumber > limit ||
+        ((flags & PAI_IS_HEAP) != 0 && offsetNumber > MaxHeapTuplesPerPage)) {
+        return InvalidOffsetNumber;
+    }
+
+    // Calculate space requirements
+    if (offsetNumber == limit || needshuffle)
+        lower = phdr->pd_lower + sizeof(ItemIdData);
+    else
+        lower = phdr->pd_lower;
+
+    alignedSize = MAXALIGN(size);
+    upper = (int) phdr->pd_upper - (int) alignedSize;
+
+    if (lower > upper)
+        return InvalidOffsetNumber;  // No space
+
+    // Insert the item
+    itemId = PageGetItemId(page, offsetNumber);
+
+    if (needshuffle) {
+        // Move existing line pointers to make room
+        memmove(itemId + 1, itemId, (limit - offsetNumber) * sizeof(ItemIdData));
+    }
+
+    // Set up line pointer and copy data
+    ItemIdSetNormal(itemId, upper, size);
+    memcpy((char *) page + upper, item, size);
+
+    // Update page boundaries
+    phdr->pd_lower = (LocationIndex) lower;
+    phdr->pd_upper = (LocationIndex) upper;
+
+    return offsetNumber;
+}
+```

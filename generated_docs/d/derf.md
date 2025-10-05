@@ -35,3 +35,22 @@ The function includes overflow checking to ensure robust error handling, though 
 - The function specifically notes that erf() never overflows under normal circumstances
 - Includes defensive programming with infinity checks despite the low probability of overflow
 - Returns standard PostgreSQL Datum type for SQL function compatibility
+
+## Simplified Source
+
+```c
+Datum derf(PG_FUNCTION_ARGS) {
+    // Get input float8 value
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+
+    // Compute error function (erf never overflows under normal circumstances)
+    float8 result = erf(arg1);
+
+    // Defensive check for infinite results
+    if (unlikely(isinf(result))) {
+        float_overflow_error();
+    }
+
+    PG_RETURN_FLOAT8(result);
+}
+```

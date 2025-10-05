@@ -41,3 +41,51 @@ After releasing the lock, the function may call LWLockWakeup() to notify waiting
 - Includes comprehensive tracing and debugging support
 - The interrupt re-enabling balances the HOLD_INTERRUPTS() from lock acquisition
 - Critical for proper lock lifecycle management in PostgreSQL's concurrency control
+
+## Simplified Source
+
+```c
+void LWLockRelease(LWLock *lock)
+{
+    LWLockMode mode;
+    uint32 oldstate;
+    bool check_waiters;
+    int i;
+
+    // Find lock in held_lwlocks array (search backwards for efficiency)
+    for (i = num_held_lwlocks; --i >= 0;)
+        if (lock == held_lwlocks[i].lock)
+            break;
+
+    if (i < 0)
+        elog(ERROR, "lock %s is not held", T_NAME(lock));
+
+    mode = held_lwlocks[i].mode;
+
+    // Remove from held locks array and compact
+    num_held_lwlocks--;
+    for (; i < num_held_lwlocks; i++)
+        held_lwlocks[i] = held_lwlocks[i + 1];
+
+    // Atomically release the lock state
+    if (mode == LW_EXCLUSIVE)
+        oldstate = pg_atomic_sub_fetch_u32(&lock->state, LW_VAL_EXCLUSIVE);
+    else
+        oldstate = pg_atomic_sub_fetch_u32(&lock->state, LW_VAL_SHARED);
+
+    // Check if we need to wake up waiters
+    if ((oldstate & (LW_FLAG_HAS_WAITERS | LW_FLAG_RELEASE_OK)) ==
+        (LW_FLAG_HAS_WAITERS | LW_FLAG_RELEASE_OK) &&
+        (oldstate & LW_LOCK_MASK) == 0)
+        check_waiters = true;
+    else
+        check_waiters = false;
+
+    // Wake up waiters if necessary
+    if (check_waiters)
+        LWLockWakeup(lock);
+
+    // Re-enable interrupts
+    RESUME_INTERRUPTS();
+}
+```

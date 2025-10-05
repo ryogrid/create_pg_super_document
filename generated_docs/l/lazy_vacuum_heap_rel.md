@@ -46,3 +46,76 @@ The two-pass approach is necessary because index entries must be removed before 
 - Records free space for each vacuumed page in the free space map
 - Includes assertions to verify that all expected dead items are processed
 - Provides debug logging of the number of dead items removed and pages processed
+
+## Simplified Source
+
+```c
+static void
+lazy_vacuum_heap_rel(LVRelState *vacrel)
+{
+    BlockNumber vacuumed_pages = 0;
+    Buffer vmbuffer = InvalidBuffer;
+    LVSavedErrInfo saved_err_info;
+    TidStoreIter *iter;
+    TidStoreIterResult *iter_result;
+
+    Assert(vacrel->do_index_vacuuming);
+    Assert(vacrel->do_index_cleanup);
+    Assert(vacrel->num_index_scans > 0);
+
+    // Report progress
+    pgstat_progress_update_param(PROGRESS_VACUUM_PHASE,
+                                PROGRESS_VACUUM_PHASE_VACUUM_HEAP);
+
+    // Update error traceback
+    update_vacuum_error_info(vacrel, &saved_err_info,
+                            VACUUM_ERRCB_PHASE_VACUUM_HEAP,
+                            InvalidBlockNumber, InvalidOffsetNumber);
+
+    // Iterate through all dead items by page
+    iter = TidStoreBeginIterate(vacrel->dead_items);
+    while ((iter_result = TidStoreIterateNext(iter)) != NULL)
+    {
+        BlockNumber blkno = iter_result->blkno;
+        Buffer buf;
+        Page page;
+        Size freespace;
+
+        vacuum_delay_point();
+        vacrel->blkno = blkno;
+
+        // Pin visibility map page
+        visibilitymap_pin(vacrel->rel, blkno, &vmbuffer);
+
+        // Get exclusive lock on heap page
+        buf = ReadBufferExtended(vacrel->rel, MAIN_FORKNUM, blkno, RBM_NORMAL,
+                                vacrel->bstrategy);
+        LockBuffer(buf, BUFFER_LOCK_EXCLUSIVE);
+
+        // Process the page - mark dead items as unused
+        lazy_vacuum_heap_page(vacrel, blkno, buf, iter_result->offsets,
+                              iter_result->num_offsets, vmbuffer);
+
+        // Record free space and release page
+        page = BufferGetPage(buf);
+        freespace = PageGetHeapFreeSpace(page);
+        UnlockReleaseBuffer(buf);
+        RecordPageWithFreeSpace(vacrel->rel, blkno, freespace);
+        vacuumed_pages++;
+    }
+    TidStoreEndIterate(iter);
+
+    // Cleanup
+    vacrel->blkno = InvalidBlockNumber;
+    if (BufferIsValid(vmbuffer))
+        ReleaseBuffer(vmbuffer);
+
+    ereport(DEBUG2,
+            (errmsg("table \"%s\": removed %lld dead item identifiers in %u pages",
+                    vacrel->relname, (long long) vacrel->dead_items_info->num_items,
+                    vacuumed_pages)));
+
+    // Restore error info
+    restore_vacuum_error_info(vacrel, &saved_err_info);
+}
+```

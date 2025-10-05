@@ -40,3 +40,21 @@ This cleanup is essential for preventing memory leaks and ensuring proper state 
 - Resets all subtransaction tracking variables to ensure clean state
 - Called during transaction abort and after writing subtransaction information to ensure proper cleanup
 - Part of the subtransaction tracking subsystem in PostgreSQL's logical replication worker
+
+## Simplified Source
+
+```c
+static inline void
+cleanup_subxact_info()
+{
+    // Free subtransaction array if allocated
+    if (subxact_data.subxacts)
+        pfree(subxact_data.subxacts);
+
+    // Reset all subtransaction tracking variables
+    subxact_data.subxacts = NULL;
+    subxact_data.subxact_last = InvalidTransactionId;
+    subxact_data.nsubxacts = 0;
+    subxact_data.nsubxacts_max = 0;
+}
+```

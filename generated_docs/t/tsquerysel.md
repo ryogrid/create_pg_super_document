@@ -50,3 +50,44 @@ This function is essential for the PostgreSQL query planner to make cost-based d
 - The function assumes that MCELEM statistics contain TEXT elements for tsvector columns
 - Gracefully degrades when statistics are unavailable, using structure-based estimation
 - Part of PostgreSQL's advanced text search selectivity estimation infrastructure
+
+## Simplified Source
+
+```c
+static Selectivity tsquerysel(VariableStatData *vardata, Datum constval) {
+    Selectivity selec;
+    TSQuery query;
+
+    query = DatumGetTSQuery(constval);
+
+    // Empty query matches nothing
+    if (query->size == 0)
+        return (Selectivity) 0.0;
+
+    if (HeapTupleIsValid(vardata->statsTuple)) {
+        Form_pg_statistic stats = (Form_pg_statistic) GETSTRUCT(vardata->statsTuple);
+        AttStatsSlot sslot;
+
+        // Try to use most-common-elements statistics
+        if (get_attstatsslot(&sslot, vardata->statsTuple,
+                           STATISTIC_KIND_MCELEM, InvalidOid,
+                           ATTSTATSSLOT_VALUES | ATTSTATSSLOT_NUMBERS)) {
+
+            selec = mcelem_tsquery_selec(query, sslot.values, sslot.nvalues,
+                                       sslot.numbers, sslot.nnumbers);
+            free_attstatsslot(&sslot);
+        } else {
+            // No statistics available
+            selec = tsquery_opr_selec_no_stats(query);
+        }
+
+        // Adjust for null fraction
+        selec *= (1.0 - stats->stanullfrac);
+    } else {
+        // No statistics at all
+        selec = tsquery_opr_selec_no_stats(query);
+    }
+
+    return selec;
+}
+```

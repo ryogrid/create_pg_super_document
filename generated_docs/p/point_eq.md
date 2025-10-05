@@ -33,3 +33,14 @@ The  function is a PostgreSQL geometric operator that determines if two points a
 - Used in SQL equality operations between point values (e.g., )
 - Part of the SP-GiST spatial indexing system for geometric queries
 - Returns true if both x and y coordinates are equal within floating-point tolerance
+
+## Simplified Source
+```c
+Datum point_eq(PG_FUNCTION_ARGS) {
+    Point *pt1 = PG_GETARG_POINT_P(0);
+    Point *pt2 = PG_GETARG_POINT_P(1);
+
+    // Delegate to point_eq_point for actual comparison
+    PG_RETURN_BOOL(point_eq_point(pt1, pt2));
+}
+```

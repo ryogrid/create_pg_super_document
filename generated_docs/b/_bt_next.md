@@ -39,3 +39,44 @@ The function maintains the scan state in so->currPos and updates scan->xs_heapti
 - Essential for implementing efficient sequential access through B-tree scan results
 - Much simpler than _bt_first() since the scan positioning and key matching logic is already established
 - Maintains proper buffer management and locking discipline during scan progression
+
+## Simplified Source
+
+```c
+bool
+_bt_next(IndexScanDesc scan, ScanDirection dir)
+{
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+    BTScanPosItem *currItem;
+
+    // Advance to next tuple based on scan direction
+    if (ScanDirectionIsForward(dir))
+    {
+        // Move forward in current page
+        if (++so->currPos.itemIndex > so->currPos.lastItem)
+        {
+            // Current page exhausted, try to step to next page
+            if (!_bt_steppage(scan, dir))
+                return false;
+        }
+    }
+    else
+    {
+        // Move backward in current page
+        if (--so->currPos.itemIndex < so->currPos.firstItem)
+        {
+            // Current page exhausted, try to step to previous page
+            if (!_bt_steppage(scan, dir))
+                return false;
+        }
+    }
+
+    // Set up scan result for current item
+    currItem = &so->currPos.items[so->currPos.itemIndex];
+    scan->xs_heaptid = currItem->heapTid;
+    if (scan->xs_want_itup)
+        scan->xs_itup = (IndexTuple) (so->currTuples + currItem->tupleOffset);
+
+    return true;
+}
+```

@@ -49,3 +49,28 @@ Global variables modified:
 - Clean exit with code 0 indicates successful worker termination (though workers typically run until shutdown)
 - Function signature matches requirements for PostgreSQL background worker main functions
 - Part of the larger logical replication infrastructure that enables real-time data replication between PostgreSQL instances
+
+## Simplified Source
+
+```c
+void
+ApplyWorkerMain(Datum main_arg)
+{
+    int worker_slot = DatumGetInt32(main_arg);
+
+    // Set flag indicating worker is initializing
+    InitializingApplyWorker = true;
+
+    // Perform common worker setup
+    SetupApplyOrSyncWorker(worker_slot);
+
+    // Clear initialization flag
+    InitializingApplyWorker = false;
+
+    // Start the main replication processing loop
+    run_apply_worker();
+
+    // Clean exit (typically never reached as workers run indefinitely)
+    proc_exit(0);
+}
+```

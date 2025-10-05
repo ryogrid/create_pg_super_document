@@ -45,3 +45,55 @@ This function processes a string containing an affix flag, extracts the flag por
 - Part of the Hunspell-compatible spell checking system
 - Grows the flag array exponentially to minimize reallocation overhead
 - Validates input format and reports syntax errors for malformed flags
+
+## Simplified Source
+
+```c
+static void addCompoundAffixFlagValue(IspellDict *Conf, char *s, uint32 val) {
+    CompoundAffixFlag *newValue;
+    char sbuf[BUFSIZ];
+    char *sflag;
+
+    // Skip leading whitespace
+    while (*s && t_isspace(s))
+        s += pg_mblen(s);
+
+    if (!*s)
+        ereport(ERROR, (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                      errmsg("syntax error")));
+
+    // Extract flag string (stop at whitespace or newline)
+    sflag = sbuf;
+    while (*s && !t_isspace(s) && *s != '\n') {
+        int clen = pg_mblen(s);
+        COPYCHAR(sflag, s);
+        sflag += clen;
+        s += clen;
+    }
+    *sflag = '\0';
+
+    // Grow array if needed
+    if (Conf->nCompoundAffixFlag >= Conf->mCompoundAffixFlag) {
+        if (Conf->mCompoundAffixFlag) {
+            // Double existing array size
+            Conf->mCompoundAffixFlag *= 2;
+            Conf->CompoundAffixFlags = (CompoundAffixFlag *)
+                repalloc(Conf->CompoundAffixFlags,
+                        Conf->mCompoundAffixFlag * sizeof(CompoundAffixFlag));
+        } else {
+            // Initial allocation for 10 flags
+            Conf->mCompoundAffixFlag = 10;
+            Conf->CompoundAffixFlags = (CompoundAffixFlag *)
+                tmpalloc(Conf->mCompoundAffixFlag * sizeof(CompoundAffixFlag));
+        }
+    }
+
+    // Add new flag entry
+    newValue = Conf->CompoundAffixFlags + Conf->nCompoundAffixFlag;
+    setCompoundAffixFlagValue(Conf, newValue, sbuf, val);
+
+    // Enable compound processing and increment count
+    Conf->usecompound = true;
+    Conf->nCompoundAffixFlag++;
+}
+```

@@ -40,3 +40,109 @@ This function is responsible for navigating to and reading the next page of data
 - Updates the scan position's moreLeft/moreRight indicators based on scan results
 - Critical for maintaining scan consistency across page boundaries in a concurrent environment
 - The backward scan logic implements the algorithm described in nbtree/README for handling concurrent page splits and deletions
+
+## Simplified Source
+
+```c
+static bool
+_bt_readnextpage(IndexScanDesc scan, BlockNumber blkno, ScanDirection dir)
+{
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+    Relation rel = scan->indexRelation;
+    Page page;
+    BTPageOpaque opaque;
+
+    if (ScanDirectionIsForward(dir)) {
+        // Forward scan: follow right links
+        for (;;) {
+            // Check for end of scan
+            if (blkno == P_NONE || !so->currPos.moreRight) {
+                _bt_parallel_done(scan);
+                BTScanPosInvalidate(so->currPos);
+                return false;
+            }
+
+            CHECK_FOR_INTERRUPTS();
+
+            // Read next page
+            so->currPos.buf = _bt_getbuf(rel, blkno, BT_READ);
+            page = BufferGetPage(so->currPos.buf);
+            opaque = BTPageGetOpaque(page);
+
+            // Skip deleted pages, process valid pages
+            if (!P_IGNORE(opaque)) {
+                PredicateLockPage(rel, blkno, scan->xs_snapshot);
+                if (_bt_readpage(scan, dir, P_FIRSTDATAKEY(opaque), false))
+                    break;  // Found matching data
+            } else if (scan->parallel_scan != NULL) {
+                _bt_parallel_release(scan, opaque->btpo_next);
+            }
+
+            // Move to next page
+            if (scan->parallel_scan != NULL) {
+                _bt_relbuf(rel, so->currPos.buf);
+                if (!_bt_parallel_seize(scan, &blkno, false)) {
+                    BTScanPosInvalidate(so->currPos);
+                    return false;
+                }
+            } else {
+                blkno = opaque->btpo_next;
+                _bt_relbuf(rel, so->currPos.buf);
+            }
+        }
+    } else {
+        // Backward scan: use complex left-walking algorithm
+        if (so->currPos.currPage != blkno) {
+            BTScanPosUnpinIfPinned(so->currPos);
+            so->currPos.currPage = blkno;
+        }
+
+        // Get buffer with appropriate locking
+        if (BTScanPosIsPinned(so->currPos))
+            _bt_lockbuf(rel, so->currPos.buf, BT_READ);
+        else
+            so->currPos.buf = _bt_getbuf(rel, so->currPos.currPage, BT_READ);
+
+        for (;;) {
+            // Check for end of scan
+            if (!so->currPos.moreLeft) {
+                _bt_relbuf(rel, so->currPos.buf);
+                _bt_parallel_done(scan);
+                BTScanPosInvalidate(so->currPos);
+                return false;
+            }
+
+            // Walk left to previous page
+            so->currPos.buf = _bt_walk_left(rel, so->currPos.buf);
+            if (so->currPos.buf == InvalidBuffer) {
+                _bt_parallel_done(scan);
+                BTScanPosInvalidate(so->currPos);
+                return false;
+            }
+
+            // Process page if valid
+            page = BufferGetPage(so->currPos.buf);
+            opaque = BTPageGetOpaque(page);
+            if (!P_IGNORE(opaque)) {
+                PredicateLockPage(rel, BufferGetBlockNumber(so->currPos.buf), scan->xs_snapshot);
+                if (_bt_readpage(scan, dir, PageGetMaxOffsetNumber(page), false))
+                    break;  // Found matching data
+            } else if (scan->parallel_scan != NULL) {
+                _bt_parallel_release(scan, BufferGetBlockNumber(so->currPos.buf));
+            }
+
+            // Coordinate with parallel workers
+            if (scan->parallel_scan != NULL) {
+                _bt_relbuf(rel, so->currPos.buf);
+                if (!_bt_parallel_seize(scan, &blkno, false)) {
+                    BTScanPosInvalidate(so->currPos);
+                    return false;
+                }
+                so->currPos.buf = _bt_getbuf(rel, blkno, BT_READ);
+            }
+        }
+    }
+
+    return true;
+}
+```

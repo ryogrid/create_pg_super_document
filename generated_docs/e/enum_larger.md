@@ -39,3 +39,16 @@ This function serves as the implementation for aggregate functions like MAX() wh
 - Essential for implementing proper MAX() behavior on enum columns in GROUP BY operations
 - Complementary to `enum_smaller`, using strict inequality (> 0) to select the later-declared enum value
 - The function follows PostgreSQL's fmgr (function manager) calling convention
+
+## Simplified Source
+
+```c
+Datum enum_larger(PG_FUNCTION_ARGS) {
+    // Extract the two enum OIDs from function arguments
+    Oid a = PG_GETARG_OID(0);
+    Oid b = PG_GETARG_OID(1);
+
+    // Return the larger enum value (a if a > b, otherwise b)
+    PG_RETURN_OID(enum_cmp_internal(a, b, fcinfo) > 0 ? a : b);
+}
+```

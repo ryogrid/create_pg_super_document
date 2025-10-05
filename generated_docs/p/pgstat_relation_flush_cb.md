@@ -44,3 +44,77 @@ The function ensures data consistency through proper locking and implements safe
 - Updates both relation-specific and database-aggregate statistics in a single operation
 - Implements safeguards against negative live/dead tuple counts through Max() clamping
 - Part of PostgreSQL's statistics collection system that bridges local backend state with shared memory
+
+## Simplified Source
+
+```c
+bool
+pgstat_relation_flush_cb(PgStat_EntryRef *entry_ref, bool nowait)
+{
+    static const PgStat_TableCounts all_zeroes;
+    Oid dboid;
+    PgStat_TableStatus *lstats;     /* pending stats entry  */
+    PgStat_StatTabEntry *tabentry;  /* shared stats entry */
+
+    dboid = entry_ref->shared_entry->key.dboid;
+    lstats = (PgStat_TableStatus *) entry_ref->pending;
+
+    // Skip entries with no accumulated counts (e.g., unused indexes)
+    if (memcmp(&lstats->counts, &all_zeroes, sizeof(PgStat_TableCounts)) == 0)
+        return true;
+
+    // Try to acquire lock
+    if (!pgstat_lock_entry(entry_ref, nowait))
+        return false;
+
+    // Get shared statistics entry and update counters
+    tabentry = &((PgStatShared_Relation *) entry_ref->shared_stats)->stats;
+
+    // Update scan statistics
+    tabentry->numscans += lstats->counts.numscans;
+    if (lstats->counts.numscans)
+        tabentry->lastscan = GetCurrentTransactionStopTimestamp();
+
+    // Update tuple operation counters
+    tabentry->tuples_returned += lstats->counts.tuples_returned;
+    tabentry->tuples_fetched += lstats->counts.tuples_fetched;
+    tabentry->tuples_inserted += lstats->counts.tuples_inserted;
+    tabentry->tuples_updated += lstats->counts.tuples_updated;
+    tabentry->tuples_deleted += lstats->counts.tuples_deleted;
+    tabentry->tuples_hot_updated += lstats->counts.tuples_hot_updated;
+
+    // Handle truncated/dropped tables by resetting counters
+    if (lstats->counts.truncdropped)
+    {
+        tabentry->live_tuples = 0;
+        tabentry->dead_tuples = 0;
+        tabentry->ins_since_vacuum = 0;
+    }
+
+    // Update live/dead tuple counts with clamping to prevent negatives
+    tabentry->live_tuples = Max(tabentry->live_tuples + lstats->counts.delta_live_tuples, 0);
+    tabentry->dead_tuples = Max(tabentry->dead_tuples + lstats->counts.delta_dead_tuples, 0);
+
+    // Update analysis and vacuum tracking
+    tabentry->mod_since_analyze += lstats->counts.changed_tuples;
+    tabentry->ins_since_vacuum += lstats->counts.tuples_inserted;
+
+    // Update buffer access statistics
+    tabentry->blocks_fetched += lstats->counts.blocks_fetched;
+    tabentry->blocks_hit += lstats->counts.blocks_hit;
+
+    pgstat_unlock_entry(entry_ref);
+
+    // Also update database-level aggregate statistics
+    PgStat_StatDBEntry *dbentry = pgstat_prep_database_pending(dboid);
+    dbentry->tuples_returned += lstats->counts.tuples_returned;
+    dbentry->tuples_fetched += lstats->counts.tuples_fetched;
+    dbentry->tuples_inserted += lstats->counts.tuples_inserted;
+    dbentry->tuples_updated += lstats->counts.tuples_updated;
+    dbentry->tuples_deleted += lstats->counts.tuples_deleted;
+    dbentry->blocks_fetched += lstats->counts.blocks_fetched;
+    dbentry->blocks_hit += lstats->counts.blocks_hit;
+
+    return true;
+}
+```

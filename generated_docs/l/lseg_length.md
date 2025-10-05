@@ -34,3 +34,17 @@ The `lseg_length` function is a PostgreSQL built-in function that calculates the
 - Returns the length as a double precision floating point number
 - Part of PostgreSQL's geometric data type support
 - The calculation is performed using the formula: sqrt((x2-x1)² + (y2-y1)²)
+
+## Simplified Source
+
+```c
+Datum
+lseg_length(PG_FUNCTION_ARGS)
+{
+    // Get line segment from function arguments
+    LSEG *lseg = PG_GETARG_LSEG_P(0);
+
+    // Calculate and return Euclidean distance between the two endpoints
+    PG_RETURN_FLOAT8(point_dt(&lseg->p[0], &lseg->p[1]));
+}
+```

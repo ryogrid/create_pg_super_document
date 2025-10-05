@@ -34,3 +34,26 @@ This function is a PostgreSQL built-in function that checks whether a specific u
 - Part of PostgreSQL's access control system for type privileges
 - Typically used in SQL queries like: SELECT has_type_privilege('role_name', 'mytype', 'USAGE')
 - Located in src/backend/utils/adt/acl.c:4514-4536
+
+## Simplified Source
+
+```c
+Datum
+has_type_privilege_id_name(PG_FUNCTION_ARGS)
+{
+    Oid roleid = PG_GETARG_OID(0);
+    text *typename = PG_GETARG_TEXT_PP(1);
+    text *priv_type_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert type name to OID
+    Oid typeoid = convert_type_name(typename);
+
+    // Convert privilege string to access mode
+    AclMode mode = convert_type_priv_string(priv_type_text);
+
+    // Check access control
+    AclResult aclresult = object_aclcheck(TypeRelationId, typeoid, roleid, mode);
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

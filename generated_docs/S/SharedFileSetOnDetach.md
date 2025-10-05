@@ -45,3 +45,23 @@ This callback is crucial for automatic resource management in parallel query exe
 - The callback is automatically invoked by the DSM subsystem when processes detach, either normally or during error recovery
 - This design ensures that shared temporary files are always cleaned up, preventing disk space leaks in parallel query scenarios
 - The function safely accesses the SharedFileSet data because the callback runs before the actual DSM segment is destroyed
+
+## Simplified Source
+```c
+static void SharedFileSetOnDetach(dsm_segment *segment, Datum datum)
+{
+    bool unlink_all = false;
+    SharedFileSet *fileset = (SharedFileSet *) DatumGetPointer(datum);
+
+    // Atomically decrement reference count
+    SpinLockAcquire(&fileset->mutex);
+    Assert(fileset->refcnt > 0);
+    if (--fileset->refcnt == 0)
+        unlink_all = true;
+    SpinLockRelease(&fileset->mutex);
+
+    // Delete all files if this was the last process using the file set
+    if (unlink_all)
+        FileSetDeleteAll(&fileset->fs);
+}
+```

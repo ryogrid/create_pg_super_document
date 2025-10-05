@@ -41,3 +41,31 @@ The function handles negative indices by converting them to positive indices usi
 - More efficient than the JSON equivalent as it works directly with binary JSONB format
 - Uses specialized JSONB container functions for direct element access without parsing
 - Located in src/backend/utils/adt/jsonfuncs.c:935-962
+
+## Simplified Source
+
+```c
+Datum jsonb_array_element(PG_FUNCTION_ARGS) {
+    Jsonb *jb = PG_GETARG_JSONB_P(0);
+    int element = PG_GETARG_INT32(1);
+
+    // Check if input is an array
+    if (!JB_ROOT_IS_ARRAY(jb))
+        PG_RETURN_NULL();
+
+    // Handle negative indices (convert to positive)
+    if (element < 0) {
+        uint32 nelements = JB_ROOT_COUNT(jb);
+        if (-element > nelements)
+            PG_RETURN_NULL();
+        element += nelements;
+    }
+
+    // Extract the element from JSONB container
+    JsonbValue *v = getIthJsonbValueFromContainer(&jb->root, element);
+    if (v != NULL)
+        PG_RETURN_JSONB_P(JsonbValueToJsonb(v));
+
+    PG_RETURN_NULL();
+}
+```

@@ -43,3 +43,42 @@ This approach prioritizes security and correctness over performance, as validati
 - Part of PostgreSQLs binary data interchange system
 - Prioritizes data integrity and security over performance optimization
 - Handles variable-length binary polygon data safely
+
+## Simplified Source
+
+```c
+Datum
+poly_recv(PG_FUNCTION_ARGS)
+{
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    POLYGON *poly;
+    int32 npts, i, size;
+
+    // Read point count from binary buffer
+    npts = pq_getmsgint(buf, sizeof(int32));
+
+    // Validate point count to prevent overflow
+    if (npts <= 0 || npts >= (int32) ((INT_MAX - offsetof(POLYGON, p)) / sizeof(Point)))
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_BINARY_REPRESENTATION),
+                 errmsg("invalid number of points in external \"polygon\" value")));
+
+    // Allocate polygon structure
+    size = offsetof(POLYGON, p) + sizeof(poly->p[0]) * npts;
+    poly = (POLYGON *) palloc0(size);
+    SET_VARSIZE(poly, size);
+    poly->npts = npts;
+
+    // Read coordinate data for each point
+    for (i = 0; i < npts; i++)
+    {
+        poly->p[i].x = pq_getmsgfloat8(buf);
+        poly->p[i].y = pq_getmsgfloat8(buf);
+    }
+
+    // Recompute bounding box for security
+    make_bound_box(poly);
+
+    PG_RETURN_POLYGON_P(poly);
+}
+```

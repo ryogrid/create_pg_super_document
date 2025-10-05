@@ -50,3 +50,49 @@ The function handles various time formats and timezone representations, making i
 - The function allocates memory for the result using palloc, which is automatically managed by PostgreSQL's memory context system
 - Type modifiers are applied to enforce precision constraints on fractional seconds
 - Returns NULL on parsing errors after proper error reporting
+
+## Simplified Source
+
+```c
+Datum timetz_in(PG_FUNCTION_ARGS) {
+    char *str = PG_GETARG_CSTRING(0);
+    int32 typmod = PG_GETARG_INT32(2);
+    Node *escontext = fcinfo->context;
+    TimeTzADT *result;
+    fsec_t fsec;
+    struct pg_tm tt, *tm = &tt;
+    int tz;
+    int nf;
+    int dterr;
+    char workbuf[MAXDATELEN + 1];
+    char *field[MAXDATEFIELDS];
+    int dtype;
+    int ftype[MAXDATEFIELDS];
+    DateTimeErrorExtra extra;
+
+    // Parse the input time string into components
+    dterr = ParseDateTime(str, workbuf, sizeof(workbuf),
+                          field, ftype, MAXDATEFIELDS, &nf);
+
+    // Decode time-only components (time + timezone)
+    if (dterr == 0)
+        dterr = DecodeTimeOnly(field, ftype, nf,
+                               &dtype, tm, &fsec, &tz, &extra);
+
+    // Handle parsing errors
+    if (dterr != 0) {
+        DateTimeParseError(dterr, &extra, str, "time with time zone",
+                           escontext);
+        PG_RETURN_NULL();
+    }
+
+    // Convert to internal TimeTzADT format
+    result = (TimeTzADT *) palloc(sizeof(TimeTzADT));
+    tm2timetz(tm, fsec, tz, result);
+
+    // Apply precision constraints from typmod
+    AdjustTimeForTypmod(&(result->time), typmod);
+
+    PG_RETURN_TIMETZADT_P(result);
+}
+```

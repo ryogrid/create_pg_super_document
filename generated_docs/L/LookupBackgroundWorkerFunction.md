@@ -39,3 +39,26 @@ The design addresses the fundamental problem that function addresses cannot be d
 - Returns bgworker_main_type function pointer
 - Future consideration mentioned for unifying internal/external function loading
 - Located in src/backend/postmaster/bgworker.c:1262-1295
+
+## Simplified Source
+
+```c
+static bgworker_main_type LookupBackgroundWorkerFunction(const char *libraryname,
+                                                        const char *funcname) {
+    // Handle internal PostgreSQL functions
+    if (strcmp(libraryname, "postgres") == 0) {
+        // Search internal function table
+        for (int i = 0; i < lengthof(InternalBGWorkers); i++) {
+            if (strcmp(InternalBGWorkers[i].fn_name, funcname) == 0)
+                return InternalBGWorkers[i].fn_addr;
+        }
+
+        // Programming error if internal function not found
+        elog(ERROR, "internal function \"%s\" not found", funcname);
+    }
+
+    // Load external library function
+    return (bgworker_main_type) load_external_function(libraryname, funcname,
+                                                       true, NULL);
+}
+```

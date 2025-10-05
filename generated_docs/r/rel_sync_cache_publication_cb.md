@@ -41,3 +41,25 @@ The actual rebuilding of invalidated entries happens lazily on the next access v
 - The conservative invalidation strategy ensures correctness in complex publication scenarios
 - Invalidation can occur when publications are created, dropped, modified, or when schema/relation membership changes
 - Does not perform immediate cleanup - relies on lazy rebuilding during next access
+
+## Simplified Source
+
+```c
+static void
+rel_sync_cache_publication_cb(Datum arg, int cacheid, uint32 hashvalue)
+{
+    HASH_SEQ_STATUS status;
+    RelationSyncEntry *entry;
+
+    // Early exit if cache doesn't exist
+    if (RelationSyncCache == NULL)
+        return;
+
+    // Invalidate all entries since we can't determine specific affected ones
+    hash_seq_init(&status, RelationSyncCache);
+    while ((entry = hash_seq_search(&status)) != NULL)
+    {
+        entry->replicate_valid = false;
+    }
+}
+```

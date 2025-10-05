@@ -42,3 +42,38 @@ The output format follows the pattern: {"attr1, attr2 => attr3": degree, "attr4 
 - Dependencies are displayed in attribute number format (not column names)
 - The degree value represents the strength of the functional dependency (0.0 to 1.0)
 - Registered automatically when the pg_dependencies type is defined in the system
+
+## Simplified Source
+
+```c
+Datum pg_dependencies_out(PG_FUNCTION_ARGS) {
+    bytea *data = PG_GETARG_BYTEA_PP(0);
+    MVDependencies *dependencies = statext_dependencies_deserialize(data);
+    StringInfoData str;
+
+    // Build JSON-like output string
+    initStringInfo(&str);
+    appendStringInfoChar(&str, '{');
+
+    for (int i = 0; i < dependencies->ndeps; i++) {
+        MVDependency *dependency = dependencies->deps[i];
+
+        if (i > 0) appendStringInfoString(&str, ", ");
+
+        // Format dependency as "attr1, attr2 => attr3": degree
+        appendStringInfoChar(&str, '"');
+        for (int j = 0; j < dependency->nattributes; j++) {
+            if (j == dependency->nattributes - 1)
+                appendStringInfoString(&str, " => ");
+            else if (j > 0)
+                appendStringInfoString(&str, ", ");
+
+            appendStringInfo(&str, "%d", dependency->attributes[j]);
+        }
+        appendStringInfo(&str, "\": %f", dependency->degree);
+    }
+
+    appendStringInfoChar(&str, '}');
+    PG_RETURN_CSTRING(str.data);
+}
+```

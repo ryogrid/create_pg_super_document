@@ -35,3 +35,18 @@ PLy_spi_subtransaction_commit finalizes a successfully completed subtransaction 
 - The subtransaction changes become part of the outer transaction after this call
 - Unlike the abort function, this does not set Python exceptions since the operation succeeded
 - Part of the three-function subtransaction management suite (begin/commit/abort)
+
+## Simplified Source
+
+```c
+void
+PLy_spi_subtransaction_commit(MemoryContext oldcontext, ResourceOwner oldowner)
+{
+	// Commit and release the current subtransaction
+	ReleaseCurrentSubTransaction();
+
+	// Restore original execution context
+	MemoryContextSwitchTo(oldcontext);
+	CurrentResourceOwner = oldowner;
+}
+```

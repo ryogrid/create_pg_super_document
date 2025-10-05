@@ -60,3 +60,204 @@ The function also performs requalification by calling _bt_check_compare with the
 - Maintains strict ordering guarantees: arrays never advance beyond what's safe based on current tuple information
 - Includes extensive optimization logic for handling opposite-direction inequality keys and NULL value boundaries
 - Return value indicates whether the triggering tuple satisfies the newly advanced array keys
+
+## Simplified Source
+
+```c
+static bool
+_bt_advance_array_keys(IndexScanDesc scan, BTReadPageState *pstate,
+                      IndexTuple tuple, int tupnatts, TupleDesc tupdesc,
+                      int sktrig, bool sktrig_required)
+{
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+    Relation rel = scan->indexRelation;
+    ScanDirection dir = pstate ? pstate->dir : ForwardScanDirection;
+    int arrayidx = 0;
+    bool beyond_end_advance = false;
+    bool all_required_satisfied = true, all_satisfied = true;
+
+    // Reset scanBehind flag
+    so->scanBehind = false;
+
+    if (sktrig_required) {
+        // Verify precondition: tuple >= current array keys
+        Assert(!_bt_tuple_before_array_skeys(scan, dir, tuple, tupdesc,
+                                            tupnatts, false, 0, NULL));
+
+        // Invalidate page-level optimization state
+        pstate->firstmatch = false;
+        pstate->rechecks = 0;
+        pstate->targetdistance = 0;
+    }
+
+    // Process each scan key to advance arrays
+    for (int ikey = 0; ikey < so->numberOfKeys; ikey++) {
+        ScanKey cur = so->keyData + ikey;
+        BTArrayKeyInfo *array = NULL;
+        Datum tupdatum;
+        bool required = false, tupnull;
+        int32 result;
+        int set_elem = 0;
+
+        // Handle equality strategy scan keys with arrays
+        if (cur->sk_strategy == BTEqualStrategyNumber &&
+            (cur->sk_flags & SK_SEARCHARRAY)) {
+            array = &so->arrayKeys[arrayidx++];
+            Assert(array->scan_key == ikey);
+        }
+
+        // Skip already satisfied keys (optimization)
+        if (ikey < sktrig)
+            continue;
+
+        // Check if this is a required key
+        if (cur->sk_flags & (SK_BT_REQFWD | SK_BT_REQBKWD)) {
+            required = true;
+            if (cur->sk_attno > tupnatts) {
+                // Handle truncated attributes
+                so->scanBehind = true;
+            }
+        }
+
+        // Handle non-array scan key that triggered advancement
+        if (ikey == sktrig && !array) {
+            beyond_end_advance = true;
+            all_satisfied = all_required_satisfied = false;
+            continue;
+        }
+
+        // Skip non-equality keys that didn't trigger advancement
+        if (cur->sk_strategy != BTEqualStrategyNumber)
+            continue;
+
+        // Skip non-required, non-array keys
+        if (!required && !array)
+            continue;
+
+        // Handle beyond-end advancement for subsequent arrays
+        if (beyond_end_advance) {
+            if (array) {
+                int final_elem = ScanDirectionIsBackward(dir) ? 0 : array->num_elems - 1;
+                if (array->cur_elem != final_elem) {
+                    array->cur_elem = final_elem;
+                    cur->sk_argument = array->elem_values[final_elem];
+                }
+            }
+            continue;
+        }
+
+        // Handle arrays after unsatisfied required key
+        if (!all_required_satisfied || cur->sk_attno > tupnatts) {
+            if (array) {
+                int first_elem = ScanDirectionIsForward(dir) ? 0 : array->num_elems - 1;
+                if (array->cur_elem != first_elem) {
+                    array->cur_elem = first_elem;
+                    cur->sk_argument = array->elem_values[first_elem];
+                }
+            }
+            continue;
+        }
+
+        // Get tuple attribute value
+        tupdatum = index_getattr(tuple, cur->sk_attno, tupdesc, &tupnull);
+
+        // Find matching array element
+        if (array) {
+            bool cur_elem_trig = (sktrig_required && ikey == sktrig);
+            set_elem = _bt_binsrch_array_skey(&so->orderProcs[ikey],
+                                             cur_elem_trig, dir,
+                                             tupdatum, tupnull, array, cur,
+                                             &result);
+        } else {
+            // Non-array equality key - treat as single element array
+            result = _bt_compare_array_skey(&so->orderProcs[ikey],
+                                           tupdatum, tupnull,
+                                           cur->sk_argument, cur);
+        }
+
+        // Check if we need beyond-end advancement
+        if (required &&
+            ((ScanDirectionIsForward(dir) && result > 0) ||
+             (ScanDirectionIsBackward(dir) && result < 0))) {
+            beyond_end_advance = true;
+        }
+
+        // Track satisfaction status
+        if (result != 0) {
+            all_satisfied = false;
+            if (required)
+                all_required_satisfied = false;
+            else
+                break;  // Don't advance non-required arrays further
+        }
+
+        // Update array position
+        if (array && array->cur_elem != set_elem) {
+            array->cur_elem = set_elem;
+            cur->sk_argument = array->elem_values[set_elem];
+        }
+    }
+
+    // Handle beyond-end advancement by incrementing arrays
+    if (beyond_end_advance && !_bt_advance_array_keys_increment(scan, dir))
+        goto end_toplevel_scan;
+
+    // Recheck tuple against new qual if needed
+    if ((sktrig_required && all_required_satisfied) ||
+        (!sktrig_required && all_satisfied)) {
+
+        int nsktrig = sktrig + 1;
+        bool continuescan;
+
+        // Call _bt_check_compare to verify tuple still matches
+        if (_bt_check_compare(scan, dir, tuple, tupnatts, tupdesc,
+                             false, false, false,
+                             &continuescan, &nsktrig) &&
+            !so->scanBehind) {
+            // Tuple satisfies new qual
+            if (pstate)
+                pstate->continuescan = true;
+            return true;
+        }
+
+        // Handle recursive call for missed inequalities
+        if (unlikely(!continuescan)) {
+            // Second pass for inequality handling
+            _bt_advance_array_keys(scan, pstate, tuple, tupnatts,
+                                  tupdesc, nsktrig, true);
+            return false;
+        }
+    }
+
+    // Handle non-required array advancement
+    if (!sktrig_required)
+        return false;
+
+    // Determine scan continuation strategy
+    if (!all_required_satisfied) {
+        // Start new primitive scan or continue current page
+        if (/* complex conditions for new scan */) {
+            goto new_prim_scan;
+        }
+    }
+
+    // Continue with current page
+    pstate->continuescan = true;
+    so->needPrimScan = false;
+    return false;
+
+new_prim_scan:
+    // Schedule new primitive scan
+    pstate->continuescan = false;
+    so->needPrimScan = true;
+    if (scan->parallel_scan)
+        _bt_parallel_primscan_schedule(scan, pstate->prev_scan_page);
+    return false;
+
+end_toplevel_scan:
+    // End scan completely
+    pstate->continuescan = false;
+    so->needPrimScan = false;
+    return false;
+}
+```

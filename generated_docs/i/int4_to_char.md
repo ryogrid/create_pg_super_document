@@ -48,3 +48,86 @@ Key features include sign extraction and handling, prefix padding calculation, o
 - Integrates with PostgreSQL's comprehensive formatting system using shared macros
 - Returns a PostgreSQL text datum suitable for SQL result sets
 - Part of PostgreSQL's family of type-specific formatting functions in formatting.c
+
+## Simplified Source
+
+```c
+Datum
+int4_to_char(PG_FUNCTION_ARGS)
+{
+    int32 value = PG_GETARG_INT32(0);
+    text *fmt = PG_GETARG_TEXT_PP(1);
+    NUMDesc Num;
+    FormatNode *format;
+    text *result;
+    int out_pre_spaces = 0, sign = 0;
+    char *numstr, *orgnum;
+
+    // Parse format pattern and initialize formatting structures
+    NUM_TOCHAR_prepare;
+
+    // Handle Roman numeral formatting
+    if (IS_ROMAN(&Num)) {
+        numstr = int_to_roman(value);
+    }
+    // Handle scientific notation formatting
+    else if (IS_EEEE(&Num)) {
+        // Convert to float8 for exponential notation (no precision loss for int32)
+        float8 val = (float8) value;
+        orgnum = (char *) psprintf("%+.*e", Num.post, val);
+
+        // Replace leading '+' with space for alignment
+        if (*orgnum == '+')
+            *orgnum = ' ';
+
+        numstr = orgnum;
+    }
+    // Handle standard numeric formatting
+    else {
+        // Apply multiplicative scaling if specified
+        if (IS_MULTI(&Num)) {
+            orgnum = DatumGetCString(DirectFunctionCall1(int4out,
+                Int32GetDatum(value * ((int32) pow((double) 10, (double) Num.multi)))));
+            Num.pre += Num.multi;
+        } else {
+            orgnum = DatumGetCString(DirectFunctionCall1(int4out,
+                                                       Int32GetDatum(value)));
+        }
+
+        // Extract sign
+        if (*orgnum == '-') {
+            sign = '-';
+            orgnum++;
+        } else {
+            sign = '+';
+        }
+
+        int numstr_pre_len = strlen(orgnum);
+
+        // Add decimal places if specified (pad with zeros)
+        if (Num.post) {
+            numstr = (char *) palloc(numstr_pre_len + Num.post + 2);
+            strcpy(numstr, orgnum);
+            *(numstr + numstr_pre_len) = '.';
+            memset(numstr + numstr_pre_len + 1, '0', Num.post);
+            *(numstr + numstr_pre_len + Num.post + 1) = '\0';
+        } else {
+            numstr = orgnum;
+        }
+
+        // Calculate padding and handle overflow
+        if (numstr_pre_len < Num.pre)
+            out_pre_spaces = Num.pre - numstr_pre_len;
+        else if (numstr_pre_len > Num.pre) {
+            // Create overflow output with '#' characters
+            numstr = (char *) palloc(Num.pre + Num.post + 2);
+            fill_str(numstr, '#', Num.pre + Num.post + 1);
+            *(numstr + Num.pre) = '.';
+        }
+    }
+
+    // Apply formatting and return result
+    NUM_TOCHAR_finish;
+    PG_RETURN_TEXT_P(result);
+}
+```

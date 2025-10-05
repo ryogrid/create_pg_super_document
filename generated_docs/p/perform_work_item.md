@@ -44,3 +44,68 @@ The function includes comprehensive error handling to ensure that failures in on
 - Implements proper interrupt handling and query cancellation management
 - Work item processing is intentionally lossy - failures don't block other work items
 - Functions called within work item handlers are responsible for their own user switching and sandboxing
+
+## Simplified Source
+
+```c
+static void
+perform_work_item(AutoVacuumWorkItem *workitem)
+{
+    char *cur_datname = NULL;
+    char *cur_nspname = NULL;
+    char *cur_relname = NULL;
+
+    // Get relation names for error reporting
+    cur_relname = get_rel_name(workitem->avw_relation);
+    cur_nspname = get_namespace_name(get_rel_namespace(workitem->avw_relation));
+    cur_datname = get_database_name(MyDatabaseId);
+    if (!cur_relname || !cur_nspname || !cur_datname)
+        goto deleted2;
+
+    autovac_report_workitem(workitem, cur_nspname, cur_relname);
+    MemoryContextReset(PortalContext);
+
+    // Execute work item with error handling
+    PG_TRY();
+    {
+        MemoryContextSwitchTo(PortalContext);
+
+        // Dispatch based on work item type
+        switch (workitem->avw_type)
+        {
+            case AVW_BRINSummarizeRange:
+                DirectFunctionCall2(brin_summarize_range,
+                                    ObjectIdGetDatum(workitem->avw_relation),
+                                    Int64GetDatum((int64) workitem->avw_blockNumber));
+                break;
+            default:
+                elog(WARNING, "unrecognized work item found: type %d", workitem->avw_type);
+                break;
+        }
+
+        QueryCancelPending = false;
+    }
+    PG_CATCH();
+    {
+        // Handle errors and recover transaction
+        HOLD_INTERRUPTS();
+        errcontext("processing work entry for relation \"%s.%s.%s\"",
+                   cur_datname, cur_nspname, cur_relname);
+        EmitErrorReport();
+        AbortOutOfAnyTransaction();
+        FlushErrorState();
+        MemoryContextReset(PortalContext);
+        StartTransactionCommand();
+        RESUME_INTERRUPTS();
+    }
+    PG_END_TRY();
+
+    MemoryContextSwitchTo(AutovacMemCxt);
+
+deleted2:
+    // Clean up allocated names
+    if (cur_datname) pfree(cur_datname);
+    if (cur_nspname) pfree(cur_nspname);
+    if (cur_relname) pfree(cur_relname);
+}
+```

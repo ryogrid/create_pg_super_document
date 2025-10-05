@@ -40,3 +40,29 @@ The function creates a truncated copy of the index tuple when needed, setting th
 - This is different from suffix truncation - it's specifically for split operations
 - The left page in a split doesn't need this treatment as it was already truncated in previous splits
 - Marked as inline for performance in the critical split path
+
+## Simplified Source
+
+```c
+static inline bool
+_bt_pgaddtup(Page page, Size itemsize, IndexTuple itup, OffsetNumber itup_off, bool newfirstdataitem)
+{
+    IndexTupleData trunctuple;
+
+    // Special handling for first data item on internal page splits
+    if (newfirstdataitem) {
+        // Create truncated tuple with "minus infinity" key
+        trunctuple = *itup;
+        trunctuple.t_info = sizeof(IndexTupleData);
+        BTreeTupleSetNAtts(&trunctuple, 0, false);  // Remove all key attributes
+        itup = &trunctuple;
+        itemsize = sizeof(IndexTupleData);
+    }
+
+    // Add item to page at specified offset
+    if (PageAddItem(page, (Item) itup, itemsize, itup_off, false, false) == InvalidOffsetNumber)
+        return false;
+
+    return true;
+}
+```

@@ -53,3 +53,19 @@ The function serves as the implementation for PostgreSQL's `<<` operator for cir
 - Follows PostgreSQL's standard function interface using PG_FUNCTION_ARGS and PG_RETURN_BOOL macros
 - Located alongside other circle positional operators in the geometric operations module
 - Critical for applications requiring strict spatial separation constraints
+
+## Simplified Source
+
+```c
+Datum circle_left(PG_FUNCTION_ARGS) {
+    CIRCLE *circle1 = PG_GETARG_CIRCLE_P(0);
+    CIRCLE *circle2 = PG_GETARG_CIRCLE_P(1);
+
+    // Circle1 is strictly left of circle2 if:
+    // rightmost point of circle1 < leftmost point of circle2
+    double circle1_right = float8_pl(circle1->center.x, circle1->radius);
+    double circle2_left = float8_mi(circle2->center.x, circle2->radius);
+
+    return PG_RETURN_BOOL(FPlt(circle1_right, circle2_left));
+}
+```

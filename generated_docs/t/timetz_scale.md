@@ -41,3 +41,25 @@ The function creates a new TIMETZ value by copying both the time and timezone co
 - The function always allocates a new TIMETZ structure rather than modifying the input
 - Used internally during INSERT, UPDATE, and CAST operations when precision adjustment is needed
 - Part of PostgreSQL's comprehensive type coercion system
+
+## Simplified Source
+
+```c
+Datum timetz_scale(PG_FUNCTION_ARGS) {
+    TimeTzADT *time = PG_GETARG_TIMETZADT_P(0);
+    int32 typmod = PG_GETARG_INT32(1);
+    TimeTzADT *result;
+
+    // Allocate memory for scaled result
+    result = (TimeTzADT *) palloc(sizeof(TimeTzADT));
+
+    // Copy both time and timezone components
+    result->time = time->time;
+    result->zone = time->zone;
+
+    // Apply precision scaling to time component only
+    AdjustTimeForTypmod(&(result->time), typmod);
+
+    PG_RETURN_TIMETZADT_P(result);
+}
+```

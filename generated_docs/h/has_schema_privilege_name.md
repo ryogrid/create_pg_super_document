@@ -37,3 +37,32 @@ This function is a simplified variant of the has_schema_privilege family that au
 - All variants are exposed at the SQL level under the same name "has_schema_privilege"
 - Provides a convenient way to check current user's privileges without specifying a username
 - Located in src/backend/utils/adt/acl.c:3831-3854
+
+## Simplified Source
+
+```c
+Datum
+has_schema_privilege_name(PG_FUNCTION_ARGS)
+{
+    text      *schemaname = PG_GETARG_TEXT_PP(0);
+    text      *priv_type_text = PG_GETARG_TEXT_PP(1);
+    Oid        roleid;
+    Oid        schemaoid;
+    AclMode    mode;
+    AclResult  aclresult;
+
+    // Use current user ID
+    roleid = GetUserId();
+
+    // Convert schema name to schema OID
+    schemaoid = convert_schema_name(schemaname);
+
+    // Convert privilege string to access mode
+    mode = convert_schema_priv_string(priv_type_text);
+
+    // Check if current user has the specified privilege on the schema
+    aclresult = object_aclcheck(NamespaceRelationId, schemaoid, roleid, mode);
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

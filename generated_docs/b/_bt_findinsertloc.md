@@ -9,19 +9,13 @@ Finds the exact insertion location for a tuple within a B-tree leaf page, handli
 ## Definition
 
 ```c
-enumerated above
-			 *
-			 * The earlier _bt_check_unique() call may well have established a
-			 * strict upper bound on the offset for the new item.  If it's not
-			 * the last item of the page (i.e. if there is at least one tuple
-			 * on the page that's greater than the tuple we're inserting to)
-			 * then we know that the tuple belongs on this page.  We can skip
-			 * the high key check.
-			 */
-			if (insertstate->bounds_valid &&
-				insertstate->low <= insertstate->stricthigh &&
-				insertstate->stricthigh <= PageGetMaxOffsetNumber(page))
-				break;
+static OffsetNumber
+_bt_findinsertloc(Relation rel,
+				  BTInsertState insertstate,
+				  bool checkingunique,
+				  bool indexUnchanged,
+				  BTStack stack,
+				  Relation heapRel)
 ```
 ## Detailed Description
 The  function determines the precise offset within a leaf page where a new tuple should be inserted. It handles the complex scenarios that arise when uniqueness checking has been performed and when pages need to be traversed to find the optimal insertion location.
@@ -31,12 +25,12 @@ For heapkeyspace indexes, the function may need to step right through sibling pa
 The function includes space optimization logic, attempting deletion and deduplication when the target page lacks sufficient space. It also handles the special case of overlapping posting list tuples with LP_DEAD bits set.
 
 ## Parameters / Member Variables
-- : The B-tree index relation being inserted into
-- : Current insertion state containing tuple, buffer, and cached search bounds
-- : Indicates if uniqueness checking was performed
-- : Hint that this is an UPDATE without logical change to indexed value
-- : Search stack for potential page split operations
-- : The heap relation associated with the index
+- `rel`: The B-tree index relation being inserted into
+- `insertstate`: Current insertion state containing tuple, buffer, and cached search bounds
+- `checkingunique`: Indicates if uniqueness checking was performed
+- `indexUnchanged`: Hint that this is an UPDATE without logical change to indexed value
+- `stack`: Search stack for potential page split operations
+- `heapRel`: The heap relation associated with the index
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -58,3 +52,100 @@ The function includes space optimization logic, attempting deletion and deduplic
 - Handles posting list tuple conflicts by performing deletion before final insertion
 - Validates that final page choice satisfies high key constraints
 - Space optimization attempts include both simple deletion and deduplication strategies
+
+## Simplified Source
+
+```c
+static OffsetNumber _bt_findinsertloc(Relation rel, BTInsertState insertstate,
+                                     bool checkingunique, bool indexUnchanged,
+                                     BTStack stack, Relation heapRel) {
+    BTScanInsert itup_key = insertstate->itup_key;
+    Page page = BufferGetPage(insertstate->buf);
+    BTPageOpaque opaque;
+    OffsetNumber newitemoff;
+
+    opaque = BTPageGetOpaque(page);
+
+    // Check 1/3 page size restriction
+    if (unlikely(insertstate->itemsz > BTMaxItemSize(page)))
+        _bt_check_third_page(rel, heapRel, itup_key->heapkeyspace, page, insertstate->itup);
+
+    if (itup_key->heapkeyspace) {
+        bool uniquedup = indexUnchanged;
+
+        // For unique indexes, may need to step right to find correct page
+        if (checkingunique) {
+            if (insertstate->low < insertstate->stricthigh) {
+                uniquedup = true;  // Found duplicate in _bt_check_unique
+            }
+
+            // Find correct page for insertion
+            for (;;) {
+                // Check if tuple belongs on this page using cached bounds
+                if (insertstate->bounds_valid &&
+                    insertstate->low <= insertstate->stricthigh &&
+                    insertstate->stricthigh <= PageGetMaxOffsetNumber(page))
+                    break;
+
+                // Check high key - if tuple fits here, stop searching
+                if (P_RIGHTMOST(opaque) ||
+                    _bt_compare(rel, itup_key, page, P_HIKEY) <= 0)
+                    break;
+
+                // Step right to next page
+                _bt_stepright(rel, heapRel, insertstate, stack);
+                page = BufferGetPage(insertstate->buf);
+                opaque = BTPageGetOpaque(page);
+                uniquedup = true;
+            }
+        }
+
+        // Try to free space if page is full
+        if (PageGetFreeSpace(page) < insertstate->itemsz) {
+            _bt_delete_or_dedup_one_page(rel, heapRel, insertstate, false,
+                                        checkingunique, uniquedup, indexUnchanged);
+        }
+    } else {
+        // Non-heapkeyspace index: search for page with space
+        while (PageGetFreeSpace(page) < insertstate->itemsz) {
+            // Try simple deletion first
+            if (P_HAS_GARBAGE(opaque)) {
+                _bt_delete_or_dedup_one_page(rel, heapRel, insertstate, true,
+                                            false, false, false);
+                if (PageGetFreeSpace(page) >= insertstate->itemsz)
+                    break;
+            }
+
+            // Check if we should stop searching
+            if (insertstate->bounds_valid &&
+                insertstate->low <= insertstate->stricthigh &&
+                insertstate->stricthigh <= PageGetMaxOffsetNumber(page))
+                break;
+
+            // Probabilistic decision to continue or stop (99% continue)
+            if (P_RIGHTMOST(opaque) ||
+                _bt_compare(rel, itup_key, page, P_HIKEY) != 0 ||
+                pg_prng_uint32(&pg_global_prng_state) <= (PG_UINT32_MAX / 100))
+                break;
+
+            // Step right to next page
+            _bt_stepright(rel, heapRel, insertstate, stack);
+            page = BufferGetPage(insertstate->buf);
+            opaque = BTPageGetOpaque(page);
+        }
+    }
+
+    // Find exact insertion offset within the page
+    newitemoff = _bt_binsrch_insert(rel, insertstate);
+
+    // Handle special case: overlapping posting list with LP_DEAD bit
+    if (insertstate->postingoff == -1) {
+        _bt_delete_or_dedup_one_page(rel, heapRel, insertstate, true,
+                                    false, false, false);
+        insertstate->postingoff = 0;
+        newitemoff = _bt_binsrch_insert(rel, insertstate);
+    }
+
+    return newitemoff;
+}
+```

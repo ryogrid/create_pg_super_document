@@ -39,3 +39,48 @@ Key behaviors:
 - Handles multibyte characters correctly for international text processing
 - The '*' character detection is specifically for text search prefix matching functionality
 - Returns start of word and sets end pointer for efficient string processing without copying
+
+## Simplified Source
+
+```c
+static char *
+findwrd(char *in, char **end, uint16 *flags)
+{
+    char *start;
+    char *lastchar;
+
+    // Skip leading whitespace characters
+    while (*in && t_isspace(in))
+        in += pg_mblen(in);
+
+    // Return NULL if empty line
+    if (*in == '\0')
+    {
+        *end = NULL;
+        return NULL;
+    }
+
+    // Mark start of word and find word end
+    lastchar = start = in;
+    while (*in && !t_isspace(in))
+    {
+        lastchar = in;
+        in += pg_mblen(in);
+    }
+
+    // Check for prefix search operator '*' at end of word
+    if (in - lastchar == 1 && t_iseq(lastchar, '*') && flags)
+    {
+        *flags = TSL_PREFIX;  // Mark as prefix search
+        *end = lastchar;      // End before the '*'
+    }
+    else
+    {
+        if (flags)
+            *flags = 0;
+        *end = in;           // End after the word
+    }
+
+    return start;
+}
+```

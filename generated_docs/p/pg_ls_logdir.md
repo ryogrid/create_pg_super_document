@@ -33,3 +33,15 @@ This function returns detailed information about each regular file found in the 
 - The missing_ok parameter is hardcoded to false, meaning the function will error if the log directory doesn't exist
 - Useful for database administrators to monitor log file sizes and ages from within SQL
 - Only shows regular files, filtering out directories and special files automatically
+
+## Simplified Source
+
+```c
+Datum
+pg_ls_logdir(PG_FUNCTION_ARGS)
+{
+    // List files in the PostgreSQL log directory
+    // Returns detailed file information (name, size, modification time)
+    return pg_ls_dir_files(fcinfo, Log_directory, false);
+}
+```

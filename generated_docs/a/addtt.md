@@ -30,3 +30,22 @@ The addtt function is a utility function within the PostgreSQL timezone compiler
 - The function sets dontmerge to false by default, allowing potential optimization of adjacent identical transitions
 - Uses the global variables attypes, timecnt, and timecnt_alloc for state management
 - Part of PostgreSQL's timezone data compilation infrastructure
+
+## Simplified Source
+
+```c
+static void
+addtt(zic_t starttime, int type)
+{
+    // Grow attypes array if needed
+    attypes = growalloc(attypes, sizeof *attypes, timecnt, &timecnt_alloc);
+
+    // Add new transition entry
+    attypes[timecnt].at = starttime;      // When transition occurs
+    attypes[timecnt].dontmerge = false;   // Allow optimization
+    attypes[timecnt].type = type;         // Timezone type ID
+
+    // Increment transition count
+    ++timecnt;
+}
+```

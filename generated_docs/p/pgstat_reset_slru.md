@@ -33,3 +33,17 @@ The function operates by first obtaining the current timestamp and then calling 
 - The function includes an assertion to ensure the name parameter is not NULL
 - This is part of PostgreSQL's statistics collection infrastructure for SLRU buffer management
 - Located in src/backend/utils/activity/pgstat_slru.c:45-58
+
+## Simplified Source
+
+```c
+void pgstat_reset_slru(const char *name) {
+    TimestampTz reset_time = GetCurrentTimestamp();
+
+    // Validate input parameter
+    Assert(name != NULL);
+
+    // Reset counters for the specified SLRU
+    pgstat_reset_slru_counter_internal(pgstat_get_slru_index(name), reset_time);
+}
+```

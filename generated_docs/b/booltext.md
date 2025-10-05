@@ -34,3 +34,22 @@ This function is specifically designed for explicit casting operations where SQL
 - Specifically designed for SQL-compliant boolean-to-text casting
 - Part of PostgreSQL's type casting system
 - Located in `src/backend/utils/adt/bool.c` at lines 204-222
+
+## Simplified Source
+
+```c
+Datum
+booltext(PG_FUNCTION_ARGS)
+{
+    bool arg1 = PG_GETARG_BOOL(0);
+    const char *str;
+
+    // Convert to SQL-compliant text: "true" or "false"
+    if (arg1)
+        str = "true";
+    else
+        str = "false";
+
+    PG_RETURN_TEXT_P(cstring_to_text(str));
+}
+```

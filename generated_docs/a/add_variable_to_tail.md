@@ -36,3 +36,30 @@ The function handles both empty lists (where the new node becomes the head) and 
 - Handles the edge case of empty lists by setting the new node as the list head
 - Used in contexts where maintaining the original order of variables is important
 - The function uses the same memory allocation strategy as other ECPG functions
+
+## Simplified Source
+
+```c
+void
+add_variable_to_tail(struct arguments **list, struct variable *var, struct variable *ind)
+{
+    // Create new argument node
+    struct arguments *new_arg = (struct arguments *) mm_alloc(sizeof(struct arguments));
+
+    // Set up the new node
+    new_arg->variable = var;
+    new_arg->indicator = ind;
+    new_arg->next = NULL;
+
+    // Find the tail of the list
+    struct arguments *current;
+    for (current = *list; current && current->next; current = current->next);
+
+    // Append to tail (FIFO - First In, First Out)
+    if (current) {
+        current->next = new_arg;
+    } else {
+        *list = new_arg;  // Empty list case
+    }
+}
+```

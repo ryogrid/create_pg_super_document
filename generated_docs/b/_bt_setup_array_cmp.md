@@ -60,3 +60,46 @@ The ORDER procedures are essential for:
 - Missing support functions result in ERROR conditions, typically indicating incomplete opfamily definitions
 - All comparison function information is stored in the scan's array context memory
 - The function handles both array scan keys (with sortprocp provided) and non-array scan keys (with sortprocp as NULL)
+
+## Simplified Source
+
+```c
+static void
+_bt_setup_array_cmp(IndexScanDesc scan, ScanKey skey, Oid elemtype,
+                     FmgrInfo *orderproc, FmgrInfo **sortprocp)
+{
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+    Relation rel = scan->indexRelation;
+    Oid opcintype = rel->rd_opcintype[skey->sk_attno - 1];
+
+    // Same-type comparison: use cached ORDER proc
+    if (elemtype == opcintype) {
+        *orderproc = *index_getprocinfo(rel, skey->sk_attno, BTORDER_PROC);
+        if (sortprocp)
+            *sortprocp = orderproc;  // Point to same function
+        return;
+    }
+
+    // Cross-type comparison: look up ORDER proc for binary searches
+    RegProcedure cmp_proc = get_opfamily_proc(rel->rd_opfamily[skey->sk_attno - 1],
+                                              opcintype, elemtype, BTORDER_PROC);
+    if (!RegProcedureIsValid(cmp_proc))
+        elog(ERROR, "missing support function %d(%u,%u) for attribute %d of index \"%s\"",
+             BTORDER_PROC, opcintype, elemtype, skey->sk_attno,
+             RelationGetRelationName(rel));
+
+    fmgr_info_cxt(cmp_proc, orderproc, so->arrayContext);
+
+    // Set up same-type ORDER proc for sorting if needed
+    if (sortprocp) {
+        cmp_proc = get_opfamily_proc(rel->rd_opfamily[skey->sk_attno - 1],
+                                     elemtype, elemtype, BTORDER_PROC);
+        if (!RegProcedureIsValid(cmp_proc))
+            elog(ERROR, "missing support function %d(%u,%u) for attribute %d of index \"%s\"",
+                 BTORDER_PROC, elemtype, elemtype,
+                 skey->sk_attno, RelationGetRelationName(rel));
+
+        fmgr_info_cxt(cmp_proc, *sortprocp, so->arrayContext);
+    }
+}
+```

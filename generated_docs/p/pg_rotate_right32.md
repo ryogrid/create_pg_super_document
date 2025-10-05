@@ -32,3 +32,12 @@ pg_rotate_right32 implements a circular right bit shift operation on a 32-bit un
 - If n is greater than 31, the behavior follows standard C shift semantics (typically modulo 32)
 - Commonly used in hash functions to improve bit distribution and reduce hash collisions
 - The rotation operation is reversible using pg_rotate_left32 with the same count
+
+## Simplified Source
+
+```c
+static inline uint32 pg_rotate_right32(uint32 word, int n) {
+    // Rotate bits right: combine right shift with left shift of wrapped bits
+    return (word >> n) | (word << (32 - n));
+}
+```

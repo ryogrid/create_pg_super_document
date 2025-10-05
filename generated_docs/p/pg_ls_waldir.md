@@ -34,3 +34,15 @@ This function returns detailed information about each regular file found in the 
 - Essential for database administrators monitoring WAL file growth and retention
 - Only shows regular files, automatically filtering out directories and special files
 - Particularly useful for monitoring replication lag and backup requirements based on WAL file accumulation
+
+## Simplified Source
+
+```c
+Datum
+pg_ls_waldir(PG_FUNCTION_ARGS)
+{
+    // List files in the PostgreSQL WAL directory
+    // Returns detailed file information (name, size, modification time)
+    return pg_ls_dir_files(fcinfo, XLOGDIR, false);
+}
+```

@@ -40,3 +40,12 @@ This is one of several wrapper functions created to satisfy PostgreSQL's opr_san
 - Source slot must be a logical slot; attempting to copy a physical slot will result in an error
 - The copied slot will inherit the source slot's plugin configuration
 - The copied slot will be persistent (non-temporary) by default
+
+## Simplified Source
+
+```c
+Datum pg_copy_logical_replication_slot_a(PG_FUNCTION_ARGS) {
+    // Simple wrapper that delegates to copy_replication_slot for logical slots
+    return copy_replication_slot(fcinfo, true);
+}
+```

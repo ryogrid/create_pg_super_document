@@ -40,3 +40,45 @@ This function implements the entry point for PL/Python subtransactions, allowing
 - Returns self with incremented reference count for Python context manager protocol
 - Part of Python's context manager protocol (`with` statement support)
 - Located in src/pl/plpython/plpy_subxactobject.c:84-136
+
+## Simplified Source
+
+```c
+static PyObject *PLy_subtransaction_enter(PyObject *self, PyObject *unused) {
+    PLySubtransactionData *subxactdata;
+    MemoryContext oldcontext;
+    PLySubtransactionObject *subxact = (PLySubtransactionObject *) self;
+
+    // Validate subtransaction state
+    if (subxact->started) {
+        PLy_exception_set(PyExc_ValueError, "this subtransaction has already been entered");
+        return NULL;
+    }
+    if (subxact->exited) {
+        PLy_exception_set(PyExc_ValueError, "this subtransaction has already been exited");
+        return NULL;
+    }
+
+    // Mark as started and save current context
+    subxact->started = true;
+    oldcontext = CurrentMemoryContext;
+
+    // Create subtransaction data in long-lived context
+    subxactdata = (PLySubtransactionData *)
+        MemoryContextAlloc(TopTransactionContext, sizeof(PLySubtransactionData));
+    subxactdata->oldcontext = oldcontext;
+    subxactdata->oldowner = CurrentResourceOwner;
+
+    // Start the database subtransaction
+    BeginInternalSubTransaction(NULL);
+
+    // Add to explicit subtransactions list
+    MemoryContextSwitchTo(TopTransactionContext);
+    explicit_subtransactions = lcons(subxactdata, explicit_subtransactions);
+    MemoryContextSwitchTo(oldcontext);
+
+    // Return self for context manager protocol
+    Py_INCREF(self);
+    return self;
+}
+```

@@ -43,3 +43,35 @@ The copying process ensures that:
 - Creates a completely independent copy - modifications to the copy will not affect the original
 - Part of the ECPG pgtypes library for PostgreSQL embedded C programming
 - Essential for numeric value management in ECPG applications where numeric values need to be duplicated or preserved
+
+## Simplified Source
+
+```c
+int PGTYPESnumeric_copy(numeric *src, numeric *dst)
+{
+    int i;
+
+    // Validate destination pointer
+    if (dst == NULL)
+        return -1;
+
+    // Initialize destination to zero
+    zero_var(dst);
+
+    // Copy all numeric metadata
+    dst->weight = src->weight;
+    dst->rscale = src->rscale;
+    dst->dscale = src->dscale;
+    dst->sign = src->sign;
+
+    // Allocate memory for digit array
+    if (alloc_var(dst, src->ndigits) != 0)
+        return -1;
+
+    // Copy all digits from source to destination
+    for (i = 0; i < src->ndigits; i++)
+        dst->digits[i] = src->digits[i];
+
+    return 0;
+}
+```

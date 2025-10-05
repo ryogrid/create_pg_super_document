@@ -51,3 +51,80 @@ This internal function reads a single tuple from the shared tuplestore file asso
 - Essential component of the parallel scanning infrastructure in PostgreSQL
 - The returned MinimalTuple points to data in the accessors read buffer, which may be invalidated by subsequent reads
 - Handles both metadata and tuple data in a single read operation for efficiency
+
+## Simplified Source
+
+```c
+static MinimalTuple sts_read_tuple(SharedTuplestoreAccessor *accessor, void *meta_data) {
+    MinimalTuple tuple;
+    uint32 size;
+    size_t remaining_size;
+    size_t this_chunk_size;
+    char *destination;
+
+    // Read metadata if configured
+    if (accessor->sts->meta_data_size > 0) {
+        BufFileReadExact(accessor->read_file, meta_data, accessor->sts->meta_data_size);
+        accessor->read_bytes += accessor->sts->meta_data_size;
+    }
+
+    // Read tuple size
+    BufFileReadExact(accessor->read_file, &size, sizeof(size));
+    accessor->read_bytes += sizeof(size);
+
+    // Ensure read buffer is large enough
+    if (size > accessor->read_buffer_size) {
+        if (accessor->read_buffer != NULL)
+            pfree(accessor->read_buffer);
+
+        size_t new_size = Max(size, accessor->read_buffer_size * 2);
+        accessor->read_buffer = MemoryContextAlloc(accessor->context, new_size);
+        accessor->read_buffer_size = new_size;
+    }
+
+    // Read tuple data from current chunk
+    remaining_size = size - sizeof(uint32);
+    this_chunk_size = Min(remaining_size,
+                         BLCKSZ * STS_CHUNK_PAGES - accessor->read_bytes);
+    destination = accessor->read_buffer + sizeof(uint32);
+
+    BufFileReadExact(accessor->read_file, destination, this_chunk_size);
+    accessor->read_bytes += this_chunk_size;
+    remaining_size -= this_chunk_size;
+    destination += this_chunk_size;
+    ++accessor->read_ntuples;
+
+    // Handle overflow chunks for large tuples
+    while (remaining_size > 0) {
+        SharedTuplestoreChunk chunk_header;
+
+        // Read overflow chunk header
+        BufFileReadExact(accessor->read_file, &chunk_header, STS_CHUNK_HEADER_SIZE);
+        accessor->read_bytes = STS_CHUNK_HEADER_SIZE;
+
+        if (chunk_header.overflow == 0)
+            ereport(ERROR, (errcode_for_file_access(),
+                           errmsg("unexpected chunk in shared tuplestore temporary file")));
+
+        // Read overflow data
+        accessor->read_next_page += STS_CHUNK_PAGES;
+        this_chunk_size = Min(remaining_size,
+                             BLCKSZ * STS_CHUNK_PAGES - STS_CHUNK_HEADER_SIZE);
+
+        BufFileReadExact(accessor->read_file, destination, this_chunk_size);
+        accessor->read_bytes += this_chunk_size;
+        remaining_size -= this_chunk_size;
+        destination += this_chunk_size;
+
+        // Reset counters for subsequent tuples in overflow chunk
+        accessor->read_ntuples = 0;
+        accessor->read_ntuples_available = chunk_header.ntuples;
+    }
+
+    // Prepare and return tuple
+    tuple = (MinimalTuple) accessor->read_buffer;
+    tuple->t_len = size;
+
+    return tuple;
+}
+```

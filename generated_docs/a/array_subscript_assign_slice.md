@@ -35,3 +35,46 @@ This function is responsible for executing array slice assignment operations wit
 - For fixed-length arrays, requires both source array and replacement value to be non-NULL
 - The result is guaranteed to be non-NULL after successful execution
 - Part of PostgreSQL's subscripting reference framework for array operations
+
+## Simplified Source
+
+```c
+static void
+array_subscript_assign_slice(ExprState *state,
+                             ExprEvalStep *op,
+                             ExprContext *econtext)
+{
+    SubscriptingRefState *sbsrefstate = op->d.sbsref.state;
+    ArraySubWorkspace *workspace = (ArraySubWorkspace *) sbsrefstate->workspace;
+    Datum arraySource = *op->resvalue;
+
+    // Handle fixed-length arrays: both array and replacement must be non-NULL
+    if (workspace->refattrlength > 0) {
+        if (*op->resnull || sbsrefstate->replacenull)
+            return;  // Keep original array unchanged
+    }
+
+    // Handle NULL original array for variable-length arrays
+    if (*op->resnull) {
+        // Create empty array to assign slice into
+        arraySource = PointerGetDatum(construct_empty_array(workspace->refelemtype));
+        *op->resnull = false;
+    }
+
+    // Perform the actual slice assignment
+    *op->resvalue = array_set_slice(arraySource,
+                                    sbsrefstate->numupper,
+                                    workspace->upperindex,
+                                    workspace->lowerindex,
+                                    sbsrefstate->upperprovided,
+                                    sbsrefstate->lowerprovided,
+                                    sbsrefstate->replacevalue,
+                                    sbsrefstate->replacenull,
+                                    workspace->refattrlength,
+                                    workspace->refelemlength,
+                                    workspace->refelembyval,
+                                    workspace->refelemalign);
+
+    // Result is never NULL
+}
+```

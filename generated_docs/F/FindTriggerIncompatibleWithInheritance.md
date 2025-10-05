@@ -40,3 +40,26 @@ If any row-level trigger uses transition tables, the function immediately return
 - The function stops at the first incompatible trigger found, prioritizing early detection
 - This check is essential for maintaining PostgreSQL's inheritance semantics and preventing runtime errors
 - Transition tables (OLD TABLE/NEW TABLE) are a PostgreSQL extension to the SQL standard for triggers
+
+## Simplified Source
+
+```c
+const char *FindTriggerIncompatibleWithInheritance(TriggerDesc *trigdesc) {
+    if (trigdesc != NULL) {
+        // Check each trigger in the descriptor
+        for (int i = 0; i < trigdesc->numtriggers; ++i) {
+            Trigger *trigger = &trigdesc->triggers[i];
+
+            // Skip statement-level triggers (only row-level triggers can have transition tables)
+            if (!TRIGGER_FOR_ROW(trigger->tgtype))
+                continue;
+
+            // Check if trigger uses transition tables (OLD TABLE or NEW TABLE)
+            if (trigger->tgoldtable != NULL || trigger->tgnewtable != NULL)
+                return trigger->tgname;  // Return name of incompatible trigger
+        }
+    }
+
+    return NULL;  // No incompatible triggers found
+}
+```

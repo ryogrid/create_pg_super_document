@@ -45,3 +45,44 @@ After preparing the time data in a TmToChar structure, it delegates the actual f
 - Day-of-year calculated as difference from January 1st of the same year plus 1
 - Part of PostgreSQL's public SQL function interface, accessible via SQL to_char() calls
 - Handles timestamp overflow with appropriate error reporting using ERRCODE_DATETIME_VALUE_OUT_OF_RANGE
+
+## Simplified Source
+
+```c
+Datum timestamp_to_char(PG_FUNCTION_ARGS) {
+    Timestamp dt = PG_GETARG_TIMESTAMP(0);
+    text *fmt = PG_GETARG_TEXT_PP(1);
+    text *res;
+    TmToChar tmtc;
+    struct pg_tm tt;
+    struct fmt_tm *tm;
+    int thisdate;
+
+    // Check for invalid inputs
+    if (VARSIZE_ANY_EXHDR(fmt) <= 0 || TIMESTAMP_NOT_FINITE(dt))
+        PG_RETURN_NULL();
+
+    // Initialize time conversion structure
+    ZERO_tmtc(&tmtc);
+    tm = tmtcTm(&tmtc);
+
+    // Convert timestamp to broken-down time
+    if (timestamp2tm(dt, NULL, &tt, &tmtcFsec(&tmtc), NULL, NULL) != 0)
+        ereport(ERROR, "timestamp out of range");
+
+    // Calculate missing fields (day of week and day of year)
+    thisdate = date2j(tt.tm_year, tt.tm_mon, tt.tm_mday);
+    tt.tm_wday = (thisdate + 1) % 7;  // Sunday = 0
+    tt.tm_yday = thisdate - date2j(tt.tm_year, 1, 1) + 1;
+
+    // Copy time data to formatting structure
+    COPY_tm(tm, &tt);
+
+    // Perform the formatting
+    res = datetime_to_char_body(&tmtc, fmt, false, PG_GET_COLLATION());
+    if (!res)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(res);
+}
+```

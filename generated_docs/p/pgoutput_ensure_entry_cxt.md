@@ -34,3 +34,28 @@ This function is responsible for lazily initializing the memory context for a sp
 - The context is named with the relation's name for easier debugging and memory context tracking
 - This is a static function, only accessible within the pgoutput.c file
 - The function is part of the lazy initialization pattern used throughout the pgoutput plugin
+
+## Simplified Source
+
+```c
+static void
+pgoutput_ensure_entry_cxt(PGOutputData *data, RelationSyncEntry *entry)
+{
+    Relation relation;
+
+    // Context already exists, nothing to do
+    if (entry->entry_cxt)
+        return;
+
+    relation = RelationIdGetRelation(entry->publish_as_relid);
+
+    // Create memory context for this relation entry
+    entry->entry_cxt = AllocSetContextCreate(data->cachectx,
+                                           "entry private context",
+                                           ALLOCSET_SMALL_SIZES);
+
+    // Set context identifier to relation name for debugging
+    MemoryContextCopyAndSetIdentifier(entry->entry_cxt,
+                                    RelationGetRelationName(relation));
+}
+```

@@ -53,3 +53,49 @@ The function uses the PostgreSQL function calling convention with:
 - Returns null if the input string is null or if base type conversion fails
 - All domain constraints are validated after successful base type conversion
 - The function follows PostgreSQL's standard type input function protocol
+
+## Simplified Source
+
+```c
+Datum domain_in(PG_FUNCTION_ARGS) {
+    char *string;
+    Oid domainType;
+    Node *escontext = fcinfo->context;
+    DomainIOData *my_extra;
+    Datum value;
+
+    // Handle null inputs (function is not strict)
+    if (PG_ARGISNULL(0)) {
+        string = NULL;
+    } else {
+        string = PG_GETARG_CSTRING(0);
+    }
+
+    if (PG_ARGISNULL(1)) {
+        PG_RETURN_NULL();
+    }
+    domainType = PG_GETARG_OID(1);
+
+    // Set up or reuse cached domain information
+    my_extra = (DomainIOData *) fcinfo->flinfo->fn_extra;
+    if (my_extra == NULL || my_extra->domain_type != domainType) {
+        my_extra = domain_state_setup(domainType, false, fcinfo->flinfo->fn_mcxt);
+        fcinfo->flinfo->fn_extra = (void *) my_extra;
+    }
+
+    // Convert input using base type's input function
+    if (!InputFunctionCallSafe(&my_extra->proc, string, my_extra->typioparam,
+                               my_extra->typtypmod, escontext, &value)) {
+        PG_RETURN_NULL();
+    }
+
+    // Validate domain constraints
+    domain_check_input(value, (string == NULL), my_extra, escontext);
+
+    if (string == NULL) {
+        PG_RETURN_NULL();
+    } else {
+        PG_RETURN_DATUM(value);
+    }
+}
+```

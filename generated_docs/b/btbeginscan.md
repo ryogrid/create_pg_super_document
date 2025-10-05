@@ -35,3 +35,46 @@ The btbeginscan function is responsible for initializing a B-tree index scan. It
 - B-tree indexes do not support order-by operators, so norderbys must always be 0
 - The function defers allocation of tuple workspace arrays until btrescan to optimize for cases where index-only scans may be possible
 - Memory allocation for scan keys is conditional based on the number of keys specified
+
+## Simplified Source
+
+```c
+IndexScanDesc btbeginscan(Relation rel, int nkeys, int norderbys) {
+    // B-tree doesn't support order-by operators
+    Assert(norderbys == 0);
+
+    // Create basic index scan descriptor
+    IndexScanDesc scan = RelationGetIndexScan(rel, nkeys, norderbys);
+
+    // Allocate and initialize B-tree scan state
+    BTScanOpaque so = (BTScanOpaque) palloc(sizeof(BTScanOpaqueData));
+
+    // Initialize scan positions as invalid
+    BTScanPosInvalidate(so->currPos);
+    BTScanPosInvalidate(so->markPos);
+
+    // Allocate scan key storage if needed
+    if (scan->numberOfKeys > 0)
+        so->keyData = (ScanKey) palloc(scan->numberOfKeys * sizeof(ScanKeyData));
+    else
+        so->keyData = NULL;
+
+    // Initialize scan state variables
+    so->needPrimScan = false;
+    so->scanBehind = false;
+    so->arrayKeys = NULL;
+    so->orderProcs = NULL;
+    so->arrayContext = NULL;
+    so->killedItems = NULL;
+    so->numKilled = 0;
+
+    // Defer tuple workspace allocation until btrescan
+    so->currTuples = so->markTuples = NULL;
+
+    // Set up tuple descriptor and attach scan state
+    scan->xs_itupdesc = RelationGetDescr(rel);
+    scan->opaque = so;
+
+    return scan;
+}
+```

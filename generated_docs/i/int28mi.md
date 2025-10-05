@@ -39,3 +39,20 @@ The function performs safe subtraction using PostgreSQL's overflow-checking arit
 - Automatically promotes the smaller integer type to match the larger one before computation  
 - Reports NUMERIC_VALUE_OUT_OF_RANGE error when overflow/underflow occurs
 - Note the order of operands: this computes (smallint - bigint), not (bigint - smallint)
+
+## Simplified Source
+
+```c
+Datum int28mi(PG_FUNCTION_ARGS) {
+    int16 arg1 = PG_GETARG_INT16(0);  // Get first 16-bit argument
+    int64 arg2 = PG_GETARG_INT64(1);  // Get second 64-bit argument
+    int64 result;
+
+    // Perform subtraction with overflow check (cast arg1 to 64-bit)
+    if (pg_sub_s64_overflow((int64) arg1, arg2, &result))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("bigint out of range")));
+
+    PG_RETURN_INT64(result);
+}
+```

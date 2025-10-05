@@ -169,3 +169,83 @@ write_data_to_archive_lz4_doc.md: Scan direction (forward or backward)
   - false: tuple is >= current required equality keys (time to advance arrays)
   - true: tuple is < current equality keys (not yet time to advance)
 - The function is optimized to avoid redundant comparisons by using the sktrig parameter to skip already-satisfied keys
+
+## Simplified Source
+
+```c
+static bool
+_bt_tuple_before_array_skeys(IndexScanDesc scan, ScanDirection dir,
+                            IndexTuple tuple, TupleDesc tupdesc, int tupnatts,
+                            bool readpagetup, int sktrig, bool *scanBehind)
+{
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+
+    Assert(so->numArrayKeys);
+    Assert(so->numberOfKeys);
+    Assert(sktrig == 0 || readpagetup);
+    Assert(!readpagetup || scanBehind == NULL);
+
+    if (scanBehind)
+        *scanBehind = false;
+
+    // Check each scan key starting from sktrig
+    for (int ikey = sktrig; ikey < so->numberOfKeys; ikey++) {
+        ScanKey cur = so->keyData + ikey;
+        Datum tupdatum;
+        bool tupnull;
+        int32 result;
+
+        // readpagetup calls require at most one ORDER proc comparison
+        Assert(!readpagetup || ikey == sktrig);
+
+        // Stop when we reach non-required scan keys
+        if ((cur->sk_flags & (SK_BT_REQFWD | SK_BT_REQBKWD)) == 0) {
+            Assert(!readpagetup);
+            Assert(ikey > sktrig || ikey == 0);
+            return false;
+        }
+
+        // Handle truncated attributes in high keys
+        if (cur->sk_attno > tupnatts) {
+            Assert(!readpagetup);
+
+            // Assume truncated attribute >= scan constraint
+            if (scanBehind)
+                *scanBehind = true;
+            return false;
+        }
+
+        // Handle inequality strategy scan keys
+        if (cur->sk_strategy != BTEqualStrategyNumber) {
+            if (readpagetup)
+                return false;  // Already determined by _bt_check_compare
+            continue;  // Must check all required keys for *scanBehind tracking
+        }
+
+        // Get tuple attribute value
+        tupdatum = index_getattr(tuple, cur->sk_attno, tupdesc, &tupnull);
+
+        // Compare with current array element
+        result = _bt_compare_array_skey(&so->orderProcs[ikey],
+                                       tupdatum, tupnull,
+                                       cur->sk_argument, cur);
+
+        // Check if tuple is before current array keys
+        if ((ScanDirectionIsForward(dir) && result < 0) ||
+            (ScanDirectionIsBackward(dir) && result > 0))
+            return true;  // Too early to advance arrays
+
+        // Check if arrays should be advanced now
+        if (readpagetup || result != 0) {
+            Assert(result != 0);
+            return false;  // Time to advance arrays
+        }
+
+        // Equal match - need to check next scan key
+        Assert(result == 0);
+    }
+
+    Assert(!readpagetup);
+    return false;
+}
+```

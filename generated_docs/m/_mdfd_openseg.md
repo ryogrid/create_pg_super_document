@@ -43,3 +43,42 @@ The function includes assertions to validate that segments are being opened in t
 - Validates that opened segments don't exceed RELSEG_SIZE limit
 - The returned MdfdVec pointer becomes part of the relation's segment array
 - File opening combines default MD flags with caller-provided flags
+
+## Simplified Source
+
+```c
+static MdfdVec *_mdfd_openseg(SMgrRelation reln, ForkNumber forknum, BlockNumber segno,
+                              int oflags)
+{
+    MdfdVec *v;
+    File fd;
+    char *fullpath;
+
+    // Construct the segment file path
+    fullpath = _mdfd_segpath(reln, forknum, segno);
+
+    // Open the file with combined flags
+    fd = PathNameOpenFile(fullpath, _mdfd_open_flags() | oflags);
+
+    pfree(fullpath);
+
+    if (fd < 0)
+        return NULL;
+
+    // Segments must be opened sequentially
+    Assert(segno == reln->md_num_open_segs[forknum]);
+
+    // Expand the segment descriptor array
+    _fdvec_resize(reln, forknum, segno + 1);
+
+    // Initialize the segment descriptor
+    v = &reln->md_seg_fds[forknum][segno];
+    v->mdfd_vfd = fd;
+    v->mdfd_segno = segno;
+
+    // Validate segment size doesn't exceed limit
+    Assert(_mdnblocks(reln, forknum, v) <= ((BlockNumber) RELSEG_SIZE));
+
+    return v;
+}
+```

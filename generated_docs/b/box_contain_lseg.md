@@ -34,3 +34,13 @@ This function is used internally by other geometric operations and is not direct
 - Located in src/backend/utils/adt/geo_ops.c:3217-3223
 - Returns true only if both endpoints of the segment are contained within the box or on its boundary
 - The function assumes standard geometric properties of line segments and rectangular boxes
+
+## Simplified Source
+
+```c
+static bool box_contain_lseg(BOX *box, LSEG *lseg) {
+    // Check if both endpoints of the line segment are within the box
+    return box_contain_point(box, &lseg->p[0]) &&
+           box_contain_point(box, &lseg->p[1]);
+}
+```

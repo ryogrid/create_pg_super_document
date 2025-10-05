@@ -55,3 +55,136 @@ The function manages state through the LexizeData structure and can recursively 
 - Proper memory management ensures temporary results are cleaned up
 - The function can handle dictionaries that don't recognize certain lexeme types by skipping them
 - State management is crucial for maintaining consistency across recursive calls
+
+## Simplified Source
+
+```c
+static TSLexeme *LexizeExec(LexizeData *ld, ParsedLex **correspondLexem) {
+    int i;
+    ListDictionary *map;
+    TSDictionaryCacheEntry *dict;
+    TSLexeme *res;
+
+    if (ld->curDictId == InvalidOid) {
+        // Normal mode: process tokens with all dictionaries
+        while (ld->towork.head) {
+            ParsedLex *curVal = ld->towork.head;
+            map = ld->cfg->map + curVal->type;
+
+            // Skip invalid token types
+            if (curVal->type == 0 || curVal->type >= ld->cfg->lenmap || map->len == 0) {
+                RemoveHead(ld);
+                continue;
+            }
+
+            // Try each dictionary for this token type
+            for (i = ld->posDict; i < map->len; i++) {
+                dict = lookup_ts_dictionary_cache(map->dictIds[i]);
+
+                // Call dictionary's lexize function
+                ld->dictState.isend = ld->dictState.getnext = false;
+                res = (TSLexeme *) DatumGetPointer(FunctionCall4(&(dict->lexize),
+                    PointerGetDatum(dict->dictData),
+                    PointerGetDatum(curVal->lemm),
+                    Int32GetDatum(curVal->lenlemm),
+                    PointerGetDatum(&ld->dictState)));
+
+                // Dictionary wants more words - switch to multi-word mode
+                if (ld->dictState.getnext) {
+                    ld->curDictId = DatumGetObjectId(map->dictIds[i]);
+                    ld->posDict = i + 1;
+                    ld->curSub = curVal->next;
+                    if (res)
+                        setNewTmpRes(ld, curVal, res);
+                    return LexizeExec(ld, correspondLexem);
+                }
+
+                if (!res) continue; // Dictionary doesn't know this lexeme
+
+                // Handle filter lexemes (dictionary transforms input)
+                if (res->flags & TSL_FILTER) {
+                    curVal->lemm = res->lexeme;
+                    curVal->lenlemm = strlen(res->lexeme);
+                    continue;
+                }
+
+                // Found result
+                RemoveHead(ld);
+                setCorrLex(ld, correspondLexem);
+                return res;
+            }
+            RemoveHead(ld);
+        }
+    }
+    else {
+        // Multi-word mode: specific dictionary wants additional words
+        dict = lookup_ts_dictionary_cache(ld->curDictId);
+
+        while (ld->curSub) {
+            ParsedLex *curVal = ld->curSub;
+            map = ld->cfg->map + curVal->type;
+
+            // Check if dictionary can handle this token type
+            if (curVal->type != 0) {
+                bool dictExists = false;
+                if (curVal->type >= ld->cfg->lenmap || map->len == 0) {
+                    ld->curSub = curVal->next;
+                    continue;
+                }
+
+                for (i = 0; i < map->len && !dictExists; i++)
+                    if (ld->curDictId == DatumGetObjectId(map->dictIds[i]))
+                        dictExists = true;
+
+                if (!dictExists) {
+                    // Dictionary can't handle this type, return to normal mode
+                    ld->curDictId = InvalidOid;
+                    return LexizeExec(ld, correspondLexem);
+                }
+            }
+
+            // Process with current dictionary
+            ld->dictState.isend = (curVal->type == 0);
+            ld->dictState.getnext = false;
+            res = (TSLexeme *) DatumGetPointer(FunctionCall4(&(dict->lexize),
+                PointerGetDatum(dict->dictData),
+                PointerGetDatum(curVal->lemm),
+                Int32GetDatum(curVal->lenlemm),
+                PointerGetDatum(&ld->dictState)));
+
+            if (ld->dictState.getnext) {
+                // Dictionary wants more words
+                ld->curSub = curVal->next;
+                if (res)
+                    setNewTmpRes(ld, curVal, res);
+                continue;
+            }
+
+            if (res || ld->tmpRes) {
+                // Dictionary finished - clean up and return result
+                if (res) {
+                    moveToWaste(ld, ld->curSub);
+                } else {
+                    res = ld->tmpRes;
+                    moveToWaste(ld, ld->lastRes);
+                }
+
+                // Reset state and return
+                ld->curDictId = InvalidOid;
+                ld->posDict = 0;
+                ld->lastRes = NULL;
+                ld->tmpRes = NULL;
+                setCorrLex(ld, correspondLexem);
+                return res;
+            }
+
+            // Dictionary failed - return to normal mode
+            ld->curDictId = InvalidOid;
+            return LexizeExec(ld, correspondLexem);
+        }
+    }
+
+    setCorrLex(ld, correspondLexem);
+    return NULL;
+}
+```

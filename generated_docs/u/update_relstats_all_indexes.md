@@ -34,3 +34,24 @@ The function skips indexes where no statistics were collected (NULL) or where th
 - Calls vac_update_relstats with specific parameters: num_pages, num_index_tuples, hasindex=0, isvacuum=false, InvalidTransactionId, InvalidMultiXactId, and NULL for additional parameters
 - The statistics update helps the query planner make better decisions by providing accurate index size and tuple count information
 - Updates are atomic per index but the overall operation processes all indexes sequentially
+
+## Simplified Source
+
+```c
+static void update_relstats_all_indexes(LVRelState *vacrel) {
+    // Update statistics for all indexes with accurate (non-estimated) data
+    for (int idx = 0; idx < vacrel->nindexes; idx++) {
+        Relation index = vacrel->indrels[idx];
+        IndexBulkDeleteResult *stats = vacrel->indstats[idx];
+
+        // Skip indexes with no stats or estimated counts
+        if (stats == NULL || stats->estimated_count)
+            continue;
+
+        // Update pg_class with accurate index statistics
+        vac_update_relstats(index, stats->num_pages, stats->num_index_tuples,
+                           0, false, InvalidTransactionId, InvalidMultiXactId,
+                           NULL, NULL, false);
+    }
+}
+```

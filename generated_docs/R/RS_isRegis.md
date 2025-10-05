@@ -42,3 +42,46 @@ The function processes the string character by character, transitioning between 
 - Must be kept synchronized with RS_compile implementation
 - Part of PostgreSQL's text search regex compilation system
 - Designed for simple pattern matching, not full regex functionality
+
+## Simplified Source
+
+```c
+bool RS_isRegis(const char *str) {
+    int state = RS_IN_WAIT;
+    const char *c = str;
+
+    // Parse string using finite state machine
+    while (*c) {
+        if (state == RS_IN_WAIT) {
+            if (t_isalpha(c))
+                /* alphabetic character - OK */;
+            else if (t_iseq(c, '['))
+                state = RS_IN_ONEOF;  // Start character class
+            else
+                return false;
+        }
+        else if (state == RS_IN_ONEOF) {
+            if (t_iseq(c, '^'))
+                state = RS_IN_NONEOF;  // Negated character class
+            else if (t_isalpha(c))
+                state = RS_IN_ONEOF_IN;
+            else
+                return false;
+        }
+        else if (state == RS_IN_ONEOF_IN || state == RS_IN_NONEOF) {
+            if (t_isalpha(c))
+                /* more characters in class - OK */;
+            else if (t_iseq(c, ']'))
+                state = RS_IN_WAIT;  // End character class
+            else
+                return false;
+        }
+        else
+            elog(ERROR, "internal error in RS_isRegis: state %d", state);
+
+        c += pg_mblen(c);  // Advance to next multibyte character
+    }
+
+    return (state == RS_IN_WAIT);  // Must end in waiting state
+}
+```

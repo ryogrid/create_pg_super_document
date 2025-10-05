@@ -42,4 +42,26 @@ Returns:
 - The comparison strategy ensures that identical words are ordered by position, which is crucial for maintaining consistent text search vector representations
 - Part of PostgreSQL's text search functionality, specifically used in tsvector creation
 - The function signature follows the standard C comparison function convention used by 
-- Located at lines 57-76 in 
+- Located at lines 57-76 in src/backend/tsearch/to_tsany.c
+
+## Simplified Source
+
+```c
+static int compareWORD(const void *a, const void *b) {
+    const ParsedWord *word_a = (const ParsedWord *) a;
+    const ParsedWord *word_b = (const ParsedWord *) b;
+
+    // Compare word content first
+    int result = tsCompareString(word_a->word, word_a->len,
+                                word_b->word, word_b->len, false);
+
+    // If words are identical, compare positions for stable ordering
+    if (result == 0) {
+        if (word_a->pos.pos == word_b->pos.pos)
+            return 0;
+        return (word_a->pos.pos > word_b->pos.pos) ? 1 : -1;
+    }
+
+    return result;
+}
+``` 

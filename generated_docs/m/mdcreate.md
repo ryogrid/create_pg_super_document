@@ -39,3 +39,53 @@ This function creates a new relation file on disk with comprehensive error handl
 - Automatically creates per-database subdirectories in tablespaces as needed
 - Registers non-temporary segments as dirty to ensure proper cleanup during crashes
 - Part of the core file creation mechanism in PostgreSQL's magnetic disk storage manager
+
+## Simplified Source
+
+```c
+void mdcreate(SMgrRelation reln, ForkNumber forknum, bool isRedo) {
+    // Skip if in redo mode and file already exists/opened
+    if (isRedo && reln->md_num_open_segs[forknum] > 0) {
+        return; // Already created and opened
+    }
+
+    // Ensure tablespace directory structure exists
+    TablespaceCreateDbspace(reln->smgr_rlocator.locator.spcOid,
+                           reln->smgr_rlocator.locator.dbOid,
+                           isRedo);
+
+    // Build file path for the relation fork
+    char *path = relpath(reln->smgr_rlocator, forknum);
+
+    // Try to create new file with exclusive access
+    File fd = PathNameOpenFile(path, _mdfd_open_flags() | O_CREAT | O_EXCL);
+
+    // Handle creation failure
+    if (fd < 0) {
+        int save_errno = errno;
+
+        // In redo mode, try opening existing file
+        if (isRedo) {
+            fd = PathNameOpenFile(path, _mdfd_open_flags());
+        }
+
+        if (fd < 0) {
+            errno = save_errno; // Report original creation error
+            ereport(ERROR, "could not create file \"%s\": %m", path);
+        }
+    }
+
+    pfree(path);
+
+    // Initialize file descriptor structures
+    _fdvec_resize(reln, forknum, 1);
+    MdfdVec *mdfd = &reln->md_seg_fds[forknum][0];
+    mdfd->mdfd_vfd = fd;
+    mdfd->mdfd_segno = 0;
+
+    // Register for cleanup tracking (non-temporary relations only)
+    if (!SmgrIsTemp(reln)) {
+        register_dirty_segment(reln, forknum, mdfd);
+    }
+}
+```

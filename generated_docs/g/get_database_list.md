@@ -41,3 +41,59 @@ This function takes no parameters and returns a List of avw_dbase structures.
 
 ## Notes and Other Information
 The function includes a FIXME comment indicating a potential bug related to snapshot management and HOT pruning prevention. The comment suggests that an inactive snapshot may not reliably prevent HOT pruning due to possible xmin clearing during cache invalidation processing. The memory context switching is carefully orchestrated to allocate results in the caller's long-lived context while ensuring that temporary allocations from heap scanning occur in the shorter-lived transaction context. The function is specifically designed for the autovacuum launcher's unique requirement to access system catalogs without being connected to a specific database.
+
+## Simplified Source
+
+```c
+static List *
+get_database_list(void)
+{
+    List *dblist = NIL;
+    Relation rel;
+    TableScanDesc scan;
+    HeapTuple tup;
+    MemoryContext resultcxt = CurrentMemoryContext;
+
+    // Start transaction and get snapshot for catalog access
+    StartTransactionCommand();
+    (void) GetTransactionSnapshot();
+
+    // Open pg_database catalog
+    rel = table_open(DatabaseRelationId, AccessShareLock);
+    scan = table_beginscan_catalog(rel, 0, NULL);
+
+    // Scan all databases
+    while (HeapTupleIsValid(tup = heap_getnext(scan, ForwardScanDirection)))
+    {
+        Form_pg_database pgdatabase = (Form_pg_database) GETSTRUCT(tup);
+        avw_dbase *avdb;
+        MemoryContext oldcxt;
+
+        // Skip invalid/dropped databases
+        if (database_is_invalid_form(pgdatabase))
+            continue;
+
+        // Allocate database info in caller's context
+        oldcxt = MemoryContextSwitchTo(resultcxt);
+        avdb = (avw_dbase *) palloc(sizeof(avw_dbase));
+
+        // Fill database information
+        avdb->adw_datid = pgdatabase->oid;
+        avdb->adw_name = pstrdup(NameStr(pgdatabase->datname));
+        avdb->adw_frozenxid = pgdatabase->datfrozenxid;
+        avdb->adw_minmulti = pgdatabase->datminmxid;
+        avdb->adw_entry = NULL;
+
+        dblist = lappend(dblist, avdb);
+        MemoryContextSwitchTo(oldcxt);
+    }
+
+    // Clean up and commit
+    table_endscan(scan);
+    table_close(rel, AccessShareLock);
+    CommitTransactionCommand();
+    MemoryContextSwitchTo(resultcxt);
+
+    return dblist;
+}
+```

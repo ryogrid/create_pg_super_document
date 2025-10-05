@@ -37,3 +37,40 @@ The function retrieves instrumentation data from the tuplesort state and updates
 - The function handles both parallel and non-parallel execution contexts through the INSTRUMENT_SORT_GROUP macro wrapper
 - Statistics are accumulated across multiple sort batches to provide comprehensive performance information
 - The function tracks both total and maximum resource usage to help identify performance bottlenecks in incremental sorting operations
+
+## Simplified Source
+
+```c
+static void
+instrumentSortedGroup(IncrementalSortGroupInfo *groupInfo,
+                      Tuplesortstate *sortState)
+{
+    TuplesortInstrumentation sort_instr;
+
+    // Increment count of processed sort groups
+    groupInfo->groupCount++;
+
+    // Get statistics from the completed sort operation
+    tuplesort_get_stats(sortState, &sort_instr);
+
+    // Accumulate space usage statistics based on storage type
+    switch (sort_instr.spaceType) {
+        case SORT_SPACE_TYPE_DISK:
+            // Track disk space usage (total and maximum)
+            groupInfo->totalDiskSpaceUsed += sort_instr.spaceUsed;
+            if (sort_instr.spaceUsed > groupInfo->maxDiskSpaceUsed)
+                groupInfo->maxDiskSpaceUsed = sort_instr.spaceUsed;
+            break;
+
+        case SORT_SPACE_TYPE_MEMORY:
+            // Track memory space usage (total and maximum)
+            groupInfo->totalMemorySpaceUsed += sort_instr.spaceUsed;
+            if (sort_instr.spaceUsed > groupInfo->maxMemorySpaceUsed)
+                groupInfo->maxMemorySpaceUsed = sort_instr.spaceUsed;
+            break;
+    }
+
+    // Accumulate sort methods used (bitwise OR to track all methods)
+    groupInfo->sortMethods |= sort_instr.sortMethod;
+}
+```

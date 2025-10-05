@@ -42,3 +42,28 @@ The function directly uses the original subscript indices from the SubscriptingR
 - Stores results in prevvalue/prevnull fields of SubscriptingRefState for later use
 - Part of the complex assignment expression evaluation framework
 - The false parameter passed to jsonb_get_element likely controls extraction behavior similar to the regular fetch function
+
+## Simplified Source
+
+```c
+static void jsonb_subscript_fetch_old(ExprState *state,
+                                     ExprEvalStep *op,
+                                     ExprContext *econtext) {
+    SubscriptingRefState *sbsrefstate = op->d.sbsref.state;
+
+    if (*op->resnull) {
+        // Source JSONB is null, so element is also null
+        sbsrefstate->prevvalue = (Datum) 0;
+        sbsrefstate->prevnull = true;
+    } else {
+        // Extract old element value for assignment operations
+        Jsonb *jsonbSource = DatumGetJsonbP(*op->resvalue);
+
+        sbsrefstate->prevvalue = jsonb_get_element(jsonbSource,
+                                                 sbsrefstate->upperindex,
+                                                 sbsrefstate->numupper,
+                                                 &sbsrefstate->prevnull,
+                                                 false);
+    }
+}
+```

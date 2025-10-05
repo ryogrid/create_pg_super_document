@@ -47,3 +47,32 @@ The DST status is returned through the `isdst` output parameter rather than bein
 - More efficient than the basic version when working with TimestampTz values since it avoids unnecessary conversions
 - The function will report an error if the input timestamp is out of the valid range for conversion
 - Located in src/backend/utils/adt/datetime.c:1784-1820
+
+## Simplified Source
+
+```c
+int DetermineTimeZoneAbbrevOffsetTS(TimestampTz ts, const char *abbr, pg_tz *tzp, int *isdst) {
+    // Convert timestamp to time_t for timezone operations
+    pg_time_t t = timestamptz_to_time_t(ts);
+    int abbr_offset;
+
+    // Try direct abbreviation lookup first
+    if (DetermineTimeZoneAbbrevOffsetInternal(t, abbr, tzp, &abbr_offset, isdst)) {
+        return abbr_offset;
+    }
+
+    // Fallback: break down timestamp and use standard timezone calculation
+    struct pg_tm tm;
+    fsec_t fsec;
+    int tz;
+
+    if (timestamp2tm(ts, &tz, &tm, &fsec, NULL, tzp) != 0) {
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                       errmsg("timestamp out of range")));
+    }
+
+    int zone_offset = DetermineTimeZoneOffset(&tm, tzp);
+    *isdst = tm.tm_isdst;
+    return zone_offset;
+}
+```

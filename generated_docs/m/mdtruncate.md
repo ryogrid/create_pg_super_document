@@ -46,3 +46,69 @@ The function handles three scenarios for each segment: complete removal (truncat
 - Registers dirty segments for fsync unless the relation is temporary
 - Includes validation to prevent truncation beyond current size (except during recovery)
 - Uses proper error reporting with file paths and block counts for debugging
+
+## Simplified Source
+
+```c
+void
+mdtruncate(SMgrRelation reln, ForkNumber forknum,
+           BlockNumber curnblk, BlockNumber nblocks)
+{
+    BlockNumber priorblocks;
+    int curopensegs;
+
+    // Validate truncation request
+    if (nblocks > curnblk) {
+        if (InRecovery)
+            return;
+        ereport(ERROR, "could not truncate file to %u blocks: it's only %u blocks now",
+               nblocks, curnblk);
+    }
+
+    // No work needed if already at target size
+    if (nblocks == curnblk)
+        return;
+
+    // Process segments from last to first
+    curopensegs = reln->md_num_open_segs[forknum];
+    while (curopensegs > 0) {
+        MdfdVec *v;
+
+        priorblocks = (curopensegs - 1) * RELSEG_SIZE;
+        v = &reln->md_seg_fds[forknum][curopensegs - 1];
+
+        if (priorblocks > nblocks) {
+            // Segment is beyond target - truncate to 0 but keep file
+            if (FileTruncate(v->mdfd_vfd, 0, WAIT_EVENT_DATA_FILE_TRUNCATE) < 0)
+                ereport(ERROR, "could not truncate file \"%s\": %m",
+                       FilePathName(v->mdfd_vfd));
+
+            // Register for fsync if not temporary
+            if (!SmgrIsTemp(reln))
+                register_dirty_segment(reln, forknum, v);
+
+            // Close and remove from fd array (except first segment)
+            FileClose(v->mdfd_vfd);
+            _fdvec_resize(reln, forknum, curopensegs - 1);
+        }
+        else if (priorblocks + ((BlockNumber) RELSEG_SIZE) > nblocks) {
+            // This is the last segment to keep - truncate to exact size
+            BlockNumber lastsegblocks = nblocks - priorblocks;
+
+            if (FileTruncate(v->mdfd_vfd, (off_t) lastsegblocks * BLCKSZ,
+                           WAIT_EVENT_DATA_FILE_TRUNCATE) < 0)
+                ereport(ERROR, "could not truncate file \"%s\" to %u blocks: %m",
+                       FilePathName(v->mdfd_vfd), nblocks);
+
+            if (!SmgrIsTemp(reln))
+                register_dirty_segment(reln, forknum, v);
+        }
+        else {
+            // This segment and all earlier ones are still needed
+            break;
+        }
+
+        curopensegs--;
+    }
+}
+```

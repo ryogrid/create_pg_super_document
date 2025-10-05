@@ -37,3 +37,20 @@ The function takes a JSON text input and an integer index (zero-based) and uses 
 - Uses zero-based indexing consistent with JSON array conventions
 - Part of PostgreSQL's JSON support introduced to provide text extraction capabilities
 - The function is registered as a PostgreSQL built-in function and accessible via SQL
+
+## Simplified Source
+
+```c
+Datum json_array_element_text(PG_FUNCTION_ARGS) {
+    text *json = PG_GETARG_TEXT_PP(0);
+    int element = PG_GETARG_INT32(1);
+
+    // Extract array element as text using common worker function
+    text *result = get_worker(json, NULL, &element, 1, true);
+
+    if (result != NULL)
+        PG_RETURN_TEXT_P(result);
+    else
+        PG_RETURN_NULL();
+}
+```

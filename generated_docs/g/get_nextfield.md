@@ -48,3 +48,51 @@ The function advances the input pointer past the parsed field, allowing successi
 - Handles multibyte characters correctly for international character sets
 - Comment lines (starting with '#') cause immediate return with false
 - Preserves the integrity of multibyte character sequences during copying
+
+## Simplified Source
+
+```c
+static bool
+get_nextfield(char **str, char *next)
+{
+    int state = PAE_WAIT_MASK;
+    int avail = BUFSIZ;
+
+    while (**str) {
+        if (state == PAE_WAIT_MASK) {
+            // Waiting for start of field
+            if (t_iseq(*str, '#'))
+                return false;  // Comment line - stop parsing
+            else if (!t_isspace(*str)) {
+                // Found start of field - copy character
+                int clen = pg_mblen(*str);
+                if (clen < avail) {
+                    COPYCHAR(next, *str);
+                    next += clen;
+                    avail -= clen;
+                }
+                state = PAE_INMASK;  // Now reading field content
+            }
+        } else {
+            // Reading field content (state == PAE_INMASK)
+            if (t_isspace(*str)) {
+                // End of field reached
+                *next = '\0';
+                return true;
+            } else {
+                // Continue copying field characters
+                int clen = pg_mblen(*str);
+                if (clen < avail) {
+                    COPYCHAR(next, *str);
+                    next += clen;
+                    avail -= clen;
+                }
+            }
+        }
+        *str += pg_mblen(*str);  // Advance input pointer
+    }
+
+    *next = '\0';
+    return (state == PAE_INMASK);  // True if we found a non-empty field
+}
+```

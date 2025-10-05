@@ -44,3 +44,29 @@ The function explicitly handles:
 - [Result](../R/Result.md) range: [-π/2, π/2] radians
 - Uses ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE for domain violations
 - The function follows PostgreSQL's standard function interface using PG_FUNCTION_ARGS and PG_RETURN_FLOAT8
+
+## Simplified Source
+
+```c
+Datum dasin(PG_FUNCTION_ARGS) {
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+
+    // Handle NaN input per POSIX spec
+    if (isnan(arg1))
+        PG_RETURN_FLOAT8(get_float8_nan());
+
+    // Validate domain: arcsine requires input in [-1, 1]
+    if (arg1 < -1.0 || arg1 > 1.0)
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("input is out of range")));
+
+    // Compute arcsine
+    float8 result = asin(arg1);
+
+    // Check for overflow (should not occur for valid domain)
+    if (unlikely(isinf(result)))
+        float_overflow_error();
+
+    PG_RETURN_FLOAT8(result);
+}
+```

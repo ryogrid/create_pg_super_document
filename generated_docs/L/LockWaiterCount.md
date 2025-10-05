@@ -36,3 +36,39 @@ This function searches the PostgreSQL lock manager's hash table to find a lock m
 - Error handling validates the lock method ID to prevent invalid memory access
 - The function is primarily used for monitoring lock contention and debugging deadlock situations
 - Part of PostgreSQL's sophisticated lock manager system that handles various lock types including relation locks, tuple locks, and advisory locks
+
+## Simplified Source
+
+```c
+int
+LockWaiterCount(const LOCKTAG *locktag)
+{
+    LOCKMETHODID lockmethodid = locktag->locktag_lockmethodid;
+    LOCK *lock;
+    bool found;
+    uint32 hashcode;
+    LWLock *partitionLock;
+    int waiters = 0;
+
+    // Validate lock method
+    if (lockmethodid <= 0 || lockmethodid >= lengthof(LockMethods))
+        elog(ERROR, "unrecognized lock method: %d", lockmethodid);
+
+    // Calculate hash and get partition lock
+    hashcode = LockTagHashCode(locktag);
+    partitionLock = LockHashPartitionLock(hashcode);
+    LWLockAcquire(partitionLock, LW_EXCLUSIVE);
+
+    // Search for the lock in hash table
+    lock = (LOCK *) hash_search_with_hash_value(LockMethodLockHash,
+                                                locktag, hashcode,
+                                                HASH_FIND, &found);
+    if (found) {
+        Assert(lock != NULL);
+        waiters = lock->nRequested;  // Total requesters (granted + waiting)
+    }
+
+    LWLockRelease(partitionLock);
+    return waiters;
+}
+```

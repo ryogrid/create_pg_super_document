@@ -34,3 +34,11 @@ This inline utility function generates a consistent filename format for files th
 - The ".changes" extension is hardcoded and indicates the file contains serialized logical replication changes
 - This is a static inline function, meaning it is only visible within the worker.c compilation unit and is typically inlined at call sites for performance
 - The filename format enables easy identification and cleanup of change files based on subscription and transaction boundaries
+
+## Simplified Source
+
+```c
+static inline void changes_filename(char *path, Oid subid, TransactionId xid) {
+    snprintf(path, MAXPGPATH, "%u-%u.changes", subid, xid);
+}
+```

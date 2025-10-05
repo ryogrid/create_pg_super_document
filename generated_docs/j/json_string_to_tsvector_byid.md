@@ -36,3 +36,21 @@ This function provides a way to convert JSON string data to a TSVector while exp
 - Allows explicit specification of text search configuration rather than using the default
 - Part of PostgreSQL's full-text search functionality for JSON data types
 - Properly manages memory by freeing copied text arguments
+
+## Simplified Source
+
+```c
+Datum json_string_to_tsvector_byid(PG_FUNCTION_ARGS)
+{
+    // Extract configuration ID and JSON text from arguments
+    Oid cfgId = PG_GETARG_OID(0);
+    text *json = PG_GETARG_TEXT_P(1);
+
+    // Convert JSON string values to TSVector
+    TSVector result = json_to_tsvector_worker(cfgId, json, jtiString);
+
+    // Clean up memory and return result
+    PG_FREE_IF_COPY(json, 1);
+    PG_RETURN_TSVECTOR(result);
+}
+```

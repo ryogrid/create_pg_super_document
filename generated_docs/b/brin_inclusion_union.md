@@ -55,3 +55,59 @@ This function implements the union operation for BRIN inclusion operator classes
 - Handles memory management carefully by freeing old union values when they are replaced
 - Copies the result datum if it points to col_b's data to avoid aliasing issues
 - Returns void as it modifies col_a in-place rather than returning a new structure
+
+## Simplified Source
+
+```c
+Datum brin_inclusion_union(PG_FUNCTION_ARGS) {
+    BrinDesc *bdesc = (BrinDesc *) PG_GETARG_POINTER(0);
+    BrinValues *col_a = (BrinValues *) PG_GETARG_POINTER(1);
+    BrinValues *col_b = (BrinValues *) PG_GETARG_POINTER(2);
+    Oid colloid = PG_GET_COLLATION();
+
+    AttrNumber attno = col_a->bv_attno;
+    Form_pg_attribute attr = TupleDescAttr(bdesc->bd_tupdesc, attno - 1);
+
+    // Propagate contains-empty flag from B to A if needed
+    if (!DatumGetBool(col_a->bv_values[INCLUSION_CONTAINS_EMPTY]) &&
+        DatumGetBool(col_b->bv_values[INCLUSION_CONTAINS_EMPTY]))
+        col_a->bv_values[INCLUSION_CONTAINS_EMPTY] = BoolGetDatum(true);
+
+    // Early exit if A already has unmergeable elements
+    if (DatumGetBool(col_a->bv_values[INCLUSION_UNMERGEABLE]))
+        PG_RETURN_VOID();
+
+    // Propagate unmergeable flag from B to A if needed
+    if (DatumGetBool(col_b->bv_values[INCLUSION_UNMERGEABLE])) {
+        col_a->bv_values[INCLUSION_UNMERGEABLE] = BoolGetDatum(true);
+        PG_RETURN_VOID();
+    }
+
+    // Check if A and B union values are mergeable
+    FmgrInfo *finfo = inclusion_get_procinfo(bdesc, attno, PROCNUM_MERGEABLE, true);
+    if (finfo != NULL &&
+        !DatumGetBool(FunctionCall2Coll(finfo, colloid,
+                                       col_a->bv_values[INCLUSION_UNION],
+                                       col_b->bv_values[INCLUSION_UNION]))) {
+        col_a->bv_values[INCLUSION_UNMERGEABLE] = BoolGetDatum(true);
+        PG_RETURN_VOID();
+    }
+
+    // Merge B's union value into A's union
+    finfo = inclusion_get_procinfo(bdesc, attno, PROCNUM_MERGE, false);
+    Datum result = FunctionCall2Coll(finfo, colloid,
+                                    col_a->bv_values[INCLUSION_UNION],
+                                    col_b->bv_values[INCLUSION_UNION]);
+
+    // Handle memory management for pass-by-reference types
+    if (!attr->attbyval &&
+        DatumGetPointer(result) != DatumGetPointer(col_a->bv_values[INCLUSION_UNION])) {
+        pfree(DatumGetPointer(col_a->bv_values[INCLUSION_UNION]));
+        if (result == col_b->bv_values[INCLUSION_UNION])
+            result = datumCopy(result, attr->attbyval, attr->attlen);
+    }
+    col_a->bv_values[INCLUSION_UNION] = result;
+
+    PG_RETURN_VOID();
+}
+```

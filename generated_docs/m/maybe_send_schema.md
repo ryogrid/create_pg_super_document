@@ -41,3 +41,52 @@ This function determines whether to send schema information for a relation in th
 
 ## Notes and Other Information
 This function includes an optimization comment noting that schema sending in streaming transactions could potentially be improved by checking the 'relentry->schema_sent' flag, but this needs careful analysis for mixed streaming/non-streaming transaction scenarios. The function handles inheritance hierarchies by sending ancestor schemas first when a relation is published using an ancestor's schema definition. Schema tracking is maintained separately for streaming and non-streaming contexts due to different transaction visibility and ordering requirements.
+
+## Simplified Source
+
+```c
+static void
+maybe_send_schema(LogicalDecodingContext *ctx,
+                  ReorderBufferChange *change,
+                  Relation relation, RelationSyncEntry *relentry)
+{
+    PGOutputData *data = (PGOutputData *) ctx->output_plugin_private;
+    bool schema_sent;
+    TransactionId xid = InvalidTransactionId;
+    TransactionId topxid = InvalidTransactionId;
+
+    // Determine transaction IDs for streaming context
+    if (data->in_streaming)
+        xid = change->txn->xid;
+
+    if (rbtxn_is_subtxn(change->txn))
+        topxid = rbtxn_get_toptxn(change->txn)->xid;
+    else
+        topxid = xid;
+
+    // Check if schema already sent (different tracking for streaming vs non-streaming)
+    if (data->in_streaming)
+        schema_sent = get_schema_sent_in_streamed_txn(relentry, topxid);
+    else
+        schema_sent = relentry->schema_sent;
+
+    if (schema_sent)
+        return;
+
+    // Send ancestor schema first if relation uses ancestor's schema
+    if (relentry->publish_as_relid != RelationGetRelid(relation)) {
+        Relation ancestor = RelationIdGetRelation(relentry->publish_as_relid);
+        send_relation_and_attrs(ancestor, xid, ctx, relentry->columns);
+        RelationClose(ancestor);
+    }
+
+    // Send relation's own schema
+    send_relation_and_attrs(relation, xid, ctx, relentry->columns);
+
+    // Mark schema as sent
+    if (data->in_streaming)
+        set_schema_sent_in_streamed_txn(relentry, topxid);
+    else
+        relentry->schema_sent = true;
+}
+```

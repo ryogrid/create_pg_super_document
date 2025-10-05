@@ -37,3 +37,11 @@ The function ensures that the FSM remains an accurate and reliable guide for fut
 - Simple wrapper around the general FreeSpaceMapVacuum function
 - Helps ensure optimal index storage utilization and performance
 - Critical for long-term index health and preventing FSM degradation
+
+## Simplified Source
+```c
+void IndexFreeSpaceMapVacuum(Relation rel) {
+    // Clean up and fix FSM inconsistencies for index
+    FreeSpaceMapVacuum(rel);
+}
+```

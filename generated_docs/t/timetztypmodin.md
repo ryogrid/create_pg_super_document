@@ -34,3 +34,14 @@ The function extracts the array of type modifiers from the function arguments an
 - The function ensures only valid precision values are accepted according to SQL standards
 - Shares common validation logic with `timetypmodin` through the `anytime_typmodin` helper function
 - Part of PostgreSQL's type modifier validation system used during DDL processing
+
+## Simplified Source
+
+```c
+Datum timetztypmodin(PG_FUNCTION_ARGS) {
+    ArrayType *ta = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Delegate to common time typmod validation (istz=true for timezone-aware)
+    PG_RETURN_INT32(anytime_typmodin(true, ta));
+}
+```

@@ -38,3 +38,19 @@ The function performs a simple but critical validation: if an array is encounter
 - Essential for preventing misuse of json_object_keys function on inappropriate JSON structures
 - Part of the semantic action framework that provides type safety for JSON processing functions
 - The error message specifically mentions 'json_object_keys' to provide clear user feedback
+
+## Simplified Source
+
+```c
+static JsonParseErrorType okeys_array_start(void *state) {
+    OkeysState *_state = (OkeysState *) state;
+
+    // Ensure top level is not an array - json_object_keys requires an object
+    if (_state->lex->lex_level == 0)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("cannot call %s on an array", "json_object_keys")));
+
+    return JSON_SUCCESS;
+}
+```

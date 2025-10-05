@@ -37,3 +37,12 @@ The simplicity of this handler reflects the timeout system's design philosophy -
 - Designed to be lightweight and fast, as is typical for timeout handlers
 - The timeout detection triggers deadlock checking procedures in other parts of the recovery system
 - Must be registered with the timeout system to be called when the timeout expires
+
+## Simplified Source
+
+```c
+void StandbyDeadLockHandler(void) {
+    // Signal that standby deadlock timeout has occurred
+    got_standby_deadlock_timeout = true;
+}
+```

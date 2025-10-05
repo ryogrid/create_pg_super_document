@@ -40,3 +40,29 @@ The function handles forced snapshot clearing, checks fetch consistency settings
 - Uses TopMemoryContext as parent for the snapshot context to ensure proper lifetime management
 - The snapshot context uses ALLOCSET_SMALL_SIZES for memory-efficient allocation of statistics entries
 - Safe to call multiple times due to conditional initialization logic
+
+## Simplified Source
+
+```c
+static void pgstat_prep_snapshot(void) {
+    // Clear snapshot if forced
+    if (force_stats_snapshot_clear)
+        pgstat_clear_snapshot();
+
+    // Skip if no consistency needed or snapshot already exists
+    if (pgstat_fetch_consistency == PGSTAT_FETCH_CONSISTENCY_NONE ||
+        pgStatLocal.snapshot.stats != NULL)
+        return;
+
+    // Create memory context if needed
+    if (!pgStatLocal.snapshot.context)
+        pgStatLocal.snapshot.context = AllocSetContextCreate(TopMemoryContext,
+                                                            "PgStat Snapshot",
+                                                            ALLOCSET_SMALL_SIZES);
+
+    // Create statistics hash table
+    pgStatLocal.snapshot.stats = pgstat_snapshot_create(pgStatLocal.snapshot.context,
+                                                        PGSTAT_SNAPSHOT_HASH_SIZE,
+                                                        NULL);
+}
+```

@@ -47,3 +47,32 @@ This function is essentially identical to ts_parse_byid except that it accepts a
 - Returns tuples with two columns: token type (integer) and lexeme (text)
 - Companion function to ts_parse_byid which takes a parser OID instead of name
 - The parser name can be schema-qualified (e.g., 'pg_catalog.default')
+
+## Simplified Source
+
+```c
+Datum ts_parse_byname(PG_FUNCTION_ARGS) {
+    FuncCallContext *funcctx;
+    Datum result;
+
+    // First call: resolve parser name to OID and initialize
+    if (SRF_IS_FIRSTCALL()) {
+        text *prsname = PG_GETARG_TEXT_PP(0);
+        text *txt = PG_GETARG_TEXT_PP(1);
+        Oid prsId;
+
+        funcctx = SRF_FIRSTCALL_INIT();
+        // Convert parser name to OID
+        prsId = get_ts_parser_oid(textToQualifiedNameList(prsname), false);
+        prs_setup_firstcall(funcctx, fcinfo, prsId, txt);
+    }
+
+    funcctx = SRF_PERCALL_SETUP();
+
+    // Process each call: return next token or signal completion
+    if ((result = prs_process_call(funcctx)) != (Datum) 0)
+        SRF_RETURN_NEXT(funcctx, result);
+
+    SRF_RETURN_DONE(funcctx);
+}
+```

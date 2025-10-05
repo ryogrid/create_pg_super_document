@@ -36,3 +36,30 @@ This SQL-callable function determines whether a user (specified by username) has
 - Uses ForeignDataWrapperRelationId as the object class for privilege checking
 - The function performs error checking through the convert_* helper functions
 - Located in src/backend/utils/adt/acl.c:3196-3221
+
+## Simplified Source
+
+```c
+Datum
+has_foreign_data_wrapper_privilege_name_name(PG_FUNCTION_ARGS)
+{
+    Name username = PG_GETARG_NAME(0);
+    text *fdw_name = PG_GETARG_TEXT_PP(1);
+    text *privilege_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert username to role OID (handles "public" role)
+    Oid role_oid = get_role_oid_or_public(NameStr(*username));
+
+    // Convert FDW name to OID
+    Oid fdw_oid = convert_foreign_data_wrapper_name(fdw_name);
+
+    // Convert privilege string to internal mode
+    AclMode privilege_mode = convert_foreign_data_wrapper_priv_string(privilege_text);
+
+    // Check privilege on foreign data wrapper
+    AclResult result = object_aclcheck(ForeignDataWrapperRelationId, fdw_oid,
+                                     role_oid, privilege_mode);
+
+    PG_RETURN_BOOL(result == ACLCHECK_OK);
+}
+```

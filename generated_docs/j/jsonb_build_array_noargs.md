@@ -34,3 +34,22 @@ This function is specifically designed to handle the case where  is called witho
 - The resulting JSONB array is always 
 - This is a PostgreSQL internal function that may be called when the SQL parser determines that  has zero arguments
 - Mirrors the functionality of  but for arrays instead of objects
+
+## Simplified Source
+
+```c
+Datum
+jsonb_build_array_noargs(PG_FUNCTION_ARGS)
+{
+    // Initialize empty JSONB state
+    JsonbInState result;
+    memset(&result, 0, sizeof(JsonbInState));
+
+    // Create empty array: start with BEGIN_ARRAY, then immediately END_ARRAY
+    pushJsonbValue(&result.parseState, WJB_BEGIN_ARRAY, NULL);
+    result.res = pushJsonbValue(&result.parseState, WJB_END_ARRAY, NULL);
+
+    // Convert to JSONB and return
+    PG_RETURN_POINTER(JsonbValueToJsonb(result.res));
+}
+```

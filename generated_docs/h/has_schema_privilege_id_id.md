@@ -37,3 +37,31 @@ The function converts the privilege string to the appropriate mode and performs 
 - Uses the standard PostgreSQL function calling convention with PG_FUNCTION_ARGS
 - Part of the Access Control List (ACL) system in PostgreSQL
 - Located in src/backend/utils/adt/acl.c:3936-3964
+
+## Simplified Source
+
+```c
+Datum
+has_schema_privilege_id_id(PG_FUNCTION_ARGS)
+{
+    Oid        roleid = PG_GETARG_OID(0);
+    Oid        schemaoid = PG_GETARG_OID(1);
+    text      *priv_type_text = PG_GETARG_TEXT_PP(2);
+    AclMode    mode;
+    AclResult  aclresult;
+    bool       is_missing = false;
+
+    // Convert privilege string to access mode
+    mode = convert_schema_priv_string(priv_type_text);
+
+    // Check privilege with extended version that handles missing objects
+    aclresult = object_aclcheck_ext(NamespaceRelationId, schemaoid,
+                                    roleid, mode, &is_missing);
+
+    // Return NULL if schema doesn't exist
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

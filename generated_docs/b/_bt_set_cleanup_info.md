@@ -54,3 +54,68 @@ This function is called at the end of btvacuumcleanup to update the metapage wit
 - Handles backward compatibility with repurposed btm_oldest_btpo_xact field
 - Early return optimization when num_delpages hasn't changed (common case)
 - WAL record includes complete metadata state for crash recovery
+
+## Simplified Source
+
+```c
+void
+_bt_set_cleanup_info(Relation rel, BlockNumber num_delpages)
+{
+    Buffer metabuf;
+    Page metapg;
+    BTMetaPageData *metad;
+
+    // Get metapage with read lock first
+    metabuf = _bt_getbuf(rel, BTREE_METAPAGE, BT_READ);
+    metapg = BufferGetPage(metabuf);
+    metad = BTPageGetMeta(metapg);
+
+    // Early exit if no update needed (common optimization)
+    if (metad->btm_version >= BTREE_NOVAC_VERSION &&
+        metad->btm_last_cleanup_num_delpages == num_delpages) {
+        _bt_relbuf(rel, metabuf);
+        return;
+    }
+
+    // Upgrade to write lock for actual update
+    _bt_unlockbuf(rel, metabuf);
+    _bt_lockbuf(rel, metabuf, BT_WRITE);
+
+    START_CRIT_SECTION();
+
+    // Upgrade metapage version if needed
+    if (metad->btm_version < BTREE_NOVAC_VERSION)
+        _bt_upgrademetapage(metapg);
+
+    // Update cleanup statistics
+    metad->btm_last_cleanup_num_delpages = num_delpages;
+    metad->btm_last_cleanup_num_heap_tuples = -1.0;  // No longer used
+    MarkBufferDirty(metabuf);
+
+    // WAL logging for crash recovery
+    if (RelationNeedsWAL(rel)) {
+        xl_btree_metadata md;
+        XLogRecPtr recptr;
+
+        // Record complete metadata state
+        md.version = metad->btm_version;
+        md.root = metad->btm_root;
+        md.level = metad->btm_level;
+        md.fastroot = metad->btm_fastroot;
+        md.fastlevel = metad->btm_fastlevel;
+        md.last_cleanup_num_delpages = num_delpages;
+        md.allequalimage = metad->btm_allequalimage;
+
+        XLogBeginInsert();
+        XLogRegisterBuffer(0, metabuf, REGBUF_WILL_INIT | REGBUF_STANDARD);
+        XLogRegisterBufData(0, (char *) &md, sizeof(xl_btree_metadata));
+
+        recptr = XLogInsert(RM_BTREE_ID, XLOG_BTREE_META_CLEANUP);
+        PageSetLSN(metapg, recptr);
+    }
+
+    END_CRIT_SECTION();
+
+    _bt_relbuf(rel, metabuf);
+}
+```

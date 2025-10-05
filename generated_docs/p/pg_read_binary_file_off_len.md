@@ -38,3 +38,23 @@ The function is designed to pass sanity checks that ensure all built-in function
 - Part of PostgreSQL's binary file reading functionality accessible via SQL
 - Returns bytea data type instead of text, making it suitable for reading non-text files like images, executables, or other binary data
 - Differs from text file reading functions by using pg_read_binary_file_common instead of pg_read_file_common
+
+## Simplified Source
+
+```c
+Datum pg_read_binary_file_off_len(PG_FUNCTION_ARGS) {
+    // Extract filename, offset, and length from function arguments
+    text *filename_t = PG_GETARG_TEXT_PP(0);
+    int64 seek_offset = PG_GETARG_INT64(1);
+    int64 bytes_to_read = PG_GETARG_INT64(2);
+
+    // Read binary file with specified offset and length: read_all=false, missing_ok=false
+    text *ret = pg_read_binary_file_common(filename_t, seek_offset, bytes_to_read, false, false);
+
+    // Return binary data or NULL if reading failed
+    if (!ret)
+        PG_RETURN_NULL();
+
+    PG_RETURN_BYTEA_P(ret);
+}
+```

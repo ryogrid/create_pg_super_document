@@ -34,3 +34,16 @@ The  function is a PostgreSQL geometric operator that determines if a line segme
 - Located in the geometric operations module (geo_ops.c)
 - Returns a boolean Datum indicating spatial relationship
 - The actual geometric computation is delegated to  for code reuse
+
+## Simplified Source
+
+```c
+Datum on_sb(PG_FUNCTION_ARGS) {
+    // Extract line segment and box from function arguments
+    LSEG *lseg = PG_GETARG_LSEG_P(0);
+    BOX *box = PG_GETARG_BOX_P(1);
+
+    // Test if line segment is contained within box
+    PG_RETURN_BOOL(box_contain_lseg(box, lseg));
+}
+```

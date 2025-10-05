@@ -37,3 +37,15 @@ The function uses PostgreSQL's floating-point comparison function FPgt() to hand
 - Returns true only when box1 is completely to the right of box2 with no horizontal overlap
 - Complementary to the box_left function, providing the opposite directional comparison
 - Located in src/backend/utils/adt/geo_ops.c:609-623
+
+## Simplified Source
+
+```c
+Datum box_right(PG_FUNCTION_ARGS) {
+    BOX *box1 = PG_GETARG_BOX_P(0);
+    BOX *box2 = PG_GETARG_BOX_P(1);
+
+    // Check if box1's leftmost point is right of box2's rightmost point
+    PG_RETURN_BOOL(FPgt(box1->low.x, box2->high.x));
+}
+```

@@ -38,3 +38,15 @@ The function uses PostgreSQL's floating-point comparison function FPlt() to hand
 - Returns true only when box1 is completely below box2 with no vertical overlap
 - Part of the complete set of directional positioning functions for 2D spatial queries
 - Located in src/backend/utils/adt/geo_ops.c:635-646
+
+## Simplified Source
+
+```c
+Datum box_below(PG_FUNCTION_ARGS) {
+    BOX *box1 = PG_GETARG_BOX_P(0);
+    BOX *box2 = PG_GETARG_BOX_P(1);
+
+    // Check if box1's topmost point is below box2's bottommost point
+    PG_RETURN_BOOL(FPlt(box1->high.y, box2->low.y));
+}
+```

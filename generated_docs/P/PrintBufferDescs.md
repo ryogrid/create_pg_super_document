@@ -45,3 +45,32 @@ The function outputs each buffer's information using elog(LOG, ...), making the 
 - Shows both shared reference count (refcount) and private reference count for each buffer
 - The lack of locking makes this function potentially unsafe for production use but suitable for debugging scenarios
 - Buffer information includes the complete relation file path constructed using relpathbackend()
+
+## Simplified Source
+
+```c
+void PrintBufferDescs(void) {
+    // Iterate through all buffers in the shared buffer pool
+    for (int i = 0; i < NBuffers; ++i) {
+        BufferDesc *buf = GetBufferDescriptor(i);
+        Buffer b = BufferDescriptorGetBuffer(buf);
+
+        // Log detailed buffer information (note: should theoretically lock bufhdr)
+        elog(LOG,
+             "[%02d] (freeNext=%d, rel=%s, "
+             "blockNum=%u, flags=0x%x, refcount=%u %d)",
+             i, buf->freeNext,
+             relpathbackend(BufTagGetRelFileLocator(&buf->tag),
+                           INVALID_PROC_NUMBER, BufTagGetForkNum(&buf->tag)),
+             buf->tag.blockNum, buf->flags,
+             buf->refcount, GetPrivateRefCount(b));
+    }
+}
+```
+
+**Key Logic:**
+- Debugging function that logs all buffer descriptors to server log
+- Shows buffer index, free list linkage, relation file path, and state info
+- Displays both shared refcount and private refcount for each buffer
+- Does not acquire buffer locks (noted as potentially unsafe but done for debugging)
+- Provides comprehensive view of buffer pool state for diagnostic purposes

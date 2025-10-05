@@ -43,3 +43,36 @@ The function uses static storage for the decimal constructor to avoid repeatedly
 - Error handling includes specific error messages for module import failures and conversion failures
 - The function is part of PostgreSQL's strategy to provide high-precision decimal arithmetic in Python stored procedures
 - cdecimal was the faster C implementation of decimal arithmetic before it was integrated into Python 3.3's standard library
+
+## Simplified Source
+
+```c
+static PyObject *PLyDecimal_FromNumeric(PLyDatumToOb *arg, Datum d)
+{
+    static PyObject *decimal_constructor;
+
+    // Initialize decimal constructor on first use (try cdecimal, fallback to decimal)
+    if (!decimal_constructor) {
+        PyObject *decimal_module = PyImport_ImportModule("cdecimal");
+        if (!decimal_module) {
+            PyErr_Clear();
+            decimal_module = PyImport_ImportModule("decimal");
+        }
+        if (!decimal_module)
+            PLy_elog(ERROR, "could not import a module for Decimal constructor");
+
+        decimal_constructor = PyObject_GetAttrString(decimal_module, "Decimal");
+        if (!decimal_constructor)
+            PLy_elog(ERROR, "no Decimal attribute in module");
+    }
+
+    // Convert numeric to string, then create Python Decimal
+    char *str = DatumGetCString(DirectFunctionCall1(numeric_out, d));
+    PyObject *pyvalue = PyObject_CallFunction(decimal_constructor, "s", str);
+
+    if (!pyvalue)
+        PLy_elog(ERROR, "conversion from numeric to Decimal failed");
+
+    return pyvalue;
+}
+```

@@ -37,3 +37,79 @@ This function implements heap truncation logic during vacuum operations by remov
 
 ## Notes and Other Information
 The function uses a non-blocking approach to lock acquisition to avoid deadlocks, since it already holds lower-grade locks. It includes sophisticated timeout and retry logic to balance truncation success against avoiding disruption to other backends. The function carefully validates that pages are still empty even after acquiring exclusive lock, since concurrent backends may have added tuples during the vacuum process. Progress reporting and error tracking are maintained throughout the operation to provide visibility into potentially long-running truncation operations.
+
+## Simplified Source
+
+```c
+static void
+lazy_truncate_heap(LVRelState *vacrel)
+{
+    BlockNumber orig_rel_pages = vacrel->rel_pages;
+    BlockNumber new_rel_pages;
+    bool lock_waiter_detected;
+    int lock_retry;
+
+    // Report truncation phase
+    pgstat_progress_update_param(PROGRESS_VACUUM_PHASE,
+                                PROGRESS_VACUUM_PHASE_TRUNCATE);
+
+    // Update error tracking
+    update_vacuum_error_info(vacrel, NULL, VACUUM_ERRCB_PHASE_TRUNCATE,
+                            vacrel->nonempty_pages, InvalidOffsetNumber);
+
+    do {
+        // Try to acquire AccessExclusiveLock with timeout
+        lock_waiter_detected = false;
+        lock_retry = 0;
+        while (true) {
+            if (ConditionalLockRelation(vacrel->rel, AccessExclusiveLock))
+                break;
+
+            CHECK_FOR_INTERRUPTS();
+
+            if (++lock_retry > (VACUUM_TRUNCATE_LOCK_TIMEOUT /
+                               VACUUM_TRUNCATE_LOCK_WAIT_INTERVAL)) {
+                // Give up after timeout
+                ereport(vacrel->verbose ? INFO : DEBUG2,
+                        (errmsg("stopping truncate due to conflicting lock request")));
+                return;
+            }
+
+            // Wait and retry
+            WaitLatch(MyLatch, WL_LATCH_SET | WL_TIMEOUT | WL_EXIT_ON_PM_DEATH,
+                     VACUUM_TRUNCATE_LOCK_WAIT_INTERVAL, WAIT_EVENT_VACUUM_TRUNCATE);
+            ResetLatch(MyLatch);
+        }
+
+        // Check if relation grew during vacuum
+        new_rel_pages = RelationGetNumberOfBlocks(vacrel->rel);
+        if (new_rel_pages != orig_rel_pages) {
+            UnlockRelation(vacrel->rel, AccessExclusiveLock);
+            return;
+        }
+
+        // Verify end pages are actually empty
+        new_rel_pages = count_nondeletable_pages(vacrel, &lock_waiter_detected);
+        vacrel->blkno = new_rel_pages;
+
+        if (new_rel_pages >= orig_rel_pages) {
+            UnlockRelation(vacrel->rel, AccessExclusiveLock);
+            return;
+        }
+
+        // Perform truncation
+        RelationTruncate(vacrel->rel, new_rel_pages);
+        UnlockRelation(vacrel->rel, AccessExclusiveLock);
+
+        // Update statistics
+        vacrel->removed_pages += orig_rel_pages - new_rel_pages;
+        vacrel->rel_pages = new_rel_pages;
+
+        ereport(vacrel->verbose ? INFO : DEBUG2,
+                (errmsg("table \"%s\": truncated %u to %u pages",
+                        vacrel->relname, orig_rel_pages, new_rel_pages)));
+        orig_rel_pages = new_rel_pages;
+
+    } while (new_rel_pages > vacrel->nonempty_pages && lock_waiter_detected);
+}
+```

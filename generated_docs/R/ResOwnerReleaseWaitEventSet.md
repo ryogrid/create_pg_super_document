@@ -45,3 +45,17 @@ The function operates on the following WaitEventSet fields:
 - Setting `owner` to NULL before calling `FreeWaitEventSet` prevents potential issues if the free function checks ownership
 - This pattern is essential for preventing resource leaks in PostgreSQL's complex transaction and error handling system
 - The function is static, indicating it's only used within the latch.c module as part of the local resource management strategy
+
+## Simplified Source
+
+```c
+static void ResOwnerReleaseWaitEventSet(Datum res) {
+    // Extract WaitEventSet from the Datum parameter
+    WaitEventSet *set = (WaitEventSet *) DatumGetPointer(res);
+
+    // Clear ownership and free the wait event set
+    Assert(set->owner != NULL);
+    set->owner = NULL;
+    FreeWaitEventSet(set);
+}
+```

@@ -37,3 +37,27 @@ The function implements a selective key collection strategy, ignoring nested obj
 - Creates copies of field names using pstrdup to ensure data persistence
 - Returns JSON_SUCCESS to indicate successful processing
 - Part of the semantic action framework for JSON parsing in PostgreSQL
+
+## Simplified Source
+
+```c
+static JsonParseErrorType okeys_object_field_start(void *state, char *fname, bool isnull) {
+    OkeysState *_state = (OkeysState *) state;
+
+    // Only collect keys from top-level object (skip nested objects)
+    if (_state->lex->lex_level != 1)
+        return JSON_SUCCESS;
+
+    // Resize result array if needed (double the size)
+    if (_state->result_count >= _state->result_size) {
+        _state->result_size *= 2;
+        _state->result = (char **) repalloc(_state->result,
+                                           sizeof(char *) * _state->result_size);
+    }
+
+    // Save a copy of the field name
+    _state->result[_state->result_count++] = pstrdup(fname);
+
+    return JSON_SUCCESS;
+}
+```

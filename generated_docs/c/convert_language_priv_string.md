@@ -36,3 +36,19 @@ This function is a specialized privilege string converter for procedural languag
 - The privilege mapping table is defined locally within the function as a static constant
 - Part of PostgreSQL's privilege checking infrastructure, following the same pattern as other object types
 - Located in src/backend/utils/adt/acl.c:3777-3804
+
+## Simplified Source
+
+```c
+static AclMode convert_language_priv_string(text *priv_type_text) {
+    // Language privilege mapping table
+    static const priv_map language_priv_map[] = {
+        {"USAGE", ACL_USAGE},
+        {"USAGE WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_USAGE)},
+        {NULL, 0}
+    };
+
+    // Use generic privilege conversion with language-specific mappings
+    return convert_any_priv_string(priv_type_text, language_priv_map);
+}
+```

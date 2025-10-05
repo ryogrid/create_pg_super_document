@@ -36,3 +36,15 @@ The `slice_from_s` function is a high-level wrapper for slice replacement operat
 - Automatically uses the current slice boundaries (bra and ket) from the environment
 - Does not provide size adjustment information (passes NULL for adjptr parameter)
 - Part of the public API for Snowball stemming operations in PostgreSQL
+
+## Simplified Source
+
+```c
+extern int slice_from_s(struct SN_env *z, int s_size, const symbol *s) {
+    // Validate slice boundaries first
+    if (slice_check(z)) return -1;
+
+    // Replace current slice with new symbols
+    return replace_s(z, z->bra, z->ket, s_size, s, NULL);
+}
+```

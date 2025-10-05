@@ -42,3 +42,16 @@ The function follows PostgreSQL's function call convention using the PG_FUNCTION
 - Located in src/backend/utils/adt/date.c:769-777
 - Uses PostgreSQL's standard function interface (Datum return type, PG_FUNCTION_ARGS)
 - The function is likely registered as an operator function in pg_operator catalog for both != and <> operators
+
+## Simplified Source
+
+```c
+Datum date_ne_timestamp(PG_FUNCTION_ARGS)
+{
+    DateADT dateVal = PG_GETARG_DATEADT(0);
+    Timestamp dt2 = PG_GETARG_TIMESTAMP(1);
+
+    // Compare date and timestamp for inequality (result != 0 means not equal)
+    PG_RETURN_BOOL(date_cmp_timestamp_internal(dateVal, dt2) != 0);
+}
+```

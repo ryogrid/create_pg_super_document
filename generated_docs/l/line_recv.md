@@ -40,3 +40,30 @@ The binary format ensures efficient transmission and storage while maintaining f
 - Uses standard PostgreSQL error reporting for invalid binary data
 - Memory allocation managed by PostgreSQL's memory context system
 - Line numbers: 1038-1060 in geo_ops.c
+
+## Simplified Source
+
+```c
+Datum
+line_recv(PG_FUNCTION_ARGS)
+{
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    LINE *line;
+
+    // Allocate memory for new line structure
+    line = (LINE *) palloc(sizeof(LINE));
+
+    // Read coefficients from binary buffer
+    line->A = pq_getmsgfloat8(buf);
+    line->B = pq_getmsgfloat8(buf);
+    line->C = pq_getmsgfloat8(buf);
+
+    // Validate that A and B aren't both zero
+    if (FPzero(line->A) && FPzero(line->B))
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_BINARY_REPRESENTATION),
+                 errmsg("invalid line specification: A and B cannot both be zero")));
+
+    PG_RETURN_LINE_P(line);
+}
+```
