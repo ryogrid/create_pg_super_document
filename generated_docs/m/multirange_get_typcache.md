@@ -47,3 +47,29 @@ The function validates that the requested type is indeed a multirange type by ch
 - Functions that need to cache additional information beyond what this function provides must implement their own caching mechanisms
 - The function validates type correctness by ensuring the rngtype field is not NULL, providing early error detection for invalid multirange types
 - This is a fundamental building block used by most multirange operations in PostgreSQL
+
+## Simplified Source
+
+```c
+TypeCacheEntry *
+multirange_get_typcache(FunctionCallInfo fcinfo, Oid mltrngtypid)
+{
+    // Check if we have valid cached type information
+    TypeCacheEntry *typcache = (TypeCacheEntry *) fcinfo->flinfo->fn_extra;
+
+    if (typcache == NULL || typcache->type_id != mltrngtypid) {
+        // Cache miss or type mismatch - lookup type information
+        typcache = lookup_type_cache(mltrngtypid, TYPECACHE_MULTIRANGE_INFO);
+
+        // Validate that this is actually a multirange type
+        if (typcache->rngtype == NULL) {
+            elog(ERROR, "type %u is not a multirange type", mltrngtypid);
+        }
+
+        // Cache the type information for future calls
+        fcinfo->flinfo->fn_extra = (void *) typcache;
+    }
+
+    return typcache;
+}
+```

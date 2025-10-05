@@ -56,3 +56,62 @@ This caching mechanism significantly improves performance for repeated I/O opera
 - The cache persists across multiple calls to the same I/O function, improving performance
 - Includes comprehensive error handling for invalid types and missing functions
 - Leverages get_type_io_data() for underlying range type I/O function resolution
+
+## Simplified Source
+
+```c
+static MultirangeIOData *
+get_multirange_io_data(FunctionCallInfo fcinfo, Oid mltrngtypid, IOFuncSelector func)
+{
+    // Check if we have valid cached data
+    MultirangeIOData *cache = (MultirangeIOData *) fcinfo->flinfo->fn_extra;
+
+    if (cache == NULL || cache->typcache->type_id != mltrngtypid) {
+        // Cache miss or type mismatch - need to rebuild cache
+
+        // Allocate cache structure in function memory context
+        cache = (MultirangeIOData *) MemoryContextAlloc(fcinfo->flinfo->fn_mcxt,
+                                                       sizeof(MultirangeIOData));
+
+        // Get multirange type information
+        cache->typcache = lookup_type_cache(mltrngtypid, TYPECACHE_MULTIRANGE_INFO);
+        if (cache->typcache->rngtype == NULL) {
+            elog(ERROR, "type %u is not a multirange type", mltrngtypid);
+        }
+
+        // Get I/O function information for the underlying range type
+        Oid typiofunc;
+        int16 typlen;
+        bool typbyval;
+        char typalign, typdelim;
+
+        get_type_io_data(cache->typcache->rngtype->type_id,
+                        func,
+                        &typlen, &typbyval, &typalign, &typdelim,
+                        &cache->typioparam, &typiofunc);
+
+        // Validate that the required I/O function exists
+        if (!OidIsValid(typiofunc)) {
+            if (func == IOFunc_receive) {
+                ereport(ERROR,
+                       (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                        errmsg("no binary input function available for type %s",
+                               format_type_be(cache->typcache->rngtype->type_id))));
+            } else {
+                ereport(ERROR,
+                       (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                        errmsg("no binary output function available for type %s",
+                               format_type_be(cache->typcache->rngtype->type_id))));
+            }
+        }
+
+        // Cache the function manager information
+        fmgr_info_cxt(typiofunc, &cache->typioproc, fcinfo->flinfo->fn_mcxt);
+
+        // Store cache for future use
+        fcinfo->flinfo->fn_extra = (void *) cache;
+    }
+
+    return cache;
+}
+```

@@ -37,4 +37,63 @@ This function implements the PostgreSQL function interface for constructing mult
 - Enforces non-null constraints on multirange members
 - Performs type checking to ensure array elements match expected range type
 - Uses PostgreSQL's memory allocation functions (palloc0)
-- Located in 
+- Located in src/backend/utils/adt/multirangetypes.c
+
+## Simplified Source
+
+```c
+Datum
+multirange_constructor2(PG_FUNCTION_ARGS)
+{
+    Oid multirange_type_id = get_fn_expr_rettype(fcinfo->flinfo);
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, multirange_type_id);
+    TypeCacheEntry *range_type = typcache->rngtype;
+
+    // Handle no arguments - return empty multirange
+    if (PG_NARGS() == 0)
+        PG_RETURN_MULTIRANGE_P(make_multirange(multirange_type_id, range_type, 0, NULL));
+
+    // Validate input is not null
+    if (PG_ARGISNULL(0))
+        elog(ERROR, "multirange values cannot contain null members");
+
+    ArrayType *range_array = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Validate array is one-dimensional
+    int dimensions = ARR_NDIM(range_array);
+    if (dimensions > 1)
+        ereport(ERROR, (errcode(ERRCODE_CARDINALITY_VIOLATION),
+                       errmsg("multiranges cannot be constructed from multidimensional arrays")));
+
+    // Validate element type matches expected range type
+    Oid element_type_id = ARR_ELEMTYPE(range_array);
+    if (element_type_id != range_type->type_id)
+        elog(ERROR, "type %u does not match constructor type", element_type_id);
+
+    // Handle empty array
+    if (dimensions == 0)
+        PG_RETURN_MULTIRANGE_P(make_multirange(multirange_type_id, range_type, 0, NULL));
+
+    // Extract array elements
+    Datum *elements;
+    bool *nulls;
+    int range_count;
+    deconstruct_array(range_array, element_type_id, range_type->typlen,
+                     range_type->typbyval, range_type->typalign,
+                     &elements, &nulls, &range_count);
+
+    // Convert elements to ranges, checking for nulls
+    RangeType **ranges = palloc0(range_count * sizeof(RangeType *));
+    for (int i = 0; i < range_count; i++) {
+        if (nulls[i])
+            ereport(ERROR, (errcode(ERRCODE_NULL_VALUE_NOT_ALLOWED),
+                           errmsg("multirange values cannot contain null members")));
+        ranges[i] = DatumGetRangeTypeP(elements[i]);
+    }
+
+    // Create and return the multirange
+    PG_RETURN_MULTIRANGE_P(make_multirange(multirange_type_id, range_type, range_count, ranges));
+}
+```
+
+This function constructs a multirange from an array of ranges, performing validation and error checking before delegating to `make_multirange`.

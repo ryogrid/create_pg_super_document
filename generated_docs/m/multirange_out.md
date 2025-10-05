@@ -44,3 +44,44 @@ The function deserializes the multirange into its constituent ranges, then itera
 - No whitespace is added around commas in the output format
 - Works with any multirange type by using cached I/O function information
 - The output format matches exactly what multirange_in expects as input
+
+## Simplified Source
+
+```c
+Datum
+multirange_out(PG_FUNCTION_ARGS)
+{
+    MultirangeType *multirange = PG_GETARG_MULTIRANGE_P(0);
+    Oid mltrngtypoid = MultirangeTypeGetOid(multirange);
+
+    // Get I/O cache and initialize output buffer
+    MultirangeIOData *cache = get_multirange_io_data(fcinfo, mltrngtypoid, IOFunc_output);
+    StringInfoData buf;
+    initStringInfo(&buf);
+
+    // Start with opening brace
+    appendStringInfoChar(&buf, '{');
+
+    // Deserialize multirange into individual ranges
+    int32 range_count;
+    RangeType **ranges;
+    multirange_deserialize(cache->typcache->rngtype, multirange, &range_count, &ranges);
+
+    // Format each range and add to output
+    for (int i = 0; i < range_count; i++) {
+        if (i > 0) {
+            appendStringInfoChar(&buf, ',');
+        }
+
+        // Convert range to string using range type's output function
+        char *rangeStr = OutputFunctionCall(&cache->typioproc,
+                                          RangeTypePGetDatum(ranges[i]));
+        appendStringInfoString(&buf, rangeStr);
+    }
+
+    // End with closing brace
+    appendStringInfoChar(&buf, '}');
+
+    PG_RETURN_CSTRING(buf.data);
+}
+```

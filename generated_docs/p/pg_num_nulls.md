@@ -37,3 +37,20 @@ This function is commonly used in SQL queries where conditional logic based on n
 - The function signature uses PostgreSQL's standard Datum return type for SQL-callable functions
 - Follows PostgreSQL's convention of returning NULL when meaningful analysis cannot be performed
 - Can be used with both fixed argument lists and variadic argument patterns in SQL
+
+## Simplified Source
+
+```c
+Datum
+pg_num_nulls(PG_FUNCTION_ARGS)
+{
+    int32 nargs, nulls;
+
+    // Use helper function to count nulls
+    if (!count_nulls(fcinfo, &nargs, &nulls))
+        PG_RETURN_NULL();
+
+    // Return the count of null arguments
+    PG_RETURN_INT32(nulls);
+}
+```

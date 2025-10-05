@@ -45,3 +45,55 @@ The function is designed to work with different pattern types (LIKE, ILIKE, rege
 - The function only handles cases where the indexed column is the left argument (indexarg == 0)
 - Returns NULL if the request cannot be handled or optimized
 - Forms the core infrastructure that enables PostgreSQL to efficiently execute pattern matching queries with proper cost estimation and index usage
+
+## Simplified Source
+
+```c
+static Node *like_regex_support(Node *rawreq, Pattern_Type ptype) {
+    Node *ret = NULL;
+
+    if (IsA(rawreq, SupportRequestSelectivity)) {
+        // Handle selectivity estimation requests
+        SupportRequestSelectivity *req = (SupportRequestSelectivity *) rawreq;
+        Selectivity s1;
+
+        if (req->is_join) {
+            // Use default selectivity for join operations
+            s1 = DEFAULT_MATCH_SEL;
+        } else {
+            // Calculate selectivity using common pattern selectivity function
+            s1 = patternsel_common(req->root, InvalidOid, req->funcid,
+                                 req->args, req->varRelid, req->inputcollid,
+                                 ptype, false);
+        }
+        req->selectivity = s1;
+        ret = (Node *) req;
+    }
+    else if (IsA(rawreq, SupportRequestIndexCondition)) {
+        // Handle index condition optimization requests
+        SupportRequestIndexCondition *req = (SupportRequestIndexCondition *) rawreq;
+
+        // Only handle cases where indexed column is left argument
+        if (req->indexarg != 0)
+            return NULL;
+
+        // Convert operator or function calls to index conditions
+        if (is_opclause(req->node)) {
+            OpExpr *clause = (OpExpr *) req->node;
+            ret = (Node *) match_pattern_prefix((Node *) linitial(clause->args),
+                                              (Node *) lsecond(clause->args),
+                                              ptype, clause->inputcollid,
+                                              req->opfamily, req->indexcollation);
+        }
+        else if (is_funcclause(req->node)) {
+            FuncExpr *clause = (FuncExpr *) req->node;
+            ret = (Node *) match_pattern_prefix((Node *) linitial(clause->args),
+                                              (Node *) lsecond(clause->args),
+                                              ptype, clause->inputcollid,
+                                              req->opfamily, req->indexcollation);
+        }
+    }
+
+    return ret;
+}
+```

@@ -38,3 +38,29 @@ This function is the counterpart to `macaddr_recv` and is used when MAC address 
 - Part of PostgreSQL's type system support for binary I/O protocol
 - The output buffer management is handled automatically by the pq_* functions
 - Returns the binary data wrapped in PostgreSQL's bytea format
+
+## Simplified Source
+
+```c
+Datum
+macaddr_send(PG_FUNCTION_ARGS)
+{
+    // Get the input macaddr structure
+    macaddr *addr = PG_GETARG_MACADDR_P(0);
+
+    // Initialize binary output buffer
+    StringInfoData buf;
+    pq_begintypsend(&buf);
+
+    // Send all 6 bytes in sequence (a through f)
+    pq_sendbyte(&buf, addr->a);
+    pq_sendbyte(&buf, addr->b);
+    pq_sendbyte(&buf, addr->c);
+    pq_sendbyte(&buf, addr->d);
+    pq_sendbyte(&buf, addr->e);
+    pq_sendbyte(&buf, addr->f);
+
+    // Finalize and return the binary data
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

@@ -52,3 +52,49 @@ Error handling includes file access failures, link resolution failures, and path
 - The function validates symbolic link target length to prevent buffer overflows
 - Supports the allow_in_place_tablespaces feature by handling directories in addition to symbolic links
 - Returns text data type that can be used directly in SQL queries
+
+## Simplified Source
+
+```c
+Datum pg_tablespace_location(PG_FUNCTION_ARGS) {
+    Oid tablespaceOid = PG_GETARG_OID(0);
+    char sourcepath[MAXPGPATH];
+    char targetpath[MAXPGPATH];
+
+    // Handle invalid OID - use database default tablespace
+    if (tablespaceOid == InvalidOid)
+        tablespaceOid = MyDatabaseTableSpace;
+
+    // Return empty string for built-in tablespaces
+    if (tablespaceOid == DEFAULTTABLESPACE_OID ||
+        tablespaceOid == GLOBALTABLESPACE_OID)
+        PG_RETURN_TEXT_P(cstring_to_text(""));
+
+    // Build path to tablespace link: pg_tblspc/<oid>
+    snprintf(sourcepath, sizeof(sourcepath), "pg_tblspc/%u", tablespaceOid);
+
+    // Check if path is a symbolic link or directory
+    struct stat st;
+    if (lstat(sourcepath, &st) < 0)
+        ereport(ERROR, (errcode_for_file_access(),
+                errmsg("could not stat file \"%s\": %m", sourcepath)));
+
+    // If it's a directory (in-place tablespace), return the path
+    if (!S_ISLNK(st.st_mode))
+        PG_RETURN_TEXT_P(cstring_to_text(sourcepath));
+
+    // Read the symbolic link target
+    int rllen = readlink(sourcepath, targetpath, sizeof(targetpath));
+    if (rllen < 0)
+        ereport(ERROR, (errcode_for_file_access(),
+                errmsg("could not read symbolic link \"%s\": %m", sourcepath)));
+
+    // Validate link target length and null-terminate
+    if (rllen >= sizeof(targetpath))
+        ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                errmsg("symbolic link \"%s\" target is too long", sourcepath)));
+
+    targetpath[rllen] = '\0';
+    PG_RETURN_TEXT_P(cstring_to_text(targetpath));
+}
+```

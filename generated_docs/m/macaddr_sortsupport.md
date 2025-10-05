@@ -41,3 +41,41 @@ The  function implements PostgreSQL's SortSupport interface for the  data type. 
 - The  tracks input statistics for optimization decisions
 - This function follows PostgreSQL's V1 calling convention for built-in functions
 - Part of PostgreSQL's advanced sorting infrastructure for improved performance
+
+## Simplified Source
+
+```c
+Datum
+macaddr_sortsupport(PG_FUNCTION_ARGS)
+{
+    // Get the SortSupport structure to configure
+    SortSupport ssup = (SortSupport) PG_GETARG_POINTER(0);
+
+    // Set basic fast comparison function
+    ssup->comparator = macaddr_fast_cmp;
+    ssup->ssup_extra = NULL;
+
+    // Configure abbreviated key sorting if requested
+    if (ssup->abbreviate) {
+        // Switch to sort support memory context
+        MemoryContext oldcontext = MemoryContextSwitchTo(ssup->ssup_cxt);
+
+        // Allocate and initialize sorting state
+        macaddr_sortsupport_state *uss = palloc(sizeof(macaddr_sortsupport_state));
+        uss->input_count = 0;
+        uss->estimating = true;
+        initHyperLogLog(&uss->abbr_card, 10);  // 10-bit precision
+
+        // Configure abbreviated key sorting functions
+        ssup->ssup_extra = uss;
+        ssup->comparator = ssup_datum_unsigned_cmp;
+        ssup->abbrev_converter = macaddr_abbrev_convert;
+        ssup->abbrev_abort = macaddr_abbrev_abort;
+        ssup->abbrev_full_comparator = macaddr_fast_cmp;
+
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    PG_RETURN_VOID();
+}
+```

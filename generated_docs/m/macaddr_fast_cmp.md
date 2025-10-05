@@ -34,3 +34,18 @@ The  function serves as PostgreSQL's SortSupport "traditional" comparison functi
 - Part of PostgreSQL's SortSupport infrastructure for improved sorting performance
 - The SortSupport parameter is required by the interface but not used in this implementation
 - Provides the "traditional" comparison path when abbreviated sorting is not used or available
+
+## Simplified Source
+
+```c
+static int
+macaddr_fast_cmp(Datum x, Datum y, SortSupport ssup)
+{
+    // Extract MAC addresses from Datum values
+    macaddr *arg1 = DatumGetMacaddrP(x);
+    macaddr *arg2 = DatumGetMacaddrP(y);
+
+    // Delegate to internal comparison function
+    return macaddr_cmp_internal(arg1, arg2);
+}
+```

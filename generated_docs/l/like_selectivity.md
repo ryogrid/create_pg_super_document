@@ -43,3 +43,45 @@ The final selectivity is clamped to 1.0 to handle cases where multiple wildcards
 - Backslash escaping follows LIKE standard behavior where `\%` and `\_` are treated as literal characters
 - The selectivity multiplication approach assumes independence between character positions, which is a reasonable approximation for query planning purposes
 - The 1.0 clamp prevents mathematical overflow in cases with many wildcards
+
+## Simplified Source
+```c
+static Selectivity like_selectivity(const char *pattern, int pattern_length, bool case_insensitive) {
+    Selectivity selectivity = 1.0;
+    int pos;
+
+    // Skip leading wildcards (already handled by prefix analysis)
+    for (pos = 0; pos < pattern_length; pos++) {
+        if (pattern[pos] != '%' && pattern[pos] != '_')
+            break;
+    }
+
+    // Process each character in the pattern
+    for (; pos < pattern_length; pos++) {
+        if (pattern[pos] == '%') {
+            // % wildcard: matches any string
+            selectivity *= FULL_WILDCARD_SEL;
+        }
+        else if (pattern[pos] == '_') {
+            // _ wildcard: matches any single character
+            selectivity *= ANY_CHAR_SEL;
+        }
+        else if (pattern[pos] == '\\') {
+            // Escaped character: treat next char as literal
+            pos++;
+            if (pos < pattern_length)
+                selectivity *= FIXED_CHAR_SEL;
+        }
+        else {
+            // Regular character: literal match
+            selectivity *= FIXED_CHAR_SEL;
+        }
+    }
+
+    // Ensure selectivity doesn't exceed 1.0
+    if (selectivity > 1.0)
+        selectivity = 1.0;
+
+    return selectivity;
+}
+```

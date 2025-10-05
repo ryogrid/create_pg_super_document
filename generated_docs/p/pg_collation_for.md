@@ -41,3 +41,32 @@ The function performs several validation steps: it ensures the argument type is 
 - Raises an error if the argument type does not support collations (except for UNKNOWN type)
 - The function works by examining the execution context rather than parsing the argument value itself
 - Used primarily for debugging and introspection of collation assignments in SQL expressions
+
+## Simplified Source
+
+```c
+Datum pg_collation_for(PG_FUNCTION_ARGS) {
+    Oid typeid;
+    Oid collid;
+
+    // Get the type of the expression argument
+    typeid = get_fn_expr_argtype(fcinfo->flinfo, 0);
+    if (!typeid)
+        PG_RETURN_NULL();
+
+    // Verify the type supports collations (except UNKNOWN type)
+    if (!type_is_collatable(typeid) && typeid != UNKNOWNOID)
+        ereport(ERROR,
+                (errcode(ERRCODE_DATATYPE_MISMATCH),
+                 errmsg("collations are not supported by type %s",
+                        format_type_be(typeid))));
+
+    // Get the collation from execution context
+    collid = PG_GET_COLLATION();
+    if (!collid)
+        PG_RETURN_NULL();
+
+    // Return the collation name
+    PG_RETURN_TEXT_P(cstring_to_text(generate_collation_name(collid)));
+}
+```

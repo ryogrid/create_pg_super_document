@@ -42,3 +42,34 @@ The function validates that it's being called in a proper aggregate context and 
 - Memory allocation occurs in the aggregate context for proper cleanup
 - Works in conjunction with range_agg_finalfn to implement the complete range_agg aggregate
 - Located in src/backend/utils/adt/multirangetypes.c:1340-1371
+
+## Simplified Source
+
+```c
+Datum range_agg_transfn(PG_FUNCTION_ARGS) {
+    MemoryContext aggContext;
+    Oid rangeTypeOid;
+    ArrayBuildState *state;
+
+    // Validate we're in aggregate context
+    if (!AggCheckCallContext(fcinfo, &aggContext))
+        elog(ERROR, "range_agg_transfn called in non-aggregate context");
+
+    // Validate input is a range type
+    rangeTypeOid = get_fn_expr_argtype(fcinfo->flinfo, 1);
+    if (!type_is_range(rangeTypeOid))
+        elog(ERROR, "range_agg must be called with a range");
+
+    // Initialize or get existing array state
+    if (PG_ARGISNULL(0))
+        state = initArrayResult(rangeTypeOid, aggContext, false);
+    else
+        state = (ArrayBuildState *) PG_GETARG_POINTER(0);
+
+    // Add non-null range values to array
+    if (!PG_ARGISNULL(1))
+        accumArrayResult(state, PG_GETARG_DATUM(1), false, rangeTypeOid, aggContext);
+
+    PG_RETURN_POINTER(state);
+}
+```

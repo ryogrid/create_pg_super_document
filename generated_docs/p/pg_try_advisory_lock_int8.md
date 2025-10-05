@@ -39,3 +39,24 @@ The function converts the input 64-bit integer into a LOCKTAG structure and atte
 - Useful for implementing timeout-based locking strategies or polling mechanisms
 - The function is exposed as a SQL function pg_try_advisory_lock(bigint)
 - Located in src/backend/utils/adt/lockfuncs.c:694-713
+
+## Simplified Source
+
+```c
+Datum
+pg_try_advisory_lock_int8(PG_FUNCTION_ARGS)
+{
+    int64 key = PG_GETARG_INT64(0);
+    LOCKTAG tag;
+    LockAcquireResult res;
+
+    // Create lock tag from the 64-bit integer key
+    SET_LOCKTAG_INT64(tag, key);
+
+    // Try to acquire exclusive advisory lock (non-blocking)
+    res = LockAcquire(&tag, ExclusiveLock, true, true);
+
+    // Return true if acquired, false if not available
+    PG_RETURN_BOOL(res != LOCKACQUIRE_NOT_AVAIL);
+}
+```

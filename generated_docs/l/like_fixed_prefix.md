@@ -45,3 +45,90 @@ The function processes the pattern character by character, stopping when it enco
 - Returns `Pattern_Prefix_Partial` if a non-empty prefix exists before wildcards
 - Returns `Pattern_Prefix_None` if no fixed prefix can be extracted
 - Case-insensitive matching is not supported for BYTEA data type
+
+## Simplified Source
+
+```c
+static Pattern_Prefix_Status
+like_fixed_prefix(Const *patt_const, bool case_insensitive, Oid collation,
+                  Const **prefix_const, Selectivity *rest_selec)
+{
+    char *match, *patt;
+    int pattlen, match_pos = 0;
+    Oid typeid = patt_const->consttype;
+    bool is_multibyte = (pg_database_encoding_max_length() > 1);
+    pg_locale_t locale = 0;
+    bool locale_is_c = false;
+
+    // Validate input type (TEXT or BYTEA)
+    Assert(typeid == BYTEAOID || typeid == TEXTOID);
+
+    // Handle case-insensitive setup
+    if (case_insensitive) {
+        // Error if BYTEA with case-insensitive
+        if (typeid == BYTEAOID)
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                           errmsg("case insensitive matching not supported on type bytea")));
+
+        // Setup locale for case-insensitive matching
+        if (lc_ctype_is_c(collation))
+            locale_is_c = true;
+        else
+            locale = pg_newlocale_from_collation(collation);
+    }
+
+    // Extract pattern string
+    if (typeid != BYTEAOID) {
+        patt = TextDatumGetCString(patt_const->constvalue);
+        pattlen = strlen(patt);
+    } else {
+        bytea *bstr = DatumGetByteaPP(patt_const->constvalue);
+        pattlen = VARSIZE_ANY_EXHDR(bstr);
+        patt = (char *) palloc(pattlen);
+        memcpy(patt, VARDATA_ANY(bstr), pattlen);
+    }
+
+    // Build fixed prefix by scanning until wildcard or case-varying char
+    match = palloc(pattlen + 1);
+    for (int pos = 0; pos < pattlen; pos++) {
+        // Stop at wildcards (% or _)
+        if (patt[pos] == '%' || patt[pos] == '_')
+            break;
+
+        // Handle escape sequences
+        if (patt[pos] == '\\') {
+            pos++;
+            if (pos >= pattlen) break;
+        }
+
+        // Stop at case-varying characters in case-insensitive mode
+        if (case_insensitive &&
+            pattern_char_isalpha(patt[pos], is_multibyte, locale, locale_is_c))
+            break;
+
+        match[match_pos++] = patt[pos];
+    }
+
+    match[match_pos] = '\0';
+
+    // Create output prefix constant
+    if (typeid != BYTEAOID)
+        *prefix_const = string_to_const(match, typeid);
+    else
+        *prefix_const = string_to_bytea_const(match, match_pos);
+
+    // Calculate remaining pattern selectivity
+    if (rest_selec != NULL)
+        *rest_selec = like_selectivity(&patt[pos], pattlen - pos, case_insensitive);
+
+    pfree(patt);
+    pfree(match);
+
+    // Return prefix status
+    if (pos == pattlen)
+        return Pattern_Prefix_Exact;    // Entire pattern is literal
+    if (match_pos > 0)
+        return Pattern_Prefix_Partial;  // Found some prefix
+    return Pattern_Prefix_None;         // No usable prefix
+}
+```

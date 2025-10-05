@@ -74,3 +74,58 @@ This is an optimized shortcut that performs the equivalent of calling multirange
 - Sets all RangeBound fields including val, infinite, inclusive, and lower flags
 - Used extensively throughout multirange comparison and operation functions
 - Provides significant performance benefits over full range deserialization when only bounds are needed
+
+## Simplified Source
+
+```c
+void
+multirange_get_bounds(TypeCacheEntry *rangetyp,
+                     const MultirangeType *multirange,
+                     uint32 i, RangeBound *lower, RangeBound *upper)
+{
+    Assert(i < multirange->rangeCount);
+
+    // Get type information for element access
+    int16 typlen = rangetyp->rngelemtype->typlen;
+    char typalign = rangetyp->rngelemtype->typalign;
+    bool typbyval = rangetyp->rngelemtype->typbyval;
+
+    // Get offset to the i-th range's bounds data
+    uint32 offset = multirange_get_bounds_offset(multirange, i);
+    uint8 flags = MultirangeGetFlagsPtr(multirange)[i];
+    Pointer ptr = MultirangeGetBoundariesPtr(multirange, typalign) + offset;
+
+    // Multiranges cannot contain empty ranges
+    Assert((flags & RANGE_EMPTY) == 0);
+
+    // Extract lower bound if present
+    Datum lbound;
+    if (RANGE_HAS_LBOUND(flags)) {
+        lbound = fetch_att(ptr, typbyval, typlen);
+        ptr = (Pointer) att_addlength_pointer(ptr, typlen, ptr);
+    } else {
+        lbound = (Datum) 0;
+    }
+
+    // Extract upper bound if present
+    Datum ubound;
+    if (RANGE_HAS_UBOUND(flags)) {
+        ptr = (Pointer) att_align_pointer(ptr, typalign, typlen, ptr);
+        ubound = fetch_att(ptr, typbyval, typlen);
+    } else {
+        ubound = (Datum) 0;
+    }
+
+    // Set lower bound structure
+    lower->val = lbound;
+    lower->infinite = (flags & RANGE_LB_INF) != 0;
+    lower->inclusive = (flags & RANGE_LB_INC) != 0;
+    lower->lower = true;
+
+    // Set upper bound structure
+    upper->val = ubound;
+    upper->infinite = (flags & RANGE_UB_INF) != 0;
+    upper->inclusive = (flags & RANGE_UB_INC) != 0;
+    upper->lower = false;
+}
+```

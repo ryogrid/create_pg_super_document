@@ -36,3 +36,24 @@ The pg_try_advisory_xact_lock_shared_int8 function provides a non-blocking mecha
 - Difference from session-scoped version: passes false as sessionLock parameter to LockAcquire
 - Part of PostgreSQL's advisory locking system for application-level coordination
 - Commonly used through SQL interface as pg_try_advisory_xact_lock_shared(bigint)
+
+## Simplified Source
+
+```c
+Datum
+pg_try_advisory_xact_lock_shared_int8(PG_FUNCTION_ARGS)
+{
+    int64 key = PG_GETARG_INT64(0);
+    LOCKTAG tag;
+    LockAcquireResult res;
+
+    // Create lock tag from the 64-bit integer key
+    SET_LOCKTAG_INT64(tag, key);
+
+    // Try to acquire shared advisory lock (non-blocking, transaction-scoped)
+    res = LockAcquire(&tag, ShareLock, false, true);
+
+    // Return true if acquired, false if not available
+    PG_RETURN_BOOL(res != LOCKACQUIRE_NOT_AVAIL);
+}
+```

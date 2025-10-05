@@ -58,3 +58,42 @@ This binary format is platform-independent and suitable for network transmission
 - The output format is exactly what multirange_recv expects as input
 - Follows PostgreSQL's standard binary type serialization protocol
 - Returns a bytea value containing the complete binary representation
+
+## Simplified Source
+
+```c
+Datum
+multirange_send(PG_FUNCTION_ARGS)
+{
+    MultirangeType *multirange = PG_GETARG_MULTIRANGE_P(0);
+    Oid mltrngtypoid = MultirangeTypeGetOid(multirange);
+
+    // Get I/O cache and initialize output buffer
+    MultirangeIOData *cache = get_multirange_io_data(fcinfo, mltrngtypoid, IOFunc_send);
+    StringInfo buf = makeStringInfo();
+
+    // Start binary output
+    pq_begintypsend(buf);
+
+    // Send range count
+    pq_sendint32(buf, multirange->rangeCount);
+
+    // Deserialize multirange to get individual ranges
+    int32 range_count;
+    RangeType **ranges;
+    multirange_deserialize(cache->typcache->rngtype, multirange, &range_count, &ranges);
+
+    // Send each range in binary format
+    for (int i = 0; i < range_count; i++) {
+        // Get binary representation of range
+        Datum range = RangeTypePGetDatum(ranges[i]);
+        range = PointerGetDatum(SendFunctionCall(&cache->typioproc, range));
+
+        // Send range length (excluding VARLENA header) and data
+        pq_sendint32(buf, VARSIZE(range) - VARHDRSZ);
+        pq_sendbytes(buf, VARDATA(range), VARSIZE(range) - VARHDRSZ);
+    }
+
+    PG_RETURN_BYTEA_P(pq_endtypsend(buf));
+}
+```

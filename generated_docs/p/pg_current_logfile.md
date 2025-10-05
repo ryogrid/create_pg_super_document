@@ -44,3 +44,80 @@ When called without arguments, it returns the first log file found in the metada
 - Includes error handling for corrupted metadata file content
 - The metadata file format is: "format filepath\n" for each active log file
 - Used by database administrators and monitoring tools to locate current log files
+
+## Simplified Source
+
+```c
+Datum pg_current_logfile(PG_FUNCTION_ARGS) {
+    FILE *fd;
+    char lbuffer[MAXPGPATH];
+    char *logfmt;
+
+    // Get optional log format parameter
+    if (PG_NARGS() == 0 || PG_ARGISNULL(0))
+        logfmt = NULL;
+    else {
+        logfmt = text_to_cstring(PG_GETARG_TEXT_PP(0));
+
+        // Validate log format
+        if (strcmp(logfmt, "stderr") != 0 &&
+            strcmp(logfmt, "csvlog") != 0 &&
+            strcmp(logfmt, "jsonlog") != 0)
+            ereport(ERROR,
+                    (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                     errmsg("log format \"%s\" is not supported", logfmt),
+                     errhint("The supported log formats are \"stderr\", \"csvlog\", and \"jsonlog\".")));
+    }
+
+    // Open the current log files metadata file
+    fd = AllocateFile(LOG_METAINFO_DATAFILE, "r");
+    if (fd == NULL) {
+        if (errno != ENOENT)
+            ereport(ERROR,
+                    (errcode_for_file_access(),
+                     errmsg("could not read file \"%s\": %m",
+                            LOG_METAINFO_DATAFILE)));
+        PG_RETURN_NULL();
+    }
+
+#ifdef WIN32
+    // Handle Windows CRLF line endings
+    _setmode(_fileno(fd), _O_TEXT);
+#endif
+
+    // Read file and find matching log format
+    while (fgets(lbuffer, sizeof(lbuffer), fd) != NULL) {
+        char *log_format;
+        char *log_filepath;
+        char *nlpos;
+
+        // Parse line: "format filepath\n"
+        log_format = lbuffer;
+        log_filepath = strchr(lbuffer, ' ');
+        if (log_filepath == NULL) {
+            elog(ERROR, "missing space character in \"%s\"", LOG_METAINFO_DATAFILE);
+            break;
+        }
+
+        *log_filepath = '\0';
+        log_filepath++;
+
+        // Remove newline
+        nlpos = strchr(log_filepath, '\n');
+        if (nlpos == NULL) {
+            elog(ERROR, "missing newline character in \"%s\"", LOG_METAINFO_DATAFILE);
+            break;
+        }
+        *nlpos = '\0';
+
+        // Return path if format matches (or no filter specified)
+        if (logfmt == NULL || strcmp(logfmt, log_format) == 0) {
+            FreeFile(fd);
+            PG_RETURN_TEXT_P(cstring_to_text(log_filepath));
+        }
+    }
+
+    FreeFile(fd);
+    PG_RETURN_NULL();
+}
+```

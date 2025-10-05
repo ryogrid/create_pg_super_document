@@ -34,3 +34,12 @@ The `icregexeqsel` function is a SQL-callable selectivity estimation function th
 - Returns selectivity estimates used by the planner to choose optimal query execution plans
 - Delegates actual computation to `patternsel` with case-insensitive regex pattern type
 - Located in `src/backend/utils/adt/like_support.c:802-810`
+
+## Simplified Source
+
+```c
+Datum icregexeqsel(PG_FUNCTION_ARGS) {
+    // Delegate to pattern selectivity estimation with case-insensitive regex type
+    PG_RETURN_FLOAT8(patternsel(fcinfo, Pattern_Type_Regex_IC, false));
+}
+```

@@ -55,3 +55,57 @@ Returns a composite type with four fields:
 - The function validates that it's being called in a context expecting a composite return type
 - Uses assertions to ensure error data consistency when validation fails
 - Particularly useful for applications that need detailed error reporting for data validation failures
+
+## Simplified Source
+
+```c
+Datum pg_input_error_info(PG_FUNCTION_ARGS) {
+    text *txt = PG_GETARG_TEXT_PP(0);
+    text *typname = PG_GETARG_TEXT_PP(1);
+    ErrorSaveContext escontext = {T_ErrorSaveContext};
+    TupleDesc tupdesc;
+    Datum values[4];
+    bool isnull[4];
+
+    // Validate return type
+    if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+        elog(ERROR, "return type must be a row type");
+
+    // Enable detailed error information collection
+    escontext.details_wanted = true;
+
+    // Test input validity using common validation function
+    if (pg_input_is_valid_common(fcinfo, txt, typname, &escontext)) {
+        // Input is valid - return all NULLs
+        memset(isnull, true, sizeof(isnull));
+    } else {
+        // Input failed validation - extract error details
+        Assert(escontext.error_occurred);
+        Assert(escontext.error_data != NULL);
+        Assert(escontext.error_data->message != NULL);
+
+        memset(isnull, false, sizeof(isnull));
+
+        // Primary error message
+        values[0] = CStringGetTextDatum(escontext.error_data->message);
+
+        // Detail message (may be NULL)
+        if (escontext.error_data->detail != NULL)
+            values[1] = CStringGetTextDatum(escontext.error_data->detail);
+        else
+            isnull[1] = true;
+
+        // Hint message (may be NULL)
+        if (escontext.error_data->hint != NULL)
+            values[2] = CStringGetTextDatum(escontext.error_data->hint);
+        else
+            isnull[2] = true;
+
+        // SQL error code
+        char *sqlstate = unpack_sql_state(escontext.error_data->sqlerrcode);
+        values[3] = CStringGetTextDatum(sqlstate);
+    }
+
+    return HeapTupleGetDatum(heap_form_tuple(tupdesc, values, isnull));
+}
+```

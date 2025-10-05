@@ -38,3 +38,21 @@ The function determines whether to use single-byte or multi-byte processing base
 - Located in src/backend/utils/adt/like.c:428-446
 - The encoding check ensures optimal performance and correctness across different character sets
 - Handles the transformation needed to standardize escape sequences before pattern matching
+
+## Simplified Source
+
+```c
+Datum like_escape(PG_FUNCTION_ARGS) {
+    text *pat = PG_GETARG_TEXT_PP(0);  // Original pattern with custom escape
+    text *esc = PG_GETARG_TEXT_PP(1);  // Custom escape character
+    text *result;
+
+    // Choose processing method based on database encoding
+    if (pg_database_encoding_max_length() == 1)
+        result = SB_do_like_escape(pat, esc);  // Single-byte encoding
+    else
+        result = MB_do_like_escape(pat, esc);  // Multi-byte encoding
+
+    PG_RETURN_TEXT_P(result);
+}
+```

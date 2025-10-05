@@ -35,3 +35,23 @@ This function acquires an exclusive advisory lock that is automatically scoped t
 - Blocks indefinitely until lock acquisition succeeds
 - Part of PostgreSQL's advisory locking system for application-level coordination
 - Accessible via SQL as pg_advisory_xact_lock(int4, int4)
+
+## Simplified Source
+
+```c
+Datum pg_advisory_xact_lock_int4(PG_FUNCTION_ARGS)
+{
+    // Extract the two 32-bit keys from arguments
+    int32 key1 = PG_GETARG_INT32(0);
+    int32 key2 = PG_GETARG_INT32(1);
+    LOCKTAG tag;
+
+    // Set up lock tag for the composite key
+    SET_LOCKTAG_INT32(tag, key1, key2);
+
+    // Acquire exclusive transaction-scoped lock (blocking until available)
+    LockAcquire(&tag, ExclusiveLock, false, false);
+
+    PG_RETURN_VOID();
+}
+```

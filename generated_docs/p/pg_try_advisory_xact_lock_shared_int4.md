@@ -40,3 +40,24 @@ This function implements the PostgreSQL advisory locking mechanism for transacti
 - Lock will be automatically released when the transaction commits or aborts
 - Part of PostgreSQL's advisory locking system for application-level coordination
 - The false parameter in LockAcquire indicates transaction scope (vs session scope)
+
+## Simplified Source
+
+```c
+Datum pg_try_advisory_xact_lock_shared_int4(PG_FUNCTION_ARGS)
+{
+    // Extract the two 32-bit keys from arguments
+    int32 key1 = PG_GETARG_INT32(0);
+    int32 key2 = PG_GETARG_INT32(1);
+    LOCKTAG tag;
+
+    // Set up lock tag for the composite key
+    SET_LOCKTAG_INT32(tag, key1, key2);
+
+    // Try to acquire shared transaction-scoped lock (non-blocking)
+    LockAcquireResult result = LockAcquire(&tag, ShareLock, false, true);
+
+    // Return true if successful, false if not available
+    PG_RETURN_BOOL(result != LOCKACQUIRE_NOT_AVAIL);
+}
+```

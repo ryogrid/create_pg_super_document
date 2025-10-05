@@ -47,3 +47,30 @@ The input multirange must be fully detoasted and cannot have a short varlena hea
 - The caller is responsible for managing the memory of the allocated ranges array
 - Used extensively in multirange operations that need to process individual ranges
 - Essential for serialization operations like multirange_out and multirange_send
+
+## Simplified Source
+
+```c
+void
+multirange_deserialize(TypeCacheEntry *rangetyp,
+                      const MultirangeType *multirange, int32 *range_count,
+                      RangeType ***ranges)
+{
+    // Set output count from multirange structure
+    *range_count = multirange->rangeCount;
+
+    // Handle non-empty multiranges
+    if (*range_count > 0) {
+        // Allocate array for range pointers
+        *ranges = palloc(*range_count * sizeof(RangeType *));
+
+        // Extract each range from the compressed multirange format
+        for (int i = 0; i < *range_count; i++) {
+            (*ranges)[i] = multirange_get_range(rangetyp, multirange, i);
+        }
+    } else {
+        // Empty multirange - set ranges to NULL
+        *ranges = NULL;
+    }
+}
+```

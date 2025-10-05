@@ -54,3 +54,31 @@ The function modifies the input ranges array during canonicalization but does no
 - This is the recommended function for most multirange creation scenarios in PostgreSQL's C code
 - The resulting multirange is fully self-contained and ready for storage or further operations
 - Memory allocation failures will be handled by PostgreSQL's standard error handling mechanisms
+
+## Simplified Source
+
+```c
+MultirangeType *
+make_multirange(Oid mltrngtypoid, TypeCacheEntry *rangetyp, int32 range_count,
+                RangeType **ranges)
+{
+    // Canonicalize ranges: sort and merge overlapping/adjacent ranges
+    range_count = multirange_canonicalize(rangetyp, range_count, ranges);
+
+    // Calculate required memory size for the multirange
+    Size size = multirange_size_estimate(rangetyp, range_count, ranges);
+
+    // Allocate zero-filled memory (required for PostgreSQL datum handling)
+    MultirangeType *multirange = palloc0(size);
+    SET_VARSIZE(multirange, size);
+
+    // Initialize multirange structure
+    multirange->multirangetypid = mltrngtypoid;
+    multirange->rangeCount = range_count;
+
+    // Serialize the canonicalized ranges into the multirange structure
+    write_multirange_data(multirange, rangetyp, range_count, ranges);
+
+    return multirange;
+}
+```

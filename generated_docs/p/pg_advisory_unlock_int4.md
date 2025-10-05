@@ -37,3 +37,22 @@ This function releases a session-scoped exclusive advisory lock identified by a 
 - Attempting to unlock a lock not held by the current session returns false
 - Part of PostgreSQL's advisory locking system for application-level coordination
 - The true parameter in LockRelease indicates session scope
+
+## Simplified Source
+
+```c
+Datum pg_advisory_unlock_int4(PG_FUNCTION_ARGS)
+{
+    // Extract the two 32-bit keys from arguments
+    int32 key1 = PG_GETARG_INT32(0);
+    int32 key2 = PG_GETARG_INT32(1);
+    LOCKTAG tag;
+
+    // Set up lock tag for the composite key
+    SET_LOCKTAG_INT32(tag, key1, key2);
+
+    // Release the exclusive lock and return success status
+    bool success = LockRelease(&tag, ExclusiveLock, true);
+    PG_RETURN_BOOL(success);
+}
+```

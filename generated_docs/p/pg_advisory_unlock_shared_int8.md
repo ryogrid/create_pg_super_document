@@ -37,3 +37,21 @@ The pg_advisory_unlock_shared_int8 function provides a mechanism to release shar
 - Part of PostgreSQL's advisory locking system for application-level coordination
 - Commonly used through SQL interface as pg_advisory_unlock_shared(bigint)
 - Should be paired with previous calls to pg_advisory_lock_shared or pg_try_advisory_lock_shared
+
+## Simplified Source
+
+```c
+Datum pg_advisory_unlock_shared_int8(PG_FUNCTION_ARGS)
+{
+    // Extract the 64-bit key from arguments
+    int64 key = PG_GETARG_INT64(0);
+    LOCKTAG tag;
+
+    // Set up lock tag for the key
+    SET_LOCKTAG_INT64(tag, key);
+
+    // Release the shared lock and return success status
+    bool success = LockRelease(&tag, ShareLock, true);
+    PG_RETURN_BOOL(success);
+}
+```

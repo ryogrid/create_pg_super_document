@@ -30,3 +30,11 @@ The underlying functionality reads the LOG_METAINFO_DATAFILE to find the current
 - The actual log file resolution logic is implemented in the main pg_current_logfile function
 - Located in src/backend/utils/adt/misc.c:1092-1100
 - Used internally by PostgreSQL's function call mechanism when the single-argument version is invoked
+
+## Simplified Source
+
+```c
+Datum pg_current_logfile_1arg(PG_FUNCTION_ARGS) {
+    return pg_current_logfile(fcinfo);
+}
+```

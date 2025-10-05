@@ -38,3 +38,17 @@ Like `texticlike`, this function works directly with text arguments without need
 - Located in src/backend/utils/adt/like.c:412-427
 - More efficient than Name variants due to lack of conversion overhead
 - Uses PostgreSQL's collation system for proper case-insensitive matching across different locales
+
+## Simplified Source
+
+```c
+Datum texticnlike(PG_FUNCTION_ARGS) {
+    text *str = PG_GETARG_TEXT_PP(0);
+    text *pat = PG_GETARG_TEXT_PP(1);
+
+    // Perform case-insensitive pattern matching and negate result
+    bool result = (Generic_Text_IC_like(str, pat, PG_GET_COLLATION()) != LIKE_TRUE);
+
+    PG_RETURN_BOOL(result);
+}
+```

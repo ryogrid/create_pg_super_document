@@ -53,3 +53,57 @@ The function handles edge cases where histograms are unavailable (returns DEFAUL
 - The clamping mechanism prevents unrealistically small estimates for long prefixes where histogram resolution is insufficient
 - Works with any collation and locale, though accuracy may vary
 - The comment notes that upper-bound estimation is used even when locale reliability is questionable, since approximate correctness is sufficient for query planning
+
+## Simplified Source
+
+```c
+static Selectivity
+prefix_selectivity(PlannerInfo *root, VariableStatData *vardata,
+                   Oid eqopr, Oid ltopr, Oid geopr,
+                   Oid collation, Const *prefixcon)
+{
+    Selectivity prefixsel;
+    FmgrInfo opproc;
+    Const *greaterstrcon;
+    Selectivity eq_sel;
+
+    // Step 1: Estimate selectivity of "x >= prefix"
+    fmgr_info(get_opcode(geopr), &opproc);
+    prefixsel = ineq_histogram_selectivity(root, vardata, geopr, &opproc,
+                                          true, true, collation,
+                                          prefixcon->constvalue, prefixcon->consttype);
+
+    // Return default if no histogram available
+    if (prefixsel < 0.0)
+        return DEFAULT_MATCH_SEL;
+
+    // Step 2: Try to create upper bound string and estimate "x < upper_bound"
+    fmgr_info(get_opcode(ltopr), &opproc);
+    greaterstrcon = make_greater_string(prefixcon, &opproc, collation);
+
+    if (greaterstrcon) {
+        Selectivity topsel;
+
+        // Estimate selectivity of "x < upper_bound"
+        topsel = ineq_histogram_selectivity(root, vardata, ltopr, &opproc,
+                                           false, false, collation,
+                                           greaterstrcon->constvalue,
+                                           greaterstrcon->consttype);
+
+        Assert(topsel >= 0.0);
+
+        // Step 3: Combine selectivities for range query
+        // Using range query logic: lower + upper - 1.0
+        prefixsel = topsel + prefixsel - 1.0;
+    }
+
+    // Step 4: Clamp result to equality selectivity to avoid unrealistically small estimates
+    // This handles cases where prefix is too long for histogram resolution
+    eq_sel = var_eq_const(vardata, eqopr, collation, prefixcon->constvalue,
+                         false, true, false);
+
+    prefixsel = Max(prefixsel, eq_sel);
+
+    return prefixsel;
+}
+```

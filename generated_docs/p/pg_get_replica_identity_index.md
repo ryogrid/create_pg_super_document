@@ -38,3 +38,28 @@ The function opens the relation with an AccessShareLock, retrieves the replica i
 - The function uses AccessShareLock, making it safe for concurrent operations
 - Located in src/backend/utils/adt/misc.c:1101-1120
 - Part of PostgreSQL's system function interface for accessing internal relation metadata
+
+## Simplified Source
+
+```c
+Datum pg_get_replica_identity_index(PG_FUNCTION_ARGS) {
+    Oid reloid = PG_GETARG_OID(0);
+    Oid idxoid;
+    Relation rel;
+
+    // Open the relation with shared access lock
+    rel = table_open(reloid, AccessShareLock);
+
+    // Get the replica identity index OID
+    idxoid = RelationGetReplicaIndex(rel);
+
+    // Close the relation and release lock
+    table_close(rel, AccessShareLock);
+
+    // Return the index OID if valid, otherwise NULL
+    if (OidIsValid(idxoid))
+        PG_RETURN_OID(idxoid);
+    else
+        PG_RETURN_NULL();
+}
+```

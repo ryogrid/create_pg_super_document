@@ -38,3 +38,23 @@ This function releases a session-scoped shared advisory lock identified by a pai
 - Attempting to unlock a shared lock not held by the current session returns false
 - Part of PostgreSQL's advisory locking system for application-level coordination
 - The true parameter in LockRelease indicates session scope
+
+## Simplified Source
+
+```c
+Datum
+pg_advisory_unlock_shared_int4(PG_FUNCTION_ARGS)
+{
+    // Extract the two 32-bit integer keys from function arguments
+    int32 key1 = PG_GETARG_INT32(0);
+    int32 key2 = PG_GETARG_INT32(1);
+
+    // Create lock tag from the two keys
+    LOCKTAG tag;
+    SET_LOCKTAG_INT32(tag, key1, key2);
+
+    // Release the shared lock and return success status
+    bool result = LockRelease(&tag, ShareLock, true);
+    PG_RETURN_BOOL(result);
+}
+```

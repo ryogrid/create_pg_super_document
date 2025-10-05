@@ -39,3 +39,37 @@ The function expects the bytes in network byte order (big-endian) and reads them
 - The function assumes valid input and doesn't perform extensive error checking
 - Returns a Datum containing a pointer to the newly allocated macaddr8 structure
 - Used primarily for client-server communication when binary protocol mode is enabled
+
+## Simplified Source
+
+```c
+Datum
+macaddr8_recv(PG_FUNCTION_ARGS)
+{
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    macaddr8 *addr = (macaddr8 *) palloc0(sizeof(macaddr8));
+
+    // Read first 3 bytes (always present)
+    addr->a = pq_getmsgbyte(buf);
+    addr->b = pq_getmsgbyte(buf);
+    addr->c = pq_getmsgbyte(buf);
+
+    // Handle EUI-48 vs EUI-64 format
+    if (buf->len == 6) {
+        // EUI-48: Insert standard conversion bytes
+        addr->d = 0xFF;
+        addr->e = 0xFE;
+    } else {
+        // EUI-64: Read actual bytes
+        addr->d = pq_getmsgbyte(buf);
+        addr->e = pq_getmsgbyte(buf);
+    }
+
+    // Read final 3 bytes
+    addr->f = pq_getmsgbyte(buf);
+    addr->g = pq_getmsgbyte(buf);
+    addr->h = pq_getmsgbyte(buf);
+
+    PG_RETURN_MACADDR8_P(addr);
+}
+```

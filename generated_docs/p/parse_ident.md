@@ -49,3 +49,122 @@ The function processes identifiers by:
 - Handles various error conditions with detailed error messages
 - Preserves identifier length to allow user validation of identifier length limits
 - Uses PostgreSQL's array building infrastructure for efficient result construction
+
+## Simplified Source
+
+```c
+Datum parse_ident(PG_FUNCTION_ARGS) {
+    text *qualname = PG_GETARG_TEXT_PP(0);
+    bool strict = PG_GETARG_BOOL(1);
+    char *qualname_str = text_to_cstring(qualname);
+    ArrayBuildState *astate = NULL;
+    char *nextp;
+    bool after_dot = false;
+
+    nextp = qualname_str;
+
+    // Skip leading whitespace
+    while (scanner_isspace(*nextp))
+        nextp++;
+
+    for (;;) {
+        char *curname;
+        bool missing_ident = true;
+
+        if (*nextp == '"') {
+            // Handle quoted identifier
+            char *endp;
+            curname = nextp + 1;
+
+            // Find closing quote, handling escaped quotes ("")
+            for (;;) {
+                endp = strchr(nextp + 1, '"');
+                if (endp == NULL)
+                    ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                            errmsg("string is not a valid identifier: \"%s\"",
+                                   text_to_cstring(qualname)),
+                            errdetail("String has unclosed double quotes.")));
+
+                if (endp[1] != '"')
+                    break;  // Not an escaped quote
+
+                // Remove one quote from escaped pair
+                memmove(endp, endp + 1, strlen(endp));
+                nextp = endp;
+            }
+
+            nextp = endp + 1;
+            *endp = '\0';
+
+            if (endp - curname == 0)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                        errmsg("string is not a valid identifier: \"%s\"",
+                               text_to_cstring(qualname)),
+                        errdetail("Quoted identifier must not be empty.")));
+
+            astate = accumArrayResult(astate, CStringGetTextDatum(curname),
+                                    false, TEXTOID, CurrentMemoryContext);
+            missing_ident = false;
+
+        } else if (is_ident_start((unsigned char) *nextp)) {
+            // Handle unquoted identifier
+            char *downname;
+            int len;
+            text *part;
+
+            curname = nextp++;
+            while (is_ident_cont((unsigned char) *nextp))
+                nextp++;
+
+            len = nextp - curname;
+
+            // Downcase unquoted identifiers
+            downname = downcase_identifier(curname, len, false, false);
+            part = cstring_to_text_with_len(downname, len);
+            astate = accumArrayResult(astate, PointerGetDatum(part), false,
+                                    TEXTOID, CurrentMemoryContext);
+            missing_ident = false;
+        }
+
+        if (missing_ident) {
+            // Generate appropriate error message
+            if (*nextp == '.')
+                ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                        errmsg("string is not a valid identifier: \"%s\"",
+                               text_to_cstring(qualname)),
+                        errdetail("No valid identifier before \".\".")));
+            else if (after_dot)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                        errmsg("string is not a valid identifier: \"%s\"",
+                               text_to_cstring(qualname)),
+                        errdetail("No valid identifier after \".\".")));
+            else
+                ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                        errmsg("string is not a valid identifier: \"%s\"",
+                               text_to_cstring(qualname))));
+        }
+
+        // Skip whitespace and handle dots or end of string
+        while (scanner_isspace(*nextp))
+            nextp++;
+
+        if (*nextp == '.') {
+            after_dot = true;
+            nextp++;
+            while (scanner_isspace(*nextp))
+                nextp++;
+        } else if (*nextp == '\0') {
+            break;
+        } else {
+            // Invalid character found
+            if (strict)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                        errmsg("string is not a valid identifier: \"%s\"",
+                               text_to_cstring(qualname))));
+            break;
+        }
+    }
+
+    PG_RETURN_DATUM(makeArrayResult(astate, CurrentMemoryContext));
+}
+```

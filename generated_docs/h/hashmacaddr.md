@@ -37,3 +37,17 @@ The hash function ensures that equal MAC addresses produce the same hash value, 
 - Located in 
 - Must satisfy the property that equal MAC addresses produce identical hash values
 - Used internally by PostgreSQL's indexing and join algorithms when hash-based access methods are employed
+
+## Simplified Source
+
+```c
+Datum
+hashmacaddr(PG_FUNCTION_ARGS)
+{
+    // Extract the MAC address from function arguments
+    macaddr *key = PG_GETARG_MACADDR_P(0);
+
+    // Compute hash over the entire MAC address structure
+    return hash_any((unsigned char *) key, sizeof(macaddr));
+}
+```

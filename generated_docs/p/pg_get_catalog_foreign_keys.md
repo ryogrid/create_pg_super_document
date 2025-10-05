@@ -62,3 +62,62 @@ This information is crucial for understanding the logical structure of the syste
 - Array conversion is handled through the array_in function to properly format column lists as PostgreSQL text arrays
 - The is_array and is_opt flags provide additional semantic information about the nature of each foreign key relationship
 - Memory management uses the SRF multi-call context to maintain state across multiple function calls
+
+## Simplified Source
+
+```c
+Datum pg_get_catalog_foreign_keys(PG_FUNCTION_ARGS) {
+    FuncCallContext *funcctx;
+    FmgrInfo *arrayinp;
+
+    if (SRF_IS_FIRSTCALL()) {
+        // Initialize set-returning function context
+        funcctx = SRF_FIRSTCALL_INIT();
+        MemoryContext oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
+
+        // Validate return type and setup tuple descriptor
+        TupleDesc tupdesc;
+        if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+            elog(ERROR, "return type must be a row type");
+        funcctx->tuple_desc = BlessTupleDesc(tupdesc);
+
+        // Setup array_in function for converting column lists to text arrays
+        arrayinp = (FmgrInfo *) palloc(sizeof(FmgrInfo));
+        fmgr_info(F_ARRAY_IN, arrayinp);
+        funcctx->user_fctx = arrayinp;
+
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    funcctx = SRF_PERCALL_SETUP();
+    arrayinp = (FmgrInfo *) funcctx->user_fctx;
+
+    // Return next foreign key relationship if available
+    if (funcctx->call_cntr < lengthof(sys_fk_relationships)) {
+        const SysFKRelationship *fkrel = &sys_fk_relationships[funcctx->call_cntr];
+        Datum values[6];
+        bool nulls[6];
+
+        memset(nulls, false, sizeof(nulls));
+
+        // Fill in the relationship data
+        values[0] = ObjectIdGetDatum(fkrel->fk_table);
+        values[1] = FunctionCall3(arrayinp,
+                CStringGetDatum(fkrel->fk_columns),
+                ObjectIdGetDatum(TEXTOID),
+                Int32GetDatum(-1));
+        values[2] = ObjectIdGetDatum(fkrel->pk_table);
+        values[3] = FunctionCall3(arrayinp,
+                CStringGetDatum(fkrel->pk_columns),
+                ObjectIdGetDatum(TEXTOID),
+                Int32GetDatum(-1));
+        values[4] = BoolGetDatum(fkrel->is_array);
+        values[5] = BoolGetDatum(fkrel->is_opt);
+
+        HeapTuple tuple = heap_form_tuple(funcctx->tuple_desc, values, nulls);
+        SRF_RETURN_NEXT(funcctx, HeapTupleGetDatum(tuple));
+    }
+
+    SRF_RETURN_DONE(funcctx);
+}
+```

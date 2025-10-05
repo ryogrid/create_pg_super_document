@@ -39,3 +39,23 @@ The pg_advisory_lock_int4 function provides a blocking mechanism to acquire excl
 - Part of PostgreSQL's advisory locking system for application-level coordination
 - Commonly used through SQL interface as pg_advisory_lock(integer, integer)
 - Should be paired with corresponding pg_advisory_unlock calls using the same key pair
+
+## Simplified Source
+
+```c
+Datum pg_advisory_lock_int4(PG_FUNCTION_ARGS)
+{
+    // Extract the two 32-bit keys from arguments
+    int32 key1 = PG_GETARG_INT32(0);
+    int32 key2 = PG_GETARG_INT32(1);
+    LOCKTAG tag;
+
+    // Set up lock tag for the composite key
+    SET_LOCKTAG_INT32(tag, key1, key2);
+
+    // Acquire exclusive lock (blocking until available)
+    LockAcquire(&tag, ExclusiveLock, true, false);
+
+    PG_RETURN_VOID();
+}
+```

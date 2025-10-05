@@ -36,3 +36,27 @@ This function is part of PostgreSQL's type system infrastructure and is used whe
 - Complementary to `macaddr_send` function which performs the reverse operation
 - Memory allocation follows PostgreSQL conventions using palloc
 - Part of the binary I/O protocol support for efficient data transmission
+
+## Simplified Source
+
+```c
+Datum
+macaddr_recv(PG_FUNCTION_ARGS)
+{
+    // Get the input buffer containing binary MAC address data
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+
+    // Allocate memory for the new macaddr structure
+    macaddr *addr = (macaddr *) palloc(sizeof(macaddr));
+
+    // Read 6 bytes sequentially (a through f) from buffer
+    addr->a = pq_getmsgbyte(buf);
+    addr->b = pq_getmsgbyte(buf);
+    addr->c = pq_getmsgbyte(buf);
+    addr->d = pq_getmsgbyte(buf);
+    addr->e = pq_getmsgbyte(buf);
+    addr->f = pq_getmsgbyte(buf);
+
+    PG_RETURN_MACADDR_P(addr);
+}
+```

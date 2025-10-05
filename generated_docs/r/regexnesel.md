@@ -37,3 +37,14 @@ The `regexnesel` function is a SQL-callable selectivity estimation function that
 - Helps the planner understand how many rows will be excluded by a NOT matching regex condition
 - Delegates actual computation to `patternsel` with regex pattern type and negation flag
 - Located in `src/backend/utils/adt/like_support.c:839-847`
+
+## Simplified Source
+
+```c
+Datum
+regexnesel(PG_FUNCTION_ARGS)
+{
+    // Calculate selectivity for regex pattern non-match (!~ operator)
+    return patternsel(fcinfo, Pattern_Type_Regex, true);
+}
+```

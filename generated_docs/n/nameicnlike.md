@@ -42,3 +42,20 @@ This function is the backend implementation for the NOT ILIKE operator when appl
 - Converts Name to text before processing since the generic matching function works with text
 - Located in src/backend/utils/adt/like.c:385-399
 - Uses PostgreSQL's collation system for proper case-insensitive matching across different locales
+
+## Simplified Source
+
+```c
+Datum nameicnlike(PG_FUNCTION_ARGS) {
+    Name str = PG_GETARG_NAME(0);
+    text *pat = PG_GETARG_TEXT_PP(1);
+
+    // Convert Name to text format
+    text *strtext = DatumGetTextPP(DirectFunctionCall1(name_text, NameGetDatum(str)));
+
+    // Perform case-insensitive pattern matching and negate result
+    bool result = (Generic_Text_IC_like(strtext, pat, PG_GET_COLLATION()) != LIKE_TRUE);
+
+    PG_RETURN_BOOL(result);
+}
+```

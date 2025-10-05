@@ -61,3 +61,168 @@ This sophisticated approach enables PostgreSQL to make informed decisions about 
 - Properly accounts for null fraction when computing final selectivity
 - For negated operations, computes `1.0 - positive_selectivity - null_fraction`
 - Memory management includes cleanup of dynamically allocated prefix constants
+
+## Simplified Source
+
+```c
+static double patternsel_common(PlannerInfo *root, Oid oprid, Oid opfuncid,
+                               List *args, int varRelid, Oid collation,
+                               Pattern_Type ptype, bool negate) {
+    VariableStatData vardata;
+    Node *other;
+    bool varonleft;
+    Datum constval;
+    Oid consttype, vartype, rdatatype;
+    Oid eqopr, ltopr, geopr;
+    Pattern_Prefix_Status pstatus;
+    Const *patt, *prefix = NULL;
+    Selectivity rest_selec = 0;
+    double nullfrac = 0.0;
+    double result;
+
+    // Initialize with default estimate based on negation
+    result = negate ? (1.0 - DEFAULT_MATCH_SEL) : DEFAULT_MATCH_SEL;
+
+    // Extract variable and constant from arguments
+    if (!get_restriction_variable(root, args, varRelid, &vardata, &other, &varonleft))
+        return result;
+    if (!varonleft || !IsA(other, Const)) {
+        ReleaseVariableStats(vardata);
+        return result;
+    }
+
+    // Handle null constants
+    if (((Const *) other)->constisnull) {
+        ReleaseVariableStats(vardata);
+        return 0.0;  // Strict operators never match nulls
+    }
+
+    constval = ((Const *) other)->constvalue;
+    consttype = ((Const *) other)->consttype;
+
+    // Only support text and bytea pattern constants
+    if (consttype != TEXTOID && consttype != BYTEAOID) {
+        ReleaseVariableStats(vardata);
+        return result;
+    }
+
+    // Select operators based on variable data type
+    vartype = vardata.vartype;
+    switch (vartype) {
+        case TEXTOID:
+            eqopr = TextEqualOperator;
+            ltopr = TextLessOperator;
+            geopr = TextGreaterEqualOperator;
+            rdatatype = TEXTOID;
+            break;
+        case NAMEOID:
+            eqopr = NameEqualTextOperator;
+            ltopr = NameLessTextOperator;
+            geopr = NameGreaterEqualTextOperator;
+            rdatatype = TEXTOID;
+            break;
+        case BPCHAROID:
+            eqopr = BpcharEqualOperator;
+            ltopr = BpcharLessOperator;
+            geopr = BpcharGreaterEqualOperator;
+            rdatatype = BPCHAROID;
+            break;
+        case BYTEAOID:
+            eqopr = ByteaEqualOperator;
+            ltopr = ByteaLessOperator;
+            geopr = ByteaGreaterEqualOperator;
+            rdatatype = BYTEAOID;
+            break;
+        default:
+            ReleaseVariableStats(vardata);
+            return result;
+    }
+
+    // Extract null fraction from statistics
+    if (HeapTupleIsValid(vardata.statsTuple)) {
+        Form_pg_statistic stats = (Form_pg_statistic) GETSTRUCT(vardata.statsTuple);
+        nullfrac = stats->stanullfrac;
+    }
+
+    // Analyze pattern to extract fixed prefix
+    patt = (Const *) other;
+    pstatus = pattern_fixed_prefix(patt, ptype, collation, &prefix, &rest_selec);
+
+    // Coerce prefix type if needed (text to bpchar)
+    if (prefix && prefix->consttype != rdatatype) {
+        prefix->consttype = rdatatype;
+    }
+
+    if (pstatus == Pattern_Prefix_Exact) {
+        // Exact match - use equality selectivity
+        result = var_eq_const(&vardata, eqopr, collation, prefix->constvalue,
+                             false, true, false);
+    } else {
+        // Non-exact pattern - combine histogram and heuristic methods
+        Selectivity selec;
+        int hist_size;
+        FmgrInfo opproc;
+        double mcv_selec, sumcommon;
+
+        // Get function info for pattern matching
+        if (!OidIsValid(opfuncid))
+            opfuncid = get_opcode(oprid);
+        fmgr_info(opfuncid, &opproc);
+
+        // Try histogram-based estimation
+        selec = histogram_selectivity(&vardata, &opproc, collation,
+                                    constval, true, 10, 1, &hist_size);
+
+        // For small histograms, combine with heuristic method
+        if (hist_size < 100) {
+            Selectivity heursel, prefixsel;
+
+            if (pstatus == Pattern_Prefix_Partial)
+                prefixsel = prefix_selectivity(root, &vardata, eqopr, ltopr, geopr,
+                                             collation, prefix);
+            else
+                prefixsel = 1.0;
+            heursel = prefixsel * rest_selec;
+
+            if (selec < 0)  // Too few histogram entries
+                selec = heursel;
+            else {
+                // Blend histogram and heuristic for medium-sized datasets
+                double hist_weight = hist_size / 100.0;
+                selec = selec * hist_weight + heursel * (1.0 - hist_weight);
+            }
+        }
+
+        // Apply confidence bounds
+        if (selec < 0.0001)
+            selec = 0.0001;
+        else if (selec > 0.9999)
+            selec = 0.9999;
+
+        // Add most-common-values contribution
+        mcv_selec = mcv_selectivity(&vardata, &opproc, collation,
+                                   constval, true, &sumcommon);
+
+        // Combine histogram and MCV results
+        selec *= 1.0 - nullfrac - sumcommon;
+        selec += mcv_selec;
+        result = selec;
+    }
+
+    // Adjust for negation
+    if (negate)
+        result = 1.0 - result - nullfrac;
+
+    // Ensure result is within valid probability range
+    CLAMP_PROBABILITY(result);
+
+    // Cleanup
+    if (prefix) {
+        pfree(DatumGetPointer(prefix->constvalue));
+        pfree(prefix);
+    }
+    ReleaseVariableStats(vardata);
+
+    return result;
+}
+```

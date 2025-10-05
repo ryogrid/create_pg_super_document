@@ -35,3 +35,14 @@ The `icnlikesel` function estimates the selectivity (fraction of rows that will 
 - ILIKE provides case-insensitive pattern matching compared to regular LIKE
 - Part of PostgreSQL's statistical estimation system for query optimization
 - Located in `src/backend/utils/adt/like_support.c:866-874`
+
+## Simplified Source
+
+```c
+Datum
+icnlikesel(PG_FUNCTION_ARGS)
+{
+    // Calculate selectivity for case-insensitive LIKE pattern non-match (NOT ILIKE operator)
+    return patternsel(fcinfo, Pattern_Type_Like_IC, true);
+}
+```

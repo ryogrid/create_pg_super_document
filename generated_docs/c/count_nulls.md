@@ -47,3 +47,62 @@ The function returns a boolean indicating success (true) or failure (false). On 
 - Null bitmap processing uses bit manipulation to check individual array element nullability
 - The variadic array handling includes assertion checks to ensure type safety
 - Returns false (indicating failure) only when a VARIADIC array argument itself is null, making element analysis impossible
+
+## Simplified Source
+
+```c
+static bool
+count_nulls(FunctionCallInfo fcinfo, int32 *nargs, int32 *nulls)
+{
+    int32 count = 0;
+    int i;
+
+    // Check if we have a variadic array argument
+    if (get_fn_expr_variadic(fcinfo->flinfo)) {
+        ArrayType *arr;
+        int ndims, nitems, *dims;
+        bits8 *bitmap;
+
+        // Return false if variadic array itself is null
+        if (PG_ARGISNULL(0))
+            return false;
+
+        // Get array and count its elements
+        arr = PG_GETARG_ARRAYTYPE_P(0);
+        ndims = ARR_NDIM(arr);
+        dims = ARR_DIMS(arr);
+        nitems = ArrayGetNItems(ndims, dims);
+
+        // Count null elements using bitmap
+        bitmap = ARR_NULLBITMAP(arr);
+        if (bitmap) {
+            int bitmask = 1;
+            for (i = 0; i < nitems; i++) {
+                if ((*bitmap & bitmask) == 0)
+                    count++;
+
+                // Move to next bit/byte
+                bitmask <<= 1;
+                if (bitmask == 0x100) {
+                    bitmap++;
+                    bitmask = 1;
+                }
+            }
+        }
+
+        *nargs = nitems;
+        *nulls = count;
+    } else {
+        // Count nulls in separate arguments
+        for (i = 0; i < PG_NARGS(); i++) {
+            if (PG_ARGISNULL(i))
+                count++;
+        }
+
+        *nargs = PG_NARGS();
+        *nulls = count;
+    }
+
+    return true;
+}
+```

@@ -34,3 +34,16 @@ This function provides a convenient way to release all session-scoped advisory l
 - Part of PostgreSQL's advisory locking system for application-level coordination
 - Useful for cleanup and error recovery scenarios
 - Does not affect locks held by other sessions
+
+## Simplified Source
+
+```c
+Datum
+pg_advisory_unlock_all(PG_FUNCTION_ARGS)
+{
+    // Release all advisory locks held by current session
+    LockReleaseSession(USER_LOCKMETHOD);
+
+    PG_RETURN_VOID();
+}
+```

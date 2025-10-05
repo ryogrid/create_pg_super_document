@@ -47,3 +47,54 @@ For prefix patterns, the function handles the trivial case directly by copying t
 - For Pattern_Type_Prefix cases, rest_selec is set to 1.0 since the entire pattern is the prefix
 - The function uses a switch statement for efficient pattern type dispatch
 - Error handling includes an elog(ERROR) for unrecognized pattern types
+
+## Simplified Source
+
+```c
+static Pattern_Prefix_Status
+pattern_fixed_prefix(Const *patt, Pattern_Type ptype, Oid collation,
+                     Const **prefix, Selectivity *rest_selec)
+{
+    Pattern_Prefix_Status result;
+
+    switch (ptype) {
+        case Pattern_Type_Like:
+            // Standard LIKE pattern analysis
+            result = like_fixed_prefix(patt, false, collation, prefix, rest_selec);
+            break;
+
+        case Pattern_Type_Like_IC:
+            // Case-insensitive LIKE pattern analysis
+            result = like_fixed_prefix(patt, true, collation, prefix, rest_selec);
+            break;
+
+        case Pattern_Type_Regex:
+            // Regular expression pattern analysis
+            result = regex_fixed_prefix(patt, false, collation, prefix, rest_selec);
+            break;
+
+        case Pattern_Type_Regex_IC:
+            // Case-insensitive regex pattern analysis
+            result = regex_fixed_prefix(patt, true, collation, prefix, rest_selec);
+            break;
+
+        case Pattern_Type_Prefix:
+            // Trivial case: entire pattern is the prefix
+            result = Pattern_Prefix_Partial;
+            *prefix = makeConst(patt->consttype, patt->consttypmod, patt->constcollid,
+                               patt->constlen, datumCopy(patt->constvalue,
+                               patt->constbyval, patt->constlen),
+                               patt->constisnull, patt->constbyval);
+            if (rest_selec != NULL)
+                *rest_selec = 1.0;  // Entire pattern matches
+            break;
+
+        default:
+            elog(ERROR, "unrecognized ptype: %d", (int) ptype);
+            result = Pattern_Prefix_None;  // Keep compiler quiet
+            break;
+    }
+
+    return result;
+}
+```

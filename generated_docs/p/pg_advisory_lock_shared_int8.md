@@ -37,3 +37,22 @@ The function converts the input 64-bit integer into a LOCKTAG structure and acqu
 - Shared locks are commonly used in reader/writer scenarios where concurrent reads are acceptable
 - The function is exposed as a SQL function pg_advisory_lock_shared(bigint)
 - Located in src/backend/utils/adt/lockfuncs.c:659-675
+
+## Simplified Source
+
+```c
+Datum
+pg_advisory_lock_shared_int8(PG_FUNCTION_ARGS)
+{
+    int64 key = PG_GETARG_INT64(0);
+    LOCKTAG tag;
+
+    // Create lock tag from the 64-bit integer key
+    SET_LOCKTAG_INT64(tag, key);
+
+    // Acquire shared advisory lock (multiple sessions can hold simultaneously)
+    LockAcquire(&tag, ShareLock, true, false);
+
+    PG_RETURN_VOID();
+}
+```

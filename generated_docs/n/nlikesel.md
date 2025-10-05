@@ -34,3 +34,14 @@ The `nlikesel` function estimates the selectivity (fraction of rows that will ma
 - The `true` parameter passed to `patternsel` indicates this is for a negated match (NOT operation)
 - Part of PostgreSQL's statistical estimation system for query optimization
 - Located in `src/backend/utils/adt/like_support.c:857-865`
+
+## Simplified Source
+
+```c
+Datum
+nlikesel(PG_FUNCTION_ARGS)
+{
+    // Calculate selectivity for LIKE pattern non-match (NOT LIKE operator)
+    return patternsel(fcinfo, Pattern_Type_Like, true);
+}
+```

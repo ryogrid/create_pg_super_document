@@ -39,3 +39,33 @@ The function implements a sophisticated heuristic to decide when to abort abbrev
 - Uses a target minimum cardinality of 1 per ~2000 non-null inputs with a 0.5 fudge factor
 - Includes extensive debug logging when TRACE_SORT is enabled
 - The 100k distinct value threshold represents a point where abbreviation benefits outweigh costs even for very large datasets
+
+## Simplified Source
+
+```c
+static bool
+macaddr_abbrev_abort(int memtupcount, SortSupport ssup)
+{
+    macaddr_sortsupport_state *uss = ssup->ssup_extra;
+
+    // Only evaluate after processing sufficient data
+    if (memtupcount < 10000 || uss->input_count < 10000 || !uss->estimating)
+        return false;
+
+    // Estimate cardinality using HyperLogLog
+    double abbr_card = estimateHyperLogLog(&uss->abbr_card);
+
+    // High cardinality: abbreviation is very effective, keep going
+    if (abbr_card > 100000.0) {
+        uss->estimating = false;  // Stop counting, we're committed
+        return false;
+    }
+
+    // Low cardinality: abort if below threshold (1 per ~2k inputs)
+    if (abbr_card < uss->input_count / 2000.0 + 0.5) {
+        return true;  // Abort abbreviation
+    }
+
+    return false;  // Continue abbreviation
+}
+```

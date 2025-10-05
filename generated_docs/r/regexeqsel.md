@@ -46,3 +46,12 @@ The function delegates the actual selectivity calculation to the `patternsel` ad
 - The selectivity estimate directly influences whether PostgreSQL will use indexes, perform sequential scans, or choose other execution strategies
 - Registered in PostgreSQL's system catalogs as the selectivity function for the ~ operator
 - Uses the same underlying pattern analysis as LIKE operations but handles full regular expression syntax
+
+## Simplified Source
+
+```c
+Datum regexeqsel(PG_FUNCTION_ARGS) {
+    // Delegate to pattern selectivity estimation with regex type
+    PG_RETURN_FLOAT8(patternsel(fcinfo, Pattern_Type_Regex, false));
+}
+```

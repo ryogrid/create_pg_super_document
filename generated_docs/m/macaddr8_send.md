@@ -40,3 +40,30 @@ Unlike the text output function which formats the address as a colon-separated s
 - Used primarily in client-server communication when binary protocol mode is enabled
 - Returns a Datum containing bytea (binary array) data
 - The output format is independent of the original input format (EUI-48 addresses are always transmitted as 8 bytes)
+
+## Simplified Source
+
+```c
+Datum
+macaddr8_send(PG_FUNCTION_ARGS)
+{
+    macaddr8 *addr = PG_GETARG_MACADDR8_P(0);
+    StringInfoData buf;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Send all 8 bytes in sequence
+    pq_sendbyte(&buf, addr->a);
+    pq_sendbyte(&buf, addr->b);
+    pq_sendbyte(&buf, addr->c);
+    pq_sendbyte(&buf, addr->d);
+    pq_sendbyte(&buf, addr->e);
+    pq_sendbyte(&buf, addr->f);
+    pq_sendbyte(&buf, addr->g);
+    pq_sendbyte(&buf, addr->h);
+
+    // Finalize and return binary data
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

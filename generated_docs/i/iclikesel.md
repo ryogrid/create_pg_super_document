@@ -37,3 +37,14 @@ The `iclikesel` function is a SQL-callable selectivity estimation function that 
 - Selectivity estimates help the planner choose between different query execution strategies
 - Delegates actual computation to `patternsel` with case-insensitive LIKE pattern type
 - Located in `src/backend/utils/adt/like_support.c:830-838`
+
+## Simplified Source
+
+```c
+Datum
+iclikesel(PG_FUNCTION_ARGS)
+{
+    // Calculate selectivity for case-insensitive LIKE pattern match (ILIKE)
+    return patternsel(fcinfo, Pattern_Type_Like_IC, false);
+}
+```

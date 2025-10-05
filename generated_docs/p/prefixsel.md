@@ -39,3 +39,14 @@ The `prefixsel` function is a SQL-callable selectivity estimation function that 
 - Delegates actual computation to `patternsel` with prefix pattern type specification
 - More heavily referenced than other pattern selectivity functions, indicating its importance in query optimization
 - Located in `src/backend/utils/adt/like_support.c:820-829`
+
+## Simplified Source
+
+```c
+Datum
+prefixsel(PG_FUNCTION_ARGS)
+{
+    // Calculate selectivity for prefix pattern match
+    return patternsel(fcinfo, Pattern_Type_Prefix, false);
+}
+```

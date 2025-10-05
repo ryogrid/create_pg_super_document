@@ -36,3 +36,17 @@ This function computes a seeded hash value for a macaddr8 (8-byte MAC address) v
 - The extended version provides better security and performance characteristics compared to the basic hash function
 - Essential for modern hash-based query execution plans involving macaddr8 columns
 - Part of PostgreSQL's MAC address data type support introduced for 8-byte MAC addresses
+
+## Simplified Source
+
+```c
+Datum
+hashmacaddr8extended(PG_FUNCTION_ARGS)
+{
+    macaddr8 *key = PG_GETARG_MACADDR8_P(0);
+
+    // Compute seeded hash over all 8 bytes of the MAC address
+    return hash_any_extended((unsigned char *) key, sizeof(macaddr8),
+                            PG_GETARG_INT64(1));
+}
+```

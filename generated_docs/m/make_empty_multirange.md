@@ -29,4 +29,17 @@ This function constructs an empty multirange object by calling the general  func
 - This is a convenience function that simplifies the creation of empty multiranges
 - The function delegates to  with 0 ranges and NULL range array
 - Empty multiranges are fundamental in multirange algebra, serving as the identity element for union operations
-- Located in 
+- Located in src/backend/utils/adt/multirangetypes.c
+
+## Simplified Source
+
+```c
+MultirangeType *
+make_empty_multirange(Oid mltrngtypoid, TypeCacheEntry *rangetyp)
+{
+    // Create empty multirange by calling make_multirange with zero ranges
+    return make_multirange(mltrngtypoid, rangetyp, 0, NULL);
+}
+```
+
+This is a simple wrapper function that creates an empty multirange by calling `make_multirange` with no ranges (count = 0, ranges = NULL).

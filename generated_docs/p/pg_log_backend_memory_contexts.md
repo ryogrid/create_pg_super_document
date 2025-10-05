@@ -43,3 +43,37 @@ This mechanism is designed for debugging memory usage issues and is typically us
 - Memory contexts are logged asynchronously when the target process checks for interrupts
 - Used primarily for debugging memory leaks and excessive memory consumption
 - The target process must be a PostgreSQL server process (backend or auxiliary)
+
+## Simplified Source
+
+```c
+Datum
+pg_log_backend_memory_contexts(PG_FUNCTION_ARGS)
+{
+    int pid = PG_GETARG_INT32(0);
+    PGPROC *proc;
+    ProcNumber procNumber = INVALID_PROC_NUMBER;
+
+    // Find the process - try backend first, then auxiliary
+    proc = BackendPidGetProc(pid);
+    if (proc == NULL)
+        proc = AuxiliaryPidGetProc(pid);
+
+    // Process not found or not a PostgreSQL process
+    if (proc == NULL) {
+        ereport(WARNING,
+                (errmsg("PID %d is not a PostgreSQL server process", pid)));
+        PG_RETURN_BOOL(false);
+    }
+
+    // Send signal to log memory contexts
+    procNumber = GetNumberFromPGProc(proc);
+    if (SendProcSignal(pid, PROCSIG_LOG_MEMORY_CONTEXT, procNumber) < 0) {
+        ereport(WARNING,
+                (errmsg("could not send signal to process %d: %m", pid)));
+        PG_RETURN_BOOL(false);
+    }
+
+    PG_RETURN_BOOL(true);
+}
+```

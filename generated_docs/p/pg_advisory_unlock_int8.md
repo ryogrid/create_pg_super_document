@@ -35,3 +35,24 @@ The pg_advisory_unlock_int8 function provides a mechanism to release exclusive a
 - Part of PostgreSQL's advisory locking system for application-level coordination
 - Commonly used through SQL interface as pg_advisory_unlock(bigint)
 - Should be paired with previous calls to pg_advisory_lock or pg_try_advisory_lock
+
+## Simplified Source
+
+```c
+Datum
+pg_advisory_unlock_int8(PG_FUNCTION_ARGS)
+{
+    int64 key = PG_GETARG_INT64(0);
+    LOCKTAG tag;
+    bool res;
+
+    // Create lock tag from the 64-bit integer key
+    SET_LOCKTAG_INT64(tag, key);
+
+    // Release exclusive advisory lock
+    res = LockRelease(&tag, ExclusiveLock, true);
+
+    // Return true if successfully released, false if lock not held
+    PG_RETURN_BOOL(res);
+}
+```

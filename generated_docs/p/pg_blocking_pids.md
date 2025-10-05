@@ -41,3 +41,87 @@ The function returns an array of INT32 values representing the PIDs of processes
 - The result array is allocated with space for the maximum possible number of entries (total number of reported PROCLOCKs)
 - The function provides essential functionality for deadlock detection and lock wait analysis
 - Used internally by PostgreSQL's isolation testing framework to determine session blocking relationships
+
+## Simplified Source
+```c
+Datum pg_blocking_pids(PG_FUNCTION_ARGS) {
+    int blocked_pid = PG_GETARG_INT32(0);
+    Datum *arrayelems;
+    int narrayelems;
+    BlockedProcsData *lockData;
+    int i, j;
+
+    // Collect snapshot of lock manager state
+    lockData = GetBlockerStatusData(blocked_pid);
+
+    // Allocate array for result PIDs
+    arrayelems = palloc(lockData->nlocks * sizeof(Datum));
+    narrayelems = 0;
+
+    // For each blocked proc in the lock group
+    for (i = 0; i < lockData->nprocs; i++) {
+        BlockedProcData *bproc = &lockData->procs[i];
+        LockInstanceData *instances = &lockData->locks[bproc->first_lock];
+        int *preceding_waiters = &lockData->waiter_pids[bproc->first_waiter];
+        LockInstanceData *blocked_instance;
+        LockMethod lockMethodTable;
+        int conflictMask;
+
+        // Find the blocked proc's own entry
+        blocked_instance = NULL;
+        for (j = 0; j < bproc->num_locks; j++) {
+            LockInstanceData *instance = &(instances[j]);
+            if (instance->pid == bproc->pid) {
+                Assert(blocked_instance == NULL);
+                blocked_instance = instance;
+            }
+        }
+        Assert(blocked_instance != NULL);
+
+        // Get conflict mask for the blocked lock mode
+        lockMethodTable = GetLockTagsMethodTable(&(blocked_instance->locktag));
+        conflictMask = lockMethodTable->conflictTab[blocked_instance->waitLockMode];
+
+        // Scan for conflicting processes
+        for (j = 0; j < bproc->num_locks; j++) {
+            LockInstanceData *instance = &(instances[j]);
+
+            // Skip self and same lock group members
+            if (instance == blocked_instance)
+                continue;
+            if (instance->leaderPid == blocked_instance->leaderPid)
+                continue;
+
+            if (conflictMask & instance->holdMask) {
+                // Hard block: conflicting lock already held
+            }
+            else if (instance->waitLockMode != NoLock &&
+                     (conflictMask & LOCKBIT_ON(instance->waitLockMode))) {
+                // Soft block: check wait queue position
+                bool ahead = false;
+                int k;
+
+                for (k = 0; k < bproc->num_waiters; k++) {
+                    if (preceding_waiters[k] == instance->pid) {
+                        ahead = true;
+                        break;
+                    }
+                }
+                if (!ahead)
+                    continue; // Not blocking
+            }
+            else {
+                // No conflict
+                continue;
+            }
+
+            // Add blocking PID to result array
+            arrayelems[narrayelems++] = Int32GetDatum(instance->leaderPid);
+        }
+    }
+
+    // Return array of blocking PIDs
+    Assert(narrayelems <= lockData->nlocks);
+    PG_RETURN_ARRAYTYPE_P(construct_array_builtin(arrayelems, narrayelems, INT4OID));
+}
+```

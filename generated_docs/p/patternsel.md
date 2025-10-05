@@ -52,3 +52,27 @@ This design allows the same core selectivity logic to be used by various pattern
 - Throws an error if a negated operator is used without a corresponding positive operator
 - Passes `InvalidOid` for the function OID parameter, letting `patternsel_common` derive it from the operator OID when needed
 - Forms part of PostgreSQL's cost-based optimization system by providing accurate selectivity estimates for pattern matching operations
+
+## Simplified Source
+
+```c
+static double patternsel(PG_FUNCTION_ARGS, Pattern_Type ptype, bool negate) {
+    // Extract standard selectivity function arguments
+    PlannerInfo *root = (PlannerInfo *) PG_GETARG_POINTER(0);
+    Oid operator = PG_GETARG_OID(1);
+    List *args = (List *) PG_GETARG_POINTER(2);
+    int varRelid = PG_GETARG_INT32(3);
+    Oid collation = PG_GET_COLLATION();
+
+    // Handle negated operators by finding the positive counterpart
+    if (negate) {
+        operator = get_negator(operator);
+        if (!OidIsValid(operator))
+            elog(ERROR, "patternsel called for operator without a negator");
+    }
+
+    // Forward to core selectivity estimation logic
+    return patternsel_common(root, operator, InvalidOid, args,
+                           varRelid, collation, ptype, negate);
+}
+```

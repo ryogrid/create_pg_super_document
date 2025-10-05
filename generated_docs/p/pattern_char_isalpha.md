@@ -44,3 +44,34 @@ The function is designed to work correctly across different PostgreSQL configura
 - The function avoids using standard library `isalpha()` for multibyte/ICU cases due to potential incompatibilities
 - High-bit characters in multibyte encodings are conservatively assumed to be alphabetic
 - The function handles different collation providers (LIBC vs ICU) with appropriate logic
+
+## Simplified Source
+```c
+static int pattern_char_isalpha(char c, bool is_multibyte, pg_locale_t locale, bool locale_is_c) {
+    // C locale: use hardcoded ASCII ranges
+    if (locale_is_c) {
+        return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+    }
+
+    // Multibyte encoding: assume high-bit chars are alphabetic
+    else if (is_multibyte && IS_HIGHBIT_SET(c)) {
+        return true;
+    }
+
+    // Non-LIBC locale provider (e.g., ICU)
+    else if (locale && locale->provider != COLLPROVIDER_LIBC) {
+        return IS_HIGHBIT_SET(c) ||
+               (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+    }
+
+    // LIBC locale provider: use locale-specific function
+    else if (locale && locale->provider == COLLPROVIDER_LIBC) {
+        return isalpha_l((unsigned char) c, locale->info.lt);
+    }
+
+    // Default: use standard library function
+    else {
+        return isalpha((unsigned char) c);
+    }
+}
+```

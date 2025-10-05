@@ -9,7 +9,7 @@ A PostgreSQL built-in function that returns the text of the currently executing 
 ## Definition
 
 ```c
-struct dirent *de;
+Datum current_query(PG_FUNCTION_ARGS)
 ```
 ## Detailed Description
 The current_query function provides access to the currently executing SQL statement text. It leverages the global debug_query_string variable, which contains the query text when available. This function is particularly valuable in stored procedures, triggers, and functions where you need to access information about the calling query context.
@@ -39,3 +39,17 @@ This function is commonly used for logging, debugging, audit trails, and dynamic
 - The comment suggests future enhancement using ActivePortal->sourceText for potentially more accurate query retrieval
 - Returns the query as PostgreSQL's text type, which can handle arbitrary length strings
 - The function is session-specific and returns the query text for the current backend process
+
+## Simplified Source
+
+```c
+Datum
+current_query(PG_FUNCTION_ARGS)
+{
+    // Return current query text if available
+    if (debug_query_string)
+        PG_RETURN_TEXT_P(cstring_to_text(debug_query_string));
+    else
+        PG_RETURN_NULL();
+}
+```

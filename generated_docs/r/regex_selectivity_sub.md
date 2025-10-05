@@ -57,3 +57,94 @@ The function includes stack depth checking to prevent stack overflow from deeply
 - Final selectivity is clamped to 1.0 to handle mathematical overflow from multiple wildcards
 - The recursive design allows handling arbitrarily complex nested regex patterns
 - Stack depth checking prevents crashes on pathological regex patterns with deep nesting
+
+## Simplified Source
+```c
+static Selectivity regex_selectivity_sub(const char *pattern, int pattern_length, bool case_insensitive) {
+    Selectivity selectivity = 1.0;
+    int paren_depth = 0;
+    int paren_start_pos = 0;
+    int pos;
+
+    // Prevent stack overflow from deep recursion
+    check_stack_depth();
+
+    for (pos = 0; pos < pattern_length; pos++) {
+        if (pattern[pos] == '(') {
+            // Track parenthesis nesting
+            if (paren_depth == 0)
+                paren_start_pos = pos;
+            paren_depth++;
+        }
+        else if (pattern[pos] == ')' && paren_depth > 0) {
+            // Process grouped subexpression recursively
+            paren_depth--;
+            if (paren_depth == 0) {
+                selectivity *= regex_selectivity_sub(pattern + (paren_start_pos + 1),
+                                                   pos - (paren_start_pos + 1),
+                                                   case_insensitive);
+            }
+        }
+        else if (pattern[pos] == '|' && paren_depth == 0) {
+            // Alternation: sum probabilities of alternatives
+            selectivity += regex_selectivity_sub(pattern + (pos + 1),
+                                               pattern_length - (pos + 1),
+                                               case_insensitive);
+            break; // Rest of pattern handled recursively
+        }
+        else if (pattern[pos] == '[') {
+            // Character class: [abc] or [^abc]
+            bool negated = false;
+
+            if (pattern[++pos] == '^') {
+                negated = true;
+                pos++;
+            }
+            if (pattern[pos] == ']') // ']' at start is literal
+                pos++;
+
+            // Skip to end of character class
+            while (pos < pattern_length && pattern[pos] != ']')
+                pos++;
+
+            if (paren_depth == 0) {
+                selectivity *= negated ? (1.0 - CHAR_RANGE_SEL) : CHAR_RANGE_SEL;
+            }
+        }
+        else if (pattern[pos] == '.') {
+            // Dot: matches any character
+            if (paren_depth == 0)
+                selectivity *= ANY_CHAR_SEL;
+        }
+        else if (pattern[pos] == '*' || pattern[pos] == '?' || pattern[pos] == '+') {
+            // Quantifiers: simplified treatment
+            if (paren_depth == 0)
+                selectivity *= PARTIAL_WILDCARD_SEL;
+        }
+        else if (pattern[pos] == '{') {
+            // Quantifier range: {n,m}
+            while (pos < pattern_length && pattern[pos] != '}')
+                pos++;
+            if (paren_depth == 0)
+                selectivity *= PARTIAL_WILDCARD_SEL;
+        }
+        else if (pattern[pos] == '\\') {
+            // Escaped character: treat as literal
+            pos++;
+            if (pos < pattern_length && paren_depth == 0)
+                selectivity *= FIXED_CHAR_SEL;
+        }
+        else {
+            // Regular character: literal match
+            if (paren_depth == 0)
+                selectivity *= FIXED_CHAR_SEL;
+        }
+    }
+
+    // Clamp selectivity to valid range
+    if (selectivity > 1.0)
+        selectivity = 1.0;
+
+    return selectivity;
+}
+```

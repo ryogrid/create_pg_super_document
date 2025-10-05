@@ -41,3 +41,24 @@ The function converts the input 64-bit integer into a LOCKTAG structure and atte
 - Useful for implementing conditional locking within transactional contexts
 - The function is exposed as a SQL function pg_try_advisory_xact_lock(bigint)
 - Located in src/backend/utils/adt/lockfuncs.c:714-732
+
+## Simplified Source
+
+```c
+Datum
+pg_try_advisory_xact_lock_int8(PG_FUNCTION_ARGS)
+{
+    int64 key = PG_GETARG_INT64(0);
+    LOCKTAG tag;
+    LockAcquireResult res;
+
+    // Create lock tag from the 64-bit integer key
+    SET_LOCKTAG_INT64(tag, key);
+
+    // Try to acquire exclusive advisory lock (non-blocking, transaction-scoped)
+    res = LockAcquire(&tag, ExclusiveLock, false, true);
+
+    // Return true if acquired, false if not available
+    PG_RETURN_BOOL(res != LOCKACQUIRE_NOT_AVAIL);
+}
+```

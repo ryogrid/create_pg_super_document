@@ -41,3 +41,24 @@ The function assumes that all supported data types are pass-by-reference, meanin
 - The function "cheats" by using CStringGetTextDatum for bpchar and varchar, relying on their compatible representations
 - Includes an assertion to ensure the input string is not NULL
 - Used as a building block for creating Const nodes in pattern matching optimization
+
+## Simplified Source
+```c
+static Datum string_to_datum(const char *str, Oid datatype) {
+    Assert(str != NULL);
+
+    // Convert C string to appropriate PostgreSQL data type
+    if (datatype == NAMEOID) {
+        // Convert to name type using input function
+        return DirectFunctionCall1(namein, CStringGetDatum(str));
+    }
+    else if (datatype == BYTEAOID) {
+        // Convert to bytea type using input function
+        return DirectFunctionCall1(byteain, CStringGetDatum(str));
+    }
+    else {
+        // Convert to text type (also works for varchar, bpchar)
+        return CStringGetTextDatum(str);
+    }
+}
+```

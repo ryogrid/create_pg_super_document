@@ -57,3 +57,29 @@ For empty multiranges, the function returns an empty range. For non-empty multir
 - Commonly used in GiST index operations where a bounding range is needed
 - Returns an empty range for empty multiranges rather than NULL
 - The union range maintains the same type as the constituent ranges
+
+## Simplified Source
+
+```c
+RangeType *
+multirange_get_union_range(TypeCacheEntry *rangetyp,
+                          const MultirangeType *mr)
+{
+    // Handle empty multirange case
+    if (MultirangeIsEmpty(mr)) {
+        return make_empty_range(rangetyp);
+    }
+
+    // Get bounds from first and last ranges (multiranges are sorted)
+    RangeBound lower, upper, tmp;
+
+    // Extract lower bound from first range (index 0)
+    multirange_get_bounds(rangetyp, mr, 0, &lower, &tmp);
+
+    // Extract upper bound from last range (index rangeCount-1)
+    multirange_get_bounds(rangetyp, mr, mr->rangeCount - 1, &tmp, &upper);
+
+    // Create range spanning from lowest lower bound to highest upper bound
+    return make_range(rangetyp, &lower, &upper, false, NULL);
+}
+```

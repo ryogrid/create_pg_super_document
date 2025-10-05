@@ -38,3 +38,20 @@ This function is useful in SQL queries for data completeness analysis, validatio
 - Follows PostgreSQL's convention of returning NULL when meaningful analysis cannot be performed
 - Can be used with both fixed argument lists and variadic argument patterns in SQL
 - Mathematically equivalent to (total_args - null_count) where both values come from the count_nulls helper function
+
+## Simplified Source
+
+```c
+Datum
+pg_num_nonnulls(PG_FUNCTION_ARGS)
+{
+    int32 nargs, nulls;
+
+    // Use helper function to count nulls and total args
+    if (!count_nulls(fcinfo, &nargs, &nulls))
+        PG_RETURN_NULL();
+
+    // Return count of non-null arguments (total - nulls)
+    PG_RETURN_INT32(nargs - nulls);
+}
+```

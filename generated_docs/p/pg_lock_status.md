@@ -60,3 +60,168 @@ The function returns a tuple with 16 columns:
 - The fastpath column indicates whether locks use PostgreSQL's optimization for frequently-acquired locks
 - Wait timing information is only available for locks that are currently waiting
 - The function processes locks destructively during iteration to avoid reporting the same lock mode multiple times
+
+## Simplified Source
+```c
+Datum pg_lock_status(PG_FUNCTION_ARGS) {
+    FuncCallContext *funcctx;
+    PG_Lock_Status *mystatus;
+    LockData *lockData;
+    PredicateLockData *predLockData;
+
+    if (SRF_IS_FIRSTCALL()) {
+        TupleDesc tupdesc;
+        MemoryContext oldcontext;
+
+        // Initialize function context for multiple calls
+        funcctx = SRF_FIRSTCALL_INIT();
+        oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
+
+        // Create tuple descriptor with 16 columns
+        tupdesc = CreateTemplateTupleDesc(NUM_LOCK_STATUS_COLUMNS);
+        TupleDescInitEntry(tupdesc, 1, "locktype", TEXTOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 2, "database", OIDOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 3, "relation", OIDOID, -1, 0);
+        // ... initialize remaining columns ...
+        TupleDescInitEntry(tupdesc, 16, "waitstart", TIMESTAMPTZOID, -1, 0);
+
+        funcctx->tuple_desc = BlessTupleDesc(tupdesc);
+
+        // Collect all lock information
+        mystatus = palloc(sizeof(PG_Lock_Status));
+        funcctx->user_fctx = mystatus;
+        mystatus->lockData = GetLockStatusData();
+        mystatus->currIdx = 0;
+        mystatus->predLockData = GetPredicateLockStatusData();
+        mystatus->predLockIdx = 0;
+
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    funcctx = SRF_PERCALL_SETUP();
+    mystatus = (PG_Lock_Status *) funcctx->user_fctx;
+    lockData = mystatus->lockData;
+
+    // Process regular locks
+    while (mystatus->currIdx < lockData->nelements) {
+        bool granted;
+        LOCKMODE mode = 0;
+        const char *locktypename;
+        Datum values[NUM_LOCK_STATUS_COLUMNS] = {0};
+        bool nulls[NUM_LOCK_STATUS_COLUMNS] = {0};
+        HeapTuple tuple;
+        Datum result;
+        LockInstanceData *instance;
+
+        instance = &(lockData->locks[mystatus->currIdx]);
+
+        // Check for held lock modes
+        granted = false;
+        if (instance->holdMask) {
+            for (mode = 0; mode < MAX_LOCKMODES; mode++) {
+                if (instance->holdMask & LOCKBIT_ON(mode)) {
+                    granted = true;
+                    instance->holdMask &= LOCKBIT_OFF(mode);
+                    break;
+                }
+            }
+        }
+
+        // If no held modes, check for waiting
+        if (!granted) {
+            if (instance->waitLockMode != NoLock) {
+                mode = instance->waitLockMode;
+                mystatus->currIdx++;
+            }
+            else {
+                mystatus->currIdx++;
+                continue;
+            }
+        }
+
+        // Format lock information based on lock type
+        if (instance->locktag.locktag_type <= LOCKTAG_LAST_TYPE)
+            locktypename = LockTagTypeNames[instance->locktag.locktag_type];
+        else
+            locktypename = "unknown";
+
+        values[0] = CStringGetTextDatum(locktypename);
+
+        // Set appropriate fields based on lock type
+        switch ((LockTagType) instance->locktag.locktag_type) {
+            case LOCKTAG_RELATION:
+                values[1] = ObjectIdGetDatum(instance->locktag.locktag_field1);
+                values[2] = ObjectIdGetDatum(instance->locktag.locktag_field2);
+                // Set nulls for unused fields
+                break;
+            case LOCKTAG_TRANSACTION:
+                values[6] = TransactionIdGetDatum(instance->locktag.locktag_field1);
+                // Set nulls for unused fields
+                break;
+            // ... handle other lock types ...
+        }
+
+        // Set common fields
+        values[10] = VXIDGetDatum(instance->vxid.procNumber, instance->vxid.localTransactionId);
+        if (instance->pid != 0)
+            values[11] = Int32GetDatum(instance->pid);
+        else
+            nulls[11] = true;
+
+        values[12] = CStringGetTextDatum(GetLockmodeName(instance->locktag.locktag_lockmethodid, mode));
+        values[13] = BoolGetDatum(granted);
+        values[14] = BoolGetDatum(instance->fastpath);
+
+        if (!granted && instance->waitStart != 0)
+            values[15] = TimestampTzGetDatum(instance->waitStart);
+        else
+            nulls[15] = true;
+
+        tuple = heap_form_tuple(funcctx->tuple_desc, values, nulls);
+        result = HeapTupleGetDatum(tuple);
+        SRF_RETURN_NEXT(funcctx, result);
+    }
+
+    // Process predicate locks
+    predLockData = mystatus->predLockData;
+    if (mystatus->predLockIdx < predLockData->nelements) {
+        PredicateLockTargetType lockType;
+        PREDICATELOCKTARGETTAG *predTag = &(predLockData->locktags[mystatus->predLockIdx]);
+        SERIALIZABLEXACT *xact = &(predLockData->xacts[mystatus->predLockIdx]);
+        Datum values[NUM_LOCK_STATUS_COLUMNS] = {0};
+        bool nulls[NUM_LOCK_STATUS_COLUMNS] = {0};
+        HeapTuple tuple;
+        Datum result;
+
+        mystatus->predLockIdx++;
+
+        // Format predicate lock information
+        lockType = GET_PREDICATELOCKTARGETTAG_TYPE(*predTag);
+        values[0] = CStringGetTextDatum(PredicateLockTagTypeNames[lockType]);
+
+        // Set target information
+        values[1] = GET_PREDICATELOCKTARGETTAG_DB(*predTag);
+        values[2] = GET_PREDICATELOCKTARGETTAG_RELATION(*predTag);
+        // ... set page and tuple fields based on lock type ...
+
+        // Set holder information
+        values[10] = VXIDGetDatum(xact->vxid.procNumber, xact->vxid.localTransactionId);
+        if (xact->pid != 0)
+            values[11] = Int32GetDatum(xact->pid);
+        else
+            nulls[11] = true;
+
+        // Predicate locks are always SIReadLocks, granted, no fastpath
+        values[12] = CStringGetTextDatum("SIReadLock");
+        values[13] = BoolGetDatum(true);
+        values[14] = BoolGetDatum(false);
+        nulls[15] = true;
+
+        tuple = heap_form_tuple(funcctx->tuple_desc, values, nulls);
+        result = HeapTupleGetDatum(tuple);
+        SRF_RETURN_NEXT(funcctx, result);
+    }
+
+    SRF_RETURN_DONE(funcctx);
+}
+```

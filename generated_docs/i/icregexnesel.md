@@ -34,4 +34,15 @@ The  function estimates the selectivity (fraction of rows that will match) for c
 - Returns a float8 value representing the estimated selectivity (0.0 to 1.0)
 - The  parameter passed to  indicates this is for a negated match (NOT operation)
 - Part of PostgreSQL's statistical estimation system for query optimization
-- Located in 
+- Located in `src/backend/utils/adt/like_support.c:848-856`
+
+## Simplified Source
+
+```c
+Datum
+icregexnesel(PG_FUNCTION_ARGS)
+{
+    // Calculate selectivity for case-insensitive regex pattern non-match (!~* operator)
+    return patternsel(fcinfo, Pattern_Type_Regex_IC, true);
+}
+``` 

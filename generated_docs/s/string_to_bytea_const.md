@@ -44,3 +44,24 @@ The function performs the following steps:
 - The returned Const node has isnull=false and isbyval=false flags
 - Memory allocated via palloc will be automatically freed by PostgreSQL's memory context system
 - Located in src/backend/utils/adt/like_support.c at lines 1787-1797
+
+## Simplified Source
+```c
+static Const *string_to_bytea_const(const char *str, size_t str_len) {
+    // Allocate memory for bytea structure (header + data)
+    bytea *bstr = palloc(VARHDRSZ + str_len);
+    Datum conval;
+
+    // Copy input string data to bytea data area
+    memcpy(VARDATA(bstr), str, str_len);
+
+    // Set the variable-length header size
+    SET_VARSIZE(bstr, VARHDRSZ + str_len);
+
+    // Convert bytea to Datum
+    conval = PointerGetDatum(bstr);
+
+    // Create and return Const node with bytea type
+    return makeConst(BYTEAOID, -1, InvalidOid, -1, conval, false, false);
+}
+```

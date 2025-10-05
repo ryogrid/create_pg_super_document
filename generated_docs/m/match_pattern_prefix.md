@@ -51,3 +51,119 @@ This optimization enables PostgreSQL to use indexes efficiently for pattern quer
 - Requires C-locale or collation-insensitive indexes for reliable range optimization
 - Special handling for SP-GiST indexes that support direct prefix operators
 - Automatically coerces prefix constants to match target data types when needed
+
+## Simplified Source
+
+```c
+static List *match_pattern_prefix(Node *leftop, Node *rightop, Pattern_Type ptype,
+                                Oid expr_coll, Oid opfamily, Oid indexcollation) {
+    List *result;
+    Const *patt;
+    Const *prefix;
+    Pattern_Prefix_Status pstatus;
+    Oid ldatatype;
+    Oid eqopr, ltopr, geopr, preopr = InvalidOid;
+    bool collation_aware;
+    Expr *expr;
+
+    // Must have a constant pattern
+    if (!IsA(rightop, Const) || ((Const *) rightop)->constisnull)
+        return NIL;
+    patt = (Const *) rightop;
+
+    // Skip nondeterministic collations
+    if (expr_coll && !get_collation_isdeterministic(expr_coll))
+        return NIL;
+
+    // Extract fixed prefix from pattern
+    pstatus = pattern_fixed_prefix(patt, ptype, expr_coll, &prefix, NULL);
+    if (pstatus == Pattern_Prefix_None)
+        return NIL;
+
+    // Select operators based on data type and operator family
+    ldatatype = exprType(leftop);
+    switch (ldatatype) {
+        case TEXTOID:
+            if (opfamily == TEXT_PATTERN_BTREE_FAM_OID) {
+                eqopr = TextEqualOperator;
+                ltopr = TextPatternLessOperator;
+                geopr = TextPatternGreaterEqualOperator;
+                collation_aware = false;
+            } else if (opfamily == TEXT_SPGIST_FAM_OID) {
+                eqopr = TextEqualOperator;
+                ltopr = TextPatternLessOperator;
+                geopr = TextPatternGreaterEqualOperator;
+                preopr = TextPrefixOperator;  // Direct prefix support
+                collation_aware = false;
+            } else {
+                eqopr = TextEqualOperator;
+                ltopr = TextLessOperator;
+                geopr = TextGreaterEqualOperator;
+                collation_aware = true;
+            }
+            break;
+        case NAMEOID:
+            eqopr = NameEqualTextOperator;
+            ltopr = NameLessTextOperator;
+            geopr = NameGreaterEqualTextOperator;
+            collation_aware = true;
+            break;
+        case BPCHAROID:
+            // Similar handling for BPCHAR and BYTEA...
+            // (abbreviated for simplicity)
+        default:
+            return NIL;
+    }
+
+    // Coerce prefix type if needed
+    if (prefix->consttype != ldatatype) {
+        // Type conversion logic (simplified)
+        prefix->consttype = ldatatype;
+    }
+
+    // Generate exact match condition
+    if (pstatus == Pattern_Prefix_Exact) {
+        if (!op_in_opfamily(eqopr, opfamily))
+            return NIL;
+        expr = make_opclause(eqopr, BOOLOID, false,
+                           (Expr *) leftop, (Expr *) prefix,
+                           InvalidOid, indexcollation);
+        return list_make1(expr);
+    }
+
+    // Use direct prefix operator if available
+    if (OidIsValid(preopr) && op_in_opfamily(preopr, opfamily)) {
+        expr = make_opclause(preopr, BOOLOID, false,
+                           (Expr *) leftop, (Expr *) prefix,
+                           InvalidOid, indexcollation);
+        return list_make1(expr);
+    }
+
+    // Generate range constraints: x >= prefix AND x < upper_bound
+    if (collation_aware && !lc_collate_is_c(indexcollation))
+        return NIL;
+
+    // Add "x >= prefix" condition
+    if (!op_in_opfamily(geopr, opfamily))
+        return NIL;
+    expr = make_opclause(geopr, BOOLOID, false,
+                        (Expr *) leftop, (Expr *) prefix,
+                        InvalidOid, indexcollation);
+    result = list_make1(expr);
+
+    // Add "x < upper_bound" condition if possible
+    if (op_in_opfamily(ltopr, opfamily)) {
+        FmgrInfo ltproc;
+        fmgr_info(get_opcode(ltopr), &ltproc);
+        Const *greaterstr = make_greater_string(prefix, &ltproc, indexcollation);
+        if (greaterstr) {
+            expr = make_opclause(ltopr, BOOLOID, false,
+                               (Expr *) leftop, (Expr *) greaterstr,
+                               InvalidOid, indexcollation);
+            result = lappend(result, expr);
+        }
+    }
+
+    return result;
+}
+```

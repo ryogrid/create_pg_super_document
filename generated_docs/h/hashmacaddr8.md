@@ -33,3 +33,16 @@ This function computes a hash value for a macaddr8 (8-byte MAC address) value, e
 - Returns a 32-bit hash value as a Datum
 - Essential for hash-based query execution plans involving macaddr8 columns
 - Part of PostgreSQL's MAC address data type support introduced for 8-byte MAC addresses
+
+## Simplified Source
+
+```c
+Datum
+hashmacaddr8(PG_FUNCTION_ARGS)
+{
+    macaddr8 *key = PG_GETARG_MACADDR8_P(0);
+
+    // Compute hash over all 8 bytes of the MAC address
+    return hash_any((unsigned char *) key, sizeof(macaddr8));
+}
+```

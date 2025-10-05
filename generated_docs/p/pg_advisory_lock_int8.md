@@ -41,3 +41,22 @@ The function returns VOID after successfully acquiring the lock.
 - The function uses PostgreSQL's standard lock manager infrastructure, making advisory locks visible in lock monitoring views
 - Lock keys should be chosen carefully to avoid conflicts between different applications or modules
 - Unlike database object locks, advisory locks do not participate in deadlock detection across different lock types
+
+## Simplified Source
+
+```c
+Datum
+pg_advisory_lock_int8(PG_FUNCTION_ARGS)
+{
+    int64 key = PG_GETARG_INT64(0);
+    LOCKTAG tag;
+
+    // Create lock tag from the 64-bit integer key
+    SET_LOCKTAG_INT64(tag, key);
+
+    // Acquire exclusive advisory lock (blocks until available)
+    LockAcquire(&tag, ExclusiveLock, true, false);
+
+    PG_RETURN_VOID();
+}
+```

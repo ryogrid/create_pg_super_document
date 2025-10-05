@@ -35,3 +35,14 @@ The `likesel` function is a SQL-callable selectivity estimation function that pr
 - The selectivity estimates help the planner choose between different query execution strategies
 - Delegates actual computation to `patternsel` with LIKE pattern type specification
 - Located in `src/backend/utils/adt/like_support.c:811-819`
+
+## Simplified Source
+
+```c
+Datum
+likesel(PG_FUNCTION_ARGS)
+{
+    // Calculate selectivity for LIKE pattern match
+    return patternsel(fcinfo, Pattern_Type_Like, false);
+}
+```

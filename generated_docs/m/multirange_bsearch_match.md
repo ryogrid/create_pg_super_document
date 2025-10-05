@@ -38,4 +38,40 @@ This function implements a generic binary search algorithm for multirange types 
 - Supports various operations through different comparison functions
 - Returns false if no range is found or if the comparison function reports no match
 - Critical optimization for multirange operations that need to locate specific ranges
-- Located in 
+- Located in src/backend/utils/adt/multirangetypes.c
+
+## Simplified Source
+
+```c
+static bool
+multirange_bsearch_match(TypeCacheEntry *typcache, const MultirangeType *mr,
+                        void *key, multirange_bsearch_comparison cmp_func)
+{
+    uint32 left = 0;
+    uint32 right = mr->rangeCount;
+    bool match = false;
+
+    // Binary search through sorted ranges
+    while (left < right) {
+        uint32 middle = (left + right) / 2;
+        RangeBound lower, upper;
+
+        // Get bounds of current range
+        multirange_get_bounds(typcache, mr, middle, &lower, &upper);
+
+        // Compare using custom comparison function
+        int comparison = (*cmp_func)(typcache, &lower, &upper, key, &match);
+
+        if (comparison < 0)
+            right = middle;           // Search left half
+        else if (comparison > 0)
+            left = middle + 1;        // Search right half
+        else
+            return match;             // Found range, return match status
+    }
+
+    return false;  // No matching range found
+}
+```
+
+This function performs a binary search on a multirange's sorted ranges using a custom comparison function to determine both search direction and match criteria.

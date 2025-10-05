@@ -56,3 +56,38 @@ This function serves as the main interface for regular expression selectivity es
 - The trailing `$` detection includes escape sequence handling to distinguish `\$` (literal) from `$` (anchor)
 - CLAMP_PROBABILITY ensures robust behavior even with numerical edge cases or calculation errors
 - This function bridges the gap between high-level pattern matching needs and the low-level recursive pattern analysis
+
+## Simplified Source
+```c
+static Selectivity regex_selectivity(const char *pattern, int pattern_length,
+                                    bool case_insensitive, int fixed_prefix_len) {
+    Selectivity selectivity;
+
+    // Check for trailing $ anchor (but not escaped \$)
+    if (pattern_length > 0 && pattern[pattern_length - 1] == '$' &&
+        (pattern_length == 1 || pattern[pattern_length - 2] != '\\')) {
+        // Pattern ends with $ anchor: analyze pattern without the $
+        selectivity = regex_selectivity_sub(pattern, pattern_length - 1, case_insensitive);
+    }
+    else {
+        // No trailing anchor: pattern can match anywhere in string
+        selectivity = regex_selectivity_sub(pattern, pattern_length, case_insensitive);
+        selectivity *= FULL_WILDCARD_SEL; // Account for implicit trailing wildcard
+    }
+
+    // Adjust for fixed prefix that's handled separately
+    if (fixed_prefix_len > 0) {
+        double prefix_selectivity = pow(FIXED_CHAR_SEL, fixed_prefix_len);
+
+        // Avoid division by zero from numerical underflow
+        if (prefix_selectivity > 0.0) {
+            selectivity /= prefix_selectivity;
+        }
+    }
+
+    // Ensure result is within valid probability range [0,1]
+    CLAMP_PROBABILITY(selectivity);
+
+    return selectivity;
+}
+```

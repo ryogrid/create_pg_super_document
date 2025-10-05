@@ -39,3 +39,34 @@ The function returns an array of INT32 values representing the PIDs of processes
 - This functionality is crucial for understanding and debugging serializable transaction delays
 - The blocking relationships identified here are different from regular lock conflicts - they represent transaction ordering constraints for maintaining serializability
 - Safe snapshots are required to ensure that serializable transactions can detect conflicts and maintain the serializable isolation guarantee
+
+## Simplified Source
+
+```c
+Datum
+pg_safe_snapshot_blocking_pids(PG_FUNCTION_ARGS)
+{
+    int blocked_pid = PG_GETARG_INT32(0);
+    int *blockers;
+    int num_blockers;
+    Datum *blocker_datums;
+
+    // Allocate buffer for maximum possible blocking processes
+    blockers = (int *) palloc(MaxBackends * sizeof(int));
+
+    // Get list of processes blocking safe snapshot acquisition
+    num_blockers = GetSafeSnapshotBlockingPids(blocked_pid, blockers, MaxBackends);
+
+    // Convert int array to Datum array for PostgreSQL return
+    if (num_blockers > 0) {
+        blocker_datums = (Datum *) palloc(num_blockers * sizeof(Datum));
+        for (int i = 0; i < num_blockers; ++i)
+            blocker_datums[i] = Int32GetDatum(blockers[i]);
+    } else {
+        blocker_datums = NULL;
+    }
+
+    // Return array of blocking PIDs
+    PG_RETURN_ARRAYTYPE_P(construct_array_builtin(blocker_datums, num_blockers, INT4OID));
+}
+```

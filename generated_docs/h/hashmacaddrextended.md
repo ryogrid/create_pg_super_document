@@ -39,3 +39,18 @@ The seed parameter allows for creating different hash values for the same MAC ad
 - Located in 
 - Provides better hash distribution compared to the basic hash function
 - Part of PostgreSQL's extended hash function family introduced for improved parallel processing capabilities
+
+## Simplified Source
+
+```c
+Datum
+hashmacaddrextended(PG_FUNCTION_ARGS)
+{
+    // Extract the MAC address and seed value from function arguments
+    macaddr *key = PG_GETARG_MACADDR_P(0);
+    uint64 seed = PG_GETARG_INT64(1);
+
+    // Compute extended hash using the seed for better distribution
+    return hash_any_extended((unsigned char *) key, sizeof(macaddr), seed);
+}
+```

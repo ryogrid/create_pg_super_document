@@ -46,3 +46,55 @@ The function uses a ValidIOData structure stored in fcinfo->flinfo->fn_extra to 
 - Uses ErrorSaveContext to handle conversion errors gracefully without throwing exceptions
 - The function is designed to be reusable across different input validation scenarios
 - Memory allocation for caching occurs in the function's memory context to ensure proper cleanup
+
+## Simplified Source
+
+```c
+static bool pg_input_is_valid_common(FunctionCallInfo fcinfo,
+                                     text *txt, text *typname,
+                                     ErrorSaveContext *escontext) {
+    char *str = text_to_cstring(txt);
+    ValidIOData *my_extra;
+    Datum converted;
+
+    // Cache type information in function's fn_extra
+    my_extra = (ValidIOData *) fcinfo->flinfo->fn_extra;
+    if (my_extra == NULL) {
+        // Allocate and initialize cache structure
+        fcinfo->flinfo->fn_extra =
+            MemoryContextAlloc(fcinfo->flinfo->fn_mcxt, sizeof(ValidIOData));
+        my_extra = (ValidIOData *) fcinfo->flinfo->fn_extra;
+        my_extra->typoid = InvalidOid;
+
+        // Check if typename is constant for optimization
+        my_extra->typname_constant = get_fn_expr_arg_stable(fcinfo->flinfo, 1);
+    }
+
+    // Parse type information if needed
+    if (my_extra->typoid == InvalidOid || !my_extra->typname_constant) {
+        char *typnamestr = text_to_cstring(typname);
+        Oid typoid;
+
+        // Parse type string to get OID and type modifier
+        parseTypeString(typnamestr, &typoid, &my_extra->typmod, NULL);
+
+        // Update cached type info if type changed
+        if (my_extra->typoid != typoid) {
+            getTypeInputInfo(typoid,
+                           &my_extra->typiofunc,
+                           &my_extra->typioparam);
+            fmgr_info_cxt(my_extra->typiofunc, &my_extra->inputproc,
+                         fcinfo->flinfo->fn_mcxt);
+            my_extra->typoid = typoid;
+        }
+    }
+
+    // Attempt the input conversion using soft error handling
+    return InputFunctionCallSafe(&my_extra->inputproc,
+                                str,
+                                my_extra->typioparam,
+                                my_extra->typmod,
+                                (Node *) escontext,
+                                &converted);
+}
+```

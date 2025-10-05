@@ -57,3 +57,50 @@ Finally, it constructs and returns a multirange from the deserialized ranges.
 - Validates message format by calling pq_getmsgend() to ensure all data is consumed
 - Memory is properly managed with pfree() for the temporary buffer
 - The binary format is platform-independent and suitable for network transmission
+
+## Simplified Source
+
+```c
+Datum
+multirange_recv(PG_FUNCTION_ARGS)
+{
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    Oid mltrngtypoid = PG_GETARG_OID(1);
+    int32 typmod = PG_GETARG_INT32(2);
+
+    // Get I/O cache for the multirange type
+    MultirangeIOData *cache = get_multirange_io_data(fcinfo, mltrngtypoid, IOFunc_receive);
+
+    // Read count of ranges from binary data
+    uint32 range_count = pq_getmsgint(buf, 4);
+    RangeType **ranges = palloc(range_count * sizeof(RangeType *));
+
+    // Temporary buffer for individual range data
+    StringInfoData tmpbuf;
+    initStringInfo(&tmpbuf);
+
+    // Read each range from binary format
+    for (int i = 0; i < range_count; i++) {
+        // Read range length and data
+        uint32 range_len = pq_getmsgint(buf, 4);
+        const char *range_data = pq_getmsgbytes(buf, range_len);
+
+        // Prepare temporary buffer with range data
+        resetStringInfo(&tmpbuf);
+        appendBinaryStringInfo(&tmpbuf, range_data, range_len);
+
+        // Deserialize individual range using range type's receive function
+        ranges[i] = DatumGetRangeTypeP(
+            ReceiveFunctionCall(&cache->typioproc, &tmpbuf,
+                              cache->typioparam, typmod));
+    }
+
+    pfree(tmpbuf.data);
+    pq_getmsgend(buf);
+
+    // Create multirange from deserialized ranges
+    MultirangeType *ret = make_multirange(mltrngtypoid, cache->typcache->rngtype,
+                                         range_count, ranges);
+    PG_RETURN_MULTIRANGE_P(ret);
+}
+```
