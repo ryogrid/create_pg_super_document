@@ -1,4 +1,7 @@
-# Generated Documentation Index
+<div style="position: relative; border-bottom: 1px solid #e5e7eb; margin-bottom: 1.5rem;">
+  <h1 id="generated-documentation-index">Generated Documentation Index</h1>
+  <input type="text" id="searchInput" placeholder="Search symbols..." style="position: absolute; top: 50%; right: 0; transform: translateY(-50%); font-size: 1rem; padding: 6px 8px; border: 1px solid #ccc; border-radius: 4px;">
+</div>
 
 Quick jump by directory:
 **Uppercase symbols:**
