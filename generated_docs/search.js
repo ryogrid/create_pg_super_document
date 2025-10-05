@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  searchInput.addEventListener('keyup', function(event) {
+  searchInput.addEventListener('input', function(event) {
     const filterText = event.target.value.toLowerCase();
 
     if (filterText === '') {
