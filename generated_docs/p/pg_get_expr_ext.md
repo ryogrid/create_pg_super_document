@@ -38,3 +38,27 @@ The function is commonly used by PostgreSQL's information schema views and syste
 - Returns NULL if the expression cannot be successfully deparsed
 - The pretty-printing flag controls formatting options like indentation and line breaks
 - Located in src/backend/utils/adt/ruleutils.c:2646-2663
+
+## Simplified Source
+
+```c
+Datum
+pg_get_expr_ext(PG_FUNCTION_ARGS)
+{
+    text *expr = PG_GETARG_TEXT_PP(0);
+    Oid relid = PG_GETARG_OID(1);
+    bool pretty = PG_GETARG_BOOL(2);
+    text *result;
+
+    // Convert pretty flag to formatting options
+    int prettyFlags = GET_PRETTY_FLAGS(pretty);
+
+    // Convert pg_node_tree expression to readable SQL text
+    result = pg_get_expr_worker(expr, relid, prettyFlags);
+
+    if (result)
+        PG_RETURN_TEXT_P(result);
+    else
+        PG_RETURN_NULL();
+}
+```

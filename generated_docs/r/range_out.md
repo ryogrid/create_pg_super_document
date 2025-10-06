@@ -45,3 +45,37 @@ This function converts a RangeType value from its internal binary representation
 - The actual string formatting and delimiter selection is delegated to range_deparse
 - Handles all range types uniformly through the type cache system
 - Memory management for the output string is handled by the range_deparse function
+
+## Simplified Source
+
+```c
+Datum
+range_out(PG_FUNCTION_ARGS)
+{
+    RangeType *range = PG_GETARG_RANGE_P(0);
+
+    check_stack_depth(); // Guard against recursion
+
+    // Get I/O cache for this range type
+    RangeIOData *cache = get_range_io_data(fcinfo, RangeTypeGetOid(range), IOFunc_output);
+
+    // Extract range components
+    RangeBound lower, upper;
+    bool empty;
+    range_deserialize(cache->typcache, range, &lower, &upper, &empty);
+    char flags = range_get_flags(range);
+
+    // Convert boundary values to strings using element type's output function
+    char *lower_str = NULL;
+    char *upper_str = NULL;
+    if (RANGE_HAS_LBOUND(flags))
+        lower_str = OutputFunctionCall(&cache->typioproc, lower.val);
+    if (RANGE_HAS_UBOUND(flags))
+        upper_str = OutputFunctionCall(&cache->typioproc, upper.val);
+
+    // Format the complete range string
+    char *output_str = range_deparse(flags, lower_str, upper_str);
+
+    PG_RETURN_CSTRING(output_str);
+}
+```

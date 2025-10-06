@@ -37,3 +37,22 @@ This function is the output counterpart to , serving to convert internal typmod 
 - Part of PostgreSQL's type system output machinery
 - Commonly used when displaying table schemas or in error messages involving NUMERIC types
 - Located in src/backend/utils/adt/numeric.c:1367-1390
+
+## Simplified Source
+
+```c
+Datum numerictypmodout(PG_FUNCTION_ARGS) {
+    int32 typmod = PG_GETARG_INT32(0);
+    char *res = (char *) palloc(64);
+
+    // Format valid typmod as "(precision,scale)"
+    if (is_valid_numeric_typmod(typmod))
+        snprintf(res, 64, "(%d,%d)",
+                numeric_typmod_precision(typmod),
+                numeric_typmod_scale(typmod));
+    else
+        *res = '\0';  // Empty string for invalid typmod
+
+    PG_RETURN_CSTRING(res);
+}
+```

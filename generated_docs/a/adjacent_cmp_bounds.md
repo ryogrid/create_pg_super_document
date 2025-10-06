@@ -39,3 +39,29 @@ The logic incorporates adjacency checking using  to handle edge cases where boun
 - Includes detailed table examples in comments showing how different argument/centroid combinations determine search direction
 - Critical for proper adjacent range searching in quadrant-based SP-GiST partitioning
 - The "left/right" terminology corresponds to "down/up" in spatial quadrant arrangement
+
+## Simplified Source
+
+```c
+static int adjacent_cmp_bounds(TypeCacheEntry *typcache, const RangeBound *arg,
+                              const RangeBound *centroid)
+{
+    int cmp = range_cmp_bounds(typcache, arg, centroid);
+
+    if (centroid->lower) {
+        // Searching for adjacent lower bounds (arg is upper bound)
+        // Need to search left if arg < centroid and not adjacent
+        if (cmp < 0 && !bounds_adjacent(typcache, *arg, *centroid))
+            return -1;  // Search left
+        else
+            return 1;   // Search right
+    } else {
+        // Searching for adjacent upper bounds (arg is lower bound)
+        // Search left if arg <= centroid
+        if (cmp <= 0)
+            return -1;  // Search left
+        else
+            return 1;   // Search right
+    }
+}
+```

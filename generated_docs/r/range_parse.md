@@ -55,3 +55,75 @@ The function uses error contexts for proper error handling and can return false 
 - Part of PostgreSQL's range type input/output infrastructure
 - Performs thorough syntax validation with detailed error messages
 - Memory allocation for bound strings uses palloc for PostgreSQL memory management
+
+## Simplified Source
+
+```c
+static bool range_parse(const char *string, char *flags, char **lbound_str,
+                       char **ubound_str, Node *escontext) {
+    const char *ptr = string;
+    bool infinite;
+
+    *flags = 0;
+
+    // Skip leading whitespace
+    while (*ptr && isspace(*ptr)) ptr++;
+
+    // Check for "EMPTY" keyword
+    if (pg_strncasecmp(ptr, RANGE_EMPTY_LITERAL, strlen(RANGE_EMPTY_LITERAL)) == 0) {
+        *flags = RANGE_EMPTY;
+        *lbound_str = *ubound_str = NULL;
+        ptr += strlen(RANGE_EMPTY_LITERAL);
+
+        // Skip trailing whitespace and validate end
+        while (*ptr && isspace(*ptr)) ptr++;
+        if (*ptr != '\0')
+            ereturn(escontext, false, /* error: junk after "empty" */);
+        return true;
+    }
+
+    // Parse opening bracket: '[' = inclusive, '(' = exclusive
+    if (*ptr == '[') {
+        *flags |= RANGE_LB_INC;
+        ptr++;
+    } else if (*ptr == '(') {
+        ptr++;
+    } else {
+        ereturn(escontext, false, /* error: missing left bracket/parenthesis */);
+    }
+
+    // Parse lower bound
+    ptr = range_parse_bound(string, ptr, lbound_str, &infinite, escontext);
+    if (ptr == NULL) return false;
+    if (infinite) *flags |= RANGE_LB_INF;
+
+    // Expect comma separator
+    if (*ptr == ',') {
+        ptr++;
+    } else {
+        ereturn(escontext, false, /* error: missing comma */);
+    }
+
+    // Parse upper bound
+    ptr = range_parse_bound(string, ptr, ubound_str, &infinite, escontext);
+    if (ptr == NULL) return false;
+    if (infinite) *flags |= RANGE_UB_INF;
+
+    // Parse closing bracket: ']' = inclusive, ')' = exclusive
+    if (*ptr == ']') {
+        *flags |= RANGE_UB_INC;
+        ptr++;
+    } else if (*ptr == ')') {
+        ptr++;
+    } else {
+        ereturn(escontext, false, /* error: too many commas or missing bracket */);
+    }
+
+    // Skip trailing whitespace and validate end
+    while (*ptr && isspace(*ptr)) ptr++;
+    if (*ptr != '\0')
+        ereturn(escontext, false, /* error: junk after closing bracket */);
+
+    return true;
+}
+```

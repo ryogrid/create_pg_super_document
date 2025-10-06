@@ -35,3 +35,41 @@ The `injection_points_wakeup` function complements `injection_wait` by providing
 - Searches through all available wait slots (up to INJ_MAX_WAIT) to find the target injection point
 - Part of the injection_points extension module and commonly used in parallel processing tests
 - Provides SQL-level control over process synchronization during testing
+
+## Simplified Source
+
+```c
+Datum
+injection_points_wakeup(PG_FUNCTION_ARGS)
+{
+    char *injection_name = text_to_cstring(PG_GETARG_TEXT_PP(0));
+    int index = -1;
+
+    // Initialize shared memory if needed
+    if (inj_state == NULL)
+        injection_init_shmem();
+
+    // Find the injection point in the wait slots
+    SpinLockAcquire(&inj_state->lock);
+    for (int i = 0; i < INJ_MAX_WAIT; i++) {
+        if (strcmp(injection_name, inj_state->name[i]) == 0) {
+            index = i;
+            break;
+        }
+    }
+
+    // Error if injection point not found
+    if (index < 0) {
+        SpinLockRelease(&inj_state->lock);
+        elog(ERROR, "could not find injection point %s to wake up", injection_name);
+    }
+
+    // Increment wait counter to signal waiters should wake up
+    inj_state->wait_counts[index]++;
+    SpinLockRelease(&inj_state->lock);
+
+    // Broadcast to all waiters on this injection point
+    ConditionVariableBroadcast(&inj_state->wait_point);
+    PG_RETURN_VOID();
+}
+```

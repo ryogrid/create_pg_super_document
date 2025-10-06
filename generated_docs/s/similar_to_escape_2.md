@@ -37,3 +37,20 @@ The function is part of PostgreSQL's SQL standard compliance for the SIMILAR TO 
 - Multi-character escape strings are rejected with an error
 - Located in 
 - The converted pattern includes anchors (^ and $) and non-capturing groups to ensure proper SQL SIMILAR TO semantics
+
+## Simplified Source
+
+```c
+Datum
+similar_to_escape_2(PG_FUNCTION_ARGS)
+{
+    // Extract input parameters
+    text *pattern_text = PG_GETARG_TEXT_PP(0);
+    text *escape_text = PG_GETARG_TEXT_PP(1);
+
+    // Convert SIMILAR TO pattern to POSIX regex
+    text *result = similar_escape_internal(pattern_text, escape_text);
+
+    PG_RETURN_TEXT_P(result);
+}
+```

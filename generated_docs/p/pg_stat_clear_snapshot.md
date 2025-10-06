@@ -32,3 +32,16 @@ The function is a simple wrapper around the internal pgstat_clear_snapshot() fun
 - The snapshot clearing affects only the current backend session, not system-wide statistics
 - Commonly used in monitoring scripts or after bulk operations when fresh statistics are needed immediately
 - No special privileges are required to call this function beyond normal database access
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_clear_snapshot(PG_FUNCTION_ARGS)
+{
+    // Clear the active statistics snapshot to force fresh data
+    pgstat_clear_snapshot();
+
+    PG_RETURN_VOID();
+}
+```

@@ -39,3 +39,37 @@ This function retrieves the current activity string for a PostgreSQL backend pro
 - Commonly used by system monitoring views like pg_stat_activity to display current backend activities
 - Essential for database monitoring, debugging, and performance analysis
 - Located in src/backend/utils/adt/pgstatfuncs.c:741-765
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_get_backend_activity(PG_FUNCTION_ARGS)
+{
+    int32 proc_number = PG_GETARG_INT32(0);
+    PgBackendStatus *backend_entry;
+    const char *activity_string;
+    char *clipped_activity;
+    text *result;
+
+    // Get backend status entry for the specified process number
+    backend_entry = pgstat_get_beentry_by_proc_number(proc_number);
+
+    // Determine activity string based on backend status and permissions
+    if (backend_entry == NULL)
+        activity_string = "<backend information not available>";
+    else if (!HAS_PGSTAT_PERMISSIONS(backend_entry->st_userid))
+        activity_string = "<insufficient privilege>";
+    else if (*(backend_entry->st_activity_raw) == '\0')
+        activity_string = "<command string not enabled>";
+    else
+        activity_string = backend_entry->st_activity_raw;
+
+    // Properly clip activity string and convert to PostgreSQL text type
+    clipped_activity = pgstat_clip_activity(activity_string);
+    result = cstring_to_text(activity_string);
+    pfree(clipped_activity);
+
+    PG_RETURN_TEXT_P(result);
+}
+```

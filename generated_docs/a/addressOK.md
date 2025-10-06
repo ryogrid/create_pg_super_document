@@ -39,3 +39,54 @@ The validation process involves:
 - The function assumes the bits parameter is valid (≤ maxbits for the family)
 - Returns true if the address is valid CIDR format, false if host bits are set beyond the mask
 - Critical for ensuring network address data integrity in PostgreSQL's network data types
+
+## Simplified Source
+
+```c
+static bool
+addressOK(unsigned char *a, int bits, int family)
+{
+    int         byte;
+    int         nbits;
+    int         maxbits;
+    int         maxbytes;
+    unsigned char mask;
+
+    // Set limits based on address family
+    if (family == PGSQL_AF_INET)
+    {
+        maxbits = 32;
+        maxbytes = 4;
+    }
+    else
+    {
+        maxbits = 128;
+        maxbytes = 16;
+    }
+    Assert(bits <= maxbits);
+
+    // If using all bits, address is always valid
+    if (bits == maxbits)
+        return true;
+
+    // Calculate which byte contains the last network bit
+    byte = bits / 8;
+
+    // Create mask for checking partial byte
+    nbits = bits % 8;
+    mask = 0xff;
+    if (bits != 0)
+        mask >>= nbits;
+
+    // Check all bytes beyond network portion are zero
+    while (byte < maxbytes)
+    {
+        if ((a[byte] & mask) != 0)
+            return false;
+        mask = 0xff;  // Full mask for subsequent bytes
+        byte++;
+    }
+
+    return true;
+}
+```

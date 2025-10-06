@@ -32,3 +32,18 @@ The  function initializes a NumericSumAccum structure to a zero state by setting
 - Maintains the ndigits capacity of the accumulator unchanged
 - Essential for window function implementations that need to discard old values
 - The separate positive and negative digit arrays allow for optimized sum calculations
+
+## Simplified Source
+
+```c
+static void accum_sum_reset(NumericSumAccum *accum) {
+    // Reset scale to zero
+    accum->dscale = 0;
+
+    // Clear all positive and negative digit arrays
+    for (int i = 0; i < accum->ndigits; i++) {
+        accum->pos_digits[i] = 0;
+        accum->neg_digits[i] = 0;
+    }
+}
+```

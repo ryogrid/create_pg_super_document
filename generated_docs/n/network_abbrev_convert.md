@@ -57,3 +57,74 @@ The function also maintains cardinality statistics for the abbreviation abort me
 - Cardinality tracking is performed only when the estimation phase is active
 - The abbreviated keys are designed to be compared as unsigned integers while preserving correct sort order
 - Special handling prevents clobbering of the IP family bit during key assembly
+
+## Simplified Source
+
+```c
+static Datum network_abbrev_convert(Datum original, SortSupport ssup) {
+    network_sortsupport_state *uss = ssup->ssup_extra;
+    inet *authoritative = DatumGetInetPP(original);
+    Datum res, ipaddr_datum, subnet_bitmask, network;
+    int subnet_size;
+
+    // Extract IP address bytes with proper byte order conversion
+    if (ip_family(authoritative) == PGSQL_AF_INET) {
+        uint32 ipaddr_datum32;
+        memcpy(&ipaddr_datum32, ip_addr(authoritative), sizeof(uint32));
+        ipaddr_datum = pg_bswap32(ipaddr_datum32);  // Convert to native order
+        res = (Datum) 0;  // IPv4: family bit = 0
+    } else {
+        memcpy(&ipaddr_datum, ip_addr(authoritative), sizeof(Datum));
+        ipaddr_datum = DatumBigEndianToNative(ipaddr_datum);
+        res = ((Datum) 1) << (SIZEOF_DATUM * BITS_PER_BYTE - 1);  // IPv6: family bit = 1
+    }
+
+    // Calculate network/subnet split based on netmask
+    subnet_size = ip_maxbits(authoritative) - ip_bits(authoritative);
+    subnet_size %= SIZEOF_DATUM * BITS_PER_BYTE;
+
+    if (ip_bits(authoritative) == 0) {
+        subnet_bitmask = ((Datum) 0) - 1;  // All bits are subnet
+        network = 0;
+    } else if (ip_bits(authoritative) < SIZEOF_DATUM * BITS_PER_BYTE) {
+        subnet_bitmask = (((Datum) 1) << subnet_size) - 1;
+        network = ipaddr_datum & ~subnet_bitmask;  // Split network/subnet
+    } else {
+        subnet_bitmask = 0;  // All bits are network
+        network = ipaddr_datum;
+    }
+
+    // Pack abbreviated key based on datum size and IP family
+#if SIZEOF_DATUM == 8
+    if (ip_family(authoritative) == PGSQL_AF_INET) {
+        // IPv4 8-byte: network + netmask_size + subnet bits
+        Datum netmask_size = (Datum) ip_bits(authoritative);
+        Datum subnet = ipaddr_datum & subnet_bitmask;
+
+        network <<= (ABBREV_BITS_INET4_NETMASK_SIZE + ABBREV_BITS_INET4_SUBNET);
+        netmask_size <<= ABBREV_BITS_INET4_SUBNET;
+
+        if (subnet_size > ABBREV_BITS_INET4_SUBNET)
+            subnet >>= subnet_size - ABBREV_BITS_INET4_SUBNET;
+
+        res |= network | netmask_size | subnet;
+    } else
+#endif
+    {
+        // 4-byte datums or IPv6: use available network bits
+        res |= network >> 1;  // Preserve family bit
+    }
+
+    // Track cardinality for abbreviation effectiveness
+    uss->input_count += 1;
+    if (uss->estimating) {
+        uint32 tmp = (uint32) res;
+#if SIZEOF_DATUM == 8
+        tmp ^= (uint32) ((uint64) res >> 32);
+#endif
+        addHyperLogLog(&uss->abbr_card, DatumGetUInt32(hash_uint32(tmp)));
+    }
+
+    return res;
+}
+```

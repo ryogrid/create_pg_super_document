@@ -43,5 +43,34 @@ As a transition function, it maintains the running intersection state by taking 
 - Will error if called outside of an aggregate context or with non-range arguments
 - The aggregate continues as long as there is overlap; once ranges become disjoint, the result becomes empty
 - Memory management is handled through the aggregate context passed to the function
-- Located in 
+- Located in
 - Part of PostgreSQL's support for range-based aggregate operations
+
+## Simplified Source
+
+```c
+Datum range_intersect_agg_transfn(PG_FUNCTION_ARGS) {
+    MemoryContext aggContext;
+    Oid rangeTypeOid;
+    TypeCacheEntry *typcache;
+
+    // Validate that we're in an aggregate context
+    if (!AggCheckCallContext(fcinfo, &aggContext))
+        elog(ERROR, "range_intersect_agg_transfn called in non-aggregate context");
+
+    // Get and validate the range type
+    rangeTypeOid = get_fn_expr_argtype(fcinfo->flinfo, 1);
+    if (!type_is_range(rangeTypeOid))
+        elog(ERROR, "range_intersect_agg must be called with a range");
+
+    typcache = range_get_typcache(fcinfo, rangeTypeOid);
+
+    // Get current state and new input (strictness ensures non-null)
+    RangeType *result = PG_GETARG_RANGE_P(0);
+    RangeType *current = PG_GETARG_RANGE_P(1);
+
+    // Compute intersection and return result
+    result = range_intersect_internal(typcache, result, current);
+    PG_RETURN_RANGE_P(result);
+}
+```

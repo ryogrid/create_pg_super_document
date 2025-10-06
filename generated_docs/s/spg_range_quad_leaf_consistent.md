@@ -58,3 +58,68 @@ All comparisons are exact (no recheck required), and the function returns true o
 - Short-circuits on first non-matching condition to avoid unnecessary comparisons
 - Part of the complete SP-GiST range indexing implementation alongside inner node functions
 - Critical for the final filtering step in range-based index searches
+
+## Simplified Source
+
+```c
+Datum spg_range_quad_leaf_consistent(PG_FUNCTION_ARGS)
+{
+    spgLeafConsistentIn *in = (spgLeafConsistentIn *) PG_GETARG_POINTER(0);
+    spgLeafConsistentOut *out = (spgLeafConsistentOut *) PG_GETARG_POINTER(1);
+
+    RangeType *leafRange = DatumGetRangeTypeP(in->leafDatum);
+    TypeCacheEntry *typcache = range_get_typcache(fcinfo, RangeTypeGetOid(leafRange));
+
+    out->recheck = false;      // All tests are exact
+    out->leafValue = in->leafDatum;
+
+    // Test leaf range against all scan key conditions
+    for (int i = 0; i < in->nkeys; i++) {
+        Datum keyDatum = in->scankeys[i].sk_argument;
+        bool result;
+
+        // Apply the appropriate range comparison based on strategy
+        switch (in->scankeys[i].sk_strategy) {
+            case RANGESTRAT_BEFORE:
+                result = range_before_internal(typcache, leafRange, DatumGetRangeTypeP(keyDatum));
+                break;
+            case RANGESTRAT_OVERLEFT:
+                result = range_overleft_internal(typcache, leafRange, DatumGetRangeTypeP(keyDatum));
+                break;
+            case RANGESTRAT_OVERLAPS:
+                result = range_overlaps_internal(typcache, leafRange, DatumGetRangeTypeP(keyDatum));
+                break;
+            case RANGESTRAT_OVERRIGHT:
+                result = range_overright_internal(typcache, leafRange, DatumGetRangeTypeP(keyDatum));
+                break;
+            case RANGESTRAT_AFTER:
+                result = range_after_internal(typcache, leafRange, DatumGetRangeTypeP(keyDatum));
+                break;
+            case RANGESTRAT_ADJACENT:
+                result = range_adjacent_internal(typcache, leafRange, DatumGetRangeTypeP(keyDatum));
+                break;
+            case RANGESTRAT_CONTAINS:
+                result = range_contains_internal(typcache, leafRange, DatumGetRangeTypeP(keyDatum));
+                break;
+            case RANGESTRAT_CONTAINED_BY:
+                result = range_contained_by_internal(typcache, leafRange, DatumGetRangeTypeP(keyDatum));
+                break;
+            case RANGESTRAT_CONTAINS_ELEM:
+                result = range_contains_elem_internal(typcache, leafRange, keyDatum);
+                break;
+            case RANGESTRAT_EQ:
+                result = range_eq_internal(typcache, leafRange, DatumGetRangeTypeP(keyDatum));
+                break;
+            default:
+                elog(ERROR, "unrecognized range strategy: %d", in->scankeys[i].sk_strategy);
+                break;
+        }
+
+        // Short-circuit if any condition fails
+        if (!result)
+            PG_RETURN_BOOL(false);
+    }
+
+    PG_RETURN_BOOL(true);
+}
+```

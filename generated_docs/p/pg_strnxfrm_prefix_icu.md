@@ -44,3 +44,38 @@ The function is part of PostgreSQL's collation infrastructure and is used intern
 - Handles ICU errors by reporting them through PostgreSQL's error reporting system
 - The function optimizes for UTF-8 encoding by using ICU's native UTF-8 iterator
 - [Sort](../S/Sort.md) key generation is essential for locale-aware string comparison and indexing operations
+
+## Simplified Source
+
+```c
+static size_t pg_strnxfrm_prefix_icu(char *dest, const char *src, int32_t srclen,
+                                     int32_t destsize, pg_locale_t locale) {
+    Assert(locale->provider == COLLPROVIDER_ICU);
+
+    if (GetDatabaseEncoding() == PG_UTF8) {
+        // Direct UTF-8 processing for UTF-8 databases
+        UCharIterator iter;
+        uint32_t state[2];
+        UErrorCode status;
+
+        uiter_setUTF8(&iter, src, srclen);
+        state[0] = state[1] = 0;
+        status = U_ZERO_ERROR;
+
+        size_t result = ucol_nextSortKeyPart(locale->info.icu.ucol,
+                                             &iter, state,
+                                             (uint8_t *) dest, destsize,
+                                             &status);
+
+        if (U_FAILURE(status)) {
+            ereport(ERROR, (errmsg("sort key generation failed: %s",
+                                   u_errorName(status))));
+        }
+
+        return result;
+    } else {
+        // Delegate to non-UTF8 handler for other encodings
+        return pg_strnxfrm_prefix_icu_no_utf8(dest, src, srclen, destsize, locale);
+    }
+}
+```

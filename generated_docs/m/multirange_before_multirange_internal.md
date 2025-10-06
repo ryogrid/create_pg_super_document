@@ -41,3 +41,30 @@ The function handles empty multiranges by returning false, as empty sets cannot 
 - This function is the core implementation used by both "before" and "after" operators through argument swapping
 - Assumes multiranges are properly normalized and sorted internally
 - Critical for multirange ordering operations and can be used in indexing and sorting contexts
+
+## Simplified Source
+
+```c
+bool
+multirange_before_multirange_internal(TypeCacheEntry *rangetyp,
+                                      const MultirangeType *multirange1,
+                                      const MultirangeType *multirange2)
+{
+    RangeBound lower1, upper1, lower2, upper2;
+
+    // Return false for empty inputs
+    if (MultirangeIsEmpty(multirange1) || MultirangeIsEmpty(multirange2))
+        return false;
+
+    // Get bounds from the rightmost range of the first multirange
+    multirange_get_bounds(rangetyp, multirange1, multirange1->rangeCount - 1,
+                         &lower1, &upper1);
+
+    // Get bounds from the leftmost range of the second multirange
+    multirange_get_bounds(rangetyp, multirange2, 0,
+                         &lower2, &upper2);
+
+    // Check if first multirange's rightmost upper bound < second multirange's leftmost lower bound
+    return (range_cmp_bounds(rangetyp, &upper1, &lower2) < 0);
+}
+```

@@ -39,3 +39,23 @@ The function is designed to be permissive during startup to allow environment-ba
 - Empty string values are specially handled for startup scenarios
 - The function is part of PostgreSQL's GUC (Grand Unified Configuration) system
 - Platform-specific compilation directives ensure compatibility across different operating systems
+
+## Simplified Source
+
+```c
+bool check_locale_messages(char **newval, void **extra, GucSource source) {
+    // Allow empty values only during default startup initialization
+    if (**newval == '\0') {
+        return (source == PGC_S_DEFAULT);
+    }
+
+    // Platform-specific locale validation
+#if defined(LC_MESSAGES) && !defined(WIN32)
+    // Validate using standard locale checking on Unix-like systems
+    return check_locale(LC_MESSAGES, *newval, NULL);
+#else
+    // Accept all values on Windows or systems without LC_MESSAGES
+    return true;
+#endif
+}
+```

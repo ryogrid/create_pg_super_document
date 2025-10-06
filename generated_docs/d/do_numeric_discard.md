@@ -51,3 +51,69 @@ The function may return false to indicate that the removal cannot be performed c
 - Failure to remove a value (returning false) triggers a complete re-aggregation from scratch, which is expensive but ensures correctness
 - The function handles both sum and sum-of-squares calculations when variance/standard deviation operations are needed
 - Special numeric values (NaN, infinity) are tracked separately from regular numeric values to maintain IEEE 754 compliance
+
+## Simplified Source
+
+```c
+static bool do_numeric_discard(NumericAggState *state, Numeric newval) {
+    NumericVar X, X2;
+    MemoryContext old_context;
+
+    // Handle special values (NaN, infinity) - just decrement counters
+    if (NUMERIC_IS_SPECIAL(newval)) {
+        if (NUMERIC_IS_PINF(newval))
+            state->pInfcount--;
+        else if (NUMERIC_IS_NINF(newval))
+            state->nInfcount--;
+        else
+            state->NaNcount--;
+        return true;
+    }
+
+    // Convert to variable format for processing
+    init_var_from_num(newval, &X);
+
+    // Check if we can safely update max scale tracking
+    if (X.dscale == state->maxScale) {
+        if (state->maxScaleCount > 1 || state->maxScale == 0) {
+            // Other values have same scale, safe to decrement
+            state->maxScaleCount--;
+        } else if (state->N == 1) {
+            // No remaining values, reset scale tracking
+            state->maxScale = 0;
+            state->maxScaleCount = 0;
+        } else {
+            // Can't determine new max scale, must fail
+            return false;
+        }
+    }
+
+    // Calculate X^2 if needed for variance calculations
+    if (state->calcSumX2) {
+        init_var(&X2);
+        mul_var(&X, &X, &X2, X.dscale * 2);
+    }
+
+    // Switch to aggregate context for persistent operations
+    old_context = MemoryContextSwitchTo(state->agg_context);
+
+    if (state->N-- > 1) {
+        // Subtract the value by negating it and adding
+        X.sign = (X.sign == NUMERIC_POS ? NUMERIC_NEG : NUMERIC_POS);
+        accum_sum_add(&(state->sumX), &X);
+
+        if (state->calcSumX2) {
+            X2.sign = NUMERIC_NEG;
+            accum_sum_add(&(state->sumX2), &X2);
+        }
+    } else {
+        // Last value removed, reset sums to zero
+        accum_sum_reset(&state->sumX);
+        if (state->calcSumX2)
+            accum_sum_reset(&state->sumX2);
+    }
+
+    MemoryContextSwitchTo(old_context);
+    return true;
+}
+```

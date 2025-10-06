@@ -40,3 +40,21 @@ The function extracts the multirange and range arguments from the function call 
 - The internal logic compares the multirange's leftmost lower bound with the range's upper bound
 - Part of PostgreSQL's multirange type system that provides comprehensive spatial relationship operators
 - Demonstrates elegant code design through symmetrical operator implementation
+
+## Simplified Source
+
+```c
+Datum
+multirange_after_range(PG_FUNCTION_ARGS)
+{
+    // Extract arguments: multirange and range
+    MultirangeType *multirange = PG_GETARG_MULTIRANGE_P(0);
+    RangeType *range = PG_GETARG_RANGE_P(1);
+
+    // Get type information for the multirange
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(multirange));
+
+    // Use symmetric logic: multirange >> range ≡ range << multirange
+    PG_RETURN_BOOL(range_before_multirange_internal(typcache->rngtype, range, multirange));
+}
+```

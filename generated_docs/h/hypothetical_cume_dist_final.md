@@ -33,3 +33,19 @@ The key difference from percent_rank is that cume_dist includes equal values in 
 - The formula rank/(rowcount+1) ensures that cumulative distribution values are properly distributed across the range
 - Used in SQL queries like `SELECT cume_dist(value) WITHIN GROUP (ORDER BY column) FROM table`
 - Located in src/backend/utils/adt/orderedsetaggs.c:1278-1294
+
+## Simplified Source
+```c
+Datum hypothetical_cume_dist_final(PG_FUNCTION_ARGS) {
+    int64 rank, rowcount;
+    double result_val;
+
+    // Get rank with flag +1 to sort hypothetical row behind peers
+    rank = hypothetical_rank_common(fcinfo, 1, &rowcount);
+
+    // Calculate cumulative distribution: rank / (total_rows + 1)
+    result_val = (double) rank / (double) (rowcount + 1);
+
+    PG_RETURN_FLOAT8(result_val);
+}
+```

@@ -51,3 +51,76 @@ For cases where multiplication might overflow, the function falls back to either
 - Includes overflow protection with fallback to either 128-bit integers or full numeric arithmetic
 - The optimization significantly improves performance for timestamp and interval part extraction operations
 - Supports DEC_DIGITS values of 1, 2, or 4 (typical PostgreSQL configurations)
+
+## Simplified Source
+
+```c
+Numeric
+int64_div_fast_to_numeric(int64 val1, int log10val2)
+{
+    Numeric res;
+    NumericVar result;
+    int rscale;
+    int w;
+    int m;
+
+    init_var(&result);
+
+    // Calculate result scale
+    rscale = log10val2 < 0 ? 0 : log10val2;
+
+    // Determine weight adjustment and remaining division
+    w = log10val2 / DEC_DIGITS;
+    m = log10val2 % DEC_DIGITS;
+    if (m < 0) {
+        m += DEC_DIGITS;
+        w--;
+    }
+
+    // Handle remaining division by multiplying dividend
+    if (m > 0) {
+        // Static power-of-10 tables for different DEC_DIGITS configurations
+#if DEC_DIGITS == 4
+        static const int pow10[] = {1, 10, 100, 1000};
+#elif DEC_DIGITS == 2
+        static const int pow10[] = {1, 10};
+#elif DEC_DIGITS == 1
+        static const int pow10[] = {1};
+#endif
+        int64 factor = pow10[DEC_DIGITS - m];
+        int64 new_val1;
+
+        // Check for overflow and handle accordingly
+        if (unlikely(pg_mul_s64_overflow(val1, factor, &new_val1))) {
+#ifdef HAVE_INT128
+            // Use 128-bit arithmetic if available
+            int128 tmp = (int128) val1 * (int128) factor;
+            int128_to_numericvar(tmp, &result);
+#else
+            // Fall back to numeric arithmetic
+            NumericVar tmp;
+            init_var(&tmp);
+            int64_to_numericvar(val1, &result);
+            int64_to_numericvar(factor, &tmp);
+            mul_var(&result, &tmp, &result, 0);
+            free_var(&tmp);
+#endif
+        } else {
+            int64_to_numericvar(new_val1, &result);
+        }
+        w++;
+    } else {
+        int64_to_numericvar(val1, &result);
+    }
+
+    // Set final weight and scale
+    result.weight -= w;
+    result.dscale = rscale;
+
+    // Convert to external format
+    res = make_result(&result);
+    free_var(&result);
+
+    return res;
+}
+```

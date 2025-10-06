@@ -35,3 +35,20 @@ The oidout function is responsible for converting PostgreSQL's internal OID repr
 - Memory is allocated in the current memory context and will be automatically freed when the context is reset
 - The function follows PostgreSQL's V1 calling convention using the PG_FUNCTION_ARGS macro
 - Location: src/backend/utils/adt/oid.c:47-59
+
+## Simplified Source
+
+```c
+Datum oidout(PG_FUNCTION_ARGS) {
+    // Extract OID argument
+    Oid oid_value = PG_GETARG_OID(0);
+
+    // Allocate memory for result string (sufficient for 32-bit uint + null terminator)
+    char *result = (char *) palloc(12);
+
+    // Convert OID to decimal string format
+    snprintf(result, 12, "%u", oid_value);
+
+    return PG_RETURN_CSTRING(result);
+}
+```

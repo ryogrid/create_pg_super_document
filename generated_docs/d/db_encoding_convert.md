@@ -44,3 +44,29 @@ The function modifies the string in-place through the double pointer parameter, 
 - Essential for ensuring locale formatting strings work correctly with database encoding
 - Used extensively in PGLC_localeconv for converting locale-specific formatting strings
 - Part of PostgreSQL's encoding infrastructure for internationalization support
+
+## Simplified Source
+
+```c
+static void db_encoding_convert(int encoding, char **str) {
+    // Convert string from source encoding to database encoding
+    char *converted_str = pg_any_to_server(*str, strlen(*str), encoding);
+
+    // Skip if no conversion needed
+    if (converted_str == *str) {
+        return;
+    }
+
+    // Duplicate to malloc'd memory (required for locale strings)
+    char *malloc_str = strdup(converted_str);
+    if (malloc_str == NULL) {
+        ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY),
+                       errmsg("out of memory")));
+    }
+
+    // Replace original string with converted version
+    free(*str);
+    *str = malloc_str;
+    pfree(converted_str);
+}
+```

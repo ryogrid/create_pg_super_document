@@ -40,3 +40,22 @@ The function follows PostgreSQL's standard binary send protocol: it initializes 
 - Paired with pg_lsn_recv for complete binary serialization support
 - More efficient than text-based formatting for bulk data operations
 - The output bytea can be transmitted over the network or stored in binary format
+
+## Simplified Source
+
+```c
+Datum pg_lsn_send(PG_FUNCTION_ARGS) {
+    // Extract LSN value from function arguments
+    XLogRecPtr lsn = PG_GETARG_LSN(0);
+    StringInfoData buf;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Write 64-bit LSN value to buffer
+    pq_sendint64(&buf, lsn);
+
+    // Return finalized buffer as bytea
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

@@ -36,3 +36,26 @@ The function retrieves type cache information for the range type (handling domai
 - Uses the type cache system to efficiently handle range type information
 - Handles domain types by resolving to their base range type
 - The function always returns , indicating successful setup of the analysis parameters
+
+## Simplified Source
+
+```c
+Datum range_typanalyze(PG_FUNCTION_ARGS)
+{
+    VacAttrStats *stats = (VacAttrStats *) PG_GETARG_POINTER(0);
+
+    // Get type cache for range type (handles domains)
+    TypeCacheEntry *typcache = range_get_typcache(fcinfo, getBaseType(stats->attrtypid));
+
+    // Set default statistics target if not specified
+    if (stats->attstattarget < 0)
+        stats->attstattarget = default_statistics_target;
+
+    // Configure statistics computation for ranges
+    stats->compute_stats = compute_range_stats;
+    stats->extra_data = typcache;
+    stats->minrows = 300 * stats->attstattarget;
+
+    PG_RETURN_BOOL(true);
+}
+```

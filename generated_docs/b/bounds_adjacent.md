@@ -43,3 +43,39 @@ The adjacency check works differently based on the range subtype:
 - Critical for implementing PostgreSQL's range adjacency operators (-|-, |-)
 - Returns false if bounds overlap (cmp > 0)
 - Located in src/backend/utils/adt/rangetypes.c:757-797
+
+## Simplified Source
+
+```c
+bool bounds_adjacent(TypeCacheEntry *typcache, RangeBound boundA, RangeBound boundB) {
+    int cmp;
+
+    // Compare the bound values
+    cmp = range_cmp_bound_values(typcache, &boundA, &boundB);
+
+    if (cmp < 0) {
+        // Bounds don't overlap - check if there are points between them
+
+        // For continuous types, assume points exist between bounds
+        if (!OidIsValid(typcache->rng_canonical_finfo.fn_oid))
+            return false;
+
+        // For discrete types, test if range A..B normalizes to empty
+        boundA.inclusive = !boundA.inclusive;
+        boundB.inclusive = !boundB.inclusive;
+        boundA.lower = true;
+        boundB.lower = false;
+
+        RangeType *r = make_range(typcache, &boundA, &boundB, false, NULL);
+        return RangeIsEmpty(r);
+    }
+    else if (cmp == 0) {
+        // Equal bounds are adjacent if they have different inclusivity
+        return boundA.inclusive != boundB.inclusive;
+    }
+    else {
+        // Bounds overlap
+        return false;
+    }
+}
+```

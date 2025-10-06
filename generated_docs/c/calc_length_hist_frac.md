@@ -43,3 +43,85 @@ Where A=length1 and B=length2. The geometrical interpretation is calculating the
 - Returns 0.5 for infinite/infinite cases to avoid NaN
 - Critical component in PostgreSQL's range type selectivity estimation system
 - Operates on the assumption that range lengths follow the distribution captured in the histogram
+
+## Simplified Source
+
+```c
+static double
+calc_length_hist_frac(Datum *length_hist_values, int length_hist_nvalues,
+                      double length1, double length2, bool equal)
+{
+    double frac, area, pos;
+    double A, B, PA, PB;
+    int i;
+
+    // Basic bounds checking
+    if (length2 < 0.0) return 0.0;
+    if (isinf(length2) && equal) return 1.0;
+
+    // Find starting histogram bin using binary search
+    i = length_hist_bsearch(length_hist_values, length_hist_nvalues, length1, equal);
+    if (i >= length_hist_nvalues - 1) return 1.0;
+
+    // Calculate initial position and probability
+    if (i < 0) {
+        i = 0;
+        pos = 0.0;
+    } else {
+        pos = get_len_position(length1,
+                              DatumGetFloat8(length_hist_values[i]),
+                              DatumGetFloat8(length_hist_values[i + 1]));
+    }
+    PB = (((double) i) + pos) / (double) (length_hist_nvalues - 1);
+    B = length1;
+
+    // Handle degenerate case where length1 == length2
+    if (length2 == length1) return PB;
+
+    // Integrate through histogram bins (trapezoid area calculation)
+    area = 0.0;
+    for (; i < length_hist_nvalues - 1; i++) {
+        double bin_upper = DatumGetFloat8(length_hist_values[i + 1]);
+
+        // Check if we've reached the last bin
+        if (!(bin_upper < length2 || (equal && bin_upper <= length2)))
+            break;
+
+        // Update bounds for this trapezoid
+        A = B;
+        PA = PB;
+        B = bin_upper;
+        PB = (double) i / (double) (length_hist_nvalues - 1);
+
+        // Add trapezoid area: 0.5 * (height1 + height2) * width
+        if (PA > 0 || PB > 0)
+            area += 0.5 * (PB + PA) * (B - A);
+    }
+
+    // Handle final bin to upper bound
+    A = B;
+    PA = PB;
+    B = length2;
+
+    // Calculate final position and probability
+    if (i >= length_hist_nvalues - 1) {
+        pos = 0.0;
+    } else {
+        pos = get_len_position(length2,
+                              DatumGetFloat8(length_hist_values[i]),
+                              DatumGetFloat8(length_hist_values[i + 1]));
+    }
+    PB = (((double) i) + pos) / (double) (length_hist_nvalues - 1);
+
+    if (PA > 0 || PB > 0)
+        area += 0.5 * (PB + PA) * (B - A);
+
+    // Calculate average: area / width, handle infinite cases
+    if (isinf(area) && isinf(length2))
+        frac = 0.5;
+    else
+        frac = area / (length2 - length1);
+
+    return frac;
+}
+```

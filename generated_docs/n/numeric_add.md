@@ -39,3 +39,19 @@ The function is designed as a thin wrapper that extracts the two numeric operand
 - Forms part of PostgreSQL's comprehensive arbitrary precision numeric system
 - Errors in arithmetic (like overflow) are handled via standard PostgreSQL error reporting
 - Essential for financial calculations and any operations requiring exact decimal arithmetic
+
+## Simplified Source
+
+```c
+Datum numeric_add(PG_FUNCTION_ARGS) {
+    // Get the two numeric operands
+    Numeric num1 = PG_GETARG_NUMERIC(0);
+    Numeric num2 = PG_GETARG_NUMERIC(1);
+
+    // Perform addition using internal implementation
+    Numeric res = numeric_add_opt_error(num1, num2, NULL);
+
+    // Return the result
+    PG_RETURN_NUMERIC(res);
+}
+```

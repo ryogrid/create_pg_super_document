@@ -34,3 +34,18 @@ The range_union function is a PostgreSQL built-in function that implements the r
 - Part of PostgreSQL's range type system for SQL-level range operations
 - Commonly used in SQL queries with the + operator for ranges
 - Essential for range arithmetic in PostgreSQL applications
+
+## Simplified Source
+
+```c
+Datum range_union(PG_FUNCTION_ARGS) {
+    RangeType *r1 = PG_GETARG_RANGE_P(0);
+    RangeType *r2 = PG_GETARG_RANGE_P(1);
+
+    // Get type cache for range operations
+    TypeCacheEntry *typcache = range_get_typcache(fcinfo, RangeTypeGetOid(r1));
+
+    // Delegate to internal implementation with strict=true
+    PG_RETURN_RANGE_P(range_union_internal(typcache, r1, r2, true));
+}
+```

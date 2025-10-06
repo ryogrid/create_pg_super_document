@@ -37,3 +37,21 @@ The function retrieves the appropriate type cache for the multirange type to acc
 - Returns a boolean value indicating whether the first multirange is after the second
 - The function is designed to work with PostgreSQL's function call interface using the standard PG_FUNCTION_ARGS mechanism
 - Performance depends on the underlying  implementation
+
+## Simplified Source
+
+```c
+Datum
+multirange_after_multirange(PG_FUNCTION_ARGS)
+{
+    // Extract arguments: two multiranges to compare
+    MultirangeType *multirange1 = PG_GETARG_MULTIRANGE_P(0);
+    MultirangeType *multirange2 = PG_GETARG_MULTIRANGE_P(1);
+
+    // Get type information for the multirange
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(multirange1));
+
+    // Use symmetric logic: mr1 >> mr2 ≡ mr2 << mr1
+    PG_RETURN_BOOL(multirange_before_multirange_internal(typcache->rngtype, multirange2, multirange1));
+}
+```

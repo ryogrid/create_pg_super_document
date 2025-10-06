@@ -38,3 +38,21 @@ Key behaviors:
 - Error handling follows standard PostgreSQL pattern (exceptions thrown on error)
 - The actual modulo logic and special case handling is implemented in numeric_mod_opt_error
 - Part of PostgreSQL's comprehensive numeric arithmetic function suite
+
+## Simplified Source
+
+```c
+Datum
+numeric_mod(PG_FUNCTION_ARGS)
+{
+    // Extract two numeric arguments (dividend and divisor)
+    Numeric num1 = PG_GETARG_NUMERIC(0);
+    Numeric num2 = PG_GETARG_NUMERIC(1);
+
+    // Delegate to internal modulo function with error handling
+    Numeric result = numeric_mod_opt_error(num1, num2, NULL);
+
+    // Return the modulo result
+    PG_RETURN_NUMERIC(result);
+}
+```

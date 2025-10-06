@@ -42,3 +42,26 @@ This function serves as a semantic action callback that processes scalar values 
 - The `escape_json` helper function is noted as being "copied from backend code", indicating it follows PostgreSQL's standard JSON escaping rules
 - Critical for maintaining valid JSON output format in the test framework
 - Works alongside array and object processing functions to handle complete JSON documents
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+do_scalar(void *state, char *token, JsonTokenType tokentype)
+{
+    DoState *_state = (DoState *) state;
+
+    // Handle string tokens with JSON escaping
+    if (tokentype == JSON_TOKEN_STRING) {
+        resetStringInfo(_state->buf);
+        escape_json(_state->buf, token);
+        printf("%s", _state->buf->data);
+    }
+    else {
+        // Other scalars (numbers, booleans, null) - output directly
+        printf("%s", token);
+    }
+
+    return JSON_SUCCESS;
+}
+```

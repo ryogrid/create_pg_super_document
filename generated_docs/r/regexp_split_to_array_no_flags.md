@@ -31,3 +31,12 @@ This function serves as a simple wrapper around regexp_split_to_array, providing
 - Provides a clean two-argument interface by omitting the optional flags parameter
 - Located at src/backend/utils/adt/regexp.c:1805-1816
 - Comment indicates separation is specifically for regression test compliance
+
+## Simplified Source
+
+```c
+Datum regexp_split_to_array_no_flags(PG_FUNCTION_ARGS) {
+    // Simple wrapper to satisfy opr_sanity test requirements
+    return regexp_split_to_array(fcinfo);
+}
+```

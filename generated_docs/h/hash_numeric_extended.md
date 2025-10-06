@@ -43,3 +43,49 @@ The function is particularly useful for hash-based operations that benefit from 
 - The weight is XORed with the digit hash result after datum conversion
 - Provides 64-bit hash space for improved distribution in large hash tables
 - Used in advanced hash operations requiring seeded or extended hash values
+
+## Simplified Source
+
+```c
+Datum hash_numeric_extended(PG_FUNCTION_ARGS) {
+    Numeric key = PG_GETARG_NUMERIC(0);
+    uint64 seed = PG_GETARG_INT64(1);
+
+    // Handle special values (NaN, infinity)
+    if (NUMERIC_IS_SPECIAL(key))
+        PG_RETURN_UINT64(seed);
+
+    // Get numeric components and normalize
+    int weight = NUMERIC_WEIGHT(key);
+    NumericDigit *digits = NUMERIC_DIGITS(key);
+    int ndigits = NUMERIC_NDIGITS(key);
+
+    // Skip leading zeros
+    int start_offset = 0;
+    for (int i = 0; i < ndigits; i++) {
+        if (digits[i] != 0) break;
+        start_offset++;
+        weight--;
+    }
+
+    // Handle all-zero number
+    if (ndigits == start_offset)
+        PG_RETURN_UINT64(seed - 1);
+
+    // Skip trailing zeros
+    int end_offset = 0;
+    for (int i = ndigits - 1; i >= 0; i--) {
+        if (digits[i] != 0) break;
+        end_offset++;
+    }
+
+    // Hash the significant digits with seed
+    int hash_len = ndigits - start_offset - end_offset;
+    Datum digit_hash = hash_any_extended((unsigned char *) (digits + start_offset),
+                                        hash_len * sizeof(NumericDigit), seed);
+
+    // Mix in the weight and return as 64-bit value
+    Datum result = UInt64GetDatum(DatumGetUInt64(digit_hash) ^ weight);
+    PG_RETURN_DATUM(result);
+}
+```

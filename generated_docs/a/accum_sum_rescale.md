@@ -38,3 +38,59 @@ When resizing is needed, the function allocates new buffers and copies existing 
 - Scale (dscale) is updated to the maximum of the current and new value's scale
 - After rescaling, have_carry_space is set to true since new buffers have reserved space
 - The function only performs actual reallocation when necessary, optimizing performance for cases where rescaling isn't needed
+
+## Simplified Source
+
+```c
+static void accum_sum_rescale(NumericSumAccum *accum, const NumericVar *val) {
+    int old_weight = accum->weight;
+    int old_ndigits = accum->ndigits;
+    int accum_weight = old_weight;
+    int accum_ndigits = old_ndigits;
+
+    // Enlarge buffers if new value has larger weight
+    if (val->weight >= accum_weight) {
+        accum_weight = val->weight + 1;  // +1 for carry space
+        accum_ndigits = accum_ndigits + (accum_weight - old_weight);
+    }
+    // Or if carry space was used up
+    else if (!accum->have_carry_space) {
+        accum_weight++;
+        accum_ndigits++;
+    }
+
+    // Expand right side if new value is wider
+    int accum_rscale = accum_ndigits - accum_weight - 1;
+    int val_rscale = val->ndigits - val->weight - 1;
+    if (val_rscale > accum_rscale)
+        accum_ndigits = accum_ndigits + (val_rscale - accum_rscale);
+
+    // Reallocate buffers if size changed
+    if (accum_ndigits != old_ndigits || accum_weight != old_weight) {
+        int32 *new_pos_digits = palloc0(accum_ndigits * sizeof(int32));
+        int32 *new_neg_digits = palloc0(accum_ndigits * sizeof(int32));
+        int weightdiff = accum_weight - old_weight;
+
+        // Copy existing data to new positions
+        if (accum->pos_digits) {
+            memcpy(&new_pos_digits[weightdiff], accum->pos_digits,
+                   old_ndigits * sizeof(int32));
+            pfree(accum->pos_digits);
+
+            memcpy(&new_neg_digits[weightdiff], accum->neg_digits,
+                   old_ndigits * sizeof(int32));
+            pfree(accum->neg_digits);
+        }
+
+        accum->pos_digits = new_pos_digits;
+        accum->neg_digits = new_neg_digits;
+        accum->weight = accum_weight;
+        accum->ndigits = accum_ndigits;
+        accum->have_carry_space = true;
+    }
+
+    // Update scale to maximum
+    if (val->dscale > accum->dscale)
+        accum->dscale = val->dscale;
+}
+```

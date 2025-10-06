@@ -34,3 +34,14 @@ The function provides the same functionality as  but represents a different func
 - The comment indicates this separation is purely for testing compliance
 - Represents a function signature variant without explicit flags parameter
 - Uses PostgreSQL's standard function call information structure (fcinfo) for argument passing
+
+## Simplified Source
+
+```c
+Datum
+textregexreplace_extended_no_flags(PG_FUNCTION_ARGS)
+{
+    // Simple wrapper: delegate directly to main extended function
+    return textregexreplace_extended(fcinfo);
+}
+```

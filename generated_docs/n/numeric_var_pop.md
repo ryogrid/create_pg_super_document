@@ -33,3 +33,24 @@ The  function is a PostgreSQL aggregate function finalizer that calculates the p
 - Returns NULL if the input state is NULL or if no valid data was accumulated
 - Uses population variance formula (divides by N) rather than sample variance (divides by N-1)
 - Part of PostgreSQL's statistical aggregate function family for numeric data types
+
+## Simplified Source
+
+```c
+Datum numeric_var_pop(PG_FUNCTION_ARGS) {
+    NumericAggState *state;
+    Numeric result;
+    bool is_null;
+
+    // Extract aggregate state from function arguments
+    state = PG_ARGISNULL(0) ? NULL : (NumericAggState *) PG_GETARG_POINTER(0);
+
+    // Calculate population variance (variance=true, sample=false)
+    result = numeric_stddev_internal(state, true, false, &is_null);
+
+    if (is_null)
+        PG_RETURN_NULL();
+    else
+        PG_RETURN_NUMERIC(result);
+}
+```

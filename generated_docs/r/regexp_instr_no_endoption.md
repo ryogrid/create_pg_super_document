@@ -34,3 +34,14 @@ The comment indicates this separation is specifically to keep the opr_sanity reg
 - Part of PostgreSQL's regular expression support in the backend utilities
 - The endoption parameter in the main function controls whether to return the start (0) or end (1) position of the match
 - Works with other optional parameters like start position, occurrence number, flags, and subexpression selection
+
+## Simplified Source
+
+```c
+/* Wrapper for regexp_instr without endoption parameter */
+Datum
+regexp_instr_no_endoption(PG_FUNCTION_ARGS)
+{
+    return regexp_instr(fcinfo);
+}
+```

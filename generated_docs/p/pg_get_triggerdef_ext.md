@@ -37,3 +37,22 @@ This function serves as the main entry point for retrieving trigger definitions 
 - Part of PostgreSQL's rule utilities system for reconstructing DDL statements
 - Located in src/backend/utils/adt/ruleutils.c:865-879
 - The pretty-printing option affects schema qualification and formatting of the output
+
+## Simplified Source
+
+```c
+Datum pg_get_triggerdef_ext(PG_FUNCTION_ARGS) {
+    // Extract trigger OID and formatting preference
+    Oid trigid = PG_GETARG_OID(0);
+    bool pretty = PG_GETARG_BOOL(1);
+
+    // Get trigger definition from worker function
+    char *res = pg_get_triggerdef_worker(trigid, pretty);
+
+    // Return NULL if trigger not found, otherwise convert to text
+    if (res == NULL)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(string_to_text(res));
+}
+```

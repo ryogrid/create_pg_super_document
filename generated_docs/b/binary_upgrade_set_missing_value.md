@@ -38,3 +38,24 @@ The function includes a CHECK_IS_BINARY_UPGRADE macro call to ensure it can only
 - The function is protected by CHECK_IS_BINARY_UPGRADE to prevent execution outside upgrade contexts
 - Missing values are an optimization that avoids rewriting entire tables when adding columns with defaults
 - Located in src/backend/utils/adt/pg_upgrade_support.c:261-284
+
+## Simplified Source
+
+```c
+Datum
+binary_upgrade_set_missing_value(PG_FUNCTION_ARGS)
+{
+    // Extract table and attribute information from arguments
+    Oid table_id = PG_GETARG_OID(0);
+    char *attribute_name = text_to_cstring(PG_GETARG_TEXT_P(1));
+    char *missing_value = text_to_cstring(PG_GETARG_TEXT_P(2));
+
+    // Ensure function only runs during binary upgrade
+    CHECK_IS_BINARY_UPGRADE;
+
+    // Set the missing value for the specified table attribute
+    SetAttrMissing(table_id, attribute_name, missing_value);
+
+    PG_RETURN_VOID();
+}
+```

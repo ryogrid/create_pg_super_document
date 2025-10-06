@@ -34,3 +34,12 @@ When a user attempts to change the LC_NUMERIC setting via configuration files, S
 - Works in conjunction with `assign_locale_numeric` which is called after successful validation
 - The LC_NUMERIC locale affects formatting of numeric values including decimal points and thousands separators
 - Validation includes checking for ASCII-only characters and testing actual locale availability on the system
+
+## Simplified Source
+
+```c
+bool check_locale_numeric(char **newval, void **extra, GucSource source) {
+    // Validate numeric locale using generic locale checker
+    return check_locale(LC_NUMERIC, *newval, NULL);
+}
+```

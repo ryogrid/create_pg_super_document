@@ -42,4 +42,22 @@ The adjacency check works by:
 - Part of PostgreSQL's range and multirange type system introduced for advanced range operations
 - The actual adjacency logic is implemented in the internal function which checks bounds of the first and potentially last ranges in the multirange
 - Empty ranges or multiranges are never considered adjacent to anything
-- File location: 
+- File location:
+
+## Simplified Source
+
+```c
+Datum
+range_adjacent_multirange(PG_FUNCTION_ARGS)
+{
+    // Extract range and multirange arguments
+    RangeType *range = PG_GETARG_RANGE_P(0);
+    MultirangeType *multirange = PG_GETARG_MULTIRANGE_P(1);
+
+    // Get type information for the multirange
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(multirange));
+
+    // Check if range is adjacent to multirange and return result
+    PG_RETURN_BOOL(range_adjacent_multirange_internal(typcache->rngtype, range, multirange));
+}
+```

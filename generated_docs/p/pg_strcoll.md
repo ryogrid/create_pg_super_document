@@ -35,3 +35,25 @@ The `pg_strcoll` function serves as PostgreSQL's primary interface for locale-aw
 - The caller is responsible for breaking ties in deterministic collations for consistency with pg_strxfrm()
 - Conditionally compiled ICU support based on USE_ICU preprocessing directive
 - Part of PostgreSQL's unified locale abstraction layer
+
+## Simplified Source
+
+```c
+int pg_strcoll(const char *arg1, const char *arg2, pg_locale_t locale) {
+    // Dispatch to appropriate collation provider
+    if (!locale || locale->provider == COLLPROVIDER_LIBC) {
+        // Use libc collation for default or libc-based locales
+        return pg_strcoll_libc(arg1, arg2, locale);
+    }
+#ifdef USE_ICU
+    else if (locale->provider == COLLPROVIDER_ICU) {
+        // Use ICU collation (-1 indicates null-terminated strings)
+        return pg_strncoll_icu(arg1, -1, arg2, -1, locale);
+    }
+#endif
+    else {
+        // Error for unsupported provider types
+        PGLOCALE_SUPPORT_ERROR(locale->provider);
+    }
+}
+```

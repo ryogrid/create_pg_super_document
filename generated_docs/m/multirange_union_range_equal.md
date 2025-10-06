@@ -47,3 +47,32 @@ This optimization is particularly useful in GiST index operations where we need 
 - Assumes multirange ranges are properly ordered (first has overall lower bound, last has overall upper bound)
 - Essential for efficient GiST index operations involving multiranges
 - Handles empty range cases correctly by ensuring both inputs have the same emptiness status
+
+## Simplified Source
+
+```c
+static bool
+multirange_union_range_equal(TypeCacheEntry *typcache,
+							 const RangeType *range,
+							 const MultirangeType *multirange)
+{
+	RangeBound	range_lower, range_upper;
+	RangeBound	mr_lower, mr_upper, temp;
+	bool		empty;
+
+	// Handle empty cases
+	if (RangeIsEmpty(range) || MultirangeIsEmpty(multirange))
+		return (RangeIsEmpty(range) && MultirangeIsEmpty(multirange));
+
+	// Extract bounds from single range
+	range_deserialize(typcache, range, &range_lower, &range_upper, &empty);
+
+	// Extract overall bounds from multirange (first and last ranges)
+	multirange_get_bounds(typcache, multirange, 0, &mr_lower, &temp);
+	multirange_get_bounds(typcache, multirange, multirange->rangeCount - 1, &temp, &mr_upper);
+
+	// Compare overall bounds
+	return (range_cmp_bounds(typcache, &range_lower, &mr_lower) == 0 &&
+			range_cmp_bounds(typcache, &range_upper, &mr_upper) == 0);
+}
+```

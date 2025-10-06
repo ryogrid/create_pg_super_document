@@ -45,3 +45,23 @@ The function returns specific codes:
 - 2: Subnet operator (<<)
 
 The symmetric nature of these codes is crucial for the selectivity estimation algorithms, allowing them to easily determine commutator relationships by simple negation. An error is raised for any unrecognized operator OID.
+
+## Simplified Source
+
+```c
+static int
+inet_opr_codenum(Oid operator)
+{
+    // Map inet operators to symmetric numeric codes
+    switch (operator) {
+        case OID_INET_SUP_OP:      return -2;  // Supernet (>>)
+        case OID_INET_SUPEQ_OP:    return -1;  // Supernet-or-equal (>>=)
+        case OID_INET_OVERLAP_OP:  return  0;  // Overlap (&&)
+        case OID_INET_SUBEQ_OP:    return  1;  // Subnet-or-equal (<<=)
+        case OID_INET_SUB_OP:      return  2;  // Subnet (<<)
+        default:
+            elog(ERROR, "unrecognized operator %u for inet selectivity", operator);
+    }
+    return 0;  // Unreachable
+}
+```

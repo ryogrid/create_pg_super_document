@@ -54,3 +54,126 @@ The function works by processing a pattern string where '1' characters represent
 - Uses pattern-based testing to create predictable but diverse data distributions
 - Located in: src/test/modules/test_integerset/test_integerset.c:135-320
 - Essential component of PostgreSQL's IntegerSet validation suite
+
+## Simplified Source
+
+```c
+static void test_pattern(const test_spec *spec) {
+    IntegerSet *intset;
+    MemoryContext intset_ctx;
+    MemoryContext old_ctx;
+    TimestampTz starttime, endtime;
+    uint64 n, last_int;
+    int patternlen;
+    uint64 *pattern_values;
+    uint64 pattern_num_values;
+
+    elog(NOTICE, "testing intset with pattern \"%s\"", spec->test_name);
+
+    // Pre-process the pattern string into an array of positions
+    patternlen = strlen(spec->pattern_str);
+    pattern_values = palloc(patternlen * sizeof(uint64));
+    pattern_num_values = 0;
+    for (int i = 0; i < patternlen; i++) {
+        if (spec->pattern_str[i] == '1')
+            pattern_values[pattern_num_values++] = i;
+    }
+
+    // Create IntegerSet in separate memory context for tracking
+    intset_ctx = AllocSetContextCreate(CurrentMemoryContext,
+                                      "intset test", ALLOCSET_SMALL_SIZES);
+    MemoryContextSetIdentifier(intset_ctx, spec->test_name);
+    old_ctx = MemoryContextSwitchTo(intset_ctx);
+    intset = intset_create();
+    MemoryContextSwitchTo(old_ctx);
+
+    // Add values to the set following the pattern
+    starttime = GetCurrentTimestamp();
+    n = 0;
+    last_int = 0;
+    while (n < spec->num_values) {
+        for (int i = 0; i < pattern_num_values && n < spec->num_values; i++) {
+            uint64 x = last_int + pattern_values[i];
+            intset_add_member(intset, x);
+            n++;
+        }
+        last_int += spec->spacing;
+    }
+    endtime = GetCurrentTimestamp();
+
+    if (intset_test_stats) {
+        fprintf(stderr, "added " UINT64_FORMAT " values in %d ms\n",
+                spec->num_values, (int) (endtime - starttime) / 1000);
+
+        // Print memory usage stats
+        uint64 mem_usage = intset_memory_usage(intset);
+        fprintf(stderr, "intset_memory_usage() reported " UINT64_FORMAT
+                " (%0.2f bytes / integer)\n",
+                mem_usage, (double) mem_usage / spec->num_values);
+        MemoryContextStats(intset_ctx);
+    }
+
+    // Verify count matches expected
+    n = intset_num_entries(intset);
+    if (n != spec->num_values)
+        elog(ERROR, "intset_num_entries returned " UINT64_FORMAT
+             ", expected " UINT64_FORMAT, n, spec->num_values);
+
+    // Test random membership probes
+    starttime = GetCurrentTimestamp();
+    for (n = 0; n < 100000; n++) {
+        uint64 x = pg_prng_uint64_range(&pg_global_prng_state, 0, last_int + 1000);
+
+        // Calculate expected result based on pattern
+        bool expected;
+        if (x >= last_int) {
+            expected = false;
+        } else {
+            uint64 idx = x % spec->spacing;
+            expected = (idx < patternlen && spec->pattern_str[idx] == '1');
+        }
+
+        bool actual = intset_is_member(intset, x);
+        if (actual != expected)
+            elog(ERROR, "mismatch at " UINT64_FORMAT ": %d vs %d", x, actual, expected);
+    }
+    endtime = GetCurrentTimestamp();
+
+    if (intset_test_stats)
+        fprintf(stderr, "probed " UINT64_FORMAT " values in %d ms\n",
+                n, (int) (endtime - starttime) / 1000);
+
+    // Test iteration through all values
+    starttime = GetCurrentTimestamp();
+    intset_begin_iterate(intset);
+    n = 0;
+    last_int = 0;
+    while (n < spec->num_values) {
+        for (int i = 0; i < pattern_num_values && n < spec->num_values; i++) {
+            uint64 expected = last_int + pattern_values[i];
+            uint64 x;
+
+            if (!intset_iterate_next(intset, &x))
+                break;
+
+            if (x != expected)
+                elog(ERROR, "iterate returned wrong value; got " UINT64_FORMAT
+                     ", expected " UINT64_FORMAT, x, expected);
+            n++;
+        }
+        last_int += spec->spacing;
+    }
+    endtime = GetCurrentTimestamp();
+
+    if (intset_test_stats)
+        fprintf(stderr, "iterated " UINT64_FORMAT " values in %d ms\n",
+                n, (int) (endtime - starttime) / 1000);
+
+    // Verify iteration completeness
+    if (n != spec->num_values)
+        elog(ERROR, "iterator returned " UINT64_FORMAT " entries, "
+             UINT64_FORMAT " was expected", n, spec->num_values);
+
+    MemoryContextDelete(intset_ctx);
+}
+```

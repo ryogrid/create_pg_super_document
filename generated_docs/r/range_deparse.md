@@ -41,3 +41,36 @@ The function returns a palloc'd string that represents the range in standard Pos
 - Handles all range types including empty ranges, unbounded ranges, and fully bounded ranges
 - The result string follows PostgreSQL's standard range notation with '[' and ']' for inclusive bounds, '(' and ')' for exclusive bounds
 - Caller is responsible for managing the memory of the returned palloc'd string
+
+## Simplified Source
+
+```c
+static char *range_deparse(char flags, const char *lbound_str, const char *ubound_str) {
+    StringInfoData buf;
+
+    // Handle empty range
+    if (flags & RANGE_EMPTY)
+        return pstrdup(RANGE_EMPTY_LITERAL);
+
+    initStringInfo(&buf);
+
+    // Opening bracket: '[' for inclusive, '(' for exclusive
+    appendStringInfoChar(&buf, (flags & RANGE_LB_INC) ? '[' : '(');
+
+    // Lower bound (if present)
+    if (RANGE_HAS_LBOUND(flags))
+        appendStringInfoString(&buf, range_bound_escape(lbound_str));
+
+    // Comma separator
+    appendStringInfoChar(&buf, ',');
+
+    // Upper bound (if present)
+    if (RANGE_HAS_UBOUND(flags))
+        appendStringInfoString(&buf, range_bound_escape(ubound_str));
+
+    // Closing bracket: ']' for inclusive, ')' for exclusive
+    appendStringInfoChar(&buf, (flags & RANGE_UB_INC) ? ']' : ')');
+
+    return buf.data;
+}
+```

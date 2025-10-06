@@ -56,3 +56,103 @@ The function automatically determines appropriate scales for intermediate comput
 - Automatically determines result display scale rather than taking it as a parameter
 - Implements SQL standard error codes for invalid operations
 - Located at src/backend/utils/adt/numeric.c:10947-11108
+
+## Simplified Source
+
+```c
+static void
+power_var(const NumericVar *base, const NumericVar *exp, NumericVar *result)
+{
+    NumericVar abs_base, ln_base, ln_num;
+
+    // Optimization: use integer algorithm if exponent is a small integer
+    if (exp->ndigits == 0 || exp->ndigits <= exp->weight + 1) {
+        int64 expval64;
+        if (numericvar_to_int64(exp, &expval64) &&
+            expval64 >= PG_INT32_MIN && expval64 <= PG_INT32_MAX) {
+            power_var_int(base, (int) expval64, exp->dscale, result);
+            return;
+        }
+    }
+
+    // Handle 0^non-integer (0^0 is handled by power_var_int)
+    if (cmp_var(base, &const_zero) == 0) {
+        set_var_from_var(&const_zero, result);
+        result->dscale = NUMERIC_MIN_SIG_DIGITS;
+        return;
+    }
+
+    init_var(&abs_base);
+    init_var(&ln_base);
+    init_var(&ln_num);
+
+    int res_sign = NUMERIC_POS;
+
+    // Handle negative base: requires integer exponent
+    if (base->sign == NUMERIC_NEG) {
+        // Verify exp is an integer
+        if (exp->ndigits > 0 && exp->ndigits > exp->weight + 1)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_ARGUMENT_FOR_POWER_FUNCTION),
+                           errmsg("a negative number raised to a non-integer power yields a complex result")));
+
+        // Determine result sign: negative if exp is odd
+        if (exp->ndigits > 0 && exp->ndigits == exp->weight + 1 &&
+            (exp->digits[exp->ndigits - 1] & 1))
+            res_sign = NUMERIC_NEG;
+
+        // Work with absolute value of base
+        set_var_from_var(base, &abs_base);
+        abs_base.sign = NUMERIC_POS;
+        base = &abs_base;
+    }
+
+    // Estimate result weight for precision planning and overflow detection
+    int ln_dweight = estimate_ln_dweight(base);
+
+    // Compute low-precision ln(base) for overflow check
+    int local_rscale = 8 - ln_dweight;
+    local_rscale = Max(local_rscale, NUMERIC_MIN_DISPLAY_SCALE);
+
+    ln_var(base, &ln_base, local_rscale);
+    mul_var(&ln_base, exp, &ln_num, local_rscale);
+
+    // Quick overflow/underflow test using double approximation
+    double val = numericvar_to_double_no_overflow(&ln_num);
+    if (fabs(val) > NUMERIC_MAX_RESULT_SCALE * 3.01) {
+        if (val > 0)
+            ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                           errmsg("value overflows numeric format")));
+        zero_var(result);
+        result->dscale = NUMERIC_MAX_DISPLAY_SCALE;
+        return;
+    }
+
+    // Calculate appropriate result scale
+    val *= 0.434294481903252; // Convert to approximate decimal weight
+    int rscale = NUMERIC_MIN_SIG_DIGITS - (int) val;
+    rscale = Max(rscale, base->dscale);
+    rscale = Max(rscale, exp->dscale);
+    rscale = Max(rscale, NUMERIC_MIN_DISPLAY_SCALE);
+    rscale = Min(rscale, NUMERIC_MAX_DISPLAY_SCALE);
+
+    // Calculate precision needed for accurate computation
+    int sig_digits = rscale + (int) val;
+    sig_digits = Max(sig_digits, 0);
+
+    local_rscale = sig_digits - ln_dweight + 8;
+    local_rscale = Max(local_rscale, NUMERIC_MIN_DISPLAY_SCALE);
+
+    // Compute result = e^(exp * ln(base)) using full precision
+    ln_var(base, &ln_base, local_rscale);
+    mul_var(&ln_base, exp, &ln_num, local_rscale);
+    exp_var(&ln_num, result, rscale);
+
+    // Apply sign for negative base with odd exponent
+    if (res_sign == NUMERIC_NEG && result->ndigits > 0)
+        result->sign = NUMERIC_NEG;
+
+    free_var(&ln_num);
+    free_var(&ln_base);
+    free_var(&abs_base);
+}
+```

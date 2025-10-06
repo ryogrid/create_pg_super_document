@@ -36,3 +36,22 @@ The implementation uses DirectFunctionCall2 to invoke the numeric_sub function f
 - The final conversion to float8 provides consistency with other range subdiff functions
 - Located in src/backend/utils/adt/rangetypes.c:1639-1654
 - More complex than integer subdiff functions due to the need for precise decimal arithmetic
+
+## Simplified Source
+
+```c
+Datum
+numrange_subdiff(PG_FUNCTION_ARGS)
+{
+    Datum v1 = PG_GETARG_DATUM(0);
+    Datum v2 = PG_GETARG_DATUM(1);
+
+    // Subtract v2 from v1 using precise numeric arithmetic
+    Datum numresult = DirectFunctionCall2(numeric_sub, v1, v2);
+
+    // Convert numeric result to float8
+    float8 floatresult = DatumGetFloat8(DirectFunctionCall1(numeric_float8, numresult));
+
+    PG_RETURN_FLOAT8(floatresult);
+}
+```

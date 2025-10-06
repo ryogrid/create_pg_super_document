@@ -34,3 +34,15 @@ This function is a PostgreSQL SQL-callable function that converts a numeric data
 - Commonly used in SQL casts like `CAST(numeric_value AS bigint)` or `numeric_value::bigint`
 - Will throw errors for NaN, infinity, or values outside the int64 range (-2^63 to 2^63-1)
 - Used internally by other PostgreSQL modules for converting numeric values to integers
+
+## Simplified Source
+
+```c
+Datum numeric_int8(PG_FUNCTION_ARGS) {
+    // Extract the Numeric value from function arguments
+    Numeric num = PG_GETARG_NUMERIC(0);
+
+    // Convert to int8 using core conversion function (throws errors on failure)
+    return PG_RETURN_INT64(numeric_int8_opt_error(num, NULL));
+}
+```

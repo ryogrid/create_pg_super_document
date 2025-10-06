@@ -39,3 +39,27 @@ This function retrieves the upper bound value of a multirange type. It first che
 - Since multiranges maintain ranges in sorted, non-overlapping order, the upper bound of the last range represents the overall upper bound of the entire multirange
 - Complementary to multirange_lower function, providing access to the opposite boundary
 - The return type is Datum, allowing for any PostgreSQL data type that can serve as a range element
+
+## Simplified Source
+
+```c
+Datum multirange_upper(PG_FUNCTION_ARGS) {
+    MultirangeType *mr = PG_GETARG_MULTIRANGE_P(0);
+    TypeCacheEntry *typcache;
+    RangeBound lower, upper;
+
+    // Return NULL for empty multiranges
+    if (MultirangeIsEmpty(mr))
+        PG_RETURN_NULL();
+
+    // Get type cache and extract bounds of last range
+    typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(mr));
+    multirange_get_bounds(typcache->rngtype, mr, mr->rangeCount - 1, &lower, &upper);
+
+    // Return upper bound value if finite, NULL if infinite
+    if (!upper.infinite)
+        PG_RETURN_DATUM(upper.val);
+    else
+        PG_RETURN_NULL();
+}
+```

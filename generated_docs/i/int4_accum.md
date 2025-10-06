@@ -37,3 +37,31 @@ The function handles NULL values appropriately by skipping them during accumulat
 - This is part of PostgreSQL's polymorphic numeric aggregate system that can handle different input types efficiently
 - The function follows PostgreSQL's V1 calling convention using PG_FUNCTION_ARGS macro
 - State is maintained across multiple calls during aggregate processing and is automatically managed by the PostgreSQL aggregate framework
+
+## Simplified Source
+
+```c
+Datum int4_accum(PG_FUNCTION_ARGS) {
+    PolyNumAggState *state;
+
+    // Get existing state or NULL for first call
+    state = PG_ARGISNULL(0) ? NULL : (PolyNumAggState *) PG_GETARG_POINTER(0);
+
+    // Create state on first call
+    if (state == NULL)
+        state = makePolyNumAggState(fcinfo, true);
+
+    // Accumulate non-NULL values
+    if (!PG_ARGISNULL(1)) {
+#ifdef HAVE_INT128
+        // Use 128-bit integer arithmetic for efficiency
+        do_int128_accum(state, (int128) PG_GETARG_INT32(1));
+#else
+        // Fall back to numeric arithmetic
+        do_numeric_accum(state, int64_to_numeric(PG_GETARG_INT32(1)));
+#endif
+    }
+
+    PG_RETURN_POINTER(state);
+}
+```

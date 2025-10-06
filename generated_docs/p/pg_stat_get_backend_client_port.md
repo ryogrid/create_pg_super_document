@@ -46,3 +46,54 @@ The function returns NULL if the backend doesn't exist, the user lacks permissio
 - Used by system views like pg_stat_activity to display client connection information
 - Access is subject to PostgreSQL's statistics permissions model
 - Complements pg_stat_get_backend_client_addr for complete client connection information
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_get_backend_client_port(PG_FUNCTION_ARGS)
+{
+    int32 procNumber = PG_GETARG_INT32(0);
+    PgBackendStatus *beentry;
+    SockAddr zero_clientaddr;
+    char remote_port[NI_MAXSERV];
+    int ret;
+
+    // Get backend entry for the process number
+    if ((beentry = pgstat_get_beentry_by_proc_number(procNumber)) == NULL)
+        PG_RETURN_NULL();
+
+    // Check permissions to access statistics
+    if (!HAS_PGSTAT_PERMISSIONS(beentry->st_userid))
+        PG_RETURN_NULL();
+
+    // Check if client address is available (not zero)
+    memset(&zero_clientaddr, 0, sizeof(zero_clientaddr));
+    if (memcmp(&(beentry->st_clientaddr), &zero_clientaddr, sizeof(zero_clientaddr)) == 0)
+        PG_RETURN_NULL();
+
+    // Handle different address families
+    switch (beentry->st_clientaddr.addr.ss_family) {
+        case AF_INET:
+        case AF_INET6:
+            break;
+        case AF_UNIX:
+            PG_RETURN_INT32(-1);  // Unix sockets don't have ports
+        default:
+            PG_RETURN_NULL();
+    }
+
+    // Extract port number from socket address
+    remote_port[0] = '\0';
+    ret = pg_getnameinfo_all(&beentry->st_clientaddr.addr,
+                            beentry->st_clientaddr.salen,
+                            NULL, 0,
+                            remote_port, sizeof(remote_port),
+                            NI_NUMERICHOST | NI_NUMERICSERV);
+    if (ret != 0)
+        PG_RETURN_NULL();
+
+    // Convert port string to integer and return
+    PG_RETURN_DATUM(DirectFunctionCall1(int4in, CStringGetDatum(remote_port)));
+}
+```

@@ -48,3 +48,50 @@ Input validation ensures that the start position is positive and the occurrence 
 - Uses 1-based indexing for the start parameter (converted internally to 0-based)
 - Provides comprehensive error checking for parameter validity
 - Part of PostgreSQL's regular expression functionality in the regexp.c module
+
+## Simplified Source
+
+```c
+Datum
+textregexreplace_extended(PG_FUNCTION_ARGS)
+{
+    // Extract input parameters
+    text *source_text = PG_GETARG_TEXT_PP(0);
+    text *pattern = PG_GETARG_TEXT_PP(1);
+    text *replacement = PG_GETARG_TEXT_PP(2);
+    int start = 1;  // Default start position
+    int occurrence_count = 1;  // Default occurrence to replace
+    text *flags = PG_GETARG_TEXT_PP_IF_EXISTS(5);
+    pg_re_flags regex_flags;
+
+    // Handle optional start parameter
+    if (PG_NARGS() > 3) {
+        start = PG_GETARG_INT32(3);
+        if (start <= 0) {
+            ereport(ERROR, "start position must be positive");
+        }
+    }
+
+    // Handle optional occurrence count parameter
+    if (PG_NARGS() > 4) {
+        occurrence_count = PG_GETARG_INT32(4);
+        if (occurrence_count < 0) {
+            ereport(ERROR, "occurrence count must be non-negative");
+        }
+    }
+
+    // Parse regex flags from flags string
+    parse_re_flags(&regex_flags, flags);
+
+    // If occurrence count not specified, determine from 'g' flag
+    if (PG_NARGS() <= 4) {
+        occurrence_count = regex_flags.glob ? 0 : 1;  // 0 = all, 1 = first
+    }
+
+    // Perform the replacement operation
+    // Convert 1-based start position to 0-based for internal use
+    PG_RETURN_TEXT_P(replace_text_regexp(source_text, pattern, replacement,
+                                       regex_flags.cflags, PG_GET_COLLATION(),
+                                       start - 1, occurrence_count));
+}
+```

@@ -46,3 +46,24 @@ The function delegates the actual numeric accumulation work to do_numeric_accum,
 - Follows PostgreSQL's memory management conventions for aggregate functions
 - The function is registered in PostgreSQL's system catalog and called automatically during aggregate operations
 - NULL input values are properly skipped without affecting the aggregate state
+
+## Simplified Source
+
+```c
+Datum numeric_accum(PG_FUNCTION_ARGS) {
+    NumericAggState *state;
+
+    // Get existing state or start with NULL on first call
+    state = PG_ARGISNULL(0) ? NULL : (NumericAggState *) PG_GETARG_POINTER(0);
+
+    // Initialize state on first call (calcSumX2=true for variance/stddev)
+    if (state == NULL)
+        state = makeNumericAggState(fcinfo, true);
+
+    // Accumulate the new value if it's not NULL
+    if (!PG_ARGISNULL(1))
+        do_numeric_accum(state, PG_GETARG_NUMERIC(1));
+
+    return PG_RETURN_POINTER(state);
+}
+```

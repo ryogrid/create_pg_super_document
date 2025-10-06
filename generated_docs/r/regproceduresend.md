@@ -34,3 +34,12 @@ The function is part of PostgreSQL's type system infrastructure and is automatic
 - The binary format is more compact and faster to process than text format, making it important for performance in high-throughput scenarios
 - Used automatically by PostgreSQL when clients use the binary protocol for result retrieval
 - Works in conjunction with regprocedurerecv to provide complete binary I/O support for the regprocedure type
+
+## Simplified Source
+
+```c
+Datum regproceduresend(PG_FUNCTION_ARGS) {
+    // Delegate to oidsend since regprocedure has same binary format as OID
+    return oidsend(fcinfo);
+}
+```

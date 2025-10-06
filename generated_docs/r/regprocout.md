@@ -43,3 +43,55 @@ The function's key feature is its schema qualification logic - it only includes 
 - Fallback handling: Returns numeric OID string for non-existent procedures rather than throwing errors
 - Memory management: Uses pstrdup and palloc for result string allocation
 - Cache usage: Leverages PostgreSQL's system cache for efficient pg_proc lookups
+
+## Simplified Source
+
+```c
+Datum
+regprocout(PG_FUNCTION_ARGS)
+{
+    RegProcedure proid = PG_GETARG_OID(0);
+    char *result;
+    HeapTuple proctup;
+
+    // Handle invalid OID
+    if (proid == InvalidOid) {
+        result = pstrdup("-");
+        PG_RETURN_CSTRING(result);
+    }
+
+    // Look up procedure in system cache
+    proctup = SearchSysCache1(PROCOID, ObjectIdGetDatum(proid));
+
+    if (HeapTupleIsValid(proctup)) {
+        Form_pg_proc procform = (Form_pg_proc) GETSTRUCT(proctup);
+        char *proname = NameStr(procform->proname);
+
+        // Bootstrap mode: return simple name
+        if (IsBootstrapProcessingMode()) {
+            result = pstrdup(proname);
+        } else {
+            char *nspname;
+            FuncCandidateList clist;
+
+            // Check if unqualified name would resolve uniquely
+            clist = FuncnameGetCandidates(list_make1(makeString(proname)),
+                                          -1, NIL, false, false, false, false);
+            if (clist != NULL && clist->next == NULL && clist->oid == proid)
+                nspname = NULL;  // Unqualified name is unique
+            else
+                nspname = get_namespace_name(procform->pronamespace);
+
+            result = quote_qualified_identifier(nspname, proname);
+        }
+
+        ReleaseSysCache(proctup);
+    } else {
+        // Return numeric OID if procedure not found
+        result = (char *) palloc(NAMEDATALEN);
+        snprintf(result, NAMEDATALEN, "%u", proid);
+    }
+
+    PG_RETURN_CSTRING(result);
+}
+```

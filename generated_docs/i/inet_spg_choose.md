@@ -56,3 +56,61 @@ The function uses bit-level comparison to determine common prefixes and employs 
 - The function ensures that addresses from different families never coexist under the same inner node
 - Supports the allTheSame optimization where all values in a subtree are identical
 - [Node](../N/Node.md) numbering follows a specific pattern based on address bits for consistent tree structure
+
+## Simplified Source
+
+```c
+Datum
+inet_spg_choose(PG_FUNCTION_ARGS)
+{
+    spgChooseIn *in = (spgChooseIn *) PG_GETARG_POINTER(0);
+    spgChooseOut *out = (spgChooseOut *) PG_GETARG_POINTER(1);
+    inet *val = DatumGetInetPP(in->datum);
+
+    // Handle address family splits (IPv4 vs IPv6)
+    if (!in->hasPrefix) {
+        out->resultType = spgMatchNode;
+        out->result.matchNode.nodeN = (ip_family(val) == PGSQL_AF_INET) ? 0 : 1;
+        out->result.matchNode.restDatum = InetPGetDatum(val);
+        PG_RETURN_VOID();
+    }
+
+    // Handle prefix-based navigation/splitting
+    inet *prefix = DatumGetInetPP(in->prefixDatum);
+    int commonbits = ip_bits(prefix);
+
+    // Different family - create 2-node family split
+    if (ip_family(val) != ip_family(prefix)) {
+        out->resultType = spgSplitTuple;
+        out->result.splitTuple.prefixHasPrefix = false;
+        out->result.splitTuple.prefixNNodes = 2;
+        out->result.splitTuple.childNodeN = (ip_family(prefix) == PGSQL_AF_INET) ? 0 : 1;
+        out->result.splitTuple.postfixHasPrefix = true;
+        out->result.splitTuple.postfixPrefixDatum = InetPGetDatum(prefix);
+        PG_RETURN_VOID();
+    }
+
+    // Check if prefix split needed
+    if (ip_bits(val) < commonbits ||
+        bitncmp(ip_addr(prefix), ip_addr(val), commonbits) != 0) {
+        // Create 4-node prefix split
+        commonbits = bitncommon(ip_addr(prefix), ip_addr(val),
+                                Min(ip_bits(val), commonbits));
+        out->resultType = spgSplitTuple;
+        out->result.splitTuple.prefixHasPrefix = true;
+        out->result.splitTuple.prefixPrefixDatum =
+            InetPGetDatum(cidr_set_masklen_internal(val, commonbits));
+        out->result.splitTuple.prefixNNodes = 4;
+        out->result.splitTuple.childNodeN = inet_spg_node_number(prefix, commonbits);
+        out->result.splitTuple.postfixHasPrefix = true;
+        out->result.splitTuple.postfixPrefixDatum = InetPGetDatum(prefix);
+        PG_RETURN_VOID();
+    }
+
+    // Navigate to appropriate child node
+    out->resultType = spgMatchNode;
+    out->result.matchNode.nodeN = inet_spg_node_number(val, commonbits);
+    out->result.matchNode.restDatum = InetPGetDatum(val);
+    PG_RETURN_VOID();
+}
+```

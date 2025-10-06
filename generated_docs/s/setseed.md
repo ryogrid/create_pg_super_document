@@ -35,3 +35,26 @@ The function validates that the input seed falls within the acceptable range of 
 - Error handling uses PostgreSQL's standard error reporting mechanism with ERRCODE_INVALID_PARAMETER_VALUE
 - Can be called directly from SQL as `SELECT setseed(0.5);`
 - Used internally by the random_seed GUC (Grand Unified Configuration) parameter system
+
+## Simplified Source
+
+```c
+Datum
+setseed(PG_FUNCTION_ARGS)
+{
+    float8 seed = PG_GETARG_FLOAT8(0);
+
+    // Validate seed is in range [-1, 1] and not NaN
+    if (seed < -1 || seed > 1 || isnan(seed)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("setseed parameter %g is out of allowed range [-1,1]", seed)));
+    }
+
+    // Seed the PRNG and mark as seeded
+    pg_prng_fseed(&prng_state, seed);
+    prng_seed_set = true;
+
+    PG_RETURN_VOID();
+}
+```

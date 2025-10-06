@@ -31,5 +31,21 @@ The  function is a PostgreSQL built-in function that takes a text input and retu
 ## Notes and Other Information
 - This function is exposed as a SQL function that can be called directly from SQL queries
 - The actual quoting logic is handled by the  function
-- Part of PostgreSQL's quote utility functions located in 
+- Part of PostgreSQL's quote utility functions located in
 - Essential for SQL injection prevention when dynamically constructing queries with user-provided identifier names
+
+## Simplified Source
+
+```c
+Datum
+quote_ident(PG_FUNCTION_ARGS)
+{
+    text *input = PG_GETARG_TEXT_PP(0);
+    char *str = text_to_cstring(input);
+
+    // Quote the identifier if needed (keywords, special chars, etc.)
+    const char *quoted_str = quote_identifier(str);
+
+    PG_RETURN_TEXT_P(cstring_to_text(quoted_str));
+}
+```

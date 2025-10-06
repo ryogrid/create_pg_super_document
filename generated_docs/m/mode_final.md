@@ -41,3 +41,67 @@ The algorithm maintains state for both the current mode candidate and the last p
 - Returns NULL if no non-null values were found in the input dataset
 - Uses `CHECK_FOR_INTERRUPTS()` to allow query cancellation during long operations
 - The algorithm is optimized to work with the sorted input from the ordered-set aggregate framework
+
+## Simplified Source
+```c
+Datum mode_final(PG_FUNCTION_ARGS) {
+    OSAPerGroupState *osastate;
+    Datum val, mode_val = 0, last_val = 0;
+    int64 mode_freq = 0, last_val_freq = 0;
+    bool isnull, last_val_is_mode = false;
+    FmgrInfo *equalfn;
+
+    // Return NULL if no input data
+    if (PG_ARGISNULL(0))
+        PG_RETURN_NULL();
+
+    osastate = (OSAPerGroupState *) PG_GETARG_POINTER(0);
+
+    if (osastate->number_of_rows == 0)
+        PG_RETURN_NULL();
+
+    // Set up equality function for value comparison
+    equalfn = &(osastate->qstate->equalfn);
+    if (!OidIsValid(equalfn->fn_oid))
+        fmgr_info_cxt(get_opcode(osastate->qstate->eqOperator), equalfn,
+                      osastate->qstate->qcontext);
+
+    // Complete sorting if not done, or rescan if already sorted
+    if (!osastate->sort_done) {
+        tuplesort_performsort(osastate->sortstate);
+        osastate->sort_done = true;
+    } else {
+        tuplesort_rescan(osastate->sortstate);
+    }
+
+    // Scan sorted values and count frequencies
+    while (tuplesort_getdatum(osastate->sortstate, true, true, &val, &isnull, NULL)) {
+        if (isnull) continue;  // Skip null values
+
+        if (last_val_freq == 0) {
+            // First value becomes initial mode candidate
+            mode_val = last_val = val;
+            mode_freq = last_val_freq = 1;
+            last_val_is_mode = true;
+        } else if (DatumGetBool(FunctionCall2Coll(equalfn, PG_GET_COLLATION(), val, last_val))) {
+            // Same as previous value - increment count
+            if (last_val_is_mode) {
+                mode_freq++;
+            } else if (++last_val_freq > mode_freq) {
+                // This value becomes new mode
+                mode_val = last_val;
+                mode_freq = last_val_freq;
+                last_val_is_mode = true;
+            }
+        } else {
+            // New distinct value
+            last_val = val;
+            last_val_freq = 1;
+            last_val_is_mode = false;
+        }
+    }
+
+    // Return the mode value or NULL if no values found
+    return mode_freq ? mode_val : (Datum) 0;
+}
+```

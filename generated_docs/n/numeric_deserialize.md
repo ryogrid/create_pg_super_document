@@ -45,3 +45,48 @@ The reconstructed state is allocated in the current memory context and can be us
 - Uses read-only StringInfo for efficient binary data parsing
 - Includes comprehensive validation and proper memory context management
 - Enables distributed computation of sophisticated statistical functions
+
+## Simplified Source
+
+```c
+Datum numeric_deserialize(PG_FUNCTION_ARGS) {
+    bytea *sstate;
+    NumericAggState *result;
+    StringInfoData buf;
+    NumericVar tmp_var;
+
+    // Validate aggregate context
+    if (!AggCheckCallContext(fcinfo, NULL))
+        elog(ERROR, "aggregate function called in non-aggregate context");
+
+    sstate = PG_GETARG_BYTEA_PP(0);
+    init_var(&tmp_var);
+
+    // Setup buffer for reading binary data
+    initReadOnlyStringInfo(&buf, VARDATA_ANY(sstate), VARSIZE_ANY_EXHDR(sstate));
+
+    // Create new aggregate state
+    result = makeNumericAggStateCurrentContext(false);
+
+    // Deserialize all state components including sumX2
+    result->N = pq_getmsgint64(&buf);                // Count of values
+
+    numericvar_deserialize(&buf, &tmp_var);          // Sum of values
+    accum_sum_add(&(result->sumX), &tmp_var);
+
+    numericvar_deserialize(&buf, &tmp_var);          // Sum of squares
+    accum_sum_add(&(result->sumX2), &tmp_var);
+
+    result->maxScale = pq_getmsgint(&buf, 4);        // Scale info
+    result->maxScaleCount = pq_getmsgint64(&buf);
+    result->NaNcount = pq_getmsgint64(&buf);         // Special value counts
+    result->pInfcount = pq_getmsgint64(&buf);
+    result->nInfcount = pq_getmsgint64(&buf);
+
+    // Validate message end and cleanup
+    pq_getmsgend(&buf);
+    free_var(&tmp_var);
+
+    PG_RETURN_POINTER(result);
+}
+```

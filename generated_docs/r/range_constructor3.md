@@ -39,3 +39,43 @@ The `range_constructor3` function constructs a PostgreSQL range type from three 
 - This is the most flexible range constructor, allowing all four possible boundary combinations: (), (], [), []
 - NULL lower/upper bounds are still interpreted as infinite bounds
 - The function provides complete control over range boundary semantics
+
+## Simplified Source
+
+```c
+Datum range_constructor3(PG_FUNCTION_ARGS) {
+    Datum arg1 = PG_GETARG_DATUM(0);
+    Datum arg2 = PG_GETARG_DATUM(1);
+    Oid rngtypid = get_fn_expr_rettype(fcinfo->flinfo);
+    TypeCacheEntry *typcache;
+    RangeBound lower, upper;
+    char flags;
+
+    // Get type cache for this range type
+    typcache = range_get_typcache(fcinfo, rngtypid);
+
+    // Validate flags argument is not null
+    if (PG_ARGISNULL(2))
+        ereport(ERROR, (errcode(ERRCODE_DATA_EXCEPTION),
+                       errmsg("range constructor flags argument must not be null")));
+
+    // Parse boundary flags
+    flags = range_parse_flags(text_to_cstring(PG_GETARG_TEXT_PP(2)));
+
+    // Set up lower bound
+    lower.val = PG_ARGISNULL(0) ? (Datum) 0 : arg1;
+    lower.infinite = PG_ARGISNULL(0);
+    lower.inclusive = (flags & RANGE_LB_INC) != 0;
+    lower.lower = true;
+
+    // Set up upper bound
+    upper.val = PG_ARGISNULL(1) ? (Datum) 0 : arg2;
+    upper.infinite = PG_ARGISNULL(1);
+    upper.inclusive = (flags & RANGE_UB_INC) != 0;
+    upper.lower = false;
+
+    // Create and return the range
+    RangeType *range = make_range(typcache, &lower, &upper, false, NULL);
+    PG_RETURN_RANGE_P(range);
+}
+```

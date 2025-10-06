@@ -40,3 +40,25 @@ This function is commonly used by database monitoring tools and system views to 
 - No special permissions are required to call this function
 - Returns 0 if no backends are connected to the specified database
 - The function iterates through all backends, so performance scales with total number of connections
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_get_db_numbackends(PG_FUNCTION_ARGS)
+{
+    Oid dbid = PG_GETARG_OID(0);
+    int32 result = 0;
+    int tot_backends = pgstat_fetch_stat_numbackends();
+
+    // Count backends connected to the specified database
+    for (int idx = 1; idx <= tot_backends; idx++) {
+        LocalPgBackendStatus *local_beentry = pgstat_get_local_beentry_by_index(idx);
+
+        if (local_beentry->backendStatus.st_databaseid == dbid)
+            result++;
+    }
+
+    PG_RETURN_INT32(result);
+}
+```

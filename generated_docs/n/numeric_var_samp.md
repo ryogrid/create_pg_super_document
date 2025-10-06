@@ -36,3 +36,24 @@ The function performs the following operations:
 - Implemented as a thin wrapper around the more general numeric_stddev_internal function
 - Corresponds to the SQL VAR_SAMP() aggregate function for numeric types
 - The result has appropriate precision maintained through the underlying numeric system
+
+## Simplified Source
+
+```c
+Datum numeric_var_samp(PG_FUNCTION_ARGS) {
+    NumericAggState *state;
+    Numeric result;
+    bool is_null;
+
+    // Extract aggregate state from function arguments
+    state = PG_ARGISNULL(0) ? NULL : (NumericAggState *) PG_GETARG_POINTER(0);
+
+    // Calculate sample variance (variance=true, sample=true)
+    result = numeric_stddev_internal(state, true, true, &is_null);
+
+    if (is_null)
+        PG_RETURN_NULL();
+    else
+        PG_RETURN_NUMERIC(result);
+}
+```

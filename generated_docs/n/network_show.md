@@ -39,3 +39,31 @@ The network_show function converts inet or cidr values to their text representat
 - Uses pg_inet_net_ntop with maximum bits, then adds the actual netmask if not present
 - Cannot be replaced with CoerceViaIO due to its specialized casting behavior
 - Uses a temporary buffer sized to handle the longest possible IPv6 address with netmask representation
+
+## Simplified Source
+
+```c
+Datum
+network_show(PG_FUNCTION_ARGS)
+{
+    inet       *ip = PG_GETARG_INET_PP(0);
+    int         len;
+    char        tmp[sizeof("xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:255.255.255.255/128")];
+
+    // Format the network address with maximum precision
+    if (pg_inet_net_ntop(ip_family(ip), ip_addr(ip), ip_maxbits(ip),
+                         tmp, sizeof(tmp)) == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_BINARY_REPRESENTATION),
+                 errmsg("could not format inet value: %m")));
+
+    // Add netmask if not present (which it won't be)
+    if (strchr(tmp, '/') == NULL)
+    {
+        len = strlen(tmp);
+        snprintf(tmp + len, sizeof(tmp) - len, "/%u", ip_bits(ip));
+    }
+
+    PG_RETURN_TEXT_P(cstring_to_text(tmp));
+}
+```

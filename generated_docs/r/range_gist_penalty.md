@@ -55,3 +55,77 @@ The penalty calculation varies based on the types of ranges being considered:
 - The penalty values only need to be meaningful within the same class of new ranges being inserted
 - Critical for maintaining good index performance by ensuring similar ranges are clustered together
 - Located in src/backend/utils/adt/rangetypes_gist.c:362-618
+
+## Simplified Source
+
+```c
+Datum
+range_gist_penalty(PG_FUNCTION_ARGS)
+{
+	GISTENTRY  *origentry = (GISTENTRY *) PG_GETARG_POINTER(0);
+	GISTENTRY  *newentry = (GISTENTRY *) PG_GETARG_POINTER(1);
+	float	   *penalty = (float *) PG_GETARG_POINTER(2);
+	RangeType  *orig = DatumGetRangeTypeP(origentry->key);
+	RangeType  *new = DatumGetRangeTypeP(newentry->key);
+	TypeCacheEntry *typcache;
+	bool		has_subtype_diff;
+	RangeBound	orig_lower, new_lower, orig_upper, new_upper;
+	bool		orig_empty, new_empty;
+
+	typcache = range_get_typcache(fcinfo, RangeTypeGetOid(orig));
+	has_subtype_diff = OidIsValid(typcache->rng_subdiff_finfo.fn_oid);
+
+	// Extract bounds from both ranges
+	range_deserialize(typcache, orig, &orig_lower, &orig_upper, &orig_empty);
+	range_deserialize(typcache, new, &new_lower, &new_upper, &new_empty);
+
+	// Handle empty range insertion
+	if (new_empty) {
+		if (orig_empty)
+			*penalty = 0.0;  // Best case: empty to empty
+		else if (RangeIsOrContainsEmpty(orig))
+			*penalty = CONTAIN_EMPTY_PENALTY;
+		else if (orig_lower.infinite && orig_upper.infinite)
+			*penalty = 2 * CONTAIN_EMPTY_PENALTY;
+		else if (orig_lower.infinite || orig_upper.infinite)
+			*penalty = 3 * CONTAIN_EMPTY_PENALTY;
+		else
+			*penalty = 4 * CONTAIN_EMPTY_PENALTY;  // Worst case
+	}
+	// Handle infinite range insertion
+	else if (new_lower.infinite && new_upper.infinite) {
+		if (orig_lower.infinite && orig_upper.infinite)
+			*penalty = 0.0;
+		else if (orig_lower.infinite || orig_upper.infinite)
+			*penalty = INFINITE_BOUND_PENALTY;
+		else
+			*penalty = 2 * INFINITE_BOUND_PENALTY;
+		if (RangeIsOrContainsEmpty(orig))
+			*penalty += CONTAIN_EMPTY_PENALTY;
+	}
+	// Handle normal range insertion
+	else {
+		if (orig_empty || orig_lower.infinite || orig_upper.infinite) {
+			*penalty = get_float4_infinity();  // Avoid mixing classes
+		} else {
+			// Calculate extension penalty
+			float8 diff = 0.0;
+			if (range_cmp_bounds(typcache, &new_lower, &orig_lower) < 0) {
+				if (has_subtype_diff)
+					diff += call_subtype_diff(typcache, orig_lower.val, new_lower.val);
+				else
+					diff += DEFAULT_SUBTYPE_DIFF_PENALTY;
+			}
+			if (range_cmp_bounds(typcache, &new_upper, &orig_upper) > 0) {
+				if (has_subtype_diff)
+					diff += call_subtype_diff(typcache, new_upper.val, orig_upper.val);
+				else
+					diff += DEFAULT_SUBTYPE_DIFF_PENALTY;
+			}
+			*penalty = diff;
+		}
+	}
+
+	PG_RETURN_POINTER(penalty);
+}
+```

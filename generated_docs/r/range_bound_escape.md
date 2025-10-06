@@ -34,3 +34,44 @@ The function ensures that range bound values are properly formatted for output w
 - Uses character doubling for escaping quotes and backslashes within quoted strings
 - Returns a palloc'd string that the caller must manage
 - Essential for maintaining the integrity of range textual representation when bounds contain special characters
+
+## Simplified Source
+
+```c
+static char *range_bound_escape(const char *value) {
+    bool needs_quotes;
+    const char *ptr;
+    StringInfoData buf;
+
+    initStringInfo(&buf);
+
+    // Determine if quoting is needed
+    needs_quotes = (value[0] == '\0');  // Force quotes for empty string
+    for (ptr = value; *ptr && !needs_quotes; ptr++) {
+        char ch = *ptr;
+        if (ch == '"' || ch == '\\' ||
+            ch == '(' || ch == ')' ||
+            ch == '[' || ch == ']' ||
+            ch == ',' || isspace(ch)) {
+            needs_quotes = true;
+        }
+    }
+
+    // Build escaped string
+    if (needs_quotes)
+        appendStringInfoChar(&buf, '"');
+
+    for (ptr = value; *ptr; ptr++) {
+        char ch = *ptr;
+        // Escape quotes and backslashes by doubling them
+        if (ch == '"' || ch == '\\')
+            appendStringInfoChar(&buf, ch);
+        appendStringInfoChar(&buf, ch);
+    }
+
+    if (needs_quotes)
+        appendStringInfoChar(&buf, '"');
+
+    return buf.data;
+}
+```

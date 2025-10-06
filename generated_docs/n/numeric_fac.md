@@ -41,3 +41,50 @@ The `numeric_fac` function implements the mathematical factorial operation (n!) 
 - Part of the PostgreSQL numeric type system in src/backend/utils/adt/numeric.c
 - Memory management includes proper cleanup of temporary NumericVar structures
 - The 32177 limit ensures the result fits within PostgreSQL numeric format constraints
+
+## Simplified Source
+
+```c
+Datum
+numeric_fac(PG_FUNCTION_ARGS)
+{
+    int64 num = PG_GETARG_INT64(0);
+    NumericVar fact, result;
+
+    // Validate input - no negative numbers
+    if (num < 0)
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("factorial of a negative number is undefined")));
+
+    // Base cases: 0! = 1! = 1
+    if (num <= 1)
+        PG_RETURN_NUMERIC(make_result(&const_one));
+
+    // Prevent overflow - limit input size
+    if (num > 32177)
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("value overflows numeric format")));
+
+    // Initialize variables for computation
+    init_var(&fact);
+    init_var(&result);
+
+    // Start with n
+    int64_to_numericvar(num, &result);
+
+    // Multiply by (n-1), (n-2), ..., 2
+    for (num = num - 1; num > 1; num--) {
+        CHECK_FOR_INTERRUPTS();  // Allow query cancellation
+
+        int64_to_numericvar(num, &fact);
+        mul_var(&result, &fact, &result, 0);
+    }
+
+    // Convert result and cleanup
+    Numeric res = make_result(&result);
+    free_var(&fact);
+    free_var(&result);
+
+    PG_RETURN_NUMERIC(res);
+}
+```

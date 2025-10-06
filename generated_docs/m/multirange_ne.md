@@ -39,4 +39,20 @@ The inequality comparison will return true if the multiranges differ in any way:
 - Provides the logical complement to  for complete comparison support
 - Type cache lookup is performed to access range-specific comparison functions
 - The underlying logic leverages the existing equality comparison and negates the result
-- Located in 
+
+## Simplified Source
+
+```c
+Datum multirange_ne(PG_FUNCTION_ARGS)
+{
+    // Extract multirange arguments from function call
+    MultirangeType *mr1 = PG_GETARG_MULTIRANGE_P(0);
+    MultirangeType *mr2 = PG_GETARG_MULTIRANGE_P(1);
+
+    // Get type cache for range operations
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(mr1));
+
+    // Delegate to internal inequality function and return result
+    PG_RETURN_BOOL(multirange_ne_internal(typcache->rngtype, mr1, mr2));
+}
+``` 

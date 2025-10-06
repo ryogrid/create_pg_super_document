@@ -33,3 +33,14 @@ When the subexpression parameter is not provided,  defaults to returning the ful
 - Part of a family of regexp_substr wrapper functions that provide different parameter combinations
 - The name suggests it handles cases where the subexpression parameter is omitted from SQL calls
 - When no subexpression is specified, the function returns the entire match (equivalent to subexpr=0) rather than a specific captured group
+
+## Simplified Source
+
+```c
+Datum
+regexp_substr_no_subexpr(PG_FUNCTION_ARGS)
+{
+    // Simple wrapper - delegate to main regexp_substr function
+    return regexp_substr(fcinfo);
+}
+```

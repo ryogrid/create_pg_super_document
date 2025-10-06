@@ -41,3 +41,26 @@ Like its sibling function, it supports different collation providers through the
 - Returns the actual number of bytes copied to the destination buffer
 - Part of PostgreSQL's locale and collation infrastructure for handling non-null-terminated strings
 - The srclen parameter is currently passed as -1 to the ICU implementation, suggesting it may be treated as null-terminated internally
+
+## Simplified Source
+
+```c
+size_t pg_strnxfrm_prefix(char *dest, size_t destsize, const char *src,
+                         size_t srclen, pg_locale_t locale) {
+    size_t result = 0;
+
+    // Validate locale is provided
+    if (!locale)
+        PGLOCALE_SUPPORT_ERROR(COLLPROVIDER_LIBC);
+
+    // Handle ICU collation provider
+    if (locale->provider == COLLPROVIDER_ICU) {
+        result = pg_strnxfrm_prefix_icu(dest, src, -1, destsize, locale);
+    } else {
+        // Unsupported collation provider
+        PGLOCALE_SUPPORT_ERROR(locale->provider);
+    }
+
+    return result;
+}
+```

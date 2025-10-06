@@ -39,3 +39,20 @@ This function is a PostgreSQL interface routine called by the function manager t
 - The function is part of PostgreSQL's regular expression infrastructure in src/backend/utils/adt/regexp.c
 - Returns a Datum containing a boolean value indicating match success
 - Differs from nameregexeq in that it works with variable-length text rather than fixed-length names
+
+## Simplified Source
+
+```c
+Datum textregexeq(PG_FUNCTION_ARGS) {
+    text *source = PG_GETARG_TEXT_PP(0);
+    text *pattern = PG_GETARG_TEXT_PP(1);
+
+    // Return result of regex matching on text
+    PG_RETURN_BOOL(RE_compile_and_execute(pattern,
+                                         VARDATA_ANY(source),
+                                         VARSIZE_ANY_EXHDR(source),
+                                         REG_ADVANCED,
+                                         PG_GET_COLLATION(),
+                                         0, NULL));
+}
+```

@@ -38,3 +38,14 @@ This function is typically called by PostgreSQL's aggregate execution framework 
 - This function must be registered in PostgreSQL's system catalogs to be callable from SQL
 - Supports continuous percentiles for temporal data, enabling sophisticated time-based analytics
 - Handles all interval components properly through the specialized interval_lerp interpolation function
+
+## Simplified Source
+
+```c
+Datum
+percentile_cont_interval_final(PG_FUNCTION_ARGS)
+{
+    // Delegate to common implementation with interval-specific parameters
+    return percentile_cont_final_common(fcinfo, INTERVALOID, interval_lerp);
+}
+```

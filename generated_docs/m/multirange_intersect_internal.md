@@ -41,3 +41,64 @@ The function handles edge cases such as empty multiranges and optimizes memory a
 - The algorithm maintains sorted order in the result
 - Handles complex overlapping patterns efficiently with O(n+m) time complexity
 - Located in src/backend/utils/adt/multirangetypes.c:1260-1339
+
+## Simplified Source
+
+```c
+MultirangeType *
+multirange_intersect_internal(Oid mltrngtypoid, TypeCacheEntry *rangetyp,
+                             int32 range_count1, RangeType **ranges1,
+                             int32 range_count2, RangeType **ranges2)
+{
+    // Handle empty inputs
+    if (range_count1 == 0 || range_count2 == 0)
+        return make_multirange(mltrngtypoid, rangetyp, 0, NULL);
+
+    // Allocate worst-case result array
+    RangeType **result_ranges = palloc0((range_count1 + range_count2) * sizeof(RangeType *));
+    int32 result_count = 0;
+
+    // Use parallel iteration through both sorted arrays
+    RangeType *current_range2 = ranges2[0];
+    int32 range2_index = 0;
+
+    for (int32 i = 0; i < range_count1; i++) {
+        RangeType *current_range1 = ranges1[i];
+
+        // Skip ranges in second array that come before current range in first array
+        while (current_range2 != NULL &&
+               range_before_internal(rangetyp, current_range2, current_range1)) {
+            current_range2 = (++range2_index >= range_count2) ? NULL : ranges2[range2_index];
+        }
+
+        // Find all intersections with current range1
+        while (current_range2 != NULL) {
+            if (range_overlaps_internal(rangetyp, current_range1, current_range2)) {
+                // Compute and store intersection
+                result_ranges[result_count++] =
+                    range_intersect_internal(rangetyp, current_range1, current_range2);
+
+                // Advance pointer that was "consumed" by intersection
+                if (range_overleft_internal(rangetyp, current_range2, current_range1)) {
+                    // range2 ends before range1, advance range2
+                    current_range2 = (++range2_index >= range_count2) ? NULL : ranges2[range2_index];
+                } else {
+                    // range1 ends before or at same point as range2, advance range1
+                    break;
+                }
+            } else {
+                // No overlap, ranges2 has passed range1
+                break;
+            }
+        }
+
+        // If no more ranges in second array, no more intersections possible
+        if (current_range2 == NULL)
+            break;
+    }
+
+    return make_multirange(mltrngtypoid, rangetyp, result_count, result_ranges);
+}
+```
+
+This function uses a merge-like algorithm to find all intersections between ranges in two multiranges, efficiently handling overlapping patterns.

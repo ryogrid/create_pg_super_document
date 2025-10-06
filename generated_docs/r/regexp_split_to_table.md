@@ -40,3 +40,49 @@ This function implements a PostgreSQL set-returning function (SRF) that splits a
 - Maintains state across calls using regexp_matches_ctx stored in multi_call_memory_ctx
 - Each call returns one split substring, with the function completing when all matches are processed
 - Located at src/backend/utils/adt/regexp.c:1702-1754
+
+## Simplified Source
+
+```c
+Datum regexp_split_to_table(PG_FUNCTION_ARGS) {
+    FuncCallContext *funcctx;
+    regexp_matches_ctx *splitctx;
+
+    if (SRF_IS_FIRSTCALL()) {
+        text *pattern = PG_GETARG_TEXT_PP(1);
+        text *flags = PG_GETARG_TEXT_PP_IF_EXISTS(2);
+
+        funcctx = SRF_FIRSTCALL_INIT();
+
+        // Parse regex flags but reject global flag
+        pg_re_flags re_flags;
+        parse_re_flags(&re_flags, flags);
+
+        if (re_flags.glob)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("regexp_split_to_table() does not support the \"global\" option")));
+
+        // Force global matching internally to find all splits
+        re_flags.glob = true;
+
+        // Setup regexp matching for splitting (fetching_unmatched = true)
+        splitctx = setup_regexp_matches(PG_GETARG_TEXT_P_COPY(0), pattern,
+                                       &re_flags, 0, PG_GET_COLLATION(),
+                                       false, true, true);
+
+        funcctx->user_fctx = splitctx;
+    }
+
+    funcctx = SRF_PERCALL_SETUP();
+    splitctx = (regexp_matches_ctx *) funcctx->user_fctx;
+
+    // Return next split substring if available
+    if (splitctx->next_match <= splitctx->nmatches) {
+        Datum result = build_regexp_split_result(splitctx);
+        splitctx->next_match++;
+        SRF_RETURN_NEXT(funcctx, result);
+    }
+
+    SRF_RETURN_DONE(funcctx);
+}
+```

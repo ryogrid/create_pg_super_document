@@ -40,3 +40,83 @@ This function is a core optimization component for PostgreSQL's range type query
 
 ## Notes and Other Information
 This function implements sophisticated query optimization by replacing complex range operations with simpler comparisons. It handles special cases like empty ranges (always false) and infinite ranges (always true). For finite ranges, it carefully evaluates whether creating boundary comparisons is beneficial, considering both expression volatility and computational cost. When both bounds are present, it uses a cost threshold of 10 * cpu_operator_cost to determine if the optimization should be applied. The function is essential for efficient range query execution in PostgreSQL's query planner.
+
+## Simplified Source
+
+```c
+static Node *find_simplified_clause(PlannerInfo *root, Expr *rangeExpr, Expr *elemExpr) {
+    RangeType *range;
+    TypeCacheEntry *rangetypcache;
+    RangeBound lower, upper;
+    bool empty;
+
+    // Only optimize if range is a non-null constant
+    if (!IsA(rangeExpr, Const) || ((Const *) rangeExpr)->constisnull)
+        return NULL;
+
+    range = DatumGetRangeTypeP(((Const *) rangeExpr)->constvalue);
+    rangetypcache = lookup_type_cache(RangeTypeGetOid(range), TYPECACHE_RANGE_INFO);
+
+    if (rangetypcache->rngelemtype == NULL)
+        elog(ERROR, "type %u is not a range type", RangeTypeGetOid(range));
+
+    // Extract range bounds
+    range_deserialize(rangetypcache, range, &lower, &upper, &empty);
+
+    if (empty) {
+        // Empty range contains nothing
+        return makeBoolConst(false, false);
+    } else if (lower.infinite && upper.infinite) {
+        // Infinite range contains everything
+        return makeBoolConst(true, false);
+    } else {
+        // Build boundary comparison expressions
+        TypeCacheEntry *elemTypcache = rangetypcache->rngelemtype;
+        Oid opfamily = rangetypcache->rng_opfamily;
+        Oid rng_collation = rangetypcache->rng_collation;
+        Expr *lowerExpr = NULL;
+        Expr *upperExpr = NULL;
+
+        // Check if dual-bound optimization is viable
+        if (!lower.infinite && !upper.infinite) {
+            // Avoid optimization if element expression is volatile or expensive
+            if (contain_volatile_functions((Node *) elemExpr) ||
+                contain_subplans((Node *) elemExpr))
+                return NULL;
+
+            QualCost eval_cost;
+            cost_qual_eval_node(&eval_cost, (Node *) elemExpr, root);
+            if (eval_cost.startup + eval_cost.per_tuple > 10 * cpu_operator_cost)
+                return NULL;
+        }
+
+        // Build lower bound expression
+        if (!lower.infinite) {
+            lowerExpr = build_bound_expr(elemExpr, lower.val, true,
+                                        lower.inclusive, elemTypcache,
+                                        opfamily, rng_collation);
+            if (lowerExpr == NULL) return NULL;
+        }
+
+        // Build upper bound expression
+        if (!upper.infinite) {
+            if (!lower.infinite)
+                elemExpr = copyObject(elemExpr);  // Need separate copy
+            upperExpr = build_bound_expr(elemExpr, upper.val, false,
+                                        upper.inclusive, elemTypcache,
+                                        opfamily, rng_collation);
+            if (upperExpr == NULL) return NULL;
+        }
+
+        // Return combined or individual expressions
+        if (lowerExpr && upperExpr)
+            return (Node *) make_andclause(list_make2(lowerExpr, upperExpr));
+        else if (lowerExpr)
+            return (Node *) lowerExpr;
+        else if (upperExpr)
+            return (Node *) upperExpr;
+        else
+            return NULL;
+    }
+}
+```

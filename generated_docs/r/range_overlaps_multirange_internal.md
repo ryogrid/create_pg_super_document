@@ -41,3 +41,26 @@ The function first handles the edge case where either the range or multirange is
 - The comment notes that empty ranges never overlap "even with empties" which follows range containment logic
 - Located in `src/backend/utils/adt/multirangetypes.c` at lines 1993-2014
 - Part of PostgreSQL's comprehensive multirange type system for handling collections of non-overlapping ranges
+
+## Simplified Source
+
+```c
+bool range_overlaps_multirange_internal(TypeCacheEntry *rangetyp,
+                                       const RangeType *r,
+                                       const MultirangeType *mr)
+{
+    // Empty ranges never overlap with anything
+    if (RangeIsEmpty(r) || MultirangeIsEmpty(mr))
+        return false;
+
+    // Extract bounds from the single range
+    RangeBound bounds[2];
+    bool empty;
+    range_deserialize(rangetyp, r, &bounds[0], &bounds[1], &empty);
+    Assert(!empty);
+
+    // Use binary search to efficiently find overlapping ranges
+    return multirange_bsearch_match(rangetyp, mr, bounds,
+                                   multirange_range_overlaps_bsearch_comparison);
+}
+```

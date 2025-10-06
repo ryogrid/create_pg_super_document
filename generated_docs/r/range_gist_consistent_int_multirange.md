@@ -49,3 +49,66 @@ The function handles all range strategy operators including before, overleft, ov
 - Special handling is provided for empty ranges and multiranges, as they have unique containment semantics
 - The RANGESTRAT_CONTAINED_BY case includes special logic for empty ranges, which are considered contained by any range
 - The RANGESTRAT_EQ case handles empty query multiranges specially, only descending if the key contains empty ranges
+
+## Simplified Source
+
+```c
+static bool
+range_gist_consistent_int_multirange(TypeCacheEntry *typcache,
+                                    StrategyNumber strategy,
+                                    const RangeType *key,
+                                    const MultirangeType *query)
+{
+    switch (strategy)
+    {
+        case RANGESTRAT_BEFORE:
+            if (RangeIsEmpty(key) || MultirangeIsEmpty(query))
+                return false;
+            return (!range_overright_multirange_internal(typcache, key, query));
+
+        case RANGESTRAT_OVERLEFT:
+            if (RangeIsEmpty(key) || MultirangeIsEmpty(query))
+                return false;
+            return (!range_after_multirange_internal(typcache, key, query));
+
+        case RANGESTRAT_OVERLAPS:
+            return range_overlaps_multirange_internal(typcache, key, query);
+
+        case RANGESTRAT_OVERRIGHT:
+            if (RangeIsEmpty(key) || MultirangeIsEmpty(query))
+                return false;
+            return (!range_before_multirange_internal(typcache, key, query));
+
+        case RANGESTRAT_AFTER:
+            if (RangeIsEmpty(key) || MultirangeIsEmpty(query))
+                return false;
+            return (!range_overleft_multirange_internal(typcache, key, query));
+
+        case RANGESTRAT_ADJACENT:
+            if (RangeIsEmpty(key) || MultirangeIsEmpty(query))
+                return false;
+            // Adjacent includes both touching and overlapping ranges
+            return range_adjacent_multirange_internal(typcache, key, query) ||
+                   range_overlaps_multirange_internal(typcache, key, query);
+
+        case RANGESTRAT_CONTAINS:
+            return range_contains_multirange_internal(typcache, key, query);
+
+        case RANGESTRAT_CONTAINED_BY:
+            // Empty ranges are contained by anything
+            if (RangeIsOrContainsEmpty(key))
+                return true;
+            return range_overlaps_multirange_internal(typcache, key, query);
+
+        case RANGESTRAT_EQ:
+            // Special handling for empty multirange queries
+            if (MultirangeIsEmpty(query))
+                return RangeIsOrContainsEmpty(key);
+            return range_contains_multirange_internal(typcache, key, query);
+
+        default:
+            elog(ERROR, "unrecognized range strategy: %d", strategy);
+            return false;
+    }
+}
+```

@@ -43,3 +43,34 @@ The function assumes that both ranges are of the same type (verified by the call
 - Critical for implementing the @> (contains) and <@ (contained by) operators
 - Used extensively in range indexing strategies for query optimization
 - Assumes caller has verified that both ranges are of compatible types
+
+## Simplified Source
+
+```c
+bool range_contains_internal(TypeCacheEntry *typcache, const RangeType *r1, const RangeType *r2) {
+    RangeBound lower1, upper1, lower2, upper2;
+    bool empty1, empty2;
+
+    // Verify same range type
+    if (RangeTypeGetOid(r1) != RangeTypeGetOid(r2))
+        elog(ERROR, "range types do not match");
+
+    // Extract bounds from both ranges
+    range_deserialize(typcache, r1, &lower1, &upper1, &empty1);
+    range_deserialize(typcache, r2, &lower2, &upper2, &empty2);
+
+    // Handle empty range cases
+    if (empty2)
+        return true;   // Any range contains empty range
+    else if (empty1)
+        return false;  // Empty range contains no non-empty range
+
+    // For containment: r1.lower <= r2.lower AND r1.upper >= r2.upper
+    if (range_cmp_bounds(typcache, &lower1, &lower2) > 0)
+        return false;  // r1 lower bound is greater than r2 lower bound
+    if (range_cmp_bounds(typcache, &upper1, &upper2) < 0)
+        return false;  // r1 upper bound is less than r2 upper bound
+
+    return true;
+}
+```

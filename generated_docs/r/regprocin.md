@@ -40,3 +40,48 @@ The function performs name resolution using the current search path to find matc
 - Error handling: Uses soft error context (escontext) to allow caller-controlled error handling rather than immediate ERROR throws
 - Ambiguity resolution: Rejects function names that match multiple procedures, requiring explicit schema qualification
 - Search path dependency: Resolution follows PostgreSQL's standard search path rules for unqualified names
+
+## Simplified Source
+
+```c
+Datum
+regprocin(PG_FUNCTION_ARGS)
+{
+    char *pro_name_or_oid = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    RegProcedure result;
+    List *names;
+    FuncCandidateList clist;
+
+    // Handle "-" (unknown) or numeric OID input
+    if (parseDashOrOid(pro_name_or_oid, &result, escontext))
+        PG_RETURN_OID(result);
+
+    // Bootstrap mode only accepts OIDs
+    if (IsBootstrapProcessingMode())
+        elog(ERROR, "regproc values must be OIDs in bootstrap mode");
+
+    // Parse name into schema-qualified components
+    names = stringToQualifiedNameList(pro_name_or_oid, escontext);
+    if (names == NIL)
+        PG_RETURN_NULL();
+
+    // Search for matching functions in pg_proc
+    clist = FuncnameGetCandidates(names, -1, NIL, false, false, false, true);
+
+    if (clist == NULL) {
+        // Function not found
+        ereturn(escontext, (Datum) 0,
+                (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                 errmsg("function \"%s\" does not exist", pro_name_or_oid)));
+    } else if (clist->next != NULL) {
+        // Ambiguous function name
+        ereturn(escontext, (Datum) 0,
+                (errcode(ERRCODE_AMBIGUOUS_FUNCTION),
+                 errmsg("more than one function named \"%s\"", pro_name_or_oid)));
+    }
+
+    result = clist->oid;
+    PG_RETURN_OID(result);
+}
+```

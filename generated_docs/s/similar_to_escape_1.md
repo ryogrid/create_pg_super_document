@@ -35,3 +35,19 @@ The function is part of PostgreSQL's SQL standard compliance for the SIMILAR TO 
 - Located in `src/backend/utils/adt/regexp.c:1048-1065`
 - The converted pattern includes anchors (^ and $) and non-capturing groups to ensure proper SQL SIMILAR TO semantics
 - More convenient than the 2-argument version when custom escape characters are not needed
+
+## Simplified Source
+
+```c
+Datum
+similar_to_escape_1(PG_FUNCTION_ARGS)
+{
+    // Extract pattern parameter
+    text *pattern_text = PG_GETARG_TEXT_PP(0);
+
+    // Convert SIMILAR TO pattern to POSIX regex using default escape (\)
+    text *result = similar_escape_internal(pattern_text, NULL);
+
+    PG_RETURN_TEXT_P(result);
+}
+```

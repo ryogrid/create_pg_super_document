@@ -41,3 +41,44 @@ The canonical form ensures that ranges like [1,5) and (0,5) are represented cons
 - Error context is preserved for proper error reporting in nested function calls
 - This canonicalization is essential for consistent range comparisons and hash operations on 64-bit integer ranges
 - Nearly identical to int4range_canonical but operates on 64-bit integers instead of 32-bit
+
+## Simplified Source
+
+```c
+Datum
+int8range_canonical(PG_FUNCTION_ARGS)
+{
+    RangeType *r = PG_GETARG_RANGE_P(0);
+    RangeBound lower, upper;
+    bool empty;
+
+    // Get type cache and deserialize range
+    TypeCacheEntry *typcache = range_get_typcache(fcinfo, RangeTypeGetOid(r));
+    range_deserialize(typcache, r, &lower, &upper, &empty);
+
+    // Return empty ranges unchanged
+    if (empty)
+        PG_RETURN_RANGE_P(r);
+
+    // Convert exclusive lower bound to inclusive (increment value)
+    if (!lower.infinite && !lower.inclusive) {
+        int64 bnd = DatumGetInt64(lower.val);
+        if (unlikely(bnd == PG_INT64_MAX))
+            return (Datum) 0; // Overflow error
+        lower.val = Int64GetDatum(bnd + 1);
+        lower.inclusive = true;
+    }
+
+    // Convert inclusive upper bound to exclusive (increment value)
+    if (!upper.infinite && upper.inclusive) {
+        int64 bnd = DatumGetInt64(upper.val);
+        if (unlikely(bnd == PG_INT64_MAX))
+            return (Datum) 0; // Overflow error
+        upper.val = Int64GetDatum(bnd + 1);
+        upper.inclusive = false;
+    }
+
+    // Return canonicalized range
+    PG_RETURN_RANGE_P(range_serialize(typcache, &lower, &upper, false, escontext));
+}
+```

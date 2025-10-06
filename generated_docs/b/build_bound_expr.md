@@ -43,3 +43,39 @@ This function is a helper for range containment optimization that builds specifi
 
 ## Notes and Other Information
 This function maps boundary conditions to B-tree strategy numbers: lower inclusive uses >=, lower exclusive uses >, upper inclusive uses <=, and upper exclusive uses <. It creates a properly typed constant expression from the boundary datum and constructs an OpExpr that can be evaluated by the query executor. The function returns NULL if it cannot find an appropriate operator in the specified operator family, which causes the calling optimization to fall back to the original range containment operation.
+
+## Simplified Source
+
+```c
+static Expr *
+build_bound_expr(Expr *elemExpr, Datum val,
+				 bool isLowerBound, bool isInclusive,
+				 TypeCacheEntry *typeCache,
+				 Oid opfamily, Oid rng_collation)
+{
+	Oid			elemType = typeCache->type_id;
+	int16		strategy;
+	Oid			oproid;
+	Expr	   *constExpr;
+
+	// Select comparison operator based on boundary type
+	if (isLowerBound)
+		strategy = isInclusive ? BTGreaterEqualStrategyNumber : BTGreaterStrategyNumber;
+	else
+		strategy = isInclusive ? BTLessEqualStrategyNumber : BTLessStrategyNumber;
+
+	// Find the appropriate operator in the operator family
+	oproid = get_opfamily_member(opfamily, elemType, elemType, strategy);
+
+	if (!OidIsValid(oproid))
+		return NULL;
+
+	// Create constant expression from boundary value
+	constExpr = (Expr *) makeConst(elemType, -1, typeCache->typcollation,
+								   typeCache->typlen, val, false, typeCache->typbyval);
+
+	// Build and return comparison expression
+	return make_opclause(oproid, BOOLOID, false, elemExpr, constExpr,
+						 InvalidOid, rng_collation);
+}
+```

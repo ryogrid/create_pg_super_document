@@ -30,3 +30,31 @@ This function provides the timestamp of the most recent checksum verification fa
 - Returns NULL if no checksum failures have been recorded for the database
 - The timestamp is stored in the PgStat_StatDBEntry structure's last_checksum_failure field
 - This function is typically used for monitoring data integrity and diagnosing storage-related issues
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_get_db_checksum_last_failure(PG_FUNCTION_ARGS)
+{
+    Oid dbid = PG_GETARG_OID(0);
+    TimestampTz result;
+    PgStat_StatDBEntry *dbentry;
+
+    // Return NULL if checksums are not enabled
+    if (!DataChecksumsEnabled())
+        PG_RETURN_NULL();
+
+    // Get database statistics entry
+    if ((dbentry = pgstat_fetch_stat_dbentry(dbid)) == NULL)
+        result = 0;
+    else
+        result = dbentry->last_checksum_failure;
+
+    // Return NULL if no failures recorded, otherwise return timestamp
+    if (result == 0)
+        PG_RETURN_NULL();
+    else
+        PG_RETURN_TIMESTAMPTZ(result);
+}
+```

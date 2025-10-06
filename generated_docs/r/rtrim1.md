@@ -30,3 +30,23 @@ The rtrim1 function provides a streamlined version of PostgreSQL's rtrim functio
 - Unlike the generic rtrim function, this version has a hardcoded trim set of single space character
 - Uses the internal dotrim function with parameters (string_data, string_length, " ", 1, false, true)
 - The last two boolean parameters to dotrim indicate: left_trim=false, right_trim=true
+
+## Simplified Source
+
+```c
+Datum
+rtrim1(PG_FUNCTION_ARGS)
+{
+    // Extract input string argument
+    text *string = PG_GETARG_TEXT_PP(0);
+    text *result;
+
+    // Trim trailing spaces using fixed " " character set
+    // false=no left trim, true=right trim enabled
+    result = dotrim(VARDATA_ANY(string), VARSIZE_ANY_EXHDR(string),
+                    " ", 1,
+                    false, true);
+
+    PG_RETURN_TEXT_P(result);
+}
+```

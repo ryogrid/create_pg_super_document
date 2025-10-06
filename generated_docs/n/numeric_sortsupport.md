@@ -47,3 +47,41 @@ The implementation includes adaptive abortion logic - if the abbreviation cardin
 - Memory allocation occurs in the sort support context to ensure proper cleanup
 - The abbreviation buffer is sized to handle unaligned packed values (VARATT_SHORT_MAX + VARHDRSZ + 1)
 - Abbreviation effectiveness is monitored and can be dynamically disabled if not beneficial
+
+## Simplified Source
+
+```c
+Datum
+numeric_sortsupport(PG_FUNCTION_ARGS)
+{
+    SortSupport ssup = (SortSupport) PG_GETARG_POINTER(0);
+
+    // Set primary comparator
+    ssup->comparator = numeric_fast_cmp;
+
+    // Configure abbreviation support if requested
+    if (ssup->abbreviate)
+    {
+        NumericSortSupport *nss;
+        MemoryContext oldcontext = MemoryContextSwitchTo(ssup->ssup_cxt);
+
+        // Allocate and initialize sort support structure
+        nss = palloc(sizeof(NumericSortSupport));
+        nss->buf = palloc(VARATT_SHORT_MAX + VARHDRSZ + 1);
+        nss->input_count = 0;
+        nss->estimating = true;
+        initHyperLogLog(&nss->abbr_card, 10);
+
+        // Set up abbreviation callbacks
+        ssup->ssup_extra = nss;
+        ssup->abbrev_full_comparator = ssup->comparator;
+        ssup->comparator = numeric_cmp_abbrev;
+        ssup->abbrev_converter = numeric_abbrev_convert;
+        ssup->abbrev_abort = numeric_abbrev_abort;
+
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    PG_RETURN_VOID();
+}
+```

@@ -37,3 +37,36 @@ This function implements the minus (difference) operation for multirange types. 
 - Delegates the complex subtraction logic to multirange_minus_internal function
 - The actual range subtraction and fragmentation logic is handled by the internal function
 - Located in src/backend/utils/adt/multirangetypes.c:1114-1143
+
+## Simplified Source
+
+```c
+Datum
+multirange_minus(PG_FUNCTION_ARGS)
+{
+    MultirangeType *mr1 = PG_GETARG_MULTIRANGE_P(0);  // minuend
+    MultirangeType *mr2 = PG_GETARG_MULTIRANGE_P(1);  // subtrahend
+
+    Oid multirange_type_id = MultirangeTypeGetOid(mr1);
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, multirange_type_id);
+    TypeCacheEntry *range_type = typcache->rngtype;
+
+    // Optimization: if either is empty, return first operand unchanged
+    if (MultirangeIsEmpty(mr1) || MultirangeIsEmpty(mr2))
+        PG_RETURN_MULTIRANGE_P(mr1);
+
+    // Deserialize both multiranges into range arrays
+    int32 range_count1, range_count2;
+    RangeType **ranges1, **ranges2;
+    multirange_deserialize(typcache->rngtype, mr1, &range_count1, &ranges1);
+    multirange_deserialize(typcache->rngtype, mr2, &range_count2, &ranges2);
+
+    // Delegate to internal function for actual subtraction logic
+    PG_RETURN_MULTIRANGE_P(multirange_minus_internal(multirange_type_id,
+                                                    range_type,
+                                                    range_count1, ranges1,
+                                                    range_count2, ranges2));
+}
+```
+
+This function subtracts the second multirange from the first, with optimization for empty inputs and delegation to the internal implementation.

@@ -48,3 +48,65 @@ The function first validates that hash functions are available for the element t
 - Validates availability of hash functions for element types and reports errors if unavailable
 - Memory cleanup is performed using PG_FREE_IF_COPY to handle toasted values
 - The hash algorithm combines range flags and bounds to ensure different multiranges with similar bounds but different inclusivity produce different hash values
+
+## Simplified Source
+
+```c
+Datum
+hash_multirange(PG_FUNCTION_ARGS)
+{
+    MultirangeType *multirange = PG_GETARG_MULTIRANGE_P(0);
+    uint32 result = 1;
+    TypeCacheEntry *typcache, *element_cache;
+    int32 range_count, i;
+
+    // Get type cache and validate hash function availability
+    typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(multirange));
+    element_cache = typcache->rngtype->rngelemtype;
+
+    // Error handling for missing hash function
+    if (!OidIsValid(element_cache->hash_proc_finfo.fn_oid)) {
+        element_cache = lookup_type_cache(element_cache->type_id, TYPECACHE_HASH_PROC_FINFO);
+        // Report error if still no hash function available
+    }
+
+    // Hash each range in the multirange
+    range_count = multirange->rangeCount;
+    for (i = 0; i < range_count; i++) {
+        RangeBound lower, upper;
+        uint8 flags = MultirangeGetFlagsPtr(multirange)[i];
+        uint32 lower_hash, upper_hash, range_hash;
+
+        // Extract bounds for this range
+        multirange_get_bounds(typcache->rngtype, multirange, i, &lower, &upper);
+
+        // Hash lower bound if present
+        if (RANGE_HAS_LBOUND(flags))
+            lower_hash = DatumGetUInt32(FunctionCall1Coll(&element_cache->hash_proc_finfo,
+                                                         typcache->rngtype->rng_collation,
+                                                         lower.val));
+        else
+            lower_hash = 0;
+
+        // Hash upper bound if present
+        if (RANGE_HAS_UBOUND(flags))
+            upper_hash = DatumGetUInt32(FunctionCall1Coll(&element_cache->hash_proc_finfo,
+                                                         typcache->rngtype->rng_collation,
+                                                         upper.val));
+        else
+            upper_hash = 0;
+
+        // Combine hashes: flags + lower + upper with rotation for distribution
+        range_hash = hash_uint32((uint32) flags);
+        range_hash ^= lower_hash;
+        range_hash = pg_rotate_left32(range_hash, 1);
+        range_hash ^= upper_hash;
+
+        // Accumulate into final result using hash_array approach
+        result = (result << 5) - result + range_hash;
+    }
+
+    PG_FREE_IF_COPY(multirange, 0);
+    PG_RETURN_UINT32(result);
+}
+```

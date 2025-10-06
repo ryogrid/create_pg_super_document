@@ -35,3 +35,18 @@ The function leverages the sorted nature of ranges within a multirange to perfor
 
 ## Notes and Other Information
 This is an internal utility function that provides the core logic for element containment testing. It's designed to be called by the public PostgreSQL functions that implement the @> (contains) and <@ (contained by) operators for multiranges and elements. The function assumes the multirange is well-formed with non-overlapping, sorted ranges.
+
+## Simplified Source
+
+```c
+bool multirange_contains_elem_internal(TypeCacheEntry *rangetyp,
+                                      const MultirangeType *multirange, Datum element_value) {
+    // Empty multiranges contain no elements
+    if (MultirangeIsEmpty(multirange))
+        return false;
+
+    // Use binary search to efficiently find if element is contained in any range
+    return multirange_bsearch_match(rangetyp, multirange, &element_value,
+                                   multirange_elem_bsearch_comparison);
+}
+```

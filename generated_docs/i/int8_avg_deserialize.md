@@ -44,3 +44,46 @@ The deserialized state can then be used in further aggregate operations, making 
 - Must be called within aggregate context (enforced by AggCheckCallContext)
 - Creates aggregate state in current memory context for proper lifecycle management
 - Critical for parallel query execution and distributed processing scenarios
+
+## Simplified Source
+
+```c
+Datum
+int8_avg_deserialize(PG_FUNCTION_ARGS)
+{
+    bytea *sstate;
+    PolyNumAggState *result;
+    StringInfoData buf;
+    NumericVar tmp_var;
+
+    // Validate aggregate context
+    if (!AggCheckCallContext(fcinfo, NULL))
+        elog(ERROR, "aggregate function called in non-aggregate context");
+
+    sstate = PG_GETARG_BYTEA_PP(0);
+
+    // Initialize for deserialization
+    init_var(&tmp_var);
+    initReadOnlyStringInfo(&buf, VARDATA_ANY(sstate), VARSIZE_ANY_EXHDR(sstate));
+
+    // Create new aggregate state
+    result = makePolyNumAggStateCurrentContext(false);
+
+    // Deserialize count
+    result->N = pq_getmsgint64(&buf);
+
+    // Deserialize sum - convert from standard numeric format
+    numericvar_deserialize(&buf, &tmp_var);
+#ifdef HAVE_INT128
+    numericvar_to_int128(&tmp_var, &result->sumX);
+#else
+    accum_sum_add(&result->sumX, &tmp_var);
+#endif
+
+    // Complete deserialization
+    pq_getmsgend(&buf);
+    free_var(&tmp_var);
+
+    return result;
+}
+```

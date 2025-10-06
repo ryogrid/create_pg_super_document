@@ -45,3 +45,41 @@ The function performs the following operations:
 - Returns negative infinity if only negative infinities were present
 - Uses numeric_div for the final division operation to ensure proper numeric precision
 - Part of PostgreSQL's numeric aggregate function family
+
+## Simplified Source
+
+```c
+Datum
+numeric_avg(PG_FUNCTION_ARGS)
+{
+    NumericAggState *state;
+    NumericVar sumX_var;
+
+    state = PG_ARGISNULL(0) ? NULL : (NumericAggState *) PG_GETARG_POINTER(0);
+
+    // Return NULL if no non-null inputs
+    if (state == NULL || NA_TOTAL_COUNT(state) == 0)
+        return NULL;
+
+    // Handle special values
+    if (state->NaNcount > 0)
+        return make_result(&const_nan);
+    if (state->pInfcount > 0 && state->nInfcount > 0)
+        return make_result(&const_nan);
+    if (state->pInfcount > 0)
+        return make_result(&const_pinf);
+    if (state->nInfcount > 0)
+        return make_result(&const_ninf);
+
+    // Convert count and sum to numeric, then divide
+    Datum N_datum = NumericGetDatum(int64_to_numeric(state->N));
+
+    init_var(&sumX_var);
+    accum_sum_final(&state->sumX, &sumX_var);
+    Datum sumX_datum = NumericGetDatum(make_result(&sumX_var));
+    free_var(&sumX_var);
+
+    // Perform division to get average
+    return DirectFunctionCall2(numeric_div, sumX_datum, N_datum);
+}
+```

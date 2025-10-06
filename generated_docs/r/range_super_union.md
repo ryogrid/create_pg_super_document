@@ -50,3 +50,60 @@ The function implements an optimized algorithm:
 - The empty range tracking is crucial for supporting contained_by (@>) operator indexing
 - Implements important optimizations to avoid unnecessary range construction
 - All GiST union operations for ranges must go through this function to maintain consistency
+
+## Simplified Source
+
+```c
+static RangeType *
+range_super_union(TypeCacheEntry *typcache, RangeType *r1, RangeType *r2)
+{
+	RangeType  *result;
+	RangeBound	lower1, upper1, lower2, upper2;
+	bool		empty1, empty2;
+	char		flags1, flags2;
+	RangeBound *result_lower, *result_upper;
+
+	// Extract bounds and flags from both ranges
+	range_deserialize(typcache, r1, &lower1, &upper1, &empty1);
+	range_deserialize(typcache, r2, &lower2, &upper2, &empty2);
+	flags1 = range_get_flags(r1);
+	flags2 = range_get_flags(r2);
+
+	// Handle empty range cases
+	if (empty1) {
+		if (flags2 & (RANGE_EMPTY | RANGE_CONTAIN_EMPTY))
+			return r2;  // r2 already handles empty
+		r2 = rangeCopy(r2);
+		range_set_contain_empty(r2);
+		return r2;
+	}
+	if (empty2) {
+		if (flags1 & (RANGE_EMPTY | RANGE_CONTAIN_EMPTY))
+			return r1;  // r1 already handles empty
+		r1 = rangeCopy(r1);
+		range_set_contain_empty(r1);
+		return r1;
+	}
+
+	// Find minimum lower bound and maximum upper bound
+	result_lower = (range_cmp_bounds(typcache, &lower1, &lower2) <= 0) ? &lower1 : &lower2;
+	result_upper = (range_cmp_bounds(typcache, &upper1, &upper2) >= 0) ? &upper1 : &upper2;
+
+	// Optimization: avoid creating new range if one input is already correct
+	if (result_lower == &lower1 && result_upper == &upper1 &&
+		((flags1 & RANGE_CONTAIN_EMPTY) || !(flags2 & RANGE_CONTAIN_EMPTY)))
+		return r1;
+	if (result_lower == &lower2 && result_upper == &upper2 &&
+		((flags2 & RANGE_CONTAIN_EMPTY) || !(flags1 & RANGE_CONTAIN_EMPTY)))
+		return r2;
+
+	// Create new union range
+	result = make_range(typcache, result_lower, result_upper, false, NULL);
+
+	// Preserve empty range tracking
+	if ((flags1 & RANGE_CONTAIN_EMPTY) || (flags2 & RANGE_CONTAIN_EMPTY))
+		range_set_contain_empty(result);
+
+	return result;
+}
+```

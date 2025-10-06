@@ -46,3 +46,48 @@ The algorithm works backwards through the digit array, filling digits from least
 - Uses unsigned arithmetic (uint128) for the conversion process to handle INT128_MIN correctly
 - Weight is set to ndigits-1, representing the position of the most significant digit
 - The digits pointer is adjusted to point to the start of actual digits in the allocated array
+
+## Simplified Source
+
+```c
+static void int128_to_numericvar(int128 val, NumericVar *var) {
+    // Allocate space for maximum possible digits (39 + 1 for safety)
+    alloc_var(var, 40 / DEC_DIGITS);
+
+    // Handle sign
+    uint128 uval;
+    if (val < 0) {
+        var->sign = NUMERIC_NEG;
+        uval = -val;
+    } else {
+        var->sign = NUMERIC_POS;
+        uval = val;
+    }
+
+    var->dscale = 0;  // Integer has no fractional part
+
+    // Handle zero case
+    if (val == 0) {
+        var->ndigits = 0;
+        var->weight = 0;
+        return;
+    }
+
+    // Extract digits by repeated division (builds backwards)
+    NumericDigit *ptr = var->digits + var->ndigits;
+    int ndigits = 0;
+
+    do {
+        ptr--;
+        ndigits++;
+        uint128 newuval = uval / NBASE;
+        *ptr = uval - newuval * NBASE;  // remainder becomes digit
+        uval = newuval;
+    } while (uval);
+
+    // Adjust digit array pointer and set final counts
+    var->digits = ptr;
+    var->ndigits = ndigits;
+    var->weight = ndigits - 1;  // Most significant digit position
+}
+```

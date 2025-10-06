@@ -51,3 +51,41 @@ The function is part of the injection_points test module and is primarily used f
 - Part of the broader injection_points test framework for PostgreSQL regression testing
 - The comment references a mailing list discussion about causes of backward movement in transaction horizons
 - Uses AccessShareLock when opening relations to minimize interference with concurrent operations
+
+## Simplified Source
+
+```c
+Datum
+removable_cutoff(PG_FUNCTION_ARGS)
+{
+    Relation rel = NULL;
+    TransactionId oldest_xid;
+    FullTransactionId next_fxid_before, next_fxid;
+
+    // Open relation if OID provided
+    if (!PG_ARGISNULL(0))
+        rel = table_open(PG_GETARG_OID(0), AccessShareLock);
+
+    // Warn about potential instability with autovacuum on non-shared relations
+    if (rel && !rel->rd_rel->relisshared && autovacuum_start_daemon)
+        elog(WARNING,
+             "removable_cutoff(non-shared-rel) can move backward under autovacuum=on");
+
+    // Retry loop to handle race conditions where transaction horizon changes
+    // Keep trying until nextXid is stable between calls
+    next_fxid = ReadNextFullTransactionId();
+    do {
+        CHECK_FOR_INTERRUPTS();
+        next_fxid_before = next_fxid;
+        oldest_xid = GetOldestNonRemovableTransactionId(rel);
+        next_fxid = ReadNextFullTransactionId();
+    } while (!FullTransactionIdEquals(next_fxid, next_fxid_before));
+
+    // Clean up relation if opened
+    if (rel)
+        table_close(rel, AccessShareLock);
+
+    // Return full transaction ID with proper epoch handling
+    PG_RETURN_FULLTRANSACTIONID(FullTransactionIdFromAllowableAt(next_fxid, oldest_xid));
+}
+```

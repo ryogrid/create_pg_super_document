@@ -38,3 +38,26 @@ Like its range counterpart, this function retrieves type cache information for t
 - Handles domain types by resolving to their base multirange type
 - The function always returns , indicating successful setup of the analysis parameters
 - The approach of analyzing multiranges as their bounding range provides efficient statistics while maintaining compatibility with existing range analysis infrastructure
+
+## Simplified Source
+
+```c
+Datum multirange_typanalyze(PG_FUNCTION_ARGS)
+{
+    VacAttrStats *stats = (VacAttrStats *) PG_GETARG_POINTER(0);
+
+    // Get type cache for multirange type (handles domains)
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, getBaseType(stats->attrtypid));
+
+    // Set default statistics target if not specified
+    if (stats->attstattarget < 0)
+        stats->attstattarget = default_statistics_target;
+
+    // Use same statistics computation as ranges
+    stats->compute_stats = compute_range_stats;
+    stats->extra_data = typcache;
+    stats->minrows = 300 * stats->attstattarget;
+
+    PG_RETURN_BOOL(true);
+}
+```

@@ -34,3 +34,16 @@ The `cidr_recv` function serves as the binary input function for PostgreSQL's ci
 - Binary format provides efficient serialization for network communication and storage
 - Works in conjunction with `cidr_send` for complete binary serialization support
 - Located in src/backend/utils/adt/network.c:258-269
+
+## Simplified Source
+
+```c
+Datum
+cidr_recv(PG_FUNCTION_ARGS)
+{
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+
+    // Delegate to network_recv with is_cidr=true for strict validation
+    PG_RETURN_INET_P(network_recv(buf, true));
+}
+```

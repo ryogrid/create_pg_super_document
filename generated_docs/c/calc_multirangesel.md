@@ -47,3 +47,92 @@ The function handles the statistical reality that multirange columns often conta
 
 ## Notes and Other Information
 This function represents the core statistical analysis engine for multirange selectivity. It carefully separates the treatment of empty and non-empty multiranges because they behave very differently under various operators. The function ensures proper handling of edge cases like infinite bounds and maintains statistical accuracy by properly weighting different population segments (NULL, empty, non-empty).
+
+## Simplified Source
+
+```c
+static double
+calc_multirangesel(TypeCacheEntry *typcache, VariableStatData *vardata,
+                   const MultirangeType *constval, Oid operator)
+{
+    double hist_selec, selec;
+    float4 empty_frac, null_frac;
+
+    // Extract statistics from pg_statistic
+    if (HeapTupleIsValid(vardata->statsTuple)) {
+        Form_pg_statistic stats = (Form_pg_statistic) GETSTRUCT(vardata->statsTuple);
+        null_frac = stats->stanullfrac;
+
+        // Get empty multirange fraction
+        AttStatsSlot sslot;
+        if (get_attstatsslot(&sslot, vardata->statsTuple,
+                           STATISTIC_KIND_RANGE_LENGTH_HISTOGRAM,
+                           InvalidOid, ATTSTATSSLOT_NUMBERS)) {
+            empty_frac = sslot.numbers[0];
+            free_attstatsslot(&sslot);
+        } else {
+            empty_frac = 0.0;  // No empty fraction available
+        }
+    } else {
+        // No statistics available
+        null_frac = empty_frac = 0.0;
+    }
+
+    if (MultirangeIsEmpty(constval)) {
+        // Handle empty constant multirange based on operator semantics
+        switch (operator) {
+            // Overlap operators: nothing overlaps with empty
+            case OID_MULTIRANGE_OVERLAPS_RANGE_OP:
+            case OID_MULTIRANGE_OVERLAPS_MULTIRANGE_OP:
+            // ... other overlap and positioning operators
+            case OID_MULTIRANGE_LESS_OP:
+                selec = 0.0;
+                break;
+
+            // Containment: only empty multiranges are contained by empty
+            case OID_RANGE_MULTIRANGE_CONTAINED_OP:
+            case OID_MULTIRANGE_MULTIRANGE_CONTAINED_OP:
+            case OID_MULTIRANGE_LESS_EQUAL_OP:
+                selec = empty_frac;
+                break;
+
+            // Contains: everything contains empty
+            case OID_MULTIRANGE_CONTAINS_RANGE_OP:
+            case OID_MULTIRANGE_CONTAINS_MULTIRANGE_OP:
+            case OID_MULTIRANGE_GREATER_EQUAL_OP:
+                selec = 1.0;
+                break;
+
+            // Greater than: all non-empty > empty
+            case OID_MULTIRANGE_GREATER_OP:
+                selec = 1.0 - empty_frac;
+                break;
+
+            default:
+                selec = 0.0;  // Error case
+                break;
+        }
+    } else {
+        // Non-empty constant: use histogram analysis
+        hist_selec = calc_hist_selectivity(typcache, vardata, constval, operator);
+        if (hist_selec < 0.0)
+            hist_selec = default_multirange_selectivity(operator);
+
+        // Combine empty and histogram results
+        if (operator == OID_RANGE_MULTIRANGE_CONTAINED_OP ||
+            operator == OID_MULTIRANGE_MULTIRANGE_CONTAINED_OP) {
+            // Empty is contained by anything non-empty
+            selec = (1.0 - empty_frac) * hist_selec + empty_frac;
+        } else {
+            // Empty Op non-empty usually matches nothing
+            selec = (1.0 - empty_frac) * hist_selec;
+        }
+    }
+
+    // Account for NULL values (all operators are strict)
+    selec *= (1.0 - null_frac);
+
+    CLAMP_PROBABILITY(selec);
+    return selec;
+}
+```

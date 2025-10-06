@@ -45,3 +45,19 @@ This is part of PostgreSQL's implementation of the SQL standard percentile_cont 
 - Handles all edge cases through the common implementation including NULL values and empty datasets
 - Results maintain IEEE 754 floating point semantics including proper handling of infinities and NaN values
 - Memory management handled by PostgreSQL's memory context system through the common function
+
+## Simplified Source
+
+```c
+Datum
+percentile_cont_float8_multi_final(PG_FUNCTION_ARGS)
+{
+    // Delegate to common implementation with float8-specific parameters
+    return percentile_cont_multi_final_common(fcinfo,
+                                              FLOAT8OID,
+                                              sizeof(float8),
+                                              FLOAT8PASSBYVAL,
+                                              TYPALIGN_DOUBLE,
+                                              float8_lerp);
+}
+```

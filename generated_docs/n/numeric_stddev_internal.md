@@ -59,3 +59,77 @@ The function performs the following operations:
 - The function is static (internal to the numeric.c file)
 - Supports both sample and population calculations through the sample parameter
 - Precision is carefully managed throughout the calculation to maintain accuracy
+
+## Simplified Source
+
+```c
+static Numeric numeric_stddev_internal(NumericAggState *state, bool variance, bool sample, bool *is_null) {
+    NumericVar vN, vsumX, vsumX2, vNminus1;
+    int64 totCount;
+    Numeric result;
+
+    // Check for invalid input conditions
+    if (state == NULL || (totCount = NA_TOTAL_COUNT(state)) == 0) {
+        *is_null = true;
+        return NULL;
+    }
+
+    // Sample statistics need at least 2 values
+    if (sample && totCount <= 1) {
+        *is_null = true;
+        return NULL;
+    }
+
+    *is_null = false;
+
+    // Handle special cases: NaN or infinity returns NaN
+    if (state->NaNcount > 0 || state->pInfcount > 0 || state->nInfcount > 0)
+        return make_result(&const_nan);
+
+    // Convert accumulated values to numeric variables
+    init_var(&vN);
+    init_var(&vsumX);
+    init_var(&vsumX2);
+    init_var(&vNminus1);
+
+    int64_to_numericvar(state->N, &vN);
+    accum_sum_final(&(state->sumX), &vsumX);
+    accum_sum_final(&(state->sumX2), &vsumX2);
+
+    sub_var(&vN, &const_one, &vNminus1);
+
+    // Calculate variance: (N * sumX2 - sumX^2) / denominator
+    int rscale = vsumX.dscale * 2;
+    mul_var(&vsumX, &vsumX, &vsumX, rscale);    // vsumX = sumX^2
+    mul_var(&vN, &vsumX2, &vsumX2, rscale);     // vsumX2 = N * sumX2
+    sub_var(&vsumX2, &vsumX, &vsumX2);          // numerator = N*sumX2 - sumX^2
+
+    // Handle roundoff errors that could make variance negative
+    if (cmp_var(&vsumX2, &const_zero) <= 0) {
+        result = make_result(&const_zero);
+    } else {
+        // Choose denominator based on sample vs population
+        if (sample)
+            mul_var(&vN, &vNminus1, &vNminus1, 0);  // N * (N-1)
+        else
+            mul_var(&vN, &vN, &vNminus1, 0);         // N * N
+
+        // Calculate final result
+        rscale = select_div_scale(&vsumX2, &vNminus1);
+        div_var(&vsumX2, &vNminus1, &vsumX, rscale, true);
+
+        // Take square root for standard deviation
+        if (!variance)
+            sqrt_var(&vsumX, &vsumX, rscale);
+
+        result = make_result(&vsumX);
+    }
+
+    // Clean up memory
+    free_var(&vNminus1);
+    free_var(&vsumX);
+    free_var(&vsumX2);
+
+    return result;
+}
+```

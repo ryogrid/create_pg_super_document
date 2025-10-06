@@ -43,3 +43,25 @@ This transformation is particularly valuable for sorting operations where many c
 - The function requires src to be null-terminated, unlike pg_strnxfrm which accepts a length parameter
 - Transformed strings are only valid for comparison with other strings transformed using the same locale
 - This is a key component in PostgreSQL's collation infrastructure for optimizing text sorting performance
+
+## Simplified Source
+
+```c
+size_t pg_strxfrm(char *dest, const char *src, size_t destsize, pg_locale_t locale) {
+    // Dispatch to appropriate collation provider
+    if (!locale || locale->provider == COLLPROVIDER_LIBC) {
+        // Use libc transformation for default or libc-based locales
+        return pg_strxfrm_libc(dest, src, destsize, locale);
+    }
+#ifdef USE_ICU
+    else if (locale->provider == COLLPROVIDER_ICU) {
+        // Use ICU transformation (-1 indicates null-terminated string)
+        return pg_strnxfrm_icu(dest, src, -1, destsize, locale);
+    }
+#endif
+    else {
+        // Error for unsupported provider types
+        PGLOCALE_SUPPORT_ERROR(locale->provider);
+    }
+}
+```

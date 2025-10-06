@@ -43,3 +43,28 @@ The function converts int8 values to Numeric format and uses numeric_add for the
 - Uses arbitrary-precision Numeric arithmetic to handle potential overflow from int8 summation
 - Maintained in the codebase for backward compatibility or historical reasons
 - Located in src/backend/utils/adt/numeric.c:6625-6665
+
+## Simplified Source
+
+```c
+// Note: Obsolete function, no longer used for SUM(int8)
+Datum int8_sum(PG_FUNCTION_ARGS) {
+    // Handle case where no previous sum exists
+    if (PG_ARGISNULL(0)) {
+        // Return null if new value is also null, otherwise convert and return new value
+        return PG_ARGISNULL(1) ? PG_RETURN_NULL() :
+               PG_RETURN_NUMERIC(int64_to_numeric(PG_GETARG_INT64(1)));
+    }
+
+    Numeric current_sum = PG_GETARG_NUMERIC(0);
+
+    // Keep existing sum if new value is null
+    if (PG_ARGISNULL(1))
+        return PG_RETURN_NUMERIC(current_sum);
+
+    // Add new int8 value to existing numeric sum
+    return DirectFunctionCall2(numeric_add,
+                               NumericGetDatum(current_sum),
+                               NumericGetDatum(int64_to_numeric(PG_GETARG_INT64(1))));
+}
+```

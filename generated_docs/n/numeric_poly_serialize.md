@@ -46,3 +46,48 @@ The function serializes three key components: the count of values (N), the sum o
 - Designed to work with numeric_poly_deserialize for complete serialization/deserialization cycle
 - Memory management includes proper cleanup of temporary variables
 - Critical for distributed query processing where partial results need to be transmitted between nodes
+
+## Simplified Source
+
+```c
+Datum numeric_poly_serialize(PG_FUNCTION_ARGS) {
+    PolyNumAggState *state;
+    StringInfoData buf;
+    NumericVar tmp_var;
+
+    // Validate aggregate context
+    if (!AggCheckCallContext(fcinfo, NULL))
+        elog(ERROR, "aggregate function called in non-aggregate context");
+
+    state = (PolyNumAggState *) PG_GETARG_POINTER(0);
+    init_var(&tmp_var);
+
+    // Start serialization buffer
+    pq_begintypsend(&buf);
+
+    // Serialize count
+    pq_sendint64(&buf, state->N);
+
+    // Convert and serialize sumX (platform-independent format)
+#ifdef HAVE_INT128
+    int128_to_numericvar(state->sumX, &tmp_var);
+#else
+    accum_sum_final(&state->sumX, &tmp_var);
+#endif
+    numericvar_serialize(&buf, &tmp_var);
+
+    // Convert and serialize sumX2 (platform-independent format)
+#ifdef HAVE_INT128
+    int128_to_numericvar(state->sumX2, &tmp_var);
+#else
+    accum_sum_final(&state->sumX2, &tmp_var);
+#endif
+    numericvar_serialize(&buf, &tmp_var);
+
+    // Complete serialization and cleanup
+    bytea *result = pq_endtypsend(&buf);
+    free_var(&tmp_var);
+
+    PG_RETURN_BYTEA_P(result);
+}
+```

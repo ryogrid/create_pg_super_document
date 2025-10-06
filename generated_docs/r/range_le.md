@@ -31,3 +31,17 @@ The function follows PostgreSQL's range comparison rules where empty ranges sort
 - Returns true for both "less than" and "equal" comparison results from range_cmp
 - Uses PostgreSQL's standard function calling convention with PG_FUNCTION_ARGS and PG_RETURN_BOOL macros
 - Complements the range_lt function by including equality in the comparison result
+
+## Simplified Source
+
+```c
+Datum
+range_le(PG_FUNCTION_ARGS)
+{
+    // Compare ranges using range_cmp function
+    int cmp = range_cmp(fcinfo);
+
+    // Return true if first range is less than or equal to second
+    PG_RETURN_BOOL(cmp <= 0);
+}
+```

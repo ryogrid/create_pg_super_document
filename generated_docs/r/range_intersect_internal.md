@@ -40,5 +40,30 @@ The function handles several edge cases: if either input range is empty or if th
 - Uses type-specific comparison functions through the typcache for proper boundary ordering
 - The intersection algorithm: lower bound = max(lower1, lower2), upper bound = min(upper1, upper2)
 - This is a core utility function used by multiple higher-level range operations
-- Located in 
+- Located in
 - The function is designed to be reusable across different range operation contexts
+
+## Simplified Source
+
+```c
+RangeType *range_intersect_internal(TypeCacheEntry *typcache, const RangeType *r1, const RangeType *r2) {
+    RangeBound lower1, lower2, upper1, upper2;
+    bool empty1, empty2;
+
+    // Extract boundaries from both ranges
+    range_deserialize(typcache, r1, &lower1, &upper1, &empty1);
+    range_deserialize(typcache, r2, &lower2, &upper2, &empty2);
+
+    // If either range is empty or ranges don't overlap, return empty range
+    if (empty1 || empty2 || !range_overlaps_internal(typcache, r1, r2))
+        return make_empty_range(typcache);
+
+    // Intersection lower bound = max(lower1, lower2)
+    RangeBound *result_lower = (range_cmp_bounds(typcache, &lower1, &lower2) >= 0) ? &lower1 : &lower2;
+
+    // Intersection upper bound = min(upper1, upper2)
+    RangeBound *result_upper = (range_cmp_bounds(typcache, &upper1, &upper2) <= 0) ? &upper1 : &upper2;
+
+    return make_range(typcache, result_lower, result_upper, false, NULL);
+}
+```

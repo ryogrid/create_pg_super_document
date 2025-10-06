@@ -39,3 +39,25 @@ The function accepts an optional text parameter that specifies which SLRU cache 
 - This function complements the broader  function, which can also reset SLRU statistics as part of its "slru" target option
 - The function requires appropriate administrative privileges to execute, as SLRU statistics are cluster-wide resources
 - Invalid SLRU cache names will be handled by the underlying  function
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_reset_slru(PG_FUNCTION_ARGS)
+{
+    char *target = NULL;
+
+    if (PG_ARGISNULL(0))
+        // Reset all SLRU statistics when no target specified
+        pgstat_reset_of_kind(PGSTAT_KIND_SLRU);
+    else
+    {
+        // Reset specific SLRU cache statistics
+        target = text_to_cstring(PG_GETARG_TEXT_PP(0));
+        pgstat_reset_slru(target);
+    }
+
+    PG_RETURN_VOID();
+}
+```

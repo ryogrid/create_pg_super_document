@@ -38,3 +38,29 @@ The `numeric_poly_stddev_samp` function is a PostgreSQL aggregate function final
 - Falls back gracefully to standard numeric operations on platforms without 128-bit integer support
 - The polymorphic approach allows the same aggregate function to work efficiently with different numeric types
 - Delegates the actual computation to `numeric_poly_stddev_internal` with parameters indicating sample (not population) and standard deviation (not variance)
+
+## Simplified Source
+
+```c
+Datum numeric_poly_stddev_samp(PG_FUNCTION_ARGS) {
+#ifdef HAVE_INT128
+    PolyNumAggState *state;
+    Numeric result;
+    bool is_null;
+
+    // Extract polymorphic aggregate state
+    state = PG_ARGISNULL(0) ? NULL : (PolyNumAggState *) PG_GETARG_POINTER(0);
+
+    // Calculate sample standard deviation using 128-bit integer optimization
+    result = numeric_poly_stddev_internal(state, false, true, &is_null);
+
+    if (is_null)
+        PG_RETURN_NULL();
+    else
+        PG_RETURN_NUMERIC(result);
+#else
+    // Fallback to standard implementation on platforms without 128-bit support
+    return numeric_stddev_samp(fcinfo);
+#endif
+}
+```

@@ -36,3 +36,14 @@ The `scalargtsel` function is PostgreSQL's selectivity estimator specifically fo
 - Returns a `Datum` containing a float8 value representing the estimated selectivity (typically between 0.0 and 1.0)
 - Complements `scalarltsel` by providing selectivity estimates for the opposite direction of comparison
 - The selectivity estimation logic accounts for data distribution patterns and histogram information when available
+
+## Simplified Source
+```c
+Datum
+scalargtsel(PG_FUNCTION_ARGS)
+{
+    // Delegate to wrapper function for greater-than comparison
+    // isgt=true (greater-than), iseq=false (not equality-inclusive)
+    return scalarineqsel_wrapper(fcinfo, true, false);
+}
+```

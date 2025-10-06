@@ -49,3 +49,31 @@ This function performs type conversion from PostgreSQL's arbitrary precision num
 - Uses PostgreSQL's variable-format numeric representation as intermediate step
 - Located in src/backend/utils/adt/numeric.c:4766-4809
 - The pg_lsn type represents positions in PostgreSQL's write-ahead log system
+
+## Simplified Source
+
+```c
+Datum numeric_pg_lsn(PG_FUNCTION_ARGS) {
+    Numeric num = PG_GETARG_NUMERIC(0);
+    NumericVar x;
+    XLogRecPtr result;
+
+    // Reject special values (NaN, infinity) - invalid for LSN
+    if (NUMERIC_IS_SPECIAL(num)) {
+        if (NUMERIC_IS_NAN(num))
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                           errmsg("cannot convert NaN to pg_lsn")));
+        else
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                           errmsg("cannot convert infinity to pg_lsn")));
+    }
+
+    // Convert numeric to variable format, then to unsigned 64-bit integer
+    init_var_from_num(num, &x);
+    if (!numericvar_to_uint64(&x, (uint64 *) &result))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("pg_lsn out of range")));
+
+    return PG_RETURN_LSN(result);
+}
+```

@@ -39,3 +39,33 @@ The `numeric_gcd` function implements the mathematical greatest common divisor o
 - Implements the mathematically standard Euclidean algorithm for GCD calculation
 - Memory management includes proper cleanup of temporary NumericVar structures
 - Located in src/backend/utils/adt/numeric.c alongside other advanced mathematical functions
+
+## Simplified Source
+
+```c
+Datum
+numeric_gcd(PG_FUNCTION_ARGS)
+{
+    Numeric num1 = PG_GETARG_NUMERIC(0);
+    Numeric num2 = PG_GETARG_NUMERIC(1);
+    NumericVar arg1, arg2, result;
+
+    // Handle special values (NaN, infinity) - return NaN
+    if (NUMERIC_IS_SPECIAL(num1) || NUMERIC_IS_SPECIAL(num2))
+        PG_RETURN_NUMERIC(make_result(&const_nan));
+
+    // Convert inputs to internal numeric variables
+    init_var_from_num(num1, &arg1);
+    init_var_from_num(num2, &arg2);
+    init_var(&result);
+
+    // Compute GCD using Euclidean algorithm
+    gcd_var(&arg1, &arg2, &result);
+
+    // Convert result back and cleanup
+    Numeric res = make_result(&result);
+    free_var(&result);
+
+    PG_RETURN_NUMERIC(res);
+}
+```

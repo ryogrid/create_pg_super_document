@@ -38,3 +38,29 @@ The function iterates through a vector of GiST entries, each containing a range 
 - Part of the standard GiST operator class interface for range types
 - The function processes entries sequentially, building up the union incrementally
 - Located in src/backend/utils/adt/rangetypes_gist.c:324-361
+
+## Simplified Source
+
+```c
+Datum
+range_gist_union(PG_FUNCTION_ARGS)
+{
+	GistEntryVector *entryvec = (GistEntryVector *) PG_GETARG_POINTER(0);
+	GISTENTRY  *entries = entryvec->vector;
+	RangeType  *result_range;
+	TypeCacheEntry *typcache;
+	int			i;
+
+	// Start with first range
+	result_range = DatumGetRangeTypeP(entries[0].key);
+	typcache = range_get_typcache(fcinfo, RangeTypeGetOid(result_range));
+
+	// Progressively union with remaining ranges
+	for (i = 1; i < entryvec->n; i++) {
+		result_range = range_super_union(typcache, result_range,
+										 DatumGetRangeTypeP(entries[i].key));
+	}
+
+	PG_RETURN_RANGE_P(result_range);
+}
+```

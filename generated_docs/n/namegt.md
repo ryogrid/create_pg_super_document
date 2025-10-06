@@ -35,3 +35,17 @@ Datum namegt(PG_FUNCTION_ARGS)
 - Used internally by PostgreSQL's sorting and indexing mechanisms for Name columns
 - Collation-aware comparison ensures proper ordering according to locale-specific rules
 - Complementary to `namelt` - provides the opposite comparison logic
+
+## Simplified Source
+
+```c
+Datum
+namegt(PG_FUNCTION_ARGS)
+{
+    Name arg1 = PG_GETARG_NAME(0);
+    Name arg2 = PG_GETARG_NAME(1);
+
+    // Compare names using collation and return true if arg1 > arg2
+    PG_RETURN_BOOL(namecmp(arg1, arg2, PG_GET_COLLATION()) > 0);
+}
+```

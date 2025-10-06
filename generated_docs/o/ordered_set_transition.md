@@ -40,4 +40,28 @@ The function maintains a count of non-null rows processed, which can be used lat
 - Automatically filters out null input values, which is standard behavior for ordered-set functions
 - Maintains running count of non-null rows in 
 - Returns the updated state pointer for use by subsequent calls and the final function
-- Works with aggregates like 
+- Works with aggregates like
+
+## Simplified Source
+
+```c
+Datum
+ordered_set_transition(PG_FUNCTION_ARGS)
+{
+    OSAPerGroupState *osastate;
+
+    // Initialize state on first call, otherwise retrieve existing state
+    if (PG_ARGISNULL(0))
+        osastate = ordered_set_startup(fcinfo, false);
+    else
+        osastate = (OSAPerGroupState *) PG_GETARG_POINTER(0);
+
+    // Add non-null input values to the sorted collection
+    if (!PG_ARGISNULL(1)) {
+        tuplesort_putdatum(osastate->sortstate, PG_GETARG_DATUM(1), false);
+        osastate->number_of_rows++;
+    }
+
+    PG_RETURN_POINTER(osastate);
+}
+```

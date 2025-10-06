@@ -48,3 +48,36 @@ If either condition is true, the ranges overlap.
 - Used extensively in GiST and SP-GiST index consistency checking
 - The overlap test is efficient, requiring only boundary comparisons without full range intersection
 - Located in src/backend/utils/adt/rangetypes.c:841-873
+
+## Simplified Source
+
+```c
+bool range_overlaps_internal(TypeCacheEntry *typcache, const RangeType *r1, const RangeType *r2) {
+    RangeBound lower1, lower2, upper1, upper2;
+    bool empty1, empty2;
+
+    // Validate same range types
+    if (RangeTypeGetOid(r1) != RangeTypeGetOid(r2))
+        elog(ERROR, "range types do not match");
+
+    // Extract range boundaries
+    range_deserialize(typcache, r1, &lower1, &upper1, &empty1);
+    range_deserialize(typcache, r2, &lower2, &upper2, &empty2);
+
+    // Empty ranges never overlap
+    if (empty1 || empty2)
+        return false;
+
+    // Check if lower bound of r1 falls within r2
+    if (range_cmp_bounds(typcache, &lower1, &lower2) >= 0 &&
+        range_cmp_bounds(typcache, &lower1, &upper2) <= 0)
+        return true;
+
+    // Check if lower bound of r2 falls within r1
+    if (range_cmp_bounds(typcache, &lower2, &lower1) >= 0 &&
+        range_cmp_bounds(typcache, &lower2, &upper1) <= 0)
+        return true;
+
+    return false;
+}
+```

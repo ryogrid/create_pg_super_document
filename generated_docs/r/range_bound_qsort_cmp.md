@@ -35,3 +35,16 @@ The function enables sorting of range boundaries according to their natural orde
 - Used specifically in range statistics computation to sort boundary arrays for efficient processing
 - Handles the complexity of range boundary comparison including boundary inclusivity/exclusivity semantics
 - Essential for creating histograms and other statistical summaries of range data
+
+## Simplified Source
+
+```c
+static int range_bound_qsort_cmp(const void *a1, const void *a2, void *arg)
+{
+    RangeBound *bound1 = (RangeBound *) a1;
+    RangeBound *bound2 = (RangeBound *) a2;
+    TypeCacheEntry *typcache = (TypeCacheEntry *) arg;
+
+    return range_cmp_bounds(typcache, bound1, bound2);
+}
+```

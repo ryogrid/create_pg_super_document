@@ -55,3 +55,21 @@ This function is essential for efficiently transmitting Name values through Post
 - Part of PostgreSQL's binary I/O protocol system for high-performance data transmission
 - The function calculates the exact string length to avoid sending unnecessary null padding
 - Essential for client libraries that use the binary protocol for improved performance
+
+## Simplified Source
+
+```c
+Datum
+namesend(PG_FUNCTION_ARGS)
+{
+    Name s = PG_GETARG_NAME(0);
+    StringInfoData buf;
+
+    // Build binary output buffer
+    pq_begintypsend(&buf);
+    pq_sendtext(&buf, NameStr(*s), strlen(NameStr(*s)));
+
+    // Return binary data as bytea
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

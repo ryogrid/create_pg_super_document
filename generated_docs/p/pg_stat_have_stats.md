@@ -43,3 +43,21 @@ The function is explicitly noted in the code comments as being useful for testin
 - Useful for verifying that statistics collection is working properly for specific database objects
 - The function validates the existence of statistical data without actually retrieving the statistics themselves
 - Can be used to test whether statistics have been collected after specific database operations
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_have_stats(PG_FUNCTION_ARGS)
+{
+    char *stats_type = text_to_cstring(PG_GETARG_TEXT_P(0));
+    Oid db_oid = PG_GETARG_OID(1);
+    Oid obj_oid = PG_GETARG_OID(2);
+
+    // Convert string to statistics kind enum
+    PgStat_Kind kind = pgstat_get_kind_from_str(stats_type);
+
+    // Check if statistics entry exists for the specified object
+    PG_RETURN_BOOL(pgstat_have_entry(kind, db_oid, obj_oid));
+}
+```

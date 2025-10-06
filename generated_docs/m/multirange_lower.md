@@ -38,3 +38,27 @@ This function retrieves the lower bound value of a multirange type. It first che
 - The function uses index 0 when calling multirange_get_bounds, which retrieves the bounds of the first (lowest) range in the multirange
 - Since multiranges maintain ranges in sorted, non-overlapping order, the lower bound of the first range represents the overall lower bound of the entire multirange
 - The return type is Datum, allowing for any PostgreSQL data type that can serve as a range element
+
+## Simplified Source
+
+```c
+Datum multirange_lower(PG_FUNCTION_ARGS) {
+    MultirangeType *mr = PG_GETARG_MULTIRANGE_P(0);
+    TypeCacheEntry *typcache;
+    RangeBound lower, upper;
+
+    // Return NULL for empty multiranges
+    if (MultirangeIsEmpty(mr))
+        PG_RETURN_NULL();
+
+    // Get type cache and extract bounds of first range
+    typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(mr));
+    multirange_get_bounds(typcache->rngtype, mr, 0, &lower, &upper);
+
+    // Return lower bound value if finite, NULL if infinite
+    if (!lower.infinite)
+        PG_RETURN_DATUM(lower.val);
+    else
+        PG_RETURN_NULL();
+}
+```

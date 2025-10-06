@@ -35,3 +35,33 @@ The `network_send` function is a static helper function that serializes network 
 - Binary format is more compact and efficient than text representation for network transmission
 - Returns a bytea (binary data) result that can be transmitted over PostgreSQL's binary protocol
 - Located in src/backend/utils/adt/network.c:270-291
+
+## Simplified Source
+
+```c
+static bytea *
+network_send(inet *addr, bool is_cidr)
+{
+    StringInfoData buf;
+    char *addrptr;
+    int nb, i;
+
+    pq_begintypsend(&buf);
+
+    // Write header: family, bits, is_cidr flag
+    pq_sendbyte(&buf, ip_family(addr));
+    pq_sendbyte(&buf, ip_bits(addr));
+    pq_sendbyte(&buf, is_cidr);
+
+    // Write address length and address bytes
+    nb = ip_addrsize(addr);
+    if (nb < 0) nb = 0;  // Handle edge case
+    pq_sendbyte(&buf, nb);
+
+    addrptr = (char *) ip_addr(addr);
+    for (i = 0; i < nb; i++)
+        pq_sendbyte(&buf, addrptr[i]);
+
+    return pq_endtypsend(&buf);
+}
+```

@@ -31,3 +31,11 @@ The function uses unsigned arithmetic internally to correctly handle two's compl
 - Part of PostgreSQL's numeric input parsing infrastructure
 - The comprehensive format support includes underscore separators (e.g., 1_000_000) and multiple bases
 - Uses two's complement arithmetic handling for full 64-bit signed integer range
+
+## Simplified Source
+
+```c
+int64 pg_strtoint64(const char *s) {
+    return pg_strtoint64_safe(s, NULL);
+}
+```

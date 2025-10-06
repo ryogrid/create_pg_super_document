@@ -42,3 +42,27 @@ Checksum failures indicate potential hardware issues, storage corruption, or oth
 - The counter is cumulative since database startup or statistics reset
 - Should be monitored regularly in production environments for early detection of hardware problems
 - A non-zero value typically indicates storage or memory hardware issues requiring investigation
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_get_db_checksum_failures(PG_FUNCTION_ARGS)
+{
+    Oid dbid = PG_GETARG_OID(0);
+    int64 result;
+    PgStat_StatDBEntry *dbentry;
+
+    // Return NULL if checksums are not enabled
+    if (!DataChecksumsEnabled())
+        PG_RETURN_NULL();
+
+    // Get database statistics entry
+    if ((dbentry = pgstat_fetch_stat_dbentry(dbid)) == NULL)
+        result = 0;
+    else
+        result = (int64) (dbentry->checksum_failures);
+
+    PG_RETURN_INT64(result);
+}
+```

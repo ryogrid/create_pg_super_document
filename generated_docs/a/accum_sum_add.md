@@ -44,3 +44,33 @@ The function is designed to handle very large sums efficiently by deferring carr
 - Carry propagation is performed lazily when num_uncarried reaches NBASE - 1 to balance performance and overflow prevention
 - The accumulator is automatically rescaled to accommodate values with different weights and scales
 - This is a core component of PostgreSQL's numeric aggregation system, enabling efficient computation of SUM, AVG, and statistical functions
+
+## Simplified Source
+
+```c
+static void accum_sum_add(NumericSumAccum *accum, const NumericVar *val) {
+    int32 *accum_digits;
+
+    // Perform carry propagation if needed to prevent overflow
+    if (accum->num_uncarried == NBASE - 1)
+        accum_sum_carry(accum);
+
+    // Scale accumulator to accommodate the new value
+    accum_sum_rescale(accum, val);
+
+    // Choose positive or negative digit array based on value sign
+    if (val->sign == NUMERIC_POS)
+        accum_digits = accum->pos_digits;
+    else
+        accum_digits = accum->neg_digits;
+
+    // Add each digit of the value to the accumulator
+    int i = accum->weight - val->weight;
+    for (int val_i = 0; val_i < val->ndigits; val_i++) {
+        accum_digits[i] += (int32) val->digits[val_i];
+        i++;
+    }
+
+    accum->num_uncarried++;
+}
+```

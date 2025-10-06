@@ -41,3 +41,50 @@ The function dynamically allocates memory for the result, starting with an initi
 - Uses soft error handling mechanism to report parsing errors gracefully
 - Sets all required oidvector metadata including ndim=1, dataoffset=0, elemtype=OIDOID, and proper bounds
 - Memory allocation follows PostgreSQL's palloc/repalloc pattern for automatic cleanup
+
+## Simplified Source
+
+```c
+Datum oidvectorin(PG_FUNCTION_ARGS) {
+    char *oidString = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    oidvector *result;
+    int nalloc = 32;  // Initial allocation size
+    int n;
+
+    // Allocate initial memory for oidvector
+    result = (oidvector *) palloc0(OidVectorSize(nalloc));
+
+    // Parse each OID from the input string
+    for (n = 0;; n++) {
+        // Skip whitespace
+        while (*oidString && isspace((unsigned char) *oidString))
+            oidString++;
+
+        // End of string reached
+        if (*oidString == '\0')
+            break;
+
+        // Expand allocation if needed
+        if (n >= nalloc) {
+            nalloc *= 2;
+            result = (oidvector *) repalloc(result, OidVectorSize(nalloc));
+        }
+
+        // Parse OID value
+        result->values[n] = uint32in_subr(oidString, &oidString, "oid", escontext);
+        if (SOFT_ERROR_OCCURRED(escontext))
+            PG_RETURN_NULL();
+    }
+
+    // Set oidvector metadata
+    SET_VARSIZE(result, OidVectorSize(n));
+    result->ndim = 1;
+    result->dataoffset = 0;
+    result->elemtype = OIDOID;
+    result->dim1 = n;
+    result->lbound1 = 0;
+
+    return PG_RETURN_POINTER(result);
+}
+```

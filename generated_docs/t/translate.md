@@ -42,3 +42,77 @@ The translate function implements character-by-character replacement within a te
 - The algorithm processes characters sequentially, maintaining character encoding integrity
 - Improved implementation credited to Edwin Ramirez <ramirez@doc.mssm.edu>
 - If replacement results in shorter strings, memory allocation may be larger than needed, but this is deemed acceptable for performance reasons
+
+## Simplified Source
+
+```c
+Datum
+translate(PG_FUNCTION_ARGS)
+{
+    // Extract input arguments
+    text *string = PG_GETARG_TEXT_PP(0);
+    text *from = PG_GETARG_TEXT_PP(1);
+    text *to = PG_GETARG_TEXT_PP(2);
+    text *result;
+
+    // Get string data and lengths
+    char *source = VARDATA_ANY(string);
+    int m = VARSIZE_ANY_EXHDR(string);
+    int fromlen = VARSIZE_ANY_EXHDR(from);
+    int tolen = VARSIZE_ANY_EXHDR(to);
+    char *from_ptr = VARDATA_ANY(from);
+    char *to_ptr = VARDATA_ANY(to);
+
+    // Handle empty string case
+    if (m <= 0)
+        PG_RETURN_TEXT_P(string);
+
+    // Allocate worst-case result buffer with overflow protection
+    int bytelen = pg_database_encoding_max_length() * m + VARHDRSZ;
+    result = (text *) palloc(bytelen);
+    char *target = VARDATA(result);
+    int retlen = 0;
+
+    // Process each character in source string
+    while (m > 0) {
+        int source_len = pg_mblen(source);
+        int from_index = 0;
+        bool found = false;
+
+        // Search for character in 'from' set
+        for (int i = 0; i < fromlen; i += pg_mblen(&from_ptr[i])) {
+            if (pg_mblen(&from_ptr[i]) == source_len &&
+                memcmp(source, &from_ptr[i], source_len) == 0) {
+                found = true;
+                break;
+            }
+            from_index++;
+        }
+
+        if (found) {
+            // Find corresponding 'to' character and substitute/delete
+            char *p = to_ptr;
+            for (int i = 0; i < from_index && p < to_ptr + tolen; i++)
+                p += pg_mblen(p);
+
+            if (p < to_ptr + tolen) {
+                int len = pg_mblen(p);
+                memcpy(target, p, len);
+                target += len;
+                retlen += len;
+            }
+        } else {
+            // No match found, copy original character
+            memcpy(target, source, source_len);
+            target += source_len;
+            retlen += source_len;
+        }
+
+        source += source_len;
+        m -= source_len;
+    }
+
+    SET_VARSIZE(result, retlen + VARHDRSZ);
+    PG_RETURN_TEXT_P(result);
+}
+```

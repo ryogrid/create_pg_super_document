@@ -59,3 +59,122 @@ Key operations include processing NULL values in percentile arrays, sorting requ
 - Memory management uses palloc for result arrays within PostgreSQL's memory context system
 - Part of PostgreSQL's ordered-set aggregate framework enabling statistical functions
 - Critical for implementing SQL standard percentile_cont aggregates with proper continuous semantics
+
+## Simplified Source
+
+```c
+static Datum
+percentile_cont_multi_final_common(FunctionCallInfo fcinfo,
+                                   Oid expect_type,
+                                   int16 typLen, bool typByVal, char typAlign,
+                                   LerpFunc lerpfunc)
+{
+    OSAPerGroupState *osastate;
+    ArrayType *param;
+    Datum *percentiles_datum;
+    bool *percentiles_null;
+    int num_percentiles;
+    struct pct_info *pct_info;
+    Datum *result_datum;
+    bool *result_isnull;
+    int64 rownum = 0;
+    Datum first_val = (Datum) 0;
+    Datum second_val = (Datum) 0;
+    bool isnull;
+    int i;
+
+    // Handle empty input
+    if (PG_ARGISNULL(0))
+        PG_RETURN_NULL();
+
+    osastate = (OSAPerGroupState *) PG_GETARG_POINTER(0);
+
+    if (osastate->number_of_rows == 0)
+        PG_RETURN_NULL();
+
+    // Parse percentile array input
+    if (PG_ARGISNULL(1))
+        PG_RETURN_NULL();
+    param = PG_GETARG_ARRAYTYPE_P(1);
+
+    deconstruct_array_builtin(param, FLOAT8OID,
+                              &percentiles_datum,
+                              &percentiles_null,
+                              &num_percentiles);
+
+    if (num_percentiles == 0)
+        PG_RETURN_POINTER(construct_empty_array(osastate->qstate->sortColType));
+
+    // Setup percentile calculation info (continuous mode)
+    pct_info = setup_pct_info(num_percentiles,
+                              percentiles_datum,
+                              percentiles_null,
+                              osastate->number_of_rows,
+                              true);
+
+    // Allocate result arrays
+    result_datum = (Datum *) palloc(num_percentiles * sizeof(Datum));
+    result_isnull = (bool *) palloc(num_percentiles * sizeof(bool));
+
+    // Handle NULL percentiles first
+    for (i = 0; i < num_percentiles; i++) {
+        int idx = pct_info[i].idx;
+
+        if (pct_info[i].first_row > 0)
+            break;
+
+        result_datum[idx] = (Datum) 0;
+        result_isnull[idx] = true;
+    }
+
+    // Process non-NULL percentiles with interpolation
+    if (i < num_percentiles) {
+        // Ensure data is sorted
+        if (!osastate->sort_done) {
+            tuplesort_performsort(osastate->sortstate);
+            osastate->sort_done = true;
+        } else {
+            tuplesort_rescan(osastate->sortstate);
+        }
+
+        for (; i < num_percentiles; i++) {
+            int64 first_row = pct_info[i].first_row;
+            int64 second_row = pct_info[i].second_row;
+            int idx = pct_info[i].idx;
+
+            // Advance to first_row if needed
+            if (first_row > rownum) {
+                tuplesort_skiptuples(osastate->sortstate, first_row - rownum - 1, true);
+                tuplesort_getdatum(osastate->sortstate, true, true, &first_val, &isnull, NULL);
+                rownum = first_row;
+                second_val = first_val;
+            } else if (first_row == rownum) {
+                first_val = second_val;
+            }
+
+            // Fetch second_row if needed
+            if (second_row > rownum) {
+                tuplesort_getdatum(osastate->sortstate, true, true, &second_val, &isnull, NULL);
+                rownum++;
+            }
+
+            // Compute result: interpolate or use exact value
+            if (second_row > first_row)
+                result_datum[idx] = lerpfunc(first_val, second_val, pct_info[i].proportion);
+            else
+                result_datum[idx] = first_val;
+
+            result_isnull[idx] = false;
+        }
+    }
+
+    // Return array with same shape as input
+    PG_RETURN_POINTER(construct_md_array(result_datum, result_isnull,
+                                         ARR_NDIM(param),
+                                         ARR_DIMS(param), ARR_LBOUND(param),
+                                         expect_type,
+                                         typLen,
+                                         typByVal,
+                                         typAlign));
+}
+```

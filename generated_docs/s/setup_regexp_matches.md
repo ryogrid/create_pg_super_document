@@ -62,3 +62,110 @@ The function optimizes performance by doing all matching upfront and caching res
 - Handles both single-byte and multi-byte character encodings efficiently
 - For multi-byte encodings, maintains both wide character and original byte representations
 - The function is static (internal to the regexp.c module)
+
+## Simplified Source
+
+```c
+static regexp_matches_ctx *setup_regexp_matches(text *orig_str, text *pattern,
+                                               pg_re_flags *re_flags,
+                                               int start_search, Oid collation,
+                                               bool use_subpatterns,
+                                               bool ignore_degenerate,
+                                               bool fetching_unmatched) {
+    regexp_matches_ctx *matchctx = palloc0(sizeof(regexp_matches_ctx));
+    int orig_len = VARSIZE_ANY_EXHDR(orig_str);
+
+    // Store original string for result extraction
+    matchctx->orig_str = orig_str;
+
+    // Convert string to wide character format for matching
+    pg_wchar *wide_str = palloc(sizeof(pg_wchar) * (orig_len + 1));
+    int wide_len = pg_mb2wchar_with_len(VARDATA_ANY(orig_str), wide_str, orig_len);
+
+    // Compile regex pattern with appropriate flags
+    int cflags = re_flags->cflags;
+    if (!use_subpatterns) cflags |= REG_NOSUB;
+    regex_t *cpattern = RE_compile_and_cache(pattern, cflags, collation);
+
+    // Setup pattern counting and match arrays
+    int pmatch_len = use_subpatterns && cpattern->re_nsub > 0 ?
+                     cpattern->re_nsub + 1 : 1;
+    matchctx->npatterns = use_subpatterns && cpattern->re_nsub > 0 ?
+                          cpattern->re_nsub : 1;
+
+    regmatch_t *pmatch = palloc(sizeof(regmatch_t) * pmatch_len);
+
+    // Initialize dynamic result array
+    int array_len = re_flags->glob ? 255 : 31;
+    matchctx->match_locs = palloc(sizeof(int) * array_len);
+    int array_idx = 0;
+    int maxlen = 0;
+
+    // Execute pattern matching loop
+    int prev_match_end = 0;
+    int prev_valid_match_end = 0;
+
+    while (RE_wchar_execute(cpattern, wide_str, wide_len, start_search,
+                           pmatch_len, pmatch)) {
+
+        // Skip degenerate matches if requested
+        if (ignore_degenerate &&
+            !(pmatch[0].rm_so < wide_len && pmatch[0].rm_eo > prev_match_end))
+            continue;
+
+        // Grow result array if needed
+        while (array_idx + matchctx->npatterns * 2 + 1 > array_len) {
+            array_len += array_len + 1;
+            matchctx->match_locs = repalloc(matchctx->match_locs,
+                                          sizeof(int) * array_len);
+        }
+
+        // Store match locations
+        if (use_subpatterns) {
+            for (int i = 1; i <= matchctx->npatterns; i++) {
+                int so = pmatch[i].rm_so, eo = pmatch[i].rm_eo;
+                matchctx->match_locs[array_idx++] = so;
+                matchctx->match_locs[array_idx++] = eo;
+                if (so >= 0 && eo >= 0 && (eo - so) > maxlen)
+                    maxlen = (eo - so);
+            }
+        } else {
+            int so = pmatch[0].rm_so, eo = pmatch[0].rm_eo;
+            matchctx->match_locs[array_idx++] = so;
+            matchctx->match_locs[array_idx++] = eo;
+            if (so >= 0 && eo >= 0 && (eo - so) > maxlen)
+                maxlen = (eo - so);
+        }
+
+        matchctx->nmatches++;
+        prev_valid_match_end = pmatch[0].rm_eo;
+        prev_match_end = pmatch[0].rm_eo;
+
+        if (!re_flags->glob) break; // Stop if not global matching
+
+        // Advance search position
+        start_search = prev_match_end;
+        if (pmatch[0].rm_so == pmatch[0].rm_eo) start_search++;
+        if (start_search > wide_len) break;
+    }
+
+    // Store end position for splitting operations
+    matchctx->match_locs[array_idx] = wide_len;
+
+    // Setup conversion buffer for multi-byte encodings
+    int eml = pg_database_encoding_max_length();
+    if (eml > 1) {
+        int conv_bufsiz = (maxlen * eml > orig_len) ? orig_len + 1 : maxlen * eml + 1;
+        matchctx->conv_buf = palloc(conv_bufsiz);
+        matchctx->conv_bufsiz = conv_bufsiz;
+        matchctx->wide_str = wide_str;
+    } else {
+        pfree(wide_str);
+        matchctx->wide_str = NULL;
+        matchctx->conv_buf = NULL;
+    }
+
+    pfree(pmatch);
+    return matchctx;
+}
+```

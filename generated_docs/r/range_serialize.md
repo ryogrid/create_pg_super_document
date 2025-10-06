@@ -166,3 +166,81 @@ This function creates a properly serialized RangeType object from bound specific
 - Supports soft error handling through the escontext parameter
 - The serialized format includes varlena header, range type OID, bounds data, and flags byte
 - Zero-fills allocated memory similar to heap tuples for consistency
+
+## Simplified Source
+
+```c
+RangeType *
+range_serialize(TypeCacheEntry *typcache, RangeBound *lower, RangeBound *upper,
+                bool empty, struct Node *escontext)
+{
+    char flags = 0;
+
+    // Handle empty range case
+    if (empty) {
+        flags |= RANGE_EMPTY;
+    } else {
+        // Compare bounds and validate lower <= upper
+        int cmp = range_cmp_bound_values(typcache, lower, upper);
+        if (cmp > 0)
+            ereturn(escontext, NULL, /* error: lower > upper */);
+
+        // Check for empty range (equal bounds, not both inclusive)
+        if (cmp == 0 && !(lower->inclusive && upper->inclusive)) {
+            flags |= RANGE_EMPTY;
+        } else {
+            // Set boundary flags (infinite boundaries are never inclusive)
+            if (lower->infinite)
+                flags |= RANGE_LB_INF;
+            else if (lower->inclusive)
+                flags |= RANGE_LB_INC;
+            if (upper->infinite)
+                flags |= RANGE_UB_INF;
+            else if (upper->inclusive)
+                flags |= RANGE_UB_INC;
+        }
+    }
+
+    // Get element type information for serialization
+    int16 typlen = typcache->rngelemtype->typlen;
+    bool typbyval = typcache->rngelemtype->typbyval;
+    char typalign = typcache->rngelemtype->typalign;
+    char typstorage = typcache->rngelemtype->typstorage;
+
+    // Calculate total size needed
+    Size msize = sizeof(RangeType);
+
+    // Add space for lower bound if present
+    if (RANGE_HAS_LBOUND(flags)) {
+        if (typlen == -1)  // Handle variable-length types
+            lower->val = PointerGetDatum(PG_DETOAST_DATUM_PACKED(lower->val));
+        msize = datum_compute_size(msize, lower->val, typbyval, typalign, typlen, typstorage);
+    }
+
+    // Add space for upper bound if present
+    if (RANGE_HAS_UBOUND(flags)) {
+        if (typlen == -1)  // Handle variable-length types
+            upper->val = PointerGetDatum(PG_DETOAST_DATUM_PACKED(upper->val));
+        msize = datum_compute_size(msize, upper->val, typbyval, typalign, typlen, typstorage);
+    }
+
+    msize += sizeof(char);  // Space for flags byte
+
+    // Allocate and initialize the range object
+    RangeType *range = (RangeType *) palloc0(msize);
+    SET_VARSIZE(range, msize);
+    range->rangetypid = typcache->type_id;
+
+    // Write bounds data sequentially
+    Pointer ptr = (char *) (range + 1);
+    if (RANGE_HAS_LBOUND(flags))
+        ptr = datum_write(ptr, lower->val, typbyval, typalign, typlen, typstorage);
+    if (RANGE_HAS_UBOUND(flags))
+        ptr = datum_write(ptr, upper->val, typbyval, typalign, typlen, typstorage);
+
+    // Write flags as the final byte
+    *((char *) ptr) = flags;
+
+    return range;
+}
+```

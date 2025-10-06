@@ -39,3 +39,21 @@ For shared relations, the function uses InvalidOid as the database ID, indicatin
 - The function requires appropriate privileges to execute, as it affects table-level statistics
 - Unlike  which handles cluster-wide statistics categories, this function focuses on individual table/relation statistics
 - The OID parameter must correspond to a valid relation; invalid OIDs will be handled by the underlying pgstat_reset function
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_reset_single_table_counters(PG_FUNCTION_ARGS)
+{
+    Oid table_oid = PG_GETARG_OID(0);
+
+    // Determine database scope: InvalidOid for shared relations, current DB for others
+    Oid db_oid = (IsSharedRelation(table_oid) ? InvalidOid : MyDatabaseId);
+
+    // Reset statistics for the specific table/relation
+    pgstat_reset(PGSTAT_KIND_RELATION, db_oid, table_oid);
+
+    PG_RETURN_VOID();
+}
+```

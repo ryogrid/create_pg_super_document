@@ -37,3 +37,30 @@ This function serves as a SQL-callable interface to retrieve the partition const
 - The returned constraint expression represents the logical condition that determines row membership in the partition
 - Commonly used in administrative queries and system information functions to inspect partition definitions
 - Part of PostgreSQL's rule utilities system for reconstructing DDL from system catalogs
+
+## Simplified Source
+
+```c
+Datum
+pg_get_partition_constraintdef(PG_FUNCTION_ARGS)
+{
+    Oid relationId = PG_GETARG_OID(0);
+    Expr *constraint_expr;
+    List *context;
+    char *constraint_source;
+
+    // Get partition constraint expression for the relation
+    constraint_expr = get_partition_qual_relid(relationId);
+
+    // Return NULL if no partition constraint exists
+    if (constraint_expr == NULL)
+        PG_RETURN_NULL();
+
+    // Convert expression to readable SQL text with formatting
+    context = deparse_context_for(get_relation_name(relationId), relationId);
+    constraint_source = deparse_expression_pretty((Node *) constraint_expr, context,
+                                                 false, false, PRETTYFLAG_INDENT, 0);
+
+    PG_RETURN_TEXT_P(string_to_text(constraint_source));
+}
+```

@@ -39,3 +39,25 @@ This transformation preserves the normal distribution properties while scaling a
 - Thread-safety depends on the underlying PRNG state management
 - Commonly used for statistical simulations, data analysis, and generating realistic test data
 - The function name suggests 'double random normal' to indicate double-precision normal distribution
+
+## Simplified Source
+
+```c
+Datum
+drandom_normal(PG_FUNCTION_ARGS)
+{
+    float8 mean = PG_GETARG_FLOAT8(0);
+    float8 stddev = PG_GETARG_FLOAT8(1);
+
+    // Ensure PRNG is initialized
+    initialize_prng();
+
+    // Get standard normal value (mean=0, stddev=1)
+    float8 z = pg_prng_double_normal(&prng_state);
+
+    // Transform to target distribution: result = stddev * z + mean
+    float8 result = (stddev * z) + mean;
+
+    PG_RETURN_FLOAT8(result);
+}
+```

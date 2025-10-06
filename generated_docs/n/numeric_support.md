@@ -45,3 +45,44 @@ The  function is a PostgreSQL planner support function specifically designed to 
 - Located in src/backend/utils/adt/numeric.c:1194-1243
 - Returns NULL if no optimization is possible, otherwise returns an optimized expression node
 - Essential for efficient handling of numeric type casts in complex queries with multiple precision constraints
+
+## Simplified Source
+
+```c
+Datum numeric_support(PG_FUNCTION_ARGS) {
+    Node *rawreq = (Node *) PG_GETARG_POINTER(0);
+    Node *ret = NULL;
+
+    // Only handle simplification requests
+    if (IsA(rawreq, SupportRequestSimplify)) {
+        SupportRequestSimplify *req = (SupportRequestSimplify *) rawreq;
+        FuncExpr *expr = req->fcall;
+        Node *typmod;
+
+        Assert(list_length(expr->args) >= 2);
+        typmod = (Node *) lsecond(expr->args);
+
+        // Check if typmod is a constant
+        if (IsA(typmod, Const) && !((Const *) typmod)->constisnull) {
+            Node *source = (Node *) linitial(expr->args);
+            int32 old_typmod = exprTypmod(source);
+            int32 new_typmod = DatumGetInt32(((Const *) typmod)->constvalue);
+
+            // Extract precision and scale from typemods
+            int32 old_scale = numeric_typmod_scale(old_typmod);
+            int32 new_scale = numeric_typmod_scale(new_typmod);
+            int32 old_precision = numeric_typmod_precision(old_typmod);
+            int32 new_precision = numeric_typmod_precision(new_typmod);
+
+            // Optimize if: new typmod is unconstrained OR
+            // (scale unchanged AND precision not decreasing)
+            if (!is_valid_numeric_typmod(new_typmod) ||
+                (is_valid_numeric_typmod(old_typmod) &&
+                 new_scale == old_scale && new_precision >= old_precision))
+                ret = relabel_to_typmod(source, new_typmod);
+        }
+    }
+
+    PG_RETURN_POINTER(ret);
+}
+```

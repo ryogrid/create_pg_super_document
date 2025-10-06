@@ -58,3 +58,38 @@ The abbreviation system creates shorter representations of network addresses for
 - Part of PostgreSQL's advanced sort optimization infrastructure
 - Located in 
 - Registered in PostgreSQL's system catalogs for automatic use during sort operations
+
+## Simplified Source
+
+```c
+Datum network_sortsupport(PG_FUNCTION_ARGS) {
+    SortSupport ssup = (SortSupport) PG_GETARG_POINTER(0);
+
+    // Set basic fast comparator for network types
+    ssup->comparator = network_fast_cmp;
+    ssup->ssup_extra = NULL;
+
+    // Enable abbreviation optimization if supported
+    if (ssup->abbreviate) {
+        // Allocate state tracking structure in sort context
+        MemoryContext oldcontext = MemoryContextSwitchTo(ssup->ssup_cxt);
+
+        network_sortsupport_state *uss = palloc(sizeof(network_sortsupport_state));
+        uss->input_count = 0;
+        uss->estimating = true;
+        initHyperLogLog(&uss->abbr_card, 10);  // Track cardinality
+
+        ssup->ssup_extra = uss;
+
+        // Configure abbreviation functions
+        ssup->comparator = ssup_datum_unsigned_cmp;
+        ssup->abbrev_converter = network_abbrev_convert;
+        ssup->abbrev_abort = network_abbrev_abort;
+        ssup->abbrev_full_comparator = network_fast_cmp;
+
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    PG_RETURN_VOID();
+}
+```

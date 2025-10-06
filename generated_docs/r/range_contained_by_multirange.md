@@ -34,3 +34,19 @@ The function follows the standard PostgreSQL function interface pattern, using P
 
 ## Notes and Other Information
 This is a PostgreSQL-exported function that can be called from SQL as part of range and multirange operations. It's typically invoked through the <@ operator syntax in SQL queries where a range is tested for containment within a multirange. The function is registered in the PostgreSQL system catalogs and made available to the SQL parser and executor. Notably, this function reuses the same internal logic as multirange_contains_range by simply swapping the argument order, demonstrating the symmetric nature of containment relationships.
+
+## Simplified Source
+
+```c
+Datum range_contained_by_multirange(PG_FUNCTION_ARGS) {
+    // Extract range and multirange from arguments
+    RangeType *range = PG_GETARG_RANGE_P(0);
+    MultirangeType *multirange = PG_GETARG_MULTIRANGE_P(1);
+
+    // Get type cache for the multirange type
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(multirange));
+
+    // Reuse multirange_contains_range_internal with swapped argument order
+    return PG_RETURN_BOOL(multirange_contains_range_internal(typcache->rngtype, multirange, range));
+}
+```

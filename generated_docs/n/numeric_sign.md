@@ -40,3 +40,28 @@ For NaN inputs, the function returns NaN. For all other values (including infini
 - Uses pre-defined constants for common values (-1, 0, 1) for efficiency
 - The switch statement includes an assertion that should never be reached, indicating complete coverage of possible return values from numeric_sign_internal
 - Returns NUMERIC values rather than integers, maintaining type consistency within PostgreSQL's SQL system
+
+## Simplified Source
+
+```c
+Datum numeric_sign(PG_FUNCTION_ARGS) {
+    Numeric num = PG_GETARG_NUMERIC(0);
+
+    // Handle NaN specially
+    if (NUMERIC_IS_NAN(num))
+        PG_RETURN_NUMERIC(make_result(&const_nan));
+
+    // Get sign and return appropriate NUMERIC constant
+    switch (numeric_sign_internal(num)) {
+        case 0:
+            PG_RETURN_NUMERIC(make_result(&const_zero));
+        case 1:
+            PG_RETURN_NUMERIC(make_result(&const_one));
+        case -1:
+            PG_RETURN_NUMERIC(make_result(&const_minus_one));
+    }
+
+    Assert(false);  // Should never reach here
+    return (Datum) 0;
+}
+```

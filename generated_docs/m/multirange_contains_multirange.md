@@ -36,3 +36,19 @@ This function is part of PostgreSQL's multirange type system and enables SQL que
 - This function supports the @> operator in SQL queries between multirange types
 - Located in src/backend/utils/adt/multirangetypes.c:2238-2250
 - Includes a comment indicating it implements the "contains?" operation
+
+## Simplified Source
+
+```c
+Datum multirange_contains_multirange(PG_FUNCTION_ARGS) {
+    // Extract both multirange arguments
+    MultirangeType *mr1 = PG_GETARG_MULTIRANGE_P(0);
+    MultirangeType *mr2 = PG_GETARG_MULTIRANGE_P(1);
+
+    // Get type cache for multirange
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(mr1));
+
+    // Delegate to internal containment function
+    PG_RETURN_BOOL(multirange_contains_multirange_internal(typcache->rngtype, mr1, mr2));
+}
+```

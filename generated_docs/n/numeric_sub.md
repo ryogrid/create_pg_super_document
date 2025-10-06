@@ -41,3 +41,19 @@ The function extracts two NUMERIC arguments from the function call arguments, pe
 - The function handles all special numeric cases including NaN, positive/negative infinity
 - Location: 
 - Part of PostgreSQL's comprehensive numeric arithmetic implementation
+
+## Simplified Source
+
+```c
+Datum numeric_sub(PG_FUNCTION_ARGS) {
+    // Get the two numeric operands
+    Numeric num1 = PG_GETARG_NUMERIC(0);
+    Numeric num2 = PG_GETARG_NUMERIC(1);
+
+    // Perform subtraction using internal implementation
+    Numeric res = numeric_sub_opt_error(num1, num2, NULL);
+
+    // Return the result
+    PG_RETURN_NUMERIC(res);
+}
+```

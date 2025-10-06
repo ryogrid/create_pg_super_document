@@ -49,3 +49,65 @@ The flag parameter controls tie-breaking behavior: -1 sorts the hypothetical row
 - The rank calculation is 1-based, consistent with SQL standard ranking functions
 - Handles edge cases like empty datasets (returns rank 1) and null values appropriately
 - The implementation is optimized for large datasets with interrupt checking during scanning
+
+## Simplified Source
+```c
+static int64 hypothetical_rank_common(FunctionCallInfo fcinfo, int flag, int64 *number_of_rows) {
+    int nargs = PG_NARGS() - 1;
+    int64 rank = 1;
+    OSAPerGroupState *osastate;
+    TupleTableSlot *slot;
+
+    // Return rank 1 if no regular rows exist
+    if (PG_ARGISNULL(0)) {
+        *number_of_rows = 0;
+        return 1;
+    }
+
+    osastate = (OSAPerGroupState *) PG_GETARG_POINTER(0);
+    *number_of_rows = osastate->number_of_rows;
+
+    // Validate argument count (must be even - direct + aggregated pairs)
+    if (nargs % 2 != 0)
+        elog(ERROR, "wrong number of arguments in hypothetical-set function");
+    nargs /= 2;
+
+    // Validate argument types match between direct and aggregated args
+    hypothetical_check_argtypes(fcinfo, nargs, osastate->qstate->tupdesc);
+
+    // Insert hypothetical row into the sort with flag value
+    slot = osastate->qstate->tupslot;
+    ExecClearTuple(slot);
+
+    // Copy direct arguments to tuple slot
+    for (int i = 0; i < nargs; i++) {
+        slot->tts_values[i] = PG_GETARG_DATUM(i + 1);
+        slot->tts_isnull[i] = PG_ARGISNULL(i + 1);
+    }
+
+    // Add flag to distinguish hypothetical row from regular rows
+    slot->tts_values[nargs] = Int32GetDatum(flag);
+    slot->tts_isnull[nargs] = false;
+    ExecStoreVirtualTuple(slot);
+
+    // Add hypothetical row to sort and complete sorting
+    tuplesort_puttupleslot(osastate->sortstate, slot);
+    tuplesort_performsort(osastate->sortstate);
+    osastate->sort_done = true;
+
+    // Scan sorted results to find hypothetical row and count rank
+    while (tuplesort_gettupleslot(osastate->sortstate, true, true, slot, NULL)) {
+        bool isnull;
+        Datum flag_value = slot_getattr(slot, nargs + 1, &isnull);
+
+        // Stop when we find the hypothetical row (non-zero flag)
+        if (!isnull && DatumGetInt32(flag_value) != 0)
+            break;
+
+        rank++;
+    }
+
+    ExecClearTuple(slot);
+    return rank;
+}
+```

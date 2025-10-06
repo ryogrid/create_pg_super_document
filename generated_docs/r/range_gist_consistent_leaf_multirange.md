@@ -50,3 +50,50 @@ The function handles the asymmetric nature of range-to-multirange comparisons by
 - The RANGESTRAT_EQ case uses multirange_union_range_equal to test if the range equals the multirange's union
 - Supports all standard range spatial relationship operators adapted for range-to-multirange comparisons
 - Each strategy delegates to specialized functions that handle the complexity of comparing single ranges against collections of ranges
+
+## Simplified Source
+
+```c
+static bool
+range_gist_consistent_leaf_multirange(TypeCacheEntry *typcache,
+                                     StrategyNumber strategy,
+                                     const RangeType *key,
+                                     const MultirangeType *query)
+{
+    switch (strategy)
+    {
+        case RANGESTRAT_BEFORE:
+            return range_before_multirange_internal(typcache, key, query);
+
+        case RANGESTRAT_OVERLEFT:
+            return range_overleft_multirange_internal(typcache, key, query);
+
+        case RANGESTRAT_OVERLAPS:
+            return range_overlaps_multirange_internal(typcache, key, query);
+
+        case RANGESTRAT_OVERRIGHT:
+            return range_overright_multirange_internal(typcache, key, query);
+
+        case RANGESTRAT_AFTER:
+            return range_after_multirange_internal(typcache, key, query);
+
+        case RANGESTRAT_ADJACENT:
+            return range_adjacent_multirange_internal(typcache, key, query);
+
+        case RANGESTRAT_CONTAINS:
+            return range_contains_multirange_internal(typcache, key, query);
+
+        case RANGESTRAT_CONTAINED_BY:
+            // Reverse operand order: check if multirange contains range
+            return multirange_contains_range_internal(typcache, query, key);
+
+        case RANGESTRAT_EQ:
+            // Check if range equals the union of multirange
+            return multirange_union_range_equal(typcache, key, query);
+
+        default:
+            elog(ERROR, "unrecognized range strategy: %d", strategy);
+            return false;
+    }
+}
+```

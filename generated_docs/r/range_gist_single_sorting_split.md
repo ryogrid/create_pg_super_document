@@ -47,3 +47,67 @@ The function uses an auxiliary array of SingleBoundSortItem structures to mainta
 - Creates better organized index pages by grouping ranges with similar bounds together
 - More sophisticated than fallback splitting but less complex than double sorting split
 - The auxiliary array must be allocated and filled before sorting can occur
+
+## Simplified Source
+
+```c
+static void
+range_gist_single_sorting_split(TypeCacheEntry *typcache,
+                               GistEntryVector *entryvec,
+                               GIST_SPLITVEC *v,
+                               bool use_upper_bound)
+{
+    SingleBoundSortItem *sortItems;
+    RangeType  *left_range = NULL;
+    RangeType  *right_range = NULL;
+    OffsetNumber i, maxoff, split_idx;
+
+    maxoff = entryvec->n - 1;
+
+    // Allocate array to store bounds with their original indices
+    sortItems = (SingleBoundSortItem *) palloc(maxoff * sizeof(SingleBoundSortItem));
+
+    // Extract bounds from each range for sorting
+    for (i = FirstOffsetNumber; i <= maxoff; i = OffsetNumberNext(i))
+    {
+        RangeType  *range = DatumGetRangeTypeP(entryvec->vector[i].key);
+        RangeBound  bound2;
+        bool        empty;
+
+        sortItems[i - 1].index = i;
+
+        // Extract either upper or lower bound based on parameter
+        if (use_upper_bound)
+            range_deserialize(typcache, range, &bound2, &sortItems[i - 1].bound, &empty);
+        else
+            range_deserialize(typcache, range, &sortItems[i - 1].bound, &bound2, &empty);
+
+        Assert(!empty);  // Empty ranges not supported by this split method
+    }
+
+    // Sort ranges by the extracted bounds
+    qsort_arg(sortItems, maxoff, sizeof(SingleBoundSortItem),
+              single_bound_cmp, typcache);
+
+    split_idx = maxoff / 2;
+
+    v->spl_nleft = 0;
+    v->spl_nright = 0;
+
+    // Assign first half to left page, second half to right page
+    for (i = 0; i < maxoff; i++)
+    {
+        int idx = sortItems[i].index;
+        RangeType *range = DatumGetRangeTypeP(entryvec->vector[idx].key);
+
+        if (i < split_idx)
+            PLACE_LEFT(range, idx);
+        else
+            PLACE_RIGHT(range, idx);
+    }
+
+    // Set union ranges for parent index entries
+    v->spl_ldatum = RangeTypePGetDatum(left_range);
+    v->spl_rdatum = RangeTypePGetDatum(right_range);
+}
+```

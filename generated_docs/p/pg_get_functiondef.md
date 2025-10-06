@@ -65,3 +65,102 @@ The output is designed to be compatible with psql's \ef and \sf commands, which 
 - Always qualifies function names to ensure correct replacement during CREATE OR REPLACE
 - Located in src/backend/utils/adt/ruleutils.c:2881-3132
 - Extensive attribute handling ensures complete function recreation capability
+
+## Simplified Source
+
+```c
+Datum
+pg_get_functiondef(PG_FUNCTION_ARGS)
+{
+    Oid funcid = PG_GETARG_OID(0);
+    StringInfoData buf;
+    HeapTuple proctup;
+    Form_pg_proc proc;
+    bool isfunction;
+    const char *name, *nsp;
+
+    initStringInfo(&buf);
+
+    // Look up the function in system catalog
+    proctup = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+    if (!HeapTupleIsValid(proctup))
+        PG_RETURN_NULL();
+
+    proc = (Form_pg_proc) GETSTRUCT(proctup);
+    name = NameStr(proc->proname);
+
+    // Reject aggregate functions
+    if (proc->prokind == PROKIND_AGGREGATE)
+        ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                errmsg("\"%s\" is an aggregate function", name)));
+
+    isfunction = (proc->prokind != PROKIND_PROCEDURE);
+
+    // Generate CREATE OR REPLACE FUNCTION/PROCEDURE statement
+    nsp = get_namespace_name_or_temp(proc->pronamespace);
+    appendStringInfo(&buf, "CREATE OR REPLACE %s %s(",
+                     isfunction ? "FUNCTION" : "PROCEDURE",
+                     quote_qualified_identifier(nsp, name));
+
+    // Add function arguments
+    print_function_arguments(&buf, proctup, false, true);
+    appendStringInfoString(&buf, ")\n");
+
+    // Add return type for functions
+    if (isfunction)
+    {
+        appendStringInfoString(&buf, " RETURNS ");
+        print_function_rettype(&buf, proctup);
+        appendStringInfoChar(&buf, '\n');
+    }
+
+    // Add function properties (language, volatility, etc.)
+    appendStringInfo(&buf, " LANGUAGE %s\n",
+                     quote_identifier(get_language_name(proc->prolang, false)));
+
+    // Add various function attributes
+    if (proc->prokind == PROKIND_WINDOW)
+        appendStringInfoString(&buf, " WINDOW");
+
+    switch (proc->provolatile)
+    {
+        case PROVOLATILE_IMMUTABLE:
+            appendStringInfoString(&buf, " IMMUTABLE");
+            break;
+        case PROVOLATILE_STABLE:
+            appendStringInfoString(&buf, " STABLE");
+            break;
+    }
+
+    if (proc->proisstrict)
+        appendStringInfoString(&buf, " STRICT");
+    if (proc->prosecdef)
+        appendStringInfoString(&buf, " SECURITY DEFINER");
+
+    // Add function body with appropriate quoting
+    if (proc->prolang == SQLlanguageId)
+    {
+        print_function_sqlbody(&buf, proctup);
+    }
+    else
+    {
+        appendStringInfoString(&buf, "AS ");
+        // Add function source with dollar quoting
+        Datum tmp = SysCacheGetAttrNotNull(PROCOID, proctup, Anum_pg_proc_prosrc);
+        const char *prosrc = TextDatumGetCString(tmp);
+
+        StringInfoData dq;
+        initStringInfo(&dq);
+        appendStringInfoString(&dq, isfunction ? "$function$" : "$procedure$");
+
+        appendBinaryStringInfo(&buf, dq.data, dq.len);
+        appendStringInfoString(&buf, prosrc);
+        appendBinaryStringInfo(&buf, dq.data, dq.len);
+    }
+
+    appendStringInfoChar(&buf, '\n');
+    ReleaseSysCache(proctup);
+
+    PG_RETURN_TEXT_P(string_to_text(buf.data));
+}
+```

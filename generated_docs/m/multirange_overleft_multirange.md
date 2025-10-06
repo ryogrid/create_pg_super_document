@@ -41,3 +41,28 @@ The function extracts the bounds from the last range of each multirange (which r
 - Both multiranges must be of the same base range type for the comparison to be valid
 - Part of PostgreSQL's range and multirange type system for complex range operations
 - Located in `src/backend/utils/adt/multirangetypes.c:2133-2157`
+
+## Simplified Source
+
+```c
+Datum multirange_overleft_multirange(PG_FUNCTION_ARGS) {
+    // Extract both multirange arguments
+    MultirangeType *mr1 = PG_GETARG_MULTIRANGE_P(0);
+    MultirangeType *mr2 = PG_GETARG_MULTIRANGE_P(1);
+
+    // Return false if either is empty
+    if (MultirangeIsEmpty(mr1) || MultirangeIsEmpty(mr2))
+        PG_RETURN_BOOL(false);
+
+    // Get type cache and bounds for both multiranges
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(mr1));
+    RangeBound lower1, upper1, lower2, upper2;
+
+    // Get bounds from rightmost range of each multirange
+    multirange_get_bounds(typcache->rngtype, mr1, mr1->rangeCount - 1, &lower1, &upper1);
+    multirange_get_bounds(typcache->rngtype, mr2, mr2->rangeCount - 1, &lower2, &upper2);
+
+    // Compare upper bounds: mr1 overleft mr2 if mr1's upper <= mr2's upper
+    PG_RETURN_BOOL(range_cmp_bounds(typcache->rngtype, &upper1, &upper2) <= 0);
+}
+```

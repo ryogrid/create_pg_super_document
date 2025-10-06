@@ -49,3 +49,65 @@ The function performs comprehensive validation and handling of edge cases:
 - Infinite offsets are handled specially to produce mathematically correct results
 - Uses PostgreSQL's high-precision NumericVar arithmetic for accurate calculations
 - Memory management follows PostgreSQL conventions with proper cleanup of temporary variables
+
+## Simplified Source
+
+```c
+Datum in_range_numeric_numeric(PG_FUNCTION_ARGS) {
+    // Get function arguments
+    Numeric val = PG_GETARG_NUMERIC(0);
+    Numeric base = PG_GETARG_NUMERIC(1);
+    Numeric offset = PG_GETARG_NUMERIC(2);
+    bool sub = PG_GETARG_BOOL(3);
+    bool less = PG_GETARG_BOOL(4);
+    bool result;
+
+    // Validate offset: reject negative, NaN, or -Inf
+    if (NUMERIC_IS_NAN(offset) || NUMERIC_IS_NINF(offset) || NUMERIC_SIGN(offset) == NUMERIC_NEG)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PRECEDING_OR_FOLLOWING_SIZE),
+                       errmsg("invalid preceding or following size in window function")));
+
+    // Handle NaN cases (NaN sorts after non-NaN)
+    if (NUMERIC_IS_NAN(val)) {
+        result = NUMERIC_IS_NAN(base) ? true : !less;
+    } else if (NUMERIC_IS_NAN(base)) {
+        result = less;
+    }
+    // Handle infinite offset
+    else if (NUMERIC_IS_SPECIAL(offset)) {
+        // Complex infinity logic simplified to core cases
+        result = true; // Most infinite offset cases return true
+    }
+    // Handle infinite val or base
+    else if (NUMERIC_IS_SPECIAL(val) || NUMERIC_IS_SPECIAL(base)) {
+        // Simplified infinity comparison logic
+        result = (NUMERIC_IS_PINF(val) && NUMERIC_IS_PINF(base)) ||
+                 (NUMERIC_IS_NINF(val) && NUMERIC_IS_NINF(base));
+    }
+    // Normal case: compute base +/- offset and compare with val
+    else {
+        NumericVar valv, basev, offsetv, sum;
+        init_var_from_num(val, &valv);
+        init_var_from_num(base, &basev);
+        init_var_from_num(offset, &offsetv);
+        init_var(&sum);
+
+        // Calculate base +/- offset
+        if (sub)
+            sub_var(&basev, &offsetv, &sum);
+        else
+            add_var(&basev, &offsetv, &sum);
+
+        // Compare val with the sum
+        result = less ? (cmp_var(&valv, &sum) <= 0) : (cmp_var(&valv, &sum) >= 0);
+
+        free_var(&sum);
+    }
+
+    // Clean up and return
+    PG_FREE_IF_COPY(val, 0);
+    PG_FREE_IF_COPY(base, 1);
+    PG_FREE_IF_COPY(offset, 2);
+    PG_RETURN_BOOL(result);
+}
+```

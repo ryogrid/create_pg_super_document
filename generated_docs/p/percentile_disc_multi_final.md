@@ -51,3 +51,105 @@ The function handles various edge cases including NULL input values, empty datas
 - Error handling includes checks for missing rows that should be present based on row count
 - Memory management uses palloc for result arrays which will be cleaned up by PostgreSQL's memory context system
 - Part of PostgreSQL's ordered-set aggregate framework for statistical functions
+
+## Simplified Source
+
+```c
+Datum
+percentile_disc_multi_final(PG_FUNCTION_ARGS)
+{
+    OSAPerGroupState *osastate;
+    ArrayType *param;
+    Datum *percentiles_datum;
+    bool *percentiles_null;
+    int num_percentiles;
+    struct pct_info *pct_info;
+    Datum *result_datum;
+    bool *result_isnull;
+    int64 rownum = 0;
+    Datum val = (Datum) 0;
+    bool isnull = true;
+    int i;
+
+    // Handle empty input
+    if (PG_ARGISNULL(0))
+        PG_RETURN_NULL();
+
+    osastate = (OSAPerGroupState *) PG_GETARG_POINTER(0);
+
+    if (osastate->number_of_rows == 0)
+        PG_RETURN_NULL();
+
+    // Parse percentile array input
+    if (PG_ARGISNULL(1))
+        PG_RETURN_NULL();
+    param = PG_GETARG_ARRAYTYPE_P(1);
+
+    deconstruct_array_builtin(param, FLOAT8OID,
+                              &percentiles_datum,
+                              &percentiles_null,
+                              &num_percentiles);
+
+    if (num_percentiles == 0)
+        PG_RETURN_POINTER(construct_empty_array(osastate->qstate->sortColType));
+
+    // Setup percentile calculation info (discrete mode)
+    pct_info = setup_pct_info(num_percentiles,
+                              percentiles_datum,
+                              percentiles_null,
+                              osastate->number_of_rows,
+                              false);
+
+    // Allocate result arrays
+    result_datum = (Datum *) palloc(num_percentiles * sizeof(Datum));
+    result_isnull = (bool *) palloc(num_percentiles * sizeof(bool));
+
+    // Handle NULL percentiles first
+    for (i = 0; i < num_percentiles; i++) {
+        int idx = pct_info[i].idx;
+
+        if (pct_info[i].first_row > 0)
+            break;
+
+        result_datum[idx] = (Datum) 0;
+        result_isnull[idx] = true;
+    }
+
+    // Process non-NULL percentiles
+    if (i < num_percentiles) {
+        // Ensure data is sorted
+        if (!osastate->sort_done) {
+            tuplesort_performsort(osastate->sortstate);
+            osastate->sort_done = true;
+        } else {
+            tuplesort_rescan(osastate->sortstate);
+        }
+
+        // Extract values for each percentile
+        for (; i < num_percentiles; i++) {
+            int64 target_row = pct_info[i].first_row;
+            int idx = pct_info[i].idx;
+
+            // Advance to target row
+            if (target_row > rownum) {
+                tuplesort_skiptuples(osastate->sortstate, target_row - rownum - 1, true);
+                tuplesort_getdatum(osastate->sortstate, true, true, &val, &isnull, NULL);
+                rownum = target_row;
+            }
+
+            result_datum[idx] = val;
+            result_isnull[idx] = isnull;
+        }
+    }
+
+    // Return array with same shape as input
+    PG_RETURN_POINTER(construct_md_array(result_datum, result_isnull,
+                                         ARR_NDIM(param),
+                                         ARR_DIMS(param),
+                                         ARR_LBOUND(param),
+                                         osastate->qstate->sortColType,
+                                         osastate->qstate->typLen,
+                                         osastate->qstate->typByVal,
+                                         osastate->qstate->typAlign));
+}
+```

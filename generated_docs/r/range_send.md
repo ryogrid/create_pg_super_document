@@ -53,3 +53,49 @@ This function converts a RangeType value from its internal representation to a b
 - Memory management is handled automatically by the StringInfo and pq_endtypsend infrastructure
 - The function includes stack depth checking for recursive serialization of nested range types
 - VARSIZE and VARDATA macros are used to extract binary data from the varlena results of SendFunctionCall
+
+## Simplified Source
+
+```c
+Datum range_send(PG_FUNCTION_ARGS) {
+    RangeType *range = PG_GETARG_RANGE_P(0);
+    StringInfo buf = makeStringInfo();
+    RangeIOData *cache;
+    char flags;
+    RangeBound lower, upper;
+    bool empty;
+
+    // Get I/O cache data for this range type
+    cache = get_range_io_data(fcinfo, RangeTypeGetOid(range), IOFunc_send);
+
+    // Extract range components
+    range_deserialize(cache->typcache, range, &lower, &upper, &empty);
+    flags = range_get_flags(range);
+
+    // Build binary output
+    pq_begintypsend(buf);
+    pq_sendbyte(buf, flags);
+
+    // Send lower bound if present
+    if (RANGE_HAS_LBOUND(flags)) {
+        Datum bound = PointerGetDatum(SendFunctionCall(&cache->typioproc, lower.val));
+        uint32 bound_len = VARSIZE(bound) - VARHDRSZ;
+        char *bound_data = VARDATA(bound);
+
+        pq_sendint32(buf, bound_len);
+        pq_sendbytes(buf, bound_data, bound_len);
+    }
+
+    // Send upper bound if present
+    if (RANGE_HAS_UBOUND(flags)) {
+        Datum bound = PointerGetDatum(SendFunctionCall(&cache->typioproc, upper.val));
+        uint32 bound_len = VARSIZE(bound) - VARHDRSZ;
+        char *bound_data = VARDATA(bound);
+
+        pq_sendint32(buf, bound_len);
+        pq_sendbytes(buf, bound_data, bound_len);
+    }
+
+    PG_RETURN_BYTEA_P(pq_endtypsend(buf));
+}
+```

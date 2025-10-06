@@ -39,3 +39,32 @@ The  function is the binary output function for PostgreSQL's Numeric data type. 
 - Essential for PostgreSQL's binary protocol communication and efficient storage
 - Located in src/backend/utils/adt/numeric.c:1161-1193
 - Uses PostgreSQL's standard type send/receive protocol infrastructure
+
+## Simplified Source
+
+```c
+Datum numeric_send(PG_FUNCTION_ARGS) {
+    Numeric num = PG_GETARG_NUMERIC(0);
+    NumericVar x;
+    StringInfoData buf;
+    int i;
+
+    // Convert to internal representation
+    init_var_from_num(num, &x);
+
+    // Begin binary output
+    pq_begintypsend(&buf);
+
+    // Send header: ndigits, weight, sign, dscale
+    pq_sendint16(&buf, x.ndigits);
+    pq_sendint16(&buf, x.weight);
+    pq_sendint16(&buf, x.sign);
+    pq_sendint16(&buf, x.dscale);
+
+    // Send all digit values
+    for (i = 0; i < x.ndigits; i++)
+        pq_sendint16(&buf, x.digits[i]);
+
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

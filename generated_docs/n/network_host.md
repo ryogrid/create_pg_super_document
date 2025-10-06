@@ -37,3 +37,28 @@ The network_host function is a PostgreSQL built-in function that takes an inet o
 - Suppresses any trailing netmask notation by truncating at the '/' character
 - Returns an error if the inet value cannot be formatted properly
 - Uses a temporary buffer sized to handle the longest possible IPv6 address representation
+
+## Simplified Source
+
+```c
+Datum
+network_host(PG_FUNCTION_ARGS)
+{
+    inet       *ip = PG_GETARG_INET_PP(0);
+    char       *ptr;
+    char        tmp[sizeof("xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:255.255.255.255/128")];
+
+    // Format the network address with maximum precision
+    if (pg_inet_net_ntop(ip_family(ip), ip_addr(ip), ip_maxbits(ip),
+                         tmp, sizeof(tmp)) == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_BINARY_REPRESENTATION),
+                 errmsg("could not format inet value: %m")));
+
+    // Remove netmask portion if present (strip "/n")
+    if ((ptr = strchr(tmp, '/')) != NULL)
+        *ptr = '\0';
+
+    PG_RETURN_TEXT_P(cstring_to_text(tmp));
+}
+```

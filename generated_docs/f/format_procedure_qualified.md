@@ -35,3 +35,12 @@ The function uses the `FORMAT_PROC_FORCE_QUALIFY` flag (0x02) to force qualifica
 - Part of PostgreSQL's object formatting system for generating unambiguous object references
 - The qualification ensures the procedure name will resolve correctly even if search_path changes
 - Commonly used when storing procedure references that need to be persistent and unambiguous
+
+## Simplified Source
+
+```c
+char *format_procedure_qualified(Oid procedure_oid) {
+    // Force schema qualification by passing FORMAT_PROC_FORCE_QUALIFY flag
+    return format_procedure_extended(procedure_oid, FORMAT_PROC_FORCE_QUALIFY);
+}
+```

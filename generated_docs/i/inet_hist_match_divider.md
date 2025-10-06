@@ -39,3 +39,33 @@ For supernet operators (negative codes), the boundary's mask length is decisive.
 
 ## Notes and Other Information
 Returns -1 if the calculation cannot be performed (different IP families or incompatible mask length relationship). Otherwise returns a non-negative value representing the "distance" between the boundary and query in terms of network bits. A return value of 0 indicates an exact match, while positive values indicate the degree of mismatch. This value is used in the histogram interpolation logic to estimate what fraction of a histogram bucket satisfies the query condition.
+
+## Simplified Source
+
+```c
+static int
+inet_hist_match_divider(inet *boundary, inet *query, int opr_codenum)
+{
+    // Only process same IP families with compatible mask relationships
+    if (ip_family(boundary) != ip_family(query) ||
+        inet_masklen_inclusion_cmp(boundary, query, opr_codenum) != 0)
+        return -1;
+
+    int min_bits = Min(ip_bits(boundary), ip_bits(query));
+    int decisive_bits;
+
+    // Determine which mask length is "decisive" for the operator
+    if (opr_codenum < 0)        // Supernet ops: boundary decisive
+        decisive_bits = ip_bits(boundary);
+    else if (opr_codenum > 0)   // Subnet ops: query decisive
+        decisive_bits = ip_bits(query);
+    else                        // Overlap op: minimum decisive
+        decisive_bits = min_bits;
+
+    // Calculate non-common decisive bits (0 = exact match, >0 = mismatch degree)
+    if (min_bits > 0)
+        return decisive_bits - bitncommon(ip_addr(boundary), ip_addr(query), min_bits);
+
+    return decisive_bits;
+}
+```

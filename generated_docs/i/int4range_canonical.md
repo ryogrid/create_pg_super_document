@@ -40,3 +40,44 @@ The canonical form ensures that ranges like [1,5) and (0,5) are represented cons
 - The canonical form uses inclusive lower bounds and exclusive upper bounds
 - Error context is preserved for proper error reporting in nested function calls
 - This canonicalization is essential for consistent range comparisons and hash operations
+
+## Simplified Source
+
+```c
+Datum
+int4range_canonical(PG_FUNCTION_ARGS)
+{
+    RangeType *r = PG_GETARG_RANGE_P(0);
+    RangeBound lower, upper;
+    bool empty;
+
+    // Get type cache and deserialize range
+    TypeCacheEntry *typcache = range_get_typcache(fcinfo, RangeTypeGetOid(r));
+    range_deserialize(typcache, r, &lower, &upper, &empty);
+
+    // Return empty ranges unchanged
+    if (empty)
+        PG_RETURN_RANGE_P(r);
+
+    // Convert exclusive lower bound to inclusive (increment value)
+    if (!lower.infinite && !lower.inclusive) {
+        int32 bnd = DatumGetInt32(lower.val);
+        if (unlikely(bnd == PG_INT32_MAX))
+            return (Datum) 0; // Overflow error
+        lower.val = Int32GetDatum(bnd + 1);
+        lower.inclusive = true;
+    }
+
+    // Convert inclusive upper bound to exclusive (increment value)
+    if (!upper.infinite && upper.inclusive) {
+        int32 bnd = DatumGetInt32(upper.val);
+        if (unlikely(bnd == PG_INT32_MAX))
+            return (Datum) 0; // Overflow error
+        upper.val = Int32GetDatum(bnd + 1);
+        upper.inclusive = false;
+    }
+
+    // Return canonicalized range
+    PG_RETURN_RANGE_P(range_serialize(typcache, &lower, &upper, false, escontext));
+}
+```

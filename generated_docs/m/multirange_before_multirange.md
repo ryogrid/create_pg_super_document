@@ -38,3 +38,21 @@ The implementation compares the upper bound of the rightmost range in the first 
 - Uses  to extract bounds from specific range positions within each multirange
 - Part of PostgreSQL's comprehensive multirange type system that supports spatial relationship operations
 - Enables efficient spatial queries and indexing operations on collections of ranges
+
+## Simplified Source
+
+```c
+Datum
+multirange_before_multirange(PG_FUNCTION_ARGS)
+{
+    // Extract arguments: two multiranges to compare
+    MultirangeType *multirange1 = PG_GETARG_MULTIRANGE_P(0);
+    MultirangeType *multirange2 = PG_GETARG_MULTIRANGE_P(1);
+
+    // Get type information for the multirange
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(multirange1));
+
+    // Delegate to internal function for actual comparison logic
+    PG_RETURN_BOOL(multirange_before_multirange_internal(typcache->rngtype, multirange1, multirange2));
+}
+```

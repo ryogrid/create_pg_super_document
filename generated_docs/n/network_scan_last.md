@@ -40,3 +40,17 @@ The implementation leverages two key operations:
 - Essential for proper network address ordering in index operations
 - Ensures that network containment queries can be efficiently executed using index range scans
 - Part of PostgreSQL's network operator optimization infrastructure
+
+## Simplified Source
+
+```c
+Datum
+network_scan_last(Datum in)
+{
+    // Get broadcast address, then set mask to maximum for proper ordering
+    // -1 tells inet_set_masklen to use max bits (32 for IPv4, 128 for IPv6)
+    return DirectFunctionCall2(inet_set_masklen,
+                               DirectFunctionCall1(network_broadcast, in),
+                               Int32GetDatum(-1));
+}
+```

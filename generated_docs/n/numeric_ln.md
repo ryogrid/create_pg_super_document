@@ -42,4 +42,50 @@ A key optimization is the use of  to predict the decimal weight of the logarithm
 - [Result](../R/Result.md) scale bounded by  and 
 - Delegates actual logarithm computation to  function
 - Preserves input scale as minimum result scale requirement
-- Located in 
+- Located in
+
+## Simplified Source
+
+```c
+Datum
+numeric_ln(PG_FUNCTION_ARGS)
+{
+    Numeric num = PG_GETARG_NUMERIC(0);
+    Numeric res;
+    NumericVar arg;
+    NumericVar result;
+    int ln_dweight;
+    int rscale;
+
+    // Handle special values (NaN, infinity)
+    if (NUMERIC_IS_SPECIAL(num)) {
+        if (NUMERIC_IS_NINF(num))
+            ereport(ERROR, (errcode(ERRCODE_INVALID_ARGUMENT_FOR_LOG),
+                           errmsg("cannot take logarithm of a negative number")));
+        // Return NaN or positive infinity as-is
+        PG_RETURN_NUMERIC(duplicate_numeric(num));
+    }
+
+    // Initialize variables
+    init_var_from_num(num, &arg);
+    init_var(&result);
+
+    // Estimate result scale using logarithm weight prediction
+    ln_dweight = estimate_ln_dweight(&arg);
+
+    // Determine appropriate result scale
+    rscale = NUMERIC_MIN_SIG_DIGITS - ln_dweight;
+    rscale = Max(rscale, arg.dscale);
+    rscale = Max(rscale, NUMERIC_MIN_DISPLAY_SCALE);
+    rscale = Min(rscale, NUMERIC_MAX_DISPLAY_SCALE);
+
+    // Perform natural logarithm calculation
+    ln_var(&arg, &result, rscale);
+
+    // Create and return result
+    res = make_result(&result);
+    free_var(&result);
+
+    PG_RETURN_NUMERIC(res);
+}
+```

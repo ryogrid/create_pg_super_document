@@ -34,3 +34,19 @@ The function follows the standard PostgreSQL function interface pattern, using P
 
 ## Notes and Other Information
 This is a PostgreSQL-exported function that can be called from SQL as part of multirange operations. It's typically invoked through the @> operator syntax in SQL queries. The function is registered in the PostgreSQL system catalogs and made available to the SQL parser and executor. The actual containment logic is implemented in the internal helper function to separate the PostgreSQL interface concerns from the core algorithm.
+
+## Simplified Source
+
+```c
+Datum multirange_contains_range(PG_FUNCTION_ARGS) {
+    // Extract multirange and range from arguments
+    MultirangeType *multirange = PG_GETARG_MULTIRANGE_P(0);
+    RangeType *range = PG_GETARG_RANGE_P(1);
+
+    // Get type cache for this multirange type
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(multirange));
+
+    // Delegate to internal containment logic
+    return PG_RETURN_BOOL(multirange_contains_range_internal(typcache->rngtype, multirange, range));
+}
+```

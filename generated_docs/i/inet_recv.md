@@ -33,3 +33,16 @@ The `inet_recv` function serves as the binary input function for PostgreSQL's in
 - Binary format is more efficient than text format for network communication and storage
 - Works in conjunction with `inet_send` for complete binary serialization support
 - Located in src/backend/utils/adt/network.c:250-257
+
+## Simplified Source
+
+```c
+Datum
+inet_recv(PG_FUNCTION_ARGS)
+{
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+
+    // Delegate to network_recv with is_cidr=false
+    PG_RETURN_INET_P(network_recv(buf, false));
+}
+```

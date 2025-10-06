@@ -30,3 +30,13 @@ This function retrieves the count of checkpoint requests that have been made to 
 - The counter is maintained in the checkpointer statistics structure's num_requested field
 - This metric is useful for monitoring checkpoint frequency and database write activity
 - Related to other checkpointer statistics functions for comprehensive checkpoint monitoring
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_get_checkpointer_num_requested(PG_FUNCTION_ARGS)
+{
+    PG_RETURN_INT64(pgstat_fetch_stat_checkpointer()->num_requested);
+}
+```

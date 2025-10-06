@@ -40,3 +40,40 @@ This function implements the union operation for multirange types. It takes two 
 - Uses dynamic memory allocation to accommodate the combined range arrays
 - The actual union logic (merging overlapping ranges) is handled by make_multirange
 - Located in src/backend/utils/adt/multirangetypes.c:1082-1113
+
+## Simplified Source
+
+```c
+Datum
+multirange_union(PG_FUNCTION_ARGS)
+{
+    MultirangeType *mr1 = PG_GETARG_MULTIRANGE_P(0);
+    MultirangeType *mr2 = PG_GETARG_MULTIRANGE_P(1);
+
+    // Optimization: if either is empty, return the other
+    if (MultirangeIsEmpty(mr1))
+        PG_RETURN_MULTIRANGE_P(mr2);
+    if (MultirangeIsEmpty(mr2))
+        PG_RETURN_MULTIRANGE_P(mr1);
+
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(mr1));
+
+    // Deserialize both multiranges into range arrays
+    int32 range_count1, range_count2;
+    RangeType **ranges1, **ranges2;
+    multirange_deserialize(typcache->rngtype, mr1, &range_count1, &ranges1);
+    multirange_deserialize(typcache->rngtype, mr2, &range_count2, &ranges2);
+
+    // Combine all ranges into a single array
+    int32 combined_count = range_count1 + range_count2;
+    RangeType **combined_ranges = palloc0(combined_count * sizeof(RangeType *));
+    memcpy(combined_ranges, ranges1, range_count1 * sizeof(RangeType *));
+    memcpy(combined_ranges + range_count1, ranges2, range_count2 * sizeof(RangeType *));
+
+    // Create new multirange (make_multirange handles merging overlapping ranges)
+    PG_RETURN_MULTIRANGE_P(make_multirange(typcache->type_id, typcache->rngtype,
+                                          combined_count, combined_ranges));
+}
+```
+
+This function combines two multiranges by concatenating their ranges and letting `make_multirange` handle the union logic and normalization.

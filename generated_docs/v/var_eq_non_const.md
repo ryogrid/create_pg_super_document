@@ -50,3 +50,61 @@ The estimation formula is: (1.0 - nullfrac) / number_of_distinct_values, represe
 - For inequality operations (negate=true), computes: 1.0 - equality_selectivity - nullfrac
 - Cross-validates results against MCV statistics to prevent overestimation
 - Falls back gracefully when detailed statistics are unavailable
+
+## Simplified Source
+
+```c
+double
+var_eq_non_const(VariableStatData *vardata, Oid oproid, Oid collation,
+                 Node *other, bool varonleft, bool negate)
+{
+    double selec;
+    double nullfrac = 0.0;
+    bool isdefault;
+
+    // Extract null fraction from statistics
+    if (HeapTupleIsValid(vardata->statsTuple)) {
+        Form_pg_statistic stats = (Form_pg_statistic) GETSTRUCT(vardata->statsTuple);
+        nullfrac = stats->stanullfrac;
+    }
+
+    // Special case: unique column - exactly one match expected
+    if (vardata->isunique && vardata->rel && vardata->rel->tuples >= 1.0) {
+        selec = 1.0 / vardata->rel->tuples;
+    }
+    else if (HeapTupleIsValid(vardata->statsTuple)) {
+        // Use uniform distribution assumption: (1 - nullfrac) / ndistinct
+        double ndistinct;
+        AttStatsSlot sslot;
+
+        selec = 1.0 - nullfrac;
+        ndistinct = get_variable_numdistinct(vardata, &isdefault);
+        if (ndistinct > 1) {
+            selec /= ndistinct;
+        }
+
+        // Cross-check: don't exceed most common value's frequency
+        if (get_attstatsslot(&sslot, vardata->statsTuple,
+                             STATISTIC_KIND_MCV, InvalidOid,
+                             ATTSTATSSLOT_NUMBERS)) {
+            if (sslot.nnumbers > 0 && selec > sslot.numbers[0]) {
+                selec = sslot.numbers[0];
+            }
+            free_attstatsslot(&sslot);
+        }
+    }
+    else {
+        // No statistics available - use simple estimate
+        selec = 1.0 / get_variable_numdistinct(vardata, &isdefault);
+    }
+
+    // Convert to inequality if requested
+    if (negate) {
+        selec = 1.0 - selec - nullfrac;
+    }
+
+    // Ensure result is in valid probability range
+    CLAMP_PROBABILITY(selec);
+    return selec;
+}
+```

@@ -45,3 +45,76 @@ This function implements the node splitting logic for SP-GiST quadtree indexing 
 - Preserves original range data in leaf nodes for exact retrieval
 - Essential for maintaining balanced quadtree structure during index growth
 - Located in src/backend/utils/adt/rangetypes_spgist.c:200-299
+
+## Simplified Source
+
+```c
+Datum spg_range_quad_picksplit(PG_FUNCTION_ARGS)
+{
+    spgPickSplitIn *in = (spgPickSplitIn *) PG_GETARG_POINTER(0);
+    spgPickSplitOut *out = (spgPickSplitOut *) PG_GETARG_POINTER(1);
+
+    // Get type cache for range operations
+    TypeCacheEntry *typcache = range_get_typcache(fcinfo,
+        RangeTypeGetOid(DatumGetRangeTypeP(in->datums[0])));
+
+    // Extract bounds from all input ranges
+    RangeBound *lowerBounds = palloc(sizeof(RangeBound) * in->nTuples);
+    RangeBound *upperBounds = palloc(sizeof(RangeBound) * in->nTuples);
+
+    int nonEmptyCount = 0;
+    for (int i = 0; i < in->nTuples; i++) {
+        bool empty;
+        range_deserialize(typcache, DatumGetRangeTypeP(in->datums[i]),
+                         &lowerBounds[nonEmptyCount], &upperBounds[nonEmptyCount], &empty);
+        if (!empty)
+            nonEmptyCount++;
+    }
+
+    // Handle case where all ranges are empty
+    if (nonEmptyCount == 0) {
+        out->nNodes = 2;
+        out->hasPrefix = false;
+        out->prefixDatum = PointerGetDatum(NULL);
+
+        // Put all empty ranges in node 0
+        out->mapTuplesToNodes = palloc(sizeof(int) * in->nTuples);
+        out->leafTupleDatums = palloc(sizeof(Datum) * in->nTuples);
+        for (int i = 0; i < in->nTuples; i++) {
+            out->leafTupleDatums[i] = in->datums[i];
+            out->mapTuplesToNodes[i] = 0;
+        }
+        PG_RETURN_VOID();
+    }
+
+    // Sort bounds to find medians for centroid
+    qsort_arg(lowerBounds, nonEmptyCount, sizeof(RangeBound), bound_cmp, typcache);
+    qsort_arg(upperBounds, nonEmptyCount, sizeof(RangeBound), bound_cmp, typcache);
+
+    // Create centroid range from median bounds
+    RangeType *centroid = range_serialize(typcache,
+                                         &lowerBounds[nonEmptyCount / 2],
+                                         &upperBounds[nonEmptyCount / 2],
+                                         false, NULL);
+    out->hasPrefix = true;
+    out->prefixDatum = RangeTypePGetDatum(centroid);
+
+    // Create 5 nodes at root (including empty), 4 nodes otherwise
+    out->nNodes = (in->level == 0) ? 5 : 4;
+    out->nodeLabels = NULL;
+
+    // Assign ranges to quadrant-based nodes
+    out->mapTuplesToNodes = palloc(sizeof(int) * in->nTuples);
+    out->leafTupleDatums = palloc(sizeof(Datum) * in->nTuples);
+
+    for (int i = 0; i < in->nTuples; i++) {
+        RangeType *range = DatumGetRangeTypeP(in->datums[i]);
+        int16 quadrant = getQuadrant(typcache, centroid, range);
+
+        out->leafTupleDatums[i] = RangeTypePGetDatum(range);
+        out->mapTuplesToNodes[i] = quadrant - 1;  // Convert 1-4 to 0-3
+    }
+
+    PG_RETURN_VOID();
+}
+```

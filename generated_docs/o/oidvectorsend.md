@@ -34,3 +34,13 @@ The implementation is remarkably simple - it directly delegates all work to the 
 - The counterpart to oidvectorrecv for complete binary I/O support
 - No special handling needed beyond generic array serialization
 - Efficient reuse of existing array infrastructure
+
+## Simplified Source
+
+```c
+Datum oidvectorsend(PG_FUNCTION_ARGS) {
+    // Delegate to generic array_send function
+    // (oidvector is implemented as a specialized array type)
+    return array_send(fcinfo);
+}
+```

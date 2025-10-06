@@ -31,3 +31,14 @@ This SQL-callable function provides access to the background writer's buffer cle
 - Distinguishes between proactive cleaning writes and writes due to buffer replacement pressure
 - The underlying data comes from the background writer statistics structure maintained by the statistics collector
 - Located in src/backend/utils/adt/pgstatfuncs.c:1219-1224
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_get_bgwriter_buf_written_clean(PG_FUNCTION_ARGS)
+{
+    // Return buffers written during background writer cleaning scans
+    return pgstat_fetch_stat_bgwriter()->buf_written_clean;
+}
+```

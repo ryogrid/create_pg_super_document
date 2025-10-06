@@ -45,3 +45,55 @@ This function parses a textual representation of a range value and converts it t
 - Handles all range boundary combinations: finite/infinite, inclusive/exclusive
 - The parsing process separates flag extraction from boundary value parsing for better error handling
 - Canonicalization is performed through make_range to ensure consistent internal representation
+
+## Simplified Source
+
+```c
+Datum
+range_in(PG_FUNCTION_ARGS)
+{
+    char *input_str = PG_GETARG_CSTRING(0);
+    Oid range_type_oid = PG_GETARG_OID(1);
+    int32 typmod = PG_GETARG_INT32(2);
+    Node *escontext = fcinfo->context;
+
+    check_stack_depth(); // Guard against recursion
+
+    // Get I/O cache for this range type
+    RangeIOData *cache = get_range_io_data(fcinfo, range_type_oid, IOFunc_input);
+
+    // Parse string into flags and boundary strings
+    char flags;
+    char *lower_str, *upper_str;
+    if (!range_parse(input_str, &flags, &lower_str, &upper_str, escontext))
+        PG_RETURN_NULL();
+
+    // Parse boundary values using element type's input function
+    RangeBound lower, upper;
+    if (RANGE_HAS_LBOUND(flags))
+        if (!InputFunctionCallSafe(&cache->typioproc, lower_str,
+                                   cache->typioparam, typmod,
+                                   escontext, &lower.val))
+            PG_RETURN_NULL();
+
+    if (RANGE_HAS_UBOUND(flags))
+        if (!InputFunctionCallSafe(&cache->typioproc, upper_str,
+                                   cache->typioparam, typmod,
+                                   escontext, &upper.val))
+            PG_RETURN_NULL();
+
+    // Set boundary properties from flags
+    lower.infinite = (flags & RANGE_LB_INF) != 0;
+    lower.inclusive = (flags & RANGE_LB_INC) != 0;
+    lower.lower = true;
+    upper.infinite = (flags & RANGE_UB_INF) != 0;
+    upper.inclusive = (flags & RANGE_UB_INC) != 0;
+    upper.lower = false;
+
+    // Create and canonicalize the range
+    RangeType *range = make_range(cache->typcache, &lower, &upper,
+                                  flags & RANGE_EMPTY, escontext);
+
+    PG_RETURN_RANGE_P(range);
+}
+```

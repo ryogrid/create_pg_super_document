@@ -38,4 +38,20 @@ The equality comparison requires that both multiranges have the same number of r
 - The function assumes both arguments are of the same multirange type (enforced by PostgreSQL's type system)
 - Type cache lookup is performed to access range-specific comparison functions
 - The actual comparison logic handles empty multiranges, overlapping ranges, and ensures canonical ordering
-- Located in 
+
+## Simplified Source
+
+```c
+Datum multirange_eq(PG_FUNCTION_ARGS)
+{
+    // Extract multirange arguments from function call
+    MultirangeType *mr1 = PG_GETARG_MULTIRANGE_P(0);
+    MultirangeType *mr2 = PG_GETARG_MULTIRANGE_P(1);
+
+    // Get type cache for range operations
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(mr1));
+
+    // Delegate to internal equality function and return result
+    PG_RETURN_BOOL(multirange_eq_internal(typcache->rngtype, mr1, mr2));
+}
+``` 

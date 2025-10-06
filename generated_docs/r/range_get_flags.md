@@ -38,3 +38,14 @@ This function provides an efficient way to access just the flags information fro
 - Commonly used by accessor functions that return specific range properties
 - The flags are stored at the very end of the range object's binary representation
 - Used extensively in range property checking and hash functions
+
+## Simplified Source
+
+```c
+char
+range_get_flags(const RangeType *range)
+{
+    // Return the flags byte from the last byte of the range object
+    return *((char *) range + VARSIZE(range) - 1);
+}
+```

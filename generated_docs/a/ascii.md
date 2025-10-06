@@ -37,3 +37,52 @@ The ascii function extracts the numeric value of the first character from a text
 - Returns 0 for empty strings as a special case
 - The UTF-8 decoding logic handles the standard UTF-8 encoding format with proper validation
 - Includes error handling for characters that are too large for the current encoding
+
+## Simplified Source
+
+```c
+Datum
+ascii(PG_FUNCTION_ARGS)
+{
+    text *string = PG_GETARG_TEXT_PP(0);
+    int encoding = GetDatabaseEncoding();
+    unsigned char *data;
+
+    // Return 0 for empty strings
+    if (VARSIZE_ANY_EXHDR(string) <= 0)
+        PG_RETURN_INT32(0);
+
+    data = (unsigned char *) VARDATA_ANY(string);
+
+    // Handle UTF-8 encoding - decode Unicode code points
+    if (encoding == PG_UTF8 && *data > 127) {
+        int result = 0, tbytes = 0;
+
+        // Determine UTF-8 sequence length and extract initial bits
+        if (*data >= 0xF0) {
+            result = *data & 0x07;
+            tbytes = 3;
+        } else if (*data >= 0xE0) {
+            result = *data & 0x0F;
+            tbytes = 2;
+        } else {
+            result = *data & 0x1f;
+            tbytes = 1;
+        }
+
+        // Process continuation bytes
+        for (int i = 1; i <= tbytes; i++) {
+            result = (result << 6) + (data[i] & 0x3f);
+        }
+
+        PG_RETURN_INT32(result);
+    } else {
+        // For other encodings, check ASCII range for multibyte encodings
+        if (pg_encoding_max_length(encoding) > 1 && *data > 127)
+            ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                            errmsg("requested character too large")));
+
+        PG_RETURN_INT32((int32) *data);
+    }
+}
+```

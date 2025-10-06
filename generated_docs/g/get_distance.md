@@ -43,3 +43,40 @@ The distance calculation is fundamental to estimating how much of a range histog
 - The subdiff function must handle the specific semantics of the range type (numeric, temporal, etc.)
 - Critical for accurate selectivity estimation in PostgreSQL's query planner for range containment operations
 - Defensive against NaN and negative results from subdiff functions to maintain estimation stability
+
+## Simplified Source
+
+```c
+static float8
+get_distance(TypeCacheEntry *typcache, const RangeBound *bound1, const RangeBound *bound2)
+{
+    bool has_subdiff = OidIsValid(typcache->rng_subdiff_finfo.fn_oid);
+
+    if (!bound1->infinite && !bound2->infinite) {
+        // Both bounds are finite - use subdiff or return default
+        if (has_subdiff) {
+            float8 res = DatumGetFloat8(FunctionCall2Coll(&typcache->rng_subdiff_finfo,
+                                                         typcache->rng_collation,
+                                                         bound2->val, bound1->val));
+            // Validate result: reject NaN or negative values
+            if (isnan(res) || res < 0.0)
+                return 1.0;  // Fallback value
+            else
+                return res;
+        } else {
+            return 1.0;  // Default distance when no subdiff available
+        }
+    }
+    else if (bound1->infinite && bound2->infinite) {
+        // Both bounds are infinite
+        if (bound1->lower == bound2->lower)
+            return 0.0;  // Same infinite bound (both -∞ or both +∞)
+        else
+            return get_float8_infinity();  // Different infinite bounds
+    }
+    else {
+        // One bound is infinite, the other is not
+        return get_float8_infinity();
+    }
+}
+```

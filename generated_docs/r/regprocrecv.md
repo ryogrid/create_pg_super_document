@@ -30,3 +30,14 @@ Since regproc values are internally stored as OIDs, this function is implemented
 - Binary protocol support: Enables regproc values to be transmitted efficiently in PostgreSQL's binary wire protocol
 - Type system consistency: Maintains separate function identity while sharing implementation with OID type
 - Network efficiency: Binary format is more compact than text format for network transmission and storage
+
+## Simplified Source
+
+```c
+Datum
+regprocrecv(PG_FUNCTION_ARGS)
+{
+    // Delegate to oidrecv since regproc uses same binary format as OID
+    return oidrecv(fcinfo);
+}
+```

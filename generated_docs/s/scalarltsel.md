@@ -34,3 +34,14 @@ The `scalarltsel` function is PostgreSQL's selectivity estimator specifically fo
 - Used for various scalar data types including integers, floats, dates, timestamps, and other orderable types
 - The function signature follows PostgreSQL's standard function calling convention using the `PG_FUNCTION_ARGS` macro
 - Returns a `Datum` containing a float8 value representing the estimated selectivity (typically between 0.0 and 1.0)
+
+## Simplified Source
+```c
+Datum
+scalarltsel(PG_FUNCTION_ARGS)
+{
+    // Delegate to wrapper function for less-than comparison
+    // isgt=false (not greater-than), iseq=false (not equality-inclusive)
+    return scalarineqsel_wrapper(fcinfo, false, false);
+}
+```

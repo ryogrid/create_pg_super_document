@@ -49,3 +49,75 @@ The function strategically adds values in a specific order: the target value is 
 - Called from test_integerset() with various edge case combinations to ensure robustness
 - Located in: src/test/modules/test_integerset/test_integerset.c:377-469
 - Critical for testing IntegerSet behavior with mixed sparse and dense value patterns
+
+## Simplified Source
+
+```c
+static void
+test_single_value_and_filler(uint64 value, uint64 filler_min, uint64 filler_max)
+{
+    IntegerSet *intset;
+    uint64 x;
+    bool found;
+    uint64 *iter_expected;
+    uint64 n = 0;
+
+    elog(NOTICE, "testing intset with value %llu, and all between %llu and %llu",
+         value, filler_min, filler_max);
+
+    intset = intset_create();
+    iter_expected = palloc(sizeof(uint64) * (filler_max - filler_min + 1));
+
+    // Add values in order: single value first if before range
+    if (value < filler_min) {
+        intset_add_member(intset, value);
+        iter_expected[n++] = value;
+    }
+
+    // Add the continuous filler range
+    for (x = filler_min; x < filler_max; x++) {
+        intset_add_member(intset, x);
+        iter_expected[n++] = x;
+    }
+
+    // Add single value after range if needed
+    if (value >= filler_max) {
+        intset_add_member(intset, value);
+        iter_expected[n++] = value;
+    }
+
+    // Verify the entry count is correct
+    if (intset_num_entries(intset) != n) {
+        elog(ERROR, "intset_num_entries mismatch");
+    }
+
+    // Test membership at critical boundary points
+    check_with_filler(intset, 0, value, filler_min, filler_max);
+    check_with_filler(intset, 1, value, filler_min, filler_max);
+    check_with_filler(intset, filler_min - 1, value, filler_min, filler_max);
+    check_with_filler(intset, filler_min, value, filler_min, filler_max);
+    check_with_filler(intset, value, value, filler_min, filler_max);
+    check_with_filler(intset, filler_max, value, filler_min, filler_max);
+    check_with_filler(intset, PG_UINT64_MAX, value, filler_min, filler_max);
+
+    // Verify iteration returns values in correct order
+    intset_begin_iterate(intset);
+    for (uint64 i = 0; i < n; i++) {
+        found = intset_iterate_next(intset, &x);
+        if (!found || x != iter_expected[i]) {
+            elog(ERROR, "intset_iterate_next failed");
+        }
+    }
+
+    // Verify no extra values at end of iteration
+    if (intset_iterate_next(intset, &x)) {
+        elog(ERROR, "unexpected extra value in iteration");
+    }
+
+    // Sanity check memory usage
+    uint64 mem_usage = intset_memory_usage(intset);
+    if (mem_usage < 5000 || mem_usage > 500000000) {
+        elog(ERROR, "suspicious memory usage: %llu", mem_usage);
+    }
+}
+```

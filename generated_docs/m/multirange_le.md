@@ -44,3 +44,17 @@ The comparison follows these principles:
 - Performance is dependent on the complexity of the multiranges being compared, as each constituent range must be examined
 - The function is registered as part of the multirange operator class for B-tree indexing support
 - Type safety is ensured by the multirange_cmp function, which validates that both operands are of the same multirange type
+
+## Simplified Source
+
+```c
+Datum
+multirange_le(PG_FUNCTION_ARGS)
+{
+    // Use comparison function to determine ordering
+    int cmp = multirange_cmp(fcinfo);
+
+    // Return true if first multirange is less than or equal to second
+    PG_RETURN_BOOL(cmp <= 0);
+}
+```

@@ -41,3 +41,39 @@ This internal function implements the mathematical set union operation between t
 - [Result](../R/Result.md) bounds are computed by taking the minimum of lower bounds and maximum of upper bounds
 - Essential component for range union operations and multirange canonicalization
 - Used internally by other range operations that need union functionality
+
+## Simplified Source
+
+```c
+RangeType *range_union_internal(TypeCacheEntry *typcache, RangeType *r1, RangeType *r2, bool strict) {
+    RangeBound lower1, lower2, upper1, upper2;
+    bool empty1, empty2;
+
+    // Validate that both ranges are of the same type
+    if (RangeTypeGetOid(r1) != RangeTypeGetOid(r2))
+        elog(ERROR, "range types do not match");
+
+    // Extract boundaries from both ranges
+    range_deserialize(typcache, r1, &lower1, &upper1, &empty1);
+    range_deserialize(typcache, r2, &lower2, &upper2, &empty2);
+
+    // If either range is empty, return the other one
+    if (empty1) return r2;
+    if (empty2) return r1;
+
+    // In strict mode, check that ranges are adjacent or overlapping
+    if (strict &&
+        !DatumGetBool(range_overlaps_internal(typcache, r1, r2)) &&
+        !DatumGetBool(range_adjacent_internal(typcache, r1, r2)))
+        ereport(ERROR, (errcode(ERRCODE_DATA_EXCEPTION),
+                errmsg("result of range union would not be contiguous")));
+
+    // Result lower bound = minimum of the two lower bounds
+    RangeBound *result_lower = (range_cmp_bounds(typcache, &lower1, &lower2) < 0) ? &lower1 : &lower2;
+
+    // Result upper bound = maximum of the two upper bounds
+    RangeBound *result_upper = (range_cmp_bounds(typcache, &upper1, &upper2) > 0) ? &upper1 : &upper2;
+
+    return make_range(typcache, result_lower, result_upper, false, NULL);
+}
+```

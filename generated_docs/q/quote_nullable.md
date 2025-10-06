@@ -37,3 +37,20 @@ The `quote_nullable` function extends the functionality of `quote_literal` by ha
 - The NULL case returns the literal string 'NULL' without any quotes, which is correct SQL syntax
 - For non-NULL inputs, uses `DirectFunctionCall1` to efficiently call the `quote_literal` function
 - Critical for applications that need to distinguish between NULL values and empty strings in dynamic queries
+
+## Simplified Source
+
+```c
+Datum
+quote_nullable(PG_FUNCTION_ARGS)
+{
+    // Handle NULL input: return literal 'NULL' string
+    if (PG_ARGISNULL(0))
+        PG_RETURN_TEXT_P(cstring_to_text("NULL"));
+
+    // Non-NULL input: delegate to quote_literal for proper quoting
+    else
+        PG_RETURN_DATUM(DirectFunctionCall1(quote_literal,
+                                            PG_GETARG_DATUM(0)));
+}
+```

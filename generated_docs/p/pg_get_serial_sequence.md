@@ -50,3 +50,74 @@ The function performs several steps: it resolves the table name to an OID, valid
 - Uses AccessShareLock when scanning the dependency table
 - Located in src/backend/utils/adt/ruleutils.c:2787-2880
 - The returned sequence name is fully schema-qualified for unambiguous reference
+
+## Simplified Source
+
+```c
+Datum
+pg_get_serial_sequence(PG_FUNCTION_ARGS)
+{
+    text *tablename = PG_GETARG_TEXT_PP(0);
+    text *columnname = PG_GETARG_TEXT_PP(1);
+    RangeVar *tablerv;
+    Oid tableOid;
+    char *column;
+    AttrNumber attnum;
+    Oid sequenceId = InvalidOid;
+    Relation depRel;
+    ScanKeyData key[3];
+    SysScanDesc scan;
+    HeapTuple tup;
+
+    // Look up table name and convert to OID
+    tablerv = makeRangeVarFromNameList(textToQualifiedNameList(tablename));
+    tableOid = RangeVarGetRelid(tablerv, NoLock, false);
+
+    // Get column number
+    column = text_to_cstring(columnname);
+    attnum = get_attnum(tableOid, column);
+    if (attnum == InvalidAttrNumber)
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_COLUMN),
+                errmsg("column \"%s\" of relation \"%s\" does not exist",
+                       column, tablerv->relname)));
+
+    // Search dependency table for sequence with auto/internal dependency
+    depRel = table_open(DependRelationId, AccessShareLock);
+
+    ScanKeyInit(&key[0], Anum_pg_depend_refclassid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(RelationRelationId));
+    ScanKeyInit(&key[1], Anum_pg_depend_refobjid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(tableOid));
+    ScanKeyInit(&key[2], Anum_pg_depend_refobjsubid, BTEqualStrategyNumber, F_INT4EQ,
+                Int32GetDatum(attnum));
+
+    scan = systable_beginscan(depRel, DependReferenceIndexId, true, NULL, 3, key);
+
+    while (HeapTupleIsValid(tup = systable_getnext(scan)))
+    {
+        Form_pg_depend deprec = (Form_pg_depend) GETSTRUCT(tup);
+
+        // Look for sequence dependency (serial or identity column)
+        if (deprec->classid == RelationRelationId &&
+            deprec->objsubid == 0 &&
+            (deprec->deptype == DEPENDENCY_AUTO ||
+             deprec->deptype == DEPENDENCY_INTERNAL) &&
+            get_rel_relkind(deprec->objid) == RELKIND_SEQUENCE)
+        {
+            sequenceId = deprec->objid;
+            break;
+        }
+    }
+
+    systable_endscan(scan);
+    table_close(depRel, AccessShareLock);
+
+    if (OidIsValid(sequenceId))
+    {
+        char *result = generate_qualified_relation_name(sequenceId);
+        PG_RETURN_TEXT_P(string_to_text(result));
+    }
+
+    PG_RETURN_NULL();
+}
+```

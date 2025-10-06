@@ -38,3 +38,13 @@ This design pattern avoids code duplication by leveraging the symmetry of the co
 - Essential for range indexing strategies and query optimization
 - Demonstrates good software engineering practice by reusing existing logic rather than duplicating it
 - The parameter order matches the expected semantics: r1 <@ r2 (r1 is contained by r2)
+
+## Simplified Source
+
+```c
+bool range_contained_by_internal(TypeCacheEntry *typcache, const RangeType *r1, const RangeType *r2) {
+    // Simply swap arguments and call range_contains_internal
+    // "r1 contained by r2" is equivalent to "r2 contains r1"
+    return range_contains_internal(typcache, r2, r1);
+}
+```

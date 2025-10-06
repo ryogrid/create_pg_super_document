@@ -48,3 +48,52 @@ The function reads the serialized data using PostgreSQL's binary protocol format
 - Memory management includes proper cleanup of temporary variables and creation of result in appropriate context
 - Critical for distributed query processing where partial results are received from other processes or nodes
 - Maintains consistency and accuracy of statistical calculations across parallel operations
+
+## Simplified Source
+
+```c
+Datum numeric_poly_deserialize(PG_FUNCTION_ARGS) {
+    bytea *sstate;
+    PolyNumAggState *result;
+    StringInfoData buf;
+    NumericVar tmp_var;
+
+    // Validate aggregate context
+    if (!AggCheckCallContext(fcinfo, NULL))
+        elog(ERROR, "aggregate function called in non-aggregate context");
+
+    sstate = PG_GETARG_BYTEA_PP(0);
+    init_var(&tmp_var);
+
+    // Setup buffer for reading binary data
+    initReadOnlyStringInfo(&buf, VARDATA_ANY(sstate), VARSIZE_ANY_EXHDR(sstate));
+
+    // Create new aggregate state
+    result = makePolyNumAggStateCurrentContext(false);
+
+    // Deserialize count
+    result->N = pq_getmsgint64(&buf);
+
+    // Deserialize and convert sumX (platform-appropriate format)
+    numericvar_deserialize(&buf, &tmp_var);
+#ifdef HAVE_INT128
+    numericvar_to_int128(&tmp_var, &result->sumX);
+#else
+    accum_sum_add(&result->sumX, &tmp_var);
+#endif
+
+    // Deserialize and convert sumX2 (platform-appropriate format)
+    numericvar_deserialize(&buf, &tmp_var);
+#ifdef HAVE_INT128
+    numericvar_to_int128(&tmp_var, &result->sumX2);
+#else
+    accum_sum_add(&result->sumX2, &tmp_var);
+#endif
+
+    // Validate message end and cleanup
+    pq_getmsgend(&buf);
+    free_var(&tmp_var);
+
+    PG_RETURN_POINTER(result);
+}
+```

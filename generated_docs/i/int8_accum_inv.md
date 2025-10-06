@@ -36,3 +36,29 @@ Unlike its 32-bit counterpart, this function uses only numeric operations for al
 - Part of PostgreSQL's aggregate function framework for window functions and moving aggregates
 - Includes error handling for both NULL state and failed discard operations
 - Located in src/backend/utils/adt/numeric.c:6040-6060
+
+## Simplified Source
+
+```c
+Datum
+int8_accum_inv(PG_FUNCTION_ARGS)
+{
+    NumericAggState *state;
+
+    state = PG_ARGISNULL(0) ? NULL : (NumericAggState *) PG_GETARG_POINTER(0);
+
+    // Validate state exists
+    if (state == NULL)
+        elog(ERROR, "int8_accum_inv called with NULL state");
+
+    // Remove non-NULL input values from accumulation
+    if (!PG_ARGISNULL(1))
+    {
+        // Always use numeric operations for int64
+        if (!do_numeric_discard(state, int64_to_numeric(PG_GETARG_INT64(1))))
+            elog(ERROR, "do_numeric_discard failed unexpectedly");
+    }
+
+    return state;
+}
+```

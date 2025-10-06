@@ -41,3 +41,40 @@ The function works by delegating to the general  function with specific paramete
 - Raises ERROR with ERRCODE_INVALID_BINARY_REPRESENTATION for invalid data
 - Part of PostgreSQL's binary I/O protocol for efficient data transfer
 - Uses Assert to verify the function call succeeded (result is not null)
+
+## Simplified Source
+
+```c
+Datum oidvectorrecv(PG_FUNCTION_ARGS) {
+    LOCAL_FCINFO(locfcinfo, 3);
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    oidvector *result;
+
+    // Set up function call info for array_recv (needed for caching)
+    InitFunctionCallInfoData(*locfcinfo, fcinfo->flinfo, 3,
+                            InvalidOid, NULL, NULL);
+
+    // Set arguments for array_recv: buffer, element type (OIDOID), typmod (-1)
+    locfcinfo->args[0].value = PointerGetDatum(buf);
+    locfcinfo->args[0].isnull = false;
+    locfcinfo->args[1].value = ObjectIdGetDatum(OIDOID);
+    locfcinfo->args[1].isnull = false;
+    locfcinfo->args[2].value = Int32GetDatum(-1);
+    locfcinfo->args[2].isnull = false;
+
+    // Call array_recv to parse binary data
+    result = (oidvector *) DatumGetPointer(array_recv(locfcinfo));
+    Assert(!locfcinfo->isnull);
+
+    // Validate oidvector constraints: 1-D, 0-based, no nulls, OIDOID elements
+    if (ARR_NDIM(result) != 1 ||
+        ARR_HASNULL(result) ||
+        ARR_ELEMTYPE(result) != OIDOID ||
+        ARR_LBOUND(result)[0] != 0)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_BINARY_REPRESENTATION),
+                 errmsg("invalid oidvector data")));
+
+    return PG_RETURN_POINTER(result);
+}
+```

@@ -39,3 +39,27 @@ The `numeric_trim_scale` function is a PostgreSQL built-in function that creates
 - Properly manages memory by freeing temporary NumericVar structures
 - Part of PostgreSQL's numeric data type utility functions
 - Located in src/backend/utils/adt/numeric.c:4223-4243
+
+## Simplified Source
+
+```c
+Datum
+numeric_trim_scale(PG_FUNCTION_ARGS)
+{
+    Numeric num = PG_GETARG_NUMERIC(0);
+    Numeric res;
+    NumericVar result;
+
+    // Return copy of special values unchanged
+    if (NUMERIC_IS_SPECIAL(num))
+        PG_RETURN_NUMERIC(duplicate_numeric(num));
+
+    // Convert to internal format, set scale to minimum, convert back
+    init_var_from_num(num, &result);
+    result.dscale = get_min_scale(&result);
+    res = make_result(&result);
+    free_var(&result);
+
+    PG_RETURN_NUMERIC(res);
+}
+```

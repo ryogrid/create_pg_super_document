@@ -33,3 +33,11 @@ This function serves as a PostgreSQL GUC check hook specifically for validating 
 - Accepts empty string values that reference the postmaster's environment
 - This is one of several locale-specific check functions for different locale categories
 - The function follows PostgreSQL's lazy locale initialization pattern
+
+## Simplified Source
+```c
+bool check_locale_monetary(char **newval, void **extra, GucSource source) {
+    // Validate the monetary locale using the generic locale checker
+    return check_locale(LC_MONETARY, *newval, NULL);
+}
+```

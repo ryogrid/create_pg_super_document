@@ -43,4 +43,55 @@ The implementation converts the input to a double for scale estimation while usi
 - [Result](../R/Result.md) scale is bounded by  to prevent overflow
 - Maintains at least  significant digits in result
 - Uses  for high-precision exponential computation
-- Located in 
+- Located in
+
+## Simplified Source
+
+```c
+Datum
+numeric_exp(PG_FUNCTION_ARGS)
+{
+    Numeric num = PG_GETARG_NUMERIC(0);
+    Numeric res;
+    NumericVar arg;
+    NumericVar result;
+    int rscale;
+    double val;
+
+    // Handle special values (NaN, infinity)
+    if (NUMERIC_IS_SPECIAL(num)) {
+        // Per POSIX, exp(-Inf) is zero
+        if (NUMERIC_IS_NINF(num))
+            PG_RETURN_NUMERIC(make_result(&const_zero));
+        // Return NaN or positive infinity as-is
+        PG_RETURN_NUMERIC(duplicate_numeric(num));
+    }
+
+    // Initialize variables
+    init_var_from_num(num, &arg);
+    init_var(&result);
+
+    // Estimate result scale using log10(result) = num * log10(e)
+    val = numericvar_to_double_no_overflow(&arg);
+    val *= 0.434294481903252;  // log10(e)
+
+    // Prevent integer overflow in scale calculation
+    val = Max(val, -NUMERIC_MAX_RESULT_SCALE);
+    val = Min(val, NUMERIC_MAX_RESULT_SCALE);
+
+    // Determine appropriate result scale
+    rscale = NUMERIC_MIN_SIG_DIGITS - (int) val;
+    rscale = Max(rscale, arg.dscale);
+    rscale = Max(rscale, NUMERIC_MIN_DISPLAY_SCALE);
+    rscale = Min(rscale, NUMERIC_MAX_DISPLAY_SCALE);
+
+    // Perform exponential calculation
+    exp_var(&arg, &result, rscale);
+
+    // Create and return result
+    res = make_result(&result);
+    free_var(&result);
+
+    PG_RETURN_NUMERIC(res);
+}
+```

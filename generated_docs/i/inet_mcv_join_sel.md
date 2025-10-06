@@ -44,3 +44,35 @@ The function is particularly useful for join selectivity estimation in network o
 - Works with any inet comparison operator by dynamically looking up the operator function
 - The result represents the probability that a random tuple pair from both relations will satisfy the join condition
 - Most effective when both relations have good MCV coverage for their inet columns
+
+## Simplified Source
+
+```c
+static Selectivity
+inet_mcv_join_sel(Datum *mcv1_values, float4 *mcv1_numbers, int mcv1_nvalues,
+                  Datum *mcv2_values, float4 *mcv2_numbers, int mcv2_nvalues,
+                  Oid operator)
+{
+    Selectivity selec = 0.0;
+    FmgrInfo proc;
+
+    // Get operator function information
+    fmgr_info(get_opcode(operator), &proc);
+
+    // Test every combination of MCV values from both relations
+    for (int i = 0; i < mcv1_nvalues; i++)
+    {
+        for (int j = 0; j < mcv2_nvalues; j++)
+        {
+            // Apply operator to current value pair
+            if (DatumGetBool(FunctionCall2(&proc, mcv1_values[i], mcv2_values[j])))
+            {
+                // If operator returns true, add product of frequencies
+                selec += mcv1_numbers[i] * mcv2_numbers[j];
+            }
+        }
+    }
+
+    return selec;
+}
+```

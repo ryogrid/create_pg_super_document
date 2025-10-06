@@ -41,3 +41,21 @@ The inequality test is performed by calling the comprehensive `cmp_numerics` fun
 - Can be called directly from SQL expressions or from internal C code
 - Part of the complete set of numeric comparison operators in PostgreSQL
 - Complementary function to `numeric_eq` with opposite boolean result logic
+
+## Simplified Source
+
+```c
+Datum numeric_ne(PG_FUNCTION_ARGS) {
+    // Get the two numeric arguments
+    Numeric num1 = PG_GETARG_NUMERIC(0);
+    Numeric num2 = PG_GETARG_NUMERIC(1);
+
+    // Compare the numbers and check if they're not equal
+    bool result = cmp_numerics(num1, num2) != 0;
+
+    // Clean up memory and return result
+    PG_FREE_IF_COPY(num1, 0);
+    PG_FREE_IF_COPY(num2, 1);
+    PG_RETURN_BOOL(result);
+}
+```

@@ -41,3 +41,24 @@ This optimization helps avoid unnecessary tree traversals during adjacent range 
 - The function acknowledges it could be further optimized by explicitly tracking which bound is being searched rather than deducing from centroids
 - Critical for reducing unnecessary traversals in multi-level adjacent range searches
 - Part of the RANGESTRAT_ADJACENT strategy implementation in SP-GiST indexing
+
+## Simplified Source
+
+```c
+static int adjacent_inner_consistent(TypeCacheEntry *typcache, const RangeBound *arg,
+                                    const RangeBound *centroid, const RangeBound *prev)
+{
+    if (prev) {
+        // Check if previous level traversal was consistent with intended direction
+        int prevCmp = adjacent_cmp_bounds(typcache, arg, prev);
+        int actualDirection = range_cmp_bounds(typcache, centroid, prev);
+
+        // If intended direction doesn't match actual direction, no matches possible
+        if ((prevCmp < 0 && actualDirection >= 0) || (prevCmp > 0 && actualDirection < 0))
+            return 0;  // No matches
+    }
+
+    // Use standard adjacent comparison for current level
+    return adjacent_cmp_bounds(typcache, arg, centroid);
+}
+```

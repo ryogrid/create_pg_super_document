@@ -45,3 +45,49 @@ The `numeric_poly_stddev_internal` function serves as an adapter between the 128
 - Part of PostgreSQL's optimization strategy using 128-bit integer arithmetic for better performance during aggregate accumulation
 - The conversion from Int128 to Numeric format allows reuse of existing statistical calculation logic
 - Maintains proper memory cleanup to prevent leaks in long-running aggregations
+
+## Simplified Source
+
+```c
+static Numeric numeric_poly_stddev_internal(Int128AggState *state, bool variance, bool sample, bool *is_null) {
+    NumericAggState numeric_state;
+    Numeric result;
+
+    // Initialize empty numeric aggregate state
+    memset(&numeric_state, 0, sizeof(NumericAggState));
+
+    if (state) {
+        NumericVar temp_var;
+
+        // Copy count from 128-bit state
+        numeric_state.N = state->N;
+
+        init_var(&temp_var);
+
+        // Convert 128-bit sumX to numeric and add to accumulator
+        int128_to_numericvar(state->sumX, &temp_var);
+        accum_sum_add(&numeric_state.sumX, &temp_var);
+
+        // Convert 128-bit sumX2 to numeric and add to accumulator
+        int128_to_numericvar(state->sumX2, &temp_var);
+        accum_sum_add(&numeric_state.sumX2, &temp_var);
+
+        free_var(&temp_var);
+    }
+
+    // Delegate to standard numeric variance/stddev calculation
+    result = numeric_stddev_internal(&numeric_state, variance, sample, is_null);
+
+    // Clean up allocated memory from numeric state
+    if (numeric_state.sumX.ndigits > 0) {
+        pfree(numeric_state.sumX.pos_digits);
+        pfree(numeric_state.sumX.neg_digits);
+    }
+    if (numeric_state.sumX2.ndigits > 0) {
+        pfree(numeric_state.sumX2.pos_digits);
+        pfree(numeric_state.sumX2.neg_digits);
+    }
+
+    return result;
+}
+```

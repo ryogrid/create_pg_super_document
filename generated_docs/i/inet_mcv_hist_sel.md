@@ -44,3 +44,27 @@ The result represents the selectivity for the MCV portion of the join and still 
 - The returned selectivity needs additional scaling based on the histogram's population coverage
 - Combines the precision of MCV statistics with the distribution modeling of histograms
 - Particularly effective for joins where one relation has skewed data with identifiable most common values
+
+## Simplified Source
+
+```c
+static Selectivity
+inet_mcv_hist_sel(Datum *mcv_values, float4 *mcv_numbers, int mcv_nvalues,
+                  Datum *hist_values, int hist_nvalues,
+                  int opr_codenum)
+{
+    Selectivity selec = 0.0;
+
+    // Commute operator since inet_hist_value_sel expects histogram on left
+    opr_codenum = -opr_codenum;
+
+    // For each MCV value, estimate its match against the histogram
+    for (int i = 0; i < mcv_nvalues; i++)
+    {
+        // Calculate histogram selectivity for this MCV value and scale by its frequency
+        selec += mcv_numbers[i] * inet_hist_value_sel(hist_values, hist_nvalues, mcv_values[i], opr_codenum);
+    }
+
+    return selec;
+}
+```

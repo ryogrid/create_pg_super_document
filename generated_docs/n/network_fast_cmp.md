@@ -46,3 +46,16 @@ The function is marked as , indicating it's an internal implementation detail of
 - Marked as  - internal function not exposed outside network.c
 - Located in 
 - Essential component of the network data type's sort performance optimization strategy
+
+## Simplified Source
+
+```c
+static int network_fast_cmp(Datum x, Datum y, SortSupport ssup) {
+    // Convert Datum values to inet pointers
+    inet *arg1 = DatumGetInetPP(x);
+    inet *arg2 = DatumGetInetPP(y);
+
+    // Delegate to core comparison logic
+    return network_cmp_internal(arg1, arg2);
+}
+```

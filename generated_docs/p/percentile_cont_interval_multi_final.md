@@ -33,3 +33,17 @@ The function handles the computation of multiple percentiles simultaneously from
 - Hard-wired type information is provided: 16 bytes length, pass-by-reference, double alignment
 - Uses  to specify the expected interval data type
 - The actual computation logic is delegated to the common implementation function to avoid code duplication across different data types
+
+## Simplified Source
+
+```c
+Datum
+percentile_cont_interval_multi_final(PG_FUNCTION_ARGS)
+{
+    // Delegate to common implementation with interval-specific parameters
+    return percentile_cont_multi_final_common(fcinfo,
+                                              INTERVALOID,
+                                              16, false, TYPALIGN_DOUBLE,
+                                              interval_lerp);
+}
+```

@@ -49,3 +49,58 @@ The function performs the following key operations:
 - Uses proper deparse context to ensure correct name resolution within expressions
 - Part of the ruleutils module which handles object definition formatting
 - Each expression in the result array is independently formatted and readable
+
+## Simplified Source
+
+```c
+Datum pg_get_statisticsobjdef_expressions(PG_FUNCTION_ARGS) {
+    Oid statextid = PG_GETARG_OID(0);
+    Form_pg_statistic_ext statextrec;
+    HeapTuple statexttup;
+    ArrayBuildState *astate = NULL;
+
+    // Look up the statistics object in system catalog
+    statexttup = SearchSysCache1(STATEXTOID, ObjectIdGetDatum(statextid));
+    if (!HeapTupleIsValid(statexttup))
+        PG_RETURN_NULL();
+
+    // Check if the stats object has expressions
+    bool has_exprs = !heap_attisnull(statexttup, Anum_pg_statistic_ext_stxexprs, NULL);
+    if (!has_exprs) {
+        ReleaseSysCache(statexttup);
+        PG_RETURN_NULL();
+    }
+
+    statextrec = (Form_pg_statistic_ext) GETSTRUCT(statexttup);
+
+    // Get and deserialize the expressions
+    Datum datum = SysCacheGetAttrNotNull(STATEXTOID, statexttup,
+                                        Anum_pg_statistic_ext_stxexprs);
+    char *tmp = TextDatumGetCString(datum);
+    List *exprs = (List *) stringToNode(tmp);
+    pfree(tmp);
+
+    // Build deparse context for the relation
+    List *context = deparse_context_for(get_relation_name(statextrec->stxrelid),
+                                       statextrec->stxrelid);
+
+    // Format each expression and build text array
+    ListCell *lc;
+    foreach(lc, exprs) {
+        Node *expr = (Node *) lfirst(lc);
+        int prettyFlags = PRETTYFLAG_INDENT;
+
+        // Deparse expression to readable SQL text
+        char *str = deparse_expression_pretty(expr, context, false, false,
+                                            prettyFlags, 0);
+
+        // Add to result array
+        astate = accumArrayResult(astate,
+                                 PointerGetDatum(cstring_to_text(str)),
+                                 false, TEXTOID, CurrentMemoryContext);
+    }
+
+    ReleaseSysCache(statexttup);
+    PG_RETURN_DATUM(makeArrayResult(astate, CurrentMemoryContext));
+}
+```

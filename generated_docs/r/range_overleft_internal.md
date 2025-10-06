@@ -41,3 +41,27 @@ The function returns true if r1's upper bound is less than or equal to r2's uppe
 - Used internally for indexing operations (GiST and SP-GiST) and multirange operations
 - The function ensures type safety by checking that both ranges have the same OID
 - Part of the range operator family that includes overlaps, overleft, overright operations
+
+## Simplified Source
+
+```c
+bool range_overleft_internal(TypeCacheEntry *typcache, const RangeType *r1, const RangeType *r2) {
+    RangeBound lower1, lower2, upper1, upper2;
+    bool empty1, empty2;
+
+    // Validate that both ranges are of the same type
+    if (RangeTypeGetOid(r1) != RangeTypeGetOid(r2))
+        elog(ERROR, "range types do not match");
+
+    // Extract boundaries from both ranges
+    range_deserialize(typcache, r1, &lower1, &upper1, &empty1);
+    range_deserialize(typcache, r2, &lower2, &upper2, &empty2);
+
+    // Empty ranges are neither left nor right of other ranges
+    if (empty1 || empty2)
+        return false;
+
+    // Check if r1's upper bound <= r2's upper bound
+    return range_cmp_bounds(typcache, &upper1, &upper2) <= 0;
+}
+```

@@ -43,3 +43,25 @@ Like its internal node counterpart, this function only supports the RANGESTRAT_C
 - Used specifically for queries of the form 'which ranges contain element X?' on leaf pages
 - Any unsupported strategy results in an ERROR to ensure only valid element containment queries are processed
 - This is the final level of the GiST tree where actual stored data is tested rather than approximated
+
+## Simplified Source
+
+```c
+static bool
+range_gist_consistent_leaf_element(TypeCacheEntry *typcache,
+                                  StrategyNumber strategy,
+                                  const RangeType *key,
+                                  Datum query)
+{
+    switch (strategy)
+    {
+        case RANGESTRAT_CONTAINS_ELEM:
+            // Test if the stored range contains the element
+            return range_contains_elem_internal(typcache, key, query);
+
+        default:
+            elog(ERROR, "unrecognized range strategy: %d", strategy);
+            return false;
+    }
+}
+```

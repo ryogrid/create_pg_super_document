@@ -57,3 +57,68 @@ The function uses a bitmask approach where each bit represents whether the corre
 - Memory allocation for output node numbers is done only when nodes need to be visited
 - The function assumes less than 32 child nodes for efficient bitmask operations
 - Strategy-based pruning significantly reduces the number of nodes visited during range queries
+
+## Simplified Source
+
+```c
+Datum
+inet_spg_inner_consistent(PG_FUNCTION_ARGS)
+{
+    spgInnerConsistentIn *in = (spgInnerConsistentIn *) PG_GETARG_POINTER(0);
+    spgInnerConsistentOut *out = (spgInnerConsistentOut *) PG_GETARG_POINTER(1);
+    int which;
+
+    if (!in->hasPrefix) {
+        // Address family split (2 nodes: IPv4, IPv6)
+        which = 1 | (1 << 1);  // Start with both nodes
+
+        for (int i = 0; i < in->nkeys; i++) {
+            StrategyNumber strategy = in->scankeys[i].sk_strategy;
+            inet *argument = DatumGetInetPP(in->scankeys[i].sk_argument);
+
+            switch (strategy) {
+                case RTLessStrategyNumber:
+                case RTLessEqualStrategyNumber:
+                    if (ip_family(argument) == PGSQL_AF_INET)
+                        which &= 1;  // Only IPv4 node
+                    break;
+                case RTGreaterEqualStrategyNumber:
+                case RTGreaterStrategyNumber:
+                    if (ip_family(argument) == PGSQL_AF_INET6)
+                        which &= (1 << 1);  // Only IPv6 node
+                    break;
+                case RTNotEqualStrategyNumber:
+                    break;  // Keep both
+                default:
+                    // Family-specific operators
+                    if (ip_family(argument) == PGSQL_AF_INET)
+                        which &= 1;
+                    else
+                        which &= (1 << 1);
+                    break;
+            }
+        }
+    } else if (!in->allTheSame) {
+        // Prefix-based split (4 nodes)
+        which = inet_spg_consistent_bitmap(DatumGetInetPP(in->prefixDatum),
+                                           in->nkeys, in->scankeys, false);
+    } else {
+        // All the same - must visit all nodes
+        which = ~0;
+    }
+
+    // Build output node list
+    out->nNodes = 0;
+    if (which) {
+        out->nodeNumbers = (int *) palloc(sizeof(int) * in->nNodes);
+        for (int i = 0; i < in->nNodes; i++) {
+            if (which & (1 << i)) {
+                out->nodeNumbers[out->nNodes] = i;
+                out->nNodes++;
+            }
+        }
+    }
+
+    PG_RETURN_VOID();
+}
+```

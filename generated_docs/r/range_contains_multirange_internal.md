@@ -40,3 +40,34 @@ This function determines if a single range completely contains a multirange. It 
 - The algorithm works because if a range contains the overall bounds, it must contain all individual ranges within those bounds
 - Empty multiranges are special-cased to always be contained (mathematical convention)
 - Part of PostgreSQL's comprehensive range type system supporting complex containment operations
+
+## Simplified Source
+
+```c
+bool range_contains_multirange_internal(TypeCacheEntry *rangetyp,
+                                       const RangeType *range,
+                                       const MultirangeType *multirange) {
+    RangeBound lower_range, upper_range, lower_multirange, upper_multirange, temp;
+    bool empty;
+
+    // Every range contains empty multiranges
+    if (MultirangeIsEmpty(multirange))
+        return true;
+
+    // Empty ranges contain no non-empty multiranges
+    if (RangeIsEmpty(range))
+        return false;
+
+    // Range contains multirange if it contains the union range
+    // (from first lower bound to last upper bound)
+    range_deserialize(rangetyp, range, &lower_range, &upper_range, &empty);
+    Assert(!empty);
+
+    // Get bounds spanning the entire multirange
+    multirange_get_bounds(rangetyp, multirange, 0, &lower_multirange, &temp);
+    multirange_get_bounds(rangetyp, multirange, multirange->rangeCount - 1, &temp, &upper_multirange);
+
+    // Check if range bounds contain the multirange bounds
+    return range_bounds_contains(rangetyp, &lower_range, &upper_range, &lower_multirange, &upper_multirange);
+}
+```

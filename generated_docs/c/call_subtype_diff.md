@@ -37,3 +37,21 @@ The subtype_diff function is used in GiST index operations to calculate penaltie
 - Includes defensive programming by checking for non-negative return values and defaulting to 0.0 for invalid results
 - Used extensively in GiST index operations for range types to optimize index structure and query performance
 - The function leverages PostgreSQL's function call infrastructure with proper collation handling
+
+## Simplified Source
+
+```c
+static float8 call_subtype_diff(TypeCacheEntry *typcache, Datum val1, Datum val2) {
+    float8 value;
+
+    // Call the type-specific subtype_diff function with collation
+    value = DatumGetFloat8(FunctionCall2Coll(&typcache->rng_subdiff_finfo,
+                                            typcache->rng_collation,
+                                            val1, val2));
+
+    // Return non-negative values, or 0.0 for buggy subtype_diff functions
+    if (value >= 0.0)
+        return value;
+    return 0.0;
+}
+```

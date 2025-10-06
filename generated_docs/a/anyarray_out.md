@@ -31,3 +31,14 @@ The `anyarray_out` function serves as the output conversion function for Postgre
 - By delegating to `array_out`, it ensures consistent array text representation across all array types
 - Located in `src/backend/utils/adt/pseudotypes.c:158-163`
 - Part of PostgreSQL's polymorphic type system that allows functions to work with multiple data types
+
+## Simplified Source
+
+```c
+Datum
+anyarray_out(PG_FUNCTION_ARGS)
+{
+    // Delegate to standard array output function
+    return array_out(fcinfo);
+}
+```

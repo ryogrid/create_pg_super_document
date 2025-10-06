@@ -34,3 +34,17 @@ Datum namelt(PG_FUNCTION_ARGS)
 - Part of PostgreSQL's type system infrastructure for the Name built-in type
 - Used internally by PostgreSQL's sorting and indexing mechanisms for Name columns
 - Collation-aware comparison ensures proper ordering according to locale-specific rules
+
+## Simplified Source
+
+```c
+Datum
+namelt(PG_FUNCTION_ARGS)
+{
+    Name arg1 = PG_GETARG_NAME(0);
+    Name arg2 = PG_GETARG_NAME(1);
+
+    // Compare names for less-than using collation-aware comparison
+    PG_RETURN_BOOL(namecmp(arg1, arg2, PG_GET_COLLATION()) < 0);
+}
+```

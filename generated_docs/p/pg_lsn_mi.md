@@ -43,3 +43,27 @@ The function uses PostgreSQL's standard function argument mechanism:
 - The result is always the absolute difference with appropriate sign handling
 - Critical for WAL-related operations, replication monitoring, and backup management
 - Located in src/backend/utils/adt/pg_lsn.c:224-250
+
+## Simplified Source
+
+```c
+Datum pg_lsn_mi(PG_FUNCTION_ARGS) {
+    // Extract the two LSN arguments
+    XLogRecPtr lsn1 = PG_GETARG_LSN(0);
+    XLogRecPtr lsn2 = PG_GETARG_LSN(1);
+    char buf[256];
+
+    // Calculate signed difference and format as string
+    if (lsn1 < lsn2)
+        snprintf(buf, sizeof buf, "-" UINT64_FORMAT, lsn2 - lsn1);
+    else
+        snprintf(buf, sizeof buf, UINT64_FORMAT, lsn1 - lsn2);
+
+    // Convert string to numeric type for arbitrary precision
+    Datum result = DirectFunctionCall3(numeric_in,
+                                     CStringGetDatum(buf),
+                                     ObjectIdGetDatum(0),
+                                     Int32GetDatum(-1));
+    return result;
+}
+```

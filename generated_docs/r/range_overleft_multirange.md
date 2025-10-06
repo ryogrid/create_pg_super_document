@@ -38,3 +38,19 @@ The overleft operator returns true if the range's upper bound is less than or eq
 - The actual comparison logic is implemented in `range_overleft_multirange_internal`
 - Part of PostgreSQL's range and multirange type system introduced to support complex range operations
 - Located in `src/backend/utils/adt/multirangetypes.c:2096-2107`
+
+## Simplified Source
+
+```c
+Datum range_overleft_multirange(PG_FUNCTION_ARGS) {
+    // Extract range and multirange arguments
+    RangeType *r = PG_GETARG_RANGE_P(0);
+    MultirangeType *mr = PG_GETARG_MULTIRANGE_P(1);
+
+    // Get type cache for multirange
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(mr));
+
+    // Delegate to internal comparison function
+    PG_RETURN_BOOL(range_overleft_multirange_internal(typcache->rngtype, r, mr));
+}
+```

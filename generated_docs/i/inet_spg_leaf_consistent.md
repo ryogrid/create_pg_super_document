@@ -48,3 +48,24 @@ The function also prepares the leaf value for return to the query executor, ensu
 - The function is lightweight and designed for high-frequency execution during index scans
 - Proper datum conversion ensures compatibility with PostgreSQL's type system
 - No memory allocation is required as it works with existing datum structures
+
+## Simplified Source
+
+```c
+Datum
+inet_spg_leaf_consistent(PG_FUNCTION_ARGS)
+{
+    spgLeafConsistentIn *in = (spgLeafConsistentIn *) PG_GETARG_POINTER(0);
+    spgLeafConsistentOut *out = (spgLeafConsistentOut *) PG_GETARG_POINTER(1);
+    inet *leaf = DatumGetInetPP(in->leafDatum);
+
+    // All tests are exact - no recheck needed
+    out->recheck = false;
+
+    // Return the leaf value as-is
+    out->leafValue = InetPGetDatum(leaf);
+
+    // Use common consistency check logic
+    PG_RETURN_BOOL(inet_spg_consistent_bitmap(leaf, in->nkeys, in->scankeys, true));
+}
+```

@@ -42,3 +42,44 @@ The serialization includes the count (N) and the sum (sumX) in a standardized fo
 - Must be called within aggregate context (enforced by AggCheckCallContext)
 - Returns bytea that can be transmitted over network or stored persistently
 - Paired with int8_avg_deserialize for round-trip serialization
+
+## Simplified Source
+
+```c
+Datum
+int8_avg_serialize(PG_FUNCTION_ARGS)
+{
+    PolyNumAggState *state;
+    StringInfoData buf;
+    NumericVar tmp_var;
+
+    // Validate we're in aggregate context
+    if (!AggCheckCallContext(fcinfo, NULL))
+        elog(ERROR, "aggregate function called in non-aggregate context");
+
+    state = (PolyNumAggState *) PG_GETARG_POINTER(0);
+
+    // Initialize temporary variable for cross-platform compatibility
+    init_var(&tmp_var);
+
+    // Begin binary serialization
+    pq_begintypsend(&buf);
+
+    // Serialize count
+    pq_sendint64(&buf, state->N);
+
+    // Serialize sum - convert to numeric for platform independence
+#ifdef HAVE_INT128
+    int128_to_numericvar(state->sumX, &tmp_var);
+#else
+    accum_sum_final(&state->sumX, &tmp_var);
+#endif
+    numericvar_serialize(&buf, &tmp_var);
+
+    // Finalize and return serialized data
+    bytea *result = pq_endtypsend(&buf);
+    free_var(&tmp_var);
+
+    return result;
+}
+```

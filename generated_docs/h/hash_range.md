@@ -44,3 +44,49 @@ The function handles empty ranges and ranges with missing bounds appropriately, 
 - Uses the element type's own hash function to hash individual bound values, ensuring consistency with the element type's hash behavior
 - Implements a robust hash combination strategy using XOR and bit rotation to mix the component hash values effectively
 - Validates that the element type has a hash function available, throwing an error if none exists
+
+## Simplified Source
+
+```c
+Datum
+hash_range(PG_FUNCTION_ARGS)
+{
+    RangeType *r = PG_GETARG_RANGE_P(0);
+    uint32 result;
+    RangeBound lower, upper;
+    bool empty;
+    char flags;
+
+    // Get type cache and deserialize range
+    TypeCacheEntry *typcache = range_get_typcache(fcinfo, RangeTypeGetOid(r));
+    range_deserialize(typcache, r, &lower, &upper, &empty);
+    flags = range_get_flags(r);
+
+    // Get element type's hash function
+    TypeCacheEntry *scache = typcache->rngelemtype;
+    if (!OidIsValid(scache->hash_proc_finfo.fn_oid)) {
+        scache = lookup_type_cache(scache->type_id, TYPECACHE_HASH_PROC_FINFO);
+        // Error if no hash function available
+    }
+
+    // Hash lower bound if present
+    uint32 lower_hash = RANGE_HAS_LBOUND(flags) ?
+        DatumGetUInt32(FunctionCall1Coll(&scache->hash_proc_finfo,
+                                         typcache->rng_collation,
+                                         lower.val)) : 0;
+
+    // Hash upper bound if present
+    uint32 upper_hash = RANGE_HAS_UBOUND(flags) ?
+        DatumGetUInt32(FunctionCall1Coll(&scache->hash_proc_finfo,
+                                         typcache->rng_collation,
+                                         upper.val)) : 0;
+
+    // Combine hashes: flags, lower bound, upper bound
+    result = hash_uint32((uint32) flags);
+    result ^= lower_hash;
+    result = pg_rotate_left32(result, 1);
+    result ^= upper_hash;
+
+    PG_RETURN_INT32(result);
+}
+```

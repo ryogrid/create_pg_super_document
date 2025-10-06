@@ -34,3 +34,19 @@ This function implements the "contained by" operation for multiranges and ranges
 - The function follows PostgreSQL's standard function calling convention using PG_FUNCTION_ARGS
 - Returns the result via PG_RETURN_BOOL macro
 - The actual containment logic is delegated to `range_contains_multirange_internal` for code reuse
+
+## Simplified Source
+
+```c
+Datum multirange_contained_by_range(PG_FUNCTION_ARGS) {
+    // Extract multirange and range from arguments
+    MultirangeType *multirange = PG_GETARG_MULTIRANGE_P(0);
+    RangeType *range = PG_GETARG_RANGE_P(1);
+
+    // Get type cache for this multirange type
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(multirange));
+
+    // Delegate to range_contains_multirange_internal (same logic, different perspective)
+    return PG_RETURN_BOOL(range_contains_multirange_internal(typcache->rngtype, range, multirange));
+}
+```

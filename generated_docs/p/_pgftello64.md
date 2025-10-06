@@ -37,3 +37,29 @@ This wrapper ensures consistent behavior and proper error reporting when queryin
 - Part of PostgreSQL's Windows compatibility layer
 - Companion function to `_pgfseeko64` for file position operations
 - Uses Microsoft's _ftelli64() for actual disk file position queries
+
+## Simplified Source
+
+```c
+pgoff_t
+_pgftello64(FILE *stream)
+{
+    DWORD fileType;
+    HANDLE hFile = (HANDLE) _get_osfhandle(_fileno(stream));
+
+    // Determine the file type for proper error handling
+    fileType = pgwin32_get_file_type(hFile);
+    if (errno != 0)
+        return -1;
+
+    // Only support position queries on disk files
+    if (fileType == FILE_TYPE_DISK)
+        return _ftelli64(stream);
+    else if (fileType == FILE_TYPE_CHAR || fileType == FILE_TYPE_PIPE)
+        errno = ESPIPE;  // Illegal seek on pipe/char device
+    else
+        errno = EINVAL;  // Invalid argument for other types
+
+    return -1;
+}
+```

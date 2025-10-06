@@ -45,3 +45,69 @@ The function uses a set-returning function (SRF) pattern to generate multiple ro
 - The conversion factor is hard-coded to BLCKSZ (typically 8192 bytes) for block-oriented operations
 - Returns Datum 0 as is standard for set-returning functions that populate their results via tuplestore
 - Includes assertion checks in debug builds to validate statistics consistency
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_get_io(PG_FUNCTION_ARGS)
+{
+    ReturnSetInfo *rsinfo;
+    PgStat_IO *backends_io_stats;
+
+    // Initialize set-returning function
+    InitMaterializedSRF(fcinfo, 0);
+    rsinfo = (ReturnSetInfo *) fcinfo->resultinfo;
+
+    // Fetch I/O statistics from collector
+    backends_io_stats = pgstat_fetch_stat_io();
+    Datum reset_time = TimestampTzGetDatum(backends_io_stats->stat_reset_timestamp);
+
+    // Iterate through all backend types
+    for (int bktype = 0; bktype < BACKEND_NUM_TYPES; bktype++) {
+        if (!pgstat_tracks_io_bktype(bktype))
+            continue;
+
+        PgStat_BktypeIO *bktype_stats = &backends_io_stats->stats[bktype];
+
+        // Iterate through all I/O objects and contexts
+        for (int io_obj = 0; io_obj < IOOBJECT_NUM_TYPES; io_obj++) {
+            for (int io_context = 0; io_context < IOCONTEXT_NUM_TYPES; io_context++) {
+                if (!pgstat_tracks_io_object(bktype, io_obj, io_context))
+                    continue;
+
+                // Prepare row data with basic columns
+                Datum values[IO_NUM_COLUMNS] = {0};
+                bool nulls[IO_NUM_COLUMNS] = {0};
+
+                values[IO_COL_BACKEND_TYPE] = CStringGetTextDatum(GetBackendTypeDesc(bktype));
+                values[IO_COL_CONTEXT] = CStringGetTextDatum(pgstat_get_io_context_name(io_context));
+                values[IO_COL_OBJECT] = CStringGetTextDatum(pgstat_get_io_object_name(io_obj));
+                values[IO_COL_RESET_TIME] = reset_time;
+                values[IO_COL_CONVERSION] = Int64GetDatum(BLCKSZ);
+
+                // Fill in I/O operation statistics
+                for (int io_op = 0; io_op < IOOP_NUM_TYPES; io_op++) {
+                    if (pgstat_tracks_io_op(bktype, io_obj, io_context, io_op)) {
+                        int op_idx = pgstat_get_io_op_index(io_op);
+                        PgStat_Counter count = bktype_stats->counts[io_obj][io_context][io_op];
+                        values[op_idx] = Int64GetDatum(count);
+
+                        // Add timing data if available
+                        int time_idx = pgstat_get_io_time_index(io_op);
+                        if (time_idx != IO_COL_INVALID) {
+                            PgStat_Counter time = bktype_stats->times[io_obj][io_context][io_op];
+                            values[time_idx] = Float8GetDatum(pg_stat_us_to_ms(time));
+                        }
+                    }
+                }
+
+                // Add row to result set
+                tuplestore_putvalues(rsinfo->setResult, rsinfo->setDesc, values, nulls);
+            }
+        }
+    }
+
+    return (Datum) 0;
+}
+```

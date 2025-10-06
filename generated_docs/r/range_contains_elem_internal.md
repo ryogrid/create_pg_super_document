@@ -44,3 +44,44 @@ The containment logic follows standard mathematical interval notation: for inclu
 - Critical for implementing the @> (contains element) and <@ (element contained by) operators
 - Used extensively in range indexing for efficient element-in-range queries
 - Bound inclusivity is strictly enforced: exclusive bounds exclude exact matches
+
+## Simplified Source
+
+```c
+bool range_contains_elem_internal(TypeCacheEntry *typcache, const RangeType *r, Datum val) {
+    RangeBound lower, upper;
+    bool empty;
+    int32 cmp;
+
+    // Extract range bounds
+    range_deserialize(typcache, r, &lower, &upper, &empty);
+
+    // Empty ranges contain no elements
+    if (empty)
+        return false;
+
+    // Check lower bound constraint
+    if (!lower.infinite) {
+        cmp = DatumGetInt32(FunctionCall2Coll(&typcache->rng_cmp_proc_finfo,
+                                             typcache->rng_collation,
+                                             lower.val, val));
+        if (cmp > 0)
+            return false;  // val < lower bound
+        if (cmp == 0 && !lower.inclusive)
+            return false;  // val == lower bound but bound is exclusive
+    }
+
+    // Check upper bound constraint
+    if (!upper.infinite) {
+        cmp = DatumGetInt32(FunctionCall2Coll(&typcache->rng_cmp_proc_finfo,
+                                             typcache->rng_collation,
+                                             upper.val, val));
+        if (cmp < 0)
+            return false;  // val > upper bound
+        if (cmp == 0 && !upper.inclusive)
+            return false;  // val == upper bound but bound is exclusive
+    }
+
+    return true;
+}
+```

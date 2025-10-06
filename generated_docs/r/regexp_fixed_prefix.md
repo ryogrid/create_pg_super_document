@@ -45,3 +45,59 @@ The extracted prefix is converted from the internal wide character representatio
 - Handles both case-sensitive and case-insensitive matching through compilation flags
 - Supports PostgreSQL's advanced regex features through the REG_ADVANCED flag
 - Error handling includes proper reporting of regex compilation failures with descriptive messages
+
+## Simplified Source
+
+```c
+char *
+regexp_fixed_prefix(text *text_re, bool case_insensitive, Oid collation, bool *exact)
+{
+    char *result;
+    regex_t *re;
+    int cflags;
+    int re_result;
+    pg_wchar *str;
+    size_t slen;
+    size_t maxlen;
+
+    *exact = false;  // Default: not an exact match
+
+    // Set up compilation flags
+    cflags = REG_ADVANCED;
+    if (case_insensitive)
+        cflags |= REG_ICASE;
+
+    // Compile the regular expression
+    re = RE_compile_and_cache(text_re, cflags | REG_NOSUB, collation);
+
+    // Extract the fixed prefix
+    re_result = pg_regprefix(re, &str, &slen);
+
+    switch (re_result) {
+        case REG_NOMATCH:
+            return NULL;  // No fixed prefix found
+
+        case REG_PREFIX:
+            // Found a prefix, continue with conversion
+            break;
+
+        case REG_EXACT:
+            *exact = true;  // Entire pattern is literal
+            break;
+
+        default:
+            // Report regex compilation error
+            ereport(ERROR, (errcode(ERRCODE_INVALID_REGULAR_EXPRESSION),
+                           errmsg("regular expression failed")));
+            break;
+    }
+
+    // Convert wide chars back to database encoding
+    maxlen = pg_database_encoding_max_length() * slen + 1;
+    result = (char *) palloc(maxlen);
+    slen = pg_wchar2mb_with_len(str, result, slen);
+
+    pfree(str);
+    return result;
+}
+```

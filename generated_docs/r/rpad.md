@@ -55,3 +55,65 @@ The  function takes three parameters: a source string, a target length, and a pa
 - The padding string is repeated cyclically if needed to fill the required space
 - Unlike , this function first copies the source string then appends the padding
 - Memory is properly allocated and the result is returned as a PostgreSQL text type
+
+## Simplified Source
+
+```c
+Datum
+rpad(PG_FUNCTION_ARGS)
+{
+    // Get function arguments
+    text *string1 = PG_GETARG_TEXT_PP(0);  // source string
+    int32 len = PG_GETARG_INT32(1);        // target length
+    text *string2 = PG_GETARG_TEXT_PP(2);  // padding string
+
+    // Handle negative length
+    if (len < 0) len = 0;
+
+    // Get string lengths and data pointers
+    int s1len = pg_mbstrlen_with_len(VARDATA_ANY(string1), VARSIZE_ANY_EXHDR(string1));
+    int s2len = VARSIZE_ANY_EXHDR(string2);
+
+    // Truncate source if longer than target
+    if (s1len > len) s1len = len;
+
+    // Skip padding if padding string is empty
+    if (s2len <= 0) len = s1len;
+
+    // Allocate result buffer with overflow protection
+    int bytelen;
+    if (unlikely(pg_mul_s32_overflow(pg_database_encoding_max_length(), len, &bytelen)) ||
+        unlikely(pg_add_s32_overflow(bytelen, VARHDRSZ, &bytelen)) ||
+        unlikely(!AllocSizeIsValid(bytelen)))
+        ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                       errmsg("requested length too large")));
+
+    text *ret = (text *) palloc(bytelen);
+    char *ptr_ret = VARDATA(ret);
+
+    // Copy source string first
+    char *str_ptr = VARDATA_ANY(string1);
+    while (s1len-- > 0) {
+        int mlen = pg_mblen(str_ptr);
+        memcpy(ptr_ret, str_ptr, mlen);
+        ptr_ret += mlen;
+        str_ptr += mlen;
+    }
+
+    // Add padding characters after source (right padding)
+    int padding_needed = len - pg_mbstrlen_with_len(VARDATA_ANY(string1), VARSIZE_ANY_EXHDR(string1));
+    char *pad_ptr = VARDATA_ANY(string2);
+    char *pad_end = pad_ptr + s2len;
+
+    while (padding_needed-- > 0) {
+        int mlen = pg_mblen(pad_ptr);
+        memcpy(ptr_ret, pad_ptr, mlen);
+        ptr_ret += mlen;
+        pad_ptr += mlen;
+        if (pad_ptr == pad_end) pad_ptr = VARDATA_ANY(string2);  // wrap around
+    }
+
+    SET_VARSIZE(ret, ptr_ret - (char *) ret);
+    PG_RETURN_TEXT_P(ret);
+}
+```

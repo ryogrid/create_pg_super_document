@@ -52,3 +52,74 @@ The percentile calculation uses the formula: `position = percentile * (n-1)` whe
 - The interpolation only occurs when the exact percentile position falls between two data points
 - Part of PostgreSQL's implementation of SQL standard ordered-set aggregate functions
 - Error handling includes validation of percentile range and proper error reporting for missing data
+
+## Simplified Source
+
+```c
+static Datum
+percentile_cont_final_common(FunctionCallInfo fcinfo,
+                           Oid expect_type,
+                           LerpFunc lerpfunc)
+{
+    OSAPerGroupState *osastate;
+    double percentile;
+    int64 first_row, second_row;
+    Datum first_val, second_val, val;
+    double proportion;
+    bool isnull;
+
+    // Validate percentile argument
+    if (PG_ARGISNULL(1))
+        PG_RETURN_NULL();
+
+    percentile = PG_GETARG_FLOAT8(1);
+
+    if (percentile < 0 || percentile > 1 || isnan(percentile))
+        ereport(ERROR, "percentile value must be between 0 and 1");
+
+    // Handle empty input
+    if (PG_ARGISNULL(0))
+        PG_RETURN_NULL();
+
+    osastate = (OSAPerGroupState *) PG_GETARG_POINTER(0);
+
+    if (osastate->number_of_rows == 0)
+        PG_RETURN_NULL();
+
+    // Ensure data is sorted
+    if (!osastate->sort_done) {
+        tuplesort_performsort(osastate->sortstate);
+        osastate->sort_done = true;
+    } else {
+        tuplesort_rescan(osastate->sortstate);
+    }
+
+    // Calculate interpolation bounds: position = percentile * (n-1)
+    first_row = floor(percentile * (osastate->number_of_rows - 1));
+    second_row = ceil(percentile * (osastate->number_of_rows - 1));
+
+    // Get first value
+    tuplesort_skiptuples(osastate->sortstate, first_row, true);
+    tuplesort_getdatum(osastate->sortstate, true, true, &first_val, &isnull, NULL);
+
+    if (isnull)
+        PG_RETURN_NULL();
+
+    if (first_row == second_row) {
+        // Exact match - no interpolation needed
+        val = first_val;
+    } else {
+        // Get second value and interpolate
+        tuplesort_getdatum(osastate->sortstate, true, true, &second_val, &isnull, NULL);
+
+        if (isnull)
+            PG_RETURN_NULL();
+
+        // Calculate interpolation proportion
+        proportion = (percentile * (osastate->number_of_rows - 1)) - first_row;
+        val = lerpfunc(first_val, second_val, proportion);
+    }
+
+    PG_RETURN_DATUM(val);
+}
+```

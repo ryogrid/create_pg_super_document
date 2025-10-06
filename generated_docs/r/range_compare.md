@@ -34,3 +34,36 @@ The `range_compare` function serves as a callback for qsort operations on arrays
 - For non-empty ranges, uses lexicographic ordering: lower bound first, then upper bound
 - Critical for multirange canonicalization where ranges must be sorted and merged
 - The function expects key1 and key2 to be pointers to RangeType pointers (double indirection)
+
+## Simplified Source
+
+```c
+int
+range_compare(const void *key1, const void *key2, void *arg)
+{
+    RangeType *r1 = *(RangeType **) key1;
+    RangeType *r2 = *(RangeType **) key2;
+    TypeCacheEntry *typcache = (TypeCacheEntry *) arg;
+
+    // Deserialize both ranges to get bounds and empty status
+    RangeBound lower1, upper1, lower2, upper2;
+    bool empty1, empty2;
+    range_deserialize(typcache, r1, &lower1, &upper1, &empty1);
+    range_deserialize(typcache, r2, &lower2, &upper2, &empty2);
+
+    // Handle empty ranges: empty == empty, empty < non-empty
+    if (empty1 && empty2)
+        return 0;
+    else if (empty1)
+        return -1;
+    else if (empty2)
+        return 1;
+
+    // Both non-empty: compare lower bounds first, then upper bounds
+    int cmp = range_cmp_bounds(typcache, &lower1, &lower2);
+    if (cmp == 0)
+        cmp = range_cmp_bounds(typcache, &upper1, &upper2);
+
+    return cmp;
+}
+```

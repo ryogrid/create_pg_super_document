@@ -41,3 +41,25 @@ The  function is a PostgreSQL built-in function that takes a text input and retu
 - Respects database collation settings for locale-aware case conversion
 - Returns a new text object, leaving the original input unchanged
 - Complementary function to  for case conversion operations
+
+## Simplified Source
+
+```c
+Datum
+upper(PG_FUNCTION_ARGS)
+{
+    // Get input text parameter
+    text *in_string = PG_GETARG_TEXT_PP(0);
+
+    // Convert string to uppercase using locale-aware function
+    char *out_string = str_toupper(VARDATA_ANY(in_string),
+                                   VARSIZE_ANY_EXHDR(in_string),
+                                   PG_GET_COLLATION());
+
+    // Convert result to PostgreSQL text type
+    text *result = cstring_to_text(out_string);
+    pfree(out_string);
+
+    PG_RETURN_TEXT_P(result);
+}
+```

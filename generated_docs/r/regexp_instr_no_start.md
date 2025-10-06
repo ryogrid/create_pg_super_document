@@ -32,3 +32,14 @@ The comment indicates this separation is specifically to keep the opr_sanity reg
 - All actual functionality is implemented in the regexp_instr function
 - Handles the common case where users want to search from the beginning of the string (default start = 1)
 - Part of PostgreSQL's regular expression support in the backend utilities
+
+## Simplified Source
+
+```c
+/* Wrapper for regexp_instr without start parameter */
+Datum
+regexp_instr_no_start(PG_FUNCTION_ARGS)
+{
+    return regexp_instr(fcinfo);
+}
+```

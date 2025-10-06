@@ -48,3 +48,44 @@ The `match_network_function` helper is responsible for analyzing the specific ne
 - Returns NULL if the request cannot be optimized into an index condition
 - Part of the broader PostgreSQL infrastructure for custom data type optimization
 - Registered as a support function for network operators in the system catalogs
+
+## Simplified Source
+
+```c
+Datum network_subset_support(PG_FUNCTION_ARGS) {
+    Node *rawreq = (Node *) PG_GETARG_POINTER(0);
+    Node *ret = NULL;
+
+    // Handle index condition optimization requests
+    if (IsA(rawreq, SupportRequestIndexCondition)) {
+        SupportRequestIndexCondition *req = (SupportRequestIndexCondition *) rawreq;
+
+        // Process operator expressions (e.g., >>=, <<=)
+        if (is_opclause(req->node)) {
+            OpExpr *clause = (OpExpr *) req->node;
+            Assert(list_length(clause->args) == 2);
+
+            ret = (Node *) match_network_function(
+                (Node *) linitial(clause->args),
+                (Node *) lsecond(clause->args),
+                req->indexarg,
+                req->funcid,
+                req->opfamily);
+        }
+        // Process function expressions
+        else if (is_funcclause(req->node)) {
+            FuncExpr *clause = (FuncExpr *) req->node;
+            Assert(list_length(clause->args) == 2);
+
+            ret = (Node *) match_network_function(
+                (Node *) linitial(clause->args),
+                (Node *) lsecond(clause->args),
+                req->indexarg,
+                req->funcid,
+                req->opfamily);
+        }
+    }
+
+    PG_RETURN_POINTER(ret);
+}
+```

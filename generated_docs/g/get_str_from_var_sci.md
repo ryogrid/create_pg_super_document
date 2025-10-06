@@ -49,3 +49,42 @@ Special handling is provided for zero values, which technically don't have a mea
 - Output format follows printf conventions for scientific notation
 - Used primarily for numeric_out_sci() function which provides scientific notation output for PostgreSQL numeric types
 - The function properly handles very large and very small numbers through exponent normalization
+
+## Simplified Source
+
+```c
+static char *get_str_from_var_sci(const NumericVar *var, int rscale) {
+    if (rscale < 0)
+        rscale = 0;
+
+    int32 exponent;
+
+    // Calculate exponent for normalized form (one digit before decimal)
+    if (var->ndigits > 0) {
+        exponent = (var->weight + 1) * DEC_DIGITS;
+        // Adjust for leading zeros in first digit
+        exponent -= DEC_DIGITS - (int) log10(var->digits[0]);
+    } else {
+        // Zero has exponent 0 by convention
+        exponent = 0;
+    }
+
+    // Create significand by dividing by 10^exponent
+    NumericVar tmp_var;
+    init_var(&tmp_var);
+
+    power_ten_int(exponent, &tmp_var);           // tmp_var = 10^exponent
+    div_var(var, &tmp_var, &tmp_var, rscale, true);  // tmp_var = var / 10^exponent
+    char *significand = get_str_from_var(&tmp_var);
+
+    free_var(&tmp_var);
+
+    // Format result as "significand e+exponent"
+    size_t len = strlen(significand) + 13;  // room for "e+xxx" and null terminator
+    char *result = palloc(len);
+    snprintf(result, len, "%se%+03d", significand, exponent);
+
+    pfree(significand);
+    return result;
+}
+```

@@ -42,3 +42,19 @@ The function works by:
 - Provides syntactic flexibility: `element <@ multirange` vs `multirange @> element`
 - Part of the multirange SQL functions for containment operations
 - Located in src/backend/utils/adt/multirangetypes.c:1658-1673
+
+## Simplified Source
+
+```c
+Datum elem_contained_by_multirange(PG_FUNCTION_ARGS) {
+    // Extract element and multirange (reversed argument order)
+    Datum element_value = PG_GETARG_DATUM(0);
+    MultirangeType *multirange = PG_GETARG_MULTIRANGE_P(1);
+
+    // Get type information for this multirange
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(multirange));
+
+    // Use same internal logic as multirange_contains_elem
+    return PG_RETURN_BOOL(multirange_contains_elem_internal(typcache->rngtype, multirange, element_value));
+}
+```

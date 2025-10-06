@@ -33,3 +33,16 @@ The function is a thin wrapper around the internal `network_send` function, spec
 - The binary format includes family, netmask bits, CIDR flag, address length, and the raw address bytes
 - Used internally by PostgreSQL for binary protocol communication and binary storage formats
 - Located in src/backend/utils/adt/network.c:292-299
+
+## Simplified Source
+
+```c
+Datum inet_send(PG_FUNCTION_ARGS) {
+    // Get INET address from function arguments
+    inet *addr = PG_GETARG_INET_PP(0);
+
+    // Convert to binary format using network_send
+    // false parameter indicates this is INET (not CIDR)
+    PG_RETURN_BYTEA_P(network_send(addr, false));
+}
+```

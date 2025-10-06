@@ -41,3 +41,21 @@ This function serves as the SQL-accessible interface for inspecting partition ke
 - The output includes complete partitioning specification including method, columns, collations, and operator classes
 - Commonly used by database administration tools like pg_dump to recreate partition definitions
 - The function parameters to the worker (PRETTYFLAG_INDENT, false, true) indicate: use indented formatting, don't include tablespace info, and do include the partitioning method
+
+## Simplified Source
+
+```c
+Datum pg_get_partkeydef(PG_FUNCTION_ARGS) {
+    // Extract relation OID from arguments
+    Oid relid = PG_GETARG_OID(0);
+
+    // Get partition key definition with indented formatting
+    char *res = pg_get_partkeydef_worker(relid, PRETTYFLAG_INDENT, false, true);
+
+    // Return NULL if relation not found or not partitioned, otherwise convert to text
+    if (res == NULL)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(string_to_text(res));
+}
+```

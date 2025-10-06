@@ -39,3 +39,28 @@ This measurement is crucial for validating that the Bloom filter's false positiv
 - The return value represents the observed false positive count, which can be compared against theoretical expectations
 - Interrupt checking ensures the function can be cancelled during long-running tests
 - False positives are expected behavior in Bloom filters, but their rate should match design parameters
+
+## Simplified Source
+
+```c
+static int64 nfalsepos_for_missing_strings(bloom_filter *filter, int64 nelements) {
+    char element_buffer[MAX_ELEMENT_BYTES];
+    int64 false_positive_count = 0;
+    int64 i;
+
+    // Test each element that was never added to the filter
+    for (i = 0; i < nelements; i++) {
+        CHECK_FOR_INTERRUPTS();
+
+        // Generate test string with "M" prefix (different from added elements)
+        snprintf(element_buffer, sizeof(element_buffer), "M" INT64_FORMAT, i);
+
+        // Check if filter incorrectly reports element as possibly present
+        if (!bloom_lacks_element(filter, (unsigned char *) element_buffer,
+                                strlen(element_buffer)))
+            false_positive_count++;
+    }
+
+    return false_positive_count;
+}
+```

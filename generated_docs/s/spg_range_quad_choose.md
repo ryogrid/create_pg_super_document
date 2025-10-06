@@ -41,3 +41,43 @@ This function implements the choose logic for SP-GiST quadtree indexing of range
 - Sets levelAdd to indicate tree level progression
 - Preserves original range data in restDatum for leaf storage
 - Located in src/backend/utils/adt/rangetypes_spgist.c:131-185
+
+## Simplified Source
+
+```c
+Datum spg_range_quad_choose(PG_FUNCTION_ARGS) {
+    spgChooseIn *in = (spgChooseIn *) PG_GETARG_POINTER(0);
+    spgChooseOut *out = (spgChooseOut *) PG_GETARG_POINTER(1);
+    RangeType *input_range = DatumGetRangeTypeP(in->datum);
+
+    // Case 1: All values are the same - just match at this node
+    if (in->allTheSame) {
+        out->resultType = spgMatchNode;
+        out->result.matchNode.levelAdd = 0;
+        out->result.matchNode.restDatum = RangeTypePGetDatum(input_range);
+        PG_RETURN_VOID();
+    }
+
+    // Case 2: No centroid - separate empty vs non-empty ranges
+    if (!in->hasPrefix) {
+        out->resultType = spgMatchNode;
+        out->result.matchNode.nodeN = RangeIsEmpty(input_range) ? 0 : 1;
+        out->result.matchNode.levelAdd = 1;
+        out->result.matchNode.restDatum = RangeTypePGetDatum(input_range);
+        PG_RETURN_VOID();
+    }
+
+    // Case 3: Has centroid - use quadrant-based routing
+    TypeCacheEntry *typcache = range_get_typcache(fcinfo, RangeTypeGetOid(input_range));
+    RangeType *centroid = DatumGetRangeTypeP(in->prefixDatum);
+    int16 quadrant = getQuadrant(typcache, centroid, input_range);
+
+    // Route to child node based on quadrant (quadrant 1-4 maps to nodes 0-3)
+    out->resultType = spgMatchNode;
+    out->result.matchNode.nodeN = quadrant - 1;
+    out->result.matchNode.levelAdd = 1;
+    out->result.matchNode.restDatum = RangeTypePGetDatum(input_range);
+
+    PG_RETURN_VOID();
+}
+```

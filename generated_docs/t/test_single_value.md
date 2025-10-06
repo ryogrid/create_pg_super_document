@@ -43,3 +43,46 @@ The function creates an IntegerSet, adds the specified value, and then performs 
 - Essential for verifying IntegerSet correctness with minimal data sets
 - Located in: src/test/modules/test_integerset/test_integerset.c:321-376
 - Part of PostgreSQL's comprehensive IntegerSet test suite
+
+## Simplified Source
+
+```c
+static void test_single_value(uint64 value) {
+    IntegerSet *intset;
+    uint64 x;
+    uint64 num_entries;
+    bool found;
+
+    elog(NOTICE, "testing intset with single value " UINT64_FORMAT, value);
+
+    // Create set and add the single value
+    intset = intset_create();
+    intset_add_member(intset, value);
+
+    // Test that count is correct
+    num_entries = intset_num_entries(intset);
+    if (num_entries != 1)
+        elog(ERROR, "intset_num_entries returned " UINT64_FORMAT ", expected 1", num_entries);
+
+    // Test membership for boundary values and the actual value
+    if (intset_is_member(intset, 0) != (value == 0))
+        elog(ERROR, "intset_is_member failed for 0");
+    if (intset_is_member(intset, 1) != (value == 1))
+        elog(ERROR, "intset_is_member failed for 1");
+    if (intset_is_member(intset, PG_UINT64_MAX) != (value == PG_UINT64_MAX))
+        elog(ERROR, "intset_is_member failed for PG_UINT64_MAX");
+    if (intset_is_member(intset, value) != true)
+        elog(ERROR, "intset_is_member failed for the tested value");
+
+    // Test iterator returns exactly one value
+    intset_begin_iterate(intset);
+    found = intset_iterate_next(intset, &x);
+    if (!found || x != value)
+        elog(ERROR, "intset_iterate_next failed for " UINT64_FORMAT, x);
+
+    // Test iterator correctly indicates end
+    found = intset_iterate_next(intset, &x);
+    if (found)
+        elog(ERROR, "intset_iterate_next failed " UINT64_FORMAT, x);
+}
+```

@@ -51,3 +51,56 @@ Key features:
 - The function name includes '64' suffix for 64-bit file size support
 - Optimizes by reusing _pglstat64() which already handles junction point detection
 - Includes path length validation to prevent ENAMETOOLONG errors
+
+## Simplified Source
+
+```c
+int
+_pgstat64(const char *name, struct stat *buf)
+{
+    int loops = 0;
+    char curr[MAXPGPATH];
+
+    // Get initial file stats
+    int ret = _pglstat64(name, buf);
+    strlcpy(curr, name, MAXPGPATH);
+
+    // Follow symbolic links until we reach a regular file
+    while (ret == 0 && S_ISLNK(buf->st_mode))
+    {
+        char next[MAXPGPATH];
+
+        // Prevent infinite loops
+        if (++loops > 8)
+        {
+            errno = ELOOP;
+            return -1;
+        }
+
+        // Read the target of the symbolic link
+        ssize_t size = readlink(curr, next, sizeof(next));
+        if (size < 0)
+        {
+            // Handle special case of deleted files
+            if (errno == EACCES && pg_RtlGetLastNtStatus() == STATUS_DELETE_PENDING)
+                errno = ENOENT;
+            return -1;
+        }
+
+        // Check path length
+        if (size >= sizeof(next))
+        {
+            errno = ENAMETOOLONG;
+            return -1;
+        }
+
+        next[size] = '\0';
+
+        // Get stats for the link target
+        ret = _pglstat64(next, buf);
+        strcpy(curr, next);
+    }
+
+    return ret;
+}
+```

@@ -41,3 +41,56 @@ This function extracts and formats the SQL body of a PostgreSQL function from it
 - Uses different formatting flags for single statements vs. atomic blocks (no indentation for single statements)
 - The deparse namespace is populated with function name and argument names to enable proper variable resolution
 - This function is essential for reconstructing CREATE FUNCTION statements with SQL function bodies
+
+## Simplified Source
+
+```c
+static void print_function_sqlbody(StringInfo buf, HeapTuple proctup) {
+    int numargs;
+    Oid *argtypes;
+    char **argnames;
+    char *argmodes;
+    deparse_namespace dpns = {0};
+    Datum tmp;
+    Node *n;
+
+    // Set up deparse namespace with function info
+    dpns.funcname = pstrdup(NameStr(((Form_pg_proc) GETSTRUCT(proctup))->proname));
+    numargs = get_func_arg_info(proctup, &argtypes, &argnames, &argmodes);
+    dpns.numargs = numargs;
+    dpns.argnames = argnames;
+
+    // Get the function's SQL body
+    tmp = SysCacheGetAttrNotNull(PROCOID, proctup, Anum_pg_proc_prosqlbody);
+    n = stringToNode(TextDatumGetCString(tmp));
+
+    if (IsA(n, List)) {
+        // Multiple statements - format as atomic block
+        List *stmts = linitial(castNode(List, n));
+        ListCell *lc;
+
+        appendStringInfoString(buf, "BEGIN ATOMIC\n");
+
+        foreach(lc, stmts) {
+            Query *query = lfirst_node(Query, lc);
+
+            // Lock relations and deparse the query
+            AcquireRewriteLocks(query, false, false);
+            get_query_def(query, buf, list_make1(&dpns), NULL, false,
+                         PRETTYFLAG_INDENT, WRAP_COLUMN_DEFAULT, 1);
+            appendStringInfoChar(buf, ';');
+            appendStringInfoChar(buf, '\n');
+        }
+
+        appendStringInfoString(buf, "END");
+    } else {
+        // Single statement
+        Query *query = castNode(Query, n);
+
+        // Lock relations and deparse the query
+        AcquireRewriteLocks(query, false, false);
+        get_query_def(query, buf, list_make1(&dpns), NULL, false,
+                     0, WRAP_COLUMN_DEFAULT, 0);
+    }
+}
+```

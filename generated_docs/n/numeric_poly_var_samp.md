@@ -47,3 +47,29 @@ The `numeric_poly_var_samp` function is a PostgreSQL aggregate function finalize
 - Part of PostgreSQL's polymorphic aggregate optimization that can provide significant performance improvements
 - Falls back gracefully to standard numeric operations on platforms without 128-bit integer support
 - The polymorphic approach allows the same aggregate function to work efficiently with different numeric types
+
+## Simplified Source
+
+```c
+Datum numeric_poly_var_samp(PG_FUNCTION_ARGS) {
+#ifdef HAVE_INT128
+    PolyNumAggState *state;
+    Numeric result;
+    bool is_null;
+
+    // Extract polymorphic aggregate state
+    state = PG_ARGISNULL(0) ? NULL : (PolyNumAggState *) PG_GETARG_POINTER(0);
+
+    // Calculate sample variance using 128-bit integer optimization
+    result = numeric_poly_stddev_internal(state, true, true, &is_null);
+
+    if (is_null)
+        PG_RETURN_NULL();
+    else
+        PG_RETURN_NUMERIC(result);
+#else
+    // Fallback to standard implementation on platforms without 128-bit support
+    return numeric_var_samp(fcinfo);
+#endif
+}
+```

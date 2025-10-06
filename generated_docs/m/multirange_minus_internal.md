@@ -45,3 +45,67 @@ This function performs the actual computation for multirange subtraction (A - B)
 - Empty ranges are automatically filtered out by make_multirange
 - The algorithm maintains sorted order throughout the computation
 - Located in src/backend/utils/adt/multirangetypes.c:1144-1229
+
+## Simplified Source
+
+```c
+MultirangeType *
+multirange_minus_internal(Oid mltrngtypoid, TypeCacheEntry *rangetyp,
+                         int32 range_count1, RangeType **ranges1,
+                         int32 range_count2, RangeType **ranges2)
+{
+    // Allocate worst-case result array (each range could be split)
+    RangeType **result_ranges = palloc0((range_count1 + range_count2) * sizeof(RangeType *));
+    int32 result_count = 0;
+
+    // Process each range from first multirange (minuend)
+    RangeType *current_subtrahend = ranges2[0];
+    int32 subtrahend_index = 0;
+
+    for (int32 i = 0; i < range_count1; i++) {
+        RangeType *current_range = ranges1[i];
+
+        // Skip subtrahend ranges that come before current range
+        while (current_subtrahend != NULL &&
+               range_before_internal(rangetyp, current_subtrahend, current_range)) {
+            current_subtrahend = (++subtrahend_index >= range_count2) ?
+                                NULL : ranges2[subtrahend_index];
+        }
+
+        // Subtract overlapping ranges from current range
+        while (current_subtrahend != NULL) {
+            if (range_split_internal(rangetyp, current_range, current_subtrahend,
+                                   &result_ranges[result_count], &current_range)) {
+                // Range split in middle - keep first part, continue with remainder
+                result_count++;
+                current_subtrahend = (++subtrahend_index >= range_count2) ?
+                                   NULL : ranges2[subtrahend_index];
+            }
+            else if (range_overlaps_internal(rangetyp, current_range, current_subtrahend)) {
+                // Partial overlap - subtract and update current range
+                current_range = range_minus_internal(rangetyp, current_range, current_subtrahend);
+
+                // Decide whether to advance to next subtrahend or keep current one
+                if (RangeIsEmpty(current_range) ||
+                    range_before_internal(rangetyp, current_range, current_subtrahend))
+                    break;  // Current range exhausted or passed
+                else
+                    current_subtrahend = (++subtrahend_index >= range_count2) ?
+                                       NULL : ranges2[subtrahend_index];
+            }
+            else {
+                // No overlap - current and future subtrahends are past current range
+                break;
+            }
+        }
+
+        // Add whatever remains of current range to result
+        result_ranges[result_count++] = current_range;
+    }
+
+    // Create final multirange (handles empty range removal and normalization)
+    return make_multirange(mltrngtypoid, rangetyp, result_count, result_ranges);
+}
+```
+
+This function iterates through the first multirange, subtracting overlapping ranges from the second multirange, handling splits and partial overlaps to compute the difference.

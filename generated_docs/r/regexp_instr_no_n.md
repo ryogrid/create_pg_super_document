@@ -33,3 +33,14 @@ The comment indicates this separation is specifically to keep the opr_sanity reg
 - Handles the common case where users want to find the first occurrence of a pattern match (default n = 1)
 - Part of PostgreSQL's regular expression support in the backend utilities
 - Works with other optional parameters like start position, endoption, flags, and subexpression selection
+
+## Simplified Source
+
+```c
+/* Wrapper for regexp_instr without occurrence number parameter */
+Datum
+regexp_instr_no_n(PG_FUNCTION_ARGS)
+{
+    return regexp_instr(fcinfo);
+}
+```

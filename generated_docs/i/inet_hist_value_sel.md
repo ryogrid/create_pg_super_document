@@ -47,3 +47,60 @@ For performance optimization, when there are too many histogram elements, the fu
 - Designed to handle the complexity of inet btree comparison where network part is the major sort key
 - The algorithm is unfair when both boundary dividers are valid but far apart, but this is considered a rare situation
 - For buckets with different address families on boundaries, only the matching family boundary is considered
+
+## Simplified Source
+
+```c
+static Selectivity
+inet_hist_value_sel(Datum *values, int nvalues, Datum constvalue, int opr_codenum)
+{
+    Selectivity match = 0.0;
+    inet *query, *left, *right;
+    int i, k, n;
+    int left_order, right_order, left_divider, right_divider;
+
+    // Guard against zero-divide
+    if (nvalues <= 1)
+        return 0.0;
+
+    // Decimate histogram if too large for performance
+    k = (nvalues - 2) / MAX_CONSIDERED_ELEMS + 1;
+
+    query = DatumGetInetPP(constvalue);
+
+    // Start with first histogram boundary
+    left = DatumGetInetPP(values[0]);
+    left_order = inet_inclusion_cmp(left, query, opr_codenum);
+
+    n = 0;
+    for (i = k; i < nvalues; i += k)
+    {
+        // Get right boundary of current bucket
+        right = DatumGetInetPP(values[i]);
+        right_order = inet_inclusion_cmp(right, query, opr_codenum);
+
+        if (left_order == 0 && right_order == 0)
+        {
+            // Full bucket match - both endpoints satisfy condition
+            match += 1.0;
+        }
+        else if ((left_order <= 0 && right_order >= 0) || (left_order >= 0 && right_order <= 0))
+        {
+            // Partial bucket match - calculate fractional contribution
+            left_divider = inet_hist_match_divider(left, query, opr_codenum);
+            right_divider = inet_hist_match_divider(right, query, opr_codenum);
+
+            // Use max divider to minimize estimation errors
+            if (left_divider >= 0 || right_divider >= 0)
+                match += 1.0 / pow(2.0, Max(left_divider, right_divider));
+        }
+
+        // Move to next bucket
+        left = right;
+        left_order = right_order;
+        n++;
+    }
+
+    return match / n;  // Average over examined buckets
+}
+```

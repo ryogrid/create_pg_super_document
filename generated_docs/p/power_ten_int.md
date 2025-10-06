@@ -39,3 +39,27 @@ The implementation efficiently handles both positive and negative exponents by:
 - The function efficiently represents powers of ten using PostgreSQL's base-NBASE numeric representation
 - Negative exponents result in fractional values (0.1, 0.01, etc.) represented with appropriate dscale
 - Used primarily in numeric formatting and internal calculations where exact powers of ten are required
+
+## Simplified Source
+
+```c
+static void power_ten_int(int exp, NumericVar *result) {
+    // Start with 1 (10^0 = 1)
+    set_var_from_var(&const_one, result);
+
+    // Set decimal scale for negative exponents (fractional results)
+    result->dscale = exp < 0 ? -exp : 0;
+
+    // Calculate base weight and remaining exponent
+    if (exp >= 0)
+        result->weight = exp / DEC_DIGITS;
+    else
+        result->weight = (exp + 1) / DEC_DIGITS - 1;
+
+    exp -= result->weight * DEC_DIGITS;
+
+    // Adjust the single digit by remaining powers of 10
+    while (exp-- > 0)
+        result->digits[0] *= 10;
+}
+```

@@ -47,3 +47,80 @@ The estimation process combines MCV selectivity (exact matches from frequent val
 - Uses operator-specific histogram analysis through 
 - Combines MCV and histogram statistics with proper weighting by population fractions
 - Results are clamped to valid probability range [0.0, 1.0]
+
+## Simplified Source
+
+```c
+Datum
+networksel(PG_FUNCTION_ARGS)
+{
+    PlannerInfo *root = (PlannerInfo *) PG_GETARG_POINTER(0);
+    Oid operator = PG_GETARG_OID(1);
+    List *args = (List *) PG_GETARG_POINTER(2);
+    int varRelid = PG_GETARG_INT32(3);
+
+    VariableStatData vardata;
+    Node *other;
+    bool varonleft;
+    Selectivity selec, mcv_selec, non_mcv_selec;
+    double sumcommon, nullfrac;
+
+    // Check if expression is (variable op constant) or (constant op variable)
+    if (!get_restriction_variable(root, args, varRelid, &vardata, &other, &varonleft))
+        PG_RETURN_FLOAT8(DEFAULT_SEL(operator));
+
+    // Require constant operand
+    if (!IsA(other, Const))
+    {
+        ReleaseVariableStats(vardata);
+        PG_RETURN_FLOAT8(DEFAULT_SEL(operator));
+    }
+
+    // Handle NULL constants
+    if (((Const *) other)->constisnull)
+    {
+        ReleaseVariableStats(vardata);
+        PG_RETURN_FLOAT8(0.0);
+    }
+
+    Datum constvalue = ((Const *) other)->constvalue;
+
+    // Need statistics for estimation
+    if (!HeapTupleIsValid(vardata.statsTuple))
+    {
+        ReleaseVariableStats(vardata);
+        PG_RETURN_FLOAT8(DEFAULT_SEL(operator));
+    }
+
+    Form_pg_statistic stats = (Form_pg_statistic) GETSTRUCT(vardata.statsTuple);
+    nullfrac = stats->stanullfrac;
+
+    // Calculate selectivity from most-common-values
+    FmgrInfo proc;
+    fmgr_info(get_opcode(operator), &proc);
+    mcv_selec = mcv_selectivity(&vardata, &proc, InvalidOid, constvalue, varonleft, &sumcommon);
+
+    // Use histogram for non-MCV population estimation
+    AttStatsSlot hslot;
+    if (get_attstatsslot(&hslot, vardata.statsTuple, STATISTIC_KIND_HISTOGRAM, InvalidOid, ATTSTATSSLOT_VALUES))
+    {
+        int opr_codenum = inet_opr_codenum(operator);
+        if (!varonleft)
+            opr_codenum = -opr_codenum;
+
+        non_mcv_selec = inet_hist_value_sel(hslot.values, hslot.nvalues, constvalue, opr_codenum);
+        free_attstatsslot(&hslot);
+    }
+    else
+    {
+        non_mcv_selec = DEFAULT_SEL(operator);
+    }
+
+    // Combine MCV and histogram selectivities
+    selec = mcv_selec + (1.0 - nullfrac - sumcommon) * non_mcv_selec;
+    CLAMP_PROBABILITY(selec);
+
+    ReleaseVariableStats(vardata);
+    PG_RETURN_FLOAT8(selec);
+}
+```

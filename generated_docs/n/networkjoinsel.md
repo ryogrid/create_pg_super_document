@@ -44,3 +44,54 @@ For histogram processing, the function uses decimation (sampling every k-th elem
 - Implements performance limits to prevent excessive computation with large statistics
 - Results are clamped to valid probability range [0.0, 1.0]
 - Contains detailed comments about O(N^2) performance considerations and mitigation strategies
+
+## Simplified Source
+
+```c
+Datum
+networkjoinsel(PG_FUNCTION_ARGS)
+{
+    PlannerInfo *root = (PlannerInfo *) PG_GETARG_POINTER(0);
+    Oid operator = PG_GETARG_OID(1);
+    List *args = (List *) PG_GETARG_POINTER(2);
+    SpecialJoinInfo *sjinfo = (SpecialJoinInfo *) PG_GETARG_POINTER(4);
+
+    double selec;
+    VariableStatData vardata1, vardata2;
+    bool join_is_reversed;
+
+    // Extract join variables and determine orientation
+    get_join_variables(root, args, sjinfo, &vardata1, &vardata2, &join_is_reversed);
+
+    // Dispatch to appropriate join selectivity handler
+    switch (sjinfo->jointype)
+    {
+        case JOIN_INNER:
+        case JOIN_LEFT:
+        case JOIN_FULL:
+            // Inner/left/full joins use same selectivity calculation
+            selec = networkjoinsel_inner(operator, &vardata1, &vardata2);
+            break;
+
+        case JOIN_SEMI:
+        case JOIN_ANTI:
+            // Semi/anti joins require outer variable on left side
+            if (!join_is_reversed)
+                selec = networkjoinsel_semi(operator, &vardata1, &vardata2);
+            else
+                selec = networkjoinsel_semi(get_commutator(operator), &vardata2, &vardata1);
+            break;
+
+        default:
+            elog(ERROR, "unrecognized join type: %d", (int) sjinfo->jointype);
+            selec = 0;
+            break;
+    }
+
+    ReleaseVariableStats(vardata1);
+    ReleaseVariableStats(vardata2);
+    CLAMP_PROBABILITY(selec);
+
+    PG_RETURN_FLOAT8((float8) selec);
+}
+```

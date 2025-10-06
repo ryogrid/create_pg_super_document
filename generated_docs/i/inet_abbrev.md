@@ -38,3 +38,26 @@ The inet_abbrev function provides an abbreviated representation of an inet value
 - Particularly useful for displaying network addresses in a compact form
 - The abbreviation behavior depends on the netmask - shorter masks result in more abbreviated output
 - Uses a temporary buffer sized to handle the longest possible IPv6 address representation
+
+## Simplified Source
+
+```c
+Datum
+inet_abbrev(PG_FUNCTION_ARGS)
+{
+    inet       *ip = PG_GETARG_INET_PP(0);
+    char       *dst;
+    char        tmp[sizeof("xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:255.255.255.255/128")];
+
+    // Format with actual netmask length for abbreviated output
+    dst = pg_inet_net_ntop(ip_family(ip), ip_addr(ip),
+                           ip_bits(ip), tmp, sizeof(tmp));
+
+    if (dst == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_BINARY_REPRESENTATION),
+                 errmsg("could not format inet value: %m")));
+
+    PG_RETURN_TEXT_P(cstring_to_text(tmp));
+}
+```

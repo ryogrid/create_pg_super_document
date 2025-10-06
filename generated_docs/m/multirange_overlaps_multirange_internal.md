@@ -43,3 +43,43 @@ This approach ensures that each range is examined at most once, achieving O(n + 
 - The algorithm is similar to merge operations in merge sort, leveraging the sorted nature of ranges within multiranges
 - Located in `src/backend/utils/adt/multirangetypes.c` at lines 2015-2072
 - Critical for the performance of multirange overlap operations in PostgreSQL
+
+## Simplified Source
+
+```c
+bool multirange_overlaps_multirange_internal(TypeCacheEntry *rangetyp,
+                                            const MultirangeType *mr1,
+                                            const MultirangeType *mr2)
+{
+    // Empty multiranges never overlap with anything
+    if (MultirangeIsEmpty(mr1) || MultirangeIsEmpty(mr2))
+        return false;
+
+    int32 range_count1 = mr1->rangeCount;
+    int32 range_count2 = mr2->rangeCount;
+    int32 i1 = 0, i2 = 0;
+    RangeBound lower1, upper1, lower2, upper2;
+
+    // Two-pointer algorithm: check each range in mr2 against advancing ranges in mr1
+    multirange_get_bounds(rangetyp, mr1, i1, &lower1, &upper1);
+
+    for (i2 = 0; i2 < range_count2; i2++)
+    {
+        multirange_get_bounds(rangetyp, mr2, i2, &lower2, &upper2);
+
+        // Skip ranges in mr1 that are entirely before current range in mr2
+        while (range_cmp_bounds(rangetyp, &upper1, &lower2) < 0)
+        {
+            if (++i1 >= range_count1)
+                return false;  // Exhausted mr1 without finding overlap
+            multirange_get_bounds(rangetyp, mr1, i1, &lower1, &upper1);
+        }
+
+        // Check if current ranges overlap
+        if (range_bounds_overlaps(rangetyp, &lower1, &upper1, &lower2, &upper2))
+            return true;
+    }
+
+    return false;  // No overlaps found
+}
+```

@@ -34,3 +34,20 @@ The  function is a PostgreSQL built-in function that extracts the scale (number 
 - The scale represents the number of digits to the right of the decimal point
 - Used primarily in type conversion functions between numeric and money types
 - Located in src/backend/utils/adt/numeric.c:4138-4151
+
+## Simplified Source
+
+```c
+Datum
+numeric_scale(PG_FUNCTION_ARGS)
+{
+    Numeric num = PG_GETARG_NUMERIC(0);
+
+    // Return NULL for special values (NaN, infinity)
+    if (NUMERIC_IS_SPECIAL(num))
+        PG_RETURN_NULL();
+
+    // Return the scale (number of decimal digits) from the numeric structure
+    PG_RETURN_INT32(NUMERIC_DSCALE(num));
+}
+```

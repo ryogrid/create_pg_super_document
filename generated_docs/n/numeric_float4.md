@@ -38,5 +38,34 @@ This function performs type conversion from PostgreSQL's arbitrary precision num
 - Uses PostgreSQL's function call interface (, , etc.)
 - Handles special numeric values (infinity, NaN) explicitly before attempting conversion
 - Uses string-based intermediate conversion rather than direct binary conversion for compatibility
-- Memory management: properly frees the temporary string using 
+- Memory management: properly frees the temporary string using
 - Located in src/backend/utils/adt/numeric.c:4738-4765
+
+## Simplified Source
+
+```c
+Datum numeric_float4(PG_FUNCTION_ARGS) {
+    Numeric num = PG_GETARG_NUMERIC(0);
+    char *tmp;
+    Datum result;
+
+    // Handle special numeric values (infinity, NaN)
+    if (NUMERIC_IS_SPECIAL(num)) {
+        if (NUMERIC_IS_PINF(num))
+            PG_RETURN_FLOAT4(get_float4_infinity());
+        else if (NUMERIC_IS_NINF(num))
+            PG_RETURN_FLOAT4(-get_float4_infinity());
+        else
+            PG_RETURN_FLOAT4(get_float4_nan());
+    }
+
+    // Convert numeric to string, then string to float4 for accuracy
+    tmp = DatumGetCString(DirectFunctionCall1(numeric_out, NumericGetDatum(num)));
+    result = DirectFunctionCall1(float4in, CStringGetDatum(tmp));
+
+    // Clean up temporary string
+    pfree(tmp);
+
+    return PG_RETURN_DATUM(result);
+}
+```

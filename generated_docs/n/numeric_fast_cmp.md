@@ -43,3 +43,26 @@ The function carefully manages memory by checking if the numeric pointers differ
 - Performance improvement is modest due to inherent cost of numeric operations
 - Could potentially be optimized further with persistent buffers for short varlena inputs
 - Returns standard comparison result: negative, zero, or positive integer
+
+## Simplified Source
+
+```c
+static int
+numeric_fast_cmp(Datum x, Datum y, SortSupport ssup)
+{
+    Numeric nx = DatumGetNumeric(x);
+    Numeric ny = DatumGetNumeric(y);
+    int result;
+
+    // Perform comparison using core numeric comparison
+    result = cmp_numerics(nx, ny);
+
+    // Clean up any detoasted values to prevent memory leaks
+    if ((Pointer) nx != DatumGetPointer(x))
+        pfree(nx);
+    if ((Pointer) ny != DatumGetPointer(y))
+        pfree(ny);
+
+    return result;
+}
+```

@@ -31,3 +31,14 @@ The anyarray_send function serves as a binary output function for the anyarray p
 - Part of PostgreSQL's pseudotype system for handling polymorphic types
 - The anyarray pseudotype allows functions to accept arrays of any element type
 - Binary output functions are used for network transmission and storage of data values
+
+## Simplified Source
+
+```c
+Datum
+anyarray_send(PG_FUNCTION_ARGS)
+{
+    // Simple wrapper: delegate to array_send for binary output
+    return array_send(fcinfo);
+}
+```

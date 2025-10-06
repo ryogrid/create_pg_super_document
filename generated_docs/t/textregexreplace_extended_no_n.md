@@ -33,3 +33,14 @@ Despite being a separate function, it provides identical functionality to  by pa
 - Part of PostgreSQL's function overloading mechanism for regexp_replace variants
 - The comment indicates this separation is purely for testing compliance
 - Uses PostgreSQL's standard function call information structure (fcinfo) for argument passing
+
+## Simplified Source
+
+```c
+Datum
+textregexreplace_extended_no_n(PG_FUNCTION_ARGS)
+{
+    // Simple wrapper: delegate directly to main extended function
+    return textregexreplace_extended(fcinfo);
+}
+```

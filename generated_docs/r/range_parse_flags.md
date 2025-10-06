@@ -46,3 +46,48 @@ The function performs strict validation and throws syntax errors for any invalid
 - Part of PostgreSQL's range type parsing infrastructure
 - Used during range construction to interpret textual range representations
 - Provides detailed error messages with hints for invalid input
+
+## Simplified Source
+
+```c
+static char
+range_parse_flags(const char *flags_str)
+{
+    char flags = 0;
+
+    // Validate input is exactly 2 characters
+    if (flags_str[0] == '\0' || flags_str[1] == '\0' || flags_str[2] != '\0') {
+        ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                       errmsg("invalid range bound flags"),
+                       errhint("Valid values are \"[]\", \"[)\", \"(]\", and \"()\"")));
+    }
+
+    // Parse first character (lower bound)
+    switch (flags_str[0]) {
+        case '[':
+            flags |= RANGE_LB_INC;  // Lower bound inclusive
+            break;
+        case '(':
+            break;  // Lower bound exclusive (no flag)
+        default:
+            ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                           errmsg("invalid range bound flags"),
+                           errhint("Valid values are \"[]\", \"[)\", \"(]\", and \"()\"")));
+    }
+
+    // Parse second character (upper bound)
+    switch (flags_str[1]) {
+        case ']':
+            flags |= RANGE_UB_INC;  // Upper bound inclusive
+            break;
+        case ')':
+            break;  // Upper bound exclusive (no flag)
+        default:
+            ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                           errmsg("invalid range bound flags"),
+                           errhint("Valid values are \"[]\", \"[)\", \"(]\", and \"()\"")));
+    }
+
+    return flags;
+}
+```

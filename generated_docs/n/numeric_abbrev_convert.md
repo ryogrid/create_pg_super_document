@@ -46,3 +46,55 @@ For regular numeric values, it delegates to `numeric_abbrev_convert_var` after c
 - Special values get fixed abbreviation constants: NUMERIC_ABBREV_PINF, NUMERIC_ABBREV_NINF, NUMERIC_ABBREV_NAN
 - Handles both packed and unpacked numeric representations efficiently
 - Input count tracking supports the abbreviation abort mechanism
+
+## Simplified Source
+
+```c
+static Datum
+numeric_abbrev_convert(Datum original_datum, SortSupport ssup)
+{
+    NumericSortSupport *nss = ssup->ssup_extra;
+    void *original_varatt = PG_DETOAST_DATUM_PACKED(original_datum);
+    Numeric value;
+    Datum result;
+
+    nss->input_count += 1;
+
+    // Handle packed datums efficiently using reusable buffer
+    if (VARATT_IS_SHORT(original_varatt))
+    {
+        void *buf = nss->buf;
+        Size sz = VARSIZE_SHORT(original_varatt) - VARHDRSZ_SHORT;
+
+        SET_VARSIZE(buf, VARHDRSZ + sz);
+        memcpy(VARDATA(buf), VARDATA_SHORT(original_varatt), sz);
+        value = (Numeric) buf;
+    }
+    else
+        value = (Numeric) original_varatt;
+
+    // Handle special values with fixed abbreviations
+    if (NUMERIC_IS_SPECIAL(value))
+    {
+        if (NUMERIC_IS_PINF(value))
+            result = NUMERIC_ABBREV_PINF;
+        else if (NUMERIC_IS_NINF(value))
+            result = NUMERIC_ABBREV_NINF;
+        else
+            result = NUMERIC_ABBREV_NAN;
+    }
+    else
+    {
+        // Convert regular numeric values
+        NumericVar var;
+        init_var_from_num(value, &var);
+        result = numeric_abbrev_convert_var(&var, nss);
+    }
+
+    // Clean up detoasted values
+    if ((Pointer) original_varatt != DatumGetPointer(original_datum))
+        pfree(original_varatt);
+
+    return result;
+}
+```

@@ -88,3 +88,41 @@ The  function is a high-level constructor for RangeType objects that performs bo
 - Canonicalization is only applied to non-empty ranges when a canonical function is available
 - The function is the recommended way to create RangeType objects as it ensures proper serialization and canonicalization
 - Empty ranges bypass canonicalization since they have a standardized representation regardless of bounds
+
+## Simplified Source
+
+```c
+RangeType *
+make_range(TypeCacheEntry *typcache, RangeBound *lower, RangeBound *upper,
+           bool empty, struct Node *escontext)
+{
+    // First serialize the range from the bounds
+    RangeType *range = range_serialize(typcache, lower, upper, empty, escontext);
+
+    if (SOFT_ERROR_OCCURRED(escontext))
+        return NULL;
+
+    // Apply canonicalization if available and range is non-empty
+    if (OidIsValid(typcache->rng_canonical_finfo.fn_oid) && !RangeIsEmpty(range)) {
+        // Set up function call info to invoke canonical function
+        LOCAL_FCINFO(fcinfo, 1);
+        InitFunctionCallInfoData(*fcinfo, &typcache->rng_canonical_finfo, 1,
+                                InvalidOid, escontext, NULL);
+
+        // Call the canonical function
+        fcinfo->args[0].value = RangeTypePGetDatum(range);
+        fcinfo->args[0].isnull = false;
+        Datum result = FunctionCallInvoke(fcinfo);
+
+        if (SOFT_ERROR_OCCURRED(escontext))
+            return NULL;
+
+        if (fcinfo->isnull)
+            elog(ERROR, "function %u returned NULL", typcache->rng_canonical_finfo.fn_oid);
+
+        range = DatumGetRangeTypeP(result);
+    }
+
+    return range;
+}
+```

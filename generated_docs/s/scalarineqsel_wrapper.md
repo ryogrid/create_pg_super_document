@@ -48,3 +48,60 @@ The function extracts these from PG_FUNCTION_ARGS:
 - Automatically handles operator commutation to ensure the variable appears on the left side of comparisons
 - The function performs several validation checks before delegating to  for the actual statistical analysis
 - Part of PostgreSQL's cost-based query optimizer infrastructure for estimating predicate selectivity
+
+## Simplified Source
+```c
+static Datum
+scalarineqsel_wrapper(PG_FUNCTION_ARGS, bool isgt, bool iseq)
+{
+    PlannerInfo *root = (PlannerInfo *) PG_GETARG_POINTER(0);
+    Oid operator = PG_GETARG_OID(1);
+    List *args = (List *) PG_GETARG_POINTER(2);
+    int varRelid = PG_GETARG_INT32(3);
+    Oid collation = PG_GET_COLLATION();
+    VariableStatData vardata;
+    Node *other;
+    bool varonleft;
+    Datum constval;
+    Oid consttype;
+    double selec;
+
+    // Check if expression is "variable OP something" or "something OP variable"
+    if (!get_restriction_variable(root, args, varRelid,
+                                  &vardata, &other, &varonleft))
+        PG_RETURN_FLOAT8(DEFAULT_INEQ_SEL);
+
+    // Must have a constant to work with
+    if (!IsA(other, Const)) {
+        ReleaseVariableStats(vardata);
+        PG_RETURN_FLOAT8(DEFAULT_INEQ_SEL);
+    }
+
+    // NULL constants: strict operators never return TRUE
+    if (((Const *) other)->constisnull) {
+        ReleaseVariableStats(vardata);
+        PG_RETURN_FLOAT8(0.0);
+    }
+
+    constval = ((Const *) other)->constvalue;
+    consttype = ((Const *) other)->consttype;
+
+    // Force variable to be on the left for consistent processing
+    if (!varonleft) {
+        operator = get_commutator(operator);
+        if (!operator) {
+            // No commutator available, use default
+            ReleaseVariableStats(vardata);
+            PG_RETURN_FLOAT8(DEFAULT_INEQ_SEL);
+        }
+        isgt = !isgt;  // Flip comparison direction
+    }
+
+    // Do the actual selectivity calculation
+    selec = scalarineqsel(root, operator, isgt, iseq, collation,
+                          &vardata, constval, consttype);
+
+    ReleaseVariableStats(vardata);
+    PG_RETURN_FLOAT8((float8) selec);
+}
+```

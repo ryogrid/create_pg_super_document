@@ -36,3 +36,15 @@ This is the function that gets called when performing explicit casts from Numeri
 - Always throws exceptions on conversion errors (uses NULL for have_error parameter in numeric_int4_opt_error)
 - Accessible from SQL as an explicit cast: `SELECT numeric_value::int4` or `CAST(numeric_value AS int4)`
 - Used in formatting and JSON processing where Numeric values need to be converted to integers
+
+## Simplified Source
+
+```c
+Datum numeric_int4(PG_FUNCTION_ARGS) {
+    // Extract the Numeric value from function arguments
+    Numeric num = PG_GETARG_NUMERIC(0);
+
+    // Convert to int4 using core conversion function (throws errors on failure)
+    return PG_RETURN_INT32(numeric_int4_opt_error(num, NULL));
+}
+```

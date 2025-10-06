@@ -37,3 +37,20 @@ The  function implements the SQL operator  for PostgreSQL's name data type. It t
 - Returns the boolean negation of the regex match result
 - Part of PostgreSQL's comprehensive set of regular expression operators for different data types
 - The function is typically invoked through SQL expressions rather than direct function calls
+
+## Simplified Source
+
+```c
+Datum nameicregexne(PG_FUNCTION_ARGS) {
+    Name name = PG_GETARG_NAME(0);
+    text *pattern = PG_GETARG_TEXT_PP(1);
+
+    // Return negated result of case-insensitive regex matching
+    PG_RETURN_BOOL(!RE_compile_and_execute(pattern,
+                                          NameStr(*name),
+                                          strlen(NameStr(*name)),
+                                          REG_ADVANCED | REG_ICASE,
+                                          PG_GET_COLLATION(),
+                                          0, NULL));
+}
+```

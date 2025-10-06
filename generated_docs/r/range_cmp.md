@@ -50,5 +50,49 @@ The function includes a stack depth check to prevent stack overflow when dealing
 - Includes type checking to ensure both ranges are of the same range type
 - Handles recursive range types safely with stack depth checking
 - Essential for B-tree indexing support and range ordering operations
-- Located in 
+- Located in
 - Forms the basis for all range comparison operators and sorting functionality
+
+## Simplified Source
+
+```c
+Datum range_cmp(PG_FUNCTION_ARGS) {
+    RangeType *r1 = PG_GETARG_RANGE_P(0);
+    RangeType *r2 = PG_GETARG_RANGE_P(1);
+    RangeBound lower1, lower2, upper1, upper2;
+    bool empty1, empty2;
+    int cmp;
+
+    // Prevent stack overflow for recursive range types
+    check_stack_depth();
+
+    // Validate that both ranges are of the same type
+    if (RangeTypeGetOid(r1) != RangeTypeGetOid(r2))
+        elog(ERROR, "range types do not match");
+
+    TypeCacheEntry *typcache = range_get_typcache(fcinfo, RangeTypeGetOid(r1));
+
+    // Extract boundaries from both ranges
+    range_deserialize(typcache, r1, &lower1, &upper1, &empty1);
+    range_deserialize(typcache, r2, &lower2, &upper2, &empty2);
+
+    // Handle empty range comparison (empty ranges sort first)
+    if (empty1 && empty2)
+        cmp = 0;
+    else if (empty1)
+        cmp = -1;
+    else if (empty2)
+        cmp = 1;
+    else {
+        // Lexicographic comparison: lower bounds first, then upper bounds
+        cmp = range_cmp_bounds(typcache, &lower1, &lower2);
+        if (cmp == 0)
+            cmp = range_cmp_bounds(typcache, &upper1, &upper2);
+    }
+
+    // Clean up memory and return comparison result
+    PG_FREE_IF_COPY(r1, 0);
+    PG_FREE_IF_COPY(r2, 1);
+    PG_RETURN_INT32(cmp);
+}
+```

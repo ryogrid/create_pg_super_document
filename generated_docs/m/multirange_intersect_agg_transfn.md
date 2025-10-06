@@ -39,3 +39,42 @@ This function serves as the transition function for the multirange intersection 
 - The function relies on the multirange_intersect_internal function to perform the actual intersection computation
 - Error handling includes checks for proper calling context and multirange type validation
 - Memory management is handled through the aggregate context to ensure proper cleanup
+
+## Simplified Source
+
+```c
+Datum multirange_intersect_agg_transfn(PG_FUNCTION_ARGS) {
+    MemoryContext aggContext;
+    Oid multirangeTypeOid;
+    TypeCacheEntry *typcache;
+    MultirangeType *result;
+    MultirangeType *current;
+    int32 range_count1, range_count2;
+    RangeType **ranges1, **ranges2;
+
+    // Validate aggregate context
+    if (!AggCheckCallContext(fcinfo, &aggContext))
+        elog(ERROR, "multirange_intersect_agg_transfn called in non-aggregate context");
+
+    // Validate input type
+    multirangeTypeOid = get_fn_expr_argtype(fcinfo->flinfo, 1);
+    if (!type_is_multirange(multirangeTypeOid))
+        elog(ERROR, "range_intersect_agg must be called with a multirange");
+
+    typcache = multirange_get_typcache(fcinfo, multirangeTypeOid);
+
+    // Get input multiranges (both guaranteed non-null by strictness)
+    result = PG_GETARG_MULTIRANGE_P(0);
+    current = PG_GETARG_MULTIRANGE_P(1);
+
+    // Deserialize both multiranges
+    multirange_deserialize(typcache->rngtype, result, &range_count1, &ranges1);
+    multirange_deserialize(typcache->rngtype, current, &range_count2, &ranges2);
+
+    // Compute intersection and return result
+    result = multirange_intersect_internal(multirangeTypeOid, typcache->rngtype,
+                                          range_count1, ranges1,
+                                          range_count2, ranges2);
+    PG_RETURN_MULTIRANGE_P(result);
+}
+```

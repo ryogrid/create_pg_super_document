@@ -41,3 +41,27 @@ If the inverse operation fails (which can happen due to numerical precision issu
 - Part of PostgreSQL's advanced aggregation system supporting efficient window functions
 - Handles NULL input values gracefully by skipping the removal operation
 - Uses do_numeric_discard for the mathematical heavy lifting of state modification
+
+## Simplified Source
+
+```c
+Datum numeric_accum_inv(PG_FUNCTION_ARGS) {
+    NumericAggState *state;
+
+    // Get aggregate state from first argument
+    state = PG_ARGISNULL(0) ? NULL : (NumericAggState *) PG_GETARG_POINTER(0);
+
+    // Validate state exists
+    if (state == NULL)
+        elog(ERROR, "numeric_accum_inv called with NULL state");
+
+    // Remove value from aggregate if not NULL
+    if (!PG_ARGISNULL(1)) {
+        // Attempt inverse operation - return NULL if it fails
+        if (!do_numeric_discard(state, PG_GETARG_NUMERIC(1)))
+            PG_RETURN_NULL();
+    }
+
+    PG_RETURN_POINTER(state);
+}
+```

@@ -47,3 +47,32 @@ The function is equivalent to the SQL expression (::text || '_' || ::text)::name
 - Multibyte character support is provided through pg_mbcliplen to avoid breaking characters during truncation
 - The function is defined in src/backend/utils/adt/name.c alongside other name manipulation functions
 - Essential for SQL standard compliance in information_schema views
+
+## Simplified Source
+
+```c
+Datum
+nameconcatoid(PG_FUNCTION_ARGS)
+{
+    Name name = PG_GETARG_NAME(0);
+    Oid oid = PG_GETARG_OID(1);
+    Name result;
+    char suffix[20];
+    int suflen, namlen;
+
+    // Create OID suffix "_123456"
+    suflen = snprintf(suffix, sizeof(suffix), "_%u", oid);
+    namlen = strlen(NameStr(*name));
+
+    // Truncate name if combined length would exceed limit
+    if (namlen + suflen >= NAMEDATALEN)
+        namlen = pg_mbcliplen(NameStr(*name), namlen, NAMEDATALEN - 1 - suflen);
+
+    // Build result: name + "_" + oid
+    result = (Name) palloc0(NAMEDATALEN);
+    memcpy(NameStr(*result), NameStr(*name), namlen);
+    memcpy(NameStr(*result) + namlen, suffix, suflen);
+
+    PG_RETURN_NAME(result);
+}
+```

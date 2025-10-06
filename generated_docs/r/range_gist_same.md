@@ -43,3 +43,26 @@ This is particularly important for GiST index correctness, as it must distinguis
 - More strict than regular range equality as it checks all flag bits including internal flags
 - The RANGE_CONTAIN_EMPTY flag requires special handling as it's ignored by standard range_eq
 - Used during GiST index maintenance operations to determine if entries are identical
+
+## Simplified Source
+
+```c
+Datum
+range_gist_same(PG_FUNCTION_ARGS)
+{
+	RangeType  *range1 = PG_GETARG_RANGE_P(0);
+	RangeType  *range2 = PG_GETARG_RANGE_P(1);
+	bool	   *result = (bool *) PG_GETARG_POINTER(2);
+
+	// Quick check: compare all flag bits first
+	if (range_get_flags(range1) != range_get_flags(range2)) {
+		*result = false;
+	} else {
+		// Flags match, do detailed equality comparison
+		TypeCacheEntry *typcache = range_get_typcache(fcinfo, RangeTypeGetOid(range1));
+		*result = range_eq_internal(typcache, range1, range2);
+	}
+
+	PG_RETURN_POINTER(result);
+}
+```

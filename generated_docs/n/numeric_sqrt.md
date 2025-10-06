@@ -40,4 +40,58 @@ The function carefully determines the appropriate result scale to ensure at leas
 - Scale calculation optimizes for even  values to avoid rounding operations
 - [Result](../R/Result.md) scale is bounded by  and 
 - Uses  for the actual mathematical computation
-- Located in 
+- Located in
+
+## Simplified Source
+
+```c
+Datum
+numeric_sqrt(PG_FUNCTION_ARGS)
+{
+    Numeric num = PG_GETARG_NUMERIC(0);
+    Numeric res;
+    NumericVar arg;
+    NumericVar result;
+    int sweight;
+    int rscale;
+
+    // Handle special values (NaN, infinity)
+    if (NUMERIC_IS_SPECIAL(num)) {
+        if (NUMERIC_IS_NINF(num))
+            ereport(ERROR, (errcode(ERRCODE_INVALID_ARGUMENT_FOR_POWER_FUNCTION),
+                           errmsg("cannot take square root of a negative number")));
+        // Return NaN or positive infinity as-is
+        PG_RETURN_NUMERIC(duplicate_numeric(num));
+    }
+
+    // Initialize variables
+    init_var_from_num(num, &arg);
+    init_var(&result);
+
+    // Calculate result scale based on input weight
+    // Ensure at least NUMERIC_MIN_SIG_DIGITS significant digits
+#if DEC_DIGITS == ((DEC_DIGITS / 2) * 2)
+    sweight = arg.weight * DEC_DIGITS / 2 + 1;
+#else
+    if (arg.weight >= 0)
+        sweight = arg.weight * DEC_DIGITS / 2 + 1;
+    else
+        sweight = 1 - (1 - arg.weight * DEC_DIGITS) / 2;
+#endif
+
+    // Determine appropriate result scale
+    rscale = NUMERIC_MIN_SIG_DIGITS - sweight;
+    rscale = Max(rscale, arg.dscale);
+    rscale = Max(rscale, NUMERIC_MIN_DISPLAY_SCALE);
+    rscale = Min(rscale, NUMERIC_MAX_DISPLAY_SCALE);
+
+    // Perform square root calculation
+    sqrt_var(&arg, &result, rscale);
+
+    // Create and return result
+    res = make_result(&result);
+    free_var(&result);
+
+    PG_RETURN_NUMERIC(res);
+}
+```

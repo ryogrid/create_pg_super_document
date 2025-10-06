@@ -49,3 +49,47 @@ This function manages cached I/O information for range types to optimize repeate
 - The cache is allocated in the function's memory context to ensure proper lifetime management
 - The function leverages get_type_io_data which provides more information than strictly needed but offers convenience
 - Type cache lookup includes TYPECACHE_RANGE_INFO flag to ensure range-specific metadata is available
+
+## Simplified Source
+
+```c
+static RangeIOData *
+get_range_io_data(FunctionCallInfo fcinfo, Oid rngtypid, IOFuncSelector func) {
+    RangeIOData *cache = (RangeIOData *) fcinfo->flinfo->fn_extra;
+
+    // Check if cache exists and matches the required type
+    if (cache == NULL || cache->typcache->type_id != rngtypid) {
+        Oid typiofunc;
+
+        // Allocate new cache structure
+        cache = (RangeIOData *) MemoryContextAlloc(fcinfo->flinfo->fn_mcxt, sizeof(RangeIOData));
+
+        // Get type cache for range type
+        cache->typcache = lookup_type_cache(rngtypid, TYPECACHE_RANGE_INFO);
+        if (cache->typcache->rngelemtype == NULL)
+            elog(ERROR, "type %u is not a range type", rngtypid);
+
+        // Get I/O function info for element type
+        get_type_io_data(cache->typcache->rngelemtype->type_id, func,
+                        NULL, NULL, NULL, NULL, &cache->typioparam, &typiofunc);
+
+        // Validate I/O function exists
+        if (!OidIsValid(typiofunc)) {
+            if (func == IOFunc_receive)
+                ereport(ERROR, (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                               errmsg("no binary input function available for type %s",
+                                     format_type_be(cache->typcache->rngelemtype->type_id))));
+            else
+                ereport(ERROR, (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                               errmsg("no binary output function available for type %s",
+                                     format_type_be(cache->typcache->rngelemtype->type_id))));
+        }
+
+        // Prepare function call info
+        fmgr_info_cxt(typiofunc, &cache->typioproc, fcinfo->flinfo->fn_mcxt);
+        fcinfo->flinfo->fn_extra = (void *) cache;
+    }
+
+    return cache;
+}
+```

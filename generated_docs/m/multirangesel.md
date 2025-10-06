@@ -48,3 +48,90 @@ The function performs several key steps:
 
 ## Notes and Other Information
 This function is registered in PostgreSQL's system catalogs as the selectivity estimator for multirange operators. It handles complex type conversions between elements, ranges, and multiranges to provide unified selectivity estimation. The function ensures all estimates are clamped to valid probability values [0.0, 1.0] before returning.
+
+## Simplified Source
+
+```c
+Datum
+multirangesel(PG_FUNCTION_ARGS)
+{
+    PlannerInfo *root = (PlannerInfo *) PG_GETARG_POINTER(0);
+    Oid operator = PG_GETARG_OID(1);
+    List *args = (List *) PG_GETARG_POINTER(2);
+    int varRelid = PG_GETARG_INT32(3);
+    VariableStatData vardata;
+    Node *other;
+    bool varonleft;
+    Selectivity selec;
+    TypeCacheEntry *typcache = NULL;
+    MultirangeType *constmultirange = NULL;
+    RangeType *constrange = NULL;
+
+    // Must be in form "variable op constant" or "constant op variable"
+    if (!get_restriction_variable(root, args, varRelid, &vardata, &other, &varonleft))
+        PG_RETURN_FLOAT8(default_multirange_selectivity(operator));
+
+    // Constant required for meaningful selectivity estimation
+    if (!IsA(other, Const)) {
+        ReleaseVariableStats(vardata);
+        PG_RETURN_FLOAT8(default_multirange_selectivity(operator));
+    }
+
+    // NULL constants always result in no matches
+    if (((Const *) other)->constisnull) {
+        ReleaseVariableStats(vardata);
+        PG_RETURN_FLOAT8(0.0);
+    }
+
+    // Commute operator if variable is on right side
+    if (!varonleft) {
+        operator = get_commutator(operator);
+        if (!operator) {
+            ReleaseVariableStats(vardata);
+            PG_RETURN_FLOAT8(default_multirange_selectivity(operator));
+        }
+    }
+
+    // Handle special case: multirange @> element
+    if (operator == OID_MULTIRANGE_CONTAINS_ELEM_OP) {
+        typcache = multirange_get_typcache(fcinfo, vardata.vartype);
+        if (((Const *) other)->consttype == typcache->rngtype->rngelemtype->type_id) {
+            // Convert element to singleton range, then to multirange
+            RangeBound lower, upper;
+            lower.inclusive = upper.inclusive = true;
+            lower.val = upper.val = ((Const *) other)->constvalue;
+            lower.infinite = upper.infinite = false;
+            lower.lower = true; upper.lower = false;
+
+            constrange = range_serialize(typcache->rngtype, &lower, &upper, false, NULL);
+            constmultirange = make_multirange(typcache->type_id, typcache->rngtype, 1, &constrange);
+        }
+    }
+    // Handle multirange-range operations
+    else if (operator == OID_RANGE_MULTIRANGE_CONTAINED_OP ||
+             operator == OID_MULTIRANGE_CONTAINS_RANGE_OP ||
+             /* ... other range operators ... */) {
+        typcache = multirange_get_typcache(fcinfo, vardata.vartype);
+        if (((Const *) other)->consttype == typcache->rngtype->type_id) {
+            // Convert range to multirange
+            constrange = DatumGetRangeTypeP(((Const *) other)->constvalue);
+            constmultirange = make_multirange(typcache->type_id, typcache->rngtype, 1, &constrange);
+        }
+    }
+    // Handle multirange-multirange operations
+    else if (((Const *) other)->consttype == vardata.vartype) {
+        typcache = multirange_get_typcache(fcinfo, vardata.vartype);
+        constmultirange = DatumGetMultirangeTypeP(((Const *) other)->constvalue);
+    }
+
+    // Calculate selectivity or use default
+    if (constmultirange)
+        selec = calc_multirangesel(typcache, &vardata, constmultirange, operator);
+    else
+        selec = default_multirange_selectivity(operator);
+
+    ReleaseVariableStats(vardata);
+    CLAMP_PROBABILITY(selec);
+    PG_RETURN_FLOAT8((float8) selec);
+}
+```

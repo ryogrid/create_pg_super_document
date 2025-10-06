@@ -34,3 +34,18 @@ The interpolation formula used is: `result = lo + pct * (hi - lo)`, which gives 
 - The function assumes input values are valid float8 Datums and that pct is between 0.0 and 1.0
 - Part of PostgreSQL's implementation of the PERCENTILE_CONT aggregate function for numeric data types
 - Linear interpolation provides continuous results even when the exact percentile falls between discrete values in the sorted dataset
+
+## Simplified Source
+
+```c
+static Datum
+float8_lerp(Datum lo, Datum hi, double pct)
+{
+    // Extract float8 values from Datums
+    double loval = DatumGetFloat8(lo);
+    double hival = DatumGetFloat8(hi);
+
+    // Linear interpolation: result = lo + pct * (hi - lo)
+    return Float8GetDatum(loval + (pct * (hival - loval)));
+}
+```

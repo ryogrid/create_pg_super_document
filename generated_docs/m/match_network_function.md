@@ -48,3 +48,40 @@ This design allows the same underlying matching logic to handle both subset and 
 - Returns NIL (empty list) if the function is unrecognized or arguments are in wrong positions
 - The equality parameter passed to `match_network_subset` distinguishes between strict and non-strict containment
 - Part of PostgreSQL's index optimization infrastructure for network data types
+
+## Simplified Source
+
+```c
+static List *match_network_function(Node *leftop, Node *rightop, int indexarg,
+                                   Oid funcid, Oid opfamily) {
+    switch (funcid) {
+        case F_NETWORK_SUB:    // << operator
+            // Subnet: indexkey must be on the left
+            if (indexarg != 0)
+                return NIL;
+            return match_network_subset(leftop, rightop, false, opfamily);
+
+        case F_NETWORK_SUBEQ:  // <<= operator
+            // Subnet-or-equal: indexkey must be on the left
+            if (indexarg != 0)
+                return NIL;
+            return match_network_subset(leftop, rightop, true, opfamily);
+
+        case F_NETWORK_SUP:    // >> operator
+            // Supernet: indexkey must be on the right, so swap arguments
+            if (indexarg != 1)
+                return NIL;
+            return match_network_subset(rightop, leftop, false, opfamily);
+
+        case F_NETWORK_SUPEQ:  // >>= operator
+            // Supernet-or-equal: indexkey must be on the right, so swap arguments
+            if (indexarg != 1)
+                return NIL;
+            return match_network_subset(rightop, leftop, true, opfamily);
+
+        default:
+            // Unrecognized function - cannot optimize
+            return NIL;
+    }
+}
+```

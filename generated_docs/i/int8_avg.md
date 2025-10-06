@@ -42,3 +42,28 @@ The function validates the input array structure and returns NULL if no values w
 - Uses numeric division for precise decimal results
 - Validates array structure with specific size and null checks
 - Transition data format: Int8TransTypeData with count and sum fields
+
+## Simplified Source
+
+```c
+Datum int8_avg(PG_FUNCTION_ARGS) {
+    ArrayType *transarray = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Validate array structure
+    if (ARR_HASNULL(transarray) ||
+        ARR_SIZE(transarray) != ARR_OVERHEAD_NONULLS(1) + sizeof(Int8TransTypeData))
+        elog(ERROR, "expected 2-element int8 array");
+
+    Int8TransTypeData *transdata = (Int8TransTypeData *) ARR_DATA_PTR(transarray);
+
+    // Return NULL for empty set (SQL standard)
+    if (transdata->count == 0)
+        return PG_RETURN_NULL();
+
+    // Convert sum and count to numeric, then divide for average
+    Datum sum_numeric = NumericGetDatum(int64_to_numeric(transdata->sum));
+    Datum count_numeric = NumericGetDatum(int64_to_numeric(transdata->count));
+
+    return DirectFunctionCall2(numeric_div, sum_numeric, count_numeric);
+}
+```

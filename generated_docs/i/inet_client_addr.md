@@ -51,3 +51,45 @@ This function takes no parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL fu
 - IPv6 addresses are cleaned to remove zone/scope identifiers that might be present
 - Essential for logging, auditing, and access control based on client IP addresses
 - Part of PostgreSQL's connection information functions alongside inet_client_port and inet_server_addr
+
+## Simplified Source
+
+```c
+Datum
+inet_client_addr(PG_FUNCTION_ARGS)
+{
+    Port       *port = MyProcPort;
+    char        remote_host[NI_MAXHOST];
+    int         ret;
+
+    // Return NULL if no port info available
+    if (port == NULL)
+        PG_RETURN_NULL();
+
+    // Only support IPv4 and IPv6 connections
+    switch (port->raddr.addr.ss_family)
+    {
+        case AF_INET:
+        case AF_INET6:
+            break;
+        default:
+            PG_RETURN_NULL();  // Unix socket or unsupported family
+    }
+
+    remote_host[0] = '\0';
+
+    // Convert socket address to numeric string
+    ret = pg_getnameinfo_all(&port->raddr.addr, port->raddr.salen,
+                             remote_host, sizeof(remote_host),
+                             NULL, 0,
+                             NI_NUMERICHOST | NI_NUMERICSERV);
+    if (ret != 0)
+        PG_RETURN_NULL();
+
+    // Clean IPv6 addresses (remove scope identifiers)
+    clean_ipv6_addr(port->raddr.addr.ss_family, remote_host);
+
+    // Convert to PostgreSQL inet type
+    PG_RETURN_INET_P(network_in(remote_host, false, NULL));
+}
+```

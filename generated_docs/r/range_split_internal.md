@@ -37,10 +37,42 @@ The inclusivity inversion is crucial for proper range semantics - when splitting
   - : Range strategy function for equality operations
 
 ## Notes and Other Information
-- Returns  if the split was successful (two non-empty ranges produced),  otherwise
+- Returns true if the split was successful (two non-empty ranges produced), false otherwise
 - Neither input range should be empty (this is a precondition documented in the function comment)
-- The function only splits when  intersects the middle of , not when it overlaps at the edges
-- Boundary inclusivity is carefully inverted to maintain proper range semantics in the output ranges  
-- Output parameters are only set when the function returns 
-- Located in 
+- The function only splits when r2 intersects the middle of r1, not when it overlaps at the edges
+- Boundary inclusivity is carefully inverted to maintain proper range semantics in the output ranges
+- Output parameters are only set when the function returns true
+- Located in
 - This function is primarily used for implementing range difference operations that result in multiple disjoint ranges
+
+## Simplified Source
+
+```c
+bool range_split_internal(TypeCacheEntry *typcache, const RangeType *r1, const RangeType *r2,
+                         RangeType **output1, RangeType **output2) {
+    RangeBound lower1, lower2, upper1, upper2;
+    bool empty1, empty2;
+
+    // Extract boundaries from both ranges
+    range_deserialize(typcache, r1, &lower1, &upper1, &empty1);
+    range_deserialize(typcache, r2, &lower2, &upper2, &empty2);
+
+    // Check if r2 is completely contained within r1 (split condition)
+    if (range_cmp_bounds(typcache, &lower1, &lower2) < 0 &&
+        range_cmp_bounds(typcache, &upper1, &upper2) > 0) {
+
+        // Invert inclusivity for boundary points to avoid overlap
+        lower2.inclusive = !lower2.inclusive;
+        lower2.lower = false;  // Will become upper bound of first range
+        upper2.inclusive = !upper2.inclusive;
+        upper2.lower = true;   // Will become lower bound of second range
+
+        // Create the two output ranges: [lower1, lower2) and (upper2, upper1]
+        *output1 = make_range(typcache, &lower1, &lower2, false, NULL);
+        *output2 = make_range(typcache, &upper2, &upper1, false, NULL);
+        return true;
+    }
+
+    return false;
+}
+```

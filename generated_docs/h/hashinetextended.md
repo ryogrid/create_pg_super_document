@@ -35,3 +35,20 @@ This function is an extended version of the hashinet function that supports seed
 - Like hashinet, it assumes no padding bytes in the inet data structure
 - Used primarily in advanced hash operations like hash joins where multiple hash functions with different seeds are needed
 - The function computes the hash over the address size plus 2 additional bytes for metadata
+
+## Simplified Source
+
+```c
+Datum hashinetextended(PG_FUNCTION_ARGS) {
+    // Get inet/cidr address from function arguments
+    inet *addr = PG_GETARG_INET_PP(0);
+
+    // Calculate address size for hash computation
+    int addrsize = ip_addrsize(addr);
+
+    // Hash with seed value for extended hash operations
+    return hash_any_extended((unsigned char *) VARDATA_ANY(addr),
+                           addrsize + 2,
+                           PG_GETARG_INT64(1));
+}
+```

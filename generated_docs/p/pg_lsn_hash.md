@@ -33,3 +33,13 @@ This implementation ensures that pg_lsn values can be used efficiently in hash i
 - The reuse of hashint8 ensures consistent hashing behavior across similar data types
 - Enables efficient hash-based operations on LSN values in query processing
 - The hash function must be consistent and deterministic for proper index behavior
+
+## Simplified Source
+
+```c
+Datum pg_lsn_hash(PG_FUNCTION_ARGS) {
+    // Delegate to 64-bit integer hash function
+    // LSNs are internally 64-bit values, so we can use existing hash algorithm
+    return hashint8(fcinfo);
+}
+```

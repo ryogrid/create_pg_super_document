@@ -36,3 +36,15 @@ The comparison follows a hierarchical approach: vectors are first compared by th
 - Typically invoked through SQL expressions using the < operator on oidvector columns
 - Essential for ORDER BY clauses and other comparison operations involving oidvector data
 - Located in src/backend/utils/adt/oid.c:360-367
+
+## Simplified Source
+
+```c
+Datum oidvectorlt(PG_FUNCTION_ARGS) {
+    // Use btoidvectorcmp to compare the two oidvectors
+    int32 cmp = DatumGetInt32(btoidvectorcmp(fcinfo));
+
+    // Return true if first vector is less than second (cmp < 0)
+    return PG_RETURN_BOOL(cmp < 0);
+}
+```

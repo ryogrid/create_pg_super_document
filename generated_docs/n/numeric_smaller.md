@@ -32,3 +32,20 @@ The `numeric_smaller` function implements the SQL `LEAST()` functionality for nu
 - NaN handling follows PostgreSQL standards where NaN comparisons have specific behavior
 - Returns the first argument if both values are equal
 - Part of the PostgreSQL numeric type system in src/backend/utils/adt/numeric.c
+
+## Simplified Source
+
+```c
+Datum
+numeric_smaller(PG_FUNCTION_ARGS)
+{
+    Numeric num1 = PG_GETARG_NUMERIC(0);
+    Numeric num2 = PG_GETARG_NUMERIC(1);
+
+    // Compare using standard numeric comparison (handles NaN correctly)
+    if (cmp_numerics(num1, num2) < 0)
+        PG_RETURN_NUMERIC(num1);  // num1 is smaller
+    else
+        PG_RETURN_NUMERIC(num2);  // num2 is smaller or equal
+}
+```

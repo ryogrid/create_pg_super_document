@@ -83,3 +83,36 @@ The hist_weight parameter represents the total number of rows in the histogram p
 - Returns 0.0 if neither MCV nor valid histogram statistics provide any matches
 - The hist_weight parameter enables accurate scaling from selectivity to probability
 - Designed specifically for EXISTS/IN subquery optimization in the PostgreSQL query planner
+
+## Simplified Source
+
+```c
+static Selectivity
+inet_semi_join_sel(Datum lhs_value,
+                   bool mcv_exists, Datum *mcv_values, int mcv_nvalues,
+                   bool hist_exists, Datum *hist_values, int hist_nvalues,
+                   double hist_weight,
+                   FmgrInfo *proc, int opr_codenum)
+{
+    // Check most common values first - if any match, we're certain there's a join
+    if (mcv_exists) {
+        for (int i = 0; i < mcv_nvalues; i++) {
+            if (DatumGetBool(FunctionCall2(proc, lhs_value, mcv_values[i])))
+                return 1.0;  // Certain match found
+        }
+    }
+
+    // Use histogram to estimate probability of finding a match
+    if (hist_exists && hist_weight > 0) {
+        // Get selectivity estimate (commute operator for correct comparison)
+        Selectivity hist_selec = inet_hist_value_sel(hist_values, hist_nvalues,
+                                                     lhs_value, -opr_codenum);
+
+        // Convert selectivity to probability, capped at 1.0
+        if (hist_selec > 0)
+            return Min(1.0, hist_weight * hist_selec);
+    }
+
+    return 0.0;  // No evidence of matches
+}
+```

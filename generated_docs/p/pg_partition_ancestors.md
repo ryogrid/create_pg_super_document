@@ -57,3 +57,48 @@ The returned set includes the input relation itself as the first element, follow
 - Supports LATERAL joins and other advanced SQL patterns for partition analysis
 - Part of PostgreSQL's comprehensive partition introspection API
 - Particularly useful for administrative scripts and partition maintenance operations
+
+## Simplified Source
+```c
+Datum pg_partition_ancestors(PG_FUNCTION_ARGS) {
+    Oid relid = PG_GETARG_OID(0);
+    FuncCallContext *funcctx;
+    List *ancestors;
+
+    if (SRF_IS_FIRSTCALL()) {
+        MemoryContext oldcxt;
+
+        // Initialize set-returning function context
+        funcctx = SRF_FIRSTCALL_INIT();
+
+        // Return empty set if relation cannot be part of partition tree
+        if (!check_rel_can_be_partition(relid))
+            SRF_RETURN_DONE(funcctx);
+
+        // Switch to persistent memory context for the ancestors list
+        oldcxt = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
+
+        // Get ancestors and prepend the input relation itself
+        ancestors = get_partition_ancestors(relid);
+        ancestors = lcons_oid(relid, ancestors);
+
+        // Store ancestors list as function state
+        funcctx->user_fctx = (void *) ancestors;
+
+        MemoryContextSwitchTo(oldcxt);
+    }
+
+    // Set up context for each call
+    funcctx = SRF_PERCALL_SETUP();
+    ancestors = (List *) funcctx->user_fctx;
+
+    // Return next ancestor if more remain
+    if (funcctx->call_cntr < list_length(ancestors)) {
+        Oid resultrel = list_nth_oid(ancestors, funcctx->call_cntr);
+        SRF_RETURN_NEXT(funcctx, ObjectIdGetDatum(resultrel));
+    }
+
+    // No more ancestors to return
+    SRF_RETURN_DONE(funcctx);
+}
+```

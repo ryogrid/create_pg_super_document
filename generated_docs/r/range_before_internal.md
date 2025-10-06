@@ -44,4 +44,28 @@ The function performs several checks: it validates that both ranges are of the s
 - Uses bound comparison logic where r1 is before r2 if upper1 < lower2
 - This is an internal function used by various range and multi-range operations
 - Critical for range indexing strategies in both GiST and SP-GiST implementations
-- Located in 
+- Located in src/backend/utils/adt/rangetypes.c:664-688
+
+## Simplified Source
+
+```c
+bool range_before_internal(TypeCacheEntry *typcache, const RangeType *r1, const RangeType *r2) {
+    RangeBound lower1, lower2, upper1, upper2;
+    bool empty1, empty2;
+
+    // Validate same range types
+    if (RangeTypeGetOid(r1) != RangeTypeGetOid(r2))
+        elog(ERROR, "range types do not match");
+
+    // Extract range boundaries
+    range_deserialize(typcache, r1, &lower1, &upper1, &empty1);
+    range_deserialize(typcache, r2, &lower2, &upper2, &empty2);
+
+    // Empty ranges are neither before nor after any range
+    if (empty1 || empty2)
+        return false;
+
+    // r1 is before r2 if upper bound of r1 < lower bound of r2
+    return (range_cmp_bounds(typcache, &upper1, &lower2) < 0);
+}
+``` 

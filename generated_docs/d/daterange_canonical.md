@@ -44,3 +44,48 @@ The function includes special handling for infinite dates using DATE_NOT_FINITE 
 - Error context is preserved for proper error reporting with DATETIME_VALUE_OUT_OF_RANGE errors
 - This canonicalization is essential for consistent date range comparisons and operations
 - Comments indicate that PG_INT32_MAX values are already eliminated before overflow checking
+
+## Simplified Source
+
+```c
+Datum
+daterange_canonical(PG_FUNCTION_ARGS)
+{
+    RangeType *r = PG_GETARG_RANGE_P(0);
+    RangeBound lower, upper;
+    bool empty;
+
+    // Get type cache and deserialize range
+    TypeCacheEntry *typcache = range_get_typcache(fcinfo, RangeTypeGetOid(r));
+    range_deserialize(typcache, r, &lower, &upper, &empty);
+
+    // Return empty ranges unchanged
+    if (empty)
+        PG_RETURN_RANGE_P(r);
+
+    // Convert exclusive lower bound to inclusive (increment date)
+    if (!lower.infinite && !DATE_NOT_FINITE(DatumGetDateADT(lower.val)) &&
+        !lower.inclusive) {
+        DateADT bnd = DatumGetDateADT(lower.val);
+        bnd++;
+        if (unlikely(!IS_VALID_DATE(bnd)))
+            return (Datum) 0; // Date out of range error
+        lower.val = DateADTGetDatum(bnd);
+        lower.inclusive = true;
+    }
+
+    // Convert inclusive upper bound to exclusive (increment date)
+    if (!upper.infinite && !DATE_NOT_FINITE(DatumGetDateADT(upper.val)) &&
+        upper.inclusive) {
+        DateADT bnd = DatumGetDateADT(upper.val);
+        bnd++;
+        if (unlikely(!IS_VALID_DATE(bnd)))
+            return (Datum) 0; // Date out of range error
+        upper.val = DateADTGetDatum(bnd);
+        upper.inclusive = false;
+    }
+
+    // Return canonicalized range
+    PG_RETURN_RANGE_P(range_serialize(typcache, &lower, &upper, false, escontext));
+}
+```

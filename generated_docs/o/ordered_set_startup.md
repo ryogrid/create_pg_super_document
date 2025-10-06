@@ -45,3 +45,71 @@ For hypothetical-set aggregates, it adds a special flag column to distinguish be
 - Registers a shutdown callback to clean up resources at the end of each group
 - Handles both regular ordered-set aggregates and hypothetical-set aggregates with special flag column logic
 - Uses  to configure the tuplesort memory usage limit
+
+## Simplified Source
+
+```c
+static OSAPerGroupState *
+ordered_set_startup(FunctionCallInfo fcinfo, bool use_tuples)
+{
+    OSAPerGroupState *osastate;
+    OSAPerQueryState *qstate;
+    MemoryContext gcontext;
+
+    // Verify we're called in aggregate context
+    if (AggCheckCallContext(fcinfo, &gcontext) != AGG_CONTEXT_AGGREGATE)
+        elog(ERROR, "ordered-set aggregate called in non-aggregate context");
+
+    // Get or create per-query state
+    qstate = (OSAPerQueryState *) fcinfo->flinfo->fn_extra;
+    if (qstate == NULL) {
+        // First time setup - initialize per-query structures
+        Aggref *aggref = AggGetAggref(fcinfo);
+        MemoryContext qcontext = fcinfo->flinfo->fn_mcxt;
+
+        qstate = (OSAPerQueryState *) palloc0(sizeof(OSAPerQueryState));
+        qstate->aggref = aggref;
+        qstate->rescan_needed = AggStateIsShared(fcinfo);
+
+        // Extract sort information from aggregate definition
+        List *sortlist = aggref->aggorder;
+        int numSortCols = list_length(sortlist);
+
+        if (use_tuples) {
+            // Setup tuple-based sorting for multi-column aggregates
+            qstate->numSortCols = numSortCols;
+            qstate->tupdesc = ExecTypeFromTL(aggref->args);
+            qstate->tupslot = MakeSingleTupleTableSlot(qstate->tupdesc, &TTSOpsMinimalTuple);
+            // ... setup sort operators and column info
+        } else {
+            // Setup datum-based sorting for single-column aggregates
+            SortGroupClause *sortcl = (SortGroupClause *) linitial(sortlist);
+            TargetEntry *tle = get_sortgroupclause_tle(sortcl, aggref->args);
+
+            qstate->sortColType = exprType((Node *) tle->expr);
+            qstate->sortOperator = sortcl->sortop;
+            // ... save other sort info
+        }
+
+        fcinfo->flinfo->fn_extra = (void *) qstate;
+    }
+
+    // Create per-group state structure
+    osastate = (OSAPerGroupState *) palloc(sizeof(OSAPerGroupState));
+    osastate->qstate = qstate;
+
+    // Initialize tuplesort object for collecting sorted data
+    if (use_tuples)
+        osastate->sortstate = tuplesort_begin_heap(/* tuple sort parameters */);
+    else
+        osastate->sortstate = tuplesort_begin_datum(/* datum sort parameters */);
+
+    osastate->number_of_rows = 0;
+    osastate->sort_done = false;
+
+    // Register cleanup callback
+    AggRegisterCallback(fcinfo, ordered_set_shutdown, PointerGetDatum(osastate));
+
+    return osastate;
+}
+```

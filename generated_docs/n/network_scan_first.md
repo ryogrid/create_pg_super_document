@@ -33,3 +33,14 @@ The function serves as a boundary function for index scans, helping the planner 
 - Simply delegates to network_network since the network address is already the minimal address in the range
 - Essential for efficient execution of queries involving network containment operations on indexed columns
 - The function returns a Datum, PostgreSQL's universal data value type
+
+## Simplified Source
+
+```c
+Datum
+network_scan_first(Datum in)
+{
+    // Return the network address itself (the first IP in the range)
+    return DirectFunctionCall1(network_network, in);
+}
+```

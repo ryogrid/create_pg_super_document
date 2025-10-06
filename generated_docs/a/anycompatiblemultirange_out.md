@@ -31,3 +31,14 @@ The anycompatiblemultirange pseudotype is part of the "compatible" family of pse
 - Part of the pseudotype infrastructure that enables polymorphic function definitions with enhanced type compatibility checking
 - The actual formatting logic is handled by the concrete multirange type's output function
 - Provides stronger type safety than basic anymultirange by ensuring type compatibility across function parameters
+
+## Simplified Source
+
+```c
+Datum
+anycompatiblemultirange_out(PG_FUNCTION_ARGS)
+{
+    // Simple wrapper: delegate to multirange_out for text output
+    return multirange_out(fcinfo);
+}
+```

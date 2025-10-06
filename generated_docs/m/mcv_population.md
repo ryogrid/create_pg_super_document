@@ -34,3 +34,21 @@ This calculation is essential for selectivity estimation algorithms that need to
 - Critical for proper weighting in multi-source selectivity estimation (MCV + histogram)
 - Helps prevent double-counting when combining statistics from different sources
 - Function is static (internal to network_selfuncs.c) as it's a utility for network selectivity functions
+
+## Simplified Source
+
+```c
+static Selectivity
+mcv_population(float4 *mcv_numbers, int mcv_nvalues)
+{
+    Selectivity sumcommon = 0.0;
+
+    // Sum all MCV frequency values to get total population fraction
+    for (int i = 0; i < mcv_nvalues; i++)
+    {
+        sumcommon += mcv_numbers[i];
+    }
+
+    return sumcommon;
+}
+```

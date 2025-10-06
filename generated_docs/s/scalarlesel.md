@@ -36,3 +36,14 @@ The `scalarlesel` function is PostgreSQL's selectivity estimator specifically fo
 - The function signature follows PostgreSQL's standard function calling convention using the `PG_FUNCTION_ARGS` macro
 - Returns a `Datum` containing a float8 value representing the estimated selectivity (typically between 0.0 and 1.0)
 - Generally produces slightly higher selectivity estimates than `scalarltsel` due to the inclusion of equality matches
+
+## Simplified Source
+```c
+Datum
+scalarlesel(PG_FUNCTION_ARGS)
+{
+    // Delegate to wrapper function for less-than-or-equal comparison
+    // isgt=false (not greater-than), iseq=true (equality-inclusive)
+    return scalarineqsel_wrapper(fcinfo, false, true);
+}
+```

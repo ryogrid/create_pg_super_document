@@ -47,3 +47,43 @@ For non-empty multiranges, the function ensures every range in `mr2` is containe
 - The algorithm discards ranges from mr1 while they are completely left of the current mr2 range
 - Located in src/backend/utils/adt/multirangetypes.c:2266-2327
 - This is the workhorse function that both @> and <@ operators ultimately call
+
+## Simplified Source
+
+```c
+bool multirange_contains_multirange_internal(TypeCacheEntry *rangetyp,
+                                            const MultirangeType *mr1,
+                                            const MultirangeType *mr2) {
+    int32 range_count1 = mr1->rangeCount;
+    int32 range_count2 = mr2->rangeCount;
+
+    // Handle empty multiranges: empty contains empty, non-empty contains empty
+    if (range_count2 == 0)
+        return true;
+    if (range_count1 == 0)
+        return false;
+
+    // Walk through both multiranges in tandem to avoid O(n²) complexity
+    int i1 = 0, i2;
+    RangeBound lower1, upper1, lower2, upper2;
+
+    multirange_get_bounds(rangetyp, mr1, i1, &lower1, &upper1);
+
+    for (i2 = 0; i2 < range_count2; i2++) {
+        multirange_get_bounds(rangetyp, mr2, i2, &lower2, &upper2);
+
+        // Skip ranges in mr1 that are completely left of current mr2 range
+        while (range_cmp_bounds(rangetyp, &upper1, &lower2) < 0) {
+            if (++i1 >= range_count1)
+                return false;  // No more ranges in mr1 to check
+            multirange_get_bounds(rangetyp, mr1, i1, &lower1, &upper1);
+        }
+
+        // Check if current mr1 range contains current mr2 range
+        if (!range_bounds_contains(rangetyp, &lower1, &upper1, &lower2, &upper2))
+            return false;
+    }
+
+    return true;  // All ranges in mr2 are contained
+}
+```

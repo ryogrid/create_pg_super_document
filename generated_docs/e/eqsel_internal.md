@@ -49,3 +49,53 @@ The function also supports negation logic for inequality operators by first comp
 - Automatically handles collation-aware comparisons
 - Releases variable statistics memory using ReleaseVariableStats to prevent memory leaks
 - The function's static nature indicates it's an internal implementation detail not exposed to external modules
+
+## Simplified Source
+
+```c
+static double
+eqsel_internal(PG_FUNCTION_ARGS, bool negate)
+{
+    PlannerInfo *root = (PlannerInfo *) PG_GETARG_POINTER(0);
+    Oid operator = PG_GETARG_OID(1);
+    List *args = (List *) PG_GETARG_POINTER(2);
+    int varRelid = PG_GETARG_INT32(3);
+    Oid collation = PG_GET_COLLATION();
+    VariableStatData vardata;
+    Node *other;
+    bool varonleft;
+    double selec;
+
+    // For inequality (<>), use the corresponding equality operator
+    // and later convert via "1.0 - eq_selectivity - nullfrac"
+    if (negate) {
+        operator = get_negator(operator);
+        if (!OidIsValid(operator)) {
+            return 1.0 - DEFAULT_EQ_SEL;  // Fallback if negator not found
+        }
+    }
+
+    // Extract variable and comparison operand from expression
+    // Return default if not in form "variable = something"
+    if (!get_restriction_variable(root, args, varRelid,
+                                  &vardata, &other, &varonleft)) {
+        return negate ? (1.0 - DEFAULT_EQ_SEL) : DEFAULT_EQ_SEL;
+    }
+
+    // Choose estimation method based on operand type
+    if (IsA(other, Const)) {
+        // More precise estimation when comparing with constant
+        selec = var_eq_const(&vardata, operator, collation,
+                             ((Const *) other)->constvalue,
+                             ((Const *) other)->constisnull,
+                             varonleft, negate);
+    } else {
+        // Variable-to-variable comparison estimation
+        selec = var_eq_non_const(&vardata, operator, collation, other,
+                                 varonleft, negate);
+    }
+
+    ReleaseVariableStats(vardata);
+    return selec;
+}
+```

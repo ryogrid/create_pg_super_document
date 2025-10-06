@@ -40,3 +40,25 @@ This function is typically used in SQL contexts where NULL handling is preferred
 - Commonly used in SQL queries where conditional procedure lookup is needed
 - Part of PostgreSQL's "to_" family of conversion functions that return NULL on failure
 - The function signature follows PostgreSQL's fmgr (function manager) calling convention
+
+## Simplified Source
+
+```c
+Datum to_regprocedure(PG_FUNCTION_ARGS) {
+    // Convert input text to C string
+    char *pro_name = text_to_cstring(PG_GETARG_TEXT_PP(0));
+    Datum result;
+
+    // Set up error context to catch failures
+    ErrorSaveContext escontext = {T_ErrorSaveContext};
+
+    // Safely call regprocedurein - returns false on error
+    if (!DirectInputFunctionCallSafe(regprocedurein, pro_name,
+                                     InvalidOid, -1,
+                                     (Node *) &escontext,
+                                     &result))
+        PG_RETURN_NULL();
+
+    PG_RETURN_DATUM(result);
+}
+```

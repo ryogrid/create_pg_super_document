@@ -40,3 +40,32 @@ The key difference from the newer functions is in the handling of "ESCAPE NULL" 
 - Located in `src/backend/utils/adt/regexp.c:1066-1091`
 - The non-spec handling of "ESCAPE NULL" is preserved intentionally for compatibility
 - New applications should prefer `similar_to_escape_1` or `similar_to_escape_2` instead
+
+## Simplified Source
+
+```c
+Datum
+similar_escape(PG_FUNCTION_ARGS)
+{
+    text *pattern_text;
+    text *escape_text;
+
+    // This function is non-strict, so check for NULL arguments explicitly
+    if (PG_ARGISNULL(0)) {
+        PG_RETURN_NULL();
+    }
+    pattern_text = PG_GETARG_TEXT_PP(0);
+
+    // Handle escape parameter - NULL means use default escape character
+    if (PG_ARGISNULL(1)) {
+        escape_text = NULL;  // Use default backslash escape
+    } else {
+        escape_text = PG_GETARG_TEXT_PP(1);
+    }
+
+    // Convert SIMILAR TO pattern to POSIX regex
+    text *result = similar_escape_internal(pattern_text, escape_text);
+
+    PG_RETURN_TEXT_P(result);
+}
+```

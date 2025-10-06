@@ -41,3 +41,31 @@ Internally, the function uses PostgreSQL's regular expression engine (`RE_compil
 - Located in src/backend/utils/adt/regexp.c:1283-1310
 - Functionally similar to textregexeq/texticregexeq operators but with configurable flags
 - Part of PostgreSQL's SQL standard regex function family
+
+## Simplified Source
+
+```c
+/* Test for pattern match within a string */
+Datum
+regexp_like(PG_FUNCTION_ARGS)
+{
+    text *str = PG_GETARG_TEXT_PP(0);
+    text *pattern = PG_GETARG_TEXT_PP(1);
+    text *flags = PG_GETARG_TEXT_PP_IF_EXISTS(2);
+    pg_re_flags re_flags;
+
+    // Parse regex flags and validate
+    parse_re_flags(&re_flags, flags);
+    if (re_flags.glob) {
+        ereport(ERROR, "regexp_like() does not support global option");
+    }
+
+    // Perform pattern matching and return boolean result
+    PG_RETURN_BOOL(RE_compile_and_execute(pattern,
+                                         VARDATA_ANY(str),
+                                         VARSIZE_ANY_EXHDR(str),
+                                         re_flags.cflags,
+                                         PG_GET_COLLATION(),
+                                         0, NULL));
+}
+```

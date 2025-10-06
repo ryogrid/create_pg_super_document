@@ -57,3 +57,46 @@ This is specifically designed for binary upgrade scenarios where subscription re
 - The sublsn parameter is optional and defaults to InvalidXLogRecPtr if null
 - Located in src/backend/utils/adt/pg_upgrade_support.c:325-368
 - Critical for preserving logical replication subscription states during binary upgrades
+
+## Simplified Source
+
+```c
+Datum
+binary_upgrade_add_sub_rel_state(PG_FUNCTION_ARGS)
+{
+    Relation subrel;
+    Relation rel;
+    Oid subid;
+    char *subname;
+    Oid relid;
+    char relstate;
+    XLogRecPtr sublsn;
+
+    // Ensure function runs only during binary upgrade
+    CHECK_IS_BINARY_UPGRADE;
+
+    // Validate required arguments are not null
+    if (PG_ARGISNULL(0) || PG_ARGISNULL(1) || PG_ARGISNULL(2))
+        elog(ERROR, "null argument to binary_upgrade_add_sub_rel_state is not allowed");
+
+    // Extract function arguments
+    subname = text_to_cstring(PG_GETARG_TEXT_PP(0));
+    relid = PG_GETARG_OID(1);
+    relstate = PG_GETARG_CHAR(2);
+    sublsn = PG_ARGISNULL(3) ? InvalidXLogRecPtr : PG_GETARG_LSN(3);
+
+    // Open subscription catalog and resolve subscription ID
+    subrel = table_open(SubscriptionRelationId, RowExclusiveLock);
+    subid = get_subscription_oid(subname, false);
+    rel = relation_open(relid, AccessShareLock);
+
+    // Add the subscription relation state entry
+    AddSubscriptionRelState(subid, relid, relstate, sublsn, false);
+
+    // Clean up - close relations and release locks
+    relation_close(rel, AccessShareLock);
+    table_close(subrel, RowExclusiveLock);
+
+    PG_RETURN_VOID();
+}
+```

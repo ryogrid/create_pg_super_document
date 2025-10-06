@@ -50,3 +50,42 @@ Key behavioral characteristics:
 - Part of PostgreSQL's SQL standard regex function family
 - More complex than regexp_like as it extracts actual match data rather than just testing for existence
 - Handles wide-character strings internally for proper Unicode support
+
+## Simplified Source
+
+```c
+/* Return first substring(s) matching a pattern within a string */
+Datum
+regexp_match(PG_FUNCTION_ARGS)
+{
+    text *orig_str = PG_GETARG_TEXT_PP(0);
+    text *pattern = PG_GETARG_TEXT_PP(1);
+    text *flags = PG_GETARG_TEXT_PP_IF_EXISTS(2);
+    pg_re_flags re_flags;
+    regexp_matches_ctx *matchctx;
+
+    // Parse regex flags and validate
+    parse_re_flags(&re_flags, flags);
+    if (re_flags.glob) {
+        ereport(ERROR, "regexp_match() does not support global option");
+    }
+
+    // Setup pattern matching with subpattern support
+    matchctx = setup_regexp_matches(orig_str, pattern, &re_flags, 0,
+                                   PG_GET_COLLATION(), true, false, false);
+
+    // Return NULL if no matches found
+    if (matchctx->nmatches == 0) {
+        PG_RETURN_NULL();
+    }
+
+    Assert(matchctx->nmatches == 1);
+
+    // Prepare workspace for result building
+    matchctx->elems = (Datum *) palloc(sizeof(Datum) * matchctx->npatterns);
+    matchctx->nulls = (bool *) palloc(sizeof(bool) * matchctx->npatterns);
+
+    // Build and return result array
+    PG_RETURN_DATUM(PointerGetDatum(build_regexp_match_result(matchctx)));
+}
+```

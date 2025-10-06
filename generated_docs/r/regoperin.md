@@ -46,3 +46,44 @@ The function handles several important cases: numeric OID input for symmetry wit
 - The function is part of PostgreSQL's operator registration and identification system
 - Special handling for '0' input representing InvalidOid/unknown operator
 - Uses the same candidate list mechanism as other operator lookup functions for consistency
+
+## Simplified Source
+
+```c
+Datum regoperin(PG_FUNCTION_ARGS) {
+    char *opr_name_or_oid = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    Oid result;
+
+    // Handle numeric OID input
+    if (parseNumericOid(opr_name_or_oid, &result, escontext))
+        PG_RETURN_OID(result);
+
+    // Bootstrap mode only accepts OIDs
+    if (IsBootstrapProcessingMode())
+        elog(ERROR, "regoper values must be OIDs in bootstrap mode");
+
+    // Parse operator name (possibly schema-qualified)
+    List *names = stringToQualifiedNameList(opr_name_or_oid, escontext);
+    if (names == NIL)
+        PG_RETURN_NULL();
+
+    // Find candidate operators with matching name
+    FuncCandidateList clist = OpernameGetCandidates(names, '\0', true);
+
+    // Check for no matches
+    if (clist == NULL)
+        ereturn(escontext, (Datum) 0,
+                (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                 errmsg("operator does not exist: %s", opr_name_or_oid)));
+
+    // Check for ambiguous matches
+    else if (clist->next != NULL)
+        ereturn(escontext, (Datum) 0,
+                (errcode(ERRCODE_AMBIGUOUS_FUNCTION),
+                 errmsg("more than one operator named %s", opr_name_or_oid)));
+
+    result = clist->oid;
+    PG_RETURN_OID(result);
+}
+```

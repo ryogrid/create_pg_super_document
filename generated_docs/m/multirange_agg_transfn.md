@@ -48,3 +48,58 @@ The function validates that it's being called in a proper aggregate context and 
 - Works in conjunction with a finalize function to implement the complete multirange_agg aggregate
 - Accumulates individual ranges from all input multiranges for later merging
 - Located in src/backend/utils/adt/multirangetypes.c:1412-1464
+
+## Simplified Source
+
+```c
+Datum multirange_agg_transfn(PG_FUNCTION_ARGS) {
+    MemoryContext aggContext;
+    Oid multirangeTypeOid;
+    TypeCacheEntry *typcache;
+    TypeCacheEntry *rangeTypcache;
+    ArrayBuildState *state;
+
+    // Validate aggregate context
+    if (!AggCheckCallContext(fcinfo, &aggContext))
+        elog(ERROR, "multirange_agg_transfn called in non-aggregate context");
+
+    // Validate input is multirange type
+    multirangeTypeOid = get_fn_expr_argtype(fcinfo->flinfo, 1);
+    if (!type_is_multirange(multirangeTypeOid))
+        elog(ERROR, "range_agg must be called with a multirange");
+
+    // Get type cache for range operations
+    typcache = multirange_get_typcache(fcinfo, multirangeTypeOid);
+    rangeTypcache = typcache->rngtype;
+
+    // Initialize or get existing state
+    if (PG_ARGISNULL(0))
+        state = initArrayResult(rangeTypcache->type_id, aggContext, false);
+    else
+        state = (ArrayBuildState *) PG_GETARG_POINTER(0);
+
+    // Process non-null multirange input
+    if (!PG_ARGISNULL(1)) {
+        MultirangeType *current = PG_GETARG_MULTIRANGE_P(1);
+        int32 rangeCount;
+        RangeType **ranges;
+
+        // Decompose multirange into individual ranges
+        multirange_deserialize(rangeTypcache, current, &rangeCount, &ranges);
+
+        if (rangeCount == 0) {
+            // Add empty range for empty multirange
+            accumArrayResult(state,
+                           RangeTypePGetDatum(make_empty_range(rangeTypcache)),
+                           false, rangeTypcache->type_id, aggContext);
+        } else {
+            // Add all ranges from multirange
+            for (int32 i = 0; i < rangeCount; i++)
+                accumArrayResult(state, RangeTypePGetDatum(ranges[i]),
+                               false, rangeTypcache->type_id, aggContext);
+        }
+    }
+
+    PG_RETURN_POINTER(state);
+}
+```

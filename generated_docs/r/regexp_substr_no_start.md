@@ -31,3 +31,14 @@ This function represents a variant of REGEXP_SUBSTR that accepts a reduced param
 - It's a simple pass-through function with no additional logic or parameter processing
 - Located in src/backend/utils/adt/regexp.c:1946-1952
 - Part of a family of regexp_substr wrapper functions that provide different parameter combinations
+
+## Simplified Source
+
+```c
+Datum
+regexp_substr_no_start(PG_FUNCTION_ARGS)
+{
+    // Simple wrapper - delegate to main regexp_substr function
+    return regexp_substr(fcinfo);
+}
+```

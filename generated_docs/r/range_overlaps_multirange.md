@@ -41,5 +41,21 @@ The overlap operation is fundamental for spatial and temporal queries, enabling 
 - Empty ranges and multiranges never overlap with anything, including each other
 - The internal implementation uses binary search for efficient overlap detection in large multiranges
 - Supports all range types: numeric ranges (int4range, numrange), temporal ranges (tsrange, daterange), and custom range types
-- The overlap operation is commutative with 
-- Located in 
+- The overlap operation is commutative with multirange_overlaps_range
+
+## Simplified Source
+
+```c
+Datum range_overlaps_multirange(PG_FUNCTION_ARGS)
+{
+    // Extract range and multirange arguments
+    RangeType *r = PG_GETARG_RANGE_P(0);
+    MultirangeType *mr = PG_GETARG_MULTIRANGE_P(1);
+
+    // Get type cache for range operations
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(mr));
+
+    // Delegate to internal overlap function and return result
+    PG_RETURN_BOOL(range_overlaps_multirange_internal(typcache->rngtype, r, mr));
+}
+``` 

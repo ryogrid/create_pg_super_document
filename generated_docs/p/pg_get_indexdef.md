@@ -38,3 +38,26 @@ This function provides the basic SQL interface for retrieving index definitions 
 - Part of PostgreSQL's rule utilities system for reconstructing DDL statements
 - Located in src/backend/utils/adt/ruleutils.c:1158-1177
 - For more control over output format, use pg_get_indexdef_ext instead
+
+## Simplified Source
+
+```c
+Datum pg_get_indexdef(PG_FUNCTION_ARGS) {
+    // Extract index OID from arguments
+    Oid indexrelid = PG_GETARG_OID(0);
+
+    // Use indented formatting
+    int prettyFlags = PRETTYFLAG_INDENT;
+
+    // Get complete index definition (colno=0) with default settings
+    char *res = pg_get_indexdef_worker(indexrelid, 0, NULL,
+                                      false, false, false, false,
+                                      prettyFlags, true);
+
+    // Return NULL if index not found, otherwise convert to text
+    if (res == NULL)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(string_to_text(res));
+}
+```

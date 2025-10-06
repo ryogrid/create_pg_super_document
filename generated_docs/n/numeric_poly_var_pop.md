@@ -35,3 +35,29 @@ The function extracts the aggregation state from the first argument and delegate
 - The conditional compilation (#ifdef HAVE_INT128) allows PostgreSQL to use the most efficient implementation available on the target platform
 - Population variance calculation (as opposed to sample variance) uses the entire dataset without Bessel's correction
 - Located in src/backend/utils/adt/numeric.c:6462-6482
+
+## Simplified Source
+
+```c
+Datum numeric_poly_var_pop(PG_FUNCTION_ARGS) {
+#ifdef HAVE_INT128
+    PolyNumAggState *state;
+    Numeric result;
+    bool is_null;
+
+    // Extract polymorphic aggregate state
+    state = PG_ARGISNULL(0) ? NULL : (PolyNumAggState *) PG_GETARG_POINTER(0);
+
+    // Calculate population variance using 128-bit integer optimization
+    result = numeric_poly_stddev_internal(state, true, false, &is_null);
+
+    if (is_null)
+        PG_RETURN_NULL();
+    else
+        PG_RETURN_NUMERIC(result);
+#else
+    // Fallback to standard implementation on platforms without 128-bit support
+    return numeric_var_pop(fcinfo);
+#endif
+}
+```

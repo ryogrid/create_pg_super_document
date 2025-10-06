@@ -39,3 +39,39 @@ This function implements array-based string splitting using regular expressions.
 - Uses ArrayBuildState to efficiently build the result array
 - Processes all matches in one function call, unlike the table variant
 - Located at src/backend/utils/adt/regexp.c:1766-1804
+
+## Simplified Source
+
+```c
+Datum regexp_split_to_array(PG_FUNCTION_ARGS) {
+    ArrayBuildState *astate = NULL;
+    pg_re_flags re_flags;
+
+    // Parse regex flags but reject global flag
+    parse_re_flags(&re_flags, PG_GETARG_TEXT_PP_IF_EXISTS(2));
+
+    if (re_flags.glob)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("regexp_split_to_array() does not support the \"global\" option")));
+
+    // Force global matching internally to find all splits
+    re_flags.glob = true;
+
+    // Setup regexp matching for splitting
+    regexp_matches_ctx *splitctx = setup_regexp_matches(PG_GETARG_TEXT_PP(0),
+                                                        PG_GETARG_TEXT_PP(1),
+                                                        &re_flags, 0,
+                                                        PG_GET_COLLATION(),
+                                                        false, true, true);
+
+    // Accumulate all split results into array
+    while (splitctx->next_match <= splitctx->nmatches) {
+        astate = accumArrayResult(astate,
+                                 build_regexp_split_result(splitctx),
+                                 false, TEXTOID, CurrentMemoryContext);
+        splitctx->next_match++;
+    }
+
+    PG_RETURN_DATUM(makeArrayResult(astate, CurrentMemoryContext));
+}
+```

@@ -33,3 +33,56 @@ The function maintains the invariant that the accumulator always has space for o
 - The have_carry_space flag is updated to track whether the reserved space for carry has been consumed
 - The weight of the accumulator is maintained to be one larger than needed before carrying to ensure sufficient space
 - After completion, num_uncarried is reset to 0 to indicate that carry propagation is up to date
+
+## Simplified Source
+
+```c
+static void accum_sum_carry(NumericSumAccum *accum) {
+    int32 *dig;
+    int32 carry;
+    int32 newdig = 0;
+
+    // Skip if no uncarried values
+    if (accum->num_uncarried == 0)
+        return;
+
+    int ndigits = accum->ndigits;
+
+    // Propagate carry in positive sum
+    dig = accum->pos_digits;
+    carry = 0;
+    for (int i = ndigits - 1; i >= 0; i--) {
+        newdig = dig[i] + carry;
+        if (newdig >= NBASE) {
+            carry = newdig / NBASE;
+            newdig -= carry * NBASE;
+        } else {
+            carry = 0;
+        }
+        dig[i] = newdig;
+    }
+
+    // Track if carry space was used
+    if (newdig > 0)
+        accum->have_carry_space = false;
+
+    // Propagate carry in negative sum
+    dig = accum->neg_digits;
+    carry = 0;
+    for (int i = ndigits - 1; i >= 0; i--) {
+        newdig = dig[i] + carry;
+        if (newdig >= NBASE) {
+            carry = newdig / NBASE;
+            newdig -= carry * NBASE;
+        } else {
+            carry = 0;
+        }
+        dig[i] = newdig;
+    }
+
+    if (newdig > 0)
+        accum->have_carry_space = false;
+
+    accum->num_uncarried = 0;
+}
+```

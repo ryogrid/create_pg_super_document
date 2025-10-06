@@ -49,3 +49,32 @@ The function uses PostgreSQL's standard function argument mechanism:
 - Critical for LSN calculations in replication lag monitoring and WAL position arithmetic
 - The conversion through numeric type ensures precision is maintained for large values
 - Located in src/backend/utils/adt/pg_lsn.c:251-284
+
+## Simplified Source
+
+```c
+Datum pg_lsn_pli(PG_FUNCTION_ARGS) {
+    // Extract LSN and numeric offset arguments
+    XLogRecPtr lsn = PG_GETARG_LSN(0);
+    Numeric nbytes = PG_GETARG_NUMERIC(1);
+    char buf[32];
+
+    // Validate numeric input is not NaN
+    if (numeric_is_nan(nbytes))
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("cannot add NaN to pg_lsn")));
+
+    // Convert LSN to numeric for arbitrary precision arithmetic
+    snprintf(buf, sizeof(buf), UINT64_FORMAT, lsn);
+    Datum num = DirectFunctionCall3(numeric_in,
+                                   CStringGetDatum(buf),
+                                   ObjectIdGetDatum(0),
+                                   Int32GetDatum(-1));
+
+    // Add the two numeric values
+    Datum res = DirectFunctionCall2(numeric_add, num, NumericGetDatum(nbytes));
+
+    // Convert result back to LSN type
+    return DirectFunctionCall1(numeric_pg_lsn, res);
+}
+```

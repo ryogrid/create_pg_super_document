@@ -32,3 +32,14 @@ This SQL-callable function provides access to the background writer's throttling
 - Useful for tuning background writer parameters to balance I/O load and cleaning effectiveness
 - The underlying data comes from the background writer statistics structure maintained by the statistics collector
 - Located in src/backend/utils/adt/pgstatfuncs.c:1225-1230
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_get_bgwriter_maxwritten_clean(PG_FUNCTION_ARGS)
+{
+    // Return times background writer stopped cleaning due to max write limit
+    return pgstat_fetch_stat_bgwriter()->maxwritten_clean;
+}
+```

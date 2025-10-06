@@ -44,4 +44,26 @@ The function extracts the bounds from the range and from the first range in the 
 - The function comment indicates "does not extend to left of?" which corresponds to the &> operator
 - Part of PostgreSQL's range and multirange type system for spatial/temporal comparisons
 - Located in 
-- The comparison  returns true when the range's lower bound is greater than or equal to the multirange's lower bound
+- The comparison returns true when the range's lower bound is greater than or equal to the multirange's lower bound
+
+## Simplified Source
+
+```c
+bool range_overright_multirange_internal(TypeCacheEntry *rangetyp,
+                                        const RangeType *r,
+                                        const MultirangeType *mr) {
+    // Return false if either is empty
+    if (RangeIsEmpty(r) || MultirangeIsEmpty(mr))
+        return false;
+
+    // Get bounds from range and leftmost range in multirange
+    RangeBound r_lower, r_upper, mr_lower, mr_upper;
+    bool empty;
+
+    range_deserialize(rangetyp, r, &r_lower, &r_upper, &empty);
+    multirange_get_bounds(rangetyp, mr, 0, &mr_lower, &mr_upper);
+
+    // Range overright multirange if range's lower >= multirange's lower
+    return (range_cmp_bounds(rangetyp, &r_lower, &mr_lower) >= 0);
+}
+```

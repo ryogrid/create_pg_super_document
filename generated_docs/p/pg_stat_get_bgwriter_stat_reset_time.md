@@ -29,3 +29,14 @@ This function takes no parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL fu
 - This is part of PostgreSQL's statistics collection system for monitoring background writer performance
 - The timestamp helps administrators understand when statistics were last reset for proper interpretation of cumulative counters
 - Works similarly to pg_stat_get_checkpointer_stat_reset_time but for background writer statistics
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_get_bgwriter_stat_reset_time(PG_FUNCTION_ARGS)
+{
+    // Return timestamp when background writer statistics were last reset
+    return pgstat_fetch_stat_bgwriter()->stat_reset_timestamp;
+}
+```

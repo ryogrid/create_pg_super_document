@@ -44,3 +44,37 @@ On platforms without 128-bit support, it falls back to using the standard `numer
 - Handles NULL state appropriately by returning NULL for empty result sets
 - Uses proper memory management and datum conversion functions
 - Located in src/backend/utils/adt/numeric.c:6114-6143
+
+## Simplified Source
+
+```c
+Datum
+numeric_poly_avg(PG_FUNCTION_ARGS)
+{
+#ifdef HAVE_INT128
+    PolyNumAggState *state;
+    NumericVar result;
+
+    state = PG_ARGISNULL(0) ? NULL : (PolyNumAggState *) PG_GETARG_POINTER(0);
+
+    // Return NULL if no non-null inputs
+    if (state == NULL || state->N == 0)
+        return NULL;
+
+    // Convert sum and count to numeric, then divide
+    init_var(&result);
+    int128_to_numericvar(state->sumX, &result);
+
+    Datum countd = NumericGetDatum(int64_to_numeric(state->N));
+    Datum sumd = NumericGetDatum(make_result(&result));
+
+    free_var(&result);
+
+    // Perform division to get average
+    return DirectFunctionCall2(numeric_div, sumd, countd);
+#else
+    // Fallback to standard numeric average
+    return numeric_avg(fcinfo);
+#endif
+}
+```

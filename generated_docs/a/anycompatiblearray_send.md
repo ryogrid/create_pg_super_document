@@ -29,3 +29,14 @@ The anycompatiblearray_send function serves as a binary output function for the 
 - Binary output functions are used for network transmission, replication, and storage of data values
 - This function complements anycompatiblearray_out by providing binary serialization instead of text output
 - Essential for PostgreSQL's client-server protocol when transmitting anycompatiblearray values in binary format
+
+## Simplified Source
+
+```c
+Datum
+anycompatiblearray_send(PG_FUNCTION_ARGS)
+{
+    // Simple wrapper: delegate to array_send for binary output
+    return array_send(fcinfo);
+}
+```

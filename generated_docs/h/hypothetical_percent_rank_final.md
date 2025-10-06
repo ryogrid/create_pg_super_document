@@ -32,3 +32,23 @@ The function handles the special case where there are no regular rows by returni
 - The calculation formula (rank-1)/rowcount ensures the first-ranked item gets percentile 0.0 and creates proper distribution
 - Used in SQL queries like 
 - Located in src/backend/utils/adt/orderedsetaggs.c:1258-1277
+
+## Simplified Source
+```c
+Datum hypothetical_percent_rank_final(PG_FUNCTION_ARGS) {
+    int64 rank, rowcount;
+    double result_val;
+
+    // Get rank of hypothetical row (flag -1 for standard ranking)
+    rank = hypothetical_rank_common(fcinfo, -1, &rowcount);
+
+    // Return 0.0 if no regular rows exist
+    if (rowcount == 0)
+        PG_RETURN_FLOAT8(0);
+
+    // Calculate percentile rank: (rank - 1) / total_rows
+    result_val = (double) (rank - 1) / (double) rowcount;
+
+    PG_RETURN_FLOAT8(result_val);
+}
+```

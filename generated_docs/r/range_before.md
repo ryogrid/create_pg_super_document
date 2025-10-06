@@ -33,8 +33,24 @@ A range is considered "before" another if there is a clear gap between them, wit
   - No direct references found in the codebase (likely called via SQL operator <<)
 
 ## Notes and Other Information
-- This function is typically invoked through the PostgreSQL SQL operator  for range "strictly left of" comparisons
-- The actual comparison logic is delegated to  which handles the detailed bound comparisons
+- This function is typically invoked through the PostgreSQL SQL operator << for range "strictly left of" comparisons
+- The actual comparison logic is delegated to range_before_internal which handles the detailed bound comparisons
 - Uses PostgreSQL's type cache system for efficient type-specific operations
 - Empty ranges are handled specially by the internal function (neither before nor after any range)
-- Located in 
+- Located in src/backend/utils/adt/rangetypes.c:689-701
+
+## Simplified Source
+
+```c
+Datum range_before(PG_FUNCTION_ARGS) {
+    RangeType *r1 = PG_GETARG_RANGE_P(0);
+    RangeType *r2 = PG_GETARG_RANGE_P(1);
+    TypeCacheEntry *typcache;
+
+    // Get type cache for range operations
+    typcache = range_get_typcache(fcinfo, RangeTypeGetOid(r1));
+
+    // Delegate to internal function and return result
+    PG_RETURN_BOOL(range_before_internal(typcache, r1, r2));
+}
+``` 

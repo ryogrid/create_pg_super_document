@@ -42,4 +42,20 @@ This function is essential for providing complete operator coverage in SQL, allo
 - Empty ranges and multiranges never overlap with anything, following PostgreSQL range semantics
 - Uses the same internal implementation as , ensuring consistent behavior
 - The argument order difference is purely for SQL syntax convenience and operator symmetry
-- Located in 
+
+## Simplified Source
+
+```c
+Datum multirange_overlaps_range(PG_FUNCTION_ARGS)
+{
+    // Extract multirange and range arguments (reverse order from range_overlaps_multirange)
+    MultirangeType *mr = PG_GETARG_MULTIRANGE_P(0);
+    RangeType *r = PG_GETARG_RANGE_P(1);
+
+    // Get type cache for range operations
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(mr));
+
+    // Use same internal function - overlap is commutative
+    PG_RETURN_BOOL(range_overlaps_multirange_internal(typcache->rngtype, r, mr));
+}
+``` 

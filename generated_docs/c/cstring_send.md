@@ -39,3 +39,24 @@ The `cstring_send` function serves as the binary output conversion function for 
 - The function follows the standard PostgreSQL pattern for binary type output functions
 - Located in `src/backend/utils/adt/pseudotypes.c:134-157`
 - Returns the serialized data as a bytea (byte array) suitable for network transmission
+
+## Simplified Source
+
+```c
+Datum
+cstring_send(PG_FUNCTION_ARGS)
+{
+    // Get the input cstring
+    char *str = PG_GETARG_CSTRING(0);
+
+    // Initialize binary output buffer
+    StringInfoData buf;
+    pq_begintypsend(&buf);
+
+    // Write the string data to buffer
+    pq_sendtext(&buf, str, strlen(str));
+
+    // Finalize and return as bytea
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

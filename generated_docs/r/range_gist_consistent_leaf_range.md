@@ -50,3 +50,48 @@ The function supports all standard range spatial relationship operators and dire
 - The function acts as a strategy dispatcher, delegating to specialized internal comparison functions
 - Used specifically for leaf-level index operations where precision is required rather than the conservative approximations needed for internal nodes
 - Each strategy maps directly to a corresponding range comparison function that implements the exact semantics of that spatial relationship
+
+## Simplified Source
+
+```c
+static bool
+range_gist_consistent_leaf_range(TypeCacheEntry *typcache,
+                                StrategyNumber strategy,
+                                const RangeType *key,
+                                const RangeType *query)
+{
+    switch (strategy)
+    {
+        case RANGESTRAT_BEFORE:
+            return range_before_internal(typcache, key, query);
+
+        case RANGESTRAT_OVERLEFT:
+            return range_overleft_internal(typcache, key, query);
+
+        case RANGESTRAT_OVERLAPS:
+            return range_overlaps_internal(typcache, key, query);
+
+        case RANGESTRAT_OVERRIGHT:
+            return range_overright_internal(typcache, key, query);
+
+        case RANGESTRAT_AFTER:
+            return range_after_internal(typcache, key, query);
+
+        case RANGESTRAT_ADJACENT:
+            return range_adjacent_internal(typcache, key, query);
+
+        case RANGESTRAT_CONTAINS:
+            return range_contains_internal(typcache, key, query);
+
+        case RANGESTRAT_CONTAINED_BY:
+            return range_contained_by_internal(typcache, key, query);
+
+        case RANGESTRAT_EQ:
+            return range_eq_internal(typcache, key, query);
+
+        default:
+            elog(ERROR, "unrecognized range strategy: %d", strategy);
+            return false;
+    }
+}
+```

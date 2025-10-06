@@ -53,3 +53,75 @@ The function performs comprehensive parameter validation, sets up the regex matc
 - Returns NULL for invalid match positions, missing occurrences, or non-existent subexpressions
 - The function is located in src/backend/utils/adt/regexp.c:1858-1945
 - Other regexp_substr variants delegate to this main function with default parameter values
+
+## Simplified Source
+
+```c
+Datum regexp_substr(PG_FUNCTION_ARGS) {
+    text *str = PG_GETARG_TEXT_PP(0);
+    text *pattern = PG_GETARG_TEXT_PP(1);
+    int start = 1;
+    int n = 1;
+    text *flags = PG_GETARG_TEXT_PP_IF_EXISTS(4);
+    int subexpr = 0;
+
+    // Parse optional parameters with validation
+    if (PG_NARGS() > 2) {
+        start = PG_GETARG_INT32(2);
+        if (start <= 0)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("invalid value for parameter \"start\": %d", start)));
+    }
+
+    if (PG_NARGS() > 3) {
+        n = PG_GETARG_INT32(3);
+        if (n <= 0)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("invalid value for parameter \"n\": %d", n)));
+    }
+
+    if (PG_NARGS() > 5) {
+        subexpr = PG_GETARG_INT32(5);
+        if (subexpr < 0)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("invalid value for parameter \"subexpr\": %d", subexpr)));
+    }
+
+    // Parse regex flags but reject global flag
+    pg_re_flags re_flags;
+    parse_re_flags(&re_flags, flags);
+
+    if (re_flags.glob)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("regexp_substr() does not support the \"global\" option")));
+
+    // Force global matching internally to find all occurrences
+    re_flags.glob = true;
+
+    // Setup regexp matching
+    regexp_matches_ctx *matchctx = setup_regexp_matches(str, pattern, &re_flags,
+                                                        start - 1, PG_GET_COLLATION(),
+                                                        (subexpr > 0), false, false);
+
+    // Return NULL if requested occurrence or subexpression not found
+    if (n > matchctx->nmatches || subexpr > matchctx->npatterns)
+        PG_RETURN_NULL();
+
+    // Calculate position of requested match/subexpression
+    int pos = (n - 1) * matchctx->npatterns;
+    if (subexpr > 0) pos += subexpr - 1;
+    pos *= 2;
+
+    int so = matchctx->match_locs[pos];
+    int eo = matchctx->match_locs[pos + 1];
+
+    if (so < 0 || eo < 0)
+        PG_RETURN_NULL();  // unidentifiable location
+
+    // Extract and return the matching substring
+    PG_RETURN_DATUM(DirectFunctionCall3(text_substr,
+                                       PointerGetDatum(matchctx->orig_str),
+                                       Int32GetDatum(so + 1),
+                                       Int32GetDatum(eo - so)));
+}
+```

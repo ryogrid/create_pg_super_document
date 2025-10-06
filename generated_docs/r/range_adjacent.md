@@ -37,3 +37,19 @@ Two ranges are considered adjacent if they touch at exactly one boundary point w
 - The function is registered in the PostgreSQL system catalogs as the implementation for range adjacency operations
 - Relies on range_adjacent_internal for the core adjacency logic
 - Located in src/backend/utils/adt/rangetypes.c:828-840
+
+## Simplified Source
+
+```c
+Datum range_adjacent(PG_FUNCTION_ARGS) {
+    RangeType *r1 = PG_GETARG_RANGE_P(0);
+    RangeType *r2 = PG_GETARG_RANGE_P(1);
+    TypeCacheEntry *typcache;
+
+    // Get type cache for range operations
+    typcache = range_get_typcache(fcinfo, RangeTypeGetOid(r1));
+
+    // Delegate to internal function and return result
+    PG_RETURN_BOOL(range_adjacent_internal(typcache, r1, r2));
+}
+```

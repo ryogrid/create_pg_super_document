@@ -48,3 +48,49 @@ The compression process extracts essential information from the inet value inclu
 - Memory allocation uses PostgreSQL's palloc which is automatically freed at transaction end
 - The function handles NULL values by initializing entries with zero Datum
 - File location: src/backend/utils/adt/network_gist.c:542-589
+
+## Simplified Source
+
+```c
+Datum
+inet_gist_compress(PG_FUNCTION_ARGS)
+{
+    GISTENTRY *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
+    GISTENTRY *retval;
+
+    if (entry->leafkey)
+    {
+        // Compress inet value to GistInetKey format for leaf entries
+        retval = palloc(sizeof(GISTENTRY));
+
+        if (DatumGetPointer(entry->key) != NULL)
+        {
+            inet *in = DatumGetInetPP(entry->key);
+            GistInetKey *r = palloc0(sizeof(GistInetKey));
+
+            // Extract and store inet components in compressed format
+            gk_ip_family(r) = ip_family(in);
+            gk_ip_minbits(r) = ip_bits(in);
+            gk_ip_commonbits(r) = gk_ip_maxbits(r);
+            memcpy(gk_ip_addr(r), ip_addr(in), gk_ip_addrsize(r));
+            SET_GK_VARSIZE(r);
+
+            gistentryinit(*retval, PointerGetDatum(r),
+                          entry->rel, entry->page, entry->offset, false);
+        }
+        else
+        {
+            // Handle NULL input
+            gistentryinit(*retval, (Datum) 0,
+                          entry->rel, entry->page, entry->offset, false);
+        }
+    }
+    else
+    {
+        // Internal nodes already compressed - return as-is
+        retval = entry;
+    }
+
+    PG_RETURN_POINTER(retval);
+}
+```

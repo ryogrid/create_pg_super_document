@@ -36,3 +36,20 @@ The `cstring_recv` function serves as the binary input conversion function for P
 - Used in PostgreSQL's binary protocol communication for efficient data transfer
 - Located in `src/backend/utils/adt/pseudotypes.c:123-133`
 - The `StringInfo` parameter represents a buffer with current position tracking via the cursor field
+
+## Simplified Source
+
+```c
+Datum
+cstring_recv(PG_FUNCTION_ARGS)
+{
+    // Get the input message buffer
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+
+    // Extract text from the remaining buffer content
+    int nbytes;
+    char *str = pq_getmsgtext(buf, buf->len - buf->cursor, &nbytes);
+
+    PG_RETURN_CSTRING(str);
+}
+```

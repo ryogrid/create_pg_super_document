@@ -32,3 +32,15 @@ This SQL-callable function provides access to the checkpointer's write time stat
 - The underlying data comes from the checkpointer statistics structure maintained by the statistics collector
 - Useful for diagnosing I/O performance issues and checkpoint tuning
 - Located in src/backend/utils/adt/pgstatfuncs.c:1231-1238
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_get_checkpointer_write_time(PG_FUNCTION_ARGS)
+{
+    // Convert write time from milliseconds to double for SQL presentation
+    double write_time = (double) pgstat_fetch_stat_checkpointer()->write_time;
+    return write_time;
+}
+```

@@ -41,3 +41,33 @@ The function includes comprehensive tracing support for debugging sort performan
 - The 100k distinct value threshold represents a commitment point where abbreviation is deemed definitively beneficial
 - Trace logging is conditionally compiled and only active when both TRACE_SORT is defined and trace_sort is enabled
 - The function is designed to work with PostgreSQL's adaptive sorting infrastructure, balancing memory usage against comparison speed
+
+## Simplified Source
+
+```c
+static bool network_abbrev_abort(int memtupcount, SortSupport ssup) {
+    network_sortsupport_state *uss = ssup->ssup_extra;
+    double abbr_card;
+
+    // Early exit if insufficient data or not estimating
+    if (memtupcount < 10000 || uss->input_count < 10000 || !uss->estimating)
+        return false;
+
+    // Get cardinality estimate from HyperLogLog
+    abbr_card = estimateHyperLogLog(&uss->abbr_card);
+
+    // High cardinality: commit to abbreviation, stop estimating
+    if (abbr_card > 100000.0) {
+        uss->estimating = false;
+        return false;
+    }
+
+    // Low cardinality: abort abbreviation
+    // Threshold is ~1 distinct value per 2000 inputs
+    if (abbr_card < uss->input_count / 2000.0 + 0.5) {
+        return true; // Abort abbreviation
+    }
+
+    return false; // Continue with abbreviation
+}
+```

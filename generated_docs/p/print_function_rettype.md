@@ -36,3 +36,38 @@ This internal function formats and appends a function's return type specificatio
 - The function distinguishes between table functions and regular functions based on whether print_function_arguments succeeds in generating table column definitions
 - For set-returning functions that aren't table functions, it prefixes the return type with 'SETOF'
 - Part of the core functionality for generating CREATE FUNCTION statements and function signatures
+
+## Simplified Source
+
+```c
+static void
+print_function_rettype(StringInfo buf, HeapTuple proctup)
+{
+    Form_pg_proc proc = (Form_pg_proc) GETSTRUCT(proctup);
+    int ntabargs = 0;
+    StringInfoData rbuf;
+
+    initStringInfo(&rbuf);
+
+    if (proc->proretset)
+    {
+        // Try to format as table function first
+        appendStringInfoString(&rbuf, "TABLE(");
+        ntabargs = print_function_arguments(&rbuf, proctup, true, false);
+        if (ntabargs > 0)
+            appendStringInfoChar(&rbuf, ')');
+        else
+            resetStringInfo(&rbuf);
+    }
+
+    if (ntabargs == 0)
+    {
+        // Regular function return type
+        if (proc->proretset)
+            appendStringInfoString(&rbuf, "SETOF ");
+        appendStringInfoString(&rbuf, format_type_be(proc->prorettype));
+    }
+
+    appendBinaryStringInfo(buf, rbuf.data, rbuf.len);
+}
+```

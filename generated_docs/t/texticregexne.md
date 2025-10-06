@@ -37,3 +37,20 @@ The `texticregexne` function implements the SQL operator `!~*` for PostgreSQL's 
 - Handles variable-length text data with proper detoasting support
 - Part of PostgreSQL's comprehensive set of regular expression operators for different data types
 - The function is typically invoked through SQL expressions rather than direct function calls
+
+## Simplified Source
+
+```c
+Datum texticregexne(PG_FUNCTION_ARGS) {
+    text *source = PG_GETARG_TEXT_PP(0);
+    text *pattern = PG_GETARG_TEXT_PP(1);
+
+    // Return negated result of case-insensitive regex matching on text
+    PG_RETURN_BOOL(!RE_compile_and_execute(pattern,
+                                          VARDATA_ANY(source),
+                                          VARSIZE_ANY_EXHDR(source),
+                                          REG_ADVANCED | REG_ICASE,
+                                          PG_GET_COLLATION(),
+                                          0, NULL));
+}
+```

@@ -56,3 +56,57 @@ For example, a query like "WHERE network_col <<= '192.168.1.0/24'" becomes:
 - Returns NIL (empty list) if optimization is not possible
 - Part of PostgreSQL's advanced index optimization infrastructure for network data types
 - Strategy numbers (BTGreaterEqualStrategyNumber, etc.) correspond to standard B-tree comparison operators
+
+## Simplified Source
+
+```c
+static List *
+match_network_subset(Node *leftop, Node *rightop, bool is_eq, Oid opfamily)
+{
+    List       *result;
+    Datum       rightopval;
+    Oid         opr1oid, opr2oid;
+    Datum       opr1right, opr2right;
+    Expr       *expr;
+
+    // Only work with non-null constants
+    if (!IsA(rightop, Const) || ((Const *) rightop)->constisnull)
+        return NIL;
+    rightopval = ((Const *) rightop)->constvalue;
+
+    // Must be network B-tree operator family
+    if (opfamily != NETWORK_BTREE_FAM_OID)
+        return NIL;
+
+    // Create lower bound clause: "key >= network_scan_first(rightopval)"
+    // Use ">" instead of ">=" if equality not allowed
+    if (is_eq)
+        opr1oid = get_opfamily_member(opfamily, INETOID, INETOID, BTGreaterEqualStrategyNumber);
+    else
+        opr1oid = get_opfamily_member(opfamily, INETOID, INETOID, BTGreaterStrategyNumber);
+
+    if (opr1oid == InvalidOid)
+        elog(ERROR, "no >= operator for opfamily %u", opfamily);
+
+    opr1right = network_scan_first(rightopval);
+    expr = make_opclause(opr1oid, BOOLOID, false,
+                        (Expr *) leftop,
+                        (Expr *) makeConst(INETOID, -1, InvalidOid, -1, opr1right, false, false),
+                        InvalidOid, InvalidOid);
+    result = list_make1(expr);
+
+    // Create upper bound clause: "key <= network_scan_last(rightopval)"
+    opr2oid = get_opfamily_member(opfamily, INETOID, INETOID, BTLessEqualStrategyNumber);
+    if (opr2oid == InvalidOid)
+        elog(ERROR, "no <= operator for opfamily %u", opfamily);
+
+    opr2right = network_scan_last(rightopval);
+    expr = make_opclause(opr2oid, BOOLOID, false,
+                        (Expr *) leftop,
+                        (Expr *) makeConst(INETOID, -1, InvalidOid, -1, opr2right, false, false),
+                        InvalidOid, InvalidOid);
+    result = lappend(result, expr);
+
+    return result;
+}
+```

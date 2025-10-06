@@ -46,3 +46,17 @@ The comparison follows PostgreSQL's established multirange ordering rules:
 - The function is registered as part of the multirange operator class for complete B-tree indexing support
 - Type safety and validation are ensured through the multirange_cmp function
 - Essential for implementing full SQL comparison semantics and enabling efficient query execution on multirange data
+
+## Simplified Source
+
+```c
+Datum
+multirange_gt(PG_FUNCTION_ARGS)
+{
+    // Use comparison function to determine ordering
+    int cmp = multirange_cmp(fcinfo);
+
+    // Return true if first multirange is strictly greater than second
+    PG_RETURN_BOOL(cmp > 0);
+}
+```

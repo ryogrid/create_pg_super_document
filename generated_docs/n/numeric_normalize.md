@@ -37,3 +37,44 @@ The  function produces a canonical string representation of PostgreSQL's Numeric
 - Particularly important for GIN indexing and JSON operations where string representation consistency matters
 - Located in src/backend/utils/adt/numeric.c:1024-1075
 - The normalization algorithm works backwards from the end of the string to efficiently remove trailing zeros
+
+## Simplified Source
+
+```c
+char *numeric_normalize(Numeric num) {
+    NumericVar x;
+    char *str;
+    int last;
+
+    // Handle special values
+    if (NUMERIC_IS_SPECIAL(num)) {
+        if (NUMERIC_IS_PINF(num))
+            return pstrdup("Infinity");
+        else if (NUMERIC_IS_NINF(num))
+            return pstrdup("-Infinity");
+        else
+            return pstrdup("NaN");
+    }
+
+    // Convert to internal representation and get string
+    init_var_from_num(num, &x);
+    str = get_str_from_var(&x);
+
+    // Remove trailing zeros and decimal point if needed
+    if (strchr(str, '.') != NULL) {
+        // Find last non-zero character
+        last = strlen(str) - 1;
+        while (str[last] == '0')
+            last--;
+
+        // Remove decimal point if it's now the last character
+        if (str[last] == '.')
+            last--;
+
+        // Truncate string at the new end
+        str[last + 1] = '\0';
+    }
+
+    return str;
+}
+```

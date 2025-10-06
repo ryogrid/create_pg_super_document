@@ -52,3 +52,46 @@ The function is designed to work across memory contexts, allowing callers to be 
 - The final result is the sum of the positive NumericVar and negative NumericVar (which effectively performs subtraction due to the negative sign)
 - Leading and trailing zeros are stripped to maintain canonical numeric representation
 - Unlike other accumulator functions, this one doesn't require the caller to be in the accumulator's memory context
+
+## Simplified Source
+
+```c
+static void accum_sum_final(NumericSumAccum *accum, NumericVar *result) {
+    // Return zero if no accumulated digits
+    if (accum->ndigits == 0) {
+        set_var_from_var(&const_zero, result);
+        return;
+    }
+
+    // Perform final carry propagation
+    accum_sum_carry(accum);
+
+    // Create NumericVars for positive and negative sums
+    NumericVar pos_var, neg_var;
+    init_var(&pos_var);
+    init_var(&neg_var);
+
+    // Set common properties
+    pos_var.ndigits = neg_var.ndigits = accum->ndigits;
+    pos_var.weight = neg_var.weight = accum->weight;
+    pos_var.dscale = neg_var.dscale = accum->dscale;
+    pos_var.sign = NUMERIC_POS;
+    neg_var.sign = NUMERIC_NEG;
+
+    // Allocate digit buffers
+    pos_var.buf = pos_var.digits = digitbuf_alloc(accum->ndigits);
+    neg_var.buf = neg_var.digits = digitbuf_alloc(accum->ndigits);
+
+    // Convert int32 accumulator digits to int16 NumericDigits
+    for (int i = 0; i < accum->ndigits; i++) {
+        pos_var.digits[i] = (int16) accum->pos_digits[i];
+        neg_var.digits[i] = (int16) accum->neg_digits[i];
+    }
+
+    // Combine positive and negative sums
+    add_var(&pos_var, &neg_var, result);
+
+    // Clean up result
+    strip_var(result);
+}
+```

@@ -35,3 +35,12 @@ When a user attempts to change the LC_TIME setting via configuration files, SQL 
 - The LC_TIME locale affects formatting of dates, times, month names, day names, and other temporal display elements
 - Validation includes checking for ASCII-only characters and testing actual locale availability on the system
 - Critical for ensuring consistent time and date formatting across the database system
+
+## Simplified Source
+
+```c
+bool check_locale_time(char **newval, void **extra, GucSource source) {
+    // Validate time locale using generic locale checker
+    return check_locale(LC_TIME, *newval, NULL);
+}
+```

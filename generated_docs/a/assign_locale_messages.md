@@ -36,3 +36,15 @@ The function uses  which is PostgreSQL's wrapper around the standard  function, 
 - Only compiled and executed on platforms that support LC_MESSAGES category
 - Works in conjunction with  to provide complete locale validation and assignment
 - The function allows LC_MESSAGES to be set globally, which is unique among PostgreSQL locale settings
+
+## Simplified Source
+
+```c
+void assign_locale_messages(const char *newval, void *extra) {
+    // Set LC_MESSAGES locale on platforms that support it
+    // Ignore failures for robustness
+#ifdef LC_MESSAGES
+    pg_perm_setlocale(LC_MESSAGES, newval);
+#endif
+}
+```

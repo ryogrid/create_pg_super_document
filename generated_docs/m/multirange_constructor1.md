@@ -33,3 +33,31 @@ This function creates a multirange containing exactly one range element. While i
 - Performs type validation to ensure the input range matches the constructor's expected range type
 - Raises an error if a NULL range is provided, as multirange values cannot contain null members
 - Located in src/backend/utils/adt/multirangetypes.c:1023-1058
+
+## Simplified Source
+
+```c
+Datum
+multirange_constructor1(PG_FUNCTION_ARGS)
+{
+    Oid multirange_type_id = get_fn_expr_rettype(fcinfo->flinfo);
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, multirange_type_id);
+    TypeCacheEntry *range_type = typcache->rngtype;
+
+    // Validate input is not null
+    if (PG_ARGISNULL(0))
+        elog(ERROR, "multirange values cannot contain null members");
+
+    RangeType *range = PG_GETARG_RANGE_P(0);
+
+    // Validate range type matches constructor type
+    Oid range_type_id = RangeTypeGetOid(range);
+    if (range_type_id != range_type->type_id)
+        elog(ERROR, "type %u does not match constructor type", range_type_id);
+
+    // Create multirange with single range
+    PG_RETURN_MULTIRANGE_P(make_multirange(multirange_type_id, range_type, 1, &range));
+}
+```
+
+This function creates a multirange from a single range input, primarily used for casting operations from range types to multirange types.

@@ -36,3 +36,21 @@ The function extracts specific flag values to determine formatting (RULE_INDEXDE
 - The function maintains compatibility with the simpler pg_get_indexdef_columns while providing enhanced functionality
 - Returns a palloc'd string that should be freed by the caller when no longer needed
 - Part of PostgreSQL's extensible rule utilities framework for object definition formatting
+
+## Simplified Source
+
+```c
+char *pg_get_indexdef_columns_extended(Oid indexrelid, bits16 flags) {
+    // Extract behavior flags
+    bool pretty = ((flags & RULE_INDEXDEF_PRETTY) != 0);
+    bool keys_only = ((flags & RULE_INDEXDEF_KEYS_ONLY) != 0);
+
+    // Convert pretty flag to formatting flags
+    int prettyFlags = GET_PRETTY_FLAGS(pretty);
+
+    // Delegate to worker function with flag-based parameters
+    return pg_get_indexdef_worker(indexrelid, 0, NULL,
+                                 true, keys_only, false, false,
+                                 prettyFlags, false);
+}
+```

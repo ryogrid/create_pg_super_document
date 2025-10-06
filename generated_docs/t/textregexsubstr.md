@@ -45,3 +45,43 @@ The `textregexsubstr` function implements PostgreSQL's regular expression substr
 - Leverages PostgreSQL's text_substr function for the final substring extraction
 - Part of PostgreSQL's comprehensive regular expression functionality
 - Typically called through SQL substring() function with regex patterns
+
+## Simplified Source
+
+```c
+Datum textregexsubstr(PG_FUNCTION_ARGS) {
+    text *source = PG_GETARG_TEXT_PP(0);
+    text *pattern = PG_GETARG_TEXT_PP(1);
+    regex_t *compiled_re;
+    regmatch_t matches[2];
+    int start_offset, end_offset;
+
+    // Compile and cache the regular expression
+    compiled_re = RE_compile_and_cache(pattern, REG_ADVANCED, PG_GET_COLLATION());
+
+    // Execute regex against source text, get overall match and first subexpression
+    if (!RE_execute(compiled_re, VARDATA_ANY(source), VARSIZE_ANY_EXHDR(source), 2, matches))
+        PG_RETURN_NULL();  // No match found
+
+    // Choose between subexpression and full match
+    if (compiled_re->re_nsub > 0) {
+        // Use first parenthesized subexpression if available
+        start_offset = matches[1].rm_so;
+        end_offset = matches[1].rm_eo;
+    } else {
+        // Use whole match if no subexpressions
+        start_offset = matches[0].rm_so;
+        end_offset = matches[0].rm_eo;
+    }
+
+    // Check for invalid match positions
+    if (start_offset < 0 || end_offset < 0)
+        PG_RETURN_NULL();
+
+    // Extract substring using PostgreSQL's text_substr function
+    return DirectFunctionCall3(text_substr,
+                              PointerGetDatum(source),
+                              Int32GetDatum(start_offset + 1),  // 1-based indexing
+                              Int32GetDatum(end_offset - start_offset));
+}
+```

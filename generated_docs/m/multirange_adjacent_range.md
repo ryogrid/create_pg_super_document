@@ -45,4 +45,26 @@ The adjacency check works by:
 - Reuses the same internal implementation as  since adjacency is symmetric
 - Part of PostgreSQL's range and multirange type system for advanced range operations
 - The function arguments are swapped when calling the internal function to maintain consistent parameter order
-- File location: 
+- File location:
+
+## Simplified Source
+
+```c
+Datum
+multirange_adjacent_range(PG_FUNCTION_ARGS)
+{
+    // Extract multirange and range arguments
+    MultirangeType *multirange = PG_GETARG_MULTIRANGE_P(0);
+    RangeType *range = PG_GETARG_RANGE_P(1);
+
+    // Early return: empty ranges/multiranges are never adjacent
+    if (RangeIsEmpty(range) || MultirangeIsEmpty(multirange))
+        return false;
+
+    // Get type information for the multirange
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(multirange));
+
+    // Check if multirange is adjacent to range and return result
+    PG_RETURN_BOOL(range_adjacent_multirange_internal(typcache->rngtype, range, multirange));
+}
+```

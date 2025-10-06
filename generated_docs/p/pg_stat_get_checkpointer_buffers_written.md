@@ -30,3 +30,14 @@ This SQL-callable function provides access to the checkpointer's buffer write st
 - Part of PostgreSQL's statistics collection system for monitoring checkpointer performance
 - The underlying data comes from the checkpointer statistics structure maintained by the statistics collector
 - Located in src/backend/utils/adt/pgstatfuncs.c:1213-1218
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_get_checkpointer_buffers_written(PG_FUNCTION_ARGS)
+{
+    // Return total buffers written by checkpointer process
+    return pgstat_fetch_stat_checkpointer()->buffers_written;
+}
+```

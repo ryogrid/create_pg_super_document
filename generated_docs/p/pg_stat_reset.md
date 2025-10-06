@@ -35,3 +35,16 @@ The function affects only the current database's statistics, not system-wide or 
 - Should be used carefully as it permanently destroys historical statistics data
 - Often used in conjunction with monitoring tools that need clean baseline measurements
 - The reset is immediate and irreversible within the scope of the current database
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_reset(PG_FUNCTION_ARGS)
+{
+    // Reset all statistics counters for the current database
+    pgstat_reset_counters();
+
+    PG_RETURN_VOID();
+}
+```

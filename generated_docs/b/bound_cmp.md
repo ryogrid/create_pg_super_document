@@ -32,3 +32,16 @@ This function provides a comparison interface for sorting RangeBound structures 
 - Uses TypeCacheEntry to provide type-specific comparison logic for different range types
 - Returns standard comparison result: negative, zero, or positive integer
 - Located in src/backend/utils/adt/rangetypes_spgist.c:186-199
+
+## Simplified Source
+
+```c
+static int bound_cmp(const void *a, const void *b, void *arg) {
+    RangeBound *bound_a = (RangeBound *) a;
+    RangeBound *bound_b = (RangeBound *) b;
+    TypeCacheEntry *typcache = (TypeCacheEntry *) arg;
+
+    // Delegate to PostgreSQL's range bound comparison function
+    return range_cmp_bounds(typcache, bound_a, bound_b);
+}
+```

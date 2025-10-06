@@ -39,3 +39,20 @@ This function is a PostgreSQL interface routine called by the function manager t
 - The function is part of PostgreSQL's regular expression infrastructure in src/backend/utils/adt/regexp.c
 - Returns a Datum containing a boolean value indicating non-match (true if pattern does NOT match)
 - Functionally identical to nameregexeq except for the logical negation of the result
+
+## Simplified Source
+
+```c
+Datum nameregexne(PG_FUNCTION_ARGS) {
+    Name name = PG_GETARG_NAME(0);
+    text *pattern = PG_GETARG_TEXT_PP(1);
+
+    // Return negated result of regex matching
+    PG_RETURN_BOOL(!RE_compile_and_execute(pattern,
+                                          NameStr(*name),
+                                          strlen(NameStr(*name)),
+                                          REG_ADVANCED,
+                                          PG_GET_COLLATION(),
+                                          0, NULL));
+}
+```

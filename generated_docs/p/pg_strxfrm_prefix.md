@@ -21,23 +21,10 @@ The function supports different collation providers through the locale parameter
 The result is not null-terminated, and if the destination buffer is too small, only the first destsize bytes are stored.
 
 ## Parameters / Member Variables
-- : Output buffer to store the transformed byte sequence
-- : Input null-terminated string to be transformed
-- : Maximum number of bytes to store in the destination buffer
-LANGUAGE=
-LC_CTYPE="C.UTF-8"
-LC_NUMERIC="C.UTF-8"
-LC_TIME="C.UTF-8"
-LC_COLLATE="C.UTF-8"
-LC_MONETARY="C.UTF-8"
-LC_MESSAGES="C.UTF-8"
-LC_PAPER="C.UTF-8"
-LC_NAME="C.UTF-8"
-LC_ADDRESS="C.UTF-8"
-LC_TELEPHONE="C.UTF-8"
-LC_MEASUREMENT="C.UTF-8"
-LC_IDENTIFICATION="C.UTF-8"
-LC_ALL=: Locale information specifying the collation provider and rules to use
+- `dest`: Output buffer to store the transformed byte sequence
+- `src`: Input null-terminated string to be transformed
+- `destsize`: Maximum number of bytes to store in the destination buffer
+- `locale`: Locale information specifying the collation provider and rules to use
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -55,3 +42,25 @@ LC_ALL=: Locale information specifying the collation provider and rules to use
 - This is part of PostgreSQL's locale and collation infrastructure
 - The transformation enables efficient comparison operations while preserving locale-specific sorting rules
 - Used primarily in query optimization for abbreviated key comparisons
+
+## Simplified Source
+
+```c
+size_t pg_strxfrm_prefix(char *dest, const char *src, size_t destsize,
+                         pg_locale_t locale) {
+    // Check for null locale (not supported)
+    if (!locale) {
+        PGLOCALE_SUPPORT_ERROR(COLLPROVIDER_LIBC);
+    }
+#ifdef USE_ICU
+    else if (locale->provider == COLLPROVIDER_ICU) {
+        // Use ICU prefix transformation (-1 indicates null-terminated)
+        return pg_strnxfrm_prefix_icu(dest, src, -1, destsize, locale);
+    }
+#endif
+    else {
+        // Error for unsupported provider types
+        PGLOCALE_SUPPORT_ERROR(locale->provider);
+    }
+}
+```

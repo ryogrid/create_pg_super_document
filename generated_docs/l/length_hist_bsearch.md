@@ -33,3 +33,29 @@ The search operates on float8 values extracted from Datum array elements using `
 - Used in both regular range types and multirange types length-based selectivity calculations
 - The histogram values are stored as Datum but treated as float8 representing length measurements
 - Essential for PostgreSQL query planner's cost estimation when dealing with range length predicates
+
+## Simplified Source
+
+```c
+static int
+length_hist_bsearch(Datum *length_hist_values, int length_hist_nvalues,
+                    double value, bool equal)
+{
+    int lower = -1, upper = length_hist_nvalues - 1, middle;
+
+    // Binary search for the greatest index where hist[index] < value (or <= if equal=true)
+    while (lower < upper) {
+        double middleval;
+
+        middle = (lower + upper + 1) / 2;
+        middleval = DatumGetFloat8(length_hist_values[middle]);
+
+        if (middleval < value || (equal && middleval <= value))
+            lower = middle;  // hist[middle] is less than (or equal to) value
+        else
+            upper = middle - 1;  // hist[middle] is greater than value
+    }
+
+    return lower;  // Returns -1 if all histogram values are >= value
+}
+```

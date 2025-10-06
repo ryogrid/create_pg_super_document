@@ -49,3 +49,156 @@ For inner nodes, the function returns a 4-bit bitmap indicating which children t
 - Critical for query performance in network address SP-GiST indexes
 - The dual inner/leaf functionality reduces code duplication while maintaining efficiency
 - Uses bit manipulation techniques for efficient address comparison at the bit level
+
+## Simplified Source
+
+```c
+static int inet_spg_consistent_bitmap(const inet *prefix, int nkeys, ScanKey scankeys, bool leaf) {
+    int bitmap;
+    int commonbits;
+
+    // Initialize bitmap: leaf returns 0/1, inner returns bits for 4 children
+    if (leaf)
+        bitmap = 1;
+    else
+        bitmap = 1 | (1 << 1) | (1 << 2) | (1 << 3);  // All 4 children
+
+    commonbits = ip_bits(prefix);
+
+    // Check each scan key condition
+    for (int i = 0; i < nkeys; i++) {
+        inet *argument = DatumGetInetPP(scankeys[i].sk_argument);
+        StrategyNumber strategy = scankeys[i].sk_strategy;
+
+        // Check 1: Address family compatibility
+        if (ip_family(argument) != ip_family(prefix)) {
+            // Handle family mismatch for comparison strategies
+            switch (strategy) {
+                case RTLessStrategyNumber:
+                case RTLessEqualStrategyNumber:
+                    if (ip_family(argument) < ip_family(prefix))
+                        bitmap = 0;
+                    break;
+                case RTGreaterEqualStrategyNumber:
+                case RTGreaterStrategyNumber:
+                    if (ip_family(argument) > ip_family(prefix))
+                        bitmap = 0;
+                    break;
+                default:
+                    if (strategy != RTNotEqualStrategyNumber)
+                        bitmap = 0;
+                    break;
+            }
+            if (!bitmap) break;
+            continue;  // Skip other checks for different families
+        }
+
+        // Check 2: Network bit count for subnet/supernet operations
+        switch (strategy) {
+            case RTSubStrategyNumber:
+                if (commonbits <= ip_bits(argument))
+                    bitmap &= (1 << 2) | (1 << 3);  // Higher branches only
+                break;
+            case RTSuperStrategyNumber:
+                if (commonbits >= ip_bits(argument))
+                    bitmap = 0;
+                else if (commonbits == ip_bits(argument) - 1)
+                    bitmap &= 1 | (1 << 1);  // Lower branches only
+                break;
+            case RTEqualStrategyNumber:
+                if (commonbits < ip_bits(argument))
+                    bitmap &= (1 << 2) | (1 << 3);
+                else if (commonbits == ip_bits(argument))
+                    bitmap &= 1 | (1 << 1);
+                else
+                    bitmap = 0;
+                break;
+        }
+
+        if (!bitmap) break;
+
+        // Check 3: Compare common address bits
+        int order = bitncmp(ip_addr(prefix), ip_addr(argument),
+                           Min(commonbits, ip_bits(argument)));
+
+        if (order != 0) {
+            // Handle address mismatch for comparison strategies
+            switch (strategy) {
+                case RTLessStrategyNumber:
+                case RTLessEqualStrategyNumber:
+                    if (order > 0) bitmap = 0;
+                    break;
+                case RTGreaterEqualStrategyNumber:
+                case RTGreaterStrategyNumber:
+                    if (order < 0) bitmap = 0;
+                    break;
+                default:
+                    if (strategy != RTNotEqualStrategyNumber)
+                        bitmap = 0;
+                    break;
+            }
+            if (!bitmap) break;
+            continue;
+        }
+
+        // Check 4: Next bit optimization for performance
+        if (bitmap & ((1 << 2) | (1 << 3)) && commonbits < ip_bits(argument)) {
+            int nextbit = ip_addr(argument)[commonbits / 8] &
+                         (1 << (7 - commonbits % 8));
+
+            // Filter branches based on next bit value
+            switch (strategy) {
+                case RTLessStrategyNumber:
+                case RTLessEqualStrategyNumber:
+                    if (!nextbit)
+                        bitmap &= 1 | (1 << 1) | (1 << 2);
+                    break;
+                case RTGreaterEqualStrategyNumber:
+                case RTGreaterStrategyNumber:
+                    if (nextbit)
+                        bitmap &= 1 | (1 << 1) | (1 << 3);
+                    break;
+                default:
+                    if (strategy != RTNotEqualStrategyNumber) {
+                        if (!nextbit)
+                            bitmap &= 1 | (1 << 1) | (1 << 2);
+                        else
+                            bitmap &= 1 | (1 << 1) | (1 << 3);
+                    }
+                    break;
+            }
+            if (!bitmap) break;
+        }
+
+        // Check 5: Final address comparison for leaf nodes
+        if (leaf) {
+            order = bitncmp(ip_addr(prefix), ip_addr(argument),
+                           ip_maxbits(prefix));
+
+            switch (strategy) {
+                case RTLessStrategyNumber:
+                    if (order >= 0) bitmap = 0;
+                    break;
+                case RTLessEqualStrategyNumber:
+                    if (order > 0) bitmap = 0;
+                    break;
+                case RTEqualStrategyNumber:
+                    if (order != 0) bitmap = 0;
+                    break;
+                case RTGreaterEqualStrategyNumber:
+                    if (order < 0) bitmap = 0;
+                    break;
+                case RTGreaterStrategyNumber:
+                    if (order <= 0) bitmap = 0;
+                    break;
+                case RTNotEqualStrategyNumber:
+                    if (order == 0) bitmap = 0;
+                    break;
+            }
+            if (!bitmap) break;
+        }
+    }
+
+    return bitmap;
+}
+```

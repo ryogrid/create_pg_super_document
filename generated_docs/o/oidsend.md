@@ -46,3 +46,22 @@ The oidsend function is responsible for converting PostgreSQL's internal OID rep
 - Part of PostgreSQL's binary protocol support for efficient data transfer
 - The resulting bytea includes length information as part of the wire protocol format
 - Location: src/backend/utils/adt/oid.c:71-86
+
+## Simplified Source
+
+```c
+Datum oidsend(PG_FUNCTION_ARGS) {
+    // Extract OID argument
+    Oid oid_value = PG_GETARG_OID(0);
+    StringInfoData buf;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Write OID as 32-bit integer in network byte order
+    pq_sendint32(&buf, oid_value);
+
+    // Finalize and return binary data
+    return PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

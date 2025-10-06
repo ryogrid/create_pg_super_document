@@ -28,3 +28,12 @@ This function serves as a simple wrapper around the main regexp_matches function
 - The function is located in src/backend/utils/adt/regexp.c at lines 1416-1441
 - All actual regular expression matching logic is handled by the regexp_matches function
 - Provides the same set-returning function (SRF) behavior as regexp_matches
+
+## Simplified Source
+
+```c
+Datum regexp_matches_no_flags(PG_FUNCTION_ARGS) {
+    // Simple wrapper to satisfy opr_sanity test requirements
+    return regexp_matches(fcinfo);
+}
+```

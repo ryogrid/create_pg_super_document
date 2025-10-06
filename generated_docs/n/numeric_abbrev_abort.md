@@ -42,3 +42,33 @@ The target minimum cardinality threshold is conservatively set at 1 per 10k rows
 - Conservative threshold (1 per 10k vs 1 per 100k break-even) provides safety margin against pathological cases
 - Once cardinality exceeds 100k, estimation overhead is eliminated while continuing abbreviation
 - Includes a 0.5 row fudge factor to handle edge cases with exactly one abbreviated value in first 10k rows
+
+## Simplified Source
+
+```c
+static bool
+numeric_abbrev_abort(int memtupcount, SortSupport ssup)
+{
+    NumericSortSupport *nss = ssup->ssup_extra;
+    double abbr_card;
+
+    // Early checks: need sufficient data and still estimating
+    if (memtupcount < 10000 || nss->input_count < 10000 || !nss->estimating)
+        return false;
+
+    abbr_card = estimateHyperLogLog(&nss->abbr_card);
+
+    // Stop estimating if cardinality is very high (>100k)
+    if (abbr_card > 100000.0)
+    {
+        nss->estimating = false;
+        return false;
+    }
+
+    // Abort if cardinality is too low (< 1 per 10k rows)
+    if (abbr_card < nss->input_count / 10000.0 + 0.5)
+        return true;
+
+    return false;
+}
+```

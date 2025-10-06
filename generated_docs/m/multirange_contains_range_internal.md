@@ -40,3 +40,30 @@ This function determines if a multirange completely contains a given range. It i
 - The function leverages the property that multiranges maintain non-overlapping, sorted ranges
 - Returns boolean result suitable for SQL boolean operations
 - Part of PostgreSQL's range type system for handling complex range operations efficiently
+
+## Simplified Source
+
+```c
+bool multirange_contains_range_internal(TypeCacheEntry *rangetyp,
+                                       const MultirangeType *multirange,
+                                       const RangeType *range) {
+    RangeBound bounds[2];
+    bool empty;
+
+    // Empty ranges are contained by any multirange (even empty ones)
+    if (RangeIsEmpty(range))
+        return true;
+
+    // Empty multiranges contain no non-empty ranges
+    if (MultirangeIsEmpty(multirange))
+        return false;
+
+    // Extract the bounds from the range
+    range_deserialize(rangetyp, range, &bounds[0], &bounds[1], &empty);
+    Assert(!empty);
+
+    // Use binary search to find if any multirange segment contains this range
+    return multirange_bsearch_match(rangetyp, multirange, bounds,
+                                   multirange_range_contains_bsearch_comparison);
+}
+```

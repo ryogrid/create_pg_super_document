@@ -35,3 +35,27 @@ The `range_cmp_bound_values` function provides a simplified comparison between t
 - The function returns the raw comparison result for finite values without any boundary-type adjustments
 - Primarily used in internal range operations where only the actual values matter, not the boundary semantics
 - Less commonly used than `range_cmp_bounds` but essential for specific range serialization and adjacency operations
+
+## Simplified Source
+
+```c
+int
+range_cmp_bound_values(TypeCacheEntry *typcache, const RangeBound *b1,
+                       const RangeBound *b2)
+{
+    // Handle infinite bounds
+    if (b1->infinite && b2->infinite) {
+        // Both infinite: equal unless one is lower and other is upper
+        return (b1->lower == b2->lower) ? 0 : (b1->lower ? -1 : 1);
+    } else if (b1->infinite) {
+        return b1->lower ? -1 : 1;  // -infinity or +infinity
+    } else if (b2->infinite) {
+        return b2->lower ? 1 : -1;
+    }
+
+    // Both finite - compare values directly (ignore inclusive/exclusive)
+    return DatumGetInt32(FunctionCall2Coll(&typcache->rng_cmp_proc_finfo,
+                                          typcache->rng_collation,
+                                          b1->val, b2->val));
+}
+```

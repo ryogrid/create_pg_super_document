@@ -40,3 +40,48 @@ The function strips leading and trailing zeros from the digit representation and
 - The weight is XORed with the digit hash to incorporate decimal point position
 - Critical for performance and correctness of hash-based operations on numeric data
 - Used internally by PostgreSQL's hash join and hash aggregation algorithms
+
+## Simplified Source
+
+```c
+Datum hash_numeric(PG_FUNCTION_ARGS) {
+    Numeric key = PG_GETARG_NUMERIC(0);
+
+    // Handle special values (NaN, infinity)
+    if (NUMERIC_IS_SPECIAL(key))
+        PG_RETURN_UINT32(0);
+
+    // Get numeric components
+    int weight = NUMERIC_WEIGHT(key);
+    NumericDigit *digits = NUMERIC_DIGITS(key);
+    int ndigits = NUMERIC_NDIGITS(key);
+
+    // Skip leading zeros and adjust weight
+    int start_offset = 0;
+    for (int i = 0; i < ndigits; i++) {
+        if (digits[i] != 0) break;
+        start_offset++;
+        weight--;
+    }
+
+    // Handle all-zero number
+    if (ndigits == start_offset)
+        PG_RETURN_UINT32(-1);
+
+    // Skip trailing zeros
+    int end_offset = 0;
+    for (int i = ndigits - 1; i >= 0; i--) {
+        if (digits[i] != 0) break;
+        end_offset++;
+    }
+
+    // Hash the significant digits
+    int hash_len = ndigits - start_offset - end_offset;
+    Datum digit_hash = hash_any((unsigned char *) (digits + start_offset),
+                               hash_len * sizeof(NumericDigit));
+
+    // Mix in the weight and return
+    Datum result = digit_hash ^ weight;
+    PG_RETURN_DATUM(result);
+}
+```

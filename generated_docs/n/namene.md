@@ -33,3 +33,17 @@ Datum namene(PG_FUNCTION_ARGS)
 - Returns true (1) when names are not equal, false (0) when they are equal
 - Part of PostgreSQL's type system infrastructure for the Name built-in type
 - Complementary function to `nameeq` - returns the logical opposite result
+
+## Simplified Source
+
+```c
+Datum
+namene(PG_FUNCTION_ARGS)
+{
+    Name arg1 = PG_GETARG_NAME(0);
+    Name arg2 = PG_GETARG_NAME(1);
+
+    // Compare names for inequality using collation-aware comparison
+    PG_RETURN_BOOL(namecmp(arg1, arg2, PG_GET_COLLATION()) != 0);
+}
+```

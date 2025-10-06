@@ -53,3 +53,77 @@ This function processes binary data received over the wire (typically from clien
 - Memory management is handled carefully with pfree calls for temporary buffers
 - The function includes stack depth checking for recursive deserialization of nested range types
 - Canonicalization is performed through make_range to ensure consistent internal representation
+
+## Simplified Source
+
+```c
+Datum
+range_recv(PG_FUNCTION_ARGS)
+{
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    Oid range_type_oid = PG_GETARG_OID(1);
+    int32 typmod = PG_GETARG_INT32(2);
+
+    check_stack_depth(); // Guard against recursion
+
+    // Get I/O cache for this range type
+    RangeIOData *cache = get_range_io_data(fcinfo, range_type_oid, IOFunc_receive);
+
+    // Read and validate flags
+    char flags = pq_getmsgbyte(buf);
+    flags &= (RANGE_EMPTY | RANGE_LB_INC | RANGE_LB_INF |
+              RANGE_UB_INC | RANGE_UB_INF); // Mask unsupported flags
+
+    RangeBound lower, upper;
+
+    // Deserialize lower bound if present
+    if (RANGE_HAS_LBOUND(flags)) {
+        uint32 bound_len = pq_getmsgint(buf, 4);
+        const char *bound_data = pq_getmsgbytes(buf, bound_len);
+
+        // Create temporary buffer for bound data
+        StringInfoData bound_buf;
+        initStringInfo(&bound_buf);
+        appendBinaryStringInfo(&bound_buf, bound_data, bound_len);
+
+        lower.val = ReceiveFunctionCall(&cache->typioproc, &bound_buf,
+                                        cache->typioparam, typmod);
+        pfree(bound_buf.data);
+    } else {
+        lower.val = (Datum) 0;
+    }
+
+    // Deserialize upper bound if present
+    if (RANGE_HAS_UBOUND(flags)) {
+        uint32 bound_len = pq_getmsgint(buf, 4);
+        const char *bound_data = pq_getmsgbytes(buf, bound_len);
+
+        // Create temporary buffer for bound data
+        StringInfoData bound_buf;
+        initStringInfo(&bound_buf);
+        appendBinaryStringInfo(&bound_buf, bound_data, bound_len);
+
+        upper.val = ReceiveFunctionCall(&cache->typioproc, &bound_buf,
+                                        cache->typioparam, typmod);
+        pfree(bound_buf.data);
+    } else {
+        upper.val = (Datum) 0;
+    }
+
+    pq_getmsgend(buf); // Validate all data consumed
+
+    // Set boundary properties from flags
+    lower.infinite = (flags & RANGE_LB_INF) != 0;
+    lower.inclusive = (flags & RANGE_LB_INC) != 0;
+    lower.lower = true;
+    upper.infinite = (flags & RANGE_UB_INF) != 0;
+    upper.inclusive = (flags & RANGE_UB_INC) != 0;
+    upper.lower = false;
+
+    // Create and canonicalize the range
+    RangeType *range = make_range(cache->typcache, &lower, &upper,
+                                  flags & RANGE_EMPTY, NULL);
+
+    PG_RETURN_RANGE_P(range);
+}
+```

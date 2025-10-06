@@ -46,3 +46,16 @@ This function is essential for displaying Name values in query results, system c
 - Essential for type I/O operations and displaying Name values in PostgreSQL
 - Much simpler than  since no length validation or truncation is needed
 - Part of the standard PostgreSQL type system I/O function pair for the Name type
+
+## Simplified Source
+
+```c
+Datum
+nameout(PG_FUNCTION_ARGS)
+{
+    Name s = PG_GETARG_NAME(0);
+
+    // Convert internal Name to C string by duplicating the string data
+    PG_RETURN_CSTRING(pstrdup(NameStr(*s)));
+}
+```

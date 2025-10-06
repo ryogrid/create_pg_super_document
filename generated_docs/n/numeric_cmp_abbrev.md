@@ -66,3 +66,19 @@ The function returns:
 - Abbreviations may be equal even when true values differ, but different abbreviations must reflect correct ordering
 - The function is static and only used within the numeric data type implementation
 - Special handling for NaN and infinity cases is embedded in the abbreviation design
+
+## Simplified Source
+
+```c
+static int
+numeric_cmp_abbrev(Datum x, Datum y, SortSupport ssup)
+{
+    // NOTE: Comparison is intentionally reversed because abbreviations
+    // are negated relative to original values for NaN/infinity handling
+    if (DatumGetNumericAbbrev(x) < DatumGetNumericAbbrev(y))
+        return 1;
+    if (DatumGetNumericAbbrev(x) > DatumGetNumericAbbrev(y))
+        return -1;
+    return 0;
+}
+```

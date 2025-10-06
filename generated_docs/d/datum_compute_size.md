@@ -38,3 +38,23 @@ For packable types with short varlena capability, it calculates the converted sh
 
 ## Notes and Other Information
 This is a static function specifically designed for range type serialization. It optimizes storage by checking if variable-length types can be stored in short varlena format, which saves space by avoiding alignment padding. The function is critical for efficient range type storage and is called twice in range_serialize for both lower and upper bound values.
+
+## Simplified Source
+
+```c
+static Size datum_compute_size(Size data_length, Datum val, bool typbyval,
+                              char typalign, int16 typlen, char typstorage) {
+    // Check if we can optimize with short varlena format
+    if (TYPE_IS_PACKABLE(typlen, typstorage) &&
+        VARATT_CAN_MAKE_SHORT(DatumGetPointer(val))) {
+        // Use short varlena format - no alignment padding needed
+        data_length += VARATT_CONVERTED_SHORT_SIZE(DatumGetPointer(val));
+    } else {
+        // Standard format - apply alignment and add length
+        data_length = att_align_datum(data_length, typalign, typlen, val);
+        data_length = att_addlength_datum(data_length, typlen, val);
+    }
+
+    return data_length;
+}
+```

@@ -45,3 +45,51 @@ This static function performs the core accumulation logic for numeric aggregate 
 - Essential building block for PostgreSQL's numeric aggregate functions (SUM, AVG, etc.)
 - Carefully handles precision by using appropriate decimal scales for squared values
 - Located in src/backend/utils/adt/numeric.c:4873-4942
+
+## Simplified Source
+
+```c
+static void do_numeric_accum(NumericAggState *state, Numeric newval) {
+    NumericVar X, X2;
+    MemoryContext old_context;
+
+    // Handle special values (NaN, infinity) separately - just count them
+    if (NUMERIC_IS_SPECIAL(newval)) {
+        if (NUMERIC_IS_PINF(newval))
+            state->pInfcount++;
+        else if (NUMERIC_IS_NINF(newval))
+            state->nInfcount++;
+        else
+            state->NaNcount++;
+        return;
+    }
+
+    // Convert numeric to variable format for processing
+    init_var_from_num(newval, &X);
+
+    // Track maximum decimal scale for inverse transitions
+    if (X.dscale > state->maxScale) {
+        state->maxScale = X.dscale;
+        state->maxScaleCount = 1;
+    } else if (X.dscale == state->maxScale) {
+        state->maxScaleCount++;
+    }
+
+    // Calculate X^2 if needed for variance calculations
+    if (state->calcSumX2) {
+        init_var(&X2);
+        mul_var(&X, &X, &X2, X.dscale * 2);
+    }
+
+    // Switch to aggregate context for persistent data
+    old_context = MemoryContextSwitchTo(state->agg_context);
+
+    // Increment count and accumulate sums
+    state->N++;
+    accum_sum_add(&(state->sumX), &X);
+    if (state->calcSumX2)
+        accum_sum_add(&(state->sumX2), &X2);
+
+    MemoryContextSwitchTo(old_context);
+}
+```

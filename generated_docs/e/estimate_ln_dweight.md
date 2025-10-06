@@ -44,3 +44,59 @@ The function is designed to be robust against invalid inputs (negative numbers, 
 - The function handles edge cases gracefully by returning 0 for invalid inputs
 - The magic number 2.302585092994046 represents ln(10) used in the logarithm estimation formula
 - Located at src/backend/utils/adt/numeric.c:10687-10768
+
+## Simplified Source
+
+```c
+static int
+estimate_ln_dweight(const NumericVar *var)
+{
+    int ln_dweight;
+
+    // Return 0 for invalid inputs (let caller handle errors)
+    if (var->sign != NUMERIC_POS)
+        return 0;
+
+    // Special handling for values close to 1 (0.9 <= var <= 1.1)
+    if (cmp_var(var, &const_zero_point_nine) >= 0 &&
+        cmp_var(var, &const_one_point_one) <= 0) {
+
+        // For ln(1+x) where x is small, ln(1+x) ≈ x
+        NumericVar x;
+        init_var(&x);
+        sub_var(var, &const_one, &x);  // x = var - 1
+
+        if (x.ndigits > 0) {
+            // Use weight of most significant decimal digit of x
+            ln_dweight = x.weight * DEC_DIGITS + (int) log10(x.digits[0]);
+        } else {
+            // x = 0, so ln(1) = 0 exactly
+            ln_dweight = 0;
+        }
+
+        free_var(&x);
+    } else {
+        // For values not close to 1, estimate using first few digits
+        if (var->ndigits > 0) {
+            int digits = var->digits[0];
+            int dweight = var->weight * DEC_DIGITS;
+
+            // Include second digit for better accuracy
+            if (var->ndigits > 1) {
+                digits = digits * NBASE + var->digits[1];
+                dweight -= DEC_DIGITS;
+            }
+
+            // Apply formula: ln(var) ≈ ln(digits) + dweight * ln(10)
+            // where var ≈ digits * 10^dweight
+            double ln_var = log((double) digits) + dweight * 2.302585092994046;
+            ln_dweight = (int) log10(fabs(ln_var));
+        } else {
+            // Return 0 for ln(0) (let caller handle the error)
+            ln_dweight = 0;
+        }
+    }
+
+    return ln_dweight;
+}
+```

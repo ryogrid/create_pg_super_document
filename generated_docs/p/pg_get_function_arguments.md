@@ -30,3 +30,29 @@ This SQL-callable function takes a function OID as input and returns a formatted
 - Uses the print_function_arguments helper function with parameters (false, true) to generate the formatted output
 - Part of the ruleutils.c module which provides functions for formatting SQL statements and database object definitions
 - The function is exposed as a SQL function for use in queries and system views
+
+## Simplified Source
+
+```c
+Datum
+pg_get_function_arguments(PG_FUNCTION_ARGS)
+{
+    Oid funcid = PG_GETARG_OID(0);
+    StringInfoData buf;
+    HeapTuple proctup;
+
+    // Look up function in system catalog
+    proctup = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+    if (!HeapTupleIsValid(proctup))
+        PG_RETURN_NULL();
+
+    initStringInfo(&buf);
+
+    // Format function arguments with defaults included
+    print_function_arguments(&buf, proctup, false, true);
+
+    ReleaseSysCache(proctup);
+
+    PG_RETURN_TEXT_P(string_to_text(buf.data));
+}
+```

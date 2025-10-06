@@ -42,3 +42,41 @@ The function performs the following operations:
 - The accumulated sum is stored in the sumX field of the NumericAggState structure
 - Part of PostgreSQL's numeric aggregate function family
 - Similar to numeric_avg but returns the sum directly without division
+
+## Simplified Source
+
+```c
+Datum numeric_sum(PG_FUNCTION_ARGS) {
+    NumericAggState *state;
+    NumericVar sum_var;
+    Numeric result;
+
+    // Get aggregate state from arguments
+    state = PG_ARGISNULL(0) ? NULL : (NumericAggState *) PG_GETARG_POINTER(0);
+
+    // Return NULL if no input values
+    if (state == NULL || NA_TOTAL_COUNT(state) == 0)
+        PG_RETURN_NULL();
+
+    // Handle special cases: NaN, infinity
+    if (state->NaNcount > 0)
+        PG_RETURN_NUMERIC(make_result(&const_nan));
+
+    if (state->pInfcount > 0 && state->nInfcount > 0)
+        PG_RETURN_NUMERIC(make_result(&const_nan));
+
+    if (state->pInfcount > 0)
+        PG_RETURN_NUMERIC(make_result(&const_pinf));
+
+    if (state->nInfcount > 0)
+        PG_RETURN_NUMERIC(make_result(&const_ninf));
+
+    // Calculate final sum from accumulated values
+    init_var(&sum_var);
+    accum_sum_final(&state->sumX, &sum_var);
+    result = make_result(&sum_var);
+    free_var(&sum_var);
+
+    PG_RETURN_NUMERIC(result);
+}
+```

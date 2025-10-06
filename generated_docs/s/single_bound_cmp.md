@@ -35,3 +35,16 @@ The function follows the standard qsort comparator interface, taking two void po
 - Designed specifically for use with qsort or similar sorting algorithms
 - The comparison logic is delegated to range_cmp_bounds which handles the type-specific comparison details
 - Part of the GiST index splitting strategy for range types to maintain balanced tree structure
+
+## Simplified Source
+
+```c
+static int single_bound_cmp(const void *a, const void *b, void *arg) {
+    SingleBoundSortItem *i1 = (SingleBoundSortItem *) a;
+    SingleBoundSortItem *i2 = (SingleBoundSortItem *) b;
+    TypeCacheEntry *typcache = (TypeCacheEntry *) arg;
+
+    // Compare the bounds using type-specific comparison
+    return range_cmp_bounds(typcache, &i1->bound, &i2->bound);
+}
+```

@@ -31,3 +31,29 @@ This SQL-callable function takes a function OID as input and returns a formatted
 - The key difference from pg_get_function_arguments is that this function omits parameter defaults
 - Essential for generating ALTER FUNCTION statements where defaults should not be included
 - Part of the ruleutils.c module for SQL statement formatting
+
+## Simplified Source
+
+```c
+Datum
+pg_get_function_identity_arguments(PG_FUNCTION_ARGS)
+{
+    Oid funcid = PG_GETARG_OID(0);
+    StringInfoData buf;
+    HeapTuple proctup;
+
+    // Look up function in system catalog
+    proctup = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+    if (!HeapTupleIsValid(proctup))
+        PG_RETURN_NULL();
+
+    initStringInfo(&buf);
+
+    // Format function arguments without defaults (for ALTER statements)
+    print_function_arguments(&buf, proctup, false, false);
+
+    ReleaseSysCache(proctup);
+
+    PG_RETURN_TEXT_P(string_to_text(buf.data));
+}
+```

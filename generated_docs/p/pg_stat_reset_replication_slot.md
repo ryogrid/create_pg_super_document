@@ -40,3 +40,25 @@ The function accepts an optional text parameter that specifies which replication
 - Invalid replication slot names will be handled by the underlying  function
 - This function is particularly useful for monitoring and troubleshooting replication performance issues
 - Resetting statistics does not affect the actual replication slot functionality, only the accumulated statistical counters
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_reset_replication_slot(PG_FUNCTION_ARGS)
+{
+    char *target = NULL;
+
+    if (PG_ARGISNULL(0))
+        // Reset all replication slot statistics when no target specified
+        pgstat_reset_of_kind(PGSTAT_KIND_REPLSLOT);
+    else
+    {
+        // Reset specific replication slot statistics
+        target = text_to_cstring(PG_GETARG_TEXT_PP(0));
+        pgstat_reset_replslot(target);
+    }
+
+    PG_RETURN_VOID();
+}
+```

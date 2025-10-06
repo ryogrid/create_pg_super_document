@@ -38,3 +38,24 @@ The function initializes a StringInfo buffer, sets up pretty-printing flags base
 - Part of PostgreSQL's broader rule utilities framework that handles decompilation of various database objects
 - The pretty formatting option affects readability but not semantic content of the generated SQL
 - Commonly used by PostgreSQL internals for generating human-readable representations of stored queries, views, and rules
+
+## Simplified Source
+
+```c
+char *pg_get_querydef(Query *query, bool pretty) {
+    StringInfoData buf;
+    int prettyFlags;
+
+    // Convert boolean pretty flag to internal formatting flags
+    prettyFlags = GET_PRETTY_FLAGS(pretty);
+
+    // Initialize output buffer
+    initStringInfo(&buf);
+
+    // Deparse the query tree into SQL text
+    get_query_def(query, &buf, NIL, NULL, true,
+                  prettyFlags, WRAP_COLUMN_DEFAULT, 0);
+
+    return buf.data;
+}
+```

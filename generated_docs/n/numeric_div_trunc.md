@@ -43,3 +43,45 @@ Key behaviors:
 - Used in database size calculation functions for converting between units
 - Special value handling follows the same rules as regular numeric division
 - The result is always an integer value represented as Numeric type
+
+## Simplified Source
+
+```c
+Datum
+numeric_div_trunc(PG_FUNCTION_ARGS)
+{
+    Numeric num1 = PG_GETARG_NUMERIC(0);
+    Numeric num2 = PG_GETARG_NUMERIC(1);
+    NumericVar arg1, arg2, result;
+
+    // Handle special values (NaN, infinity)
+    if (NUMERIC_IS_SPECIAL(num1) || NUMERIC_IS_SPECIAL(num2)) {
+        if (NUMERIC_IS_NAN(num1) || NUMERIC_IS_NAN(num2))
+            PG_RETURN_NUMERIC(make_result(&const_nan));
+
+        // Handle infinity cases with appropriate sign logic
+        if (NUMERIC_IS_PINF(num1) || NUMERIC_IS_NINF(num1)) {
+            // Division by zero check and sign-based infinity return
+            switch (numeric_sign_internal(num2)) {
+                case 0: ereport(ERROR, (errcode(ERRCODE_DIVISION_BY_ZERO)));
+                case 1: PG_RETURN_NUMERIC(make_result(NUMERIC_IS_PINF(num1) ? &const_pinf : &const_ninf));
+                case -1: PG_RETURN_NUMERIC(make_result(NUMERIC_IS_PINF(num1) ? &const_ninf : &const_pinf));
+            }
+        }
+        // Finite / Infinity = 0
+        PG_RETURN_NUMERIC(make_result(&const_zero));
+    }
+
+    // Regular division with truncation
+    init_var_from_num(num1, &arg1);
+    init_var_from_num(num2, &arg2);
+    init_var(&result);
+
+    // Divide with scale=0 and round=false for truncation
+    div_var(&arg1, &arg2, &result, 0, false);
+
+    Numeric res = make_result(&result);
+    free_var(&result);
+    PG_RETURN_NUMERIC(res);
+}
+```

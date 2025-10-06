@@ -40,3 +40,21 @@ The function extracts the range and multirange arguments from the function call 
 - Used symmetrically by the  function, demonstrating efficient code reuse
 - Part of PostgreSQL's multirange type system that provides comprehensive spatial relationship operators
 - Enables spatial indexing and query optimization for range-based data
+
+## Simplified Source
+
+```c
+Datum
+range_after_multirange(PG_FUNCTION_ARGS)
+{
+    // Extract arguments: range and multirange
+    RangeType *range = PG_GETARG_RANGE_P(0);
+    MultirangeType *multirange = PG_GETARG_MULTIRANGE_P(1);
+
+    // Get type information for the multirange
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(multirange));
+
+    // Delegate to internal function for actual comparison logic
+    PG_RETURN_BOOL(range_after_multirange_internal(typcache->rngtype, range, multirange));
+}
+```

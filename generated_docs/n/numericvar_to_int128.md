@@ -44,3 +44,48 @@ The conversion algorithm first rounds the input to the nearest integer, then con
 - The function assumes weight >= 0 and ndigits <= weight + 1 after stripping
 - Memory management is handled properly with free_var() calls on all exit paths
 - Zero input is handled as a special case for efficiency
+
+## Simplified Source
+
+```c
+static bool numericvar_to_int128(const NumericVar *var, int128 *result) {
+    NumericVar rounded;
+
+    // Round to nearest integer
+    init_var(&rounded);
+    set_var_from_var(var, &rounded);
+    round_var(&rounded, 0);
+
+    // Handle zero case
+    strip_var(&rounded);
+    if (rounded.ndigits == 0) {
+        *result = 0;
+        free_var(&rounded);
+        return true;
+    }
+
+    // Build result from digits with overflow checking
+    bool neg = (rounded.sign == NUMERIC_NEG);
+    int128 val = rounded.digits[0];
+
+    for (int i = 1; i <= rounded.weight; i++) {
+        int128 oldval = val;
+        val *= NBASE;
+        if (i < rounded.ndigits)
+            val += rounded.digits[i];
+
+        // Check for overflow (special handling for INT128_MIN)
+        if ((val / NBASE) != oldval) {
+            // INT128_MIN is the only value where -val == val
+            if (!neg || (-val) != val || val == 0 || oldval < 0) {
+                free_var(&rounded);
+                return false;
+            }
+        }
+    }
+
+    free_var(&rounded);
+    *result = neg ? -val : val;
+    return true;
+}
+```

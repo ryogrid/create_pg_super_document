@@ -42,3 +42,23 @@ This function encapsulates the logic for determining expected membership in the 
 - Essential for ensuring IntegerSet correctness when dealing with both isolated and continuous value patterns
 - Located in: src/test/modules/test_integerset/test_integerset.c:470-487
 - Abstracts away the expected value calculation logic for cleaner test code
+
+## Simplified Source
+
+```c
+static void
+check_with_filler(IntegerSet *intset, uint64 x,
+                  uint64 value, uint64 filler_min, uint64 filler_max)
+{
+    // Calculate expected membership: either the specific value or within filler range
+    bool expected = (x == value || (filler_min <= x && x < filler_max));
+
+    // Check actual membership result
+    bool actual = intset_is_member(intset, x);
+
+    // Verify they match
+    if (actual != expected) {
+        elog(ERROR, "intset_is_member failed for %llu", x);
+    }
+}
+```

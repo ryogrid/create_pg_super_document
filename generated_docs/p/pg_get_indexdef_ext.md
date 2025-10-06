@@ -44,3 +44,28 @@ This function provides an extended interface for retrieving index definitions fr
 - Part of PostgreSQL's rule utilities system for reconstructing DDL statements
 - Located in src/backend/utils/adt/ruleutils.c:1178-1204
 - Useful for analyzing complex index expressions and functional indexes
+
+## Simplified Source
+
+```c
+Datum pg_get_indexdef_ext(PG_FUNCTION_ARGS) {
+    // Extract arguments
+    Oid indexrelid = PG_GETARG_OID(0);
+    int32 colno = PG_GETARG_INT32(1);
+    bool pretty = PG_GETARG_BOOL(2);
+
+    // Convert pretty flag to formatting flags
+    int prettyFlags = GET_PRETTY_FLAGS(pretty);
+
+    // Get index definition - complete if colno=0, specific column if colno>0
+    char *res = pg_get_indexdef_worker(indexrelid, colno, NULL,
+                                      colno != 0, false, false, false,
+                                      prettyFlags, true);
+
+    // Return NULL if index not found, otherwise convert to text
+    if (res == NULL)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(string_to_text(res));
+}
+```

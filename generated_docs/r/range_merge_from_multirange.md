@@ -57,3 +57,43 @@ This function is particularly useful for operations that need to work with the o
 - Type safety is maintained through the type cache system
 - This is a lossy operation - information about gaps between ranges is lost in the conversion
 - The function is essential for interoperability between multirange and range types in PostgreSQL
+
+## Simplified Source
+
+```c
+Datum
+range_merge_from_multirange(PG_FUNCTION_ARGS)
+{
+    // Extract multirange argument and get type information
+    MultirangeType *multirange = PG_GETARG_MULTIRANGE_P(0);
+    Oid multirange_type_oid = MultirangeTypeGetOid(multirange);
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, multirange_type_oid);
+
+    RangeType *result;
+
+    // Handle empty multirange
+    if (MultirangeIsEmpty(multirange))
+    {
+        result = make_empty_range(typcache->rngtype);
+    }
+    // Optimization: single range case
+    else if (multirange->rangeCount == 1)
+    {
+        result = multirange_get_range(typcache->rngtype, multirange, 0);
+    }
+    // Multiple ranges: merge from first lower bound to last upper bound
+    else
+    {
+        RangeBound first_lower, first_upper, last_lower, last_upper;
+
+        // Get bounds of first and last ranges
+        multirange_get_bounds(typcache->rngtype, multirange, 0, &first_lower, &first_upper);
+        multirange_get_bounds(typcache->rngtype, multirange, multirange->rangeCount - 1, &last_lower, &last_upper);
+
+        // Create spanning range from first lower to last upper bound
+        result = make_range(typcache->rngtype, &first_lower, &last_upper, false, NULL);
+    }
+
+    PG_RETURN_RANGE_P(result);
+}
+```

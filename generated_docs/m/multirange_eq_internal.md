@@ -39,3 +39,37 @@ This function implements equality comparison for multiranges by performing eleme
 - Early termination optimization: returns false immediately on first mismatch
 - Part of PostgreSQL's multirange comparison operator family
 - The function assumes input multiranges are valid and properly constructed
+
+## Simplified Source
+
+```c
+bool multirange_eq_internal(TypeCacheEntry *rangetyp,
+                           const MultirangeType *mr1,
+                           const MultirangeType *mr2)
+{
+    // Validate same multirange type
+    if (MultirangeTypeGetOid(mr1) != MultirangeTypeGetOid(mr2))
+        elog(ERROR, "multirange types do not match");
+
+    // Quick check: different range counts mean not equal
+    if (mr1->rangeCount != mr2->rangeCount)
+        return false;
+
+    // Compare each range pair element-wise
+    for (int i = 0; i < mr1->rangeCount; i++)
+    {
+        RangeBound lower1, upper1, lower2, upper2;
+
+        // Get bounds for corresponding ranges
+        multirange_get_bounds(rangetyp, mr1, i, &lower1, &upper1);
+        multirange_get_bounds(rangetyp, mr2, i, &lower2, &upper2);
+
+        // Both lower and upper bounds must match exactly
+        if (range_cmp_bounds(rangetyp, &lower1, &lower2) != 0 ||
+            range_cmp_bounds(rangetyp, &upper1, &upper2) != 0)
+            return false;
+    }
+
+    return true;
+}
+```

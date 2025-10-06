@@ -48,3 +48,75 @@ The algorithm works by:
 - Handles edge cases where bounds fall outside histogram limits
 - Critical for query optimization when filtering ranges by containment conditions
 - Assumes independence between range start positions and lengths, which is generally reasonable for most real-world data
+
+## Simplified Source
+
+```c
+static double
+calc_hist_selectivity_contained(TypeCacheEntry *typcache,
+                               const RangeBound *lower, RangeBound *upper,
+                               const RangeBound *hist_lower, int hist_nvalues,
+                               Datum *length_hist_values, int length_hist_nvalues)
+{
+    int i, upper_index;
+    double bin_width, upper_bin_width;
+    double sum_frac, prev_dist;
+
+    // Find the bin containing the upper bound in lower bound histogram
+    // Ranges with lower bound > constant upper bound can't match
+    upper->inclusive = !upper->inclusive;
+    upper->lower = true;
+    upper_index = rbound_bsearch(typcache, upper, hist_lower, hist_nvalues, false);
+
+    // No matches if upper bound is below histogram's lower limit
+    if (upper_index < 0) return 0.0;
+
+    // Clamp to last actual bin if beyond histogram's upper limit
+    upper_index = Min(upper_index, hist_nvalues - 2);
+
+    // Calculate fraction of upper bin that's greater than query upper bound
+    upper_bin_width = get_position(typcache, upper,
+                                  &hist_lower[upper_index],
+                                  &hist_lower[upper_index + 1]);
+
+    // Initialize for loop iteration
+    prev_dist = 0.0;
+    bin_width = upper_bin_width;
+    sum_frac = 0.0;
+
+    // Process histogram bins from upper_index down to 0
+    for (i = upper_index; i >= 0; i--) {
+        double dist, length_hist_frac;
+        bool final_bin = false;
+
+        // Calculate distance from query upper bound to current bin's lower bound
+        if (range_cmp_bounds(typcache, &hist_lower[i], lower) < 0) {
+            // This bin contains the constant lower bound (final bin)
+            dist = get_distance(typcache, lower, upper);
+
+            // Subtract portion of bin we want to ignore
+            bin_width -= get_position(typcache, lower, &hist_lower[i],
+                                    &hist_lower[i + 1]);
+            if (bin_width < 0.0) bin_width = 0.0;
+            final_bin = true;
+        } else {
+            dist = get_distance(typcache, &hist_lower[i], upper);
+        }
+
+        // Estimate fraction of tuples in this bin narrow enough to fit
+        length_hist_frac = calc_length_hist_frac(length_hist_values,
+                                                length_hist_nvalues,
+                                                prev_dist, dist, true);
+
+        // Add weighted fraction to total
+        sum_frac += length_hist_frac * bin_width / (double) (hist_nvalues - 1);
+
+        if (final_bin) break;
+
+        bin_width = 1.0;
+        prev_dist = dist;
+    }
+
+    return sum_frac;
+}
+```

@@ -37,3 +37,24 @@ The function assumes the value has the same address family as the node's prefix 
 - The 4-node organization allows efficient routing based on both the next address bit and mask length comparison
 - The function implements a key part of the SP-GiST quad-tree structure for network addresses
 - Performance-critical code path for network address indexing and searching operations
+
+## Simplified Source
+
+```c
+static int
+inet_spg_node_number(const inet *val, int commonbits)
+{
+    int nodeN = 0;
+
+    // Check next address bit after common prefix (bit 0 of node number)
+    if (commonbits < ip_maxbits(val) &&
+        ip_addr(val)[commonbits / 8] & (1 << (7 - commonbits % 8)))
+        nodeN |= 1;  // Set bit 0 if next address bit is 1
+
+    // Check if mask length exceeds common bits (bit 1 of node number)
+    if (commonbits < ip_bits(val))
+        nodeN |= 2;  // Set bit 1 if mask is longer
+
+    return nodeN;  // Result: 0-3 representing 4 possible nodes
+}
+```

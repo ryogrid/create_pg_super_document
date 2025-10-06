@@ -44,3 +44,32 @@ The `numeric_float8` function converts a PostgreSQL `Numeric` value to a `float8
 - Part of PostgreSQL's numeric type conversion system in `src/backend/utils/adt/numeric.c`
 - The two-step conversion approach preserves precision better than direct binary conversion
 - Special value handling ensures IEEE 754 compliance for floating-point results
+
+## Simplified Source
+
+```c
+Datum numeric_float8(PG_FUNCTION_ARGS) {
+    Numeric num = PG_GETARG_NUMERIC(0);
+    char *tmp;
+    Datum result;
+
+    // Handle special numeric values (infinity, NaN)
+    if (NUMERIC_IS_SPECIAL(num)) {
+        if (NUMERIC_IS_PINF(num))
+            PG_RETURN_FLOAT8(get_float8_infinity());
+        else if (NUMERIC_IS_NINF(num))
+            PG_RETURN_FLOAT8(-get_float8_infinity());
+        else
+            PG_RETURN_FLOAT8(get_float8_nan());
+    }
+
+    // Convert numeric to string, then string to float8 for accuracy
+    tmp = DatumGetCString(DirectFunctionCall1(numeric_out, NumericGetDatum(num)));
+    result = DirectFunctionCall1(float8in, CStringGetDatum(tmp));
+
+    // Clean up temporary string
+    pfree(tmp);
+
+    return PG_RETURN_DATUM(result);
+}
+```

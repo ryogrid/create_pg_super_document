@@ -27,3 +27,14 @@ The anycompatiblearray_out function serves as a text output function for the any
 - The anycompatiblearray pseudotype ensures that all anycompatible* parameters in a function call resolve to compatible types
 - Text output functions convert internal data representations to human-readable string format
 - This function works in conjunction with other anycompatible* pseudotypes to provide type safety in polymorphic functions
+
+## Simplified Source
+
+```c
+Datum
+anycompatiblearray_out(PG_FUNCTION_ARGS)
+{
+    // Simple wrapper: delegate to array_out for text output
+    return array_out(fcinfo);
+}
+```

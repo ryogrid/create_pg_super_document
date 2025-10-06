@@ -46,3 +46,33 @@ The function deserializes the range bounds and gets the bounds of the multirange
 - Used internally by both public operator functions and GiST indexing operations
 - The comparison is strict ("strictly right of") rather than "right of or overlapping"
 - Complements  by checking the opposite ordering relationship
+
+## Simplified Source
+
+```c
+bool
+range_after_multirange_internal(TypeCacheEntry *rangetyp,
+                                const RangeType *range,
+                                const MultirangeType *multirange)
+{
+    RangeBound lower1, upper1, lower2, upper2;
+    bool empty;
+    int32 range_count;
+
+    // Return false for empty inputs
+    if (RangeIsEmpty(range) || MultirangeIsEmpty(multirange))
+        return false;
+
+    // Extract bounds from the range
+    range_deserialize(rangetyp, range, &lower1, &upper1, &empty);
+    Assert(!empty);
+
+    // Get bounds from the rightmost range in the multirange
+    range_count = multirange->rangeCount;
+    multirange_get_bounds(rangetyp, multirange, range_count - 1,
+                         &lower2, &upper2);
+
+    // Check if range's lower bound > multirange's rightmost upper bound
+    return (range_cmp_bounds(rangetyp, &lower1, &upper2) > 0);
+}
+```

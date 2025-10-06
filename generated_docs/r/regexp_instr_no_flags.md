@@ -30,3 +30,14 @@ The function is part of PostgreSQL's regular expression support system and provi
 - It's a direct passthrough to the main regexp_instr function
 - The function signature follows PostgreSQL's V1 calling convention using PG_FUNCTION_ARGS
 - Located in src/backend/utils/adt/regexp.c:1266-1272
+
+## Simplified Source
+
+```c
+/* Wrapper for regexp_instr without flags parameter */
+Datum
+regexp_instr_no_flags(PG_FUNCTION_ARGS)
+{
+    return regexp_instr(fcinfo);
+}
+```

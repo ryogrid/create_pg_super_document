@@ -36,3 +36,19 @@ The serialization format differs from the wire protocol used by numeric_send/rec
 - No validation is performed on the input NumericVar, allowing for intermediate values that exceed normal numeric type constraints
 - The serialization format is incompatible with the standard numeric_send/recv wire protocol due to different field sizes
 - Primarily used for aggregate function state serialization in parallel query processing
+
+## Simplified Source
+
+```c
+static void numericvar_serialize(StringInfo buf, const NumericVar *var) {
+    // Write all metadata fields as 32-bit integers
+    pq_sendint32(buf, var->ndigits);
+    pq_sendint32(buf, var->weight);
+    pq_sendint32(buf, var->sign);
+    pq_sendint32(buf, var->dscale);
+
+    // Write each digit as 16-bit integer
+    for (int i = 0; i < var->ndigits; i++)
+        pq_sendint16(buf, var->digits[i]);
+}
+```

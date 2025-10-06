@@ -54,3 +54,63 @@ The algorithm:
 - Part of PostgreSQL's extended mathematical function set for precise arithmetic
 - The decimal scale of the result is set to the maximum of the input scales
 - Performance optimization by arranging inputs to minimize modulo operations
+
+## Simplified Source
+
+```c
+static void
+gcd_var(const NumericVar *var1, const NumericVar *var2, NumericVar *result)
+{
+    NumericVar tmp_arg, mod;
+
+    // Set result decimal scale to maximum of inputs
+    int res_dscale = Max(var1->dscale, var2->dscale);
+
+    // Arrange for var1 to have greater absolute value (optimization)
+    int cmp = cmp_abs(var1, var2);
+    if (cmp < 0) {
+        const NumericVar *tmp = var1;
+        var1 = var2;
+        var2 = tmp;
+    }
+
+    // Handle special cases: equal values or zero input
+    if (cmp == 0 || var2->ndigits == 0) {
+        set_var_from_var(var1, result);
+        result->sign = NUMERIC_POS;  // GCD is always positive
+        result->dscale = res_dscale;
+        return;
+    }
+
+    init_var(&tmp_arg);
+    init_var(&mod);
+
+    // Apply Euclidean algorithm: GCD(a,b) = GCD(b, a mod b)
+    set_var_from_var(var1, &tmp_arg);
+    set_var_from_var(var2, result);
+
+    for (;;) {
+        // Allow interruption for very large number computations
+        CHECK_FOR_INTERRUPTS();
+
+        // Compute remainder: tmp_arg mod result
+        mod_var(&tmp_arg, result, &mod);
+
+        // If remainder is zero, we found the GCD
+        if (mod.ndigits == 0)
+            break;
+
+        // Continue with: GCD(result, mod)
+        set_var_from_var(result, &tmp_arg);
+        set_var_from_var(&mod, result);
+    }
+
+    // Set final result properties
+    result->sign = NUMERIC_POS;    // GCD is always positive
+    result->dscale = res_dscale;
+
+    // Clean up temporary variables
+    free_var(&tmp_arg);
+    free_var(&mod);
+}
+```

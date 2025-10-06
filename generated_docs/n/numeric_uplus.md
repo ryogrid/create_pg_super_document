@@ -35,3 +35,14 @@ The function follows PostgreSQL's standard function calling convention, acceptin
 - The function is located in src/backend/utils/adt/numeric.c at lines 1460-1475
 - Despite being a seemingly trivial unary plus operation, the function performs duplication to maintain PostgreSQL's memory management semantics
 - This function is part of PostgreSQL's comprehensive numeric operator system and integrates with the SQL parser and executor for handling unary plus expressions
+
+## Simplified Source
+
+```c
+Datum numeric_uplus(PG_FUNCTION_ARGS) {
+    Numeric num = PG_GETARG_NUMERIC(0);
+
+    // Return a duplicate of the input value
+    PG_RETURN_NUMERIC(duplicate_numeric(num));
+}
+```

@@ -39,3 +39,21 @@ The function extracts two NUMERIC arguments from the function call arguments, de
 - Part of the complete set of numeric comparison operators (=, <>, <, <=, >, >=)
 - Located in `src/backend/utils/adt/numeric.c:2506-2520`
 - Uses `<= 0` comparison on the result of `cmp_numerics` to implement the <= logic
+
+## Simplified Source
+
+```c
+Datum numeric_le(PG_FUNCTION_ARGS) {
+    // Get the two numeric arguments
+    Numeric num1 = PG_GETARG_NUMERIC(0);
+    Numeric num2 = PG_GETARG_NUMERIC(1);
+
+    // Compare the numbers and check if first <= second
+    bool result = cmp_numerics(num1, num2) <= 0;
+
+    // Clean up memory and return result
+    PG_FREE_IF_COPY(num1, 0);
+    PG_FREE_IF_COPY(num2, 1);
+    PG_RETURN_BOOL(result);
+}
+```

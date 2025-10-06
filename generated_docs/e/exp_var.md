@@ -59,3 +59,90 @@ The algorithm works by:
 - The algorithm is numerically stable and provides results accurate to the specified precision
 - Used as a building block for other transcendental functions in PostgreSQL's numeric system
 - The convergence criterion stops when Taylor series terms become negligible relative to the working precision
+
+## Simplified Source
+
+```c
+static void
+exp_var(const NumericVar *arg, NumericVar *result, int rscale)
+{
+    NumericVar x, elem;
+
+    init_var(&x);
+    init_var(&elem);
+
+    set_var_from_var(arg, &x);
+
+    // Estimate result magnitude to detect overflow
+    double val = numericvar_to_double_no_overflow(&x);
+
+    // Guard against overflow/underflow (limit from power_var too)
+    if (fabs(val) >= NUMERIC_MAX_RESULT_SCALE * 3) {
+        if (val > 0)
+            ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                           errmsg("value overflows numeric format")));
+        // Large negative exponent -> result approaches 0
+        zero_var(result);
+        result->dscale = rscale;
+        return;
+    }
+
+    // Calculate expected decimal weight: log10(e^x) = x * log10(e)
+    int dweight = (int) (val * 0.434294481903252);
+
+    // Range reduction: reduce x to [-0.01, 0.01] for better convergence
+    int ndiv2 = 0;
+    if (fabs(val) > 0.01) {
+        ndiv2 = 1;
+        val /= 2;
+
+        while (fabs(val) > 0.01) {
+            ndiv2++;
+            val /= 2;
+        }
+
+        // Divide x by 2^ndiv2
+        int local_rscale = x.dscale + ndiv2;
+        div_var_int(&x, 1 << ndiv2, 0, &x, local_rscale, true);
+    }
+
+    // Set working precision for Taylor series
+    // Need extra precision for final squaring operations
+    int sig_digits = 1 + dweight + rscale + (int) (ndiv2 * 0.301029995663981);
+    sig_digits = Max(sig_digits, 0) + 8;
+    int local_rscale = sig_digits - 1;
+
+    // Compute Taylor series: exp(x) = 1 + x + x^2/2! + x^3/3! + ...
+    add_var(&const_one, &x, result);  // Start with 1 + x
+
+    // Compute second term: x^2/2!
+    mul_var(&x, &x, &elem, local_rscale);
+    int ni = 2;
+    div_var_int(&elem, ni, 0, &elem, local_rscale, true);
+
+    // Continue series until terms become negligible
+    while (elem.ndigits != 0) {
+        add_var(result, &elem, result);
+
+        // Next term: multiply by x and divide by next factorial
+        mul_var(&elem, &x, &elem, local_rscale);
+        ni++;
+        div_var_int(&elem, ni, 0, &elem, local_rscale, true);
+    }
+
+    // Compensate for range reduction: square result ndiv2 times
+    // (since exp(x) = exp(x/2^n)^(2^n))
+    while (ndiv2-- > 0) {
+        // Reduce precision as result grows
+        local_rscale = sig_digits - result->weight * 2 * DEC_DIGITS;
+        local_rscale = Max(local_rscale, NUMERIC_MIN_DISPLAY_SCALE);
+        mul_var(result, result, result, local_rscale);
+    }
+
+    // Round to requested precision
+    round_var(result, rscale);
+
+    free_var(&x);
+    free_var(&elem);
+}
+```

@@ -44,3 +44,45 @@ The deserialized state is allocated in the current memory context and can be use
 - Part of PostgreSQL's parallel processing infrastructure
 - Uses read-only StringInfo for efficient binary data parsing
 - Allocates result in current memory context for proper lifecycle management
+
+## Simplified Source
+
+```c
+Datum numeric_avg_deserialize(PG_FUNCTION_ARGS) {
+    bytea *sstate;
+    NumericAggState *result;
+    StringInfoData buf;
+    NumericVar tmp_var;
+
+    // Validate aggregate context
+    if (!AggCheckCallContext(fcinfo, NULL))
+        elog(ERROR, "aggregate function called in non-aggregate context");
+
+    sstate = PG_GETARG_BYTEA_PP(0);
+    init_var(&tmp_var);
+
+    // Setup buffer for reading binary data
+    initReadOnlyStringInfo(&buf, VARDATA_ANY(sstate), VARSIZE_ANY_EXHDR(sstate));
+
+    // Create new aggregate state
+    result = makeNumericAggStateCurrentContext(false);
+
+    // Deserialize all state components in same order as serialization
+    result->N = pq_getmsgint64(&buf);                // Count of values
+
+    numericvar_deserialize(&buf, &tmp_var);          // Sum value
+    accum_sum_add(&(result->sumX), &tmp_var);
+
+    result->maxScale = pq_getmsgint(&buf, 4);        // Scale info
+    result->maxScaleCount = pq_getmsgint64(&buf);
+    result->NaNcount = pq_getmsgint64(&buf);         // Special value counts
+    result->pInfcount = pq_getmsgint64(&buf);
+    result->nInfcount = pq_getmsgint64(&buf);
+
+    // Validate message end and cleanup
+    pq_getmsgend(&buf);
+    free_var(&tmp_var);
+
+    PG_RETURN_POINTER(result);
+}
+```

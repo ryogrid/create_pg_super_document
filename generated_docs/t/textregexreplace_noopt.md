@@ -36,3 +36,19 @@ The `textregexreplace_noopt` function implements a simplified version of Postgre
 - Uses 0 for start_search (beginning of string) and 1 for max_replacements (first match only)
 - Part of PostgreSQL's comprehensive regular expression replacement functionality
 - Typically called through SQL regexp_replace() function without options parameter
+
+## Simplified Source
+
+```c
+Datum textregexreplace_noopt(PG_FUNCTION_ARGS) {
+    text *source = PG_GETARG_TEXT_PP(0);
+    text *pattern = PG_GETARG_TEXT_PP(1);
+    text *replacement = PG_GETARG_TEXT_PP(2);
+
+    // Perform regex replacement with default options
+    // Case-sensitive, replace first match only
+    PG_RETURN_TEXT_P(replace_text_regexp(source, pattern, replacement,
+                                        REG_ADVANCED, PG_GET_COLLATION(),
+                                        0, 1));
+}
+```

@@ -36,3 +36,24 @@ The function extracts the aggregation state and delegates computation to numeric
 - Population standard deviation calculation uses the entire dataset without Bessel's correction
 - The function is nearly identical to numeric_poly_var_pop except it passes false for the variance parameter to compute standard deviation instead
 - Located in src/backend/utils/adt/numeric.c:6483-6523
+
+## Simplified Source
+
+```c
+Datum numeric_poly_stddev_pop(PG_FUNCTION_ARGS) {
+    // Use optimized 128-bit integer implementation if available
+#ifdef HAVE_INT128
+    PolyNumAggState *state = PG_ARGISNULL(0) ? NULL :
+                             (PolyNumAggState *) PG_GETARG_POINTER(0);
+
+    // Calculate population standard deviation (not variance, not sample)
+    bool is_null;
+    Numeric result = numeric_poly_stddev_internal(state, false, false, &is_null);
+
+    return is_null ? PG_RETURN_NULL() : PG_RETURN_NUMERIC(result);
+#else
+    // Fallback to standard implementation
+    return numeric_stddev_pop(fcinfo);
+#endif
+}
+```

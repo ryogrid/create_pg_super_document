@@ -42,3 +42,24 @@ The function works by:
 - Returns false for empty multiranges as they have no bounds
 - Part of the multirange SQL functions exposed to users for introspecting multirange properties
 - Located in src/backend/utils/adt/multirangetypes.c:1584-1602
+
+## Simplified Source
+
+```c
+Datum multirange_upper_inc(PG_FUNCTION_ARGS) {
+    MultirangeType *mr = PG_GETARG_MULTIRANGE_P(0);
+    TypeCacheEntry *typcache;
+    RangeBound lower, upper;
+
+    // Return false for empty multiranges
+    if (MultirangeIsEmpty(mr))
+        PG_RETURN_BOOL(false);
+
+    // Get type cache and extract bounds of last range
+    typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(mr));
+    multirange_get_bounds(typcache->rngtype, mr, mr->rangeCount - 1, &lower, &upper);
+
+    // Return inclusivity of upper bound
+    PG_RETURN_BOOL(upper.inclusive);
+}
+```

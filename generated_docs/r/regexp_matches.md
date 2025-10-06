@@ -43,3 +43,46 @@ The function operates in two phases:
 - Memory allocation occurs in the multi-call memory context to persist across function calls
 - Pre-allocates workspace arrays (elems, nulls) for efficient result building
 - Returns ArrayType results containing the captured groups for each match
+
+## Simplified Source
+
+```c
+Datum regexp_matches(PG_FUNCTION_ARGS) {
+    FuncCallContext *funcctx;
+    regexp_matches_ctx *matchctx;
+
+    if (SRF_IS_FIRSTCALL()) {
+        text *pattern = PG_GETARG_TEXT_PP(1);
+        text *flags = PG_GETARG_TEXT_PP_IF_EXISTS(2);
+
+        funcctx = SRF_FIRSTCALL_INIT();
+
+        // Parse regex flags and setup matching context
+        pg_re_flags re_flags;
+        parse_re_flags(&re_flags, flags);
+
+        // Setup regexp matching with input text and pattern
+        matchctx = setup_regexp_matches(PG_GETARG_TEXT_P_COPY(0), pattern,
+                                       &re_flags, 0, PG_GET_COLLATION(),
+                                       true, false, false);
+
+        // Pre-allocate result workspace
+        matchctx->elems = palloc(sizeof(Datum) * matchctx->npatterns);
+        matchctx->nulls = palloc(sizeof(bool) * matchctx->npatterns);
+
+        funcctx->user_fctx = matchctx;
+    }
+
+    funcctx = SRF_PERCALL_SETUP();
+    matchctx = (regexp_matches_ctx *) funcctx->user_fctx;
+
+    // Return next match if available
+    if (matchctx->next_match < matchctx->nmatches) {
+        ArrayType *result_ary = build_regexp_match_result(matchctx);
+        matchctx->next_match++;
+        SRF_RETURN_NEXT(funcctx, PointerGetDatum(result_ary));
+    }
+
+    SRF_RETURN_DONE(funcctx);
+}
+```

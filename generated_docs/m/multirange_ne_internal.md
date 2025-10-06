@@ -37,4 +37,15 @@ The logic is straightforward: two multiranges are considered not equal if they d
 - Uses logical negation of equality rather than implementing independent inequality logic
 - The function maintains const correctness by not modifying input parameters
 - Extremely lightweight implementation that leverages existing equality comparison infrastructure
-- Located in 
+
+## Simplified Source
+
+```c
+bool multirange_ne_internal(TypeCacheEntry *rangetyp,
+                           const MultirangeType *mr1,
+                           const MultirangeType *mr2)
+{
+    // Simply negate the equality comparison result
+    return (!multirange_eq_internal(rangetyp, mr1, mr2));
+}
+``` 

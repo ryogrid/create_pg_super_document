@@ -38,3 +38,45 @@ The `network_recv` function is a static helper function that deserializes networ
 - Supports both IPv4 (PGSQL_AF_INET) and IPv6 (PGSQL_AF_INET6) address families
 - Uses zero-initialized memory allocation to ensure unused bits are cleared
 - Located in src/backend/utils/adt/network.c:192-249
+
+## Simplified Source
+
+```c
+static inet *
+network_recv(StringInfo buf, bool is_cidr)
+{
+    inet *addr = (inet *) palloc0(sizeof(inet));
+    char *addrptr;
+    int bits, nb, i;
+
+    // Read address family and validate
+    ip_family(addr) = pq_getmsgbyte(buf);
+    if (ip_family(addr) != PGSQL_AF_INET && ip_family(addr) != PGSQL_AF_INET6)
+        ereport(ERROR, "invalid address family in external value");
+
+    // Read and validate subnet bits
+    bits = pq_getmsgbyte(buf);
+    if (bits < 0 || bits > ip_maxbits(addr))
+        ereport(ERROR, "invalid bits in external value");
+    ip_bits(addr) = bits;
+
+    pq_getmsgbyte(buf);  // Skip is_cidr flag (historical)
+
+    // Read and validate address length
+    nb = pq_getmsgbyte(buf);
+    if (nb != ip_addrsize(addr))
+        ereport(ERROR, "invalid length in external value");
+
+    // Read address bytes
+    addrptr = (char *) ip_addr(addr);
+    for (i = 0; i < nb; i++)
+        addrptr[i] = pq_getmsgbyte(buf);
+
+    // For CIDR: validate no bits set beyond mask
+    if (is_cidr && !addressOK(ip_addr(addr), bits, ip_family(addr)))
+        ereport(ERROR, "invalid external cidr value");
+
+    SET_INET_VARSIZE(addr);
+    return addr;
+}
+```

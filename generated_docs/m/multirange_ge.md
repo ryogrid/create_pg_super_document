@@ -45,3 +45,17 @@ The comparison semantics are consistent with other multirange operators:
 - The function is registered as part of the multirange operator class for complete B-tree support
 - Type checking and validation are handled by the underlying multirange_cmp function
 - Together with other comparison operators (=, <>, <, <=, >), this function enables full SQL comparison semantics for multirange types
+
+## Simplified Source
+
+```c
+Datum
+multirange_ge(PG_FUNCTION_ARGS)
+{
+    // Use comparison function to determine ordering
+    int cmp = multirange_cmp(fcinfo);
+
+    // Return true if first multirange is greater than or equal to second
+    PG_RETURN_BOOL(cmp >= 0);
+}
+```

@@ -41,3 +41,30 @@ The adjacency test is bidirectional: ranges A..B and C..D are adjacent if B is a
 - Critical for range union operations and GiST/SP-GiST index operations
 - Uses the bounds_adjacent function to perform the actual boundary adjacency tests
 - Located in src/backend/utils/adt/rangetypes.c:798-827
+
+## Simplified Source
+
+```c
+bool range_adjacent_internal(TypeCacheEntry *typcache, const RangeType *r1, const RangeType *r2) {
+    RangeBound lower1, lower2, upper1, upper2;
+    bool empty1, empty2;
+
+    // Validate same range types
+    if (RangeTypeGetOid(r1) != RangeTypeGetOid(r2))
+        elog(ERROR, "range types do not match");
+
+    // Extract range boundaries
+    range_deserialize(typcache, r1, &lower1, &upper1, &empty1);
+    range_deserialize(typcache, r2, &lower2, &upper2, &empty2);
+
+    // Empty ranges are not adjacent to any range
+    if (empty1 || empty2)
+        return false;
+
+    // Ranges are adjacent if either:
+    // - upper bound of r1 is adjacent to lower bound of r2, OR
+    // - upper bound of r2 is adjacent to lower bound of r1
+    return (bounds_adjacent(typcache, upper1, lower2) ||
+            bounds_adjacent(typcache, upper2, lower1));
+}
+```

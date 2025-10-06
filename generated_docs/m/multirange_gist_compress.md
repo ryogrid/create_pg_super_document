@@ -37,3 +37,34 @@ This compression is essential for GiST indexing because it allows multiranges to
 - This approach enables multiranges to leverage the existing range GiST infrastructure
 - The compressed representation is used for index operations but the original multirange is preserved in the heap
 - Located in src/backend/utils/adt/rangetypes_gist.c:245-269
+
+## Simplified Source
+
+```c
+Datum
+multirange_gist_compress(PG_FUNCTION_ARGS)
+{
+	GISTENTRY  *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
+
+	// Only compress leaf entries (actual data)
+	if (entry->leafkey) {
+		MultirangeType *multirange = DatumGetMultirangeTypeP(entry->key);
+		RangeType  *union_range;
+		TypeCacheEntry *typcache;
+		GISTENTRY  *compressed_entry = palloc(sizeof(GISTENTRY));
+
+		// Get type cache and compute union range
+		typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(multirange));
+		union_range = multirange_get_union_range(typcache->rngtype, multirange);
+
+		// Create new entry with compressed range
+		gistentryinit(*compressed_entry, RangeTypePGetDatum(union_range),
+					  entry->rel, entry->page, entry->offset, false);
+
+		PG_RETURN_POINTER(compressed_entry);
+	}
+
+	// Internal nodes pass through unchanged
+	PG_RETURN_POINTER(entry);
+}
+```

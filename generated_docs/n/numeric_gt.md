@@ -38,4 +38,22 @@ The function extracts two NUMERIC arguments from the function call arguments, de
 - Memory management is handled through  to ensure proper cleanup of potentially large numeric values
 - The actual comparison logic is centralized in , which handles special cases like NaN and infinity values
 - Part of the complete set of numeric comparison operators (=, <>, <, <=, >, >=)
-- Located in 
+- Located in src/backend/utils/adt/numeric.c
+
+## Simplified Source
+
+```c
+Datum numeric_gt(PG_FUNCTION_ARGS) {
+    // Get the two numeric arguments
+    Numeric num1 = PG_GETARG_NUMERIC(0);
+    Numeric num2 = PG_GETARG_NUMERIC(1);
+
+    // Compare the numbers and check if first > second
+    bool result = cmp_numerics(num1, num2) > 0;
+
+    // Clean up memory and return result
+    PG_FREE_IF_COPY(num1, 0);
+    PG_FREE_IF_COPY(num2, 1);
+    PG_RETURN_BOOL(result);
+}
+``` 

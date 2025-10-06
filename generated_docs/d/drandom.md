@@ -33,3 +33,19 @@ The function leverages PostgreSQL's internal `pg_prng_double()` function which p
 - Initialization is lazy - PRNG is seeded only when first needed
 - The function name `drandom` likely stands for 'double random' to distinguish from integer random functions
 - Part of PostgreSQL's standard mathematical function library
+
+## Simplified Source
+
+```c
+Datum
+drandom(PG_FUNCTION_ARGS)
+{
+    // Ensure PRNG is initialized
+    initialize_prng();
+
+    // Generate uniform random double in [0.0, 1.0)
+    float8 result = pg_prng_double(&prng_state);
+
+    PG_RETURN_FLOAT8(result);
+}
+```

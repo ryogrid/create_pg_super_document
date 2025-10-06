@@ -38,3 +38,33 @@ The function performs validation to ensure it's not called with a NULL state, as
 - Input values have dscale 0 (no decimal places) as they are integers
 - Part of PostgreSQL's inverse aggregate function framework for windowing operations
 - Error handling includes validation that numeric discard operations succeed as expected
+
+## Simplified Source
+
+```c
+Datum
+int2_accum_inv(PG_FUNCTION_ARGS)
+{
+    PolyNumAggState *state;
+
+    state = PG_ARGISNULL(0) ? NULL : (PolyNumAggState *) PG_GETARG_POINTER(0);
+
+    // Validate state exists
+    if (state == NULL)
+        elog(ERROR, "int2_accum_inv called with NULL state");
+
+    // Remove non-NULL input values from accumulation
+    if (!PG_ARGISNULL(1))
+    {
+        // Use 128-bit arithmetic if available, otherwise numeric
+#ifdef HAVE_INT128
+        do_int128_discard(state, (int128) PG_GETARG_INT16(1));
+#else
+        if (!do_numeric_discard(state, int64_to_numeric(PG_GETARG_INT16(1))))
+            elog(ERROR, "do_numeric_discard failed unexpectedly");
+#endif
+    }
+
+    return state;
+}
+```

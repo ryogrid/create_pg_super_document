@@ -58,3 +58,63 @@ The function performs a two-pass algorithm: first examining all values to find t
 - Memory allocation is handled through PostgreSQL's palloc mechanism
 - [Node](../N/Node.md) labels are not used (set to NULL) since network address comparison is done directly on the data
 - The function ensures balanced partitioning by using the longest possible common prefix
+
+## Simplified Source
+
+```c
+Datum
+inet_spg_picksplit(PG_FUNCTION_ARGS)
+{
+    spgPickSplitIn *in = (spgPickSplitIn *) PG_GETARG_POINTER(0);
+    spgPickSplitOut *out = (spgPickSplitOut *) PG_GETARG_POINTER(1);
+    inet *prefix = DatumGetInetPP(in->datums[0]);
+    int commonbits = ip_bits(prefix);
+    bool differentFamilies = false;
+
+    // Find minimum common prefix among all values
+    for (int i = 1; i < in->nTuples; i++) {
+        inet *tmp = DatumGetInetPP(in->datums[i]);
+
+        if (ip_family(tmp) != ip_family(prefix)) {
+            differentFamilies = true;
+            break;
+        }
+
+        if (ip_bits(tmp) < commonbits)
+            commonbits = ip_bits(tmp);
+        commonbits = bitncommon(ip_addr(prefix), ip_addr(tmp), commonbits);
+        if (commonbits == 0)
+            break;
+    }
+
+    // Allocate output arrays
+    out->nodeLabels = NULL;
+    out->mapTuplesToNodes = (int *) palloc(sizeof(int) * in->nTuples);
+    out->leafTupleDatums = (Datum *) palloc(sizeof(Datum) * in->nTuples);
+
+    if (differentFamilies) {
+        // Create 2-node split by address family
+        out->hasPrefix = false;
+        out->nNodes = 2;
+
+        for (int i = 0; i < in->nTuples; i++) {
+            inet *tmp = DatumGetInetPP(in->datums[i]);
+            out->mapTuplesToNodes[i] = (ip_family(tmp) == PGSQL_AF_INET) ? 0 : 1;
+            out->leafTupleDatums[i] = InetPGetDatum(tmp);
+        }
+    } else {
+        // Create 4-node split by prefix
+        out->hasPrefix = true;
+        out->prefixDatum = InetPGetDatum(cidr_set_masklen_internal(prefix, commonbits));
+        out->nNodes = 4;
+
+        for (int i = 0; i < in->nTuples; i++) {
+            inet *tmp = DatumGetInetPP(in->datums[i]);
+            out->mapTuplesToNodes[i] = inet_spg_node_number(tmp, commonbits);
+            out->leafTupleDatums[i] = InetPGetDatum(tmp);
+        }
+    }
+
+    PG_RETURN_VOID();
+}
+```

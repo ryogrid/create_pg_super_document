@@ -42,3 +42,20 @@ This function is a PostgreSQL interface routine called by the function manager t
 - Differs from nameregexeq by adding the REG_ICASE flag for case-insensitive operation
 - Part of the case-insensitive regex family of functions as noted in the source comment
 - Particularly useful for matching identifiers where case sensitivity is not desired
+
+## Simplified Source
+
+```c
+Datum nameicregexeq(PG_FUNCTION_ARGS) {
+    Name name = PG_GETARG_NAME(0);
+    text *pattern = PG_GETARG_TEXT_PP(1);
+
+    // Return result of case-insensitive regex matching
+    PG_RETURN_BOOL(RE_compile_and_execute(pattern,
+                                         NameStr(*name),
+                                         strlen(NameStr(*name)),
+                                         REG_ADVANCED | REG_ICASE,
+                                         PG_GET_COLLATION(),
+                                         0, NULL));
+}
+```

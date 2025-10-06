@@ -34,3 +34,24 @@ The function uses PostgreSQL's error save context mechanism to catch errors from
 - Input format: Accepts PostgreSQL text type input, making it suitable for direct use in SQL
 - Safety wrapper: Provides a non-throwing alternative to regprocin for applications requiring NULL-on-error behavior
 - Function registration: Likely registered as a SQL-callable function for use in queries and expressions
+
+## Simplified Source
+
+```c
+Datum
+to_regproc(PG_FUNCTION_ARGS)
+{
+    char *pro_name = text_to_cstring(PG_GETARG_TEXT_PP(0));
+    Datum result;
+    ErrorSaveContext escontext = {T_ErrorSaveContext};
+
+    // Try to convert procedure name to OID using regprocin
+    if (!DirectInputFunctionCallSafe(regprocin, pro_name,
+                                     InvalidOid, -1,
+                                     (Node *) &escontext,
+                                     &result))
+        PG_RETURN_NULL();  // Return NULL if conversion fails
+
+    PG_RETURN_DATUM(result);
+}
+```

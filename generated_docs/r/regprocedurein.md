@@ -45,3 +45,47 @@ The function operates in two phases:
 - The function enforces that exactly one procedure must match the given signature
 - Maximum function arguments is limited by FUNC_MAX_ARGS constant
 - Part of PostgreSQL's object identifier (OID) type system for referencing catalog objects
+
+## Simplified Source
+
+```c
+Datum regprocedurein(PG_FUNCTION_ARGS) {
+    char *pro_name_or_oid = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    RegProcedure result;
+
+    // Handle "-" or numeric OID input
+    if (parseDashOrOid(pro_name_or_oid, &result, escontext))
+        PG_RETURN_OID(result);
+
+    // Bootstrap mode only accepts OIDs
+    if (IsBootstrapProcessingMode())
+        elog(ERROR, "regprocedure values must be OIDs in bootstrap mode");
+
+    // Parse procedure name and argument types
+    List *names;
+    int nargs;
+    Oid argtypes[FUNC_MAX_ARGS];
+
+    if (!parseNameAndArgTypes(pro_name_or_oid, false, &names, &nargs, argtypes, escontext))
+        PG_RETURN_NULL();
+
+    // Find candidate functions with matching name
+    FuncCandidateList clist = FuncnameGetCandidates(names, nargs, NIL, false, false, false, true);
+
+    // Search for exact argument type match
+    for (; clist; clist = clist->next) {
+        if (memcmp(clist->args, argtypes, nargs * sizeof(Oid)) == 0)
+            break;
+    }
+
+    // Return error if no exact match found
+    if (clist == NULL)
+        ereturn(escontext, (Datum) 0,
+                (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                 errmsg("function \"%s\" does not exist", pro_name_or_oid)));
+
+    result = clist->oid;
+    PG_RETURN_OID(result);
+}
+```

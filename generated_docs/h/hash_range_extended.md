@@ -44,3 +44,50 @@ The function handles empty ranges and ranges with missing bounds appropriately, 
 - Error handling ensures that the element type has an extended hash function available
 - Uses bit rotation and XOR operations to combine hash values for better distribution
 - The hash combines range flags, lower bound hash, and upper bound hash in a specific pattern
+
+## Simplified Source
+
+```c
+Datum
+hash_range_extended(PG_FUNCTION_ARGS)
+{
+    RangeType *r = PG_GETARG_RANGE_P(0);
+    Datum seed = PG_GETARG_DATUM(1);
+    uint64 result;
+    RangeBound lower, upper;
+    bool empty;
+    char flags;
+
+    // Get type cache and deserialize range
+    TypeCacheEntry *typcache = range_get_typcache(fcinfo, RangeTypeGetOid(r));
+    range_deserialize(typcache, r, &lower, &upper, &empty);
+    flags = range_get_flags(r);
+
+    // Get element type's extended hash function
+    TypeCacheEntry *scache = typcache->rngelemtype;
+    if (!OidIsValid(scache->hash_extended_proc_finfo.fn_oid)) {
+        scache = lookup_type_cache(scache->type_id, TYPECACHE_HASH_EXTENDED_PROC_FINFO);
+        // Error if no extended hash function available
+    }
+
+    // Hash lower bound with seed if present
+    uint64 lower_hash = RANGE_HAS_LBOUND(flags) ?
+        DatumGetUInt64(FunctionCall2Coll(&scache->hash_extended_proc_finfo,
+                                         typcache->rng_collation,
+                                         lower.val, seed)) : 0;
+
+    // Hash upper bound with seed if present
+    uint64 upper_hash = RANGE_HAS_UBOUND(flags) ?
+        DatumGetUInt64(FunctionCall2Coll(&scache->hash_extended_proc_finfo,
+                                         typcache->rng_collation,
+                                         upper.val, seed)) : 0;
+
+    // Combine hashes: flags, lower bound, upper bound
+    result = DatumGetUInt64(hash_uint32_extended((uint32) flags, DatumGetInt64(seed)));
+    result ^= lower_hash;
+    result = ROTATE_HIGH_AND_LOW_32BITS(result);
+    result ^= upper_hash;
+
+    PG_RETURN_UINT64(result);
+}
+```

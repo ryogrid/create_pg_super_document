@@ -40,3 +40,27 @@ The function is designed to be non-destructive - it returns false for invalid re
 - Returns false for non-existent relations, allowing graceful error handling by callers
 - Critical for maintaining data integrity in PostgreSQL's declarative partitioning system
 - The RELKIND_HAS_PARTITIONS macro ensures only appropriate relation types (typically regular tables) can participate in partitioning
+
+## Simplified Source
+```c
+static bool check_rel_can_be_partition(Oid relid) {
+    char relkind;
+    bool relispartition;
+
+    // Check if relation exists in system catalog
+    if (!SearchSysCacheExists1(RELOID, ObjectIdGetDatum(relid)))
+        return false;
+
+    // Get relation properties
+    relkind = get_rel_relkind(relid);
+    relispartition = get_rel_relispartition(relid);
+
+    // Allow only relations that can participate in partitioning:
+    // - Already a partition, OR
+    // - A relation kind that can have partitions (e.g., regular tables)
+    if (!relispartition && !RELKIND_HAS_PARTITIONS(relkind))
+        return false;
+
+    return true;
+}
+```

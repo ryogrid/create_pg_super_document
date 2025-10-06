@@ -32,3 +32,14 @@ The function forwards all provided arguments to , which will use its default beh
 - Located in src/backend/utils/adt/regexp.c:1953-1959
 - Part of a family of regexp_substr wrapper functions that provide different parameter combinations
 - The name suggests it handles cases where the 'n' (occurrence number) parameter is omitted from SQL calls
+
+## Simplified Source
+
+```c
+Datum
+regexp_substr_no_n(PG_FUNCTION_ARGS)
+{
+    // Simple wrapper - delegate to main regexp_substr function
+    return regexp_substr(fcinfo);
+}
+```

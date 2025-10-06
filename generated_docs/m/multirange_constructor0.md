@@ -33,3 +33,25 @@ This function creates an empty multirange containing no range elements. It exist
 - Creates an empty multirange by calling make_multirange with count=0 and ranges=NULL
 - Exists separately from other constructors due to PostgreSQL's internal function handling requirements
 - Located in src/backend/utils/adt/multirangetypes.c:1059-1081
+
+## Simplified Source
+
+```c
+Datum
+multirange_constructor0(PG_FUNCTION_ARGS)
+{
+    // Validate no arguments are passed
+    if (PG_NARGS() != 0)
+        elog(ERROR, "niladic multirange constructor must not receive arguments");
+
+    // Get type information
+    Oid multirange_type_id = get_fn_expr_rettype(fcinfo->flinfo);
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, multirange_type_id);
+    TypeCacheEntry *range_type = typcache->rngtype;
+
+    // Create empty multirange
+    PG_RETURN_MULTIRANGE_P(make_multirange(multirange_type_id, range_type, 0, NULL));
+}
+```
+
+This zero-argument constructor creates an empty multirange by calling `make_multirange` with no ranges (count = 0, ranges = NULL).

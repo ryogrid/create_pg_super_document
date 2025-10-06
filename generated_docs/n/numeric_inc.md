@@ -42,3 +42,30 @@ Key behaviors:
 - Uses the internal const_one constant for efficient addition
 - Part of PostgreSQL's comprehensive numeric arithmetic function suite
 - Commonly used in SQL expressions where incrementing is needed
+
+## Simplified Source
+
+```c
+Datum
+numeric_inc(PG_FUNCTION_ARGS)
+{
+    Numeric num = PG_GETARG_NUMERIC(0);
+    NumericVar arg;
+
+    // Handle special values (NaN, infinity) - return unchanged
+    if (NUMERIC_IS_SPECIAL(num))
+        PG_RETURN_NUMERIC(duplicate_numeric(num));
+
+    // Convert input to internal format
+    init_var_from_num(num, &arg);
+
+    // Add 1 to the value
+    add_var(&arg, &const_one, &arg);
+
+    // Convert result back and cleanup
+    Numeric result = make_result(&arg);
+    free_var(&arg);
+
+    PG_RETURN_NUMERIC(result);
+}
+```

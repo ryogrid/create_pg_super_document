@@ -40,3 +40,29 @@ This wrapper ensures consistent and reliable behavior across different device ty
 - Part of PostgreSQL's Windows compatibility layer
 - The function sets errno to ESPIPE for unsupported device types (pipes, character devices)
 - Uses Microsoft's _fseeki64() for actual disk file seeking operations
+
+## Simplified Source
+
+```c
+int _pgfseeko64(FILE *stream, pgoff_t offset, int origin) {
+    DWORD fileType;
+    HANDLE hFile = (HANDLE) _get_osfhandle(_fileno(stream));
+
+    // Determine file type to check if seeking is supported
+    fileType = pgwin32_get_file_type(hFile);
+    if (errno != 0)
+        return -1;
+
+    // Only disk files support seeking
+    if (fileType == FILE_TYPE_DISK)
+        return _fseeki64(stream, offset, origin);
+
+    // Set appropriate error for non-seekable devices
+    if (fileType == FILE_TYPE_CHAR || fileType == FILE_TYPE_PIPE)
+        errno = ESPIPE;  // Illegal seek
+    else
+        errno = EINVAL;  // Invalid argument
+
+    return -1;
+}
+```

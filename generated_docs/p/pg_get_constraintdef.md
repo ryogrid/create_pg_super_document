@@ -37,3 +37,23 @@ This function serves as the SQL-callable interface for retrieving constraint def
 - The returned definition is suitable for use in DDL statements to recreate the constraint
 - Part of PostgreSQL's rule utilities system for reconstructing DDL from system catalogs
 - Often used in pg_dump and other backup utilities to generate constraint definitions
+
+## Simplified Source
+
+```c
+Datum
+pg_get_constraintdef(PG_FUNCTION_ARGS)
+{
+    Oid constraintId = PG_GETARG_OID(0);
+    char *result;
+
+    // Generate constraint definition with pretty formatting
+    result = pg_get_constraintdef_worker(constraintId, false,
+                                       PRETTYFLAG_INDENT, true);
+
+    if (result == NULL)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(string_to_text(result));
+}
+```

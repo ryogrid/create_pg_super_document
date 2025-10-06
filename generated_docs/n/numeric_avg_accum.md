@@ -50,3 +50,24 @@ The actual numeric accumulation work is delegated to do_numeric_accum, which han
 - The function is registered in PostgreSQL's system catalog and called automatically during aggregate operations
 - NULL input values are properly skipped without affecting the aggregate state
 - Complements numeric_accum by providing an optimized path for simpler aggregates
+
+## Simplified Source
+
+```c
+Datum numeric_avg_accum(PG_FUNCTION_ARGS) {
+    NumericAggState *state;
+
+    // Get existing state or start with NULL on first call
+    state = PG_ARGISNULL(0) ? NULL : (NumericAggState *) PG_GETARG_POINTER(0);
+
+    // Initialize state on first call (calcSumX2=false for simple sum/avg)
+    if (state == NULL)
+        state = makeNumericAggState(fcinfo, false);
+
+    // Accumulate the new value if it's not NULL
+    if (!PG_ARGISNULL(1))
+        do_numeric_accum(state, PG_GETARG_NUMERIC(1));
+
+    return PG_RETURN_POINTER(state);
+}
+```

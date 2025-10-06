@@ -36,3 +36,15 @@ The comparison follows the same hierarchical logic as other oidvector comparison
 - Typically invoked through SQL expressions using the <= operator on oidvector columns
 - Useful for range queries and sorting operations involving oidvector data
 - Located in src/backend/utils/adt/oid.c:368-375
+
+## Simplified Source
+
+```c
+Datum oidvectorle(PG_FUNCTION_ARGS) {
+    // Use btoidvectorcmp to compare the two oidvectors
+    int32 cmp = DatumGetInt32(btoidvectorcmp(fcinfo));
+
+    // Return true if first vector is less than or equal to second (cmp <= 0)
+    return PG_RETURN_BOOL(cmp <= 0);
+}
+```

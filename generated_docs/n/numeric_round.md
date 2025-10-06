@@ -55,3 +55,38 @@ Key features include:
 - For negative scale results, the output dscale is set to 0 to prevent negative display scale
 - Uses PostgreSQL's high-precision NumericVar arithmetic for accurate decimal rounding
 - Memory management includes proper initialization and cleanup of temporary variables
+
+## Simplified Source
+
+```c
+Datum
+numeric_round(PG_FUNCTION_ARGS)
+{
+    Numeric num = PG_GETARG_NUMERIC(0);
+    int32 scale = PG_GETARG_INT32(1);
+    Numeric res;
+    NumericVar arg;
+
+    // Handle special values (NaN, infinity)
+    if (NUMERIC_IS_SPECIAL(num))
+        PG_RETURN_NUMERIC(duplicate_numeric(num));
+
+    // Limit scale to prevent overflow
+    scale = Max(scale, -(NUMERIC_WEIGHT_MAX + 1) * DEC_DIGITS - 1);
+    scale = Min(scale, NUMERIC_DSCALE_MAX);
+
+    // Convert to internal format and round
+    init_var(&arg);
+    set_var_from_num(num, &arg);
+    round_var(&arg, scale);
+
+    // Ensure non-negative display scale
+    if (scale < 0)
+        arg.dscale = 0;
+
+    // Convert back to result format
+    res = make_result(&arg);
+    free_var(&arg);
+    PG_RETURN_NUMERIC(res);
+}
+```

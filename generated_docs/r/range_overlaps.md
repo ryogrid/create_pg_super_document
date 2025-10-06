@@ -37,3 +37,19 @@ The function follows PostgreSQL's standard function interface pattern using the 
 - The actual overlap logic is implemented in range_overlaps_internal
 - Used internally by PostgreSQL when the && operator is applied to range types in SQL queries
 - Returns false if either range is empty, as empty ranges do not overlap with anything
+
+## Simplified Source
+
+```c
+Datum range_overlaps(PG_FUNCTION_ARGS) {
+    RangeType *r1 = PG_GETARG_RANGE_P(0);
+    RangeType *r2 = PG_GETARG_RANGE_P(1);
+    TypeCacheEntry *typcache;
+
+    // Get type cache for range operations
+    typcache = range_get_typcache(fcinfo, RangeTypeGetOid(r1));
+
+    // Delegate to internal function and return result
+    PG_RETURN_BOOL(range_overlaps_internal(typcache, r1, r2));
+}
+```

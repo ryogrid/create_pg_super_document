@@ -37,3 +37,27 @@ The search uses `range_cmp_bounds()` to compare range bounds, respecting the typ
 - Used in both regular range types and multirange types selectivity estimation
 - The binary search is optimized for finding histogram bin boundaries rather than exact matches
 - Critical component of PostgreSQL's cost-based query optimization for range predicates
+
+## Simplified Source
+
+```c
+static int
+rbound_bsearch(TypeCacheEntry *typcache, const RangeBound *value, const RangeBound *hist,
+               int hist_length, bool equal)
+{
+    int lower = -1, upper = hist_length - 1, cmp, middle;
+
+    // Binary search for the greatest index where hist[index] < value (or <= if equal=true)
+    while (lower < upper) {
+        middle = (lower + upper + 1) / 2;
+        cmp = range_cmp_bounds(typcache, &hist[middle], value);
+
+        if (cmp < 0 || (equal && cmp == 0))
+            lower = middle;  // hist[middle] is less than (or equal to) value
+        else
+            upper = middle - 1;  // hist[middle] is greater than value
+    }
+
+    return lower;  // Returns -1 if all histogram values are >= value
+}
+```

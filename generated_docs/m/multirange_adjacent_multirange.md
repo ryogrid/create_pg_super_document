@@ -48,4 +48,42 @@ The algorithm optimizes for the most common cases by checking the most likely ad
 - The function checks multiple adjacency scenarios to handle complex multirange structures
 - More complex than the range-multirange adjacency functions due to the need to check multiple boundary combinations
 - Part of PostgreSQL's range and multirange type system for advanced range operations
-- File location: 
+- File location:
+
+## Simplified Source
+
+```c
+Datum
+multirange_adjacent_multirange(PG_FUNCTION_ARGS)
+{
+    // Extract both multirange arguments
+    MultirangeType *mr1 = PG_GETARG_MULTIRANGE_P(0);
+    MultirangeType *mr2 = PG_GETARG_MULTIRANGE_P(1);
+
+    // Early return: empty multiranges are never adjacent
+    if (MultirangeIsEmpty(mr1) || MultirangeIsEmpty(mr2))
+        return false;
+
+    // Get type information and range counts
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(mr1));
+    int32 range_count1 = mr1->rangeCount;
+    int32 range_count2 = mr2->rangeCount;
+
+    // Check if last range of mr1 is adjacent to first range of mr2
+    RangeBound lower1, upper1, lower2, upper2;
+    multirange_get_bounds(typcache->rngtype, mr1, range_count1 - 1, &lower1, &upper1);
+    multirange_get_bounds(typcache->rngtype, mr2, 0, &lower2, &upper2);
+    if (bounds_adjacent(typcache->rngtype, upper1, lower2))
+        PG_RETURN_BOOL(true);
+
+    // Check reverse adjacency: first range of mr1 adjacent to last range of mr2
+    if (range_count1 > 1)
+        multirange_get_bounds(typcache->rngtype, mr1, 0, &lower1, &upper1);
+    if (range_count2 > 1)
+        multirange_get_bounds(typcache->rngtype, mr2, range_count2 - 1, &lower2, &upper2);
+    if (bounds_adjacent(typcache->rngtype, upper2, lower1))
+        PG_RETURN_BOOL(true);
+
+    PG_RETURN_BOOL(false);
+}
+```

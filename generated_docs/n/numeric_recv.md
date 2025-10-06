@@ -48,3 +48,60 @@ The  function is the binary input function for PostgreSQL's Numeric data type. I
 - Uses PostgreSQL's message protocol functions (pq_getmsgint) for binary deserialization  
 - Located in src/backend/utils/adt/numeric.c:1076-1160
 - Essential for binary protocol communication and storage/retrieval of Numeric values
+
+## Simplified Source
+
+```c
+Datum numeric_recv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    int32 typmod = PG_GETARG_INT32(2);
+    NumericVar value;
+    Numeric res;
+    int len, i;
+
+    init_var(&value);
+
+    // Read the binary format: ndigits, weight, sign, dscale, digits
+    len = (uint16) pq_getmsgint(buf, sizeof(uint16));
+    alloc_var(&value, len);
+
+    value.weight = (int16) pq_getmsgint(buf, sizeof(int16));
+
+    value.sign = (uint16) pq_getmsgint(buf, sizeof(uint16));
+    // Validate sign value
+    if (!(value.sign == NUMERIC_POS || value.sign == NUMERIC_NEG ||
+          value.sign == NUMERIC_NAN || value.sign == NUMERIC_PINF ||
+          value.sign == NUMERIC_NINF))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_BINARY_REPRESENTATION),
+                errmsg("invalid sign in external \"numeric\" value")));
+
+    value.dscale = (uint16) pq_getmsgint(buf, sizeof(uint16));
+    // Validate scale value
+    if ((value.dscale & NUMERIC_DSCALE_MASK) != value.dscale)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_BINARY_REPRESENTATION),
+                errmsg("invalid scale in external \"numeric\" value")));
+
+    // Read digit values
+    for (i = 0; i < len; i++) {
+        NumericDigit d = pq_getmsgint(buf, sizeof(NumericDigit));
+        if (d < 0 || d >= NBASE)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_BINARY_REPRESENTATION),
+                    errmsg("invalid digit in external \"numeric\" value")));
+        value.digits[i] = d;
+    }
+
+    // Apply truncation and typmod constraints
+    if (value.sign == NUMERIC_POS || value.sign == NUMERIC_NEG) {
+        trunc_var(&value, value.dscale);
+        (void) apply_typmod(&value, typmod, NULL);
+        res = make_result(&value);
+    } else {
+        // Handle special values
+        res = make_result(&value);
+        (void) apply_typmod_special(res, typmod, NULL);
+    }
+
+    free_var(&value);
+    PG_RETURN_NUMERIC(res);
+}
+```

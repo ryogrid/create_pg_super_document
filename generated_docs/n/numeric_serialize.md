@@ -43,3 +43,44 @@ Like its simpler counterpart, this function ensures proper aggregate context val
 - Uses the same binary protocol as other serialization functions for consistency
 - Includes comprehensive state preservation for complex numeric aggregates
 - Part of the infrastructure supporting distributed computation of statistical aggregates
+
+## Simplified Source
+
+```c
+Datum numeric_serialize(PG_FUNCTION_ARGS) {
+    NumericAggState *state;
+    StringInfoData buf;
+    NumericVar tmp_var;
+
+    // Validate aggregate context
+    if (!AggCheckCallContext(fcinfo, NULL))
+        elog(ERROR, "aggregate function called in non-aggregate context");
+
+    state = (NumericAggState *) PG_GETARG_POINTER(0);
+    init_var(&tmp_var);
+
+    // Start serialization buffer
+    pq_begintypsend(&buf);
+
+    // Serialize all state components including sumX2
+    pq_sendint64(&buf, state->N);                    // Count of values
+
+    accum_sum_final(&state->sumX, &tmp_var);         // Sum of values
+    numericvar_serialize(&buf, &tmp_var);
+
+    accum_sum_final(&state->sumX2, &tmp_var);        // Sum of squares
+    numericvar_serialize(&buf, &tmp_var);
+
+    pq_sendint32(&buf, state->maxScale);             // Scale info
+    pq_sendint64(&buf, state->maxScaleCount);
+    pq_sendint64(&buf, state->NaNcount);             // Special value counts
+    pq_sendint64(&buf, state->pInfcount);
+    pq_sendint64(&buf, state->nInfcount);
+
+    // Complete serialization and cleanup
+    bytea *result = pq_endtypsend(&buf);
+    free_var(&tmp_var);
+
+    PG_RETURN_BYTEA_P(result);
+}
+```

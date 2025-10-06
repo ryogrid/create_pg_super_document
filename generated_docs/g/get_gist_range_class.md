@@ -43,3 +43,30 @@ The function examines the range flags and constructs a class number by setting a
 - The class system allows efficient partitioning of ranges during GiST index construction
 - Empty ranges are treated as a special case and cannot have additional properties
 - The bit-wise OR operations create unique combinations for different range characteristics
+
+## Simplified Source
+
+```c
+static int get_gist_range_class(RangeType *range) {
+    int classNumber;
+    char flags;
+
+    flags = range_get_flags(range);
+
+    // Empty ranges have a special class
+    if (flags & RANGE_EMPTY) {
+        classNumber = CLS_EMPTY;
+    } else {
+        // Build class number by combining property flags
+        classNumber = 0;
+        if (flags & RANGE_LB_INF)
+            classNumber |= CLS_LOWER_INF;
+        if (flags & RANGE_UB_INF)
+            classNumber |= CLS_UPPER_INF;
+        if (flags & RANGE_CONTAIN_EMPTY)
+            classNumber |= CLS_CONTAIN_EMPTY;
+    }
+
+    return classNumber;
+}
+```

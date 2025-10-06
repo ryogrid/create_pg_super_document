@@ -40,3 +40,34 @@ The function handles the case where no non-null inputs were processed by returni
 - Handles NULL state appropriately by returning NULL for empty result sets
 - Uses proper memory management with `init_var` and `free_var`
 - Located in src/backend/utils/adt/numeric.c:6086-6113
+
+## Simplified Source
+
+```c
+Datum
+numeric_poly_sum(PG_FUNCTION_ARGS)
+{
+#ifdef HAVE_INT128
+    PolyNumAggState *state;
+    NumericVar result;
+
+    state = PG_ARGISNULL(0) ? NULL : (PolyNumAggState *) PG_GETARG_POINTER(0);
+
+    // Return NULL if no non-null inputs
+    if (state == NULL || state->N == 0)
+        return NULL;
+
+    // Convert accumulated 128-bit sum to numeric result
+    init_var(&result);
+    int128_to_numericvar(state->sumX, &result);
+
+    Numeric res = make_result(&result);
+    free_var(&result);
+
+    return res;
+#else
+    // Fallback to standard numeric sum
+    return numeric_sum(fcinfo);
+#endif
+}
+```

@@ -35,3 +35,20 @@ The function follows PostgreSQL's standard function calling convention using `PG
 - The actual overlap logic is implemented in `multirange_overlaps_multirange_internal`
 - Located in `src/backend/utils/adt/multirangetypes.c` at lines 1960-1975
 - Part of PostgreSQL's multirange type system introduced for handling collections of ranges
+
+## Simplified Source
+
+```c
+Datum multirange_overlaps_multirange(PG_FUNCTION_ARGS)
+{
+    // Extract two multirange arguments
+    MultirangeType *mr1 = PG_GETARG_MULTIRANGE_P(0);
+    MultirangeType *mr2 = PG_GETARG_MULTIRANGE_P(1);
+
+    // Get type cache for range operations
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(mr1));
+
+    // Delegate to internal overlap function and return result
+    PG_RETURN_BOOL(multirange_overlaps_multirange_internal(typcache->rngtype, mr1, mr2));
+}
+```

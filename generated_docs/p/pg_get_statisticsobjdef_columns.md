@@ -33,3 +33,21 @@ This function is a PostgreSQL built-in function (accessible via SQL) that extrac
 - The function follows standard PostgreSQL function conventions with Datum return type
 - Converts the result to PostgreSQL text type for SQL compatibility
 - Part of the ruleutils module which handles object definition formatting
+
+## Simplified Source
+
+```c
+Datum pg_get_statisticsobjdef_columns(PG_FUNCTION_ARGS) {
+    // Extract statistics object OID from arguments
+    Oid statextid = PG_GETARG_OID(0);
+
+    // Get columns-only definition (not complete CREATE statement)
+    char *res = pg_get_statisticsobj_worker(statextid, true, true);
+
+    // Return NULL if statistics object not found, otherwise convert to text
+    if (res == NULL)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(string_to_text(res));
+}
+```

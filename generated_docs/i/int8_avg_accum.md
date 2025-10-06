@@ -38,3 +38,33 @@ The function creates the accumulator state on the first call and updates it with
 - Part of PostgreSQL's polymorphic numeric aggregation system
 - Optimized for average calculations that don't need variance/standard deviation (no sumX2)
 - Returns a pointer to the updated state for chaining in aggregate operations
+
+## Simplified Source
+
+```c
+Datum
+int8_avg_accum(PG_FUNCTION_ARGS)
+{
+    PolyNumAggState *state;
+
+    // Get existing state or NULL for first call
+    state = PG_ARGISNULL(0) ? NULL : (PolyNumAggState *) PG_GETARG_POINTER(0);
+
+    // Initialize state on first call
+    if (state == NULL)
+        state = makePolyNumAggState(fcinfo, false);
+
+    // Accumulate non-NULL input values
+    if (!PG_ARGISNULL(1))
+    {
+        // Use 128-bit arithmetic if available, otherwise numeric
+#ifdef HAVE_INT128
+        do_int128_accum(state, (int128) PG_GETARG_INT64(1));
+#else
+        do_numeric_accum(state, int64_to_numeric(PG_GETARG_INT64(1)));
+#endif
+    }
+
+    return state;
+}
+```

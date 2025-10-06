@@ -47,3 +47,42 @@ The function handles empty ranges and multiranges by returning false, as empty s
 - Uses  which checks for touching boundaries without overlap
 - Critical for range operations that need to detect when ranges can be merged or are touching
 - Optimized to avoid unnecessary bound extraction when multirange has only one range
+
+## Simplified Source
+
+```c
+bool
+range_adjacent_multirange_internal(TypeCacheEntry *rangetyp,
+                                   const RangeType *range,
+                                   const MultirangeType *multirange)
+{
+    RangeBound lower1, upper1, lower2, upper2;
+    bool empty;
+    int32 range_count;
+
+    // Return false for empty inputs
+    if (RangeIsEmpty(range) || MultirangeIsEmpty(multirange))
+        return false;
+
+    // Extract bounds from the range
+    range_deserialize(rangetyp, range, &lower1, &upper1, &empty);
+    Assert(!empty);
+
+    range_count = multirange->rangeCount;
+
+    // Check if range is adjacent to the leftmost part of multirange
+    multirange_get_bounds(rangetyp, multirange, 0, &lower2, &upper2);
+    if (bounds_adjacent(rangetyp, upper1, lower2))
+        return true;
+
+    // If multirange has multiple ranges, check adjacency to rightmost part
+    if (range_count > 1) {
+        multirange_get_bounds(rangetyp, multirange, range_count - 1,
+                             &lower2, &upper2);
+        if (bounds_adjacent(rangetyp, upper2, lower1))
+            return true;
+    }
+
+    return false;
+}
+```

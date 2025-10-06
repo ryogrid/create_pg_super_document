@@ -36,3 +36,33 @@ This function implements the core quadrant determination logic for SP-GiST quadt
 - Returns an error if no quadrant can be determined (should be impossible case)
 - Essential component of SP-GiST quadtree splitting and navigation algorithms
 - Located in src/backend/access/spgist/spgquadtreeproc.c:55-82
+
+## Simplified Source
+
+```c
+static int16 getQuadrant(Point *centroid, Point *test_point) {
+    // Quadrant 1 (upper right): above/on horizontal AND right/on vertical
+    if ((point_above_or_horizontal(test_point, centroid)) &&
+        (point_right_or_vertical(test_point, centroid)))
+        return 1;
+
+    // Quadrant 2 (lower right): below AND right/on vertical
+    if (point_below(test_point, centroid) &&
+        (point_right_or_vertical(test_point, centroid)))
+        return 2;
+
+    // Quadrant 3 (lower left): below/on horizontal AND left
+    if ((point_below_or_horizontal(test_point, centroid)) &&
+        point_left(test_point, centroid))
+        return 3;
+
+    // Quadrant 4 (upper left): above AND left
+    if (point_above(test_point, centroid) &&
+        point_left(test_point, centroid))
+        return 4;
+
+    // This should never happen
+    elog(ERROR, "getQuadrant: impossible case");
+    return 0;
+}
+```

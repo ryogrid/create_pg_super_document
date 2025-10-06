@@ -48,3 +48,56 @@ This function extracts the internal components of a serialized RangeType object,
 - Properly handles data alignment requirements for different element types
 - Widely used throughout the range type system for accessing range components
 - Critical function for all range comparison, operation, and I/O functions
+
+## Simplified Source
+
+```c
+void
+range_deserialize(TypeCacheEntry *typcache, const RangeType *range,
+                  RangeBound *lower, RangeBound *upper, bool *empty)
+{
+    // Extract the flags byte from the last byte of the range object
+    char flags = *((const char *) range + VARSIZE(range) - 1);
+
+    // Get element type information for deserialization
+    int16 typlen = typcache->rngelemtype->typlen;
+    bool typbyval = typcache->rngelemtype->typbyval;
+    char typalign = typcache->rngelemtype->typalign;
+
+    // Start reading data after the range type OID
+    Pointer ptr = (Pointer) (range + 1);
+
+    // Extract lower bound if present
+    Datum lbound;
+    if (RANGE_HAS_LBOUND(flags)) {
+        lbound = fetch_att(ptr, typbyval, typlen);
+        ptr = (Pointer) att_addlength_pointer(ptr, typlen, ptr);
+    } else {
+        lbound = (Datum) 0;
+    }
+
+    // Extract upper bound if present
+    Datum ubound;
+    if (RANGE_HAS_UBOUND(flags)) {
+        ptr = (Pointer) att_align_pointer(ptr, typalign, typlen, ptr);
+        ubound = fetch_att(ptr, typbyval, typlen);
+    } else {
+        ubound = (Datum) 0;
+    }
+
+    // Set output parameters
+    *empty = (flags & RANGE_EMPTY) != 0;
+
+    // Fill in lower bound structure
+    lower->val = lbound;
+    lower->infinite = (flags & RANGE_LB_INF) != 0;
+    lower->inclusive = (flags & RANGE_LB_INC) != 0;
+    lower->lower = true;
+
+    // Fill in upper bound structure
+    upper->val = ubound;
+    upper->infinite = (flags & RANGE_UB_INF) != 0;
+    upper->inclusive = (flags & RANGE_UB_INC) != 0;
+    upper->lower = false;
+}
+```

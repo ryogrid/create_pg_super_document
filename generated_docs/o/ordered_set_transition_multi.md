@@ -46,3 +46,46 @@ The complete tuple is then added to the tuplesort object using , and the row cou
 - Maintains running count of rows in 
 - Works with aggregates like  or multi-column percentiles
 - The tuple slot is reused across calls for efficiency
+
+## Simplified Source
+
+```c
+Datum
+ordered_set_transition_multi(PG_FUNCTION_ARGS)
+{
+    OSAPerGroupState *osastate;
+    TupleTableSlot *slot;
+    int nargs;
+
+    // Initialize state on first call, otherwise retrieve existing state
+    if (PG_ARGISNULL(0))
+        osastate = ordered_set_startup(fcinfo, true);
+    else
+        osastate = (OSAPerGroupState *) PG_GETARG_POINTER(0);
+
+    // Form a tuple from all input arguments (excluding state argument)
+    slot = osastate->qstate->tupslot;
+    ExecClearTuple(slot);
+    nargs = PG_NARGS() - 1;
+
+    // Copy all input values into tuple slot
+    for (int i = 0; i < nargs; i++) {
+        slot->tts_values[i] = PG_GETARG_DATUM(i + 1);
+        slot->tts_isnull[i] = PG_ARGISNULL(i + 1);
+    }
+
+    // Add flag column for hypothetical-set aggregates
+    if (osastate->qstate->aggref->aggkind == AGGKIND_HYPOTHETICAL) {
+        slot->tts_values[nargs] = Int32GetDatum(0);  // Mark as regular input row
+        slot->tts_isnull[nargs] = false;
+    }
+
+    ExecStoreVirtualTuple(slot);
+
+    // Add the tuple to the sorted collection
+    tuplesort_puttupleslot(osastate->sortstate, slot);
+    osastate->number_of_rows++;
+
+    PG_RETURN_POINTER(osastate);
+}
+```

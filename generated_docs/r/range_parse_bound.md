@@ -48,3 +48,55 @@ The parsing continues until reaching a range delimiter (comma for bound separati
 - Part of PostgreSQL's range literal parsing infrastructure
 - Supports PostgreSQL's standard escape mechanisms for special characters
 - Memory allocation for bound strings uses palloc for PostgreSQL memory management
+
+## Simplified Source
+
+```c
+static const char *range_parse_bound(const char *string, const char *ptr,
+                                    char **bound_str, bool *infinite,
+                                    Node *escontext) {
+    StringInfoData buf;
+
+    // Check for infinite bound (immediate delimiter)
+    if (*ptr == ',' || *ptr == ')' || *ptr == ']') {
+        *bound_str = NULL;
+        *infinite = true;
+        return ptr;
+    }
+
+    // Parse non-infinite bound
+    bool in_quotes = false;
+    initStringInfo(&buf);
+
+    // Scan until delimiter (unless inside quotes)
+    while (in_quotes || !(*ptr == ',' || *ptr == ')' || *ptr == ']')) {
+        char ch = *ptr++;
+
+        if (ch == '\0')
+            ereturn(escontext, NULL, /* error: unexpected end of input */);
+
+        if (ch == '\\') {
+            // Backslash escape: take next character literally
+            if (*ptr == '\0')
+                ereturn(escontext, NULL, /* error: unexpected end */);
+            appendStringInfoChar(&buf, *ptr++);
+        } else if (ch == '"') {
+            // Quote handling
+            if (!in_quotes) {
+                in_quotes = true;
+            } else if (*ptr == '"') {
+                // Double quote escape within quotes
+                appendStringInfoChar(&buf, *ptr++);
+            } else {
+                in_quotes = false;
+            }
+        } else {
+            appendStringInfoChar(&buf, ch);
+        }
+    }
+
+    *bound_str = buf.data;
+    *infinite = false;
+    return ptr;
+}
+```

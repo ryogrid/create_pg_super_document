@@ -44,3 +44,52 @@ This function is part of PostgreSQL's range type serialization system and handle
 
 ## Notes and Other Information
 This function implements comprehensive datum serialization logic with several optimization strategies. It converts eligible varlena types to short format to save space, handles alignment requirements correctly for different data types, and includes error checking to prevent toast pointer storage. The function is critical for range type persistence and is called for both lower and upper bound values during range serialization. It advances the pointer by the actual data length written, making it suitable for sequential writing operations.
+
+## Simplified Source
+
+```c
+static Pointer datum_write(Pointer ptr, Datum datum, bool typbyval,
+                          char typalign, int16 typlen, char typstorage) {
+    Size data_length;
+
+    if (typbyval) {
+        // Pass-by-value: align and store directly
+        ptr = (char *) att_align_nominal(ptr, typalign);
+        store_att_byval(ptr, datum, typlen);
+        data_length = typlen;
+    } else if (typlen == -1) {
+        // Variable length (varlena)
+        Pointer val = DatumGetPointer(datum);
+
+        if (VARATT_IS_EXTERNAL(val)) {
+            elog(ERROR, "cannot store a toast pointer inside a range");
+        } else if (VARATT_IS_SHORT(val)) {
+            // Already short varlena - copy directly (no alignment)
+            data_length = VARSIZE_SHORT(val);
+            memcpy(ptr, val, data_length);
+        } else if (TYPE_IS_PACKABLE(typlen, typstorage) &&
+                   VARATT_CAN_MAKE_SHORT(val)) {
+            // Convert to short varlena format
+            data_length = VARATT_CONVERTED_SHORT_SIZE(val);
+            SET_VARSIZE_SHORT(ptr, data_length);
+            memcpy(ptr + 1, VARDATA(val), data_length - 1);
+        } else {
+            // Full 4-byte header varlena
+            ptr = (char *) att_align_nominal(ptr, typalign);
+            data_length = VARSIZE(val);
+            memcpy(ptr, val, data_length);
+        }
+    } else if (typlen == -2) {
+        // C-string (null-terminated)
+        data_length = strlen(DatumGetCString(datum)) + 1;
+        memcpy(ptr, DatumGetPointer(datum), data_length);
+    } else {
+        // Fixed-length pass-by-reference
+        ptr = (char *) att_align_nominal(ptr, typalign);
+        data_length = typlen;
+        memcpy(ptr, DatumGetPointer(datum), data_length);
+    }
+
+    return ptr + data_length;
+}
+```

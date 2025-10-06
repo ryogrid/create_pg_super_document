@@ -36,3 +36,30 @@ The conversion process involves:
 - Returns -1 if the input FILETIME is before the Unix epoch (invalid)
 - Uses EpochShift constant of 116444736000000000 to adjust between Windows and Unix epochs
 - Part of PostgreSQL's Windows compatibility layer for file system operations
+
+## Simplified Source
+
+```c
+static __time64_t
+filetime_to_time(const FILETIME *ft)
+{
+    ULARGE_INTEGER unified_ft = {0};
+    static const uint64 EpochShift = UINT64CONST(116444736000000000);
+
+    // Combine low and high parts into 64-bit value
+    unified_ft.LowPart = ft->dwLowDateTime;
+    unified_ft.HighPart = ft->dwHighDateTime;
+
+    // Check if before Unix epoch
+    if (unified_ft.QuadPart < EpochShift)
+        return -1;
+
+    // Convert from Windows epoch (1601) to Unix epoch (1970)
+    unified_ft.QuadPart -= EpochShift;
+
+    // Convert from 100-nanosecond intervals to seconds
+    unified_ft.QuadPart /= 10 * 1000 * 1000;
+
+    return unified_ft.QuadPart;
+}
+```

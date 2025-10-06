@@ -33,3 +33,34 @@ This function provides a SQL-accessible interface to retrieve the formatted SQL 
 - The returned text includes proper formatting with indentation for atomic blocks and appropriate separators
 - Used primarily for system introspection, debugging, and documentation generation
 - Complements other pg_get_function_* functions in the PostgreSQL system catalog interface
+
+## Simplified Source
+
+```c
+Datum pg_get_function_sqlbody(PG_FUNCTION_ARGS) {
+    Oid funcid = PG_GETARG_OID(0);
+    StringInfoData buf;
+    HeapTuple proctup;
+    bool isnull;
+
+    initStringInfo(&buf);
+
+    // Look up the function in pg_proc
+    proctup = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+    if (!HeapTupleIsValid(proctup))
+        PG_RETURN_NULL();
+
+    // Check if function has a SQL body
+    (void) SysCacheGetAttr(PROCOID, proctup, Anum_pg_proc_prosqlbody, &isnull);
+    if (isnull) {
+        ReleaseSysCache(proctup);
+        PG_RETURN_NULL();
+    }
+
+    // Format the SQL body using helper function
+    print_function_sqlbody(&buf, proctup);
+
+    ReleaseSysCache(proctup);
+    PG_RETURN_TEXT_P(cstring_to_text_with_len(buf.data, buf.len));
+}
+```

@@ -35,3 +35,18 @@ The range_merge function implements a relaxed version of range union that does n
 - Part of PostgreSQL's extended range functionality for span operations
 - Commonly used when you need the bounding range rather than strict set union
 - The result always represents the minimal range that contains both input ranges
+
+## Simplified Source
+
+```c
+Datum range_merge(PG_FUNCTION_ARGS) {
+    RangeType *r1 = PG_GETARG_RANGE_P(0);
+    RangeType *r2 = PG_GETARG_RANGE_P(1);
+
+    // Get type cache for range operations
+    TypeCacheEntry *typcache = range_get_typcache(fcinfo, RangeTypeGetOid(r1));
+
+    // Delegate to internal implementation with strict=false (allows gaps)
+    PG_RETURN_RANGE_P(range_union_internal(typcache, r1, r2, false));
+}
+```

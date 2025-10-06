@@ -40,3 +40,29 @@ The function returns 0 if the database statistics entry doesn't exist, otherwise
 - Used by monitoring tools and system views to track overall database conflict activity
 - The returned value is cumulative since database startup or statistics reset
 - Individual conflict types can be queried separately using specific functions for detailed analysis
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_get_db_conflict_all(PG_FUNCTION_ARGS)
+{
+    Oid dbid = PG_GETARG_OID(0);
+    int64 result;
+    PgStat_StatDBEntry *dbentry;
+
+    // Get database statistics entry
+    if ((dbentry = pgstat_fetch_stat_dbentry(dbid)) == NULL)
+        result = 0;
+    else
+        // Sum all conflict types
+        result = (int64) (dbentry->conflict_tablespace +
+                         dbentry->conflict_lock +
+                         dbentry->conflict_snapshot +
+                         dbentry->conflict_logicalslot +
+                         dbentry->conflict_bufferpin +
+                         dbentry->conflict_startup_deadlock);
+
+    PG_RETURN_INT64(result);
+}
+```

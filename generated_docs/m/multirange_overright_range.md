@@ -42,3 +42,29 @@ The function performs a bound comparison to determine if the multirange's leftmo
 - The comparison result >= 0 indicates the multirange is "overright" of the range
 - This function supports the &> operator in SQL queries for multirange types
 - Located in src/backend/utils/adt/multirangetypes.c:2191-2214
+
+## Simplified Source
+
+```c
+Datum multirange_overright_range(PG_FUNCTION_ARGS) {
+    // Extract multirange and range arguments
+    MultirangeType *mr = PG_GETARG_MULTIRANGE_P(0);
+    RangeType *r = PG_GETARG_RANGE_P(1);
+
+    // Return false if either is empty
+    if (MultirangeIsEmpty(mr) || RangeIsEmpty(r))
+        PG_RETURN_BOOL(false);
+
+    // Get type cache and bounds
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(mr));
+    RangeBound mr_lower, mr_upper, r_lower, r_upper;
+    bool empty;
+
+    // Get bounds from leftmost range in multirange and from the range
+    multirange_get_bounds(typcache->rngtype, mr, 0, &mr_lower, &mr_upper);
+    range_deserialize(typcache->rngtype, r, &r_lower, &r_upper, &empty);
+
+    // Compare lower bounds: multirange overright if its lower >= range's lower
+    PG_RETURN_BOOL(range_cmp_bounds(typcache->rngtype, &mr_lower, &r_lower) >= 0);
+}
+```

@@ -26,24 +26,11 @@ The function performs the following operations:
 This approach allows for generating sort key prefixes without needing to process the entire string, which can be more efficient for certain operations like range queries or when working with limited buffer space.
 
 ## Parameters / Member Variables
-- : Buffer to store the partial sort key
-- : Source string in database encoding
-- : Length of source string (-1 indicates null-terminated)
-- : Size of destination buffer
-LANGUAGE=
-LC_CTYPE="C.UTF-8"
-LC_NUMERIC="C.UTF-8"
-LC_TIME="C.UTF-8"
-LC_COLLATE="C.UTF-8"
-LC_MONETARY="C.UTF-8"
-LC_MESSAGES="C.UTF-8"
-LC_PAPER="C.UTF-8"
-LC_NAME="C.UTF-8"
-LC_ADDRESS="C.UTF-8"
-LC_TELEPHONE="C.UTF-8"
-LC_MEASUREMENT="C.UTF-8"
-LC_IDENTIFICATION="C.UTF-8"
-LC_ALL=: ICU locale specification with collation rules
+- `dest`: Buffer to store the partial sort key
+- `src`: Source string in database encoding
+- `srclen`: Length of source string (-1 indicates null-terminated)
+- `destsize`: Size of destination buffer
+- `locale`: ICU locale specification with collation rules
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -72,3 +59,49 @@ LC_ALL=: ICU locale specification with collation rules
 - Uses stack buffer optimization for small strings to minimize memory allocation
 - Unlike full sort key generation, this may not produce complete sort keys suitable for all comparison scenarios
 - Located in src/backend/utils/adt/pg_locale.c:2273-2320
+
+## Simplified Source
+
+```c
+static size_t pg_strnxfrm_prefix_icu_no_utf8(char *dest, const char *src,
+                                             int32_t srclen, int32_t destsize,
+                                             pg_locale_t locale) {
+    char sbuf[TEXTBUFLEN];
+    char *buf = sbuf;
+    UCharIterator iter;
+    uint32_t state[2];
+    UErrorCode status;
+    UChar *uchar;
+
+    // Convert input from database encoding to Unicode
+    init_icu_converter();
+    int32_t ulen = uchar_length(icu_converter, src, srclen);
+    size_t uchar_bsize = (ulen + 1) * sizeof(UChar);
+
+    // Allocate Unicode buffer if needed
+    if (uchar_bsize > TEXTBUFLEN) {
+        buf = palloc(uchar_bsize);
+    }
+    uchar = (UChar *) buf;
+
+    // Convert to Unicode
+    ulen = uchar_convert(icu_converter, uchar, ulen + 1, src, srclen);
+
+    // Generate partial sort key using ICU
+    uiter_setString(&iter, uchar, ulen);
+    state[0] = state[1] = 0;
+    status = U_ZERO_ERROR;
+
+    size_t result_bsize = ucol_nextSortKeyPart(locale->info.icu.ucol,
+                                               &iter, state,
+                                               (uint8_t *) dest, destsize,
+                                               &status);
+
+    if (U_FAILURE(status)) {
+        ereport(ERROR, (errmsg("sort key generation failed: %s",
+                               u_errorName(status))));
+    }
+
+    return result_bsize;
+}
+```

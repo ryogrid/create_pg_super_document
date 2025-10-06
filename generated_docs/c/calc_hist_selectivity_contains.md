@@ -50,3 +50,62 @@ This is essentially the complement operation to containment - instead of asking 
 - Critical for optimizing queries that filter by range containment relationships
 - Handles boundary conditions and edge cases similar to calc_hist_selectivity_contained
 - Essential component of PostgreSQL's cost-based optimizer for range queries
+
+## Simplified Source
+
+```c
+static double
+calc_hist_selectivity_contains(TypeCacheEntry *typcache,
+                              const RangeBound *lower, const RangeBound *upper,
+                              const RangeBound *hist_lower, int hist_nvalues,
+                              Datum *length_hist_values, int length_hist_nvalues)
+{
+    int i, lower_index;
+    double bin_width, lower_bin_width;
+    double sum_frac;
+    float8 prev_dist;
+
+    // Find the bin containing the lower bound of query range
+    lower_index = rbound_bsearch(typcache, lower, hist_lower, hist_nvalues, true);
+
+    // No matches if lower bound is below histogram's lower limit
+    if (lower_index < 0) return 0.0;
+
+    // Clamp to last actual bin if beyond histogram's upper limit
+    lower_index = Min(lower_index, hist_nvalues - 2);
+
+    // Calculate fraction of lower bin that's greater than query lower bound
+    lower_bin_width = get_position(typcache, lower, &hist_lower[lower_index],
+                                  &hist_lower[lower_index + 1]);
+
+    // Initialize: start from query lower bound and walk backwards
+    // First distance is the length of the query range itself
+    prev_dist = get_distance(typcache, lower, upper);
+    sum_frac = 0.0;
+    bin_width = lower_bin_width;
+
+    // Process bins from lower_index down to 0
+    for (i = lower_index; i >= 0; i--) {
+        float8 dist;
+        double length_hist_frac;
+
+        // Distance from query upper bound to current histogram lower bound
+        dist = get_distance(typcache, &hist_lower[i], upper);
+
+        // Get fraction of length histogram with intervals >= distance
+        // Use complement (1.0 - calc_length_hist_frac) to find ranges
+        // long enough to contain the query range
+        length_hist_frac = 1.0 - calc_length_hist_frac(length_hist_values,
+                                                       length_hist_nvalues,
+                                                       prev_dist, dist, false);
+
+        // Add weighted fraction to total
+        sum_frac += length_hist_frac * bin_width / (double) (hist_nvalues - 1);
+
+        bin_width = 1.0;
+        prev_dist = dist;
+    }
+
+    return sum_frac;
+}
+```

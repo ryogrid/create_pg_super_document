@@ -39,3 +39,21 @@ As a PostgreSQL function following the PG_FUNCTION_ARGS convention, it can be ca
 - The returned text contains a complete CREATE STATISTICS statement that could be used to recreate the statistics object
 - Handles memory management automatically through PostgreSQL's palloc/pfree system
 - The function signature follows PostgreSQL's convention for system catalog functions
+
+## Simplified Source
+
+```c
+Datum pg_get_statisticsobjdef(PG_FUNCTION_ARGS) {
+    // Extract statistics object OID from arguments
+    Oid statextid = PG_GETARG_OID(0);
+
+    // Get complete statistics definition (not columns-only)
+    char *res = pg_get_statisticsobj_worker(statextid, false, true);
+
+    // Return NULL if statistics object not found, otherwise convert to text
+    if (res == NULL)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(string_to_text(res));
+}
+```

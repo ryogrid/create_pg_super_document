@@ -33,3 +33,27 @@ This function retrieves and formats the transform types associated with a Postgr
 - Transform types allow custom conversion logic between SQL and procedural language types
 - The function only outputs the TRANSFORM clause if there are actually transform types defined for the function
 - The output format follows PostgreSQL's standard SQL syntax for CREATE FUNCTION statements
+
+## Simplified Source
+
+```c
+static void print_function_trftypes(StringInfo buf, HeapTuple proctup) {
+    Oid *trftypes;
+    int ntypes;
+
+    // Get transform types associated with this function
+    ntypes = get_func_trftypes(proctup, &trftypes);
+
+    if (ntypes > 0) {
+        // Output the TRANSFORM clause
+        appendStringInfoString(buf, " TRANSFORM ");
+
+        for (int i = 0; i < ntypes; i++) {
+            if (i != 0)
+                appendStringInfoString(buf, ", ");
+            appendStringInfo(buf, "FOR TYPE %s", format_type_be(trftypes[i]));
+        }
+        appendStringInfoChar(buf, '\n');
+    }
+}
+```

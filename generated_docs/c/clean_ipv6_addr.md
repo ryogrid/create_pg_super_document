@@ -38,3 +38,22 @@ The function includes a safety check to only perform the truncation on IPv6 addr
 - Used throughout PostgreSQL's networking subsystem where getnameinfo() output needs to be processed
 - The alternative of silently ignoring zones in user input was deemed problematic
 - Part of PostgreSQL's network address handling infrastructure
+
+## Simplified Source
+
+```c
+void
+clean_ipv6_addr(int addr_family, char *addr)
+{
+    // Only process IPv6 addresses
+    if (addr_family == AF_INET6)
+    {
+        // Find the '%' zone identifier separator
+        char *pct = strchr(addr, '%');
+
+        // Remove zone identifier by null-terminating at '%'
+        if (pct)
+            *pct = '\0';
+    }
+}
+```

@@ -42,3 +42,25 @@ The  function is a PostgreSQL built-in function that performs title case convers
 - Respects database collation settings for locale-aware case conversion
 - Returns a new text object, leaving the original input unchanged
 - Useful for formatting names, titles, and other text requiring title case
+
+## Simplified Source
+
+```c
+Datum
+initcap(PG_FUNCTION_ARGS)
+{
+    // Get input text parameter
+    text *in_string = PG_GETARG_TEXT_PP(0);
+
+    // Capitalize first letter of each word using locale-aware function
+    char *out_string = str_initcap(VARDATA_ANY(in_string),
+                                   VARSIZE_ANY_EXHDR(in_string),
+                                   PG_GET_COLLATION());
+
+    // Convert result to PostgreSQL text type
+    text *result = cstring_to_text(out_string);
+    pfree(out_string);
+
+    PG_RETURN_TEXT_P(result);
+}
+```

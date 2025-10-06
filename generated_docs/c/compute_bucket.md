@@ -49,3 +49,56 @@ To avoid roundoff errors, the function multiplies by count before dividing. It a
 - Includes precision safeguards to handle floating-point roundoff errors
 - Memory management is handled through free_var() calls for temporary variables
 - The function assumes the operand is within the valid bucket range
+
+## Simplified Source
+
+```c
+static void
+compute_bucket(Numeric operand, Numeric bound1, Numeric bound2,
+               const NumericVar *count_var, bool reversed_bounds,
+               NumericVar *result_var)
+{
+    NumericVar bound1_var;
+    NumericVar bound2_var;
+    NumericVar operand_var;
+
+    // Convert inputs to NumericVar format
+    init_var_from_num(bound1, &bound1_var);
+    init_var_from_num(bound2, &bound2_var);
+    init_var_from_num(operand, &operand_var);
+
+    // Calculate relative position based on bound direction
+    if (!reversed_bounds)
+    {
+        // Normal case: bound1 < bound2
+        sub_var(&operand_var, &bound1_var, &operand_var);
+        sub_var(&bound2_var, &bound1_var, &bound2_var);
+    }
+    else
+    {
+        // Reversed case: bound1 > bound2
+        sub_var(&bound1_var, &operand_var, &operand_var);
+        sub_var(&bound1_var, &bound2_var, &bound2_var);
+    }
+
+    // Multiply by count before dividing to avoid roundoff errors
+    mul_var(&operand_var, count_var, &operand_var,
+            operand_var.dscale + count_var->dscale);
+    div_var(&operand_var, &bound2_var, result_var,
+            select_div_scale(&operand_var, &bound2_var), true);
+
+    // Clamp result to avoid exceeding count due to roundoff
+    if (cmp_var(result_var, count_var) >= 0)
+        set_var_from_var(count_var, result_var);
+    else
+    {
+        add_var(result_var, &const_one, result_var);
+        floor_var(result_var, result_var);
+    }
+
+    // Clean up temporary variables
+    free_var(&bound1_var);
+    free_var(&bound2_var);
+    free_var(&operand_var);
+}
+```

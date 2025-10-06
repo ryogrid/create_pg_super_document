@@ -31,3 +31,14 @@ The comment in the source indicates this separation is specifically to keep the 
 - The separation exists purely for PostgreSQL's internal function organization and testing framework compatibility
 - All actual functionality is implemented in the regexp_count function
 - Part of PostgreSQL's regular expression support in the backend utilities
+
+## Simplified Source
+
+```c
+Datum
+regexp_count_no_flags(PG_FUNCTION_ARGS)
+{
+    // Simple wrapper: delegate directly to main regexp_count function
+    return regexp_count(fcinfo);
+}
+```

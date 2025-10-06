@@ -60,3 +60,96 @@ The function ensures that the IntegerSet can handle extreme value ranges and tha
 - Performs comprehensive validation including boundary value membership testing and complete iteration verification
 - Critical for ensuring IntegerSet robustness with sparse, widely-distributed integer sets
 - Part of the test_integerset module's comprehensive test suite
+
+## Simplified Source
+
+```c
+static void
+test_huge_distances(void)
+{
+    IntegerSet *intset;
+    uint64 values[1000];
+    int num_values = 0;
+    uint64 val = 0;
+
+    elog(NOTICE, "testing intset with distances > 2^60 between values");
+
+    // Start with 0
+    values[num_values++] = val;
+
+    // Test differences around the 2^60 boundary (Simple-8b encoding limit)
+    val += UINT64CONST(1152921504606846976) - 1;  // 2^60 - 1
+    values[num_values++] = val;
+    val += UINT64CONST(1152921504606846976) - 1;  // 2^60 - 1
+    values[num_values++] = val;
+    val += UINT64CONST(1152921504606846976);      // 2^60
+    values[num_values++] = val;
+    val += UINT64CONST(1152921504606846976);      // 2^60
+    values[num_values++] = val;
+    val += UINT64CONST(1152921504606846976);      // 2^60
+    values[num_values++] = val;
+    val += UINT64CONST(1152921504606846976) + 1;  // 2^60 + 1
+    values[num_values++] = val;
+    val += UINT64CONST(1152921504606846976) + 1;  // 2^60 + 1
+    values[num_values++] = val;
+    val += UINT64CONST(1152921504606846976) + 1;  // 2^60 + 1
+    values[num_values++] = val;
+    val += UINT64CONST(1152921504606846976) + 2;  // 2^60 + 2
+    values[num_values++] = val;
+    val += UINT64CONST(1152921504606846976) + 2;  // 2^60 + 2
+    values[num_values++] = val;
+    val += UINT64CONST(1152921504606846976);      // 2^60
+    values[num_values++] = val;
+
+    // Add more smaller values to force tree structure packing
+    while (num_values < 1000) {
+        val += pg_prng_uint32(&pg_global_prng_state);
+        values[num_values++] = val;
+    }
+
+    // Create IntegerSet and add all values
+    intset = intset_create();
+    for (int i = 0; i < num_values; i++) {
+        intset_add_member(intset, values[i]);
+    }
+
+    // Test membership around each value
+    for (int i = 0; i < num_values; i++) {
+        uint64 y = values[i];
+
+        // Test y-1 (should only be member if consecutive with previous)
+        if (y > 0) {
+            bool expected = (i > 0 && values[i-1] == y - 1);
+            if (intset_is_member(intset, y - 1) != expected) {
+                elog(ERROR, "intset_is_member failed for %llu", y - 1);
+            }
+        }
+
+        // Test y (should always be member)
+        if (!intset_is_member(intset, y)) {
+            elog(ERROR, "intset_is_member failed for %llu", y);
+        }
+
+        // Test y+1 (should only be member if consecutive with next)
+        bool expected = (i < num_values - 1 && values[i + 1] == y + 1);
+        if (intset_is_member(intset, y + 1) != expected) {
+            elog(ERROR, "intset_is_member failed for %llu", y + 1);
+        }
+    }
+
+    // Test iteration returns all values in order
+    intset_begin_iterate(intset);
+    for (int i = 0; i < num_values; i++) {
+        uint64 x;
+        if (!intset_iterate_next(intset, &x) || x != values[i]) {
+            elog(ERROR, "intset_iterate_next failed for %llu", values[i]);
+        }
+    }
+
+    // Verify no extra values
+    uint64 x;
+    if (intset_iterate_next(intset, &x)) {
+        elog(ERROR, "unexpected extra value in iteration: %llu", x);
+    }
+}
+```

@@ -47,3 +47,35 @@ The approach is asymmetric (it samples from hist2 and tests against hist1), and 
 - Sample decimation helps control runtime when dealing with large histograms
 - Designed specifically for inet inclusion operators rather than general comparison operators
 - The sampling approach assumes the interior histogram values are reasonably representative of the overall distribution
+
+## Simplified Source
+
+```c
+static Selectivity
+inet_hist_inclusion_join_sel(Datum *hist1_values, int hist1_nvalues,
+                             Datum *hist2_values, int hist2_nvalues,
+                             int opr_codenum)
+{
+    double match = 0.0;
+    int i, k, n;
+
+    // Need at least 3 elements (first, middle, last) to have interior values
+    if (hist2_nvalues <= 2)
+        return 0.0;
+
+    // Decimate hist2 if too large for performance
+    k = (hist2_nvalues - 3) / MAX_CONSIDERED_ELEMS + 1;
+
+    n = 0;
+    // Sample interior values from hist2 (exclude first and last as outliers)
+    for (i = 1; i < hist2_nvalues - 1; i += k)
+    {
+        // Test each sampled value against hist1 and accumulate matches
+        match += inet_hist_value_sel(hist1_values, hist1_nvalues, hist2_values[i], opr_codenum);
+        n++;
+    }
+
+    // Return average selectivity across sampled values
+    return match / n;
+}
+```

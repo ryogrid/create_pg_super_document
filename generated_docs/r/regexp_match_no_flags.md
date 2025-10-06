@@ -28,3 +28,14 @@ This function serves as a simple wrapper around the main regexp_match function. 
 - This is a compatibility wrapper function specifically created to satisfy regression test requirements
 - The function is located in src/backend/utils/adt/regexp.c at lines 1357-1366
 - All actual regular expression matching logic is handled by the regexp_match function
+
+## Simplified Source
+
+```c
+/* Wrapper for regexp_match without flags parameter */
+Datum
+regexp_match_no_flags(PG_FUNCTION_ARGS)
+{
+    return regexp_match(fcinfo);
+}
+```

@@ -45,3 +45,46 @@ The function supports both single-byte and multi-byte character encodings, choos
 - Hardcodes assumptions about text type alignment and storage (TEXTOID, TYPALIGN_INT)
 - The function is static (internal to the regexp.c module)
 - Array dimensions are set to match the number of capturing groups in the pattern
+
+## Simplified Source
+
+```c
+static ArrayType *build_regexp_match_result(regexp_matches_ctx *matchctx) {
+    char *buf = matchctx->conv_buf;
+    Datum *elems = matchctx->elems;
+    bool *nulls = matchctx->nulls;
+
+    // Extract matching substrings from original string
+    int loc = matchctx->next_match * matchctx->npatterns * 2;
+
+    for (int i = 0; i < matchctx->npatterns; i++) {
+        int so = matchctx->match_locs[loc++];  // start offset
+        int eo = matchctx->match_locs[loc++];  // end offset
+
+        if (so < 0 || eo < 0) {
+            // Unmatched group - set to NULL
+            elems[i] = (Datum) 0;
+            nulls[i] = true;
+        } else if (buf) {
+            // Multi-byte encoding: convert from wide chars
+            int len = pg_wchar2mb_with_len(matchctx->wide_str + so, buf, eo - so);
+            elems[i] = PointerGetDatum(cstring_to_text_with_len(buf, len));
+            nulls[i] = false;
+        } else {
+            // Single-byte encoding: direct substring extraction
+            elems[i] = DirectFunctionCall3(text_substr,
+                                         PointerGetDatum(matchctx->orig_str),
+                                         Int32GetDatum(so + 1),
+                                         Int32GetDatum(eo - so));
+            nulls[i] = false;
+        }
+    }
+
+    // Construct and return result array
+    int dims[1] = {matchctx->npatterns};
+    int lbs[1] = {1};
+
+    return construct_md_array(elems, nulls, 1, dims, lbs,
+                             TEXTOID, -1, false, TYPALIGN_INT);
+}
+```

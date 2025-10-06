@@ -52,3 +52,46 @@ The function handles the complexity of determining which expressions qualify as 
 - The function automatically cleans up variable statistics using  when the clause structure is invalid
 - This is a fundamental utility used by many selectivity estimation functions across different data types and operators
 - The function assumes binary operator clauses and will fail for clauses with other structures
+
+## Simplified Source
+
+```c
+bool get_restriction_variable(PlannerInfo *root, List *args, int varRelid,
+                             VariableStatData *vardata, Node **other,
+                             bool *varonleft) {
+    Node *left, *right;
+    VariableStatData rdata;
+
+    // Must be a binary operation (two arguments)
+    if (list_length(args) != 2)
+        return false;
+
+    left = (Node *) linitial(args);
+    right = (Node *) lsecond(args);
+
+    // Examine both sides to determine which are variables vs constants
+    // varRelid context determines what counts as a variable
+    examine_variable(root, left, varRelid, vardata);
+    examine_variable(root, right, varRelid, &rdata);
+
+    // Case 1: Left side is variable, right side is constant
+    if (vardata->rel && rdata.rel == NULL) {
+        *varonleft = true;
+        *other = estimate_expression_value(root, rdata.var);
+        return true;
+    }
+
+    // Case 2: Right side is variable, left side is constant
+    if (vardata->rel == NULL && rdata.rel) {
+        *varonleft = false;
+        *other = estimate_expression_value(root, vardata->var);
+        *vardata = rdata;  // Move right side data to output
+        return true;
+    }
+
+    // Failed: either both sides are variables or both are constants
+    ReleaseVariableStats(*vardata);
+    ReleaseVariableStats(rdata);
+    return false;
+}
+```

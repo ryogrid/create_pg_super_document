@@ -37,3 +37,26 @@ The return value follows standard comparison conventions: 0 indicates the compar
 
 ## Notes and Other Information
 The function separates network address comparison from mask length comparison for modularity and reusability. The first stage uses bitncmp() to compare only the common network bits (up to the shorter mask length), ensuring that different mask lengths don't affect the network portion comparison. Only when network portions are identical does it proceed to the operator-specific mask length comparison via inet_masklen_inclusion_cmp().
+
+## Simplified Source
+
+```c
+static int
+inet_inclusion_cmp(inet *left, inet *right, int opr_codenum)
+{
+    // Different IP families (IPv4 vs IPv6) - compare family numbers
+    if (ip_family(left) != ip_family(right))
+        return ip_family(left) - ip_family(right);
+
+    // Same family - compare network bits up to minimum mask length
+    int order = bitncmp(ip_addr(left), ip_addr(right),
+                        Min(ip_bits(left), ip_bits(right)));
+
+    // If network portions differ, return that difference
+    if (order != 0)
+        return order;
+
+    // Network portions identical - compare mask lengths with operator awareness
+    return inet_masklen_inclusion_cmp(left, right, opr_codenum);
+}
+```

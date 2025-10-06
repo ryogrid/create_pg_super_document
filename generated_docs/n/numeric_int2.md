@@ -36,3 +36,37 @@ The `numeric_int2` function converts a PostgreSQL `Numeric` type to a 16-bit sig
 - Uses intermediate 64-bit integer conversion to ensure precision during range checking
 - [Range](../R/Range.md) validation uses `PG_INT16_MIN` and `PG_INT16_MAX` constants for boundary checking
 - Part of PostgreSQL's numeric type conversion system in `src/backend/utils/adt/numeric.c`
+
+## Simplified Source
+
+```c
+Datum numeric_int2(PG_FUNCTION_ARGS) {
+    Numeric num = PG_GETARG_NUMERIC(0);
+    NumericVar x;
+    int64 val;
+
+    // Check for special values (NaN, infinity) and reject them
+    if (NUMERIC_IS_SPECIAL(num)) {
+        if (NUMERIC_IS_NAN(num))
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                           errmsg("cannot convert NaN to smallint")));
+        else
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                           errmsg("cannot convert infinity to smallint")));
+    }
+
+    // Convert numeric to internal variable format, then to int64
+    init_var_from_num(num, &x);
+    if (!numericvar_to_int64(&x, &val))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("smallint out of range")));
+
+    // Check if value fits in smallint range (-32768 to 32767)
+    if (val < PG_INT16_MIN || val > PG_INT16_MAX)
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("smallint out of range")));
+
+    // Cast to int16 and return
+    return PG_RETURN_INT16((int16) val);
+}
+```

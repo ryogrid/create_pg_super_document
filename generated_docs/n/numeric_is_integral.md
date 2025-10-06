@@ -39,3 +39,26 @@ The function works by examining the internal structure of the Numeric value, spe
 - Used primarily in mathematical operations like `numeric_power` where integer vs. fractional handling differs
 - Infinity values are pragmatically considered integral for mathematical operations
 - The function provides an efficient way to determine integrality without converting to string representation
+
+## Simplified Source
+
+```c
+static bool numeric_is_integral(Numeric num) {
+    NumericVar arg;
+
+    // Handle special values: NaN and infinity
+    if (NUMERIC_IS_SPECIAL(num)) {
+        if (NUMERIC_IS_NAN(num))
+            return false;  // NaN is not integral
+        return true;       // Infinity is considered integral
+    }
+
+    // Convert to internal representation
+    init_var_from_num(num, &arg);
+
+    // Check if all digits are at or left of decimal point
+    // ndigits == 0: value is zero (integral)
+    // ndigits <= weight + 1: all digits are before/at decimal point
+    return (arg.ndigits == 0 || arg.ndigits <= arg.weight + 1);
+}
+```

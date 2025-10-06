@@ -37,3 +37,23 @@ The function uses alloc_var to properly allocate memory for the digit array base
 - The deserialization format matches the serialization format used by numericvar_serialize
 - Primarily used for restoring aggregate function states in parallel query processing
 - No validation is performed on the deserialized values, maintaining consistency with the serialization approach
+
+## Simplified Source
+
+```c
+static void numericvar_deserialize(StringInfo buf, NumericVar *var) {
+    // Read number of digits first to allocate memory
+    int len = pq_getmsgint(buf, sizeof(int32));
+
+    alloc_var(var, len);  // Allocates memory and sets var->ndigits
+
+    // Read metadata fields as 32-bit integers
+    var->weight = pq_getmsgint(buf, sizeof(int32));
+    var->sign = pq_getmsgint(buf, sizeof(int32));
+    var->dscale = pq_getmsgint(buf, sizeof(int32));
+
+    // Read each digit as 16-bit integer
+    for (int i = 0; i < len; i++)
+        var->digits[i] = pq_getmsgint(buf, sizeof(int16));
+}
+```

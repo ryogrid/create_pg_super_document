@@ -48,3 +48,55 @@ The overlap calculation is sophisticated: when subtype_diff is available, it com
 - Handles cases both with and without subtype_diff functions for different range types
 - The common_left and common_right values are calculated to help with later distribution of ambiguous entries
 - Negative overlap values are allowed, which can occur when groups don't actually overlap
+
+## Simplified Source
+
+```c
+static void range_gist_consider_split(ConsiderSplitContext *context,
+                                    RangeBound *right_lower, int min_left_count,
+                                    RangeBound *left_upper, int max_left_count) {
+    int left_count, right_count;
+    float4 ratio, overlap;
+
+    // Calculate optimal distribution of entries between left and right groups
+    if (min_left_count >= (context->entries_count + 1) / 2)
+        left_count = min_left_count;
+    else if (max_left_count <= context->entries_count / 2)
+        left_count = max_left_count;
+    else
+        left_count = context->entries_count / 2;
+    right_count = context->entries_count - left_count;
+
+    // Calculate ratio of smaller group to total entries
+    ratio = ((float4) Min(left_count, right_count)) / ((float4) context->entries_count);
+
+    // Only consider splits with acceptable balance ratio
+    if (ratio > LIMIT_RATIO) {
+        bool selectthis = false;
+
+        // Calculate overlap between groups
+        if (context->has_subtype_diff)
+            overlap = call_subtype_diff(context->typcache, left_upper->val, right_lower->val);
+        else
+            overlap = max_left_count - min_left_count;
+
+        // Select this split if it's the first or has better overlap/ratio
+        if (context->first)
+            selectthis = true;
+        else if (overlap < context->overlap ||
+                (overlap == context->overlap && ratio > context->ratio))
+            selectthis = true;
+
+        // Save the best split information
+        if (selectthis) {
+            context->first = false;
+            context->ratio = ratio;
+            context->overlap = overlap;
+            context->right_lower = right_lower;
+            context->left_upper = left_upper;
+            context->common_left = max_left_count - left_count;
+            context->common_right = left_count - min_left_count;
+        }
+    }
+}
+```

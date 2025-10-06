@@ -35,3 +35,15 @@ The comparison logic follows PostgreSQL's standard approach where vectors are fi
 - The underlying comparison in  prioritizes vector length differences before comparing individual elements
 - Typically invoked through SQL expressions using the <> or != operators on oidvector columns
 - Located in src/backend/utils/adt/oid.c:352-359
+
+## Simplified Source
+
+```c
+Datum oidvectorne(PG_FUNCTION_ARGS) {
+    // Use btoidvectorcmp to compare the two oidvectors
+    int32 cmp = DatumGetInt32(btoidvectorcmp(fcinfo));
+
+    // Return true if vectors are not equal (cmp != 0)
+    return PG_RETURN_BOOL(cmp != 0);
+}
+```

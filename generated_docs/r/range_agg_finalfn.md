@@ -43,3 +43,39 @@ Unlike what the comment suggests about merging touching ranges, this function ac
 - Shared implementation logic with multirange_agg_finalfn
 - Returns a multirange type as the final aggregate result
 - Located in src/backend/utils/adt/multirangetypes.c:1372-1411
+
+## Simplified Source
+
+```c
+Datum range_agg_finalfn(PG_FUNCTION_ARGS) {
+    MemoryContext aggContext;
+    Oid multirangeTypeOid;
+    TypeCacheEntry *typcache;
+    ArrayBuildState *state;
+    int32 rangeCount;
+    RangeType **ranges;
+
+    // Validate aggregate context
+    if (!AggCheckCallContext(fcinfo, &aggContext))
+        elog(ERROR, "range_agg_finalfn called in non-aggregate context");
+
+    // Get accumulated state
+    state = PG_ARGISNULL(0) ? NULL : (ArrayBuildState *) PG_GETARG_POINTER(0);
+    if (state == NULL || state->nelems == 0)
+        PG_RETURN_NULL();
+
+    // Get return type and cache info
+    multirangeTypeOid = get_fn_expr_rettype(fcinfo->flinfo);
+    typcache = multirange_get_typcache(fcinfo, multirangeTypeOid);
+
+    // Extract ranges from state
+    rangeCount = state->nelems;
+    ranges = palloc0(rangeCount * sizeof(RangeType *));
+    for (int i = 0; i < rangeCount; i++)
+        ranges[i] = DatumGetRangeTypeP(state->dvalues[i]);
+
+    // Create and return multirange
+    PG_RETURN_MULTIRANGE_P(make_multirange(multirangeTypeOid, typcache->rngtype,
+                                          rangeCount, ranges));
+}
+```

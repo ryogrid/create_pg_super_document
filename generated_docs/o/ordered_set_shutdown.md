@@ -33,3 +33,22 @@ The function does not need to free memory allocated in the per-group context sin
 - Designed to be safe even when called multiple times or when resources are already cleaned up
 - Does not free memory contexts since they are managed by the aggregate execution framework
 - Essential for preventing temporary file leaks in long-running queries with many groups
+
+## Simplified Source
+
+```c
+static void
+ordered_set_shutdown(Datum arg)
+{
+    OSAPerGroupState *osastate = (OSAPerGroupState *) DatumGetPointer(arg);
+
+    // Clean up tuplesort object and any temporary files
+    if (osastate->sortstate)
+        tuplesort_end(osastate->sortstate);
+    osastate->sortstate = NULL;
+
+    // Clear tuple slot to release any buffer pins
+    if (osastate->qstate->tupslot)
+        ExecClearTuple(osastate->qstate->tupslot);
+}
+```

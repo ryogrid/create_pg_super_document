@@ -47,3 +47,33 @@ The function iterates through each schema in the search path, converts valid sch
 - The function is defined in src/backend/utils/adt/name.c alongside other name-related functions
 - Returns an array of PostgreSQL's 'name' data type elements
 - Essential for understanding the complete schema resolution context
+
+## Simplified Source
+
+```c
+Datum
+current_schemas(PG_FUNCTION_ARGS)
+{
+    // Get search path, optionally including implicit schemas
+    List *search_path = fetch_search_path(PG_GETARG_BOOL(0));
+    Datum *names = palloc(list_length(search_path) * sizeof(Datum));
+    int i = 0;
+
+    // Convert each schema OID to name
+    foreach(l, search_path)
+    {
+        char *nspname = get_namespace_name(lfirst_oid(l));
+        if (nspname)  // Skip deleted namespaces
+        {
+            names[i] = DirectFunctionCall1(namein, CStringGetDatum(nspname));
+            i++;
+        }
+    }
+
+    list_free(search_path);
+
+    // Build and return array of schema names
+    ArrayType *array = construct_array_builtin(names, i, NAMEOID);
+    PG_RETURN_POINTER(array);
+}
+```

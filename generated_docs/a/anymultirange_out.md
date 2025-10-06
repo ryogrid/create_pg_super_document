@@ -31,3 +31,14 @@ Multiranges are collections of non-overlapping, non-adjacent ranges of the same 
 - Part of the pseudotype infrastructure that enables polymorphic function definitions
 - The actual formatting logic is handled by the concrete multirange type's output function
 - Multiranges were introduced to support collections of ranges efficiently
+
+## Simplified Source
+
+```c
+Datum
+anymultirange_out(PG_FUNCTION_ARGS)
+{
+    // Simple wrapper: delegate to multirange_out for text output
+    return multirange_out(fcinfo);
+}
+```

@@ -46,4 +46,64 @@ The implementation handles all combinations of special numeric values (NaN, ±�
 - Returns infinity for log(finite-positive, ∞)
 - Scale selection handled internally by  function
 - Validates both arguments before computation
-- Located in 
+- Located in
+
+## Simplified Source
+
+```c
+Datum
+numeric_log(PG_FUNCTION_ARGS)
+{
+    Numeric num1 = PG_GETARG_NUMERIC(0);  // value
+    Numeric num2 = PG_GETARG_NUMERIC(1);  // base
+    Numeric res;
+    NumericVar arg1;
+    NumericVar arg2;
+    NumericVar result;
+
+    // Handle special values (NaN, infinity)
+    if (NUMERIC_IS_SPECIAL(num1) || NUMERIC_IS_SPECIAL(num2)) {
+        int sign1, sign2;
+
+        if (NUMERIC_IS_NAN(num1) || NUMERIC_IS_NAN(num2))
+            PG_RETURN_NUMERIC(make_result(&const_nan));
+
+        // Check for negative inputs (log undefined for negative numbers)
+        sign1 = numeric_sign_internal(num1);
+        sign2 = numeric_sign_internal(num2);
+        if (sign1 < 0 || sign2 < 0)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_ARGUMENT_FOR_LOG),
+                           errmsg("cannot take logarithm of a negative number")));
+
+        // Check for zero inputs (log undefined for zero)
+        if (sign1 == 0 || sign2 == 0)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_ARGUMENT_FOR_LOG),
+                           errmsg("cannot take logarithm of zero")));
+
+        // Handle infinity cases
+        if (NUMERIC_IS_PINF(num1)) {
+            // log(Inf, Inf) = NaN (indeterminate form)
+            if (NUMERIC_IS_PINF(num2))
+                PG_RETURN_NUMERIC(make_result(&const_nan));
+            // log(Inf, finite) = 0
+            PG_RETURN_NUMERIC(make_result(&const_zero));
+        }
+        // log(finite, Inf) = Inf
+        PG_RETURN_NUMERIC(make_result(&const_pinf));
+    }
+
+    // Initialize variables for finite inputs
+    init_var_from_num(num1, &arg1);
+    init_var_from_num(num2, &arg2);
+    init_var(&result);
+
+    // Perform logarithm calculation (handles scale internally)
+    log_var(&arg1, &arg2, &result);
+
+    // Create and return result
+    res = make_result(&result);
+    free_var(&result);
+
+    PG_RETURN_NUMERIC(res);
+}
+```

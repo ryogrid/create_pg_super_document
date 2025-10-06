@@ -38,3 +38,28 @@ Similar to `multirange_overright_range`, this function extracts the first range 
 - The comparison result >= 0 indicates the first multirange is "overright" of the second
 - This function supports the &> operator in SQL queries between multirange types
 - Located in src/backend/utils/adt/multirangetypes.c:2215-2237
+
+## Simplified Source
+
+```c
+Datum multirange_overright_multirange(PG_FUNCTION_ARGS) {
+    // Extract both multirange arguments
+    MultirangeType *mr1 = PG_GETARG_MULTIRANGE_P(0);
+    MultirangeType *mr2 = PG_GETARG_MULTIRANGE_P(1);
+
+    // Return false if either is empty
+    if (MultirangeIsEmpty(mr1) || MultirangeIsEmpty(mr2))
+        PG_RETURN_BOOL(false);
+
+    // Get type cache and bounds for both multiranges
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(mr1));
+    RangeBound lower1, upper1, lower2, upper2;
+
+    // Get bounds from leftmost range of each multirange
+    multirange_get_bounds(typcache->rngtype, mr1, 0, &lower1, &upper1);
+    multirange_get_bounds(typcache->rngtype, mr2, 0, &lower2, &upper2);
+
+    // Compare lower bounds: mr1 overright mr2 if mr1's lower >= mr2's lower
+    PG_RETURN_BOOL(range_cmp_bounds(typcache->rngtype, &lower1, &lower2) >= 0);
+}
+```

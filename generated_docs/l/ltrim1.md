@@ -39,3 +39,21 @@ The function is implemented as a PostgreSQL V1 calling convention function and d
 - Like other trim functions, it properly handles multibyte character encodings through the  implementation
 - Commonly used in data cleaning operations where leading whitespace removal is needed
 - Returns the original string unchanged if it contains no leading spaces
+
+## Simplified Source
+
+```c
+Datum
+ltrim1(PG_FUNCTION_ARGS)
+{
+    // Get input string parameter
+    text *string = PG_GETARG_TEXT_PP(0);
+
+    // Call dotrim helper with fixed space character as trim set
+    text *ret = dotrim(VARDATA_ANY(string), VARSIZE_ANY_EXHDR(string),
+                       " ", 1,            // trim set is single space character
+                       true, false);      // doltrim=true, dortrim=false
+
+    PG_RETURN_TEXT_P(ret);
+}
+```

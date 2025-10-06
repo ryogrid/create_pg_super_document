@@ -29,3 +29,14 @@ This function takes no parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL fu
 - This is part of PostgreSQL's statistics collection system for monitoring background writer performance
 - The value is cumulative since the last statistics reset and helps track memory allocation patterns
 - Higher values may indicate increased I/O activity or buffer pool pressure
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_get_buf_alloc(PG_FUNCTION_ARGS)
+{
+    // Return total number of buffers allocated by background writer
+    return pgstat_fetch_stat_bgwriter()->buf_alloc;
+}
+```

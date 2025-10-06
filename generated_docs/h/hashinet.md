@@ -9,8 +9,7 @@ Provides hash function support for inet/cidr data types to enable hash indexing 
 ## Definition
 
 ```c
-structure */
-	return hash_any((unsigned char *) VARDATA_ANY(addr), addrsize + 2);
+Datum hashinet(PG_FUNCTION_ARGS)
 ```
 ## Detailed Description
 This function serves as a support function for hash indexes on inet and cidr data types in PostgreSQL. It computes a hash value for network addresses by extracting the binary representation of the inet/cidr value and applying PostgreSQL's general-purpose hash_any function. The function assumes there are no padding bytes in the inet data structure when calculating the hash.
@@ -32,3 +31,19 @@ This function serves as a support function for hash indexes on inet and cidr dat
 - The hash calculation includes the address size plus 2 additional bytes, likely for the inet structure metadata
 - This function is typically registered as part of the hash operator class for inet/cidr types rather than called directly
 - [Hash](../H/Hash.md) functions like this are essential for the performance of hash joins and hash-based aggregations on network address data
+
+## Simplified Source
+
+```c
+Datum hashinet(PG_FUNCTION_ARGS) {
+    // Get inet/cidr address from function arguments
+    inet *addr = PG_GETARG_INET_PP(0);
+
+    // Calculate address size for hash computation
+    int addrsize = ip_addrsize(addr);
+
+    // Hash the binary data (address + 2 bytes metadata)
+    // Assumes no padding bytes in inet structure
+    return hash_any((unsigned char *) VARDATA_ANY(addr), addrsize + 2);
+}
+```

@@ -35,3 +35,22 @@ The  function is a PostgreSQL built-in function that generates pseudo-random num
 - Part of PostgreSQL's pseudo-random functions subsystem located in pseudorandomfuncs.c
 - The function is designed to be called from SQL as a built-in function
 - Supports decimal numbers and very large numeric ranges unlike integer-based random functions
+
+## Simplified Source
+
+```c
+Datum
+numeric_random(PG_FUNCTION_ARGS)
+{
+    Numeric rmin = PG_GETARG_NUMERIC(0);
+    Numeric rmax = PG_GETARG_NUMERIC(1);
+
+    // Ensure PRNG is initialized
+    initialize_prng();
+
+    // Generate random numeric value in range [rmin, rmax]
+    Numeric result = random_numeric(&prng_state, rmin, rmax);
+
+    PG_RETURN_NUMERIC(result);
+}
+```

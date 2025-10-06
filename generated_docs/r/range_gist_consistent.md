@@ -50,3 +50,50 @@ It also distinguishes between leaf nodes (actual data) and internal nodes (bound
 - The function acts as a dispatcher, routing to appropriate specialized consistency functions based on node type and query type
 - Part of the GiST operator class implementation for range types
 - Located in src/backend/utils/adt/rangetypes_gist.c:191-244
+
+## Simplified Source
+
+```c
+Datum
+range_gist_consistent(PG_FUNCTION_ARGS)
+{
+	GISTENTRY  *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
+	Datum		query = PG_GETARG_DATUM(1);
+	StrategyNumber strategy = (StrategyNumber) PG_GETARG_UINT16(2);
+	Oid			subtype = PG_GETARG_OID(3);
+	bool	   *recheck = (bool *) PG_GETARG_POINTER(4);
+	RangeType  *key = DatumGetRangeTypeP(entry->key);
+	TypeCacheEntry *typcache;
+	bool		result;
+
+	// All range operations are exact
+	*recheck = false;
+
+	typcache = range_get_typcache(fcinfo, RangeTypeGetOid(key));
+
+	// Dispatch based on node type (leaf vs internal) and query type
+	if (GIST_LEAF(entry)) {
+		// Leaf node: check against actual data
+		if (!OidIsValid(subtype) || subtype == ANYRANGEOID)
+			result = range_gist_consistent_leaf_range(typcache, strategy, key,
+													  DatumGetRangeTypeP(query));
+		else if (subtype == ANYMULTIRANGEOID)
+			result = range_gist_consistent_leaf_multirange(typcache, strategy, key,
+														   DatumGetMultirangeTypeP(query));
+		else
+			result = range_gist_consistent_leaf_element(typcache, strategy, key, query);
+	} else {
+		// Internal node: check against bounding range
+		if (!OidIsValid(subtype) || subtype == ANYRANGEOID)
+			result = range_gist_consistent_int_range(typcache, strategy, key,
+													 DatumGetRangeTypeP(query));
+		else if (subtype == ANYMULTIRANGEOID)
+			result = range_gist_consistent_int_multirange(typcache, strategy, key,
+														  DatumGetMultirangeTypeP(query));
+		else
+			result = range_gist_consistent_int_element(typcache, strategy, key, query);
+	}
+
+	PG_RETURN_BOOL(result);
+}
+```

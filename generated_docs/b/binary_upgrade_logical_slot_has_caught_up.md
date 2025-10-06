@@ -48,3 +48,37 @@ This verification prevents data loss during binary upgrades by ensuring replicat
 - Returns false if pending WAL exists, true if the slot has fully caught up
 - Located in src/backend/utils/adt/pg_upgrade_support.c:285-324
 - Critical for preventing data loss during binary upgrades with logical replication
+
+## Simplified Source
+
+```c
+Datum
+binary_upgrade_logical_slot_has_caught_up(PG_FUNCTION_ARGS)
+{
+    Name slot_name;
+    XLogRecPtr end_of_wal;
+    bool has_pending_wal;
+
+    // Ensure function runs only during binary upgrade
+    CHECK_IS_BINARY_UPGRADE;
+
+    // Binary upgrades require superuser permissions for replication slots
+    Assert(has_rolreplication(GetUserId()));
+
+    // Get slot name from arguments and acquire the slot
+    slot_name = PG_GETARG_NAME(0);
+    ReplicationSlotAcquire(NameStr(*slot_name), true);
+
+    // Verify this is a logical slot and it's valid
+    Assert(SlotIsLogical(MyReplicationSlot));
+    Assert(MyReplicationSlot->data.invalidated == RS_INVAL_NONE);
+
+    // Check if slot has consumed all WAL up to current end
+    end_of_wal = GetFlushRecPtr(NULL);
+    has_pending_wal = LogicalReplicationSlotHasPendingWal(end_of_wal);
+
+    // Release slot and return whether slot has caught up
+    ReplicationSlotRelease();
+    PG_RETURN_BOOL(!has_pending_wal);
+}
+```

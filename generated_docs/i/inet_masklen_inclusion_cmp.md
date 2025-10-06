@@ -39,3 +39,24 @@ The function implements a truth table based on the sign relationships:
 - order < 0 && opr_codenum <= 0: Left has shorter mask, operator allows supernet relationship
 
 This design allows the overlap operator (code 0) to accept any mask length combination, while the strict inclusion operators (codes ±2) reject equality cases. The function is a critical component in the two-stage comparison process used for inet inclusion operations.
+
+## Simplified Source
+
+```c
+static int
+inet_masklen_inclusion_cmp(inet *left, inet *right, int opr_codenum)
+{
+    // Calculate mask length difference (left - right)
+    int order = (int) ip_bits(left) - (int) ip_bits(right);
+
+    // Check if mask relationship satisfies the operator
+    // Overlap (0) accepts all; equality ops (-1,0,1) accept equal masks too
+    if ((order > 0 && opr_codenum >= 0) ||      // Left longer, subnet ops
+        (order == 0 && opr_codenum >= -1 && opr_codenum <= 1) ||  // Equal, equality ops
+        (order < 0 && opr_codenum <= 0))        // Left shorter, supernet ops
+        return 0;  // Operator accepts this relationship
+
+    // Operator rejects - return code for directional sorting
+    return opr_codenum;
+}
+```

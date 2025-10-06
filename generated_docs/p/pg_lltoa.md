@@ -38,3 +38,25 @@ The function provides a complete string conversion solution for 64-bit integers,
 - Essential for PostgreSQL's bigint data type output and formatting
 - Leverages the highly optimized pg_ulltoa_n implementation for performance
 - Used in debug output and wherever 64-bit integer string representation is needed
+
+## Simplified Source
+
+```c
+int pg_lltoa(int64 value, char *a) {
+    uint64 uvalue = value;
+    int len = 0;
+
+    // Handle negative numbers
+    if (value < 0) {
+        uvalue = (uint64) 0 - uvalue;  // Two's complement conversion
+        a[len++] = '-';
+    }
+
+    // Convert unsigned value to string
+    len += pg_ulltoa_n(uvalue, a + len);
+
+    // Null-terminate and return length
+    a[len] = '\0';
+    return len;
+}
+```

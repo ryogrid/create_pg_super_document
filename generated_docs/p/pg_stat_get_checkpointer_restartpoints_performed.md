@@ -32,3 +32,14 @@ This function retrieves the total count of restartpoints that have been successf
 - The counter is maintained in the checkpointer statistics structure's restartpoints_performed field
 - Essential for monitoring the overall restartpoint activity on standby servers
 - Useful for assessing the frequency and effectiveness of the checkpointer process on standby systems
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_get_checkpointer_restartpoints_performed(PG_FUNCTION_ARGS)
+{
+    // Return total restartpoints completed by checkpointer
+    return pgstat_fetch_stat_checkpointer()->restartpoints_performed;
+}
+```

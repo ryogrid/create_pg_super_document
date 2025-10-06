@@ -52,3 +52,48 @@ Key behaviors:
 - The function is strict with respect to NULL arguments (returns NULL if any required argument is NULL)
 - Part of PostgreSQL's SQL standard regex functionality
 - The function can handle multi-byte character encodings correctly
+
+## Simplified Source
+
+```c
+Datum
+regexp_count(PG_FUNCTION_ARGS)
+{
+    // Extract input parameters
+    text *source_string = PG_GETARG_TEXT_PP(0);
+    text *regex_pattern = PG_GETARG_TEXT_PP(1);
+    int start_position = 1;  // Default start position
+    text *flags = PG_GETARG_TEXT_PP_IF_EXISTS(3);
+    pg_re_flags regex_flags;
+    regexp_matches_ctx *match_context;
+
+    // Handle optional start position parameter
+    if (PG_NARGS() > 2) {
+        start_position = PG_GETARG_INT32(2);
+        if (start_position <= 0) {
+            ereport(ERROR, "start position must be positive");
+        }
+    }
+
+    // Parse regex flags from flags string
+    parse_re_flags(&regex_flags, flags);
+
+    // Validate that user didn't specify 'g' flag (we set it internally)
+    if (regex_flags.glob) {
+        ereport(ERROR, "regexp_count() does not support the \"global\" option");
+    }
+
+    // Enable global matching internally to find all matches
+    regex_flags.glob = true;
+
+    // Perform the regex matching to count occurrences
+    // Convert 1-based start position to 0-based for internal use
+    match_context = setup_regexp_matches(source_string, regex_pattern, &regex_flags,
+                                       start_position - 1, PG_GET_COLLATION(),
+                                       false,  // can ignore subexpressions
+                                       false, false);
+
+    // Return the total number of matches found
+    PG_RETURN_INT32(match_context->nmatches);
+}
+```

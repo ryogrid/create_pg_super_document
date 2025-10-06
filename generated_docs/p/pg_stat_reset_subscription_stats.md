@@ -41,3 +41,34 @@ The function includes validation to ensure that when a specific subscription OID
 - Located in 
 - Provides administrative functionality for monitoring and maintaining subscription performance metrics
 - The function validates input parameters and provides appropriate error messages for invalid subscription OIDs
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_reset_subscription_stats(PG_FUNCTION_ARGS)
+{
+    Oid subscription_id;
+
+    if (PG_ARGISNULL(0))
+    {
+        // Clear all subscription statistics when no argument provided
+        pgstat_reset_of_kind(PGSTAT_KIND_SUBSCRIPTION);
+    }
+    else
+    {
+        subscription_id = PG_GETARG_OID(0);
+
+        // Validate the subscription OID
+        if (!OidIsValid(subscription_id))
+            ereport(ERROR,
+                    (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                     errmsg("invalid subscription OID %u", subscription_id)));
+
+        // Reset statistics for the specific subscription
+        pgstat_reset(PGSTAT_KIND_SUBSCRIPTION, InvalidOid, subscription_id);
+    }
+
+    PG_RETURN_VOID();
+}
+```

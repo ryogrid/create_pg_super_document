@@ -39,3 +39,19 @@ The overright operator returns true if the range's lower bound is greater than o
 - Complementary to `range_overleft_multirange` - while overleft checks if a range doesn't extend to the right, overright checks if a range doesn't extend to the left
 - Part of PostgreSQL's range and multirange type system for spatial and temporal data operations
 - Located in `src/backend/utils/adt/multirangetypes.c:2179-2190`
+
+## Simplified Source
+
+```c
+Datum range_overright_multirange(PG_FUNCTION_ARGS) {
+    // Extract range and multirange arguments
+    RangeType *r = PG_GETARG_RANGE_P(0);
+    MultirangeType *mr = PG_GETARG_MULTIRANGE_P(1);
+
+    // Get type cache for multirange
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(mr));
+
+    // Delegate to internal comparison function
+    PG_RETURN_BOOL(range_overright_multirange_internal(typcache->rngtype, r, mr));
+}
+```

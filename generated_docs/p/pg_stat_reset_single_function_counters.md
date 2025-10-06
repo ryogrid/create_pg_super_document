@@ -37,3 +37,18 @@ The function operates by calling the general statistics reset mechanism with the
 - Statistics typically tracked for functions include number of calls, total execution time, and average execution time per call
 - The OID parameter must correspond to a valid function; invalid OIDs will be handled by the underlying pgstat_reset function
 - This function is part of PostgreSQL's comprehensive statistics monitoring system that helps database administrators optimize performance
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_reset_single_function_counters(PG_FUNCTION_ARGS)
+{
+    Oid func_oid = PG_GETARG_OID(0);
+
+    // Reset statistics for the specific function in current database
+    pgstat_reset(PGSTAT_KIND_FUNCTION, MyDatabaseId, func_oid);
+
+    PG_RETURN_VOID();
+}
+```

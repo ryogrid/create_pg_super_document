@@ -43,3 +43,46 @@ Each entry is processed by determining its class, looking up the destination (le
 - More sophisticated than fallback splitting but may not always produce optimal splits for all data distributions
 - The Assert statement ensures that each class is assigned to exactly one side of the split
 - Relies on the get_gist_range_class function to categorize ranges into meaningful semantic groups
+
+## Simplified Source
+
+```c
+static void
+range_gist_class_split(TypeCacheEntry *typcache,
+                      GistEntryVector *entryvec,
+                      GIST_SPLITVEC *v,
+                      SplitLR *classes_groups)
+{
+    RangeType  *left_range = NULL;
+    RangeType  *right_range = NULL;
+    OffsetNumber i, maxoff;
+
+    maxoff = entryvec->n - 1;
+
+    v->spl_nleft = 0;
+    v->spl_nright = 0;
+
+    // Process each entry and assign to left/right based on its class
+    for (i = FirstOffsetNumber; i <= maxoff; i = OffsetNumberNext(i))
+    {
+        RangeType *range = DatumGetRangeTypeP(entryvec->vector[i].key);
+        int class;
+
+        // Classify the range (empty, point, bounded, etc.)
+        class = get_gist_range_class(range);
+
+        // Assign to left or right page based on predefined class grouping
+        if (classes_groups[class] == SPLIT_LEFT)
+            PLACE_LEFT(range, i);
+        else
+        {
+            Assert(classes_groups[class] == SPLIT_RIGHT);
+            PLACE_RIGHT(range, i);
+        }
+    }
+
+    // Set union ranges for parent index entries
+    v->spl_ldatum = RangeTypePGetDatum(left_range);
+    v->spl_rdatum = RangeTypePGetDatum(right_range);
+}
+```

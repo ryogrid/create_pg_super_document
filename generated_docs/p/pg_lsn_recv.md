@@ -37,3 +37,18 @@ The function is part of PostgreSQL's binary I/O system, which provides more effi
 - Essential for client-server communication when using binary protocol
 - Paired with pg_lsn_send for complete binary serialization support
 - More efficient than text-based parsing for bulk data operations
+
+## Simplified Source
+
+```c
+Datum pg_lsn_recv(PG_FUNCTION_ARGS) {
+    // Extract binary buffer from function arguments
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+
+    // Read 64-bit LSN value from buffer
+    XLogRecPtr result = pq_getmsgint64(buf);
+
+    // Return as LSN datum
+    PG_RETURN_LSN(result);
+}
+```

@@ -55,3 +55,67 @@ The function uses PostgreSQL's internal regular expression engine and integrates
 - Validates that start > 0, n > 0, endoption ∈ {0,1}, and subexpr ≥ 0
 - Part of PostgreSQL's SQL standard regular expression function suite
 - Used by several wrapper functions that provide different parameter combinations
+
+## Simplified Source
+
+```c
+Datum
+regexp_instr(PG_FUNCTION_ARGS)
+{
+    text *str = PG_GETARG_TEXT_PP(0);
+    text *pattern = PG_GETARG_TEXT_PP(1);
+    int start = 1;
+    int n = 1;
+    int endoption = 0;
+    text *flags = PG_GETARG_TEXT_PP_IF_EXISTS(5);
+    int subexpr = 0;
+    int pos;
+    pg_re_flags re_flags;
+    regexp_matches_ctx *matchctx;
+
+    // Parse optional parameters with validation
+    if (PG_NARGS() > 2) {
+        start = PG_GETARG_INT32(2);
+        if (start <= 0) ereport(ERROR, "invalid start position");
+    }
+    if (PG_NARGS() > 3) {
+        n = PG_GETARG_INT32(3);
+        if (n <= 0) ereport(ERROR, "invalid occurrence number");
+    }
+    if (PG_NARGS() > 4) {
+        endoption = PG_GETARG_INT32(4);
+        if (endoption != 0 && endoption != 1) ereport(ERROR, "invalid endoption");
+    }
+    if (PG_NARGS() > 6) {
+        subexpr = PG_GETARG_INT32(6);
+        if (subexpr < 0) ereport(ERROR, "invalid subexpression number");
+    }
+
+    // Setup regex flags (reject global flag, but enable it internally)
+    parse_re_flags(&re_flags, flags);
+    if (re_flags.glob) ereport(ERROR, "global option not supported");
+    re_flags.glob = true;  // Enable internally to find all matches
+
+    // Perform pattern matching
+    matchctx = setup_regexp_matches(str, pattern, &re_flags, start - 1,
+                                   PG_GET_COLLATION(), (subexpr > 0), false, false);
+
+    // Check if requested match/subexpression exists
+    if (n > matchctx->nmatches || subexpr > matchctx->npatterns) {
+        PG_RETURN_INT32(0);
+    }
+
+    // Calculate position index in match array
+    pos = (n - 1) * matchctx->npatterns;
+    if (subexpr > 0) pos += subexpr - 1;
+    pos *= 2;
+    if (endoption == 1) pos += 1;  // Return end position instead of start
+
+    // Return 1-based position or 0 if not found
+    if (matchctx->match_locs[pos] >= 0) {
+        PG_RETURN_INT32(matchctx->match_locs[pos] + 1);
+    } else {
+        PG_RETURN_INT32(0);
+    }
+}
+```

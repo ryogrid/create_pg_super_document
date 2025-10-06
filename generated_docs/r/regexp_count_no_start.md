@@ -38,3 +38,14 @@ This is a common pattern in PostgreSQL where multiple function signatures are ne
 - When this function is called, the start parameter in `regexp_count()` will default to 1
 - Part of PostgreSQL's approach to providing multiple convenient function signatures for the same underlying functionality
 - The function signature allows calling regexp_count without specifying a start position while still providing flags
+
+## Simplified Source
+
+```c
+Datum
+regexp_count_no_start(PG_FUNCTION_ARGS)
+{
+    // Simple wrapper: delegate directly to main regexp_count function
+    return regexp_count(fcinfo);
+}
+```

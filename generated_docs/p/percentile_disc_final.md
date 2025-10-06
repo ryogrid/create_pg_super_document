@@ -48,4 +48,57 @@ The function handles edge cases properly: for percentile 0, it returns the first
 - Uses  formula to determine the position of the result row
 - Supports rescanning if the aggregate state is shared across execution nodes
 - Part of SQL standard ordered-set aggregate functions
-- Commonly used for median calculations: 
+- Commonly used for median calculations: percentile_disc(0.5)
+
+## Simplified Source
+
+```c
+Datum
+percentile_disc_final(PG_FUNCTION_ARGS)
+{
+    OSAPerGroupState *osastate;
+    double percentile;
+    Datum val;
+    bool isnull;
+    int64 rownum;
+
+    // Validate percentile argument
+    if (PG_ARGISNULL(1))
+        PG_RETURN_NULL();
+
+    percentile = PG_GETARG_FLOAT8(1);
+
+    if (percentile < 0 || percentile > 1 || isnan(percentile))
+        ereport(ERROR, "percentile value must be between 0 and 1");
+
+    // Handle empty input
+    if (PG_ARGISNULL(0))
+        PG_RETURN_NULL();
+
+    osastate = (OSAPerGroupState *) PG_GETARG_POINTER(0);
+
+    if (osastate->number_of_rows == 0)
+        PG_RETURN_NULL();
+
+    // Ensure data is sorted
+    if (!osastate->sort_done) {
+        tuplesort_performsort(osastate->sortstate);
+        osastate->sort_done = true;
+    } else {
+        tuplesort_rescan(osastate->sortstate);
+    }
+
+    // Calculate position: K = ceil(N * percentile)
+    // Skip K-1 rows and return the Kth row
+    rownum = (int64) ceil(percentile * osastate->number_of_rows);
+
+    if (rownum > 1) {
+        tuplesort_skiptuples(osastate->sortstate, rownum - 1, true);
+    }
+
+    // Get the result value
+    tuplesort_getdatum(osastate->sortstate, true, true, &val, &isnull, NULL);
+
+    return isnull ? PG_RETURN_NULL() : PG_RETURN_DATUM(val);
+}
+```

@@ -31,3 +31,14 @@ This variant provides the same regexp_instr functionality but with a simplified 
 - The function signature follows PostgreSQL's V1 calling convention using PG_FUNCTION_ARGS
 - Located in src/backend/utils/adt/regexp.c:1273-1282
 - This is one of several wrapper functions that provide simplified interfaces to the main regexp_instr functionality
+
+## Simplified Source
+
+```c
+/* Wrapper for regexp_instr without subexpression parameter */
+Datum
+regexp_instr_no_subexpr(PG_FUNCTION_ARGS)
+{
+    return regexp_instr(fcinfo);
+}
+```

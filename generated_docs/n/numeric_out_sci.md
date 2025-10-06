@@ -35,3 +35,30 @@ The  function is responsible for converting PostgreSQL's internal Numeric data t
 - Returns a dynamically allocated string that must be freed by the caller
 - Located in src/backend/utils/adt/numeric.c:990-1023
 - Part of PostgreSQL's numeric data type output functions family
+
+## Simplified Source
+
+```c
+char *numeric_out_sci(Numeric num, int scale) {
+    NumericVar x;
+    char *str;
+
+    // Handle special values first
+    if (NUMERIC_IS_SPECIAL(num)) {
+        if (NUMERIC_IS_PINF(num))
+            return pstrdup("Infinity");
+        else if (NUMERIC_IS_NINF(num))
+            return pstrdup("-Infinity");
+        else
+            return pstrdup("NaN");
+    }
+
+    // Convert numeric to internal representation
+    init_var_from_num(num, &x);
+
+    // Generate scientific notation string
+    str = get_str_from_var_sci(&x, scale);
+
+    return str;
+}
+```

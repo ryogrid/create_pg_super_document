@@ -36,3 +36,21 @@ The function is part of PostgreSQL's type system infrastructure and is automatic
 - Returns "-" for InvalidOid, consistent with other reg* type output functions
 - The actual formatting work is delegated to format_procedure() which handles the complex logic of procedure name resolution and argument type formatting
 - Used internally by PostgreSQL whenever regprocedure values need to be displayed as text (e.g., in SELECT queries, pg_dump output, etc.)
+
+## Simplified Source
+
+```c
+Datum regprocedureout(PG_FUNCTION_ARGS) {
+    RegProcedure proid = PG_GETARG_OID(0);
+    char *result;
+
+    // Handle invalid OID case
+    if (proid == InvalidOid)
+        result = pstrdup("-");
+    else
+        // Format procedure name with arguments
+        result = format_procedure(proid);
+
+    PG_RETURN_CSTRING(result);
+}
+```

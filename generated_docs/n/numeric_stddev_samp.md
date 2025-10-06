@@ -38,3 +38,24 @@ The function performs the following operations:
 - Corresponds to the SQL STDDEV_SAMP() or STDDEV() aggregate function for numeric types
 - The result has appropriate precision maintained through the underlying numeric system
 - Standard deviation has the same units as the original data (unlike variance)
+
+## Simplified Source
+
+```c
+Datum numeric_stddev_samp(PG_FUNCTION_ARGS) {
+    NumericAggState *state;
+    Numeric result;
+    bool is_null;
+
+    // Extract aggregate state from function arguments
+    state = PG_ARGISNULL(0) ? NULL : (NumericAggState *) PG_GETARG_POINTER(0);
+
+    // Calculate sample standard deviation (variance=false, sample=true)
+    result = numeric_stddev_internal(state, false, true, &is_null);
+
+    if (is_null)
+        PG_RETURN_NULL();
+    else
+        PG_RETURN_NUMERIC(result);
+}
+```

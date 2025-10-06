@@ -41,3 +41,24 @@ The function is implemented as a PostgreSQL V1 calling convention function and d
 - Complements the  function which performs left trimming, and both are used by  for both-sides trimming
 - The trimming operation respects character boundaries in multibyte encodings like UTF-8
 - Commonly used in data cleaning operations to remove trailing unwanted characters
+
+## Simplified Source
+
+```c
+Datum
+rtrim(PG_FUNCTION_ARGS)
+{
+    // Extract input arguments: string to trim and character set to remove
+    text *string = PG_GETARG_TEXT_PP(0);
+    text *set = PG_GETARG_TEXT_PP(1);
+    text *result;
+
+    // Delegate to dotrim helper function for actual trimming
+    // false=no left trim, true=right trim enabled
+    result = dotrim(VARDATA_ANY(string), VARSIZE_ANY_EXHDR(string),
+                    VARDATA_ANY(set), VARSIZE_ANY_EXHDR(set),
+                    false, true);
+
+    PG_RETURN_TEXT_P(result);
+}
+```

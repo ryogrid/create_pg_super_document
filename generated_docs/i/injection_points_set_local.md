@@ -34,3 +34,23 @@ This function takes no parameters (uses `PG_FUNCTION_ARGS` macro for PostgreSQL 
 - Registers the `injection_points_cleanup` callback to automatically clean up injection points when the process terminates
 - Part of the PostgreSQL test infrastructure, located in src/test/modules/injection_points/
 - Returns void through the PostgreSQL function interface
+
+## Simplified Source
+
+```c
+Datum
+injection_points_set_local(PG_FUNCTION_ARGS)
+{
+    // Enable local injection point tracking for this process
+    injection_point_local = true;
+
+    // Initialize shared memory state if not already done
+    if (inj_state == NULL)
+        injection_init_shmem();
+
+    // Register cleanup callback to remove injection points when process exits
+    before_shmem_exit(injection_points_cleanup, (Datum) 0);
+
+    PG_RETURN_VOID();
+}
+```

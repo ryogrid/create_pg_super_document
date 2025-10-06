@@ -41,3 +41,43 @@ The `range_cmp_bounds` function performs comprehensive comparison between two ra
 - Two boundaries compare equal only when both are inclusive with the same finite value, regardless of being upper or lower bounds
 - The function is fundamental to all range comparison operations and is heavily used throughout the range type system
 - Comparison uses the range type's configured comparison function from the type cache
+
+## Simplified Source
+
+```c
+int
+range_cmp_bounds(TypeCacheEntry *typcache, const RangeBound *b1, const RangeBound *b2)
+{
+    // Handle infinite bounds first
+    if (b1->infinite && b2->infinite) {
+        // Both infinite: equal unless one is lower and other is upper
+        return (b1->lower == b2->lower) ? 0 : (b1->lower ? -1 : 1);
+    } else if (b1->infinite) {
+        return b1->lower ? -1 : 1;  // -infinity < anything, +infinity > anything
+    } else if (b2->infinite) {
+        return b2->lower ? 1 : -1;  // anything > -infinity, anything < +infinity
+    }
+
+    // Both bounds are finite - compare values
+    int32 result = DatumGetInt32(FunctionCall2Coll(&typcache->rng_cmp_proc_finfo,
+                                                  typcache->rng_collation,
+                                                  b1->val, b2->val));
+
+    // If values are equal, consider inclusive/exclusive semantics
+    if (result == 0) {
+        if (!b1->inclusive && !b2->inclusive) {
+            // Both exclusive: compare by boundary type
+            return (b1->lower == b2->lower) ? 0 : (b1->lower ? 1 : -1);
+        } else if (!b1->inclusive) {
+            return b1->lower ? 1 : -1;  // Exclusive lower > value, exclusive upper < value
+        } else if (!b2->inclusive) {
+            return b2->lower ? -1 : 1;
+        } else {
+            // Both inclusive with equal values are equal
+            return 0;
+        }
+    }
+
+    return result;
+}
+```

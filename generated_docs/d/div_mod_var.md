@@ -49,3 +49,62 @@ The algorithm handles potential inaccuracies in the initial quotient estimate by
 - More efficient than calling div_var() and mod_var() separately when both results are needed
 - Critical for algorithms requiring both quotient and remainder with guaranteed mathematical consistency
 - Supports Newton's method implementations and other advanced mathematical functions
+
+## Simplified Source
+
+```c
+static void
+div_mod_var(const NumericVar *var1, const NumericVar *var2,
+            NumericVar *quot, NumericVar *rem)
+{
+    NumericVar q, r;
+
+    init_var(&q);
+    init_var(&r);
+
+    // Get initial quotient estimate using fast division
+    div_var_fast(var1, var2, &q, 0, false);
+
+    // Calculate initial remainder: r = var1 - (var2 * q)
+    mul_var(var2, &q, &r, var2->dscale);
+    sub_var(var1, &r, &r);
+
+    // Adjust quotient and remainder to satisfy mathematical constraints:
+    // 1. remainder sign should match dividend (var1)
+    // 2. |remainder| < |divisor|
+
+    // Fix sign mismatch between remainder and dividend
+    while (r.ndigits != 0 && r.sign != var1->sign) {
+        if (var1->sign == var2->sign) {
+            // Same signs: decrease quotient, increase remainder
+            sub_var(&q, &const_one, &q);
+            add_var(&r, var2, &r);
+        } else {
+            // Different signs: increase quotient, decrease remainder
+            add_var(&q, &const_one, &q);
+            sub_var(&r, var2, &r);
+        }
+    }
+
+    // Ensure remainder magnitude is less than divisor magnitude
+    while (cmp_abs(&r, var2) >= 0) {
+        if (var1->sign == var2->sign) {
+            // Same signs: increase quotient, decrease remainder
+            add_var(&q, &const_one, &q);
+            sub_var(&r, var2, &r);
+        } else {
+            // Different signs: decrease quotient, increase remainder
+            sub_var(&q, &const_one, &q);
+            add_var(&r, var2, &r);
+        }
+    }
+
+    // Copy results to output variables
+    set_var_from_var(&q, quot);
+    set_var_from_var(&r, rem);
+
+    // Clean up temporary variables
+    free_var(&q);
+    free_var(&r);
+}
+```

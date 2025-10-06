@@ -53,3 +53,57 @@ The function validates percentile values to ensure they are between 0 and 1, han
 - Sorts the output array by row positions to optimize sequential data access during percentile calculation
 - Handles NULL percentile values by creating dummy entries with zero values
 - Memory for the pct_info array is allocated using palloc and should be freed by the caller
+
+## Simplified Source
+
+```c
+static struct pct_info *
+setup_pct_info(int num_percentiles,
+               Datum *percentiles_datum,
+               bool *percentiles_null,
+               int64 rowcount,
+               bool continuous)
+{
+    struct pct_info *pct_info;
+    int i;
+
+    // Allocate result array
+    pct_info = (struct pct_info *) palloc(num_percentiles * sizeof(struct pct_info));
+
+    for (i = 0; i < num_percentiles; i++) {
+        pct_info[i].idx = i;
+
+        if (percentiles_null[i]) {
+            // Create dummy entry for NULL percentiles
+            pct_info[i].first_row = 0;
+            pct_info[i].second_row = 0;
+            pct_info[i].proportion = 0;
+        } else {
+            double p = DatumGetFloat8(percentiles_datum[i]);
+
+            // Validate percentile range
+            if (p < 0 || p > 1 || isnan(p))
+                ereport(ERROR, "percentile value must be between 0 and 1");
+
+            if (continuous) {
+                // Continuous percentiles: calculate interpolation bounds
+                pct_info[i].first_row = 1 + floor(p * (rowcount - 1));
+                pct_info[i].second_row = 1 + ceil(p * (rowcount - 1));
+                pct_info[i].proportion = (p * (rowcount - 1)) - floor(p * (rowcount - 1));
+            } else {
+                // Discrete percentiles: find smallest K where (K/N) >= percentile
+                int64 row = (int64) ceil(p * rowcount);
+                row = Max(1, row);
+                pct_info[i].first_row = row;
+                pct_info[i].second_row = row;
+                pct_info[i].proportion = 0;
+            }
+        }
+    }
+
+    // Sort by row positions for optimal access
+    qsort(pct_info, num_percentiles, sizeof(struct pct_info), pct_info_cmp);
+
+    return pct_info;
+}
+```

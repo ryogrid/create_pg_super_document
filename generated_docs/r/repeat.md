@@ -40,3 +40,7 @@ The repeat function creates a new text string by concatenating the input string 
 - Memory allocation uses AllocSizeIsValid() to ensure the calculated size is within acceptable limits
 - The function efficiently copies string data using memcpy() for optimal performance
 - Provides protection against memory exhaustion attacks through careful size validation
+
+## Simplified Source
+
+Note: The symbol "repeat" found in the codebase is a static regex compilation function, not the text string repeat function described in this documentation. The actual string repeat function may have a different symbol name or location.

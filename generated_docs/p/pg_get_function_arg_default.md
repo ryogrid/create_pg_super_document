@@ -40,3 +40,76 @@ This function retrieves and formats the default value of a function argument bas
 - The function performs complex index calculations since proargdefaults only stores the last N input arguments that have defaults
 - Default values are stored as serialized Node structures and are deserialized and deparsed back to SQL text
 - This function is typically exposed to SQL as pg_get_function_arg_default(funcid, argnum)
+
+## Simplified Source
+
+```c
+Datum pg_get_function_arg_default(PG_FUNCTION_ARGS) {
+    Oid funcid = PG_GETARG_OID(0);
+    int32 nth_arg = PG_GETARG_INT32(1);
+    HeapTuple proctup;
+    Form_pg_proc proc;
+    int numargs;
+    Oid *argtypes;
+    char **argnames;
+    char *argmodes;
+    int i;
+    List *argdefaults;
+    Node *node;
+    char *str;
+    int nth_inputarg;
+    Datum proargdefaults;
+    bool isnull;
+    int nth_default;
+
+    // Look up the function in pg_proc
+    proctup = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+    if (!HeapTupleIsValid(proctup))
+        PG_RETURN_NULL();
+
+    // Get function argument information
+    numargs = get_func_arg_info(proctup, &argtypes, &argnames, &argmodes);
+
+    // Validate argument position and ensure it's an input argument
+    if (nth_arg < 1 || nth_arg > numargs || !is_input_argument(nth_arg - 1, argmodes)) {
+        ReleaseSysCache(proctup);
+        PG_RETURN_NULL();
+    }
+
+    // Count input arguments up to nth_arg to find the input position
+    nth_inputarg = 0;
+    for (i = 0; i < nth_arg; i++)
+        if (is_input_argument(i, argmodes))
+            nth_inputarg++;
+
+    // Get the function's argument defaults
+    proargdefaults = SysCacheGetAttr(PROCOID, proctup,
+                                    Anum_pg_proc_proargdefaults, &isnull);
+    if (isnull) {
+        ReleaseSysCache(proctup);
+        PG_RETURN_NULL();
+    }
+
+    // Parse the defaults list
+    str = TextDatumGetCString(proargdefaults);
+    argdefaults = castNode(List, stringToNode(str));
+    pfree(str);
+
+    proc = (Form_pg_proc) GETSTRUCT(proctup);
+
+    // Calculate index into proargdefaults (corresponds to last N input args)
+    nth_default = nth_inputarg - 1 - (proc->pronargs - proc->pronargdefaults);
+
+    // Validate the default index and extract the default expression
+    if (nth_default < 0 || nth_default >= list_length(argdefaults)) {
+        ReleaseSysCache(proctup);
+        PG_RETURN_NULL();
+    }
+
+    node = list_nth(argdefaults, nth_default);
+    str = deparse_expression(node, NIL, false, false);
+
+    ReleaseSysCache(proctup);
+    PG_RETURN_TEXT_P(string_to_text(str));
+}
+```

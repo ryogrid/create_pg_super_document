@@ -47,3 +47,31 @@ If the input relation is not part of a partition tree or cannot be processed as 
 - Part of PostgreSQL's information schema functions for introspecting partition hierarchies
 - Memory management is handled properly by freeing the ancestors list after use
 - Critical for partition maintenance operations and query planning in partitioned environments
+
+## Simplified Source
+```c
+Datum pg_partition_root(PG_FUNCTION_ARGS) {
+    Oid relid = PG_GETARG_OID(0);
+    Oid rootrelid;
+    List *ancestors;
+
+    // Return NULL if relation cannot be part of partition tree
+    if (!check_rel_can_be_partition(relid))
+        PG_RETURN_NULL();
+
+    // Get list of all ancestors in the partition hierarchy
+    ancestors = get_partition_ancestors(relid);
+
+    // If no ancestors exist, this relation is already the root
+    if (ancestors == NIL)
+        PG_RETURN_OID(relid);
+
+    // Extract the topmost ancestor (root) from the list
+    rootrelid = llast_oid(ancestors);
+    list_free(ancestors);
+
+    // Root OID should always be valid for confirmed partition tree members
+    Assert(OidIsValid(rootrelid));
+    PG_RETURN_OID(rootrelid);
+}
+```

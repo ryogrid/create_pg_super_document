@@ -33,3 +33,29 @@ The  function is a PostgreSQL built-in function that generates pseudo-random 64-
 - Uses PostgreSQL's internal PRNG state for consistent random number generation
 - Part of PostgreSQL's pseudo-random functions subsystem located in pseudorandomfuncs.c
 - The function is designed to be called from SQL as a built-in function
+
+## Simplified Source
+
+```c
+Datum
+int8random(PG_FUNCTION_ARGS)
+{
+    int64 rmin = PG_GETARG_INT64(0);
+    int64 rmax = PG_GETARG_INT64(1);
+
+    // Validate range parameters
+    if (rmin > rmax) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("lower bound must be less than or equal to upper bound")));
+    }
+
+    // Ensure PRNG is initialized
+    initialize_prng();
+
+    // Generate random 64-bit integer in range [rmin, rmax]
+    int64 result = pg_prng_int64_range(&prng_state, rmin, rmax);
+
+    PG_RETURN_INT64(result);
+}
+```

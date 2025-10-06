@@ -32,3 +32,14 @@ This variant provides the same boolean pattern matching functionality as `regexp
 - Located in src/backend/utils/adt/regexp.c:1311-1320
 - This is part of the family of wrapper functions that provide simplified interfaces to PostgreSQL's regex functionality
 - Returns the same boolean result as regexp_like but without requiring flags parameter
+
+## Simplified Source
+
+```c
+/* Wrapper for regexp_like without flags parameter */
+Datum
+regexp_like_no_flags(PG_FUNCTION_ARGS)
+{
+    return regexp_like(fcinfo);
+}
+```

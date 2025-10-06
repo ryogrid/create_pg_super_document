@@ -45,3 +45,21 @@ Division is inherently more complex than other arithmetic operations due to prec
 - Location: 
 - Part of PostgreSQL's comprehensive numeric arithmetic implementation
 - Commonly used in aggregate functions, financial calculations, and statistical operations
+
+## Simplified Source
+
+```c
+Datum
+numeric_div(PG_FUNCTION_ARGS)
+{
+    // Extract two numeric arguments (dividend and divisor)
+    Numeric num1 = PG_GETARG_NUMERIC(0);
+    Numeric num2 = PG_GETARG_NUMERIC(1);
+
+    // Delegate to internal division function with error handling
+    Numeric result = numeric_div_opt_error(num1, num2, NULL);
+
+    // Return the division result
+    PG_RETURN_NUMERIC(result);
+}
+```

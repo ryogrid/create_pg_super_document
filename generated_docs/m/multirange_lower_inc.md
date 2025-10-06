@@ -39,3 +39,24 @@ This function determines the inclusivity of the lower bound of a multirange. It 
 - Complements other bound-checking functions like multirange_lower, multirange_upper, and multirange_upper_inc
 - Essential for precise range arithmetic and boundary condition handling in PostgreSQL range operations
 - The lower.inclusive field is a boolean that directly indicates the inclusivity status
+
+## Simplified Source
+
+```c
+Datum multirange_lower_inc(PG_FUNCTION_ARGS) {
+    MultirangeType *mr = PG_GETARG_MULTIRANGE_P(0);
+    TypeCacheEntry *typcache;
+    RangeBound lower, upper;
+
+    // Return false for empty multiranges
+    if (MultirangeIsEmpty(mr))
+        PG_RETURN_BOOL(false);
+
+    // Get type cache and extract bounds of first range
+    typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(mr));
+    multirange_get_bounds(typcache->rngtype, mr, 0, &lower, &upper);
+
+    // Return inclusivity of lower bound
+    PG_RETURN_BOOL(lower.inclusive);
+}
+```

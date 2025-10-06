@@ -38,3 +38,17 @@ The "bt" prefix indicates this function is specifically designed for B-tree inde
 - Essential for supporting ORDER BY, sorting, and B-tree indexing operations on  columns
 - Located in  at lines 202-210
 - Part of the B-tree operator class infrastructure for the  data type
+
+## Simplified Source
+
+```c
+Datum
+btnamecmp(PG_FUNCTION_ARGS)
+{
+    Name arg1 = PG_GETARG_NAME(0);
+    Name arg2 = PG_GETARG_NAME(1);
+
+    // Return integer comparison result for B-tree ordering
+    PG_RETURN_INT32(namecmp(arg1, arg2, PG_GET_COLLATION()));
+}
+```

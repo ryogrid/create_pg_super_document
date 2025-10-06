@@ -42,3 +42,24 @@ The function works by:
 - An infinite upper bound means the range extends indefinitely in the positive direction
 - Part of the multirange SQL functions exposed to users for introspecting multirange properties
 - Located in src/backend/utils/adt/multirangetypes.c:1622-1644
+
+## Simplified Source
+
+```c
+Datum multirange_upper_inf(PG_FUNCTION_ARGS) {
+    MultirangeType *mr = PG_GETARG_MULTIRANGE_P(0);
+    TypeCacheEntry *typcache;
+    RangeBound lower, upper;
+
+    // Return false for empty multiranges
+    if (MultirangeIsEmpty(mr))
+        PG_RETURN_BOOL(false);
+
+    // Get type cache and extract bounds of last range
+    typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(mr));
+    multirange_get_bounds(typcache->rngtype, mr, mr->rangeCount - 1, &lower, &upper);
+
+    // Return infinity status of upper bound
+    PG_RETURN_BOOL(upper.infinite);
+}
+```

@@ -56,3 +56,78 @@ The function assumes the operator is strict and immutable/stable, and treats the
 - Combines MCV and histogram using formula: selec = mcvsel + (1 - nullfrac - mcvsum) * hist_selec
 - Best suited for operators whose semantics are not strongly related to histogram ordering
 - Requires standard PostgreSQL statistics collection (MCV and histogram) to be effective
+
+## Simplified Source
+```c
+double
+generic_restriction_selectivity(PlannerInfo *root, Oid oproid, Oid collation,
+                                List *args, int varRelid,
+                                double default_selectivity)
+{
+    double selec;
+    VariableStatData vardata;
+    Node *other;
+    bool varonleft;
+
+    // Check if expression matches "VAR OP CONST" or "CONST OP VAR" pattern
+    if (!get_restriction_variable(root, args, varRelid,
+                                  &vardata, &other, &varonleft))
+        return default_selectivity;
+
+    // Handle NULL constants - strict operators never return TRUE for NULL
+    if (IsA(other, Const) && ((Const *) other)->constisnull) {
+        ReleaseVariableStats(vardata);
+        return 0.0;
+    }
+
+    if (IsA(other, Const)) {
+        // Variable being compared to known constant
+        Datum constval = ((Const *) other)->constvalue;
+        FmgrInfo opproc;
+        double mcvsum, mcvsel, nullfrac;
+        int hist_size;
+
+        fmgr_info(get_opcode(oproid), &opproc);
+
+        // Calculate selectivity for most common values
+        mcvsel = mcv_selectivity(&vardata, &opproc, collation,
+                                 constval, varonleft, &mcvsum);
+
+        // Get histogram-based selectivity for non-MCV population
+        selec = histogram_selectivity(&vardata, &opproc, collation,
+                                      constval, varonleft,
+                                      10, 1, &hist_size);
+
+        if (selec < 0) {
+            // No usable histogram, use default
+            selec = default_selectivity;
+        } else if (hist_size < 100) {
+            // Small histogram: blend with default estimate
+            double hist_weight = hist_size / 100.0;
+            selec = selec * hist_weight + default_selectivity * (1.0 - hist_weight);
+        }
+
+        // Clamp to reasonable probability range
+        if (selec < 0.0001) selec = 0.0001;
+        else if (selec > 0.9999) selec = 0.9999;
+
+        // Get null fraction from statistics
+        if (HeapTupleIsValid(vardata.statsTuple))
+            nullfrac = ((Form_pg_statistic) GETSTRUCT(vardata.statsTuple))->stanullfrac;
+        else
+            nullfrac = 0.0;
+
+        // Combine MCV and histogram results
+        // selec covers non-null, non-MCV population
+        selec *= 1.0 - nullfrac - mcvsum;
+        selec += mcvsel;
+    } else {
+        // Non-constant comparison value - can't estimate
+        selec = default_selectivity;
+    }
+
+    ReleaseVariableStats(vardata);
+    CLAMP_PROBABILITY(selec);
+    return selec;
+}
+```

@@ -41,3 +41,48 @@ The `random_numeric` function generates random numeric values within the specifi
 - Memory management is properly handled with cleanup of temporary NumericVar structures
 - The actual random generation algorithm is delegated to the internal `random_var` function
 - Located in src/backend/utils/adt/numeric.c:4244-4298
+
+## Simplified Source
+
+```c
+Numeric
+random_numeric(pg_prng_state *state, Numeric rmin, Numeric rmax)
+{
+    NumericVar rmin_var;
+    NumericVar rmax_var;
+    NumericVar result;
+    Numeric res;
+
+    // Validate range bounds - reject NaN/infinity
+    if (NUMERIC_IS_SPECIAL(rmin)) {
+        if (NUMERIC_IS_NAN(rmin))
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("lower bound cannot be NaN")));
+        else
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("lower bound cannot be infinity")));
+    }
+    if (NUMERIC_IS_SPECIAL(rmax)) {
+        if (NUMERIC_IS_NAN(rmax))
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("upper bound cannot be NaN")));
+        else
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("upper bound cannot be infinity")));
+    }
+
+    // Convert bounds to internal format
+    init_var_from_num(rmin, &rmin_var);
+    init_var_from_num(rmax, &rmax_var);
+    init_var(&result);
+
+    // Generate random value in range
+    random_var(state, &rmin_var, &rmax_var, &result);
+
+    // Convert result back to external format
+    res = make_result(&result);
+    free_var(&result);
+
+    return res;
+}
+```

@@ -45,3 +45,24 @@ The function acts as a PostgreSQL function interface wrapper around the generic 
 - The function assumes that "matching" operations are generally less selective than equality but more selective than inequality
 - Registers as a selectivity estimation function that can be associated with operators in the PostgreSQL catalog
 - Part of PostgreSQL's extensible selectivity estimation framework allowing custom operators to provide reasonable cost estimates
+
+## Simplified Source
+
+```c
+Datum matchingsel(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    PlannerInfo *root = (PlannerInfo *) PG_GETARG_POINTER(0);
+    Oid operator = PG_GETARG_OID(1);
+    List *args = (List *) PG_GETARG_POINTER(2);
+    int varRelid = PG_GETARG_INT32(3);
+    Oid collation = PG_GET_COLLATION();
+
+    // Calculate selectivity using generic restriction logic
+    // Uses DEFAULT_MATCHING_SEL as fallback estimate
+    double selectivity = generic_restriction_selectivity(root, operator, collation,
+                                                        args, varRelid,
+                                                        DEFAULT_MATCHING_SEL);
+
+    PG_RETURN_FLOAT8((float8) selectivity);
+}
+```

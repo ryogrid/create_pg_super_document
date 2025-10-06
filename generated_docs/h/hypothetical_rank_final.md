@@ -33,3 +33,15 @@ The `rank()` function follows SQL standard semantics where tied values receive t
 - Returns a 1-based rank value consistent with SQL standards
 - The rowcount output from the common function is not used in this wrapper but is available for other ranking functions that need it
 - Complements other ranking functions like `dense_rank()`, `percent_rank()`, and `cume_dist()` that use the same underlying infrastructure
+
+## Simplified Source
+```c
+Datum hypothetical_rank_final(PG_FUNCTION_ARGS) {
+    int64 rank, rowcount;
+
+    // Use flag -1 to rank hypothetical row ahead of peers
+    rank = hypothetical_rank_common(fcinfo, -1, &rowcount);
+
+    PG_RETURN_INT64(rank);
+}
+```

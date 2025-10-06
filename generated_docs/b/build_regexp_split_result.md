@@ -43,3 +43,40 @@ This static helper function constructs the result string for regexp split operat
 - Returns the substring between matches, not the matches themselves
 - Uses different code paths for performance optimization based on character encoding needs
 - Located at src/backend/utils/adt/regexp.c:1817-1857
+
+## Simplified Source
+
+```c
+static Datum build_regexp_split_result(regexp_matches_ctx *splitctx) {
+    char *buf = splitctx->conv_buf;
+    int startpos, endpos;
+
+    // Calculate start position (end of previous match or beginning)
+    if (splitctx->next_match > 0)
+        startpos = splitctx->match_locs[splitctx->next_match * 2 - 1];
+    else
+        startpos = 0;
+
+    if (startpos < 0)
+        elog(ERROR, "invalid match ending position");
+
+    // Calculate end position (start of current match or end of string)
+    endpos = splitctx->match_locs[splitctx->next_match * 2];
+    if (endpos < startpos)
+        elog(ERROR, "invalid match starting position");
+
+    // Extract substring between matches
+    if (buf) {
+        // Multi-byte encoding: convert from wide characters
+        int len = pg_wchar2mb_with_len(splitctx->wide_str + startpos,
+                                      buf, endpos - startpos);
+        return PointerGetDatum(cstring_to_text_with_len(buf, len));
+    } else {
+        // Single-byte encoding: direct substring extraction
+        return DirectFunctionCall3(text_substr,
+                                  PointerGetDatum(splitctx->orig_str),
+                                  Int32GetDatum(startpos + 1),
+                                  Int32GetDatum(endpos - startpos));
+    }
+}
+```

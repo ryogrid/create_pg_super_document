@@ -53,3 +53,73 @@ The function validates inputs to ensure count > 0, bounds are not equal, no para
 - Returns bucket numbers as 32-bit integers
 - Uses helper function  for values within the histogram bounds
 - Part of PostgreSQL's statistical and analytical function suite
+
+## Simplified Source
+
+```c
+Datum
+width_bucket_numeric(PG_FUNCTION_ARGS)
+{
+    Numeric operand = PG_GETARG_NUMERIC(0);
+    Numeric bound1 = PG_GETARG_NUMERIC(1);
+    Numeric bound2 = PG_GETARG_NUMERIC(2);
+    int32 count = PG_GETARG_INT32(3);
+    NumericVar count_var;
+    NumericVar result_var;
+    int32 result;
+
+    // Validate count parameter
+    if (count <= 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_ARGUMENT_FOR_WIDTH_BUCKET_FUNCTION),
+                       errmsg("count must be greater than zero")));
+
+    // Validate no NaN values, allow infinite operand but not bounds
+    if (NUMERIC_IS_NAN(operand) || NUMERIC_IS_NAN(bound1) || NUMERIC_IS_NAN(bound2))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_ARGUMENT_FOR_WIDTH_BUCKET_FUNCTION),
+                       errmsg("operand, lower bound, and upper bound cannot be NaN")));
+
+    if (NUMERIC_IS_INF(bound1) || NUMERIC_IS_INF(bound2))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_ARGUMENT_FOR_WIDTH_BUCKET_FUNCTION),
+                       errmsg("lower and upper bounds must be finite")));
+
+    init_var(&result_var);
+    init_var(&count_var);
+    int64_to_numericvar((int64) count, &count_var);
+
+    // Determine bucket based on bound relationship
+    switch (cmp_numerics(bound1, bound2))
+    {
+        case 0:  // Equal bounds - error
+            ereport(ERROR, (errcode(ERRCODE_INVALID_ARGUMENT_FOR_WIDTH_BUCKET_FUNCTION),
+                           errmsg("lower bound cannot equal upper bound")));
+            break;
+
+        case -1:  // bound1 < bound2 (ascending)
+            if (cmp_numerics(operand, bound1) < 0)
+                set_var_from_var(&const_zero, &result_var);
+            else if (cmp_numerics(operand, bound2) >= 0)
+                add_var(&count_var, &const_one, &result_var);
+            else
+                compute_bucket(operand, bound1, bound2, &count_var, false, &result_var);
+            break;
+
+        case 1:  // bound1 > bound2 (descending)
+            if (cmp_numerics(operand, bound1) > 0)
+                set_var_from_var(&const_zero, &result_var);
+            else if (cmp_numerics(operand, bound2) <= 0)
+                add_var(&count_var, &const_one, &result_var);
+            else
+                compute_bucket(operand, bound1, bound2, &count_var, true, &result_var);
+            break;
+    }
+
+    // Convert result to int32 and validate range
+    if (!numericvar_to_int32(&result_var, &result))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("integer out of range")));
+
+    free_var(&count_var);
+    free_var(&result_var);
+    PG_RETURN_INT32(result);
+}
+```

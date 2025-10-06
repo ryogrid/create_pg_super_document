@@ -50,3 +50,54 @@ If any validation fails, the function leaves the output buffer empty and returns
 
 ## Notes and Other Information
 This function is part of PostgreSQL's rule system utilities and is specifically designed for view definition reconstruction. It's a static function within ruleutils.c, indicating it's an internal implementation detail not exposed to external modules. The function is careful to validate the rule structure before attempting reconstruction, ensuring that only proper view definition rules are processed. The use of AccessShareLock when opening the relation indicates read-only access for metadata extraction.
+
+## Simplified Source
+
+```c
+static void
+make_viewdef(StringInfo buf, HeapTuple ruletup, TupleDesc rulettc,
+             int prettyFlags, int wrapColumn)
+{
+    Query *query;
+    char ev_type;
+    Oid ev_class;
+    bool is_instead;
+    char *ev_qual;
+    char *ev_action;
+    List *actions;
+    Relation ev_relation;
+
+    // Extract rule attributes from the tuple
+    ev_type = DatumGetChar(SPI_getbinval(ruletup, rulettc,
+                          SPI_fnumber(rulettc, "ev_type"), &isnull));
+    ev_class = DatumGetObjectId(SPI_getbinval(ruletup, rulettc,
+                               SPI_fnumber(rulettc, "ev_class"), &isnull));
+    is_instead = DatumGetBool(SPI_getbinval(ruletup, rulettc,
+                             SPI_fnumber(rulettc, "is_instead"), &isnull));
+    ev_qual = SPI_getvalue(ruletup, rulettc, SPI_fnumber(rulettc, "ev_qual"));
+    ev_action = SPI_getvalue(ruletup, rulettc, SPI_fnumber(rulettc, "ev_action"));
+
+    // Parse the action string into a query list
+    actions = (List *) stringToNode(ev_action);
+
+    // Validate this is a proper view rule
+    if (list_length(actions) != 1) {
+        return; // Must have exactly one action
+    }
+
+    query = (Query *) linitial(actions);
+
+    // Check rule criteria: SELECT event, INSTEAD rule, unconditional
+    if (ev_type != '1' || !is_instead ||
+        strcmp(ev_qual, "<>") != 0 || query->commandType != CMD_SELECT) {
+        return; // Not a valid view definition rule
+    }
+
+    // Generate the SQL text for the view definition
+    ev_relation = table_open(ev_class, AccessShareLock);
+    get_query_def(query, buf, NIL, RelationGetDescr(ev_relation), true,
+                  prettyFlags, wrapColumn, 0);
+    appendStringInfoChar(buf, ';');
+    table_close(ev_relation, AccessShareLock);
+}
+```

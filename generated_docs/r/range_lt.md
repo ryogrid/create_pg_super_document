@@ -31,3 +31,17 @@ The function is implemented as a simple wrapper around , returning true (1) when
 - Relies on range_cmp for the actual comparison logic, which handles empty ranges, type validation, and bound-by-bound comparison
 - The function uses PostgreSQL's standard function calling convention with PG_FUNCTION_ARGS and PG_RETURN_BOOL macros
 - Empty ranges are considered less than all non-empty ranges according to the underlying comparison logic
+
+## Simplified Source
+
+```c
+Datum
+range_lt(PG_FUNCTION_ARGS)
+{
+    // Compare ranges using range_cmp function
+    int cmp = range_cmp(fcinfo);
+
+    // Return true if first range is less than second
+    PG_RETURN_BOOL(cmp < 0);
+}
+```

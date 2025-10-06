@@ -45,3 +45,28 @@ The function handles empty inputs by returning false, following PostgreSQL's ran
 - Located in `src/backend/utils/adt/multirangetypes.c` at lines 2073-2095
 - Part of PostgreSQL's comprehensive set of spatial relationship operators for range and multirange types
 - The comment "does not extend to right of?" clearly indicates the semantic meaning of this operation
+
+## Simplified Source
+
+```c
+bool range_overleft_multirange_internal(TypeCacheEntry *rangetyp,
+                                       const RangeType *r,
+                                       const MultirangeType *mr)
+{
+    // Empty ranges/multiranges have no positional relationship
+    if (RangeIsEmpty(r) || MultirangeIsEmpty(mr))
+        return false;
+
+    // Extract bounds from the range
+    RangeBound lower1, upper1, lower2, upper2;
+    bool empty;
+    range_deserialize(rangetyp, r, &lower1, &upper1, &empty);
+    Assert(!empty);
+
+    // Get bounds of rightmost range in multirange (highest upper bound)
+    multirange_get_bounds(rangetyp, mr, mr->rangeCount - 1, &lower2, &upper2);
+
+    // Range is overleft if its upper bound <= multirange's upper bound
+    return (range_cmp_bounds(rangetyp, &upper1, &upper2) <= 0);
+}
+```

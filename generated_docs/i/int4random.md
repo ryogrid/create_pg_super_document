@@ -39,3 +39,29 @@ The function includes input validation to ensure the lower bound is less than or
 - Thread-safety depends on the underlying PRNG state management
 - Commonly used for generating random test data, sampling, or simulation applications
 - Function name follows PostgreSQL naming convention: `int4` refers to 4-byte (32-bit) integers
+
+## Simplified Source
+
+```c
+Datum
+int4random(PG_FUNCTION_ARGS)
+{
+    int32 rmin = PG_GETARG_INT32(0);
+    int32 rmax = PG_GETARG_INT32(1);
+
+    // Validate range parameters
+    if (rmin > rmax) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("lower bound must be less than or equal to upper bound")));
+    }
+
+    // Ensure PRNG is initialized
+    initialize_prng();
+
+    // Generate random integer in range [rmin, rmax]
+    int32 result = (int32) pg_prng_int64_range(&prng_state, rmin, rmax);
+
+    PG_RETURN_INT32(result);
+}
+```

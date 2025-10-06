@@ -56,3 +56,53 @@ Unlike the signed int64 version, this function uses straightforward positive acc
 - Properly manages memory for the temporary rounded variable
 - Supports conversion of large numeric values that fit within uint64 range
 - Uses addition instead of subtraction for accumulation since all values are positive
+
+## Simplified Source
+
+```c
+static bool numericvar_to_uint64(const NumericVar *var, uint64 *result) {
+    NumericVar rounded;
+
+    // Round to nearest integer
+    init_var(&rounded);
+    set_var_from_var(var, &rounded);
+    round_var(&rounded, 0);
+
+    // Handle zero case
+    strip_var(&rounded);
+    if (rounded.ndigits == 0) {
+        *result = 0;
+        free_var(&rounded);
+        return true;
+    }
+
+    // Reject negative values
+    if (rounded.sign == NUMERIC_NEG) {
+        free_var(&rounded);
+        return false;
+    }
+
+    // Build result from digits, checking for overflow
+    uint64 val = rounded.digits[0];
+
+    for (int i = 1; i <= rounded.weight; i++) {
+        // Check for multiplication overflow
+        if (unlikely(pg_mul_u64_overflow(val, NBASE, &val))) {
+            free_var(&rounded);
+            return false;
+        }
+
+        // Add next digit if it exists
+        if (i < rounded.ndigits) {
+            if (unlikely(pg_add_u64_overflow(val, rounded.digits[i], &val))) {
+                free_var(&rounded);
+                return false;
+            }
+        }
+    }
+
+    free_var(&rounded);
+    *result = val;
+    return true;
+}
+```

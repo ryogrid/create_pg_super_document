@@ -41,4 +41,18 @@ This operator enables multirange types to be used in SQL queries with less-than 
 - Part of the family of inequality operators (lt, le, ge, gt) that all use 
 - Essential for enabling full comparison semantics for multirange types in SQL
 - Part of PostgreSQL's range and multirange type system for advanced range operations
-- File location: 
+- File location:
+
+## Simplified Source
+
+```c
+Datum
+multirange_lt(PG_FUNCTION_ARGS)
+{
+    // Use comparison function to determine ordering
+    int cmp = multirange_cmp(fcinfo);
+
+    // Return true if first multirange is less than second
+    PG_RETURN_BOOL(cmp < 0);
+}
+```

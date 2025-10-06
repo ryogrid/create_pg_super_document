@@ -42,3 +42,21 @@ The function extracts two NUMERIC arguments from the function call arguments, pe
 - Location: 
 - Part of PostgreSQL's comprehensive numeric arithmetic implementation
 - Used extensively in financial calculations, size computations, and numeric formatting operations
+
+## Simplified Source
+
+```c
+Datum
+numeric_mul(PG_FUNCTION_ARGS)
+{
+    // Extract two numeric arguments
+    Numeric num1 = PG_GETARG_NUMERIC(0);
+    Numeric num2 = PG_GETARG_NUMERIC(1);
+
+    // Delegate to internal multiplication function
+    Numeric result = numeric_mul_opt_error(num1, num2, NULL);
+
+    // Return the multiplication result
+    PG_RETURN_NUMERIC(result);
+}
+```

@@ -31,3 +31,12 @@ This function serves as a simple wrapper around regexp_split_to_table, providing
 - Provides a clean two-argument interface by omitting the optional flags parameter
 - Located at src/backend/utils/adt/regexp.c:1755-1765
 - Comment indicates separation is specifically for regression test compliance
+
+## Simplified Source
+
+```c
+Datum regexp_split_to_table_no_flags(PG_FUNCTION_ARGS) {
+    // Simple wrapper to satisfy opr_sanity test requirements
+    return regexp_split_to_table(fcinfo);
+}
+```

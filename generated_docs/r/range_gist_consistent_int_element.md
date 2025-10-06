@@ -41,3 +41,25 @@ The function is much simpler than its counterparts because element queries only 
 - The function acts as a simple strategy dispatcher, with the actual logic contained in range_contains_elem_internal
 - Any unsupported strategy results in an ERROR, ensuring that only valid element containment queries are processed
 - This function is specifically designed for queries of the form 'which ranges contain element X?'
+
+## Simplified Source
+
+```c
+static bool
+range_gist_consistent_int_element(TypeCacheEntry *typcache,
+                                 StrategyNumber strategy,
+                                 const RangeType *key,
+                                 Datum query)
+{
+    switch (strategy)
+    {
+        case RANGESTRAT_CONTAINS_ELEM:
+            // Check if the range key could contain the element
+            return range_contains_elem_internal(typcache, key, query);
+
+        default:
+            elog(ERROR, "unrecognized range strategy: %d", strategy);
+            return false;
+    }
+}
+```

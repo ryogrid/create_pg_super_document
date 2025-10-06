@@ -38,3 +38,21 @@ The function extracts the multirange and range arguments from the function call 
 - Returns false for empty multiranges or ranges, following PostgreSQL's convention for spatial operations
 - The internal logic compares the range's lower bound with the multirange's rightmost (last) range's upper bound
 - Part of PostgreSQL's multirange type system that provides comprehensive spatial relationship operators
+
+## Simplified Source
+
+```c
+Datum
+multirange_before_range(PG_FUNCTION_ARGS)
+{
+    // Extract arguments: multirange and range
+    MultirangeType *multirange = PG_GETARG_MULTIRANGE_P(0);
+    RangeType *range = PG_GETARG_RANGE_P(1);
+
+    // Get type information for the multirange
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(multirange));
+
+    // Use symmetric logic: multirange << range ≡ range >> multirange
+    PG_RETURN_BOOL(range_after_multirange_internal(typcache->rngtype, range, multirange));
+}
+```

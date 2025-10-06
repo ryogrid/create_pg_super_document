@@ -33,3 +33,14 @@ When flags are not provided,  uses default regex behavior without special flags.
 - Part of a family of regexp_substr wrapper functions that provide different parameter combinations
 - The name suggests it handles cases where the flags parameter is omitted from SQL calls
 - When no flags are specified, regex matching uses default behavior (case-sensitive, single-line mode, etc.)
+
+## Simplified Source
+
+```c
+Datum
+regexp_substr_no_flags(PG_FUNCTION_ARGS)
+{
+    // Simple wrapper - delegate to main regexp_substr function
+    return regexp_substr(fcinfo);
+}
+```

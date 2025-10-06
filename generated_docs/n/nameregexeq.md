@@ -39,3 +39,23 @@ This function is a PostgreSQL interface routine called by the function manager t
 - Respects collation settings for proper locale-aware string matching
 - The function is part of PostgreSQL's regular expression infrastructure in src/backend/utils/adt/regexp.c
 - Returns a Datum containing a boolean value indicating match success
+
+## Simplified Source
+
+```c
+Datum nameregexeq(PG_FUNCTION_ARGS)
+{
+    Name name = PG_GETARG_NAME(0);
+    text *pattern = PG_GETARG_TEXT_PP(1);
+
+    // Execute regex match on name using pattern
+    bool result = RE_compile_and_execute(pattern,
+                                        NameStr(*name),
+                                        strlen(NameStr(*name)),
+                                        REG_ADVANCED,
+                                        PG_GET_COLLATION(),
+                                        0, NULL);
+
+    PG_RETURN_BOOL(result);
+}
+```

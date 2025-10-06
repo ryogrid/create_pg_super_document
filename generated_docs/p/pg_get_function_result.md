@@ -34,3 +34,36 @@ This SQL-callable function takes a function OID as input and returns a formatted
 - Part of the ruleutils.c module which provides functions for formatting SQL statements and database object definitions
 - Essential for displaying function signatures and generating CREATE FUNCTION statements
 - The function distinguishes between functions (which have return types) and procedures (which do not)
+
+## Simplified Source
+
+```c
+Datum
+pg_get_function_result(PG_FUNCTION_ARGS)
+{
+    Oid funcid = PG_GETARG_OID(0);
+    StringInfoData buf;
+    HeapTuple proctup;
+
+    // Look up function in system catalog
+    proctup = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+    if (!HeapTupleIsValid(proctup))
+        PG_RETURN_NULL();
+
+    // Return NULL for procedures (no return type)
+    if (((Form_pg_proc) GETSTRUCT(proctup))->prokind == PROKIND_PROCEDURE)
+    {
+        ReleaseSysCache(proctup);
+        PG_RETURN_NULL();
+    }
+
+    initStringInfo(&buf);
+
+    // Format function return type
+    print_function_rettype(&buf, proctup);
+
+    ReleaseSysCache(proctup);
+
+    PG_RETURN_TEXT_P(string_to_text(buf.data));
+}
+```

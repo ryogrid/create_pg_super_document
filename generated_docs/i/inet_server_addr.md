@@ -37,3 +37,35 @@ This function takes no explicit parameters (uses PG_FUNCTION_ARGS macro for Post
 - Part of PostgreSQL's network data type functions
 - Accessible from SQL as inet_server_addr() function
 - Relies on MyProcPort global variable which contains current connection information
+
+## Simplified Source
+
+```c
+Datum
+inet_server_addr(PG_FUNCTION_ARGS)
+{
+    Port *port = MyProcPort;
+    char local_host[NI_MAXHOST];
+
+    // Return NULL if no port info or not TCP/IP connection
+    if (port == NULL)
+        PG_RETURN_NULL();
+
+    // Only handle IPv4 and IPv6 connections
+    if (port->laddr.addr.ss_family != AF_INET &&
+        port->laddr.addr.ss_family != AF_INET6)
+        PG_RETURN_NULL();
+
+    // Extract server IP address from local socket address
+    if (pg_getnameinfo_all(&port->laddr.addr, port->laddr.salen,
+                          local_host, sizeof(local_host), NULL, 0,
+                          NI_NUMERICHOST | NI_NUMERICSERV) != 0)
+        PG_RETURN_NULL();
+
+    // Clean up IPv6 address formatting if needed
+    clean_ipv6_addr(port->laddr.addr.ss_family, local_host);
+
+    // Convert address string to PostgreSQL inet type
+    PG_RETURN_INET_P(network_in(local_host, false, NULL));
+}
+```

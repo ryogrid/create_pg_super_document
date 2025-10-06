@@ -41,3 +41,57 @@ For non-disk files (pipes and character devices), the function sets minimal stat
 - Uses Windows API  to convert file descriptor to Windows HANDLE
 - For disk files, delegates to  which provides complete file metadata
 - For special file types (pipes, character devices), provides minimal but sufficient stat information
+
+## Simplified Source
+
+```c
+int
+_pgfstat64(int fileno, struct stat *buf)
+{
+    HANDLE hFile = (HANDLE) _get_osfhandle(fileno);
+    unsigned short st_mode;
+
+    if (buf == NULL)
+    {
+        errno = EINVAL;
+        return -1;
+    }
+
+    // Determine the file type using Windows API
+    DWORD fileType = pgwin32_get_file_type(hFile);
+    if (errno != 0)
+        return -1;
+
+    switch (fileType)
+    {
+        case FILE_TYPE_DISK:
+            // For disk files, get complete file information
+            return fileinfo_to_stat(hFile, buf);
+
+        case FILE_TYPE_PIPE:
+            // Named pipes, anonymous pipes, or sockets
+            st_mode = _S_IFIFO;
+            break;
+
+        case FILE_TYPE_CHAR:
+            // Character devices
+            st_mode = _S_IFCHR;
+            break;
+
+        case FILE_TYPE_REMOTE:
+        case FILE_TYPE_UNKNOWN:
+        default:
+            // Unsupported file types
+            errno = EINVAL;
+            return -1;
+    }
+
+    // Fill stat structure with minimal information for special files
+    memset(buf, 0, sizeof(*buf));
+    buf->st_mode = st_mode;
+    buf->st_dev = fileno;
+    buf->st_rdev = fileno;
+    buf->st_nlink = 1;
+    return 0;
+}
+```

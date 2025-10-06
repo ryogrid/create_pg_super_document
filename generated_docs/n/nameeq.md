@@ -33,3 +33,17 @@ nameeq(PG_FUNCTION_ARGS)
 - The function relies on  for the actual comparison logic, ensuring consistent collation handling
 - Returns true (1) when names are equal, false (0) otherwise
 - Part of PostgreSQL's type system infrastructure for the Name built-in type
+
+## Simplified Source
+
+```c
+Datum
+nameeq(PG_FUNCTION_ARGS)
+{
+    Name arg1 = PG_GETARG_NAME(0);
+    Name arg2 = PG_GETARG_NAME(1);
+
+    // Compare names for equality using collation-aware comparison
+    PG_RETURN_BOOL(namecmp(arg1, arg2, PG_GET_COLLATION()) == 0);
+}
+```

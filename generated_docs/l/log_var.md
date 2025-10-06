@@ -45,3 +45,48 @@ The algorithm automatically chooses the result's display scale (dscale) to ensur
 - Precision management ensures that intermediate calculations have sufficient accuracy for the final result
 - The +8 buffer in scale calculations provides extra precision margin for intermediate computations
 - Located at src/backend/utils/adt/numeric.c:10887-10946
+
+## Simplified Source
+
+```c
+static void
+log_var(const NumericVar *base, const NumericVar *num, NumericVar *result)
+{
+    NumericVar ln_base, ln_num;
+
+    init_var(&ln_base);
+    init_var(&ln_num);
+
+    // Estimate decimal weights for precision planning
+    // This helps determine appropriate scales for intermediate calculations
+    int ln_base_dweight = estimate_ln_dweight(base);
+    int ln_num_dweight = estimate_ln_dweight(num);
+    int result_dweight = ln_num_dweight - ln_base_dweight;
+
+    // Calculate appropriate result scale to ensure sufficient precision
+    // Aim for at least NUMERIC_MIN_SIG_DIGITS significant digits
+    int rscale = NUMERIC_MIN_SIG_DIGITS - result_dweight;
+    rscale = Max(rscale, base->dscale);           // Respect input scales
+    rscale = Max(rscale, num->dscale);
+    rscale = Max(rscale, NUMERIC_MIN_DISPLAY_SCALE);
+    rscale = Min(rscale, NUMERIC_MAX_DISPLAY_SCALE);
+
+    // Set scales for intermediate ln calculations with extra precision
+    // Add buffer (+8) to ensure intermediate calculations don't lose accuracy
+    int ln_base_rscale = rscale + result_dweight - ln_base_dweight + 8;
+    ln_base_rscale = Max(ln_base_rscale, NUMERIC_MIN_DISPLAY_SCALE);
+
+    int ln_num_rscale = rscale + result_dweight - ln_num_dweight + 8;
+    ln_num_rscale = Max(ln_num_rscale, NUMERIC_MIN_DISPLAY_SCALE);
+
+    // Compute natural logarithms with calculated precision
+    ln_var(base, &ln_base, ln_base_rscale);
+    ln_var(num, &ln_num, ln_num_rscale);
+
+    // Apply logarithm change of base formula: log_base(num) = ln(num) / ln(base)
+    div_var_fast(&ln_num, &ln_base, result, rscale, true);
+
+    free_var(&ln_num);
+    free_var(&ln_base);
+}
+```

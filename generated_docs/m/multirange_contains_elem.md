@@ -41,3 +41,19 @@ The function works by:
 - An element is contained if it falls within any of the ranges in the multirange
 - Part of the multirange SQL functions for containment operations
 - Located in src/backend/utils/adt/multirangetypes.c:1645-1657
+
+## Simplified Source
+
+```c
+Datum multirange_contains_elem(PG_FUNCTION_ARGS) {
+    // Extract multirange and element value from arguments
+    MultirangeType *multirange = PG_GETARG_MULTIRANGE_P(0);
+    Datum element_value = PG_GETARG_DATUM(1);
+
+    // Get type information for this multirange
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(multirange));
+
+    // Delegate to internal function and return result
+    return PG_RETURN_BOOL(multirange_contains_elem_internal(typcache->rngtype, multirange, element_value));
+}
+```

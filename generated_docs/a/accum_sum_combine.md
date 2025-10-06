@@ -46,3 +46,23 @@ This approach leverages the existing accumulator infrastructure to efficiently c
 - The function preserves the precision and scale requirements of numeric operations
 - Does not handle NaN values - this is managed at higher levels of the aggregation system
 - Location: src/backend/utils/adt/numeric.c:12270-12280
+
+## Simplified Source
+
+```c
+static void accum_sum_combine(NumericSumAccum *accum, NumericSumAccum *accum2) {
+    NumericVar tmp_var;
+
+    // Initialize temporary variable
+    init_var(&tmp_var);
+
+    // Get final value from second accumulator
+    accum_sum_final(accum2, &tmp_var);
+
+    // Add it to the first accumulator
+    accum_sum_add(accum, &tmp_var);
+
+    // Clean up
+    free_var(&tmp_var);
+}
+```

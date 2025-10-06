@@ -54,3 +54,82 @@ The core challenge is generating uniform random values for arbitrary-precision d
 - Properly handles decimal scale by ensuring the final digit aligns with the required precision
 - The algorithm is optimized for performance by processing digits in groups of 4 when possible
 - Memory allocation and cleanup is handled internally with proper error handling
+
+## Simplified Source
+
+```c
+static void random_var(pg_prng_state *state, const NumericVar *rmin,
+                      const NumericVar *rmax, NumericVar *result) {
+    int rscale = Max(rmin->dscale, rmax->dscale);
+    NumericVar rlen;
+
+    // Compute range length = rmax - rmin
+    init_var(&rlen);
+    sub_var(rmax, rmin, &rlen);
+
+    // Check bounds
+    if (rlen.sign == NUMERIC_NEG)
+        ereport(ERROR, (errmsg("lower bound must be <= upper bound")));
+
+    // Handle empty range case
+    if (rlen.ndigits == 0) {
+        set_var_from_var(rmin, result);
+        result->dscale = rscale;
+        free_var(&rlen);
+        return;
+    }
+
+    // Calculate result structure
+    int res_ndigits = rlen.weight + 1 + (rscale + DEC_DIGITS - 1) / DEC_DIGITS;
+    int n = ((rscale + DEC_DIGITS - 1) / DEC_DIGITS) * DEC_DIGITS - rscale;
+    int pow10 = 1;
+    for (int i = 0; i < n; i++)
+        pow10 *= 10;
+
+    // Create 64-bit representation from first 4 digits
+    uint64 rlen64 = rlen.digits[0];
+    int rlen64_ndigits = 1;
+    while (rlen64_ndigits < res_ndigits && rlen64_ndigits < 4) {
+        rlen64 *= NBASE;
+        if (rlen64_ndigits < rlen.ndigits)
+            rlen64 += rlen.digits[rlen64_ndigits];
+        rlen64_ndigits++;
+    }
+
+    // Rejection sampling loop for uniform distribution
+    do {
+        alloc_var(result, res_ndigits);
+        result->sign = NUMERIC_POS;
+        result->weight = rlen.weight;
+        result->dscale = rscale;
+
+        // Generate random digits
+        uint64 rand;
+        if (rlen64_ndigits == res_ndigits && pow10 != 1)
+            rand = pg_prng_uint64_range(state, 0, rlen64 / pow10) * pow10;
+        else
+            rand = pg_prng_uint64_range(state, 0, rlen64);
+
+        // Fill in the digits
+        for (int i = rlen64_ndigits - 1; i >= 0; i--) {
+            result->digits[i] = rand % NBASE;
+            rand = rand / NBASE;
+        }
+
+        // Fill remaining digits with random values
+        for (int i = rlen64_ndigits; i < res_ndigits; i++) {
+            if (i == res_ndigits - 1 && pow10 != 1)
+                result->digits[i] = pg_prng_uint64_range(state, 0, NBASE / pow10 - 1) * pow10;
+            else
+                result->digits[i] = pg_prng_uint64_range(state, 0, NBASE - 1);
+        }
+
+        strip_var(result);
+
+    } while (cmp_var(result, &rlen) > 0);  // Reject if > range
+
+    // Shift result to target range
+    add_var(result, rmin, result);
+    free_var(&rlen);
+}
+```

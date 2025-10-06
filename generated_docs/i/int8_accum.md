@@ -37,3 +37,24 @@ The function handles NULL values by skipping them during accumulation. On the fi
 - The function follows PostgreSQL's V1 calling convention using PG_FUNCTION_ARGS macro
 - State is maintained across multiple calls during aggregate processing
 - Commonly used in aggregate functions like AVG, STDDEV, and VARIANCE for bigint data types
+
+## Simplified Source
+
+```c
+Datum int8_accum(PG_FUNCTION_ARGS) {
+    NumericAggState *state;
+
+    // Get existing state or NULL for first call
+    state = PG_ARGISNULL(0) ? NULL : (NumericAggState *) PG_GETARG_POINTER(0);
+
+    // Create state on first call
+    if (state == NULL)
+        state = makeNumericAggState(fcinfo, true);
+
+    // Accumulate non-NULL values by converting to numeric
+    if (!PG_ARGISNULL(1))
+        do_numeric_accum(state, int64_to_numeric(PG_GETARG_INT64(1)));
+
+    PG_RETURN_POINTER(state);
+}
+```

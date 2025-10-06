@@ -38,3 +38,28 @@ This function provides a standardized way for range-related functions to access 
 - It validates that the requested type is actually a range type by checking rngelemtype
 - The caching mechanism significantly improves performance for functions that are called repeatedly with the same range type
 - Many core range operations depend on this function for efficient type information access
+
+## Simplified Source
+
+```c
+TypeCacheEntry *
+range_get_typcache(FunctionCallInfo fcinfo, Oid rngtypid)
+{
+    // Check if we have cached type info that matches the requested type
+    TypeCacheEntry *typcache = (TypeCacheEntry *) fcinfo->flinfo->fn_extra;
+
+    if (typcache == NULL || typcache->type_id != rngtypid) {
+        // Cache miss - look up type information and cache it
+        typcache = lookup_type_cache(rngtypid, TYPECACHE_RANGE_INFO);
+
+        // Validate it's actually a range type
+        if (typcache->rngelemtype == NULL)
+            elog(ERROR, "type %u is not a range type", rngtypid);
+
+        // Cache for future calls
+        fcinfo->flinfo->fn_extra = (void *) typcache;
+    }
+
+    return typcache;
+}
+```

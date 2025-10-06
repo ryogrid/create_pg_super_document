@@ -50,3 +50,81 @@ The function uses PostgreSQL's SRF framework to maintain state across multiple c
 - Uses appropriate memory contexts for multi-call persistence
 - Part of PostgreSQL's generate_series function family for numeric data types
 - The function context persists current position and parameters between calls
+
+## Simplified Source
+
+```c
+Datum
+generate_series_step_numeric(PG_FUNCTION_ARGS)
+{
+    generate_series_numeric_fctx *fctx;
+    FuncCallContext *funcctx;
+    MemoryContext oldcontext;
+
+    if (SRF_IS_FIRSTCALL())
+    {
+        Numeric start_num = PG_GETARG_NUMERIC(0);
+        Numeric stop_num = PG_GETARG_NUMERIC(1);
+        NumericVar steploc = const_one;
+
+        // Validate start and stop values (no NaN/infinity)
+        if (NUMERIC_IS_SPECIAL(start_num) || NUMERIC_IS_SPECIAL(stop_num))
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("start/stop values cannot be NaN or infinity")));
+
+        // Handle optional step parameter
+        if (PG_NARGS() == 3)
+        {
+            Numeric step_num = PG_GETARG_NUMERIC(2);
+            if (NUMERIC_IS_SPECIAL(step_num))
+                ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                               errmsg("step size cannot be NaN or infinity")));
+
+            init_var_from_num(step_num, &steploc);
+            if (cmp_var(&steploc, &const_zero) == 0)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                               errmsg("step size cannot equal zero")));
+        }
+
+        // Initialize SRF context and state
+        funcctx = SRF_FIRSTCALL_INIT();
+        oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
+
+        fctx = palloc(sizeof(generate_series_numeric_fctx));
+        init_var(&fctx->current);
+        init_var(&fctx->stop);
+        init_var(&fctx->step);
+
+        set_var_from_num(start_num, &fctx->current);
+        set_var_from_num(stop_num, &fctx->stop);
+        set_var_from_var(&steploc, &fctx->step);
+
+        funcctx->user_fctx = fctx;
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    // Per-call processing
+    funcctx = SRF_PERCALL_SETUP();
+    fctx = funcctx->user_fctx;
+
+    // Check termination condition based on step direction
+    bool continue_series = (fctx->step.sign == NUMERIC_POS &&
+                           cmp_var(&fctx->current, &fctx->stop) <= 0) ||
+                          (fctx->step.sign == NUMERIC_NEG &&
+                           cmp_var(&fctx->current, &fctx->stop) >= 0);
+
+    if (continue_series)
+    {
+        Numeric result = make_result(&fctx->current);
+
+        // Advance to next value
+        oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
+        add_var(&fctx->current, &fctx->step, &fctx->current);
+        MemoryContextSwitchTo(oldcontext);
+
+        SRF_RETURN_NEXT(funcctx, NumericGetDatum(result));
+    }
+    else
+        SRF_RETURN_DONE(funcctx);
+}
+```

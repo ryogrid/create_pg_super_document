@@ -39,3 +39,61 @@ The `injection_wait` function provides a sophisticated synchronization mechanism
 - Automatically cleans up its slot when awakened or when the wait is cancelled
 - Essential for creating race-condition-free tests in concurrent scenarios
 - Part of the injection_points test module and works in conjunction with injection_points_wakeup
+
+## Simplified Source
+
+```c
+void injection_wait(const char *name, const void *private_data) {
+    uint32 old_wait_counts = 0;
+    int index = -1;
+    uint32 injection_wait_event = 0;
+    InjectionPointCondition *condition = (InjectionPointCondition *) private_data;
+
+    // Initialize shared memory if needed
+    if (inj_state == NULL)
+        injection_init_shmem();
+
+    // Check if injection point is allowed
+    if (!injection_point_allowed(condition))
+        return;
+
+    // Create custom wait event for monitoring
+    injection_wait_event = WaitEventInjectionPointNew(name);
+
+    // Find free slot and register this injection point
+    SpinLockAcquire(&inj_state->lock);
+    for (int i = 0; i < INJ_MAX_WAIT; i++) {
+        if (inj_state->name[i][0] == '\0') {
+            index = i;
+            strlcpy(inj_state->name[i], name, INJ_NAME_MAXLEN);
+            old_wait_counts = inj_state->wait_counts[i];
+            break;
+        }
+    }
+    SpinLockRelease(&inj_state->lock);
+
+    // Error if no free slot available
+    if (index < 0)
+        elog(ERROR, "could not find free slot for wait of injection point %s", name);
+
+    // Sleep until awakened by wait count change
+    ConditionVariablePrepareToSleep(&inj_state->wait_point);
+    for (;;) {
+        uint32 new_wait_counts;
+
+        SpinLockAcquire(&inj_state->lock);
+        new_wait_counts = inj_state->wait_counts[index];
+        SpinLockRelease(&inj_state->lock);
+
+        if (old_wait_counts != new_wait_counts)
+            break;
+        ConditionVariableSleep(&inj_state->wait_point, injection_wait_event);
+    }
+    ConditionVariableCancelSleep();
+
+    // Clean up: remove injection point from waiters
+    SpinLockAcquire(&inj_state->lock);
+    inj_state->name[index][0] = '\0';
+    SpinLockRelease(&inj_state->lock);
+}
+```

@@ -40,3 +40,22 @@ The function is implemented as a PostgreSQL V1 calling convention function and d
 - Returns the original string unchanged if either the input string or trim set is empty
 - Complements the  function which performs right trimming, and both are used by  for both-sides trimming
 - The trimming operation respects character boundaries in multibyte encodings like UTF-8
+
+## Simplified Source
+
+```c
+Datum
+ltrim(PG_FUNCTION_ARGS)
+{
+    // Get function arguments
+    text *string = PG_GETARG_TEXT_PP(0);  // string to trim
+    text *set = PG_GETARG_TEXT_PP(1);     // characters to remove
+
+    // Call dotrim helper with left trim enabled, right trim disabled
+    text *ret = dotrim(VARDATA_ANY(string), VARSIZE_ANY_EXHDR(string),
+                       VARDATA_ANY(set), VARSIZE_ANY_EXHDR(set),
+                       true, false);  // doltrim=true, dortrim=false
+
+    PG_RETURN_TEXT_P(ret);
+}
+```

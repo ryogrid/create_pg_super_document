@@ -54,3 +54,32 @@ This function takes no parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL fu
 - Essential for complete connection tracking and network forensics
 - Part of PostgreSQL's connection information functions for network-based connections
 - The returned port number is always numeric, never a service name
+
+## Simplified Source
+
+```c
+Datum
+inet_client_port(PG_FUNCTION_ARGS)
+{
+    Port *port = MyProcPort;
+    char remote_port[NI_MAXSERV];
+
+    // Return NULL if no port info or not TCP/IP connection
+    if (port == NULL)
+        PG_RETURN_NULL();
+
+    // Only handle IPv4 and IPv6 connections
+    if (port->raddr.addr.ss_family != AF_INET &&
+        port->raddr.addr.ss_family != AF_INET6)
+        PG_RETURN_NULL();
+
+    // Extract port number from socket address
+    if (pg_getnameinfo_all(&port->raddr.addr, port->raddr.salen,
+                          NULL, 0, remote_port, sizeof(remote_port),
+                          NI_NUMERICHOST | NI_NUMERICSERV) != 0)
+        PG_RETURN_NULL();
+
+    // Convert port string to PostgreSQL integer
+    PG_RETURN_DATUM(DirectFunctionCall1(int4in, CStringGetDatum(remote_port)));
+}
+```

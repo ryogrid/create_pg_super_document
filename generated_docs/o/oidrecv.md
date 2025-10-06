@@ -43,3 +43,15 @@ The oidrecv function is responsible for reading OID values from PostgreSQL's bin
 - The function follows PostgreSQL's V1 calling convention using the PG_FUNCTION_ARGS macro
 - Part of PostgreSQL's binary protocol support for efficient data transfer
 - Location: src/backend/utils/adt/oid.c:60-70
+
+## Simplified Source
+
+```c
+Datum oidrecv(PG_FUNCTION_ARGS) {
+    // Extract binary message buffer from arguments
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+
+    // Read OID value from binary format and return it
+    return PG_RETURN_OID((Oid) pq_getmsgint(buf, sizeof(Oid)));
+}
+```

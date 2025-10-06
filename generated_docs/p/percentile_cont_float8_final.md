@@ -37,3 +37,14 @@ This function is typically called by PostgreSQL's aggregate execution framework 
 - The actual percentile computation and interpolation logic is delegated to the common implementation
 - This function must be registered in PostgreSQL's system catalogs to be callable from SQL
 - Supports continuous percentiles, meaning results may be interpolated values not present in the original dataset
+
+## Simplified Source
+
+```c
+Datum
+percentile_cont_float8_final(PG_FUNCTION_ARGS)
+{
+    // Delegate to common implementation with float8-specific parameters
+    return percentile_cont_final_common(fcinfo, FLOAT8OID, float8_lerp);
+}
+```

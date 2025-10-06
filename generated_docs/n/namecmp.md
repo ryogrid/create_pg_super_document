@@ -59,3 +59,20 @@ This function serves as the foundation for all Name comparison operations in Pos
 - Essential for B-tree indexing and sorting operations on Name columns
 - The function assumes both Name arguments are properly null-terminated
 - Part of PostgreSQL's comprehensive type system supporting both performance and internationalization
+
+## Simplified Source
+
+```c
+static int
+namecmp(Name arg1, Name arg2, Oid collid)
+{
+    // Fast path for C collation (common in system catalogs)
+    if (collid == C_COLLATION_OID)
+        return strncmp(NameStr(*arg1), NameStr(*arg2), NAMEDATALEN);
+
+    // General collation-aware comparison
+    return varstr_cmp(NameStr(*arg1), strlen(NameStr(*arg1)),
+                     NameStr(*arg2), strlen(NameStr(*arg2)),
+                     collid);
+}
+```

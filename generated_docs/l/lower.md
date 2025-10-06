@@ -40,3 +40,25 @@ The  function is a PostgreSQL built-in function that takes a text input and retu
 - Properly handles memory allocation and deallocation
 - Respects database collation settings for locale-aware case conversion
 - Returns a new text object, leaving the original input unchanged
+
+## Simplified Source
+
+```c
+Datum
+lower(PG_FUNCTION_ARGS)
+{
+    // Get input text parameter
+    text *in_string = PG_GETARG_TEXT_PP(0);
+
+    // Convert string to lowercase using locale-aware function
+    char *out_string = str_tolower(VARDATA_ANY(in_string),
+                                   VARSIZE_ANY_EXHDR(in_string),
+                                   PG_GET_COLLATION());
+
+    // Convert result to PostgreSQL text type
+    text *result = cstring_to_text(out_string);
+    pfree(out_string);
+
+    PG_RETURN_TEXT_P(result);
+}
+```

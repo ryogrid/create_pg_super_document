@@ -45,3 +45,56 @@ When both bounds are finite, the function uses the `rng_subdiff_finfo` function 
 - Handles infinite bounds gracefully by using logical positioning rather than mathematical calculation
 - Critical for accurate selectivity estimation in PostgreSQL's query planner for range predicates
 - The subdiff function must be available for precise interpolation with finite numeric bounds
+
+## Simplified Source
+
+```c
+static float8
+get_position(TypeCacheEntry *typcache, const RangeBound *value, const RangeBound *hist1,
+             const RangeBound *hist2)
+{
+    bool has_subdiff = OidIsValid(typcache->rng_subdiff_finfo.fn_oid);
+    float8 position;
+
+    if (!hist1->infinite && !hist2->infinite) {
+        // Both bounds are finite - use subdiff for precise calculation
+        if (value->infinite)
+            return 0.5;  // Shouldn't happen, but safety fallback
+
+        if (!has_subdiff)
+            return 0.5;  // Can't interpolate without subdiff function
+
+        // Calculate bin width: hist2 - hist1
+        float8 bin_width = DatumGetFloat8(FunctionCall2Coll(&typcache->rng_subdiff_finfo,
+                                                          typcache->rng_collation,
+                                                          hist2->val, hist1->val));
+        if (isnan(bin_width) || bin_width <= 0.0)
+            return 0.5;  // Invalid bin width
+
+        // Calculate position: (value - hist1) / bin_width
+        position = DatumGetFloat8(FunctionCall2Coll(&typcache->rng_subdiff_finfo,
+                                                   typcache->rng_collation,
+                                                   value->val, hist1->val)) / bin_width;
+
+        if (isnan(position))
+            return 0.5;  // Invalid result from subdiff
+
+        // Clamp to [0,1] range
+        position = Max(position, 0.0);
+        position = Min(position, 1.0);
+        return position;
+    }
+    else if (hist1->infinite && !hist2->infinite) {
+        // Lower bound is -infinite: return 0.0 for -infinite value, 1.0 otherwise
+        return ((value->infinite && value->lower) ? 0.0 : 1.0);
+    }
+    else if (!hist1->infinite && hist2->infinite) {
+        // Upper bound is +infinite: return 1.0 for +infinite value, 0.0 otherwise
+        return ((value->infinite && !value->lower) ? 1.0 : 0.0);
+    }
+    else {
+        // Both bounds infinite: assume middle position
+        return 0.5;
+    }
+}
+```

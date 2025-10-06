@@ -52,4 +52,59 @@ This function serves as the foundation for all multirange comparison operators a
 - Handles multiranges of different lengths by treating missing ranges as empty (which compare as less than any non-empty range)
 - Essential for btree indexing support of multirange types
 - Part of PostgreSQL's range and multirange type system for advanced range operations
-- File location: 
+- File location:
+
+## Simplified Source
+
+```c
+Datum
+multirange_cmp(PG_FUNCTION_ARGS)
+{
+    // Extract multirange arguments
+    MultirangeType *mr1 = PG_GETARG_MULTIRANGE_P(0);
+    MultirangeType *mr2 = PG_GETARG_MULTIRANGE_P(1);
+
+    // Validate that multiranges are the same type
+    if (MultirangeTypeGetOid(mr1) != MultirangeTypeGetOid(mr2))
+        elog(ERROR, "multirange types do not match");
+
+    // Get type cache and range counts
+    TypeCacheEntry *typcache = multirange_get_typcache(fcinfo, MultirangeTypeGetOid(mr1));
+    int32 range_count_1 = mr1->rangeCount;
+    int32 range_count_2 = mr2->rangeCount;
+    int32 range_count_max = Max(range_count_1, range_count_2);
+
+    int cmp = 0; // Default for when both are empty
+
+    // Compare ranges lexicographically
+    for (int i = 0; i < range_count_max; i++)
+    {
+        // Shorter multirange comes first (like string comparison)
+        if (i >= range_count_1) {
+            cmp = -1;
+            break;
+        }
+        if (i >= range_count_2) {
+            cmp = 1;
+            break;
+        }
+
+        // Get bounds for current range in each multirange
+        RangeBound lower1, upper1, lower2, upper2;
+        multirange_get_bounds(typcache->rngtype, mr1, i, &lower1, &upper1);
+        multirange_get_bounds(typcache->rngtype, mr2, i, &lower2, &upper2);
+
+        // Compare lower bounds first, then upper bounds
+        cmp = range_cmp_bounds(typcache->rngtype, &lower1, &lower2);
+        if (cmp == 0)
+            cmp = range_cmp_bounds(typcache->rngtype, &upper1, &upper2);
+        if (cmp != 0)
+            break;
+    }
+
+    // Cleanup and return comparison result
+    PG_FREE_IF_COPY(mr1, 0);
+    PG_FREE_IF_COPY(mr2, 1);
+    PG_RETURN_INT32(cmp);
+}
+```

@@ -42,3 +42,17 @@ These test cases are designed to exercise different aspects of the GIN posting l
 - Tests both normal cases and edge cases with maximum values to ensure robustness
 - The varying maxsize parameters (14 vs 16 bytes) test overflow handling in the compression algorithm
 - Located in src/test/modules/test_ginpostinglist/test_ginpostinglist.c:88-96
+
+## Simplified Source
+
+```c
+Datum test_ginpostinglist(PG_FUNCTION_ARGS) {
+    // Test various scenarios for GIN posting list encoding/decoding
+    test_itemptr_pair(0, 2, 14);                                    // Basic case
+    test_itemptr_pair(0, MaxHeapTuplesPerPage, 14);                // Max tuples case
+    test_itemptr_pair(MaxBlockNumber, MaxHeapTuplesPerPage, 14);    // Max values case
+    test_itemptr_pair(MaxBlockNumber, MaxHeapTuplesPerPage, 16);    // Max values with larger size
+
+    PG_RETURN_VOID();
+}
+```

@@ -41,3 +41,23 @@ The function uses the  global flag to ensure initialization occurs only once per
 - Uses  macro for branch prediction optimization on the rare initialization path
 - The fallback seeding strategy ensures deterministic behavior across processes while maintaining reasonable unpredictability
 - The function is thread-safe assuming single-threaded access to the global  and  variables
+
+## Simplified Source
+
+```c
+static void
+initialize_prng(void)
+{
+    // Only initialize once per process
+    if (!prng_seed_set) {
+        // Try to use high-quality random seed first
+        if (!pg_prng_strong_seed(&prng_state)) {
+            // Fallback: combine timestamp with process ID
+            TimestampTz now = GetCurrentTimestamp();
+            uint64 seed = (uint64) now ^ ((uint64) MyProcPid << 32);
+            pg_prng_seed(&prng_state, seed);
+        }
+        prng_seed_set = true;
+    }
+}
+```

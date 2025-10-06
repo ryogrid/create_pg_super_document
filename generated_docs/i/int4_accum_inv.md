@@ -37,3 +37,33 @@ The function handles both 128-bit integer arithmetic (when available) and falls 
 - Uses conditional compilation with HAVE_INT128 to optimize for platforms with 128-bit integer support
 - Part of PostgreSQL's aggregate function framework for window functions and moving aggregates
 - Located in src/backend/utils/adt/numeric.c:6015-6039
+
+## Simplified Source
+
+```c
+Datum
+int4_accum_inv(PG_FUNCTION_ARGS)
+{
+    PolyNumAggState *state;
+
+    state = PG_ARGISNULL(0) ? NULL : (PolyNumAggState *) PG_GETARG_POINTER(0);
+
+    // Validate state exists
+    if (state == NULL)
+        elog(ERROR, "int4_accum_inv called with NULL state");
+
+    // Remove non-NULL input values from accumulation
+    if (!PG_ARGISNULL(1))
+    {
+        // Use 128-bit arithmetic if available, otherwise numeric
+#ifdef HAVE_INT128
+        do_int128_discard(state, (int128) PG_GETARG_INT32(1));
+#else
+        if (!do_numeric_discard(state, int64_to_numeric(PG_GETARG_INT32(1))))
+            elog(ERROR, "do_numeric_discard failed unexpectedly");
+#endif
+    }
+
+    return state;
+}
+```
