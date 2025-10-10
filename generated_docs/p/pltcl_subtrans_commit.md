@@ -36,3 +36,16 @@ This function should be called when the operations within the subtransaction hav
 - Should be called in the successful path of PG_TRY/PG_CATCH blocks
 - Located in src/pl/tcl/pltcl.c:2287-2295
 - The committed subtransaction's changes become part of the parent transaction
+
+## Simplified Source
+
+```c
+static void pltcl_subtrans_commit(MemoryContext oldcontext, ResourceOwner oldowner) {
+    // Commit the current subtransaction
+    ReleaseCurrentSubTransaction();
+
+    // Restore original execution context
+    MemoryContextSwitchTo(oldcontext);
+    CurrentResourceOwner = oldowner;
+}
+```

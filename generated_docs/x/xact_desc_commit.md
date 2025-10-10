@@ -360,3 +360,46 @@ static void xact_desc_commit(StringInfo buf, uint8 info, xl_xact_commit *xlrec, 
 - Includes replication origin information when present (node ID, LSN, timestamp)
 - Supports various completion flags like apply_feedback and sync commit
 - Used as part of the WAL record description infrastructure for transaction debugging
+
+## Simplified Source
+
+```c
+static void xact_desc_commit(StringInfo buf, uint8 info, xl_xact_commit *xlrec, RepOriginId origin_id) {
+    xl_xact_parsed_commit parsed;
+
+    // Parse the commit record into structured format
+    ParseCommitRecord(info, xlrec, &parsed);
+
+    // For prepared transactions, show original transaction ID
+    if (TransactionIdIsValid(parsed.twophase_xid))
+        appendStringInfo(buf, "%u: ", parsed.twophase_xid);
+
+    // Output transaction commit timestamp
+    appendStringInfoString(buf, timestamptz_to_str(xlrec->xact_time));
+
+    // Output information about affected relations, subtransactions, and statistics
+    xact_desc_relations(buf, "rels", parsed.nrels, parsed.xlocators);
+    xact_desc_subxacts(buf, parsed.nsubxacts, parsed.subxacts);
+    xact_desc_stats(buf, "", parsed.nstats, parsed.stats);
+
+    // Output cache invalidation information
+    standby_desc_invalidations(buf, parsed.nmsgs, parsed.msgs, parsed.dbId,
+                              parsed.tsId,
+                              XactCompletionRelcacheInitFileInval(parsed.xinfo));
+
+    // Output special commit flags
+    if (XactCompletionApplyFeedback(parsed.xinfo))
+        appendStringInfoString(buf, "; apply_feedback");
+
+    if (XactCompletionForceSyncCommit(parsed.xinfo))
+        appendStringInfoString(buf, "; sync");
+
+    // Output replication origin information if present
+    if (parsed.xinfo & XACT_XINFO_HAS_ORIGIN) {
+        appendStringInfo(buf, "; origin: node %u, lsn %X/%X, at %s",
+                        origin_id,
+                        LSN_FORMAT_ARGS(parsed.origin_lsn),
+                        timestamptz_to_str(parsed.origin_timestamp));
+    }
+}
+```

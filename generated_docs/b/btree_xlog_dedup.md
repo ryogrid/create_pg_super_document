@@ -47,3 +47,85 @@ Key operations performed:
 - Includes assertions to verify that the reconstructed intervals match the original WAL record data
 - Handles both leaf pages with data and internal pages with high keys
 - Part of PostgreSQL's crash recovery and streaming replication system
+
+## Simplified Source
+
+```c
+static void btree_xlog_dedup(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_btree_dedup *xlrec = (xl_btree_dedup *) XLogRecGetData(record);
+    Buffer buf;
+
+    if (XLogReadBufferForRedo(record, 0, &buf) == BLK_NEEDS_REDO) {
+        char *ptr = XLogRecGetBlockData(record, 0, NULL);
+        Page page = (Page) BufferGetPage(buf);
+        BTPageOpaque opaque = BTPageGetOpaque(page);
+        OffsetNumber offnum, minoff, maxoff;
+        BTDedupState state;
+        BTDedupInterval *intervals;
+        Page newpage;
+
+        // Initialize deduplication state
+        state = (BTDedupState) palloc(sizeof(BTDedupStateData));
+        state->deduplicate = true;
+        state->maxpostingsize = BTMaxItemSize(page);
+        state->htids = palloc(state->maxpostingsize);
+        state->nhtids = 0;
+        state->nitems = 0;
+        state->nintervals = 0;
+
+        // Set up page boundaries
+        minoff = P_FIRSTDATAKEY(opaque);
+        maxoff = PageGetMaxOffsetNumber(page);
+        newpage = PageGetTempPageCopySpecial(page);
+
+        // Copy high key if not rightmost page
+        if (!P_RIGHTMOST(opaque)) {
+            ItemId itemid = PageGetItemId(page, P_HIKEY);
+            Size itemsz = ItemIdGetLength(itemid);
+            IndexTuple item = (IndexTuple) PageGetItem(page, itemid);
+
+            if (PageAddItem(newpage, (Item) item, itemsz, P_HIKEY,
+                            false, false) == InvalidOffsetNumber)
+                elog(ERROR, "deduplication failed to add highkey");
+        }
+
+        // Process deduplication intervals
+        intervals = (BTDedupInterval *) ptr;
+        for (offnum = minoff; offnum <= maxoff; offnum = OffsetNumberNext(offnum)) {
+            ItemId itemid = PageGetItemId(page, offnum);
+            IndexTuple itup = (IndexTuple) PageGetItem(page, itemid);
+
+            if (offnum == minoff) {
+                _bt_dedup_start_pending(state, itup, offnum);
+            } else if (state->nintervals < xlrec->nintervals &&
+                       state->baseoff == intervals[state->nintervals].baseoff &&
+                       state->nitems < intervals[state->nintervals].nitems) {
+                if (!_bt_dedup_save_htid(state, itup))
+                    elog(ERROR, "deduplication failed to add heap tid");
+            } else {
+                _bt_dedup_finish_pending(newpage, state);
+                _bt_dedup_start_pending(state, itup, offnum);
+            }
+        }
+
+        // Finish final pending group
+        _bt_dedup_finish_pending(newpage, state);
+
+        // Clear garbage flag if present
+        if (P_HAS_GARBAGE(opaque)) {
+            BTPageOpaque nopaque = BTPageGetOpaque(newpage);
+            nopaque->btpo_flags &= ~BTP_HAS_GARBAGE;
+        }
+
+        // Replace original page
+        PageRestoreTempPage(newpage, page);
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buf);
+    }
+
+    if (BufferIsValid(buf))
+        UnlockReleaseBuffer(buf);
+}
+```

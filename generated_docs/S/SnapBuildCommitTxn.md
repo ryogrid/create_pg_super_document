@@ -59,3 +59,106 @@ The function ensures that only transactions relevant to logical replication are 
 - Manages reference counting for snapshot objects to prevent memory leaks
 - Uses debugging output levels (DEBUG1, DEBUG2) for transaction tracking diagnostics
 - The function's behavior changes significantly based on the builder->state, making it a state-machine-driven operation
+
+## Simplified Source
+
+```c
+void
+SnapBuildCommitTxn(SnapBuild *builder, XLogRecPtr lsn, TransactionId xid,
+                   int nsubxacts, TransactionId *subxacts, uint32 xinfo)
+{
+    bool needs_snapshot = false;
+    bool needs_timetravel = false;
+    bool sub_needs_timetravel = false;
+    TransactionId xmax = xid;
+
+    // Skip transactions before we start building snapshots
+    if (builder->state == SNAPBUILD_START ||
+        (builder->state == SNAPBUILD_BUILDING_SNAPSHOT &&
+         TransactionIdPrecedes(xid, builder->next_phase_at)))
+    {
+        if (builder->start_decoding_at <= lsn)
+            builder->start_decoding_at = lsn + 1;
+        return;
+    }
+
+    // Pre-consistent state: update decoding start point and check for full snapshot building
+    if (builder->state < SNAPBUILD_CONSISTENT)
+    {
+        if (builder->start_decoding_at <= lsn)
+            builder->start_decoding_at = lsn + 1;
+
+        if (builder->building_full_snapshot)
+            needs_timetravel = true;
+    }
+
+    // Process all subtransactions
+    for (int nxact = 0; nxact < nsubxacts; nxact++)
+    {
+        TransactionId subxid = subxacts[nxact];
+
+        if (SnapBuildXidHasCatalogChanges(builder, subxid, xinfo))
+        {
+            // Catalog-modifying subtransaction needs tracking
+            sub_needs_timetravel = true;
+            needs_snapshot = true;
+            SnapBuildAddCommittedTxn(builder, subxid);
+
+            if (NormalTransactionIdFollows(subxid, xmax))
+                xmax = subxid;
+        }
+        else if (needs_timetravel)
+        {
+            // Track subtransaction for timetravel even without catalog changes
+            SnapBuildAddCommittedTxn(builder, subxid);
+            if (NormalTransactionIdFollows(subxid, xmax))
+                xmax = subxid;
+        }
+    }
+
+    // Process top-level transaction
+    if (SnapBuildXidHasCatalogChanges(builder, xid, xinfo))
+    {
+        needs_snapshot = true;
+        needs_timetravel = true;
+        SnapBuildAddCommittedTxn(builder, xid);
+    }
+    else if (sub_needs_timetravel || needs_timetravel)
+    {
+        needs_timetravel = true;
+        SnapBuildAddCommittedTxn(builder, xid);
+    }
+
+    if (!needs_timetravel)
+        builder->committed.includes_all_transactions = false;
+
+    // Update xmax for catalog-modifying transactions
+    if (needs_timetravel &&
+        (!TransactionIdIsValid(builder->xmax) ||
+         TransactionIdFollowsOrEquals(xmax, builder->xmax)))
+    {
+        builder->xmax = xmax;
+        TransactionIdAdvance(builder->xmax);
+    }
+
+    // Build and distribute snapshot if needed
+    if (needs_snapshot && builder->state >= SNAPBUILD_FULL_SNAPSHOT)
+    {
+        // Replace old snapshot with new one
+        if (builder->snapshot)
+            SnapBuildSnapDecRefcount(builder->snapshot);
+
+        builder->snapshot = SnapBuildBuildSnapshot(builder);
+
+        // Set base snapshot if needed
+        if (!ReorderBufferXidHasBaseSnapshot(builder->reorder, xid))
+        {
+            SnapBuildSnapIncRefcount(builder->snapshot);
+            ReorderBufferSetBaseSnapshot(builder->reorder, xid, lsn, builder->snapshot);
+        }
+
+        SnapBuildSnapIncRefcount(builder->snapshot);
+        SnapBuildDistributeSnapshotAndInval(builder, lsn, xid);
+    }
+}
+```

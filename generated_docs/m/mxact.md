@@ -44,3 +44,63 @@ This struct serves as a context holder for the pg_get_multixact_members set-retu
 - Memory is allocated in the function's multi-call memory context for persistence
 - Part of the SQL-callable function interface for inspecting multixact contents
 - Located in src/backend/access/transam/multixact.c:3509-3566
+
+## Simplified Source
+
+```c
+Datum pg_get_multixact_members(PG_FUNCTION_ARGS) {
+    // Local state struct for SRF iteration
+    } mxact;
+    MultiXactId mxid = PG_GETARG_TRANSACTIONID(0);
+    mxact *multi;
+    FuncCallContext *funccxt;
+
+    // Validate input MultiXactId
+    if (mxid < FirstMultiXactId)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("invalid MultiXactId: %u", mxid)));
+
+    // First call: initialize SRF context and get multixact members
+    if (SRF_IS_FIRSTCALL()) {
+        funccxt = SRF_FIRSTCALL_INIT();
+        MemoryContext oldcxt = MemoryContextSwitchTo(funccxt->multi_call_memory_ctx);
+
+        // Allocate state and retrieve multixact members
+        multi = palloc(sizeof(mxact));
+        multi->nmembers = GetMultiXactIdMembers(mxid, &multi->members, false, false);
+        multi->iter = 0;
+
+        // Setup tuple descriptor for return type
+        TupleDesc tupdesc;
+        if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+            elog(ERROR, "return type must be a row type");
+        funccxt->tuple_desc = tupdesc;
+        funccxt->attinmeta = TupleDescGetAttInMetadata(tupdesc);
+        funccxt->user_fctx = multi;
+
+        MemoryContextSwitchTo(oldcxt);
+    }
+
+    // Subsequent calls: return next member
+    funccxt = SRF_PERCALL_SETUP();
+    multi = (mxact *) funccxt->user_fctx;
+
+    // Iterate through members, returning one per call
+    while (multi->iter < multi->nmembers) {
+        char *values[2];
+
+        // Format member xid and status as strings
+        values[0] = psprintf("%u", multi->members[multi->iter].xid);
+        values[1] = mxstatus_to_string(multi->members[multi->iter].status);
+
+        // Build and return tuple
+        HeapTuple tuple = BuildTupleFromCStrings(funccxt->attinmeta, values);
+        multi->iter++;
+        pfree(values[0]);
+        SRF_RETURN_NEXT(funccxt, HeapTupleGetDatum(tuple));
+    }
+
+    // All members returned
+    SRF_RETURN_DONE(funccxt);
+}
+```

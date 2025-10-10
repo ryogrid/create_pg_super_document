@@ -41,3 +41,42 @@ pltcl_subtransaction executes a Tcl code fragment within the safety of a Postgre
 - Returns the same return code as the executed Tcl command
 - Provides transactional safety for potentially dangerous Tcl operations
 - Part of the PL/Tcl extension's transaction management capabilities
+
+## Simplified Source
+
+```c
+static int
+pltcl_subtransaction(ClientData cdata, Tcl_Interp *interp,
+                     int objc, Tcl_Obj *const objv[])
+{
+    MemoryContext oldcontext = CurrentMemoryContext;
+    ResourceOwner oldowner = CurrentResourceOwner;
+    int retcode;
+
+    // Validate arguments - expect exactly 2: command name and Tcl code
+    if (objc != 2)
+    {
+        Tcl_WrongNumArgs(interp, 1, objv, "command");
+        return TCL_ERROR;
+    }
+
+    // Start a new subtransaction
+    BeginInternalSubTransaction(NULL);
+    MemoryContextSwitchTo(oldcontext);
+
+    // Execute the Tcl code
+    retcode = Tcl_EvalObjEx(interp, objv[1], 0);
+
+    // Handle the result: commit or rollback subtransaction
+    if (retcode == TCL_ERROR)
+        RollbackAndReleaseCurrentSubTransaction();  // Rollback on error
+    else
+        ReleaseCurrentSubTransaction();             // Commit on success
+
+    // Restore original memory context and resource owner
+    MemoryContextSwitchTo(oldcontext);
+    CurrentResourceOwner = oldowner;
+
+    return retcode;
+}
+```

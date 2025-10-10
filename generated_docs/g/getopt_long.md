@@ -64,3 +64,174 @@ Key behavioral features:
 - Unlike some getopt implementations, this does not use optreset for reinitialization
 - Error messages are printed to stderr when opterr is non-zero
 - Used extensively throughout PostgreSQL command-line utilities for consistent option parsing behavior
+
+## Simplified Source
+
+```c
+int
+getopt_long(int argc, char *const argv[],
+            const char *optstring,
+            const struct option *longopts, int *longindex)
+{
+    static char *place = EMSG;    // Current position in current argument
+    static int nonopt_start = -1;  // Start of non-option arguments
+    static bool force_nonopt = false; // Treat remaining args as non-options
+    char *oli;
+
+    if (!*place)
+    {
+        char **args = (char **) argv;
+
+retry:
+        // Return -1 if no more arguments or only non-options remain
+        if (optind >= argc || optind == nonopt_start)
+        {
+            place = EMSG;
+            nonopt_start = -1;
+            force_nonopt = false;
+            return -1;
+        }
+
+        place = argv[optind];
+
+        // Handle non-options: move to end and retry
+        if (force_nonopt || place[0] != '-' || place[1] == '\0')
+        {
+            // Shift non-option to end of argv
+            for (int i = optind; i < argc - 1; i++)
+                args[i] = args[i + 1];
+            args[argc - 1] = place;
+
+            // Track non-option start position
+            if (nonopt_start == -1)
+                nonopt_start = argc - 1;
+            else
+                nonopt_start--;
+
+            goto retry;
+        }
+
+        place++;
+
+        // Handle "--" (end of options marker)
+        if (place[0] == '-' && place[1] == '\0')
+        {
+            ++optind;
+            force_nonopt = true;
+            goto retry;
+        }
+
+        // Handle long options (--option)
+        if (place[0] == '-' && place[1])
+        {
+            place++;
+            size_t namelen = strcspn(place, "=");
+
+            // Search for matching long option
+            for (int i = 0; longopts[i].name != NULL; i++)
+            {
+                if (strlen(longopts[i].name) == namelen &&
+                    strncmp(place, longopts[i].name, namelen) == 0)
+                {
+                    int has_arg = longopts[i].has_arg;
+
+                    // Handle option arguments
+                    if (has_arg != no_argument)
+                    {
+                        if (place[namelen] == '=')
+                            optarg = place + namelen + 1;
+                        else if (optind < argc - 1 && has_arg == required_argument)
+                        {
+                            optind++;
+                            optarg = argv[optind];
+                        }
+                        else
+                        {
+                            // Missing required argument
+                            if (optstring[0] == ':')
+                                return BADARG;
+                            if (opterr && has_arg == required_argument)
+                                fprintf(stderr, "%s: option requires an argument -- %s\n",
+                                       argv[0], place);
+                            place = EMSG;
+                            optind++;
+                            if (has_arg == required_argument)
+                                return BADCH;
+                            optarg = NULL;
+                        }
+                    }
+                    else
+                        optarg = NULL;
+
+                    optind++;
+                    if (longindex)
+                        *longindex = i;
+                    place = EMSG;
+
+                    // Return value or set flag
+                    if (longopts[i].flag == NULL)
+                        return longopts[i].val;
+                    else
+                    {
+                        *longopts[i].flag = longopts[i].val;
+                        return 0;
+                    }
+                }
+            }
+
+            // Unknown long option
+            if (opterr && optstring[0] != ':')
+                fprintf(stderr, "%s: illegal option -- %s\n", argv[0], place);
+            place = EMSG;
+            optind++;
+            return BADCH;
+        }
+    }
+
+    // Handle short options (-o)
+    optopt = (int) *place++;
+    oli = strchr(optstring, optopt);
+
+    if (!oli)
+    {
+        // Unknown short option
+        if (!*place)
+            ++optind;
+        if (opterr && *optstring != ':')
+            fprintf(stderr, "%s: illegal option -- %c\n", argv[0], optopt);
+        return BADCH;
+    }
+
+    if (oli[1] != ':')
+    {
+        // Option doesn't need argument
+        optarg = NULL;
+        if (!*place)
+            ++optind;
+    }
+    else
+    {
+        // Option needs argument
+        if (*place)
+            optarg = place;  // Argument attached (-oarg)
+        else if (argc <= ++optind)
+        {
+            // Missing argument
+            place = EMSG;
+            if (*optstring == ':')
+                return BADARG;
+            if (opterr)
+                fprintf(stderr, "%s: option requires an argument -- %c\n",
+                       argv[0], optopt);
+            return BADCH;
+        }
+        else
+            optarg = argv[optind];  // Separate argument (-o arg)
+
+        place = EMSG;
+        ++optind;
+    }
+
+    return optopt;
+}
+```

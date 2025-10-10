@@ -41,3 +41,21 @@ The function is designed to work with PostgreSQLs sorting infrastructure, return
 - The priority system ensures critical timeline history files are archived first, which is essential for point-in-time recovery scenarios
 - The lexicographic ordering ensures consistent, predictable archival order for WAL segments
 - The function signature matches the requirements for use with PostgreSQLs internal sorting routines
+
+## Simplified Source
+
+```c
+static int ready_file_comparator(Datum a, Datum b, void *arg) {
+    char *a_str = DatumGetCString(a);
+    char *b_str = DatumGetCString(b);
+    bool a_history = IsTLHistoryFileName(a_str);
+    bool b_history = IsTLHistoryFileName(b_str);
+
+    // Timeline history files always have highest priority
+    if (a_history != b_history)
+        return a_history ? -1 : 1;
+
+    // For same type of files, older files have priority
+    return strcmp(a_str, b_str);
+}
+```

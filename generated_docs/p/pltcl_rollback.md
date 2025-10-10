@@ -46,3 +46,41 @@ pltcl_rollback provides a way for PL/Tcl functions to abort the current transact
 - Should only be used in appropriate transactional contexts
 - Automatically starts a new transaction after successful rollback
 - Complementary function to pltcl_commit for complete transaction control
+
+## Simplified Source
+
+```c
+static int
+pltcl_rollback(ClientData cdata, Tcl_Interp *interp,
+               int objc, Tcl_Obj *const objv[])
+{
+    MemoryContext oldcontext = CurrentMemoryContext;
+
+    PG_TRY();
+    {
+        // Rollback current transaction and start new one
+        SPI_rollback();
+    }
+    PG_CATCH();
+    {
+        ErrorData *edata;
+
+        // Handle rollback failure - save error info
+        MemoryContextSwitchTo(oldcontext);
+        edata = CopyErrorData();
+        FlushErrorState();
+
+        // Convert PostgreSQL error to Tcl error
+        pltcl_construct_errorCode(interp, edata);
+        UTF_BEGIN;
+        Tcl_SetObjResult(interp, Tcl_NewStringObj(UTF_E2U(edata->message), -1));
+        UTF_END;
+        FreeErrorData(edata);
+
+        return TCL_ERROR;
+    }
+    PG_END_TRY();
+
+    return TCL_OK;
+}
+```

@@ -46,3 +46,24 @@ This function is inline for performance reasons since it's called frequently dur
 - Critical for determining which transactions need historical snapshot handling
 - The XACT_XINFO_HAS_INVALS flag serves as a quick filter to avoid unnecessary array searches
 - Part of the logical replication infrastructure that ensures schema changes are properly handled during replication setup
+
+## Simplified Source
+
+```c
+static inline bool
+SnapBuildXidHasCatalogChanges(SnapBuild *builder, TransactionId xid, uint32 xinfo)
+{
+    // Check reorder buffer first - most reliable source
+    if (ReorderBufferXidHasCatalogChanges(builder->reorder, xid))
+        return true;
+
+    // Catalog-modifying transactions must have invalidation info
+    if (!(xinfo & XACT_XINFO_HAS_INVALS))
+        return false;
+
+    // Binary search in sorted catalog change XID array
+    return (builder->catchange.xcnt > 0) &&
+           (bsearch(&xid, builder->catchange.xip, builder->catchange.xcnt,
+                    sizeof(TransactionId), xidComparator) != NULL);
+}
+```

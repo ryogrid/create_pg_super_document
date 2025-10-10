@@ -51,3 +51,76 @@ The function includes robust error handling for various failure scenarios includ
 - Handles edge cases like system crashes that leave orphaned status files
 - Includes rate limiting through sleep intervals to avoid overwhelming the system during failures
 - The function is designed to be interruptible and respects PostgreSQL's shutdown mechanisms
+
+## Simplified Source
+
+```c
+static void pgarch_ArchiverCopyLoop(void) {
+    char xlog[MAX_XFN_CHARS + 1];
+
+    // Reset file list to force fresh directory scan
+    arch_files->arch_files_size = 0;
+
+    // Process all WAL files ready for archiving
+    while (pgarch_readyXlog(xlog)) {
+        int failures = 0;
+        int failures_orphan = 0;
+
+        for (;;) {
+            // Check for shutdown conditions
+            if (ShutdownRequestPending || !PostmasterIsAlive())
+                return;
+
+            // Handle configuration updates
+            HandlePgArchInterrupts();
+
+            // Verify archiving is configured
+            if (ArchiveCallbacks->check_configured_cb != NULL &&
+                !ArchiveCallbacks->check_configured_cb(archive_module_state)) {
+                ereport(WARNING, (errmsg("archiving not configured")));
+                return;
+            }
+
+            // Handle orphaned .ready files
+            char pathname[MAXPGPATH];
+            snprintf(pathname, MAXPGPATH, XLOGDIR "/%s", xlog);
+            struct stat stat_buf;
+
+            if (stat(pathname, &stat_buf) != 0 && errno == ENOENT) {
+                // WAL file missing, remove orphan status file
+                char xlogready[MAXPGPATH];
+                StatusFilePath(xlogready, xlog, ".ready");
+
+                if (unlink(xlogready) == 0) {
+                    ereport(WARNING, (errmsg("removed orphan archive status file \"%s\"", xlogready)));
+                    break;
+                }
+
+                if (++failures_orphan >= NUM_ORPHAN_CLEANUP_RETRIES) {
+                    ereport(WARNING, (errmsg("orphan cleanup failed too many times")));
+                    return;
+                }
+                pg_usleep(1000000L);  // Wait 1 second before retry
+                continue;
+            }
+
+            // Attempt to archive the file
+            if (pgarch_archiveXlog(xlog)) {
+                // Success: mark as done and report stats
+                pgarch_archiveDone(xlog);
+                pgstat_report_archiver(xlog, false);
+                break;
+            } else {
+                // Failure: report stats and retry
+                pgstat_report_archiver(xlog, true);
+
+                if (++failures >= NUM_ARCHIVE_RETRIES) {
+                    ereport(WARNING, (errmsg("archiving failed too many times for \"%s\"", xlog)));
+                    return;
+                }
+                pg_usleep(1000000L);  // Wait 1 second before retry
+            }
+        }
+    }
+}
+```

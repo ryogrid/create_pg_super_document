@@ -62,3 +62,79 @@ The function initializes the tuple store on the first call, manages memory conte
 - Essential for implementing set-returning functions in PL/Tcl
 - Provides incremental row return capability for streaming large result sets
 - Error messages include specific context about usage restrictions
+
+## Simplified Source
+
+```c
+static int pltcl_returnnext(ClientData cdata, Tcl_Interp *interp,
+                           int objc, Tcl_Obj *const objv[]) {
+    pltcl_call_state *call_state = pltcl_current_call_state;
+    FunctionCallInfo fcinfo = call_state->fcinfo;
+    pltcl_proc_desc *prodesc = call_state->prodesc;
+    MemoryContext oldcontext = CurrentMemoryContext;
+    ResourceOwner oldowner = CurrentResourceOwner;
+    volatile int result = TCL_OK;
+
+    // Validate context: must be in set-returning function
+    if (fcinfo == NULL) {
+        Tcl_SetObjResult(interp,
+                        Tcl_NewStringObj("return_next cannot be used in triggers", -1));
+        return TCL_ERROR;
+    }
+
+    if (!prodesc->fn_retisset) {
+        Tcl_SetObjResult(interp,
+                        Tcl_NewStringObj("return_next cannot be used in non-set-returning functions", -1));
+        return TCL_ERROR;
+    }
+
+    // Validate argument count
+    if (objc != 2) {
+        Tcl_WrongNumArgs(interp, 1, objv, "result");
+        return TCL_ERROR;
+    }
+
+    // Use subtransaction for safe error handling
+    BeginInternalSubTransaction(NULL);
+    PG_TRY();
+    {
+        // Initialize tuple store on first call
+        if (call_state->tuple_store == NULL)
+            pltcl_init_tuple_store(call_state);
+
+        if (prodesc->fn_retistuple) {
+            // Handle tuple return: convert Tcl list to HeapTuple
+            Tcl_Obj **rowObjv;
+            Tcl_Size rowObjc;
+
+            if (Tcl_ListObjGetElements(interp, objv[1], &rowObjc, &rowObjv) == TCL_ERROR)
+                result = TCL_ERROR;
+            else {
+                HeapTuple tuple = pltcl_build_tuple_result(interp, rowObjv, rowObjc, call_state);
+                tuplestore_puttuple(call_state->tuple_store, tuple);
+            }
+        } else {
+            // Handle scalar return: convert single value
+            if (call_state->ret_tupdesc->natts != 1)
+                elog(ERROR, "wrong result type supplied in return_next");
+
+            Datum retval = InputFunctionCall(&prodesc->result_in_func,
+                                           utf_u2e((char *) Tcl_GetString(objv[1])),
+                                           prodesc->result_typioparam, -1);
+            bool isNull = false;
+            tuplestore_putvalues(call_state->tuple_store, call_state->ret_tupdesc,
+                               &retval, &isNull);
+        }
+
+        pltcl_subtrans_commit(oldcontext, oldowner);
+    }
+    PG_CATCH();
+    {
+        pltcl_subtrans_abort(interp, oldcontext, oldowner);
+        return TCL_ERROR;
+    }
+    PG_END_TRY();
+
+    return result;
+}
+```

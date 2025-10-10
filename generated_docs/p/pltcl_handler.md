@@ -41,3 +41,54 @@ The function establishes a call state context that tracks the current execution 
 - Manages the global pltcl_current_call_state pointer for nested call support
 - Supports three types of invocations: regular functions, triggers, and event triggers
 - The call state tracking ensures proper resource management and supports re-entrant calls
+
+## Simplified Source
+
+```c
+static Datum
+pltcl_handler(PG_FUNCTION_ARGS, bool pltrusted)
+{
+    Datum retval = (Datum) 0;
+    pltcl_call_state current_call_state;
+    pltcl_call_state *save_call_state;
+
+    // Initialize call state and save previous state
+    memset(&current_call_state, 0, sizeof(current_call_state));
+    save_call_state = pltcl_current_call_state;
+    pltcl_current_call_state = &current_call_state;
+
+    PG_TRY();
+    {
+        // Determine call type and dispatch to appropriate handler
+        if (CALLED_AS_TRIGGER(fcinfo)) {
+            // Handle trigger calls
+            retval = PointerGetDatum(pltcl_trigger_handler(fcinfo,
+                                                          &current_call_state,
+                                                          pltrusted));
+        }
+        else if (CALLED_AS_EVENT_TRIGGER(fcinfo)) {
+            // Handle event trigger calls
+            pltcl_event_trigger_handler(fcinfo, &current_call_state, pltrusted);
+            retval = (Datum) 0;
+        }
+        else {
+            // Handle regular function calls
+            current_call_state.fcinfo = fcinfo;
+            retval = pltcl_func_handler(fcinfo, &current_call_state, pltrusted);
+        }
+    }
+    PG_FINALLY();
+    {
+        // Restore previous state and clean up procedure descriptor
+        pltcl_current_call_state = save_call_state;
+        if (current_call_state.prodesc != NULL) {
+            Assert(current_call_state.prodesc->fn_refcount > 0);
+            if (--current_call_state.prodesc->fn_refcount == 0)
+                MemoryContextDelete(current_call_state.prodesc->fn_cxt);
+        }
+    }
+    PG_END_TRY();
+
+    return retval;
+}
+```

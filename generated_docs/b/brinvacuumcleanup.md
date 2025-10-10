@@ -350,3 +350,38 @@ Text creation and manipulation
 - Works in conjunction with  to provide complete vacuum functionality
 - More meaningful than bulk delete for BRIN indexes due to range-based structure
 - Essential for maintaining BRIN index effectiveness by ensuring complete range coverage
+
+## Simplified Source
+
+```c
+IndexBulkDeleteResult *
+brinvacuumcleanup(IndexVacuumInfo *info, IndexBulkDeleteResult *stats)
+{
+    Relation heapRel;
+
+    // Skip cleanup if analyze-only mode
+    if (info->analyze_only)
+        return stats;
+
+    // Initialize statistics structure
+    if (!stats)
+        stats = palloc0_object(IndexBulkDeleteResult);
+    stats->num_pages = RelationGetNumberOfBlocks(info->index);
+
+    // Open heap relation for access
+    heapRel = table_open(IndexGetRelation(RelationGetRelid(info->index), false),
+                         AccessShareLock);
+
+    // Scan index for maintenance needs
+    brin_vacuum_scan(info->index, info->strategy);
+
+    // Summarize all unsummarized block ranges
+    brinsummarize(info->index, heapRel, BRIN_ALL_BLOCKRANGES, false,
+                  &stats->num_index_tuples, &stats->num_index_tuples);
+
+    // Close heap relation
+    table_close(heapRel, AccessShareLock);
+
+    return stats;
+}
+```

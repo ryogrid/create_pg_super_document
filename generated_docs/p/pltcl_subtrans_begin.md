@@ -33,3 +33,15 @@ The function is designed to be used in a specific pattern where potentially fail
 - The function switches back to the old context immediately after starting the subtransaction to ensure proper memory management
 - Located in src/pl/tcl/pltcl.c:2278-2286
 - Intended to be used within PG_TRY/PG_CATCH blocks for proper exception handling
+
+## Simplified Source
+
+```c
+static void pltcl_subtrans_begin(MemoryContext oldcontext, ResourceOwner oldowner) {
+    // Start internal subtransaction
+    BeginInternalSubTransaction(NULL);
+
+    // Switch back to function's memory context for allocations
+    MemoryContextSwitchTo(oldcontext);
+}
+```

@@ -48,3 +48,97 @@ The function implements sophisticated priority logic where .history files are co
 - Handles both timeline history files (.history) and regular WAL segments with appropriate priorities
 - The function can be forced to rescan the directory via atomic flag manipulation
 - Designed to handle large numbers of pending archive files efficiently through batched processing
+
+## Simplified Source
+
+```c
+static bool pgarch_readyXlog(char *xlog) {
+    char XLogArchiveStatusDir[MAXPGPATH];
+    DIR *rldir;
+    struct dirent *rlde;
+
+    // Check if directory scan was requested
+    if (pg_atomic_exchange_u32(&PgArch->force_dir_scan, 0) == 1)
+        arch_files->arch_files_size = 0;
+
+    // Return cached files if available
+    while (arch_files->arch_files_size > 0) {
+        struct stat st;
+        char status_file[MAXPGPATH];
+        char *arch_file;
+
+        arch_files->arch_files_size--;
+        arch_file = arch_files->arch_files[arch_files->arch_files_size];
+        StatusFilePath(status_file, arch_file, ".ready");
+
+        // Verify status file still exists
+        if (stat(status_file, &st) == 0) {
+            strcpy(xlog, arch_file);
+            return true;
+        }
+    }
+
+    // Reset heap for new scan
+    binaryheap_reset(arch_files->arch_heap);
+
+    // Scan archive_status directory for .ready files
+    snprintf(XLogArchiveStatusDir, MAXPGPATH, XLOGDIR "/archive_status");
+    rldir = AllocateDir(XLogArchiveStatusDir);
+
+    while ((rlde = ReadDir(rldir, XLogArchiveStatusDir)) != NULL) {
+        int basenamelen = (int) strlen(rlde->d_name) - 6;
+        char basename[MAX_XFN_CHARS + 1];
+        char *arch_file;
+
+        // Validate filename format
+        if (basenamelen < MIN_XFN_CHARS || basenamelen > MAX_XFN_CHARS)
+            continue;
+        if (strspn(rlde->d_name, VALID_XFN_CHARS) < basenamelen)
+            continue;
+        if (strcmp(rlde->d_name + basenamelen, ".ready") != 0)
+            continue;
+
+        // Extract basename (remove .ready suffix)
+        memcpy(basename, rlde->d_name, basenamelen);
+        basename[basenamelen] = '\0';
+
+        // Add to priority heap
+        if (arch_files->arch_heap->bh_size < NUM_FILES_PER_DIRECTORY_SCAN) {
+            // Heap not full - add directly
+            arch_file = arch_files->arch_filenames[arch_files->arch_heap->bh_size];
+            strcpy(arch_file, basename);
+            binaryheap_add_unordered(arch_files->arch_heap, CStringGetDatum(arch_file));
+
+            // Build valid heap when full
+            if (arch_files->arch_heap->bh_size == NUM_FILES_PER_DIRECTORY_SCAN)
+                binaryheap_build(arch_files->arch_heap);
+        } else if (ready_file_comparator(binaryheap_first(arch_files->arch_heap),
+                                       CStringGetDatum(basename), NULL) > 0) {
+            // Replace lowest priority file with current one
+            arch_file = DatumGetCString(binaryheap_remove_first(arch_files->arch_heap));
+            strcpy(arch_file, basename);
+            binaryheap_add(arch_files->arch_heap, CStringGetDatum(arch_file));
+        }
+    }
+    FreeDir(rldir);
+
+    // No files found
+    if (arch_files->arch_heap->bh_size == 0)
+        return false;
+
+    // Build heap if not already done
+    if (arch_files->arch_heap->bh_size < NUM_FILES_PER_DIRECTORY_SCAN)
+        binaryheap_build(arch_files->arch_heap);
+
+    // Extract files in priority order
+    arch_files->arch_files_size = arch_files->arch_heap->bh_size;
+    for (int i = 0; i < arch_files->arch_files_size; i++)
+        arch_files->arch_files[i] = DatumGetCString(binaryheap_remove_first(arch_files->arch_heap));
+
+    // Return highest priority file
+    arch_files->arch_files_size--;
+    strcpy(xlog, arch_files->arch_files[arch_files->arch_files_size]);
+
+    return true;
+}
+```

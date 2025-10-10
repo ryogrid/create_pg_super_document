@@ -45,3 +45,43 @@ This is distinct from ReorderBufferAbortOld() which handles implicitly aborted t
 - Must be called for subtransactions before the toplevel transaction
 - Unknown transactions (NULL lookup result) are safely ignored
 - The function ensures proper cleanup of both memory and disk-based transaction data
+
+## Simplified Source
+
+```c
+void
+ReorderBufferAbort(ReorderBuffer *rb, TransactionId xid, XLogRecPtr lsn,
+                   TimestampTz abort_time)
+{
+    ReorderBufferTXN *txn;
+
+    // Look up the transaction by XID
+    txn = ReorderBufferTXNByXid(rb, xid, false, NULL, InvalidXLogRecPtr, false);
+
+    // If transaction not found, nothing to do
+    if (txn == NULL)
+        return;
+
+    // Record the abort time
+    txn->xact_time.abort_time = abort_time;
+
+    // Handle streamed transactions
+    if (rbtxn_is_streamed(txn))
+    {
+        // Notify remote node about the abort
+        rb->stream_abort(rb, txn, lsn);
+
+        // Execute invalidation messages to clear cache entries
+        // that may have been loaded during this transaction
+        if (txn->ninvalidations > 0)
+            ReorderBufferImmediateInvalidation(rb, txn->ninvalidations,
+                                               txn->invalidations);
+    }
+
+    // Set final LSN
+    txn->final_lsn = lsn;
+
+    // Clean up transaction data from memory and disk
+    ReorderBufferCleanupTXN(rb, txn);
+}
+```

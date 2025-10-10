@@ -45,3 +45,61 @@ The function skips dropped attributes and can optionally include or exclude gene
 - Null attributes are skipped entirely rather than being represented in the list, which may require careful handling by calling functions
 - Generated columns are only included when explicitly requested via the include_generated parameter
 - Memory management is handled by freeing the outputstr after use with pfree()
+
+## Simplified Source
+
+```c
+static Tcl_Obj *
+pltcl_build_tuple_argument(HeapTuple tuple, TupleDesc tupdesc, bool include_generated)
+{
+    Tcl_Obj *retobj = Tcl_NewObj();
+    int i;
+    char *outputstr;
+    Datum attr;
+    bool isnull;
+    char *attname;
+    Oid typoutput;
+    bool typisvarlena;
+
+    // Iterate through all attributes in the tuple
+    for (i = 0; i < tupdesc->natts; i++)
+    {
+        Form_pg_attribute att = TupleDescAttr(tupdesc, i);
+
+        // Skip dropped attributes
+        if (att->attisdropped)
+            continue;
+
+        // Skip generated columns unless requested
+        if (att->attgenerated && !include_generated)
+            continue;
+
+        // Get attribute name
+        attname = NameStr(att->attname);
+
+        // Get attribute value
+        attr = heap_getattr(tuple, i + 1, tupdesc, &isnull);
+
+        // Only process non-null values
+        if (!isnull)
+        {
+            // Convert value to string using appropriate output function
+            getTypeOutputInfo(att->atttypid, &typoutput, &typisvarlena);
+            outputstr = OidOutputFunctionCall(typoutput, attr);
+
+            // Add attribute name and value to Tcl list (for 'array set')
+            UTF_BEGIN;
+            Tcl_ListObjAppendElement(NULL, retobj,
+                                     Tcl_NewStringObj(UTF_E2U(attname), -1));
+            UTF_END;
+            UTF_BEGIN;
+            Tcl_ListObjAppendElement(NULL, retobj,
+                                     Tcl_NewStringObj(UTF_E2U(outputstr), -1));
+            UTF_END;
+            pfree(outputstr);
+        }
+    }
+
+    return retobj;
+}
+```

@@ -45,3 +45,41 @@ pltcl_commit provides a way for PL/Tcl functions to commit the current transacti
 - Part of the PL/Tcl extension's transaction control functionality
 - Should only be used in appropriate transactional contexts
 - Automatically starts a new transaction after successful commit
+
+## Simplified Source
+
+```c
+static int
+pltcl_commit(ClientData cdata, Tcl_Interp *interp,
+             int objc, Tcl_Obj *const objv[])
+{
+    MemoryContext oldcontext = CurrentMemoryContext;
+
+    PG_TRY();
+    {
+        // Commit current transaction and start new one
+        SPI_commit();
+    }
+    PG_CATCH();
+    {
+        ErrorData *edata;
+
+        // Handle commit failure - save error info
+        MemoryContextSwitchTo(oldcontext);
+        edata = CopyErrorData();
+        FlushErrorState();
+
+        // Convert PostgreSQL error to Tcl error
+        pltcl_construct_errorCode(interp, edata);
+        UTF_BEGIN;
+        Tcl_SetObjResult(interp, Tcl_NewStringObj(UTF_E2U(edata->message), -1));
+        UTF_END;
+        FreeErrorData(edata);
+
+        return TCL_ERROR;
+    }
+    PG_END_TRY();
+
+    return TCL_OK;
+}
+```

@@ -47,3 +47,63 @@ The catchange array purging is optimized because the array is maintained in sort
 - Only operates when xmin is set to a normal transaction ID
 - Provides debug logging to track purging effectiveness
 - Part of the snapshot building maintenance infrastructure
+
+## Simplified Source
+
+```c
+static void
+SnapBuildPurgeOlderTxn(SnapBuild *builder)
+{
+    TransactionId *workspace;
+    int surviving_xids = 0;
+    int off;
+
+    // Not ready if xmin is not set to a normal transaction ID
+    if (!TransactionIdIsNormal(builder->xmin))
+        return;
+
+    // Phase 1: Purge committed transactions older than xmin
+    workspace = MemoryContextAlloc(builder->context,
+                                   builder->committed.xcnt * sizeof(TransactionId));
+
+    // Copy transactions that are still relevant (>= xmin)
+    for (off = 0; off < builder->committed.xcnt; off++)
+    {
+        if (!NormalTransactionIdPrecedes(builder->committed.xip[off], builder->xmin))
+            workspace[surviving_xids++] = builder->committed.xip[off];
+    }
+
+    // Replace old array with filtered transactions
+    memcpy(builder->committed.xip, workspace, surviving_xids * sizeof(TransactionId));
+    builder->committed.xcnt = surviving_xids;
+    pfree(workspace);
+
+    // Phase 2: Purge catalog-change transactions (optimized using sorted order)
+    if (builder->catchange.xcnt > 0)
+    {
+        // Find first transaction >= xmin (array is sorted)
+        for (off = 0; off < builder->catchange.xcnt; off++)
+        {
+            if (TransactionIdFollowsOrEquals(builder->catchange.xip[off], builder->xmin))
+                break;
+        }
+
+        surviving_xids = builder->catchange.xcnt - off;
+
+        if (surviving_xids > 0)
+        {
+            // Shift remaining transactions to beginning of array
+            memmove(builder->catchange.xip, &(builder->catchange.xip[off]),
+                    surviving_xids * sizeof(TransactionId));
+        }
+        else
+        {
+            // No transactions survived - free the array
+            pfree(builder->catchange.xip);
+            builder->catchange.xip = NULL;
+        }
+
+        builder->catchange.xcnt = surviving_xids;
+    }
+}
+```

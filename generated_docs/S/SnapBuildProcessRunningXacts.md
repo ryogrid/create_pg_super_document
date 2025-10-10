@@ -57,3 +57,57 @@ The function balances between maintaining enough historical information for cons
 - Critical for vacuum advancement - allows cleanup of tuples protected by this replication slot
 - Serialization only occurs when in consistent state to avoid unnecessary I/O operations
 - The restart decoding position management prevents excessive WAL accumulation during long-running logical replication
+
+## Simplified Source
+
+```c
+void
+SnapBuildProcessRunningXacts(SnapBuild *builder, XLogRecPtr lsn, xl_running_xacts *running)
+{
+    ReorderBufferTXN *txn;
+    TransactionId xmin;
+
+    // Try to reach consistency or serialize current state
+    if (builder->state < SNAPBUILD_CONSISTENT)
+    {
+        if (!SnapBuildFindSnapshot(builder, lsn, running))
+            return;
+    }
+    else
+    {
+        SnapBuildSerialize(builder, lsn);
+    }
+
+    // Update minimum transaction ID based on running transactions
+    builder->xmin = running->oldestRunningXid;
+
+    // Clean up transactions we no longer need to track
+    SnapBuildPurgeOlderTxn(builder);
+
+    // Advance replication slot xmin to allow vacuum cleanup
+    xmin = ReorderBufferGetOldestXmin(builder->reorder);
+    if (xmin == InvalidTransactionId)
+        xmin = running->oldestRunningXid;
+
+    LogicalIncreaseXminForSlot(lsn, xmin);
+
+    // Update restart decoding position (only when consistent)
+    if (builder->state < SNAPBUILD_CONSISTENT)
+        return;
+
+    txn = ReorderBufferGetOldestTXN(builder->reorder);
+
+    if (txn != NULL && txn->restart_decoding_lsn != InvalidXLogRecPtr)
+    {
+        // Use oldest transaction's restart position
+        LogicalIncreaseRestartDecodingForSlot(lsn, txn->restart_decoding_lsn);
+    }
+    else if (txn == NULL &&
+             builder->reorder->current_restart_decoding_lsn != InvalidXLogRecPtr &&
+             builder->last_serialized_snapshot != InvalidXLogRecPtr)
+    {
+        // No active transactions - use last serialized snapshot
+        LogicalIncreaseRestartDecodingForSlot(lsn, builder->last_serialized_snapshot);
+    }
+}
+```

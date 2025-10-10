@@ -33,3 +33,18 @@ The function iterates through the exception_name_map array, comparing each entry
 - This is a static function internal to the PL/Tcl implementation
 - Used primarily for error reporting and exception handling in Tcl stored procedures
 - The mapping table structure contains label (condition name) and sqlerrstate (numeric code) pairs
+
+## Simplified Source
+
+```c
+static const char *pltcl_get_condition_name(int sqlstate) {
+    // Search through the exception name mapping table
+    for (int i = 0; exception_name_map[i].label != NULL; i++) {
+        if (exception_name_map[i].sqlerrstate == sqlstate)
+            return exception_name_map[i].label;
+    }
+
+    // Return default for unrecognized SQLSTATE codes
+    return "unrecognized_sqlstate";
+}
+```

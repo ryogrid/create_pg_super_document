@@ -40,3 +40,41 @@ The function performs validation to ensure only one archiving method is configur
 - The external library must export a  symbol
 - The archive module must provide at least an  callback function
 - Located in src/backend/postmaster/pgarch.c:911-952
+
+## Simplified Source
+
+```c
+static void
+LoadArchiveLibrary(void)
+{
+    ArchiveModuleInit archive_init;
+
+    // Validate configuration: ensure only one archive method is set
+    if (XLogArchiveLibrary[0] != '\0' && XLogArchiveCommand[0] != '\0')
+        ereport(ERROR, "both archive_command and archive_library set");
+
+    // Choose initialization function based on configuration
+    if (XLogArchiveLibrary[0] == '\0')
+        archive_init = shell_archive_init;  // Use built-in shell archiving
+    else
+        archive_init = (ArchiveModuleInit)  // Load external library
+            load_external_function(XLogArchiveLibrary, "_PG_archive_module_init", false, NULL);
+
+    if (archive_init == NULL)
+        ereport(ERROR, "archive modules must define _PG_archive_module_init symbol");
+
+    // Initialize the archive callbacks
+    ArchiveCallbacks = (*archive_init)();
+
+    if (ArchiveCallbacks->archive_file_cb == NULL)
+        ereport(ERROR, "archive modules must register an archive callback");
+
+    // Initialize module state and call startup callback
+    archive_module_state = (ArchiveModuleState *) palloc0(sizeof(ArchiveModuleState));
+    if (ArchiveCallbacks->startup_cb != NULL)
+        ArchiveCallbacks->startup_cb(archive_module_state);
+
+    // Register shutdown callback
+    before_shmem_exit(pgarch_call_module_shutdown_cb, 0);
+}
+```

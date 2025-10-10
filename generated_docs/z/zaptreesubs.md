@@ -40,3 +40,20 @@ This function is typically used when backtracking in regex matching, where previ
 - Part of PostgreSQL's backtracking regex implementation
 - The tree traversal visits children before siblings in the regex parse tree
 - Used extensively in dissection functions that handle complex regex patterns
+
+## Simplified Source
+
+```c
+static void zaptreesubs(struct vars *v, struct subre *t) {
+    // Reset current node's capture group to "no match" if it has one
+    if (t->capno > 0 && t->capno < v->nmatch) {
+        v->pmatch[t->capno].rm_so = -1;
+        v->pmatch[t->capno].rm_eo = -1;
+    }
+
+    // Recursively reset all child nodes
+    for (struct subre *child = t->child; child != NULL; child = child->sibling) {
+        zaptreesubs(v, child);
+    }
+}
+```

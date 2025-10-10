@@ -38,3 +38,42 @@ The function carefully manages memory contexts and resource ownership to ensure 
 - The tuplestore is created with support for random access if the caller allows SFRM_Materialize_Random mode
 - The work_mem setting is used to control memory usage for the tuplestore
 - Both the tuplestore and AttInMetadata are created in the same memory context for consistency
+
+## Simplified Source
+
+```c
+static void
+pltcl_init_tuple_store(pltcl_call_state *call_state)
+{
+    ReturnSetInfo *rsi = call_state->rsi;
+    MemoryContext oldcxt;
+    ResourceOwner oldowner;
+
+    // Validation: Must be SRF and first time initialization
+    Assert(rsi);
+    Assert(!call_state->tuple_store);
+    Assert(!call_state->attinmeta);
+    Assert(rsi->expectedDesc);
+
+    // Set tuple descriptor from expected result
+    call_state->ret_tupdesc = rsi->expectedDesc;
+
+    // Switch to proper memory context and resource owner
+    // This ensures tuplestore persists beyond subtransactions
+    oldcxt = MemoryContextSwitchTo(call_state->tuple_store_cxt);
+    oldowner = CurrentResourceOwner;
+    CurrentResourceOwner = call_state->tuple_store_owner;
+
+    // Create tuplestore with random access support if allowed
+    call_state->tuple_store =
+        tuplestore_begin_heap(rsi->allowedModes & SFRM_Materialize_Random,
+                              false, work_mem);
+
+    // Create metadata for tuple attribute handling
+    call_state->attinmeta = TupleDescGetAttInMetadata(call_state->ret_tupdesc);
+
+    // Restore previous context and owner
+    CurrentResourceOwner = oldowner;
+    MemoryContextSwitchTo(oldcxt);
+}
+```

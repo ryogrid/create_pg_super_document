@@ -51,3 +51,51 @@ Key operations performed:
 - Uses PANIC level error if tuple overwrite fails, indicating a critical recovery failure
 - Memory management includes cleanup of allocated BTVacuumPosting structures and updated tuples
 - Part of PostgreSQL's vacuum and dead tuple removal system for B-tree indexes
+
+## Simplified Source
+
+```c
+static void btree_xlog_updates(Page page, OffsetNumber *updatedoffsets,
+                               xl_btree_update *updates, int nupdated)
+{
+    BTVacuumPosting vacposting;
+    IndexTuple origtuple;
+    ItemId itemid;
+    Size itemsz;
+
+    // Process each update operation
+    for (int i = 0; i < nupdated; i++) {
+        // Get original posting list tuple
+        itemid = PageGetItemId(page, updatedoffsets[i]);
+        origtuple = (IndexTuple) PageGetItem(page, itemid);
+
+        // Create vacuum posting structure with TIDs to delete
+        vacposting = palloc(offsetof(BTVacuumPostingData, deletetids) +
+                            updates->ndeletedtids * sizeof(uint16));
+        vacposting->updatedoffset = updatedoffsets[i];
+        vacposting->itup = origtuple;
+        vacposting->ndeletedtids = updates->ndeletedtids;
+        memcpy(vacposting->deletetids,
+               (char *) updates + SizeOfBtreeUpdate,
+               updates->ndeletedtids * sizeof(uint16));
+
+        // Generate updated tuple with TIDs removed
+        _bt_update_posting(vacposting);
+
+        // Overwrite original tuple with updated version
+        itemsz = MAXALIGN(IndexTupleSize(vacposting->itup));
+        if (!PageIndexTupleOverwrite(page, updatedoffsets[i],
+                                     (Item) vacposting->itup, itemsz))
+            elog(PANIC, "failed to update partially dead item");
+
+        // Clean up allocated memory
+        pfree(vacposting->itup);
+        pfree(vacposting);
+
+        // Advance to next update record
+        updates = (xl_btree_update *)
+            ((char *) updates + SizeOfBtreeUpdate +
+             updates->ndeletedtids * sizeof(uint16));
+    }
+}
+```

@@ -56,3 +56,63 @@ This function is essential for both WAL replay during recovery (via heap_xlog_pr
 - Uses cursor advancement technique to parse variable-length record structures sequentially
 - Handles optional data sections gracefully by setting counts to 0 and pointers to NULL when flags indicate absence
 - Critical for PostgreSQLs tuple visibility and space management through pruning and freezing operations
+
+## Simplified Source
+
+```c
+void
+heap_xlog_deserialize_prune_and_freeze(char *cursor, uint8 flags,
+                                       int *nplans, xlhp_freeze_plan **plans,
+                                       OffsetNumber **frz_offsets,
+                                       int *nredirected, OffsetNumber **redirected,
+                                       int *ndead, OffsetNumber **nowdead,
+                                       int *nunused, OffsetNumber **nowunused)
+{
+    // Parse freeze plans if present
+    if (flags & XLHP_HAS_FREEZE_PLANS) {
+        xlhp_freeze_plans *freeze_plans = (xlhp_freeze_plans *) cursor;
+        *nplans = freeze_plans->nplans;
+        *plans = freeze_plans->plans;
+        cursor += offsetof(xlhp_freeze_plans, plans) + sizeof(xlhp_freeze_plan) * *nplans;
+    } else {
+        *nplans = 0;
+        *plans = NULL;
+    }
+
+    // Parse redirections if present
+    if (flags & XLHP_HAS_REDIRECTIONS) {
+        xlhp_prune_items *subrecord = (xlhp_prune_items *) cursor;
+        *nredirected = subrecord->ntargets;
+        *redirected = &subrecord->data[0];
+        cursor += offsetof(xlhp_prune_items, data) + sizeof(OffsetNumber[2]) * *nredirected;
+    } else {
+        *nredirected = 0;
+        *redirected = NULL;
+    }
+
+    // Parse dead items if present
+    if (flags & XLHP_HAS_DEAD_ITEMS) {
+        xlhp_prune_items *subrecord = (xlhp_prune_items *) cursor;
+        *ndead = subrecord->ntargets;
+        *nowdead = subrecord->data;
+        cursor += offsetof(xlhp_prune_items, data) + sizeof(OffsetNumber) * *ndead;
+    } else {
+        *ndead = 0;
+        *nowdead = NULL;
+    }
+
+    // Parse now-unused items if present
+    if (flags & XLHP_HAS_NOW_UNUSED_ITEMS) {
+        xlhp_prune_items *subrecord = (xlhp_prune_items *) cursor;
+        *nunused = subrecord->ntargets;
+        *nowunused = subrecord->data;
+        cursor += offsetof(xlhp_prune_items, data) + sizeof(OffsetNumber) * *nunused;
+    } else {
+        *nunused = 0;
+        *nowunused = NULL;
+    }
+
+    // Remaining data is freeze offsets array
+    *frz_offsets = (OffsetNumber *) cursor;
+}
+```

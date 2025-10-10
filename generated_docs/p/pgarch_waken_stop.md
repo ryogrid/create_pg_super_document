@@ -28,3 +28,15 @@ This function is part of PostgreSQL's graceful shutdown mechanism for the archiv
 - The function is signal-safe and performs minimal operations to avoid race conditions
 - The ready_to_stop flag is checked by the main archiver loop to determine when to exit
 - Part of PostgreSQL's background process management infrastructure
+
+## Simplified Source
+
+```c
+static void pgarch_waken_stop(SIGNAL_ARGS) {
+    // Signal the archiver to stop after completing current work
+    ready_to_stop = true;
+
+    // Wake up the main loop
+    SetLatch(MyLatch);
+}
+```

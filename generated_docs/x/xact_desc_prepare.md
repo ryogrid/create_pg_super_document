@@ -354,3 +354,40 @@ static void xact_desc_prepare(StringInfo buf, uint8 info, xl_xact_prepare *xlrec
 - Checks origin_id validity against InvalidRepOriginId rather than using info flags
 - Mirrors the logic used in PrepareRedoAdd() for origin information handling
 - Used as part of the WAL record description infrastructure for two-phase transaction debugging
+
+## Simplified Source
+
+```c
+static void xact_desc_prepare(StringInfo buf, uint8 info, xl_xact_prepare *xlrec, RepOriginId origin_id) {
+    xl_xact_parsed_prepare parsed;
+
+    // Parse the prepare record into structured format
+    ParsePrepareRecord(info, xlrec, &parsed);
+
+    // Output global transaction ID and timestamp
+    appendStringInfo(buf, "gid %s: ", parsed.twophase_gid);
+    appendStringInfoString(buf, timestamptz_to_str(parsed.xact_time));
+
+    // Output relations for both commit and abort phases
+    xact_desc_relations(buf, "rels(commit)", parsed.nrels, parsed.xlocators);
+    xact_desc_relations(buf, "rels(abort)", parsed.nabortrels, parsed.abortlocators);
+
+    // Output statistics for both commit and abort phases
+    xact_desc_stats(buf, "commit ", parsed.nstats, parsed.stats);
+    xact_desc_stats(buf, "abort ", parsed.nabortstats, parsed.abortstats);
+
+    // Output subtransaction information
+    xact_desc_subxacts(buf, parsed.nsubxacts, parsed.subxacts);
+
+    // Output cache invalidation information
+    standby_desc_invalidations(buf, parsed.nmsgs, parsed.msgs, parsed.dbId,
+                              parsed.tsId, xlrec->initfileinval);
+
+    // Output replication origin information if valid
+    if (origin_id != InvalidRepOriginId)
+        appendStringInfo(buf, "; origin: node %u, lsn %X/%X, at %s",
+                        origin_id,
+                        LSN_FORMAT_ARGS(parsed.origin_lsn),
+                        timestamptz_to_str(parsed.origin_timestamp));
+}
+```

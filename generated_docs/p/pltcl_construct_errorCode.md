@@ -48,3 +48,104 @@ The errorCode structure enables PL/Tcl procedures to implement sophisticated err
 - Excludes cursorpos field in favor of internalpos for more relevant error positioning information
 - Provides complete error context for sophisticated error handling and debugging in PL/Tcl procedures
 - Sets the errorCode using Tcl_SetObjErrorCode to integrate with Tcl's standard error handling mechanisms
+
+## Simplified Source
+
+```c
+static void pltcl_construct_errorCode(Tcl_Interp *interp, ErrorData *edata) {
+    Tcl_Obj *obj = Tcl_NewObj();
+
+    // Build structured errorCode list with mandatory fields
+    Tcl_ListObjAppendElement(interp, obj, Tcl_NewStringObj("POSTGRES", -1));
+    Tcl_ListObjAppendElement(interp, obj, Tcl_NewStringObj(PG_VERSION, -1));
+    Tcl_ListObjAppendElement(interp, obj, Tcl_NewStringObj("SQLSTATE", -1));
+    Tcl_ListObjAppendElement(interp, obj,
+                            Tcl_NewStringObj(unpack_sql_state(edata->sqlerrcode), -1));
+    Tcl_ListObjAppendElement(interp, obj, Tcl_NewStringObj("condition", -1));
+    Tcl_ListObjAppendElement(interp, obj,
+                            Tcl_NewStringObj(pltcl_get_condition_name(edata->sqlerrcode), -1));
+    Tcl_ListObjAppendElement(interp, obj, Tcl_NewStringObj("message", -1));
+    UTF_BEGIN;
+    Tcl_ListObjAppendElement(interp, obj,
+                            Tcl_NewStringObj(UTF_E2U(edata->message), -1));
+    UTF_END;
+
+    // Add optional context fields when available
+    if (edata->detail) {
+        Tcl_ListObjAppendElement(interp, obj, Tcl_NewStringObj("detail", -1));
+        UTF_BEGIN;
+        Tcl_ListObjAppendElement(interp, obj,
+                                Tcl_NewStringObj(UTF_E2U(edata->detail), -1));
+        UTF_END;
+    }
+
+    if (edata->hint) {
+        Tcl_ListObjAppendElement(interp, obj, Tcl_NewStringObj("hint", -1));
+        UTF_BEGIN;
+        Tcl_ListObjAppendElement(interp, obj,
+                                Tcl_NewStringObj(UTF_E2U(edata->hint), -1));
+        UTF_END;
+    }
+
+    if (edata->context) {
+        Tcl_ListObjAppendElement(interp, obj, Tcl_NewStringObj("context", -1));
+        UTF_BEGIN;
+        Tcl_ListObjAppendElement(interp, obj,
+                                Tcl_NewStringObj(UTF_E2U(edata->context), -1));
+        UTF_END;
+    }
+
+    // Add schema/table/column information if available
+    if (edata->schema_name) {
+        Tcl_ListObjAppendElement(interp, obj, Tcl_NewStringObj("schema", -1));
+        UTF_BEGIN;
+        Tcl_ListObjAppendElement(interp, obj,
+                                Tcl_NewStringObj(UTF_E2U(edata->schema_name), -1));
+        UTF_END;
+    }
+
+    if (edata->table_name) {
+        Tcl_ListObjAppendElement(interp, obj, Tcl_NewStringObj("table", -1));
+        UTF_BEGIN;
+        Tcl_ListObjAppendElement(interp, obj,
+                                Tcl_NewStringObj(UTF_E2U(edata->table_name), -1));
+        UTF_END;
+    }
+
+    if (edata->column_name) {
+        Tcl_ListObjAppendElement(interp, obj, Tcl_NewStringObj("column", -1));
+        UTF_BEGIN;
+        Tcl_ListObjAppendElement(interp, obj,
+                                Tcl_NewStringObj(UTF_E2U(edata->column_name), -1));
+        UTF_END;
+    }
+
+    // Add constraint and source location information
+    if (edata->constraint_name) {
+        Tcl_ListObjAppendElement(interp, obj, Tcl_NewStringObj("constraint", -1));
+        UTF_BEGIN;
+        Tcl_ListObjAppendElement(interp, obj,
+                                Tcl_NewStringObj(UTF_E2U(edata->constraint_name), -1));
+        UTF_END;
+    }
+
+    if (edata->internalquery) {
+        Tcl_ListObjAppendElement(interp, obj, Tcl_NewStringObj("statement", -1));
+        UTF_BEGIN;
+        Tcl_ListObjAppendElement(interp, obj,
+                                Tcl_NewStringObj(UTF_E2U(edata->internalquery), -1));
+        UTF_END;
+    }
+
+    if (edata->funcname) {
+        Tcl_ListObjAppendElement(interp, obj, Tcl_NewStringObj("funcname", -1));
+        UTF_BEGIN;
+        Tcl_ListObjAppendElement(interp, obj,
+                                Tcl_NewStringObj(UTF_E2U(edata->funcname), -1));
+        UTF_END;
+    }
+
+    // Set the constructed errorCode in the interpreter
+    Tcl_SetObjErrorCode(interp, obj);
+}
+```

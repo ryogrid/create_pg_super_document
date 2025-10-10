@@ -44,3 +44,25 @@ The function intentionally uses a non-durable rename operation to avoid extra I/
 - Part of PostgreSQLs WAL archiving infrastructure that ensures reliable backup and recovery capabilities
 - The `.done` files serve as markers for the checkpoint process to know when cleanup is safe
 - Error handling is non-fatal - failures are logged but dont stop the archival process
+
+## Simplified Source
+
+```c
+static void pgarch_archiveDone(char *xlog) {
+    char rlogready[MAXPGPATH];
+    char rlogdone[MAXPGPATH];
+
+    // Build paths for .ready and .done status files
+    StatusFilePath(rlogready, xlog, ".ready");
+    StatusFilePath(rlogdone, xlog, ".done");
+
+    // Rename .ready to .done to mark archival complete
+    // Non-durable rename for performance - archive commands
+    // must handle re-archival gracefully
+    if (rename(rlogready, rlogdone) < 0)
+        ereport(WARNING,
+                (errcode_for_file_access(),
+                 errmsg("could not rename file \"%s\" to \"%s\": %m",
+                        rlogready, rlogdone)));
+}
+```

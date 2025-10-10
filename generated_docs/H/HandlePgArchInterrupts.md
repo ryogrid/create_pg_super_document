@@ -51,3 +51,44 @@ The function includes sophisticated logic for handling archive library changes, 
 - Memory management is careful to avoid leaks, using `pstrdup`/`pfree` for temporary string storage
 - Error handling includes both ERROR level (fatal) and LOG level (informational) messages as appropriate
 - The restart mechanism for archive library changes ensures proper cleanup through the modules shutdown callback
+
+## Simplified Source
+
+```c
+static void
+HandlePgArchInterrupts(void)
+{
+    // Handle process synchronization barriers
+    if (ProcSignalBarrierPending)
+        ProcessProcSignalBarrier();
+
+    // Handle memory context logging requests
+    if (LogMemoryContextPending)
+        ProcessLogMemoryContextInterrupt();
+
+    // Handle configuration reload (SIGHUP)
+    if (ConfigReloadPending)
+    {
+        char *old_archive_lib = pstrdup(XLogArchiveLibrary);
+
+        ConfigReloadPending = false;
+        ProcessConfigFile(PGC_SIGHUP);
+
+        // Validate that both archive_command and archive_library aren't set
+        if (XLogArchiveLibrary[0] != '\0' && XLogArchiveCommand[0] != '\0')
+            ereport(ERROR, "both archive_command and archive_library set");
+
+        // Check if archive library changed
+        bool lib_changed = strcmp(XLogArchiveLibrary, old_archive_lib) != 0;
+        pfree(old_archive_lib);
+
+        if (lib_changed)
+        {
+            // Restart archiver process to load new library
+            // (can't dynamically unload libraries in PostgreSQL)
+            ereport(LOG, "restarting archiver process due to archive_library change");
+            proc_exit(0);
+        }
+    }
+}
+```

@@ -40,3 +40,38 @@ This Windows-specific function is the counterpart to write_inheritable_socket().
 - Exits the process with error code 1 if socket creation fails, making this a critical operation
 - Part of the backend parameter restoration mechanism on Windows platforms
 - Essential for working around Windows LSP (Layered Service Provider) issues with socket inheritance
+
+## Simplified Source
+
+```c
+static void
+read_inheritable_socket(SOCKET *dest, InheritableSocket *src)
+{
+    SOCKET s;
+
+    // Handle invalid sockets directly
+    if (src->origsocket == PGINVALID_SOCKET || src->origsocket == 0) {
+        *dest = src->origsocket;
+        return;
+    }
+
+    // Recreate socket from protocol info
+    s = WSASocket(FROM_PROTOCOL_INFO,
+                  FROM_PROTOCOL_INFO,
+                  FROM_PROTOCOL_INFO,
+                  &src->wsainfo,
+                  0,
+                  0);
+
+    if (s == INVALID_SOCKET) {
+        write_stderr("could not create inherited socket: error code %d\n",
+                    WSAGetLastError());
+        exit(1);
+    }
+
+    *dest = s;
+
+    // Close original socket to prevent duplicate references
+    closesocket(src->origsocket);
+}
+```

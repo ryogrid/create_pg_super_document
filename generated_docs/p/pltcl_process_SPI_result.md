@@ -47,3 +47,83 @@ The function supports two modes of operation: simple variable setting (when no l
 - Returns TCL_OK on success, TCL_ERROR on failure, or TCL_RETURN if loop body returns
 - Located in src/pl/tcl/pltcl.c:2434-2546
 - Handles both single-tuple and multi-tuple result processing modes
+
+## Simplified Source
+
+```c
+static int pltcl_process_SPI_result(Tcl_Interp *interp, const char *arrayname,
+                                   Tcl_Obj *loop_body, int spi_rc,
+                                   SPITupleTable *tuptable, uint64 ntuples) {
+    int my_rc = TCL_OK;
+    HeapTuple *tuples;
+    TupleDesc tupdesc;
+
+    switch (spi_rc) {
+        // DML operations - return number of affected rows
+        case SPI_OK_SELINTO:
+        case SPI_OK_INSERT:
+        case SPI_OK_DELETE:
+        case SPI_OK_UPDATE:
+        case SPI_OK_MERGE:
+            Tcl_SetObjResult(interp, Tcl_NewWideIntObj(ntuples));
+            break;
+
+        // Utility commands
+        case SPI_OK_UTILITY:
+        case SPI_OK_REWRITTEN:
+            if (tuptable == NULL) {
+                Tcl_SetObjResult(interp, Tcl_NewIntObj(0));
+                break;
+            }
+            // Fall through for utilities returning tuples
+
+        // SELECT and RETURNING operations
+        case SPI_OK_SELECT:
+        case SPI_OK_INSERT_RETURNING:
+        case SPI_OK_DELETE_RETURNING:
+        case SPI_OK_UPDATE_RETURNING:
+        case SPI_OK_MERGE_RETURNING:
+            tuples = tuptable->vals;
+            tupdesc = tuptable->tupdesc;
+
+            if (loop_body == NULL) {
+                // Simple mode: set variables from first tuple only
+                if (ntuples > 0)
+                    pltcl_set_tuple_values(interp, arrayname, 0, tuples[0], tupdesc);
+            } else {
+                // Loop mode: process all tuples with loop body
+                for (uint64 i = 0; i < ntuples; i++) {
+                    pltcl_set_tuple_values(interp, arrayname, i, tuples[i], tupdesc);
+
+                    int loop_rc = Tcl_EvalObjEx(interp, loop_body, 0);
+
+                    // Handle Tcl control flow
+                    if (loop_rc == TCL_OK || loop_rc == TCL_CONTINUE)
+                        continue;
+                    if (loop_rc == TCL_RETURN) {
+                        my_rc = TCL_RETURN;
+                        break;
+                    }
+                    if (loop_rc == TCL_BREAK)
+                        break;
+
+                    my_rc = TCL_ERROR;
+                    break;
+                }
+            }
+
+            if (my_rc == TCL_OK)
+                Tcl_SetObjResult(interp, Tcl_NewWideIntObj(ntuples));
+            break;
+
+        default:
+            Tcl_AppendResult(interp, "pltcl: SPI_execute failed: ",
+                           SPI_result_code_string(spi_rc), NULL);
+            my_rc = TCL_ERROR;
+            break;
+    }
+
+    SPI_freetuptable(tuptable);
+    return my_rc;
+}
+```

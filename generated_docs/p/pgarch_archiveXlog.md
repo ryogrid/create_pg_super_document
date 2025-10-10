@@ -51,3 +51,72 @@ The function's sophisticated error handling prevents the archiver process from r
 - The error handling is designed to be more granular than the default PostgreSQL ERROR handling
 - Memory context switching ensures clean resource management during archival operations
 - Process status updates provide visibility into archiver activity for system monitoring
+
+## Simplified Source
+
+```c
+static bool pgarch_archiveXlog(char *xlog) {
+    sigjmp_buf local_sigjmp_buf;
+    MemoryContext oldcontext;
+    char pathname[MAXPGPATH];
+    char activitymsg[MAXFNAMELEN + 16];
+    bool ret;
+
+    // Build full pathname and update process status
+    snprintf(pathname, MAXPGPATH, XLOGDIR "/%s", xlog);
+    snprintf(activitymsg, sizeof(activitymsg), "archiving %s", xlog);
+    set_ps_display(activitymsg);
+
+    // Switch to archive memory context
+    oldcontext = MemoryContextSwitchTo(archive_context);
+
+    // Set up error handling to catch failures without restarting archiver
+    if (sigsetjmp(local_sigjmp_buf, 1) != 0) {
+        // Error occurred - cleanup and return failure
+        error_context_stack = NULL;
+        HOLD_INTERRUPTS();
+
+        // Log the error
+        EmitErrorReport();
+
+        // Comprehensive cleanup of PostgreSQL subsystems
+        disable_all_timeouts(false);
+        LWLockReleaseAll();
+        ConditionVariableCancelSleep();
+        pgstat_report_wait_end();
+        ReleaseAuxProcessResources(false);
+        AtEOXact_Files(false);
+        AtEOXact_HashTables(false);
+
+        // Restore memory context and clear error state
+        MemoryContextSwitchTo(oldcontext);
+        FlushErrorState();
+        MemoryContextReset(archive_context);
+
+        PG_exception_stack = NULL;
+        RESUME_INTERRUPTS();
+
+        ret = false;
+    } else {
+        // Normal path - attempt archival
+        PG_exception_stack = &local_sigjmp_buf;
+
+        // Call the archive module to do the actual work
+        ret = ArchiveCallbacks->archive_file_cb(archive_module_state, xlog, pathname);
+
+        // Cleanup
+        PG_exception_stack = NULL;
+        MemoryContextSwitchTo(oldcontext);
+        MemoryContextReset(archive_context);
+    }
+
+    // Update process status with result
+    if (ret)
+        snprintf(activitymsg, sizeof(activitymsg), "last was %s", xlog);
+    else
+        snprintf(activitymsg, sizeof(activitymsg), "failed on %s", xlog);
+    set_ps_display(activitymsg);
+
+    return ret;
+}
+```

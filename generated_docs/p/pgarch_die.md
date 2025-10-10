@@ -39,3 +39,12 @@ This cleanup is essential for maintaining the integrity of PostgreSQLs process m
 - This function is typically registered as an `on_shmem_exit` callback to ensure it runs during process termination
 - Proper cleanup prevents resource leaks and ensures the archiver slot can be reused by future archiver processes
 - The function is designed to be safe to call multiple times or in various exit scenarios
+
+## Simplified Source
+
+```c
+static void pgarch_die(int code, Datum arg) {
+    // Mark archiver process slot as invalid on exit
+    PgArch->pgprocno = INVALID_PROC_NUMBER;
+}
+```

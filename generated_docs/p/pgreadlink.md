@@ -54,3 +54,99 @@ The implementation includes comprehensive error handling with detailed error rep
 - Uses  to open the reparse point itself rather than following it
 - The function performs Unicode conversion to ensure proper handling of international characters in paths
 - Complements  by providing the inverse operation for junction point introspection
+
+## Simplified Source
+
+```c
+int
+pgreadlink(const char *path, char *buf, size_t size)
+{
+    DWORD attr;
+    HANDLE h;
+    char buffer[MAX_PATH * sizeof(WCHAR) + offsetof(REPARSE_JUNCTION_DATA_BUFFER, PathBuffer)];
+    REPARSE_JUNCTION_DATA_BUFFER *reparseBuf = (REPARSE_JUNCTION_DATA_BUFFER *) buffer;
+    DWORD len;
+    int r;
+
+    // Check if path exists and is a reparse point
+    attr = GetFileAttributes(path);
+    if (attr == INVALID_FILE_ATTRIBUTES)
+    {
+        _dosmaperr(GetLastError());
+        return -1;
+    }
+    if ((attr & FILE_ATTRIBUTE_REPARSE_POINT) == 0)
+    {
+        errno = EINVAL;
+        return -1;
+    }
+
+    // Open the reparse point for reading
+    h = CreateFile(path, GENERIC_READ,
+                   FILE_SHARE_READ | FILE_SHARE_WRITE, NULL,
+                   OPEN_EXISTING,
+                   FILE_FLAG_OPEN_REPARSE_POINT | FILE_FLAG_BACKUP_SEMANTICS, 0);
+    if (h == INVALID_HANDLE_VALUE)
+    {
+        _dosmaperr(GetLastError());
+        return -1;
+    }
+
+    // Get reparse point data
+    if (!DeviceIoControl(h, FSCTL_GET_REPARSE_POINT,
+                         NULL, 0, (LPVOID) reparseBuf,
+                         sizeof(buffer), &len, NULL))
+    {
+        // Error handling with formatted message
+        LPSTR msg;
+        FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER |
+                      FORMAT_MESSAGE_FROM_SYSTEM,
+                      NULL, GetLastError(),
+                      MAKELANGID(LANG_ENGLISH, SUBLANG_DEFAULT),
+                      (LPSTR) &msg, 0, NULL);
+
+#ifndef FRONTEND
+        ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("could not get junction for \"%s\": %s", path, msg)));
+#else
+        fprintf(stderr, _("could not get junction for \"%s\": %s\n"), path, msg);
+#endif
+        LocalFree(msg);
+        CloseHandle(h);
+        errno = EINVAL;
+        return -1;
+    }
+    CloseHandle(h);
+
+    // Verify this is a mount point junction
+    if (reparseBuf->ReparseTag != IO_REPARSE_TAG_MOUNT_POINT)
+    {
+        errno = EINVAL;
+        return -1;
+    }
+
+    // Convert Unicode path to multi-byte
+    r = WideCharToMultiByte(CP_ACP, 0, reparseBuf->PathBuffer, -1,
+                            buf, size, NULL, NULL);
+    if (r <= 0)
+    {
+        errno = EINVAL;
+        return -1;
+    }
+
+    // r includes null terminator, subtract it
+    r -= 1;
+
+    // Strip \\?\\ prefix from drive-absolute paths (C:\path)
+    // This undoes pgsymlink() transformation for user-friendly output
+    if (r >= 7 &&
+        buf[0] == '\\' && buf[1] == '?' && buf[2] == '?' && buf[3] == '\\' &&
+        isalpha(buf[4]) && buf[5] == ':' && buf[6] == '\\')
+    {
+        memmove(buf, buf + 4, strlen(buf + 4) + 1);
+        r -= 4;
+    }
+
+    return r;  // Length of target path
+}
+```

@@ -34,3 +34,16 @@ The function is designed to be called by external code (outside of snapbuild.c) 
 - This function acts as a state-based dispatcher, making the decision between restoration and serialization transparent to the caller
 - The SNAPBUILD_CONSISTENT state serves as the threshold: before this state, snapshots are restored; at or after this state, snapshots are serialized
 - Intended for use by logical decoding infrastructure when processing WAL records that may contain snapshot serialization points
+
+## Simplified Source
+
+```c
+void SnapBuildSerializationPoint(SnapBuild *builder, XLogRecPtr lsn)
+{
+    // Decide whether to restore or serialize based on builder state
+    if (builder->state < SNAPBUILD_CONSISTENT)
+        SnapBuildRestore(builder, lsn);
+    else
+        SnapBuildSerialize(builder, lsn);
+}
+```

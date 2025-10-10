@@ -41,3 +41,44 @@ The loop continues until either the postmaster dies or a graceful shutdown is re
 - Uses a 60-second emergency timeout after SIGTERM to prevent the archiver from hanging indefinitely
 - The loop structure ensures at least one final archiving cycle is performed during graceful shutdown
 - Relies on WaitLatch for efficient event-driven operation with periodic fallback polling
+
+## Simplified Source
+
+```c
+static void pgarch_MainLoop(void) {
+    bool time_to_stop;
+
+    do {
+        ResetLatch(MyLatch);
+
+        // Check if graceful shutdown was requested
+        time_to_stop = ready_to_stop;
+
+        // Handle interrupts and config updates
+        HandlePgArchInterrupts();
+
+        // Handle SIGTERM with 60-second timeout
+        if (ShutdownRequestPending) {
+            time_t curtime = time(NULL);
+            if (last_sigterm_time == 0)
+                last_sigterm_time = curtime;
+            else if ((curtime - last_sigterm_time) >= 60)
+                break;  // Emergency exit after 60 seconds
+        }
+
+        // Perform archiving work
+        pgarch_ArchiverCopyLoop();
+
+        // Wait for signals or timeout (60 seconds)
+        if (!time_to_stop) {
+            int rc = WaitLatch(MyLatch,
+                              WL_LATCH_SET | WL_TIMEOUT | WL_POSTMASTER_DEATH,
+                              PGARCH_AUTOWAKE_INTERVAL * 1000L,
+                              WAIT_EVENT_ARCHIVER_MAIN);
+            if (rc & WL_POSTMASTER_DEATH)
+                time_to_stop = true;
+        }
+
+    } while (!time_to_stop);
+}
+```

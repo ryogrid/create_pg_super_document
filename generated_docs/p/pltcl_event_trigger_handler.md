@@ -40,3 +40,55 @@ The handler follows PostgreSQL's event trigger protocol by connecting to the SPI
 - Uses TCL_EVAL_DIRECT and TCL_EVAL_GLOBAL flags for optimal Tcl command execution
 - Properly handles SPI connection lifecycle with error checking on both connect and finish operations
 - Event trigger data is extracted from fcinfo->context as EventTriggerData structure
+
+## Simplified Source
+
+```c
+static void
+pltcl_event_trigger_handler(PG_FUNCTION_ARGS, pltcl_call_state *call_state, bool pltrusted)
+{
+    pltcl_proc_desc *prodesc;
+    Tcl_Interp *interp;
+    EventTriggerData *tdata = (EventTriggerData *) fcinfo->context;
+    Tcl_Obj *tcl_cmd;
+    int tcl_rc;
+
+    // Connect to SPI
+    if (SPI_connect() != SPI_OK_CONNECT)
+        elog(ERROR, "could not connect to SPI manager");
+
+    // Find or compile the event trigger function
+    prodesc = compile_pltcl_function(fcinfo->flinfo->fn_oid, InvalidOid, true, pltrusted);
+    call_state->prodesc = prodesc;
+    prodesc->fn_refcount++;
+    interp = prodesc->interp_desc->interp;
+
+    // Create and execute Tcl command with event context
+    tcl_cmd = Tcl_NewObj();
+    Tcl_IncrRefCount(tcl_cmd);
+
+    // Add procedure name
+    Tcl_ListObjAppendElement(NULL, tcl_cmd,
+                            Tcl_NewStringObj(prodesc->internal_proname, -1));
+
+    // Add event name
+    Tcl_ListObjAppendElement(NULL, tcl_cmd,
+                            Tcl_NewStringObj(utf_e2u(tdata->event), -1));
+
+    // Add command tag
+    Tcl_ListObjAppendElement(NULL, tcl_cmd,
+                            Tcl_NewStringObj(utf_e2u(GetCommandTagName(tdata->tag)), -1));
+
+    // Execute the Tcl event trigger function
+    tcl_rc = Tcl_EvalObjEx(interp, tcl_cmd, (TCL_EVAL_DIRECT | TCL_EVAL_GLOBAL));
+    Tcl_DecrRefCount(tcl_cmd);
+
+    // Check for errors
+    if (tcl_rc != TCL_OK)
+        throw_tcl_error(interp, prodesc->user_proname);
+
+    // Clean up SPI connection
+    if (SPI_finish() != SPI_OK_FINISH)
+        elog(ERROR, "SPI_finish() failed");
+}
+```

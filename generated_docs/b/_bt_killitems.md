@@ -47,3 +47,122 @@ This function implements the "kill tuple" optimization for B-tree indexes, which
 - Only marks items as dead if they aren't already marked, avoiding redundant WAL logging
 - Part of PostgreSQL's B-tree maintenance and optimization system
 - Located in src/backend/access/nbtree/nbtutils.c:4171-4366
+
+## Simplified Source
+
+```c
+void
+_bt_killitems(IndexScanDesc scan)
+{
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+    Page page;
+    BTPageOpaque opaque;
+    OffsetNumber minoff, maxoff;
+    int i, numKilled = so->numKilled;
+    bool killedsomething = false;
+    bool droppedpin;
+    Buffer buf;
+
+    // Reset scan state
+    so->numKilled = 0;
+
+    // Get and lock the page
+    if (BTScanPosIsPinned(so->currPos))
+    {
+        // Page still pinned - just lock it
+        droppedpin = false;
+        buf = so->currPos.buf;
+        _bt_lockbuf(scan->indexRelation, buf, BT_READ);
+    }
+    else
+    {
+        // Re-read page and verify it hasn't been modified
+        droppedpin = true;
+        buf = _bt_getbuf(scan->indexRelation, so->currPos.currPage, BT_READ);
+
+        XLogRecPtr latestlsn = BufferGetLSNAtomic(buf);
+        if (so->currPos.lsn != latestlsn)
+        {
+            // Page modified while unpinned - unsafe to kill items
+            _bt_relbuf(scan->indexRelation, buf);
+            return;
+        }
+    }
+
+    page = BufferGetPage(buf);
+    opaque = BTPageGetOpaque(page);
+    minoff = P_FIRSTDATAKEY(opaque);
+    maxoff = PageGetMaxOffsetNumber(page);
+
+    // Process each killed item
+    for (i = 0; i < numKilled; i++)
+    {
+        int itemIndex = so->killedItems[i];
+        BTScanPosItem *kitem = &so->currPos.items[itemIndex];
+        OffsetNumber offnum = kitem->indexOffset;
+
+        if (offnum < minoff)
+            continue;
+
+        // Search for matching tuple by heap TID
+        while (offnum <= maxoff)
+        {
+            ItemId iid = PageGetItemId(page, offnum);
+            IndexTuple ituple = (IndexTuple) PageGetItem(page, iid);
+            bool killtuple = false;
+
+            if (BTreeTupleIsPosting(ituple))
+            {
+                // Handle posting list tuples (multiple heap TIDs)
+                int nposting = BTreeTupleGetNPosting(ituple);
+                int j;
+
+                for (j = 0; j < nposting; j++)
+                {
+                    ItemPointer item = BTreeTupleGetPostingN(ituple, j);
+                    if (!ItemPointerEquals(item, &kitem->heapTid))
+                        break;
+
+                    // Advance to next killed item if available
+                    if (i + 1 < numKilled)
+                    {
+                        i++;
+                        kitem = &so->currPos.items[so->killedItems[i]];
+                    }
+                }
+
+                // Kill tuple if all heap TIDs matched
+                if (j == nposting)
+                    killtuple = true;
+            }
+            else if (ItemPointerEquals(&ituple->t_tid, &kitem->heapTid))
+            {
+                // Regular tuple with matching heap TID
+                killtuple = true;
+            }
+
+            // Mark item as dead if not already dead
+            if (killtuple && !ItemIdIsDead(iid))
+            {
+                ItemIdMarkDead(iid);
+                killedsomething = true;
+                break;
+            }
+            offnum = OffsetNumberNext(offnum);
+        }
+    }
+
+    // Set page-level garbage flag and mark buffer dirty
+    if (killedsomething)
+    {
+        opaque->btpo_flags |= BTP_HAS_GARBAGE;
+        MarkBufferDirtyHint(buf, true);
+    }
+
+    // Release lock/buffer
+    if (!droppedpin)
+        _bt_unlockbuf(scan->indexRelation, buf);
+    else
+        _bt_relbuf(scan->indexRelation, buf);
+}
+```

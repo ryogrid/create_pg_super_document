@@ -66,3 +66,238 @@ The function ensures atomicity through critical sections and handles complex sce
 - Includes extensive error handling with proper cleanup of allocated resources
 - The function is static and only used within the nbtinsert.c module
 - Maintains B-tree invariants including page ordering and key distribution
+
+## Simplified Source
+
+```c
+static Buffer
+_bt_split(Relation rel, Relation heaprel, BTScanInsert itup_key, Buffer buf,
+          Buffer cbuf, OffsetNumber newitemoff, Size newitemsz, IndexTuple newitem,
+          IndexTuple orignewitem, IndexTuple nposting, uint16 postingoff)
+{
+    Page origpage = BufferGetPage(buf);
+    BTPageOpaque oopaque = BTPageGetOpaque(origpage);
+    bool isleaf = P_ISLEAF(oopaque);
+    bool isrightmost = P_RIGHTMOST(oopaque);
+    OffsetNumber maxoff = PageGetMaxOffsetNumber(origpage);
+    BlockNumber origpagenumber = BufferGetBlockNumber(buf);
+
+    // Choose split point using findsplitloc
+    bool newitemonleft;
+    OffsetNumber firstrightoff = _bt_findsplitloc(rel, origpage, newitemoff,
+                                                 newitemsz, newitem, &newitemonleft);
+
+    // Create temporary left page
+    Page leftpage = PageGetTempPage(origpage);
+    _bt_pageinit(leftpage, BufferGetPageSize(buf));
+    BTPageOpaque lopaque = BTPageGetOpaque(leftpage);
+
+    // Set up left page properties
+    lopaque->btpo_flags = oopaque->btpo_flags;
+    lopaque->btpo_flags &= ~(BTP_ROOT | BTP_SPLIT_END | BTP_HAS_GARBAGE);
+    lopaque->btpo_flags |= BTP_INCOMPLETE_SPLIT;
+    lopaque->btpo_prev = oopaque->btpo_prev;
+    lopaque->btpo_level = oopaque->btpo_level;
+    PageSetLSN(leftpage, PageGetLSN(origpage));
+
+    // Determine firstright tuple and create high key
+    IndexTuple firstright, lefthighkey;
+    Size itemsz;
+
+    if (!newitemonleft && newitemoff == firstrightoff) {
+        firstright = newitem;
+        itemsz = newitemsz;
+    } else {
+        ItemId itemid = PageGetItemId(origpage, firstrightoff);
+        firstright = (IndexTuple) PageGetItem(origpage, itemid);
+        itemsz = ItemIdGetLength(itemid);
+    }
+
+    // Create high key for left page
+    if (isleaf) {
+        // For leaf pages, attempt suffix truncation
+        IndexTuple lastleft;
+        if (newitemonleft && newitemoff == firstrightoff) {
+            lastleft = newitem;
+        } else {
+            OffsetNumber lastleftoff = OffsetNumberPrev(firstrightoff);
+            ItemId itemid = PageGetItemId(origpage, lastleftoff);
+            lastleft = (IndexTuple) PageGetItem(origpage, itemid);
+        }
+        lefthighkey = _bt_truncate(rel, lastleft, firstright, itup_key);
+    } else {
+        // For internal pages, use firstright directly (no truncation)
+        lefthighkey = firstright;
+    }
+
+    // Add high key to left page
+    if (PageAddItem(leftpage, (Item) lefthighkey, MAXALIGN(IndexTupleSize(lefthighkey)),
+                    P_HIKEY, false, false) == InvalidOffsetNumber)
+        elog(ERROR, "failed to add high key to left sibling");
+
+    // Allocate new right page
+    Buffer rbuf = _bt_allocbuf(rel, heaprel);
+    Page rightpage = BufferGetPage(rbuf);
+    BlockNumber rightpagenumber = BufferGetBlockNumber(rbuf);
+    BTPageOpaque ropaque = BTPageGetOpaque(rightpage);
+
+    // Set up right page properties
+    ropaque->btpo_flags = oopaque->btpo_flags;
+    ropaque->btpo_flags &= ~(BTP_ROOT | BTP_SPLIT_END | BTP_HAS_GARBAGE);
+    ropaque->btpo_prev = origpagenumber;
+    ropaque->btpo_next = oopaque->btpo_next;
+    ropaque->btpo_level = oopaque->btpo_level;
+    ropaque->btpo_cycleid = _bt_vacuum_cycleid(rel);
+
+    // Update left page next pointer
+    lopaque->btpo_next = rightpagenumber;
+    lopaque->btpo_cycleid = ropaque->btpo_cycleid;
+
+    // Add high key to right page if not rightmost
+    OffsetNumber afterrightoff = P_HIKEY;
+    if (!isrightmost) {
+        ItemId itemid = PageGetItemId(origpage, P_HIKEY);
+        IndexTuple righthighkey = (IndexTuple) PageGetItem(origpage, itemid);
+        if (PageAddItem(rightpage, (Item) righthighkey, ItemIdGetLength(itemid),
+                        afterrightoff, false, false) == InvalidOffsetNumber) {
+            memset(rightpage, 0, BufferGetPageSize(rbuf));
+            elog(ERROR, "failed to add high key to right sibling");
+        }
+        afterrightoff = OffsetNumberNext(afterrightoff);
+    }
+
+    // Distribute tuples between left and right pages
+    OffsetNumber afterleftoff = OffsetNumberNext(P_HIKEY);
+    OffsetNumber minusinfoff = (!isleaf) ? afterrightoff : InvalidOffsetNumber;
+
+    for (OffsetNumber i = P_FIRSTDATAKEY(oopaque); i <= maxoff; i = OffsetNumberNext(i)) {
+        ItemId itemid = PageGetItemId(origpage, i);
+        IndexTuple dataitem = (IndexTuple) PageGetItem(origpage, itemid);
+        Size itemsz = ItemIdGetLength(itemid);
+
+        // Handle posting list replacement if needed
+        if (postingoff != 0 && i == OffsetNumberPrev(newitemoff))
+            dataitem = nposting;
+
+        // Insert newitem if this is its position
+        if (i == newitemoff) {
+            if (newitemonleft) {
+                _bt_pgaddtup(leftpage, newitemsz, newitem, afterleftoff, false);
+                afterleftoff = OffsetNumberNext(afterleftoff);
+            } else {
+                _bt_pgaddtup(rightpage, newitemsz, newitem, afterrightoff,
+                            afterrightoff == minusinfoff);
+                afterrightoff = OffsetNumberNext(afterrightoff);
+            }
+        }
+
+        // Distribute existing tuple
+        if (i < firstrightoff) {
+            _bt_pgaddtup(leftpage, itemsz, dataitem, afterleftoff, false);
+            afterleftoff = OffsetNumberNext(afterleftoff);
+        } else {
+            _bt_pgaddtup(rightpage, itemsz, dataitem, afterrightoff,
+                        afterrightoff == minusinfoff);
+            afterrightoff = OffsetNumberNext(afterrightoff);
+        }
+    }
+
+    // Handle newitem at end of page
+    if (newitemoff > maxoff) {
+        _bt_pgaddtup(rightpage, newitemsz, newitem, afterrightoff,
+                    afterrightoff == minusinfoff);
+    }
+
+    // Update sibling links
+    Buffer sbuf = InvalidBuffer;
+    if (!isrightmost) {
+        sbuf = _bt_getbuf(rel, oopaque->btpo_next, BT_WRITE);
+        Page spage = BufferGetPage(sbuf);
+        BTPageOpaque sopaque = BTPageGetOpaque(spage);
+
+        if (sopaque->btpo_prev != origpagenumber) {
+            memset(rightpage, 0, BufferGetPageSize(rbuf));
+            ereport(ERROR, (errcode(ERRCODE_INDEX_CORRUPTED),
+                   errmsg_internal("right sibling's left-link doesn't match")));
+        }
+
+        // Set SPLIT_END flag if appropriate
+        if (sopaque->btpo_cycleid != ropaque->btpo_cycleid)
+            ropaque->btpo_flags |= BTP_SPLIT_END;
+    }
+
+    // Apply changes atomically
+    START_CRIT_SECTION();
+
+    // Copy left page back to original buffer
+    PageRestoreTempPage(leftpage, origpage);
+    MarkBufferDirty(buf);
+    MarkBufferDirty(rbuf);
+
+    // Update sibling pointer
+    if (!isrightmost) {
+        BTPageOpaque sopaque = BTPageGetOpaque(BufferGetPage(sbuf));
+        sopaque->btpo_prev = rightpagenumber;
+        MarkBufferDirty(sbuf);
+    }
+
+    // Clear INCOMPLETE_SPLIT on child if needed
+    if (!isleaf) {
+        Page cpage = BufferGetPage(cbuf);
+        BTPageOpaque cpageop = BTPageGetOpaque(cpage);
+        cpageop->btpo_flags &= ~BTP_INCOMPLETE_SPLIT;
+        MarkBufferDirty(cbuf);
+    }
+
+    // WAL logging
+    if (RelationNeedsWAL(rel)) {
+        xl_btree_split xlrec;
+        xlrec.level = ropaque->btpo_level;
+        xlrec.firstrightoff = firstrightoff;
+        xlrec.newitemoff = newitemoff;
+        xlrec.postingoff = (postingoff != 0) ? postingoff : 0;
+
+        XLogBeginInsert();
+        XLogRegisterData((char *) &xlrec, SizeOfBtreeSplit);
+        XLogRegisterBuffer(0, buf, REGBUF_STANDARD);
+        XLogRegisterBuffer(1, rbuf, REGBUF_WILL_INIT);
+
+        if (!isrightmost)
+            XLogRegisterBuffer(2, sbuf, REGBUF_STANDARD);
+        if (!isleaf)
+            XLogRegisterBuffer(3, cbuf, REGBUF_STANDARD);
+
+        // Log items as needed
+        if (newitemonleft && xlrec.postingoff == 0)
+            XLogRegisterBufData(0, (char *) newitem, newitemsz);
+        else if (xlrec.postingoff != 0)
+            XLogRegisterBufData(0, (char *) orignewitem, newitemsz);
+
+        XLogRegisterBufData(0, (char *) lefthighkey, MAXALIGN(IndexTupleSize(lefthighkey)));
+        XLogRegisterBufData(1, (char *) rightpage + ((PageHeader) rightpage)->pd_upper,
+                           ((PageHeader) rightpage)->pd_special - ((PageHeader) rightpage)->pd_upper);
+
+        uint8 xlinfo = newitemonleft ? XLOG_BTREE_SPLIT_L : XLOG_BTREE_SPLIT_R;
+        XLogRecPtr recptr = XLogInsert(RM_BTREE_ID, xlinfo);
+
+        PageSetLSN(origpage, recptr);
+        PageSetLSN(rightpage, recptr);
+        if (!isrightmost)
+            PageSetLSN(BufferGetPage(sbuf), recptr);
+        if (!isleaf)
+            PageSetLSN(BufferGetPage(cbuf), recptr);
+    }
+
+    END_CRIT_SECTION();
+
+    // Clean up
+    if (!isrightmost)
+        _bt_relbuf(rel, sbuf);
+    if (!isleaf)
+        _bt_relbuf(rel, cbuf);
+    if (isleaf)
+        pfree(lefthighkey);
+
+    return rbuf;
+}
+```

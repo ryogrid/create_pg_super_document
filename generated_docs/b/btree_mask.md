@@ -46,3 +46,31 @@ The function performs several masking operations:
 - The BTP_HAS_GARBAGE flag masking is important because garbage collection hints are not logged and can differ between servers
 - During btree page splits, the BTP_SPLIT_END flag and cycle_id handling differs between normal operation and WAL replay, necessitating their masking
 - Located in src/backend/access/nbtree/nbtxlog.c:1091-1127
+
+## Simplified Source
+
+```c
+void
+btree_mask(char *pagedata, BlockNumber blkno)
+{
+    Page page = (Page) pagedata;
+    BTPageOpaque maskopaq;
+
+    // Standard page masking for LSN, checksum, hints, and unused space
+    mask_page_lsn_and_checksum(page);
+    mask_page_hint_bits(page);
+    mask_unused_space(page);
+
+    maskopaq = BTPageGetOpaque(page);
+
+    // For leaf pages, mask line pointer flags that can change without WAL
+    if (P_ISLEAF(maskopaq)) {
+        mask_lp_flags(page);
+    }
+
+    // Mask un-logged hint bits that can differ between primary/standby
+    maskopaq->btpo_flags &= ~BTP_HAS_GARBAGE;   // Garbage collection hint
+    maskopaq->btpo_flags &= ~BTP_SPLIT_END;     // Split completion flag
+    maskopaq->btpo_cycleid = 0;                 // Reset cycle ID
+}
+```

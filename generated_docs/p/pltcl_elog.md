@@ -50,3 +50,72 @@ When ereport itself fails (which is rare), the function catches the PostgreSQL e
 - Supports UTF-8 encoding conversion in both directions (Tcl to PostgreSQL and vice versa)
 - FATAL errors are handled normally through ereport but will not return control to the Tcl interpreter
 - Requires exactly 2 arguments (priority and message) and validates argument count with proper Tcl error reporting
+
+## Simplified Source
+
+```c
+static int pltcl_elog(ClientData cdata, Tcl_Interp *interp,
+                      int objc, Tcl_Obj *const objv[]) {
+    volatile int level;
+    int priIndex;
+
+    // Map Tcl priority strings to PostgreSQL log levels
+    static const char *logpriorities[] = {
+        "DEBUG", "LOG", "INFO", "NOTICE",
+        "WARNING", "ERROR", "FATAL", NULL
+    };
+
+    static const int loglevels[] = {
+        DEBUG2, LOG, INFO, NOTICE,
+        WARNING, ERROR, FATAL
+    };
+
+    // Validate argument count
+    if (objc != 3) {
+        Tcl_WrongNumArgs(interp, 1, objv, "level msg");
+        return TCL_ERROR;
+    }
+
+    // Look up priority level
+    if (Tcl_GetIndexFromObj(interp, objv[1], logpriorities, "priority",
+                           TCL_EXACT, &priIndex) != TCL_OK)
+        return TCL_ERROR;
+
+    level = loglevels[priIndex];
+
+    // Handle ERROR level specially - return to Tcl for error handling
+    if (level == ERROR) {
+        Tcl_SetObjResult(interp, objv[2]);
+        return TCL_ERROR;
+    }
+
+    // For other levels, report through PostgreSQL ereport
+    MemoryContext oldcontext = CurrentMemoryContext;
+    PG_TRY();
+    {
+        UTF_BEGIN;
+        ereport(level,
+                (errcode(ERRCODE_EXTERNAL_ROUTINE_EXCEPTION),
+                 errmsg("%s", UTF_U2E(Tcl_GetString(objv[2])))));
+        UTF_END;
+    }
+    PG_CATCH();
+    {
+        // Handle ereport failure by constructing Tcl error
+        ErrorData *edata;
+        MemoryContextSwitchTo(oldcontext);
+        edata = CopyErrorData();
+        FlushErrorState();
+
+        pltcl_construct_errorCode(interp, edata);
+        UTF_BEGIN;
+        Tcl_SetObjResult(interp, Tcl_NewStringObj(UTF_E2U(edata->message), -1));
+        UTF_END;
+        FreeErrorData(edata);
+        return TCL_ERROR;
+    }
+    PG_END_TRY();
+
+    return TCL_OK;
+}
+```

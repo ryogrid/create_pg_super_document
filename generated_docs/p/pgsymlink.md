@@ -50,3 +50,94 @@ The implementation uses low-level Win32 APIs including  with reparse point flags
 - Junction points created by this function can be removed using  or the  function
 - The path conversion ensures compatibility with Win32 native path format requirements
 - Reference implementation details are available at: http://www.codeproject.com/KB/winsdk/junctionpoints.aspx
+
+## Simplified Source
+
+```c
+int
+pgsymlink(const char *oldpath, const char *newpath)
+{
+    HANDLE dirhandle;
+    DWORD len;
+    char buffer[MAX_PATH * sizeof(WCHAR) + offsetof(REPARSE_JUNCTION_DATA_BUFFER, PathBuffer)];
+    char nativeTarget[MAX_PATH];
+    char *p = nativeTarget;
+    REPARSE_JUNCTION_DATA_BUFFER *reparseBuf = (REPARSE_JUNCTION_DATA_BUFFER *) buffer;
+
+    // Create directory for junction point
+    CreateDirectory(newpath, 0);
+    dirhandle = CreateFile(newpath, GENERIC_READ | GENERIC_WRITE,
+                           0, 0, OPEN_EXISTING,
+                           FILE_FLAG_OPEN_REPARSE_POINT | FILE_FLAG_BACKUP_SEMANTICS, 0);
+
+    if (dirhandle == INVALID_HANDLE_VALUE)
+    {
+        _dosmaperr(GetLastError());
+        return -1;
+    }
+
+    // Convert path to native Win32 format with \\?\\ prefix
+    if (memcmp("\\\\?\\", oldpath, 4) != 0)
+        snprintf(nativeTarget, sizeof(nativeTarget), "\\\\?\\%s", oldpath);
+    else
+        strlcpy(nativeTarget, oldpath, sizeof(nativeTarget));
+
+    // Convert forward slashes to backslashes
+    while ((p = strchr(p, '/')) != NULL)
+        *p++ = '\\';
+
+    // Set up reparse point data structure
+    len = strlen(nativeTarget) * sizeof(WCHAR);
+    reparseBuf->ReparseTag = IO_REPARSE_TAG_MOUNT_POINT;
+    reparseBuf->ReparseDataLength = len + 12;
+    reparseBuf->Reserved = 0;
+    reparseBuf->SubstituteNameOffset = 0;
+    reparseBuf->SubstituteNameLength = len;
+    reparseBuf->PrintNameOffset = len + sizeof(WCHAR);
+    reparseBuf->PrintNameLength = 0;
+
+    // Convert to wide character string
+    MultiByteToWideChar(CP_ACP, 0, nativeTarget, -1,
+                        reparseBuf->PathBuffer, MAX_PATH);
+
+    // Create the junction point via device control
+    if (!DeviceIoControl(dirhandle,
+                         CTL_CODE(FILE_DEVICE_FILE_SYSTEM, 41, METHOD_BUFFERED, FILE_ANY_ACCESS),
+                         reparseBuf,
+                         reparseBuf->ReparseDataLength + REPARSE_JUNCTION_DATA_BUFFER_HEADER_SIZE,
+                         0, 0, &len, 0))
+    {
+        // Error handling and cleanup
+        _dosmaperr(GetLastError());
+        int save_errno = errno;
+
+        // Report error with formatted message
+        LPSTR msg;
+        FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER |
+                      FORMAT_MESSAGE_FROM_SYSTEM,
+                      NULL, GetLastError(),
+                      MAKELANGID(LANG_ENGLISH, SUBLANG_DEFAULT),
+                      (LPSTR) &msg, 0, NULL);
+
+        // Backend vs frontend error reporting
+#ifndef FRONTEND
+        ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("could not set junction for \"%s\": %s",
+                             nativeTarget, msg)));
+#else
+        fprintf(stderr, _("could not set junction for \"%s\": %s\n"),
+                nativeTarget, msg);
+#endif
+        LocalFree(msg);
+
+        // Clean up on failure
+        CloseHandle(dirhandle);
+        RemoveDirectory(newpath);
+        errno = save_errno;
+        return -1;
+    }
+
+    CloseHandle(dirhandle);
+    return 0;  // Success
+}
+```

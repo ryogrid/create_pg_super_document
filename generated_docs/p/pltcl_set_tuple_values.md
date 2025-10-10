@@ -50,3 +50,75 @@ pltcl_set_tuple_values extracts all column values from a PostgreSQL tuple and cr
 - Sets ".tupno" element when in array mode to track tuple numbers
 - Part of the result processing mechanism in PL/Tcl
 - Enables seamless access to PostgreSQL tuple data from Tcl code
+
+## Simplified Source
+
+```c
+static void
+pltcl_set_tuple_values(Tcl_Interp *interp, const char *arrayname,
+                       uint64 tupno, HeapTuple tuple, TupleDesc tupdesc)
+{
+    int i;
+    char *outputstr;
+    Datum attr;
+    bool isnull;
+    const char *attname;
+    Oid typoutput;
+    bool typisvarlena;
+    const char **arrptr;
+    const char **nameptr;
+    const char *nullname = NULL;
+
+    // Set up pointers for variable/array access
+    if (arrayname == NULL)
+    {
+        // Individual variable mode
+        arrptr = &attname;
+        nameptr = &nullname;
+    }
+    else
+    {
+        // Array mode - set tupno element
+        arrptr = &arrayname;
+        nameptr = &attname;
+        Tcl_SetVar2Ex(interp, arrayname, ".tupno", Tcl_NewWideIntObj(tupno), 0);
+    }
+
+    // Process each attribute in the tuple
+    for (i = 0; i < tupdesc->natts; i++)
+    {
+        Form_pg_attribute att = TupleDescAttr(tupdesc, i);
+
+        // Skip dropped attributes
+        if (att->attisdropped)
+            continue;
+
+        // Get attribute name with UTF-8 conversion
+        UTF_BEGIN;
+        attname = pstrdup(UTF_E2U(NameStr(att->attname)));
+        UTF_END;
+
+        // Get attribute value
+        attr = heap_getattr(tuple, i + 1, tupdesc, &isnull);
+
+        if (!isnull)
+        {
+            // Convert value to string and set Tcl variable
+            getTypeOutputInfo(att->atttypid, &typoutput, &typisvarlena);
+            outputstr = OidOutputFunctionCall(typoutput, attr);
+            UTF_BEGIN;
+            Tcl_SetVar2Ex(interp, *arrptr, *nameptr,
+                          Tcl_NewStringObj(UTF_E2U(outputstr), -1), 0);
+            UTF_END;
+            pfree(outputstr);
+        }
+        else
+        {
+            // Unset variable for NULL values
+            Tcl_UnsetVar2(interp, *arrptr, *nameptr, 0);
+        }
+
+        pfree(unconstify(char *, attname));
+    }
+}
+```

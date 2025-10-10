@@ -52,3 +52,88 @@ The function creates a binary file containing the SnapBuildOnDisk structure, whi
 - Includes both committed transactions and catalog-changing transactions in the serialized data
 - The serialized format includes magic numbers, version information, and CRC32C checksums for validation
 - Sets a restart point in the reorder buffer after successful serialization
+
+## Simplified Source
+
+```c
+static void SnapBuildSerialize(SnapBuild *builder, XLogRecPtr lsn)
+{
+    SnapBuildOnDisk *ondisk = NULL;
+    TransactionId *catchange_xip = NULL;
+    char path[MAXPGPATH];
+    char tmppath[MAXPGPATH];
+    int fd;
+    Size needed_length;
+    struct stat stat_buf;
+
+    // Only serialize if we have a consistent snapshot
+    if (builder->state < SNAPBUILD_CONSISTENT)
+        return;
+
+    // Create snapshot file path based on LSN
+    sprintf(path, "pg_logical/snapshots/%X-%X.snap", LSN_FORMAT_ARGS(lsn));
+
+    // Check if another backend already serialized this LSN
+    if (stat(path, &stat_buf) == 0) {
+        fsync_fname(path, false);
+        fsync_fname("pg_logical/snapshots", true);
+        builder->last_serialized_snapshot = lsn;
+        goto out;
+    }
+
+    // Create temporary file for atomic write
+    sprintf(tmppath, "pg_logical/snapshots/%X-%X.snap.%d.tmp",
+            LSN_FORMAT_ARGS(lsn), MyProcPid);
+
+    // Get catalog modifying transactions
+    catchange_xip = ReorderBufferGetCatalogChangesXacts(builder->reorder);
+    size_t catchange_xcnt = dclist_count(&builder->reorder->catchange_txns);
+
+    // Calculate total size needed
+    needed_length = sizeof(SnapBuildOnDisk) +
+                   sizeof(TransactionId) * (builder->committed.xcnt + catchange_xcnt);
+
+    // Prepare serialization structure
+    ondisk = palloc0(needed_length);
+    ondisk->magic = SNAPBUILD_MAGIC;
+    ondisk->version = SNAPBUILD_VERSION;
+    ondisk->length = needed_length;
+
+    // Copy builder state and clear memory-only pointers
+    memcpy(&ondisk->builder, builder, sizeof(SnapBuild));
+    ondisk->builder.context = NULL;
+    ondisk->builder.snapshot = NULL;
+    ondisk->builder.reorder = NULL;
+    ondisk->builder.committed.xip = NULL;
+    ondisk->builder.catchange.xip = NULL;
+
+    // Copy transaction arrays after main structure
+    char *ondisk_c = (char *)ondisk + sizeof(SnapBuildOnDisk);
+    if (builder->committed.xcnt > 0) {
+        memcpy(ondisk_c, builder->committed.xip,
+               sizeof(TransactionId) * builder->committed.xcnt);
+        ondisk_c += sizeof(TransactionId) * builder->committed.xcnt;
+    }
+    if (catchange_xcnt > 0) {
+        memcpy(ondisk_c, catchange_xip, sizeof(TransactionId) * catchange_xcnt);
+    }
+
+    // Write to temporary file atomically
+    fd = OpenTransientFile(tmppath, O_CREAT | O_EXCL | O_WRONLY | PG_BINARY);
+    write(fd, ondisk, needed_length);
+    pg_fsync(fd);
+    CloseTransientFile(fd);
+
+    // Atomic rename to final location
+    rename(tmppath, path);
+    fsync_fname(path, false);
+    fsync_fname("pg_logical/snapshots", true);
+
+    builder->last_serialized_snapshot = lsn;
+
+out:
+    ReorderBufferSetRestartPoint(builder->reorder, builder->last_serialized_snapshot);
+    if (ondisk) pfree(ondisk);
+    if (catchange_xip) pfree(catchange_xip);
+}
+```

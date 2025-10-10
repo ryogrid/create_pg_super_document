@@ -46,3 +46,59 @@ This function serves as the main entry point for the archiver process after it h
 - Advertises process number in shared memory for backend communication
 - Exits with status 0 when main loop completes
 - Part of PostgreSQL's auxiliary process infrastructure
+
+## Simplified Source
+
+```c
+void PgArchiverMain(char *startup_data, size_t startup_data_len) {
+    Assert(startup_data_len == 0);
+
+    // Set process type and perform common auxiliary process initialization
+    MyBackendType = B_ARCHIVER;
+    AuxiliaryProcessMainCommon();
+
+    // Configure signal handlers
+    pqsignal(SIGHUP, SignalHandlerForConfigReload);
+    pqsignal(SIGINT, SIG_IGN);
+    pqsignal(SIGTERM, SignalHandlerForShutdownRequest);
+    pqsignal(SIGALRM, SIG_IGN);
+    pqsignal(SIGPIPE, SIG_IGN);
+    pqsignal(SIGUSR1, procsignal_sigusr1_handler);
+    pqsignal(SIGUSR2, pgarch_waken_stop);
+    pqsignal(SIGCHLD, SIG_DFL);
+
+    // Unblock signals for processing
+    sigprocmask(SIG_SETMASK, &UnBlockSig, NULL);
+
+    // Verify archiving is enabled
+    Assert(XLogArchivingActive());
+
+    // Register cleanup function for process exit
+    on_shmem_exit(pgarch_die, 0);
+
+    // Advertise process number for backend communication
+    PgArch->pgprocno = MyProcNumber;
+
+    // Initialize file management workspace
+    arch_files = palloc(sizeof(struct arch_files_state));
+    arch_files->arch_files_size = 0;
+
+    // Create priority heap for file archiving order
+    arch_files->arch_heap = binaryheap_allocate(NUM_FILES_PER_DIRECTORY_SCAN,
+                                               ready_file_comparator, NULL);
+
+    // Create archiver memory context
+    archive_context = AllocSetContextCreate(TopMemoryContext,
+                                           "archiver",
+                                           ALLOCSET_DEFAULT_SIZES);
+
+    // Load the configured archive library
+    LoadArchiveLibrary();
+
+    // Enter main processing loop
+    pgarch_MainLoop();
+
+    // Exit when main loop completes
+    proc_exit(0);
+}
+```

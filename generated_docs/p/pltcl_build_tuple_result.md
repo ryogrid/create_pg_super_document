@@ -50,3 +50,83 @@ The function performs extensive validation, checking that the column names exist
 - System attributes and generated columns cannot be set and will cause errors
 - For domain-over-composite return types, domain constraints are validated on the final result
 - UTF-8 encoding conversion is performed using utf_u2e() to convert from Tcl's UTF-8 to PostgreSQL's internal encoding
+
+## Simplified Source
+
+```c
+static HeapTuple
+pltcl_build_tuple_result(Tcl_Interp *interp, Tcl_Obj **kvObjv, int kvObjc,
+                         pltcl_call_state *call_state)
+{
+    HeapTuple tuple;
+    TupleDesc tupdesc;
+    AttInMetadata *attinmeta;
+    char **values;
+    int i;
+
+    // Determine tuple descriptor based on context
+    if (call_state->ret_tupdesc)
+    {
+        // Function return type
+        tupdesc = call_state->ret_tupdesc;
+        attinmeta = call_state->attinmeta;
+    }
+    else if (call_state->trigdata)
+    {
+        // Trigger table type
+        tupdesc = RelationGetDescr(call_state->trigdata->tg_relation);
+        attinmeta = TupleDescGetAttInMetadata(tupdesc);
+    }
+    else
+    {
+        elog(ERROR, "PL/Tcl function does not return a tuple");
+        tupdesc = NULL;
+        attinmeta = NULL;
+    }
+
+    // Allocate array for column values
+    values = (char **) palloc0(tupdesc->natts * sizeof(char *));
+
+    // Validate input list has even number of elements
+    if (kvObjc % 2 != 0)
+        ereport(ERROR, "column name/value list must have even number of elements");
+
+    // Process each name/value pair
+    for (i = 0; i < kvObjc; i += 2)
+    {
+        char *fieldName = utf_u2e(Tcl_GetString(kvObjv[i]));
+        int attn = SPI_fnumber(tupdesc, fieldName);
+
+        // Handle special case: ignore ".tupno" if not a real column
+        if (attn == SPI_ERROR_NOATTRIBUTE)
+        {
+            if (strcmp(fieldName, ".tupno") == 0)
+                continue;
+            ereport(ERROR, "column name/value list contains nonexistent column");
+        }
+
+        // Validate column is not a system attribute
+        if (attn <= 0)
+            ereport(ERROR, "cannot set system attribute");
+
+        // Validate column is not generated
+        if (TupleDescAttr(tupdesc, attn - 1)->attgenerated)
+            ereport(ERROR, "cannot set generated column");
+
+        // Store the value
+        values[attn - 1] = utf_u2e(Tcl_GetString(kvObjv[i + 1]));
+    }
+
+    // Build the tuple
+    tuple = BuildTupleFromCStrings(attinmeta, values);
+
+    // Check domain constraints if return type is domain-over-composite
+    if (call_state->prodesc->fn_retisdomain)
+        domain_check(HeapTupleGetDatum(tuple), false,
+                     call_state->prodesc->result_typid,
+                     &call_state->prodesc->domain_info,
+                     call_state->prodesc->fn_cxt);
+
+    return tuple;
+}
+```

@@ -347,3 +347,36 @@ static void xact_desc_abort(StringInfo buf, uint8 info, xl_xact_abort *xlrec, Re
 - Does not include invalidation or completion flag handling like the commit version
 - Statistics information is formatted at the end of the description
 - Used as part of the WAL record description infrastructure for transaction debugging
+
+## Simplified Source
+
+```c
+static void xact_desc_abort(StringInfo buf, uint8 info, xl_xact_abort *xlrec, RepOriginId origin_id) {
+    xl_xact_parsed_abort parsed;
+
+    // Parse the abort record into structured format
+    ParseAbortRecord(info, xlrec, &parsed);
+
+    // For prepared transactions, show original transaction ID
+    if (TransactionIdIsValid(parsed.twophase_xid))
+        appendStringInfo(buf, "%u: ", parsed.twophase_xid);
+
+    // Output transaction abort timestamp
+    appendStringInfoString(buf, timestamptz_to_str(xlrec->xact_time));
+
+    // Output information about affected relations and subtransactions
+    xact_desc_relations(buf, "rels", parsed.nrels, parsed.xlocators);
+    xact_desc_subxacts(buf, parsed.nsubxacts, parsed.subxacts);
+
+    // Output replication origin information if present
+    if (parsed.xinfo & XACT_XINFO_HAS_ORIGIN) {
+        appendStringInfo(buf, "; origin: node %u, lsn %X/%X, at %s",
+                        origin_id,
+                        LSN_FORMAT_ARGS(parsed.origin_lsn),
+                        timestamptz_to_str(parsed.origin_timestamp));
+    }
+
+    // Output statistics information
+    xact_desc_stats(buf, "", parsed.nstats, parsed.stats);
+}
+```

@@ -45,3 +45,92 @@ The function can optionally enable backup semantics to allow opening directories
 - Handles Windows-specific file sharing semantics that allow concurrent rename/unlink operations
 - The backup_semantics parameter is primarily used by stat() operations that need to access directory metadata
 - Contains conditional compilation for FRONTEND vs backend error reporting
+
+## Simplified Source
+
+```c
+HANDLE
+pgwin32_open_handle(const char *fileName, int fileFlags, bool backup_semantics)
+{
+    HANDLE h;
+    SECURITY_ATTRIBUTES sa;
+    int loops = 0;
+
+    // Initialize NT DLL access
+    if (initialize_ntdll() < 0)
+        return INVALID_HANDLE_VALUE;
+
+    // Validate supported file flags
+    assert((fileFlags & ((O_RDONLY | O_WRONLY | O_RDWR) | O_APPEND |
+                         (O_RANDOM | O_SEQUENTIAL | O_TEMPORARY) |
+                         _O_SHORT_LIVED | O_DSYNC | O_DIRECT |
+                         (O_CREAT | O_TRUNC | O_EXCL) | (O_TEXT | O_BINARY))) == fileFlags);
+
+    // Set up security attributes for inheritable handles
+    sa.nLength = sizeof(sa);
+    sa.bInheritHandle = TRUE;
+    sa.lpSecurityDescriptor = NULL;
+
+    // Retry loop for sharing violations
+    while ((h = CreateFile(fileName,
+                           // Translate access mode flags
+                           (fileFlags & O_RDWR) ? (GENERIC_WRITE | GENERIC_READ) :
+                           ((fileFlags & O_WRONLY) ? GENERIC_WRITE : GENERIC_READ),
+                           // Allow concurrent operations
+                           (FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE),
+                           &sa,
+                           openFlagsToCreateFileFlags(fileFlags),
+                           // Build file attributes and flags
+                           FILE_ATTRIBUTE_NORMAL |
+                           (backup_semantics ? FILE_FLAG_BACKUP_SEMANTICS : 0) |
+                           ((fileFlags & O_RANDOM) ? FILE_FLAG_RANDOM_ACCESS : 0) |
+                           ((fileFlags & O_SEQUENTIAL) ? FILE_FLAG_SEQUENTIAL_SCAN : 0) |
+                           ((fileFlags & _O_SHORT_LIVED) ? FILE_ATTRIBUTE_TEMPORARY : 0) |
+                           ((fileFlags & O_TEMPORARY) ? FILE_FLAG_DELETE_ON_CLOSE : 0) |
+                           ((fileFlags & O_DIRECT) ? FILE_FLAG_NO_BUFFERING : 0) |
+                           ((fileFlags & O_DSYNC) ? FILE_FLAG_WRITE_THROUGH : 0),
+                           NULL)) == INVALID_HANDLE_VALUE)
+    {
+        DWORD err = GetLastError();
+
+        // Handle sharing and lock violations (antivirus, backup software)
+        if (err == ERROR_SHARING_VIOLATION || err == ERROR_LOCK_VIOLATION)
+        {
+#ifndef FRONTEND
+            // Log warning after 5 seconds of retrying
+            if (loops == 50)
+                ereport(LOG,
+                        (errmsg("could not open file \"%s\": %s", fileName,
+                               (err == ERROR_SHARING_VIOLATION) ? _("sharing violation") : _("lock violation")),
+                         errdetail("Continuing to retry for 30 seconds."),
+                         errhint("You might have antivirus, backup, or similar software interfering with the database system.")));
+#endif
+
+            // Retry for up to 30 seconds
+            if (loops < 300)
+            {
+                pg_usleep(100000);  // Wait 100ms
+                loops++;
+                continue;
+            }
+        }
+
+        // Handle STATUS_DELETE_PENDING (file marked for deletion)
+        if (err == ERROR_ACCESS_DENIED &&
+            pg_RtlGetLastNtStatus() == STATUS_DELETE_PENDING)
+        {
+            // If creating, report file exists; if opening, report not found
+            if (fileFlags & O_CREAT)
+                err = ERROR_FILE_EXISTS;
+            else
+                err = ERROR_FILE_NOT_FOUND;
+        }
+
+        // Map Windows error to errno and return failure
+        _dosmaperr(err);
+        return INVALID_HANDLE_VALUE;
+    }
+
+    return h;  // Success
+}
+```

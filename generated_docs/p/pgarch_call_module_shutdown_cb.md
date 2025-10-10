@@ -34,3 +34,15 @@ The function follows the standard PostgreSQL shutdown callback signature, accept
 - Part of PostgreSQL's archive module infrastructure
 - The function signature conforms to PostgreSQL's standard shutdown callback interface
 - Located in src/backend/postmaster/pgarch.c:953-957
+
+## Simplified Source
+
+```c
+static void
+pgarch_call_module_shutdown_cb(int code, Datum arg)
+{
+    // Call archive module's shutdown callback if defined
+    if (ArchiveCallbacks->shutdown_cb != NULL)
+        ArchiveCallbacks->shutdown_cb(archive_module_state);
+}
+```

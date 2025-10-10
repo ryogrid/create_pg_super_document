@@ -37,3 +37,46 @@ The function will retry up to 100 times (approximately 10 seconds total) when en
 - The 100-iteration limit prevents infinite loops while allowing sufficient time for temporary locks to be released
 - Each retry iteration waits 100ms (100,000 microseconds) before attempting the operation again
 - This function is critical for PostgreSQL's WAL file management and other file operations that must be atomic
+
+## Simplified Source
+
+```c
+int
+pgrename(const char *from, const char *to)
+{
+    int loops = 0;
+
+    // Retry loop to handle file sharing violations
+    // Windows and Unix use different system calls but same retry logic
+#if defined(WIN32) && !defined(__CYGWIN__)
+    while (!MoveFileEx(from, to, MOVEFILE_REPLACE_EXISTING))
+#else
+    while (rename(from, to) < 0)
+#endif
+    {
+#if defined(WIN32) && !defined(__CYGWIN__)
+        DWORD err = GetLastError();
+        _dosmaperr(err);
+
+        // Only retry for sharing/access violations, not real errors
+        if (err != ERROR_ACCESS_DENIED &&
+            err != ERROR_SHARING_VIOLATION &&
+            err != ERROR_LOCK_VIOLATION)
+            return -1;
+#else
+        // On Unix, only retry for access denied
+        if (errno != EACCES)
+            return -1;
+#endif
+
+        // Timeout after 100 retries (about 10 seconds)
+        if (++loops > 100)
+            return -1;
+
+        // Wait 100ms before retrying
+        pg_usleep(100000);
+    }
+
+    return 0;  // Success
+}
+```

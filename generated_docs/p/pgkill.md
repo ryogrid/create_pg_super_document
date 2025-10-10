@@ -43,4 +43,91 @@ The implementation creates a named pipe with the pattern  and attempts to commun
   - : Access denied to target process
 - Special handling for transient pipe errors (ERROR_BROKEN_PIPE, ERROR_BAD_PIPE) treats them as successful operations, similar to how POSIX handles zombie processes
 - Signal 0 is allowed but will be ignored by the receiving process (used for process existence checking)
-- Process groups (pid <= 0) are not supported, unlike POSIX 
+- Process groups (pid <= 0) are not supported, unlike POSIX
+
+## Simplified Source
+
+```c
+int
+pgkill(int pid, int sig)
+{
+    char pipename[128];
+    BYTE sigData = sig;
+    BYTE sigRet = 0;
+    DWORD bytes;
+
+    // Validate signal number and PID
+    if (sig >= PG_SIGNAL_COUNT || sig < 0)
+    {
+        errno = EINVAL;
+        return -1;
+    }
+    if (pid <= 0)
+    {
+        // No support for process groups on Windows
+        errno = EINVAL;
+        return -1;
+    }
+
+    // Special case: SIGKILL - directly terminate the process
+    if (sig == SIGKILL)
+    {
+        HANDLE prochandle = OpenProcess(PROCESS_TERMINATE, FALSE, (DWORD) pid);
+        if (prochandle == NULL)
+        {
+            errno = ESRCH;
+            return -1;
+        }
+
+        if (!TerminateProcess(prochandle, 255))
+        {
+            _dosmaperr(GetLastError());
+            CloseHandle(prochandle);
+            return -1;
+        }
+
+        CloseHandle(prochandle);
+        return 0;
+    }
+
+    // For other signals: use named pipe communication
+    snprintf(pipename, sizeof(pipename), "\\\\.\\pipe\\pgsignal_%u", pid);
+
+    // Send signal via named pipe
+    if (CallNamedPipe(pipename, &sigData, 1, &sigRet, 1, &bytes, 1000))
+    {
+        // Verify response
+        if (bytes != 1 || sigRet != sig)
+        {
+            errno = ESRCH;
+            return -1;
+        }
+        return 0;
+    }
+
+    // Handle pipe communication errors
+    switch (GetLastError())
+    {
+        case ERROR_BROKEN_PIPE:
+        case ERROR_BAD_PIPE:
+            // Transient errors during process exit - treat as success
+            // (similar to POSIX zombie process handling)
+            return 0;
+
+        case ERROR_FILE_NOT_FOUND:
+            // Pipe doesn't exist - process not found
+            errno = ESRCH;
+            return -1;
+
+        case ERROR_ACCESS_DENIED:
+            // Permission denied
+            errno = EPERM;
+            return -1;
+
+        default:
+            // Unexpected error
+            errno = EINVAL;
+            return -1;
+    }
+}
+``` 

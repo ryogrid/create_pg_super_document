@@ -43,3 +43,51 @@ The function implements a retry loop similar to , waiting up to 10 seconds (100 
 - Each retry iteration waits 100ms to allow temporary locks or sharing violations to resolve
 - The function is designed to work correctly with recursive directory deletion algorithms by properly handling edge cases
 - The single lstat() call optimization means it won't detect file type changes during retry loops, but this is considered acceptable for the expected use cases
+
+## Simplified Source
+
+```c
+int
+pgunlink(const char *path)
+{
+    bool is_lnk;
+    int loops = 0;
+    struct stat st;
+
+    // Try direct unlink first (most common case)
+    if (unlink(path) == 0)
+        return 0;
+    if (errno != EACCES)
+        return -1;
+
+    // EACCES could mean junction point - check file type
+    if (lstat(path, &st) < 0)
+    {
+        // Handle Windows STATUS_DELETE_PENDING case
+        if (lstat_error_was_status_delete_pending())
+            is_lnk = false;
+        else
+            return -1;
+    }
+    else
+        is_lnk = S_ISLNK(st.st_mode);
+
+    // Retry loop with appropriate deletion method
+    // Use rmdir() for links/junction points, unlink() for regular files
+    while ((is_lnk ? rmdir(path) : unlink(path)) < 0)
+    {
+        // Only retry on access denied errors
+        if (errno != EACCES)
+            return -1;
+
+        // Timeout after 100 retries (about 10 seconds)
+        if (++loops > 100)
+            return -1;
+
+        // Wait 100ms before retrying
+        pg_usleep(100000);
+    }
+
+    return 0;  // Success
+}
+```

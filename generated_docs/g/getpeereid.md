@@ -46,3 +46,61 @@ This function is essential for peer authentication in PostgreSQL, allowing the s
 - Critical for PostgreSQL's peer authentication mechanism over Unix domain sockets
 - The implementation carefully handles platform-specific credential structures and validation
 - Part of PostgreSQL's portability layer located in src/port/
+
+## Simplified Source
+
+```c
+int
+getpeereid(int sock, uid_t *uid, gid_t *gid)
+{
+#if defined(SO_PEERCRED)
+    // Linux: use getsockopt(SO_PEERCRED)
+    struct ucred peercred;
+    socklen_t so_len = sizeof(peercred);
+
+    if (getsockopt(sock, SOL_SOCKET, SO_PEERCRED, &peercred, &so_len) != 0 ||
+        so_len != sizeof(peercred))
+        return -1;
+
+    *uid = peercred.uid;
+    *gid = peercred.gid;
+    return 0;
+
+#elif defined(LOCAL_PEERCRED)
+    // FreeBSD variants: use getsockopt(LOCAL_PEERCRED)
+    struct xucred peercred;
+    socklen_t so_len = sizeof(peercred);
+
+    if (getsockopt(sock, 0, LOCAL_PEERCRED, &peercred, &so_len) != 0 ||
+        so_len != sizeof(peercred) ||
+        peercred.cr_version != XUCRED_VERSION)
+        return -1;
+
+    *uid = peercred.cr_uid;
+    *gid = peercred.cr_gid;
+    return 0;
+
+#elif defined(HAVE_GETPEERUCRED)
+    // Solaris: use getpeerucred()
+    ucred_t *ucred = NULL;
+
+    if (getpeerucred(sock, &ucred) == -1)
+        return -1;
+
+    *uid = ucred_geteuid(ucred);
+    *gid = ucred_getegid(ucred);
+    ucred_free(ucred);
+
+    // Validate extracted credentials
+    if (*uid == (uid_t)(-1) || *gid == (gid_t)(-1))
+        return -1;
+
+    return 0;
+
+#else
+    // No implementation available on this platform
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+```
