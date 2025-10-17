@@ -43,3 +43,19 @@ This function is typically called when a set-returning function has finished gen
 - Typically called through the SRF_RETURN_DONE() macro rather than directly
 - The funcctx parameter is provided for consistency but not used in the current implementation
 - Ensures proper memory cleanup even if the function completes normally rather than through context termination
+
+## Simplified Source
+
+```c
+void end_MultiFuncCall(PG_FUNCTION_ARGS, FuncCallContext *funcctx) {
+    ReturnSetInfo *rsi = (ReturnSetInfo *) fcinfo->resultinfo;
+
+    // Deregister the shutdown callback to prevent double cleanup
+    UnregisterExprContextCallback(rsi->econtext,
+                                  shutdown_MultiFuncCall,
+                                  PointerGetDatum(fcinfo->flinfo));
+
+    // Perform actual cleanup
+    shutdown_MultiFuncCall(PointerGetDatum(fcinfo->flinfo));
+}
+```

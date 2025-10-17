@@ -50,3 +50,61 @@ This function takes no parameters and operates on several global variables:
 - The function handles various error conditions including directory access failures and file removal errors
 - Truncation of long filenames is considered harmless as non-WAL files are filtered out anyway
 - Located at src/bin/pg_archivecleanup/pg_archivecleanup.c:91-182
+
+## Simplified Source
+
+```c
+static void CleanupPriorWALFiles(void) {
+    DIR *xldir;
+    struct dirent *xlde;
+    char walfile[MAXPGPATH];
+
+    // Open archive directory
+    xldir = opendir(archiveLocation);
+    if (xldir == NULL)
+        pg_fatal("could not open archive location \"%s\": %m", archiveLocation);
+
+    // Process each file in the directory
+    while (errno = 0, (xlde = readdir(xldir)) != NULL) {
+        char WALFilePath[MAXPGPATH * 2];
+
+        // Copy filename and trim extension if needed
+        strlcpy(walfile, xlde->d_name, MAXPGPATH);
+        TrimExtension(walfile, additional_ext);
+
+        // Skip files that aren't WAL segments or backup history files
+        if (!IsXLogFileName(walfile) && !IsPartialXLogFileName(walfile) &&
+            !(cleanBackupHistory && IsBackupHistoryFileName(walfile)))
+            continue;
+
+        // Compare file with cleanup threshold, ignoring timeline (skip first 8 chars)
+        // Keep files that are >= exclusiveCleanupFileName
+        if (strcmp(walfile + 8, exclusiveCleanupFileName + 8) >= 0)
+            continue;
+
+        // Build full file path for removal
+        snprintf(WALFilePath, sizeof(WALFilePath), "%s/%s",
+                archiveLocation, xlde->d_name);
+
+        if (dryrun) {
+            // Dry run mode: just print what would be removed
+            printf("%s\n", WALFilePath);
+            pg_log_debug("file \"%s\" would be removed", WALFilePath);
+            continue;
+        }
+
+        // Actually remove the file
+        pg_log_debug("removing file \"%s\"", WALFilePath);
+        if (unlink(WALFilePath) != 0)
+            pg_fatal("could not remove file \"%s\": %m", WALFilePath);
+    }
+
+    // Check for directory read errors
+    if (errno)
+        pg_fatal("could not read archive location \"%s\": %m", archiveLocation);
+
+    // Close directory
+    if (closedir(xldir))
+        pg_fatal("could not close archive location \"%s\": %m", archiveLocation);
+}
+```

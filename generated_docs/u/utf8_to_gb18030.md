@@ -49,3 +49,26 @@ The conversion process utilizes a radix tree (`gb18030_from_unicode_tree`) for e
 - The `noError` parameter allows for partial conversions when encountering untranslatable characters
 - The function returns the number of input bytes consumed, which may be less than the input length if conversion errors occur and `noError` is true
 - Located in: src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c:215-233
+
+## Simplified Source
+```c
+Datum utf8_to_gb18030(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_UTF8, PG_GB18030);
+
+    // Perform UTF-8 to GB18030 conversion using mapping tree and callback
+    int converted = UtfToLocal(src, len, dest,
+                              &gb18030_from_unicode_tree,
+                              NULL, 0,
+                              conv_utf8_to_18030,
+                              PG_GB18030, noError);
+
+    return converted;
+}
+```

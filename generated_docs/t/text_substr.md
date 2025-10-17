@@ -47,3 +47,17 @@ The function follows SQL standard behavior for edge cases: if the starting posit
 - The `false` parameter passed to `text_substring` indicates this is not a no-length variant
 - Handles edge cases according to SQL specification rather than throwing errors
 - Performance optimized for both small strings and large TOAST-ed values
+
+## Simplified Source
+```c
+Datum text_substr(PG_FUNCTION_ARGS)
+{
+    // Extract arguments: source text, start position, and length
+    Datum source_text = PG_GETARG_DATUM(0);
+    int32 start_pos = PG_GETARG_INT32(1);
+    int32 length = PG_GETARG_INT32(2);
+
+    // Delegate to text_substring with 'false' for has_length parameter
+    return PG_RETURN_TEXT_P(text_substring(source_text, start_pos, length, false));
+}
+```

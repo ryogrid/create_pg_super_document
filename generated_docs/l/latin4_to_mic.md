@@ -40,3 +40,24 @@ This function serves as a PostgreSQL conversion procedure that transforms charac
 - Located in the latin_and_mic conversion module
 - Follows the standard PostgreSQL function calling convention using PG_FUNCTION_ARGS
 - Latin-4 encoding supports characters for North European languages including Baltic languages (Estonian, Latvian, Lithuanian), Greenlandic, and Sami languages
+
+## Simplified Source
+
+```c
+Datum latin4_to_mic(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);   // Source Latin-4 string
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);  // Destination buffer
+    int len = PG_GETARG_INT32(4);                                  // Source length
+    bool noError = PG_GETARG_BOOL(5);                              // Error handling flag
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_LATIN4, PG_MULE_INTERNAL);
+
+    // Convert Latin-4 to MIC using latin2mic with ISO 8859-4 character set
+    int converted = latin2mic(src, dest, len, LC_ISO8859_4, PG_LATIN4, noError);
+
+    // Return number of bytes converted
+    PG_RETURN_INT32(converted);
+}
+```

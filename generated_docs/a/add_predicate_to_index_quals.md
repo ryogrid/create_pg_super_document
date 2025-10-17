@@ -41,3 +41,30 @@ The function returns a mixed list containing both RestrictInfo nodes (from index
 - Handles complex implication scenarios but may miss some redundancy cases, leading to conservative estimates
 - The mixed return type (RestrictInfo and raw Node types) is specifically designed for compatibility with predicate_implied_by() and clauselist_selectivity()
 - Only adds predicate clauses that cannot be proven to be implied by existing qualifiers
+
+## Simplified Source
+
+```c
+List *add_predicate_to_index_quals(IndexOptInfo *index, List *indexQuals)
+{
+    List *predExtraQuals = NIL;
+    ListCell *lc;
+
+    // No predicate: return original quals unchanged
+    if (index->indpred == NIL)
+        return indexQuals;
+
+    // Check each predicate clause for redundancy
+    foreach(lc, index->indpred) {
+        Node *predQual = (Node *) lfirst(lc);
+        List *oneQual = list_make1(predQual);
+
+        // Only add predicate clauses not implied by existing quals
+        if (!predicate_implied_by(oneQual, indexQuals, false))
+            predExtraQuals = list_concat(predExtraQuals, oneQual);
+    }
+
+    // Return combined list: extra predicates + original quals
+    return list_concat(predExtraQuals, indexQuals);
+}
+```

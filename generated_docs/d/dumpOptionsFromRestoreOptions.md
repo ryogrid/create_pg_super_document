@@ -38,3 +38,52 @@ This functionality is crucial for operations that need to convert restore-time s
 - Output formatting flags are directly mapped (outputClean ← dropSchema, etc.)
 - The function is described as performing 'the inverse of what's at the end of pg_dump.c's main()'
 - Memory allocated by this function (and NewDumpOptions) should be properly freed when no longer needed
+
+## Simplified Source
+
+```c
+DumpOptions *
+dumpOptionsFromRestoreOptions(RestoreOptions *ropt)
+{
+    // Create new DumpOptions with default values
+    DumpOptions *dopt = NewDumpOptions();
+
+    // Copy connection parameters (deep copy strings)
+    dopt->cparams.dbname = ropt->cparams.dbname ? pg_strdup(ropt->cparams.dbname) : NULL;
+    dopt->cparams.pgport = ropt->cparams.pgport ? pg_strdup(ropt->cparams.pgport) : NULL;
+    dopt->cparams.pghost = ropt->cparams.pghost ? pg_strdup(ropt->cparams.pghost) : NULL;
+    dopt->cparams.username = ropt->cparams.username ? pg_strdup(ropt->cparams.username) : NULL;
+    dopt->cparams.promptPassword = ropt->cparams.promptPassword;
+
+    // Map output options and behavior flags
+    dopt->outputClean = ropt->dropSchema;
+    dopt->dataOnly = ropt->dataOnly;
+    dopt->schemaOnly = ropt->schemaOnly;
+    dopt->if_exists = ropt->if_exists;
+    dopt->column_inserts = ropt->column_inserts;
+    dopt->dumpSections = ropt->dumpSections;
+    dopt->aclsSkip = ropt->aclsSkip;
+    dopt->outputCreateDB = ropt->createDB;
+    dopt->outputNoOwner = ropt->noOwner;
+    dopt->outputNoTableAm = ropt->noTableAm;
+    dopt->outputNoTablespaces = ropt->noTablespace;
+    dopt->disable_triggers = ropt->disable_triggers;
+    dopt->use_setsessauth = ropt->use_setsessauth;
+    dopt->disable_dollar_quoting = ropt->disable_dollar_quoting;
+    dopt->dump_inserts = ropt->dump_inserts;
+    dopt->no_comments = ropt->no_comments;
+    dopt->no_publications = ropt->no_publications;
+    dopt->no_security_labels = ropt->no_security_labels;
+    dopt->no_subscriptions = ropt->no_subscriptions;
+    dopt->lockWaitTimeout = ropt->lockWaitTimeout;
+    dopt->include_everything = ropt->include_everything;
+    dopt->enable_row_security = ropt->enable_row_security;
+    dopt->sequence_data = ropt->sequence_data;
+
+    // Copy special string fields
+    dopt->outputSuperuser = ropt->superuser;
+    dopt->restrict_key = ropt->restrict_key ? pg_strdup(ropt->restrict_key) : NULL;
+
+    return dopt;
+}
+```

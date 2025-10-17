@@ -44,3 +44,89 @@ The gincost_scalararrayopexpr function handles cost estimation for ScalarArrayOp
 - Returns false if no array elements produce satisfiable patterns
 - Multiplies arrayScans count to reflect that each array element generates a separate index scan
 - Skips unsatisfiable patterns when calculating averages but counts them for array scan multiplication
+
+## Simplified Source
+
+```c
+static bool gincost_scalararrayopexpr(PlannerInfo *root, IndexOptInfo *index, int indexcol,
+                                     ScalarArrayOpExpr *clause, double numIndexEntries,
+                                     GinQualCounts *counts) {
+    Oid clause_op = clause->opno;
+    Node *rightop = (Node *) lsecond(clause->args);
+    ArrayType *arrayval;
+    int numElems;
+    Datum *elemValues;
+    bool *elemNulls;
+    GinQualCounts arraycounts;
+    int numPossible = 0;
+
+    Assert(clause->useOr);
+
+    // Try to reduce array operand to a constant
+    rightop = estimate_expression_value(root, rightop);
+    if (IsA(rightop, RelabelType))
+        rightop = (Node *) ((RelabelType *) rightop)->arg;
+
+    // Handle non-constant arrays with conservative estimate
+    if (!IsA(rightop, Const)) {
+        counts->exactEntries++;
+        counts->searchEntries++;
+        counts->arrayScans *= estimate_array_length(root, rightop);
+        return true;
+    }
+
+    // Handle null constants - no matches possible
+    if (((Const *) rightop)->constisnull)
+        return false;
+
+    // Extract array elements
+    arrayval = DatumGetArrayTypeP(((Const *) rightop)->constvalue);
+    deconstruct_array(arrayval, ARR_ELEMTYPE(arrayval),
+                     /* element type info parameters */,
+                     &elemValues, &elemNulls, &numElems);
+
+    memset(&arraycounts, 0, sizeof(arraycounts));
+
+    // Process each array element
+    for (int i = 0; i < numElems; i++) {
+        GinQualCounts elemcounts;
+
+        // Skip null elements
+        if (elemNulls[i]) continue;
+
+        memset(&elemcounts, 0, sizeof(elemcounts));
+
+        // Get cost estimate for this element
+        if (gincost_pattern(index, indexcol, clause_op, elemValues[i], &elemcounts)) {
+            numPossible++;
+
+            // Handle full scan case
+            if (elemcounts.attHasFullScan[indexcol] && !elemcounts.attHasNormalScan[indexcol]) {
+                elemcounts.partialEntries = 0;
+                elemcounts.exactEntries = numIndexEntries;
+                elemcounts.searchEntries = numIndexEntries;
+            }
+
+            // Accumulate costs
+            arraycounts.partialEntries += elemcounts.partialEntries;
+            arraycounts.exactEntries += elemcounts.exactEntries;
+            arraycounts.searchEntries += elemcounts.searchEntries;
+        }
+    }
+
+    if (numPossible == 0)
+        return false;
+
+    // Average costs across satisfiable elements
+    counts->partialEntries += arraycounts.partialEntries / numPossible;
+    counts->exactEntries += arraycounts.exactEntries / numPossible;
+    counts->searchEntries += arraycounts.searchEntries / numPossible;
+
+    // Account for multiple array scans
+    counts->arrayScans *= numPossible;
+
+    return true;
+}
+```
+
+**Core Logic**: Processes array operations like `column = ANY(array)` by extracting array elements, calculating cost estimates for each satisfiable element via gincost_pattern, averaging the costs, and multiplying array scan count by the number of satisfiable elements.

@@ -36,3 +36,25 @@ This function serves as a semantic action callback in PostgreSQL's JSON parsing 
 - Part of a coordinated set of semantic actions including elements_array_element_end
 - The next_scalar flag is reset by the corresponding array_element_end handler
 - Critical for proper JSON array element boundary detection and value extraction
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+elements_array_element_start(void *state, bool isnull)
+{
+    ElementsState *_state = (ElementsState *) state;
+
+    // Only process top-level array elements (not nested structures)
+    if (_state->lex->lex_level == 1) {
+        // For string tokens with text normalization, flag for special processing
+        if (_state->normalize_results && _state->lex->token_type == JSON_TOKEN_STRING)
+            _state->next_scalar = true;
+        else
+            // For other tokens, record start position for value extraction
+            _state->result_start = _state->lex->token_start;
+    }
+
+    return JSON_SUCCESS;
+}
+```

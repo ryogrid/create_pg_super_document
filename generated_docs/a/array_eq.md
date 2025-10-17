@@ -55,3 +55,101 @@ The function handles null elements specially: two null elements are considered e
 - Returns a boolean Datum value using PG_RETURN_BOOL macro
 - Throws specific errors for unsupported element types (no equality operator) and type mismatches
 - Critical function for array indexing, joins, and WHERE clause operations involving arrays
+
+## Simplified Source
+
+```c
+Datum
+array_eq(PG_FUNCTION_ARGS)
+{
+    LOCAL_FCINFO(locfcinfo, 2);
+    AnyArrayType *array1 = PG_GETARG_ANY_ARRAY_P(0);
+    AnyArrayType *array2 = PG_GETARG_ANY_ARRAY_P(1);
+    Oid collation = PG_GET_COLLATION();
+
+    // Extract array metadata
+    int ndims1 = AARR_NDIM(array1);
+    int ndims2 = AARR_NDIM(array2);
+    int *dims1 = AARR_DIMS(array1);
+    int *dims2 = AARR_DIMS(array2);
+    int *lbs1 = AARR_LBOUND(array1);
+    int *lbs2 = AARR_LBOUND(array2);
+    Oid element_type = AARR_ELEMTYPE(array1);
+
+    // Validate element types match
+    if (element_type != AARR_ELEMTYPE(array2))
+        ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                       errmsg("cannot compare arrays of different element types")));
+
+    // Fast path: check if array structures differ
+    if (ndims1 != ndims2 ||
+        memcmp(dims1, dims2, ndims1 * sizeof(int)) != 0 ||
+        memcmp(lbs1, lbs2, ndims1 * sizeof(int)) != 0)
+    {
+        AARR_FREE_IF_COPY(array1, 0);
+        AARR_FREE_IF_COPY(array2, 1);
+        PG_RETURN_BOOL(false);
+    }
+
+    // Get cached equality operator for element type
+    TypeCacheEntry *typentry = (TypeCacheEntry *) fcinfo->flinfo->fn_extra;
+    if (typentry == NULL || typentry->type_id != element_type)
+    {
+        typentry = lookup_type_cache(element_type, TYPECACHE_EQ_OPR_FINFO);
+        if (!OidIsValid(typentry->eq_opr_finfo.fn_oid))
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                           errmsg("could not identify an equality operator for type %s",
+                                  format_type_be(element_type))));
+        fcinfo->flinfo->fn_extra = (void *) typentry;
+    }
+
+    // Setup element iteration and comparison
+    InitFunctionCallInfoData(*locfcinfo, &typentry->eq_opr_finfo, 2,
+                            collation, NULL, NULL);
+
+    int nitems = ArrayGetNItems(ndims1, dims1);
+    array_iter it1, it2;
+    array_iter_setup(&it1, array1);
+    array_iter_setup(&it2, array2);
+
+    // Compare each element pair
+    for (int i = 0; i < nitems; i++)
+    {
+        bool isnull1, isnull2;
+        Datum elt1 = array_iter_next(&it1, &isnull1, i,
+                                    typentry->typlen, typentry->typbyval, typentry->typalign);
+        Datum elt2 = array_iter_next(&it2, &isnull2, i,
+                                    typentry->typlen, typentry->typbyval, typentry->typalign);
+
+        // Handle NULL comparisons: NULL == NULL is true, NULL != non-NULL is false
+        if (isnull1 && isnull2)
+            continue;
+        if (isnull1 || isnull2)
+        {
+            AARR_FREE_IF_COPY(array1, 0);
+            AARR_FREE_IF_COPY(array2, 1);
+            PG_RETURN_BOOL(false);
+        }
+
+        // Call equality operator for elements
+        locfcinfo->args[0].value = elt1;
+        locfcinfo->args[0].isnull = false;
+        locfcinfo->args[1].value = elt2;
+        locfcinfo->args[1].isnull = false;
+        locfcinfo->isnull = false;
+
+        bool oprresult = DatumGetBool(FunctionCallInvoke(locfcinfo));
+        if (locfcinfo->isnull || !oprresult)
+        {
+            AARR_FREE_IF_COPY(array1, 0);
+            AARR_FREE_IF_COPY(array2, 1);
+            PG_RETURN_BOOL(false);
+        }
+    }
+
+    // All elements equal
+    AARR_FREE_IF_COPY(array1, 0);
+    AARR_FREE_IF_COPY(array2, 1);
+    PG_RETURN_BOOL(true);
+}
+```

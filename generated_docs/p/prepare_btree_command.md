@@ -46,3 +46,45 @@ The prepare_btree_command function creates a SQL query that invokes btree checki
 - Uses global opts structure to access configuration options like parent_check, heapallindexed, rootdescend, and checkunique settings
 - The bt_index_parent_check() function provides more thorough checking by verifying parent-child relationships in the btree structure
 - Located in src/bin/pg_amcheck/pg_amcheck.c:881-929
+
+## Simplified Source
+
+```c
+static void prepare_btree_command(PQExpBuffer sql, RelationInfo *rel, PGconn *conn) {
+    // Clear the SQL buffer
+    resetPQExpBuffer(sql);
+
+    if (opts.parent_check) {
+        // Use comprehensive parent-child verification
+        appendPQExpBuffer(sql,
+            "SELECT %s.bt_index_parent_check("
+            "index := c.oid, heapallindexed := %s, rootdescend := %s "
+            "%s)"
+            "\nFROM pg_catalog.pg_class c, pg_catalog.pg_index i "
+            "WHERE c.oid = %u "
+            "AND c.oid = i.indexrelid "
+            "AND c.relpersistence != 't' "
+            "AND i.indisready AND i.indisvalid AND i.indislive",
+            rel->datinfo->amcheck_schema,
+            (opts.heapallindexed ? "true" : "false"),
+            (opts.rootdescend ? "true" : "false"),
+            (rel->datinfo->is_checkunique ? ", checkunique := true" : ""),
+            rel->reloid);
+    } else {
+        // Use basic structural verification
+        appendPQExpBuffer(sql,
+            "SELECT %s.bt_index_check("
+            "index := c.oid, heapallindexed := %s "
+            "%s)"
+            "\nFROM pg_catalog.pg_class c, pg_catalog.pg_index i "
+            "WHERE c.oid = %u "
+            "AND c.oid = i.indexrelid "
+            "AND c.relpersistence != 't' "
+            "AND i.indisready AND i.indisvalid AND i.indislive",
+            rel->datinfo->amcheck_schema,
+            (opts.heapallindexed ? "true" : "false"),
+            (rel->datinfo->is_checkunique ? ", checkunique := true" : ""),
+            rel->reloid);
+    }
+}
+```

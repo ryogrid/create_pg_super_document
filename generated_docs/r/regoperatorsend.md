@@ -35,3 +35,12 @@ This function is part of PostgreSQL's type system infrastructure, specifically h
 - The comment "Exactly the same as oidsend, so share code" explicitly documents the design decision to reuse existing functionality
 - This function would typically be registered in the PostgreSQL type system as the send function for the  type
 - Works in conjunction with  to provide complete binary serialization/deserialization capability
+
+## Simplified Source
+
+```c
+Datum regoperatorsend(PG_FUNCTION_ARGS) {
+    // regoperator has same binary format as OID, so delegate to oidsend
+    return oidsend(fcinfo);
+}
+```

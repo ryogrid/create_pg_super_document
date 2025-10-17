@@ -38,3 +38,41 @@ This function prepares an LZ4State structure for compression by setting up the c
 - The generated header is stored in state->buffer with length in state->compressedlen
 - This is a static function internal to the compress_lz4.c module
 - Part of PostgreSQL's pg_dump LZ4 compression implementation
+
+## Simplified Source
+
+```c
+static bool
+LZ4State_compression_init(LZ4State *state)
+{
+    size_t status;
+
+    // Calculate optimal buffer size for compression
+    state->buflen = LZ4F_compressBound(DEFAULT_IO_BUFFER_SIZE, &state->prefs);
+
+    // Ensure buffer meets minimum header size requirement
+    if (state->buflen < LZ4F_HEADER_SIZE_MAX) {
+        state->buflen = LZ4F_HEADER_SIZE_MAX;
+    }
+
+    // Create LZ4 compression context
+    status = LZ4F_createCompressionContext(&state->ctx, LZ4F_VERSION);
+    if (LZ4F_isError(status)) {
+        state->errcode = status;
+        return false;
+    }
+
+    // Allocate buffer and generate frame header
+    state->buffer = pg_malloc(state->buflen);
+    status = LZ4F_compressBegin(state->ctx, state->buffer, state->buflen, &state->prefs);
+    if (LZ4F_isError(status)) {
+        state->errcode = status;
+        return false;
+    }
+
+    // Store header length for later use
+    state->compressedlen = status;
+
+    return true;
+}
+```

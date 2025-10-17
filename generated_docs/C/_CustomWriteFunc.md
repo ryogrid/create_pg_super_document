@@ -35,3 +35,21 @@ _CustomWriteFunc is a callback function used by the compression system when writ
 - The function is called by the compression subsystem whenever it has compressed data ready to write
 - The length-prefixed format enables efficient reading during restore operations
 - Works in conjunction with compression algorithms to store compressed table and large object data
+
+## Simplified Source
+
+```c
+static void
+_CustomWriteFunc(ArchiveHandle *AH, const char *buf, size_t len)
+{
+    // Safety check: never write 0-byte blocks (shouldn't happen)
+    if (len > 0) {
+        // Write length-prefixed data block format:
+        // 1. Write block length as integer
+        WriteInt(AH, len);
+
+        // 2. Write actual data buffer
+        _WriteBuf(AH, buf, len);
+    }
+}
+```

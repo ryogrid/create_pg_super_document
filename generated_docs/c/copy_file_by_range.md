@@ -40,3 +40,47 @@ The `copy_file_by_range` function utilizes the Linux `copy_file_range` system ca
 - Will fatal error on platforms without copy_file_range support
 - Part of PostgreSQL's pg_combinebackup utility advanced copying strategies
 - Location: src/bin/pg_combinebackup/copy_file.c:259-293
+
+## Simplified Source
+
+```c
+static void
+copy_file_by_range(const char *src, const char *dest,
+                   pg_checksum_context *checksum_ctx)
+{
+#if defined(HAVE_COPY_FILE_RANGE)
+    int src_fd;
+    int dest_fd;
+    ssize_t bytes_copied;
+
+    // Open source file for reading
+    if ((src_fd = open(src, O_RDONLY | PG_BINARY, 0)) < 0)
+        pg_fatal("could not open file \"%s\": %m", src);
+
+    // Create destination file
+    if ((dest_fd = open(dest, O_RDWR | O_CREAT | O_EXCL | PG_BINARY,
+                        pg_file_create_mode)) < 0)
+        pg_fatal("could not create file \"%s\": %m", dest);
+
+    // Copy data using copy_file_range system call
+    do
+    {
+        bytes_copied = copy_file_range(src_fd, NULL, dest_fd, NULL, SSIZE_MAX, 0);
+        if (bytes_copied < 0)
+            pg_fatal("error while copying file range from \"%s\" to \"%s\": %m",
+                     src, dest);
+    } while (bytes_copied > 0);
+
+    // Close files
+    close(src_fd);
+    close(dest_fd);
+
+#else
+    // Platform doesn't support copy_file_range
+    pg_fatal("copy_file_range not supported on this platform");
+#endif
+
+    // Calculate checksum of the copied file if needed
+    checksum_file(src, checksum_ctx);
+}
+```

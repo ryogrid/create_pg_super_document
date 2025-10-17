@@ -43,3 +43,34 @@ The weight system uses a bitmask where:
 - Weight characters are case-insensitive (both uppercase and lowercase accepted)
 - The function stops parsing and returns when it encounters an unrecognized character
 - This is part of PostgreSQL's full-text search infrastructure for parsing tsquery expressions
+
+## Simplified Source
+
+```c
+static char *get_modifiers(char *buf, int16 *weight, bool *prefix) {
+    // Initialize output parameters
+    *weight = 0;
+    *prefix = false;
+
+    // Check for modifier delimiter ':'
+    if (!t_iseq(buf, ':'))
+        return buf;
+
+    buf++;
+
+    // Process modifier characters
+    while (*buf && pg_mblen(buf) == 1) {
+        switch (*buf) {
+            case 'a': case 'A': *weight |= 8; break;  // Set bit 3
+            case 'b': case 'B': *weight |= 4; break;  // Set bit 2
+            case 'c': case 'C': *weight |= 2; break;  // Set bit 1
+            case 'd': case 'D': *weight |= 1; break;  // Set bit 0
+            case '*': *prefix = true; break;          // Enable prefix matching
+            default: return buf;                       // Stop on unknown character
+        }
+        buf++;
+    }
+
+    return buf;
+}
+```

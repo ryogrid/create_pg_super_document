@@ -42,3 +42,22 @@ The function uses PostgreSQL's standard binary serialization API, beginning with
 - Returns a bytea object containing the serialized binary data
 - Part of PostgreSQL's type system for efficient binary data transmission
 - Located in src/backend/utils/adt/varbit.c:681-701
+
+## Simplified Source
+
+```c
+Datum varbit_send(PG_FUNCTION_ARGS) {
+    VarBit *s = PG_GETARG_VARBIT_P(0);
+    StringInfoData buf;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Send bit length and data
+    pq_sendint32(&buf, VARBITLEN(s));
+    pq_sendbytes(&buf, VARBITS(s), VARBITBYTES(s));
+
+    // Return binary result
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

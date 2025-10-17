@@ -44,3 +44,54 @@ The function is designed to handle backslash-escaped equals signs, allowing dire
 - Maintains a linked list of tablespace mappings in the options structure
 - Handles backslash escaping to allow literal equals signs in directory names
 - Performs path canonicalization to ensure consistent path comparison later in the process
+
+## Simplified Source
+
+```c
+static void add_tablespace_mapping(cb_options *opt, char *arg) {
+    cb_tablespace_mapping *tsmap = pg_malloc0(sizeof(cb_tablespace_mapping));
+    char *dst;
+    char *dst_ptr;
+    char *arg_ptr;
+
+    // Parse "OLDDIR=NEWDIR" format with escape handling
+    dst_ptr = dst = tsmap->old_dir;
+    for (arg_ptr = arg; *arg_ptr != '\0'; arg_ptr++) {
+        if (dst_ptr - dst >= MAXPGPATH)
+            pg_fatal("directory name too long");
+
+        if (*arg_ptr == '\\' && *(arg_ptr + 1) == '=') {
+            // Skip backslash escaping =
+        } else if (*arg_ptr == '=' && (arg_ptr == arg || *(arg_ptr - 1) != '\\')) {
+            // Found unescaped equals - switch to new_dir
+            if (tsmap->new_dir[0] != '\0')
+                pg_fatal("multiple \"=\" signs in tablespace mapping");
+            else
+                dst = dst_ptr = tsmap->new_dir;
+        } else {
+            *dst_ptr++ = *arg_ptr;
+        }
+    }
+
+    // Validate both directories are specified
+    if (!tsmap->old_dir[0] || !tsmap->new_dir[0])
+        pg_fatal("invalid tablespace mapping format \"%s\", must be \"OLDDIR=NEWDIR\"", arg);
+
+    // Validate absolute paths
+    if (!is_absolute_path(tsmap->old_dir))
+        pg_fatal("old directory is not an absolute path in tablespace mapping: %s",
+                 tsmap->old_dir);
+
+    if (!is_absolute_path(tsmap->new_dir))
+        pg_fatal("new directory is not an absolute path in tablespace mapping: %s",
+                 tsmap->new_dir);
+
+    // Canonicalize paths for consistent comparison
+    canonicalize_path(tsmap->old_dir);
+    canonicalize_path(tsmap->new_dir);
+
+    // Add to linked list
+    tsmap->next = opt->tsmappings;
+    opt->tsmappings = tsmap;
+}
+```

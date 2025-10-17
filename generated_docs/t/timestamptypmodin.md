@@ -32,3 +32,14 @@ This function is part of PostgreSQL's type system infrastructure and is called d
 - The `false` parameter to `anytimestamp_typmodin` indicates timestamp (not timestamptz) processing
 - Handles precision specifications like `TIMESTAMP(3)` for millisecond precision
 - Located in src/backend/utils/adt/timestamp.c:302-309
+
+## Simplified Source
+
+```c
+Datum timestamptypmodin(PG_FUNCTION_ARGS) {
+    ArrayType *ta = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Delegate to common timestamp typmod parser (false = not timestamptz)
+    PG_RETURN_INT32(anytimestamp_typmodin(false, ta));
+}
+```

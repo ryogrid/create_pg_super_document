@@ -44,3 +44,43 @@ This static function serves as the primary interface for writing compressed data
 - Unlike read operations, write operations don't require overflow buffer management since compression typically reduces data size
 - The function handles partial writes by checking that fwrite() returns the expected number of bytes written
 - Error handling distinguishes between LZ4 compression errors and I/O errors, providing appropriate error messages for each case
+
+## Simplified Source
+
+```c
+static void
+LZ4Stream_write(const void *ptr, size_t size, CompressFileHandle *CFH)
+{
+    LZ4State *state = (LZ4State *) CFH->private_data;
+    int remaining = size;
+
+    // Lazy initialization for compression
+    if (!LZ4Stream_init(state, size, true)) {
+        pg_fatal("unable to initialize LZ4 library: %s",
+                 LZ4F_getErrorName(state->errcode));
+    }
+
+    // Process data in chunks
+    while (remaining > 0) {
+        int chunk = Min(remaining, DEFAULT_IO_BUFFER_SIZE);
+        remaining -= chunk;
+
+        // Compress chunk
+        size_t status = LZ4F_compressUpdate(state->ctx, state->buffer, state->buflen,
+                                           ptr, chunk, NULL);
+        if (LZ4F_isError(status)) {
+            pg_fatal("error during writing: %s", LZ4F_getErrorName(status));
+        }
+
+        // Write compressed data to file
+        errno = 0;
+        if (fwrite(state->buffer, 1, status, state->fp) != status) {
+            errno = (errno) ? errno : ENOSPC;
+            pg_fatal("error during writing: %m");
+        }
+
+        // Advance to next chunk
+        ptr = ((const char *) ptr) + chunk;
+    }
+}
+```

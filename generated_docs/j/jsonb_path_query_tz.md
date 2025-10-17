@@ -29,3 +29,12 @@ This function serves as a timezone-aware wrapper for JSONPath query execution. I
 - The actual query logic is implemented in jsonb_path_query_internal
 - Located in src/backend/utils/adt/jsonpath_exec.c:580-590
 - Timezone awareness affects datetime operations in JSONPath expressions
+
+## Simplified Source
+
+```c
+Datum jsonb_path_query_tz(PG_FUNCTION_ARGS) {
+    // Timezone-aware wrapper - delegates to internal function with timezone handling
+    return jsonb_path_query_internal(fcinfo, true);
+}
+```

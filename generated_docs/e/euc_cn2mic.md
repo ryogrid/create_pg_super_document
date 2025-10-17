@@ -38,3 +38,52 @@ This static function implements the core algorithm for converting text from EUC-
 - Includes validation for incomplete multibyte sequences and null bytes
 - The function stops processing on error if noError is true, otherwise reports the encoding error
 - Output is null-terminated for string safety
+
+## Simplified Source
+
+```c
+static int euc_cn2mic(const unsigned char *euc, unsigned char *p, int len, bool noError) {
+    const unsigned char *start = euc;
+    int c1;
+
+    while (len > 0) {
+        c1 = *euc;
+
+        // Handle Chinese characters (high bit set in both bytes)
+        if (IS_HIGHBIT_SET(c1)) {
+            // Validate 2-byte sequence
+            if (len < 2 || !IS_HIGHBIT_SET(euc[1])) {
+                if (!noError) {
+                    report_invalid_encoding(PG_EUC_CN, (const char *) euc, len);
+                }
+                break;
+            }
+
+            // Convert to MIC: add language code prefix + 2 bytes
+            *p++ = LC_GB2312_80;    // MIC language code for GB2312-80
+            *p++ = c1;              // First byte of Chinese character
+            *p++ = euc[1];          // Second byte of Chinese character
+            euc += 2;
+            len -= 2;
+        }
+        // Handle ASCII characters
+        else {
+            // Check for invalid null byte
+            if (c1 == 0) {
+                if (!noError) {
+                    report_invalid_encoding(PG_EUC_CN, (const char *) euc, len);
+                }
+                break;
+            }
+
+            // Copy ASCII character directly
+            *p++ = c1;
+            euc++;
+            len--;
+        }
+    }
+
+    *p = '\0';
+    return euc - start;
+}
+```

@@ -31,3 +31,23 @@ This function converts the byte-based position of a match to a character-based p
 - Updates the state's refpoint and refpos fields to cache position information for efficiency
 - The function assumes that last_match has been set by a previous search operation
 - Used primarily by PostgreSQL's text position functions for finding substring locations in text data
+
+## Simplified Source
+```c
+static int
+text_position_get_match_pos(TextPositionState *state)
+{
+    // Calculate character count from reference point to current match
+    int char_count = pg_mbstrlen_with_len(state->refpoint,
+                                         state->last_match - state->refpoint);
+
+    // Update cumulative character position
+    state->refpos += char_count;
+
+    // Update reference point to current match for efficiency
+    state->refpoint = state->last_match;
+
+    // Return 1-based character position
+    return state->refpos + 1;
+}
+```

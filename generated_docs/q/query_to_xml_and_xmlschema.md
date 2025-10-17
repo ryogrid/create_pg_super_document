@@ -51,3 +51,38 @@ The function handles the complete workflow:
 - Combines schema generation with data conversion in a single operation
 - Located in src/backend/utils/adt/xml.c:3145-3180
 - Error handling includes checks for SPI_prepare and SPI_cursor_open failures
+
+## Simplified Source
+
+```c
+Datum
+query_to_xml_and_xmlschema(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    char *query = text_to_cstring(PG_GETARG_TEXT_PP(0));
+    bool nulls = PG_GETARG_BOOL(1);
+    bool tableforest = PG_GETARG_BOOL(2);
+    const char *targetns = text_to_cstring(PG_GETARG_TEXT_PP(3));
+
+    // Connect to SPI and prepare query
+    SPI_connect();
+    SPIPlanPtr plan = SPI_prepare(query, 0, NULL);
+    if (!plan) elog(ERROR, "SPI_prepare failed");
+
+    // Open cursor for query execution
+    Portal portal = SPI_cursor_open(NULL, plan, NULL, NULL, true);
+    if (!portal) elog(ERROR, "SPI_cursor_open failed");
+
+    // Generate XML schema from query descriptor
+    const char *xmlschema = _SPI_strdup(map_sql_table_to_xmlschema(
+        portal->tupDesc, InvalidOid, nulls, tableforest, targetns));
+
+    // Clean up SPI resources
+    SPI_cursor_close(portal);
+    SPI_finish();
+
+    // Execute query and return XML with embedded schema
+    return PG_RETURN_XML_P(stringinfo_to_xmltype(
+        query_to_xml_internal(query, NULL, xmlschema, nulls, tableforest, targetns, true)));
+}
+```

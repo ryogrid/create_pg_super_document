@@ -33,3 +33,16 @@ The function operates as a last-resort mechanism for GMT timezone initialization
 - The function guarantees that the state structure will be initialized with GMT data, providing robustness in timezone handling
 - Part of PostgreSQL's timezone subsystem that handles conversion between different time representations
 - The function passes  as the  parameter to  and the  parameter to , indicating extended format support and fallback parsing respectively
+
+## Simplified Source
+
+```c
+static void
+gmtload(struct state *const sp)
+{
+    // Try to load GMT timezone data from file first
+    if (tzload(gmt, NULL, sp, true) != 0)
+        // If loading fails, parse GMT specification directly
+        tzparse(gmt, sp, true);
+}
+```

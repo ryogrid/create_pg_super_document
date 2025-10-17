@@ -53,3 +53,50 @@ The function handles memory context allocation failures gracefully and includes 
 - Handles out-of-memory conditions by calling MemoryContextAllocationFailure
 - May copy more data than the original request size due to memory context rounding, but this is safe
 - Part of PostgreSQL's aligned memory allocation subsystem located in src/backend/utils/mmgr/alignedalloc.c
+
+## Simplified Source
+
+```c
+void *AlignedAllocRealloc(void *pointer, Size size, int flags) {
+    MemoryChunk *redirchunk = PointerGetMemoryChunk(pointer);
+    Size alignto;
+    void *unaligned;
+    MemoryContext ctx;
+    Size old_size;
+    void *newptr;
+
+    VALGRIND_MAKE_MEM_DEFINED(redirchunk, sizeof(MemoryChunk));
+
+    // Get alignment and original unaligned pointer
+    alignto = MemoryChunkGetValue(redirchunk);
+    unaligned = MemoryChunkGetBlock(redirchunk);
+    Assert((alignto & (alignto - 1)) == 0);  // Power of 2 check
+
+    // Calculate old allocation size (approximate due to context rounding)
+    old_size = GetMemoryChunkSpace(unaligned) -
+               PallocAlignedExtraBytes(alignto) - sizeof(MemoryChunk);
+
+#ifdef MEMORY_CONTEXT_CHECKING
+    Assert(old_size >= redirchunk->requested_size);
+#endif
+
+    // Allocate new aligned chunk in same context
+    ctx = GetMemoryChunkContext(unaligned);
+    newptr = MemoryContextAllocAligned(ctx, size, alignto, flags);
+
+    // Handle allocation failure
+    if (unlikely(newptr == NULL)) {
+        VALGRIND_MAKE_MEM_NOACCESS(redirchunk, sizeof(MemoryChunk));
+        return MemoryContextAllocationFailure(ctx, size, flags);
+    }
+
+    // Copy data from old to new allocation
+    VALGRIND_MAKE_MEM_DEFINED(pointer, old_size);
+    memcpy(newptr, pointer, Min(size, old_size));
+
+    // Free original allocation
+    pfree(unaligned);
+
+    return newptr;
+}
+```

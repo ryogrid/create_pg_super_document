@@ -39,3 +39,15 @@ The two-step process ensures proper cleanup:
 - This is the standard way to release relation references throughout the PostgreSQL codebase
 - The actual freeing of relation cache entries depends on the reference count reaching zero and cache pressure
 - Always use this function instead of directly manipulating reference counts to ensure proper cleanup
+
+## Simplified Source
+
+```c
+void RelationClose(Relation relation) {
+    // Decrement reference count (no locking needed)
+    RelationDecrementReferenceCount(relation);
+
+    // Perform additional cleanup operations
+    RelationCloseCleanup(relation);
+}
+```

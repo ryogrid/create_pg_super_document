@@ -39,3 +39,23 @@ The  function is a PostgreSQL built-in function that computes text search rankin
 - The function automatically handles memory management by freeing detoasted argument copies
 - Uses the default normalization method which applies no normalization to the calculated rank
 - The rank calculation internally delegates to calc_rank() which handles both AND/PHRASE and OR query operations differently
+
+## Simplified Source
+
+```c
+Datum ts_rank_wtt(PG_FUNCTION_ARGS) {
+    ArrayType *win = (ArrayType *) PG_DETOAST_DATUM(PG_GETARG_DATUM(0));
+    TSVector txt = PG_GETARG_TSVECTOR(1);
+    TSQuery query = PG_GETARG_TSQUERY(2);
+    float res;
+
+    // Calculate ranking with custom weights and default normalization
+    res = calc_rank(getWeights(win), txt, query, DEF_NORM_METHOD);
+
+    // Clean up memory for detoasted arguments
+    PG_FREE_IF_COPY(win, 0);
+    PG_FREE_IF_COPY(txt, 1);
+    PG_FREE_IF_COPY(query, 2);
+    PG_RETURN_FLOAT4(res);
+}
+```

@@ -38,3 +38,25 @@ This function performs a system catalog lookup to determine the return type of a
 - Used primarily by index access methods for validation and property checking
 - Different from get_opcode which returns the implementation function, this returns the result type
 - Important for ensuring type safety in operator expressions and index operations
+
+## Simplified Source
+
+```c
+Oid get_op_rettype(Oid opno) {
+    // Look up operator in system cache
+    HeapTuple tp = SearchSysCache1(OPEROID, ObjectIdGetDatum(opno));
+
+    if (HeapTupleIsValid(tp)) {
+        // Extract operator structure and get result type
+        Form_pg_operator optup = (Form_pg_operator) GETSTRUCT(tp);
+        Oid result = optup->oprresult;
+        ReleaseSysCache(tp);
+        return result;
+    } else {
+        // Return invalid OID if operator not found
+        return InvalidOid;
+    }
+}
+```
+
+This simplified version shows the function's straightforward catalog lookup pattern: search the operator cache, extract the result type from the operator tuple if found, clean up the cache reference, and return either the result type OID or InvalidOid if the operator doesn't exist.

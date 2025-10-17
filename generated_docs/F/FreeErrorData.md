@@ -35,3 +35,17 @@ FreeErrorData is the proper cleanup function for ErrorData structures created by
 - Provides proper encapsulation by hiding the details of which fields need separate deallocation
 - Must be called to prevent memory leaks when ErrorData copies are no longer needed
 - The two-step process (FreeErrorDataContents + pfree) ensures both string contents and the structure itself are properly deallocated
+
+## Simplified Source
+
+```c
+void
+FreeErrorData(ErrorData *edata)
+{
+    // Free all separately-allocated string fields
+    FreeErrorDataContents(edata);
+
+    // Free the ErrorData structure itself
+    pfree(edata);
+}
+```

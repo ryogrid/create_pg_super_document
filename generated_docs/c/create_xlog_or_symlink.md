@@ -64,3 +64,83 @@ Swap:        8388608           0     8388608: Deallocates allocated memory
 - Memory cleanup with  ensures no resource leaks
 - Global flags set by this function influence cleanup operations in case of initialization failure
 - Proper permissions are essential for WAL security and proper database operation
+
+## Simplified Source
+
+```c
+void
+create_xlog_or_symlink(void)
+{
+    char *subdirloc;
+
+    // Form path for pg_wal subdirectory/symlink
+    subdirloc = psprintf("%s/pg_wal", pg_data);
+
+    if (xlog_dir) {
+        // External WAL directory mode (-X option specified)
+        int ret;
+
+        // Validate and canonicalize external WAL directory path
+        canonicalize_path(xlog_dir);
+        if (!is_absolute_path(xlog_dir))
+            pg_fatal("WAL directory location must be an absolute path");
+
+        // Check state of external WAL directory
+        switch ((ret = pg_check_dir(xlog_dir)))
+        {
+            case 0:
+                // Directory doesn't exist - create it
+                printf(_("creating directory %s ... "), xlog_dir);
+                fflush(stdout);
+
+                if (pg_mkdir_p(xlog_dir, pg_dir_create_mode) != 0)
+                    pg_fatal("could not create directory \"%s\": %m", xlog_dir);
+                else
+                    check_ok();
+
+                made_new_xlogdir = true;
+                break;
+
+            case 1:
+                // Directory exists but is empty - fix permissions
+                printf(_("fixing permissions on existing directory %s ... "), xlog_dir);
+                fflush(stdout);
+
+                if (chmod(xlog_dir, pg_dir_create_mode) != 0)
+                    pg_fatal("could not change permissions of directory \"%s\": %m", xlog_dir);
+                else
+                    check_ok();
+
+                found_existing_xlogdir = true;
+                break;
+
+            case 2:
+            case 3:
+            case 4:
+                // Directory exists and is not empty - error
+                pg_log_error("directory \"%s\" exists but is not empty", xlog_dir);
+                if (ret != 4)
+                    warn_on_mount_point(ret);
+                else
+                    pg_log_error_hint("If you want to store the WAL there, either remove or empty the directory \"%s\".",
+                                      xlog_dir);
+                exit(1);
+
+            default:
+                // Cannot access directory
+                pg_fatal("could not access directory \"%s\": %m", xlog_dir);
+        }
+
+        // Create symbolic link from pg_wal to external directory
+        if (symlink(xlog_dir, subdirloc) != 0)
+            pg_fatal("could not create symbolic link \"%s\": %m", subdirloc);
+    }
+    else {
+        // Standard mode - create pg_wal as regular subdirectory
+        if (mkdir(subdirloc, pg_dir_create_mode) < 0)
+            pg_fatal("could not create directory \"%s\": %m", subdirloc);
+    }
+
+    free(subdirloc);
+}
+```

@@ -45,3 +45,24 @@ This is the most comprehensive variant of the ts_rank function family, accepting
 - Returns FLOAT4 (single precision) rather than double precision for efficiency
 - Part of PostgreSQL's text search ranking function family (ts_rank variants)
 - The 'wttf' suffix indicates the parameter pattern: Weights, TSVector, TSQuery, Flags
+
+## Simplified Source
+
+```c
+Datum ts_rank_wttf(PG_FUNCTION_ARGS) {
+    ArrayType *win = (ArrayType *) PG_DETOAST_DATUM(PG_GETARG_DATUM(0));
+    TSVector txt = PG_GETARG_TSVECTOR(1);
+    TSQuery query = PG_GETARG_TSQUERY(2);
+    int method = PG_GETARG_INT32(3);
+    float res;
+
+    // Calculate ranking with custom weights and normalization method
+    res = calc_rank(getWeights(win), txt, query, method);
+
+    // Clean up memory for detoasted arguments
+    PG_FREE_IF_COPY(win, 0);
+    PG_FREE_IF_COPY(txt, 1);
+    PG_FREE_IF_COPY(query, 2);
+    PG_RETURN_FLOAT4(res);
+}
+```

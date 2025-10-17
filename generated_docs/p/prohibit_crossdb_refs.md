@@ -36,3 +36,22 @@ The function serves as a validation step when processing database object pattern
 - The function will terminate the program immediately if a cross-database reference is detected
 - PostgreSQL does not support cross-database queries or references, making this validation necessary
 - The error message includes the original pattern to help users understand what caused the problem
+
+## Simplified Source
+
+```c
+static void
+prohibit_crossdb_refs(PGconn *conn, const char *dbname, const char *pattern)
+{
+    const char *db;
+
+    // Get the current database name from the connection
+    db = PQdb(conn);
+    if (db == NULL)
+        pg_fatal("You are currently not connected to a database.");
+
+    // Compare with the requested database name
+    if (strcmp(db, dbname) != 0)
+        pg_fatal("cross-database references are not implemented: %s", pattern);
+}
+```

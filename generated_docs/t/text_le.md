@@ -36,3 +36,22 @@ The  function is a PostgreSQL built-in function that performs a "less than or eq
 - Properly handles memory management by freeing copied arguments after use
 - Part of PostgreSQL's comprehensive set of text comparison operators
 - The function is defined in  at lines 1746-1760
+
+## Simplified Source
+```c
+Datum text_le(PG_FUNCTION_ARGS)
+{
+    // Extract text arguments
+    text *text1 = PG_GETARG_TEXT_PP(0);
+    text *text2 = PG_GETARG_TEXT_PP(1);
+
+    // Perform comparison: result <= 0 means text1 <= text2
+    bool result = (text_cmp(text1, text2, PG_GET_COLLATION()) <= 0);
+
+    // Clean up memory if needed
+    PG_FREE_IF_COPY(text1, 0);
+    PG_FREE_IF_COPY(text2, 1);
+
+    return PG_RETURN_BOOL(result);
+}
+```

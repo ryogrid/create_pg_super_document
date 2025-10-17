@@ -39,3 +39,55 @@ The function implements a caching mechanism for the SPI plan to avoid repeated p
 - Returns NULL if rule is not found or accessible
 - Implements plan caching for performance optimization
 - Manages all memory allocation in the outer context to avoid SPI memory issues
+
+## Simplified Source
+
+```c
+static char *
+pg_get_ruledef_worker(Oid ruleoid, int prettyFlags)
+{
+    Datum args[1];
+    char nulls[1];
+    HeapTuple ruletup;
+    TupleDesc rulettc;
+    StringInfoData buf;
+
+    // Initialize result buffer in outer context
+    initStringInfo(&buf);
+
+    // Connect to SPI for secure catalog access
+    if (SPI_connect() != SPI_OK_CONNECT)
+        elog(ERROR, "SPI_connect failed");
+
+    // Prepare query plan on first call (cached)
+    if (plan_getrulebyoid == NULL) {
+        Oid argtypes[1] = {OIDOID};
+        SPIPlanPtr plan = SPI_prepare(query_getrulebyoid, 1, argtypes);
+        if (plan == NULL)
+            elog(ERROR, "SPI_prepare failed");
+        SPI_keepplan(plan);
+        plan_getrulebyoid = plan;
+    }
+
+    // Execute query to get rule tuple
+    args[0] = ObjectIdGetDatum(ruleoid);
+    nulls[0] = ' ';
+    int spirc = SPI_execute_plan(plan_getrulebyoid, args, nulls, true, 0);
+
+    if (spirc != SPI_OK_SELECT)
+        elog(ERROR, "failed to get pg_rewrite tuple for rule %u", ruleoid);
+
+    // Format rule definition if found
+    if (SPI_processed == 1) {
+        ruletup = SPI_tuptable->vals[0];
+        rulettc = SPI_tuptable->tupdesc;
+        make_ruledef(&buf, ruletup, rulettc, prettyFlags);
+    }
+
+    // Clean up SPI connection
+    if (SPI_finish() != SPI_OK_FINISH)
+        elog(ERROR, "SPI_finish failed");
+
+    return (buf.len == 0) ? NULL : buf.data;
+}
+```

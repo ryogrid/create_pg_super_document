@@ -39,3 +39,63 @@ This function processes the result of XPath expression evaluation and converts i
 - Uses PostgreSQL's array building infrastructure (ArrayBuildState/accumArrayResult)
 - Part of the bridge between libxml2's XPath engine and PostgreSQL's type system
 - Error handling relies on the xml_xmlnodetoxmltype function for node conversion errors
+
+## Simplified Source
+
+```c
+static int xml_xpathobjtoxmlarray(xmlXPathObjectPtr xpathobj,
+                                 ArrayBuildState *astate,
+                                 PgXmlErrorContext *xmlerrcxt)
+{
+    int result = 0;
+    Datum datum;
+    Oid datumtype;
+    char *result_str;
+
+    switch (xpathobj->type) {
+        case XPATH_NODESET:
+            // Handle nodeset: convert each node to XML and add to array
+            if (xpathobj->nodesetval != NULL) {
+                result = xpathobj->nodesetval->nodeNr;
+                if (astate != NULL) {
+                    for (int i = 0; i < result; i++) {
+                        datum = PointerGetDatum(xml_xmlnodetoxmltype(xpathobj->nodesetval->nodeTab[i], xmlerrcxt));
+                        accumArrayResult(astate, datum, false, XMLOID, CurrentMemoryContext);
+                    }
+                }
+            }
+            return result;
+
+        case XPATH_BOOLEAN:
+            // Handle boolean: return 1 element count or convert to datum
+            if (astate == NULL) return 1;
+            datum = BoolGetDatum(xpathobj->boolval);
+            datumtype = BOOLOID;
+            break;
+
+        case XPATH_NUMBER:
+            // Handle number: return 1 element count or convert to datum
+            if (astate == NULL) return 1;
+            datum = Float8GetDatum(xpathobj->floatval);
+            datumtype = FLOAT8OID;
+            break;
+
+        case XPATH_STRING:
+            // Handle string: return 1 element count or convert to datum
+            if (astate == NULL) return 1;
+            datum = CStringGetDatum((char *) xpathobj->stringval);
+            datumtype = CSTRINGOID;
+            break;
+
+        default:
+            elog(ERROR, "xpath expression result type %d is unsupported", xpathobj->type);
+            return 0;
+    }
+
+    // Convert scalar values to XML and add to array
+    result_str = map_sql_value_to_xml_value(datum, datumtype, true);
+    datum = PointerGetDatum(cstring_to_xmltype(result_str));
+    accumArrayResult(astate, datum, false, XMLOID, CurrentMemoryContext);
+    return 1;
+}
+```

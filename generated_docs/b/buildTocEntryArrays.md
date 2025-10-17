@@ -42,3 +42,40 @@ For TABLE DATA entries, the function establishes a reverse mapping by examining 
 - The tableDataId mapping is computed by reversing the dependency relationship of TABLE DATA items
 - Memory is allocated using pg_malloc0 to ensure zero-initialization
 - The function assumes the TOC list is properly formed with a circular linked list structure
+
+## Simplified Source
+
+```c
+static void
+buildTocEntryArrays(ArchiveHandle *AH)
+{
+    DumpId maxDumpId = AH->maxDumpId;
+    TocEntry *te;
+
+    // Allocate index arrays
+    AH->tocsByDumpId = (TocEntry **) pg_malloc0((maxDumpId + 1) * sizeof(TocEntry *));
+    AH->tableDataId = (DumpId *) pg_malloc0((maxDumpId + 1) * sizeof(DumpId));
+
+    // Build arrays by traversing TOC list
+    for (te = AH->toc->next; te != AH->toc; te = te->next)
+    {
+        // Validate dump ID bounds
+        if (te->dumpId <= 0 || te->dumpId > maxDumpId)
+            pg_fatal("bad dumpId");
+
+        // Index TOC entry by dump ID
+        AH->tocsByDumpId[te->dumpId] = te;
+
+        // Build reverse mapping for TABLE DATA entries
+        if (strcmp(te->desc, "TABLE DATA") == 0 && te->nDeps > 0)
+        {
+            DumpId tableId = te->dependencies[0];
+
+            if (tableId <= 0 || tableId > maxDumpId)
+                pg_fatal("bad table dumpId for TABLE DATA item");
+
+            AH->tableDataId[tableId] = te->dumpId;
+        }
+    }
+}
+```

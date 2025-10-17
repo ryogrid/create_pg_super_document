@@ -36,3 +36,23 @@ This function serves as the transition function for PostgreSQL's interval sum() 
 - Handles NULL inputs gracefully by skipping accumulation for NULL interval values
 - Memory management is handled by PostgreSQL's memory context system through makeIntervalAggState
 - Part of PostgreSQL's extensible aggregate function framework
+
+## Simplified Source
+```c
+Datum interval_avg_accum(PG_FUNCTION_ARGS) {
+    IntervalAggState *state;
+
+    // Get existing state or NULL for first call
+    state = PG_ARGISNULL(0) ? NULL : (IntervalAggState *) PG_GETARG_POINTER(0);
+
+    // Initialize state on first call
+    if (state == NULL)
+        state = makeIntervalAggState(fcinfo);
+
+    // Accumulate non-NULL interval values
+    if (!PG_ARGISNULL(1))
+        do_interval_accum(state, PG_GETARG_INTERVAL_P(1));
+
+    PG_RETURN_POINTER(state);
+}
+```

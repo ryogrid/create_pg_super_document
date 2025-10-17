@@ -38,3 +38,42 @@ The function writes configuration entries that map the current Windows domain us
 - The generated pg_ident.conf includes entries for both the superuser and any extra roles specified via extraroles
 - Account names are double-quoted to handle whitespace and '#' characters
 - The function will terminate the program (via bail()) if critical operations fail, such as file creation or writing
+
+## Simplified Source
+
+```c
+static void config_sspi_auth(const char *pgdata, const char *superuser_name) {
+    const char *accountname, *domainname;
+    char *errstr;
+    bool have_ipv6;
+    char fname[MAXPGPATH];
+    FILE *hba, *ident;
+
+    // Get current Windows user information
+    current_windows_user(&accountname, &domainname);
+
+    // Determine superuser name (use default if not specified)
+    if (superuser_name == NULL) {
+        superuser_name = get_user_name(&errstr);
+        if (superuser_name == NULL) {
+            bail("%s", errstr);
+        }
+    }
+
+    // Check IPv6 support for configuration
+    struct addrinfo *gai_result;
+    struct addrinfo hints;
+    WSADATA wsaData;
+
+    hints.ai_flags = AI_NUMERICHOST;
+    hints.ai_family = AF_UNSPEC;
+    // ... initialize other hint fields ...
+
+    have_ipv6 = (WSAStartup(MAKEWORD(2, 2), &wsaData) == 0 &&
+                 getaddrinfo("::1", NULL, &hints, &gai_result) == 0);
+
+    // Write pg_hba.conf with SSPI authentication entries for IPv4 and IPv6
+    // Write pg_ident.conf mapping Windows user to PostgreSQL users
+    // (Implementation writes configuration files for SSPI authentication)
+}
+```

@@ -38,3 +38,19 @@ This function is a PostgreSQL built-in function that implements the addition ope
 - Located in src/backend/utils/adt/timestamp.c:3360-3370
 - Returns a Datum containing the resulting timestamp with time zone
 - Provides more control over timezone handling compared to the basic `timestamptz_pl_interval` function
+
+## Simplified Source
+
+```c
+Datum timestamptz_pl_interval_at_zone(PG_FUNCTION_ARGS) {
+    TimestampTz timestamp = PG_GETARG_TIMESTAMPTZ(0);
+    Interval *span = PG_GETARG_INTERVAL_P(1);
+    text *zone_text = PG_GETARG_TEXT_PP(2);
+
+    // Resolve timezone name to pg_tz structure
+    pg_tz *attimezone = lookup_timezone(zone_text);
+
+    // Delegate to internal function with specified timezone
+    PG_RETURN_TIMESTAMP(timestamptz_pl_interval_internal(timestamp, span, attimezone));
+}
+```

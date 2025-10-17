@@ -33,3 +33,14 @@ The implementation simply delegates to  since regconfig is internally represente
 - Delegates to  since regconfig and OID have identical binary representations
 - Used primarily in binary protocol communications and binary file operations
 - The function signature follows PostgreSQL's standard for type receive functions
+
+## Simplified Source
+
+```c
+Datum
+regconfigrecv(PG_FUNCTION_ARGS)
+{
+    // Delegate to oidrecv since regconfig is internally an OID
+    return oidrecv(fcinfo);
+}
+```

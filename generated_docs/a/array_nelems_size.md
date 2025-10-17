@@ -38,3 +38,16 @@ This is a utility function that calculates the total memory size consumed by a c
 - The function relies on pointer arithmetic to calculate size, making it efficient for memory size calculations
 - It inherits the same parameter validation responsibilities as  - the caller must ensure  is within valid range
 - The function handles both NULL and non-NULL bitmap scenarios through the underlying  implementation
+
+## Simplified Source
+
+```c
+static int
+array_nelems_size(char *ptr, int offset, bits8 *nullbitmap, int nitems,
+                  int typlen, bool typbyval, char typalign)
+{
+    // Calculate size by finding end pointer and subtracting start pointer
+    return array_seek(ptr, offset, nullbitmap, nitems,
+                     typlen, typbyval, typalign) - ptr;
+}
+```

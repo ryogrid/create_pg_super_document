@@ -49,3 +49,64 @@ This function takes no parameters and operates on global variables:
 - Includes helpful hints for users when shutdown fails in smart mode
 - The restart operation maintains the same configuration and data directory as the previous instance
 - Error messages are internationalized using the gettext system
+
+## Simplified Source
+
+```c
+static void
+do_restart(void)
+{
+    pid_t pid;
+
+    // Get the postmaster process ID from PID file
+    pid = get_pgpid(false);
+
+    // Handle different server states
+    if (pid == 0) {
+        // No PID file - try to start anyway
+        write_stderr("PID file does not exist\n");
+        write_stderr("Is server running?\n");
+        write_stderr("trying to start server anyway\n");
+        do_start();
+        return;
+    } else if (pid < 0) {
+        // Standalone backend detected
+        pid = -pid;
+        if (postmaster_is_alive(pid)) {
+            write_stderr("Cannot restart single-user server (PID: %d)\n", (int) pid);
+            write_stderr("Please terminate the single-user server and try again.\n");
+            exit(1);
+        }
+    }
+
+    // If postmaster is running, stop it first
+    if (postmaster_is_alive(pid)) {
+        // Send stop signal
+        if (kill(pid, sig) != 0) {
+            write_stderr("Could not send stop signal (PID: %d)\n", (int) pid);
+            exit(1);
+        }
+
+        print_msg("waiting for server to shut down...");
+
+        // Always wait for restart - ensure clean shutdown
+        if (!wait_for_postmaster_stop()) {
+            print_msg(" failed\n");
+            write_stderr("server does not shut down\n");
+            if (shutdown_mode == SMART_MODE)
+                write_stderr("HINT: Use \"-m fast\" for immediate disconnection\n");
+            exit(1);
+        }
+
+        print_msg(" done\n");
+        print_msg("server stopped\n");
+    } else {
+        // Process appears to be dead
+        write_stderr("old server process (PID: %d) seems to be gone\n", (int) pid);
+        write_stderr("starting server anyway\n");
+    }
+
+    // Start new server instance
+    do_start();
+}
+```

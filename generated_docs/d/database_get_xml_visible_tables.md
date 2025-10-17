@@ -37,3 +37,19 @@ This function returns all tables, materialized views, and views in the current d
 - Restricts results to tables within schemas that meet XML visibility criteria
 - Currently no specific ordering is applied to results (as noted in the comment)
 - Combines table-level and schema-level access controls for comprehensive security
+
+## Simplified Source
+
+```c
+static List *database_get_xml_visible_tables(void)
+{
+    // Query for all visible tables across all accessible schemas
+    return query_to_oid_list("SELECT oid FROM pg_catalog.pg_class"
+                            " WHERE relkind IN ("
+                            CppAsString2(RELKIND_RELATION) ","
+                            CppAsString2(RELKIND_MATVIEW) ","
+                            CppAsString2(RELKIND_VIEW) ")"
+                            " AND pg_catalog.has_table_privilege(pg_class.oid, 'SELECT')"
+                            " AND relnamespace IN (" XML_VISIBLE_SCHEMAS ");");
+}
+```

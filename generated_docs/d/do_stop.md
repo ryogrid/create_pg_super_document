@@ -47,3 +47,55 @@ This function takes no parameters and operates on global variables:
 - Handles the special case of standalone backends which cannot be stopped via pg_ctl
 - The actual signal sent depends on the shutdown mode configured globally (SIGTERM for smart/fast, SIGQUIT for immediate)
 - Error messages are internationalized using the gettext system
+
+## Simplified Source
+
+```c
+static void
+do_stop(void)
+{
+    pid_t pid;
+
+    // Get the postmaster process ID from PID file
+    pid = get_pgpid(false);
+
+    // Check if server is running
+    if (pid == 0) {
+        // No PID file exists - server not running
+        write_stderr("PID file does not exist\n");
+        write_stderr("Is server running?\n");
+        exit(1);
+    } else if (pid < 0) {
+        // Standalone backend detected - cannot stop via pg_ctl
+        pid = -pid;
+        write_stderr("Cannot stop single-user server (PID: %d)\n", (int) pid);
+        exit(1);
+    }
+
+    // Send termination signal to postmaster
+    if (kill(pid, sig) != 0) {
+        write_stderr("Could not send stop signal (PID: %d)\n", (int) pid);
+        exit(1);
+    }
+
+    // Handle wait behavior
+    if (!do_wait) {
+        print_msg("server shutting down\n");
+        return;
+    } else {
+        print_msg("waiting for server to shut down...");
+
+        // Wait for complete shutdown
+        if (!wait_for_postmaster_stop()) {
+            print_msg(" failed\n");
+            write_stderr("server does not shut down\n");
+            if (shutdown_mode == SMART_MODE)
+                write_stderr("HINT: Use \"-m fast\" for immediate disconnection\n");
+            exit(1);
+        }
+
+        print_msg(" done\n");
+        print_msg("server stopped\n");
+    }
+}
+```

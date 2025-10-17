@@ -64,3 +64,89 @@ Key design aspects include:
 - Integrates with Valgrind for memory debugging in development builds
 - The allocChunkLimit calculation ensures ~1/8 maximum waste ratio for streaming allocations
 - Failure to allocate initial block triggers detailed memory context statistics before error reporting
+
+## Simplified Source
+
+```c
+MemoryContext
+AllocSetContextCreateInternal(MemoryContext parent,
+                              const char *name,
+                              Size minContextSize,
+                              Size initBlockSize,
+                              Size maxBlockSize)
+{
+    AllocSet set;
+    AllocBlock block;
+    Size firstBlockSize;
+    int freeListIndex = -1;
+
+    // Validate parameters (initBlockSize >= 1K, properly aligned, etc.)
+    Assert(initBlockSize >= 1024 && initBlockSize == MAXALIGN(initBlockSize));
+    Assert(maxBlockSize >= initBlockSize && maxBlockSize <= MEMORYCHUNK_MAX_BLOCKOFFSET);
+
+    // Check if we can reuse an existing context from freelists
+    if (minContextSize == ALLOCSET_DEFAULT_MINSIZE &&
+        initBlockSize == ALLOCSET_DEFAULT_INITSIZE) {
+        freeListIndex = 0;
+    } else if (minContextSize == ALLOCSET_SMALL_MINSIZE &&
+               initBlockSize == ALLOCSET_SMALL_INITSIZE) {
+        freeListIndex = 1;
+    }
+
+    // Try to recycle from freelist if possible
+    if (freeListIndex >= 0 && context_freelists[freeListIndex].first_free != NULL) {
+        set = context_freelists[freeListIndex].first_free;
+        context_freelists[freeListIndex].first_free = (AllocSet) set->header.nextchild;
+        context_freelists[freeListIndex].num_free--;
+
+        // Update parameters and reinitialize
+        set->maxBlockSize = maxBlockSize;
+        MemoryContextCreate((MemoryContext) set, T_AllocSetContext,
+                           MCTX_ASET_ID, parent, name);
+        return (MemoryContext) set;
+    }
+
+    // Calculate size for initial block
+    firstBlockSize = MAXALIGN(sizeof(AllocSetContext)) +
+                     ALLOC_BLOCKHDRSZ + ALLOC_CHUNKHDRSZ;
+    firstBlockSize = Max(firstBlockSize,
+                        minContextSize ? minContextSize : initBlockSize);
+
+    // Allocate the initial block with context header
+    set = (AllocSet) malloc(firstBlockSize);
+    if (set == NULL) {
+        ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY),
+                       errmsg("out of memory")));
+    }
+
+    // Initialize the keeper block
+    block = KeeperBlock(set);
+    block->aset = set;
+    block->freeptr = ((char *) block) + ALLOC_BLOCKHDRSZ;
+    block->endptr = ((char *) set) + firstBlockSize;
+    block->prev = NULL;
+    block->next = NULL;
+    set->blocks = block;
+
+    // Initialize context-specific fields
+    MemSetAligned(set->freelist, 0, sizeof(set->freelist));
+    set->initBlockSize = initBlockSize;
+    set->maxBlockSize = maxBlockSize;
+    set->nextBlockSize = initBlockSize;
+    set->freeListIndex = freeListIndex;
+
+    // Calculate chunk size limit (power-of-2, <= ALLOC_CHUNK_LIMIT)
+    set->allocChunkLimit = ALLOC_CHUNK_LIMIT;
+    while ((set->allocChunkLimit + ALLOC_CHUNKHDRSZ) >
+           ((maxBlockSize - ALLOC_BLOCKHDRSZ) / ALLOC_CHUNK_FRACTION)) {
+        set->allocChunkLimit >>= 1;
+    }
+
+    // Complete context creation
+    MemoryContextCreate((MemoryContext) set, T_AllocSetContext,
+                       MCTX_ASET_ID, parent, name);
+    ((MemoryContext) set)->mem_allocated = firstBlockSize;
+
+    return (MemoryContext) set;
+}
+```

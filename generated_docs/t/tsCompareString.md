@@ -60,3 +60,38 @@ The implementation carefully handles boundary conditions including zero-length s
 - Used by GIN indexing system for efficient text search indexing and querying
 - Handles binary-safe comparison (works with any byte sequences, not just text)
 - Performance-optimized using memcmp for the core comparison logic
+
+## Simplified Source
+
+```c
+int32 tsCompareString(char *a, int lena, char *b, int lenb, bool prefix) {
+    int cmp;
+
+    // Handle empty string cases
+    if (lena == 0) {
+        if (prefix)
+            cmp = 0;  // Empty string is prefix of anything
+        else
+            cmp = (lenb > 0) ? -1 : 0;
+    }
+    else if (lenb == 0) {
+        cmp = (lena > 0) ? 1 : 0;
+    }
+    else {
+        // Compare overlapping portion
+        cmp = memcmp(a, b, Min((unsigned int) lena, (unsigned int) lenb));
+
+        if (prefix) {
+            // For prefix: a longer than b means not a prefix
+            if (cmp == 0 && lena > lenb)
+                cmp = 1;
+        }
+        else if (cmp == 0 && lena != lenb) {
+            // For exact match: different lengths means not equal
+            cmp = (lena < lenb) ? -1 : 1;
+        }
+    }
+
+    return cmp;
+}
+```

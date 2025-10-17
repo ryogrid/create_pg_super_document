@@ -45,3 +45,96 @@ The function tracks progress with debug logging and ensures proper cleanup by va
 - Handles both normal completion (reading entire file) and early termination (when stream_fd is closed by stream_commit processing)
 - Critical for handling large streaming transactions that exceed memory limits and require spooling to disk
 - Resource ownership is temporarily transferred to TopTransactionResourceOwner to prevent subtransaction interference
+
+## Simplified Source
+
+```c
+void apply_spooled_messages(FileSet *stream_fileset, TransactionId xid, XLogRecPtr lsn)
+{
+    int nchanges;
+    char path[MAXPGPATH];
+    char *buffer = NULL;
+    MemoryContext oldcxt;
+    ResourceOwner oldowner;
+    int fileno;
+    off_t offset;
+
+    // Check if we should skip changes based on LSN
+    if (!am_parallel_apply_worker())
+        maybe_start_skipping_changes(lsn);
+
+    begin_replication_step();
+
+    // Allocate buffers in TopTransactionContext to avoid resets
+    oldcxt = MemoryContextSwitchTo(TopTransactionContext);
+
+    // Open the spooled changes file
+    changes_filename(path, MyLogicalRepWorker->subid, xid);
+    elog(DEBUG1, "replaying changes from file \"%s\"", path);
+
+    // Transfer file ownership to toplevel transaction
+    oldowner = CurrentResourceOwner;
+    CurrentResourceOwner = TopTransactionResourceOwner;
+    stream_fd = BufFileOpenFileSet(stream_fileset, path, O_RDONLY, false);
+    CurrentResourceOwner = oldowner;
+
+    buffer = palloc(BLCKSZ);
+    MemoryContextSwitchTo(oldcxt);
+
+    // Set up remote transaction context
+    remote_final_lsn = lsn;
+    in_remote_transaction = true;
+    pgstat_report_activity(STATE_RUNNING, NULL);
+
+    end_replication_step();
+
+    // Process messages one by one
+    nchanges = 0;
+    while (true) {
+        StringInfoData s2;
+        size_t nbytes;
+        int len;
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Read message length
+        nbytes = BufFileReadMaybeEOF(stream_fd, &len, sizeof(len), true);
+        if (nbytes == 0)
+            break;  // End of file
+
+        if (len <= 0)
+            elog(ERROR, "incorrect length %d in streaming transaction's changes file \"%s\"",
+                 len, path);
+
+        // Read message data
+        buffer = repalloc(buffer, len);
+        BufFileReadExact(stream_fd, buffer, len);
+        BufFileTell(stream_fd, &fileno, &offset);
+
+        // Dispatch the message
+        initReadOnlyStringInfo(&s2, buffer, len);
+        oldcxt = MemoryContextSwitchTo(ApplyMessageContext);
+        apply_dispatch(&s2);
+        MemoryContextReset(ApplyMessageContext);
+        MemoryContextSwitchTo(oldcxt);
+
+        nchanges++;
+
+        // Check if file was closed by transaction end message
+        if (!stream_fd) {
+            ensure_last_message(stream_fileset, xid, fileno, offset);
+            break;
+        }
+
+        // Progress logging
+        if (nchanges % 1000 == 0)
+            elog(DEBUG1, "replayed %d changes from file \"%s\"", nchanges, path);
+    }
+
+    // Cleanup
+    if (stream_fd)
+        stream_close_file();
+
+    elog(DEBUG1, "replayed %d (all) changes from file \"%s\"", nchanges, path);
+}
+```

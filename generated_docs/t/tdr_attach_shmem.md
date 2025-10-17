@@ -34,3 +34,20 @@ The function sets the global `tdr_state` pointer to reference the shared memory 
 - The function updates the global `tdr_state` variable to point to the shared memory segment
 - The `found` variable indicates whether the segment already existed, though it's not used in this implementation
 - Lock tranche registration helps with lock contention monitoring and provides meaningful names in debugging tools
+
+## Simplified Source
+
+```c
+static void tdr_attach_shmem(void) {
+    bool found;
+
+    // Get or create named DSM segment with initialization callback
+    tdr_state = GetNamedDSMSegment("test_dsm_registry",
+                                   sizeof(TestDSMRegistryStruct),
+                                   tdr_init_shmem,
+                                   &found);
+
+    // Register the lock tranche for monitoring and debugging
+    LWLockRegisterTranche(tdr_state->lck.tranche, "test_dsm_registry");
+}
+```

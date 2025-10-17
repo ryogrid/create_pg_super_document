@@ -42,3 +42,25 @@ Before executing the command, the function flushes all output streams to ensure 
 - Properly deallocates the StringInfo buffer regardless of command success or failure
 - The database name is automatically quoted to handle names containing spaces or special characters
 - This function blocks until the psql command completes since it uses system()
+
+## Simplified Source
+
+```c
+static void psql_end_command(StringInfo buf, const char *database)
+{
+    // Add database name to command (assumes no escaping needed)
+    appendStringInfo(buf, " \"%s\"", database);
+
+    // Flush output before executing command
+    fflush(NULL);
+
+    // Execute the psql command via system shell
+    if (system(buf->data) != 0) {
+        // Command failed - bail with error message
+        bail("command failed: %s", buf->data);
+    }
+
+    // Clean up allocated string buffer
+    destroyStringInfo(buf);
+}
+```

@@ -33,3 +33,16 @@ This function iterates through the cleanup_dir_list linked list and frees all cb
 - Part of error handling and cleanup management system
 - The cleanup_dir_list is set to NULL after all entries are processed and freed
 - File location: src/bin/pg_combinebackup/pg_combinebackup.c:1226-1244
+
+## Simplified Source
+
+```c
+static void reset_directory_cleanup_list(void) {
+    // Free all entries in cleanup list
+    while (cleanup_dir_list != NULL) {
+        cb_cleanup_dir *dir = cleanup_dir_list;
+        cleanup_dir_list = cleanup_dir_list->next;
+        pfree(dir);
+    }
+}
+```

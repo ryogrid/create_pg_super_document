@@ -32,3 +32,14 @@ The function takes a Datum representing a catalog cache tuple reference and call
 - Ensures catalog cache references are properly released during error recovery and transaction cleanup
 - The NULL owner parameter passed to ReleaseCatCacheWithOwner indicates this is an automatic cleanup operation
 - Essential for preventing catalog cache reference leaks in error scenarios
+
+## Simplified Source
+
+```c
+static void ResOwnerReleaseCatCache(Datum res) {
+    // Convert Datum to HeapTuple pointer and release catalog cache reference
+    ReleaseCatCacheWithOwner((HeapTuple) DatumGetPointer(res), NULL);
+}
+```
+
+This simplified version shows the function's core purpose: it's a ResourceOwner callback that releases a catalog cache tuple reference by converting the Datum parameter to a HeapTuple pointer and calling the release function with NULL owner.

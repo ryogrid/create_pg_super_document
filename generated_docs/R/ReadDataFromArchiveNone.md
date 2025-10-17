@@ -33,3 +33,26 @@ This function implements the data reading functionality for the "none" compressi
 - Memory is properly allocated and freed for the transfer buffer
 - The function continues reading until the read function returns 0 (no more data)
 - Located in src/bin/pg_dump/compress_none.c:30-48
+
+## Simplified Source
+
+```c
+static void
+ReadDataFromArchiveNone(ArchiveHandle *AH, CompressorState *cs)
+{
+    size_t cnt;
+    char *buf;
+    size_t buflen;
+
+    // Allocate I/O buffer
+    buflen = DEFAULT_IO_BUFFER_SIZE;
+    buf = pg_malloc(buflen);
+
+    // Simple read-write loop: read data and write directly to archive
+    while ((cnt = cs->readF(AH, &buf, &buflen))) {
+        ahwrite(buf, 1, cnt, AH);
+    }
+
+    free(buf);
+}
+```

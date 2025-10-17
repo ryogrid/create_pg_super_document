@@ -34,3 +34,16 @@ The function checks for the availability of both FmgrInfo and its associated fn_
 - This function is commonly used in window functions and validation routines where argument stability affects optimization strategies
 - The stability check is crucial for determining whether argument values can be pre-computed or cached during query execution
 - Part of PostgreSQL's function manager infrastructure that supports runtime optimization based on argument characteristics
+
+## Simplified Source
+
+```c
+bool get_fn_expr_arg_stable(FmgrInfo *flinfo, int argnum) {
+    // Check if function info and expression are available
+    if (!flinfo || !flinfo->fn_expr)
+        return false;
+
+    // Delegate to expression-specific stability check
+    return get_call_expr_arg_stable(flinfo->fn_expr, argnum);
+}
+```

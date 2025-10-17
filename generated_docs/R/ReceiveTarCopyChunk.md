@@ -39,3 +39,20 @@ Additionally, the function maintains global progress tracking by updating the to
 - Uses the bbstreamer API for flexible output processing and compression handling
 - The function is stateless except for the callback_data parameter, making it suitable for repeated invocation
 - Progress reporting is called for every chunk, providing responsive user feedback during large backup operations
+
+## Simplified Source
+
+```c
+static void
+ReceiveTarCopyChunk(size_t r, char *copybuf, void *callback_data)
+{
+    WriteTarState *state = callback_data;
+
+    // Forward chunk to backup streamer
+    bbstreamer_content(state->streamer, NULL, copybuf, r, BBSTREAMER_UNKNOWN);
+
+    // Update progress tracking
+    totaldone += r;
+    progress_report(state->tablespacenum, false, false);
+}
+```

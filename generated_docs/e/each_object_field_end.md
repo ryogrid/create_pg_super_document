@@ -45,3 +45,57 @@ The function switches to a temporary memory context for tuple creation, ensuring
 - Supports normalized scalar results and handles null values appropriately
 - Part of PostgreSQL's JSON expansion infrastructure for functions like json_each() and jsonb_each()
 - Returns JSON_SUCCESS on successful completion
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+each_object_field_end(void *state, char *fname, bool isnull)
+{
+    EachState *each_state = (EachState *) state;
+
+    // Only process top-level object fields
+    if (each_state->lex->lex_level != 1)
+        return JSON_SUCCESS;
+
+    // Switch to temporary memory context for tuple creation
+    MemoryContext old_cxt = MemoryContextSwitchTo(each_state->tmp_cxt);
+
+    Datum values[2];
+    bool nulls[2] = {false, false};
+
+    // Set field name (key)
+    values[0] = CStringGetTextDatum(fname);
+
+    // Set field value based on type and normalization settings
+    if (isnull && each_state->normalize_results)
+    {
+        // Handle null values in normalized mode
+        nulls[1] = true;
+        values[1] = (Datum) 0;
+    }
+    else if (each_state->next_scalar)
+    {
+        // Use pre-normalized scalar value
+        values[1] = CStringGetTextDatum(each_state->normalized_scalar);
+        each_state->next_scalar = false;
+    }
+    else
+    {
+        // Extract value from token range
+        int len = each_state->lex->prev_token_terminator - each_state->result_start;
+        text *val = cstring_to_text_with_len(each_state->result_start, len);
+        values[1] = PointerGetDatum(val);
+    }
+
+    // Create and store the key-value tuple
+    HeapTuple tuple = heap_form_tuple(each_state->ret_tdesc, values, nulls);
+    tuplestore_puttuple(each_state->tuple_store, tuple);
+
+    // Clean up temporary memory and restore context
+    MemoryContextSwitchTo(old_cxt);
+    MemoryContextReset(each_state->tmp_cxt);
+
+    return JSON_SUCCESS;
+}
+```

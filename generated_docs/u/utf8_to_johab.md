@@ -39,3 +39,27 @@ The function uses PostgreSQL's radix tree-based conversion mechanism with a diff
 - Returns the number of bytes successfully converted, enabling partial conversion tracking
 - Supports graceful error handling through the noError parameter for invalid UTF-8 sequences
 - Essential for Korean text processing in PostgreSQL databases that need to interface with JOHAB-based systems
+
+## Simplified Source
+```c
+Datum
+utf8_to_johab(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_UTF8, PG_JOHAB);
+
+    // Convert using radix tree mapping
+    int converted = UtfToLocal(src, len, dest,
+                              &johab_from_unicode_tree,
+                              NULL, 0, NULL,
+                              PG_JOHAB, noError);
+
+    PG_RETURN_INT32(converted);
+}
+```

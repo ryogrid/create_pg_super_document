@@ -35,3 +35,15 @@ Like its counterpart timestamp_at_local, this wrapper exists to support the gram
 - Does not perform any validation or processing itself, purely delegates to timestamptz_timestamp
 - Function is registered in PostgreSQL's system catalogs to support AT LOCAL grammar parsing
 - The conversion uses session_timezone for determining the local timezone context
+
+## Simplified Source
+
+```c
+Datum
+timestamptz_at_local(PG_FUNCTION_ARGS)
+{
+    // Simple wrapper for AT LOCAL syntax support
+    // Converts timestamptz to timestamp using session timezone
+    return timestamptz_timestamp(fcinfo);
+}
+```

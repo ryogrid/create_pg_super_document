@@ -40,3 +40,26 @@ The function uses PostgreSQL's PQExpBuffer for safe string manipulation and the 
 - The design allows for efficient reuse of base connection parameters while varying only the target database
 - Proper escaping and formatting of connection string parameters is handled automatically by 
 - Memory management is handled safely with proper buffer cleanup
+
+## Simplified Source
+
+```c
+static char *
+concat_conninfo_dbname(const char *conninfo, const char *dbname)
+{
+    // Create buffer for building connection string
+    PQExpBuffer buf = createPQExpBuffer();
+
+    // Add base connection parameters
+    appendPQExpBufferStr(buf, conninfo);
+
+    // Append database name parameter
+    appendConnStrItem(buf, "dbname", dbname);
+
+    // Return completed connection string
+    char *result = pg_strdup(buf->data);
+    destroyPQExpBuffer(buf);
+
+    return result;
+}
+```

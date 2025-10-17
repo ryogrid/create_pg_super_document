@@ -40,3 +40,21 @@ This approach provides optimal performance for supported encodings while maintai
 - Critical for PostgreSQL's LIKE pattern optimization and range type operations
 - Enables encoding-aware character increment operations for text processing performance
 - The generic fallback ensures compatibility with all PostgreSQL supported encodings
+
+## Simplified Source
+
+```c
+mbcharacter_incrementer pg_database_encoding_character_incrementer(void) {
+    // Return encoding-specific incrementer based on current database encoding
+    switch (GetDatabaseEncoding()) {
+        case PG_UTF8:
+            return pg_utf8_increment;
+
+        case PG_EUC_JP:
+            return pg_eucjp_increment;
+
+        default:
+            return pg_generic_charinc; // Fallback for all other encodings
+    }
+}
+```

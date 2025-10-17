@@ -36,3 +36,28 @@ This function serves as the foundation for both full backup files and incrementa
 
 ## Notes and Other Information
 The function opens files in binary mode (PG_BINARY) which is essential for reading PostgreSQL's block-oriented backup files correctly across different platforms. The missing_ok parameter allows callers to distinguish between optional files (like when checking if a full backup exists before looking for an incremental one) and required files that should cause fatal errors if missing.
+
+## Simplified Source
+
+```c
+static rfile *make_rfile(char *filename, bool missing_ok)
+{
+    rfile *rf;
+
+    // Allocate and initialize rfile structure
+    rf = pg_malloc0(sizeof(rfile));
+    rf->filename = pstrdup(filename);
+
+    // Open file in read-only binary mode
+    if ((rf->fd = open(filename, O_RDONLY | PG_BINARY, 0)) < 0) {
+        // Handle missing file gracefully if allowed
+        if (missing_ok && errno == ENOENT) {
+            pg_free(rf);
+            return NULL;
+        }
+        pg_fatal("could not open file \"%s\": %m", filename);
+    }
+
+    return rf;
+}
+```

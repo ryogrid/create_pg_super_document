@@ -46,3 +46,43 @@ The implementation includes a documented workaround that maintains backward comp
 - Sets month and day fields to 0, focusing only on time difference
 - Uses 64-bit arithmetic with overflow protection
 - Located at src/backend/utils/adt/timestamp.c:2786-2879
+
+## Simplified Source
+
+```c
+Datum timestamp_mi(PG_FUNCTION_ARGS)
+{
+    // Extract timestamp arguments
+    Timestamp timestamp1 = PG_GETARG_TIMESTAMP(0);
+    Timestamp timestamp2 = PG_GETARG_TIMESTAMP(1);
+    Interval *result = (Interval *) palloc(sizeof(Interval));
+
+    // Handle infinite timestamps - error on "infinity - infinity"
+    if (TIMESTAMP_NOT_FINITE(timestamp1) || TIMESTAMP_NOT_FINITE(timestamp2)) {
+        if ((TIMESTAMP_IS_NOBEGIN(timestamp1) && TIMESTAMP_IS_NOBEGIN(timestamp2)) ||
+            (TIMESTAMP_IS_NOEND(timestamp1) && TIMESTAMP_IS_NOEND(timestamp2))) {
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                           errmsg("interval out of range")));
+        }
+        // Set appropriate infinity result based on operands
+        // (detailed infinity logic omitted for brevity)
+        PG_RETURN_INTERVAL_P(result);
+    }
+
+    // Compute difference with overflow checking
+    if (pg_sub_s64_overflow(timestamp1, timestamp2, &result->time)) {
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                       errmsg("interval out of range")));
+    }
+
+    // Set month and day to 0 (only time difference)
+    result->month = 0;
+    result->day = 0;
+
+    // Apply hour justification for proper interval normalization
+    result = DatumGetIntervalP(DirectFunctionCall1(interval_justify_hours,
+                                                  IntervalPGetDatum(result)));
+
+    PG_RETURN_INTERVAL_P(result);
+}
+```

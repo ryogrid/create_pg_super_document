@@ -45,3 +45,38 @@ This function is part of PostgreSQL's planner support infrastructure that allows
 - Part of PostgreSQL's extensible planner support system that allows types to define custom optimizations
 - The `isExplicit` parameter is intentionally ignored as noted in the comments
 - Registered as a support function in the PostgreSQL system catalogs for VARCHAR type operations
+
+## Simplified Source
+
+```c
+Datum varchar_support(PG_FUNCTION_ARGS) {
+    Node *rawreq = (Node *) PG_GETARG_POINTER(0);
+    Node *ret = NULL;
+
+    // Handle simplification requests only
+    if (IsA(rawreq, SupportRequestSimplify)) {
+        SupportRequestSimplify *req = (SupportRequestSimplify *) rawreq;
+        FuncExpr *expr = req->fcall;
+
+        // Get the new type modifier from second argument
+        Node *typmod = (Node *) lsecond(expr->args);
+
+        if (IsA(typmod, Const) && !((Const *) typmod)->constisnull) {
+            Node *source = (Node *) linitial(expr->args);
+            int32 old_typmod = exprTypmod(source);
+            int32 new_typmod = DatumGetInt32(((Const *) typmod)->constvalue);
+
+            // Calculate max lengths (accounting for header size)
+            int32 old_max = old_typmod - VARHDRSZ;
+            int32 new_max = new_typmod - VARHDRSZ;
+
+            // Optimize: if new length >= old length, just relabel
+            if (new_typmod < 0 || (old_typmod >= 0 && old_max <= new_max)) {
+                ret = relabel_to_typmod(source, new_typmod);
+            }
+        }
+    }
+
+    PG_RETURN_POINTER(ret);
+}
+```

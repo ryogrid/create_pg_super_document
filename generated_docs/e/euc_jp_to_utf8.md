@@ -44,4 +44,29 @@ The conversion process involves parsing the source EUC-JP encoded string, mappin
 - The function returns the number of bytes successfully converted as an integer
 - Error handling is controlled by the  parameter - [when](../w/when.md) true, conversion failures are silently handled rather than throwing exceptions
 - The conversion relies on pre-built mapping trees that contain the character correspondence between EUC-JP and Unicode code points
-- Located in: 
+- Located in src/backend/utils/mb/conversion_procs/utf8_and_euc_jp/utf8_and_euc_jp.c:39-59
+
+## Simplified Source
+
+```c
+Datum
+euc_jp_to_utf8(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_EUC_JP, PG_UTF8);
+
+    // Convert EUC-JP to UTF-8 using conversion tree
+    int converted = LocalToUtf(src, len, dest,
+                              &euc_jp_to_unicode_tree,
+                              NULL, 0, NULL,
+                              PG_EUC_JP, noError);
+
+    return converted;
+}
+``` 

@@ -47,3 +47,66 @@ For proper functionality, reads and writes on the returned handles must go throu
 - Temporary listening socket is immediately closed after connection establishment
 - Returned handles must be used with piperead/pipewrite functions, not standard I/O
 - Part of pg_dump's parallel processing infrastructure for Windows portability
+
+## Simplified Source
+
+```c
+static int
+pgpipe(int handles[2])
+{
+    pgsocket s, tmp_sock;
+    struct sockaddr_in serv_addr;
+    int len = sizeof(serv_addr);
+
+    // Initialize handles to invalid state
+    handles[0] = handles[1] = -1;
+
+    // Create listening socket on loopback interface
+    s = socket(AF_INET, SOCK_STREAM, 0);
+    if (s == PGINVALID_SOCKET)
+        return -1;
+
+    // Bind to any available port on localhost
+    memset(&serv_addr, 0, sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = pg_hton16(0);  // Let system assign port
+    serv_addr.sin_addr.s_addr = pg_hton32(INADDR_LOOPBACK);
+
+    if (bind(s, (SOCKADDR *) &serv_addr, len) == SOCKET_ERROR ||
+        listen(s, 1) == SOCKET_ERROR ||
+        getsockname(s, (SOCKADDR *) &serv_addr, &len) == SOCKET_ERROR)
+    {
+        closesocket(s);
+        return -1;
+    }
+
+    // Create client socket and connect to listener
+    tmp_sock = socket(AF_INET, SOCK_STREAM, 0);
+    if (tmp_sock == PGINVALID_SOCKET)
+    {
+        closesocket(s);
+        return -1;
+    }
+    handles[1] = (int) tmp_sock;  // Write end
+
+    if (connect(handles[1], (SOCKADDR *) &serv_addr, len) == SOCKET_ERROR)
+    {
+        closesocket(handles[1]);
+        closesocket(s);
+        return -1;
+    }
+
+    // Accept the connection to get the read end
+    tmp_sock = accept(s, (SOCKADDR *) &serv_addr, &len);
+    if (tmp_sock == PGINVALID_SOCKET)
+    {
+        closesocket(handles[1]);
+        closesocket(s);
+        return -1;
+    }
+    handles[0] = (int) tmp_sock;  // Read end
+
+    closesocket(s);  // No longer needed
+    return 0;
+}
+```

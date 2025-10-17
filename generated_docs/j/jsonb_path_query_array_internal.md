@@ -43,3 +43,24 @@ This static function serves as the core implementation for JSONPath array query 
 - The silent parameter controls error handling during path execution
 - Located in src/backend/utils/adt/jsonpath_exec.c:591-606
 - Uses JsonValueList to collect intermediate results before array wrapping
+
+## Simplified Source
+
+```c
+static Datum jsonb_path_query_array_internal(FunctionCallInfo fcinfo, bool tz) {
+    // Extract function arguments
+    Jsonb *jb = PG_GETARG_JSONB_P(0);        // JSONB document
+    JsonPath *jp = PG_GETARG_JSONPATH_P(1);  // JSONPath expression
+    Jsonb *vars = PG_GETARG_JSONB_P(2);      // Variables
+    bool silent = PG_GETARG_BOOL(3);         // Silent mode flag
+
+    JsonValueList found = {0};
+
+    // Execute JSONPath and collect all matching values
+    executeJsonPath(jp, vars, getJsonPathVariableFromJsonb,
+                   countVariablesFromJsonb, jb, !silent, &found, tz);
+
+    // Wrap all found values in a JSONB array and return
+    PG_RETURN_JSONB_P(JsonbValueToJsonb(wrapItemsInArray(&found)));
+}
+```

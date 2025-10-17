@@ -56,3 +56,54 @@ LC_ALL=: The locale name string to validate (NULL or empty string uses environme
 - Part of the initdb utility's locale configuration validation system
 - Fatal errors will terminate the program if invalid locales are encountered
 - The canonical name feature helps resolve environment variables like LANG and LC_*
+
+## Simplified Source
+
+```c
+static void
+check_locale_name(int category, const char *locale, char **canonname)
+{
+    save_locale_t save;
+    char *result;
+
+    // Validate locale name contains only ASCII characters on Windows
+    if (locale && !pg_is_ascii(locale))
+        pg_fatal("locale name \"%s\" contains non-ASCII characters", locale);
+
+    // Initialize output parameter
+    if (canonname)
+        *canonname = NULL;
+
+    // Save current locale state
+    save = save_global_locale(category);
+
+    // Use empty string if locale is NULL (uses environment)
+    if (!locale)
+        locale = "";
+
+    // Test if locale is valid by attempting to set it
+    result = setlocale(category, locale);
+
+    // Save canonical name if successful and requested
+    if (result && canonname)
+        *canonname = pg_strdup(result);
+
+    // Restore original locale
+    restore_global_locale(category, save);
+
+    // Handle validation failure
+    if (result == NULL) {
+        if (*locale) {
+            pg_log_error("invalid locale name \"%s\"", locale);
+            pg_log_error_hint("If the locale name is specific to ICU, use --icu-locale.");
+            exit(1);
+        } else {
+            pg_fatal("invalid locale settings; check LANG and LC_* environment variables");
+        }
+    }
+
+    // Final ASCII validation for canonical name on Windows
+    if (canonname && !pg_is_ascii(*canonname))
+        pg_fatal("locale name \"%s\" contains non-ASCII characters", *canonname);
+}
+```

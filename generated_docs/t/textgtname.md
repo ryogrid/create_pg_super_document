@@ -34,3 +34,14 @@ The function uses the  macro with the  comparison function to perform the actual
 - The function is defined in  at lines 2774-2779
 - Returns a Datum containing a boolean value using the  macro
 - The actual comparison logic is delegated to  which handles the type-specific comparison between text and name types
+
+## Simplified Source
+
+```c
+Datum
+textgtname(PG_FUNCTION_ARGS)
+{
+    // Return true if text > name comparison result is positive
+    PG_RETURN_BOOL(CmpCall(bttextnamecmp) > 0);
+}
+```

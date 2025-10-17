@@ -44,3 +44,21 @@ This is a critical function for dependency resolution, parallel processing coord
 - Essential for efficient dependency traversal and parallel processing coordination
 - The function assumes that dump IDs are sequential and start from 1
 - Used extensively throughout the dump/restore process for fast TOC entry lookup
+
+## Simplified Source
+
+```c
+TocEntry *
+getTocEntryByDumpId(ArchiveHandle *AH, DumpId id)
+{
+    // Build index arrays if not already done
+    if (AH->tocsByDumpId == NULL)
+        buildTocEntryArrays(AH);
+
+    // Bounds check and array lookup
+    if (id > 0 && id <= AH->maxDumpId)
+        return AH->tocsByDumpId[id];
+
+    return NULL;
+}
+```

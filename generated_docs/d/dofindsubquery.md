@@ -47,3 +47,52 @@ The function includes safeguards against stack overflow and supports query cance
 - Uses the QTN_NOCHANGE flag to optimize traversal by skipping already-processed nodes
 - Properly manages memory by freeing nodes that become unnecessary after simplification
 - Supports interruption for long-running operations through CHECK_FOR_INTERRUPTS calls
+
+## Simplified Source
+
+```c
+static QTNode *
+dofindsubquery(QTNode *root, QTNode *ex, QTNode *subs, bool *isfind)
+{
+    // Prevent stack overflow and allow query cancellation
+    check_stack_depth();
+    CHECK_FOR_INTERRUPTS();
+
+    // Try to match/replace at current node
+    root = findeq(root, ex, subs, isfind);
+
+    // If no match and node is an operator, process children recursively
+    if (root && (root->flags & QTN_NOCHANGE) == 0 &&
+        root->valnode->type == QI_OPR)
+    {
+        int j = 0;
+
+        // Process each child, removing NULL results
+        for (int i = 0; i < root->nchild; i++)
+        {
+            root->child[j] = dofindsubquery(root->child[i], ex, subs, isfind);
+            if (root->child[j])
+                j++;
+        }
+
+        root->nchild = j;
+
+        // Simplify the tree structure
+        if (root->nchild == 0)
+        {
+            // No children left - remove this node
+            QTNFree(root);
+            root = NULL;
+        }
+        else if (root->nchild == 1 && root->valnode->qoperator.oper != OP_NOT)
+        {
+            // Single child (except for NOT) - collapse to child
+            QTNode *new_root = root->child[0];
+            pfree(root);
+            root = new_root;
+        }
+    }
+
+    return root;
+}
+```

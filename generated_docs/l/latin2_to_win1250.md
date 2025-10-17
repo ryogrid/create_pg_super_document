@@ -44,3 +44,25 @@ The function uses PostgreSQL's standard function argument interface:
 - Returns the number of input bytes successfully converted
 - More efficient than going through MIC conversion for direct Latin-2 to Windows-1250 transformations
 - Both encodings are ASCII-superset single-byte character sets, making direct conversion feasible
+
+## Simplified Source
+
+```c
+Datum latin2_to_win1250(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);   // Source Latin-2 string
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);  // Destination buffer
+    int len = PG_GETARG_INT32(4);                                  // Source length
+    bool noError = PG_GETARG_BOOL(5);                              // Error handling flag
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_LATIN2, PG_WIN1250);
+
+    // Perform direct Latin-2 to Windows-1250 conversion using translation table
+    int converted = local2local(src, dest, len, PG_LATIN2, PG_WIN1250,
+                               iso88592_2_win1250, noError);
+
+    // Return number of bytes converted
+    PG_RETURN_INT32(converted);
+}
+```

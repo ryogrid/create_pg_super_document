@@ -36,3 +36,74 @@ This function handles the decompression of gzip-compressed data during the readi
 - Properly handles zlib error codes and provides detailed error messages
 - Memory management includes allocation and deallocation of zlib stream structure and buffers
 - Null-terminates output buffer for safety before writing to archive
+
+## Simplified Source
+
+```c
+static void
+ReadDataFromArchiveGzip(ArchiveHandle *AH, CompressorState *cs)
+{
+    // Initialize zlib decompression stream
+    z_streamp zp = pg_malloc(sizeof(z_stream));
+    zp->zalloc = Z_NULL;
+    zp->zfree = Z_NULL;
+    zp->opaque = Z_NULL;
+
+    // Allocate input and output buffers
+    size_t buflen = DEFAULT_IO_BUFFER_SIZE;
+    char *buf = pg_malloc(buflen);
+    char *out = pg_malloc(DEFAULT_IO_BUFFER_SIZE + 1);
+
+    if (inflateInit(zp) != Z_OK) {
+        pg_fatal("could not initialize compression library: %s", zp->msg);
+    }
+
+    // Phase 1: Read and decompress input data
+    size_t cnt;
+    while ((cnt = cs->readF(AH, &buf, &buflen))) {
+        zp->next_in = (void *) buf;
+        zp->avail_in = cnt;
+
+        // Decompress all available input
+        while (zp->avail_in > 0) {
+            zp->next_out = (void *) out;
+            zp->avail_out = DEFAULT_IO_BUFFER_SIZE;
+
+            int res = inflate(zp, 0);
+            if (res != Z_OK && res != Z_STREAM_END) {
+                pg_fatal("could not uncompress data: %s", zp->msg);
+            }
+
+            // Write decompressed data to archive
+            size_t bytes_out = DEFAULT_IO_BUFFER_SIZE - zp->avail_out;
+            out[bytes_out] = '\0';
+            ahwrite(out, 1, bytes_out, AH);
+        }
+    }
+
+    // Phase 2: Flush remaining compressed data
+    zp->next_in = NULL;
+    zp->avail_in = 0;
+    int res = Z_OK;
+    while (res != Z_STREAM_END) {
+        zp->next_out = (void *) out;
+        zp->avail_out = DEFAULT_IO_BUFFER_SIZE;
+        res = inflate(zp, 0);
+        if (res != Z_OK && res != Z_STREAM_END) {
+            pg_fatal("could not uncompress data: %s", zp->msg);
+        }
+
+        size_t bytes_out = DEFAULT_IO_BUFFER_SIZE - zp->avail_out;
+        out[bytes_out] = '\0';
+        ahwrite(out, 1, bytes_out, AH);
+    }
+
+    // Cleanup
+    if (inflateEnd(zp) != Z_OK) {
+        pg_fatal("could not close compression library: %s", zp->msg);
+    }
+    free(buf);
+    free(out);
+    free(zp);
+}
+```

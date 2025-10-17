@@ -43,3 +43,18 @@ The function includes built-in error handling through the compressor's  method, 
 - Part of the pluggable archive format system that enables different storage backends
 - The actual compression and I/O operations are abstracted through the CompressorState interface
 - Should only be called from within a DataDumper routine context
+
+## Simplified Source
+
+```c
+static void
+_WriteData(ArchiveHandle *AH, const void *data, size_t dLen)
+{
+    lclContext *ctx = (lclContext *) AH->formatData;
+    CompressorState *cs = ctx->cs;
+
+    // Write data through compressor if there's any data to write
+    if (dLen > 0)
+        cs->writeData(AH, cs, data, dLen);  // Handles compression and I/O
+}
+```

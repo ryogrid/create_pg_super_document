@@ -48,3 +48,33 @@ The rendezvous variables persist for the entire lifetime of the process, enablin
 - The hash table is created with an initial size of 16 entries and uses string-based hashing
 - Thread safety depends on PostgreSQL's overall threading model since this uses static storage
 - Part of PostgreSQL's dynamic function manager (dfmgr) infrastructure for supporting complex extension interactions
+
+## Simplified Source
+
+```c
+void **find_rendezvous_variable(const char *varName)
+{
+    static HTAB *rendezvousHash = NULL;
+    rendezvousHashEntry *entry;
+    bool found;
+
+    /* Create hash table on first use */
+    if (rendezvousHash == NULL) {
+        HASHCTL ctl;
+        ctl.keysize = NAMEDATALEN;
+        ctl.entrysize = sizeof(rendezvousHashEntry);
+        rendezvousHash = hash_create("Rendezvous variable hash", 16, &ctl,
+                                   HASH_ELEM | HASH_STRINGS);
+    }
+
+    /* Find existing entry or create new one */
+    entry = (rendezvousHashEntry *) hash_search(rendezvousHash, varName,
+                                               HASH_ENTER, &found);
+
+    /* Initialize new entries to NULL */
+    if (!found)
+        entry->varValue = NULL;
+
+    return &entry->varValue;
+}
+```

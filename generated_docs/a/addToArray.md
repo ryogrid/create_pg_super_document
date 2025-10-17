@@ -32,3 +32,61 @@ This function maintains a dynamically sized array of timezone entries in sorted 
 
 ## Notes and Other Information
 The function returns the new array length on success, or -1 on error. It uses strcmp() to ensure the sort order matches what datetime.c expects. Duplicate checking considers both the abbreviation and the associated timezone data (offset, zone name, DST flag) to determine if entries are truly identical.
+
+## Simplified Source
+
+```c
+static int addToArray(tzEntry **base, int *arraysize, int n,
+                     tzEntry *entry, bool override) {
+    tzEntry *arrayptr = *base;
+    int low = 0, high = n - 1;
+
+    // Binary search to find insertion position or duplicate
+    while (low <= high) {
+        int mid = (low + high) >> 1;
+        tzEntry *midptr = arrayptr + mid;
+        int cmp = strcmp(entry->abbrev, midptr->abbrev);
+
+        if (cmp < 0) {
+            high = mid - 1;
+        } else if (cmp > 0) {
+            low = mid + 1;
+        } else {
+            // Found duplicate - check if entries are identical
+            bool identical = (midptr->zone == NULL && entry->zone == NULL &&
+                             midptr->offset == entry->offset &&
+                             midptr->is_dst == entry->is_dst) ||
+                            (midptr->zone != NULL && entry->zone != NULL &&
+                             strcmp(midptr->zone, entry->zone) == 0);
+
+            if (identical) return n;  // No change needed
+
+            if (override) {
+                // Override existing entry
+                midptr->zone = entry->zone;
+                midptr->offset = entry->offset;
+                midptr->is_dst = entry->is_dst;
+                return n;
+            }
+
+            // Conflict - report error
+            GUC_check_errmsg("time zone abbreviation \"%s\" is multiply defined",
+                            entry->abbrev);
+            return -1;
+        }
+    }
+
+    // Enlarge array if needed
+    if (n >= *arraysize) {
+        *arraysize *= 2;
+        *base = (tzEntry *) repalloc(*base, *arraysize * sizeof(tzEntry));
+    }
+
+    // Insert new entry at position 'low'
+    arrayptr = *base + low;
+    memmove(arrayptr + 1, arrayptr, (n - low) * sizeof(tzEntry));
+    memcpy(arrayptr, entry, sizeof(tzEntry));
+
+    return n + 1;
+}
+```

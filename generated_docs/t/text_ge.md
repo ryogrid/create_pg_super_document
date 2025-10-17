@@ -36,3 +36,23 @@ The `text_ge` function is a PostgreSQL built-in function that performs a "greate
 - Properly handles memory management by freeing copied arguments after use
 - Part of PostgreSQL's comprehensive set of text comparison operators
 - The function is defined in `src/backend/utils/adt/varlena.c` at lines 1776-1790
+
+## Simplified Source
+
+```c
+Datum text_ge(PG_FUNCTION_ARGS) {
+    // Extract the two text arguments to compare
+    text *arg1 = PG_GETARG_TEXT_PP(0);
+    text *arg2 = PG_GETARG_TEXT_PP(1);
+
+    // Compare texts using collation-aware comparison
+    // Returns true if arg1 >= arg2 lexicographically
+    bool result = (text_cmp(arg1, arg2, PG_GET_COLLATION()) >= 0);
+
+    // Clean up memory and return result
+    PG_FREE_IF_COPY(arg1, 0);
+    PG_FREE_IF_COPY(arg2, 1);
+
+    PG_RETURN_BOOL(result);
+}
+```

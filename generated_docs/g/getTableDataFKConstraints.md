@@ -41,3 +41,38 @@ This function is specifically designed for data-only dump scenarios where foreig
 - Critical for maintaining referential integrity during data-only restores
 - Ensures that parent tables are populated before child tables in foreign key relationships
 - Only creates dependencies when both tables involved in the constraint are being dumped
+
+## Simplified Source
+
+```c
+static void getTableDataFKConstraints(void) {
+    DumpableObject **dobjs;
+    int numObjs;
+
+    // Get all dumpable objects to find FK constraints
+    getDumpableObjects(&dobjs, &numObjs);
+
+    // Process each dumpable object
+    for (int i = 0; i < numObjs; i++) {
+        if (dobjs[i]->objType == DO_FK_CONSTRAINT) {
+            ConstraintInfo *cinfo = (ConstraintInfo *) dobjs[i];
+            TableInfo *ftable;
+
+            // Skip if referencing table doesn't have data to dump
+            if (cinfo->contable == NULL || cinfo->contable->dataObj == NULL)
+                continue;
+
+            // Find referenced table and skip if no data to dump
+            ftable = findTableByOid(cinfo->confrelid);
+            if (ftable == NULL || ftable->dataObj == NULL)
+                continue;
+
+            // Create dependency: referencing table depends on referenced table
+            addObjectDependency(&cinfo->contable->dataObj->dobj,
+                               ftable->dataObj->dobj.dumpId);
+        }
+    }
+
+    free(dobjs);
+}
+```

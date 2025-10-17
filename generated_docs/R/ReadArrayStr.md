@@ -81,3 +81,117 @@ The function handles NULL values explicitly through ATOK_ELEM_NULL tokens and ma
 - Handles arrays up to MAXDIM dimensions
 - Supports both explicit NULL values and empty string elements
 - Freezes dimensionality once first element is encountered to ensure consistency
+
+## Simplified Source
+
+```c
+static bool
+ReadArrayStr(char **srcptr, FmgrInfo *inputproc, Oid typioparam, int32 typmod,
+             char typdelim, int typlen, bool typbyval, char typalign,
+             int *ndim_p, int *dim, int *nitems_p,
+             Datum **values_p, bool **nulls_p,
+             const char *origStr, Node *escontext)
+{
+    int ndim = *ndim_p;
+    bool dimensions_specified = (ndim != 0);
+    int maxitems = 16;
+    Datum *values = palloc_array(Datum, maxitems);
+    bool *nulls = palloc_array(bool, maxitems);
+    StringInfoData elembuf;
+    int nest_level = 0;
+    int nitems = 0;
+    bool ndim_frozen = dimensions_specified;
+    bool expect_delim = false;
+    int nelems[MAXDIM];
+
+    // Initialize element buffer for string parsing
+    initStringInfo(&elembuf);
+
+    // Main parsing loop - process tokens until matching right brace
+    do {
+        ArrayToken tok = ReadArrayToken(srcptr, &elembuf, typdelim, origStr, escontext);
+
+        switch (tok) {
+            case ATOK_LEVEL_START:  // '{'
+                // Start new nesting level
+                if (expect_delim || nest_level >= MAXDIM)
+                    return false;  // Error handling simplified
+
+                nelems[nest_level] = 0;
+                nest_level++;
+                if (nest_level > ndim) {
+                    if (ndim_frozen) goto dimension_error;
+                    ndim = nest_level;
+                }
+                break;
+
+            case ATOK_LEVEL_END:    // '}'
+                // End current nesting level
+                if (nelems[nest_level - 1] > 0 && !expect_delim)
+                    return false;
+
+                nest_level--;
+                if (nest_level > 0)
+                    nelems[nest_level - 1]++;
+
+                // Validate sub-array dimensions
+                if (dim[nest_level] < 0) {
+                    dim[nest_level] = nelems[nest_level];
+                } else if (nelems[nest_level] != dim[nest_level]) {
+                    goto dimension_error;
+                }
+                expect_delim = true;
+                break;
+
+            case ATOK_DELIM:        // delimiter character
+                if (!expect_delim) return false;
+                expect_delim = false;
+                break;
+
+            case ATOK_ELEM:         // actual element value
+            case ATOK_ELEM_NULL:    // NULL element
+                if (expect_delim) return false;
+
+                // Expand arrays if needed
+                if (nitems >= maxitems) {
+                    if (maxitems >= MaxArraySize) return false;
+                    maxitems = Min(maxitems * 2, MaxArraySize);
+                    values = repalloc_array(values, Datum, maxitems);
+                    nulls = repalloc_array(nulls, bool, maxitems);
+                }
+
+                // Convert element value using type input function
+                if (!InputFunctionCallSafe(inputproc,
+                                         (tok == ATOK_ELEM_NULL) ? NULL : elembuf.data,
+                                         typioparam, typmod, escontext,
+                                         &values[nitems]))
+                    return false;
+
+                nulls[nitems] = (tok == ATOK_ELEM_NULL);
+                nitems++;
+
+                // Lock dimensions after first element
+                ndim_frozen = true;
+                if (nest_level != ndim) goto dimension_error;
+                nelems[nest_level - 1]++;
+                expect_delim = true;
+                break;
+
+            case ATOK_ERROR:
+                return false;
+        }
+    } while (nest_level > 0);
+
+    // Clean up and return results
+    pfree(elembuf.data);
+    *ndim_p = ndim;
+    *nitems_p = nitems;
+    *values_p = values;
+    *nulls_p = nulls;
+    return true;
+
+dimension_error:
+    // Dimension validation failed
+    return false;
+}
+```

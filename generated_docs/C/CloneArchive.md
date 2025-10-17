@@ -36,3 +36,48 @@ CloneArchive creates a deep clone of an ArchiveHandle for parallel processing in
 - Error counting is reset to 0 for each clone
 - Format-specific cloning is delegated to the ClonePtr function pointer
 - Used primarily in parallel restoration to ensure each worker thread operates independently
+
+## Simplified Source
+
+```c
+ArchiveHandle *CloneArchive(ArchiveHandle *AH) {
+    // Create flat copy of the main structure
+    ArchiveHandle *clone = (ArchiveHandle *) pg_malloc(sizeof(ArchiveHandle));
+    memcpy(clone, AH, sizeof(ArchiveHandle));
+
+    // Clone RestoreOptions for independent modification
+    clone->public.ropt = (RestoreOptions *) pg_malloc(sizeof(RestoreOptions));
+    memcpy(clone->public.ropt, AH->public.ropt, sizeof(RestoreOptions));
+
+    // Reset connection-related fields for independent connections
+    memset(&(clone->sqlparse), 0, sizeof(clone->sqlparse));
+    clone->connection = NULL;
+    clone->connCancel = NULL;
+    clone->currUser = NULL;
+    clone->currSchema = NULL;
+    clone->currTableAm = NULL;
+    clone->currTablespace = NULL;
+
+    // Duplicate password if present
+    if (clone->savedPassword)
+        clone->savedPassword = pg_strdup(clone->savedPassword);
+
+    // Reset clone-specific state
+    clone->public.n_errors = 0;
+    clone->lo_buf = NULL;
+    clone->public.ropt->txn_size = 0;  // Immediate commits for parallel work
+
+    // Establish database connection for this clone
+    ConnectDatabase((Archive *) clone, &clone->public.ropt->cparams, true);
+
+    // Set up fixed state for read mode
+    if (AH->mode == archModeRead)
+        _doSetFixedOutputState(clone);
+
+    // Let format-specific code perform additional cloning
+    clone->ClonePtr(clone);
+
+    Assert(clone->connection != NULL);
+    return clone;
+}
+```

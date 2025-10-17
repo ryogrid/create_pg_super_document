@@ -42,3 +42,67 @@ The function carefully calculates the required buffer size to accommodate all le
 - Single quotes and backslashes within lexemes are properly escaped by doubling them
 - Position weights are represented as letters: A (highest), B, C, D (or omitted for lowest)
 - The output format is compatible with tsvector input parsing functions
+
+## Simplified Source
+
+```c
+Datum tsvectorout(PG_FUNCTION_ARGS) {
+    TSVector tsvector = PG_GETARG_TSVECTOR(0);
+    WordEntry *entries = ARRPTR(tsvector);
+
+    // Calculate output buffer size
+    int buffer_size = tsvector->size * 2 + tsvector->size - 1 + 2;
+    for (int i = 0; i < tsvector->size; i++) {
+        buffer_size += entries[i].len * 2 * pg_database_encoding_max_length();
+        if (entries[i].haspos) {
+            buffer_size += 1 + 7 * POSDATALEN(tsvector, &entries[i]);
+        }
+    }
+
+    // Build output string
+    char *output = palloc(buffer_size);
+    char *current = output;
+
+    for (int i = 0; i < tsvector->size; i++) {
+        char *lexeme_start = STRPTR(tsvector) + entries[i].pos;
+
+        // Add separator and opening quote
+        if (i != 0) *current++ = ' ';
+        *current++ = '\'';
+
+        // Copy lexeme with escape handling
+        for (int j = 0; j < entries[i].len; j++) {
+            if (lexeme_start[j] == '\'' || lexeme_start[j] == '\\') {
+                *current++ = lexeme_start[j]; // Escape by doubling
+            }
+            *current++ = lexeme_start[j];
+        }
+
+        *current++ = '\'';
+
+        // Add position data if present
+        int pos_count = POSDATALEN(tsvector, &entries[i]);
+        if (pos_count > 0) {
+            *current++ = ':';
+            WordEntryPos *positions = POSDATAPTR(tsvector, &entries[i]);
+
+            for (int p = 0; p < pos_count; p++) {
+                current += sprintf(current, "%d", WEP_GETPOS(positions[p]));
+
+                // Add weight letter (A=3, B=2, C=1, D=0/default)
+                switch (WEP_GETWEIGHT(positions[p])) {
+                    case 3: *current++ = 'A'; break;
+                    case 2: *current++ = 'B'; break;
+                    case 1: *current++ = 'C'; break;
+                    default: break; // No letter for weight 0
+                }
+
+                if (p < pos_count - 1) *current++ = ',';
+            }
+        }
+    }
+
+    *current = '\0';
+    PG_RETURN_CSTRING(output);
+}
+```

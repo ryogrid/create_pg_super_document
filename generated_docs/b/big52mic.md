@@ -34,3 +34,58 @@ The `big52mic` function performs character encoding conversion from Big5 (a trad
 
 ## Notes and Other Information
 The function uses a two-step conversion process: Big5 → CNS 11643 → MIC, leveraging the BIG5toCNS lookup function for the character mapping. ASCII characters (with high bit unset) are copied directly without conversion. The function properly handles PostgreSQL's encoding verification system and integrates with the database's error reporting mechanisms. Private planes 3 and 4 require special LCPRV2_B prefix in MIC encoding to distinguish them from standard CNS planes. The function returns the number of input bytes successfully processed, allowing callers to handle partial conversions appropriately.
+
+## Simplified Source
+
+```c
+static int big52mic(const unsigned char *big5, unsigned char *p, int len, bool noError) {
+    const unsigned char *start = big5;
+
+    while (len > 0) {
+        unsigned short c1 = *big5;
+
+        if (!IS_HIGHBIT_SET(c1)) {
+            // ASCII character - copy directly
+            if (c1 == 0) {
+                if (noError) break;
+                report_invalid_encoding(PG_BIG5, (const char *) big5, len);
+            }
+            *p++ = c1;
+            big5++;
+            len--;
+            continue;
+        }
+
+        // Verify multi-byte character in Big5
+        int char_len = pg_encoding_verifymbchar(PG_BIG5, (const char *) big5, len);
+        if (char_len < 0) {
+            if (noError) break;
+            report_invalid_encoding(PG_BIG5, (const char *) big5, len);
+        }
+
+        // Convert Big5 to CNS and then to MIC
+        unsigned short big5buf = (c1 << 8) | big5[1];
+        unsigned char plane;
+        unsigned short cnsBuf = BIG5toCNS(big5buf, &plane);
+
+        if (plane != 0) {
+            // Add MULE private charset prefix for planes 3 and 4
+            if (plane == LC_CNS11643_3 || plane == LC_CNS11643_4)
+                *p++ = LCPRV2_B;
+
+            *p++ = plane;  // Plane number
+            *p++ = (cnsBuf >> 8) & 0x00ff;
+            *p++ = cnsBuf & 0x00ff;
+        } else {
+            if (noError) break;
+            report_untranslatable_char(PG_BIG5, PG_MULE_INTERNAL, (const char *) big5, len);
+        }
+
+        big5 += char_len;
+        len -= char_len;
+    }
+
+    *p = '\0';
+    return big5 - start;
+}
+```

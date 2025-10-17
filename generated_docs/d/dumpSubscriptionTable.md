@@ -45,3 +45,61 @@ This function creates the SQL statements needed to restore subscription table me
 - Sets ownership to the subscription owner to ensure proper restoration permissions
 - Cannot have comments or security labels as these are not supported for subscription table relationships
 - Critical for maintaining replication state continuity across major version upgrades
+
+## Simplified Source
+
+```c
+static void dumpSubscriptionTable(Archive *fout, const SubRelInfo *subrinfo) {
+    DumpOptions *dopt = fout->dopt;
+    SubscriptionInfo *subinfo = subrinfo->subinfo;
+    PQExpBuffer query;
+    char *tag;
+
+    // Skip in data-only dumps
+    if (dopt->dataOnly)
+        return;
+
+    Assert(fout->dopt->binary_upgrade && fout->remoteVersion >= 170000);
+
+    // Create descriptive tag for the archive entry
+    tag = psprintf("%s %s", subinfo->dobj.name, subrinfo->dobj.name);
+
+    query = createPQExpBuffer();
+
+    if (subinfo->dobj.dump & DUMP_COMPONENT_DEFINITION) {
+        // Generate binary upgrade function call to restore subscription relation state
+        appendPQExpBufferStr(query,
+                             "\n-- For binary upgrade, must preserve the subscriber table.\n");
+        appendPQExpBufferStr(query,
+                             "SELECT pg_catalog.binary_upgrade_add_sub_rel_state(");
+        appendStringLiteralAH(query, subrinfo->dobj.name, fout);
+        appendPQExpBuffer(query,
+                          ", %u, '%c'",
+                          subrinfo->tblinfo->dobj.catId.oid,
+                          subrinfo->srsubstate);
+
+        // Add LSN if present
+        if (subrinfo->srsublsn && subrinfo->srsublsn[0] != '\0')
+            appendPQExpBuffer(query, ", '%s'", subrinfo->srsublsn);
+        else
+            appendPQExpBuffer(query, ", NULL");
+
+        appendPQExpBufferStr(query, ");\n");
+    }
+
+    // Create archive entry if definition should be dumped
+    if (subrinfo->dobj.dump & DUMP_COMPONENT_DEFINITION) {
+        ArchiveEntry(fout, subrinfo->dobj.catId, subrinfo->dobj.dumpId,
+                     ARCHIVE_OPTS(.tag = tag,
+                                  .namespace = subrinfo->tblinfo->dobj.namespace->dobj.name,
+                                  .owner = subinfo->rolname,
+                                  .description = "SUBSCRIPTION TABLE",
+                                  .section = SECTION_POST_DATA,
+                                  .createStmt = query->data));
+    }
+
+    // Cleanup
+    free(tag);
+    destroyPQExpBuffer(query);
+}
+```

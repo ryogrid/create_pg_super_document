@@ -42,3 +42,47 @@ The function dynamically resizes the output array when needed using `repalloc`, 
 - Memory management includes both dynamic resizing of the output array and cleanup of processed nodes
 - The traversal order and offset calculations ensure that the resulting flat array maintains the correct structure for query evaluation
 - Stack depth checking prevents potential issues with deeply nested query trees
+
+## Simplified Source
+
+```c
+static void plainnode(PLAINTREE *state, NODE *node) {
+    // Prevent stack overflow
+    check_stack_depth();
+
+    // Resize array if needed
+    if (state->cur == state->len) {
+        state->len *= 2;
+        state->ptr = (QueryItem *) repalloc(state->ptr, state->len * sizeof(QueryItem));
+    }
+
+    // Copy current node to output array
+    memcpy(&(state->ptr[state->cur]), node->valnode, sizeof(QueryItem));
+
+    if (node->valnode->type == QI_VAL) {
+        // Simple value node - just advance position
+        state->cur++;
+    } else if (node->valnode->qoperator.oper == OP_NOT) {
+        // NOT operator: left field = 1, process right subtree only
+        state->ptr[state->cur].qoperator.left = 1;
+        state->cur++;
+        plainnode(state, node->right);
+    } else {
+        // Binary operator: process right, calculate offset, process left
+        int current_position = state->cur;
+        state->cur++;
+
+        // Process right subtree first
+        plainnode(state, node->right);
+
+        // Set left field to offset for left subtree
+        state->ptr[current_position].qoperator.left = state->cur - current_position;
+
+        // Process left subtree
+        plainnode(state, node->left);
+    }
+
+    // Free processed node
+    pfree(node);
+}
+```

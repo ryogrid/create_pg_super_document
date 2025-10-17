@@ -40,3 +40,108 @@ This is the core parsing function that implements a finite state machine to toke
 
 ## Notes and Other Information
 The parser implements a comprehensive state machine with states including WAITWORD, WAITENDWORD, WAITENDCMPLX, WAITCHARCMPLX, WAITPOSINFO, WAITPOSDELIM, INPOSINFO, and WAITNEXTCHAR. It handles multibyte characters correctly and supports position information in the format 'word:1,2,3A,4B' where numbers are positions and letters are weights (A/*, B, C, D). The function supports both hard and soft error handling through the error context system.
+
+## Simplified Source
+
+```c
+bool gettoken_tsvector(TSVectorParseState state, char **strval, int *lenval,
+                      WordEntryPos **pos_ptr, int *poslen, char **endptr) {
+    int statecode = WAITWORD;
+    char *curpos = state->word;
+    WordEntryPos *pos = NULL;
+    int npos = 0, posalen = 0;
+
+    while (1) {
+        switch (statecode) {
+            case WAITWORD:
+                // Handle start of word: quoted, escaped, or regular
+                if (*(state->prsbuf) == '\0')
+                    return false;  // End of input
+                else if (!state->is_web && t_iseq(state->prsbuf, '\''))
+                    statecode = WAITENDCMPLX;  // Quoted word
+                else if (!state->is_web && t_iseq(state->prsbuf, '\\'))
+                    statecode = WAITNEXTCHAR;  // Escaped character
+                else if (!t_isspace(state->prsbuf)) {
+                    // Regular word character
+                    COPYCHAR(curpos, state->prsbuf);
+                    curpos += pg_mblen(state->prsbuf);
+                    statecode = WAITENDWORD;
+                }
+                break;
+
+            case WAITENDWORD:
+                // Process regular word until delimiter or position info
+                if (t_isspace(state->prsbuf) || *(state->prsbuf) == '\0' ||
+                    (state->oprisdelim && ISOPERATOR(state->prsbuf))) {
+                    // End of word
+                    if (curpos == state->word) PRSSYNTAXERROR;
+                    *(curpos) = '\0';
+                    RETURN_TOKEN;
+                } else if (t_iseq(state->prsbuf, ':')) {
+                    // Position information follows
+                    *(curpos) = '\0';
+                    statecode = state->oprisdelim ? RETURN_TOKEN : INPOSINFO;
+                } else {
+                    // Continue word
+                    COPYCHAR(curpos, state->prsbuf);
+                    curpos += pg_mblen(state->prsbuf);
+                }
+                break;
+
+            case WAITENDCMPLX:
+                // Handle quoted complex words
+                if (!state->is_web && t_iseq(state->prsbuf, '\''))
+                    statecode = WAITCHARCMPLX;
+                else if (*(state->prsbuf) == '\0')
+                    PRSSYNTAXERROR;
+                else {
+                    COPYCHAR(curpos, state->prsbuf);
+                    curpos += pg_mblen(state->prsbuf);
+                }
+                break;
+
+            case INPOSINFO:
+                // Parse position numbers
+                if (t_isdigit(state->prsbuf)) {
+                    // Allocate/expand position array if needed
+                    if (posalen == 0) {
+                        posalen = 4;
+                        pos = (WordEntryPos *) palloc(sizeof(WordEntryPos) * posalen);
+                        npos = 0;
+                    }
+                    // Add position
+                    WEP_SETPOS(pos[npos], LIMITPOS(atoi(state->prsbuf)));
+                    WEP_SETWEIGHT(pos[npos], 0);
+                    npos++;
+                    statecode = WAITPOSDELIM;
+                } else {
+                    PRSSYNTAXERROR;
+                }
+                break;
+
+            case WAITPOSDELIM:
+                // Handle position delimiters and weights
+                if (t_iseq(state->prsbuf, ','))
+                    statecode = INPOSINFO;  // More positions
+                else if (t_iseq(state->prsbuf, 'A') || t_iseq(state->prsbuf, '*'))
+                    WEP_SETWEIGHT(pos[npos - 1], 3);  // Weight A
+                else if (t_iseq(state->prsbuf, 'B'))
+                    WEP_SETWEIGHT(pos[npos - 1], 2);  // Weight B
+                else if (t_iseq(state->prsbuf, 'C'))
+                    WEP_SETWEIGHT(pos[npos - 1], 1);  // Weight C
+                else if (t_iseq(state->prsbuf, 'D'))
+                    WEP_SETWEIGHT(pos[npos - 1], 0);  // Weight D
+                else if (t_isspace(state->prsbuf) || *(state->prsbuf) == '\0')
+                    RETURN_TOKEN;
+                break;
+
+            // Additional states for escaped chars and complex word handling...
+            default:
+                elog(ERROR, "unrecognized state in gettoken_tsvector: %d", statecode);
+        }
+
+        // Advance to next character
+        state->prsbuf += pg_mblen(state->prsbuf);
+    }
+}
+```

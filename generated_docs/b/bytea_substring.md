@@ -46,3 +46,48 @@ This function implements the complete substring extraction logic for bytea value
 - Returns zero-length string for invalid position ranges per SQL99
 - Uses DatumGetByteaPSlice for the actual memory operations
 - Located in src/backend/utils/adt/varlena.c:3028-3094
+
+## Simplified Source
+
+```c
+static bytea *
+bytea_substring(Datum str, int S, int L, bool length_not_specified)
+{
+    int32 start_pos;     // Adjusted start position
+    int32 length;        // Adjusted substring length
+    int32 end_pos;       // End position
+
+    // Ensure start position is at least 1 (SQL standard)
+    start_pos = Max(S, 1);
+
+    if (length_not_specified) {
+        // No length specified - extract to end of string
+        length = -1;
+    }
+    else if (L < 0) {
+        // SQL99 requires error for negative length
+        ereport(ERROR, (errcode(ERRCODE_SUBSTRING_ERROR),
+                       errmsg("negative substring length not allowed")));
+    }
+    else if (pg_add_s32_overflow(S, L, &end_pos)) {
+        // Handle overflow - extract to end of string
+        length = -1;
+    }
+    else {
+        // Normal case - calculate actual length
+        if (end_pos < 1)
+            return PG_STR_GET_BYTEA("");  // Return empty string
+
+        length = end_pos - start_pos;
+    }
+
+    // Convert to 0-based indexing and extract the slice
+    return DatumGetByteaPSlice(str, start_pos - 1, length);
+}
+```
+
+**Key Points:**
+- Handles SQL99 compliant substring extraction from bytea values
+- Converts 1-based SQL positions to 0-based internal indexing
+- Validates parameters and handles edge cases (negative length, overflow)
+- Returns empty bytea for invalid ranges, full string if length unspecified

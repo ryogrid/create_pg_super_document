@@ -48,3 +48,66 @@ The function enforces strict rules about backup chain structure: the first backu
 - Includes detailed error messages with specific timeline and LSN information for debugging
 - Contains a TODO note about potentially allowing start_lsn > check_lsn under certain conditions
 - Efficiently manages memory by reusing StringInfo buffers during processing
+
+## Simplified Source
+
+```c
+static StringInfo check_backup_label_files(int n_backups, char **backup_dirs) {
+    StringInfo buf = makeStringInfo();
+    StringInfo lastbuf = buf;
+    int i;
+    TimeLineID check_tli = 0;
+    XLogRecPtr check_lsn = InvalidXLogRecPtr;
+
+    // Process backup_label files from latest to first
+    for (i = n_backups - 1; i >= 0; --i) {
+        char pathbuf[MAXPGPATH];
+        int fd;
+        TimeLineID start_tli, previous_tli;
+        XLogRecPtr start_lsn, previous_lsn;
+
+        // Read backup_label file
+        snprintf(pathbuf, MAXPGPATH, "%s/backup_label", backup_dirs[i]);
+        pg_log_debug("reading \"%s\"", pathbuf);
+        if ((fd = open(pathbuf, O_RDONLY, 0)) < 0)
+            pg_fatal("could not open file \"%s\": %m", pathbuf);
+
+        slurp_file(fd, pathbuf, buf, 10000 + MAXPGPATH);
+        if (close(fd) != 0)
+            pg_fatal("could not close file \"%s\": %m", pathbuf);
+
+        // Parse backup_label contents
+        parse_backup_label(pathbuf, buf, &start_tli, &start_lsn,
+                          &previous_tli, &previous_lsn);
+
+        // Validate backup chain consistency
+        if (i > 0 && previous_tli == 0)
+            pg_fatal("backup at \"%s\" is a full backup, but only the first backup should be a full backup",
+                     backup_dirs[i]);
+        if (i == 0 && previous_tli != 0)
+            pg_fatal("backup at \"%s\" is an incremental backup, but the first backup should be a full backup",
+                     backup_dirs[i]);
+        if (i < n_backups - 1 && start_tli != check_tli)
+            pg_fatal("backup at \"%s\" starts on timeline %u, but expected %u",
+                     backup_dirs[i], start_tli, check_tli);
+        if (i < n_backups - 1 && start_lsn != check_lsn)
+            pg_fatal("backup at \"%s\" starts at LSN %X/%X, but expected %X/%X",
+                     backup_dirs[i], LSN_FORMAT_ARGS(start_lsn), LSN_FORMAT_ARGS(check_lsn));
+
+        check_tli = previous_tli;
+        check_lsn = previous_lsn;
+
+        // Manage buffers - keep last one, reset others
+        if (lastbuf == buf)
+            buf = makeStringInfo();
+        else
+            resetStringInfo(buf);
+    }
+
+    // Clean up unused buffer
+    if (lastbuf != buf)
+        destroyStringInfo(buf);
+
+    return lastbuf;
+}
+```

@@ -34,3 +34,17 @@ This function is executed within worker processes to communicate status messages
 - The function includes the null terminator in the message length calculation (len = strlen(str) + 1)
 - Fatal error handling ensures that communication failures are properly reported and terminate the process
 - Part of the PostgreSQL pg_dump parallel processing infrastructure for coordinating multiple worker processes
+
+## Simplified Source
+
+```c
+static void sendMessageToLeader(int pipefd[2], const char *str) {
+    // Calculate message length including null terminator
+    int len = strlen(str) + 1;
+
+    // Write message to leader via pipe
+    if (pipewrite(pipefd[PIPE_WRITE], str, len) != len) {
+        pg_fatal("could not write to the communication channel: %m");
+    }
+}
+```

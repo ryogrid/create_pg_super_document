@@ -50,3 +50,87 @@ The most complex aspect is managing phrase operator distances when stopwords are
 - Memory management is carefully handled with proper cleanup of removed nodes
 - Stack depth checking prevents potential stack overflow in deeply nested queries
 - The distance adjustment algorithm only works optimally for adjacent phrase operators; some complex nested cases may not be handled perfectly due to TSQuery structure limitations
+
+## Simplified Source
+
+```c
+static NODE *clean_stopword_intree(NODE *node, int *ladd, int *radd) {
+    // Prevent stack overflow
+    check_stack_depth();
+
+    // Default: no distance adjustments needed
+    *ladd = *radd = 0;
+
+    if (node->valnode->type == QI_VAL) {
+        // Keep regular value nodes
+        return node;
+    } else if (node->valnode->type == QI_VALSTOP) {
+        // Remove stopword nodes completely
+        pfree(node);
+        return NULL;
+    }
+
+    // Handle operator nodes
+    if (node->valnode->qoperator.oper == OP_NOT) {
+        // Clean NOT's right child
+        node->right = clean_stopword_intree(node->right, ladd, radd);
+        if (!node->right) {
+            freetree(node);
+            return NULL;
+        }
+    } else {
+        // Handle binary operators (AND, OR, PHRASE)
+        NODE *result = node;
+        bool is_phrase = (node->valnode->qoperator.oper == OP_PHRASE);
+        int phrase_distance = is_phrase ? node->valnode->qoperator.distance : 0;
+
+        int left_ladd, left_radd, right_ladd, right_radd;
+
+        // Clean both children
+        node->left = clean_stopword_intree(node->left, &left_ladd, &left_radd);
+        node->right = clean_stopword_intree(node->right, &right_ladd, &right_radd);
+
+        if (node->left == NULL && node->right == NULL) {
+            // Both children removed - remove this node too
+            if (is_phrase) {
+                *ladd = *radd = left_ladd + phrase_distance + right_ladd;
+            } else {
+                *ladd = *radd = Max(left_ladd, right_ladd);
+            }
+            freetree(node);
+            return NULL;
+        } else if (node->left == NULL) {
+            // Left child removed - replace with right child
+            if (is_phrase) {
+                *ladd = left_ladd + phrase_distance + right_ladd;
+                *radd = right_radd;
+            } else {
+                *ladd = right_ladd;
+                *radd = right_radd;
+            }
+            result = node->right;
+            pfree(node);
+        } else if (node->right == NULL) {
+            // Right child removed - replace with left child
+            if (is_phrase) {
+                *ladd = left_ladd;
+                *radd = left_radd + phrase_distance + right_radd;
+            } else {
+                *ladd = left_ladd;
+                *radd = left_radd;
+            }
+            result = node->left;
+            pfree(node);
+        } else if (is_phrase) {
+            // Both children survive - adjust phrase distance
+            node->valnode->qoperator.distance += left_radd + right_ladd;
+            *ladd = left_ladd;
+            *radd = right_radd;
+        }
+        // For non-phrase operators with both children, no distance adjustments needed
+
+        return result;
+    }
+    return node;
+}
+```

@@ -48,3 +48,22 @@ The function follows PostgreSQL's standard I/O function conventions, taking argu
 - Passes NULL as the opaque parameter since no additional state is needed for the simple pushval_asis callback
 - Error handling is managed through the escontext parameter for proper soft error support
 - This function is typically called indirectly through PostgreSQL's type conversion system rather than being called directly by user code
+
+## Simplified Source
+
+```c
+Datum
+tsqueryin(PG_FUNCTION_ARGS)
+{
+    // Get input string from function arguments
+    char *in = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+
+    // Parse the query string without morphological processing
+    PG_RETURN_TSQUERY(parse_tsquery(in,           // input string
+                                   pushval_asis,   // pass-through callback
+                                   PointerGetDatum(NULL), // no opaque data
+                                   0,              // standard parsing flags
+                                   escontext));    // error context
+}
+```

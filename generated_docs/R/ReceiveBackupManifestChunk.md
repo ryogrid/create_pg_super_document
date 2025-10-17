@@ -36,3 +36,20 @@ The function follows the standard callback pattern used throughout PostgreSQL fo
 - The callback_data parameter must be properly cast to WriteManifestState* for correct operation  
 - Part of the streaming data reception architecture that allows processing large files without loading them entirely into memory
 - Error messages include the specific filename for better debugging and troubleshooting
+
+## Simplified Source
+
+```c
+static void ReceiveBackupManifestChunk(size_t r, char *copybuf, void *callback_data) {
+    WriteManifestState *state = callback_data;
+
+    // Write chunk data to manifest file
+    errno = 0;
+    if (fwrite(copybuf, r, 1, state->file) != 1) {
+        // Assume disk space issue if no specific error
+        if (errno == 0)
+            errno = ENOSPC;
+        pg_fatal("could not write to file \"%s\": %m", state->filename);
+    }
+}
+```

@@ -40,3 +40,23 @@ This function is essential for aggregate operations where partial results need t
 - Uses the more general xmlconcat function for the actual concatenation work
 - Part of PostgreSQL's SQL standard XML aggregate function support
 - Follows PostgreSQL's function calling convention with PG_FUNCTION_ARGS
+
+## Simplified Source
+
+```c
+Datum xmlconcat2(PG_FUNCTION_ARGS) {
+    // Handle NULL cases for aggregate operations
+    if (PG_ARGISNULL(0)) {
+        if (PG_ARGISNULL(1))
+            PG_RETURN_NULL();
+        else
+            PG_RETURN_XML_P(PG_GETARG_XML_P(1));
+    } else if (PG_ARGISNULL(1)) {
+        PG_RETURN_XML_P(PG_GETARG_XML_P(0));
+    } else {
+        // Both non-NULL: concatenate using general xmlconcat function
+        PG_RETURN_XML_P(xmlconcat(list_make2(PG_GETARG_XML_P(0),
+                                             PG_GETARG_XML_P(1))));
+    }
+}
+```

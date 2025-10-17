@@ -45,3 +45,39 @@ This function takes no parameters and operates on global variables:
 - Configuration reload errors (if any) will appear in the server logs, not in pg_ctl output
 - This is the safest way to apply configuration changes without service interruption
 - Error messages are internationalized using the gettext system
+
+## Simplified Source
+
+```c
+static void
+do_reload(void)
+{
+    pid_t pid;
+
+    // Get the postmaster process ID from PID file
+    pid = get_pgpid(false);
+
+    // Validate server state
+    if (pid == 0) {
+        // No PID file exists
+        write_stderr("PID file does not exist\n");
+        write_stderr("Is server running?\n");
+        exit(1);
+    } else if (pid < 0) {
+        // Standalone backend cannot be reloaded
+        pid = -pid;
+        write_stderr("Cannot reload single-user server (PID: %d)\n", (int) pid);
+        write_stderr("Please terminate the single-user server and try again.\n");
+        exit(1);
+    }
+
+    // Send reload signal (SIGHUP) to postmaster
+    if (kill(pid, sig) != 0) {
+        write_stderr("Could not send reload signal (PID: %d)\n", (int) pid);
+        exit(1);
+    }
+
+    // Confirm signal sent
+    print_msg("server signaled\n");
+}
+```

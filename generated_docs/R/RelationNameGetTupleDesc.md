@@ -42,3 +42,29 @@ Note that while this function works as advertised, it's primarily maintained for
 - Primarily maintained for backwards compatibility with existing user code
 - The returned tuple descriptor should be freed by the caller when no longer needed
 - Will raise an error if the specified relation does not exist or cannot be accessed
+
+## Simplified Source
+
+```c
+TupleDesc RelationNameGetTupleDesc(const char *relname) {
+    RangeVar *relvar;
+    Relation rel;
+    TupleDesc tupdesc;
+    List *relname_list;
+
+    // Parse relation name (supports schema.table format)
+    relname_list = stringToQualifiedNameList(relname, NULL);
+    relvar = makeRangeVarFromNameList(relname_list);
+
+    // Open relation with shared lock for safe access
+    rel = relation_openrv(relvar, AccessShareLock);
+
+    // Copy the tuple descriptor so caller owns it
+    tupdesc = CreateTupleDescCopy(RelationGetDescr(rel));
+
+    // Release lock and close relation
+    relation_close(rel, AccessShareLock);
+
+    return tupdesc;
+}
+```

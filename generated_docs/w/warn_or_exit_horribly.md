@@ -40,3 +40,57 @@ The  function serves as the central error handling mechanism for the PostgreSQL 
 - Provides detailed TOC entry information including dump ID, catalog IDs, description, tag, and owner
 - Behavior depends on the exit_on_error flag: either terminates with exit_nicely(1) or increments n_errors counter
 - Central error handling point that ensures consistent error reporting across the entire pg_dump system
+
+## Simplified Source
+
+```c
+void
+warn_or_exit_horribly(ArchiveHandle *AH, const char *fmt, ...)
+{
+    va_list ap;
+
+    // Print stage context if changed
+    switch (AH->stage)
+    {
+        case STAGE_INITIALIZING:
+            if (AH->stage != AH->lastErrorStage)
+                pg_log_info("while INITIALIZING:");
+            break;
+        case STAGE_PROCESSING:
+            if (AH->stage != AH->lastErrorStage)
+                pg_log_info("while PROCESSING TOC:");
+            break;
+        case STAGE_FINALIZING:
+            if (AH->stage != AH->lastErrorStage)
+                pg_log_info("while FINALIZING:");
+            break;
+    }
+
+    // Print TOC entry context if changed
+    if (AH->currentTE != NULL && AH->currentTE != AH->lastErrorTE)
+    {
+        pg_log_info("from TOC entry %d; %u %u %s %s %s",
+                    AH->currentTE->dumpId,
+                    AH->currentTE->catalogId.tableoid,
+                    AH->currentTE->catalogId.oid,
+                    AH->currentTE->desc ? AH->currentTE->desc : "(no desc)",
+                    AH->currentTE->tag ? AH->currentTE->tag : "(no tag)",
+                    AH->currentTE->owner ? AH->currentTE->owner : "(no owner)");
+    }
+
+    // Update error tracking state
+    AH->lastErrorStage = AH->stage;
+    AH->lastErrorTE = AH->currentTE;
+
+    // Log the actual error message
+    va_start(ap, fmt);
+    pg_log_generic_v(PG_LOG_ERROR, PG_LOG_PRIMARY, fmt, ap);
+    va_end(ap);
+
+    // Exit or count error based on configuration
+    if (AH->public.exit_on_error)
+        exit_nicely(1);
+    else
+        AH->public.n_errors++;
+}
+```

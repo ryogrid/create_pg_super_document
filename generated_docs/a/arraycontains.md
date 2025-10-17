@@ -37,3 +37,26 @@ The  function implements the '@>' operator for arrays in PostgreSQL. It takes tw
 - The function includes memory management to handle toasted (compressed/external) arrays
 - Uses collation-aware comparison for elements that support collation (like text)
 - Returns true if array1 contains all elements of array2, false otherwise
+
+## Simplified Source
+
+```c
+Datum
+arraycontains(PG_FUNCTION_ARGS)
+{
+    AnyArrayType *array1 = PG_GETARG_ANY_ARRAY_P(0);
+    AnyArrayType *array2 = PG_GETARG_ANY_ARRAY_P(1);
+    Oid collation = PG_GET_COLLATION();
+
+    // Check if array1 contains all elements of array2 (matchall = true)
+    // Note: arguments reversed for containment semantics
+    bool result = array_contain_compare(array2, array1, collation, true,
+                                       &fcinfo->flinfo->fn_extra);
+
+    // Clean up memory for toasted arrays
+    AARR_FREE_IF_COPY(array1, 0);
+    AARR_FREE_IF_COPY(array2, 1);
+
+    PG_RETURN_BOOL(result);
+}
+```

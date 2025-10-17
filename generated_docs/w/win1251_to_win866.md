@@ -43,3 +43,23 @@ This conversion enables data transfer from modern Windows environments to legacy
 - Enables backward compatibility for legacy DOS applications
 - Part of PostgreSQL's comprehensive Windows/DOS Cyrillic encoding support
 - Returns the number of bytes converted for validation and partial conversion detection
+
+## Simplified Source
+
+```c
+Datum win1251_to_win866(PG_FUNCTION_ARGS) {
+    // Extract function parameters
+    unsigned char *src = PG_GETARG_CSTRING(2);   // Source WIN1251 string
+    unsigned char *dest = PG_GETARG_CSTRING(3);  // Destination WIN866 buffer
+    int len = PG_GETARG_INT32(4);                 // Length to convert
+    bool noError = PG_GETARG_BOOL(5);            // Error handling flag
+
+    // Validate encoding compatibility
+    CHECK_ENCODING_CONVERSION_ARGS(PG_WIN1251, PG_WIN866);
+
+    // Perform Windows to DOS Cyrillic conversion using mapping table
+    int converted = local2local(src, dest, len, PG_WIN1251, PG_WIN866, win12512win866, noError);
+
+    return converted;  // Return number of bytes converted
+}
+```

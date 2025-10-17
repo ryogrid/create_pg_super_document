@@ -41,3 +41,67 @@ The  function creates dump archive entries for large object metadata. It generat
 - Uses conditional dumping based on DUMP_COMPONENT flags to enable selective backup operations
 - The "dummy" drop statement is a placeholder since large objects have special drop semantics
 - Tag names differentiate between single BLOBs and BLOB ranges for proper restoration handling
+
+## Simplified Source
+
+```c
+static void
+dumpLO(Archive *fout, const LoInfo *loinfo)
+{
+    PQExpBuffer cquery = createPQExpBuffer();
+
+    // Create definition as newline-separated list of OIDs
+    for (int i = 0; i < loinfo->numlos; i++)
+        appendPQExpBuffer(cquery, "%u\n", loinfo->looids[i]);
+
+    // Dump the metadata definition if requested
+    if (loinfo->dobj.dump & DUMP_COMPONENT_DEFINITION)
+        ArchiveEntry(fout, loinfo->dobj.catId, loinfo->dobj.dumpId,
+                     ARCHIVE_OPTS(.tag = loinfo->dobj.name,
+                                 .owner = loinfo->rolname,
+                                 .description = "BLOB METADATA",
+                                 .section = SECTION_DATA,
+                                 .createStmt = cquery->data,
+                                 .dropStmt = "-- dummy"));
+
+    // Dump individual comments and security labels if requested
+    if (loinfo->dobj.dump & (DUMP_COMPONENT_COMMENT | DUMP_COMPONENT_SECLABEL)) {
+        for (int i = 0; i < loinfo->numlos; i++) {
+            CatalogId catId = {loinfo->dobj.catId.tableoid, loinfo->looids[i]};
+            char namebuf[32];
+            snprintf(namebuf, sizeof(namebuf), "%u", loinfo->looids[i]);
+
+            if (loinfo->dobj.dump & DUMP_COMPONENT_COMMENT)
+                dumpComment(fout, "LARGE OBJECT", namebuf, NULL, loinfo->rolname,
+                           catId, 0, loinfo->dobj.dumpId);
+
+            if (loinfo->dobj.dump & DUMP_COMPONENT_SECLABEL)
+                dumpSecLabel(fout, "LARGE OBJECT", namebuf, NULL, loinfo->rolname,
+                            catId, 0, loinfo->dobj.dumpId);
+        }
+    }
+
+    // Dump ACL permissions if requested
+    if (loinfo->dobj.dump & DUMP_COMPONENT_ACL) {
+        char namebuf[32];
+        snprintf(namebuf, sizeof(namebuf), "%u", loinfo->looids[0]);
+
+        if (loinfo->numlos > 1) {
+            // Multiple BLOBs: create range tag
+            char tagbuf[64];
+            snprintf(tagbuf, sizeof(tagbuf), "LARGE OBJECTS %u..%u",
+                    loinfo->looids[0], loinfo->looids[loinfo->numlos - 1]);
+            dumpACL(fout, loinfo->dobj.dumpId, InvalidDumpId,
+                   "LARGE OBJECT", namebuf, NULL, NULL,
+                   tagbuf, loinfo->rolname, &loinfo->dacl);
+        } else {
+            // Single BLOB: simple ACL entry
+            dumpACL(fout, loinfo->dobj.dumpId, InvalidDumpId,
+                   "LARGE OBJECT", namebuf, NULL, NULL,
+                   NULL, loinfo->rolname, &loinfo->dacl);
+        }
+    }
+
+    destroyPQExpBuffer(cquery);
+}
+```

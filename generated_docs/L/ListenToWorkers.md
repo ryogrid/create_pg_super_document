@@ -50,3 +50,46 @@ The callback mechanism allows different types of operations (dump, restore, etc.
 - Updates parallel state to mark workers as available for new assignments
 - Central component for coordinating completion of parallel dump/restore operations
 - Comment suggests potential optimization to collect multiple messages per call
+
+## Simplified Source
+
+```c
+static bool ListenToWorkers(ArchiveHandle *AH, ParallelState *pstate, bool do_wait) {
+    int worker;
+    char *msg;
+
+    // Try to get a status message from any worker
+    msg = getMessageFromWorker(pstate, do_wait, &worker);
+
+    if (!msg) {
+        // No message available
+        if (do_wait) {
+            // If waiting was requested, EOF means worker died
+            pg_fatal("a worker process died unexpectedly");
+        }
+        return false;
+    }
+
+    // Process the status message
+    if (messageStartsWith(msg, "OK ")) {
+        // Valid completion message - update worker state
+        ParallelSlot *slot = &pstate->parallelSlot[worker];
+        TocEntry *te = pstate->te[worker];
+
+        // Parse status and execute completion callback
+        int status = parseWorkerResponse(AH, te, msg);
+        slot->callback(AH, te, status, slot->callback_data);
+
+        // Mark worker as idle and available for new work
+        slot->workerStatus = WRKR_IDLE;
+        pstate->te[worker] = NULL;
+    } else {
+        // Invalid message format
+        pg_fatal("invalid message received from worker: \"%s\"", msg);
+    }
+
+    // Free the message and return success
+    free(msg);
+    return true;
+}
+```

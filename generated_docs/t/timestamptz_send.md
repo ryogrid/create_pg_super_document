@@ -39,3 +39,21 @@ The function is straightforward in its implementation: it extracts the timestamp
 - Counterpart to  for binary I/O operations
 - The binary format preserves the exact internal representation without loss of precision
 - Significantly more efficient than text-based output for bulk data operations
+
+## Simplified Source
+
+```c
+Datum timestamptz_send(PG_FUNCTION_ARGS) {
+    TimestampTz timestamp = PG_GETARG_TIMESTAMPTZ(0);
+    StringInfoData buf;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Write 64-bit timestamp value to buffer
+    pq_sendint64(&buf, timestamp);
+
+    // Finalize buffer and return as bytea
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

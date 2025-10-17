@@ -41,3 +41,13 @@ The function uses PostgreSQL's standard function argument mechanism:
 - The timezone-aware functionality is crucial for applications dealing with distributed systems where timezone handling is critical
 - All actual processing is delegated to  with timezone support explicitly enabled
 - Complements the timezone-naive  function by providing the timezone-aware alternative
+
+## Simplified Source
+
+```c
+Datum
+jsonb_path_exists_tz(PG_FUNCTION_ARGS)
+{
+    return jsonb_path_exists_internal(fcinfo, true);
+}
+```

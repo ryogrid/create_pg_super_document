@@ -50,3 +50,46 @@ The function includes error handling for cases where the apply worker disappears
 - The function is static, used only within the tablesync.c module
 - Critical for ensuring proper handoff between SYNCWAIT and CATCHUP phases during table sync
 - Assumes that reading `MyLogicalRepWorker->relstate` is atomic enough to be done without locks
+
+## Simplified Source
+
+```c
+static bool
+wait_for_worker_state_change(char expected_state)
+{
+    int rc;
+
+    for (;;)
+    {
+        LogicalRepWorker *worker;
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Check if already in expected state (atomic read)
+        if (MyLogicalRepWorker->relstate == expected_state)
+            return true;
+
+        // Find apply worker and signal it we're waiting
+        LWLockAcquire(LogicalRepWorkerLock, LW_SHARED);
+        worker = logicalrep_worker_find(MyLogicalRepWorker->subid,
+                                       InvalidOid, false);
+        if (worker && worker->proc)
+            logicalrep_worker_wakeup_ptr(worker);
+        LWLockRelease(LogicalRepWorkerLock);
+
+        // Exit if apply worker disappeared
+        if (!worker)
+            break;
+
+        // Wait for signal from apply worker (1 second timeout)
+        rc = WaitLatch(MyLatch,
+                      WL_LATCH_SET | WL_TIMEOUT | WL_EXIT_ON_PM_DEATH,
+                      1000L, WAIT_EVENT_LOGICAL_SYNC_STATE_CHANGE);
+
+        if (rc & WL_LATCH_SET)
+            ResetLatch(MyLatch);
+    }
+
+    return false;
+}
+```

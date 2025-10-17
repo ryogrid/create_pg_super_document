@@ -44,3 +44,81 @@ This function queries the `pg_subscription_rel` system catalog to get informatio
 - Maintains subscription state information (srsubstate) and LSN positions (srsublsn) for each table
 - Critical for preserving exact replication state during major version upgrades
 - Performs sanity checks to ensure referenced subscriptions and tables exist in the dump
+
+## Simplified Source
+
+```c
+void getSubscriptionTables(Archive *fout) {
+    DumpOptions *dopt = fout->dopt;
+    SubscriptionInfo *subinfo = NULL;
+    SubRelInfo *subrinfo;
+    PGresult *res;
+
+    // Only for binary upgrade mode with PostgreSQL 17+
+    if (dopt->no_subscriptions || !dopt->binary_upgrade || fout->remoteVersion < 170000)
+        return;
+
+    // Query subscription-relation mappings
+    res = ExecuteSqlQuery(fout,
+                          "SELECT srsubid, srrelid, srsubstate, srsublsn "
+                          "FROM pg_catalog.pg_subscription_rel "
+                          "ORDER BY srsubid",
+                          PGRES_TUPLES_OK);
+
+    int ntups = PQntuples(res);
+    if (ntups == 0)
+        goto cleanup;
+
+    // Get column indices
+    int i_srsubid = PQfnumber(res, "srsubid");
+    int i_srrelid = PQfnumber(res, "srrelid");
+    int i_srsubstate = PQfnumber(res, "srsubstate");
+    int i_srsublsn = PQfnumber(res, "srsublsn");
+
+    // Allocate storage for subscription relation info
+    subrinfo = pg_malloc(ntups * sizeof(SubRelInfo));
+    Oid last_srsubid = InvalidOid;
+
+    // Process each subscription-table relationship
+    for (int i = 0; i < ntups; i++) {
+        Oid cur_srsubid = atooid(PQgetvalue(res, i, i_srsubid));
+        Oid relid = atooid(PQgetvalue(res, i, i_srrelid));
+
+        // Check if we switched to a new subscription
+        if (cur_srsubid != last_srsubid) {
+            subinfo = findSubscriptionByOid(cur_srsubid);
+            if (subinfo == NULL)
+                pg_fatal("subscription with OID %u does not exist", cur_srsubid);
+            last_srsubid = cur_srsubid;
+        }
+
+        // Find the corresponding table
+        TableInfo *tblinfo = findTableByOid(relid);
+        if (tblinfo == NULL)
+            pg_fatal("failed sanity check, table with OID %u not found", relid);
+
+        // Create subscription relation object
+        subrinfo[i].dobj.objType = DO_SUBSCRIPTION_REL;
+        subrinfo[i].dobj.catId.tableoid = relid;
+        subrinfo[i].dobj.catId.oid = cur_srsubid;
+        AssignDumpId(&subrinfo[i].dobj);
+        subrinfo[i].dobj.name = pg_strdup(subinfo->dobj.name);
+        subrinfo[i].tblinfo = tblinfo;
+        subrinfo[i].srsubstate = PQgetvalue(res, i, i_srsubstate)[0];
+
+        // Handle nullable LSN field
+        if (PQgetisnull(res, i, i_srsublsn))
+            subrinfo[i].srsublsn = NULL;
+        else
+            subrinfo[i].srsublsn = pg_strdup(PQgetvalue(res, i, i_srsublsn));
+
+        subrinfo[i].subinfo = subinfo;
+
+        // Determine if this object should be dumped
+        selectDumpableObject(&(subrinfo[i].dobj), fout);
+    }
+
+cleanup:
+    PQclear(res);
+}
+```

@@ -39,3 +39,40 @@ The function first checks if the lengths match, and if they do, performs the app
 - The function properly handles memory management with PG_FREE_IF_COPY for the text argument
 - Essential for SQL operations that compare system identifiers (names) with user text values
 - Located in src/backend/utils/adt/varlena.c:2600-2624
+
+## Simplified Source
+
+```c
+Datum
+nameeqtext(PG_FUNCTION_ARGS)
+{
+    Name arg1 = PG_GETARG_NAME(0);
+    text *arg2 = PG_GETARG_TEXT_PP(1);
+
+    // Get lengths of both strings
+    size_t len1 = strlen(NameStr(*arg1));
+    size_t len2 = VARSIZE_ANY_EXHDR(arg2);
+
+    Oid collid = PG_GET_COLLATION();
+    check_collation_set(collid);
+
+    bool result;
+
+    // Fast path for C collation - simple byte comparison
+    if (collid == C_COLLATION_OID) {
+        result = (len1 == len2 &&
+                  memcmp(NameStr(*arg1), VARDATA_ANY(arg2), len1) == 0);
+    }
+    else {
+        // Locale-aware comparison for other collations
+        result = (varstr_cmp(NameStr(*arg1), len1,
+                           VARDATA_ANY(arg2), len2,
+                           collid) == 0);
+    }
+
+    // Clean up potentially detoasted text value
+    PG_FREE_IF_COPY(arg2, 1);
+
+    PG_RETURN_BOOL(result);
+}
+```

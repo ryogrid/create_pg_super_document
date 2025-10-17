@@ -45,3 +45,24 @@ WIN866 (also known as CP866) is a DOS Cyrillic codepage that was widely used in 
 - Part of PostgreSQL's pluggable encoding conversion system
 - The function is likely registered in the system catalogs as an encoding conversion function rather than being called directly
 - WIN866 is also known as CP866, a legacy DOS Cyrillic codepage still used in some Eastern European systems
+
+## Simplified Source
+
+```c
+Datum mic_to_win866(PG_FUNCTION_ARGS) {
+    // Extract conversion parameters from PostgreSQL function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate that we're converting from MULE internal to WIN866
+    CHECK_ENCODING_CONVERSION_ARGS(PG_MULE_INTERNAL, PG_WIN866);
+
+    // Convert using koi2win866 translation table to map KOI8-R to WIN866 equivalents
+    int converted = mic2latin_with_table(src, dest, len, LC_KOI8_R, PG_WIN866, koi2win866, noError);
+
+    // Return number of bytes successfully converted
+    PG_RETURN_INT32(converted);
+}
+```

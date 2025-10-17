@@ -41,3 +41,57 @@ The function handles various zstd-specific configuration options including compr
 - Initializes both the base bbstreamer structure and zstd-specific context and buffers
 - Error handling includes checking for zstd context creation failures and parameter setting errors
 - The function returns a pointer to the base bbstreamer, allowing it to be used polymorphically in the streaming pipeline
+
+## Simplified Source
+
+```c
+bbstreamer *
+bbstreamer_zstd_compressor_new(bbstreamer *next, pg_compress_specification *compress)
+{
+#ifdef USE_ZSTD
+    bbstreamer_zstd_frame *streamer;
+
+    // Allocate and initialize the streamer structure
+    streamer = palloc0(sizeof(bbstreamer_zstd_frame));
+    streamer->base.bbs_ops = &bbstreamer_zstd_compressor_ops;
+    streamer->base.bbs_next = next;
+
+    // Initialize buffer for output data
+    initStringInfo(&streamer->base.bbs_buffer);
+    enlargeStringInfo(&streamer->base.bbs_buffer, ZSTD_DStreamOutSize());
+
+    // Create zstd compression context
+    streamer->cctx = ZSTD_createCCtx();
+    if (!streamer->cctx)
+        pg_fatal("could not create zstd compression context");
+
+    // Set compression level
+    if (ZSTD_isError(ZSTD_CCtx_setParameter(streamer->cctx, ZSTD_c_compressionLevel, compress->level)))
+        pg_fatal("could not set zstd compression level to %d", compress->level);
+
+    // Set worker count if specified
+    if (compress->options & PG_COMPRESSION_OPTION_WORKERS) {
+        if (ZSTD_isError(ZSTD_CCtx_setParameter(streamer->cctx, ZSTD_c_nbWorkers, compress->workers)))
+            pg_fatal("could not set compression worker count to %d", compress->workers);
+    }
+
+    // Enable long-distance matching if requested
+    if (compress->options & PG_COMPRESSION_OPTION_LONG_DISTANCE) {
+        if (ZSTD_isError(ZSTD_CCtx_setParameter(streamer->cctx, ZSTD_c_enableLongDistanceMatching, compress->long_distance))) {
+            pg_log_error("could not enable long-distance mode");
+            exit(1);
+        }
+    }
+
+    // Initialize output buffer for zstd
+    streamer->zstd_outBuf.dst = streamer->base.bbs_buffer.data;
+    streamer->zstd_outBuf.size = streamer->base.bbs_buffer.maxlen;
+    streamer->zstd_outBuf.pos = 0;
+
+    return &streamer->base;
+#else
+    pg_fatal("this build does not support compression with ZSTD");
+    return NULL;
+#endif
+}
+```

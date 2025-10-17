@@ -36,3 +36,16 @@ This function converts a wide character string to a multibyte character string w
 - Returns the number of bytes written to the destination buffer
 - More commonly used than pg_wchar2mb due to its safer length-limited operation
 - Essential for regex result building and string manipulation functions where buffer size control is critical
+
+## Simplified Source
+
+```c
+int
+pg_wchar2mb_with_len(const pg_wchar *from, char *to, int len)
+{
+    // Delegate to encoding-specific conversion function
+    return pg_wchar_table[DatabaseEncoding->encoding].wchar2mb_with_len(from,
+                                                                         (unsigned char *) to,
+                                                                         len);
+}
+```

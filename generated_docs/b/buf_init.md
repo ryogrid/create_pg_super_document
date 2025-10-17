@@ -36,3 +36,21 @@ The function uses makeStringInfo() to create a new StringInfo buffer and appendB
 - Creates snapshots with no in-progress transactions initially (nxip = 0)
 - The resulting StringInfo buffer contains a binary representation suitable for further processing
 - Used in snapshot parsing and creation workflows
+
+## Simplified Source
+
+```c
+static StringInfo buf_init(FullTransactionId xmin, FullTransactionId xmax) {
+    // Create snapshot structure with basic transaction boundaries
+    pg_snapshot snap;
+    snap.xmin = xmin;  // Oldest active transaction
+    snap.xmax = xmax;  // Next transaction ID to assign
+    snap.nxip = 0;     // No in-progress transactions initially
+
+    // Create StringInfo buffer and store snapshot as binary data
+    StringInfo buf = makeStringInfo();
+    appendBinaryStringInfo(buf, &snap, PG_SNAPSHOT_SIZE(0));
+
+    return buf;
+}
+```

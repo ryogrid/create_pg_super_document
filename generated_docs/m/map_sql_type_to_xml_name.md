@@ -46,3 +46,73 @@ For built-in types, it uses predefined XML type names. For user-defined types an
 - The function is static and only used internally within the xml.c module
 - Memory management relies on StringInfo for building result strings
 - Performs system catalog lookups for unknown types using the type cache
+
+## Simplified Source
+
+```c
+static const char *map_sql_type_to_xml_name(Oid typeoid, int typmod) {
+    StringInfoData result;
+    initStringInfo(&result);
+
+    switch (typeoid) {
+        case BPCHAROID:
+            if (typmod == -1)
+                appendStringInfoString(&result, "CHAR");
+            else
+                appendStringInfo(&result, "CHAR_%d", typmod - VARHDRSZ);
+            break;
+        case VARCHAROID:
+            if (typmod == -1)
+                appendStringInfoString(&result, "VARCHAR");
+            else
+                appendStringInfo(&result, "VARCHAR_%d", typmod - VARHDRSZ);
+            break;
+        case NUMERICOID:
+            if (typmod == -1)
+                appendStringInfoString(&result, "NUMERIC");
+            else
+                appendStringInfo(&result, "NUMERIC_%d_%d",
+                    ((typmod - VARHDRSZ) >> 16) & 0xffff,
+                    (typmod - VARHDRSZ) & 0xffff);
+            break;
+        case INT4OID:    appendStringInfoString(&result, "INTEGER"); break;
+        case INT2OID:    appendStringInfoString(&result, "SMALLINT"); break;
+        case INT8OID:    appendStringInfoString(&result, "BIGINT"); break;
+        case FLOAT4OID:  appendStringInfoString(&result, "REAL"); break;
+        case FLOAT8OID:  appendStringInfoString(&result, "DOUBLE"); break;
+        case BOOLOID:    appendStringInfoString(&result, "BOOLEAN"); break;
+        case DATEOID:    appendStringInfoString(&result, "DATE"); break;
+        case XMLOID:     appendStringInfoString(&result, "XML"); break;
+
+        // Time types with optional precision
+        case TIMEOID:
+            appendStringInfo(&result, typmod == -1 ? "TIME" : "TIME_%d", typmod);
+            break;
+        case TIMETZOID:
+            appendStringInfo(&result, typmod == -1 ? "TIME_WTZ" : "TIME_WTZ_%d", typmod);
+            break;
+        case TIMESTAMPOID:
+            appendStringInfo(&result, typmod == -1 ? "TIMESTAMP" : "TIMESTAMP_%d", typmod);
+            break;
+        case TIMESTAMPTZOID:
+            appendStringInfo(&result, typmod == -1 ? "TIMESTAMP_WTZ" : "TIMESTAMP_WTZ_%d", typmod);
+            break;
+
+        default:
+            // Handle user-defined types and domains
+            HeapTuple tuple = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typeoid));
+            Form_pg_type typtuple = (Form_pg_type) GETSTRUCT(tuple);
+
+            appendStringInfoString(&result,
+                map_multipart_sql_identifier_to_xml_name(
+                    (typtuple->typtype == TYPTYPE_DOMAIN) ? "Domain" : "UDT",
+                    get_database_name(MyDatabaseId),
+                    get_namespace_name(typtuple->typnamespace),
+                    NameStr(typtuple->typname)));
+
+            ReleaseSysCache(tuple);
+    }
+
+    return result.data;
+}
+```

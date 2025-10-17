@@ -31,3 +31,16 @@ This function removes an ephemeral named relation from a query environment's lis
 - According to PostgreSQL developers, this function is expected to be rarely used
 - The function was provided "just in case" it might be needed
 - Memory management of the removed ENR is handled by PostgreSQL's memory context system
+
+## Simplified Source
+
+```c
+void unregister_ENR(QueryEnvironment *queryEnv, const char *name) {
+    // Find the ENR by name
+    EphemeralNamedRelation match = get_ENR(queryEnv, name);
+
+    // Remove it from the list if found
+    if (match)
+        queryEnv->namedRelList = list_delete(queryEnv->namedRelList, match);
+}
+```

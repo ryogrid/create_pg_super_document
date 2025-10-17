@@ -37,3 +37,13 @@ The function simply delegates all calls to the current gtsquery_consistent funct
 - Maintains the fmgr interface convention like other PostgreSQL functions
 - Located in src/backend/utils/adt/tsquery_gist.c:273-276
 - Should be removed in future PostgreSQL versions when pre-9.6 compatibility is no longer needed
+
+## Simplified Source
+
+```c
+Datum gtsquery_consistent_oldsig(PG_FUNCTION_ARGS)
+{
+    // Compatibility wrapper: delegate to current implementation
+    return gtsquery_consistent(fcinfo);
+}
+```

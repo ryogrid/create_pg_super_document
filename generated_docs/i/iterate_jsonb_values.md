@@ -36,3 +36,59 @@ This function provides a generic mechanism for traversing a JSONB structure and 
 
 ## Notes and Other Information
 The function processes different JSONB value types differently: strings are passed directly, numeric values are converted to their string representation using numeric_out, and boolean values are converted to literal "true" or "false" strings. Composite values (objects, arrays) are not passed to the callback. The iteration continues until the entire JSONB structure has been traversed.
+
+## Simplified Source
+
+```c
+void iterate_jsonb_values(Jsonb *jb, uint32 flags, void *state,
+                         JsonIterateStringValuesAction action) {
+    JsonbIterator *it;
+    JsonbValue v;
+    JsonbIteratorToken type;
+
+    it = JsonbIteratorInit(&jb->root);
+
+    // Iterate through all tokens in the JSONB structure
+    while ((type = JsonbIteratorNext(&it, &v, false)) != WJB_DONE) {
+        if (type == WJB_KEY) {
+            // Handle object keys
+            if (flags & jtiKey)
+                action(state, v.val.string.val, v.val.string.len);
+            continue;
+        } else if (!(type == WJB_VALUE || type == WJB_ELEM)) {
+            // Skip composite types (objects, arrays)
+            continue;
+        }
+
+        // Process scalar values based on type and flags
+        switch (v.type) {
+            case jbvString:
+                if (flags & jtiString)
+                    action(state, v.val.string.val, v.val.string.len);
+                break;
+
+            case jbvNumeric:
+                if (flags & jtiNumeric) {
+                    char *val = DatumGetCString(DirectFunctionCall1(numeric_out,
+                                               NumericGetDatum(v.val.numeric)));
+                    action(state, val, strlen(val));
+                    pfree(val);
+                }
+                break;
+
+            case jbvBool:
+                if (flags & jtiBool) {
+                    if (v.val.boolean)
+                        action(state, "true", 4);
+                    else
+                        action(state, "false", 5);
+                }
+                break;
+
+            default:
+                // Skip other composite types
+                break;
+        }
+    }
+}
+```

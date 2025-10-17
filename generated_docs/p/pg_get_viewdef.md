@@ -35,3 +35,22 @@ The function serves as a public interface for view introspection, commonly used 
 - Uses fixed formatting parameters for consistent output
 - Focuses on the SELECT query rather than the complete view definition
 - Part of PostgreSQL's system information functions for database introspection
+
+## Simplified Source
+
+```c
+Datum
+pg_get_viewdef(PG_FUNCTION_ARGS)
+{
+    Oid viewoid = PG_GETARG_OID(0);
+    char *res;
+
+    // Get view definition with pretty printing and default wrapping
+    res = pg_get_viewdef_worker(viewoid, PRETTYFLAG_INDENT, WRAP_COLUMN_DEFAULT);
+
+    if (res == NULL)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(string_to_text(res));
+}
+```

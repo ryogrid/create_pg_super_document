@@ -39,3 +39,15 @@ The underlying pg_char_to_encoding() function implements a binary search algorit
 - Input encoding names are cleaned and normalized before comparison
 - Function signature location: src/backend/utils/mb/mbutils.c:1285-1292
 - Catalog definition: src/include/catalog/pg_proc.dat:3775-3776
+
+## Simplified Source
+
+```c
+Datum PG_char_to_encoding(PG_FUNCTION_ARGS) {
+    // Extract encoding name from PostgreSQL NAME argument
+    Name encoding_name = PG_GETARG_NAME(0);
+
+    // Convert name to encoding ID and return as integer
+    PG_RETURN_INT32(pg_char_to_encoding(NameStr(*encoding_name)));
+}
+```

@@ -35,3 +35,51 @@ The function performs validation on the magic number and ensures that block coun
 
 ## Notes and Other Information
 The function validates the incremental file format using a magic number and enforces PostgreSQL's segment size constraints. Header length is aligned to BLCKSZ boundaries only when the file contains actual block data, optimizing for both alignment requirements and storage efficiency. The resulting rfile structure contains all necessary metadata for subsequent block extraction operations during reconstruction.
+
+## Simplified Source
+
+```c
+static rfile *make_incremental_rfile(char *filename)
+{
+    rfile *rf;
+    unsigned magic;
+
+    // Create basic rfile structure
+    rf = make_rfile(filename, false);
+
+    // Validate incremental file magic number
+    read_bytes(rf, &magic, sizeof(magic));
+    if (magic != INCREMENTAL_MAGIC)
+        pg_fatal("file \"%s\" has bad incremental magic number (0x%x, expected 0x%x)",
+                filename, magic, INCREMENTAL_MAGIC);
+
+    // Read and validate block count
+    read_bytes(rf, &rf->num_blocks, sizeof(rf->num_blocks));
+    if (rf->num_blocks > RELSEG_SIZE)
+        pg_fatal("file \"%s\" has block count %u in excess of segment size %u",
+                filename, rf->num_blocks, RELSEG_SIZE);
+
+    // Read and validate truncation block length
+    read_bytes(rf, &rf->truncation_block_length, sizeof(rf->truncation_block_length));
+    if (rf->truncation_block_length > RELSEG_SIZE)
+        pg_fatal("file \"%s\" has truncation block length %u in excess of segment size %u",
+                filename, rf->truncation_block_length, RELSEG_SIZE);
+
+    // Read block numbers array if present
+    if (rf->num_blocks > 0) {
+        rf->relative_block_numbers = pg_malloc0(sizeof(BlockNumber) * rf->num_blocks);
+        read_bytes(rf, rf->relative_block_numbers, sizeof(BlockNumber) * rf->num_blocks);
+    }
+
+    // Calculate header length
+    rf->header_length = sizeof(magic) + sizeof(rf->num_blocks) +
+                       sizeof(rf->truncation_block_length) +
+                       sizeof(BlockNumber) * rf->num_blocks;
+
+    // Align header to block boundaries if file contains blocks
+    if (rf->num_blocks > 0 && (rf->header_length % BLCKSZ) != 0)
+        rf->header_length += (BLCKSZ - (rf->header_length % BLCKSZ));
+
+    return rf;
+}
+```

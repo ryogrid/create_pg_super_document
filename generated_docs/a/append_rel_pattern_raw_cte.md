@@ -41,3 +41,61 @@ This function generates the body of a SQL CTE that transforms pattern informatio
 - Properly escapes string literals using appendStringLiteralConn to prevent SQL injection
 - Part of pg_amcheck's relation discovery mechanism, typically used in larger SQL queries for pattern matching
 - Essential component for translating user-specified patterns into database-queryable format
+
+## Simplified Source
+
+```c
+static void append_rel_pattern_raw_cte(PQExpBuffer buf, const PatternInfoArray *pia,
+                                       PGconn *conn) {
+    const char *comma = "";
+    bool have_values = false;
+
+    // Generate VALUES clause for each pattern
+    for (int pattern_id = 0; pattern_id < pia->len; pattern_id++) {
+        PatternInfo *info = &pia->data[pattern_id];
+
+        // Add VALUES on first iteration
+        if (!have_values)
+            appendPQExpBufferStr(buf, "\nVALUES");
+        have_values = true;
+
+        // Start row with pattern_id
+        appendPQExpBuffer(buf, "%s\n(%d::INTEGER, ", comma, pattern_id);
+
+        // Add database regex or NULL
+        if (info->db_regex == NULL)
+            appendPQExpBufferStr(buf, "NULL");
+        else
+            appendStringLiteralConn(buf, info->db_regex, conn);
+        appendPQExpBufferStr(buf, "::TEXT, ");
+
+        // Add namespace regex or NULL
+        if (info->nsp_regex == NULL)
+            appendPQExpBufferStr(buf, "NULL");
+        else
+            appendStringLiteralConn(buf, info->nsp_regex, conn);
+        appendPQExpBufferStr(buf, "::TEXT, ");
+
+        // Add relation regex or NULL
+        if (info->rel_regex == NULL)
+            appendPQExpBufferStr(buf, "NULL");
+        else
+            appendStringLiteralConn(buf, info->rel_regex, conn);
+
+        // Add heap_only and btree_only flags
+        appendPQExpBufferStr(buf, info->heap_only ?
+                            "::TEXT, true::BOOLEAN" : "::TEXT, false::BOOLEAN");
+        appendPQExpBufferStr(buf, info->btree_only ?
+                            ", true::BOOLEAN" : ", false::BOOLEAN");
+        appendPQExpBufferChar(buf, ')');
+        comma = ",";
+    }
+
+    // If no patterns, add dummy SELECT with proper column types
+    if (!have_values)
+        appendPQExpBufferStr(buf,
+            "\nSELECT NULL::INTEGER, NULL::TEXT, NULL::TEXT, "
+            "NULL::TEXT, NULL::BOOLEAN, NULL::BOOLEAN "
+            "WHERE false");
+}
+```

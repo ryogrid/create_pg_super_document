@@ -41,3 +41,62 @@ The findoprnd_recurse function performs a recursive traversal of a tsquery struc
 - The traversal order (right operand first, then left) is specific to polish notation processing
 - Sets needcleanup flag when stop words are detected for later removal
 - Essential for converting parsed tsquery into executable internal representation
+
+## Simplified Source
+
+```c
+static void
+findoprnd_recurse(QueryItem *ptr, uint32 *pos, int nnodes, bool *needcleanup)
+{
+    // Prevent stack overflow during recursion
+    check_stack_depth();
+
+    // Bounds check
+    if (*pos >= nnodes)
+        elog(ERROR, "malformed tsquery: operand not found");
+
+    if (ptr[*pos].type == QI_VAL)
+    {
+        // Regular value node - just advance position
+        (*pos)++;
+    }
+    else if (ptr[*pos].type == QI_VALSTOP)
+    {
+        // Stop word node - mark for cleanup and advance
+        *needcleanup = true;
+        (*pos)++;
+    }
+    else
+    {
+        // Operator node
+        Assert(ptr[*pos].type == QI_OPR);
+
+        if (ptr[*pos].qoperator.oper == OP_NOT)
+        {
+            // Unary NOT operator
+            ptr[*pos].qoperator.left = 1; // Fixed offset for NOT
+            (*pos)++;
+
+            // Process the single operand
+            findoprnd_recurse(ptr, pos, nnodes, needcleanup);
+        }
+        else
+        {
+            // Binary operators (AND, OR, PHRASE)
+            QueryOperator *curitem = &ptr[*pos].qoperator;
+            int tmp = *pos; // Save current position
+
+            (*pos)++;
+
+            // Process RIGHT operand first (polish notation requirement)
+            findoprnd_recurse(ptr, pos, nnodes, needcleanup);
+
+            // Calculate left offset based on processed right operand
+            curitem->left = *pos - tmp;
+
+            // Process LEFT operand second
+            findoprnd_recurse(ptr, pos, nnodes, needcleanup);
+        }
+    }
+}
+```

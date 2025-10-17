@@ -47,3 +47,101 @@ The  function implements the fundamental JSONB path traversal logic in PostgreSQ
 - Returns NULL for attempts to extract from scalars with non-empty paths
 - Core building block for JSONB path-based operations in PostgreSQL
 - Efficiently handles nested container traversal through iterative processing
+
+## Simplified Source
+
+```c
+Datum jsonb_get_element(Jsonb *jb, Datum *path, int npath, bool *isnull, bool as_text) {
+    JsonbContainer *container = &jb->root;
+    JsonbValue *jbvp = NULL;
+    int i;
+    bool have_object = false, have_array = false;
+
+    *isnull = false;
+
+    // Determine root container type
+    if (JB_ROOT_IS_OBJECT(jb))
+        have_object = true;
+    else if (JB_ROOT_IS_ARRAY(jb) && !JB_ROOT_IS_SCALAR(jb))
+        have_array = true;
+    else {
+        // Root is scalar - extract it if path is empty
+        if (npath <= 0)
+            jbvp = getIthJsonbValueFromContainer(container, 0);
+    }
+
+    // Handle empty path - return entire object/array
+    if (npath <= 0 && jbvp == NULL) {
+        if (as_text)
+            return PointerGetDatum(cstring_to_text(JsonbToCString(NULL, container, VARSIZE(jb))));
+        else
+            PG_RETURN_JSONB_P(jb);
+    }
+
+    // Traverse path elements
+    for (i = 0; i < npath; i++) {
+        if (have_object) {
+            // Object key lookup
+            text *subscr = DatumGetTextPP(path[i]);
+            jbvp = getKeyJsonValueFromContainer(container,
+                                              VARDATA_ANY(subscr),
+                                              VARSIZE_ANY_EXHDR(subscr),
+                                              NULL);
+        }
+        else if (have_array) {
+            // Array index lookup
+            char *indextext = TextDatumGetCString(path[i]);
+            int lindex = strtoint(indextext, NULL, 10);
+
+            uint32 index;
+            if (lindex >= 0) {
+                index = (uint32) lindex;
+            } else {
+                // Handle negative indices (from end)
+                uint32 nelements = JsonContainerSize(container);
+                if (-lindex > nelements) {
+                    *isnull = true;
+                    return PointerGetDatum(NULL);
+                }
+                index = nelements + lindex;
+            }
+
+            jbvp = getIthJsonbValueFromContainer(container, index);
+        }
+        else {
+            // Cannot extract from scalar
+            *isnull = true;
+            return PointerGetDatum(NULL);
+        }
+
+        if (jbvp == NULL) {
+            *isnull = true;
+            return PointerGetDatum(NULL);
+        }
+
+        // If not at end of path, prepare for next iteration
+        if (i < npath - 1) {
+            if (jbvp->type == jbvBinary) {
+                container = jbvp->val.binary.data;
+                have_object = JsonContainerIsObject(container);
+                have_array = JsonContainerIsArray(container);
+            } else {
+                // Cannot traverse further into scalar
+                have_object = have_array = false;
+            }
+        }
+    }
+
+    // Return final result
+    if (as_text) {
+        if (jbvp->type == jbvNull) {
+            *isnull = true;
+            return PointerGetDatum(NULL);
+        }
+        return PointerGetDatum(JsonbValueAsText(jbvp));
+    } else {
+        Jsonb *res = JsonbValueToJsonb(jbvp);
+        PG_RETURN_JSONB_P(res);
+    }
+}
+```

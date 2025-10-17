@@ -36,3 +36,32 @@ This function is particularly useful for validating and measuring text data in d
 - The function validates the entire byte sequence for encoding compliance
 - Part of PostgreSQL's multi-byte character encoding support system
 - Located in src/backend/utils/mb/mbutils.c:615-643
+
+## Simplified Source
+
+```c
+Datum
+length_in_encoding(PG_FUNCTION_ARGS)
+{
+    // Extract input bytea and encoding name
+    bytea *string = PG_GETARG_BYTEA_PP(0);
+    char *src_encoding_name = NameStr(*PG_GETARG_NAME(1));
+
+    // Convert encoding name to internal ID
+    int src_encoding = pg_char_to_encoding(src_encoding_name);
+
+    // Validate encoding name
+    if (src_encoding < 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("invalid encoding name \"%s\"", src_encoding_name)));
+
+    // Extract string data and calculate character length
+    int len = VARSIZE_ANY_EXHDR(string);
+    const char *src_str = VARDATA_ANY(string);
+
+    // Verify encoding and return character count
+    int char_length = pg_verify_mbstr_len(src_encoding, src_str, len, false);
+
+    PG_RETURN_INT32(char_length);
+}
+```

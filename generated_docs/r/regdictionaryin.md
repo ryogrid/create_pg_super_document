@@ -48,3 +48,42 @@ The function performs comprehensive validation, checking that named dictionaries
 - Bootstrap mode restriction ensures system stability during initialization
 - Uses soft error handling to support contexts where errors should not abort transactions
 - Part of the text search framework's type system integration
+
+## Simplified Source
+
+```c
+Datum
+regdictionaryin(PG_FUNCTION_ARGS)
+{
+    char *input = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    Oid result;
+
+    // Handle "-" or numeric OID input
+    if (parseDashOrOid(input, &result, escontext)) {
+        PG_RETURN_OID(result);
+    }
+
+    // Bootstrap mode only accepts numeric OIDs
+    if (IsBootstrapProcessingMode()) {
+        elog(ERROR, "regdictionary values must be OIDs in bootstrap mode");
+    }
+
+    // Parse qualified name and look up in catalog
+    List *names = stringToQualifiedNameList(input, escontext);
+    if (names == NIL) {
+        PG_RETURN_NULL();
+    }
+
+    result = get_ts_dict_oid(names, true);
+
+    if (!OidIsValid(result)) {
+        ereturn(escontext, (Datum) 0,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("text search dictionary \"%s\" does not exist",
+                        NameListToString(names))));
+    }
+
+    PG_RETURN_OID(result);
+}
+```

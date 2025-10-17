@@ -67,3 +67,93 @@ When with_child_tables is true, the function uses a recursive CTE (Common Table 
 - When strict_names is true, any pattern that produces no matches will cause a fatal error
 - The function handles multiple relation types, making it suitable for dumping various database object types
 - Duplicate OIDs in the result list are allowed and handled by the caller
+
+## Simplified Source
+
+```c
+static void
+expand_table_name_patterns(Archive *fout,
+                          SimpleStringList *patterns, SimpleOidList *oids,
+                          bool strict_names, bool with_child_tables)
+{
+    PQExpBuffer query;
+    PGresult   *res;
+    SimpleStringListCell *cell;
+
+    if (patterns->head == NULL)
+        return;  /* nothing to do */
+
+    query = createPQExpBuffer();
+
+    // Process each pattern in the list
+    for (cell = patterns->head; cell; cell = cell->next)
+    {
+        PQExpBufferData dbbuf;
+        int dotcnt;
+
+        // Build base query with optional recursive CTE for child tables
+        if (with_child_tables)
+        {
+            appendPQExpBuffer(query, "WITH RECURSIVE partition_tree (relid) AS (\n");
+        }
+
+        // Main SELECT from pg_class with namespace join
+        appendPQExpBuffer(query,
+                         "SELECT c.oid"
+                         "\nFROM pg_catalog.pg_class c"
+                         "\n     LEFT JOIN pg_catalog.pg_namespace n"
+                         "\n     ON n.oid OPERATOR(pg_catalog.=) c.relnamespace"
+                         "\nWHERE c.relkind OPERATOR(pg_catalog.=) ANY"
+                         "\n    (array['%c', '%c', '%c', '%c', '%c', '%c'])\n",
+                         RELKIND_RELATION, RELKIND_SEQUENCE, RELKIND_VIEW,
+                         RELKIND_MATVIEW, RELKIND_FOREIGN_TABLE,
+                         RELKIND_PARTITIONED_TABLE);
+
+        // Process pattern with schema qualification support
+        initPQExpBuffer(&dbbuf);
+        processSQLNamePattern(GetConnection(fout), query, cell->val, true,
+                             false, "n.nspname", "c.relname", NULL,
+                             "pg_catalog.pg_table_is_visible(c.oid)", &dbbuf, &dotcnt);
+
+        // Validate qualified names (schema.table format max)
+        if (dotcnt > 2)
+            pg_fatal("improper relation name (too many dotted names): %s", cell->val);
+        else if (dotcnt == 2)
+            prohibit_crossdb_refs(GetConnection(fout), dbbuf.data, cell->val);
+
+        termPQExpBuffer(&dbbuf);
+
+        // Add recursive part for child tables via inheritance
+        if (with_child_tables)
+        {
+            appendPQExpBuffer(query, "UNION"
+                             "\nSELECT i.inhrelid"
+                             "\nFROM partition_tree p"
+                             "\n     JOIN pg_catalog.pg_inherits i"
+                             "\n     ON p.relid OPERATOR(pg_catalog.=) i.inhparent"
+                             "\n)"
+                             "\nSELECT relid FROM partition_tree");
+        }
+
+        // Execute with secure search_path handling
+        ExecuteSqlStatement(fout, "RESET search_path");
+        res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+        PQclear(ExecuteSqlQueryForSingleRow(fout, ALWAYS_SECURE_SEARCH_PATH_SQL));
+
+        // Check for matches if strict mode
+        if (strict_names && PQntuples(res) == 0)
+            pg_fatal("no matching tables were found for pattern \"%s\"", cell->val);
+
+        // Add all matching OIDs to the list
+        for (int i = 0; i < PQntuples(res); i++)
+        {
+            simple_oid_list_append(oids, atooid(PQgetvalue(res, i, 0)));
+        }
+
+        PQclear(res);
+        resetPQExpBuffer(query);
+    }
+
+    destroyPQExpBuffer(query);
+}
+```

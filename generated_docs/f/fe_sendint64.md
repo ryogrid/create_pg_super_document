@@ -31,3 +31,15 @@ The function uses PostgreSQL's portable byte-swapping infrastructure () to handl
 - Used primarily in PostgreSQL's streaming replication protocol for sending timestamps, LSN values, and other 64-bit quantities
 - Part of the frontend utility functions for pg_basebackup and related tools
 - Declared in streamutil.h as part of the streaming utilities interface
+
+## Simplified Source
+
+```c
+void fe_sendint64(int64 i, char *buf) {
+    // Convert 64-bit integer to network byte order (big-endian)
+    uint64 network_value = pg_hton64(i);
+
+    // Copy converted value to output buffer
+    memcpy(buf, &network_value, sizeof(network_value));
+}
+```

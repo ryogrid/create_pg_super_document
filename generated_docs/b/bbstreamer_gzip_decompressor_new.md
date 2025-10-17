@@ -34,3 +34,42 @@ This function creates and initializes a new bbstreamer that decompresses gzip-co
 - Part of the PostgreSQL base backup streaming infrastructure
 - Memory allocation for zlib operations is handled through PostgreSQL's memory context system via custom allocators
 - The decompressor maintains its own buffer for accumulating decompressed data before passing it to the next streamer in the chain
+
+## Simplified Source
+
+```c
+bbstreamer *
+bbstreamer_gzip_decompressor_new(bbstreamer *next)
+{
+#ifdef HAVE_LIBZ
+    bbstreamer_gzip_decompressor *streamer;
+    z_stream *zs;
+
+    Assert(next != NULL);
+
+    // Allocate and initialize decompressor structure
+    streamer = palloc0(sizeof(bbstreamer_gzip_decompressor));
+    *((const bbstreamer_ops **) &streamer->base.bbs_ops) = &bbstreamer_gzip_decompressor_ops;
+
+    // Set up streaming chain and buffer
+    streamer->base.bbs_next = next;
+    initStringInfo(&streamer->base.bbs_buffer);
+
+    // Initialize zlib decompression stream
+    zs = &streamer->zstream;
+    zs->zalloc = gzip_palloc;
+    zs->zfree = gzip_pfree;
+    zs->next_out = (uint8 *) streamer->base.bbs_buffer.data;
+    zs->avail_out = streamer->base.bbs_buffer.maxlen;
+
+    // Initialize decompression with gzip header support (15 + 16)
+    if (inflateInit2(zs, 15 + 16) != Z_OK)
+        pg_fatal("could not initialize compression library");
+
+    return &streamer->base;
+#else
+    pg_fatal("this build does not support compression with %s", "gzip");
+    return NULL;
+#endif
+}
+```

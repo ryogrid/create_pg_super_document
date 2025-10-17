@@ -36,3 +36,22 @@ The `text_gt` function is a PostgreSQL built-in function that performs a "greate
 - Properly handles memory management by freeing copied arguments after use
 - Part of PostgreSQL's comprehensive set of text comparison operators
 - The function is defined in `src/backend/utils/adt/varlena.c` at lines 1761-1775
+
+## Simplified Source
+
+```c
+Datum text_gt(PG_FUNCTION_ARGS) {
+    // Extract the two text arguments to compare
+    text *first_text = PG_GETARG_TEXT_PP(0);
+    text *second_text = PG_GETARG_TEXT_PP(1);
+
+    // Perform collation-aware comparison: first > second?
+    bool is_greater = (text_cmp(first_text, second_text, PG_GET_COLLATION()) > 0);
+
+    // Clean up memory and return result
+    PG_FREE_IF_COPY(first_text, 0);
+    PG_FREE_IF_COPY(second_text, 1);
+
+    PG_RETURN_BOOL(is_greater);
+}
+```

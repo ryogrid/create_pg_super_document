@@ -55,3 +55,81 @@ The function carefully handles Windows path conventions and service-specific req
 - Distinguishes between service registration options (like -N for service name) and runtime options
 - Proper error handling with program termination on critical failures
 - Part of pg_ctl's Windows service management infrastructure
+
+## Simplified Source
+
+```c
+static char *
+pgwin32_CommandLine(bool registration)
+{
+    PQExpBuffer cmdLine = createPQExpBuffer();
+    char cmdPath[MAXPGPATH];
+    int ret;
+
+    // Find the appropriate executable
+    if (registration) {
+        // For service registration, use pg_ctl executable
+        ret = find_my_exec(argv0, cmdPath);
+        if (ret != 0) {
+            write_stderr("Could not find own program executable\n");
+            exit(1);
+        }
+    } else {
+        // For runtime, use postgres executable
+        ret = find_other_exec(argv0, "postgres", PG_BACKEND_VERSIONSTR, cmdPath);
+        if (ret != 0) {
+            write_stderr("Could not find postgres program executable\n");
+            exit(1);
+        }
+    }
+
+    // Ensure .exe extension for Windows
+    if (strlen(cmdPath) < 4 ||
+        pg_strcasecmp(cmdPath + strlen(cmdPath) - 4, ".exe") != 0) {
+        snprintf(cmdPath + strlen(cmdPath), sizeof(cmdPath) - strlen(cmdPath), ".exe");
+    }
+
+    // Convert to native Windows path format
+    make_native_path(cmdPath);
+
+    // Build command line with quoted executable path
+    appendPQExpBuffer(cmdLine, "\"%s\"", cmdPath);
+
+    // Add service-specific options for registration
+    if (registration)
+        appendPQExpBuffer(cmdLine, " runservice -N \"%s\"", register_servicename);
+
+    // Add data directory if specified
+    if (pg_config) {
+        char *dataDir = make_absolute_path(pg_config);
+        if (dataDir == NULL)
+            exit(1);
+        make_native_path(dataDir);
+        appendPQExpBuffer(cmdLine, " -D \"%s\"", dataDir);
+        free(dataDir);
+    }
+
+    // Add additional options based on configuration
+    if (registration && event_source != NULL)
+        appendPQExpBuffer(cmdLine, " -e \"%s\"", event_source);
+
+    if (registration && do_wait)
+        appendPQExpBufferStr(cmdLine, " -w");
+
+    if (registration && wait_seconds_arg && wait_seconds != DEFAULT_WAIT)
+        appendPQExpBuffer(cmdLine, " -t %d", wait_seconds);
+
+    if (registration && silent_mode)
+        appendPQExpBufferStr(cmdLine, " -s");
+
+    // Add postgres-specific options
+    if (post_opts) {
+        if (registration)
+            appendPQExpBuffer(cmdLine, " -o \"%s\"", post_opts);
+        else
+            appendPQExpBuffer(cmdLine, " %s", post_opts);
+    }
+
+    return cmdLine->data;
+}
+```

@@ -58,3 +58,89 @@ The multiplication is performed component-wise on month, day, and time (microsec
 - Error handling for NaN, infinite operands, and overflow conditions
 - No interval absolute value function exists due to ambiguity in what value to return
 - Located in src/backend/utils/adt/timestamp.c:3567-3686
+
+## Simplified Source
+
+```c
+Datum interval_mul(PG_FUNCTION_ARGS) {
+    // Extract arguments
+    Interval *span = PG_GETARG_INTERVAL_P(0);
+    float8 factor = PG_GETARG_FLOAT8(1);
+
+    Interval *result = (Interval *) palloc(sizeof(Interval));
+
+    // Handle special values (NaN, infinities)
+    if (isnan(factor))
+        goto out_of_range;
+
+    if (INTERVAL_NOT_FINITE(span)) {
+        if (factor == 0.0)
+            goto out_of_range;  // "infinity * 0" is undefined
+
+        if (factor < 0.0)
+            interval_um_internal(span, result);  // negate
+        else
+            memcpy(result, span, sizeof(Interval));
+
+        PG_RETURN_INTERVAL_P(result);
+    }
+
+    if (isinf(factor)) {
+        int isign = interval_sign(span);
+        if (isign == 0)
+            goto out_of_range;  // "0 * infinity" is undefined
+
+        if (factor * isign < 0)
+            INTERVAL_NOBEGIN(result);
+        else
+            INTERVAL_NOEND(result);
+
+        PG_RETURN_INTERVAL_P(result);
+    }
+
+    // Multiply each component
+    double result_double = span->month * factor;
+    if (isnan(result_double) || !FLOAT8_FITS_IN_INT32(result_double))
+        goto out_of_range;
+    result->month = (int32) result_double;
+
+    result_double = span->day * factor;
+    if (isnan(result_double) || !FLOAT8_FITS_IN_INT32(result_double))
+        goto out_of_range;
+    result->day = (int32) result_double;
+
+    // Handle fractional cascading from months to days to microseconds
+    double month_remainder_days = (span->month * factor - result->month) * DAYS_PER_MONTH;
+    month_remainder_days = TSROUND(month_remainder_days);
+
+    double sec_remainder = (span->day * factor - result->day +
+                           month_remainder_days - (int) month_remainder_days) * SECS_PER_DAY;
+    sec_remainder = TSROUND(sec_remainder);
+
+    // Handle overflow from seconds to days
+    if (fabs(sec_remainder) >= SECS_PER_DAY) {
+        if (pg_add_s32_overflow(result->day, (int)(sec_remainder / SECS_PER_DAY), &result->day))
+            goto out_of_range;
+        sec_remainder -= (int)(sec_remainder / SECS_PER_DAY) * SECS_PER_DAY;
+    }
+
+    // Add remainder days and compute final time
+    if (pg_add_s32_overflow(result->day, (int32) month_remainder_days, &result->day))
+        goto out_of_range;
+
+    result_double = rint(span->time * factor + sec_remainder * USECS_PER_SEC);
+    if (isnan(result_double) || !FLOAT8_FITS_IN_INT64(result_double))
+        goto out_of_range;
+    result->time = (int64) result_double;
+
+    if (INTERVAL_NOT_FINITE(result))
+        goto out_of_range;
+
+    PG_RETURN_INTERVAL_P(result);
+
+out_of_range:
+    ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                   errmsg("interval out of range")));
+    PG_RETURN_NULL();
+}
+```

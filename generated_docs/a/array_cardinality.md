@@ -34,3 +34,16 @@ The `array_cardinality` function calculates and returns the total number of elem
 - Part of PostgreSQL's array utility functions in `src/backend/utils/adt/arrayfuncs.c`
 - Provides O(1) complexity as it uses pre-calculated dimension information
 - Handles empty arrays by returning 0
+
+## Simplified Source
+
+```c
+Datum
+array_cardinality(PG_FUNCTION_ARGS)
+{
+    AnyArrayType *v = PG_GETARG_ANY_ARRAY_P(0);
+
+    // Calculate total number of elements across all dimensions
+    PG_RETURN_INT32(ArrayGetNItems(AARR_NDIM(v), AARR_DIMS(v)));
+}
+```

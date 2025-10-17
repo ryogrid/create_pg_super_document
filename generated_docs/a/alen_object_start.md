@@ -35,3 +35,24 @@ When called at the top level (lex_level == 0), it indicates that the JSON starts
 - Returns JSON_SUCCESS if the validation passes (not at top level)
 - Throws an ERROR with ERRCODE_INVALID_PARAMETER_VALUE if validation fails
 - Part of the JSON parsing callback system used throughout PostgreSQL's JSON functionality
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+alen_object_start(void *state)
+{
+    AlenState *alen_state = (AlenState *) state;
+
+    // Check if this is the top-level JSON element
+    if (alen_state->lex->lex_level == 0)
+    {
+        // Error: Cannot get array length of an object
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("cannot get array length of a non-array")));
+    }
+
+    return JSON_SUCCESS;
+}
+```

@@ -35,3 +35,36 @@ The _PrintFileData function is part of the tar backup format implementation used
 - Sets the file handle in the local context (ctx->FH) during the operation
 - This is a static function specific to the tar backup format implementation
 - Essential for restore operations where individual files need to be extracted and output from the tar archive
+
+## Simplified Source
+
+```c
+static void _PrintFileData(ArchiveHandle *AH, char *filename) {
+    char *buf;
+    size_t buflen, cnt;
+    CompressFileHandle *CFH;
+
+    // Guard against null filename
+    if (!filename)
+        return;
+
+    // Open compressed file for reading
+    CFH = InitDiscoverCompressFileHandle(filename, PG_BINARY_R);
+    if (!CFH)
+        pg_fatal("could not open input file \"%s\": %m", filename);
+
+    // Allocate buffer for file transfer
+    buflen = DEFAULT_IO_BUFFER_SIZE;
+    buf = pg_malloc(buflen);
+
+    // Copy file data to archive output in chunks
+    while ((cnt = CFH->read_func(buf, buflen, CFH)) > 0) {
+        ahwrite(buf, 1, cnt, AH);
+    }
+
+    // Clean up resources
+    free(buf);
+    if (!EndCompressFileHandle(CFH))
+        pg_fatal("could not close data file \"%s\": %m", filename);
+}
+```

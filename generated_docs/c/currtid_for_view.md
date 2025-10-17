@@ -53,3 +53,60 @@ The implementation includes several validation checks to ensure the view is prop
 - The function uses AccessShareLock when opening the base relation to ensure safe concurrent access
 - Error handling is comprehensive, with specific error messages for various failure conditions such as missing CTID columns, invalid CTID types, missing rules, or unsupported view structures
 - The implementation supports the PostgreSQL rule system and query rewriting mechanism for views
+
+## Simplified Source
+
+```c
+static ItemPointer
+currtid_for_view(Relation viewrel, ItemPointer tid)
+{
+    TupleDesc att = RelationGetDescr(viewrel);
+    int natts = att->natts;
+    int tididx = -1;
+
+    // Find the CTID column in the view
+    for (int i = 0; i < natts; i++) {
+        Form_pg_attribute attr = TupleDescAttr(att, i);
+        if (strcmp(NameStr(attr->attname), "ctid") == 0) {
+            if (attr->atttypid != TIDOID)
+                elog(ERROR, "ctid isn't of type TID");
+            tididx = i;
+            break;
+        }
+    }
+    if (tididx < 0)
+        elog(ERROR, "currtid cannot handle views with no CTID");
+
+    // Process view rules to find the base relation
+    RuleLock *rulelock = viewrel->rd_rules;
+    if (!rulelock)
+        elog(ERROR, "the view has no rules");
+
+    for (int i = 0; i < rulelock->numLocks; i++) {
+        RewriteRule *rewrite = rulelock->rules[i];
+        if (rewrite->event == CMD_SELECT) {
+            // Analyze the SELECT rule's target list
+            Query *query = (Query *) linitial(rewrite->actions);
+            TargetEntry *tle = get_tle_by_resno(query->targetList, tididx + 1);
+
+            if (tle && tle->expr && IsA(tle->expr, Var)) {
+                Var *var = (Var *) tle->expr;
+                if (!IS_SPECIAL_VARNO(var->varno) &&
+                    var->varattno == SelfItemPointerAttributeNumber) {
+                    // Found base relation, delegate to it
+                    RangeTblEntry *rte = rt_fetch(var->varno, query->rtable);
+                    if (rte) {
+                        Relation rel = table_open(rte->relid, AccessShareLock);
+                        ItemPointer result = currtid_internal(rel, tid);
+                        table_close(rel, AccessShareLock);
+                        return result;
+                    }
+                }
+            }
+            break;
+        }
+    }
+    elog(ERROR, "currtid cannot handle this view");
+    return NULL;
+}
+```

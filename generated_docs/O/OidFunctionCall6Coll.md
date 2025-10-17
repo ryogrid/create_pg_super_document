@@ -37,3 +37,17 @@ This function provides a convenient wrapper for calling PostgreSQL functions ide
 - Collation support is important for text operations and sorting in PostgreSQL
 - The function returns a Datum, which is PostgreSQL's generic data type for function return values
 - Located in src/backend/utils/fmgr/fmgr.c at lines 1464-1476
+
+## Simplified Source
+
+```c
+Datum OidFunctionCall6Coll(Oid functionId, Oid collation, Datum arg1, Datum arg2,
+                           Datum arg3, Datum arg4, Datum arg5, Datum arg6) {
+    // Set up function manager info for the given function OID
+    FmgrInfo flinfo;
+    fmgr_info(functionId, &flinfo);
+
+    // Call the function with collation support and six arguments
+    return FunctionCall6Coll(&flinfo, collation, arg1, arg2, arg3, arg4, arg5, arg6);
+}
+```

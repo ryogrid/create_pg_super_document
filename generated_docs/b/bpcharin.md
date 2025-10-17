@@ -37,3 +37,21 @@ This function serves as the standard PostgreSQL input function for the BPCHAR (C
 - Uses fcinfo->context to pass error handling context to bpchar_input
 - Returns a Datum that contains a pointer to the created BpChar structure
 - Automatically handles memory management through PostgreSQL's memory context system
+
+## Simplified Source
+
+```c
+Datum bpcharin(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    char *input_string = PG_GETARG_CSTRING(0);
+    // Argument 1 (typelem) is unused
+    int32 atttypmod = PG_GETARG_INT32(2);
+
+    // Process the input string using common bpchar logic
+    BpChar *result = bpchar_input(input_string, strlen(input_string),
+                                  atttypmod, fcinfo->context);
+
+    // Return the processed result
+    PG_RETURN_BPCHAR_P(result);
+}
+```

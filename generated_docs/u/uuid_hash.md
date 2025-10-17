@@ -35,3 +35,15 @@ The function uses PostgreSQL's general-purpose `hash_any` function to compute a 
 - Essential for hash index performance and hash-based query execution strategies
 - Returns a 32-bit hash value suitable for use in PostgreSQL's hash table implementations
 - The function is registered as part of the UUID data type's operator class for hash indexing
+
+## Simplified Source
+
+```c
+Datum uuid_hash(PG_FUNCTION_ARGS) {
+    // Extract UUID from function arguments
+    pg_uuid_t *key = PG_GETARG_UUID_P(0);
+
+    // Hash all 16 bytes of UUID data
+    return hash_any(key->data, UUID_LEN);
+}
+```

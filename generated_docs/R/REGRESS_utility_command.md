@@ -57,3 +57,41 @@ The function ensures proper processing flow by either calling the next hook in t
 - The hook intercepts all utility commands including CREATE, ALTER, DROP, GRANT, REVOKE, and other DDL statements
 - Provides comprehensive auditing by logging both attempts and successful completions of utility commands
 - Used to test scenarios where non-superusers are denied the ability to execute DDL commands during regression testing
+
+## Simplified Source
+
+```c
+static void REGRESS_utility_command(PlannedStmt *pstmt,
+                                   const char *queryString,
+                                   bool readOnlyTree,
+                                   ProcessUtilityContext context,
+                                   ParamListInfo params,
+                                   QueryEnvironment *queryEnv,
+                                   DestReceiver *dest,
+                                   QueryCompletion *qc) {
+    // Extract utility statement and get command name
+    Node *parsetree = pstmt->utilityStmt;
+    const char *action = GetCommandTagName(CreateCommandTag(parsetree));
+
+    // Log the attempt to execute utility command
+    audit_attempt("process utility", pstrdup(action), NULL);
+
+    // Check if utility commands are restricted for non-superusers
+    if (REGRESS_deny_utility_commands && !superuser_arg(GetUserId())) {
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                       errmsg("permission denied: %s", action)));
+    }
+
+    // Forward to next hook or standard processing
+    if (next_ProcessUtility_hook) {
+        (*next_ProcessUtility_hook)(pstmt, queryString, readOnlyTree,
+                                   context, params, queryEnv, dest, qc);
+    } else {
+        standard_ProcessUtility(pstmt, queryString, readOnlyTree,
+                               context, params, queryEnv, dest, qc);
+    }
+
+    // Log successful completion
+    audit_success("process utility", pstrdup(action), NULL);
+}
+```

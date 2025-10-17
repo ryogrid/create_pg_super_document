@@ -59,3 +59,86 @@ The function allocates memory for the output arrays and populates them with the 
 - When processing VARIADIC arrays, all elements are assumed to have the same type as the array element type
 - Type conversion from UNKNOWN to TEXT only occurs for stable constant expressions
 - Used extensively in JSON construction functions that accept variable numbers of key-value pairs or array elements
+
+## Simplified Source
+
+```c
+int extract_variadic_args(FunctionCallInfo fcinfo, int variadic_start,
+                         bool convert_unknown, Datum **args, Oid **types, bool **nulls) {
+    bool variadic = get_fn_expr_variadic(fcinfo->flinfo);
+    Datum *args_res;
+    bool *nulls_res;
+    Oid *types_res;
+    int nargs;
+
+    // Initialize output parameters
+    *args = NULL;
+    *types = NULL;
+    *nulls = NULL;
+
+    if (variadic) {
+        // Handle VARIADIC call - single array argument
+        Assert(PG_NARGS() == variadic_start + 1);
+
+        if (PG_ARGISNULL(variadic_start))
+            return -1;  // VARIADIC NULL case
+
+        ArrayType *array_in = PG_GETARG_ARRAYTYPE_P(variadic_start);
+        Oid element_type = ARR_ELEMTYPE(array_in);
+
+        // Get type properties and deconstruct array
+        bool typbyval;
+        char typalign;
+        int16 typlen;
+        get_typlenbyvalalign(element_type, &typlen, &typbyval, &typalign);
+        deconstruct_array(array_in, element_type, typlen, typbyval, typalign,
+                         &args_res, &nulls_res, &nargs);
+
+        // All elements have the same type
+        types_res = (Oid *) palloc0(nargs * sizeof(Oid));
+        for (int i = 0; i < nargs; i++)
+            types_res[i] = element_type;
+    }
+    else {
+        // Handle regular call - process individual arguments
+        nargs = PG_NARGS() - variadic_start;
+        Assert(nargs > 0);
+
+        nulls_res = (bool *) palloc0(nargs * sizeof(bool));
+        args_res = (Datum *) palloc0(nargs * sizeof(Datum));
+        types_res = (Oid *) palloc0(nargs * sizeof(Oid));
+
+        for (int i = 0; i < nargs; i++) {
+            nulls_res[i] = PG_ARGISNULL(i + variadic_start);
+            types_res[i] = get_fn_expr_argtype(fcinfo->flinfo, i + variadic_start);
+
+            // Convert UNKNOWN types to TEXT when requested
+            if (convert_unknown && types_res[i] == UNKNOWNOID &&
+                get_fn_expr_arg_stable(fcinfo->flinfo, i + variadic_start)) {
+                types_res[i] = TEXTOID;
+
+                if (PG_ARGISNULL(i + variadic_start))
+                    args_res[i] = (Datum) 0;
+                else
+                    args_res[i] = CStringGetTextDatum(PG_GETARG_POINTER(i + variadic_start));
+            }
+            else {
+                // Use argument as-is
+                args_res[i] = PG_GETARG_DATUM(i + variadic_start);
+            }
+
+            // Validate type resolution
+            if (!OidIsValid(types_res[i]) || (convert_unknown && types_res[i] == UNKNOWNOID))
+                ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                    errmsg("could not determine data type for argument %d", i + 1)));
+        }
+    }
+
+    // Return results
+    *args = args_res;
+    *nulls = nulls_res;
+    *types = types_res;
+
+    return nargs;
+}
+```

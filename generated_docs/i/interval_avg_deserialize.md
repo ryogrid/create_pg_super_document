@@ -44,3 +44,35 @@ This function reconstructs an IntervalAggState structure from a serialized bytea
 - Validates complete consumption of serialized data to detect format errors
 - Includes runtime validation to prevent misuse outside aggregate contexts
 - Memory allocated in current memory context will be automatically cleaned up by PostgreSQL
+
+## Simplified Source
+```c
+Datum interval_avg_deserialize(PG_FUNCTION_ARGS) {
+    bytea *sstate;
+    IntervalAggState *result;
+    StringInfoData buf;
+
+    // Ensure proper aggregate context
+    if (!AggCheckCallContext(fcinfo, NULL))
+        elog(ERROR, "aggregate function called in non-aggregate context");
+
+    sstate = PG_GETARG_BYTEA_PP(0);
+
+    // Initialize read buffer from bytea
+    initReadOnlyStringInfo(&buf, VARDATA_ANY(sstate), VARSIZE_ANY_EXHDR(sstate));
+
+    // Allocate new state structure
+    result = (IntervalAggState *) palloc0(sizeof(IntervalAggState));
+
+    // Deserialize all fields in same order as serialization
+    result->N = pq_getmsgint64(&buf);              // Count of finite values
+    result->sumX.time = pq_getmsgint64(&buf);      // Time component sum
+    result->sumX.day = pq_getmsgint(&buf, 4);      // Day component sum
+    result->sumX.month = pq_getmsgint(&buf, 4);    // Month component sum
+    result->pInfcount = pq_getmsgint64(&buf);      // Positive infinity count
+    result->nInfcount = pq_getmsgint64(&buf);      // Negative infinity count
+
+    pq_getmsgend(&buf);  // Validate complete consumption
+    PG_RETURN_POINTER(result);
+}
+```

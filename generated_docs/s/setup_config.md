@@ -45,3 +45,68 @@ This function takes no parameters but operates on numerous global variables incl
 - Handles special cases like setting password_encryption based on authentication methods
 - Supports group access permissions when pg_dir_create_mode is set to PG_DIR_MODE_GROUP
 - Template files are read and token replacement is used to customize configuration values
+
+## Simplified Source
+
+```c
+static void setup_config(void) {
+    char **conflines;
+    char repltok[MAXPGPATH];
+    char path[MAXPGPATH];
+
+    fputs(_("creating configuration files ... "), stdout);
+    fflush(stdout);
+
+    // Configure postgresql.conf
+    conflines = readfile(conf_file);
+
+    // Set max_connections
+    snprintf(repltok, sizeof(repltok), "%d", n_connections);
+    conflines = replace_guc_value(conflines, "max_connections", repltok, false);
+
+    // Set shared_buffers with appropriate units
+    if ((n_buffers * (BLCKSZ / 1024)) % 1024 == 0)
+        snprintf(repltok, sizeof(repltok), "%dMB", (n_buffers * (BLCKSZ / 1024)) / 1024);
+    else
+        snprintf(repltok, sizeof(repltok), "%dkB", n_buffers * (BLCKSZ / 1024));
+    conflines = replace_guc_value(conflines, "shared_buffers", repltok, false);
+
+    // Set locale settings
+    conflines = replace_guc_value(conflines, "lc_messages", lc_messages, false);
+    conflines = replace_guc_value(conflines, "lc_monetary", lc_monetary, false);
+    conflines = replace_guc_value(conflines, "lc_numeric", lc_numeric, false);
+    conflines = replace_guc_value(conflines, "lc_time", lc_time, false);
+
+    // Set datestyle based on locale date order
+    switch (locale_date_order(lc_time)) {
+        case DATEORDER_YMD: strcpy(repltok, "iso, ymd"); break;
+        case DATEORDER_DMY: strcpy(repltok, "iso, dmy"); break;
+        case DATEORDER_MDY:
+        default: strcpy(repltok, "iso, mdy"); break;
+    }
+    conflines = replace_guc_value(conflines, "datestyle", repltok, false);
+
+    // Set WAL sizes using pretty formatting
+    conflines = replace_guc_value(conflines, "min_wal_size",
+                                  pretty_wal_size(DEFAULT_MIN_WAL_SEGS), false);
+    conflines = replace_guc_value(conflines, "max_wal_size",
+                                  pretty_wal_size(DEFAULT_MAX_WAL_SEGS), false);
+
+    // Apply user-specified GUC overrides
+    for (gnames = extra_guc_names, gvalues = extra_guc_values;
+         gnames != NULL; gnames = gnames->next, gvalues = gvalues->next) {
+        conflines = replace_guc_value(conflines, gnames->str, gvalues->str, false);
+    }
+
+    // Write postgresql.conf
+    snprintf(path, sizeof(path), "%s/postgresql.conf", pg_data);
+    writefile(path, conflines);
+    chmod(path, pg_file_create_mode);
+
+    // Create postgresql.auto.conf with warning comments
+    // Configure pg_hba.conf with authentication methods and IPv6 detection
+    // Set up pg_ident.conf
+
+    check_ok();
+}
+```

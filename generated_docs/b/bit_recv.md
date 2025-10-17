@@ -56,3 +56,38 @@ This function is critical for client-server communication when using prepared st
 - Critical for performance in high-throughput scenarios where binary protocol is preferred over text
 - The function handles both fixed-length BIT and variable-length VARBIT through the same implementation
 - Validation includes both system limits (VARBITMAXLEN) and type-specific constraints (atttypmod)
+
+## Simplified Source
+
+```c
+Datum bit_recv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    int32 atttypmod = PG_GETARG_INT32(2);
+
+    // Read bit length from binary message
+    int bitlen = pq_getmsgint(buf, sizeof(int32));
+
+    // Validate bit length
+    if (bitlen < 0 || bitlen > VARBITMAXLEN)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_BINARY_REPRESENTATION),
+                       errmsg("invalid length in external bit string")));
+
+    // Check against type modifier if specified
+    if (atttypmod > 0 && bitlen != atttypmod)
+        ereport(ERROR, (errcode(ERRCODE_STRING_DATA_LENGTH_MISMATCH),
+                       errmsg("bit string length %d does not match type bit(%d)",
+                             bitlen, atttypmod)));
+
+    // Allocate result structure
+    int len = VARBITTOTALLEN(bitlen);
+    VarBit *result = (VarBit *) palloc(len);
+    SET_VARSIZE(result, len);
+    VARBITLEN(result) = bitlen;
+
+    // Copy binary data and ensure proper padding
+    pq_copymsgbytes(buf, (char *) VARBITS(result), VARBITBYTES(result));
+    VARBIT_PAD(result);
+
+    PG_RETURN_VARBIT_P(result);
+}
+```

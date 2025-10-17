@@ -41,3 +41,28 @@ This function serves as a PostgreSQL conversion procedure that transforms KOI8-R
 - The conversion relies on a Unicode tree structure for efficient character mapping from KOI8-R to Unicode codepoints
 - Error handling is controlled by the noError parameter, allowing for graceful failure handling when requested
 - Complements utf8_to_koi8r for bidirectional conversion between UTF-8 and KOI8-R encodings
+
+## Simplified Source
+
+```c
+Datum
+koi8r_to_utf8(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_KOI8R, PG_UTF8);
+
+    // Convert KOI8-R to UTF-8 using conversion tree
+    int converted = LocalToUtf(src, len, dest,
+                              &koi8r_to_unicode_tree,
+                              NULL, 0, NULL,
+                              PG_KOI8R, noError);
+
+    return converted;
+}
+```

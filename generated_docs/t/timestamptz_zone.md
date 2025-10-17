@@ -53,3 +53,55 @@ The function includes comprehensive error handling for out-of-range values and i
 - The function follows PostgreSQL's V1 calling convention for SQL functions
 - Comprehensive error reporting ensures that invalid timezone names or out-of-range timestamps are properly handled
 - The result is always a plain timestamp (without timezone information) representing the local time in the specified timezone
+
+## Simplified Source
+
+```c
+Datum timestamptz_zone(PG_FUNCTION_ARGS) {
+    text *zone = PG_GETARG_TEXT_PP(0);
+    TimestampTz timestamp = PG_GETARG_TIMESTAMPTZ(1);
+    Timestamp result;
+    int tz, type, val;
+    char tzname[TZ_STRLEN_MAX + 1];
+    pg_tz *tzp;
+
+    // Handle infinite timestamps
+    if (TIMESTAMP_NOT_FINITE(timestamp))
+        PG_RETURN_TIMESTAMP(timestamp);
+
+    // Parse timezone specification
+    text_to_cstring_buffer(zone, tzname, sizeof(tzname));
+    type = DecodeTimezoneName(tzname, &val, &tzp);
+
+    if (type == TZNAME_FIXED_OFFSET) {
+        // Fixed offset like '+05:00' - negate for reverse conversion
+        tz = -val;
+        result = dt2local(timestamp, tz);
+    }
+    else if (type == TZNAME_DYNTZ) {
+        // Dynamic abbreviation - resolve offset at this timestamp
+        int isdst;
+        tz = DetermineTimeZoneAbbrevOffsetTS(timestamp, tzname, tzp, &isdst);
+        result = dt2local(timestamp, tz);
+    }
+    else {
+        // Full zone name - decompose and reconstruct without timezone
+        struct pg_tm tm;
+        fsec_t fsec;
+
+        if (timestamp2tm(timestamp, &tz, &tm, &fsec, NULL, tzp) != 0)
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                    errmsg("timestamp out of range")));
+        if (tm2timestamp(&tm, fsec, NULL, &result) != 0)
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                    errmsg("timestamp out of range")));
+    }
+
+    // Validate result
+    if (!IS_VALID_TIMESTAMP(result))
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                errmsg("timestamp out of range")));
+
+    PG_RETURN_TIMESTAMP(result);
+}
+```

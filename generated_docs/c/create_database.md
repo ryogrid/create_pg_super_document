@@ -47,3 +47,37 @@ The function performs the following operations:
 - Supports conditional encoding specification for testing different character sets
 - Automatically installs requested extensions with IF NOT EXISTS for idempotency
 - Part of PostgreSQL's test database setup infrastructure
+
+## Simplified Source
+
+```c
+static void
+create_database(const char *dbname)
+{
+    StringInfo buf = psql_start_command();
+
+    // Create database from template0 with optional encoding and locale
+    if (encoding)
+        psql_add_command(buf, "CREATE DATABASE \"%s\" TEMPLATE=template0 ENCODING='%s'%s",
+                         dbname, encoding, (nolocale) ? " LOCALE='C'" : "");
+    else
+        psql_add_command(buf, "CREATE DATABASE \"%s\" TEMPLATE=template0%s",
+                         dbname, (nolocale) ? " LOCALE='C'" : "");
+
+    // Standardize locale and output settings for consistent test results
+    psql_add_command(buf,
+                     "ALTER DATABASE \"%s\" SET lc_messages TO 'C';"
+                     "ALTER DATABASE \"%s\" SET lc_monetary TO 'C';"
+                     "ALTER DATABASE \"%s\" SET lc_numeric TO 'C';"
+                     "ALTER DATABASE \"%s\" SET lc_time TO 'C';"
+                     "ALTER DATABASE \"%s\" SET bytea_output TO 'hex';"
+                     "ALTER DATABASE \"%s\" SET timezone_abbreviations TO 'Default';",
+                     dbname, dbname, dbname, dbname, dbname, dbname);
+
+    psql_end_command(buf, "postgres");
+
+    // Install any requested extensions
+    for (_stringlist *sl = loadextension; sl != NULL; sl = sl->next)
+        psql_command(dbname, "CREATE EXTENSION IF NOT EXISTS \"%s\"", sl->str);
+}
+```

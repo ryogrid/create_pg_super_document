@@ -61,3 +61,113 @@ The function handles memory management carefully, using PostgreSQL's memory cont
 - Integrates with PostgreSQL's column update tracking system for efficient UPDATE operations
 - Part of PostgreSQL's comprehensive full-text search infrastructure
 - Returns modified HeapTuple that will be used for the actual database operation
+
+## Simplified Source
+
+```c
+static Datum tsvector_update_trigger(PG_FUNCTION_ARGS, bool config_column) {
+    TriggerData *trigdata;
+    Trigger *trigger;
+    Relation rel;
+    HeapTuple rettuple = NULL;
+    int tsvector_attr_num;
+    ParsedText prs;
+    Datum datum;
+    bool isnull;
+    text *txt;
+    Oid cfgId;
+    bool update_needed;
+
+    // Validate trigger context
+    if (!CALLED_AS_TRIGGER(fcinfo))
+        elog(ERROR, "tsvector_update_trigger: not fired by trigger manager");
+
+    trigdata = (TriggerData *) fcinfo->context;
+    if (!TRIGGER_FIRED_FOR_ROW(trigdata->tg_event))
+        elog(ERROR, "must be fired for row");
+    if (!TRIGGER_FIRED_BEFORE(trigdata->tg_event))
+        elog(ERROR, "must be fired BEFORE event");
+
+    // Determine which tuple to process
+    if (TRIGGER_FIRED_BY_INSERT(trigdata->tg_event)) {
+        rettuple = trigdata->tg_trigtuple;
+        update_needed = true;
+    } else if (TRIGGER_FIRED_BY_UPDATE(trigdata->tg_event)) {
+        rettuple = trigdata->tg_newtuple;
+        update_needed = false; // computed below
+    } else {
+        elog(ERROR, "must be fired for INSERT or UPDATE");
+    }
+
+    trigger = trigdata->tg_trigger;
+    rel = trigdata->tg_relation;
+
+    // Validate arguments: tsvector_field, config, text_field1, ...
+    if (trigger->tgnargs < 3)
+        elog(ERROR, "arguments must be tsvector_field, ts_config, text_field1, ...");
+
+    // Find target tsvector column and validate type
+    tsvector_attr_num = SPI_fnumber(rel->rd_att, trigger->tgargs[0]);
+    if (tsvector_attr_num == SPI_ERROR_NOATTRIBUTE)
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_COLUMN),
+                errmsg("tsvector column \"%s\" does not exist", trigger->tgargs[0])));
+
+    // Get text search configuration
+    if (config_column) {
+        // Configuration from column value
+        int config_attr_num = SPI_fnumber(rel->rd_att, trigger->tgargs[1]);
+        datum = SPI_getbinval(rettuple, rel->rd_att, config_attr_num, &isnull);
+        if (isnull)
+            ereport(ERROR, (errcode(ERRCODE_NULL_VALUE_NOT_ALLOWED),
+                    errmsg("configuration column must not be null")));
+        cfgId = DatumGetObjectId(datum);
+    } else {
+        // Configuration from literal name
+        List *names = stringToQualifiedNameList(trigger->tgargs[1], NULL);
+        if (list_length(names) < 2)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                    errmsg("text search configuration name must be schema-qualified")));
+        cfgId = get_ts_config_oid(names, false);
+    }
+
+    // Initialize parser for text processing
+    prs.lenwords = 32;
+    prs.curwords = 0;
+    prs.pos = 0;
+    prs.words = (ParsedWord *) palloc(sizeof(ParsedWord) * prs.lenwords);
+
+    // Process all text columns (args[2] onwards)
+    for (int i = 2; i < trigger->tgnargs; i++) {
+        int numattr = SPI_fnumber(rel->rd_att, trigger->tgargs[i]);
+
+        // Check if this column was updated (for UPDATE triggers)
+        if (bms_is_member(numattr - FirstLowInvalidHeapAttributeNumber,
+                         trigdata->tg_updatedcols))
+            update_needed = true;
+
+        // Extract and parse text from column
+        datum = SPI_getbinval(rettuple, rel->rd_att, numattr, &isnull);
+        if (isnull)
+            continue;
+
+        txt = DatumGetTextPP(datum);
+        parsetext(cfgId, &prs, VARDATA_ANY(txt), VARSIZE_ANY_EXHDR(txt));
+
+        if (txt != (text *) DatumGetPointer(datum))
+            pfree(txt);
+    }
+
+    // Update tsvector column if needed
+    if (update_needed) {
+        datum = TSVectorGetDatum(make_tsvector(&prs));
+        isnull = false;
+
+        rettuple = heap_modify_tuple_by_cols(rettuple, rel->rd_att,
+                                           1, &tsvector_attr_num,
+                                           &datum, &isnull);
+        pfree(DatumGetPointer(datum));
+    }
+
+    return PointerGetDatum(rettuple);
+}
+```

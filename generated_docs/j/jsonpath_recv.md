@@ -38,3 +38,27 @@ Currently, only version 1 of the binary format is supported, which transmits the
 - The binary format is essentially text-based with a version prefix, allowing reuse of existing parsing logic
 - Memory allocation is handled through PostgreSQL's memory context system (NULL context passed to jsonPathFromCstring)
 - Part of PostgreSQL's binary protocol support for efficient client-server communication
+
+## Simplified Source
+
+```c
+Datum
+jsonpath_recv(PG_FUNCTION_ARGS)
+{
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    int version = pq_getmsgint(buf, 1);
+    char *str;
+    int nbytes;
+
+    // Check version compatibility
+    if (version == JSONPATH_VERSION) {
+        // Extract text from binary message
+        str = pq_getmsgtext(buf, buf->len - buf->cursor, &nbytes);
+    } else {
+        elog(ERROR, "unsupported jsonpath version number: %d", version);
+    }
+
+    // Parse the extracted text into jsonpath
+    return jsonPathFromCstring(str, nbytes, NULL);
+}
+```

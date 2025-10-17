@@ -33,3 +33,14 @@ This function is part of PostgreSQL's type system infrastructure and is automati
 - The function maintains type system consistency while reusing existing OID binary handling logic
 - Part of the standard set of I/O functions required for any PostgreSQL data type
 - Works in conjunction with  for binary serialization/deserialization
+
+## Simplified Source
+
+```c
+Datum
+regcollationrecv(PG_FUNCTION_ARGS)
+{
+    // Delegate to oidrecv since regcollation uses identical binary format
+    return oidrecv(fcinfo);
+}
+```

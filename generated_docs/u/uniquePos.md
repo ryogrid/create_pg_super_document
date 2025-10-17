@@ -37,3 +37,40 @@ This function processes an array of WordEntryPos structures to eliminate duplica
 - Implements early termination when reaching maximum position limits
 - Critical for maintaining tsvector data integrity in PostgreSQL's full-text search
 - The weight preservation logic ensures that more important word occurrences are retained
+
+## Simplified Source
+
+```c
+static int
+uniquePos(WordEntryPos *a, int l)
+{
+    WordEntryPos *ptr, *res;
+
+    if (l <= 1)
+        return l;
+
+    // Sort positions for deduplication
+    qsort(a, l, sizeof(WordEntryPos), compareWordEntryPos);
+
+    // Remove duplicates, keeping higher weights
+    res = a;
+    ptr = a + 1;
+    while (ptr - a < l) {
+        if (WEP_GETPOS(*ptr) != WEP_GETPOS(*res)) {
+            // Different position - advance result pointer
+            res++;
+            *res = *ptr;
+            // Check limits to prevent overflow
+            if (res - a >= MAXNUMPOS - 1 ||
+                WEP_GETPOS(*res) == MAXENTRYPOS - 1)
+                break;
+        } else if (WEP_GETWEIGHT(*ptr) > WEP_GETWEIGHT(*res)) {
+            // Same position but higher weight - update weight
+            WEP_SETWEIGHT(*res, WEP_GETWEIGHT(*ptr));
+        }
+        ptr++;
+    }
+
+    return res + 1 - a;
+}
+```

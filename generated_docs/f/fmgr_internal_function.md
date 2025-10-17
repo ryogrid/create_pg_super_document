@@ -44,3 +44,17 @@ The function leverages the  function to perform the actual lookup in the interna
 - Only searches built-in/internal PostgreSQL functions, not user-defined functions
 - Part of PostgreSQL's function manager (fmgr) subsystem
 - The lookup is case-sensitive and must match exactly with internal function names
+
+## Simplified Source
+
+```c
+Oid fmgr_internal_function(const char *proname)
+{
+    const FmgrBuiltin *builtin = fmgr_lookupByName(proname);
+
+    if (builtin == NULL)
+        return InvalidOid;
+
+    return builtin->foid;
+}
+```

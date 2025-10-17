@@ -31,3 +31,16 @@ The function handles the complex pointer dereferencing needed to access GUC vari
 - Used specifically for sorting arrays of GUC variables by name for display or search purposes
 - The complex pointer dereferencing pattern  is necessary due to the structure of GUC variable arrays
 - Location: src/backend/utils/misc/guc.c:1290-1301
+
+## Simplified Source
+
+```c
+static int guc_var_compare(const void *a, const void *b) {
+    // Extract variable names from GUC structure pointers
+    const char *namea = **(const char **const *) a;
+    const char *nameb = **(const char **const *) b;
+
+    // Compare names using GUC-specific comparison
+    return guc_name_compare(namea, nameb);
+}
+```

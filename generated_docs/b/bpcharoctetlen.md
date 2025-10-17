@@ -31,3 +31,15 @@ This function calculates and returns the octet (byte) length of a BPCHAR data ty
 - The function works with the TOAST (The Oversized-Attribute Storage Technique) system to handle large or compressed values efficiently
 - Returns the byte length as an int32 value
 - Part of the BPCHAR (blank-padded character) data type implementation in PostgreSQL
+
+## Simplified Source
+
+```c
+Datum bpcharoctetlen(PG_FUNCTION_ARGS) {
+    Datum arg = PG_GETARG_DATUM(0);
+
+    // Calculate byte length without detoasting
+    // Subtract header size from total raw size
+    PG_RETURN_INT32(toast_raw_datum_size(arg) - VARHDRSZ);
+}
+```

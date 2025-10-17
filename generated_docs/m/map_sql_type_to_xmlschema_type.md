@@ -51,3 +51,130 @@ The function handles special cases:
 - The function is static and only used internally within the xml.c module
 - Memory management relies on StringInfo for building complex XML Schema strings
 - Implements both SQL/XML:2008 section 9.5 (unnamed types) and 9.6 (named types) with name attributes
+
+## Simplified Source
+
+```c
+static const char *map_sql_type_to_xmlschema_type(Oid typeoid, int typmod) {
+    StringInfoData result;
+    const char *typename = map_sql_type_to_xml_name(typeoid, typmod);
+    initStringInfo(&result);
+
+    // XML type gets special complex type treatment
+    if (typeoid == XMLOID) {
+        appendStringInfoString(&result,
+            "<xsd:complexType mixed=\"true\">\n"
+            "  <xsd:sequence>\n"
+            "    <xsd:any name=\"element\" minOccurs=\"0\" maxOccurs=\"unbounded\" processContents=\"skip\"/>\n"
+            "  </xsd:sequence>\n"
+            "</xsd:complexType>\n");
+    } else {
+        // All other types use simple type with restrictions
+        appendStringInfo(&result, "<xsd:simpleType name=\"%s\">\n", typename);
+
+        switch (typeoid) {
+            case BPCHAROID:
+            case VARCHAROID:
+            case TEXTOID:
+                appendStringInfoString(&result, "  <xsd:restriction base=\"xsd:string\">\n");
+                if (typmod != -1)
+                    appendStringInfo(&result, "    <xsd:maxLength value=\"%d\"/>\n", typmod - VARHDRSZ);
+                appendStringInfoString(&result, "  </xsd:restriction>\n");
+                break;
+
+            case BYTEAOID:
+                appendStringInfo(&result, "  <xsd:restriction base=\"xsd:%s\">\n  </xsd:restriction>\n",
+                    xmlbinary == XMLBINARY_BASE64 ? "base64Binary" : "hexBinary");
+                break;
+
+            case NUMERICOID:
+                if (typmod != -1)
+                    appendStringInfo(&result,
+                        "  <xsd:restriction base=\"xsd:decimal\">\n"
+                        "    <xsd:totalDigits value=\"%d\"/>\n"
+                        "    <xsd:fractionDigits value=\"%d\"/>\n"
+                        "  </xsd:restriction>\n",
+                        ((typmod - VARHDRSZ) >> 16) & 0xffff,
+                        (typmod - VARHDRSZ) & 0xffff);
+                break;
+
+            case INT2OID:
+                appendStringInfo(&result,
+                    "  <xsd:restriction base=\"xsd:short\">\n"
+                    "    <xsd:maxInclusive value=\"%d\"/>\n"
+                    "    <xsd:minInclusive value=\"%d\"/>\n"
+                    "  </xsd:restriction>\n", SHRT_MAX, SHRT_MIN);
+                break;
+
+            case INT4OID:
+                appendStringInfo(&result,
+                    "  <xsd:restriction base=\"xsd:int\">\n"
+                    "    <xsd:maxInclusive value=\"%d\"/>\n"
+                    "    <xsd:minInclusive value=\"%d\"/>\n"
+                    "  </xsd:restriction>\n", INT_MAX, INT_MIN);
+                break;
+
+            case INT8OID:
+                appendStringInfo(&result,
+                    "  <xsd:restriction base=\"xsd:long\">\n"
+                    "    <xsd:maxInclusive value=\"" INT64_FORMAT "\"/>\n"
+                    "    <xsd:minInclusive value=\"" INT64_FORMAT "\"/>\n"
+                    "  </xsd:restriction>\n", PG_INT64_MAX, PG_INT64_MIN);
+                break;
+
+            case FLOAT4OID:
+                appendStringInfoString(&result, "  <xsd:restriction base=\"xsd:float\"></xsd:restriction>\n");
+                break;
+
+            case FLOAT8OID:
+                appendStringInfoString(&result, "  <xsd:restriction base=\"xsd:double\"></xsd:restriction>\n");
+                break;
+
+            case BOOLOID:
+                appendStringInfoString(&result, "  <xsd:restriction base=\"xsd:boolean\"></xsd:restriction>\n");
+                break;
+
+            case TIMEOID:
+            case TIMETZOID:
+                // Create time pattern with optional timezone
+                const char *tz = (typeoid == TIMETZOID ? "(\\\\+|-)\\\\p{Nd}{2}:\\\\p{Nd}{2}" : "");
+                appendStringInfo(&result,
+                    "  <xsd:restriction base=\"xsd:time\">\n"
+                    "    <xsd:pattern value=\"\\\\p{Nd}{2}:\\\\p{Nd}{2}:\\\\p{Nd}{2}(.\\\\p{Nd}+)?%s\"/>\n"
+                    "  </xsd:restriction>\n", tz);
+                break;
+
+            case TIMESTAMPOID:
+            case TIMESTAMPTZOID:
+                // Create datetime pattern with optional timezone
+                tz = (typeoid == TIMESTAMPTZOID ? "(\\\\+|-)\\\\p{Nd}{2}:\\\\p{Nd}{2}" : "");
+                appendStringInfo(&result,
+                    "  <xsd:restriction base=\"xsd:dateTime\">\n"
+                    "    <xsd:pattern value=\"\\\\p{Nd}{4}-\\\\p{Nd}{2}-\\\\p{Nd}{2}T\\\\p{Nd}{2}:\\\\p{Nd}{2}:\\\\p{Nd}{2}(.\\\\p{Nd}+)?%s\"/>\n"
+                    "  </xsd:restriction>\n", tz);
+                break;
+
+            case DATEOID:
+                appendStringInfoString(&result,
+                    "  <xsd:restriction base=\"xsd:date\">\n"
+                    "    <xsd:pattern value=\"\\\\p{Nd}{4}-\\\\p{Nd}{2}-\\\\p{Nd}{2}\"/>\n"
+                    "  </xsd:restriction>\n");
+                break;
+
+            default:
+                // Handle domain types by restricting base type
+                if (get_typtype(typeoid) == TYPTYPE_DOMAIN) {
+                    Oid base_typeoid;
+                    int32 base_typmod = -1;
+                    base_typeoid = getBaseTypeAndTypmod(typeoid, &base_typmod);
+                    appendStringInfo(&result, "  <xsd:restriction base=\"%s\"/>\n",
+                        map_sql_type_to_xml_name(base_typeoid, base_typmod));
+                }
+                break;
+        }
+        appendStringInfoString(&result, "</xsd:simpleType>\n");
+    }
+
+    return result.data;
+}
+```

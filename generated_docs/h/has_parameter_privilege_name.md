@@ -38,3 +38,23 @@ The function converts the privilege string to an AclMode and delegates the actua
 - Part of the SQL-accessible interface for parameter privilege checking
 - The function name 'name' indicates it takes parameter and privilege names as arguments
 - This is the two-argument version of has_parameter_privilege, contrasting with the three-argument version that explicitly specifies the username
+
+## Simplified Source
+
+```c
+Datum
+has_parameter_privilege_name(PG_FUNCTION_ARGS)
+{
+    // Extract parameter name and privilege string from function arguments
+    text *parameter_name = PG_GETARG_TEXT_PP(0);
+    text *privilege_string = PG_GETARG_TEXT_PP(1);
+
+    // Convert privilege string to internal AclMode representation
+    AclMode privilege_mode = convert_parameter_priv_string(privilege_string);
+
+    // Check if current user has the specified privilege on the parameter
+    bool has_privilege = has_param_priv_byname(GetUserId(), parameter_name, privilege_mode);
+
+    PG_RETURN_BOOL(has_privilege);
+}
+```

@@ -36,3 +36,13 @@ This is part of the private archiver API and is designed to support scenarios wh
 - Does not perform any validation or error checking on the returned handle
 - Located in `src/bin/pg_dump/pg_backup_archiver.c:1715-1720`
 - The returned handle should be stored temporarily and used with `RestoreOutput` to restore the original output state
+
+## Simplified Source
+
+```c
+static CompressFileHandle *
+SaveOutput(ArchiveHandle *AH)
+{
+    return (CompressFileHandle *) AH->OF;
+}
+```

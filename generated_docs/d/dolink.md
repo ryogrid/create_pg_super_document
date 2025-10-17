@@ -48,3 +48,97 @@ The function carefully manages error conditions and provides appropriate warning
 - Supports both absolute and relative symbolic links
 - The function exits the program on critical errors rather than returning error codes
 - Conditional compilation with HAVE_SYMLINK macro for systems without symbolic link support
+
+## Simplified Source
+
+```c
+static void
+dolink(char const *target, char const *linkname, bool staysymlink)
+{
+    bool remove_only = strcmp(target, "-") == 0;
+    bool linkdirs_made = false;
+    int link_errno;
+
+    // Safety check: don't link directories
+    if (!remove_only && itsdir(target)) {
+        fprintf(stderr, _("%s: linking target %s/%s failed: %s\n"),
+                progname, directory, target, strerror(EPERM));
+        exit(EXIT_FAILURE);
+    }
+
+    // Check if we should preserve symlink behavior
+    if (staysymlink)
+        staysymlink = itssymlink(linkname);
+
+    // Remove existing link
+    if (remove(linkname) == 0)
+        linkdirs_made = true;
+    else if (errno != ENOENT) {
+        fprintf(stderr, _("%s: Can't remove %s/%s: %s\n"),
+                progname, directory, linkname, strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+
+    if (remove_only)
+        return;
+
+    // Try hard link first
+    link_errno = staysymlink ? ENOTSUP : hardlinkerr(target, linkname);
+    if (link_errno == ENOENT && !linkdirs_made) {
+        mkdirs(linkname, true);
+        linkdirs_made = true;
+        link_errno = hardlinkerr(target, linkname);
+    }
+
+    // Fallback to symlink or copy if hard link fails
+    if (link_errno != 0) {
+#ifdef HAVE_SYMLINK
+        // Try symbolic link
+        bool absolute = *target == '/';
+        char *linkalloc = absolute ? NULL : relname(target, linkname);
+        char const *contents = absolute ? target : linkalloc;
+        int symlink_errno = symlink(contents, linkname) == 0 ? 0 : errno;
+
+        if (!linkdirs_made && symlink_errno == ENOENT) {
+            mkdirs(linkname, true);
+            symlink_errno = symlink(contents, linkname) == 0 ? 0 : errno;
+        }
+
+        free(linkalloc);
+        if (symlink_errno == 0) {
+            if (link_errno != ENOTSUP)
+                warning(_("symbolic link used because hard link failed: %s"),
+                        strerror(link_errno));
+        } else
+#endif
+        {
+            // Final fallback: file copy
+            FILE *fp = fopen(target, "rb");
+            if (!fp) {
+                fprintf(stderr, _("%s: Can't read %s/%s: %s\n"),
+                        progname, directory, target, strerror(errno));
+                exit(EXIT_FAILURE);
+            }
+
+            FILE *tp = fopen(linkname, "wb");
+            if (!tp) {
+                fprintf(stderr, _("%s: Can't create %s/%s: %s\n"),
+                        progname, directory, linkname, strerror(errno));
+                exit(EXIT_FAILURE);
+            }
+
+            // Copy file contents
+            int c;
+            while ((c = getc(fp)) != EOF)
+                putc(c, tp);
+
+            close_file(fp, directory, target);
+            close_file(tp, directory, linkname);
+
+            if (link_errno != ENOTSUP)
+                warning(_("copy used because hard link failed: %s"),
+                        strerror(link_errno));
+        }
+    }
+}
+```

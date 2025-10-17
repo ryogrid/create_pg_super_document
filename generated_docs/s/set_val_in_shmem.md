@@ -37,3 +37,24 @@ The function takes a single integer argument from SQL and stores it in the share
 - The function returns void to the SQL caller
 - Automatically handles DSM segment attachment on each call, making it safe to call even if the segment isn't currently attached
 - The global `tdr_state` variable is updated by the attach function and then used to access the shared memory
+
+## Simplified Source
+
+```c
+Datum set_val_in_shmem(PG_FUNCTION_ARGS) {
+    // Ensure we're attached to the shared memory segment
+    tdr_attach_shmem();
+
+    // Acquire exclusive lock for safe writing
+    LWLockAcquire(&tdr_state->lck, LW_EXCLUSIVE);
+
+    // Set the shared value from SQL parameter
+    tdr_state->val = PG_GETARG_INT32(0);
+
+    // Release the lock
+    LWLockRelease(&tdr_state->lck);
+
+    // Return void to SQL caller
+    PG_RETURN_VOID();
+}
+```

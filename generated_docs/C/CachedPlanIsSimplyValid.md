@@ -44,3 +44,40 @@ The function is designed to be safe even when called with potentially stale plan
 - The function includes safeguards against address collisions between old and new plan pointers
 - For shared plansources, additional generation checking might be advisable to prevent rare collision scenarios
 - Critical for performance optimization in PL/pgSQL and other contexts with frequent plan revalidation needs
+
+## Simplified Source
+
+```c
+bool
+CachedPlanIsSimplyValid(CachedPlanSource *plansource, CachedPlan *plan,
+                        ResourceOwner owner)
+{
+    // Validate plansource magic number
+    Assert(plansource->magic == CACHEDPLANSOURCE_MAGIC);
+
+    // Check for cache invalidation
+    // Note: plan pointer may be stale, so check against plansource->gplan first
+    if (!plansource->is_valid ||
+        plan == NULL || plan != plansource->gplan ||
+        !plan->is_valid)
+        return false;
+
+    // Now safe to access plan since it matches plansource->gplan
+    Assert(plan->magic == CACHEDPLAN_MAGIC);
+
+    // Verify search_path hasn't changed since plan creation
+    Assert(plansource->search_path != NULL);
+    if (!SearchPathMatchesCurrentEnvironment(plansource->search_path))
+        return false;
+
+    // Plan is still valid - register reference count if requested
+    if (owner)
+    {
+        ResourceOwnerEnlarge(owner);
+        plan->refcount++;
+        ResourceOwnerRememberPlanCacheRef(owner, plan);
+    }
+
+    return true;
+}
+```

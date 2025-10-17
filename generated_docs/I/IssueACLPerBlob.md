@@ -49,3 +49,62 @@ This approach ensures that ACL commands are efficiently stored while being corre
 - The function uses the first dependency of the TocEntry to locate the associated BLOB METADATA entry
 - Error handling includes fatal errors if the required BLOB METADATA entry cannot be found
 - File location: src/bin/pg_dump/pg_backup_db.c:599-672
+
+## Simplified Source
+
+```c
+void IssueACLPerBlob(ArchiveHandle *AH, TocEntry *te) {
+    // Get the associated BLOB METADATA entry
+    TocEntry *blobte = getTocEntryByDumpId(AH, te->dependencies[0]);
+    if (!blobte) {
+        pg_fatal("could not find entry for ID %d", te->dependencies[0]);
+    }
+
+    // Create working copy of ACL commands
+    char *buf = pg_strdup(te->defn);
+    char *st = buf;
+    char *en = buf;
+    char *st2 = NULL;
+    bool inquotes = false;
+
+    // Parse ACL commands to extract prefix/suffix around "LARGE OBJECT"
+    while (*en) {
+        // Track double-quoted strings to avoid parsing quoted content
+        if (*en == '"') {
+            inquotes = !inquotes;
+        }
+
+        if (!inquotes) {
+            // Found "LARGE OBJECT" - this splits command into prefix/suffix
+            if (strncmp(en, "LARGE OBJECT ", 13) == 0) {
+                en += 13;
+                *en++ = '\0';  // Terminate first half
+
+                // Skip the blob OID digits
+                while (isdigit(*en)) en++;
+
+                st2 = en;  // Second half starts here
+            }
+            // Found semicolon - end of command
+            else if (*en == ';') {
+                *en++ = '\0';  // Terminate second half
+
+                // Apply this command pattern to all blobs
+                IssueCommandPerBlob(AH, blobte, st, st2);
+
+                // Skip whitespace and reset for next command
+                while (isspace(*en)) en++;
+                st = en;
+                st2 = NULL;
+            }
+            else {
+                en++;
+            }
+        } else {
+            en++;
+        }
+    }
+
+    pg_free(buf);
+}
+```

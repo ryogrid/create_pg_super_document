@@ -43,3 +43,74 @@ This function implements thorough memory consistency checking for the Bump alloc
 - Walks chunk headers using Bump_CHUNKHDRSZ for proper alignment
 - Essential for debugging memory corruption issues in the Bump allocator
 - Located in src/backend/utils/mmgr/bump.c:738-808
+
+## Simplified Source
+
+```c
+void
+BumpCheck(MemoryContext context)
+{
+    BumpContext *bump = (BumpContext *) context;
+    const char *name = context->name;
+    dlist_iter iter;
+    Size total_allocated = 0;
+
+    // Walk all blocks in this context
+    dlist_foreach(iter, &bump->blocks)
+    {
+        BumpBlock *block = dlist_container(BumpBlock, node, iter.cur);
+        int nchunks = 0;
+        char *ptr;
+        bool has_external_chunk = false;
+
+        // Calculate block's allocated size
+        if (IsKeeperBlock(bump, block))
+            total_allocated += block->endptr - (char *) bump;
+        else
+            total_allocated += block->endptr - (char *) block;
+
+        // Check block belongs to correct context
+        if (block->context != bump)
+            elog(WARNING, "problem in Bump %s: bogus context link in block %p", name, block);
+
+        // Walk through chunks in this block
+        ptr = ((char *) block) + Bump_BLOCKHDRSZ;
+        while (ptr < block->freeptr)
+        {
+            MemoryChunk *chunk = (MemoryChunk *) ptr;
+            BumpBlock *chunkblock;
+            Size chunksize;
+
+            VALGRIND_MAKE_MEM_DEFINED(chunk, Bump_CHUNKHDRSZ);
+
+            // Handle external vs normal chunks
+            if (MemoryChunkIsExternal(chunk))
+            {
+                chunkblock = ExternalChunkGetBlock(chunk);
+                chunksize = block->endptr - (char *) MemoryChunkGetPointer(chunk);
+                has_external_chunk = true;
+            }
+            else
+            {
+                chunkblock = MemoryChunkGetBlock(chunk);
+                chunksize = MemoryChunkGetValue(chunk);
+            }
+
+            // Move to next chunk and validate
+            ptr += (chunksize + Bump_CHUNKHDRSZ);
+            nchunks++;
+
+            if (chunkblock != block)
+                elog(WARNING, "problem in Bump %s: bogus block link in block %p, chunk %p",
+                     name, block, chunk);
+        }
+
+        // External chunks should be alone in their block
+        if (has_external_chunk && nchunks > 1)
+            elog(WARNING, "problem in Bump %s: external chunk on non-dedicated block %p",
+                 name, block);
+    }
+
+    Assert(total_allocated == context->mem_allocated);
+}
+```

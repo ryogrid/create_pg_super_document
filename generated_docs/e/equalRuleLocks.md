@@ -33,3 +33,40 @@ The function handles null pointer cases and compares the number of rules before 
 - Since PostgreSQL 7.3, the function relies on consistent rule ordering from RelationBuildRuleLock
 - Returns false if either structure is NULL while the other is not
 - Performs comprehensive comparison of all rule properties including qual and actions using the equal() function for Node comparison
+
+## Simplified Source
+
+```c
+static bool equalRuleLocks(RuleLock *rlock1, RuleLock *rlock2) {
+    // Handle null cases: both null = equal, one null = not equal
+    if (rlock1 != NULL) {
+        if (rlock2 == NULL)
+            return false;
+
+        // Check if rule counts match
+        if (rlock1->numLocks != rlock2->numLocks)
+            return false;
+
+        // Compare each rule pair in order (ordering is consistent since 7.3)
+        for (int i = 0; i < rlock1->numLocks; i++) {
+            RewriteRule *rule1 = rlock1->rules[i];
+            RewriteRule *rule2 = rlock2->rules[i];
+
+            // Compare all rule properties
+            if (rule1->ruleId != rule2->ruleId ||
+                rule1->event != rule2->event ||
+                rule1->enabled != rule2->enabled ||
+                rule1->isInstead != rule2->isInstead ||
+                !equal(rule1->qual, rule2->qual) ||
+                !equal(rule1->actions, rule2->actions)) {
+                return false;
+            }
+        }
+    } else if (rlock2 != NULL) {
+        // rlock1 is NULL but rlock2 is not
+        return false;
+    }
+
+    return true;  // All rules match or both are NULL
+}
+```

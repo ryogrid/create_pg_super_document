@@ -41,3 +41,32 @@ The `varstrfastcmp_c` function provides an optimized comparison implementation f
 - Returns standard comparison result: negative for x < y, zero for x = y, positive for x > y
 - Handles different string lengths by using the shorter length for comparison, then length difference as tiebreaker
 - Located in src/backend/utils/adt/varlena.c at lines 2012-2048
+
+## Simplified Source
+
+```c
+static int varstrfastcmp_c(Datum x, Datum y, SortSupport ssup) {
+    // Extract variable-length strings from datums
+    VarString *arg1 = DatumGetVarStringPP(x);
+    VarString *arg2 = DatumGetVarStringPP(y);
+
+    // Get pointers to actual string data and lengths
+    char *a1p = VARDATA_ANY(arg1);
+    char *a2p = VARDATA_ANY(arg2);
+    int len1 = VARSIZE_ANY_EXHDR(arg1);
+    int len2 = VARSIZE_ANY_EXHDR(arg2);
+
+    // Fast byte-wise comparison using memcmp
+    int result = memcmp(a1p, a2p, Min(len1, len2));
+
+    // If common prefix is equal, compare by length
+    if (result == 0 && len1 != len2)
+        result = (len1 < len2) ? -1 : 1;
+
+    // Clean up any detoasted copies to prevent memory leaks
+    if (PointerGetDatum(arg1) != x) pfree(arg1);
+    if (PointerGetDatum(arg2) != y) pfree(arg2);
+
+    return result;
+}
+```

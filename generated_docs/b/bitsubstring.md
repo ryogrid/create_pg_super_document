@@ -51,3 +51,65 @@ This internal function performs the actual substring extraction from bit strings
 - Ensures proper zero-padding of the last byte using VARBIT_PAD
 - Converts from 1-based SQL indexing to 0-based C indexing internally
 - Optimizes byte-boundary cases by using memcpy instead of bit-by-bit copying
+
+## Simplified Source
+
+```c
+static VarBit *bitsubstring(VarBit *arg, int32 s, int32 l, bool length_not_specified) {
+    int bitlen = VARBITLEN(arg);
+    int32 s1 = Max(s, 1);  // Ensure start position is at least 1
+    int32 e1;
+
+    // Determine end position
+    if (length_not_specified) {
+        e1 = bitlen + 1;  // Extract to end of string
+    } else if (l < 0) {
+        ereport(ERROR, (errcode(ERRCODE_SUBSTRING_ERROR),
+                       errmsg("negative substring length not allowed")));
+    } else {
+        int32 e;
+        if (pg_add_s32_overflow(s, l, &e))
+            e1 = bitlen + 1;  // Overflow case: extract to end
+        else
+            e1 = Min(e, bitlen + 1);
+    }
+
+    // Check for zero-length result
+    if (s1 > bitlen || e1 <= s1) {
+        int len = VARBITTOTALLEN(0);
+        VarBit *result = (VarBit *) palloc(len);
+        SET_VARSIZE(result, len);
+        VARBITLEN(result) = 0;
+        return result;
+    }
+
+    // Extract substring
+    int rbitlen = e1 - s1;
+    int len = VARBITTOTALLEN(rbitlen);
+    VarBit *result = (VarBit *) palloc(len);
+    SET_VARSIZE(result, len);
+    VARBITLEN(result) = rbitlen;
+    len -= VARHDRSZ + VARBITHDRSZ;
+
+    // Copy data - optimize for byte boundaries
+    if ((s1 - 1) % BITS_PER_BYTE == 0) {
+        // Byte-aligned copy
+        memcpy(VARBITS(result), VARBITS(arg) + (s1 - 1) / BITS_PER_BYTE, len);
+    } else {
+        // Bit-level copy with shifting
+        int ishift = (s1 - 1) % BITS_PER_BYTE;
+        bits8 *r = VARBITS(result);
+        bits8 *ps = VARBITS(arg) + (s1 - 1) / BITS_PER_BYTE;
+
+        for (int i = 0; i < len; i++) {
+            *r = (*ps << ishift) & BITMASK;
+            if ((++ps) < VARBITEND(arg))
+                *r |= *ps >> (BITS_PER_BYTE - ishift);
+            r++;
+        }
+    }
+
+    VARBIT_PAD(result);  // Ensure proper padding
+    return result;
+}
+```

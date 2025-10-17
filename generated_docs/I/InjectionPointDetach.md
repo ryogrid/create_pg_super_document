@@ -52,3 +52,55 @@ The function optimizes the shared memory usage by compacting the active range wh
 - Does not require the injection point to exist - returns false if not found
 - Used primarily for cleanup and testing scenarios in PostgreSQL development
 - The function includes an assertion that ensures no duplicate names exist in the array
+
+## Simplified Source
+
+```c
+bool
+InjectionPointDetach(const char *name)
+{
+#ifdef USE_INJECTION_POINTS
+    bool found = false;
+
+    LWLockAcquire(InjectionPointLock, LW_EXCLUSIVE);
+
+    // Search for entry with matching name (from highest index down)
+    int max_inuse = pg_atomic_read_u32(&ActiveInjectionPoints->max_inuse);
+    int idx;
+
+    for (idx = max_inuse - 1; idx >= 0; --idx) {
+        InjectionPointEntry *entry = &ActiveInjectionPoints->entries[idx];
+        uint64 generation = pg_atomic_read_u64(&entry->generation);
+
+        // Skip empty slots (even generation)
+        if (generation % 2 == 0)
+            continue;
+
+        // Found matching entry - mark as inactive (make generation even)
+        if (strcmp(entry->name, name) == 0) {
+            found = true;
+            pg_atomic_write_u64(&entry->generation, generation + 1);
+            break;
+        }
+    }
+
+    // Compact max_inuse if we removed the highest entry
+    if (found && idx == max_inuse - 1) {
+        // Find new highest active entry
+        for (; idx >= 0; --idx) {
+            InjectionPointEntry *entry = &ActiveInjectionPoints->entries[idx];
+            uint64 generation = pg_atomic_read_u64(&entry->generation);
+            if (generation % 2 != 0)  // Found active entry
+                break;
+        }
+        pg_atomic_write_u32(&ActiveInjectionPoints->max_inuse, idx + 1);
+    }
+
+    LWLockRelease(InjectionPointLock);
+    return found;
+#else
+    elog(ERROR, "Injection points are not supported by this build");
+    return true;  // silence compiler
+#endif
+}
+```

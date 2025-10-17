@@ -34,3 +34,14 @@ The `append_relation_pattern` function is a simple wrapper around `append_relati
 - Part of the pg_amcheck utility's pattern matching system
 - Provides a clean interface for callers who don't need type-specific filtering
 - The actual pattern processing logic is implemented in the helper function
+
+## Simplified Source
+
+```c
+static void
+append_relation_pattern(PatternInfoArray *pia, const char *pattern, int encoding)
+{
+    // Simple wrapper - allows matching all relation types
+    append_relation_pattern_helper(pia, pattern, encoding, false, false);
+}
+```

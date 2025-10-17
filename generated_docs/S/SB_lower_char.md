@@ -22,22 +22,9 @@ The SB_lower_char function provides optimized case conversion for single-byte ch
 This function is part of PostgreSQL's strategy to handle case-insensitive matching efficiently for single-byte encodings while maintaining locale correctness. It's used as a building block in the LIKE pattern matching infrastructure.
 
 ## Parameters / Member Variables
-- : The unsigned character to convert to lowercase
-LANGUAGE=
-LC_CTYPE="C.UTF-8"
-LC_NUMERIC="C.UTF-8"
-LC_TIME="C.UTF-8"
-LC_COLLATE="C.UTF-8"
-LC_MONETARY="C.UTF-8"
-LC_MESSAGES="C.UTF-8"
-LC_PAPER="C.UTF-8"
-LC_NAME="C.UTF-8"
-LC_ADDRESS="C.UTF-8"
-LC_TELEPHONE="C.UTF-8"
-LC_MEASUREMENT="C.UTF-8"
-LC_IDENTIFICATION="C.UTF-8"
-LC_ALL=: PostgreSQL locale object containing locale-specific information
-- : Boolean flag indicating whether the C/POSIX locale is being used
+- `c`: The unsigned character to convert to lowercase
+- `locale`: PostgreSQL locale object containing locale-specific information
+- `locale_is_c`: Boolean flag indicating whether the C/POSIX locale is being used
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -54,3 +41,22 @@ LC_ALL=: PostgreSQL locale object containing locale-specific information
 - Used through the MATCH_LOWER macro which is defined during compilation of like_match.c for single-byte case-insensitive operations
 - The design reflects PostgreSQL's careful attention to both performance and international locale support
 - Part of a larger system that abandoned attempts at multibyte case-insensitive comparison due to complexity with functions like tolower() having single-byte APIs
+
+## Simplified Source
+
+```c
+static char
+SB_lower_char(unsigned char c, pg_locale_t locale, bool locale_is_c)
+{
+    // Use fast ASCII conversion for C locale
+    if (locale_is_c)
+        return pg_ascii_tolower(c);
+
+    // Use locale-specific conversion when locale is specified
+    if (locale)
+        return tolower_l(c, locale->info.lt);
+
+    // Default PostgreSQL character conversion
+    return pg_tolower(c);
+}
+```

@@ -9,7 +9,7 @@ Returns the RESET value associated with a specified PostgreSQL configuration opt
 ## Definition
 
 ```c
-struct config_generic *record;
+const char *GetConfigOptionResetString(const char *name)
 ```
 ## Detailed Description
 This function retrieves the reset value (default value) of a PostgreSQL configuration parameter identified by name. The reset value represents the value that the parameter would have if it were reset to its default state, either through RESET statement or server restart. The function handles different parameter types (boolean, integer, real, string, enum) and converts their reset values to appropriate string representations.
@@ -19,7 +19,7 @@ The function performs permission checks to ensure only authorized users can exam
 Note: This function is not re-entrant due to its use of a static result buffer for numeric values. The returned string pointer should be used immediately or copied, as subsequent calls may overwrite the buffer contents.
 
 ## Parameters / Member Variables
-- : The name of the configuration parameter whose reset value is to be retrieved
+- `name`: The name of the configuration parameter whose reset value is to be retrieved
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -47,3 +47,48 @@ Note: This function is not re-entrant due to its use of a static result buffer f
 - Throws ERROR if parameter is not visible to current user due to insufficient privileges
 - Returns empty string for NULL string parameters
 - The returned pointer's validity is limited and should not be assumed to persist across multiple calls
+
+## Simplified Source
+
+```c
+const char *GetConfigOptionResetString(const char *name) {
+    struct config_generic *record;
+    static char buffer[256];
+
+    // Find the configuration option
+    record = find_option(name, false, false, ERROR);
+    Assert(record != NULL);
+
+    // Check visibility permissions
+    if (!ConfigOptionIsVisible(record))
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                       errmsg("permission denied to examine \"%s\"", name),
+                       errdetail("Only roles with privileges of the \"%s\" role may examine this parameter.",
+                                "pg_read_all_settings")));
+
+    // Return reset value based on parameter type
+    switch (record->vartype) {
+        case PGC_BOOL:
+            return ((struct config_bool *) record)->reset_val ? "on" : "off";
+
+        case PGC_INT:
+            snprintf(buffer, sizeof(buffer), "%d",
+                    ((struct config_int *) record)->reset_val);
+            return buffer;
+
+        case PGC_REAL:
+            snprintf(buffer, sizeof(buffer), "%g",
+                    ((struct config_real *) record)->reset_val);
+            return buffer;
+
+        case PGC_STRING:
+            return ((struct config_string *) record)->reset_val ?
+                   ((struct config_string *) record)->reset_val : "";
+
+        case PGC_ENUM:
+            return config_enum_lookup_by_value((struct config_enum *) record,
+                                             ((struct config_enum *) record)->reset_val);
+    }
+    return NULL;
+}
+```

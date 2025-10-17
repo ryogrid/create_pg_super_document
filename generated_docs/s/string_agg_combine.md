@@ -48,3 +48,47 @@ The function is critical for PostgreSQL's parallel aggregation infrastructure, a
 - The cursor field preservation ensures proper delimiter handling in the final function
 - Efficient binary data copying using appendBinaryStringInfo for raw string data
 - Works for both text and bytea variants of string_agg
+
+## Simplified Source
+
+```c
+Datum
+string_agg_combine(PG_FUNCTION_ARGS)
+{
+    StringInfo state1, state2;
+    MemoryContext agg_context;
+
+    // Validate aggregate context
+    if (!AggCheckCallContext(fcinfo, &agg_context))
+        elog(ERROR, "aggregate function called in non-aggregate context");
+
+    // Extract both states
+    state1 = PG_ARGISNULL(0) ? NULL : (StringInfo) PG_GETARG_POINTER(0);
+    state2 = PG_ARGISNULL(1) ? NULL : (StringInfo) PG_GETARG_POINTER(1);
+
+    // Handle NULL state2
+    if (state2 == NULL)
+    {
+        if (state1 == NULL)
+            PG_RETURN_NULL();
+        PG_RETURN_POINTER(state1);
+    }
+
+    // Handle NULL state1 - copy state2 into aggregate context
+    if (state1 == NULL)
+    {
+        MemoryContext old_context = MemoryContextSwitchTo(agg_context);
+        state1 = makeStringAggState(fcinfo);
+        appendBinaryStringInfo(state1, state2->data, state2->len);
+        state1->cursor = state2->cursor;
+        MemoryContextSwitchTo(old_context);
+    }
+    // Combine both states
+    else if (state2->len > 0)
+    {
+        appendBinaryStringInfo(state1, state2->data, state2->len);
+    }
+
+    PG_RETURN_POINTER(state1);
+}
+```

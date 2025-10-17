@@ -35,3 +35,21 @@ The function specifically validates XML content (as opposed to XML documents), m
 - Part of PostgreSQL's XML data type support system
 - Located in src/backend/utils/adt/xml.c:4635-4657
 - Validates XML content rather than full XML documents, allowing for XML fragments
+
+## Simplified Source
+
+```c
+Datum xml_is_well_formed_content(PG_FUNCTION_ARGS)
+{
+#ifdef USE_LIBXML
+    // Extract text data argument
+    text *data = PG_GETARG_TEXT_PP(0);
+
+    // Check XML well-formedness as content (allows fragments)
+    PG_RETURN_BOOL(wellformed_xml(data, XMLOPTION_CONTENT));
+#else
+    NO_XML_SUPPORT();
+    return 0;
+#endif
+}
+```

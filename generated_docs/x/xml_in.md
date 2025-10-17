@@ -39,3 +39,33 @@ This function serves as the input conversion function for PostgreSQL's xml data 
 - Memory management: temporarily creates an xmlDocPtr for validation but frees it immediately after parsing
 - Uses the current database encoding when parsing XML data
 - The soft error handling allows for graceful error management in the parsing context
+
+## Simplified Source
+
+```c
+Datum xml_in(PG_FUNCTION_ARGS) {
+#ifdef USE_LIBXML
+    char *s = PG_GETARG_CSTRING(0);
+    xmltype *vardata;
+    xmlDocPtr doc;
+
+    // Convert C string to xml type (reuses text conversion)
+    vardata = (xmltype *) cstring_to_text(s);
+
+    // Parse XML to validate well-formedness
+    doc = xml_parse(vardata, xmloption, true, GetDatabaseEncoding(),
+                    NULL, NULL, fcinfo->context);
+
+    // Free the temporary document (validation complete)
+    if (doc != NULL) {
+        xmlFreeDoc(doc);
+    }
+
+    PG_RETURN_XML_P(vardata);
+#else
+    // Return error when libxml2 support not available
+    NO_XML_SUPPORT();
+    return 0;
+#endif
+}
+```

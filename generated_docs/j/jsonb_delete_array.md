@@ -48,3 +48,77 @@ The function iterates through the JSONB structure and for each key or element en
 - Does not modify the original JSONB; returns a new copy
 - More efficient than multiple individual delete operations
 - Exposed as the SQL function `jsonb_delete(jsonb, text[])`
+
+## Simplified Source
+
+```c
+Datum jsonb_delete_array(PG_FUNCTION_ARGS) {
+    Jsonb *in = PG_GETARG_JSONB_P(0);
+    ArrayType *keys = PG_GETARG_ARRAYTYPE_P(1);
+    Datum *keys_elems;
+    bool *keys_nulls;
+    int keys_len;
+    JsonbParseState *state = NULL;
+    JsonbIterator *it;
+    JsonbValue v, *res = NULL;
+    bool skipNested = false;
+    JsonbIteratorToken r;
+
+    // Validate array dimensions
+    if (ARR_NDIM(keys) > 1)
+        ereport(ERROR, (errcode(ERRCODE_ARRAY_SUBSCRIPT_ERROR),
+                       errmsg("wrong number of array subscripts")));
+
+    // Error checks
+    if (JB_ROOT_IS_SCALAR(in))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("cannot delete from scalar")));
+
+    if (JB_ROOT_COUNT(in) == 0)
+        PG_RETURN_JSONB_P(in);
+
+    // Extract array elements
+    deconstruct_array_builtin(keys, TEXTOID, &keys_elems, &keys_nulls, &keys_len);
+
+    if (keys_len == 0)
+        PG_RETURN_JSONB_P(in);
+
+    it = JsonbIteratorInit(&in->root);
+
+    // Iterate through JSONB structure
+    while ((r = JsonbIteratorNext(&it, &v, skipNested)) != WJB_DONE) {
+        skipNested = true;
+
+        // Check if current key/element matches any deletion target
+        if ((r == WJB_ELEM || r == WJB_KEY) && v.type == jbvString) {
+            bool found = false;
+
+            // Compare against all keys in deletion array
+            for (int i = 0; i < keys_len; i++) {
+                if (keys_nulls[i])
+                    continue;
+
+                char *keyptr = VARDATA_ANY(keys_elems[i]);
+                int keylen = VARSIZE_ANY_EXHDR(keys_elems[i]);
+                if (keylen == v.val.string.len &&
+                    memcmp(keyptr, v.val.string.val, keylen) == 0) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found) {
+                // Skip matching key and its value
+                if (r == WJB_KEY)
+                    JsonbIteratorNext(&it, &v, true);
+                continue;
+            }
+        }
+
+        // Add non-matching elements to result
+        res = pushJsonbValue(&state, r, r < WJB_BEGIN_ARRAY ? &v : NULL);
+    }
+
+    PG_RETURN_JSONB_P(JsonbValueToJsonb(res));
+}
+```

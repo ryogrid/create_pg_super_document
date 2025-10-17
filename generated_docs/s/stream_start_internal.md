@@ -41,3 +41,32 @@ For each transaction, the function opens an appropriate spool file and, if this 
 - Part of PostgreSQL's memory management strategy for large logical replication transactions
 - The replication step lifecycle is managed to ensure proper transaction boundaries
 - Critical for handling transactions that exceed the logical_decoding_work_mem limit
+
+## Simplified Source
+
+```c
+void stream_start_internal(TransactionId xid, bool first_segment)
+{
+    begin_replication_step();
+
+    // Initialize worker's fileset on first use (lazy initialization)
+    if (!MyLogicalRepWorker->stream_fileset) {
+        // Switch to permanent context for worker lifetime allocation
+        MemoryContext oldctx = MemoryContextSwitchTo(ApplyContext);
+
+        MyLogicalRepWorker->stream_fileset = palloc(sizeof(FileSet));
+        FileSetInit(MyLogicalRepWorker->stream_fileset);
+
+        MemoryContextSwitchTo(oldctx);
+    }
+
+    // Open spool file for this transaction
+    stream_open_file(MyLogicalRepWorker->subid, xid, first_segment);
+
+    // For continuation segments, read existing subtransaction info
+    if (!first_segment)
+        subxact_info_read(MyLogicalRepWorker->subid, xid);
+
+    end_replication_step();
+}
+```

@@ -46,3 +46,67 @@ RetrieveWalSegSize determines the WAL segment size used by the connected Postgre
 - Validates that the WAL segment size is a power of two between 1 MB and 1 GB
 - Critical for proper WAL streaming and backup operations in pg_basebackup utilities
 - The function assumes a valid database connection and will assert if conn is NULL
+
+## Simplified Source
+
+```c
+bool
+RetrieveWalSegSize(PGconn *conn)
+{
+    PGresult *res;
+    char xlog_unit[3];
+    int xlog_val;
+    int multiplier = 1;
+
+    Assert(conn != NULL);
+
+    // Use default for older PostgreSQL versions
+    if (PQserverVersion(conn) < MINIMUM_VERSION_FOR_SHOW_CMD) {
+        WalSegSz = DEFAULT_XLOG_SEG_SIZE;
+        return true;
+    }
+
+    // Query current WAL segment size
+    res = PQexec(conn, "SHOW wal_segment_size");
+    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+        pg_log_error("could not send replication command \"SHOW wal_segment_size\": %s",
+                     PQerrorMessage(conn));
+        PQclear(res);
+        return false;
+    }
+
+    // Validate result structure
+    if (PQntuples(res) != 1 || PQnfields(res) < 1) {
+        pg_log_error("could not fetch WAL segment size: got %d rows and %d fields, expected %d rows and %d or more fields",
+                     PQntuples(res), PQnfields(res), 1, 1);
+        PQclear(res);
+        return false;
+    }
+
+    // Parse value and unit (e.g., "16MB")
+    if (sscanf(PQgetvalue(res, 0, 0), "%d%2s", &xlog_val, xlog_unit) != 2) {
+        pg_log_error("WAL segment size could not be parsed");
+        PQclear(res);
+        return false;
+    }
+
+    PQclear(res);
+
+    // Convert to bytes based on unit
+    if (strcmp(xlog_unit, "MB") == 0)
+        multiplier = 1024 * 1024;
+    else if (strcmp(xlog_unit, "GB") == 0)
+        multiplier = 1024 * 1024 * 1024;
+
+    WalSegSz = xlog_val * multiplier;
+
+    // Validate WAL segment size
+    if (!IsValidWalSegSize(WalSegSz)) {
+        pg_log_error("remote server reported invalid WAL segment size (%d bytes)", WalSegSz);
+        pg_log_error_detail("The WAL segment size must be a power of two between 1 MB and 1 GB.");
+        return false;
+    }
+
+    return true;
+}
+```

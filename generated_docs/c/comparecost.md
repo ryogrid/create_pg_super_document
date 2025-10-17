@@ -36,3 +36,16 @@ The function takes two void pointers (as required by qsort), casts them to SPLIT
 - Critical for optimal GiST index performance by ensuring splits minimize storage cost
 - Used in conjunction with split cost calculation algorithms
 - Located in src/backend/utils/adt/tsgistidx.c:595-604
+
+## Simplified Source
+
+```c
+static int comparecost(const void *va, const void *vb) {
+    // Extract SPLITCOST structures from void pointers
+    const SPLITCOST *a = (const SPLITCOST *) va;
+    const SPLITCOST *b = (const SPLITCOST *) vb;
+
+    // Compare cost values using PostgreSQL's safe comparison
+    return pg_cmp_s32(a->cost, b->cost);
+}
+```

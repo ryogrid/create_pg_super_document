@@ -36,3 +36,30 @@ The function operates within the context of WAL streaming operations, typically 
 - Error handling includes proper error message reporting through pg_log_error when communication with the server fails
 - The function returns false on any error condition, allowing the caller to handle failures appropriately
 - Part of PostgreSQL's base backup and replication infrastructure located in src/bin/pg_basebackup/
+
+## Simplified Source
+
+```c
+static bool
+CheckCopyStreamStop(PGconn *conn, StreamCtl *stream, XLogRecPtr blockpos)
+{
+    // Check if we should stop streaming at this position
+    if (still_sending && stream->stream_stop(blockpos, stream->timeline, false)) {
+        // Close current WAL file
+        if (!close_walfile(stream, blockpos))
+            return false;
+
+        // Send copy-end packet to server
+        if (PQputCopyEnd(conn, NULL) <= 0 || PQflush(conn)) {
+            pg_log_error("could not send copy-end packet: %s",
+                         PQerrorMessage(conn));
+            return false;
+        }
+
+        // Mark streaming as stopped
+        still_sending = false;
+    }
+
+    return true;
+}
+```

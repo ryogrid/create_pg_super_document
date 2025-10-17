@@ -35,3 +35,23 @@ The `interval_send` function is the binary output conversion function for Postgr
 - The binary format is more efficient than text formatting for high-volume data transfer
 - Complements `interval_recv` for bidirectional binary conversion
 - Returns a bytea (binary array) containing the serialized interval data
+
+## Simplified Source
+
+```c
+Datum interval_send(PG_FUNCTION_ARGS) {
+    Interval *interval = PG_GETARG_INTERVAL_P(0);
+    StringInfoData buf;
+
+    // Initialize binary message buffer
+    pq_begintypsend(&buf);
+
+    // Write interval components: time, days, months
+    pq_sendint64(&buf, interval->time);
+    pq_sendint32(&buf, interval->day);
+    pq_sendint32(&buf, interval->month);
+
+    // Return finalized binary data
+    return PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

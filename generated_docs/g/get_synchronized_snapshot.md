@@ -37,3 +37,19 @@ This mechanism is essential for maintaining data consistency when multiple worke
 - The snapshot remains valid only while the exporting transaction is active
 - Used specifically when AH->numWorkers > 1 to coordinate parallel dump processes
 - The snapshot export functionality requires appropriate PostgreSQL server version support
+
+## Simplified Source
+
+```c
+static char *get_synchronized_snapshot(Archive *fout) {
+    // Export current transaction's snapshot for parallel workers
+    char *query = "SELECT pg_catalog.pg_export_snapshot()";
+
+    // Execute query and get snapshot ID
+    PGresult *res = ExecuteSqlQueryForSingleRow(fout, query);
+    char *snapshot_id = pg_strdup(PQgetvalue(res, 0, 0));
+    PQclear(res);
+
+    return snapshot_id;  // Caller must free this string
+}
+```

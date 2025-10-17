@@ -43,3 +43,29 @@ This function is particularly useful in SQL contexts where conditional type chec
 - Internally leverages the same parsing logic as  but with error suppression
 - Part of PostgreSQL's suite of "to_reg*" functions that provide error-safe object name resolution
 - The function supports all the same input formats as  including complex type syntax, schema qualification, and array notation
+
+## Simplified Source
+
+```c
+Datum
+to_regtype(PG_FUNCTION_ARGS)
+{
+    // Convert input text to C string
+    char *type_name = text_to_cstring(PG_GETARG_TEXT_PP(0));
+
+    // Set up error handling context
+    ErrorSaveContext escontext = {T_ErrorSaveContext};
+
+    // Try to convert type name to OID safely
+    Datum result;
+    if (!DirectInputFunctionCallSafe(regtypein, type_name,
+                                   InvalidOid, -1,
+                                   (Node *) &escontext, &result)) {
+        // Return NULL if conversion fails
+        PG_RETURN_NULL();
+    }
+
+    // Return successful conversion result
+    PG_RETURN_DATUM(result);
+}
+```

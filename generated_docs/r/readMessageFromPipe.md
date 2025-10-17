@@ -39,3 +39,45 @@ This function implements a robust message reading mechanism for inter-process co
 - The function assumes messages are null-terminated strings and blocks until complete messages are received
 - Critical component for reliable message passing in PostgreSQL's parallel processing infrastructure
 - Designed to handle the bidirectional communication protocol between leader and worker processes
+
+## Simplified Source
+
+```c
+static char *
+readMessageFromPipe(int fd)
+{
+    char *msg;
+    int msgsize, bufsize;
+    int ret;
+
+    // Start with a small buffer that can grow as needed
+    bufsize = 64;
+    msg = (char *) pg_malloc(bufsize);
+    msgsize = 0;
+
+    // Read byte by byte until we get null terminator
+    for (;;)
+    {
+        ret = piperead(fd, msg + msgsize, 1);
+        if (ret <= 0)
+            break;  // Connection closed or error
+
+        // Check if we got the message terminator
+        if (msg[msgsize] == '\0')
+            return msg;  // Complete message received
+
+        msgsize++;
+
+        // Expand buffer if we're running out of space
+        if (msgsize == bufsize)
+        {
+            bufsize += 16;
+            msg = (char *) pg_realloc(msg, bufsize);
+        }
+    }
+
+    // Connection closed - cleanup and return NULL
+    pg_free(msg);
+    return NULL;
+}
+```

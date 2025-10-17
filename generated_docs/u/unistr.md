@@ -46,3 +46,78 @@ The function properly handles UTF-16 surrogate pairs for characters beyond the B
 - All Unicode characters are converted to the server's character encoding
 - Located at src/backend/utils/adt/varlena.c:6502-6667
 - Error messages provide helpful hints about valid Unicode escape sequence formats
+
+## Simplified Source
+
+```c
+Datum unistr(PG_FUNCTION_ARGS) {
+    text *input_text = PG_GETARG_TEXT_PP(0);
+    char *instr = VARDATA_ANY(input_text);
+    int len = VARSIZE_ANY_EXHDR(input_text);
+    StringInfoData str;
+    pg_wchar pair_first = 0;  // Track UTF-16 surrogate pairs
+    char cbuf[MAX_UNICODE_EQUIVALENT_STRING + 1];
+
+    initStringInfo(&str);
+
+    while (len > 0) {
+        if (instr[0] == '\\') {
+            // Handle escaped backslash
+            if (len >= 2 && instr[1] == '\\') {
+                if (pair_first) goto invalid_pair;
+                appendStringInfoChar(&str, '\\');
+                instr += 2; len -= 2;
+            }
+            // Handle Unicode escape sequences: \XXXX, \uXXXX, \+XXXXXX, \UXXXXXXXX
+            else if (/* various escape formats */) {
+                pg_wchar unicode = /* parse hex digits */;
+
+                // Validate Unicode code point
+                if (!is_valid_unicode_codepoint(unicode))
+                    ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                            errmsg("invalid Unicode code point: %04X", unicode)));
+
+                // Handle UTF-16 surrogate pairs for characters > U+FFFF
+                if (pair_first) {
+                    if (is_utf16_surrogate_second(unicode)) {
+                        unicode = surrogate_pair_to_codepoint(pair_first, unicode);
+                        pair_first = 0;
+                    } else goto invalid_pair;
+                } else if (is_utf16_surrogate_second(unicode)) {
+                    goto invalid_pair;
+                }
+
+                // Store first surrogate or convert to server encoding
+                if (is_utf16_surrogate_first(unicode)) {
+                    pair_first = unicode;
+                } else {
+                    pg_unicode_to_server(unicode, (unsigned char *) cbuf);
+                    appendStringInfoString(&str, cbuf);
+                }
+
+                /* advance past escape sequence */
+            }
+            else {
+                ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                        errmsg("invalid Unicode escape")));
+            }
+        } else {
+            // Regular character - copy directly
+            if (pair_first) goto invalid_pair;
+            appendStringInfoChar(&str, *instr++);
+            len--;
+        }
+    }
+
+    // Check for incomplete surrogate pair
+    if (pair_first) goto invalid_pair;
+
+    text *result = cstring_to_text_with_len(str.data, str.len);
+    pfree(str.data);
+    PG_RETURN_TEXT_P(result);
+
+invalid_pair:
+    ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+            errmsg("invalid Unicode surrogate pair")));
+}
+```

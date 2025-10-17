@@ -37,3 +37,25 @@ The function uses PostgreSQL's error-safe input mechanism () with an  to catch a
 - The function is designed to be error-safe, making it useful in contexts where NULL handling is preferred over error throwing
 - It internally uses  for the actual parsing and validation logic
 - The function is typically exposed to SQL users and can be called directly in queries
+
+## Simplified Source
+
+```c
+Datum
+to_regoper(PG_FUNCTION_ARGS)
+{
+    // Convert input text to C string
+    char *opr_name = text_to_cstring(PG_GETARG_TEXT_PP(0));
+    Datum result;
+    ErrorSaveContext escontext = {T_ErrorSaveContext};
+
+    // Try to parse operator name safely - return NULL if it fails
+    if (!DirectInputFunctionCallSafe(regoperin, opr_name,
+                                    InvalidOid, -1,
+                                    (Node *) &escontext,
+                                    &result))
+        PG_RETURN_NULL();
+
+    PG_RETURN_DATUM(result);
+}
+```

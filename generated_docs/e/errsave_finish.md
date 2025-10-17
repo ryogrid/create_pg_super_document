@@ -41,3 +41,40 @@ For soft errors, the function performs minimal processing compared to errfinish(
 - Uses recursion_depth tracking for consistency with standard error handling
 - Assumes ErrorSaveContext is properly initialized and error_occurred flag was set
 - Memory allocation for error_data copy uses caller's current memory context
+
+## Simplified Source
+
+```c
+void
+errsave_finish(struct Node *context, const char *filename, int lineno,
+               const char *funcname)
+{
+    ErrorSaveContext *escontext = (ErrorSaveContext *) context;
+    ErrorData *edata = &errordata[errordata_stack_depth];
+
+    CHECK_STACK_DEPTH();
+
+    // If this was treated as regular error, delegate to errfinish
+    if (edata->elevel >= ERROR) {
+        errfinish(filename, lineno, funcname);
+        pg_unreachable();
+    }
+
+    // Handle soft error - package error data for caller
+    recursion_depth++;
+
+    // Set error location info
+    set_stack_entry_location(edata, filename, lineno, funcname);
+    edata->elevel = ERROR;  // Replace LOG level from errsave_start
+
+    // Skip backtrace and context callbacks to avoid side effects
+
+    // Copy error data for caller (flat copy since strings are in caller's context)
+    escontext->error_data = palloc_object(ErrorData);
+    memcpy(escontext->error_data, edata, sizeof(ErrorData));
+
+    // Clean up error handling state
+    errordata_stack_depth--;
+    recursion_depth--;
+}
+```

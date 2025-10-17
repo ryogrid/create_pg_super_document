@@ -50,3 +50,61 @@ The function converts path components to both string and integer representations
 - The function handles both the JSON and text variants of path extraction through the `as_text` parameter
 - Part of PostgreSQL's JSON path extraction infrastructure, providing the common implementation for multiple user-facing functions
 - Includes comprehensive error handling for malformed paths and invalid array structures
+
+## Simplified Source
+
+```c
+static Datum
+get_path_all(FunctionCallInfo fcinfo, bool as_text)
+{
+    text *json = PG_GETARG_TEXT_PP(0);
+    ArrayType *path = PG_GETARG_ARRAYTYPE_P(1);
+    text *result;
+    Datum *pathtext;
+    bool *pathnulls;
+    int npath;
+    char **tpath;
+    int *ipath;
+    int i;
+
+    // Return NULL if path contains any null elements
+    if (array_contains_nulls(path))
+        PG_RETURN_NULL();
+
+    // Deconstruct the path array into components
+    deconstruct_array_builtin(path, TEXTOID, &pathtext, &pathnulls, &npath);
+
+    // Allocate arrays for string and integer path representations
+    tpath = palloc(npath * sizeof(char *));
+    ipath = palloc(npath * sizeof(int));
+
+    // Convert each path component to both string and integer forms
+    for (i = 0; i < npath; i++) {
+        tpath[i] = TextDatumGetCString(pathtext[i]);
+
+        // Try to convert to integer for array indexing
+        if (*tpath[i] != '\0') {
+            int ind;
+            char *endptr;
+
+            errno = 0;
+            ind = strtoint(tpath[i], &endptr, 10);
+            // Use INT_MIN as sentinel for non-numeric components
+            if (endptr == tpath[i] || *endptr != '\0' || errno != 0)
+                ipath[i] = INT_MIN;
+            else
+                ipath[i] = ind;
+        } else {
+            ipath[i] = INT_MIN;
+        }
+    }
+
+    // Delegate to worker function for actual JSON processing
+    result = get_worker(json, tpath, ipath, npath, as_text);
+
+    if (result != NULL)
+        PG_RETURN_TEXT_P(result);
+    else
+        PG_RETURN_NULL();
+}
+```

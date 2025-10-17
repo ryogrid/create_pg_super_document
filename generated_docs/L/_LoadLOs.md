@@ -34,3 +34,26 @@ _LoadLOs is responsible for restoring all large objects from a PostgreSQL archiv
 
 ## Notes and Other Information
 This function relies on the zero OID terminator protocol established by _EndLOs during the dump process. The drop parameter allows for different restoration strategies - [when](../w/when.md) true, existing large objects with the same OID will be removed before restoring the archived version. The function uses _PrintData to handle the actual data restoration, ensuring consistent handling of compressed data streams.
+
+## Simplified Source
+```c
+static void _LoadLOs(ArchiveHandle *AH, bool drop)
+{
+    // Initialize large object restoration
+    StartRestoreLOs(AH);
+
+    // Process each large object until zero OID terminator
+    Oid oid = ReadInt(AH);
+    while (oid != 0) {
+        // Restore individual large object
+        StartRestoreLO(AH, oid, drop);
+        _PrintData(AH);  // Read and restore the LO data
+        EndRestoreLO(AH, oid);
+
+        oid = ReadInt(AH);  // Read next OID
+    }
+
+    // Finalize large object restoration
+    EndRestoreLOs(AH);
+}
+```

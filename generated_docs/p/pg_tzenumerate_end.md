@@ -35,3 +35,19 @@ The function ensures that no directory handles are left open and no memory is le
 - Part of the timezone enumeration trilogy: start, next, and end functions
 - Safe to call even if enumeration was terminated early before completing all timezones
 - The depth field tracks how many directory levels are currently open for cleanup
+
+## Simplified Source
+
+```c
+void pg_tzenumerate_end(pg_tzenum *enumerator) {
+    // Clean up all open directory levels from current depth down to 0
+    while (enumerator->depth >= 0) {
+        FreeDir(enumerator->dirdesc[enumerator->depth]);
+        pfree(enumerator->dirname[enumerator->depth]);
+        enumerator->depth--;
+    }
+
+    // Free the main enumeration structure
+    pfree(enumerator);
+}
+```

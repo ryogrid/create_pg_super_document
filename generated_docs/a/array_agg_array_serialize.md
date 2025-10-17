@@ -36,3 +36,50 @@ The serialization order is carefully chosen with element_type first to facilitat
 - The element_type is serialized first to enable efficient deserialization
 - Null bitmap is only serialized if it exists (when aitems > 0)
 - All dimension and lower bounds arrays are serialized completely regardless of actual dimensionality
+
+## Simplified Source
+
+```c
+Datum
+array_agg_array_serialize(PG_FUNCTION_ARGS)
+{
+    // Ensure aggregate context
+    Assert(AggCheckCallContext(fcinfo, NULL));
+
+    ArrayBuildStateArr *state = (ArrayBuildStateArr *) PG_GETARG_POINTER(0);
+    StringInfoData buf;
+
+    // Begin serialization
+    pq_begintypsend(&buf);
+
+    // Send metadata first for easier deserialization
+    pq_sendint32(&buf, state->element_type);  // element type first
+    pq_sendint32(&buf, state->array_type);    // array type
+    pq_sendint32(&buf, state->nbytes);        // data size
+
+    // Send actual array data
+    pq_sendbytes(&buf, state->data, state->nbytes);
+
+    // Send allocation and item tracking info
+    pq_sendint32(&buf, state->abytes);        // allocated buffer size
+    pq_sendint32(&buf, state->aitems);        // allocated item count
+
+    // Send null bitmap if present
+    if (state->nullbitmap) {
+        Assert(state->aitems > 0);
+        pq_sendbytes(&buf, state->nullbitmap, (state->aitems + 7) / 8);
+    }
+
+    // Send item count and dimensionality info
+    pq_sendint32(&buf, state->nitems);        // actual item count
+    pq_sendint32(&buf, state->ndims);         // number of dimensions
+
+    // Send dimension and lower bounds arrays
+    pq_sendbytes(&buf, state->dims, sizeof(state->dims));
+    pq_sendbytes(&buf, state->lbs, sizeof(state->lbs));
+
+    // Finalize and return serialized bytea
+    bytea *result = pq_endtypsend(&buf);
+    PG_RETURN_BYTEA_P(result);
+}
+```

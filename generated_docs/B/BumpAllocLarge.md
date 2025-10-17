@@ -42,3 +42,67 @@ The function allocates an entire block sized exactly to hold the requested chunk
 - The block is marked as completely full (freeptr == endptr) since it contains exactly one chunk
 - Memory context checking builds include additional overhead for chunk headers, sentinel bytes, and Valgrind integration
 - Large allocations are managed as external chunks with special header markings for debugging and validation
+
+## Simplified Source
+
+```c
+static void *
+BumpAllocLarge(MemoryContext context, Size size, int flags)
+{
+    BumpContext *set = (BumpContext *) context;
+    BumpBlock *block;
+    Size chunk_size;
+    Size required_size;
+    Size blksize;
+
+    // Validate the requested size
+    MemoryContextCheckSize(context, size, flags);
+
+    // Calculate space needed for chunk (including sentinel in debug builds)
+#ifdef MEMORY_CONTEXT_CHECKING
+    chunk_size = MAXALIGN(size + 1);
+#else
+    chunk_size = MAXALIGN(size);
+#endif
+
+    // Calculate total block size needed
+    required_size = chunk_size + Bump_CHUNKHDRSZ;
+    blksize = required_size + Bump_BLOCKHDRSZ;
+
+    // Allocate the dedicated block
+    block = (BumpBlock *) malloc(blksize);
+    if (block == NULL)
+        return MemoryContextAllocationFailure(context, size, flags);
+
+    context->mem_allocated += blksize;
+
+    // Mark the block as completely full
+    block->freeptr = block->endptr = ((char *) block) + blksize;
+
+#ifdef MEMORY_CONTEXT_CHECKING
+    // Set up chunk header for debugging
+    MemoryChunk *chunk = (MemoryChunk *) (((char *) block) + Bump_BLOCKHDRSZ);
+
+    block->context = set;
+    MemoryChunkSetHdrMaskExternal(chunk, MCTX_BUMP_ID);
+    chunk->requested_size = size;
+
+    // Add sentinel for buffer overrun detection
+    set_sentinel(MemoryChunkGetPointer(chunk), size);
+#endif
+
+#ifdef RANDOMIZE_ALLOCATED_MEMORY
+    // Fill with debugging pattern
+    randomize_mem((char *) MemoryChunkGetPointer(chunk), size);
+#endif
+
+    // Add block to tail of list (keep current block at head for regular allocs)
+    dlist_push_tail(&set->blocks, &block->node);
+
+#ifdef MEMORY_CONTEXT_CHECKING
+    return MemoryChunkGetPointer(chunk);
+#else
+    return (void *) (((char *) block) + Bump_BLOCKHDRSZ);
+#endif
+}
+```

@@ -40,3 +40,29 @@ For WAL-related directories, the function accounts for the fact that WAL receive
 - The logic specifically handles the case where numeric directory names appear directly under 
 - This function is essential for preventing spurious errors during backup restoration in active PostgreSQL environments
 - Located in src/bin/pg_basebackup/bbstreamer_file.c:292-316
+
+## Simplified Source
+
+```c
+static bool
+should_allow_existing_directory(const char *pathname)
+{
+    const char *filename = last_dir_separator(pathname) + 1;
+
+    // Allow known PostgreSQL system directories
+    if (strcmp(filename, "pg_wal") == 0 ||
+        strcmp(filename, "pg_xlog") == 0 ||
+        strcmp(filename, "archive_status") == 0 ||
+        strcmp(filename, "summaries") == 0 ||
+        strcmp(filename, "pg_tblspc") == 0)
+        return true;
+
+    // Allow numeric directories under pg_tblspc (tablespace OIDs)
+    if (strspn(filename, "0123456789") == strlen(filename)) {
+        const char *pg_tblspc = strstr(pathname, "/pg_tblspc/");
+        return pg_tblspc != NULL && pg_tblspc + 11 == filename;
+    }
+
+    return false;
+}
+```

@@ -50,3 +50,38 @@ The function properly handles the mathematical complexities of averaging interva
 - Mixed positive and negative infinite intervals result in an "interval out of range" error
 - Uses interval_div() for the actual division computation to maintain precision
 - Part of PostgreSQL's interval data type aggregate operations
+
+## Simplified Source
+
+```c
+Datum interval_avg(PG_FUNCTION_ARGS) {
+    IntervalAggState *state = PG_ARGISNULL(0) ? NULL :
+                             (IntervalAggState *) PG_GETARG_POINTER(0);
+
+    // Return NULL if no input values
+    if (state == NULL || IA_TOTAL_COUNT(state) == 0)
+        PG_RETURN_NULL();
+
+    // Handle infinite intervals
+    if (state->pInfcount > 0 || state->nInfcount > 0) {
+        // Error if mixed positive and negative infinities
+        if (state->pInfcount > 0 && state->nInfcount > 0)
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                           errmsg("interval out of range")));
+
+        // Return appropriate infinity
+        Interval *result = (Interval *) palloc(sizeof(Interval));
+        if (state->pInfcount > 0)
+            INTERVAL_NOEND(result);    // Positive infinity
+        else
+            INTERVAL_NOBEGIN(result);  // Negative infinity
+
+        PG_RETURN_INTERVAL_P(result);
+    }
+
+    // Compute average: sum / count
+    return DirectFunctionCall2(interval_div,
+                              IntervalPGetDatum(&state->sumX),
+                              Float8GetDatum((double) state->N));
+}
+```

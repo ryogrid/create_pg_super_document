@@ -44,3 +44,29 @@ This pattern is particularly useful for parsing operations that need to accumula
 - Modifies input parameters by reference, maintaining consistent interface with bbstreamer_buffer_bytes
 - Particularly useful for parsers that need fixed-size headers or chunks before they can process data
 - The function optimizes for minimal data copying by only buffering what's necessary to reach the target
+
+## Simplified Source
+
+```c
+static inline bool
+bbstreamer_buffer_until(bbstreamer *streamer, const char **data, int *len,
+                        int target_bytes)
+{
+    int buflen = streamer->bbs_buffer.len;
+
+    // Already have enough data - done
+    if (buflen >= target_bytes) {
+        return true;
+    }
+
+    // Not enough total data to reach target - buffer everything available
+    if (buflen + *len < target_bytes) {
+        bbstreamer_buffer_bytes(streamer, data, len, *len);
+        return false;
+    }
+
+    // Buffer just enough to reach target length
+    bbstreamer_buffer_bytes(streamer, data, len, target_bytes - buflen);
+    return true;
+}
+```

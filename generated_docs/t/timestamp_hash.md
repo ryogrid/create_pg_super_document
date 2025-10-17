@@ -28,3 +28,13 @@ This function provides hash support for timestamp values in PostgreSQL's hash-ba
 - By using hashint8, it ensures that timestamps with identical internal representations produce identical hash values
 - The hash value is used in hash-based database operations for performance optimization
 - This follows PostgreSQL's pattern of reusing existing hash functions for data types with similar internal representations
+
+## Simplified Source
+
+```c
+Datum timestamp_hash(PG_FUNCTION_ARGS) {
+    // Delegate to 64-bit integer hash function
+    // since timestamps are internally 64-bit integers
+    return hashint8(fcinfo);
+}
+```

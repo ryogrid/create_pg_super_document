@@ -47,3 +47,48 @@ The function also manages the transition out of remote transaction state and han
 - Includes proper handling of transaction blocks to ensure complete commit processing
 - Updates global replication state including replorigin_session_origin_lsn and replorigin_session_origin_timestamp
 - Part of the critical path for maintaining logical replication consistency and durability
+
+## Simplified Source
+
+```c
+static void apply_handle_commit_internal(LogicalRepCommitData *commit_data)
+{
+    // Handle transition from skipping changes state
+    if (is_skipping_changes()) {
+        stop_skipping_changes();
+
+        // Start transaction if needed to clear subskiplsn
+        if (!IsTransactionState())
+            StartTransactionCommand();
+    }
+
+    if (IsTransactionState()) {
+        // Clear subscription skip LSN for transaction commit
+        clear_subscription_skip_lsn(commit_data->commit_lsn);
+
+        // Update replication origin state for crash recovery
+        replorigin_session_origin_lsn = commit_data->end_lsn;
+        replorigin_session_origin_timestamp = commit_data->committime;
+
+        // Commit the transaction
+        CommitTransactionCommand();
+
+        // Handle transaction blocks properly
+        if (IsTransactionBlock()) {
+            EndTransactionBlock(false);
+            CommitTransactionCommand();
+        }
+
+        // Report statistics and store flush position
+        pgstat_report_stat(false);
+        store_flush_position(commit_data->end_lsn, XactLastCommitEnd);
+    } else {
+        // No active transaction: process invalidations and subscription updates
+        AcceptInvalidationMessages();
+        maybe_reread_subscription();
+    }
+
+    // Mark end of remote transaction processing
+    in_remote_transaction = false;
+}
+```

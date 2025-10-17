@@ -40,3 +40,38 @@ ExecuteSqlCommandBuf serves as a dispatcher function that routes incoming data b
 - Memory allocation and deallocation is performed when null-termination is needed
 - The function serves as the main entry point for direct database restoration
 - Part of the pg_backup_db.h interface as indicated by header declaration
+
+## Simplified Source
+
+```c
+int ExecuteSqlCommandBuf(Archive *AHX, const char *buf, size_t bufLen) {
+    ArchiveHandle *AH = (ArchiveHandle *) AHX;
+
+    if (AH->outputKind == OUTPUT_COPYDATA) {
+        // Handle COPY data - send directly to PostgreSQL
+        if (AH->pgCopyIn && PQputCopyData(AH->connection, buf, bufLen) <= 0) {
+            pg_fatal("error returned by PQputCopyData: %s",
+                     PQerrorMessage(AH->connection));
+        }
+    }
+    else if (AH->outputKind == OUTPUT_OTHERDATA) {
+        // Handle INSERT commands and BLOB comments
+        ExecuteSimpleCommands(AH, buf, bufLen);
+    }
+    else {
+        // Handle general SQL commands - ensure null termination
+        if (buf[bufLen] == '\0') {
+            ExecuteSqlCommand(AH, buf, "could not execute query");
+        } else {
+            // Copy buffer and add null terminator
+            char *str = pg_malloc(bufLen + 1);
+            memcpy(str, buf, bufLen);
+            str[bufLen] = '\0';
+            ExecuteSqlCommand(AH, str, "could not execute query");
+            free(str);
+        }
+    }
+
+    return bufLen;
+}
+```

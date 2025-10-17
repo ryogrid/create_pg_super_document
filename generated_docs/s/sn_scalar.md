@@ -34,4 +34,26 @@ This function is the core scalar value handler in the JSON null-stripping functi
   - `JsObjectFree` - Object cleanup function
 
 ## Notes and Other Information
-This function contains an assertion that verifies null tokens are only skipped when expected, providing debugging assurance for the null-skipping logic. The function handles the critical distinction between string tokens (which need escaping) and other scalar types (numbers, booleans, etc.) that can be appended directly. The `skip_next_null` flag is reset after use, ensuring the state is clean for subsequent parsing. This function represents the culmination of the null-stripping logic initiated by the field start handlers.
+This function contains an assertion that verifies null tokens are only skipped when expected, providing debugging assurance for the null-stripping logic. The function handles the critical distinction between string tokens (which need escaping) and other scalar types (numbers, booleans, etc.) that can be appended directly. The `skip_next_null` flag is reset after use, ensuring the state is clean for subsequent parsing. This function represents the culmination of the null-stripping logic initiated by the field start handlers.
+
+## Simplified Source
+
+```c
+static JsonParseErrorType sn_scalar(void *state, char *token, JsonTokenType tokentype) {
+    StripnullState *_state = (StripnullState *) state;
+
+    // Skip null values when flagged for removal
+    if (_state->skip_next_null) {
+        _state->skip_next_null = false;
+        return JSON_SUCCESS;
+    }
+
+    // Handle string vs other scalar types
+    if (tokentype == JSON_TOKEN_STRING)
+        escape_json(_state->strval, token);  // Escape strings for JSON
+    else
+        appendStringInfoString(_state->strval, token);  // Direct append for numbers/booleans
+
+    return JSON_SUCCESS;
+}
+```

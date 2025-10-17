@@ -50,3 +50,39 @@ The function includes null pointer checking and stack depth verification to prev
 - Flag-based memory management allows selective deallocation of different components
 - Essential for preventing memory leaks in tsquery processing operations
 - Stack depth checking prevents stack overflow during deep recursion on large query trees
+
+## Simplified Source
+
+```c
+void
+QTNFree(QTNode *in)
+{
+    // Handle null input safely
+    if (!in)
+        return;
+
+    // Prevent stack overflow during recursion
+    check_stack_depth();
+
+    // Free word data if it's a value node and marked for freeing
+    if (in->valnode->type == QI_VAL && in->word && (in->flags & QTN_WORDFREE))
+        pfree(in->word);
+
+    // For operator nodes, recursively free all children first
+    if (in->valnode->type == QI_OPR) {
+        for (int i = 0; i < in->nchild; i++)
+            QTNFree(in->child[i]);
+    }
+
+    // Free child array if it exists
+    if (in->child)
+        pfree(in->child);
+
+    // Free the valnode if marked for freeing
+    if (in->flags & QTN_NEEDFREE)
+        pfree(in->valnode);
+
+    // Finally free the node itself
+    pfree(in);
+}
+```

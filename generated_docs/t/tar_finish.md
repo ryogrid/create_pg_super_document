@@ -61,3 +61,90 @@ The function handles both compressed and uncompressed TAR files appropriately, e
 - Sets the file descriptor to -1 after closing to indicate the TAR file is no longer open
 - Uses errno checking with fallback to ENOSPC when write operations don't set errno
 - The function ensures TAR format compliance by properly terminating the archive structure
+
+## Simplified Source
+
+```c
+static bool tar_finish(WalWriteMethod *wwmethod) {
+    TarMethodData *tar_data = (TarMethodData *) wwmethod;
+    char zerobuf[1024] = {0};
+
+    clear_error(wwmethod);
+
+    // Close any currently open file
+    if (tar_data->currentfile) {
+        if (tar_close(&tar_data->currentfile->base, CLOSE_NORMAL) != 0)
+            return false;
+    }
+
+    // Write TAR termination blocks (two empty 512-byte blocks)
+    if (wwmethod->compression_algorithm == PG_COMPRESSION_NONE) {
+        // Write directly for uncompressed files
+        if (write(tar_data->fd, zerobuf, sizeof(zerobuf)) != sizeof(zerobuf)) {
+            wwmethod->lasterrno = errno ? errno : ENOSPC;
+            return false;
+        }
+    } else if (wwmethod->compression_algorithm == PG_COMPRESSION_GZIP) {
+        // Write through compression for compressed files
+        if (!tar_write_compressed_data(tar_data, zerobuf, sizeof(zerobuf), false))
+            return false;
+
+        // Finalize compression stream
+        tar_data->zp->next_in = NULL;
+        tar_data->zp->avail_in = 0;
+
+        while (true) {
+            int result = deflate(tar_data->zp, Z_FINISH);
+
+            if (result == Z_STREAM_ERROR) {
+                wwmethod->lasterrstring = _("could not compress data");
+                return false;
+            }
+
+            // Write any remaining compressed data
+            if (tar_data->zp->avail_out < ZLIB_OUT_SIZE) {
+                size_t len = ZLIB_OUT_SIZE - tar_data->zp->avail_out;
+                if (write(tar_data->fd, tar_data->zlibOut, len) != len) {
+                    wwmethod->lasterrno = errno ? errno : ENOSPC;
+                    return false;
+                }
+            }
+
+            if (result == Z_STREAM_END)
+                break;
+        }
+
+        // Close compression stream
+        if (deflateEnd(tar_data->zp) != Z_OK) {
+            wwmethod->lasterrstring = _("could not close compression stream");
+            return false;
+        }
+    }
+
+    // Sync file data to storage
+    if (wwmethod->sync) {
+        if (fsync(tar_data->fd) != 0) {
+            wwmethod->lasterrno = errno;
+            return false;
+        }
+    }
+
+    // Close the TAR file
+    if (close(tar_data->fd) != 0) {
+        wwmethod->lasterrno = errno;
+        return false;
+    }
+    tar_data->fd = -1;
+
+    // Sync filename and parent directory
+    if (wwmethod->sync) {
+        if (fsync_fname(tar_data->tarfilename, false) != 0 ||
+            fsync_parent_path(tar_data->tarfilename) != 0) {
+            wwmethod->lasterrno = errno;
+            return false;
+        }
+    }
+
+    return true;
+}
+```

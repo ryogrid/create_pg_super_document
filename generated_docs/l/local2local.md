@@ -49,3 +49,46 @@ The  function performs character set conversion between two single-byte ASCII-su
 - Only high-bit characters (0x80-0xFF) undergo table-based conversion
 - Used extensively in PostgreSQL's conversion procedures for various single-byte character encodings
 - The function provides the foundation for many specific encoding conversion functions in the cyrillic_and_mic and latin2_and_win1250 conversion modules
+
+## Simplified Source
+
+```c
+int local2local(const unsigned char *l, unsigned char *p, int len,
+                int src_encoding, int dest_encoding,
+                const unsigned char *tab, bool noError)
+{
+    const unsigned char *start = l;
+
+    while (len > 0) {
+        unsigned char c1 = *l;
+
+        // Check for null byte (invalid)
+        if (c1 == 0) {
+            if (noError) break;
+            report_invalid_encoding(src_encoding, (const char *) l, len);
+        }
+
+        // ASCII characters: copy directly
+        if (!IS_HIGHBIT_SET(c1)) {
+            *p++ = c1;
+        }
+        // High-bit characters: use conversion table
+        else {
+            unsigned char c2 = tab[c1 - HIGHBIT];
+            if (c2) {
+                *p++ = c2;
+            } else {
+                if (noError) break;
+                report_untranslatable_char(src_encoding, dest_encoding,
+                                         (const char *) l, len);
+            }
+        }
+
+        l++;
+        len--;
+    }
+
+    *p = '\0';
+    return l - start;  // Return bytes consumed
+}
+```

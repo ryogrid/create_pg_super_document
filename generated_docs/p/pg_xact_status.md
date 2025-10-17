@@ -48,3 +48,40 @@ For transactions that are too old (wrapped around, truncated, or otherwise no lo
 - The function can report on subtransaction status independently of parent transaction status
 - This is a SQL-callable function useful for transaction monitoring and debugging visibility issues
 - Part of the xid8 function family that works with 64-bit transaction IDs
+
+## Simplified Source
+
+```c
+Datum pg_xact_status(PG_FUNCTION_ARGS) {
+    const char *status;
+    FullTransactionId fxid = PG_GETARG_FULLTRANSACTIONID(0);
+    TransactionId xid;
+
+    // Protect against concurrent CLOG truncation
+    LWLockAcquire(XactTruncationLock, LW_SHARED);
+
+    if (TransactionIdInRecentPast(fxid, &xid)) {
+        // Transaction is recent enough to check status
+        if (TransactionIdIsInProgress(xid)) {
+            status = "in progress";
+        } else if (TransactionIdDidCommit(xid)) {
+            status = "committed";
+        } else {
+            // Must have aborted or crashed
+            status = "aborted";
+        }
+    } else {
+        // Transaction too old to determine status
+        status = NULL;
+    }
+
+    LWLockRelease(XactTruncationLock);
+
+    // Return result as text or NULL
+    if (status == NULL) {
+        PG_RETURN_NULL();
+    } else {
+        PG_RETURN_TEXT_P(cstring_to_text(status));
+    }
+}
+```

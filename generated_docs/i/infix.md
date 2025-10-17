@@ -53,3 +53,165 @@ The output buffer is dynamically resized as needed to accommodate the growing st
 - Uses dynamic buffer allocation with RESIZEBUF macro for efficient memory management
 - Supports multi-byte character encodings through pg_mblen and related functions
 - The function modifies the INFIX structure's current pointer as it builds the output string
+
+## Simplified Source
+
+```c
+static void
+infix(INFIX *in, int parentPriority, bool rightPhraseOp)
+{
+    // Prevent stack overflow during recursion
+    check_stack_depth();
+
+    if (in->curpol->type == QI_VAL)
+    {
+        // Format value operand with quotes and weights
+        QueryOperand *curpol = &in->curpol->qoperand;
+        char *op = in->op + curpol->distance;
+        int clen;
+
+        // Allocate space for quoted value and weights
+        RESIZEBUF(in, curpol->length * (pg_database_encoding_max_length() + 1) + 2 + 6);
+
+        // Add opening quote
+        *(in->cur) = '\'';
+        in->cur++;
+
+        // Copy operand string with proper escaping
+        while (*op)
+        {
+            if (t_iseq(op, '\'') || t_iseq(op, '\\'))
+            {
+                // Escape quotes and backslashes
+                *(in->cur) = *op;
+                in->cur++;
+            }
+            COPYCHAR(in->cur, op);
+            clen = pg_mblen(op);
+            op += clen;
+            in->cur += clen;
+        }
+
+        // Add closing quote
+        *(in->cur) = '\'';
+        in->cur++;
+
+        // Add weight and prefix annotations if present
+        if (curpol->weight || curpol->prefix)
+        {
+            *(in->cur) = ':';
+            in->cur++;
+
+            if (curpol->prefix)
+            {
+                *(in->cur) = '*';
+                in->cur++;
+            }
+
+            // Add weight letters A, B, C, D based on bit flags
+            if (curpol->weight & (1 << 3)) { *(in->cur) = 'A'; in->cur++; }
+            if (curpol->weight & (1 << 2)) { *(in->cur) = 'B'; in->cur++; }
+            if (curpol->weight & (1 << 1)) { *(in->cur) = 'C'; in->cur++; }
+            if (curpol->weight & 1) { *(in->cur) = 'D'; in->cur++; }
+        }
+
+        *(in->cur) = '\0';
+        in->curpol++;
+    }
+    else if (in->curpol->qoperator.oper == OP_NOT)
+    {
+        // Handle unary NOT operator
+        int priority = QO_PRIORITY(in->curpol);
+
+        // Add parentheses if needed for precedence
+        if (priority < parentPriority)
+        {
+            RESIZEBUF(in, 2);
+            sprintf(in->cur, "( ");
+            in->cur = strchr(in->cur, '\0');
+        }
+
+        // Add NOT operator
+        RESIZEBUF(in, 1);
+        *(in->cur) = '!';
+        in->cur++;
+        *(in->cur) = '\0';
+        in->curpol++;
+
+        // Recursively format operand
+        infix(in, priority, false);
+
+        // Close parentheses if needed
+        if (priority < parentPriority)
+        {
+            RESIZEBUF(in, 2);
+            sprintf(in->cur, " )");
+            in->cur = strchr(in->cur, '\0');
+        }
+    }
+    else
+    {
+        // Handle binary operators (AND, OR, PHRASE)
+        int8 op = in->curpol->qoperator.oper;
+        int priority = QO_PRIORITY(in->curpol);
+        int16 distance = in->curpol->qoperator.distance;
+        INFIX nrm;
+        bool needParenthesis = false;
+
+        in->curpol++;
+
+        // Determine if parentheses are needed
+        if (priority < parentPriority || (op == OP_PHRASE && rightPhraseOp))
+        {
+            needParenthesis = true;
+            RESIZEBUF(in, 2);
+            sprintf(in->cur, "( ");
+            in->cur = strchr(in->cur, '\0');
+        }
+
+        // Set up buffer for right operand
+        nrm.curpol = in->curpol;
+        nrm.op = in->op;
+        nrm.buflen = 16;
+        nrm.cur = nrm.buf = (char *) palloc(sizeof(char) * nrm.buflen);
+
+        // Format right operand first
+        infix(&nrm, priority, (op == OP_PHRASE));
+
+        // Format left operand
+        in->curpol = nrm.curpol;
+        infix(in, priority, false);
+
+        // Add operator symbol and right operand
+        RESIZEBUF(in, 3 + (2 + 10) + (nrm.cur - nrm.buf));
+        switch (op)
+        {
+            case OP_OR:
+                sprintf(in->cur, " | %s", nrm.buf);
+                break;
+            case OP_AND:
+                sprintf(in->cur, " & %s", nrm.buf);
+                break;
+            case OP_PHRASE:
+                if (distance != 1)
+                    sprintf(in->cur, " <%d> %s", distance, nrm.buf);
+                else
+                    sprintf(in->cur, " <-> %s", nrm.buf);
+                break;
+            default:
+                elog(ERROR, "unrecognized operator type: %d", op);
+        }
+
+        in->cur = strchr(in->cur, '\0');
+        pfree(nrm.buf);
+
+        // Close parentheses if needed
+        if (needParenthesis)
+        {
+            RESIZEBUF(in, 2);
+            sprintf(in->cur, " )");
+            in->cur = strchr(in->cur, '\0');
+        }
+    }
+}
+```

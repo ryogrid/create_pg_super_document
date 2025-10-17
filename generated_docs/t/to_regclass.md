@@ -45,3 +45,25 @@ This function is commonly used in SQL queries where you want to check if a table
 - Part of PostgreSQL's "to_reg*" family of functions that provide safe alternatives to reg* input functions
 - Accepts same input formats as regclassin: simple names, schema-qualified names, numeric OIDs, and dash ("-")
 - Returns the same OID values as regclassin when successful, but NULL instead of error on failure
+
+## Simplified Source
+
+```c
+Datum
+to_regclass(PG_FUNCTION_ARGS)
+{
+    // Extract class name from text input
+    char *class_name = text_to_cstring(PG_GETARG_TEXT_PP(0));
+    Datum result;
+    ErrorSaveContext escontext = {T_ErrorSaveContext};
+
+    // Safely try to convert using regclassin with error context
+    if (!DirectInputFunctionCallSafe(regclassin, class_name,
+                                     InvalidOid, -1,
+                                     (Node *) &escontext,
+                                     &result))
+        PG_RETURN_NULL();  // Return NULL on any error
+
+    PG_RETURN_DATUM(result);  // Return successful conversion
+}
+```

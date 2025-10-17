@@ -44,3 +44,21 @@ The function validates the input and terminates the program with an error messag
 - The "demand" start type is useful for development or specialized deployment scenarios
 - Error messages are internationalized using the  macro
 - Located in src/bin/pg_ctl/pg_ctl.c:2092-2112
+
+## Simplified Source
+
+```c
+static void set_starttype(char *starttypeopt) {
+    // Parse Windows service start type option
+    if (strcmp(starttypeopt, "a") == 0 || strcmp(starttypeopt, "auto") == 0)
+        pgctl_start_type = SERVICE_AUTO_START;
+    else if (strcmp(starttypeopt, "d") == 0 || strcmp(starttypeopt, "demand") == 0)
+        pgctl_start_type = SERVICE_DEMAND_START;
+    else {
+        // Invalid start type - show error and exit
+        write_stderr(_("%s: unrecognized start type \"%s\"\n"), progname, starttypeopt);
+        do_advice();
+        exit(1);
+    }
+}
+```

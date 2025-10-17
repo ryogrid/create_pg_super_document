@@ -43,3 +43,25 @@ This function implements a PostgreSQL conversion procedure that transforms text 
 - Follows PostgreSQL's function calling conventions with PG_FUNCTION_ARGS interface
 - EUC-TW is primarily used for Traditional Chinese text encoding in Taiwan
 - Complementary function to euc_tw_to_utf8 for bidirectional encoding conversion
+
+## Simplified Source
+```c
+Datum utf8_to_euc_tw(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_UTF8, PG_EUC_TW);
+
+    // Perform UTF-8 to EUC-TW conversion using mapping tree
+    int converted = UtfToLocal(src, len, dest,
+                              &euc_tw_from_unicode_tree,
+                              NULL, 0, NULL,
+                              PG_EUC_TW, noError);
+
+    return converted;
+}
+```

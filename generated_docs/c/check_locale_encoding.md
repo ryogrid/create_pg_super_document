@@ -55,3 +55,42 @@ LC_ALL=: The locale name string to check encoding compatibility against
 - Unknown locale encodings (return value -1) are accepted to handle edge cases
 - Part of the database initialization process to prevent character encoding issues
 - Essential for preventing data corruption from encoding mismatches
+
+## Simplified Source
+
+```c
+static bool
+check_locale_encoding(const char *locale, int user_enc)
+{
+    int locale_enc;
+
+    // Get the encoding naturally used by this locale
+    locale_enc = pg_get_encoding_from_locale(locale, true);
+
+    // Check if encodings are compatible
+    // Compatible cases: exact match, SQL_ASCII (universal), unknown locale,
+    // or UTF8 on Windows (platform-specific)
+    if (!(locale_enc == user_enc ||
+          locale_enc == PG_SQL_ASCII ||
+          locale_enc == -1 ||
+#ifdef WIN32
+          user_enc == PG_UTF8 ||
+#endif
+          user_enc == PG_SQL_ASCII))
+    {
+        // Report encoding mismatch error
+        pg_log_error("encoding mismatch");
+        pg_log_error_detail("The encoding you selected (%s) and the encoding that the "
+                            "selected locale uses (%s) do not match. This would lead to "
+                            "misbehavior in various character string processing functions.",
+                            pg_encoding_to_char(user_enc),
+                            pg_encoding_to_char(locale_enc));
+        pg_log_error_hint("Rerun %s and either do not specify an encoding explicitly, "
+                          "or choose a matching combination.",
+                          progname);
+        return false;
+    }
+
+    return true;
+}
+```

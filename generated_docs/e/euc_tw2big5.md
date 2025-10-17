@@ -41,3 +41,70 @@ The `euc_tw2big5` function performs the actual character-by-character conversion
 - Returns the number of bytes processed from the input
 - Null-terminates the output buffer
 - Part of PostgreSQL's comprehensive encoding conversion system for Chinese character sets
+
+## Simplified Source
+
+```c
+static int euc_tw2big5(const unsigned char *euc, unsigned char *p, int len, bool noError) {
+    const unsigned char *start = euc;
+
+    while (len > 0) {
+        unsigned char c1 = *euc;
+
+        if (IS_HIGHBIT_SET(c1)) {
+            // Verify multi-byte character in EUC-TW
+            int char_len = pg_encoding_verifymbchar(PG_EUC_TW, (const char *) euc, len);
+            if (char_len < 0) {
+                if (noError) break;
+                report_invalid_encoding(PG_EUC_TW, (const char *) euc, len);
+            }
+
+            unsigned short cnsBuf;
+            unsigned char plane;
+
+            // Handle plane switching with SS2
+            if (c1 == SS2) {
+                // Multi-plane character (4 bytes)
+                unsigned char plane_no = euc[1];
+                if (plane_no == 0xa1)
+                    plane = LC_CNS11643_1;
+                else if (plane_no == 0xa2)
+                    plane = LC_CNS11643_2;
+                else
+                    plane = plane_no - 0xa3 + LC_CNS11643_3;
+                cnsBuf = (euc[2] << 8) | euc[3];
+            } else {
+                // CNS11643-1 plane (2 bytes)
+                plane = LC_CNS11643_1;
+                cnsBuf = (c1 << 8) | euc[1];
+            }
+
+            // Convert CNS to Big5
+            unsigned short big5buf = CNStoBIG5(cnsBuf, plane);
+            if (big5buf == 0) {
+                if (noError) break;
+                report_untranslatable_char(PG_EUC_TW, PG_BIG5, (const char *) euc, len);
+            }
+
+            // Output Big5 character
+            *p++ = (big5buf >> 8) & 0x00ff;
+            *p++ = big5buf & 0x00ff;
+
+            euc += char_len;
+            len -= char_len;
+        } else {
+            // ASCII character - copy directly
+            if (c1 == 0) {
+                if (noError) break;
+                report_invalid_encoding(PG_EUC_TW, (const char *) euc, len);
+            }
+            *p++ = c1;
+            euc++;
+            len--;
+        }
+    }
+
+    *p = '\0';
+    return euc - start;
+}
+```

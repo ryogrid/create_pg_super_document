@@ -38,3 +38,23 @@ The `bttextcmp` function is a PostgreSQL built-in function that implements B-tre
 - Properly handles memory management by freeing copied arguments after use
 - Part of the operator class support functions that enable efficient text indexing and sorting
 - The function is defined in `src/backend/utils/adt/varlena.c` at lines 1831-1845
+
+## Simplified Source
+
+```c
+Datum bttextcmp(PG_FUNCTION_ARGS) {
+    // Extract the two text arguments to compare
+    text *arg1 = PG_GETARG_TEXT_PP(0);
+    text *arg2 = PG_GETARG_TEXT_PP(1);
+
+    // Perform collation-aware comparison
+    // Returns: <0 if arg1 < arg2, 0 if equal, >0 if arg1 > arg2
+    int32 result = text_cmp(arg1, arg2, PG_GET_COLLATION());
+
+    // Clean up memory and return tri-state result
+    PG_FREE_IF_COPY(arg1, 0);
+    PG_FREE_IF_COPY(arg2, 1);
+
+    PG_RETURN_INT32(result);
+}
+```

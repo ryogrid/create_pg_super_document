@@ -47,3 +47,44 @@ The function first handles NULL values appropriately for each conversion type, t
 - For '%L' conversions, quote_literal_cstr is used to escape string literals for SQL
 - Memory management is handled properly with pfree calls for allocated strings
 - This function is part of PostgreSQL's format() SQL function implementation
+
+## Simplified Source
+
+```c
+static void text_format_string_conversion(StringInfo buf, char conversion,
+                                        FmgrInfo *typOutputInfo,
+                                        Datum value, bool isNull,
+                                        int flags, int width) {
+    char *str;
+
+    // Handle NULL values according to conversion type
+    if (isNull) {
+        if (conversion == 's')
+            text_format_append_string(buf, "", flags, width);      // %s: empty string
+        else if (conversion == 'L')
+            text_format_append_string(buf, "NULL", flags, width);  // %L: literal NULL
+        else if (conversion == 'I')
+            ereport(ERROR, "null values cannot be formatted as SQL identifier"); // %I: error
+        return;
+    }
+
+    // Convert value to string representation
+    str = OutputFunctionCall(typOutputInfo, value);
+
+    // Apply appropriate escaping and append
+    if (conversion == 'I') {
+        // SQL identifier: quote if necessary
+        text_format_append_string(buf, quote_identifier(str), flags, width);
+    } else if (conversion == 'L') {
+        // SQL literal: escape quotes and wrap in quotes
+        char *qstr = quote_literal_cstr(str);
+        text_format_append_string(buf, qstr, flags, width);
+        pfree(qstr);  // quote_literal_cstr always allocates new string
+    } else {
+        // Plain string: no escaping
+        text_format_append_string(buf, str, flags, width);
+    }
+
+    pfree(str);  // Clean up original string
+}
+```

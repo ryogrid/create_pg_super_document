@@ -40,3 +40,104 @@ This function processes a TSVector document and builds a DocRepresentation array
 
 ## Notes and Other Information
 This function performs several key optimizations: dynamic memory allocation that grows as needed, weight-based filtering of positions, and consolidation of multiple query items at the same position. The sorting step is crucial for subsequent algorithms like Cover that depend on position-ordered data. The function returns NULL if no matching terms are found and handles memory cleanup appropriately. The consolidation phase groups multiple query items that occur at the same document position into single DocRepresentation entries.
+
+## Simplified Source
+
+```c
+static DocRepresentation *
+get_docrep(TSVector txt, QueryRepresentation *qr, int *doclen)
+{
+    QueryItem *item = GETQUERY(qr->query);
+    WordEntry *entry, *firstentry;
+    WordEntryPos *post;
+    int len = qr->query->size * 4, cur = 0;
+    DocRepresentation *doc;
+
+    // Allocate initial document representation array
+    doc = palloc(sizeof(DocRepresentation) * len);
+
+    // Process each query operand to find matching terms
+    for (int i = 0; i < qr->query->size; i++) {
+        QueryOperand *curoperand;
+
+        if (item[i].type != QI_VAL)
+            continue;
+
+        curoperand = &item[i].qoperand;
+
+        // Find word entries that match this operand
+        firstentry = entry = find_wordentry(txt, qr->query, curoperand, &nitem);
+        if (!entry)
+            continue;
+
+        // Process all matching entries
+        while (entry - firstentry < nitem) {
+            if (!entry->haspos) {
+                entry++;
+                continue;
+            }
+
+            // Extract position data
+            int dimt = POSDATALEN(txt, entry);
+            post = POSDATAPTR(txt, entry);
+
+            // Grow array if needed
+            while (cur + dimt >= len) {
+                len *= 2;
+                doc = repalloc(doc, sizeof(DocRepresentation) * len);
+            }
+
+            // Add positions that match weight criteria
+            for (int j = 0; j < dimt; j++) {
+                if (curoperand->weight == 0 ||
+                    curoperand->weight & (1 << WEP_GETWEIGHT(post[j]))) {
+                    doc[cur].pos = post[j];
+                    doc[cur].data.map.entry = entry;
+                    doc[cur].data.map.item = (QueryItem *) curoperand;
+                    cur++;
+                }
+            }
+            entry++;
+        }
+    }
+
+    if (cur > 0) {
+        // Sort by position and entry
+        qsort(doc, cur, sizeof(DocRepresentation), compareDocR);
+
+        // Consolidate multiple query items at same position
+        DocRepresentation *rptr = doc + 1, *wptr = doc, storage;
+        storage.pos = doc->pos;
+        storage.data.query.items = palloc(sizeof(QueryItem *) * qr->query->size);
+        storage.data.query.items[0] = doc->data.map.item;
+        storage.data.query.nitem = 1;
+
+        while (rptr - doc < cur) {
+            if (rptr->pos == (rptr - 1)->pos &&
+                rptr->data.map.entry == (rptr - 1)->data.map.entry) {
+                // Same position/entry - add to current group
+                storage.data.query.items[storage.data.query.nitem] = rptr->data.map.item;
+                storage.data.query.nitem++;
+            } else {
+                // New position/entry - finalize previous group
+                *wptr = storage;
+                wptr++;
+                storage.pos = rptr->pos;
+                storage.data.query.items = palloc(sizeof(QueryItem *) * qr->query->size);
+                storage.data.query.items[0] = rptr->data.map.item;
+                storage.data.query.nitem = 1;
+            }
+            rptr++;
+        }
+
+        *wptr = storage;
+        wptr++;
+
+        *doclen = wptr - doc;
+        return doc;
+    }
+
+    pfree(doc);
+    return NULL;
+}
+```

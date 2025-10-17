@@ -50,3 +50,26 @@ The exclusion list is kept synchronized with the list used in basebackup.c to en
 - When `match_prefix` is false, an extra character is added to the comparison length to ensure exact matching
 - The exclusion list is terminated with a NULL entry to indicate the end of the array
 - This mechanism ensures that system files that are not subject to checksum validation are properly excluded from verification processes
+
+## Simplified Source
+
+```c
+static bool skipfile(const char *fn) {
+    int excludeIdx;
+
+    // Check each entry in the exclusion list
+    for (excludeIdx = 0; skip[excludeIdx].name != NULL; excludeIdx++) {
+        int cmplen = strlen(skip[excludeIdx].name);
+
+        // For exact matches, include null terminator in comparison
+        if (!skip[excludeIdx].match_prefix)
+            cmplen++;
+
+        // Check if filename matches exclusion pattern
+        if (strncmp(skip[excludeIdx].name, fn, cmplen) == 0)
+            return true;
+    }
+
+    return false;
+}
+```

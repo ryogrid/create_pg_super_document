@@ -44,3 +44,38 @@ The function supports four compression algorithms:
 - PG_COMPRESSION_NONE is always supported as it represents no compression
 - The error message is internationalized using the _() macro
 - Located in src/bin/pg_dump/compress_io.c at lines 88-123
+
+## Simplified Source
+
+```c
+char *
+supports_compression(const pg_compress_specification compression_spec)
+{
+    const pg_compress_algorithm algorithm = compression_spec.algorithm;
+    bool supported = false;
+
+    // Check algorithm support based on compile-time flags
+    if (algorithm == PG_COMPRESSION_NONE)
+        supported = true;
+#ifdef HAVE_LIBZ
+    if (algorithm == PG_COMPRESSION_GZIP)
+        supported = true;
+#endif
+#ifdef USE_LZ4
+    if (algorithm == PG_COMPRESSION_LZ4)
+        supported = true;
+#endif
+#ifdef USE_ZSTD
+    if (algorithm == PG_COMPRESSION_ZSTD)
+        supported = true;
+#endif
+
+    // Return error message if not supported
+    if (!supported) {
+        return psprintf(_("this build does not support compression with %s"),
+                       get_compress_algorithm_name(algorithm));
+    }
+
+    return NULL;  // Success
+}
+```

@@ -39,3 +39,24 @@ When called at the top level (lex_level == 0), it indicates that the JSON is a s
 - Throws an ERROR with ERRCODE_INVALID_PARAMETER_VALUE if validation fails
 - Part of the JSON parsing callback system used throughout PostgreSQL's JSON functionality
 - The token and tokentype parameters provide context about the specific scalar value encountered
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+alen_scalar(void *state, char *token, JsonTokenType tokentype)
+{
+    AlenState *alen_state = (AlenState *) state;
+
+    // Check if this is the top-level JSON element
+    if (alen_state->lex->lex_level == 0)
+    {
+        // Error: Cannot get array length of a scalar value
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("cannot get array length of a scalar")));
+    }
+
+    return JSON_SUCCESS;
+}
+```

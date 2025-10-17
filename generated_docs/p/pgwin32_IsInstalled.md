@@ -41,3 +41,21 @@ This is typically used before service registration or unregistration operations 
 - The service name to check is determined by the global  variable
 - Returns immediately without detailed error analysis - focused on existence check only
 - Part of pg_ctl's Windows service management infrastructure
+
+## Simplified Source
+
+```c
+static bool
+pgwin32_IsInstalled(SC_HANDLE hSCM)
+{
+    // Try to open the PostgreSQL service for configuration query
+    SC_HANDLE hService = OpenService(hSCM, register_servicename, SERVICE_QUERY_CONFIG);
+    bool result = (hService != NULL);
+
+    // Clean up service handle if successfully opened
+    if (result)
+        CloseServiceHandle(hService);
+
+    return result;
+}
+```

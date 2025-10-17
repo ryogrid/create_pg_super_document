@@ -46,3 +46,73 @@ The compression strategy balances between exact matching (hash arrays) for small
 - Handles hash collisions by removing duplicates after sorting
 - Optimizes signature storage by detecting when all signature bits are set (ALLISTRUE condition)
 - Part of the PostgreSQL full-text search indexing infrastructure
+
+## Simplified Source
+
+```c
+Datum gtsvector_compress(PG_FUNCTION_ARGS) {
+    GISTENTRY *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
+    int siglen = GET_SIGLEN();
+    GISTENTRY *retval = entry;
+
+    if (entry->leafkey) {
+        // Process leaf keys (TSVector data)
+        TSVector val = DatumGetTSVector(entry->key);
+        SignTSVector *res = gtsvector_alloc(ARRKEY, val->size, NULL);
+        int32 *arr = GETARR(res);
+        WordEntry *ptr = ARRPTR(val);
+        char *words = STRPTR(val);
+
+        // Convert each word to CRC32 hash
+        for (int32 len = val->size; len > 0; len--, arr++, ptr++) {
+            pg_crc32 c;
+            INIT_LEGACY_CRC32(c);
+            COMP_LEGACY_CRC32(c, words + ptr->pos, ptr->len);
+            FIN_LEGACY_CRC32(c);
+            *arr = *(int32 *) &c;
+        }
+
+        // Sort and remove duplicates
+        qsort(GETARR(res), val->size, sizeof(int), compareint);
+        int len = qunique(GETARR(res), val->size, sizeof(int), compareint);
+
+        // Resize if duplicates were removed
+        if (len != val->size) {
+            int newsize = CALCGTSIZE(ARRKEY, len);
+            res = (SignTSVector *) repalloc(res, newsize);
+            SET_VARSIZE(res, newsize);
+        }
+
+        // Create bit signature if array too large
+        if (VARSIZE(res) > TOAST_INDEX_TARGET) {
+            SignTSVector *ressign = gtsvector_alloc(SIGNKEY, siglen, NULL);
+            makesign(GETSIGN(ressign), res, siglen);
+            res = ressign;
+        }
+
+        // Create new GIST entry
+        retval = (GISTENTRY *) palloc(sizeof(GISTENTRY));
+        gistentryinit(*retval, PointerGetDatum(res),
+                      entry->rel, entry->page, entry->offset, false);
+    }
+    else if (ISSIGNKEY(DatumGetPointer(entry->key)) &&
+             !ISALLTRUE(DatumGetPointer(entry->key))) {
+        // Check if signature has all bits set
+        BITVECP sign = GETSIGN(DatumGetPointer(entry->key));
+
+        // Check each byte for non-0xff values
+        for (int32 i = 0; i < siglen; i++) {
+            if ((sign[i] & 0xff) != 0xff)
+                PG_RETURN_POINTER(retval);  // Not all bits set
+        }
+
+        // All bits set - mark as ALLISTRUE
+        SignTSVector *res = gtsvector_alloc(SIGNKEY | ALLISTRUE, siglen, sign);
+        retval = (GISTENTRY *) palloc(sizeof(GISTENTRY));
+        gistentryinit(*retval, PointerGetDatum(res),
+                      entry->rel, entry->page, entry->offset, false);
+    }
+
+    PG_RETURN_POINTER(retval);
+}
+```

@@ -54,3 +54,103 @@ The function handles several special cases:
 - The function is collation-aware and uses the current collation context for string comparisons
 - Located in src/backend/utils/adt/varlena.c:4368-4499
 - Efficiently handles the common case of retrieving the last field without requiring multiple passes
+
+## Simplified Source
+
+```c
+Datum split_part(PG_FUNCTION_ARGS) {
+    text *inputstring = PG_GETARG_TEXT_PP(0);
+    text *fldsep = PG_GETARG_TEXT_PP(1);
+    int fldnum = PG_GETARG_INT32(2);
+
+    // Field number must not be zero
+    if (fldnum == 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                        errmsg("field position must not be zero")));
+
+    int inputstring_len = VARSIZE_ANY_EXHDR(inputstring);
+    int fldsep_len = VARSIZE_ANY_EXHDR(fldsep);
+
+    // Handle empty input string
+    if (inputstring_len < 1)
+        PG_RETURN_TEXT_P(cstring_to_text(""));
+
+    // Handle empty field separator
+    if (fldsep_len < 1) {
+        if (fldnum == 1 || fldnum == -1)
+            PG_RETURN_TEXT_P(inputstring);
+        else
+            PG_RETURN_TEXT_P(cstring_to_text(""));
+    }
+
+    // Setup text position search for separator
+    TextPositionState state;
+    text_position_setup(inputstring, fldsep, PG_GET_COLLATION(), &state);
+    bool found = text_position_next(&state);
+
+    // Handle case where separator not found
+    if (!found) {
+        text_position_cleanup(&state);
+        if (fldnum == 1 || fldnum == -1)
+            PG_RETURN_TEXT_P(inputstring);
+        else
+            PG_RETURN_TEXT_P(cstring_to_text(""));
+    }
+
+    // Convert negative field numbers to positive by counting fields
+    if (fldnum < 0) {
+        int numfields = 2;  // Found separator, so at least 2 fields
+        while (text_position_next(&state))
+            numfields++;
+
+        // Optimize last field case
+        if (fldnum == -1) {
+            char *start_ptr = text_position_get_match_ptr(&state) + fldsep_len;
+            char *end_ptr = VARDATA_ANY(inputstring) + inputstring_len;
+            text_position_cleanup(&state);
+            PG_RETURN_TEXT_P(cstring_to_text_with_len(start_ptr, end_ptr - start_ptr));
+        }
+
+        fldnum += numfields + 1;
+        if (fldnum <= 0) {
+            text_position_cleanup(&state);
+            PG_RETURN_TEXT_P(cstring_to_text(""));
+        }
+
+        // Reset search to start with positive field number
+        text_position_reset(&state);
+        found = text_position_next(&state);
+    }
+
+    // Find the requested field by iterating through separators
+    char *start_ptr = VARDATA_ANY(inputstring);
+    char *end_ptr = text_position_get_match_ptr(&state);
+
+    while (found && --fldnum > 0) {
+        start_ptr = end_ptr + fldsep_len;
+        found = text_position_next(&state);
+        if (found)
+            end_ptr = text_position_get_match_ptr(&state);
+    }
+
+    text_position_cleanup(&state);
+
+    // Return the appropriate field or empty string
+    text *result_text;
+    if (fldnum > 0) {
+        // Requested field beyond available fields
+        if (fldnum == 1) {
+            // Return last available field
+            int last_len = start_ptr - VARDATA_ANY(inputstring);
+            result_text = cstring_to_text_with_len(start_ptr, inputstring_len - last_len);
+        } else {
+            result_text = cstring_to_text("");
+        }
+    } else {
+        // Return the found field
+        result_text = cstring_to_text_with_len(start_ptr, end_ptr - start_ptr);
+    }
+
+    PG_RETURN_TEXT_P(result_text);
+}
+```

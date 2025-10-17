@@ -37,3 +37,33 @@ The function requires that XmlTableSetDocument has been called previously to est
 - Empty path strings are explicitly rejected with a DATA_EXCEPTION error
 - Invalid XPath expressions result in SYNTAX_ERROR exceptions
 - The compiled XPath expression is stored in the XmlTableBuilderData structure for later use during row filtering
+
+## Simplified Source
+
+```c
+static void
+XmlTableSetRowFilter(TableFuncScanState *state, const char *path)
+{
+#ifdef USE_LIBXML
+    XmlTableBuilderData *xtCxt = GetXmlTableBuilderPrivateData(state, "XmlTableSetRowFilter");
+
+    // Validate that path is not empty
+    if (*path == '\0')
+        ereport(ERROR,
+                (errcode(ERRCODE_DATA_EXCEPTION),
+                 errmsg("row path filter must not be empty string")));
+
+    xmlChar *xstr = pg_xmlCharStrndup(path, strlen(path));
+
+    // Compile XPath expression for row filtering (requires XmlTableSetDocument to be called first)
+    Assert(xtCxt->xpathcxt != NULL);
+    xtCxt->xpathcomp = xmlXPathCtxtCompile(xtCxt->xpathcxt, xstr);
+
+    if (xtCxt->xpathcomp == NULL || xtCxt->xmlerrcxt->err_occurred)
+        xml_ereport(xtCxt->xmlerrcxt, ERROR, ERRCODE_SYNTAX_ERROR,
+                    "invalid XPath expression");
+#else
+    NO_XML_SUPPORT();
+#endif
+}
+```

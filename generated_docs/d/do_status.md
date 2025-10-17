@@ -48,3 +48,54 @@ For running postmaster processes, the function also reads and displays the serve
 - Exits with code 3 when no server is running, following Linux Standard Base Core Specification 3.1
 - Uses internationalized strings with the _() macro for translatable output messages
 - The function never returns normally when no server is running (calls exit(3))
+
+## Simplified Source
+
+```c
+static void
+do_status(void)
+{
+    pid_t pid;
+
+    // Get PID from postmaster.pid file (silent mode)
+    pid = get_pgpid(true);
+
+    // Check if server is running
+    if (pid != 0) {
+        if (pid < 0) {
+            // Standalone backend (single-user mode)
+            pid = -pid;
+            if (postmaster_is_alive(pid)) {
+                printf("single-user server is running (PID: %d)\n", (int) pid);
+                return;
+            }
+        } else {
+            // Regular postmaster process
+            if (postmaster_is_alive(pid)) {
+                char **optlines;
+                char **curr_line;
+                int numlines;
+
+                printf("server is running (PID: %d)\n", (int) pid);
+
+                // Display server startup options
+                optlines = readfile(postopts_file, &numlines);
+                if (optlines != NULL) {
+                    for (curr_line = optlines; *curr_line != NULL; curr_line++)
+                        puts(*curr_line);
+
+                    // Free allocated memory
+                    free_readfile(optlines);
+                }
+                return;
+            }
+        }
+    }
+
+    // No server running
+    printf("no server running\n");
+
+    // Exit with code 3 per Linux Standard Base specification
+    exit(3);
+}
+```

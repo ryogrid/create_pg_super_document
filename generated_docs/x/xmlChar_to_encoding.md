@@ -31,3 +31,22 @@ This function serves as a wrapper around PostgreSQL's  function, specifically de
 - The function performs error checking and throws a PostgreSQL error (ERRCODE_INVALID_PARAMETER_VALUE) instead of returning an error code
 - It bridges the gap between libxml2's xmlChar type and PostgreSQL's standard C string handling
 - Returns the internal encoding identifier on success, never returns on failure due to ereport(ERROR)
+
+## Simplified Source
+
+```c
+static int xmlChar_to_encoding(const xmlChar *encoding_name) {
+    // Convert XML encoding name to PostgreSQL encoding ID
+    int encoding = pg_char_to_encoding((const char *) encoding_name);
+
+    // Report error if encoding name is invalid
+    if (encoding < 0) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("invalid encoding name \"%s\"",
+                        (const char *) encoding_name)));
+    }
+
+    return encoding;
+}
+```

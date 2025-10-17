@@ -40,3 +40,24 @@ The function uses the `rank_up()` utility function to determine when the rank sh
 - Uses partition-local memory to maintain the current rank value across calls within a partition
 - The rank value is only updated when `rank_up()` returns true, indicating that the current row is not a peer of the previous row
 - For the first row in each partition, the rank is always 1 (handled by `rank_up()`)
+
+## Simplified Source
+
+```c
+Datum window_rank(PG_FUNCTION_ARGS)
+{
+    WindowObject winobj = PG_WINDOW_OBJECT();
+    rank_context *context = (rank_context *)
+        WinGetPartitionLocalMemory(winobj, sizeof(rank_context));
+
+    // Check if rank should increase for non-peer rows
+    bool should_increase = rank_up(winobj);
+
+    if (should_increase) {
+        // Update rank to current position + 1 (creates gaps for ties)
+        context->rank = WinGetCurrentPosition(winobj) + 1;
+    }
+
+    PG_RETURN_INT64(context->rank);
+}
+```

@@ -62,3 +62,132 @@ The function handles the case where opfuncoid might be InvalidOid (unlike eqjoin
 - Unlike inner join estimation, this focuses on existence of matches rather than counting all match combinations
 - The function carefully manages memory allocation for temporary match tracking arrays
 - Results represent the fraction of outer relation rows that will survive the semi/anti join condition
+
+## Simplified Source
+
+```c
+static double
+eqjoinsel_semi(Oid opfuncoid, Oid collation,
+               VariableStatData *vardata1, VariableStatData *vardata2,
+               double nd1, double nd2,
+               bool isdefault1, bool isdefault2,
+               AttStatsSlot *sslot1, AttStatsSlot *sslot2,
+               Form_pg_statistic stats1, Form_pg_statistic stats2,
+               bool have_mcvs1, bool have_mcvs2,
+               RelOptInfo *inner_rel)
+{
+    double selec;
+
+    /*
+     * Clamp nd2 to inner relation size - prevents overestimating available
+     * distinct values. This asymmetric treatment (only clamping nd2) ensures
+     * we don't double-count outer relation restrictions.
+     */
+    if (vardata2->rel && nd2 >= vardata2->rel->rows) {
+        nd2 = vardata2->rel->rows;
+        isdefault2 = false;
+    }
+    if (nd2 >= inner_rel->rows) {
+        nd2 = inner_rel->rows;
+        isdefault2 = false;
+    }
+
+    if (have_mcvs1 && have_mcvs2 && OidIsValid(opfuncoid)) {
+        /*
+         * We have MCV lists for both sides - analyze matches between MCVs
+         * and estimate selectivity for the uncertain remainder.
+         */
+        LOCAL_FCINFO(fcinfo, 2);
+        FmgrInfo eqproc;
+        bool *hasmatch1, *hasmatch2;
+        double nullfrac1 = stats1->stanullfrac;
+        double matchfreq1, uncertainfrac, uncertain;
+        int i, nmatches, clamped_nvalues2;
+
+        // Account for nd2 clamping in MCV comparison
+        clamped_nvalues2 = Min(sslot2->nvalues, nd2);
+
+        // Set up equality function for MCV comparisons
+        fmgr_info(opfuncoid, &eqproc);
+        InitFunctionCallInfoData(*fcinfo, &eqproc, 2, collation, NULL, NULL);
+        fcinfo->args[0].isnull = false;
+        fcinfo->args[1].isnull = false;
+
+        // Track matches between MCV lists
+        hasmatch1 = (bool *) palloc0(sslot1->nvalues * sizeof(bool));
+        hasmatch2 = (bool *) palloc0(clamped_nvalues2 * sizeof(bool));
+
+        // Find matches between MCVs (each MCV matches at most one other)
+        nmatches = 0;
+        for (i = 0; i < sslot1->nvalues; i++) {
+            fcinfo->args[0].value = sslot1->values[i];
+
+            for (int j = 0; j < clamped_nvalues2; j++) {
+                if (hasmatch2[j])
+                    continue;
+
+                fcinfo->args[1].value = sslot2->values[j];
+                fcinfo->isnull = false;
+                Datum fresult = FunctionCallInvoke(fcinfo);
+
+                if (!fcinfo->isnull && DatumGetBool(fresult)) {
+                    hasmatch1[i] = hasmatch2[j] = true;
+                    nmatches++;
+                    break;
+                }
+            }
+        }
+
+        // Calculate frequency of matched MCVs in outer relation
+        matchfreq1 = 0.0;
+        for (i = 0; i < sslot1->nvalues; i++) {
+            if (hasmatch1[i])
+                matchfreq1 += sslot1->numbers[i];
+        }
+        CLAMP_PROBABILITY(matchfreq1);
+
+        pfree(hasmatch1);
+        pfree(hasmatch2);
+
+        /*
+         * Estimate fraction of non-MCV outer rows that have join partners.
+         * If nd1 <= nd2, assume all have partners; otherwise assume nd2/nd1 have partners.
+         * If ndistinct estimates are unreliable, conservatively use 50%.
+         */
+        if (!isdefault1 && !isdefault2) {
+            nd1 -= nmatches;
+            nd2 -= nmatches;
+            if (nd1 <= nd2 || nd2 < 0)
+                uncertainfrac = 1.0;
+            else
+                uncertainfrac = nd2 / nd1;
+        } else {
+            uncertainfrac = 0.5;
+        }
+
+        // Apply uncertainty factor to non-matched, non-null portion
+        uncertain = 1.0 - matchfreq1 - nullfrac1;
+        CLAMP_PROBABILITY(uncertain);
+        selec = matchfreq1 + uncertainfrac * uncertain;
+
+    } else {
+        /*
+         * No MCV data available - use heuristic based on distinct value counts.
+         * If nd1 <= nd2, most outer rows likely have matches.
+         * Otherwise, estimate fraction nd2/nd1 have matches.
+         */
+        double nullfrac1 = stats1 ? stats1->stanullfrac : 0.0;
+
+        if (!isdefault1 && !isdefault2) {
+            if (nd1 <= nd2 || nd2 < 0)
+                selec = 1.0 - nullfrac1;
+            else
+                selec = (nd2 / nd1) * (1.0 - nullfrac1);
+        } else {
+            selec = 0.5 * (1.0 - nullfrac1);
+        }
+    }
+
+    return selec;
+}
+```

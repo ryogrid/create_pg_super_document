@@ -37,3 +37,23 @@ This function converts Unix timestamps (time_t values) to PostgreSQL's internal 
 - Primarily used when interfacing with system calls that return time_t values
 - The conversion formula accounts for the 30-year difference between Unix and PostgreSQL epochs
 - Essential for file system operations and system information functions that need to return timestamp data
+
+## Simplified Source
+
+```c
+TimestampTz
+time_t_to_timestamptz(pg_time_t tm)
+{
+    TimestampTz result;
+
+    // Convert Unix timestamp to PostgreSQL timestamp
+    // Account for epoch difference (Unix 1970 vs PostgreSQL 2000)
+    result = (TimestampTz) tm -
+        ((POSTGRES_EPOCH_JDATE - UNIX_EPOCH_JDATE) * SECS_PER_DAY);
+
+    // Convert from second to microsecond precision
+    result *= USECS_PER_SEC;
+
+    return result;
+}
+```

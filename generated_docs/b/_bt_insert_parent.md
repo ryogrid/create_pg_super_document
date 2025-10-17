@@ -186,3 +186,73 @@ The function handles edge cases like concurrent root splits where the stack migh
 - The function maintains B-tree invariants by ensuring proper downlink insertion and INCOMPLETE_SPLIT flag management
 - Includes assertions to catch performance issues with fastpath optimization usage
 - Error handling includes corruption detection when parent re-finding fails
+
+## Simplified Source
+
+```c
+static void
+_bt_insert_parent(Relation rel, Relation heaprel, Buffer buf, Buffer rbuf,
+                  BTStack stack, bool isroot, bool isonly)
+{
+    // Handle root split: create new root level
+    if (isroot)
+    {
+        Buffer rootbuf;
+
+        // Create new root node containing downlinks to both split pages
+        rootbuf = _bt_newlevel(rel, heaprel, buf, rbuf);
+
+        // Release all buffers
+        _bt_relbuf(rel, rootbuf);
+        _bt_relbuf(rel, rbuf);
+        _bt_relbuf(rel, buf);
+    }
+    else
+    {
+        // Normal case: insert downlink into existing parent
+        BlockNumber bknum = BufferGetBlockNumber(buf);
+        BlockNumber rbknum = BufferGetBlockNumber(rbuf);
+        Page page = BufferGetPage(buf);
+        IndexTuple new_item;
+        Buffer pbuf;
+
+        // Handle concurrent root split (no stack available)
+        if (stack == NULL)
+        {
+            BTPageOpaque opaque = BTPageGetOpaque(page);
+            BTStackData fakestack;
+
+            // Find parent level and create fake stack
+            pbuf = _bt_get_endpoint(rel, opaque->btpo_level + 1, false);
+            stack = &fakestack;
+            stack->bts_blkno = BufferGetBlockNumber(pbuf);
+            stack->bts_offset = InvalidOffsetNumber;
+            stack->bts_parent = NULL;
+            _bt_relbuf(rel, pbuf);
+        }
+
+        // Create downlink tuple for new right page
+        IndexTuple ritem = (IndexTuple) PageGetItem(page, PageGetItemId(page, P_HIKEY));
+        new_item = CopyIndexTuple(ritem);
+        BTreeTupleSetDownLink(new_item, rbknum);
+
+        // Re-find parent page (may have moved due to concurrent operations)
+        pbuf = _bt_getstackbuf(rel, heaprel, stack, bknum);
+
+        // Release right child buffer
+        _bt_relbuf(rel, rbuf);
+
+        // Check for parent finding failure
+        if (pbuf == InvalidBuffer)
+            ereport(ERROR, (errcode(ERRCODE_INDEX_CORRUPTED),
+                           errmsg_internal("failed to re-find parent key")));
+
+        // Insert downlink into parent page
+        _bt_insertonpg(rel, heaprel, NULL, pbuf, buf, stack->bts_parent,
+                       new_item, MAXALIGN(IndexTupleSize(new_item)),
+                       stack->bts_offset + 1, 0, isonly);
+
+        pfree(new_item);
+    }
+}
+```

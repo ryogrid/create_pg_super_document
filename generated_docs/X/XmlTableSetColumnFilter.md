@@ -40,3 +40,35 @@ Similar to XmlTableSetRowFilter, this function requires that XmlTableSetDocument
 - Invalid XPath expressions result in DATA_EXCEPTION errors (different from row filter which uses SYNTAX_ERROR)
 - The compiled XPath expression is stored in the xpathscomp array at the specified column index
 - Uses PointerIsValid assertion to ensure the path parameter is not NULL before processing
+
+## Simplified Source
+
+```c
+static void
+XmlTableSetColumnFilter(TableFuncScanState *state, const char *path, int colnum)
+{
+#ifdef USE_LIBXML
+    Assert(PointerIsValid(path));
+
+    XmlTableBuilderData *xtCxt = GetXmlTableBuilderPrivateData(state, "XmlTableSetColumnFilter");
+
+    // Validate that path is not empty
+    if (*path == '\0')
+        ereport(ERROR,
+                (errcode(ERRCODE_DATA_EXCEPTION),
+                 errmsg("column path filter must not be empty string")));
+
+    xmlChar *xstr = pg_xmlCharStrndup(path, strlen(path));
+
+    // Compile XPath expression for this column (requires XmlTableSetDocument to be called first)
+    Assert(xtCxt->xpathcxt != NULL);
+    xtCxt->xpathscomp[colnum] = xmlXPathCtxtCompile(xtCxt->xpathcxt, xstr);
+
+    if (xtCxt->xpathscomp[colnum] == NULL || xtCxt->xmlerrcxt->err_occurred)
+        xml_ereport(xtCxt->xmlerrcxt, ERROR, ERRCODE_DATA_EXCEPTION,
+                    "invalid XPath expression");
+#else
+    NO_XML_SUPPORT();
+#endif
+}
+```

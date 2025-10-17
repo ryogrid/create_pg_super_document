@@ -37,3 +37,42 @@ The function skips operation in data-only dumps since schema membership is a str
 - Creates archive entries in SECTION_POST_DATA for proper restore ordering
 - [Publication](../P/Publication.md) schema objects cannot currently have comments or security labels
 - Uses the publication owner's role name for the archive entry
+
+## Simplified Source
+
+```c
+static void dumpPublicationNamespace(Archive *fout, const PublicationSchemaInfo *pubsinfo) {
+    NamespaceInfo *schemainfo = pubsinfo->pubschema;
+    PublicationInfo *pubinfo = pubsinfo->publication;
+    PQExpBuffer query;
+    char *tag;
+
+    // Skip in data-only dumps
+    if (fout->dopt->dataOnly)
+        return;
+
+    // Create descriptive tag for the archive entry
+    tag = psprintf("%s %s", pubinfo->dobj.name, schemainfo->dobj.name);
+
+    query = createPQExpBuffer();
+
+    // Generate ALTER PUBLICATION ADD TABLES IN SCHEMA statement
+    appendPQExpBuffer(query, "ALTER PUBLICATION %s ", fmtId(pubinfo->dobj.name));
+    appendPQExpBuffer(query, "ADD TABLES IN SCHEMA %s;\n", fmtId(schemainfo->dobj.name));
+
+    // Create archive entry if definition should be dumped
+    if (pubsinfo->dobj.dump & DUMP_COMPONENT_DEFINITION) {
+        ArchiveEntry(fout, pubsinfo->dobj.catId, pubsinfo->dobj.dumpId,
+                     ARCHIVE_OPTS(.tag = tag,
+                                  .namespace = schemainfo->dobj.name,
+                                  .owner = pubinfo->rolname,
+                                  .description = "PUBLICATION TABLES IN SCHEMA",
+                                  .section = SECTION_POST_DATA,
+                                  .createStmt = query->data));
+    }
+
+    // Cleanup
+    free(tag);
+    destroyPQExpBuffer(query);
+}
+```

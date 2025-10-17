@@ -9,9 +9,12 @@ HeapDetermineColumnsInfo analyzes two heap tuples to determine which columns hav
 ## Definition
 
 ```c
-struct varlena *) DatumGetPointer(value1)) &&
-			bms_is_member(attidx, external_cols))
-			*has_external = true;
+static Bitmapset *
+HeapDetermineColumnsInfo(Relation relation,
+						 Bitmapset *interesting_cols,
+						 Bitmapset *external_cols,
+						 HeapTuple oldtup, HeapTuple newtup,
+						 bool *has_external)
 ```
 ## Detailed Description
 This function compares old and new tuple versions to identify modified columns, which is crucial for HOT update decisions. It iterates through columns marked as interesting (typically indexed columns) and performs attribute-by-attribute comparison. The function handles special cases for whole-tuple references and system attributes, and tracks whether any unmodified attributes are stored externally.
@@ -52,3 +55,59 @@ The comparison process involves:
 - Tracks external storage to help determine HOT eligibility
 - Returns NULL bitmapset if no columns were modified
 - Part of PostgreSQL's heap access method for update optimization
+
+## Simplified Source
+
+```c
+static Bitmapset *
+HeapDetermineColumnsInfo(Relation relation, Bitmapset *interesting_cols,
+                        Bitmapset *external_cols, HeapTuple oldtup,
+                        HeapTuple newtup, bool *has_external)
+{
+    int attidx;
+    Bitmapset *modified = NULL;
+    TupleDesc tupdesc = RelationGetDescr(relation);
+
+    // Iterate through all interesting columns
+    attidx = -1;
+    while ((attidx = bms_next_member(interesting_cols, attidx)) >= 0) {
+        AttrNumber attrnum = attidx + FirstLowInvalidHeapAttributeNumber;
+        Datum value1, value2;
+        bool isnull1, isnull2;
+
+        // Whole-tuple reference: always consider modified
+        if (attrnum == 0) {
+            modified = bms_add_member(modified, attidx);
+            continue;
+        }
+
+        // System attributes (except tableOID): always consider modified
+        if (attrnum < 0) {
+            if (attrnum != TableOidAttributeNumber) {
+                modified = bms_add_member(modified, attidx);
+                continue;
+            }
+        }
+
+        // Extract attribute values from both tuples
+        value1 = heap_getattr(oldtup, attrnum, tupdesc, &isnull1);
+        value2 = heap_getattr(newtup, attrnum, tupdesc, &isnull2);
+
+        // Compare attribute values
+        if (!heap_attr_equals(tupdesc, attrnum, value1, value2, isnull1, isnull2)) {
+            modified = bms_add_member(modified, attidx);
+            continue;
+        }
+
+        // Check for externally stored variable-length attributes
+        if (attrnum >= 0 && !isnull1 &&
+            TupleDescAttr(tupdesc, attrnum - 1)->attlen == -1) {
+            if (VARATT_IS_EXTERNAL((struct varlena *) DatumGetPointer(value1)) &&
+                bms_is_member(attidx, external_cols))
+                *has_external = true;
+        }
+    }
+
+    return modified;
+}
+```

@@ -55,3 +55,47 @@ This design allows the function to be called repeatedly by PostgreSQL's set-retu
 - The index field ensures that each range is returned exactly once and in the correct order
 - The struct is essential for implementing SQL functions like  on multirange columns
 - This design pattern is commonly used in PostgreSQL for functions that need to return multiple values from aggregate or complex types
+
+## Simplified Source
+
+```c
+multirange_unnest_fctx *fctx;
+FuncCallContext *funcctx;
+
+// First call setup
+if (SRF_IS_FIRSTCALL()) {
+    // Initialize function context for cross-call persistence
+    funcctx = SRF_FIRSTCALL_INIT();
+
+    // Switch to persistent memory context
+    MemoryContext oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
+
+    // Get multirange input and detoast if needed
+    MultirangeType *mr = PG_GETARG_MULTIRANGE_P(0);
+
+    // Allocate and initialize context struct
+    fctx = (multirange_unnest_fctx *) palloc(sizeof(multirange_unnest_fctx));
+    fctx->mr = mr;
+    fctx->index = 0;
+    fctx->typcache = lookup_type_cache(MultirangeTypeGetOid(mr), TYPECACHE_MULTIRANGE_INFO);
+
+    funcctx->user_fctx = fctx;
+    MemoryContextSwitchTo(oldcontext);
+}
+
+// Per-call processing
+funcctx = SRF_PERCALL_SETUP();
+fctx = funcctx->user_fctx;
+
+// Return next range if available
+if (fctx->index < fctx->mr->rangeCount) {
+    RangeType *range = multirange_get_range(fctx->typcache->rngtype,
+                                           fctx->mr,
+                                           fctx->index);
+    fctx->index++;
+    SRF_RETURN_NEXT(funcctx, RangeTypePGetDatum(range));
+} else {
+    // No more ranges to return
+    SRF_RETURN_DONE(funcctx);
+}
+```

@@ -34,3 +34,28 @@ This function implements PostgreSQL's concat_ws() SQL function (concatenate with
 - Uses standard PostgreSQL function calling conventions
 - Part of the text/varchar data type implementation in PostgreSQL
 - The 'ws' suffix stands for 'with separator'
+
+## Simplified Source
+
+```c
+Datum
+text_concat_ws(PG_FUNCTION_ARGS)
+{
+    char *sep;
+    text *result;
+
+    // Return NULL if separator is NULL
+    if (PG_ARGISNULL(0))
+        PG_RETURN_NULL();
+
+    // Convert separator from text to C string
+    sep = text_to_cstring(PG_GETARG_TEXT_PP(0));
+
+    // Call concat_internal starting from argument 1 (skip separator)
+    result = concat_internal(sep, 1, fcinfo);
+
+    if (result == NULL)
+        PG_RETURN_NULL();
+    PG_RETURN_TEXT_P(result);
+}
+```

@@ -34,3 +34,16 @@ This function is part of PostgreSQL's timestamp comparison operator family and h
 - This function implements the SQL <> operator for timestamp <> timestamptz comparisons
 - The actual comparison logic is delegated to timestamp_cmp_timestamptz_internal which handles timezone conversions and comparisons
 - Returns a Datum containing a boolean value that can be used in SQL expressions
+
+## Simplified Source
+
+```c
+Datum timestamp_ne_timestamptz(PG_FUNCTION_ARGS) {
+    // Extract timestamp (without timezone) and timestamptz (with timezone)
+    Timestamp timestamp_val = PG_GETARG_TIMESTAMP(0);
+    TimestampTz timestamptz_val = PG_GETARG_TIMESTAMPTZ(1);
+
+    // Compare and return true if NOT equal (comparison result != 0)
+    PG_RETURN_BOOL(timestamp_cmp_timestamptz_internal(timestamp_val, timestamptz_val) != 0);
+}
+```

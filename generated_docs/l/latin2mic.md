@@ -47,3 +47,37 @@ The `latin2mic` function performs conversion from Latin character encodings (suc
 - This function handles direct mapping scenarios where no complex character translation is needed
 - Part of PostgreSQL's comprehensive character encoding conversion system
 - The output buffer must be sized to accommodate potential expansion (up to 2x input size for strings with many high-bit characters)
+
+## Simplified Source
+
+```c
+int latin2mic(const unsigned char *l, unsigned char *p, int len,
+              int lc, int encoding, bool noError)
+{
+    const unsigned char *start = l;
+
+    while (len > 0) {
+        int c1 = *l;
+
+        // Check for null byte (invalid)
+        if (c1 == 0) {
+            if (noError) break;
+            report_invalid_encoding(encoding, (const char *) l, len);
+        }
+
+        // High-bit characters: prepend MIC language code
+        if (IS_HIGHBIT_SET(c1)) {
+            *p++ = lc;  // MIC language code first
+        }
+
+        // Copy the original character
+        *p++ = c1;
+
+        l++;
+        len--;
+    }
+
+    *p = '\0';
+    return l - start;  // Return bytes consumed
+}
+```

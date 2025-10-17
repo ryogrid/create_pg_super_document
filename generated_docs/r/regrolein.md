@@ -43,3 +43,43 @@ The function includes comprehensive error handling for invalid names, non-existe
 - Returns NULL for parsing failures when using error context
 - The regrole type enables referencing roles symbolically while storing them as OIDs
 - Provides symmetry with regroleout for complete type I/O operations
+
+## Simplified Source
+
+```c
+Datum regrolein(PG_FUNCTION_ARGS) {
+    char *role_name_or_oid = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    Oid result;
+    List *names;
+
+    // Handle "-" (unknown role) or numeric OID input
+    if (parseDashOrOid(role_name_or_oid, &result, escontext))
+        PG_RETURN_OID(result);
+
+    // Bootstrap mode only accepts OIDs
+    if (IsBootstrapProcessingMode())
+        elog(ERROR, "regrole values must be OIDs in bootstrap mode");
+
+    // Parse role name and validate syntax
+    names = stringToQualifiedNameList(role_name_or_oid, escontext);
+    if (names == NIL)
+        PG_RETURN_NULL();
+
+    if (list_length(names) != 1)
+        ereturn(escontext, (Datum) 0,
+                (errcode(ERRCODE_INVALID_NAME),
+                 errmsg("invalid name syntax")));
+
+    // Look up role OID by name
+    result = get_role_oid(strVal(linitial(names)), true);
+
+    if (!OidIsValid(result))
+        ereturn(escontext, (Datum) 0,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("role \"%s\" does not exist",
+                        strVal(linitial(names)))));
+
+    PG_RETURN_OID(result);
+}
+```

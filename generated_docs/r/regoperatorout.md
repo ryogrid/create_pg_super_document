@@ -37,3 +37,21 @@ This function is part of PostgreSQL's regtype family of functions that provide t
 - Returns "0" for invalid OIDs as a special case
 - The actual formatting logic is delegated to  which handles the complex task of looking up operator names and argument types
 - Part of the regtype family of functions (regproc, regtype, regclass, regoperator, etc.) that provide textual representations of database objects
+
+## Simplified Source
+
+```c
+Datum regoperatorout(PG_FUNCTION_ARGS) {
+    Oid operator_oid = PG_GETARG_OID(0);
+    char *result;
+
+    // Handle invalid OID as special case
+    if (operator_oid == InvalidOid)
+        result = pstrdup("0");
+    else
+        // Format operator with name and argument types
+        result = format_operator(operator_oid);
+
+    PG_RETURN_CSTRING(result);
+}
+```

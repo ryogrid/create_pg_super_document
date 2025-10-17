@@ -40,3 +40,51 @@ A key design consideration is that if the input is a read/write pointer, the fun
 - Handles both aggregate and non-aggregate function contexts appropriately
 - Provides robust error handling for invalid data types
 - Critical for array manipulation functions that need to handle null inputs gracefully
+
+## Simplified Source
+
+```c
+static ExpandedArrayHeader *fetch_array_arg_replace_nulls(FunctionCallInfo fcinfo, int argno) {
+    ExpandedArrayHeader *eah;
+    ArrayMetaState *my_extra;
+    MemoryContext resultcxt;
+
+    // Initialize or retrieve cached metadata
+    my_extra = (ArrayMetaState *) fcinfo->flinfo->fn_extra;
+    if (my_extra == NULL) {
+        my_extra = (ArrayMetaState *)
+            MemoryContextAlloc(fcinfo->flinfo->fn_mcxt, sizeof(ArrayMetaState));
+        my_extra->element_type = InvalidOid;
+        fcinfo->flinfo->fn_extra = my_extra;
+    }
+
+    // Determine target memory context (aggregate vs normal)
+    if (!AggCheckCallContext(fcinfo, &resultcxt))
+        resultcxt = CurrentMemoryContext;
+
+    // Handle non-null argument: get expanded array
+    if (!PG_ARGISNULL(argno)) {
+        MemoryContext oldcxt = MemoryContextSwitchTo(resultcxt);
+        eah = PG_GETARG_EXPANDED_ARRAYX(argno, my_extra);
+        MemoryContextSwitchTo(oldcxt);
+    }
+    else {
+        // Handle null argument: create empty array of proper type
+        Oid arr_typeid = get_fn_expr_argtype(fcinfo->flinfo, argno);
+        Oid element_type;
+
+        if (!OidIsValid(arr_typeid))
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("could not determine input data type")));
+
+        element_type = get_element_type(arr_typeid);
+        if (!OidIsValid(element_type))
+            ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                           errmsg("input data type is not an array")));
+
+        eah = construct_empty_expanded_array(element_type, resultcxt, my_extra);
+    }
+
+    return eah;
+}
+```

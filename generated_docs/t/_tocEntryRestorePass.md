@@ -1,9 +1,15 @@
-_tocEntryRestorePass
+# _tocEntryRestorePass
+
+## Location
+[src/bin/pg_dump/pg_backup_archiver.c:3207-3237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L3207-L3237)
 
 ## Overview
 This function determines which restore pass a table of contents entry should be processed in, ensuring proper ordering for ACLs, event triggers, and their associated comments during PostgreSQL restoration.
 
 ## Definition
+```c
+static RestorePass _tocEntryRestorePass(TocEntry *te)
+```
 
 
 ## Detailed Description
@@ -36,3 +42,28 @@ This ordering is critical because ACLs depend on the existence of their target o
 - Critical for maintaining referential integrity and proper object creation order
 - Used extensively in both single-threaded and parallel restoration modes
 - The pass assignment affects when objects are created relative to other database objects
+
+## Simplified Source
+
+```c
+static RestorePass _tocEntryRestorePass(TocEntry *te) {
+    // ACL entries go in dedicated ACL pass
+    if (strcmp(te->desc, "ACL") == 0 ||
+        strcmp(te->desc, "ACL LANGUAGE") == 0 ||  // Legacy PG 7.4
+        strcmp(te->desc, "DEFAULT ACL") == 0)
+        return RESTORE_PASS_ACL;
+
+    // Event triggers and materialized view data need post-ACL pass
+    if (strcmp(te->desc, "EVENT TRIGGER") == 0 ||
+        strcmp(te->desc, "MATERIALIZED VIEW DATA") == 0)
+        return RESTORE_PASS_POST_ACL;
+
+    // Event trigger comments must be in same pass as their parent
+    if (strcmp(te->desc, "COMMENT") == 0 &&
+        strncmp(te->tag, "EVENT TRIGGER ", 14) == 0)
+        return RESTORE_PASS_POST_ACL;
+
+    // Everything else goes in main pass
+    return RESTORE_PASS_MAIN;
+}
+```

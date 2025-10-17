@@ -66,3 +66,73 @@ Key features include:
 - Critical for ensuring data consistency between publisher and subscriber by validating schema compatibility
 - The function can handle scenarios where publications have conflicting specifications and reports appropriate errors
 - Row filters from multiple publications are combined using OR logic during COPY operations
+
+## Simplified Source
+
+```c
+static void fetch_remote_table_info(char *nspname, char *relname,
+                                     LogicalRepRelation *lrel, List **qual)
+{
+    WalRcvExecResult *res;
+    StringInfoData cmd;
+    TupleTableSlot *slot;
+    bool isnull;
+    Bitmapset *included_cols = NULL;
+
+    // Initialize relation info
+    lrel->nspname = nspname;
+    lrel->relname = relname;
+
+    // Step 1: Fetch basic table info (OID, replica identity, relation kind)
+    initStringInfo(&cmd);
+    appendStringInfo(&cmd, "SELECT c.oid, c.relreplident, c.relkind"
+                     "  FROM pg_catalog.pg_class c"
+                     "  INNER JOIN pg_catalog.pg_namespace n"
+                     "        ON (c.relnamespace = n.oid)"
+                     " WHERE n.nspname = %s AND c.relname = %s",
+                     quote_literal_cstr(nspname), quote_literal_cstr(relname));
+
+    res = walrcv_exec(LogRepWorkerWalRcvConn, cmd.data, 3, tableRow);
+
+    if (res->status != WALRCV_OK_TUPLES)
+        ereport(ERROR, (errcode(ERRCODE_CONNECTION_FAILURE),
+                errmsg("could not fetch table info for table \"%s.%s\" from publisher",
+                       nspname, relname)));
+
+    // Extract basic table info
+    slot = MakeSingleTupleTableSlot(res->tupledesc, &TTSOpsMinimalTuple);
+    if (!tuplestore_gettupleslot(res->tuplestore, true, false, slot))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                errmsg("table \"%s.%s\" not found on publisher", nspname, relname)));
+
+    lrel->remoteid = DatumGetObjectId(slot_getattr(slot, 1, &isnull));
+    lrel->replident = DatumGetChar(slot_getattr(slot, 2, &isnull));
+    lrel->relkind = DatumGetChar(slot_getattr(slot, 3, &isnull));
+
+    ExecDropSingleTupleTableSlot(slot);
+    walrcv_clear_result(res);
+
+    // Step 2: Get column lists for PG 15+ (if server supports it)
+    if (walrcv_server_version(LogRepWorkerWalRcvConn) >= 150000) {
+        // Build publication names list and query for column lists
+        // Handle multiple publications with consistent column lists
+        // Build bitmap of included columns if column list filtering is used
+    }
+
+    // Step 3: Fetch column names and types
+    // Query pg_attribute for column metadata
+    // Filter columns based on included_cols bitmap if applicable
+    // Populate lrel->attnames, lrel->atttyps, lrel->attkeys arrays
+
+    // Step 4: Get row filter qualifications for PG 15+
+    if (walrcv_server_version(LogRepWorkerWalRcvConn) >= 150000) {
+        // Query publication row filters and combine them
+        // Build qualification expression list for WHERE clauses
+    }
+
+    // Cleanup and return
+    pfree(cmd.data);
+    if (included_cols)
+        bms_free(included_cols);
+}
+```

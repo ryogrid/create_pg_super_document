@@ -38,3 +38,20 @@ The function stores references to the option structures within the archive handl
 - Used by both pg_dump and pg_restore utilities to configure archive behavior
 - The option synthesis feature allows restore operations to work with appropriate dump-compatible settings
 - This function must be called after archive creation but before archive operations begin
+
+## Simplified Source
+
+```c
+void
+SetArchiveOptions(Archive *AH, DumpOptions *dopt, RestoreOptions *ropt)
+{
+    // If no dump options provided but restore options are available,
+    // synthesize dump options from restore options
+    if (dopt == NULL && ropt != NULL)
+        dopt = dumpOptionsFromRestoreOptions(ropt);
+
+    // Store option references in the archive for later access
+    AH->dopt = dopt;
+    AH->ropt = ropt;
+}
+```

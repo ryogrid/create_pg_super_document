@@ -41,3 +41,26 @@ The function is typically used during TSQuery cleanup operations to determine ho
 - The calculated length includes space for operand text plus additional overhead (likely delimiters/terminators)
 - Used primarily for memory management during TSQuery processing and cleanup operations
 - The function performs a simple tree traversal without stack depth checking since string length calculation is lightweight
+
+## Simplified Source
+
+```c
+static int32 calcstrlen(NODE *node) {
+    int32 total_length = 0;
+
+    if (node->valnode->type == QI_VAL) {
+        // For value nodes, return operand length plus 1 (for null terminator)
+        total_length = node->valnode->qoperand.length + 1;
+    } else {
+        // For operator nodes, sum lengths from children
+        total_length = calcstrlen(node->right);
+
+        // NOT operators only have right child; others have both
+        if (node->valnode->qoperator.oper != OP_NOT) {
+            total_length += calcstrlen(node->left);
+        }
+    }
+
+    return total_length;
+}
+```

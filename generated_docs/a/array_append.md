@@ -43,3 +43,50 @@ The function includes overflow protection when calculating the new element index
 - Returns a new array datum rather than modifying the input in-place
 - Handles null elements gracefully by preserving null values in the result array
 - Part of PostgreSQL's array manipulation function suite
+
+## Simplified Source
+
+```c
+Datum array_append(PG_FUNCTION_ARGS) {
+    ExpandedArrayHeader *eah;
+    Datum newelem;
+    bool isNull;
+    Datum result;
+    int indx;
+    ArrayMetaState *my_extra;
+
+    // Get array argument (replace null with empty array)
+    eah = fetch_array_arg_replace_nulls(fcinfo, 0);
+
+    // Get new element to append
+    isNull = PG_ARGISNULL(1);
+    if (isNull)
+        newelem = (Datum) 0;
+    else
+        newelem = PG_GETARG_DATUM(1);
+
+    // Calculate index for new element
+    if (eah->ndims == 1) {
+        // Append to existing 1D array: index = lb[0] + dims[0]
+        if (pg_add_s32_overflow(eah->lbound[0], eah->dims[0], &indx))
+            ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                           errmsg("integer out of range")));
+    }
+    else if (eah->ndims == 0) {
+        // First element in empty array
+        indx = 1;
+    }
+    else {
+        // Error: only 0D and 1D arrays supported
+        ereport(ERROR, (errcode(ERRCODE_DATA_EXCEPTION),
+                       errmsg("argument must be empty or one-dimensional array")));
+    }
+
+    // Insert the element at the calculated index
+    my_extra = (ArrayMetaState *) fcinfo->flinfo->fn_extra;
+    result = array_set_element(EOHPGetRWDatum(&eah->hdr), 1, &indx, newelem, isNull,
+                              -1, my_extra->typlen, my_extra->typbyval, my_extra->typalign);
+
+    PG_RETURN_DATUM(result);
+}
+```

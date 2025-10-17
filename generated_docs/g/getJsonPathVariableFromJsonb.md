@@ -39,3 +39,36 @@ This function serves as a JsonPathGetVarCallback implementation specifically des
 - Returns NULL if the variable is not found in the JSONB object
 - Sets baseObjectId to 1 when variable is found, -1 when not found
 - Part of PostgreSQL's JSON path variable resolution system for JSONB-stored variables
+
+## Simplified Source
+
+```c
+static JsonbValue *
+getJsonPathVariableFromJsonb(void *varsJsonb, char *varName, int varNameLength,
+                            JsonbValue *baseObject, int *baseObjectId)
+{
+    Jsonb *vars = varsJsonb;
+    JsonbValue tmp;
+    JsonbValue *result;
+
+    // Create a string value for the variable name lookup
+    tmp.type = jbvString;
+    tmp.val.string.val = varName;
+    tmp.val.string.len = varNameLength;
+
+    // Search for the variable in the JSONB object
+    result = findJsonbValueFromContainer(&vars->root, JB_FOBJECT, &tmp);
+
+    if (result == NULL) {
+        // Variable not found
+        *baseObjectId = -1;
+        return NULL;
+    }
+
+    // Variable found - set up base object context
+    *baseObjectId = 1;
+    JsonbInitBinary(baseObject, vars);
+
+    return result;
+}
+```

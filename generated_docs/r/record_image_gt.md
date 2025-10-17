@@ -35,3 +35,12 @@ The function takes two HeapTupleHeader arguments through the PostgreSQL function
 - Returns true only if record_image_cmp returns a positive value (> 0)
 - Located in src/backend/utils/adt/rowtypes.c:1765-1770
 - Part of a family of image comparison functions (lt, gt, le, ge) that all delegate to record_image_cmp
+
+## Simplified Source
+
+```c
+Datum record_image_gt(PG_FUNCTION_ARGS) {
+    // Return true if first record is greater than second record
+    return (record_image_cmp(fcinfo) > 0);
+}
+```

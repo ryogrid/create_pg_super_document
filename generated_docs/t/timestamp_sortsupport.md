@@ -30,3 +30,22 @@ This function implements PostgreSQL's sort support interface for timestamp value
 - The function uses conditional compilation (#if SIZEOF_DATUM >= 8) to optimize for different platform architectures
 - This is part of PostgreSQL's sort support infrastructure, which allows data types to provide optimized comparison functions for sorting operations
 - The choice between comparators is based on whether timestamps are pass-by-value (64-bit platforms) or pass-by-reference (32-bit platforms)
+
+## Simplified Source
+
+```c
+Datum timestamp_sortsupport(PG_FUNCTION_ARGS) {
+    SortSupport ssup = (SortSupport) PG_GETARG_POINTER(0);
+
+    // Choose optimal comparator based on platform architecture
+    #if SIZEOF_DATUM >= 8
+        // 64-bit builds: use standard signed datum comparator
+        ssup->comparator = ssup_datum_signed_cmp;
+    #else
+        // 32-bit builds: use specialized timestamp comparator
+        ssup->comparator = timestamp_fastcmp;
+    #endif
+
+    PG_RETURN_VOID();
+}
+```

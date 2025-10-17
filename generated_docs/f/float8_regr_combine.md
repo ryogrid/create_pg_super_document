@@ -38,3 +38,73 @@ This function implements the combine phase for parallel regression aggregates, m
 - Includes comprehensive overflow detection for Sxx, Syy, and Sxy calculations
 - Optimizes memory usage by modifying first input array in-place when in aggregate context
 - Essential for PostgreSQL's parallel query processing capabilities for statistical functions
+
+## Simplified Source
+
+```c
+Datum float8_regr_combine(PG_FUNCTION_ARGS) {
+    // Extract two transition state arrays
+    ArrayType *transarray1 = PG_GETARG_ARRAYTYPE_P(0);
+    ArrayType *transarray2 = PG_GETARG_ARRAYTYPE_P(1);
+
+    // Validate and extract 6-element float8 arrays
+    float8 *values1 = check_float8_array(transarray1, "float8_regr_combine", 6);
+    float8 *values2 = check_float8_array(transarray2, "float8_regr_combine", 6);
+
+    // Extract transition state components
+    float8 N1 = values1[0], Sx1 = values1[1], Sxx1 = values1[2];
+    float8 Sy1 = values1[3], Syy1 = values1[4], Sxy1 = values1[5];
+
+    float8 N2 = values2[0], Sx2 = values2[1], Sxx2 = values2[2];
+    float8 Sy2 = values2[3], Syy2 = values2[4], Sxy2 = values2[5];
+
+    float8 N, Sx, Sxx, Sy, Syy, Sxy;
+
+    // Handle special cases: empty transition states
+    if (N1 == 0.0) {
+        // Use second state entirely
+        N = N2; Sx = Sx2; Sxx = Sxx2;
+        Sy = Sy2; Syy = Syy2; Sxy = Sxy2;
+    } else if (N2 == 0.0) {
+        // Use first state entirely
+        N = N1; Sx = Sx1; Sxx = Sxx1;
+        Sy = Sy1; Syy = Syy1; Sxy = Sxy1;
+    } else {
+        // Combine using Youngs-Cramer algorithm
+        N = N1 + N2;
+        Sx = float8_pl(Sx1, Sx2);
+
+        // Combine squared deviations with correction terms
+        float8 mean_diff_x = Sx1 / N1 - Sx2 / N2;
+        float8 mean_diff_y = Sy1 / N1 - Sy2 / N2;
+
+        Sxx = Sxx1 + Sxx2 + N1 * N2 * mean_diff_x * mean_diff_x / N;
+        if (unlikely(isinf(Sxx)) && !isinf(Sxx1) && !isinf(Sxx2))
+            float_overflow_error();
+
+        Sy = float8_pl(Sy1, Sy2);
+        Syy = Syy1 + Syy2 + N1 * N2 * mean_diff_y * mean_diff_y / N;
+        if (unlikely(isinf(Syy)) && !isinf(Syy1) && !isinf(Syy2))
+            float_overflow_error();
+
+        Sxy = Sxy1 + Sxy2 + N1 * N2 * mean_diff_x * mean_diff_y / N;
+        if (unlikely(isinf(Sxy)) && !isinf(Sxy1) && !isinf(Sxy2))
+            float_overflow_error();
+    }
+
+    // Return result: modify in-place if in aggregate context, else create new array
+    if (AggCheckCallContext(fcinfo, NULL)) {
+        values1[0] = N; values1[1] = Sx; values1[2] = Sxx;
+        values1[3] = Sy; values1[4] = Syy; values1[5] = Sxy;
+        PG_RETURN_ARRAYTYPE_P(transarray1);
+    } else {
+        Datum datums[6] = {
+            Float8GetDatumFast(N), Float8GetDatumFast(Sx), Float8GetDatumFast(Sxx),
+            Float8GetDatumFast(Sy), Float8GetDatumFast(Syy), Float8GetDatumFast(Sxy)
+        };
+        ArrayType *result = construct_array(datums, 6, FLOAT8OID,
+            sizeof(float8), FLOAT8PASSBYVAL, TYPALIGN_DOUBLE);
+        PG_RETURN_ARRAYTYPE_P(result);
+    }
+}
+```

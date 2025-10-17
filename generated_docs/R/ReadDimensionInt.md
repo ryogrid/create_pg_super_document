@@ -45,3 +45,34 @@ This function is specifically designed for dimension parsing where integers must
 - Performs strict range checking to prevent integer overflow in downstream calculations
 - Uses errno to detect strtol() overflow conditions
 - Designed specifically for array dimension parsing where bounds must fit in int32
+
+## Simplified Source
+
+```c
+static bool
+ReadDimensionInt(char **srcptr, int *result,
+                 const char *origStr, Node *escontext)
+{
+    char   *p = *srcptr;
+    long    l;
+
+    // Return 0 if not starting with digit, '-', or '+'
+    if (!isdigit((unsigned char) *p) && *p != '-' && *p != '+') {
+        *result = 0;
+        return true;
+    }
+
+    // Parse integer using standard library
+    errno = 0;
+    l = strtol(p, srcptr, 10);
+
+    // Check for overflow or out-of-range values
+    if (errno == ERANGE || l > PG_INT32_MAX || l < PG_INT32_MIN)
+        ereturn(escontext, false,
+                (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                 errmsg("array bound is out of integer range")));
+
+    *result = (int) l;
+    return true;
+}
+```

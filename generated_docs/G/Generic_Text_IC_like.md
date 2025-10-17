@@ -52,3 +52,61 @@ The dual approach optimizes performance: single-byte encodings can perform case 
 - ICU (International Components for Unicode) provider requires the pre-lowercasing approach because it doesn't support single-character case folding
 - Part of PostgreSQL's comprehensive internationalization support while maintaining optimal performance for common single-byte cases
 - Returns LIKE_TRUE, LIKE_FALSE, or LIKE_ABORT depending on match result
+
+## Simplified Source
+
+```c
+static inline int
+Generic_Text_IC_like(text *str, text *pat, Oid collation)
+{
+    char *s, *p;
+    int slen, plen;
+    pg_locale_t locale = 0;
+    bool locale_is_c = false;
+
+    // Validate collation is provided
+    if (!OidIsValid(collation)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INDETERMINATE_COLLATION),
+                 errmsg("could not determine which collation to use for ILIKE"),
+                 errhint("Use the COLLATE clause to set the collation explicitly.")));
+    }
+
+    // Set up locale handling
+    if (lc_ctype_is_c(collation))
+        locale_is_c = true;
+    else
+        locale = pg_newlocale_from_collation(collation);
+
+    // Check for deterministic collation
+    if (!pg_locale_deterministic(locale))
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("nondeterministic collations are not supported for ILIKE")));
+
+    // Choose strategy based on encoding and locale provider
+    if (pg_database_encoding_max_length() > 1 || (locale && locale->provider == COLLPROVIDER_ICU)) {
+        // Multibyte or ICU: pre-convert to lowercase, then match
+        pat = DatumGetTextPP(DirectFunctionCall1Coll(lower, collation, PointerGetDatum(pat)));
+        str = DatumGetTextPP(DirectFunctionCall1Coll(lower, collation, PointerGetDatum(str)));
+
+        p = VARDATA_ANY(pat);
+        plen = VARSIZE_ANY_EXHDR(pat);
+        s = VARDATA_ANY(str);
+        slen = VARSIZE_ANY_EXHDR(str);
+
+        if (GetDatabaseEncoding() == PG_UTF8)
+            return UTF8_MatchText(s, slen, p, plen, 0, true);
+        else
+            return MB_MatchText(s, slen, p, plen, 0, true);
+    } else {
+        // Single-byte: use fold-on-the-fly for efficiency
+        p = VARDATA_ANY(pat);
+        plen = VARSIZE_ANY_EXHDR(pat);
+        s = VARDATA_ANY(str);
+        slen = VARSIZE_ANY_EXHDR(str);
+
+        return SB_IMatchText(s, slen, p, plen, locale, locale_is_c);
+    }
+}
+```

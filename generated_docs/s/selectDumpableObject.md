@@ -52,3 +52,23 @@ This function is used as a fallback for object types that don't require special 
 - Objects without namespace associations are only dumped during complete dumps
 - Extension membership overrides all other policy decisions
 - Used by a wide variety of PostgreSQL object types including publications, subscriptions, operators, collations, functions, and text search objects
+
+## Simplified Source
+
+```c
+static void
+selectDumpableObject(DumpableObject *dobj, Archive *fout)
+{
+    // Extension membership overrides all other policies
+    if (checkExtensionMembership(dobj, fout))
+        return;
+
+    // Objects with namespace: inherit from namespace policy
+    // Objects without namespace: dump only if dumping everything
+    if (dobj->namespace)
+        dobj->dump = dobj->namespace->dobj.dump_contains;
+    else
+        dobj->dump = fout->dopt->include_everything ?
+            DUMP_COMPONENT_ALL : DUMP_COMPONENT_NONE;
+}
+```

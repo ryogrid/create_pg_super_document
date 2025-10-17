@@ -35,3 +35,38 @@ GetDbnameFromConnectionOptions is a special-purpose function that extracts the d
 - Follows the same precedence order as GetConnection(): connection string first, then environment defaults
 - Used by pg_basebackup utilities to determine the target database when needed for specific operations
 - Does not establish an actual database connection, only parses connection parameters
+
+## Simplified Source
+
+```c
+char *
+GetDbnameFromConnectionOptions(void)
+{
+    PQconninfoOption *conn_opts;
+    char *err_msg = NULL;
+    char *dbname;
+
+    // First try connection string if provided
+    if (connection_string) {
+        conn_opts = PQconninfoParse(connection_string, &err_msg);
+        if (conn_opts == NULL)
+            pg_fatal("%s", err_msg);
+
+        dbname = FindDbnameInConnParams(conn_opts);
+
+        PQconninfoFree(conn_opts);
+        if (dbname)
+            return dbname;
+    }
+
+    // Fall back to environment defaults
+    conn_opts = PQconndefaults();
+    if (conn_opts == NULL)
+        pg_fatal("out of memory");
+
+    dbname = FindDbnameInConnParams(conn_opts);
+
+    PQconninfoFree(conn_opts);
+    return dbname;
+}
+```

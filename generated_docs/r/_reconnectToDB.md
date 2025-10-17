@@ -47,3 +47,42 @@ After reconnection, the function resets session state tracking variables (curren
 - Essential for multi-database restore operations where objects exist in different databases
 - Uses restrict/unrestrict mechanism to safely handle psql meta-commands
 - Automatically re-establishes consistent session parameters after reconnection
+
+## Simplified Source
+
+```c
+static void _reconnectToDB(ArchiveHandle *AH, const char *dbname) {
+    if (RestoringToDB(AH)) {
+        // Connected mode: establish actual connection
+        ReconnectToServer(AH, dbname);
+    } else {
+        // Script mode: output psql connect command
+        PQExpBufferData connectbuf;
+        RestoreOptions *ropt = AH->public.ropt;
+
+        // Temporarily exit restricted mode for \connect
+        ahprintf(AH, "\\unrestrict %s\n", ropt->restrict_key);
+
+        initPQExpBuffer(&connectbuf);
+        appendPsqlMetaConnect(&connectbuf, dbname);
+        ahprintf(AH, "%s", connectbuf.data);
+        termPQExpBuffer(&connectbuf);
+
+        // Re-enter restricted mode
+        ahprintf(AH, "\\restrict %s\n\n", ropt->restrict_key);
+    }
+
+    // Reset session state tracking
+    free(AH->currUser);
+    AH->currUser = NULL;
+    free(AH->currSchema);
+    AH->currSchema = NULL;
+    free(AH->currTableAm);
+    AH->currTableAm = NULL;
+    free(AH->currTablespace);
+    AH->currTablespace = NULL;
+
+    // Re-establish fixed output state
+    _doSetFixedOutputState(AH);
+}
+```

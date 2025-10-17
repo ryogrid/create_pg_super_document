@@ -42,3 +42,132 @@ This comprehensive function serves as the central dispatcher for testing various
 - Column-level properties like ASC/DESC require orderable access methods
 - Distance-orderable property testing is primarily delegated to AM-specific routines
 - Returnable property testing may require opening the index relation for detailed analysis
+
+## Simplified Source
+
+```c
+static Datum indexam_property(FunctionCallInfo fcinfo, const char *propname,
+                             Oid amoid, Oid index_oid, int attno)
+{
+    bool res = false;
+    bool isnull = false;
+    int natts = 0;
+    IndexAMProperty prop;
+    IndexAmRoutine *routine;
+
+    // Convert property name to enum
+    prop = lookup_prop_name(propname);
+
+    // If we have an index OID, look up the AM and get column count
+    if (OidIsValid(index_oid)) {
+        HeapTuple tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(index_oid));
+        if (!HeapTupleIsValid(tuple))
+            PG_RETURN_NULL();
+
+        Form_pg_class rd_rel = (Form_pg_class) GETSTRUCT(tuple);
+        if (rd_rel->relkind != RELKIND_INDEX &&
+            rd_rel->relkind != RELKIND_PARTITIONED_INDEX) {
+            ReleaseSysCache(tuple);
+            PG_RETURN_NULL();
+        }
+
+        amoid = rd_rel->relam;
+        natts = rd_rel->relnatts;
+        ReleaseSysCache(tuple);
+    }
+
+    // Validate column number
+    if (attno < 0 || attno > natts)
+        PG_RETURN_NULL();
+
+    // Get AM routine
+    routine = GetIndexAmRoutineByAmId(amoid, true);
+    if (routine == NULL)
+        PG_RETURN_NULL();
+
+    // Let AM handle property if it has custom logic
+    if (routine->amproperty &&
+        routine->amproperty(index_oid, attno, prop, propname, &res, &isnull)) {
+        if (isnull)
+            PG_RETURN_NULL();
+        PG_RETURN_BOOL(res);
+    }
+
+    // Handle column-level properties
+    if (attno > 0) {
+        HeapTuple tuple = SearchSysCache1(INDEXRELID, ObjectIdGetDatum(index_oid));
+        if (!HeapTupleIsValid(tuple))
+            PG_RETURN_NULL();
+
+        Form_pg_index rd_index = (Form_pg_index) GETSTRUCT(tuple);
+        bool iskey = (routine->amcaninclude && attno > rd_index->indnkeyatts) ? false : true;
+
+        isnull = true;
+
+        // Test specific column properties
+        switch (prop) {
+            case AMPROP_ASC:
+                if (iskey && test_indoption(tuple, attno, routine->amcanorder,
+                                          INDOPTION_DESC, 0, &res))
+                    isnull = false;
+                break;
+            case AMPROP_DESC:
+                if (iskey && test_indoption(tuple, attno, routine->amcanorder,
+                                          INDOPTION_DESC, INDOPTION_DESC, &res))
+                    isnull = false;
+                break;
+            case AMPROP_ORDERABLE:
+                res = iskey ? routine->amcanorder : false;
+                isnull = false;
+                break;
+            case AMPROP_RETURNABLE:
+                isnull = false;
+                res = false;
+                if (routine->amcanreturn) {
+                    Relation indexrel = index_open(index_oid, AccessShareLock);
+                    res = index_can_return(indexrel, attno);
+                    index_close(indexrel, AccessShareLock);
+                }
+                break;
+            // ... other column properties
+        }
+
+        ReleaseSysCache(tuple);
+        if (!isnull)
+            PG_RETURN_BOOL(res);
+        PG_RETURN_NULL();
+    }
+
+    // Handle index-level properties
+    if (OidIsValid(index_oid)) {
+        switch (prop) {
+            case AMPROP_CLUSTERABLE:
+                PG_RETURN_BOOL(routine->amclusterable);
+            case AMPROP_INDEX_SCAN:
+                PG_RETURN_BOOL(routine->amgettuple ? true : false);
+            case AMPROP_BITMAP_SCAN:
+                PG_RETURN_BOOL(routine->amgetbitmap ? true : false);
+            case AMPROP_BACKWARD_SCAN:
+                PG_RETURN_BOOL(routine->amcanbackward);
+            default:
+                PG_RETURN_NULL();
+        }
+    }
+
+    // Handle AM-level properties
+    switch (prop) {
+        case AMPROP_CAN_ORDER:
+            PG_RETURN_BOOL(routine->amcanorder);
+        case AMPROP_CAN_UNIQUE:
+            PG_RETURN_BOOL(routine->amcanunique);
+        case AMPROP_CAN_MULTI_COL:
+            PG_RETURN_BOOL(routine->amcanmulticol);
+        case AMPROP_CAN_EXCLUDE:
+            PG_RETURN_BOOL(routine->amgettuple ? true : false);
+        case AMPROP_CAN_INCLUDE:
+            PG_RETURN_BOOL(routine->amcaninclude);
+        default:
+            PG_RETURN_NULL();
+    }
+}
+```

@@ -31,3 +31,14 @@ This function is part of PostgreSQL's type system infrastructure and is called a
 - Companion to regtypesend for binary serialization/deserialization
 - Located in src/backend/utils/adt/regproc.c
 - Handles binary protocol conversion automatically within PostgreSQL's type system
+
+## Simplified Source
+
+```c
+Datum
+regtyperecv(PG_FUNCTION_ARGS)
+{
+    // Delegate to oidrecv since regtype is internally an OID
+    return oidrecv(fcinfo);
+}
+```

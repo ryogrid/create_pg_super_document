@@ -50,3 +50,109 @@ For each token type, the function maintains an array of dictionary OIDs that wil
 - The mapping structure enables efficient lookup during text search operations by pre-organizing dictionary sequences
 - Cache initialization is handled through the separate init_ts_config_cache function to support early callback registration
 - The function validates that the configuration has a valid parser before proceeding with mapping construction
+
+## Simplified Source
+
+```c
+TSConfigCacheEntry *lookup_ts_config_cache(Oid cfgId)
+{
+    TSConfigCacheEntry *entry;
+
+    // Initialize cache if needed
+    if (TSConfigCacheHash == NULL)
+        init_ts_config_cache();
+
+    // Check single-entry cache first
+    if (lastUsedConfig && lastUsedConfig->cfgId == cfgId && lastUsedConfig->isvalid)
+        return lastUsedConfig;
+
+    // Look up existing entry in hash table
+    entry = (TSConfigCacheEntry *) hash_search(TSConfigCacheHash, &cfgId, HASH_FIND, NULL);
+
+    if (entry == NULL || !entry->isvalid) {
+        // Load configuration from system catalog
+        HeapTuple tp = SearchSysCache1(TSCONFIGOID, ObjectIdGetDatum(cfgId));
+        if (!HeapTupleIsValid(tp))
+            elog(ERROR, "cache lookup failed for text search configuration %u", cfgId);
+
+        Form_pg_ts_config cfg = (Form_pg_ts_config) GETSTRUCT(tp);
+
+        // Create or reset cache entry
+        if (entry == NULL) {
+            entry = (TSConfigCacheEntry *) hash_search(TSConfigCacheHash, &cfgId, HASH_ENTER, NULL);
+        } else {
+            // Cleanup old mapping data
+            if (entry->map) {
+                for (int i = 0; i < entry->lenmap; i++)
+                    if (entry->map[i].dictIds)
+                        pfree(entry->map[i].dictIds);
+                pfree(entry->map);
+            }
+        }
+
+        // Initialize entry
+        MemSet(entry, 0, sizeof(TSConfigCacheEntry));
+        entry->cfgId = cfgId;
+        entry->prsId = cfg->cfgparser;
+        ReleaseSysCache(tp);
+
+        // Scan pg_ts_config_map to build token-to-dictionary mappings
+        ListDictionary maplists[MAXTOKENTYPE + 1];
+        Oid mapdicts[MAXDICTSPERTT];
+        int maxtokentype = 0;
+        int ndicts = 0;
+
+        MemSet(maplists, 0, sizeof(maplists));
+
+        ScanKeyData mapskey;
+        ScanKeyInit(&mapskey, Anum_pg_ts_config_map_mapcfg, BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(cfgId));
+
+        // Open catalog and scan for mappings
+        Relation maprel = table_open(TSConfigMapRelationId, AccessShareLock);
+        Relation mapidx = index_open(TSConfigMapIndexId, AccessShareLock);
+        SysScanDesc mapscan = systable_beginscan_ordered(maprel, mapidx, NULL, 1, &mapskey);
+
+        HeapTuple maptup;
+        while ((maptup = systable_getnext_ordered(mapscan, ForwardScanDirection)) != NULL) {
+            Form_pg_ts_config_map cfgmap = (Form_pg_ts_config_map) GETSTRUCT(maptup);
+            int toktype = cfgmap->maptokentype;
+
+            // Start new token type or continue current one
+            if (toktype > maxtokentype) {
+                // Save previous token type's dictionaries
+                if (ndicts > 0) {
+                    maplists[maxtokentype].len = ndicts;
+                    maplists[maxtokentype].dictIds = (Oid *) MemoryContextAlloc(CacheMemoryContext, sizeof(Oid) * ndicts);
+                    memcpy(maplists[maxtokentype].dictIds, mapdicts, sizeof(Oid) * ndicts);
+                }
+                maxtokentype = toktype;
+                mapdicts[0] = cfgmap->mapdict;
+                ndicts = 1;
+            } else {
+                // Add dictionary to current token type
+                mapdicts[ndicts++] = cfgmap->mapdict;
+            }
+        }
+
+        systable_endscan_ordered(mapscan);
+        index_close(mapidx, AccessShareLock);
+        table_close(maprel, AccessShareLock);
+
+        // Save final token type and create overall mapping
+        if (ndicts > 0) {
+            maplists[maxtokentype].len = ndicts;
+            maplists[maxtokentype].dictIds = (Oid *) MemoryContextAlloc(CacheMemoryContext, sizeof(Oid) * ndicts);
+            memcpy(maplists[maxtokentype].dictIds, mapdicts, sizeof(Oid) * ndicts);
+
+            entry->lenmap = maxtokentype + 1;
+            entry->map = (ListDictionary *) MemoryContextAlloc(CacheMemoryContext, sizeof(ListDictionary) * entry->lenmap);
+            memcpy(entry->map, maplists, sizeof(ListDictionary) * entry->lenmap);
+        }
+
+        entry->isvalid = true;
+    }
+
+    lastUsedConfig = entry;
+    return entry;
+}
+```

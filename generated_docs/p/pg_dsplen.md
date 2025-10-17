@@ -32,3 +32,12 @@ The function delegates to the encoding-specific display length function through 
 - Particularly important for Asian character sets where characters may be "wide" (occupy 2 columns)
 - Used less frequently than `pg_mblen` but critical for display-related operations
 - The return value is typically 1 for most Latin characters and 2 for full-width Asian characters
+
+## Simplified Source
+
+```c
+int pg_dsplen(const char *mbstr) {
+    // Get display width of multibyte character using encoding-specific function
+    return pg_wchar_table[DatabaseEncoding->encoding].dsplen((const unsigned char *) mbstr);
+}
+```

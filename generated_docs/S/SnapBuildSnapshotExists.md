@@ -37,3 +37,29 @@ The snapshot files are stored in the  directory with a naming convention based o
 - The function is located in src/backend/replication/logical/snapbuild.c:2206-2223
 - This is primarily used in logical replication slot synchronization to verify snapshot availability before attempting to restore logical decoding state
 - The snapshot files contain serialized transaction visibility information necessary for consistent logical decoding
+
+## Simplified Source
+
+```c
+bool
+SnapBuildSnapshotExists(XLogRecPtr lsn)
+{
+    char path[MAXPGPATH];
+    int ret;
+    struct stat stat_buf;
+
+    // Construct snapshot filename based on LSN
+    sprintf(path, "pg_logical/snapshots/%X-%X.snap",
+            LSN_FORMAT_ARGS(lsn));
+
+    // Check if file exists using stat()
+    ret = stat(path, &stat_buf);
+
+    // Handle errors other than file not found
+    if (ret != 0 && errno != ENOENT)
+        ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("could not stat file \"%s\": %m", path)));
+
+    return ret == 0;
+}
+```

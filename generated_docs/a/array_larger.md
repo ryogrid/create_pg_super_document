@@ -34,3 +34,17 @@ This function implements the SQL GREATEST function for arrays by performing lexi
 - Follows PostgreSQL's standard function calling convention for built-in functions
 - The comparison semantics are consistent with other PostgreSQL array comparison operations
 - Returns the input array unchanged (no copying), making it efficient for large arrays
+
+## Simplified Source
+
+```c
+Datum
+array_larger(PG_FUNCTION_ARGS)
+{
+    // Compare arrays and return the lexicographically larger one
+    if (array_cmp(fcinfo) > 0)
+        PG_RETURN_DATUM(PG_GETARG_DATUM(0));  // First array is larger
+    else
+        PG_RETURN_DATUM(PG_GETARG_DATUM(1));  // Second array is larger or equal
+}
+```

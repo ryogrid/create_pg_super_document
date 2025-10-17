@@ -45,3 +45,43 @@ The  function extracts and returns recovery-specific information stored in Postg
 - backup_end_required flag indicates if backup completion record is mandatory
 - Part of the administrative interface for recovery state monitoring
 - Located in src/backend/utils/misc/pg_controldata.c:163-203
+
+## Simplified Source
+
+```c
+Datum
+pg_control_recovery(PG_FUNCTION_ARGS)
+{
+    Datum values[5];
+    bool nulls[5];
+    TupleDesc tupdesc;
+
+    // Validate function return type is composite
+    if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+        elog(ERROR, "return type must be a row type");
+
+    // Read control file with shared lock
+    LWLockAcquire(ControlFileLock, LW_SHARED);
+    bool crc_ok;
+    ControlFileData *ControlFile = get_controlfile(DataDir, &crc_ok);
+    LWLockRelease(ControlFileLock);
+
+    // Verify control file integrity
+    if (!crc_ok)
+        ereport(ERROR, (errmsg("calculated CRC checksum does not match value stored in file")));
+
+    // Extract recovery information into return values
+    values[0] = LSNGetDatum(ControlFile->minRecoveryPoint);      // Minimum recovery LSN
+    values[1] = Int32GetDatum(ControlFile->minRecoveryPointTLI); // Recovery timeline ID
+    values[2] = LSNGetDatum(ControlFile->backupStartPoint);      // Backup start LSN
+    values[3] = LSNGetDatum(ControlFile->backupEndPoint);        // Backup end LSN
+    values[4] = BoolGetDatum(ControlFile->backupEndRequired);    // Backup end required flag
+
+    // All values are non-null
+    nulls[0] = nulls[1] = nulls[2] = nulls[3] = nulls[4] = false;
+
+    // Create and return composite tuple
+    HeapTuple htup = heap_form_tuple(tupdesc, values, nulls);
+    PG_RETURN_DATUM(HeapTupleGetDatum(htup));
+}
+```

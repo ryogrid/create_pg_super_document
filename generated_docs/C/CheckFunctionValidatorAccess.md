@@ -55,3 +55,50 @@ The function performs comprehensive privilege checking to prevent potential secu
 - Validators should call this function before performing any substantial validation work
 - When this function would return false (future expansion), callers should skip validation and call PG_RETURN_VOID()
 - Part of the procedural language implementation support routines in PostgreSQL's function manager
+
+## Simplified Source
+
+```c
+bool CheckFunctionValidatorAccess(Oid validatorOid, Oid functionOid) {
+    HeapTuple procTup, langTup;
+    Form_pg_proc procStruct;
+    Form_pg_language langStruct;
+    AclResult aclresult;
+
+    // Get function catalog entry
+    procTup = SearchSysCache1(PROCOID, ObjectIdGetDatum(functionOid));
+    if (!HeapTupleIsValid(procTup))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                errmsg("function with OID %u does not exist", functionOid)));
+    procStruct = (Form_pg_proc) GETSTRUCT(procTup);
+
+    // Get language catalog entry
+    langTup = SearchSysCache1(LANGOID, ObjectIdGetDatum(procStruct->prolang));
+    if (!HeapTupleIsValid(langTup))
+        elog(ERROR, "cache lookup failed for language %u", procStruct->prolang);
+    langStruct = (Form_pg_language) GETSTRUCT(langTup);
+
+    // Verify validator matches language
+    if (langStruct->lanvalidator != validatorOid)
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                errmsg("language validation function %u called for language %u instead of %u",
+                       validatorOid, procStruct->prolang, langStruct->lanvalidator)));
+
+    // Check language usage privilege
+    aclresult = object_aclcheck(LanguageRelationId, procStruct->prolang,
+                                GetUserId(), ACL_USAGE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, OBJECT_LANGUAGE, NameStr(langStruct->lanname));
+
+    // Check function execution privilege
+    aclresult = object_aclcheck(ProcedureRelationId, functionOid,
+                                GetUserId(), ACL_EXECUTE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, OBJECT_FUNCTION, NameStr(procStruct->proname));
+
+    ReleaseSysCache(procTup);
+    ReleaseSysCache(langTup);
+
+    return true;
+}
+```

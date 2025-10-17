@@ -39,3 +39,72 @@ This function serves as the core implementation for JSONB array element extracti
 - Handles JSON null values appropriately in text mode by setting SQL null flags
 - Implements efficient memory management with temporary contexts that are reset after each tuple
 - Part of PostgreSQL's JSONB function suite for array processing operations
+
+## Simplified Source
+
+```c
+static Datum
+elements_worker_jsonb(FunctionCallInfo fcinfo, const char *funcname, bool as_text)
+{
+    Jsonb *jb = PG_GETARG_JSONB_P(0);
+    ReturnSetInfo *rsi = (ReturnSetInfo *) fcinfo->resultinfo;
+
+    // Validate input is an array
+    if (JB_ROOT_IS_SCALAR(jb))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("cannot extract elements from a scalar")));
+    if (!JB_ROOT_IS_ARRAY(jb))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("cannot extract elements from an object")));
+
+    // Initialize set-returning function
+    InitMaterializedSRF(fcinfo, MAT_SRF_USE_EXPECTED_DESC | MAT_SRF_BLESS);
+
+    // Create temporary memory context for processing
+    MemoryContext tmp_cxt = AllocSetContextCreate(CurrentMemoryContext,
+                                                  "jsonb_array_elements temporary cxt",
+                                                  ALLOCSET_DEFAULT_SIZES);
+
+    // Iterate through array elements
+    JsonbIterator *it = JsonbIteratorInit(&jb->root);
+    JsonbValue v;
+    JsonbIteratorToken r;
+    bool skipNested = false;
+
+    while ((r = JsonbIteratorNext(&it, &v, skipNested)) != WJB_DONE) {
+        skipNested = true;
+
+        if (r == WJB_ELEM) {
+            Datum values[1];
+            bool nulls[1] = {false};
+
+            // Switch to temporary context for tuple processing
+            MemoryContext old_cxt = MemoryContextSwitchTo(tmp_cxt);
+
+            // Convert element to requested format
+            if (as_text) {
+                if (v.type == jbvNull) {
+                    nulls[0] = true;
+                    values[0] = (Datum) NULL;
+                } else {
+                    values[0] = PointerGetDatum(JsonbValueAsText(&v));
+                }
+            } else {
+                // Return as JSONB
+                Jsonb *val = JsonbValueToJsonb(&v);
+                values[0] = PointerGetDatum(val);
+            }
+
+            // Store the tuple result
+            tuplestore_putvalues(rsi->setResult, rsi->setDesc, values, nulls);
+
+            // Clean up temporary context
+            MemoryContextSwitchTo(old_cxt);
+            MemoryContextReset(tmp_cxt);
+        }
+    }
+
+    MemoryContextDelete(tmp_cxt);
+    PG_RETURN_NULL();
+}
+```

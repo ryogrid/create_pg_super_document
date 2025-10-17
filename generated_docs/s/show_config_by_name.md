@@ -35,3 +35,20 @@ The function follows PostgreSQL's standard function calling convention using the
 - For a version that handles missing parameters without errors, use show_config_by_name_missing_ok()
 - The function is registered in the PostgreSQL system catalogs and can be called from any SQL context
 - Return value is always of PostgreSQL text type, regardless of the underlying parameter's data type
+
+## Simplified Source
+
+```c
+Datum
+show_config_by_name(PG_FUNCTION_ARGS)
+{
+    // Get parameter name from function argument
+    char *param_name = TextDatumGetCString(PG_GETARG_DATUM(0));
+
+    // Retrieve the configuration value
+    char *param_value = GetConfigOptionByName(param_name, NULL, false);
+
+    // Convert to PostgreSQL text type and return
+    PG_RETURN_TEXT_P(cstring_to_text(param_value));
+}
+```

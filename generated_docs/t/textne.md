@@ -42,3 +42,54 @@ textne(PG_FUNCTION_ARGS)
 - Provides fast inequality detection through length comparison before content analysis
 - Part of the complete set of text comparison operators in PostgreSQL
 - Implements proper memory management to prevent leaks in repeated operations
+
+## Simplified Source
+```c
+Datum textne(PG_FUNCTION_ARGS)
+{
+    Oid collation_id = PG_GET_COLLATION();
+    bool result;
+
+    check_collation_set(collation_id);
+
+    // Fast path for C locale and deterministic collations
+    if (lc_collate_is_c(collation_id) ||
+        pg_locale_deterministic(pg_newlocale_from_collation(collation_id))) {
+
+        Datum arg1 = PG_GETARG_DATUM(0);
+        Datum arg2 = PG_GETARG_DATUM(1);
+
+        // Quick inequality check: different lengths = not equal
+        Size len1 = toast_raw_datum_size(arg1);
+        Size len2 = toast_raw_datum_size(arg2);
+
+        if (len1 != len2) {
+            result = true;  // Different lengths = not equal
+        } else {
+            // Same length: compare bytes directly
+            text *text1 = DatumGetTextPP(arg1);
+            text *text2 = DatumGetTextPP(arg2);
+
+            result = (memcmp(VARDATA_ANY(text1), VARDATA_ANY(text2),
+                            len1 - VARHDRSZ) != 0);
+
+            // Cleanup memory if needed
+            PG_FREE_IF_COPY(text1, 0);
+            PG_FREE_IF_COPY(text2, 1);
+        }
+    }
+    // Slow path for non-deterministic collations
+    else {
+        text *text1 = PG_GETARG_TEXT_PP(0);
+        text *text2 = PG_GETARG_TEXT_PP(1);
+
+        // Use collation-aware comparison
+        result = (text_cmp(text1, text2, collation_id) != 0);
+
+        PG_FREE_IF_COPY(text1, 0);
+        PG_FREE_IF_COPY(text2, 1);
+    }
+
+    return PG_RETURN_BOOL(result);
+}
+```

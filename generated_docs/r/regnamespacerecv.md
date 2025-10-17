@@ -32,3 +32,12 @@ The function implementation is straightforward - it delegates all functionality 
 - Part of the regproc family of functions that handle various registry data types
 - Located in src/backend/utils/adt/regproc.c alongside other registry type functions
 - Binary input functions like this are typically called during binary protocol communication between PostgreSQL server and clients
+
+## Simplified Source
+
+```c
+Datum regnamespacerecv(PG_FUNCTION_ARGS) {
+    // Delegates to oidrecv since regnamespace is internally an OID
+    return oidrecv(fcinfo);
+}
+```

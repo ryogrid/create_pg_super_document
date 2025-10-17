@@ -40,3 +40,26 @@ The function extracts the variable-length data and sizes from both text argument
 - Supports collation-aware pattern matching through PG_GET_COLLATION()
 - Unlike `namenlike`, this function returns the direct result of the pattern matching without negation
 - Handles variable-length text data properly by extracting both data pointers and sizes
+
+## Simplified Source
+
+```c
+Datum
+textlike(PG_FUNCTION_ARGS)
+{
+    // Extract text arguments
+    text *str = PG_GETARG_TEXT_PP(0);
+    text *pat = PG_GETARG_TEXT_PP(1);
+
+    // Get data pointers and lengths
+    char *s = VARDATA_ANY(str);
+    int slen = VARSIZE_ANY_EXHDR(str);
+    char *p = VARDATA_ANY(pat);
+    int plen = VARSIZE_ANY_EXHDR(pat);
+
+    // Perform pattern matching
+    bool result = (GenericMatchText(s, slen, p, plen, PG_GET_COLLATION()) == LIKE_TRUE);
+
+    PG_RETURN_BOOL(result);
+}
+```

@@ -48,3 +48,44 @@ The `JsonbValueAsText` function converts a JsonbValue structure to a PostgreSQL 
 - Binary JSONB values are converted to their JSON string representation
 - The function will throw an ERROR for unrecognized JSONB types
 - Memory management for the returned text value is handled by PostgreSQL's memory context system
+
+## Simplified Source
+
+```c
+static text *
+JsonbValueAsText(JsonbValue *v)
+{
+    switch (v->type)
+    {
+        case jbvNull:
+            return NULL;
+
+        case jbvBool:
+            // Convert boolean to "true" or "false" text
+            return v->val.boolean ?
+                cstring_to_text_with_len("true", 4) :
+                cstring_to_text_with_len("false", 5);
+
+        case jbvString:
+            // Direct string conversion
+            return cstring_to_text_with_len(v->val.string.val, v->val.string.len);
+
+        case jbvNumeric:
+            // Convert numeric to string representation
+            Datum numeric_string = DirectFunctionCall1(numeric_out,
+                                                     PointerGetDatum(v->val.numeric));
+            return cstring_to_text(DatumGetCString(numeric_string));
+
+        case jbvBinary:
+            // Convert binary JSONB to JSON text format
+            StringInfoData json_text;
+            initStringInfo(&json_text);
+            JsonbToCString(&json_text, v->val.binary.data, v->val.binary.len);
+            return cstring_to_text_with_len(json_text.data, json_text.len);
+
+        default:
+            elog(ERROR, "unrecognized jsonb type: %d", (int) v->type);
+            return NULL;
+    }
+}
+```

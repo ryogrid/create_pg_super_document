@@ -39,11 +39,41 @@ The function employs PostgreSQL's overflow-safe arithmetic macros ( and ) to det
   -  - [Variable](../V/Variable.md)-length string datum extraction
 
 ## Notes and Other Information
-- Located in 
+- Located in
 - Static function, only accessible within the same compilation unit
 - Maintains parsing invariant that at least one character is available before string end
 - Uses PostgreSQL's overflow-safe arithmetic to prevent security vulnerabilities
-- Returns  if any digits were parsed,  if no digits were found at the current position
-- On overflow, raises a  error rather than returning invalid results
+- Returns if any digits were parsed, if no digits were found at the current position
+- On overflow, raises a error rather than returning invalid results
 - The function modifies both the parse pointer and value through output parameters
-- Part of the format string parsing infrastructure for the  SQL function
+- Part of the format string parsing infrastructure for the SQL function
+
+## Simplified Source
+
+```c
+static bool text_format_parse_digits(const char **ptr, const char *end_ptr, int *value) {
+    bool found = false;
+    const char *cp = *ptr;
+    int val = 0;
+
+    // Parse contiguous digits
+    while (*cp >= '0' && *cp <= '9') {
+        int8 digit = (*cp - '0');
+
+        // Check for overflow during val = val * 10 + digit
+        if (pg_mul_s32_overflow(val, 10, &val) ||
+            pg_add_s32_overflow(val, digit, &val)) {
+            ereport(ERROR, "number is out of range");
+        }
+
+        ADVANCE_PARSE_POINTER(cp, end_ptr);
+        found = true;
+    }
+
+    // Update output parameters
+    *ptr = cp;
+    *value = val;
+
+    return found;  // true if any digits were parsed
+}
+```

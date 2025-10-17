@@ -44,3 +44,26 @@ The function initializes a bbstreamer_recovery_injector structure with the appro
 - Output chunks maintain the same typing but BBSTREAMER_MEMBER_HEADER chunks may be zero-length when the archive stream has been edited
 - Part of PostgreSQL's base backup streaming infrastructure for handling recovery configuration injection
 - Located in src/bin/pg_basebackup/bbstreamer_inject.c:65-84
+
+## Simplified Source
+
+```c
+extern bbstreamer *
+bbstreamer_recovery_injector_new(bbstreamer *next,
+                                 bool is_recovery_guc_supported,
+                                 PQExpBuffer recoveryconfcontents)
+{
+    bbstreamer_recovery_injector *streamer;
+
+    // Allocate and initialize recovery injector structure
+    streamer = palloc0(sizeof(bbstreamer_recovery_injector));
+    *((const bbstreamer_ops **) &streamer->base.bbs_ops) = &bbstreamer_recovery_injector_ops;
+
+    // Configure the injector
+    streamer->base.bbs_next = next;
+    streamer->is_recovery_guc_supported = is_recovery_guc_supported;
+    streamer->recoveryconfcontents = recoveryconfcontents;
+
+    return &streamer->base;
+}
+```

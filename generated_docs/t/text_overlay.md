@@ -49,3 +49,36 @@ The implementation leverages existing PostgreSQL text manipulation functions ( a
 - Returns a freshly allocated text datum that caller must manage
 - Part of PostgreSQL's variable-length data type infrastructure in varlena.c
 - The function constructs the result through three-part concatenation: prefix + replacement + suffix
+
+## Simplified Source
+```c
+static text *
+text_overlay(text *original_text, text *replacement_text, int start_pos, int length)
+{
+    // Validate inputs - check for negative start position
+    if (start_pos <= 0) {
+        ereport(ERROR, "negative substring length not allowed");
+    }
+
+    // Check for integer overflow when calculating end position
+    int end_pos;
+    if (pg_add_s32_overflow(start_pos, length, &end_pos)) {
+        ereport(ERROR, "integer out of range");
+    }
+
+    // Extract three parts: prefix, middle (to be replaced), suffix
+    // Part 1: prefix - characters before replacement (1 to start_pos-1)
+    text *prefix = text_substring(PointerGetDatum(original_text),
+                                 1, start_pos - 1, false);
+
+    // Part 3: suffix - characters after replacement (end_pos to end)
+    text *suffix = text_substring(PointerGetDatum(original_text),
+                                 end_pos, -1, true);
+
+    // Concatenate: prefix + replacement + suffix
+    text *result = text_catenate(prefix, replacement_text);
+    result = text_catenate(result, suffix);
+
+    return result;
+}
+```

@@ -40,3 +40,26 @@ This function converts multi-part SQL identifiers (such as catalog.schema.table.
 - Creates dot-separated qualified names suitable for XML namespace usage
 - Memory management handled through StringInfo structure
 - Each component is processed with full XML identifier mapping (escape sequences, validation)
+
+## Simplified Source
+
+```c
+static char *map_multipart_sql_identifier_to_xml_name(const char *a, const char *b, const char *c, const char *d) {
+    StringInfoData result;
+    initStringInfo(&result);
+
+    // Add first component if present
+    if (a)
+        appendStringInfoString(&result, map_sql_identifier_to_xml_name(a, true, true));
+
+    // Add remaining components with dot separator
+    if (b)
+        appendStringInfo(&result, ".%s", map_sql_identifier_to_xml_name(b, true, true));
+    if (c)
+        appendStringInfo(&result, ".%s", map_sql_identifier_to_xml_name(c, true, true));
+    if (d)
+        appendStringInfo(&result, ".%s", map_sql_identifier_to_xml_name(d, true, true));
+
+    return result.data;
+}
+```

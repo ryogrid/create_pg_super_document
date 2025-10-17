@@ -40,3 +40,16 @@ The function leverages PostgreSQL's `hash_any_extended` function to compute the 
 - The 64-bit seed allows for a very large number of distinct hash variations
 - Maintains the same distribution properties as the base hash function while adding seed-based variation
 - Commonly used in parallel and distributed database operations
+
+## Simplified Source
+
+```c
+Datum uuid_hash_extended(PG_FUNCTION_ARGS) {
+    // Extract UUID and seed from function arguments
+    pg_uuid_t *key = PG_GETARG_UUID_P(0);
+    int64 seed = PG_GETARG_INT64(1);
+
+    // Hash all 16 bytes of UUID data with the provided seed
+    return hash_any_extended(key->data, UUID_LEN, seed);
+}
+```

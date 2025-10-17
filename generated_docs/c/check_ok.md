@@ -52,3 +52,23 @@ This function is commonly called after major initialization steps to provide use
 - Centralized approach allows uniform error reporting throughout the codebase
 - Exit status 1 is used for all error conditions to indicate failure to shell/scripts
 - The "ok" message provides positive feedback to users during long-running operations
+
+## Simplified Source
+
+```c
+static void check_ok(void) {
+    if (caught_signal) {
+        printf(_("caught signal\n"));
+        fflush(stdout);
+        exit(1);
+    } else if (output_failed) {
+        printf(_("could not write to child process: %s\n"), strerror(output_errno));
+        fflush(stdout);
+        exit(1);
+    } else {
+        // Success case
+        printf(_("ok\n"));
+        fflush(stdout);
+    }
+}
+```

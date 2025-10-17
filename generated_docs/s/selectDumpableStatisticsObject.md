@@ -35,3 +35,23 @@ The current implementation assumes statistics objects operate on a single table,
 - The function assumes single-table statistics; cross-table statistics would require design changes
 - The statistics object inherits the dump_contains flag from its namespace initially
 - If the associated table is NULL or not being dumped with definition, the statistics object is marked as not dumpable
+
+## Simplified Source
+
+```c
+static void
+selectDumpableStatisticsObject(StatsExtInfo *sobj, Archive *fout)
+{
+    // Extension membership overrides all other policies
+    if (checkExtensionMembership(&sobj->dobj, fout))
+        return;
+
+    // Start with namespace policy
+    sobj->dobj.dump = sobj->dobj.namespace->dobj.dump_contains;
+
+    // But only dump if the associated table is also being dumped
+    if (sobj->stattable == NULL ||
+        !(sobj->stattable->dobj.dump & DUMP_COMPONENT_DEFINITION))
+        sobj->dobj.dump = DUMP_COMPONENT_NONE;
+}
+```

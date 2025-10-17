@@ -40,3 +40,13 @@ The function serves as a wrapper around the standard library fwrite() function, 
 - More efficient than _WriteByte for writing larger blocks of data
 - Complementary to buffer reading operations in the archive system
 - File location: src/bin/pg_dump/pg_backup_custom.c:704-717
+
+## Simplified Source
+```c
+static void _WriteBuf(ArchiveHandle *AH, const void *buf, size_t len)
+{
+    // Write entire buffer to archive file
+    if (fwrite(buf, 1, len, AH->FH) != len)
+        WRITE_ERROR_EXIT;
+}
+```

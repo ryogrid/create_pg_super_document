@@ -34,3 +34,22 @@ The function validates the column number (attno) to ensure it is positive (rejec
 - The actual property testing logic is delegated to `indexam_property` with InvalidOid for amoid parameter
 - This function is part of PostgreSQL's access method introspection system
 - Available property names include: "asc", "desc", "nulls_first", "nulls_last", "orderable", "distance_orderable", "returnable", "search_array", "search_nulls"
+
+## Simplified Source
+
+```c
+Datum pg_index_column_has_property(PG_FUNCTION_ARGS)
+{
+    // Extract index OID, column number, and property name from SQL arguments
+    Oid relid = PG_GETARG_OID(0);
+    int32 attno = PG_GETARG_INT32(1);
+    char *propname = text_to_cstring(PG_GETARG_TEXT_PP(2));
+
+    // Validate column number (must be positive, 1-based)
+    if (attno <= 0)
+        PG_RETURN_NULL();
+
+    // Test column-level property
+    return indexam_property(fcinfo, propname, InvalidOid, relid, attno);
+}
+```

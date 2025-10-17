@@ -39,3 +39,22 @@ The  function is a PostgreSQL built-in function that computes text search rankin
 - Commonly used normalization methods include length-based, uniqueness-based, and logarithmic variants
 - The function automatically handles memory management by freeing detoasted argument copies
 - Part of PostgreSQL's full-text search ranking system alongside other ts_rank variants
+
+## Simplified Source
+
+```c
+Datum ts_rank_ttf(PG_FUNCTION_ARGS) {
+    TSVector txt = PG_GETARG_TSVECTOR(0);
+    TSQuery query = PG_GETARG_TSQUERY(1);
+    int method = PG_GETARG_INT32(2);
+    float res;
+
+    // Calculate ranking with default weights and custom normalization method
+    res = calc_rank(getWeights(NULL), txt, query, method);
+
+    // Clean up memory for detoasted arguments
+    PG_FREE_IF_COPY(txt, 0);
+    PG_FREE_IF_COPY(query, 1);
+    PG_RETURN_FLOAT4(res);
+}
+```

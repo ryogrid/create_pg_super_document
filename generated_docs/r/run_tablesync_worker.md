@@ -47,3 +47,30 @@ This function takes no parameters but operates on global state:
 - The streaming phase continues until the worker catches up with the main apply worker
 - No explicit error handling as errors are managed by the calling context and start_table_sync wrapper
 - The function effectively transforms a table sync worker into a streaming apply worker after initial sync completion
+
+## Simplified Source
+
+```c
+static void run_tablesync_worker() {
+    char originname[NAMEDATALEN];
+    XLogRecPtr origin_startpos = InvalidXLogRecPtr;
+    char *slotname = NULL;
+    WalRcvStreamOptions options;
+
+    // Phase 1: Perform initial table synchronization
+    start_table_sync(&origin_startpos, &slotname);
+
+    // Phase 2: Set up replication origin for error context
+    ReplicationOriginNameForLogicalRep(MySubscription->oid,
+                                       MyLogicalRepWorker->relid,
+                                       originname, sizeof(originname));
+    set_apply_error_context_origin(originname);
+
+    // Phase 3: Configure streaming options and start streaming
+    set_stream_options(&options, slotname, &origin_startpos);
+    walrcv_startstreaming(LogRepWorkerWalRcvConn, &options);
+
+    // Phase 4: Apply changes to catch up with apply worker
+    start_apply(origin_startpos);
+}
+```

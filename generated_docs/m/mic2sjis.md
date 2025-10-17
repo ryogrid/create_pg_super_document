@@ -47,3 +47,105 @@ This function performs the reverse conversion of sjis2mic, transforming MIC enco
 - Returns the number of source bytes processed
 - Located in src/backend/utils/mb/conversion_procs/euc_jp_and_sjis/euc_jp_and_sjis.c:299-405
 - Implements comprehensive MIC to SJIS mapping with proper error handling and validation
+
+## Simplified Source
+
+```c
+static int mic2sjis(const unsigned char *mic, unsigned char *p, int len, bool noError) {
+    const unsigned char *start = mic;
+    int c1, c2, k, l;
+
+    while (len > 0) {
+        c1 = *mic;
+
+        // Handle ASCII characters
+        if (!IS_HIGHBIT_SET(c1)) {
+            if (c1 == 0) {
+                if (!noError) {
+                    report_invalid_encoding(PG_MULE_INTERNAL, (const char *) mic, len);
+                }
+                break;
+            }
+            *p++ = c1;
+            mic++;
+            len--;
+            continue;
+        }
+
+        // Verify MIC character sequence length
+        l = pg_encoding_verifymbchar(PG_MULE_INTERNAL, (const char *) mic, len);
+        if (l < 0) {
+            if (!noError) {
+                report_invalid_encoding(PG_MULE_INTERNAL, (const char *) mic, len);
+            }
+            break;
+        }
+
+        // Handle JIS X0201 katakana (2-byte MIC sequence)
+        if (c1 == LC_JISX0201K) {
+            *p++ = mic[1];  // Copy katakana byte directly
+        }
+        // Handle JIS X0208 characters (3-byte MIC sequence)
+        else if (c1 == LC_JISX0208) {
+            c1 = mic[1];
+            c2 = mic[2];
+            k = (c1 << 8) | (c2 & 0xff);
+
+            // Check for user-defined characters 1 (UDC1)
+            if (k >= 0xf5a1) {
+                c1 -= 0x54;
+                *p++ = ((c1 - 0xa1) >> 1) + ((c1 < 0xdf) ? 0x81 : 0xc1) + 0x6f;
+            } else {
+                // Standard JIS X0208 conversion
+                *p++ = ((c1 - 0xa1) >> 1) + ((c1 < 0xdf) ? 0x81 : 0xc1);
+            }
+            *p++ = c2 - ((c1 & 1) ? ((c2 < 0xe0) ? 0x61 : 0x60) : 2);
+        }
+        // Handle JIS X0212 characters (3-byte MIC sequence)
+        else if (c1 == LC_JISX0212) {
+            int i, k2;
+            c1 = mic[1];
+            c2 = mic[2];
+            k = c1 << 8 | c2;
+
+            // Check for user-defined characters 2 (UDC2)
+            if (k >= 0xf5a1) {
+                c1 -= 0x54;
+                *p++ = ((c1 - 0xa1) >> 1) + ((c1 < 0xdf) ? 0x81 : 0xc1) + 0x74;
+                *p++ = c2 - ((c1 & 1) ? ((c2 < 0xe0) ? 0x61 : 0x60) : 2);
+            } else {
+                // IBM kanji lookup
+                for (i = 0; ; i++) {
+                    k2 = ibmkanji[i].euc & 0xffff;
+                    if (k2 == 0xffff) {
+                        // Use alternative code if no mapping found
+                        *p++ = PGSJISALTCODE >> 8;
+                        *p++ = PGSJISALTCODE & 0xff;
+                        break;
+                    }
+                    if (k2 == k) {
+                        k = ibmkanji[i].sjis;
+                        *p++ = k >> 8;
+                        *p++ = k & 0xff;
+                        break;
+                    }
+                }
+            }
+        }
+        // Handle unsupported MIC language codes
+        else {
+            if (!noError) {
+                report_untranslatable_char(PG_MULE_INTERNAL, PG_SJIS,
+                                         (const char *) mic, len);
+            }
+            break;
+        }
+
+        mic += l;
+        len -= l;
+    }
+
+    *p = '\0';
+    return mic - start;
+}
+```

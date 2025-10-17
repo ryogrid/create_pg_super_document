@@ -33,3 +33,15 @@ This function provides a way to retrieve the full transaction ID of the current 
 - Part of PostgreSQL's xid8 (8-byte transaction ID) function family
 - Replaces the need to check if a transaction ID exists before retrieving it
 - Located in src/backend/utils/adt/xid8funcs.c as part of the extended transaction ID support
+
+## Simplified Source
+
+```c
+Datum pg_current_xact_id(PG_FUNCTION_ARGS) {
+    // Prevent execution during recovery (transaction assignment would fail)
+    PreventCommandDuringRecovery("pg_current_xact_id()");
+
+    // Get current toplevel transaction ID (assigns one if none exists)
+    PG_RETURN_FULLTRANSACTIONID(GetTopFullTransactionId());
+}
+```

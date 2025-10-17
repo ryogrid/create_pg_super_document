@@ -39,3 +39,24 @@ The `tidrecv` function is responsible for deserializing TID values from PostgreS
 - Memory for the result ItemPointer is allocated using `palloc` for proper PostgreSQL memory management
 - Part of PostgreSQL's type system binary I/O infrastructure alongside `tidsend`
 - No explicit validation is performed on the received values, assuming the binary format is trusted
+
+## Simplified Source
+
+```c
+Datum tidrecv(PG_FUNCTION_ARGS) {
+    StringInfo binary_buffer = (StringInfo) PG_GETARG_POINTER(0);
+    ItemPointer result;
+    BlockNumber block_number;
+    OffsetNumber offset_number;
+
+    // Read block and offset numbers from binary stream
+    block_number = pq_getmsgint(binary_buffer, sizeof(block_number));
+    offset_number = pq_getmsgint(binary_buffer, sizeof(offset_number));
+
+    // Create ItemPointer and set the values
+    result = (ItemPointer) palloc(sizeof(ItemPointerData));
+    ItemPointerSet(result, block_number, offset_number);
+
+    PG_RETURN_ITEMPOINTER(result);
+}
+```

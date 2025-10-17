@@ -34,3 +34,14 @@ This function serves as the output conversion function for PostgreSQL's xml data
 - Designed for scenarios where PostgreSQL cannot control the final client encoding conversion
 - Memory management: relies on xml_out_internal for string allocation, PostgreSQL's memory context handles cleanup
 - Part of PostgreSQL's type system infrastructure for converting internal representations to external string formats
+
+## Simplified Source
+
+```c
+Datum xml_out(PG_FUNCTION_ARGS) {
+    xmltype *x = PG_GETARG_XML_P(0);
+
+    // Remove encoding property to prevent client encoding conflicts
+    PG_RETURN_CSTRING(xml_out_internal(x, 0));
+}
+```

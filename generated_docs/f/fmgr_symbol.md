@@ -49,3 +49,59 @@ The returned strings are allocated in the current memory context using pstrdup.
 - The function handles security considerations by wrapping security-definer functions
 - Memory management is handled through pstrdup allocation in the current context
 - The function distinguishes between core PostgreSQL functions and extension functions
+
+## Simplified Source
+
+```c
+void fmgr_symbol(Oid functionId, char **mod, char **fn)
+{
+    HeapTuple proc_tuple;
+    Form_pg_proc proc_struct;
+    Datum prosrc, probin;
+
+    /* Look up function in pg_proc catalog */
+    proc_tuple = SearchSysCache1(PROCOID, ObjectIdGetDatum(functionId));
+    if (!HeapTupleIsValid(proc_tuple))
+        elog(ERROR, "cache lookup failed for function %u", functionId);
+
+    proc_struct = (Form_pg_proc) GETSTRUCT(proc_tuple);
+
+    /* Handle security definer functions */
+    if (proc_struct->prosecdef ||
+        !heap_attisnull(proc_tuple, Anum_pg_proc_proconfig, NULL) ||
+        FmgrHookIsNeeded(functionId)) {
+        *mod = NULL;
+        *fn = pstrdup("fmgr_security_definer");
+        ReleaseSysCache(proc_tuple);
+        return;
+    }
+
+    /* Determine function implementation based on language */
+    switch (proc_struct->prolang) {
+        case INTERNALlanguageId:
+            prosrc = SysCacheGetAttrNotNull(PROCOID, proc_tuple, Anum_pg_proc_prosrc);
+            *mod = NULL;  /* core binary */
+            *fn = TextDatumGetCString(prosrc);
+            break;
+
+        case ClanguageId:
+            prosrc = SysCacheGetAttrNotNull(PROCOID, proc_tuple, Anum_pg_proc_prosrc);
+            probin = SysCacheGetAttrNotNull(PROCOID, proc_tuple, Anum_pg_proc_probin);
+            *mod = TextDatumGetCString(probin);  /* shared library */
+            *fn = TextDatumGetCString(prosrc);
+            break;
+
+        case SQLlanguageId:
+            *mod = NULL;  /* core binary */
+            *fn = pstrdup("fmgr_sql");
+            break;
+
+        default:
+            *mod = NULL;
+            *fn = NULL;  /* unknown language */
+            break;
+    }
+
+    ReleaseSysCache(proc_tuple);
+}
+```

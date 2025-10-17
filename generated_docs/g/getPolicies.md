@@ -46,3 +46,114 @@ The function handles version differences in PostgreSQL (9.5+ for basic RLS, 10.0
 - Uses array-based SQL queries with unnest() for efficient bulk processing of multiple tables
 - Policy expressions are retrieved using `pg_get_expr()` to reconstruct the original SQL text
 - Part of the comprehensive schema information gathering phase of pg_dump operations
+
+## Simplified Source
+
+```c
+void
+getPolicies(Archive *fout, TableInfo tblinfo[], int numTables)
+{
+    // Skip if PostgreSQL version doesn't support RLS (< 9.5)
+    if (fout->remoteVersion < 90500)
+        return;
+
+    PQExpBuffer query = createPQExpBuffer();
+    PQExpBuffer tbloids = createPQExpBuffer();
+
+    // Build list of table OIDs that need policy checking
+    appendPQExpBufferChar(tbloids, '{');
+    for (int i = 0; i < numTables; i++) {
+        TableInfo *tbinfo = &tblinfo[i];
+
+        // Skip if not dumping policies or not a regular/partitioned table
+        if (!(tbinfo->dobj.dump & DUMP_COMPONENT_POLICY) ||
+            (tbinfo->relkind != RELKIND_RELATION &&
+             tbinfo->relkind != RELKIND_PARTITIONED_TABLE))
+            continue;
+
+        // Add table OID to list
+        if (tbloids->len > 1)
+            appendPQExpBufferChar(tbloids, ',');
+        appendPQExpBuffer(tbloids, "%u", tbinfo->dobj.catId.oid);
+
+        // Create special PolicyInfo for RLS-enabled tables
+        if (tbinfo->rowsec) {
+            tbinfo->dobj.components |= DUMP_COMPONENT_POLICY;
+
+            PolicyInfo *polinfo = pg_malloc(sizeof(PolicyInfo));
+            polinfo->dobj.objType = DO_POLICY;
+            polinfo->dobj.catId.oid = tbinfo->dobj.catId.oid;
+            polinfo->dobj.name = pg_strdup(tbinfo->dobj.name);
+            polinfo->poltable = tbinfo;
+            polinfo->polname = NULL; // Marker for RLS enabled
+            AssignDumpId(&polinfo->dobj);
+        }
+    }
+    appendPQExpBufferChar(tbloids, '}');
+
+    pg_log_info("reading row-level security policies");
+
+    // Build query to get policy details
+    printfPQExpBuffer(query,
+                     "SELECT pol.oid, pol.tableoid, pol.polrelid, pol.polname, pol.polcmd, ");
+
+    // Handle version differences for permissive policies
+    if (fout->remoteVersion >= 100000)
+        appendPQExpBufferStr(query, "pol.polpermissive, ");
+    else
+        appendPQExpBufferStr(query, "'t' as polpermissive, ");
+
+    appendPQExpBuffer(query,
+                     "CASE WHEN pol.polroles = '{0}' THEN NULL ELSE "
+                     "   pg_catalog.array_to_string(ARRAY(SELECT pg_catalog.quote_ident(rolname) "
+                     "   FROM pg_catalog.pg_roles WHERE oid = ANY(pol.polroles)), ', ') END AS polroles, "
+                     "pg_catalog.pg_get_expr(pol.polqual, pol.polrelid) AS polqual, "
+                     "pg_catalog.pg_get_expr(pol.polwithcheck, pol.polrelid) AS polwithcheck "
+                     "FROM unnest('%s'::pg_catalog.oid[]) AS src(tbloid) "
+                     "JOIN pg_catalog.pg_policy pol ON (src.tbloid = pol.polrelid)",
+                     tbloids->data);
+
+    PGresult *res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    int ntups = PQntuples(res);
+
+    if (ntups > 0) {
+        PolicyInfo *polinfo = pg_malloc(ntups * sizeof(PolicyInfo));
+
+        // Process each policy
+        for (int j = 0; j < ntups; j++) {
+            Oid polrelid = atooid(PQgetvalue(res, j, PQfnumber(res, "polrelid")));
+            TableInfo *tbinfo = findTableByOid(polrelid);
+
+            tbinfo->dobj.components |= DUMP_COMPONENT_POLICY;
+
+            // Fill PolicyInfo structure
+            polinfo[j].dobj.objType = DO_POLICY;
+            polinfo[j].dobj.catId.oid = atooid(PQgetvalue(res, j, PQfnumber(res, "oid")));
+            polinfo[j].poltable = tbinfo;
+            polinfo[j].polname = pg_strdup(PQgetvalue(res, j, PQfnumber(res, "polname")));
+            polinfo[j].dobj.name = pg_strdup(polinfo[j].polname);
+            polinfo[j].polcmd = *(PQgetvalue(res, j, PQfnumber(res, "polcmd")));
+            polinfo[j].polpermissive = *(PQgetvalue(res, j, PQfnumber(res, "polpermissive"))) == 't';
+
+            // Copy role list, qualifier, and with-check expressions if not NULL
+            int i_polroles = PQfnumber(res, "polroles");
+            polinfo[j].polroles = PQgetisnull(res, j, i_polroles) ?
+                                 NULL : pg_strdup(PQgetvalue(res, j, i_polroles));
+
+            int i_polqual = PQfnumber(res, "polqual");
+            polinfo[j].polqual = PQgetisnull(res, j, i_polqual) ?
+                                NULL : pg_strdup(PQgetvalue(res, j, i_polqual));
+
+            int i_polwithcheck = PQfnumber(res, "polwithcheck");
+            polinfo[j].polwithcheck = PQgetisnull(res, j, i_polwithcheck) ?
+                                     NULL : pg_strdup(PQgetvalue(res, j, i_polwithcheck));
+
+            AssignDumpId(&polinfo[j].dobj);
+        }
+    }
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+    destroyPQExpBuffer(tbloids);
+}
+```

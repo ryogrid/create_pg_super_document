@@ -27,3 +27,13 @@ This function allows reusing an existing TSVectorParseState object to parse a di
 
 ## Notes and Other Information
 This function is designed for efficiency when parsing multiple related strings with the same parsing configuration. It avoids the overhead of destroying and recreating parser state objects. The original bufstart is preserved for consistent error reporting that references the initial input context.
+
+## Simplified Source
+
+```c
+void reset_tsvector_parser(TSVectorParseState state, char *input) {
+    // Simply update the parsing buffer to new input
+    // All other state (flags, buffers, error context) remains unchanged
+    state->prsbuf = input;
+}
+```

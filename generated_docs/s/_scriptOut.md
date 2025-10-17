@@ -34,3 +34,14 @@ This function is part of the TAR format implementation and provides a standardiz
 - Returns the number of bytes written as returned by tarWrite
 - The function accesses the scriptTH (script TAR handle) from the local context
 - Part of the TAR format's multi-file handling system where different types of content are written to different TAR handles
+
+## Simplified Source
+
+```c
+static size_t _scriptOut(ArchiveHandle *AH, const void *buf, size_t len) {
+    lclContext *ctx = (lclContext *) AH->formatData;
+
+    // Write buffer to script TAR handle
+    return tarWrite(buf, len, ctx->scriptTH);
+}
+```

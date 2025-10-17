@@ -34,3 +34,12 @@ This function takes no parameters (uses `PG_FUNCTION_ARGS` macro for PostgreSQL 
 - This differs from `clock_timestamp()` which returns the current time on each call
 - Commonly used in auditing and logging scenarios where consistent statement timing is required
 - The function is defined in `src/backend/utils/adt/timestamp.c` at lines 1624-1629
+
+## Simplified Source
+
+```c
+Datum statement_timestamp(PG_FUNCTION_ARGS) {
+    // Return statement start timestamp with timezone
+    return PG_RETURN_TIMESTAMPTZ(GetCurrentStatementStartTimestamp());
+}
+```

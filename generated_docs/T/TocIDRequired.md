@@ -41,3 +41,18 @@ The `reqs` field typically contains flags indicating various requirements such a
 - The exact meaning of the returned requirement flags depends on the context of the archive operation
 - This function is part of the public interface exposed through pg_backup_archiver.h
 - Essential for determining which entries to include in partial dumps or selective restores
+
+## Simplified Source
+
+```c
+int
+TocIDRequired(ArchiveHandle *AH, DumpId id)
+{
+    TocEntry *te = getTocEntryByDumpId(AH, id);
+
+    if (!te)
+        return 0;
+
+    return te->reqs;
+}
+```

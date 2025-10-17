@@ -45,3 +45,25 @@ This is an internal static function that implements interval negation by reversi
 - Throws ERRCODE_DATETIME_VALUE_OUT_OF_RANGE error if overflow is detected
 - Located in src/backend/utils/adt/timestamp.c:3385-3404
 - Used as a building block for various interval arithmetic operations including subtraction, multiplication, and division
+
+## Simplified Source
+
+```c
+static void interval_um_internal(const Interval *interval, Interval *result) {
+    // Handle infinite intervals
+    if (INTERVAL_IS_NOBEGIN(interval))
+        INTERVAL_NOEND(result);
+    else if (INTERVAL_IS_NOEND(interval))
+        INTERVAL_NOBEGIN(result);
+    else {
+        // Negate each field with overflow checking
+        if (pg_sub_s64_overflow(INT64CONST(0), interval->time, &result->time) ||
+            pg_sub_s32_overflow(0, interval->day, &result->day) ||
+            pg_sub_s32_overflow(0, interval->month, &result->month) ||
+            INTERVAL_NOT_FINITE(result))
+            ereport(ERROR,
+                    (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                     errmsg("interval out of range")));
+    }
+}
+```

@@ -36,3 +36,20 @@ displayStruct serves as a filtering mechanism for PostgreSQL's configuration hel
   - GUC_NO_SHOW_ALL: Parameters not shown in SHOW ALL commands
   - GUC_NOT_IN_SAMPLE: Parameters not included in sample configuration files
   - GUC_DISALLOW_IN_FILE: Parameters that cannot be set in configuration files
+
+## Simplified Source
+
+```c
+static bool
+displayStruct(mixedStruct *structToDisplay)
+{
+    // Check if configuration variable should be hidden from users
+    // Return false if any of these flags are set:
+    // - GUC_NO_SHOW_ALL: Hidden from SHOW ALL commands
+    // - GUC_NOT_IN_SAMPLE: Not included in sample configs
+    // - GUC_DISALLOW_IN_FILE: Cannot be set in config files
+    return !(structToDisplay->generic.flags & (GUC_NO_SHOW_ALL |
+                                               GUC_NOT_IN_SAMPLE |
+                                               GUC_DISALLOW_IN_FILE));
+}
+```

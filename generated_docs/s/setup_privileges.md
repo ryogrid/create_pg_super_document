@@ -41,3 +41,42 @@ The function handles privileges for various object types including relations (ta
 - The function uses SQL commands written to cmdfd rather than direct database API calls
 - Special handling is provided for large objects, which have their public access revoked by default
 - The 'i' privtype in pg_init_privs indicates initial/installation privileges
+
+## Simplified Source
+
+```c
+static void setup_privileges(FILE *cmdfd) {
+    // Grant read access to system catalogs for public
+    PG_CMD_PRINTF("UPDATE pg_class "
+                  "  SET relacl = (SELECT array_agg(a.acl) FROM "
+                  " (SELECT E'=r/\"%s\"' as acl "
+                  "  UNION SELECT unnest(pg_catalog.acldefault("
+                  "    CASE WHEN relkind = 'S' THEN 's' "
+                  "         ELSE 'r' END::\"char\",%d::oid))"
+                  " ) as a) "
+                  "  WHERE relkind IN ('r', 'v', 'm', 'S')"
+                  "  AND relacl IS NULL;\n\n",
+                  escape_quotes(username), BOOTSTRAP_SUPERUSERID);
+
+    // Grant schema usage to public
+    PG_CMD_PUTS("GRANT USAGE ON SCHEMA pg_catalog, public TO PUBLIC;\n\n");
+
+    // Secure large objects
+    PG_CMD_PUTS("REVOKE ALL ON pg_largeobject FROM PUBLIC;\n\n");
+
+    // Populate pg_init_privs for various object types
+    // This preserves initial privileges for pg_dump/pg_upgrade
+
+    // Relations (tables, views, materialized views, sequences)
+    PG_CMD_PUTS("INSERT INTO pg_init_privs "
+                "  (objoid, classoid, objsubid, initprivs, privtype)"
+                "    SELECT oid, (SELECT oid FROM pg_class WHERE relname = 'pg_class'),"
+                "        0, relacl, 'i'"
+                "    FROM pg_class"
+                "    WHERE relacl IS NOT NULL"
+                "        AND relkind IN ('r', 'v', 'm', 'S');\n\n");
+
+    // Attributes (columns), procedures, types, languages, etc.
+    // Multiple INSERT statements for different object types...
+}
+```

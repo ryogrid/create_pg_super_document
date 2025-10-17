@@ -31,3 +31,20 @@ This function implements a max operation for text data types. It compares two te
 - The function respects locale-specific collation rules for text comparison
 - Commonly used in MAX aggregate functions or comparison operators for text types
 - Located in src/backend/utils/adt/varlena.c:2571-2582
+
+## Simplified Source
+
+```c
+Datum
+text_larger(PG_FUNCTION_ARGS)
+{
+    // Get the two text arguments
+    text *arg1 = PG_GETARG_TEXT_PP(0);
+    text *arg2 = PG_GETARG_TEXT_PP(1);
+
+    // Compare using current collation and return the larger one
+    text *result = ((text_cmp(arg1, arg2, PG_GET_COLLATION()) > 0) ? arg1 : arg2);
+
+    PG_RETURN_TEXT_P(result);
+}
+```

@@ -58,3 +58,59 @@ This function performs the core logic for extracting a slice from a multidimensi
 - Maintains proper null bitmap information in the destination array
 - The iteration pattern ensures that slice elements are copied to consecutive positions in the destination
 - Critical component of PostgreSQL's array slicing functionality, providing the low-level extraction logic
+
+## Simplified Source
+
+```c
+static void
+array_extract_slice(ArrayType *newarray,
+                   int ndim, int *dim, int *lb,
+                   char *arraydataptr, bits8 *arraynullsptr,
+                   int *st, int *endp,
+                   int typlen, bool typbyval, char typalign)
+{
+    char *destdataptr = ARR_DATA_PTR(newarray);
+    bits8 *destnullsptr = ARR_NULLBITMAP(newarray);
+    char *srcdataptr;
+    int src_offset, dest_offset = 0;
+    int prod[MAXDIM], span[MAXDIM], dist[MAXDIM], indx[MAXDIM];
+
+    // Initialize source position
+    src_offset = ArrayGetOffset(ndim, dim, lb, st);
+    srcdataptr = array_seek(arraydataptr, 0, arraynullsptr, src_offset,
+                          typlen, typbyval, typalign);
+
+    // Setup navigation for multidimensional iteration
+    mda_get_prod(ndim, dim, prod);
+    mda_get_range(ndim, span, st, endp);
+    mda_get_offset_values(ndim, dist, prod, span);
+    for (int i = 0; i < ndim; i++)
+        indx[i] = 0;
+
+    // Iterate through slice and copy each element
+    int j = ndim - 1;
+    do {
+        // Skip unwanted elements if needed
+        if (dist[j]) {
+            srcdataptr = array_seek(srcdataptr, src_offset, arraynullsptr,
+                                  dist[j], typlen, typbyval, typalign);
+            src_offset += dist[j];
+        }
+
+        // Copy current element data
+        int inc = array_copy(destdataptr, 1, srcdataptr, src_offset,
+                           arraynullsptr, typlen, typbyval, typalign);
+
+        // Copy null bitmap if present
+        if (destnullsptr)
+            array_bitmap_copy(destnullsptr, dest_offset,
+                            arraynullsptr, src_offset, 1);
+
+        // Advance pointers
+        destdataptr += inc;
+        srcdataptr += inc;
+        src_offset++;
+        dest_offset++;
+    } while ((j = mda_next_tuple(ndim, indx, span)) != -1);
+}
+```

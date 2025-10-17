@@ -58,3 +58,70 @@ The approach is generic and works with any boolean-returning predicate operator,
 - Outlier skipping helps improve representativeness by removing extreme values
 - Security check ensures operator function is safe to execute with column statistics
 - Caller should be prepared for fallback estimation when histogram is unavailable or too small
+
+## Simplified Source
+
+```c
+double histogram_selectivity(VariableStatData *vardata,
+                            FmgrInfo *opproc, Oid collation,
+                            Datum constval, bool varonleft,
+                            int min_hist_size, int n_skip,
+                            int *hist_size) {
+    // Validate parameters
+    Assert(n_skip >= 0);
+    Assert(min_hist_size > 2 * n_skip);
+
+    // Try to get histogram from column statistics
+    AttStatsSlot sslot;
+    if (HeapTupleIsValid(vardata->statsTuple) &&
+        statistic_proc_security_check(vardata, opproc->fn_oid) &&
+        get_attstatsslot(&sslot, vardata->statsTuple,
+                        STATISTIC_KIND_HISTOGRAM, InvalidOid,
+                        ATTSTATSSLOT_VALUES)) {
+
+        *hist_size = sslot.nvalues;
+
+        // Only proceed if histogram is large enough
+        if (sslot.nvalues >= min_hist_size) {
+            // Set up function call for operator
+            LOCAL_FCINFO(fcinfo, 2);
+            InitFunctionCallInfoData(*fcinfo, opproc, 2, collation, NULL, NULL);
+            fcinfo->args[0].isnull = false;
+            fcinfo->args[1].isnull = false;
+
+            // Set constant value based on operator direction
+            if (varonleft)
+                fcinfo->args[1].value = constval;
+            else
+                fcinfo->args[0].value = constval;
+
+            // Test each histogram entry against the predicate
+            int nmatch = 0;
+            for (int i = n_skip; i < sslot.nvalues - n_skip; i++) {
+                // Set histogram value based on operator direction
+                if (varonleft)
+                    fcinfo->args[0].value = sslot.values[i];
+                else
+                    fcinfo->args[1].value = sslot.values[i];
+
+                // Execute operator and count matches
+                fcinfo->isnull = false;
+                Datum result = FunctionCallInvoke(fcinfo);
+                if (!fcinfo->isnull && DatumGetBool(result))
+                    nmatch++;
+            }
+
+            // Calculate selectivity as fraction of matches
+            double selectivity = ((double) nmatch) / ((double) (sslot.nvalues - 2 * n_skip));
+            free_attstatsslot(&sslot);
+            return selectivity;
+        } else {
+            free_attstatsslot(&sslot);
+            return -1;  // Histogram too small
+        }
+    } else {
+        *hist_size = 0;
+        return -1;  // No histogram available
+    }
+}
+```

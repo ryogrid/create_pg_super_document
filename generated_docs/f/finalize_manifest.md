@@ -49,3 +49,42 @@ The finalization process includes:
 - The function performs a final flush and file close operation
 - The resulting manifest follows PostgreSQL backup manifest specification format
 - Assert is used to verify the SHA256 digest length matches expected value
+
+## Simplified Source
+
+```c
+void finalize_manifest(manifest_writer *mwriter, manifest_wal_range *first_wal_range) {
+    uint8 checksumbuf[PG_SHA256_DIGEST_LENGTH];
+    int len;
+    manifest_wal_range *wal_range;
+
+    // Close the files array in JSON
+    appendStringInfoString(&mwriter->buf, "\n],\n");
+
+    // Start WAL ranges array
+    appendStringInfoString(&mwriter->buf, "\"WAL-Ranges\": [\n");
+
+    // Add each WAL range to the manifest
+    for (wal_range = first_wal_range; wal_range != NULL; wal_range = wal_range->next) {
+        appendStringInfo(&mwriter->buf,
+            "%s{ \"Timeline\": %u, \"Start-LSN\": \"%X/%X\", \"End-LSN\": \"%X/%X\" }",
+            wal_range == first_wal_range ? "" : ",\n",
+            wal_range->tli,
+            LSN_FORMAT_ARGS(wal_range->start_lsn),
+            LSN_FORMAT_ARGS(wal_range->end_lsn));
+    }
+
+    // Close WAL ranges array
+    appendStringInfoString(&mwriter->buf, "\n],\n");
+
+    // Flush data before computing checksum
+    flush_manifest(mwriter);
+    mwriter->still_checksumming = false;
+
+    // Compute and add manifest checksum
+    appendStringInfoString(&mwriter->buf, "\"Manifest-Checksum\": \"");
+    len = pg_checksum_final(&mwriter->manifest_ctx, checksumbuf);
+    mwriter->buf.len += hex_encode(checksumbuf, len, &mwriter->buf.data[mwriter->buf.len]);
+    appendStringInfoString(&mwriter->buf, "\"}\n");
+}
+```

@@ -40,3 +40,24 @@ The function follows PostgreSQL's standard function argument protocol (PG_FUNCTI
 - The iso2koi table provides mapping for characters from 0x80-0xFF, translating ISO-8859-5 Cyrillic characters to their KOI8-R equivalents
 - More complex than direct conversions because ISO-8859-5 and KOI8-R use different character encodings for Cyrillic letters
 - This function is typically registered as a conversion procedure in PostgreSQL's encoding conversion system rather than called directly
+
+## Simplified Source
+
+```c
+Datum iso_to_mic(PG_FUNCTION_ARGS) {
+    // Extract conversion parameters from PostgreSQL function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate that we're converting from ISO-8859-5 to MULE internal
+    CHECK_ENCODING_CONVERSION_ARGS(PG_ISO_8859_5, PG_MULE_INTERNAL);
+
+    // Convert using iso2koi translation table to map ISO-8859-5 to KOI8-R equivalents
+    int converted = latin2mic_with_table(src, dest, len, LC_KOI8_R, PG_ISO_8859_5, iso2koi, noError);
+
+    // Return number of bytes successfully converted
+    PG_RETURN_INT32(converted);
+}
+```

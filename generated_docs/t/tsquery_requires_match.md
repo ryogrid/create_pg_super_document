@@ -33,3 +33,42 @@ The function recursively traverses the query tree and applies boolean logic rule
 - Conservative approach: assumes NOT operations don't require matches, even though some nested NOT cases might
 - Critical for GIN index performance: helps determine if full index scan is needed
 - Example: 'x & \!y' requires match of x (can scan x entries), but 'x | \!y' might match rows with neither x nor y (requires full scan)
+
+## Simplified Source
+
+```c
+bool tsquery_requires_match(QueryItem *curitem) {
+    // Protect against deep recursion
+    check_stack_depth();
+
+    // Value nodes always require a match
+    if (curitem->type == QI_VAL)
+        return true;
+
+    switch (curitem->qoperator.oper) {
+        case OP_NOT:
+            // Conservative: assume NOT operations don't require matches
+            return false;
+
+        case OP_PHRASE:
+        case OP_AND:
+            // For AND: either side requiring a match is sufficient
+            if (tsquery_requires_match(curitem + curitem->qoperator.left))
+                return true;
+            else
+                return tsquery_requires_match(curitem + 1);
+
+        case OP_OR:
+            // For OR: both sides must require a match
+            if (tsquery_requires_match(curitem + curitem->qoperator.left))
+                return tsquery_requires_match(curitem + 1);
+            else
+                return false;
+
+        default:
+            elog(ERROR, "unrecognized operator: %d", curitem->qoperator.oper);
+    }
+
+    return false;
+}
+```

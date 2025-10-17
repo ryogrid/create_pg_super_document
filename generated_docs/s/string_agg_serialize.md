@@ -51,3 +51,34 @@ The serialization format consists of:
 - Must be paired with string_agg_deserialize for proper parallel aggregation functionality
 - The cursor field preservation is critical for proper delimiter handling in combined results
 - Uses StringInfoData for efficient binary buffer management during serialization
+
+## Simplified Source
+
+```c
+Datum
+string_agg_serialize(PG_FUNCTION_ARGS)
+{
+    StringInfo state;
+    StringInfoData buf;
+    bytea *result;
+
+    // Validate context (strict function, so no NULL input expected)
+    Assert(AggCheckCallContext(fcinfo, NULL));
+
+    // Get the StringInfo state
+    state = (StringInfo) PG_GETARG_POINTER(0);
+
+    // Create binary output buffer
+    pq_begintypsend(&buf);
+
+    // Serialize cursor field (first delimiter length)
+    pq_sendint(&buf, state->cursor, 4);
+
+    // Serialize accumulated string data
+    pq_sendbytes(&buf, state->data, state->len);
+
+    // Finalize and return bytea result
+    result = pq_endtypsend(&buf);
+    PG_RETURN_BYTEA_P(result);
+}
+```

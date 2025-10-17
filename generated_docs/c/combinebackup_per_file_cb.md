@@ -45,3 +45,27 @@ The function enforces uniqueness by checking for duplicate pathnames and termina
 - Designed as a callback function for the JSON manifest parser infrastructure
 - Creates manifest_file entries that are later used for file validation and reconstruction
 - Part of the manifest parsing callback system that builds the comprehensive file database for pg_combinebackup
+
+## Simplified Source
+
+```c
+static void combinebackup_per_file_cb(JsonManifestParseContext *context,
+                                     const char *pathname, size_t size,
+                                     pg_checksum_type checksum_type,
+                                     int checksum_length, uint8 *checksum_payload) {
+    manifest_data *manifest = context->private_data;
+    manifest_file *m;
+    bool found;
+
+    // Add file entry to hash table
+    m = manifest_files_insert(manifest->files, pathname, &found);
+    if (found)
+        pg_fatal("duplicate path name in backup manifest: \"%s\"", pathname);
+
+    // Store file metadata
+    m->size = size;
+    m->checksum_type = checksum_type;
+    m->checksum_length = checksum_length;
+    m->checksum_payload = checksum_payload;
+}
+```

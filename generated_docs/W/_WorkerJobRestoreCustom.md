@@ -32,3 +32,15 @@ _WorkerJobRestoreCustom is executed in child processes during parallel restore o
 - Part of the custom archive format's implementation of the parallel restore interface
 - The custom format supports parallel restore but not parallel dump (WorkerJobDumpPtr is set to NULL)
 - Used in conjunction with _PrepParallelRestore, _Clone, and _DeClone functions for complete parallel restore support
+
+## Simplified Source
+
+```c
+static int
+_WorkerJobRestoreCustom(ArchiveHandle *AH, TocEntry *te)
+{
+    // Simple wrapper around generic parallel restore function
+    // Executed in child process during parallel restore operations
+    return parallel_restore(AH, te);
+}
+```

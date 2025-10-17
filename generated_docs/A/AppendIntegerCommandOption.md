@@ -30,3 +30,16 @@ This function provides a convenient way to append command options that take inte
 - [Integer](../I/Integer.md) values are appended directly without any escaping or quoting since they cannot contain special characters
 - Uses int32 type for consistency with PostgreSQL's integer handling
 - Part of the pg_basebackup utility's command construction infrastructure alongside AppendStringCommandOption and AppendPlainCommandOption
+
+## Simplified Source
+
+```c
+void AppendIntegerCommandOption(PQExpBuffer buf, bool use_new_option_syntax,
+                               char *option_name, int32 option_value) {
+    // First append the option name using existing function
+    AppendPlainCommandOption(buf, use_new_option_syntax, option_name);
+
+    // Append the integer value directly (no escaping needed)
+    appendPQExpBuffer(buf, " %d", option_value);
+}
+```

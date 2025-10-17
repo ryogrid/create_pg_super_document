@@ -41,3 +41,39 @@ After freeing the blocks, the function resets the nextBlockSize to the initial b
 - Memory context checking is performed if MEMORY_CONTEXT_CHECKING is defined, adding validation overhead in debug builds
 - The function ensures exactly one block remains after reset (the keeper block) through assertions
 - This operation is much more efficient than individual chunk deallocation, making Bump contexts ideal for scenarios with bulk allocation/deallocation patterns
+
+## Simplified Source
+
+```c
+void
+BumpReset(MemoryContext context)
+{
+    BumpContext *set = (BumpContext *) context;
+    dlist_mutable_iter miter;
+
+    Assert(BumpIsValid(set));
+
+    // Check for corruption before proceeding (debug builds only)
+#ifdef MEMORY_CONTEXT_CHECKING
+    BumpCheck(context);
+#endif
+
+    // Walk through all blocks and reset them
+    dlist_foreach_modify(miter, &set->blocks)
+    {
+        BumpBlock *block = dlist_container(BumpBlock, node, miter.cur);
+
+        if (IsKeeperBlock(set, block))
+            BumpBlockMarkEmpty(block);  // Keep keeper block, just mark it empty
+        else
+            BumpBlockFree(set, block);  // Free non-keeper blocks completely
+    }
+
+    // Reset block size sequence for future allocations
+    set->nextBlockSize = set->initBlockSize;
+
+    // Verify we have exactly one block remaining (the keeper block)
+    Assert(!dlist_is_empty(&set->blocks));
+    Assert(!dlist_has_next(&set->blocks, dlist_head_node(&set->blocks)));
+}
+```

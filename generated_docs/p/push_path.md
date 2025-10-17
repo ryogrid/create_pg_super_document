@@ -49,3 +49,66 @@ The function determines whether to create objects or arrays by attempting to par
 - Array indices are created by pushing NULL elements up to the specified index
 - The function leaves the outermost container open for the caller to close
 - [Path](../P/Path.md) elements that cannot be parsed as integers are treated as object keys
+
+## Simplified Source
+
+```c
+static void push_path(JsonbParseState **st, int level, Datum *path_elems,
+                     bool *path_nulls, int path_len, JsonbValue *newval) {
+    // Track expected type (object or array) for each level
+    enum jbvType *tpath = palloc0((path_len - level) * sizeof(enum jbvType));
+    JsonbValue newkey;
+
+    // Create nested structures for remaining path elements
+    for (int i = level + 1; i < path_len; i++) {
+        char *c, *badp;
+        int lindex;
+
+        if (path_nulls[i])
+            break;
+
+        // Try to parse path element as integer to determine container type
+        c = TextDatumGetCString(path_elems[i]);
+        errno = 0;
+        lindex = strtoint(c, &badp, 10);
+
+        if (badp == c || *badp != '\0' || errno != 0) {
+            // Text path element -> create object
+            newkey.type = jbvString;
+            newkey.val.string.val = c;
+            newkey.val.string.len = strlen(c);
+
+            pushJsonbValue(st, WJB_BEGIN_OBJECT, NULL);
+            pushJsonbValue(st, WJB_KEY, &newkey);
+
+            tpath[i - level] = jbvObject;
+        } else {
+            // Integer path element -> create array
+            pushJsonbValue(st, WJB_BEGIN_ARRAY, NULL);
+
+            // Fill array with nulls up to the target index
+            push_null_elements(st, lindex);
+
+            tpath[i - level] = jbvArray;
+        }
+    }
+
+    // Insert the actual value
+    if (tpath[(path_len - level) - 1] == jbvArray) {
+        pushJsonbValue(st, WJB_ELEM, newval);
+    } else {
+        pushJsonbValue(st, WJB_VALUE, newval);
+    }
+
+    // Close all opened structures except the outermost level
+    for (int i = path_len - 1; i > level; i--) {
+        if (path_nulls[i])
+            break;
+
+        if (tpath[i - level] == jbvObject)
+            pushJsonbValue(st, WJB_END_OBJECT, NULL);
+        else
+            pushJsonbValue(st, WJB_END_ARRAY, NULL);
+    }
+}
+```

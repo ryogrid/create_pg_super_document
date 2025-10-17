@@ -38,3 +38,26 @@ The function constructs and executes a SQL query that searches for the parameter
 - This function is specifically designed for minor version compatibility where new configuration parameters are introduced
 - The query uses a conditional SELECT to avoid errors when the parameter doesn't exist
 - Used internally by pg_dump to control which system relations are included in dumps
+
+## Simplified Source
+
+```c
+static void set_restrict_relation_kind(Archive *AH, const char *value) {
+    PQExpBuffer query = createPQExpBuffer();
+    PGresult *res;
+
+    // Build conditional query to set parameter only if it exists
+    appendPQExpBuffer(query,
+                      "SELECT set_config(name, '%s', false) "
+                      "FROM pg_settings "
+                      "WHERE name = 'restrict_nonsystem_relation_kind'",
+                      value);
+
+    // Execute the query
+    res = ExecuteSqlQuery(AH, query->data, PGRES_TUPLES_OK);
+
+    // Cleanup
+    PQclear(res);
+    destroyPQExpBuffer(query);
+}
+```

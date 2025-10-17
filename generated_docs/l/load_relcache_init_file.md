@@ -48,3 +48,144 @@ For index relations, the function reconstructs complex index-specific data struc
 - [Complex](../C/Complex.md) data like rules, triggers, RLS policies, and partition info are not saved in the init file and must be rebuilt separately
 - The init file mechanism significantly improves startup performance for databases with many system catalog entries
 - File location: src/backend/utils/cache/relcache.c:6075-6490
+
+## Simplified Source
+
+```c
+static bool load_relcache_init_file(bool shared) {
+    FILE *fp;
+    char initfilename[MAXPGPATH];
+    Relation *rels;
+    int relno, num_rels, max_rels, nailed_rels, nailed_indexes, magic;
+
+    // Determine init file path (shared vs local)
+    if (shared)
+        snprintf(initfilename, sizeof(initfilename), "global/%s", RELCACHE_INIT_FILENAME);
+    else
+        snprintf(initfilename, sizeof(initfilename), "%s/%s", DatabasePath, RELCACHE_INIT_FILENAME);
+
+    // Try to open the init file
+    fp = AllocateFile(initfilename, PG_BINARY_R);
+    if (fp == NULL)
+        return false;
+
+    // Initialize relation array for loading
+    max_rels = 100;
+    rels = (Relation *) palloc(max_rels * sizeof(Relation));
+    num_rels = nailed_rels = nailed_indexes = 0;
+
+    // Check magic number for file format compatibility
+    if (fread(&magic, 1, sizeof(magic), fp) != sizeof(magic) ||
+        magic != RELCACHE_INIT_FILEMAGIC)
+        goto read_failed;
+
+    // Read each relation from file
+    for (relno = 0;; relno++) {
+        Size len;
+        Relation rel;
+        Form_pg_class relform;
+
+        // Read relation descriptor length
+        if (fread(&len, 1, sizeof(len), fp) != sizeof(len)) {
+            if (len == 0) break; // End of file
+            goto read_failed;
+        }
+
+        // Validate structure size
+        if (len != sizeof(RelationData))
+            goto read_failed;
+
+        // Expand relation array if needed
+        if (num_rels >= max_rels) {
+            max_rels *= 2;
+            rels = (Relation *) repalloc(rels, max_rels * sizeof(Relation));
+        }
+
+        // Allocate and read relation structure
+        rel = rels[num_rels++] = (Relation) palloc(len);
+        if (fread(rel, 1, len, fp) != len)
+            goto read_failed;
+
+        // Read and attach pg_class tuple
+        if (fread(&len, 1, sizeof(len), fp) != sizeof(len))
+            goto read_failed;
+        relform = (Form_pg_class) palloc(len);
+        if (fread(relform, 1, len, fp) != len)
+            goto read_failed;
+        rel->rd_rel = relform;
+
+        // Initialize tuple descriptor
+        rel->rd_att = CreateTemplateTupleDesc(relform->relnatts);
+        rel->rd_att->tdrefcount = 1;
+
+        // Read attribute data for each column
+        for (int i = 0; i < relform->relnatts; i++) {
+            Form_pg_attribute attr = TupleDescAttr(rel->rd_att, i);
+            if (fread(&len, 1, sizeof(len), fp) != sizeof(len) ||
+                len != ATTRIBUTE_FIXED_PART_SIZE ||
+                fread(attr, 1, len, fp) != len)
+                goto read_failed;
+        }
+
+        // Read relation options if present
+        if (fread(&len, 1, sizeof(len), fp) != sizeof(len))
+            goto read_failed;
+        if (len > 0) {
+            rel->rd_options = palloc(len);
+            if (fread(rel->rd_options, 1, len, fp) != len)
+                goto read_failed;
+        } else {
+            rel->rd_options = NULL;
+        }
+
+        // Special processing for indexes
+        if (rel->rd_rel->relkind == RELKIND_INDEX) {
+            if (rel->rd_isnailed) nailed_indexes++;
+
+            // Read index-specific data (simplified)
+            // [Read pg_index tuple, operator families, support procs, etc.]
+
+            InitIndexAmRoutine(rel);
+        } else {
+            if (rel->rd_isnailed) nailed_rels++;
+
+            // Initialize table access method for tables
+            if (RELKIND_HAS_TABLE_AM(rel->rd_rel->relkind))
+                RelationInitTableAccessMethod(rel);
+        }
+
+        // Initialize physical addressing and lock info
+        RelationInitLockInfo(rel);
+        RelationInitPhysicalAddr(rel);
+    }
+
+    // Validate we got the expected number of critical relations/indexes
+    int expected_rels = shared ? NUM_CRITICAL_SHARED_RELS : NUM_CRITICAL_LOCAL_RELS;
+    int expected_indexes = shared ? NUM_CRITICAL_SHARED_INDEXES : NUM_CRITICAL_LOCAL_INDEXES;
+
+    if (nailed_rels != expected_rels || nailed_indexes != expected_indexes) {
+        elog(WARNING, "found %d nailed rels and %d nailed indexes, expected %d and %d",
+             nailed_rels, nailed_indexes, expected_rels, expected_indexes);
+        goto read_failed;
+    }
+
+    // Insert all relations into the cache
+    for (relno = 0; relno < num_rels; relno++)
+        RelationCacheInsert(rels[relno], false);
+
+    pfree(rels);
+    FreeFile(fp);
+
+    // Mark critical caches as built
+    if (shared)
+        criticalSharedRelcachesBuilt = true;
+    else
+        criticalRelcachesBuilt = true;
+    return true;
+
+read_failed:
+    pfree(rels);
+    FreeFile(fp);
+    return false;
+}
+```

@@ -44,3 +44,24 @@ The function follows PostgreSQL's standard conversion function interface, accept
 - Returns the number of converted characters as an integer
 - Part of PostgreSQL's pluggable encoding conversion system
 - The function is likely registered in the system catalogs as an encoding conversion function rather than being called directly
+
+## Simplified Source
+
+```c
+Datum mic_to_win1251(PG_FUNCTION_ARGS) {
+    // Extract conversion parameters from PostgreSQL function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate that we're converting from MULE internal to Windows-1251
+    CHECK_ENCODING_CONVERSION_ARGS(PG_MULE_INTERNAL, PG_WIN1251);
+
+    // Convert using koi2win1251 translation table to map KOI8-R to WIN1251 equivalents
+    int converted = mic2latin_with_table(src, dest, len, LC_KOI8_R, PG_WIN1251, koi2win1251, noError);
+
+    // Return number of bytes successfully converted
+    PG_RETURN_INT32(converted);
+}
+```

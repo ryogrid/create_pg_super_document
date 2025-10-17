@@ -48,3 +48,74 @@ This optimization is particularly beneficial for PL/pgSQL use cases where plans 
 - If this function returns true, callers can use CachedPlanIsSimplyValid for much cheaper revalidation
 - The optimization is designed specifically for table-free queries which match common PL/pgSQL patterns
 - Plans can still be invalidated even if they qualify for simple checking (e.g., due to function changes that were inlined)
+
+## Simplified Source
+
+```c
+bool
+CachedPlanAllowsSimpleValidityCheck(CachedPlanSource *plansource,
+                                    CachedPlan *plan, ResourceOwner owner)
+{
+    // Validate input parameters and plan state
+    Assert(plansource->magic == CACHEDPLANSOURCE_MAGIC);
+    Assert(plan->magic == CACHEDPLAN_MAGIC);
+    Assert(plan->is_valid);
+    Assert(plan == plansource->gplan);
+    Assert(plansource->search_path != NULL);
+    Assert(SearchPathMatchesCurrentEnvironment(plansource->search_path));
+
+    // Reject oneshot plans
+    if (plansource->is_oneshot)
+        return false;
+
+    // Reject plans with security or transaction dependencies
+    if (plansource->dependsOnRLS)
+        return false;
+    if (plan->dependsOnRole)
+        return false;
+    if (TransactionIdIsValid(plan->saved_xmin))
+        return false;
+
+    // Check that queries don't require locks (no tables, CTEs, sublinks)
+    ListCell *lc;
+    foreach(lc, plansource->query_list)
+    {
+        Query *query = lfirst_node(Query, lc);
+
+        if (query->commandType == CMD_UTILITY)
+            return false;
+        if (query->rtable || query->cteList || query->hasSubLinks)
+            return false;
+    }
+
+    // Check that planned statements don't access relations
+    foreach(lc, plan->stmt_list)
+    {
+        PlannedStmt *plannedstmt = lfirst_node(PlannedStmt, lc);
+
+        if (plannedstmt->commandType == CMD_UTILITY)
+            return false;
+
+        // Check for relation RTEs in the range table
+        ListCell *lc2;
+        foreach(lc2, plannedstmt->rtable)
+        {
+            RangeTblEntry *rte = (RangeTblEntry *) lfirst(lc2);
+
+            if (rte->rtekind == RTE_RELATION)
+                return false;
+        }
+    }
+
+    // Plan qualifies for simple validity checking
+    // Register reference count if owner provided
+    if (owner)
+    {
+        ResourceOwnerEnlarge(owner);
+        plan->refcount++;
+        ResourceOwnerRememberPlanCacheRef(owner, plan);
+    }
+
+    return true;
+}
+```

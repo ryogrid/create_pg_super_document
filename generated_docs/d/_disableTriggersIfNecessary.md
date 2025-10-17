@@ -43,3 +43,27 @@ This optimization is particularly important during bulk data loading as it preve
 - Logged as an informational message for transparency during restore process
 - Critical for performance when restoring large amounts of data into tables with many triggers
 - Part of the trigger management strategy in PostgreSQL backup/restore utilities
+
+## Simplified Source
+
+```c
+static void
+_disableTriggersIfNecessary(ArchiveHandle *AH, TocEntry *te)
+{
+    RestoreOptions *ropt = AH->public.ropt;
+
+    // Only disable triggers if we're doing a data-only restore
+    // and the user requested trigger disabling
+    if (!ropt->dataOnly || !ropt->disable_triggers)
+        return;
+
+    pg_log_info("disabling triggers for %s", te->tag);
+
+    // Switch to superuser if available since they can disable constraint triggers
+    _becomeUser(AH, ropt->superuser);
+
+    // Disable all triggers on the table
+    ahprintf(AH, "ALTER TABLE %s DISABLE TRIGGER ALL;\n\n",
+             fmtQualifiedId(te->namespace, te->tag));
+}
+```

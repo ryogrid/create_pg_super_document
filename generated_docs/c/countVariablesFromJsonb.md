@@ -35,3 +35,24 @@ This function serves as a JsonPathCountVarsCallback implementation for JSONB-bas
 - Will throw ERRCODE_INVALID_PARAMETER_VALUE error if varsJsonb is not a JSON object
 - Used during JSON path execution setup to validate and count variable sources
 - Part of PostgreSQL's JSON path variable validation infrastructure
+
+## Simplified Source
+
+```c
+static int
+countVariablesFromJsonb(void *varsJsonb)
+{
+    Jsonb *vars = varsJsonb;
+
+    // Validate that variables are stored as a JSON object
+    if (vars && !JsonContainerIsObject(&vars->root)) {
+        ereport(ERROR,
+                errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                errmsg("\"vars\" argument is not an object"),
+                errdetail("Jsonpath parameters should be encoded as key-value pairs of \"vars\" object."));
+    }
+
+    // Return count of base objects: 1 if vars exist, 0 if none
+    return vars != NULL ? 1 : 0;
+}
+```

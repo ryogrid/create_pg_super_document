@@ -44,3 +44,32 @@ This function serves as an extended PostgreSQL SQL function entry point for retr
 - Allows caller to control pretty printing behavior via the pretty parameter
 - Uses default column wrapping behavior
 - More flexible than pg_get_viewdef_name as it allows disabling pretty printing
+
+## Simplified Source
+
+```c
+Datum
+pg_get_viewdef_name_ext(PG_FUNCTION_ARGS)
+{
+    text *viewname = PG_GETARG_TEXT_PP(0);
+    bool pretty = PG_GETARG_BOOL(1);
+    RangeVar *viewrel;
+    Oid viewoid;
+    char *res;
+
+    // Convert pretty flag to formatting options
+    int prettyFlags = GET_PRETTY_FLAGS(pretty);
+
+    // Convert view name to qualified name list and resolve to OID
+    viewrel = makeRangeVarFromNameList(textToQualifiedNameList(viewname));
+    viewoid = RangeVarGetRelid(viewrel, NoLock, false);
+
+    // Get view definition with user-specified formatting
+    res = pg_get_viewdef_worker(viewoid, prettyFlags, WRAP_COLUMN_DEFAULT);
+
+    if (res == NULL)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(string_to_text(res));
+}
+```

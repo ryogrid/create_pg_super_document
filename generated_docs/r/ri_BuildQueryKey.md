@@ -48,3 +48,24 @@ For the special case of RI_PLAN_CHECK_LOOKUPPK_FROM_PK queries, the function use
 - Each partition still requires its own RI_ConstraintInfo structure due to potential differences in column ordering (pk_attnums[] and fk_attnums[] arrays)
 - The distinction between constraint_root_id and constraint_id enables the inheritance optimization while maintaining correctness for table-specific operations
 - Essential component of PostgreSQL's SPI plan caching infrastructure for referential integrity enforcement
+
+## Simplified Source
+
+```c
+static void
+ri_BuildQueryKey(RI_QueryKey *key, const RI_ConstraintInfo *riinfo, int32 constr_queryno)
+{
+    // Optimization for inherited constraints: share plans across partitions
+    // except for RI_PLAN_CHECK_LOOKUPPK_FROM_PK queries
+    if (constr_queryno != RI_PLAN_CHECK_LOOKUPPK_FROM_PK) {
+        // Use root constraint ID for plan sharing across inheritance hierarchy
+        key->constr_id = riinfo->constraint_root_id;
+    } else {
+        // Use specific constraint ID for table-specific queries
+        key->constr_id = riinfo->constraint_id;
+    }
+
+    // Set the query type identifier
+    key->constr_queryno = constr_queryno;
+}
+```

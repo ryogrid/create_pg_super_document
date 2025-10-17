@@ -41,3 +41,37 @@ The function operates within replication steps (begin_replication_step/end_repli
 - Raises an ERROR if validation fails, indicating potential data corruption or incomplete processing
 - Part of PostgreSQL streaming replication infrastructure for handling large transactions
 - File path construction uses MyLogicalRepWorker->subid to identify the subscription context
+
+## Simplified Source
+
+```c
+static void ensure_last_message(FileSet *stream_fileset, TransactionId xid,
+                               int fileno, off_t offset)
+{
+    char path[MAXPGPATH];
+    BufFile *fd;
+    int last_fileno;
+    off_t last_offset;
+
+    // Must not be in transaction state
+    Assert(!IsTransactionState());
+
+    begin_replication_step();
+
+    // Construct file path for the changes file
+    changes_filename(path, MyLogicalRepWorker->subid, xid);
+
+    // Open file and seek to end
+    fd = BufFileOpenFileSet(stream_fileset, path, O_RDONLY, false);
+    BufFileSeek(fd, 0, 0, SEEK_END);
+    BufFileTell(fd, &last_fileno, &last_offset);
+    BufFileClose(fd);
+
+    end_replication_step();
+
+    // Validate that we're at the expected end position
+    if (last_fileno != fileno || last_offset != offset)
+        elog(ERROR, "unexpected message left in streaming transaction's changes file \"%s\"",
+             path);
+}
+```

@@ -39,3 +39,67 @@ This function is the counterpart to array_agg_array_serialize, taking a serializ
 - Element type is read first to enable early state initialization
 - Ensures proper memory context allocation in CurrentMemoryContext
 - Validates message completeness with pq_getmsgend
+
+## Simplified Source
+
+```c
+Datum
+array_agg_array_deserialize(PG_FUNCTION_ARGS)
+{
+    // Ensure aggregate context
+    Assert(AggCheckCallContext(fcinfo, NULL));
+
+    bytea *sstate = PG_GETARG_BYTEA_PP(0);
+    StringInfoData buf;
+
+    // Initialize read buffer from serialized data
+    initReadOnlyStringInfo(&buf, VARDATA_ANY(sstate), VARSIZE_ANY_EXHDR(sstate));
+
+    // Read metadata from serialized stream
+    Oid element_type = pq_getmsgint(&buf, 4);
+    Oid array_type = pq_getmsgint(&buf, 4);
+    int nbytes = pq_getmsgint(&buf, 4);
+
+    // Create new ArrayBuildStateArr with proper types
+    ArrayBuildStateArr *result = initArrayResultArr(array_type, element_type,
+                                                   CurrentMemoryContext, false);
+
+    // Calculate and allocate data buffer with power-of-2 sizing
+    result->abytes = 1024;
+    while (result->abytes < nbytes)
+        result->abytes *= 2;
+    result->data = (char *) palloc(result->abytes);
+
+    // Read and copy data
+    const char *temp = pq_getmsgbytes(&buf, nbytes);
+    memcpy(result->data, temp, nbytes);
+    result->nbytes = nbytes;
+
+    // Read allocation tracking info
+    result->abytes = pq_getmsgint(&buf, 4);
+    result->aitems = pq_getmsgint(&buf, 4);
+
+    // Read null bitmap if present
+    if (result->aitems > 0) {
+        int size = (result->aitems + 7) / 8;
+        result->nullbitmap = (bits8 *) palloc(size);
+        temp = pq_getmsgbytes(&buf, size);
+        memcpy(result->nullbitmap, temp, size);
+    } else {
+        result->nullbitmap = NULL;
+    }
+
+    // Read item count and dimensionality
+    result->nitems = pq_getmsgint(&buf, 4);
+    result->ndims = pq_getmsgint(&buf, 4);
+
+    // Read dimension and lower bounds arrays
+    temp = pq_getmsgbytes(&buf, sizeof(result->dims));
+    memcpy(result->dims, temp, sizeof(result->dims));
+    temp = pq_getmsgbytes(&buf, sizeof(result->lbs));
+    memcpy(result->lbs, temp, sizeof(result->lbs));
+
+    pq_getmsgend(&buf);
+    PG_RETURN_POINTER(result);
+}
+```

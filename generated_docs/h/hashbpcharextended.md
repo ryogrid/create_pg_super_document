@@ -72,3 +72,42 @@ The extended hash functionality enables more sophisticated hash distribution pat
 - Used in sophisticated query execution plans where hash value variation is beneficial
 - Preserves all memory safety and error handling characteristics of the base hashbpchar function
 - The seed parameter enables hash value diversification across different contexts or parallel workers
+
+## Simplified Source
+
+```c
+Datum hashbpcharextended(PG_FUNCTION_ARGS) {
+    BpChar *key = PG_GETARG_BPCHAR_PP(0);
+    uint64 seed = PG_GETARG_INT64(1);
+    Oid collid = PG_GET_COLLATION();
+
+    // Require valid collation
+    if (!collid)
+        ereport(ERROR, (errcode(ERRCODE_INDETERMINATE_COLLATION),
+                        errmsg("could not determine which collation to use for string hashing")));
+
+    // Get character data and true length (ignoring trailing spaces)
+    char *keydata = VARDATA_ANY(key);
+    int keylen = bcTruelen(key);
+
+    // Handle locale-specific hashing
+    pg_locale_t mylocale = lc_collate_is_c(collid) ? 0 : pg_newlocale_from_collation(collid);
+
+    Datum result;
+    if (pg_locale_deterministic(mylocale)) {
+        // Simple case: hash with seed
+        result = hash_any_extended((unsigned char *) keydata, keylen, seed);
+    } else {
+        // Complex case: transform string then hash with seed
+        Size bsize = pg_strnxfrm(NULL, 0, keydata, keylen, mylocale);
+        char *buf = palloc(bsize + 1);
+        pg_strnxfrm(buf, bsize + 1, keydata, keylen, mylocale);
+
+        result = hash_any_extended((uint8_t *) buf, bsize + 1, seed);
+        pfree(buf);
+    }
+
+    PG_FREE_IF_COPY(key, 0);
+    return result;
+}
+```

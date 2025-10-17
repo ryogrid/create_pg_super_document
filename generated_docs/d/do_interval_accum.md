@@ -37,3 +37,23 @@ For infinite intervals, the function maintains separate counters (nInfcount for 
 - Maintains separate counters for positive and negative infinity occurrences
 - Does not increment N (finite value count) for infinite inputs
 - Essential for proper functioning of interval AVG and SUM aggregates
+
+## Simplified Source
+```c
+static void do_interval_accum(IntervalAggState *state, Interval *newval) {
+    // Handle infinite intervals separately
+    if (INTERVAL_IS_NOBEGIN(newval)) {
+        state->nInfcount++;  // Count negative infinity
+        return;
+    }
+
+    if (INTERVAL_IS_NOEND(newval)) {
+        state->pInfcount++;  // Count positive infinity
+        return;
+    }
+
+    // Accumulate finite intervals
+    finite_interval_pl(&state->sumX, newval, &state->sumX);
+    state->N++;  // Count finite values
+}
+```

@@ -39,3 +39,19 @@ The  function is a PostgreSQL built-in function that generates a hash value from
 - The hash covers both the block number and offset number components of the TID
 - Part of PostgreSQL's hash operator family for the TID data type
 - Located in src/backend/utils/adt/tid.c:257-271
+
+## Simplified Source
+
+```c
+Datum
+hashtid(PG_FUNCTION_ARGS)
+{
+    // Extract the TID argument
+    ItemPointer key = PG_GETARG_ITEMPOINTER(0);
+
+    // Compute hash using explicit size calculation to avoid padding issues
+    // Hash both block ID and offset number components
+    return hash_any((unsigned char *) key,
+                    sizeof(BlockIdData) + sizeof(OffsetNumber));
+}
+```

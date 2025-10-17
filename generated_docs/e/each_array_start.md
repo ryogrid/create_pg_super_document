@@ -41,3 +41,24 @@ This function is part of the JSON parsing callback system used by functions like
 - Only checks for top-level arrays (lex_level == 0) as nested arrays within objects are acceptable
 - Part of PostgreSQL's JSON expansion infrastructure for object-specific operations
 - Returns JSON_SUCCESS when validation passes (array is not at top level)
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+each_array_start(void *state)
+{
+    EachState *each_state = (EachState *) state;
+
+    // Check if this is a top-level array
+    if (each_state->lex->lex_level == 0)
+    {
+        // Error: Cannot deconstruct array as object
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("cannot deconstruct an array as an object")));
+    }
+
+    return JSON_SUCCESS;
+}
+```

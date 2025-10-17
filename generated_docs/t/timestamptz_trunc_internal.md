@@ -53,3 +53,121 @@ This function is essential for ensuring that timestamp truncation behaves correc
 - Millennium/century/decade calculations use the same boundary logic as plain timestamp truncation
 - The function assumes that infinite timestamps have already been handled by the caller
 - Critical for maintaining timezone correctness during truncation operations
+
+## Simplified Source
+
+```c
+static TimestampTz timestamptz_trunc_internal(text *units, TimestampTz timestamp, pg_tz *tzp) {
+    TimestampTz result;
+    int tz, type, val;
+    bool redotz = false;
+    char *lowunits;
+    fsec_t fsec;
+    struct pg_tm tm;
+
+    // Parse unit string (case-insensitive)
+    lowunits = downcase_truncate_identifier(VARDATA_ANY(units),
+                                           VARSIZE_ANY_EXHDR(units), false);
+    type = DecodeUnits(0, lowunits, &val);
+
+    if (type == UNITS) {
+        // Convert timestamptz to broken-down time with timezone info
+        if (timestamp2tm(timestamp, &tz, &tm, &fsec, NULL, tzp) != 0)
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                           errmsg("timestamp out of range")));
+
+        // Truncate based on specified unit
+        switch (val) {
+            case DTK_WEEK:
+                {
+                    int woy = date2isoweek(tm.tm_year, tm.tm_mon, tm.tm_mday);
+
+                    // Handle year boundary weeks
+                    if (woy >= 52 && tm.tm_mon == 1)
+                        --tm.tm_year;
+                    if (woy <= 1 && tm.tm_mon == MONTHS_PER_YEAR)
+                        ++tm.tm_year;
+
+                    isoweek2date(woy, &(tm.tm_year), &(tm.tm_mon), &(tm.tm_mday));
+                    tm.tm_hour = 0;
+                    tm.tm_min = 0;
+                    tm.tm_sec = 0;
+                    fsec = 0;
+                    redotz = true;
+                    break;
+                }
+            case DTK_MILLENNIUM:
+                // Round to millennium boundaries: -1000, 1, 1001, 2001...
+                if (tm.tm_year > 0)
+                    tm.tm_year = ((tm.tm_year + 999) / 1000) * 1000 - 999;
+                else
+                    tm.tm_year = -((999 - (tm.tm_year - 1)) / 1000) * 1000 + 1;
+                /* FALL THRU */
+            case DTK_CENTURY:
+                // Round to century boundaries: -100, 1, 101...
+                if (tm.tm_year > 0)
+                    tm.tm_year = ((tm.tm_year + 99) / 100) * 100 - 99;
+                else
+                    tm.tm_year = -((99 - (tm.tm_year - 1)) / 100) * 100 + 1;
+                /* FALL THRU */
+            case DTK_DECADE:
+                // Round to decade boundaries (only if not already processed)
+                if (val != DTK_MILLENNIUM && val != DTK_CENTURY) {
+                    if (tm.tm_year > 0)
+                        tm.tm_year = (tm.tm_year / 10) * 10;
+                    else
+                        tm.tm_year = -((8 - (tm.tm_year - 1)) / 10) * 10;
+                }
+                /* FALL THRU */
+            case DTK_YEAR:
+                tm.tm_mon = 1;
+                /* FALL THRU */
+            case DTK_QUARTER:
+                tm.tm_mon = (3 * ((tm.tm_mon - 1) / 3)) + 1;
+                /* FALL THRU */
+            case DTK_MONTH:
+                tm.tm_mday = 1;
+                /* FALL THRU */
+            case DTK_DAY:
+                tm.tm_hour = 0;
+                redotz = true;  // Timezone recalculation needed for day+ truncations
+                /* FALL THRU */
+            case DTK_HOUR:
+                tm.tm_min = 0;
+                /* FALL THRU */
+            case DTK_MINUTE:
+                tm.tm_sec = 0;
+                /* FALL THRU */
+            case DTK_SECOND:
+                fsec = 0;
+                break;
+            case DTK_MILLISEC:
+                fsec = (fsec / 1000) * 1000;
+                break;
+            case DTK_MICROSEC:
+                break;
+            default:
+                ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                               errmsg("unit \"%s\" not supported for type %s",
+                                      lowunits, format_type_be(TIMESTAMPTZOID))));
+                result = 0;
+        }
+
+        // Recalculate timezone offset if needed (for DST transitions)
+        if (redotz)
+            tz = DetermineTimeZoneOffset(&tm, tzp);
+
+        // Convert back to timestamptz
+        if (tm2timestamp(&tm, fsec, &tz, &result) != 0)
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                           errmsg("timestamp out of range")));
+    } else {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("unit \"%s\" not recognized for type %s",
+                              lowunits, format_type_be(TIMESTAMPTZOID))));
+        result = 0;
+    }
+
+    return result;
+}
+```

@@ -33,3 +33,12 @@ The search_path setting controls which schemas are searched when resolving unqua
 - The stored search_path will be applied during the restoration process to ensure proper schema resolution
 - This approach allows for flexibility in search_path formats and future compatibility
 - The copied string becomes the responsibility of the archive handle and will be freed when the handle is destroyed
+
+## Simplified Source
+
+```c
+static void processSearchPathEntry(ArchiveHandle *AH, TocEntry *te) {
+    // Store search_path command verbatim for later use during restoration
+    AH->public.searchpath = pg_strdup(te->defn);
+}
+```

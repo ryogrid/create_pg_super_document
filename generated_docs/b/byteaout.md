@@ -48,3 +48,70 @@ The function calculates the required output buffer size first to prevent buffer 
 - Uses efficient single-pass algorithms for both format conversions
 - The escaped format calculation is done in two passes: first to calculate required size, then to perform the actual conversion
 - Non-printable character detection uses the standard ASCII printable range (0x20-0x7e)
+
+## Simplified Source
+
+```c
+Datum byteaout(PG_FUNCTION_ARGS) {
+    bytea *vlena = PG_GETARG_BYTEA_PP(0);
+    char *result;
+    char *rp;
+
+    if (bytea_output == BYTEA_OUTPUT_HEX) {
+        // Hex format: \x followed by hex digits
+        rp = result = palloc(VARSIZE_ANY_EXHDR(vlena) * 2 + 2 + 1);
+        *rp++ = '\\';
+        *rp++ = 'x';
+        rp += hex_encode(VARDATA_ANY(vlena), VARSIZE_ANY_EXHDR(vlena), rp);
+    }
+    else if (bytea_output == BYTEA_OUTPUT_ESCAPE) {
+        // Traditional escaped format
+        char *vp = VARDATA_ANY(vlena);
+        uint64 len = 1; // Start with 1 for empty string
+
+        // Calculate required output length
+        for (int i = VARSIZE_ANY_EXHDR(vlena); i != 0; i--, vp++) {
+            if (*vp == '\\')
+                len += 2;  // Escape backslash as \\
+            else if ((unsigned char) *vp < 0x20 || (unsigned char) *vp > 0x7e)
+                len += 4;  // Non-printable as \nnn
+            else
+                len++;     // Printable as-is
+        }
+
+        // Check for overflow protection
+        if (len > MaxAllocSize)
+            ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                          errmsg_internal("result of bytea output conversion is too large")));
+
+        // Perform the actual conversion
+        char *rp = result = palloc(len);
+        vp = VARDATA_ANY(vlena);
+
+        for (int i = VARSIZE_ANY_EXHDR(vlena); i != 0; i--, vp++) {
+            if (*vp == '\\') {
+                *rp++ = '\\'; *rp++ = '\\';
+            }
+            else if ((unsigned char) *vp < 0x20 || (unsigned char) *vp > 0x7e) {
+                // Convert to octal escape sequence
+                int val = *vp;
+                rp[0] = '\\';
+                rp[3] = DIG(val & 07); val >>= 3;
+                rp[2] = DIG(val & 07); val >>= 3;
+                rp[1] = DIG(val & 03);
+                rp += 4;
+            }
+            else {
+                *rp++ = *vp;
+            }
+        }
+    }
+    else {
+        elog(ERROR, "unrecognized \"bytea_output\" setting: %d", bytea_output);
+        result = NULL; // Keep compiler quiet
+    }
+
+    *rp = '\0';
+    return PG_RETURN_CSTRING(result);
+}
+```

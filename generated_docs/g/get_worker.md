@@ -55,3 +55,63 @@ The  function serves as the core implementation for all JSON getter functions in
 - The function handles both simple field/element extraction and complex nested path navigation
 - Memory management includes proper cleanup of the JSON lexical context
 - Negative array indices are supported for accessing elements from the end of arrays
+
+## Simplified Source
+
+```c
+static text *
+get_worker(text *json,
+           char **tpath,
+           int *ipath,
+           int npath,
+           bool normalize_results)
+{
+    JsonSemAction *sem = palloc0(sizeof(JsonSemAction));
+    GetState *state = palloc0(sizeof(GetState));
+
+    // Initialize JSON lexical context and state
+    state->lex = makeJsonLexContext(NULL, json, true);
+    state->normalize_results = normalize_results;
+    state->npath = npath;
+    state->path_names = tpath;
+    state->path_indexes = ipath;
+    state->pathok = palloc0(sizeof(bool) * npath);
+    state->array_cur_index = palloc(sizeof(int) * npath);
+
+    // Mark root path as valid if we have paths to follow
+    if (npath > 0)
+        state->pathok[0] = true;
+
+    sem->semstate = (void *) state;
+
+    // Set up semantic action handlers based on what's needed
+    sem->scalar = get_scalar;
+
+    // For root-level extraction, handle all container types
+    if (npath == 0) {
+        sem->object_start = get_object_start;
+        sem->object_end = get_object_end;
+        sem->array_start = get_array_start;
+        sem->array_end = get_array_end;
+    }
+
+    // Set object field handlers if we have text paths
+    if (tpath != NULL) {
+        sem->object_field_start = get_object_field_start;
+        sem->object_field_end = get_object_field_end;
+    }
+
+    // Set array element handlers if we have index paths
+    if (ipath != NULL) {
+        sem->array_start = get_array_start;
+        sem->array_element_start = get_array_element_start;
+        sem->array_element_end = get_array_element_end;
+    }
+
+    // Parse JSON using configured semantic actions
+    pg_parse_json_or_ereport(state->lex, sem);
+    freeJsonLexContext(state->lex);
+
+    return state->tresult;
+}
+```

@@ -40,3 +40,23 @@ The function maintains an "imaginary session user" concept that represents what 
 - Maintains accurate state tracking for both connected and script generation modes
 - Converts NULL user parameter to empty string to avoid null pointer issues
 - Updates AH->currUser to track the current session user for future optimization checks
+
+## Simplified Source
+
+```c
+static void _becomeUser(ArchiveHandle *AH, const char *user) {
+    if (!user)
+        user = "";  // Avoid null pointers
+
+    // Skip if already the current user (optimization)
+    if (AH->currUser && strcmp(AH->currUser, user) == 0)
+        return;
+
+    // Change session authorization
+    _doSetSessionAuth(AH, user);
+
+    // Update state tracking
+    free(AH->currUser);
+    AH->currUser = pg_strdup(user);
+}
+```

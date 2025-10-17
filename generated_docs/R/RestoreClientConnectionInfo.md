@@ -35,3 +35,25 @@ This function deserializes client connection information from a binary buffer th
 - Assumes the serialized buffer was created by the corresponding serialize function
 - Critical for maintaining proper authentication context in parallel query execution
 - The restored authentication ID persists until process termination due to TopMemoryContext allocation
+
+## Simplified Source
+
+```c
+void RestoreClientConnectionInfo(char *conninfo)
+{
+    SerializedClientConnectionInfo serialized;
+
+    // Deserialize the fixed-size portion
+    memcpy(&serialized, conninfo, sizeof(serialized));
+
+    // Restore authentication method
+    MyClientConnectionInfo.authn_id = NULL;
+    MyClientConnectionInfo.auth_method = serialized.auth_method;
+
+    // Restore authentication ID if present
+    if (serialized.authn_id_len >= 0) {
+        char *authn_id = conninfo + sizeof(serialized);
+        MyClientConnectionInfo.authn_id = MemoryContextStrdup(TopMemoryContext, authn_id);
+    }
+}
+```

@@ -31,3 +31,14 @@ This function determines if a name (fixed-length string) is lexicographically le
 - Uses  macro for efficient function invocation
 - Returns boolean result: true if name < text, false otherwise
 - Part of the complete set of comparison operators between name and text types
+
+## Simplified Source
+
+```c
+Datum
+namelttext(PG_FUNCTION_ARGS)
+{
+    // Return true if name < text comparison result is negative
+    PG_RETURN_BOOL(CmpCall(btnametextcmp) < 0);
+}
+```

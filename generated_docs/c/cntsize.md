@@ -39,3 +39,26 @@ The function includes stack depth checking to prevent stack overflow during deep
 - Essential for pre-calculating memory requirements before tree format conversions
 - Part of PostgreSQL's text search query processing utilities
 - Located in src/backend/utils/adt/tsquery_util.c:292-315
+
+## Simplified Source
+
+```c
+static void
+cntsize(QTNode *in, int *sumlen, int *nnode)
+{
+    // Prevent stack overflow during recursion
+    check_stack_depth();
+
+    // Count this node
+    *nnode += 1;
+
+    if (in->valnode->type == QI_OPR) {
+        // For operator nodes, recursively count all children
+        for (int i = 0; i < in->nchild; i++)
+            cntsize(in->child[i], sumlen, nnode);
+    } else {
+        // For operand nodes, add string length + 1 for null terminator
+        *sumlen += in->valnode->qoperand.length + 1;
+    }
+}
+```

@@ -42,7 +42,56 @@ The function validates input parameters, ensures the root is not a scalar, and u
 ## Notes and Other Information
 - Only accepts one-dimensional path arrays
 - Cannot set paths in scalar JSONB values
-- When  is false and the root is empty, returns the original JSONB unchanged
+- When create is false and the root is empty, returns the original JSONB unchanged
 - Empty path arrays return the original JSONB unchanged
-- Uses  or  modes based on the  parameter
+- Uses JB_PATH_CREATE or JB_PATH_REPLACE modes based on the create parameter
 - File location: src/backend/utils/adt/jsonfuncs.c:4844-4892
+
+## Simplified Source
+
+```c
+Datum jsonb_set(PG_FUNCTION_ARGS) {
+    Jsonb *in = PG_GETARG_JSONB_P(0);
+    ArrayType *path = PG_GETARG_ARRAYTYPE_P(1);
+    Jsonb *newjsonb = PG_GETARG_JSONB_P(2);
+    bool create = PG_GETARG_BOOL(3);
+    JsonbValue newval;
+    JsonbValue *res = NULL;
+    Datum *path_elems;
+    bool *path_nulls;
+    int path_len;
+    JsonbIterator *it;
+    JsonbParseState *st = NULL;
+
+    // Convert new JSONB to JsonbValue
+    JsonbToJsonbValue(newjsonb, &newval);
+
+    // Validate path array dimensions
+    if (ARR_NDIM(path) > 1)
+        ereport(ERROR, (errcode(ERRCODE_ARRAY_SUBSCRIPT_ERROR),
+                       errmsg("wrong number of array subscripts")));
+
+    // Error check: cannot set path in scalar
+    if (JB_ROOT_IS_SCALAR(in))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("cannot set path in scalar")));
+
+    // Return unchanged if empty and not creating
+    if (JB_ROOT_COUNT(in) == 0 && !create)
+        PG_RETURN_JSONB_P(in);
+
+    // Extract path elements
+    deconstruct_array_builtin(path, TEXTOID, &path_elems, &path_nulls, &path_len);
+
+    if (path_len == 0)
+        PG_RETURN_JSONB_P(in);
+
+    it = JsonbIteratorInit(&in->root);
+
+    // Set value at specified path
+    res = setPath(&it, path_elems, path_nulls, path_len, &st,
+                  0, &newval, create ? JB_PATH_CREATE : JB_PATH_REPLACE);
+
+    PG_RETURN_JSONB_P(JsonbValueToJsonb(res));
+}
+```

@@ -39,3 +39,17 @@ This capability is essential for PostgreSQL's type system, allowing functions to
 - Used primarily by constructor functions for complex types like ranges and multiranges
 - Works in conjunction with get_fn_expr_argtype() for complete type introspection
 - The returned OID can be used with PostgreSQL's type system functions for further type operations
+
+## Simplified Source
+
+```c
+Oid get_fn_expr_rettype(FmgrInfo *flinfo) {
+    // Validate that we have function info and expression available
+    if (!flinfo || !flinfo->fn_expr)
+        return InvalidOid;
+
+    // Extract the return type from the function's expression
+    Node *expr = flinfo->fn_expr;
+    return exprType(expr);
+}
+```

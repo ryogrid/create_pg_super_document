@@ -41,3 +41,24 @@ Key characteristics:
 - Returns INT64 to handle large result sets
 - The rank starts at 1 for the first row in each partition
 - Dense ranking ensures no gaps in the sequence, making it suitable for scenarios requiring consecutive numbering
+
+## Simplified Source
+
+```c
+Datum window_dense_rank(PG_FUNCTION_ARGS)
+{
+    WindowObject winobj = PG_WINDOW_OBJECT();
+    rank_context *context = (rank_context *)
+        WinGetPartitionLocalMemory(winobj, sizeof(rank_context));
+
+    // Check if rank should increase for non-peer rows
+    bool should_increase = rank_up(winobj);
+
+    if (should_increase) {
+        // Increment rank by 1 (no gaps, dense ranking)
+        context->rank++;
+    }
+
+    PG_RETURN_INT64(context->rank);
+}
+```

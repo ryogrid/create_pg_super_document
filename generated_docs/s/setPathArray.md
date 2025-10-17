@@ -61,3 +61,119 @@ The function includes special handling for edge cases like empty arrays, prepend
 - Prevents index shifting during insertions when consistency is required
 - Handles nested structure traversal using walking_level counter for proper copying
 - The function assumes the caller will close the array with WJB_END_ARRAY
+
+## Simplified Source
+
+```c
+static void setPathArray(JsonbIterator **it, Datum *path_elems, bool *path_nulls,
+                        int path_len, JsonbParseState **st, int level,
+                        JsonbValue *newval, uint32 nelems, int op_type) {
+    JsonbValue v;
+    int idx, i;
+    bool done = false;
+
+    // Parse index from path element
+    if (level < path_len && !path_nulls[level]) {
+        char *c = TextDatumGetCString(path_elems[level]);
+        char *badp;
+        errno = 0;
+        idx = strtoint(c, &badp, 10);
+        if (badp == c || *badp != '\0' || errno != 0)
+            ereport(ERROR, "path element at position %d is not an integer: \"%s\"",
+                   level + 1, c);
+    } else {
+        idx = nelems;
+    }
+
+    // Handle negative indices
+    if (idx < 0) {
+        if (-idx > nelems) {
+            if (op_type & JB_PATH_CONSISTENT_POSITION)
+                ereport(ERROR, "path element at position %d is out of range: %d",
+                       level + 1, idx);
+            else
+                idx = INT_MIN; // Special marker for prepending
+        } else {
+            idx = nelems + idx; // Convert to positive index
+        }
+    }
+
+    // Limit index based on gap filling policy
+    if (!(op_type & JB_PATH_FILL_GAPS)) {
+        if (idx > 0 && idx > nelems)
+            idx = nelems;
+    }
+
+    // Handle prepending and empty array creation
+    if ((idx == INT_MIN || nelems == 0) && (level == path_len - 1) &&
+        (op_type & JB_PATH_CREATE_OR_INSERT)) {
+        if (op_type & JB_PATH_FILL_GAPS && nelems == 0 && idx > 0)
+            push_null_elements(st, idx);
+
+        pushJsonbValue(st, WJB_ELEM, newval);
+        done = true;
+    }
+
+    // Iterate through array elements
+    for (i = 0; i < nelems; i++) {
+        JsonbIteratorToken r;
+
+        if (i == idx && level < path_len) {
+            done = true;
+
+            if (level == path_len - 1) {
+                // At target level - perform element operation
+                r = JsonbIteratorNext(it, &v, true); // skip existing element
+
+                if (op_type & (JB_PATH_INSERT_BEFORE | JB_PATH_CREATE))
+                    pushJsonbValue(st, WJB_ELEM, newval);
+
+                // Keep existing element for insert operations
+                if (op_type & (JB_PATH_INSERT_AFTER | JB_PATH_INSERT_BEFORE))
+                    pushJsonbValue(st, r, &v);
+
+                if (op_type & (JB_PATH_INSERT_AFTER | JB_PATH_REPLACE))
+                    pushJsonbValue(st, WJB_ELEM, newval);
+            } else {
+                // More path elements remain - recurse
+                setPath(it, path_elems, path_nulls, path_len,
+                       st, level + 1, newval, op_type);
+            }
+        } else {
+            // Copy existing element
+            r = JsonbIteratorNext(it, &v, false);
+            pushJsonbValue(st, r, r < WJB_BEGIN_ARRAY ? &v : NULL);
+
+            // Handle nested structures
+            if (r == WJB_BEGIN_ARRAY || r == WJB_BEGIN_OBJECT) {
+                int walking_level = 1;
+                while (walking_level != 0) {
+                    r = JsonbIteratorNext(it, &v, false);
+                    if (r == WJB_BEGIN_ARRAY || r == WJB_BEGIN_OBJECT)
+                        ++walking_level;
+                    if (r == WJB_END_ARRAY || r == WJB_END_OBJECT)
+                        --walking_level;
+                    pushJsonbValue(st, r, r < WJB_BEGIN_ARRAY ? &v : NULL);
+                }
+            }
+        }
+    }
+
+    // Handle appending to array end
+    if ((op_type & JB_PATH_CREATE_OR_INSERT) && !done && level == path_len - 1) {
+        if (op_type & JB_PATH_FILL_GAPS && idx > nelems)
+            push_null_elements(st, idx - nelems);
+
+        pushJsonbValue(st, WJB_ELEM, newval);
+        done = true;
+    }
+
+    // Handle gap filling for missing intermediate paths
+    if (!done && (op_type & JB_PATH_FILL_GAPS) && (level < path_len - 1)) {
+        if (idx > 0)
+            push_null_elements(st, idx - nelems);
+
+        push_path(st, level, path_elems, path_nulls, path_len, newval);
+    }
+}
+```

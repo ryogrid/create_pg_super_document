@@ -41,3 +41,32 @@ The function uses proper identifier quoting to ensure that role names containing
 - Falls back to numeric OID representation when role lookup fails
 - Complements regrolein to provide complete type I/O operations for regrole
 - The quoted output ensures that role names can be safely used in SQL contexts
+
+## Simplified Source
+
+```c
+Datum regroleout(PG_FUNCTION_ARGS) {
+    Oid roleoid = PG_GETARG_OID(0);
+    char *result;
+
+    // Handle invalid OID - return "-"
+    if (roleoid == InvalidOid) {
+        result = pstrdup("-");
+        PG_RETURN_CSTRING(result);
+    }
+
+    // Look up role name by OID
+    result = GetUserNameFromId(roleoid, true);
+
+    if (result) {
+        // Quote the role name for safe output
+        result = pstrdup(quote_identifier(result));
+    } else {
+        // Role not found - return numeric OID
+        result = (char *) palloc(NAMEDATALEN);
+        snprintf(result, NAMEDATALEN, "%u", roleoid);
+    }
+
+    PG_RETURN_CSTRING(result);
+}
+```

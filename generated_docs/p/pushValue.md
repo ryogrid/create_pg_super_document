@@ -47,3 +47,41 @@ The function implements a comprehensive operand storage system where strings are
 - The distance calculation (state->curop - [state](../s/state.md)->op) represents the offset of the current operand in the buffer
 - Buffer management includes proper pointer arithmetic to maintain the curop position after reallocation
 - The sumlen field tracks the total length of all stored operands plus their null terminators
+
+## Simplified Source
+
+```c
+void pushValue(TSQueryParserState state, char *strval, int lenval, int16 weight, bool prefix) {
+    // Validate string length
+    if (lenval >= MAXSTRLEN)
+        ereturn(state->escontext,,
+                (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                 errmsg("word is too long in tsquery: \"%s\"", state->buffer)));
+
+    // Calculate CRC32 checksum for the operand
+    pg_crc32 valcrc;
+    INIT_LEGACY_CRC32(valcrc);
+    COMP_LEGACY_CRC32(valcrc, strval, lenval);
+    FIN_LEGACY_CRC32(valcrc);
+
+    // Push operand to polish notation stack
+    pushValue_internal(state, valcrc, state->curop - state->op, lenval, weight, prefix);
+
+    // Expand operand buffer if needed
+    while (state->curop - state->op + lenval + 1 >= state->lenop) {
+        int used = state->curop - state->op;
+        state->lenop *= 2;
+        state->op = (char *) repalloc(state->op, state->lenop);
+        state->curop = state->op + used;  // Restore position after reallocation
+    }
+
+    // Copy string to operand buffer with null termination
+    memcpy(state->curop, strval, lenval);
+    state->curop += lenval;
+    *(state->curop) = '\0';
+    state->curop++;
+
+    // Update total length tracking
+    state->sumlen += lenval + 1;  // Include null terminator
+}
+```

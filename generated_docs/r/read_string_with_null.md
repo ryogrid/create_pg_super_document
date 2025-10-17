@@ -48,3 +48,36 @@ Error conditions:
 - Memory allocated must be freed by the caller using appropriate GUC memory functions
 - Designed to handle the specific binary format used by PostgreSQL's configuration sharing
 - Buffer growth strategy (doubling) provides good amortized performance for large strings
+
+## Simplified Source
+
+```c
+static char *read_string_with_null(FILE *fp)
+{
+    int i = 0, ch, maxlen = 256;
+    char *str = NULL;
+
+    do
+    {
+        // Read next character
+        if ((ch = fgetc(fp)) == EOF)
+        {
+            if (i == 0)
+                return NULL;        // EOF at start - normal condition
+            else
+                elog(FATAL, "invalid format of exec config params file");
+        }
+
+        // Allocate initial buffer or expand if needed
+        if (i == 0)
+            str = guc_malloc(FATAL, maxlen);
+        else if (i == maxlen)
+            str = guc_realloc(FATAL, str, maxlen *= 2);
+
+        // Store character and continue until null terminator
+        str[i++] = ch;
+    } while (ch != 0);
+
+    return str;
+}
+```

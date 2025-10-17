@@ -35,3 +35,28 @@ The  function creates an archive entry that contains a SQL command to set the cl
 - The encoding entry is placed in SECTION_PRE_DATA to ensure it's executed before other database objects are restored
 - The function handles proper SQL literal quoting to prevent injection issues with encoding names
 - This is essential for correctly restoring databases with non-ASCII character sets
+
+## Simplified Source
+
+```c
+static void dumpEncoding(Archive *AH) {
+    const char *encname = pg_encoding_to_char(AH->encoding);
+    PQExpBuffer qry = createPQExpBuffer();
+
+    pg_log_info("saving encoding = %s", encname);
+
+    // Create SET client_encoding statement
+    appendPQExpBufferStr(qry, "SET client_encoding = ");
+    appendStringLiteralAH(qry, encname, AH);
+    appendPQExpBufferStr(qry, ";\\n");
+
+    // Create archive entry for encoding
+    ArchiveEntry(AH, nilCatalogId, createDumpId(),
+                ARCHIVE_OPTS(.tag = "ENCODING",
+                           .description = "ENCODING",
+                           .section = SECTION_PRE_DATA,
+                           .createStmt = qry->data));
+
+    destroyPQExpBuffer(qry);
+}
+```

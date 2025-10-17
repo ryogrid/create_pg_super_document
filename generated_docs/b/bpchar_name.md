@@ -47,3 +47,31 @@ The function uses multi-byte character awareness when clipping oversize input to
 - Uses palloc0 to ensure the result is zero-padded, which is important for NameData consistency
 - Trailing space removal reflects the semantic difference between padded character data and identifiers
 - The NAMEDATALEN limit reflects PostgreSQL's internal constraints on identifier lengths
+
+## Simplified Source
+
+```c
+Datum bpchar_name(PG_FUNCTION_ARGS) {
+    BpChar *s = PG_GETARG_BPCHAR_PP(0);
+
+    // Extract character data and length
+    int len = VARSIZE_ANY_EXHDR(s);
+    char *s_data = VARDATA_ANY(s);
+
+    // Truncate if input exceeds name length limit
+    if (len >= NAMEDATALEN) {
+        len = pg_mbcliplen(s_data, len, NAMEDATALEN - 1);
+    }
+
+    // Remove trailing spaces (not meaningful for identifiers)
+    while (len > 0 && s_data[len - 1] == ' ') {
+        len--;
+    }
+
+    // Allocate zero-padded result and copy data
+    Name result = (Name) palloc0(NAMEDATALEN);
+    memcpy(NameStr(*result), s_data, len);
+
+    PG_RETURN_NAME(result);
+}
+```

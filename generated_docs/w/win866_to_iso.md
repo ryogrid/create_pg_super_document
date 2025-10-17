@@ -44,3 +44,23 @@ The conversion process validates the encoding arguments, performs the character-
 - WIN866 is commonly used for DOS/legacy systems with Russian text
 - Returns the number of input bytes successfully processed
 - Registered as PG_FUNCTION_INFO_V1 for PostgreSQL function call interface
+
+## Simplified Source
+
+```c
+Datum win866_to_iso(PG_FUNCTION_ARGS) {
+    // Extract function parameters
+    unsigned char *src = PG_GETARG_CSTRING(2);   // Source WIN866 string
+    unsigned char *dest = PG_GETARG_CSTRING(3);  // Destination ISO-8859-5 buffer
+    int len = PG_GETARG_INT32(4);                 // Length to convert
+    bool noError = PG_GETARG_BOOL(5);            // Error handling flag
+
+    // Validate encoding compatibility
+    CHECK_ENCODING_CONVERSION_ARGS(PG_WIN866, PG_ISO_8859_5);
+
+    // Perform DOS to ISO Cyrillic conversion using mapping table
+    int converted = local2local(src, dest, len, PG_WIN866, PG_ISO_8859_5, win8662iso, noError);
+
+    return converted;  // Return number of bytes converted
+}
+```

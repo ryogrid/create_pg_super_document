@@ -34,3 +34,20 @@ This function serves as a hash function callback for the hash table used in arra
 - The keysize parameter follows hash table interface requirements but is not used internally
 - Essential component for efficient element lookup and frequency tracking in array analysis
 - Located in src/backend/utils/adt/array_typanalyze.c:710-724
+
+## Simplified Source
+
+```c
+static uint32 element_hash(const void *key, Size keysize) {
+    // Extract the Datum value from the key pointer
+    Datum d = *((const Datum *) key);
+
+    // Apply the element type's hash function with appropriate collation
+    Datum h = FunctionCall1Coll(array_extra_data->hash,
+                                array_extra_data->coll_id,
+                                d);
+
+    // Return the hash value as uint32
+    return DatumGetUInt32(h);
+}
+```

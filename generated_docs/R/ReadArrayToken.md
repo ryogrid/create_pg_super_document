@@ -63,3 +63,120 @@ Key features:
 - The function is stateless and can be called repeatedly to tokenize an entire array
 - Validates that elements are consistently quoted throughout
 - Special handling for "NULL" string depends on Array_nulls configuration setting
+
+## Simplified Source
+
+```c
+static ArrayToken
+ReadArrayToken(char **srcptr, StringInfo elembuf, char typdelim,
+               const char *origStr, Node *escontext)
+{
+    char *p = *srcptr;
+    int dstlen;
+    bool has_escapes;
+
+    resetStringInfo(elembuf);
+
+    // Skip whitespace and identify token type
+    for (;;) {
+        switch (*p) {
+            case '\0':
+                goto ending_error;
+            case '{':
+                *srcptr = p + 1;
+                return ATOK_LEVEL_START;
+            case '}':
+                *srcptr = p + 1;
+                return ATOK_LEVEL_END;
+            case '"':
+                p++;
+                goto quoted_element;
+            default:
+                if (*p == typdelim) {
+                    *srcptr = p + 1;
+                    return ATOK_DELIM;
+                }
+                if (scanner_isspace(*p)) {
+                    p++;
+                    continue;
+                }
+                goto unquoted_element;
+        }
+    }
+
+quoted_element:
+    // Parse quoted string with escape handling
+    for (;;) {
+        switch (*p) {
+            case '\0':
+                goto ending_error;
+            case '\\':
+                // Handle escaped character
+                p++;
+                if (*p == '\0') goto ending_error;
+                appendStringInfoChar(elembuf, *p++);
+                break;
+            case '"':
+                // End of quoted element - validate what follows
+                while (*(++p) != '\0') {
+                    if (*p == typdelim || *p == '}' || *p == '{') {
+                        *srcptr = p;
+                        return ATOK_ELEM;
+                    }
+                    if (!scanner_isspace(*p))
+                        return ATOK_ERROR;  // Invalid character after quote
+                }
+                goto ending_error;
+            default:
+                appendStringInfoChar(elembuf, *p++);
+                break;
+        }
+    }
+
+unquoted_element:
+    // Parse unquoted element, tracking non-whitespace content
+    dstlen = 0;
+    has_escapes = false;
+    for (;;) {
+        switch (*p) {
+            case '\0':
+                goto ending_error;
+            case '{':
+            case '"':
+                return ATOK_ERROR;  // Invalid in unquoted context
+            case '\\':
+                // Handle escaped character
+                p++;
+                if (*p == '\0') goto ending_error;
+                appendStringInfoChar(elembuf, *p++);
+                dstlen = elembuf->len;
+                has_escapes = true;
+                break;
+            default:
+                // Check for end of element
+                if (*p == typdelim || *p == '}') {
+                    // Trim trailing whitespace
+                    elembuf->data[dstlen] = '\0';
+                    elembuf->len = dstlen;
+                    *srcptr = p;
+
+                    // Check for NULL literal
+                    if (Array_nulls && !has_escapes &&
+                        pg_strcasecmp(elembuf->data, "NULL") == 0)
+                        return ATOK_ELEM_NULL;
+                    else
+                        return ATOK_ELEM;
+                }
+
+                appendStringInfoChar(elembuf, *p);
+                if (!scanner_isspace(*p))
+                    dstlen = elembuf->len;
+                p++;
+                break;
+        }
+    }
+
+ending_error:
+    return ATOK_ERROR;  // Unexpected end of input
+}
+```

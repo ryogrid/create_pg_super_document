@@ -43,3 +43,34 @@ For optimization, the function performs early exit checks: arrays with fewer tha
 - Memory efficient: delegates actual work to array_shuffle_n helper function
 - Part of PostgreSQL's array utility functions for randomization
 - Located in src/backend/utils/adt/array_userfuncs.c:1626-1659
+
+## Simplified Source
+
+```c
+Datum
+array_shuffle(PG_FUNCTION_ARGS)
+{
+    ArrayType  *array = PG_GETARG_ARRAYTYPE_P(0);
+    ArrayType  *result;
+    Oid         elmtyp;
+    TypeCacheEntry *typentry;
+
+    // Early exit for arrays with less than 2 items (no point shuffling)
+    if (ARR_NDIM(array) < 1 || ARR_DIMS(array)[0] < 2)
+        PG_RETURN_ARRAYTYPE_P(array);
+
+    elmtyp = ARR_ELEMTYPE(array);
+
+    // Cache type information for efficiency across calls
+    typentry = (TypeCacheEntry *) fcinfo->flinfo->fn_extra;
+    if (typentry == NULL || typentry->type_id != elmtyp) {
+        typentry = lookup_type_cache(elmtyp, 0);
+        fcinfo->flinfo->fn_extra = (void *) typentry;
+    }
+
+    // Shuffle all items in first dimension, preserving bounds
+    result = array_shuffle_n(array, ARR_DIMS(array)[0], true, elmtyp, typentry);
+
+    PG_RETURN_ARRAYTYPE_P(result);
+}
+```

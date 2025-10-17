@@ -41,3 +41,26 @@ The function extracts the C string from the Name argument, gets the pattern from
 - The function uses GenericMatchText for the actual pattern matching, ensuring consistent behavior across different LIKE-related functions
 - The result is negated compared to regular LIKE operations (returns true when pattern does NOT match)
 - Supports collation-aware pattern matching through PG_GET_COLLATION()
+
+## Simplified Source
+
+```c
+Datum
+namenlike(PG_FUNCTION_ARGS)
+{
+    // Extract arguments
+    Name str = PG_GETARG_NAME(0);
+    text *pat = PG_GETARG_TEXT_PP(1);
+
+    // Get string data and lengths
+    char *s = NameStr(*str);
+    int slen = strlen(s);
+    char *p = VARDATA_ANY(pat);
+    int plen = VARSIZE_ANY_EXHDR(pat);
+
+    // Perform pattern matching and negate result for NOT LIKE
+    bool result = (GenericMatchText(s, slen, p, plen, PG_GET_COLLATION()) != LIKE_TRUE);
+
+    PG_RETURN_BOOL(result);
+}
+```

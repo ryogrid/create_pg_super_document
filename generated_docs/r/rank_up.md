@@ -38,3 +38,29 @@ The function uses partition-local memory to maintain a  structure that tracks th
 - The function manages the mark position to ensure proper access to the previous row before advancing
 - The rank context is stored in partition-local memory, ensuring each partition maintains its own ranking state
 - The function returns true when the rank should increase, false when the current row has the same rank as the previous row (peers)
+
+## Simplified Source
+
+```c
+static bool rank_up(WindowObject winobj)
+{
+    int64 curpos = WinGetCurrentPosition(winobj);
+    rank_context *context = (rank_context *)
+        WinGetPartitionLocalMemory(winobj, sizeof(rank_context));
+
+    if (context->rank == 0) {
+        // First call: initialize rank to 1
+        context->rank = 1;
+        WinSetMarkPosition(winobj, curpos);
+        return false;  // No rank increase on first row
+    }
+
+    // Check if current row differs from previous row
+    bool should_increase = !WinRowsArePeers(winobj, curpos - 1, curpos);
+
+    // Advance mark position after comparing with prior row
+    WinSetMarkPosition(winobj, curpos);
+
+    return should_increase;
+}
+```

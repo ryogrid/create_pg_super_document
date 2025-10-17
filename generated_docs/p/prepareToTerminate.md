@@ -38,3 +38,33 @@ The  function handles the graceful shutdown of a logical replication stream by n
 - Used specifically in the pg_recvlogical utility for logical replication WAL streaming
 - The function includes assertions to catch programming errors in debug builds (Assert calls)
 - Designed to be called as part of the cleanup process when stopping logical replication streaming
+
+## Simplified Source
+
+```c
+static void
+prepareToTerminate(PGconn *conn, XLogRecPtr endpos, StreamStopReason reason,
+                   XLogRecPtr lsn)
+{
+    // Send copy end message to server (ignore response)
+    (void) PQputCopyEnd(conn, NULL);
+    (void) PQflush(conn);
+
+    // Log termination reason if verbose mode enabled
+    if (verbose) {
+        switch (reason) {
+            case STREAM_STOP_SIGNAL:
+                pg_log_info("received interrupt signal, exiting");
+                break;
+            case STREAM_STOP_KEEPALIVE:
+                pg_log_info("end position %X/%X reached by keepalive",
+                           LSN_FORMAT_ARGS(endpos));
+                break;
+            case STREAM_STOP_END_OF_WAL:
+                pg_log_info("end position %X/%X reached by WAL record at %X/%X",
+                           LSN_FORMAT_ARGS(endpos), LSN_FORMAT_ARGS(lsn));
+                break;
+        }
+    }
+}
+```

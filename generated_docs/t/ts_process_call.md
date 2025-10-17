@@ -42,3 +42,49 @@ The function works as part of PostgreSQL's SRF framework, being called repeatedl
 - Memory management includes freeing the allocated lexeme string after tuple construction
 - Part of PostgreSQL's text search functionality for analyzing TSVector statistics
 - The returned tuple format matches the expected output schema for ts_stat functions
+
+## Simplified Source
+
+```c
+static Datum ts_process_call(FuncCallContext *funcctx) {
+    TSVectorStat *st;
+    StatEntry *entry;
+
+    st = (TSVectorStat *) funcctx->user_fctx;
+
+    // Get next entry from tree traversal
+    entry = walkStatEntryTree(st);
+
+    if (entry != NULL) {
+        Datum result;
+        char *values[3];
+        char ndoc[16];
+        char nentry[16];
+        HeapTuple tuple;
+
+        // Format lexeme string
+        values[0] = palloc(entry->lenlexeme + 1);
+        memcpy(values[0], entry->lexeme, entry->lenlexeme);
+        (values[0])[entry->lenlexeme] = '\0';
+
+        // Format numeric values
+        sprintf(ndoc, "%d", entry->ndoc);
+        values[1] = ndoc;
+        sprintf(nentry, "%d", entry->nentry);
+        values[2] = nentry;
+
+        // Build and return tuple
+        tuple = BuildTupleFromCStrings(funcctx->attinmeta, values);
+        result = HeapTupleGetDatum(tuple);
+
+        pfree(values[0]);
+
+        // Mark entry as processed
+        entry->ndoc = 0;
+
+        return result;
+    }
+
+    return (Datum) 0; // End of results
+}
+```

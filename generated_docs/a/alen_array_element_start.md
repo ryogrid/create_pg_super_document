@@ -35,3 +35,19 @@ Unlike the validation functions (alen_object_start and alen_scalar), this functi
 - The isnull parameter is provided but not used in the current implementation
 - Always returns JSON_SUCCESS as it doesn't perform validation, only counting
 - Part of the JSON parsing callback system used throughout PostgreSQL's JSON functionality
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+alen_array_element_start(void *state, bool isnull)
+{
+    AlenState *alen_state = (AlenState *) state;
+
+    // Count top-level array elements (level 1)
+    if (alen_state->lex->lex_level == 1)
+        alen_state->count++;
+
+    return JSON_SUCCESS;
+}
+```

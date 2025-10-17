@@ -44,3 +44,44 @@ The function uses the same boundary calculation approach as other JSON capture f
 - Text capture only occurs when result_start is non-NULL, indicating that capture was initiated
 - [Path](../P/Path.md) state management includes resetting pathok flags for intermediate levels to prepare for subsequent parsing
 - The function ensures proper cleanup by setting result_start to NULL after successful capture
+
+## Simplified Source
+
+```c
+static JsonParseErrorType get_array_element_end(void *state, bool isnull) {
+    GetState *_state = (GetState *) state;
+    bool get_last = false;
+    int lex_level = _state->lex->lex_level;
+
+    // Same path matching logic as get_array_element_start
+    if (lex_level <= _state->npath &&
+        _state->pathok[lex_level - 1] &&
+        _state->path_indexes != NULL &&
+        _state->array_cur_index[lex_level - 1] == _state->path_indexes[lex_level - 1]) {
+
+        if (lex_level < _state->npath) {
+            // Reset path validity for this level
+            _state->pathok[lex_level] = false;
+        } else {
+            // End of path, capture this element value
+            get_last = true;
+        }
+    }
+
+    // Capture element value if this is our target
+    if (get_last && _state->result_start != NULL) {
+        if (isnull && _state->normalize_results) {
+            _state->tresult = (text *) NULL;
+        } else {
+            // Convert element text to PostgreSQL text type
+            const char *start = _state->result_start;
+            int len = _state->lex->prev_token_terminator - start;
+            _state->tresult = cstring_to_text_with_len(start, len);
+        }
+
+        _state->result_start = NULL;
+    }
+
+    return JSON_SUCCESS;
+}
+```

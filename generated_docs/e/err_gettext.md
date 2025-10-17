@@ -34,3 +34,23 @@ This function serves as a critical safety mechanism in PostgreSQL's internationa
 - Critical for maintaining system stability when localization code encounters errors
 - Part of PostgreSQL's robust error handling that gracefully degrades functionality under adverse conditions
 - The recursion check ensures that even if gettext() itself causes errors, the system can still produce meaningful (though untranslated) error messages
+
+## Simplified Source
+
+```c
+static inline const char *
+err_gettext(const char *str)
+{
+    // Return original string if NLS is disabled
+    #ifndef ENABLE_NLS
+    return str;
+    #endif
+
+    // Check for error recursion - if detected, return untranslated string
+    if (in_error_recursion_trouble())
+        return str;
+
+    // Safe to use gettext for localization
+    return gettext(str);
+}
+```

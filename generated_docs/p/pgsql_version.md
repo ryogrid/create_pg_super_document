@@ -38,3 +38,13 @@ The function is marked as 'stable' (`provolatile => 's'`) in the catalog, meanin
 - This is a read-only function with no side effects
 - Located in `src/backend/utils/adt/version.c:21-24`
 - Part of PostgreSQL's abstract data type (ADT) utilities for basic system information functions
+
+## Simplified Source
+
+```c
+Datum pgsql_version(PG_FUNCTION_ARGS) {
+    // Return PostgreSQL version string as text
+    // Uses compile-time constant PG_VERSION_STR
+    PG_RETURN_TEXT_P(cstring_to_text(PG_VERSION_STR));
+}
+```

@@ -39,3 +39,23 @@ The function calculates the number of bytes available in the input buffer, alloc
 - Used internally by PostgreSQL when receiving binary-format bytea data from clients
 - The allocated bytea structure includes proper TOAST headers for variable-length data management
 - Memory allocation uses palloc, which is PostgreSQL's memory context-aware allocator
+
+## Simplified Source
+
+```c
+Datum bytearecv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+
+    // Calculate bytes available in buffer
+    int nbytes = buf->len - buf->cursor;
+
+    // Allocate result with space for header
+    bytea *result = (bytea *) palloc(nbytes + VARHDRSZ);
+    SET_VARSIZE(result, nbytes + VARHDRSZ);
+
+    // Copy binary data from buffer to result
+    pq_copymsgbytes(buf, VARDATA(result), nbytes);
+
+    PG_RETURN_BYTEA_P(result);
+}
+```

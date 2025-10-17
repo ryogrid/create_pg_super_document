@@ -31,3 +31,28 @@ PLy_push_execution_context allocates and initializes a new execution context for
 - The context stack allows for nested Python function calls to maintain separate execution states
 - Each context maintains its own current procedure pointer and scratch context
 - Must be paired with PLy_pop_execution_context to prevent memory leaks and maintain stack integrity
+
+## Simplified Source
+
+```c
+static PLyExecutionContext *
+PLy_push_execution_context(bool atomic_context)
+{
+    PLyExecutionContext *context;
+
+    // Choose memory context based on atomicity (similar to SPI pattern)
+    context = (PLyExecutionContext *)
+        MemoryContextAlloc(atomic_context ? TopTransactionContext : PortalContext,
+                          sizeof(PLyExecutionContext));
+
+    // Initialize new context
+    context->curr_proc = NULL;
+    context->scratch_ctx = NULL;
+
+    // Push onto execution context stack
+    context->next = PLy_execution_contexts;
+    PLy_execution_contexts = context;
+
+    return context;
+}
+```

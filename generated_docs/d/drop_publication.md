@@ -46,3 +46,41 @@ The function constructs a DROP PUBLICATION SQL statement with proper identifier 
 - Provides detailed logging for both success and failure scenarios
 - [Publication](../P/Publication.md) names are properly escaped to prevent SQL injection
 - Part of the cleanup infrastructure for pg_createsubscriber error recovery
+
+## Simplified Source
+
+```c
+static void drop_publication(PGconn *conn, struct LogicalRepInfo *dbinfo)
+{
+    PQExpBuffer str = createPQExpBuffer();
+    PGresult *res;
+    char *pubname_esc;
+
+    // Escape publication name for SQL safety
+    pubname_esc = PQescapeIdentifier(conn, dbinfo->pubname, strlen(dbinfo->pubname));
+
+    // Log the drop operation
+    pg_log_info("dropping publication \"%s\" in database \"%s\"", dbinfo->pubname, dbinfo->dbname);
+
+    // Build DROP PUBLICATION command
+    appendPQExpBuffer(str, "DROP PUBLICATION %s", pubname_esc);
+    pg_log_debug("command is: %s", str->data);
+
+    // Execute the drop (unless dry run)
+    if (!dry_run) {
+        res = PQexec(conn, str->data);
+        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+            pg_log_error("could not drop publication \"%s\" in database \"%s\": %s",
+                        dbinfo->pubname, dbinfo->dbname, PQresultErrorMessage(res));
+            dbinfo->made_publication = false;  // Prevent retry attempts
+
+            // Note: Continue execution despite error to allow manual cleanup instructions
+        }
+        PQclear(res);
+    }
+
+    // Cleanup
+    PQfreemem(pubname_esc);
+    destroyPQExpBuffer(str);
+}
+```

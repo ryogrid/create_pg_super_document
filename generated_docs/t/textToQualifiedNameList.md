@@ -56,3 +56,46 @@ The function handles PostgreSQL's identifier rules:
 - The function is used extensively in system functions that accept qualified object names as text parameters
 - Supports PostgreSQL's standard identifier syntax including schema qualification
 - Location: src/backend/utils/adt/varlena.c:3399-3456
+
+## Simplified Source
+
+```c
+List *textToQualifiedNameList(text *textval)
+{
+    char *rawname;
+    List *result = NIL;
+    List *namelist;
+    ListCell *current;
+
+    // Convert text to modifiable C string (handles detoasting)
+    rawname = text_to_cstring(textval);
+
+    // Split the name at dots, handling quoted identifiers properly
+    if (!SplitIdentifierString(rawname, '.', &namelist))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_NAME),
+                       errmsg("invalid name syntax")));
+
+    // Check for empty result
+    if (namelist == NIL)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_NAME),
+                       errmsg("invalid name syntax")));
+
+    // Convert each parsed identifier to a String node
+    foreach(current, namelist) {
+        char *identifier = (char *) lfirst(current);
+        result = lappend(result, makeString(pstrdup(identifier)));
+    }
+
+    // Cleanup temporary memory
+    pfree(rawname);
+    list_free(namelist);
+
+    return result;
+}
+```
+
+**Key Points:**
+- Parses qualified names (e.g., "schema.table") into list of String nodes
+- Uses SplitIdentifierString to handle SQL identifier rules (quoting, case conversion)
+- Validates input and reports appropriate errors for malformed names
+- Essential for PostgreSQL functions that accept text-based object names

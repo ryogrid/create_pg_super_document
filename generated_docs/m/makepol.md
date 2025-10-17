@@ -48,3 +48,67 @@ The makepol function is the core parser for converting tsquery expressions into 
 - Uses callback mechanism for flexible output handling
 - Includes stack overflow protection via check_stack_depth()
 - Converts infix notation to prefix (polish) notation as required by PostgreSQL's internal tsquery representation
+
+## Simplified Source
+
+```c
+static void
+makepol(TSQueryParserState state, PushFunction pushval, Datum opaque)
+{
+    // Parser state variables
+    int8 operator = 0;
+    ts_tokentype type;
+    int lenval = 0;
+    char *strval = NULL;
+    OperatorElement opstack[STACKDEPTH];
+    int lenstack = 0;
+    int16 weight = 0;
+    bool prefix;
+
+    // Prevent stack overflow in recursive parsing
+    check_stack_depth();
+
+    // Main parsing loop - process tokens until end
+    while ((type = state->gettoken(state, &operator, &lenval, &strval, &weight, &prefix)) != PT_END)
+    {
+        switch (type)
+        {
+            case PT_VAL:
+                // Output parsed value (word/phrase)
+                pushval(opaque, state, strval, lenval, weight, prefix);
+                break;
+
+            case PT_OPR:
+                // Handle operator precedence and add to stack
+                cleanOpStack(state, opstack, &lenstack, operator);
+                pushOpStack(opstack, &lenstack, operator, weight);
+                break;
+
+            case PT_OPEN:
+                // Recursively parse parenthesized expression
+                makepol(state, pushval, opaque);
+                break;
+
+            case PT_CLOSE:
+                // End of parenthesized expression - flush operators
+                cleanOpStack(state, opstack, &lenstack, OP_OR);
+                return;
+
+            case PT_ERR:
+            default:
+                // Handle syntax errors
+                if (!SOFT_ERROR_OCCURRED(state->escontext))
+                    errsave(state->escontext, (errcode(ERRCODE_SYNTAX_ERROR),
+                           errmsg("syntax error in tsquery: \"%s\"", state->buffer)));
+                return;
+        }
+
+        // Check for errors during processing
+        if (SOFT_ERROR_OCCURRED(state->escontext))
+            return;
+    }
+
+    // Final cleanup - flush remaining operators
+    cleanOpStack(state, opstack, &lenstack, OP_OR);
+}
+```

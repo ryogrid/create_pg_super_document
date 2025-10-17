@@ -50,3 +50,75 @@ The function includes comprehensive infinity handling, treating combinations lik
 - Includes comprehensive overflow detection for all arithmetic operations
 - The function follows PostgreSQL's standard SQL-callable function pattern
 - Part of PostgreSQL's core temporal arithmetic system, used extensively in date/time operations
+
+## Simplified Source
+
+```c
+Datum timestamp_pl_interval(PG_FUNCTION_ARGS) {
+    Timestamp timestamp = PG_GETARG_TIMESTAMP(0);
+    Interval *span = PG_GETARG_INTERVAL_P(1);
+    Timestamp result;
+
+    // Handle infinity cases (prevent infinity - infinity)
+    if (INTERVAL_IS_NOBEGIN(span)) {
+        if (TIMESTAMP_IS_NOEND(timestamp))
+            ereport(ERROR, "timestamp out of range");
+        TIMESTAMP_NOBEGIN(result);
+    } else if (INTERVAL_IS_NOEND(span)) {
+        if (TIMESTAMP_IS_NOBEGIN(timestamp))
+            ereport(ERROR, "timestamp out of range");
+        TIMESTAMP_NOEND(result);
+    } else if (TIMESTAMP_NOT_FINITE(timestamp)) {
+        result = timestamp;
+    } else {
+        // Add months first (calendar arithmetic)
+        if (span->month != 0) {
+            struct pg_tm tm;
+            fsec_t fsec;
+
+            timestamp2tm(timestamp, NULL, &tm, &fsec, NULL, NULL);
+
+            // Add months with year overflow handling
+            tm.tm_mon += span->month;
+            while (tm.tm_mon > MONTHS_PER_YEAR) {
+                tm.tm_year++;
+                tm.tm_mon -= MONTHS_PER_YEAR;
+            }
+            while (tm.tm_mon < 1) {
+                tm.tm_year--;
+                tm.tm_mon += MONTHS_PER_YEAR;
+            }
+
+            // Handle end-of-month boundary (e.g., Jan 31 + 1 month = Feb 28/29)
+            if (tm.tm_mday > day_tab[isleap(tm.tm_year)][tm.tm_mon - 1])
+                tm.tm_mday = day_tab[isleap(tm.tm_year)][tm.tm_mon - 1];
+
+            tm2timestamp(&tm, fsec, NULL, &timestamp);
+        }
+
+        // Add days using Julian date arithmetic
+        if (span->day != 0) {
+            struct pg_tm tm;
+            fsec_t fsec;
+            int julian;
+
+            timestamp2tm(timestamp, NULL, &tm, &fsec, NULL, NULL);
+            julian = date2j(tm.tm_year, tm.tm_mon, tm.tm_mday);
+            julian += span->day; // with overflow check
+            j2date(julian, &tm.tm_year, &tm.tm_mon, &tm.tm_mday);
+            tm2timestamp(&tm, fsec, NULL, &timestamp);
+        }
+
+        // Add microseconds directly
+        timestamp += span->time; // with overflow check
+
+        // Validate result timestamp
+        if (!IS_VALID_TIMESTAMP(timestamp))
+            ereport(ERROR, "timestamp out of range");
+
+        result = timestamp;
+    }
+
+    PG_RETURN_TIMESTAMP(result);
+}
+```

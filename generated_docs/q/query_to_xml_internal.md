@@ -49,3 +49,50 @@ This static function serves as the workhorse for PostgreSQL's XML generation cap
 - Automatically maps SQL identifiers to valid XML names
 - Error handling includes validation that the query is a SELECT statement
 - Memory management handled through StringInfo for dynamic string building
+
+## Simplified Source
+
+```c
+static StringInfo
+query_to_xml_internal(const char *query, char *tablename,
+                     const char *xmlschema, bool nulls, bool tableforest,
+                     const char *targetns, bool top_level)
+{
+    StringInfo result;
+    char *xmltn;
+    uint64 i;
+
+    // Determine XML table name
+    xmltn = tablename ? map_sql_identifier_to_xml_name(tablename, true, false) : "table";
+
+    result = makeStringInfo();
+
+    // Execute the query
+    SPI_connect();
+    if (SPI_execute(query, true, 0) != SPI_OK_SELECT)
+        ereport(ERROR, (errcode(ERRCODE_DATA_EXCEPTION),
+                       errmsg("invalid query")));
+
+    // Add root element start if not in forest format
+    if (!tableforest) {
+        xmldata_root_element_start(result, xmltn, xmlschema, targetns, top_level);
+        appendStringInfoChar(result, '\n');
+    }
+
+    // Include schema if provided
+    if (xmlschema)
+        appendStringInfo(result, "%s\n\n", xmlschema);
+
+    // Convert each result row to XML element
+    for (i = 0; i < SPI_processed; i++)
+        SPI_sql_row_to_xmlelement(i, result, tablename, nulls,
+                                 tableforest, targetns, top_level);
+
+    // Add root element end if not in forest format
+    if (!tableforest)
+        xmldata_root_element_end(result, xmltn);
+
+    SPI_finish();
+    return result;
+}
+```

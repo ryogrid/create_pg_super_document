@@ -48,3 +48,37 @@ After establishing the connection, the function automatically executes  to secur
 - The dual error handling mode makes it suitable for both critical connections (where failure should abort) and optional connections (where failure can be handled)
 - Used extensively throughout the pg_createsubscriber workflow for various database operations
 - Connection cleanup on error paths ensures no resource leaks occur
+
+## Simplified Source
+
+```c
+static PGconn *
+connect_database(const char *conninfo, bool exit_on_error)
+{
+    // Establish database connection
+    PGconn *conn = PQconnectdb(conninfo);
+    if (PQstatus(conn) != CONNECTION_OK)
+    {
+        pg_log_error("connection to database failed: %s", PQerrorMessage(conn));
+        PQfinish(conn);
+        if (exit_on_error)
+            exit(1);
+        return NULL;
+    }
+
+    // Secure the search_path for safety
+    PGresult *res = PQexec(conn, ALWAYS_SECURE_SEARCH_PATH_SQL);
+    if (PQresultStatus(res) != PGRES_TUPLES_OK)
+    {
+        pg_log_error("could not clear search_path: %s", PQresultErrorMessage(res));
+        PQclear(res);
+        PQfinish(conn);
+        if (exit_on_error)
+            exit(1);
+        return NULL;
+    }
+    PQclear(res);
+
+    return conn;
+}
+```

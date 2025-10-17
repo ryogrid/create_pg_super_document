@@ -51,3 +51,93 @@ The serialization process involves writing array header information (dimensions,
 
 ## Notes and Other Information
 The function uses ArrayMetaState caching to store element type information and avoid repeated type system lookups, improving performance for repeated operations. The binary protocol format is PostgreSQL-specific and includes comprehensive metadata to enable proper deserialization. NULL elements are efficiently represented using -1 length markers without additional data. The function ensures that element types have valid binary send procedures and reports appropriate errors for types lacking binary output support. Memory management is handled carefully with proper cleanup of temporary bytea objects to prevent memory leaks during serialization.
+
+## Simplified Source
+
+```c
+Datum
+array_send(PG_FUNCTION_ARGS)
+{
+    AnyArrayType *v = PG_GETARG_ANY_ARRAY_P(0);
+    Oid element_type = AARR_ELEMTYPE(v);
+    int typlen, nitems, i;
+    bool typbyval;
+    char typalign;
+    int ndim, *dim, *lb;
+    StringInfoData buf;
+    array_iter iter;
+    ArrayMetaState *my_extra;
+
+    // Cache element type information for performance
+    my_extra = (ArrayMetaState *) fcinfo->flinfo->fn_extra;
+    if (my_extra == NULL || my_extra->element_type != element_type) {
+        if (my_extra == NULL) {
+            fcinfo->flinfo->fn_extra = MemoryContextAlloc(fcinfo->flinfo->fn_mcxt,
+                                                         sizeof(ArrayMetaState));
+            my_extra = (ArrayMetaState *) fcinfo->flinfo->fn_extra;
+        }
+
+        // Get element type I/O information for binary send
+        get_type_io_data(element_type, IOFunc_send,
+                        &my_extra->typlen, &my_extra->typbyval,
+                        &my_extra->typalign, &my_extra->typdelim,
+                        &my_extra->typioparam, &my_extra->typiofunc);
+
+        if (!OidIsValid(my_extra->typiofunc))
+            ereport(ERROR, /* no binary send function */);
+
+        fmgr_info_cxt(my_extra->typiofunc, &my_extra->proc,
+                     fcinfo->flinfo->fn_mcxt);
+        my_extra->element_type = element_type;
+    }
+
+    // Extract array metadata
+    typlen = my_extra->typlen;
+    typbyval = my_extra->typbyval;
+    typalign = my_extra->typalign;
+    ndim = AARR_NDIM(v);
+    dim = AARR_DIMS(v);
+    lb = AARR_LBOUND(v);
+    nitems = ArrayGetNItems(ndim, dim);
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Send array header: dimensions, null flag, element type
+    pq_sendint32(&buf, ndim);
+    pq_sendint32(&buf, AARR_HASNULL(v) ? 1 : 0);
+    pq_sendint32(&buf, element_type);
+
+    // Send dimension sizes and lower bounds
+    for (i = 0; i < ndim; i++) {
+        pq_sendint32(&buf, dim[i]);
+        pq_sendint32(&buf, lb[i]);
+    }
+
+    // Send array elements using element's send procedure
+    array_iter_setup(&iter, v);
+
+    for (i = 0; i < nitems; i++) {
+        Datum itemvalue;
+        bool isnull;
+
+        // Get array element
+        itemvalue = array_iter_next(&iter, &isnull, i,
+                                   typlen, typbyval, typalign);
+
+        if (isnull) {
+            // -1 length indicates NULL element
+            pq_sendint32(&buf, -1);
+        } else {
+            // Convert element to binary and send with length prefix
+            bytea *outputbytes = SendFunctionCall(&my_extra->proc, itemvalue);
+            pq_sendint32(&buf, VARSIZE(outputbytes) - VARHDRSZ);
+            pq_sendbytes(&buf, VARDATA(outputbytes),
+                        VARSIZE(outputbytes) - VARHDRSZ);
+            pfree(outputbytes);
+        }
+    }
+
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

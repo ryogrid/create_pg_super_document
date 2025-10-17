@@ -36,3 +36,16 @@ This function is commonly used in PostgreSQL's internal operations, particularly
 - Located in src/backend/utils/fmgr/fmgr.c at lines 1411-1420
 - Widely used in indexing operations where single-argument function calls with collation are needed
 - Part of a family including OidFunctionCall0Coll, OidFunctionCall2Coll, etc. for different argument counts
+
+## Simplified Source
+
+```c
+Datum OidFunctionCall1Coll(Oid functionId, Oid collation, Datum arg1) {
+    // Set up function manager info for the given function OID
+    FmgrInfo flinfo;
+    fmgr_info(functionId, &flinfo);
+
+    // Call the function with collation support and one argument
+    return FunctionCall1Coll(&flinfo, collation, arg1);
+}
+```

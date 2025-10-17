@@ -46,3 +46,111 @@ The function uses write_item() as a helper to write individual data structures w
 - Filters relations based on RelationIdIsInInitFile() for local databases
 - [Complex](../C/Complex.md) index metadata is fully preserved including operator classes and support functions
 - File location: src/backend/utils/cache/relcache.c:6491-6702
+
+## Simplified Source
+
+```c
+static void
+write_relcache_init_file(bool shared)
+{
+    FILE *fp;
+    char tempfilename[MAXPGPATH];
+    char finalfilename[MAXPGPATH];
+    int magic;
+    HASH_SEQ_STATUS status;
+    RelIdCacheEnt *idhentry;
+
+    // Skip if we've already received relcache invalidations
+    if (relcacheInvalsReceived != 0L)
+        return;
+
+    // Build temporary and final filenames
+    if (shared) {
+        snprintf(tempfilename, sizeof(tempfilename), "global/%s.%d",
+                RELCACHE_INIT_FILENAME, MyProcPid);
+        snprintf(finalfilename, sizeof(finalfilename), "global/%s",
+                RELCACHE_INIT_FILENAME);
+    } else {
+        snprintf(tempfilename, sizeof(tempfilename), "%s/%s.%d",
+                DatabasePath, RELCACHE_INIT_FILENAME, MyProcPid);
+        snprintf(finalfilename, sizeof(finalfilename), "%s/%s",
+                DatabasePath, RELCACHE_INIT_FILENAME);
+    }
+
+    // Create temporary file
+    unlink(tempfilename);
+    fp = AllocateFile(tempfilename, PG_BINARY_W);
+    if (fp == NULL) {
+        ereport(WARNING, (errmsg("could not create init file \"%s\"", tempfilename)));
+        return;
+    }
+
+    // Write file magic number for version identification
+    magic = RELCACHE_INIT_FILEMAGIC;
+    if (fwrite(&magic, 1, sizeof(magic), fp) != sizeof(magic))
+        ereport(FATAL, (errmsg_internal("could not write init file")));
+
+    // Write all appropriate relations from the cache
+    hash_seq_init(&status, RelationIdCache);
+    while ((idhentry = (RelIdCacheEnt *) hash_seq_search(&status)) != NULL) {
+        Relation rel = idhentry->reldesc;
+        Form_pg_class relform = rel->rd_rel;
+
+        // Filter by shared/local and inclusion criteria
+        if (relform->relisshared != shared)
+            continue;
+        if (!shared && !RelationIdIsInInitFile(RelationGetRelid(rel)))
+            continue;
+
+        // Write relation data
+        write_item(rel, sizeof(RelationData), fp);
+        write_item(relform, CLASS_TUPLE_SIZE, fp);
+
+        // Write attribute descriptors
+        for (int i = 0; i < relform->relnatts; i++) {
+            write_item(TupleDescAttr(rel->rd_att, i),
+                      ATTRIBUTE_FIXED_PART_SIZE, fp);
+        }
+
+        // Write access method options
+        write_item(rel->rd_options,
+                  (rel->rd_options ? VARSIZE(rel->rd_options) : 0), fp);
+
+        // Write index-specific data if this is an index
+        if (rel->rd_rel->relkind == RELKIND_INDEX) {
+            write_item(rel->rd_indextuple,
+                      HEAPTUPLESIZE + rel->rd_indextuple->t_len, fp);
+            write_item(rel->rd_opfamily, relform->relnatts * sizeof(Oid), fp);
+            write_item(rel->rd_opcintype, relform->relnatts * sizeof(Oid), fp);
+            write_item(rel->rd_support,
+                      relform->relnatts * (rel->rd_indam->amsupport * sizeof(RegProcedure)), fp);
+            write_item(rel->rd_indcollation, relform->relnatts * sizeof(Oid), fp);
+            write_item(rel->rd_indoption, relform->relnatts * sizeof(int16), fp);
+
+            // Write per-column operator options
+            for (int i = 0; i < relform->relnatts; i++) {
+                bytea *opt = rel->rd_opcoptions[i];
+                write_item(opt, opt ? VARSIZE(opt) : 0, fp);
+            }
+        }
+    }
+
+    if (FreeFile(fp))
+        ereport(FATAL, (errmsg_internal("could not write init file")));
+
+    // Atomic installation with invalidation check
+    LWLockAcquire(RelCacheInitLock, LW_EXCLUSIVE);
+    AcceptInvalidationMessages();
+
+    if (relcacheInvalsReceived == 0L) {
+        // No invalidations received - safe to install the file
+        if (rename(tempfilename, finalfilename) < 0)
+            unlink(tempfilename);
+    } else {
+        // Invalidations received - discard the obsolete file
+        unlink(tempfilename);
+    }
+
+    LWLockRelease(RelCacheInitLock);
+}
+```

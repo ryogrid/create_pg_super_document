@@ -36,3 +36,45 @@ This function is part of the pg_createsubscriber utility that converts a standby
 - Performs proper error handling and resource cleanup
 - Uses parameterized queries with escaped literals for SQL injection prevention
 - Part of the logical replication infrastructure for converting standby to subscriber
+
+## Simplified Source
+
+```c
+static void
+check_and_drop_existing_subscriptions(PGconn *conn,
+                                       const struct LogicalRepInfo *dbinfo)
+{
+    PQExpBuffer query = createPQExpBuffer();
+    char *dbname;
+    PGresult *res;
+
+    Assert(conn != NULL);
+
+    // Escape database name for safe SQL usage
+    dbname = PQescapeLiteral(conn, dbinfo->dbname, strlen(dbinfo->dbname));
+
+    // Query for existing subscriptions in the specified database
+    appendPQExpBuffer(query,
+                      "SELECT s.subname FROM pg_catalog.pg_subscription s "
+                      "INNER JOIN pg_catalog.pg_database d ON (s.subdbid = d.oid) "
+                      "WHERE d.datname = %s",
+                      dbname);
+
+    res = PQexec(conn, query->data);
+
+    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+        pg_log_error("could not obtain pre-existing subscriptions: %s",
+                     PQresultErrorMessage(res));
+        disconnect_database(conn, true);
+    }
+
+    // Drop each existing subscription found
+    for (int i = 0; i < PQntuples(res); i++)
+        drop_existing_subscriptions(conn, PQgetvalue(res, i, 0), dbinfo->dbname);
+
+    // Clean up resources
+    PQclear(res);
+    destroyPQExpBuffer(query);
+    PQfreemem(dbname);
+}
+```

@@ -51,3 +51,115 @@ The parser uses a callback mechanism () to process individual query terms, allow
 - Automatically handles memory management for the internal parsing structures
 - The resulting TSQuery includes both the parsed structure and operand strings in a single allocation
 - Stopword nodes (QI_VALSTOP) are automatically cleaned up if present in the final query tree
+
+## Simplified Source
+
+```c
+TSQuery
+parse_tsquery(char *buf, PushFunction pushval, Datum opaque, int flags, Node *escontext)
+{
+    struct TSQueryParserStateData state;
+    TSQuery query;
+    int commonlen;
+    QueryItem *ptr;
+    ListCell *cell;
+    bool noisy;
+    bool needcleanup;
+    int tsv_flags = P_TSV_OPR_IS_DELIM | P_TSV_IS_TSQUERY;
+
+    // Validate flags - plain and web modes are mutually exclusive
+    Assert((flags & (P_TSQ_PLAIN | P_TSQ_WEB)) != (P_TSQ_PLAIN | P_TSQ_WEB));
+
+    // Select appropriate tokenizer based on parsing mode
+    if (flags & P_TSQ_PLAIN)
+        state.gettoken = gettoken_query_plain;
+    else if (flags & P_TSQ_WEB)
+    {
+        state.gettoken = gettoken_query_websearch;
+        tsv_flags |= P_TSV_IS_WEB;
+    }
+    else
+        state.gettoken = gettoken_query_standard;
+
+    // Initialize parser state
+    noisy = !(escontext && IsA(escontext, ErrorSaveContext));
+    state.buffer = buf;
+    state.buf = buf;
+    state.count = 0;
+    state.state = WAITFIRSTOPERAND;
+    state.polstr = NIL;
+    state.escontext = escontext;
+
+    // Initialize value parser and operand storage
+    state.valstate = init_tsvector_parser(state.buffer, tsv_flags, escontext);
+    state.sumlen = 0;
+    state.lenop = 64;
+    state.curop = state.op = (char *) palloc(state.lenop);
+    *(state.curop) = '\0';
+
+    // Parse query into polish notation
+    makepol(&state, pushval, opaque);
+    close_tsvector_parser(state.valstate);
+
+    if (SOFT_ERROR_OCCURRED(escontext))
+        return NULL;
+
+    // Handle empty query case
+    if (state.polstr == NIL)
+    {
+        if (noisy)
+            ereport(NOTICE, (errmsg("text-search query doesn't contain lexemes: \"%s\"", state.buffer)));
+
+        query = (TSQuery) palloc(HDRSIZETQ);
+        SET_VARSIZE(query, HDRSIZETQ);
+        query->size = 0;
+        return query;
+    }
+
+    // Check size limits and allocate result structure
+    if (TSQUERY_TOO_BIG(list_length(state.polstr), state.sumlen))
+        ereturn(escontext, NULL, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                errmsg("tsquery is too large")));
+
+    commonlen = COMPUTESIZE(list_length(state.polstr), state.sumlen);
+    query = (TSQuery) palloc0(commonlen);
+    SET_VARSIZE(query, commonlen);
+    query->size = list_length(state.polstr);
+    ptr = GETQUERY(query);
+
+    // Copy parsed query items to result structure
+    int i = 0;
+    foreach(cell, state.polstr)
+    {
+        QueryItem *item = (QueryItem *) lfirst(cell);
+        switch (item->type)
+        {
+            case QI_VAL:
+                memcpy(&ptr[i], item, sizeof(QueryOperand));
+                break;
+            case QI_VALSTOP:
+                ptr[i].type = QI_VALSTOP;
+                break;
+            case QI_OPR:
+                memcpy(&ptr[i], item, sizeof(QueryOperator));
+                break;
+            default:
+                elog(ERROR, "unrecognized QueryItem type: %d", item->type);
+        }
+        i++;
+    }
+
+    // Copy operand strings and clean up
+    memcpy(GETOPERAND(query), state.op, state.sumlen);
+    pfree(state.op);
+
+    // Fill operator offsets and detect stop words
+    findoprnd(ptr, query->size, &needcleanup);
+
+    // Remove stop words if present
+    if (needcleanup)
+        query = cleanup_tsquery_stopwords(query, noisy);
+
+    return query;
+}
+```

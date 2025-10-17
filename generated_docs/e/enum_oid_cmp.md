@@ -33,3 +33,15 @@ The  function is a standard comparison function designed for use with sorting an
 - Essential for maintaining sorted order of enum values in the type cache
 - Enables efficient binary search operations on enum value arrays
 - Uses PostgreSQL's type-safe comparison utilities rather than direct arithmetic
+
+## Simplified Source
+
+```c
+static int enum_oid_cmp(const void *left, const void *right) {
+    const EnumItem *left_item = (const EnumItem *) left;
+    const EnumItem *right_item = (const EnumItem *) right;
+
+    // Compare OIDs using PostgreSQL's safe comparison function
+    return pg_cmp_u32(left_item->enum_oid, right_item->enum_oid);
+}
+```

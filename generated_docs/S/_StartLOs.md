@@ -51,3 +51,23 @@ Unlike , this function does not initialize compression, as large object data han
 - Does not initialize compression, unlike , allowing for different blob handling strategies
 - Part of the pluggable archive format system that supports multiple storage backends
 - Works in conjunction with  for individual large object processing
+
+## Simplified Source
+
+```c
+static void
+_StartLOs(ArchiveHandle *AH, TocEntry *te)
+{
+    lclContext *ctx = (lclContext *) AH->formatData;
+    lclTocEntry *tctx = (lclTocEntry *) te->formatData;
+
+    // Record current file position for seeking during restoration
+    tctx->dataPos = _getFilePos(AH, ctx);
+    if (tctx->dataPos >= 0)
+        tctx->dataState = K_OFFSET_POS_SET;
+
+    // Write control markers for BLOB section
+    _WriteByte(AH, BLK_BLOBS);   // Block type identifier for blobs
+    WriteInt(AH, te->dumpId);    // Sanity check ID
+}
+```

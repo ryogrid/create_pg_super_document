@@ -44,3 +44,70 @@ The implementation includes robust error handling for missing or unexpected reco
 - Detoasts and converts default expressions from Datum to C string format
 - Updates relation's constraint structure with the loaded default values
 - Part of the relation cache building process during tuple descriptor construction
+
+## Simplified Source
+
+```c
+static void AttrDefaultFetch(Relation relation, int ndef) {
+    AttrDefault *attrdef;
+    Relation adrel;
+    SysScanDesc adscan;
+    ScanKeyData skey;
+    HeapTuple htup;
+    int found = 0;
+
+    // Allocate array for expected number of defaults
+    attrdef = (AttrDefault *) MemoryContextAllocZero(CacheMemoryContext,
+                                                     ndef * sizeof(AttrDefault));
+
+    // Search pg_attrdef for this relation's defaults
+    ScanKeyInit(&skey, Anum_pg_attrdef_adrelid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(RelationGetRelid(relation)));
+
+    adrel = table_open(AttrDefaultRelationId, AccessShareLock);
+    adscan = systable_beginscan(adrel, AttrDefaultIndexId, true, NULL, 1, &skey);
+
+    // Process each default value record
+    while (HeapTupleIsValid(htup = systable_getnext(adscan))) {
+        Form_pg_attrdef adform = (Form_pg_attrdef) GETSTRUCT(htup);
+        Datum val;
+        bool isnull;
+
+        // Check array bounds
+        if (found >= ndef) {
+            elog(WARNING, "unexpected pg_attrdef record found for attribute %d",
+                 adform->adnum);
+            break;
+        }
+
+        // Extract default expression (adbin)
+        val = fastgetattr(htup, Anum_pg_attrdef_adbin, adrel->rd_att, &isnull);
+        if (isnull) {
+            elog(WARNING, "null adbin for attribute %d", adform->adnum);
+        } else {
+            // Convert to string and store in cache memory
+            char *s = TextDatumGetCString(val);
+            attrdef[found].adnum = adform->adnum;
+            attrdef[found].adbin = MemoryContextStrdup(CacheMemoryContext, s);
+            pfree(s);
+            found++;
+        }
+    }
+
+    systable_endscan(adscan);
+    table_close(adrel, AccessShareLock);
+
+    // Warn if we didn't find expected number
+    if (found != ndef)
+        elog(WARNING, "%d pg_attrdef record(s) missing for relation",
+             ndef - found);
+
+    // Sort by attribute number for efficient lookup
+    if (found > 1)
+        qsort(attrdef, found, sizeof(AttrDefault), AttrDefaultCmp);
+
+    // Install in relation's constraint structure
+    relation->rd_att->constr->defval = attrdef;
+    relation->rd_att->constr->num_defval = found;
+}
+```

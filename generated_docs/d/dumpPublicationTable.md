@@ -40,3 +40,54 @@ The function handles the complete syntax for table publication including optiona
 - [Publication](../P/Publication.md) table objects cannot currently have comments or security labels
 - Uses the publication owner's role name for the archive entry to ensure correct restore permissions
 - Adds parentheses around WHERE expressions to handle cases like "WHERE TRUE" properly
+
+## Simplified Source
+
+```c
+static void dumpPublicationTable(Archive *fout, const PublicationRelInfo *pubrinfo) {
+    PublicationInfo *pubinfo = pubrinfo->publication;
+    TableInfo *tbinfo = pubrinfo->pubtable;
+    PQExpBuffer query;
+    char *tag;
+
+    // Skip in data-only dumps
+    if (fout->dopt->dataOnly)
+        return;
+
+    // Create descriptive tag for the archive entry
+    tag = psprintf("%s %s", pubinfo->dobj.name, tbinfo->dobj.name);
+
+    query = createPQExpBuffer();
+
+    // Build ALTER PUBLICATION ADD TABLE statement
+    appendPQExpBuffer(query, "ALTER PUBLICATION %s ADD TABLE ONLY",
+                      fmtId(pubinfo->dobj.name));
+    appendPQExpBuffer(query, " %s", fmtQualifiedDumpable(tbinfo));
+
+    // Add column list if specified
+    if (pubrinfo->pubrattrs)
+        appendPQExpBuffer(query, " (%s)", pubrinfo->pubrattrs);
+
+    // Add row filter if specified
+    if (pubrinfo->pubrelqual) {
+        // Add parentheses around expression (pg_get_expr doesn't provide them)
+        appendPQExpBuffer(query, " WHERE (%s)", pubrinfo->pubrelqual);
+    }
+    appendPQExpBufferStr(query, ";\n");
+
+    // Create archive entry if definition should be dumped
+    if (pubrinfo->dobj.dump & DUMP_COMPONENT_DEFINITION) {
+        ArchiveEntry(fout, pubrinfo->dobj.catId, pubrinfo->dobj.dumpId,
+                     ARCHIVE_OPTS(.tag = tag,
+                                  .namespace = tbinfo->dobj.namespace->dobj.name,
+                                  .owner = pubinfo->rolname,
+                                  .description = "PUBLICATION TABLE",
+                                  .section = SECTION_POST_DATA,
+                                  .createStmt = query->data));
+    }
+
+    // Cleanup
+    free(tag);
+    destroyPQExpBuffer(query);
+}
+```

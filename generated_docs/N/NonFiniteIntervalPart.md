@@ -40,3 +40,43 @@ The function ensures error handling consistency between finite and infinite inte
 
 ## Notes and Other Information
 The function distinguishes between oscillating units (which have no meaningful infinite value and return 0 to indicate NULL) and monotonically-increasing units (which can meaningfully be infinite). This design choice reflects the mathematical properties of these time units when applied to infinite intervals. Error messages are carefully crafted to match those in calling functions to ensure consistent user experience.
+
+## Simplified Source
+
+```c
+static float8 NonFiniteIntervalPart(int type, int unit, char *lowunits, bool isNegative) {
+    // Validate unit type
+    if ((type != UNITS) && (type != RESERV)) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                errmsg("unit \"%s\" not recognized for type %s",
+                       lowunits, format_type_be(INTERVALOID))));
+    }
+
+    switch (unit) {
+        // Oscillating units return 0 (NULL indicator)
+        case DTK_MICROSEC:
+        case DTK_MILLISEC:
+        case DTK_SECOND:
+        case DTK_MINUTE:
+        case DTK_MONTH:
+        case DTK_QUARTER:
+            return 0.0;
+
+        // Monotonic units return infinity with appropriate sign
+        case DTK_HOUR:
+        case DTK_DAY:
+        case DTK_YEAR:
+        case DTK_DECADE:
+        case DTK_CENTURY:
+        case DTK_MILLENNIUM:
+        case DTK_EPOCH:
+            return isNegative ? -get_float8_infinity() : get_float8_infinity();
+
+        default:
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                    errmsg("unit \"%s\" not supported for type %s",
+                           lowunits, format_type_be(INTERVALOID))));
+            return 0.0;
+    }
+}
+```

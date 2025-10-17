@@ -35,3 +35,16 @@ The function implements a simple loop that:
 - A zero OID serves as a sentinel value to mark the end of the LO sequence
 - The function is part of the pg_dump/pg_restore custom format implementation
 - File location: src/bin/pg_dump/pg_backup_custom.c:605-622
+
+## Simplified Source
+```c
+static void _skipLOs(ArchiveHandle *AH)
+{
+    // Skip all large objects until zero OID terminator
+    Oid oid = ReadInt(AH);
+    while (oid != 0) {
+        _skipData(AH);  // Skip the LO data block
+        oid = ReadInt(AH);  // Read next OID
+    }
+}
+```

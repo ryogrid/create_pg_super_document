@@ -48,3 +48,74 @@ This function creates and opens a new WAL (Write-Ahead Log) file for streaming d
 - Uses partial_suffix for temporary file naming during streaming
 - Exits with error code 1 on critical fsync failures
 - Different behavior for tar vs file-based walmethod implementations
+
+## Simplified Source
+
+```c
+static bool
+open_walfile(StreamCtl *stream, XLogRecPtr startpoint)
+{
+    Walfile    *f;
+    char       *fn;
+    ssize_t     size;
+    XLogSegNo   segno;
+    char        walfile_name[MAXPGPATH];
+
+    // Generate WAL filename from startpoint
+    XLByteToSeg(startpoint, segno, WalSegSz);
+    XLogFileName(walfile_name, stream->timeline, segno, WalSegSz);
+
+    // Get full filename including compression extension if needed
+    fn = stream->walmethod->ops->get_file_name(stream->walmethod,
+                                              walfile_name,
+                                              stream->partial_suffix);
+
+    // For uncompressed files, validate existing file size
+    if (stream->walmethod->compression_algorithm == PG_COMPRESSION_NONE &&
+        stream->walmethod->ops->existsfile(stream->walmethod, fn)) {
+
+        size = stream->walmethod->ops->get_file_size(stream->walmethod, fn);
+        if (size < 0) {
+            pg_log_error("could not get size of WAL file \"%s\"", fn);
+            pg_free(fn);
+            return false;
+        }
+
+        if (size == WalSegSz) {
+            // File already complete - open and sync it
+            f = stream->walmethod->ops->open_for_write(stream->walmethod,
+                                                      walfile_name,
+                                                      stream->partial_suffix, 0);
+            if (f && stream->walmethod->ops->sync(f) == 0) {
+                walfile = f;
+                pg_free(fn);
+                return true;
+            }
+            // Handle sync/open errors...
+            exit(1);
+        }
+
+        if (size != 0) {
+            pg_log_error("WAL file \"%s\" has invalid size %zd, should be 0 or %d",
+                        fn, size, WalSegSz);
+            pg_free(fn);
+            return false;
+        }
+    }
+
+    // Create new WAL file with full segment size
+    f = stream->walmethod->ops->open_for_write(stream->walmethod,
+                                              walfile_name,
+                                              stream->partial_suffix,
+                                              WalSegSz);
+    if (f == NULL) {
+        pg_log_error("could not open WAL file \"%s\"", fn);
+        pg_free(fn);
+        return false;
+    }
+
+    pg_free(fn);
+    walfile = f;
+    return true;
+}
+```

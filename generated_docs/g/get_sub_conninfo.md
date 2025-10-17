@@ -47,3 +47,33 @@ This specialized connection string is designed for the specific use case of pg_c
 - Sets fallback_application_name to help identify connections in server logs
 - Designed for local connections to subscriber servers with restricted access during setup
 - The returned connection string is used for administrative operations on the target/subscriber database
+
+## Simplified Source
+
+```c
+static char *get_sub_conninfo(const struct CreateSubscriberOptions *opt) {
+    PQExpBuffer buf = createPQExpBuffer();
+    char *ret;
+
+    // Build connection string with minimal required parameters
+    appendConnStrItem(buf, "port", opt->sub_port);
+
+    // Use Unix domain socket on non-Windows platforms
+#if !defined(WIN32)
+    appendConnStrItem(buf, "host", opt->socket_dir);
+#endif
+
+    // Add username if specified
+    if (opt->sub_username != NULL)
+        appendConnStrItem(buf, "user", opt->sub_username);
+
+    // Set application name for identification in logs
+    appendConnStrItem(buf, "fallback_application_name", progname);
+
+    // Return completed connection string
+    ret = pg_strdup(buf->data);
+    destroyPQExpBuffer(buf);
+
+    return ret;
+}
+```

@@ -39,3 +39,23 @@ Swap:        8388608           0     8388608 (standard C library for memory deal
 - Uses standard C library  rather than PostgreSQL's 
 - Typical usage pattern: call after processing file contents read by 
 - Important for proper resource management in long-running pg_ctl operations
+
+## Simplified Source
+
+```c
+static void free_readfile(char **optlines) {
+    char *curr_line = NULL;
+    int i = 0;
+
+    // Handle NULL input gracefully
+    if (!optlines)
+        return;
+
+    // Free each individual string
+    while ((curr_line = optlines[i++]))
+        free(curr_line);
+
+    // Free the array itself
+    free(optlines);
+}
+```

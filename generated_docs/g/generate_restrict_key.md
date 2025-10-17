@@ -39,3 +39,25 @@ The function allocates memory for a 64-byte buffer (63 characters plus null term
 - Memory returned by this function should be freed by the caller using pg_free()
 - Located at src/bin/pg_dump/dumputils.c:931-954
 - Part of the PostgreSQL dump utility suite for secure backup/restore operations
+
+## Simplified Source
+
+```c
+char *generate_restrict_key(void) {
+    uint8 buf[64];
+    char *ret = palloc(sizeof(buf));
+
+    // Generate random bytes for key material
+    if (!pg_strong_random(buf, sizeof(buf)))
+        return NULL;
+
+    // Convert random bytes to alphanumeric characters
+    for (int i = 0; i < sizeof(buf) - 1; i++) {
+        uint8 idx = buf[i] % strlen(restrict_chars);
+        ret[i] = restrict_chars[idx];
+    }
+    ret[sizeof(buf) - 1] = '\0';
+
+    return ret;
+}
+```

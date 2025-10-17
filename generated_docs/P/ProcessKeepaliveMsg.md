@@ -40,3 +40,45 @@ This function handles keepalive messages that are sent by the PostgreSQL server 
 - Only sends feedback when still_sending flag is true and server requests a reply
 - Updates lastFlushPosition when WAL file is successfully synchronized
 - Critical for maintaining streaming replication connection health and monitoring replication progress
+
+## Simplified Source
+
+```c
+static bool
+ProcessKeepaliveMsg(PGconn *conn, StreamCtl *stream, char *copybuf, int len,
+                    XLogRecPtr blockpos, TimestampTz *last_status)
+{
+    int pos;
+    bool replyRequested;
+    TimestampTz now;
+
+    // Parse keepalive message: skip msgtype(1) + walEnd(8) + sendTime(8)
+    pos = 1 + 8 + 8;
+
+    // Check message length and extract reply flag
+    if (len < pos + 1) {
+        pg_log_error("streaming header too small: %d", len);
+        return false;
+    }
+    replyRequested = copybuf[pos];
+
+    // Send reply if server requested it
+    if (replyRequested && still_sending) {
+        // Sync WAL file if flush position reporting is needed
+        if (reportFlushPosition && lastFlushPosition < blockpos && walfile != NULL) {
+            if (stream->walmethod->ops->sync(walfile) != 0)
+                pg_fatal("could not fsync file \"%s\": %s",
+                         walfile->pathname, GetLastWalMethodError(stream->walmethod));
+            lastFlushPosition = blockpos;
+        }
+
+        // Send feedback with current position
+        now = feGetCurrentTimestamp();
+        if (!sendFeedback(conn, blockpos, now, false))
+            return false;
+        *last_status = now;
+    }
+
+    return true;
+}
+```

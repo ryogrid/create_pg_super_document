@@ -62,3 +62,101 @@ The `array_get_slice` function creates a new array containing a specified slice 
 - Preserves null bitmap structure from source array in the result
 - Critical function for PostgreSQL's array slicing infrastructure
 - Located in `src/backend/utils/adt/arrayfuncs.c` at lines 2030-2200
+
+## Simplified Source
+
+```c
+Datum
+array_get_slice(Datum arraydatum, int nSubscripts,
+                int *upperIndx, int *lowerIndx,
+                bool *upperProvided, bool *lowerProvided,
+                int arraytyplen, int elmlen, bool elmbyval, char elmalign)
+{
+    ArrayType *array;
+    ArrayType *newarray;
+    int i, ndim, *dim, *lb, *newlb;
+    Oid elemtype;
+    char *arraydataptr;
+    bits8 *arraynullsptr;
+    int32 dataoffset;
+    int bytes, span[MAXDIM];
+
+    // Fixed-length arrays not supported
+    if (arraytyplen > 0)
+        ereport(ERROR, /* feature not supported */);
+
+    // Detoast and extract array metadata
+    array = DatumGetArrayTypeP(arraydatum);
+    ndim = ARR_NDIM(array);
+    dim = ARR_DIMS(array);
+    lb = ARR_LBOUND(array);
+    elemtype = ARR_ELEMTYPE(array);
+    arraydataptr = ARR_DATA_PTR(array);
+    arraynullsptr = ARR_NULLBITMAP(array);
+
+    // Validate dimensions and return empty array if invalid
+    if (ndim < nSubscripts || ndim <= 0 || ndim > MAXDIM)
+        return PointerGetDatum(construct_empty_array(elemtype));
+
+    // Process subscripts and validate bounds
+    for (i = 0; i < nSubscripts; i++) {
+        // Use array bounds if not provided
+        if (!lowerProvided[i] || lowerIndx[i] < lb[i])
+            lowerIndx[i] = lb[i];
+        if (!upperProvided[i] || upperIndx[i] >= (dim[i] + lb[i]))
+            upperIndx[i] = dim[i] + lb[i] - 1;
+
+        // Return empty array for invalid ranges
+        if (lowerIndx[i] > upperIndx[i])
+            return PointerGetDatum(construct_empty_array(elemtype));
+    }
+
+    // Fill missing subscript positions with full array range
+    for (; i < ndim; i++) {
+        lowerIndx[i] = lb[i];
+        upperIndx[i] = dim[i] + lb[i] - 1;
+        if (lowerIndx[i] > upperIndx[i])
+            return PointerGetDatum(construct_empty_array(elemtype));
+    }
+
+    // Calculate slice dimensions
+    mda_get_range(ndim, span, lowerIndx, upperIndx);
+
+    // Calculate required memory for slice data
+    bytes = array_slice_size(arraydataptr, arraynullsptr,
+                            ndim, dim, lb,
+                            lowerIndx, upperIndx,
+                            elmlen, elmbyval, elmalign);
+
+    // Calculate total array size including overhead
+    if (arraynullsptr) {
+        dataoffset = ARR_OVERHEAD_WITHNULLS(ndim, ArrayGetNItems(ndim, span));
+        bytes += dataoffset;
+    } else {
+        dataoffset = 0;  // no null bitmap
+        bytes += ARR_OVERHEAD_NONULLS(ndim);
+    }
+
+    // Create new array structure
+    newarray = (ArrayType *) palloc0(bytes);
+    SET_VARSIZE(newarray, bytes);
+    newarray->ndim = ndim;
+    newarray->dataoffset = dataoffset;
+    newarray->elemtype = elemtype;
+    memcpy(ARR_DIMS(newarray), span, ndim * sizeof(int));
+
+    // Set lower bounds to 1 for all dimensions
+    newlb = ARR_LBOUND(newarray);
+    for (i = 0; i < ndim; i++)
+        newlb[i] = 1;
+
+    // Extract slice data into new array
+    array_extract_slice(newarray,
+                       ndim, dim, lb,
+                       arraydataptr, arraynullsptr,
+                       lowerIndx, upperIndx,
+                       elmlen, elmbyval, elmalign);
+
+    return PointerGetDatum(newarray);
+}
+```

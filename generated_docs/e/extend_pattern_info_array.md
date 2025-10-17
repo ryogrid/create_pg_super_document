@@ -40,3 +40,23 @@ The function handles memory management safely by using pg_realloc, which will te
 - Returns a pointer to the newly added entry for immediate use by the caller
 - Part of the pattern management system that handles user-specified inclusion/exclusion patterns for database objects
 - The function assumes the PatternInfoArray structure has been properly initialized before calling
+
+## Simplified Source
+
+```c
+static PatternInfo *
+extend_pattern_info_array(PatternInfoArray *pia)
+{
+    PatternInfo *result;
+
+    // Extend array by one element
+    pia->len++;
+    pia->data = (PatternInfo *) pg_realloc(pia->data, pia->len * sizeof(PatternInfo));
+
+    // Initialize new entry and return pointer to it
+    result = &pia->data[pia->len - 1];
+    memset(result, 0, sizeof(*result));
+
+    return result;
+}
+```

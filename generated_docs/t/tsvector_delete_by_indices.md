@@ -51,3 +51,68 @@ The function operates in several phases:
 - Returns a completely new TSVector rather than modifying the input
 - Critical for implementing various TSVector deletion operations in PostgreSQL's text search functionality
 - Efficiently handles both single and multiple lexeme deletions with O(n) complexity after initial sorting
+
+## Simplified Source
+
+```c
+static TSVector tsvector_delete_by_indices(TSVector tsv, int *indices_to_delete, int indices_count) {
+    WordEntry *input_entries = ARRPTR(tsv);
+    char *input_data = STRPTR(tsv);
+
+    // Sort and deduplicate indices for efficient processing
+    if (indices_count > 1) {
+        qsort(indices_to_delete, indices_count, sizeof(int), compare_int);
+        indices_count = qunique(indices_to_delete, indices_count, sizeof(int), compare_int);
+    }
+
+    // Allocate output TSVector (initially overestimate size)
+    TSVector output = (TSVector) palloc0(VARSIZE(tsv));
+    output->size = tsv->size - indices_count;
+
+    // Prepare for copying data
+    WordEntry *output_entries = ARRPTR(output);
+    char *output_data = STRPTR(output);
+    int data_offset = 0;
+    int output_index = 0;
+    int delete_index = 0;
+
+    // Copy lexemes, skipping those marked for deletion
+    for (int i = 0; i < tsv->size; i++) {
+        // Check if current lexeme should be deleted
+        if (delete_index < indices_count && i == indices_to_delete[delete_index]) {
+            delete_index++;
+            continue; // Skip this lexeme
+        }
+
+        // Copy lexeme text
+        memcpy(output_data + data_offset, input_data + input_entries[i].pos, input_entries[i].len);
+
+        // Set up output entry
+        output_entries[output_index].haspos = input_entries[i].haspos;
+        output_entries[output_index].len = input_entries[i].len;
+        output_entries[output_index].pos = data_offset;
+        data_offset += input_entries[i].len;
+
+        // Copy position data if present
+        if (input_entries[i].haspos) {
+            int pos_data_len = POSDATALEN(tsv, &input_entries[i]) * sizeof(WordEntryPos) + sizeof(uint16);
+
+            // Align data for position storage
+            data_offset = SHORTALIGN(data_offset);
+            memcpy(output_data + data_offset,
+                   STRPTR(tsv) + SHORTALIGN(input_entries[i].pos + input_entries[i].len),
+                   pos_data_len);
+            data_offset += pos_data_len;
+        }
+
+        output_index++;
+    }
+
+    // Verify all indices were processed
+    Assert(delete_index == indices_count);
+
+    // Set final size based on actual data copied
+    SET_VARSIZE(output, CALCDATASIZE(output->size, data_offset));
+    return output;
+}
+```

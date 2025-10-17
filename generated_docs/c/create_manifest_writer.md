@@ -41,3 +41,33 @@ The function performs several initialization tasks:
 - The backup manifest format follows PostgreSQL Backup Manifest specification version 2
 - File descriptor is initially set to -1 and will be opened when writing begins
 - The JSON structure is started but not completed by this function - additional functions handle file entries and finalization
+
+## Simplified Source
+
+```c
+manifest_writer *create_manifest_writer(char *directory, uint64 system_identifier)
+{
+    manifest_writer *mwriter = pg_malloc(sizeof(manifest_writer));
+
+    // Set up manifest file path
+    snprintf(mwriter->pathname, MAXPGPATH, "%s/backup_manifest", directory);
+
+    // Initialize writer state
+    mwriter->fd = -1;
+    initStringInfo(&mwriter->buf);
+    mwriter->first_file = true;
+    mwriter->still_checksumming = true;
+
+    // Initialize SHA256 checksumming for manifest integrity
+    pg_checksum_init(&mwriter->manifest_ctx, CHECKSUM_TYPE_SHA256);
+
+    // Start JSON structure with header information
+    appendStringInfo(&mwriter->buf,
+                    "{ \"PostgreSQL-Backup-Manifest-Version\": 2,\n"
+                    "\"System-Identifier\": " UINT64_FORMAT ",\n"
+                    "\"Files\": [",
+                    system_identifier);
+
+    return mwriter;
+}
+```

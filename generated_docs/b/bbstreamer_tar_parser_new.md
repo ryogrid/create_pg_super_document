@@ -33,3 +33,24 @@ This function creates and initializes a bbstreamer_tar_parser instance that serv
 - Initializes the internal buffer using StringInfo for handling partial data
 - Sets the initial parsing context to BBSTREAMER_MEMBER_HEADER, indicating it expects to parse a tar header first
 - Returns the base bbstreamer pointer, allowing it to be used polymorphically in the streaming chain
+
+## Simplified Source
+
+```c
+extern bbstreamer *
+bbstreamer_tar_parser_new(bbstreamer *next)
+{
+    bbstreamer_tar_parser *streamer;
+
+    // Allocate and initialize tar parser streamer
+    streamer = palloc0(sizeof(bbstreamer_tar_parser));
+    streamer->base.bbs_ops = &bbstreamer_tar_parser_ops;
+    streamer->base.bbs_next = next;
+    initStringInfo(&streamer->base.bbs_buffer);
+
+    // Set initial parsing state to expect tar header
+    streamer->next_context = BBSTREAMER_MEMBER_HEADER;
+
+    return &streamer->base;
+}
+```

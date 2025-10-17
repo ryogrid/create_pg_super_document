@@ -37,3 +37,31 @@ This function converts a JsonPath value to its C-string representation. It provi
 - The function always returns the resulting string data regardless of whether an output buffer was provided
 - Uses estimated_len parameter for buffer optimization to reduce memory reallocations
 - Part of PostgreSQL's JSON path functionality for converting internal representations to readable strings
+
+## Simplified Source
+
+```c
+static char *
+jsonPathToCstring(StringInfo out, JsonPath *in, int estimated_len)
+{
+    StringInfoData buf;
+    JsonPathItem v;
+
+    // Use provided output buffer or create temporary one
+    if (!out) {
+        out = &buf;
+        initStringInfo(out);
+    }
+    enlargeStringInfo(out, estimated_len);
+
+    // Add "strict" prefix if not in lax mode
+    if (!(in->header & JSONPATH_LAX))
+        appendStringInfoString(out, "strict ");
+
+    // Initialize and print the jsonpath item
+    jspInit(&v, in);
+    printJsonPathItem(out, &v, false, true);
+
+    return out->data;
+}
+```

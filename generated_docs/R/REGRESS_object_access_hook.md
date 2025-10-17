@@ -49,3 +49,33 @@ Unlike REGRESS_object_access_hook_str which handles specific parameter operation
 - Uses accesstype_arg_to_string() to convert access-specific argument data to human-readable strings for auditing
 - Part of the comprehensive object access hook testing framework for validating PostgreSQL's security infrastructure
 - The hook is installed during module initialization and remains active throughout the session
+
+## Simplified Source
+
+```c
+static void
+REGRESS_object_access_hook(ObjectAccessType access, Oid classId, Oid objectId, int subId, void *arg)
+{
+    // Audit the access attempt
+    audit_attempt("object access",
+                  accesstype_to_string(access, 0),
+                  accesstype_arg_to_string(access, arg));
+
+    // Check if access should be denied (for non-superusers when test flag is set)
+    if (REGRESS_deny_object_access && !superuser_arg(GetUserId()))
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("permission denied: %s [%s]",
+                        accesstype_to_string(access, 0),
+                        accesstype_arg_to_string(access, arg))));
+
+    // Forward to next hook in the chain
+    if (next_object_access_hook)
+        (*next_object_access_hook) (access, classId, objectId, subId, arg);
+
+    // Audit successful access
+    audit_success("object access",
+                  accesstype_to_string(access, 0),
+                  accesstype_arg_to_string(access, arg));
+}
+```

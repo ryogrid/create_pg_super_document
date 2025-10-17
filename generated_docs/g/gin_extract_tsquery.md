@@ -69,3 +69,66 @@ The function handles complex queries including negation, boolean operations, and
 - Essential for query planning and execution in GIN-indexed text search
 - Supports complex boolean queries with AND, OR, NOT operations
 - Part of PostgreSQL's full-text search operator class infrastructure
+
+## Simplified Source
+
+```c
+Datum
+gin_extract_tsquery(PG_FUNCTION_ARGS)
+{
+    TSQuery query = PG_GETARG_TSQUERY(0);
+    int32 *nentries = (int32 *) PG_GETARG_POINTER(1);
+    bool **ptr_partialmatch = (bool **) PG_GETARG_POINTER(3);
+    Pointer **extra_data = (Pointer **) PG_GETARG_POINTER(4);
+    int32 *searchMode = (int32 *) PG_GETARG_POINTER(6);
+    Datum *entries = NULL;
+
+    *nentries = 0;
+
+    if (query->size > 0) {
+        QueryItem *item = GETQUERY(query);
+
+        // Determine search strategy based on query requirements
+        if (tsquery_requires_match(item))
+            *searchMode = GIN_SEARCH_MODE_DEFAULT;
+        else
+            *searchMode = GIN_SEARCH_MODE_ALL;  // Full scan for pure negation
+
+        // Count VAL (lexeme) items in query
+        int j = 0;
+        for (int i = 0; i < query->size; i++) {
+            if (item[i].type == QI_VAL)
+                j++;
+        }
+        *nentries = j;
+
+        if (j > 0) {
+            // Allocate result arrays
+            entries = palloc(sizeof(Datum) * j);
+            bool *partialmatch = *ptr_partialmatch = palloc(sizeof(bool) * j);
+            *extra_data = palloc(sizeof(Pointer) * j);
+            int *map_item_operand = palloc0(sizeof(int) * query->size);
+
+            // Extract searchable terms from query
+            j = 0;
+            for (int i = 0; i < query->size; i++) {
+                if (item[i].type == QI_VAL) {
+                    QueryOperand *val = &item[i].qoperand;
+
+                    // Convert lexeme to text datum
+                    text *txt = cstring_to_text_with_len(GETOPERAND(query) + val->distance,
+                                                         val->length);
+                    entries[j] = PointerGetDatum(txt);
+                    partialmatch[j] = val->prefix;  // Track prefix search capability
+                    (*extra_data)[j] = (Pointer) map_item_operand;
+                    map_item_operand[i] = j;  // Map query position to operand
+                    j++;
+                }
+            }
+        }
+    }
+
+    PG_FREE_IF_COPY(query, 0);
+    PG_RETURN_POINTER(entries);
+}
+```

@@ -42,3 +42,52 @@ The function uses PostgreSQL's PG_TRY/PG_CATCH exception handling to ensure prop
 - Located in src/backend/utils/adt/xml.c:4684-4731
 - Critical for proper XML table function resource management
 - Sets magic number for data validation in subsequent operations
+
+## Simplified Source
+
+```c
+static void XmlTableInitOpaque(TableFuncScanState *state, int natts)
+{
+#ifdef USE_LIBXML
+    volatile xmlParserCtxtPtr ctxt = NULL;
+    XmlTableBuilderData *xtCxt;
+    PgXmlErrorContext *xmlerrcxt;
+
+    // Allocate and initialize XML table context
+    xtCxt = palloc0(sizeof(XmlTableBuilderData));
+    xtCxt->magic = XMLTABLE_CONTEXT_MAGIC;
+    xtCxt->natts = natts;
+    xtCxt->xpathscomp = palloc0(sizeof(xmlXPathCompExprPtr) * natts);
+
+    // Initialize XML error handling
+    xmlerrcxt = pg_xml_init(PG_XML_STRICTNESS_ALL);
+
+    PG_TRY();
+    {
+        // Initialize XML parser and create parser context
+        xmlInitParser();
+        ctxt = xmlNewParserCtxt();
+
+        if (ctxt == NULL || xmlerrcxt->err_occurred)
+            xml_ereport(xmlerrcxt, ERROR, ERRCODE_OUT_OF_MEMORY,
+                       "could not allocate parser context");
+    }
+    PG_CATCH();
+    {
+        // Cleanup on error
+        if (ctxt != NULL)
+            xmlFreeParserCtxt(ctxt);
+        pg_xml_done(xmlerrcxt, true);
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    // Store initialized contexts
+    xtCxt->xmlerrcxt = xmlerrcxt;
+    xtCxt->ctxt = ctxt;
+    state->opaque = xtCxt;
+#else
+    NO_XML_SUPPORT();
+#endif
+}
+```

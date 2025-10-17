@@ -42,3 +42,29 @@ The generated archive entry is placed in the SECTION_POST_DATA section, ensuring
 - Complements regular table data dumping for materialized views
 - Part of PostgreSQL's comprehensive backup and restore infrastructure
 - Located at src/bin/pg_dump/pg_dump.c:2771-2805
+
+## Simplified Source
+
+```c
+static void refreshMatViewData(Archive *fout, const TableDataInfo *tdinfo) {
+    TableInfo *tbinfo = tdinfo->tdtable;
+    PQExpBuffer q;
+
+    // Skip unpopulated materialized views
+    if (!tbinfo->relispopulated)
+        return;
+
+    // Create REFRESH MATERIALIZED VIEW statement
+    q = createPQExpBuffer();
+    appendPQExpBuffer(q, "REFRESH MATERIALIZED VIEW %s;\\n",
+                     fmtQualifiedDumpable(tbinfo));
+
+    // Create archive entry for post-data section
+    if (tdinfo->dobj.dump & DUMP_COMPONENT_DATA) {
+        ArchiveEntry(fout, tdinfo->dobj.catId, tdinfo->dobj.dumpId,
+                    /* MATERIALIZED VIEW DATA entry with refresh statement */);
+    }
+
+    destroyPQExpBuffer(q);
+}
+```

@@ -66,3 +66,84 @@ The operation works by:
 - Properly handles both fixed-length and variable-length element types
 - Manages null bitmaps correctly for arrays that can contain NULL values
 - Uses multi-dimensional array helper functions for coordinate calculations
+
+## Simplified Source
+
+```c
+static void
+array_insert_slice(ArrayType *destArray,
+                   ArrayType *origArray,
+                   ArrayType *srcArray,
+                   int ndim, int *dim, int *lb,
+                   int *st, int *endp,
+                   int typlen, bool typbyval, char typalign)
+{
+    char *destPtr = ARR_DATA_PTR(destArray);
+    char *origPtr = ARR_DATA_PTR(origArray);
+    char *srcPtr = ARR_DATA_PTR(srcArray);
+    bits8 *destBitmap = ARR_NULLBITMAP(destArray);
+    bits8 *origBitmap = ARR_NULLBITMAP(origArray);
+    bits8 *srcBitmap = ARR_NULLBITMAP(srcArray);
+    int orignitems = ArrayGetNItems(ARR_NDIM(origArray), ARR_DIMS(origArray));
+    int dest_offset, orig_offset, src_offset;
+    int prod[MAXDIM], span[MAXDIM], dist[MAXDIM], indx[MAXDIM];
+
+    // Copy elements before the slice start from original array
+    dest_offset = ArrayGetOffset(ndim, dim, lb, st);
+    int inc = array_copy(destPtr, dest_offset, origPtr, 0, origBitmap,
+                        typlen, typbyval, typalign);
+    destPtr += inc;
+    origPtr += inc;
+    if (destBitmap)
+        array_bitmap_copy(destBitmap, 0, origBitmap, 0, dest_offset);
+
+    // Setup multidimensional iteration
+    orig_offset = dest_offset;
+    mda_get_prod(ndim, dim, prod);
+    mda_get_range(ndim, span, st, endp);
+    mda_get_offset_values(ndim, dist, prod, span);
+    for (int i = 0; i < ndim; i++)
+        indx[i] = 0;
+
+    // Process the slice replacement
+    src_offset = 0;
+    int j = ndim - 1;
+    do {
+        // Copy elements between previous and current slice position
+        if (dist[j]) {
+            inc = array_copy(destPtr, dist[j], origPtr, orig_offset,
+                           origBitmap, typlen, typbyval, typalign);
+            destPtr += inc;
+            origPtr += inc;
+            if (destBitmap)
+                array_bitmap_copy(destBitmap, dest_offset,
+                                origBitmap, orig_offset, dist[j]);
+            dest_offset += dist[j];
+            orig_offset += dist[j];
+        }
+
+        // Insert new element from source array at slice position
+        inc = array_copy(destPtr, 1, srcPtr, src_offset, srcBitmap,
+                        typlen, typbyval, typalign);
+        if (destBitmap)
+            array_bitmap_copy(destBitmap, dest_offset,
+                            srcBitmap, src_offset, 1);
+        destPtr += inc;
+        srcPtr += inc;
+        dest_offset++;
+        src_offset++;
+
+        // Skip over original element at this position
+        origPtr = array_seek(origPtr, orig_offset, origBitmap, 1,
+                           typlen, typbyval, typalign);
+        orig_offset++;
+    } while ((j = mda_next_tuple(ndim, indx, span)) != -1);
+
+    // Copy any remaining elements after the slice
+    array_copy(destPtr, orignitems - orig_offset, origPtr, orig_offset,
+              origBitmap, typlen, typbyval, typalign);
+    if (destBitmap)
+        array_bitmap_copy(destBitmap, dest_offset, origBitmap, orig_offset,
+                        orignitems - orig_offset);
+}
+```

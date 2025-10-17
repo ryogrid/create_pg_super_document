@@ -37,3 +37,26 @@ This function compares two BPCHAR values to determine if the first is lexicograp
 - Returns true when the first BPCHAR value is lexicographically less than the second
 - Proper memory management with PG_FREE_IF_COPY to prevent memory leaks in index operations
 - Does not include the collation validation that equality functions have, relying on varstr_cmp() to handle collation issues
+
+## Simplified Source
+
+```c
+Datum bpcharlt(PG_FUNCTION_ARGS) {
+    BpChar *arg1 = PG_GETARG_BPCHAR_PP(0);
+    BpChar *arg2 = PG_GETARG_BPCHAR_PP(1);
+
+    // Get true lengths (excluding trailing spaces)
+    int len1 = bcTruelen(arg1);
+    int len2 = bcTruelen(arg2);
+
+    // Perform collation-aware string comparison
+    int cmp = varstr_cmp(VARDATA_ANY(arg1), len1, VARDATA_ANY(arg2), len2, PG_GET_COLLATION());
+
+    // Clean up memory
+    PG_FREE_IF_COPY(arg1, 0);
+    PG_FREE_IF_COPY(arg2, 1);
+
+    // Return true if arg1 < arg2
+    PG_RETURN_BOOL(cmp < 0);
+}
+```

@@ -41,3 +41,40 @@ The function leverages the join_rel_level mechanism to automatically ensure that
 - Results are automatically added to  by the underlying  function
 - The same joined relation may be generated multiple ways at higher levels, but each contributes different sets of paths
 - Static function scope limits its direct usage to within the same source file
+
+## Simplified Source
+
+```c
+static void
+make_rels_by_clause_joins(PlannerInfo *root,
+                          RelOptInfo *old_rel,
+                          List *other_rels,
+                          int first_rel_idx)
+{
+    ListCell *l;
+
+    // Iterate through candidate relations starting from specified index
+    for_each_from(l, other_rels, first_rel_idx)
+    {
+        RelOptInfo *other_rel = (RelOptInfo *) lfirst(l);
+
+        // Check if relations don't overlap (no common base relations)
+        if (!bms_overlap(old_rel->relids, other_rel->relids) &&
+            // Check if there's a reason to join these relations
+            (have_relevant_joinclause(root, old_rel, other_rel) ||
+             have_join_order_restriction(root, old_rel, other_rel)))
+        {
+            // Create the join relation
+            (void) make_join_rel(root, old_rel, other_rel);
+        }
+    }
+}
+```
+
+This function systematically evaluates potential join relationships by:
+1. **Iterating through candidates**: Starting from a specified index in the relations list
+2. **Checking compatibility**: Ensuring relations don't share base relations (preventing invalid joins)
+3. **Validating join necessity**: Only creating joins where there are join clauses or ordering constraints
+4. **Creating valid joins**: Delegating actual join creation to `make_join_rel()`
+
+The simplified version preserves the core algorithm while adding clarifying comments for each logical step.

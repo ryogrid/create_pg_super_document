@@ -37,3 +37,31 @@ The function returns the resulting QueryItem array and sets the length through t
 - Performs input validation to ensure the root node is of an appropriate type
 - The returned array must be freed by the caller when no longer needed
 - Returns NULL for invalid or empty trees, making it safe to use in various contexts
+
+## Simplified Source
+
+```c
+static QueryItem *plaintree(NODE *root, int *len) {
+    PLAINTREE conversion_state;
+
+    // Initialize conversion state
+    conversion_state.cur = 0;
+    conversion_state.len = 16;
+
+    // Check if root is valid (value or operator node)
+    if (root && (root->valnode->type == QI_VAL || root->valnode->type == QI_OPR)) {
+        // Allocate initial buffer
+        conversion_state.ptr = (QueryItem *) palloc(conversion_state.len * sizeof(QueryItem));
+
+        // Convert tree to flat array
+        plainnode(&conversion_state, root);
+    } else {
+        // Invalid or empty tree
+        conversion_state.ptr = NULL;
+    }
+
+    // Return length and array
+    *len = conversion_state.cur;
+    return conversion_state.ptr;
+}
+```

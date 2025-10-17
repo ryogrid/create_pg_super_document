@@ -56,3 +56,113 @@ The function manages the complete lifecycle of archive processing, from initiali
 - The function assumes PostgreSQL v15+ protocol features (recovery GUCs support)
 - Proper error handling includes setting errno to ENOSPC when fwrite() fails without setting errno
 - State management ensures that archives are processed before manifest data (sanity check enforced)
+
+## Simplified Source
+
+```c
+static void
+ReceiveArchiveStreamChunk(size_t r, char *copybuf, void *callback_data)
+{
+    ArchiveStreamState *state = callback_data;
+    size_t cursor = 0;
+
+    // Process message based on type byte
+    switch (GetCopyDataByte(r, copybuf, &cursor))
+    {
+        case 'n':  // New archive
+        {
+            char *archive_name, *spclocation;
+
+            // Update progress for previous tablespace
+            if (++state->tablespacenum > 0)
+                progress_report(state->tablespacenum, true, false);
+
+            // Parse archive information
+            archive_name = GetCopyDataString(r, copybuf, &cursor);
+            spclocation = GetCopyDataString(r, copybuf, &cursor);
+            GetCopyDataEnd(r, copybuf, cursor);
+
+            // Validate archive name
+            if (archive_name[0] == '\0' || archive_name[0] == '.' ||
+                strchr(archive_name, '/') != NULL ||
+                strchr(archive_name, '\\') != NULL)
+                pg_fatal("invalid archive name: \"%s\"", archive_name);
+
+            // Handle empty spclocation
+            if (spclocation[0] == '\0')
+                spclocation = NULL;
+
+            // Cleanup previous streamer
+            if (state->streamer != NULL) {
+                bbstreamer_finalize(state->streamer);
+                bbstreamer_free(state->streamer);
+                state->streamer = NULL;
+            }
+
+            // Create new backup streamer if needed
+            if (backup_target == NULL) {
+                state->streamer = CreateBackupStreamer(archive_name, spclocation,
+                                                     &state->manifest_inject_streamer,
+                                                     true, false, state->compress);
+            }
+            break;
+        }
+
+        case 'd':  // Data content
+        {
+            if (state->manifest_buffer != NULL) {
+                // Buffer manifest data in memory
+                appendPQExpBuffer(state->manifest_buffer, copybuf + 1, r - 1);
+            }
+            else if (state->manifest_file != NULL) {
+                // Write manifest data to file
+                if (fwrite(copybuf + 1, r - 1, 1, state->manifest_file) != 1) {
+                    if (errno == 0) errno = ENOSPC;
+                    pg_fatal("could not write to file \"%s\": %m", state->manifest_filename);
+                }
+            }
+            else if (state->streamer != NULL) {
+                // Stream archive data
+                bbstreamer_content(state->streamer, NULL, copybuf + 1, r - 1, BBSTREAMER_UNKNOWN);
+            }
+            else {
+                pg_fatal("unexpected payload data");
+            }
+            break;
+        }
+
+        case 'p':  // Progress report
+        {
+            totaldone = GetCopyDataUInt64(r, copybuf, &cursor);
+            GetCopyDataEnd(r, copybuf, cursor);
+            progress_report(state->tablespacenum, true, false);
+            break;
+        }
+
+        case 'm':  // Manifest preparation
+        {
+            GetCopyDataEnd(r, copybuf, cursor);
+
+            if (backup_target == NULL) {
+                if (state->manifest_inject_streamer != NULL) {
+                    // Buffer manifest in memory for injection
+                    state->manifest_buffer = createPQExpBuffer();
+                }
+                else {
+                    // Write manifest to temporary file
+                    snprintf(state->manifest_filename, sizeof(state->manifest_filename),
+                            "%s/backup_manifest.tmp", basedir);
+                    state->manifest_file = fopen(state->manifest_filename, "wb");
+                    if (state->manifest_file == NULL)
+                        pg_fatal("could not create file \"%s\": %m", state->manifest_filename);
+                }
+            }
+            break;
+        }
+
+        default:
+            ReportCopyDataParseError(r, copybuf);
+            break;
+    }
+}
+```

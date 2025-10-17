@@ -37,3 +37,27 @@ The function first retrieves the access method routine structure using the provi
 - This function is primarily used by monitoring tools and progress reporting systems to provide meaningful feedback during index operations
 - The `ambuildphasename` callback in the access method routine is optional; not all access methods implement progress reporting
 - Phase numbers are access method specific and typically correspond to different stages of the index building process (e.g., "scanning table", "sorting tuples", "writing index")
+
+## Simplified Source
+
+```c
+Datum pg_indexam_progress_phasename(PG_FUNCTION_ARGS) {
+    Oid amoid = PG_GETARG_OID(0);
+    int32 phasenum = PG_GETARG_INT32(1);
+
+    // Get the access method routine for the given OID
+    IndexAmRoutine *routine = GetIndexAmRoutineByAmId(amoid, true);
+
+    // Return NULL if AM doesn't support progress phase naming
+    if (routine == NULL || !routine->ambuildphasename)
+        PG_RETURN_NULL();
+
+    // Get the phase name from the access method
+    char *name = routine->ambuildphasename(phasenum);
+    if (!name)
+        PG_RETURN_NULL();
+
+    // Convert C string to PostgreSQL text datum and return
+    PG_RETURN_DATUM(CStringGetTextDatum(name));
+}
+```

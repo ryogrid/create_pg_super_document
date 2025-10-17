@@ -49,3 +49,25 @@ Key aspects:
 - Automatically determines source encoding from current database settings
 - Part of PostgreSQL's character set conversion SQL interface alongside convert_from()
 - Commonly used in applications that need to export data in specific encodings
+
+## Simplified Source
+
+```c
+Datum
+pg_convert_to(PG_FUNCTION_ARGS)
+{
+    // Extract input text and destination encoding name
+    Datum string = PG_GETARG_DATUM(0);
+    Datum dest_encoding_name = PG_GETARG_DATUM(1);
+
+    // Get current database encoding as source encoding
+    Datum src_encoding_name = DirectFunctionCall1(namein,
+                                                  CStringGetDatum(DatabaseEncoding->name));
+
+    // Delegate to pg_convert for the actual conversion
+    Datum result = DirectFunctionCall3(pg_convert, string,
+                                       src_encoding_name, dest_encoding_name);
+
+    return result;
+}
+```

@@ -49,3 +49,31 @@ The function leverages the same ranking infrastructure as other ranking function
 - Uses 1-based ranking internally but adjusts for 0-based percentage calculation
 - Complies with SQL standard behavior for PERCENT_RANK() window function
 - Suitable for statistical analysis and percentile calculations
+
+## Simplified Source
+
+```c
+Datum window_percent_rank(PG_FUNCTION_ARGS)
+{
+    WindowObject winobj = PG_WINDOW_OBJECT();
+    int64 totalrows = WinGetPartitionRowCount(winobj);
+
+    // Get rank context and check if rank should increase
+    bool should_increase = rank_up(winobj);
+    rank_context *context = (rank_context *)
+        WinGetPartitionLocalMemory(winobj, sizeof(rank_context));
+
+    if (should_increase) {
+        context->rank = WinGetCurrentPosition(winobj) + 1;
+    }
+
+    // Special case: return 0.0 for single row partitions
+    if (totalrows <= 1) {
+        PG_RETURN_FLOAT8(0.0);
+    }
+
+    // Calculate percent rank: (rank - 1) / (total_rows - 1)
+    float8 percent = (float8)(context->rank - 1) / (float8)(totalrows - 1);
+    PG_RETURN_FLOAT8(percent);
+}
+```

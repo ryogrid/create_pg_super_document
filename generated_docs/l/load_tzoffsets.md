@@ -31,3 +31,42 @@ This function serves as the high-level interface for loading PostgreSQL timezone
 
 ## Notes and Other Information
 The function returns a complete TimeZoneAbbrevTable on success, or NULL on failure with appropriate error messages set via GUC_check_errmsg. The returned table must be allocated with guc_malloc (not palloc) for proper memory management in PostgreSQL's GUC system. The temporary memory context ensures clean cleanup of all intermediate allocations.
+
+## Simplified Source
+
+```c
+TimeZoneAbbrevTable *load_tzoffsets(const char *filename) {
+    TimeZoneAbbrevTable *result = NULL;
+    MemoryContext tmpContext;
+    MemoryContext oldContext;
+    tzEntry *array;
+    int arraysize;
+    int n;
+
+    // Create temporary memory context for parsing
+    tmpContext = AllocSetContextCreate(CurrentMemoryContext,
+                                      "TZParserMemory",
+                                      ALLOCSET_SMALL_SIZES);
+    oldContext = MemoryContextSwitchTo(tmpContext);
+
+    // Initialize timezone entry array
+    arraysize = 128;
+    array = (tzEntry *) palloc(arraysize * sizeof(tzEntry));
+
+    // Parse the timezone file(s)
+    n = ParseTzFile(filename, 0, &array, &arraysize, 0);
+
+    // Convert parsed data to final format
+    if (n >= 0) {
+        result = ConvertTimeZoneAbbrevs(array, n);
+        if (!result)
+            GUC_check_errmsg("out of memory");
+    }
+
+    // Clean up temporary context
+    MemoryContextSwitchTo(oldContext);
+    MemoryContextDelete(tmpContext);
+
+    return result;
+}
+```

@@ -31,3 +31,16 @@ This function reads a serialized library state buffer (created by SerializeLibra
 - Part of the parallel query infrastructure completing the trio with EstimateLibraryStateSpace and SerializeLibraryState
 - Critical for ensuring parallel workers have access to the same extension functions as the leader process
 - Called during parallel worker initialization to establish the proper library environment
+
+## Simplified Source
+
+```c
+void RestoreLibraryState(char *start_address)
+{
+    /* Load each library from the serialized buffer */
+    while (*start_address != '\0') {
+        internal_load_library(start_address);
+        start_address += strlen(start_address) + 1;
+    }
+}
+```

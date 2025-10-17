@@ -47,3 +47,57 @@ The conversion process involves parsing the timezone specification, determining 
 
 ## Notes and Other Information
 The function includes comprehensive error handling for out-of-range timestamps and invalid timezone specifications. The distinction between fixed-offset and dynamic-offset timezones is important for historical accuracy - dynamic zones like 'EST' require date-specific offset determination due to daylight saving time transitions. The function preserves infinite timestamp values unchanged, maintaining consistency with PostgreSQL's infinite timestamp semantics.
+
+## Simplified Source
+
+```c
+Datum timestamp_zone(PG_FUNCTION_ARGS) {
+    text *zone = PG_GETARG_TEXT_PP(0);
+    Timestamp timestamp = PG_GETARG_TIMESTAMP(1);
+    TimestampTz result;
+    int tz, type, val;
+    char tzname[TZ_STRLEN_MAX + 1];
+    pg_tz *tzp;
+    struct pg_tm tm;
+    fsec_t fsec;
+
+    // Handle infinite timestamps
+    if (TIMESTAMP_NOT_FINITE(timestamp))
+        PG_RETURN_TIMESTAMPTZ(timestamp);
+
+    // Parse timezone specification
+    text_to_cstring_buffer(zone, tzname, sizeof(tzname));
+    type = DecodeTimezoneName(tzname, &val, &tzp);
+
+    if (type == TZNAME_FIXED_OFFSET) {
+        // Fixed offset like '+05:00'
+        tz = val;
+        result = dt2local(timestamp, tz);
+    }
+    else if (type == TZNAME_DYNTZ) {
+        // Dynamic abbreviation like 'EST' - offset depends on date
+        if (timestamp2tm(timestamp, NULL, &tm, &fsec, NULL, tzp) != 0)
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                    errmsg("timestamp out of range")));
+        tz = -DetermineTimeZoneAbbrevOffset(&tm, tzname, tzp);
+        result = dt2local(timestamp, tz);
+    }
+    else {
+        // Full zone name like 'America/New_York'
+        if (timestamp2tm(timestamp, NULL, &tm, &fsec, NULL, tzp) != 0)
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                    errmsg("timestamp out of range")));
+        tz = DetermineTimeZoneOffset(&tm, tzp);
+        if (tm2timestamp(&tm, fsec, &tz, &result) != 0)
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                    errmsg("timestamp out of range")));
+    }
+
+    // Validate result
+    if (!IS_VALID_TIMESTAMP(result))
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                errmsg("timestamp out of range")));
+
+    PG_RETURN_TIMESTAMPTZ(result);
+}
+```

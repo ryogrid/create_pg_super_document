@@ -48,3 +48,88 @@ For each publication found, it creates a PublicationInfo structure containing al
 - The `puballtables` flag indicates whether the publication includes all tables in the database
 - Memory allocated for the returned array should be managed by the caller
 - Part of the logical replication backup and restore functionality in pg_dump
+
+## Simplified Source
+
+```c
+PublicationInfo *
+getPublications(Archive *fout, int *numPublications)
+{
+    DumpOptions *dopt = fout->dopt;
+
+    // Skip if publications disabled or unsupported version
+    if (dopt->no_publications || fout->remoteVersion < 100000) {
+        *numPublications = 0;
+        return NULL;
+    }
+
+    PQExpBuffer query = createPQExpBuffer();
+
+    // Build version-specific query for pg_publication
+    if (fout->remoteVersion >= 130000) {
+        // PostgreSQL 13+: Full support including pubviaroot
+        appendPQExpBufferStr(query,
+                           "SELECT p.tableoid, p.oid, p.pubname, p.pubowner, "
+                           "p.puballtables, p.pubinsert, p.pubupdate, p.pubdelete, "
+                           "p.pubtruncate, p.pubviaroot "
+                           "FROM pg_publication p");
+    } else if (fout->remoteVersion >= 110000) {
+        // PostgreSQL 11-12: Has truncate, no pubviaroot
+        appendPQExpBufferStr(query,
+                           "SELECT p.tableoid, p.oid, p.pubname, p.pubowner, "
+                           "p.puballtables, p.pubinsert, p.pubupdate, p.pubdelete, "
+                           "p.pubtruncate, false AS pubviaroot "
+                           "FROM pg_publication p");
+    } else {
+        // PostgreSQL 10: Basic support, no truncate or pubviaroot
+        appendPQExpBufferStr(query,
+                           "SELECT p.tableoid, p.oid, p.pubname, p.pubowner, "
+                           "p.puballtables, p.pubinsert, p.pubupdate, p.pubdelete, "
+                           "false AS pubtruncate, false AS pubviaroot "
+                           "FROM pg_publication p");
+    }
+
+    PGresult *res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    int ntups = PQntuples(res);
+
+    // Get column indices
+    int i_tableoid = PQfnumber(res, "tableoid");
+    int i_oid = PQfnumber(res, "oid");
+    int i_pubname = PQfnumber(res, "pubname");
+    int i_pubowner = PQfnumber(res, "pubowner");
+    int i_puballtables = PQfnumber(res, "puballtables");
+    int i_pubinsert = PQfnumber(res, "pubinsert");
+    int i_pubupdate = PQfnumber(res, "pubupdate");
+    int i_pubdelete = PQfnumber(res, "pubdelete");
+    int i_pubtruncate = PQfnumber(res, "pubtruncate");
+    int i_pubviaroot = PQfnumber(res, "pubviaroot");
+
+    PublicationInfo *pubinfo = pg_malloc(ntups * sizeof(PublicationInfo));
+
+    // Process each publication
+    for (int i = 0; i < ntups; i++) {
+        pubinfo[i].dobj.objType = DO_PUBLICATION;
+        pubinfo[i].dobj.catId.tableoid = atooid(PQgetvalue(res, i, i_tableoid));
+        pubinfo[i].dobj.catId.oid = atooid(PQgetvalue(res, i, i_oid));
+        pubinfo[i].dobj.name = pg_strdup(PQgetvalue(res, i, i_pubname));
+        pubinfo[i].rolname = getRoleName(PQgetvalue(res, i, i_pubowner));
+
+        // Convert boolean flags from string to bool
+        pubinfo[i].puballtables = (strcmp(PQgetvalue(res, i, i_puballtables), "t") == 0);
+        pubinfo[i].pubinsert = (strcmp(PQgetvalue(res, i, i_pubinsert), "t") == 0);
+        pubinfo[i].pubupdate = (strcmp(PQgetvalue(res, i, i_pubupdate), "t") == 0);
+        pubinfo[i].pubdelete = (strcmp(PQgetvalue(res, i, i_pubdelete), "t") == 0);
+        pubinfo[i].pubtruncate = (strcmp(PQgetvalue(res, i, i_pubtruncate), "t") == 0);
+        pubinfo[i].pubviaroot = (strcmp(PQgetvalue(res, i, i_pubviaroot), "t") == 0);
+
+        AssignDumpId(&pubinfo[i].dobj);
+        selectDumpableObject(&pubinfo[i].dobj, fout);
+    }
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+
+    *numPublications = ntups;
+    return pubinfo;
+}
+```

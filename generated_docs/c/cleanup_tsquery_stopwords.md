@@ -55,3 +55,61 @@ If the entire query becomes empty after stopword removal, the function can optio
 - Handles edge cases like completely empty queries after stopword removal
 - The function maintains the original TSQuery format while internally using tree structures for processing
 - Part of PostgreSQL's text search optimization pipeline, typically called during query parsing
+
+## Simplified Source
+
+```c
+TSQuery cleanup_tsquery_stopwords(TSQuery in, bool noisy) {
+    // Handle empty input
+    if (in->size == 0)
+        return in;
+
+    // Convert to tree and remove stopwords
+    int ladd, radd;
+    NODE *root = clean_stopword_intree(maketree(GETQUERY(in)), &ladd, &radd);
+
+    // Handle case where everything was removed
+    if (root == NULL) {
+        if (noisy) {
+            ereport(NOTICE,
+                (errmsg("text-search query contains only stop words or doesn't contain lexemes, ignored")));
+        }
+        TSQuery empty_query = palloc(HDRSIZETQ);
+        empty_query->size = 0;
+        SET_VARSIZE(empty_query, HDRSIZETQ);
+        return empty_query;
+    }
+
+    // Calculate memory requirements and convert back to flat format
+    int32 string_length = calcstrlen(root);
+    int len;
+    QueryItem *items = plaintree(root, &len);
+    int32 total_size = COMPUTESIZE(len, string_length);
+
+    // Allocate and initialize output TSQuery
+    TSQuery result = palloc(total_size);
+    SET_VARSIZE(result, total_size);
+    result->size = len;
+
+    // Copy query items and operand strings
+    memcpy(GETQUERY(result), items, len * sizeof(QueryItem));
+
+    QueryItem *result_items = GETQUERY(result);
+    char *result_operands = GETOPERAND(result);
+
+    // Copy operand strings and update offsets
+    for (int i = 0; i < result->size; i++) {
+        QueryOperand *op = (QueryOperand *) &result_items[i];
+
+        if (op->type != QI_VAL)
+            continue;
+
+        memcpy(result_operands, GETOPERAND(in) + op->distance, op->length);
+        result_operands[op->length] = '\0';
+        op->distance = result_operands - GETOPERAND(result);
+        result_operands += op->length + 1;
+    }
+
+    return result;
+}
+```

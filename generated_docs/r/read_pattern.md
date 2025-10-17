@@ -41,3 +41,65 @@ This function parses valid PostgreSQL object identifiers from input text, which 
 - Part of pg_dump's object filtering mechanism for selective database dumps
 - Will terminate the program via exit_nicely if no object name pattern is found
 - Special handling for punctuation characters: commas get formatted with trailing space, dots and parentheses are preserved as-is
+
+## Simplified Source
+
+```c
+static const char *read_pattern(FilterStateData *fstate, const char *str, PQExpBuffer pattern) {
+    bool skip_space = true;
+    bool found_space = false;
+
+    // Skip initial whitespace
+    while (isspace((unsigned char) *str))
+        str++;
+
+    if (*str == '\0') {
+        pg_log_filter_error(fstate, _("missing object name pattern"));
+        fstate->exit_nicely(1);
+    }
+
+    // Parse identifier until comment '#' or end of string
+    while (*str && *str != '#') {
+        // Process regular characters (non-whitespace, non-special)
+        while (*str && !isspace((unsigned char) *str) && !strchr("#,.()\\"", *str)) {
+            // Add space if we found one and it's allowed
+            if (!skip_space && found_space) {
+                appendPQExpBufferChar(pattern, ' ');
+                skip_space = true;
+            }
+            appendPQExpBufferChar(pattern, *str++);
+        }
+
+        skip_space = false;
+
+        // Handle special characters
+        if (*str == '"') {
+            // Handle quoted strings
+            if (found_space)
+                appendPQExpBufferChar(pattern, ' ');
+            str = read_quoted_string(fstate, str, pattern);
+        }
+        else if (*str == ',') {
+            // Format commas with trailing space
+            appendPQExpBufferStr(pattern, ", ");
+            skip_space = true;
+            str++;
+        }
+        else if (*str && strchr(".()", *str)) {
+            // Handle dots and parentheses
+            appendPQExpBufferChar(pattern, *str++);
+            skip_space = true;
+        }
+
+        found_space = false;
+
+        // Skip trailing whitespace, but remember we found it
+        while (isspace((unsigned char) *str)) {
+            found_space = true;
+            str++;
+        }
+    }
+
+    return str;
+}
+```

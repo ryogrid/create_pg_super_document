@@ -41,3 +41,21 @@ The function creates a StringInfo buffer, extracts the 64-bit value from the Ful
 - The binary format is platform-independent, ensuring compatibility across different systems
 - Returned bytea can be stored, transmitted, or processed by binary-aware PostgreSQL functions
 - Located in src/backend/utils/adt/xid.c alongside other transaction ID utility functions
+
+## Simplified Source
+
+```c
+Datum xid8send(PG_FUNCTION_ARGS) {
+    FullTransactionId full_xid = PG_GETARG_FULLTRANSACTIONID(0);
+    StringInfoData buf;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Convert FullTransactionId to uint64 and write as 64-bit integer
+    pq_sendint64(&buf, (uint64) U64FromFullTransactionId(full_xid));
+
+    // Return the binary data
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

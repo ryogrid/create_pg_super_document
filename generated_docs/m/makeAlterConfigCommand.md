@@ -53,3 +53,47 @@ The generated command follows the pattern: ALTER {DATABASE|ROLE} name [IN {DATAB
 - The function is part of the pg_dump utility suite for database backup operations
 - Extension variables using GUC_LIST_QUOTE format are not safely supported by this function
 - Located at src/bin/pg_dump/dumputils.c:861-930
+
+## Simplified Source
+
+```c
+void makeAlterConfigCommand(PGconn *conn, const char *configitem,
+                           const char *type, const char *name,
+                           const char *type2, const char *name2,
+                           PQExpBuffer buf) {
+    // Parse the configitem for "name=value" format
+    char *mine = pg_strdup(configitem);
+    char *pos = strchr(mine, '=');
+    if (pos == NULL) {
+        pg_free(mine);
+        return;  // No '=' found, invalid format
+    }
+    *pos++ = '\0';  // Split into name and value parts
+
+    // Build the ALTER command: ALTER {DATABASE|ROLE} name [IN type2 name2] SET param TO value
+    appendPQExpBuffer(buf, "ALTER %s %s ", type, fmtId(name));
+    if (type2 != NULL && name2 != NULL)
+        appendPQExpBuffer(buf, "IN %s %s ", type2, fmtId(name2));
+    appendPQExpBuffer(buf, "SET %s TO ", fmtId(mine));
+
+    // Handle GUC_LIST_QUOTE variables (comma-separated lists) vs simple values
+    if (variable_is_guc_list_quote(mine)) {
+        // Parse as comma-separated list and quote each element
+        char **namelist;
+        if (SplitGUCList(pos, ',', &namelist)) {
+            for (char **nameptr = namelist; *nameptr; nameptr++) {
+                if (nameptr != namelist)
+                    appendPQExpBufferStr(buf, ", ");
+                appendStringLiteralConn(buf, *nameptr, conn);
+            }
+        }
+        pg_free(namelist);
+    } else {
+        // Simple value - quote as single string literal
+        appendStringLiteralConn(buf, pos, conn);
+    }
+
+    appendPQExpBufferStr(buf, ";\n");
+    pg_free(mine);
+}
+```

@@ -54,3 +54,35 @@ The determination of join orientation is made by checking which side of the join
 - The join orientation detection uses bitmap set operations to determine which side of the join each variable belongs to
 - In complicated cases where the orientation cannot be definitively determined, the function defaults to considering the join as normal (not reversed)
 - This function is primarily used by join selectivity estimation functions like eqjoinsel and neqjoinsel to understand the structure of join conditions
+
+## Simplified Source
+
+```c
+void get_join_variables(PlannerInfo *root, List *args, SpecialJoinInfo *sjinfo,
+                       VariableStatData *vardata1, VariableStatData *vardata2,
+                       bool *join_is_reversed)
+{
+    Node *left, *right;
+
+    // Extract the two join arguments
+    if (list_length(args) != 2)
+        elog(ERROR, "join operator should take two arguments");
+
+    left = (Node *) linitial(args);
+    right = (Node *) lsecond(args);
+
+    // Examine both variables to extract statistical data
+    examine_variable(root, left, 0, vardata1);
+    examine_variable(root, right, 0, vardata2);
+
+    // Determine join orientation based on which side each variable belongs to
+    if (vardata1->rel &&
+        bms_is_subset(vardata1->rel->relids, sjinfo->syn_righthand))
+        *join_is_reversed = true;  // var1 is on RHS
+    else if (vardata2->rel &&
+             bms_is_subset(vardata2->rel->relids, sjinfo->syn_lefthand))
+        *join_is_reversed = true;  // var2 is on LHS
+    else
+        *join_is_reversed = false; // Default to normal orientation
+}
+```

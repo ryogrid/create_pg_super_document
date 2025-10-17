@@ -41,3 +41,46 @@ The function operates within PostgreSQL's set-returning function (SRF) framework
 - Validates that the return type is composite (row type) as required for SRFs
 - The stack size is allocated based on the maximum depth of the tree to prevent overflow
 - Part of PostgreSQL's text search functionality for analyzing TSVector statistics
+
+## Simplified Source
+
+```c
+static void ts_setup_firstcall(FunctionCallInfo fcinfo, FuncCallContext *funcctx,
+                               TSVectorStat *stat) {
+    TupleDesc tupdesc;
+    MemoryContext oldcontext;
+    StatEntry *node;
+
+    funcctx->user_fctx = (void *) stat;
+
+    oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
+
+    // Allocate stack for tree traversal
+    stat->stack = palloc0(sizeof(StatEntry *) * (stat->maxdepth + 1));
+    stat->stackpos = 0;
+
+    // Find leftmost node (start of in-order traversal)
+    node = stat->root;
+    if (node == NULL) {
+        stat->stack[stat->stackpos] = NULL;
+    } else {
+        for (;;) {
+            stat->stack[stat->stackpos] = node;
+            if (node->left) {
+                stat->stackpos++;
+                node = node->left;
+            } else {
+                break;
+            }
+        }
+    }
+
+    // Set up tuple descriptor for return type
+    if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+        elog(ERROR, "return type must be a row type");
+    funcctx->tuple_desc = tupdesc;
+    funcctx->attinmeta = TupleDescGetAttInMetadata(tupdesc);
+
+    MemoryContextSwitchTo(oldcontext);
+}
+```

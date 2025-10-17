@@ -43,3 +43,34 @@ This detection is crucial for optimization decisions, particularly in parallel r
 - Used to avoid TRUNCATE optimization that could interfere with partition routing
 - Essential for maintaining data integrity and preventing deadlocks during parallel restore of partitioned tables
 - Part of PostgreSQL's sophisticated partitioned table handling in backup/restore operations
+
+## Simplified Source
+
+```c
+static bool
+is_load_via_partition_root(TocEntry *te)
+{
+    // Check for modern archive marker comment
+    if (te->defn && strncmp(te->defn, "-- load via partition root ", 27) == 0)
+        return true;
+
+    // For older archives, check if COPY statement targets different table
+    if (te->copyStmt && *te->copyStmt) {
+        PQExpBuffer expected_copy = createPQExpBuffer();
+
+        // Build expected COPY statement for direct loading
+        appendPQExpBuffer(expected_copy, "COPY %s ",
+                         fmtQualifiedId(te->namespace, te->tag));
+
+        // Compare with actual COPY statement
+        bool is_different = strncmp(te->copyStmt, expected_copy->data,
+                                   expected_copy->len) != 0;
+
+        destroyPQExpBuffer(expected_copy);
+        return is_different;
+    }
+
+    // Default: assume not load-via-partition-root
+    return false;
+}
+```

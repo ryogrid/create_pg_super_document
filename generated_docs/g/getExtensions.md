@@ -44,3 +44,69 @@ The function performs these key operations:
 - Memory allocation uses pg_malloc for the ExtensionInfo array
 - Returns allocated array that must be freed by caller
 - Essential for proper extension handling during database dumps and restores
+
+## Simplified Source
+
+```c
+ExtensionInfo *getExtensions(Archive *fout, int *numExtensions)
+{
+    DumpOptions *dopt = fout->dopt;
+    PGresult *res;
+    int ntups, i;
+    PQExpBuffer query;
+    ExtensionInfo *extinfo;
+    int i_tableoid, i_oid, i_extname, i_nspname, i_extrelocatable,
+        i_extversion, i_extconfig, i_extcondition;
+
+    query = createPQExpBuffer();
+
+    // Query extensions with their namespace information
+    appendPQExpBufferStr(query,
+                         "SELECT x.tableoid, x.oid, x.extname, n.nspname, "
+                         "x.extrelocatable, x.extversion, x.extconfig, x.extcondition "
+                         "FROM pg_extension x "
+                         "JOIN pg_namespace n ON n.oid = x.extnamespace");
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+
+    // Allocate array for extension info
+    extinfo = (ExtensionInfo *) pg_malloc(ntups * sizeof(ExtensionInfo));
+
+    // Get column indices
+    i_tableoid = PQfnumber(res, "tableoid");
+    i_oid = PQfnumber(res, "oid");
+    i_extname = PQfnumber(res, "extname");
+    i_nspname = PQfnumber(res, "nspname");
+    i_extrelocatable = PQfnumber(res, "extrelocatable");
+    i_extversion = PQfnumber(res, "extversion");
+    i_extconfig = PQfnumber(res, "extconfig");
+    i_extcondition = PQfnumber(res, "extcondition");
+
+    // Process each extension
+    for (i = 0; i < ntups; i++) {
+        // Initialize dump object
+        extinfo[i].dobj.objType = DO_EXTENSION;
+        extinfo[i].dobj.catId.tableoid = atooid(PQgetvalue(res, i, i_tableoid));
+        extinfo[i].dobj.catId.oid = atooid(PQgetvalue(res, i, i_oid));
+        AssignDumpId(&extinfo[i].dobj);
+        extinfo[i].dobj.name = pg_strdup(PQgetvalue(res, i, i_extname));
+
+        // Set extension properties
+        extinfo[i].namespace = pg_strdup(PQgetvalue(res, i, i_nspname));
+        extinfo[i].relocatable = *(PQgetvalue(res, i, i_extrelocatable)) == 't';
+        extinfo[i].extversion = pg_strdup(PQgetvalue(res, i, i_extversion));
+        extinfo[i].extconfig = pg_strdup(PQgetvalue(res, i, i_extconfig));
+        extinfo[i].extcondition = pg_strdup(PQgetvalue(res, i, i_extcondition));
+
+        // Determine if this extension should be dumped
+        selectDumpableExtension(&(extinfo[i]), dopt);
+    }
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+
+    *numExtensions = ntups;
+    return extinfo;
+}
+```

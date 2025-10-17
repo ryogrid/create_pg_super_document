@@ -36,3 +36,39 @@ This function removes a specific publication-schema mapping from the pg_publicat
 - Critical for maintaining cache consistency across schema-level publication changes
 - Error handling includes cache lookup failure detection with detailed error messages
 - More complex than individual relation removal due to schema-wide impact assessment
+
+## Simplified Source
+
+```c
+void
+RemovePublicationSchemaById(Oid psoid)
+{
+    Relation rel;
+    HeapTuple tup;
+    List *schemaRels = NIL;
+    Form_pg_publication_namespace pubsch;
+
+    // Open publication namespace catalog with exclusive lock
+    rel = table_open(PublicationNamespaceRelationId, RowExclusiveLock);
+
+    // Find the publication schema mapping tuple
+    tup = SearchSysCache1(PUBLICATIONNAMESPACE, ObjectIdGetDatum(psoid));
+
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for publication schema %u", psoid);
+
+    pubsch = (Form_pg_publication_namespace) GETSTRUCT(tup);
+
+    // Get all relations in this schema for cache invalidation
+    // Includes all partitions to ensure comprehensive invalidation
+    schemaRels = GetSchemaPublicationRelations(pubsch->pnnspid, PUBLICATION_PART_ALL);
+    InvalidatePublicationRels(schemaRels);
+
+    // Remove the mapping tuple from catalog
+    CatalogTupleDelete(rel, &tup->t_self);
+
+    // Cleanup
+    ReleaseSysCache(tup);
+    table_close(rel, RowExclusiveLock);
+}
+```

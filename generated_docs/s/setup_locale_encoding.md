@@ -56,3 +56,104 @@ Key responsibilities include setting up all locale categories (LC_COLLATE, LC_CT
 - The function terminates the program if critical compatibility issues are detected
 - Locale-encoding validation is performed for both LC_CTYPE and LC_COLLATE to ensure proper operation
 - Error messages include helpful hints about using the -E option or selecting different locales
+
+## Simplified Source
+
+```c
+void
+setup_locale_encoding(void)
+{
+    // Set up and validate all locale categories
+    setlocales();
+
+    // Display locale configuration to user
+    if (locale_provider == COLLPROVIDER_LIBC &&
+        strcmp(lc_ctype, lc_collate) == 0 &&
+        strcmp(lc_ctype, lc_time) == 0 &&
+        strcmp(lc_ctype, lc_numeric) == 0 &&
+        strcmp(lc_ctype, lc_monetary) == 0 &&
+        strcmp(lc_ctype, lc_messages) == 0 &&
+        (!datlocale || strcmp(lc_ctype, datlocale) == 0))
+    {
+        // All locales are the same - simple message
+        printf(_("The database cluster will be initialized with locale \"%s\".\n"), lc_ctype);
+    }
+    else
+    {
+        // Different locales - detailed breakdown
+        printf(_("The database cluster will be initialized with this locale configuration:\n"));
+        printf(_("  locale provider:   %s\n"), collprovider_name(locale_provider));
+        if (locale_provider != COLLPROVIDER_LIBC)
+            printf(_("  default collation: %s\n"), datlocale);
+        printf(_("  LC_COLLATE:  %s\n"
+                 "  LC_CTYPE:    %s\n"
+                 "  LC_MESSAGES: %s\n"
+                 "  LC_MONETARY: %s\n"
+                 "  LC_NUMERIC:  %s\n"
+                 "  LC_TIME:     %s\n"),
+               lc_collate, lc_ctype, lc_messages, lc_monetary, lc_numeric, lc_time);
+    }
+
+    // Determine character encoding
+    if (!encoding) {
+        // Auto-detect encoding from locale
+        int ctype_enc = pg_get_encoding_from_locale(lc_ctype, true);
+
+        // ICU doesn't support SQL_ASCII, use UTF-8 instead
+        if (locale_provider == COLLPROVIDER_ICU && ctype_enc == PG_SQL_ASCII)
+            ctype_enc = PG_UTF8;
+
+        // Handle encoding detection failures
+        if (ctype_enc == -1) {
+            pg_log_error("could not find suitable encoding for locale \"%s\"", lc_ctype);
+            pg_log_error_hint("Rerun %s with the -E option.", progname);
+            pg_log_error_hint("Try \"%s --help\" for more information.", progname);
+            exit(1);
+        }
+        else if (!pg_valid_server_encoding_id(ctype_enc)) {
+            // Handle server-incompatible encodings
+#ifdef WIN32
+            // Windows: Fall back to UTF-8
+            encodingid = PG_UTF8;
+            printf(_("Encoding \"%s\" implied by locale is not allowed as a server-side encoding.\n"
+                     "The default database encoding will be set to \"%s\" instead.\n"),
+                   pg_encoding_to_char(ctype_enc), pg_encoding_to_char(encodingid));
+#else
+            // Other platforms: Report error
+            pg_log_error("locale \"%s\" requires unsupported encoding \"%s\"",
+                         lc_ctype, pg_encoding_to_char(ctype_enc));
+            pg_log_error_detail("Encoding \"%s\" is not allowed as a server-side encoding.",
+                                pg_encoding_to_char(ctype_enc));
+            pg_log_error_hint("Rerun %s with a different locale selection.", progname);
+            exit(1);
+#endif
+        }
+        else {
+            // Use detected encoding
+            encodingid = ctype_enc;
+            printf(_("The default database encoding has accordingly been set to \"%s\".\n"),
+                   pg_encoding_to_char(encodingid));
+        }
+    }
+    else {
+        // Use user-specified encoding
+        encodingid = get_encoding_id(encoding);
+    }
+
+    // Validate locale-encoding compatibility
+    if (!check_locale_encoding(lc_ctype, encodingid) ||
+        !check_locale_encoding(lc_collate, encodingid))
+        exit(1);
+
+    // Additional validation for specific providers
+    if (locale_provider == COLLPROVIDER_BUILTIN) {
+        if (strcmp(datlocale, "C.UTF-8") == 0 && encodingid != PG_UTF8)
+            pg_fatal("builtin provider locale \"%s\" requires encoding \"%s\"",
+                     datlocale, "UTF-8");
+    }
+
+    if (locale_provider == COLLPROVIDER_ICU &&
+        !check_icu_locale_encoding(encodingid))
+        exit(1);
+}
+```

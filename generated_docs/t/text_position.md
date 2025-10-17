@@ -37,3 +37,40 @@ The  function is the internal implementation that performs the actual substring 
 - Uses efficient state-based search algorithm to handle complex collation rules
 - Part of PostgreSQL's variable-length string processing infrastructure
 - Designed to be called directly by other string processing functions beyond just textpos()
+
+## Simplified Source
+```c
+static int
+text_position(text *haystack, text *needle, Oid collation_id)
+{
+    TextPositionState search_state;
+    int result;
+
+    // Special case: empty needle always matches at position 1 (SQL standard)
+    if (VARSIZE_ANY_EXHDR(needle) < 1) {
+        return 1;
+    }
+
+    // Early exit: haystack shorter than needle cannot match
+    if (VARSIZE_ANY_EXHDR(haystack) < VARSIZE_ANY_EXHDR(needle)) {
+        return 0;
+    }
+
+    // Set up search state with haystack, needle, and collation
+    text_position_setup(haystack, needle, collation_id, &search_state);
+
+    // Perform the search
+    if (text_position_next(&search_state)) {
+        // Found a match - get the position
+        result = text_position_get_match_pos(&search_state);
+    } else {
+        // No match found
+        result = 0;
+    }
+
+    // Clean up search state
+    text_position_cleanup(&search_state);
+
+    return result;  // 1-based position, or 0 if not found
+}
+```

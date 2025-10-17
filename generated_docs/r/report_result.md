@@ -47,3 +47,36 @@ The function increments the test counter for each call and conditionally prints 
 - Tracks failures by incrementing tc->failure_count for unsuccessful tests
 - Verbosity control: verbosity <= 0 suppresses details for successful tests, verbosity < 0 suppresses result output for successful tests
 - Part of PostgreSQL's testing infrastructure, not core database functionality
+
+## Simplified Source
+
+```c
+static void
+report_result(pe_test_config *tc, bool success, const char *testname,
+              const char *details, const char *subname, const char *resultdesc)
+{
+    int test_id = ++tc->test_count;
+    bool print_details = true;
+    bool print_result = true;
+
+    // Handle failure tracking and verbosity settings
+    if (success) {
+        if (tc->verbosity <= 0)
+            print_details = false;
+        if (tc->verbosity < 0)
+            print_result = false;
+    } else {
+        tc->failure_count++;
+    }
+
+    // Print test details if appropriate
+    if (print_details)
+        printf("%s", details);
+
+    // Print TAP-format result line if appropriate
+    if (print_result)
+        printf("%s %d - %s: %s: %s\n",
+               success ? "ok" : "not ok",
+               test_id, testname, subname, resultdesc);
+}
+```

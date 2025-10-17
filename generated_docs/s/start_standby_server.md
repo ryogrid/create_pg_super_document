@@ -48,3 +48,48 @@ The function sets the global standby_running flag upon successful startup and pr
 - Uses shell string escaping for safe command execution
 - Supports custom socket directories and config files through the options structure
 - Part of the pg_createsubscriber workflow for converting a standby server to a subscriber
+
+## Simplified Source
+
+```c
+static void start_standby_server(const struct CreateSubscriberOptions *opt,
+                                bool restricted_access, bool restrict_logical_worker)
+{
+    PQExpBuffer pg_ctl_cmd = createPQExpBuffer();
+
+    // Build base pg_ctl start command with data directory
+    appendPQExpBuffer(pg_ctl_cmd, "\"%s\" start -D ", pg_ctl_path);
+    appendShellString(pg_ctl_cmd, subscriber_dir);
+    appendPQExpBuffer(pg_ctl_cmd, " -s -o \"-c sync_replication_slots=off\"");
+
+    // Configure restricted access mode (local connections only)
+    if (restricted_access) {
+        appendPQExpBuffer(pg_ctl_cmd, " -o \"-p %s\"", opt->sub_port);
+#if !defined(WIN32)
+        // Unix domain sockets only for security
+        appendPQExpBufferStr(pg_ctl_cmd, " -o \"-c listen_addresses='' -c unix_socket_permissions=0700");
+        if (opt->socket_dir)
+            appendPQExpBuffer(pg_ctl_cmd, " -c unix_socket_directories='%s'", opt->socket_dir);
+        appendPQExpBufferChar(pg_ctl_cmd, '"');
+#endif
+    }
+
+    // Add custom config file if specified
+    if (opt->config_file != NULL)
+        appendPQExpBuffer(pg_ctl_cmd, " -o \"-c config_file=%s\"", opt->config_file);
+
+    // Disable logical replication workers if requested
+    if (restrict_logical_worker)
+        appendPQExpBuffer(pg_ctl_cmd, " -o \"-c max_logical_replication_workers=0\"");
+
+    // Execute the pg_ctl command
+    pg_log_debug("pg_ctl command is: %s", pg_ctl_cmd->data);
+    int rc = system(pg_ctl_cmd->data);
+    pg_ctl_status(pg_ctl_cmd->data, rc);  // Handles errors and exits if startup fails
+
+    // Mark server as running and cleanup
+    standby_running = true;
+    destroyPQExpBuffer(pg_ctl_cmd);
+    pg_log_info("server was started");
+}
+```

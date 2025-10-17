@@ -40,3 +40,24 @@ This function serves as a PostgreSQL conversion procedure that transforms charac
 - Located in the latin_and_mic conversion module
 - Follows the standard PostgreSQL function calling convention using PG_FUNCTION_ARGS
 - Latin-3 encoding supports characters for South European languages with special focus on Turkish, Maltese, and Esperanto
+
+## Simplified Source
+
+```c
+Datum latin3_to_mic(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);   // Source Latin-3 string
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);  // Destination buffer
+    int len = PG_GETARG_INT32(4);                                  // Source length
+    bool noError = PG_GETARG_BOOL(5);                              // Error handling flag
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_LATIN3, PG_MULE_INTERNAL);
+
+    // Convert Latin-3 to MIC using latin2mic with ISO 8859-3 character set
+    int converted = latin2mic(src, dest, len, LC_ISO8859_3, PG_LATIN3, noError);
+
+    // Return number of bytes converted
+    PG_RETURN_INT32(converted);
+}
+```

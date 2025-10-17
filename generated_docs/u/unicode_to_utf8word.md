@@ -32,3 +32,35 @@ The function packs the UTF-8 bytes into a single 32-bit word using bit shifting,
 
 ## Notes and Other Information
 This function is part of PostgreSQL's character encoding conversion system and is specifically used in the GB18030 ↔ UTF-8 conversion process. The comment suggests this functionality might be better placed in a more general utility location. The function implements the standard UTF-8 encoding specification (RFC 3629) and handles all valid Unicode code points up to U+10FFFF. The word format allows efficient manipulation of UTF-8 sequences as single integer values during conversion operations.
+
+## Simplified Source
+```c
+static inline uint32 unicode_to_utf8word(uint32 c) {
+    uint32 word;
+
+    // 1-byte UTF-8 (ASCII): 0xxxxxxx
+    if (c <= 0x7F) {
+        word = c;
+    }
+    // 2-byte UTF-8: 110xxxxx 10xxxxxx
+    else if (c <= 0x7FF) {
+        word = (0xC0 | ((c >> 6) & 0x1F)) << 8;
+        word |= 0x80 | (c & 0x3F);
+    }
+    // 3-byte UTF-8: 1110xxxx 10xxxxxx 10xxxxxx
+    else if (c <= 0xFFFF) {
+        word = (0xE0 | ((c >> 12) & 0x0F)) << 16;
+        word |= (0x80 | ((c >> 6) & 0x3F)) << 8;
+        word |= 0x80 | (c & 0x3F);
+    }
+    // 4-byte UTF-8: 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
+    else {
+        word = (0xF0 | ((c >> 18) & 0x07)) << 24;
+        word |= (0x80 | ((c >> 12) & 0x3F)) << 16;
+        word |= (0x80 | ((c >> 6) & 0x3F)) << 8;
+        word |= 0x80 | (c & 0x3F);
+    }
+
+    return word;
+}
+```

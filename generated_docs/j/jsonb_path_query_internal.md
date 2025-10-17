@@ -47,3 +47,53 @@ The function supports timezone-aware datetime operations when the `tz` parameter
 - Silent mode controls error handling behavior during path evaluation
 - Returns each matching JSONB value as a separate row in the result set
 - Located in `src/backend/utils/adt/jsonpath_exec.c:526-573`
+
+## Simplified Source
+
+```c
+static Datum jsonb_path_query_internal(FunctionCallInfo fcinfo, bool tz) {
+    FuncCallContext *funcctx;
+    List *found;
+    JsonbValue *v;
+    ListCell *c;
+
+    if (SRF_IS_FIRSTCALL()) {
+        // First call: setup and execute JSONPath query
+        JsonPath *jp;
+        Jsonb *jb;
+        MemoryContext oldcontext;
+        JsonValueList found_values = {0};
+
+        funcctx = SRF_FIRSTCALL_INIT();
+        oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
+
+        // Extract function arguments
+        jb = PG_GETARG_JSONB_P_COPY(0);       // JSONB document
+        jp = PG_GETARG_JSONPATH_P_COPY(1);    // JSONPath expression
+        Jsonb *vars = PG_GETARG_JSONB_P_COPY(2);  // Variables
+        bool silent = PG_GETARG_BOOL(3);     // Silent mode flag
+
+        // Execute JSONPath and collect all matching values
+        executeJsonPath(jp, vars, getJsonPathVariableFromJsonb,
+                       countVariablesFromJsonb, jb, !silent, &found_values, tz);
+
+        // Store results in function context for subsequent calls
+        funcctx->user_fctx = JsonValueListGetList(&found_values);
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    // Subsequent calls: return one result per call
+    funcctx = SRF_PERCALL_SETUP();
+    found = funcctx->user_fctx;
+
+    c = list_head(found);
+    if (c == NULL)
+        SRF_RETURN_DONE(funcctx);  // No more results
+
+    // Return next matching value and remove from list
+    v = lfirst(c);
+    funcctx->user_fctx = list_delete_first(found);
+
+    SRF_RETURN_NEXT(funcctx, JsonbPGetDatum(JsonbValueToJsonb(v)));
+}
+```

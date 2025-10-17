@@ -37,3 +37,17 @@ This is a simpler counterpart to the object field start handler, focusing solely
 - Part of the JSON string transformation infrastructure used for functions like json_strip_nulls and similar operations
 - Returns JSON_SUCCESS on successful completion, following the standard JSON parsing callback pattern
 - Works in tandem with other transform_string_values_* functions to rebuild JSON with transformations
+
+## Simplified Source
+```c
+static JsonParseErrorType
+transform_string_values_array_element_start(void *state, bool isnull) {
+    TransformJsonStringValuesState *_state = (TransformJsonStringValuesState *) state;
+
+    // Add comma separator if not the first array element
+    if (_state->strval->data[_state->strval->len - 1] != '[')
+        appendStringInfoCharMacro(_state->strval, ',');
+
+    return JSON_SUCCESS;
+}
+```

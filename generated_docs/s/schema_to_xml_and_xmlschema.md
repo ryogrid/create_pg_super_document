@@ -40,3 +40,30 @@ This function serves as a comprehensive PostgreSQL SQL function that produces an
 
 ## Notes and Other Information
 This function combines the functionality of both schema_to_xmlschema and schema_to_xml into a single operation, producing a self-contained XML document. It follows the pattern of generating the schema first, then using that schema information to generate the XML data with proper schema references. The function is accessible from SQL as schema_to_xml_and_xmlschema() and provides a complete XML representation of a PostgreSQL schema including both structure definition and data content.
+
+## Simplified Source
+
+```c
+Datum
+schema_to_xml_and_xmlschema(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    Name name = PG_GETARG_NAME(0);
+    bool nulls = PG_GETARG_BOOL(1);
+    bool tableforest = PG_GETARG_BOOL(2);
+    const char *targetns = text_to_cstring(PG_GETARG_TEXT_PP(3));
+
+    // Resolve schema name to namespace OID
+    char *schemaname = NameStr(*name);
+    Oid nspid = LookupExplicitNamespace(schemaname, false);
+
+    // Generate XML Schema definition first
+    StringInfo xmlschema = schema_to_xmlschema_internal(schemaname, nulls,
+                                                       tableforest, targetns);
+
+    // Generate XML data with embedded schema
+    return PG_RETURN_XML_P(stringinfo_to_xmltype(
+        schema_to_xml_internal(nspid, xmlschema->data, nulls,
+                              tableforest, targetns, true)));
+}
+```

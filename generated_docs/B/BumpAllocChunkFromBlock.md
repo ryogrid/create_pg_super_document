@@ -44,3 +44,50 @@ This function centralizes the common chunk allocation logic shared between BumpA
 - Sentinel bytes are placed after the requested size to detect buffer overruns
 - Valgrind integration marks unused padding bytes as inaccessible to detect memory access errors
 - The function assumes the caller has already validated size parameters and block availability
+
+## Simplified Source
+
+```c
+static inline void *
+BumpAllocChunkFromBlock(MemoryContext context, BumpBlock *block, Size size,
+                        Size chunk_size)
+{
+#ifdef MEMORY_CONTEXT_CHECKING
+    MemoryChunk *chunk;
+#else
+    void *ptr;
+#endif
+
+    // Validate sufficient space is available
+    Assert(block != NULL);
+    Assert((block->endptr - block->freeptr) >= Bump_CHUNKHDRSZ + chunk_size);
+
+#ifdef MEMORY_CONTEXT_CHECKING
+    chunk = (MemoryChunk *) block->freeptr;
+#else
+    ptr = (void *) block->freeptr;
+#endif
+
+    // Advance freeptr beyond this chunk
+    block->freeptr += (Bump_CHUNKHDRSZ + chunk_size);
+    Assert(block->freeptr <= block->endptr);
+
+#ifdef MEMORY_CONTEXT_CHECKING
+    // Initialize chunk header for memory debugging
+    MemoryChunkSetHdrMask(chunk, block, chunk_size, MCTX_BUMP_ID);
+    chunk->requested_size = size;
+
+    // Add sentinel for buffer overrun detection
+    set_sentinel(MemoryChunkGetPointer(chunk), size);
+
+#ifdef RANDOMIZE_ALLOCATED_MEMORY
+    // Fill allocated space with debugging pattern
+    randomize_mem((char *) MemoryChunkGetPointer(chunk), size);
+#endif
+
+    return MemoryChunkGetPointer(chunk);
+#else
+    return ptr;
+#endif
+}
+```

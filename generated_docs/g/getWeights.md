@@ -52,3 +52,44 @@ The function uses a static array to store processed weights, making it efficient
 - Weight values must be in range [0.0, 1.0] with higher values indicating greater importance
 - Default weights are referenced from a global `weights` array when user weights are not provided
 - The function is used by both regular ts_rank and ts_rankcd (cover density) functions
+
+## Simplified Source
+
+```c
+static const float *getWeights(ArrayType *win) {
+    static float ws[lengthof(weights)];
+    int i;
+    float4 *arrdata;
+
+    // Return default weights if no array provided
+    if (win == NULL)
+        return weights;
+
+    // Validate array dimensions and size
+    if (ARR_NDIM(win) != 1)
+        ereport(ERROR, (errcode(ERRCODE_ARRAY_SUBSCRIPT_ERROR),
+                       errmsg("array of weight must be one-dimensional")));
+
+    if (ArrayGetNItems(ARR_NDIM(win), ARR_DIMS(win)) < lengthof(weights))
+        ereport(ERROR, (errcode(ERRCODE_ARRAY_SUBSCRIPT_ERROR),
+                       errmsg("array of weight is too short")));
+
+    if (array_contains_nulls(win))
+        ereport(ERROR, (errcode(ERRCODE_NULL_VALUE_NOT_ALLOWED),
+                       errmsg("array of weight must not contain nulls")));
+
+    // Process and validate each weight value
+    arrdata = (float4 *) ARR_DATA_PTR(win);
+    for (i = 0; i < lengthof(weights); i++) {
+        // Use default weight if negative value provided
+        ws[i] = (arrdata[i] >= 0) ? arrdata[i] : weights[i];
+
+        // Ensure weight doesn't exceed maximum
+        if (ws[i] > 1.0)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("weight out of range")));
+    }
+
+    return ws;
+}
+```

@@ -42,3 +42,55 @@ The  function serves as the central output mechanism for the PostgreSQL archiver
 - Uses a buffering mechanism for large objects to optimize write operations
 - Verifies that all requested bytes are written and exits with error if not
 - Central routing function used by various compression and format handlers throughout the pg_dump system
+
+## Simplified Source
+
+```c
+void
+ahwrite(const void *ptr, size_t size, size_t nmemb, ArchiveHandle *AH)
+{
+    int bytes_written = 0;
+
+    if (AH->writingLO)
+    {
+        // Large object buffering - copy data to LO buffer
+        size_t remaining = size * nmemb;
+
+        while (AH->lo_buf_used + remaining > AH->lo_buf_size)
+        {
+            size_t avail = AH->lo_buf_size - AH->lo_buf_used;
+
+            memcpy((char *) AH->lo_buf + AH->lo_buf_used, ptr, avail);
+            ptr = (const void *) ((const char *) ptr + avail);
+            remaining -= avail;
+            AH->lo_buf_used += avail;
+            dump_lo_buf(AH);
+        }
+
+        memcpy((char *) AH->lo_buf + AH->lo_buf_used, ptr, remaining);
+        AH->lo_buf_used += remaining;
+        bytes_written = size * nmemb;
+    }
+    else if (AH->CustomOutPtr)
+    {
+        // Custom output handler
+        bytes_written = AH->CustomOutPtr(AH, ptr, size * nmemb);
+    }
+    else if (RestoringToDB(AH))
+    {
+        // Direct database execution
+        bytes_written = ExecuteSqlCommandBuf(&AH->public, (const char *) ptr, size * nmemb);
+    }
+    else
+    {
+        // Compressed file output
+        CompressFileHandle *CFH = (CompressFileHandle *) AH->OF;
+        CFH->write_func(ptr, size * nmemb, CFH);
+        bytes_written = size * nmemb;
+    }
+
+    // Verify all bytes were written
+    if (bytes_written != size * nmemb)
+        WRITE_ERROR_EXIT;
+}
+```

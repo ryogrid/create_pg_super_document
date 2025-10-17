@@ -48,3 +48,15 @@ This function follows PostgreSQL's trigger function interface:
 - Raises FOREIGN_KEY_VIOLATION error immediately if the constraint would be violated
 - Follows SQL standard semantics for RESTRICT referential actions
 - The non-deferrable nature ensures that constraint violations are caught as early as possible in the transaction
+
+## Simplified Source
+
+```c
+Datum RI_FKey_restrict_del(PG_FUNCTION_ARGS) {
+    // Validate this is a proper DELETE trigger call
+    ri_CheckTrigger(fcinfo, "RI_FKey_restrict_del", RI_TRIGTYPE_DELETE);
+
+    // Use shared constraint logic with RESTRICT behavior (false)
+    return ri_restrict((TriggerData *) fcinfo->context, false);
+}
+```

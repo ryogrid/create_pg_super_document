@@ -37,3 +37,25 @@ This function efficiently resets a bump memory block to its initial empty state 
 - Essential for implementing efficient context reset operations
 - Maintains block structure integrity while clearing allocation state
 - Supports both security (memory clearing) and debugging (access tracking) requirements
+
+## Simplified Source
+
+```c
+static inline void
+BumpBlockMarkEmpty(BumpBlock *block)
+{
+    // For debugging: clear or mark memory as inaccessible
+#if defined(USE_VALGRIND) || defined(CLOBBER_FREED_MEMORY)
+    char *datastart = ((char *) block) + Bump_BLOCKHDRSZ;
+#endif
+
+#ifdef CLOBBER_FREED_MEMORY
+    wipe_mem(datastart, block->freeptr - datastart);
+#else
+    VALGRIND_MAKE_MEM_NOACCESS(datastart, block->freeptr - datastart);
+#endif
+
+    // Reset free pointer to start of usable space
+    block->freeptr = ((char *) block) + Bump_BLOCKHDRSZ;
+}
+```

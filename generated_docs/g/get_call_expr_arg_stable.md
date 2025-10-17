@@ -45,3 +45,40 @@ The function considers two types of expressions as stable: true constants (Const
 - External parameters (PARAM_EXTERN) are stable because they are bound once per query and don't change during execution
 - This function is essential for optimizations like constant folding and result caching in function execution
 - Works at the expression tree level, making it useful during query planning phases before FmgrInfo structures are fully populated
+
+## Simplified Source
+
+```c
+bool get_call_expr_arg_stable(Node *expr, int argnum) {
+    List *args;
+    Node *arg;
+
+    if (expr == NULL)
+        return false;
+
+    // Extract arguments from various expression types
+    if (IsA(expr, FuncExpr))
+        args = ((FuncExpr *) expr)->args;
+    else if (IsA(expr, OpExpr))
+        args = ((OpExpr *) expr)->args;
+    else if (IsA(expr, DistinctExpr) || IsA(expr, ScalarArrayOpExpr) ||
+             IsA(expr, NullIfExpr) || IsA(expr, WindowFunc))
+        args = ((FuncExpr *) expr)->args;  // All have same args field layout
+    else
+        return false;
+
+    // Validate argument index
+    if (argnum < 0 || argnum >= list_length(args))
+        return false;
+
+    arg = (Node *) list_nth(args, argnum);
+
+    // Check if argument is stable (constant or external parameter)
+    if (IsA(arg, Const))
+        return true;
+    if (IsA(arg, Param) && ((Param *) arg)->paramkind == PARAM_EXTERN)
+        return true;
+
+    return false;
+}
+```

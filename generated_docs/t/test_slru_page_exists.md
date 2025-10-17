@@ -37,3 +37,22 @@ The function acquires an exclusive lock on the appropriate bank before checking 
 - Uses TestSlruCtl as the SLRU control structure
 - Properly handles locking to ensure thread safety
 - Returns SQL boolean type for integration with PostgreSQL's function call interface
+
+## Simplified Source
+
+```c
+Datum test_slru_page_exists(PG_FUNCTION_ARGS) {
+    int64 pageno = PG_GETARG_INT64(0);
+    bool found;
+
+    // Get the appropriate lock for this page's bank
+    LWLock *lock = SimpleLruGetBankLock(TestSlruCtl, pageno);
+
+    // Check if page exists with proper locking
+    LWLockAcquire(lock, LW_EXCLUSIVE);
+    found = SimpleLruDoesPhysicalPageExist(TestSlruCtl, pageno);
+    LWLockRelease(lock);
+
+    PG_RETURN_BOOL(found);
+}
+```

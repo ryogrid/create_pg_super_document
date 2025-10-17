@@ -43,3 +43,43 @@ When processing relcache init file invalidation for a specific database, the fun
 - Temporarily manipulates DatabasePath global variable during recovery, which is a hack necessitated by recovery context limitations
 - The function is specifically designed for recovery scenarios and should not be used in normal backend operation
 - Relcache init file invalidation requires careful ordering of pre- and post-invalidation steps around message sending
+
+## Simplified Source
+
+```c
+void ProcessCommittedInvalidationMessages(SharedInvalidationMessage *msgs,
+                                        int nmsgs, bool RelcacheInitFileInval,
+                                        Oid dbid, Oid tsid) {
+    // Early return if no messages to process
+    if (nmsgs <= 0)
+        return;
+
+    // Debug logging for replay tracing
+    elog(DEBUG4, "replaying commit with %d messages%s", nmsgs,
+         (RelcacheInitFileInval ? " and relcache file invalidation" : ""));
+
+    // Handle relcache init file invalidation - pre-processing
+    if (RelcacheInitFileInval) {
+        // Temporarily set DatabasePath for specific database invalidation
+        if (OidIsValid(dbid))
+            DatabasePath = GetDatabasePath(dbid, tsid);
+
+        RelationCacheInitFilePreInvalidate();
+
+        // Clean up temporary DatabasePath setting
+        if (OidIsValid(dbid)) {
+            pfree(DatabasePath);
+            DatabasePath = NULL;
+        }
+    }
+
+    // Send the actual invalidation messages
+    SendSharedInvalidMessages(msgs, nmsgs);
+
+    // Handle relcache init file invalidation - post-processing
+    if (RelcacheInitFileInval)
+        RelationCacheInitFilePostInvalidate();
+}
+```
+
+This simplified version shows the function's three-phase operation: pre-invalidation setup (with temporary DatabasePath handling), message sending, and post-invalidation cleanup. The core logic processes invalidation messages during WAL replay while properly handling relcache initialization file invalidation.

@@ -46,3 +46,37 @@ This function takes standard PostgreSQL function arguments but does not use any 
 - The test validates both ascending and descending key insertion patterns to ensure proper handling of different access patterns
 - Located in `src/test/modules/test_radixtree/test_radixtree.c:446-473`
 - The function is registered as a PostgreSQL SQL-callable function via `PG_FUNCTION_INFO_V1(test_radixtree)`
+
+## Simplified Source
+
+```c
+Datum test_radixtree(PG_FUNCTION_ARGS) {
+    // Calculate maximum tree depth
+    const int max_shift = (sizeof(uint64) - 1) * BITS_PER_BYTE;
+
+    // Test empty tree operations
+    test_empty();
+
+    // Test each node class with different tree configurations
+    for (int i = 0; i < lengthof(rt_node_class_tests); i++) {
+        rt_node_class_test_elem *test_info = &(rt_node_class_tests[i]);
+
+        // Test single-level trees (ascending and descending)
+        test_basic(test_info, 0, true);
+        test_basic(test_info, 0, false);
+
+        // Test two-level trees
+        test_basic(test_info, 8, true);
+        test_basic(test_info, 8, false);
+
+        // Test maximum-depth trees
+        test_basic(test_info, max_shift, true);
+        test_basic(test_info, max_shift, false);
+    }
+
+    // Run randomized stress tests
+    test_random();
+
+    PG_RETURN_VOID();
+}
+```

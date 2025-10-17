@@ -35,3 +35,49 @@ The `get_object_field_end` function is a semantic action callback used during JS
 - The extracted text length is calculated using the lexer's prev_token_terminator position
 - Includes cleanup by setting result_start to NULL after extraction
 - Always returns JSON_SUCCESS regardless of whether extraction occurred
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+get_object_field_end(void *state, char *fname, bool isnull)
+{
+    GetState *_state = (GetState *) state;
+    bool get_last = false;
+    int lex_level = _state->lex->lex_level;
+
+    // Check if this field matches our target path (same logic as field_start)
+    if (lex_level <= _state->npath &&
+        _state->pathok[lex_level - 1] &&
+        _state->path_names != NULL &&
+        _state->path_names[lex_level - 1] != NULL &&
+        strcmp(fname, _state->path_names[lex_level - 1]) == 0) {
+
+        if (lex_level < _state->npath) {
+            // Intermediate level - clean up path state
+            _state->pathok[lex_level] = false;
+        } else {
+            // Final level - extract this field value
+            get_last = true;
+        }
+    }
+
+    // Extract field value if this is our target and extraction was prepared
+    if (get_last && _state->result_start != NULL) {
+        // Handle null values in normalization mode
+        if (isnull && _state->normalize_results) {
+            _state->tresult = (text *) NULL;
+        } else {
+            // Extract text from recorded start position to current end
+            const char *start = _state->result_start;
+            int len = _state->lex->prev_token_terminator - start;
+            _state->tresult = cstring_to_text_with_len(start, len);
+        }
+
+        // Clean up extraction state
+        _state->result_start = NULL;
+    }
+
+    return JSON_SUCCESS;
+}
+```

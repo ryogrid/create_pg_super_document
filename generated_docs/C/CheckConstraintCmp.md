@@ -32,3 +32,15 @@ This sorting ensures that check constraints are stored and processed in a determ
 - Provides lexicographic ordering based on constraint names (ccname field)
 - Essential for maintaining deterministic constraint ordering in relation cache
 - Simple wrapper around strcmp for constraint name comparison
+
+## Simplified Source
+
+```c
+static int CheckConstraintCmp(const void *a, const void *b) {
+    const ConstrCheck *ca = (const ConstrCheck *) a;
+    const ConstrCheck *cb = (const ConstrCheck *) b;
+
+    // Compare constraint names alphabetically
+    return strcmp(ca->ccname, cb->ccname);
+}
+```

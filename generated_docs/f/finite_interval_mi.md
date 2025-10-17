@@ -40,3 +40,22 @@ The subtraction is performed component-wise:
 - Uses PostgreSQL's overflow-safe arithmetic functions to prevent integer overflow
 - Raises ERRCODE_DATETIME_VALUE_OUT_OF_RANGE error if overflow occurs or result is infinite
 - Part of PostgreSQL's timestamp/interval arithmetic implementation in src/backend/utils/adt/timestamp.c
+
+## Simplified Source
+
+```c
+static void finite_interval_mi(const Interval *span1, const Interval *span2, Interval *result) {
+    // Verify both inputs are finite intervals
+    Assert(!INTERVAL_NOT_FINITE(span1));
+    Assert(!INTERVAL_NOT_FINITE(span2));
+
+    // Subtract each component with overflow checking
+    if (pg_sub_s32_overflow(span1->month, span2->month, &result->month) ||
+        pg_sub_s32_overflow(span1->day, span2->day, &result->day) ||
+        pg_sub_s64_overflow(span1->time, span2->time, &result->time) ||
+        INTERVAL_NOT_FINITE(result))
+        ereport(ERROR,
+                (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                 errmsg("interval out of range")));
+}
+```

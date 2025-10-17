@@ -75,3 +75,102 @@ Key capabilities include:
 - The `sizeonly` mode is crucial for progress reporting as it allows calculating total work before beginning processing
 - File filtering ensures that only actual relation data files are processed, avoiding system metadata files and temporary files
 - Segment number parsing validates that segment numbers are greater than 0 (segment 0 is the base file without suffix)
+
+## Simplified Source
+
+```c
+static int64
+scan_directory(const char *basedir, const char *subdir, bool sizeonly)
+{
+    int64 dirsize = 0;
+    char path[MAXPGPATH];
+    DIR *dir;
+    struct dirent *de;
+
+    // Open directory for scanning
+    snprintf(path, sizeof(path), "%s/%s", basedir, subdir);
+    dir = opendir(path);
+    if (!dir)
+        pg_fatal("could not open directory \"%s\": %m", path);
+
+    // Process each directory entry
+    while ((de = readdir(dir)) != NULL)
+    {
+        char fn[MAXPGPATH];
+        struct stat st;
+
+        // Skip current/parent directory entries
+        if (strcmp(de->d_name, ".") == 0 || strcmp(de->d_name, "..") == 0)
+            continue;
+
+        // Skip temporary files and system files
+        if (strncmp(de->d_name, PG_TEMP_FILE_PREFIX, strlen(PG_TEMP_FILE_PREFIX)) == 0 ||
+            strncmp(de->d_name, PG_TEMP_FILES_DIR, strlen(PG_TEMP_FILES_DIR)) == 0 ||
+            strcmp(de->d_name, ".DS_Store") == 0)
+            continue;
+
+        // Get file status
+        snprintf(fn, sizeof(fn), "%s/%s", path, de->d_name);
+        if (lstat(fn, &st) < 0)
+            pg_fatal("could not stat file \"%s\": %m", fn);
+
+        if (S_ISREG(st.st_mode))
+        {
+            // Process regular files (data files)
+            char fnonly[MAXPGPATH];
+            int segmentno = 0;
+
+            if (skipfile(de->d_name))
+                continue;
+
+            // Parse filename to extract segment number and filenode
+            strlcpy(fnonly, de->d_name, sizeof(fnonly));
+            char *segmentpath = strchr(fnonly, '.');
+            if (segmentpath != NULL)
+            {
+                *segmentpath++ = '\0';
+                segmentno = atoi(segmentpath);
+                if (segmentno == 0)
+                    pg_fatal("invalid segment number in file \"%s\"", fn);
+            }
+
+            // Extract fork information
+            char *forkpath = strchr(fnonly, '_');
+            if (forkpath != NULL)
+                *forkpath++ = '\0';
+
+            // Filter by filenode if specified
+            if (only_filenode && strcmp(only_filenode, fnonly) != 0)
+                continue;
+
+            dirsize += st.st_size;
+
+            // Process file for checksums if not size-only mode
+            if (!sizeonly)
+                scan_file(fn, segmentno);
+        }
+        else if (S_ISDIR(st.st_mode) || S_ISLNK(st.st_mode))
+        {
+            // Handle subdirectories and tablespaces
+            if (strncmp("pg_tblspc", subdir, strlen("pg_tblspc")) == 0)
+            {
+                // Special tablespace handling
+                char tblspc_path[MAXPGPATH];
+                snprintf(tblspc_path, sizeof(tblspc_path), "%s/%s",
+                         path, de->d_name);
+                dirsize += scan_directory(tblspc_path,
+                                        TABLESPACE_VERSION_DIRECTORY,
+                                        sizeonly);
+            }
+            else
+            {
+                // Regular subdirectory recursion
+                dirsize += scan_directory(path, de->d_name, sizeonly);
+            }
+        }
+    }
+
+    closedir(dir);
+    return dirsize;
+}
+```

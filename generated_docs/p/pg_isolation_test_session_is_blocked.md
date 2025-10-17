@@ -46,4 +46,50 @@ The function is optimized to run efficiently with  by using naive search algorit
 - Returns  if the blocked_pid session no longer exists (session gone means definitely unblocked)
 - Uses a naive double-loop search algorithm for performance reasons when 
 - For safe snapshot blocking, the function uses a simplified check that only determines if any blocking exists rather than checking specific PIDs
-- Located in 
+- Located in src/backend/utils/adt/waitfuncs.c:39-113
+
+## Simplified Source
+
+```c
+Datum pg_isolation_test_session_is_blocked(PG_FUNCTION_ARGS) {
+    int blocked_pid = PG_GETARG_INT32(0);
+    ArrayType *interesting_pids_a = PG_GETARG_ARRAYTYPE_P(1);
+
+    // Check if session exists and is waiting at injection point
+    PGPROC *proc = BackendPidGetProc(blocked_pid);
+    if (proc == NULL)
+        PG_RETURN_BOOL(false);  // Session gone = unblocked
+
+    const char *wait_event_type = pgstat_get_wait_event_type(UINT32_ACCESS_ONCE(proc->wait_event_info));
+    if (wait_event_type && strcmp("InjectionPoint", wait_event_type) == 0)
+        PG_RETURN_BOOL(true);
+
+    // Extract interesting PIDs array
+    if (array_contains_nulls(interesting_pids_a))
+        elog(ERROR, "array must not contain nulls");
+
+    int32 *interesting_pids = (int32 *) ARR_DATA_PTR(interesting_pids_a);
+    int num_interesting_pids = ArrayGetNItems(ARR_NDIM(interesting_pids_a), ARR_DIMS(interesting_pids_a));
+
+    // Get PIDs blocking heavyweight locks
+    ArrayType *blocking_pids_a = DatumGetArrayTypeP(DirectFunctionCall1(pg_blocking_pids, blocked_pid));
+    int32 *blocking_pids = (int32 *) ARR_DATA_PTR(blocking_pids_a);
+    int num_blocking_pids = ArrayGetNItems(ARR_NDIM(blocking_pids_a), ARR_DIMS(blocking_pids_a));
+
+    // Check if any blocking PIDs are in our interesting PIDs list
+    // Use naive search for performance with debug_discard_caches
+    for (int i = 0; i < num_blocking_pids; i++) {
+        for (int j = 0; j < num_interesting_pids; j++) {
+            if (blocking_pids[i] == interesting_pids[j])
+                PG_RETURN_BOOL(true);
+        }
+    }
+
+    // Check if blocked by safe snapshot acquisition
+    int dummy;
+    if (GetSafeSnapshotBlockingPids(blocked_pid, &dummy, 1) > 0)
+        PG_RETURN_BOOL(true);
+
+    PG_RETURN_BOOL(false);
+}
+```

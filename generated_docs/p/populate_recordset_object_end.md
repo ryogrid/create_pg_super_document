@@ -41,3 +41,29 @@ After processing a record, the function destroys the hash table to free memory a
 - Memory cleanup is crucial - the hash table is destroyed after processing each record
 - Works in tandem with populate_recordset_object_start to bracket the processing of individual records
 - The function relies on populate_recordset_record (already documented) to convert the hash table data into PostgreSQL tuple format
+
+## Simplified Source
+
+```c
+static JsonParseErrorType populate_recordset_object_end(void *state) {
+    PopulateRecordsetState *_state = (PopulateRecordsetState *) state;
+    JsObject obj;
+
+    // Nested objects need no special processing
+    if (_state->lex->lex_level > 1)
+        return JSON_SUCCESS;
+
+    // Create JSON object from accumulated hash table
+    obj.is_json = true;
+    obj.val.json_hash = _state->json_hash;
+
+    // Process completed record from level-1 object
+    populate_recordset_record(_state, &obj);
+
+    // Clean up hash table after processing
+    hash_destroy(_state->json_hash);
+    _state->json_hash = NULL;
+
+    return JSON_SUCCESS;
+}
+```

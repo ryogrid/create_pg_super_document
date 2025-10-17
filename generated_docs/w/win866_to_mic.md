@@ -45,3 +45,24 @@ The function follows PostgreSQL's standard conversion function interface, accept
 - Part of PostgreSQL's pluggable encoding conversion system
 - The function is likely registered in the system catalogs as an encoding conversion function rather than being called directly
 - WIN866 is also known as CP866, a DOS Cyrillic codepage commonly used in Eastern Europe
+
+## Simplified Source
+
+```c
+Datum win866_to_mic(PG_FUNCTION_ARGS) {
+    // Extract conversion parameters from PostgreSQL function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate that we're converting from WIN866 to MULE internal
+    CHECK_ENCODING_CONVERSION_ARGS(PG_WIN866, PG_MULE_INTERNAL);
+
+    // Convert using win8662koi translation table to map WIN866 to KOI8-R equivalents
+    int converted = latin2mic_with_table(src, dest, len, LC_KOI8_R, PG_WIN866, win8662koi, noError);
+
+    // Return number of bytes successfully converted
+    PG_RETURN_INT32(converted);
+}
+```

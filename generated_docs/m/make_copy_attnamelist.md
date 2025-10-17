@@ -38,3 +38,23 @@ The function uses PostgreSQL's list manipulation functions to build a list of  n
 - The returned list contains  nodes that can be directly used with PostgreSQL's COPY command infrastructure
 - Memory for the list and string nodes is allocated in the current memory context
 - The function assumes that the LogicalRepRelMapEntry has been properly initialized with valid remote relation information
+
+## Simplified Source
+
+```c
+static List *make_copy_attnamelist(LogicalRepRelMapEntry *rel)
+{
+    List *attnamelist = NIL;
+    int i;
+
+    // Build list of column names from remote relation
+    for (i = 0; i < rel->remoterel.natts; i++)
+    {
+        // Add each column name as a String node to the list
+        attnamelist = lappend(attnamelist,
+                              makeString(rel->remoterel.attnames[i]));
+    }
+
+    return attnamelist;
+}
+```

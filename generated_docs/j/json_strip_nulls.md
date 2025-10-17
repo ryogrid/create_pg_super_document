@@ -47,3 +47,39 @@ This function implements the SQL function `json_strip_nulls(json) -> json` which
 
 ## Notes and Other Information
 This function serves as the entry point and orchestrator for the JSON null-stripping functionality. It demonstrates the PostgreSQL JSON parsing framework architecture, where semantic actions are configured as callbacks and the parser invokes them during JSON traversal. The function is designed to be called from SQL and follows PostgreSQL V1 calling conventions. The null-stripping logic is primarily implemented in the semantic action callbacks, particularly `sn_object_field_start` and `sn_scalar`, making this function a coordinator rather than implementing the core logic directly. The function ensures memory is properly allocated using `palloc0` and follows PostgreSQL memory management patterns.
+
+## Simplified Source
+
+```c
+Datum json_strip_nulls(PG_FUNCTION_ARGS) {
+    text *json = PG_GETARG_TEXT_PP(0);
+    StripnullState *state;
+    JsonLexContext lex;
+    JsonSemAction *sem;
+
+    // Initialize parsing state and semantic actions
+    state = palloc0(sizeof(StripnullState));
+    sem = palloc0(sizeof(JsonSemAction));
+
+    // Set up JSON lexer and output buffer
+    state->lex = makeJsonLexContext(&lex, json, true);
+    state->strval = makeStringInfo();
+    state->skip_next_null = false;
+
+    // Configure semantic action callbacks for null-stripping
+    sem->semstate = (void *) state;
+    sem->object_start = sn_object_start;
+    sem->object_end = sn_object_end;
+    sem->array_start = sn_array_start;
+    sem->array_end = sn_array_end;
+    sem->scalar = sn_scalar;
+    sem->array_element_start = sn_array_element_start;
+    sem->object_field_start = sn_object_field_start;
+
+    // Parse JSON and apply null-stripping logic
+    pg_parse_json_or_ereport(&lex, sem);
+
+    // Return processed JSON as text datum
+    PG_RETURN_TEXT_P(cstring_to_text_with_len(state->strval->data, state->strval->len));
+}
+```

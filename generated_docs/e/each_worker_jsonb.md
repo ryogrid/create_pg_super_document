@@ -41,3 +41,83 @@ This function implements the core logic for JSONB object expansion operations. I
 - Handles JSON null values appropriately in text mode (converts to SQL NULL)
 - Validates input type and reports meaningful error messages
 - Core component of PostgreSQL's JSONB expansion functionality
+
+## Simplified Source
+
+```c
+static Datum
+each_worker_jsonb(FunctionCallInfo fcinfo, const char *funcname, bool as_text)
+{
+    Jsonb *jsonb_input = PG_GETARG_JSONB_P(0);
+
+    // Validate input is a JSONB object
+    if (!JB_ROOT_IS_OBJECT(jsonb_input))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("cannot call %s on a non-object", funcname)));
+
+    // Initialize set-returning function
+    ReturnSetInfo *rsi = (ReturnSetInfo *) fcinfo->resultinfo;
+    InitMaterializedSRF(fcinfo, MAT_SRF_BLESS);
+
+    // Create temporary memory context for tuple processing
+    MemoryContext tmp_cxt = AllocSetContextCreate(CurrentMemoryContext,
+                                                  "jsonb_each temporary cxt",
+                                                  ALLOCSET_DEFAULT_SIZES);
+
+    // Initialize JSONB iterator
+    JsonbIterator *it = JsonbIteratorInit(&jsonb_input->root);
+    JsonbValue v;
+    bool skipNested = false;
+
+    // Iterate through JSONB object key-value pairs
+    JsonbIteratorToken token;
+    while ((token = JsonbIteratorNext(&it, &v, skipNested)) != WJB_DONE)
+    {
+        skipNested = true;
+
+        if (token == WJB_KEY)
+        {
+            // Process key-value pair
+            Datum values[2];
+            bool nulls[2] = {false, false};
+
+            MemoryContext old_cxt = MemoryContextSwitchTo(tmp_cxt);
+
+            // Convert key to text
+            text *key = cstring_to_text_with_len(v.val.string.val, v.val.string.len);
+            values[0] = PointerGetDatum(key);
+
+            // Get the corresponding value
+            token = JsonbIteratorNext(&it, &v, skipNested);
+
+            // Convert value based on output format
+            if (as_text)
+            {
+                if (v.type == jbvNull)
+                {
+                    nulls[1] = true;
+                    values[1] = (Datum) NULL;
+                }
+                else
+                    values[1] = PointerGetDatum(JsonbValueAsText(&v));
+            }
+            else
+            {
+                // Return as JSONB
+                Jsonb *val = JsonbValueToJsonb(&v);
+                values[1] = PointerGetDatum(val);
+            }
+
+            // Store the tuple result
+            tuplestore_putvalues(rsi->setResult, rsi->setDesc, values, nulls);
+
+            // Clean up temporary memory
+            MemoryContextSwitchTo(old_cxt);
+            MemoryContextReset(tmp_cxt);
+        }
+    }
+
+    MemoryContextDelete(tmp_cxt);
+    PG_RETURN_NULL();
+}
+```

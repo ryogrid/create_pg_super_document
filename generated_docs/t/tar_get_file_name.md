@@ -35,3 +35,19 @@ This function creates a dynamically allocated filename string by combining a bas
 - Handles NULL temp_suffix gracefully by treating it as an empty string
 - Limited to MAXPGPATH characters for the complete filename
 - Part of the WAL method interface providing filename construction abstraction
+
+## Simplified Source
+
+```c
+static char *
+tar_get_file_name(WalWriteMethod *wwmethod, const char *pathname,
+                  const char *temp_suffix) {
+    char *filename = pg_malloc0(MAXPGPATH * sizeof(char));
+
+    // Construct filename by concatenating pathname and optional suffix
+    snprintf(filename, MAXPGPATH, "%s%s",
+             pathname, temp_suffix ? temp_suffix : "");
+
+    return filename;
+}
+```

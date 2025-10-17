@@ -44,3 +44,20 @@ After compression cleanup, the function sets the compression state pointer to NU
 - Forms a symmetric pair with  for data section lifecycle management
 - Part of the pluggable archive format system enabling different storage backends
 - The end marker helps distinguish between data content and control information during archive restoration
+
+## Simplified Source
+
+```c
+static void
+_EndData(ArchiveHandle *AH, TocEntry *te)
+{
+    lclContext *ctx = (lclContext *) AH->formatData;
+
+    // Finalize compression and clean up resources
+    EndCompressor(AH, ctx->cs);
+    ctx->cs = NULL;
+
+    // Write end marker to indicate data section completion
+    WriteInt(AH, 0);
+}
+```

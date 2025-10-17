@@ -40,3 +40,24 @@ This function is specifically designed to be called from within apply or tablesy
 - May start and commit a transaction internally to fetch current table states
 - Uses the global list `table_states_not_ready` (NIL when all tables are ready)
 - Part of PostgreSQL's logical replication table synchronization infrastructure
+
+## Simplified Source
+
+```c
+bool AllTablesyncsReady(void) {
+    bool started_tx = false;
+    bool has_subrels = false;
+
+    // Fetch current synchronization state for all subscription tables
+    has_subrels = FetchTableStates(&started_tx);
+
+    // Clean up transaction if one was started
+    if (started_tx) {
+        CommitTransactionCommand();
+        pgstat_report_stat(true);
+    }
+
+    // Return true only if subscription has tables AND all are ready
+    return has_subrels && (table_states_not_ready == NIL);
+}
+```

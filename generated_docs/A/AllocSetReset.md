@@ -58,3 +58,47 @@ Memory debugging features ensure freed memory is wiped or marked inaccessible wh
 - Maintains accurate mem_allocated tracking by subtracting freed block sizes
 - Assertion ensures only keeper block memory remains allocated after reset completion
 - Designed specifically for high-frequency reset scenarios like per-tuple context processing
+
+## Simplified Source
+
+```c
+void
+AllocSetReset(MemoryContext context)
+{
+    AllocSet set = (AllocSet) context;
+    AllocBlock block;
+
+    // Validate context and optionally check for corruption
+    Assert(AllocSetIsValid(set));
+#ifdef MEMORY_CONTEXT_CHECKING
+    AllocSetCheck(context);
+#endif
+
+    // Clear all chunk freelists
+    MemSetAligned(set->freelist, 0, sizeof(set->freelist));
+
+    // Process all blocks
+    block = set->blocks;
+    set->blocks = KeeperBlock(set);  // New blocks list is just keeper
+
+    while (block != NULL) {
+        AllocBlock next = block->next;
+
+        if (IsKeeperBlock(set, block)) {
+            // Reset keeper block but don't free it
+            char *datastart = ((char *) block) + ALLOC_BLOCKHDRSZ;
+            block->freeptr = datastart;  // Reset free pointer
+            block->prev = NULL;
+            block->next = NULL;
+        } else {
+            // Free non-keeper blocks
+            context->mem_allocated -= block->endptr - ((char *) block);
+            free(block);
+        }
+        block = next;
+    }
+
+    // Reset block size allocation sequence
+    set->nextBlockSize = set->initBlockSize;
+}
+```

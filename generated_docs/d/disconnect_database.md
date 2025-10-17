@@ -44,3 +44,21 @@ The function includes an assertion to ensure that a valid connection pointer is 
 - The function is extensively used throughout pg_createsubscriber for connection cleanup in both error and normal execution paths
 - The exit_on_error mechanism provides a clean way to handle fatal errors without requiring complex error propagation through the call stack
 - Located in src/bin/pg_basebackup/pg_createsubscriber.c:545-559
+
+## Simplified Source
+
+```c
+static void
+disconnect_database(PGconn *conn, bool exit_on_error)
+{
+    // Ensure valid connection pointer
+    Assert(conn != NULL);
+
+    // Close the database connection
+    PQfinish(conn);
+
+    // Exit program if error condition
+    if (exit_on_error)
+        exit(1);
+}
+```

@@ -44,3 +44,48 @@ This static function performs the core logic for converting PostgreSQL's interna
 - Handles edge case of removing extra newlines when XML declaration is omitted
 - Without libxml2 support, simply returns the basic string conversion
 - The target_encoding parameter allows for encoding conversion during output operations
+
+## Simplified Source
+
+```c
+static char *xml_out_internal(xmltype *x, pg_enc target_encoding) {
+    // Convert xml type to basic C string (reuses text conversion)
+    char *str = text_to_cstring((text *) x);
+
+#ifdef USE_LIBXML
+    size_t len = strlen(str);
+    xmlChar *version;
+    int standalone;
+    int res_code;
+
+    // Try to parse XML declaration from the string
+    if ((res_code = parse_xml_decl((xmlChar *) str, &len, &version,
+                                   NULL, &standalone)) == 0) {
+        StringInfoData buf;
+        initStringInfo(&buf);
+
+        // Generate new XML declaration with target encoding
+        if (!print_xml_decl(&buf, version, target_encoding, standalone)) {
+            // Skip newline if no declaration is printed
+            if (*(str + len) == '\n') {
+                len += 1;
+            }
+        }
+
+        // Append remaining XML content after declaration
+        appendStringInfoString(&buf, str + len);
+        pfree(str);
+        return buf.data;
+    }
+
+    // Warn if XML declaration parsing failed, but continue
+    ereport(WARNING,
+            errcode(ERRCODE_INTERNAL_ERROR),
+            errmsg_internal("could not parse XML declaration in stored value"),
+            errdetail_for_xml_code(res_code));
+#endif
+
+    // Return basic string conversion (fallback or non-libxml)
+    return str;
+}
+```

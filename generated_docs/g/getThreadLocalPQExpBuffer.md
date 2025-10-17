@@ -48,3 +48,35 @@ This design allows the same code to work in both single-threaded and multi-threa
 - Provides memory reuse by resetting existing buffers rather than constantly allocating new ones
 - Essential for thread-safe string building operations in parallel dump workers
 - The buffer persists for the lifetime of each thread, reducing allocation overhead
+
+## Simplified Source
+
+```c
+static PQExpBuffer getThreadLocalPQExpBuffer(void) {
+    // Use static buffer for single-threaded mode, TLS for multi-threaded
+    static PQExpBuffer s_id_return = NULL;
+    PQExpBuffer id_return;
+
+    // Get buffer - either from TLS (parallel mode) or static variable
+    if (parallel_init_done)
+        id_return = (PQExpBuffer) TlsGetValue(tls_index);
+    else
+        id_return = s_id_return;
+
+    if (id_return) {
+        // Buffer exists - just reset contents for reuse
+        resetPQExpBuffer(id_return);
+    } else {
+        // First time - create new buffer
+        id_return = createPQExpBuffer();
+
+        // Store buffer in appropriate location
+        if (parallel_init_done)
+            TlsSetValue(tls_index, id_return);
+        else
+            s_id_return = id_return;
+    }
+
+    return id_return;
+}
+```

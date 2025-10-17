@@ -40,3 +40,13 @@ The function uses PostgreSQL's standard function argument mechanism:
 - Used internally to implement the @? operator for JSONB JSONPath existence checking
 - The function follows PostgreSQL's standard function calling convention with 
 - All actual processing is delegated to  with timezone support disabled
+
+## Simplified Source
+
+```c
+Datum
+jsonb_path_exists(PG_FUNCTION_ARGS)
+{
+    return jsonb_path_exists_internal(fcinfo, false);
+}
+```

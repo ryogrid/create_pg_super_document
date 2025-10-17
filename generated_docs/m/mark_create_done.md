@@ -32,3 +32,16 @@ This mechanism is essential for coordinating the restore process, particularly i
 - Essential for maintaining consistency in complex restore scenarios, especially with parallel processing
 - The tableDataId array provides the mapping between TABLE dump IDs and their corresponding TABLE DATA dump IDs
 - Typically called after successful completion of table creation operations during restore
+
+## Simplified Source
+
+```c
+static void mark_create_done(ArchiveHandle *AH, TocEntry *te) {
+    // Check if there's a corresponding DATA entry for this TABLE
+    if (AH->tableDataId[te->dumpId] != 0) {
+        // Find the DATA entry and mark it as created
+        TocEntry *data_entry = AH->tocsByDumpId[AH->tableDataId[te->dumpId]];
+        data_entry->created = true;
+    }
+}
+```

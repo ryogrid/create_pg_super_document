@@ -33,3 +33,24 @@ The function includes a TODO comment indicating that future versions may support
 - The function raises ERRCODE_PROTOCOL_VIOLATION errors for out-of-order messages
 - The StringInfo parameter is currently not processed, suggesting the actual origin tracking implementation is pending
 - Part of PostgreSQL's logical replication protocol compliance enforcement
+
+## Simplified Source
+
+```c
+static void
+apply_handle_origin(StringInfo s)
+{
+    // Validate ORIGIN message ordering:
+    // - Must be inside streaming transaction OR
+    // - Must be inside remote transaction before any writes
+    if (!in_streamed_transaction &&
+        (!in_remote_transaction ||
+         (IsTransactionState() && !am_tablesync_worker())))
+        ereport(ERROR,
+                (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                 errmsg_internal("ORIGIN message sent out of order")));
+
+    // TODO: Future implementation will support tracking of multiple origins
+    // Currently only validates protocol ordering
+}
+```

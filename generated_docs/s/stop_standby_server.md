@@ -45,3 +45,22 @@ The function uses psprintf() for safe string formatting and automatically handle
 - Used in both normal workflow and cleanup scenarios (including atexit cleanup)
 - Memory for the command string is managed automatically by psprintf()
 - Part of the server lifecycle management in the pg_createsubscriber tool
+
+## Simplified Source
+
+```c
+static void stop_standby_server(const char *datadir)
+{
+    // Build pg_ctl stop command with data directory
+    char *pg_ctl_cmd = psprintf("\"%s\" stop -D \"%s\" -s", pg_ctl_path, datadir);
+
+    // Execute the stop command
+    pg_log_debug("pg_ctl command is: %s", pg_ctl_cmd);
+    int rc = system(pg_ctl_cmd);
+    pg_ctl_status(pg_ctl_cmd, rc);  // Handles errors and exits if stop fails
+
+    // Update server state and log success
+    standby_running = false;
+    pg_log_info("server was stopped");
+}
+```

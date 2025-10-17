@@ -30,3 +30,67 @@ This function implements a lookahead parser to determine whether a parenthesis-e
 - May be fooled by K&R-style parameter declarations but this is considered acceptable
 - Could potentially be confused by mismatched parentheses or comment-like patterns in string literals
 - Returns false on EOF or unbalanced parentheses (assumes declaration)
+
+## Simplified Source
+
+```c
+static int is_func_definition(char *tp) {
+    int paren_depth = 0;
+    int in_comment = false;
+    int in_slash_comment = false;
+    int lastc = 0;
+
+    // Look ahead past current buffer if needed
+    lookahead_reset();
+
+    for (;;) {
+        int c;
+
+        // Get next character from buffer or lookahead
+        if (tp < buf_end) {
+            c = *tp++;
+        } else {
+            c = lookahead();
+            if (c == EOF) break;
+        }
+
+        // Handle C-style comments /* */
+        if (in_comment) {
+            if (lastc == '*' && c == '/') {
+                in_comment = false;
+            }
+        } else if (lastc == '/' && c == '*' && !in_slash_comment) {
+            in_comment = true;
+        }
+        // Handle C++-style comments //
+        else if (in_slash_comment) {
+            if (c == '\n') {
+                in_slash_comment = false;
+            }
+        } else if (lastc == '/' && c == '/') {
+            in_slash_comment = true;
+        }
+        // Track parenthesis nesting
+        else if (c == '(') {
+            paren_depth++;
+        } else if (c == ')') {
+            paren_depth--;
+            if (paren_depth < 0) {
+                return false;  // Unbalanced parens = declaration
+            }
+        }
+        // Check for definition/declaration indicators outside parens
+        else if (paren_depth == 0) {
+            if (c == '{') {
+                return true;   // Function definition
+            } else if (c == ';' || c == ',') {
+                return false;  // Function declaration
+            }
+        }
+
+        lastc = c;
+    }
+
+    return false;  // EOF reached = not a definition
+}
+```

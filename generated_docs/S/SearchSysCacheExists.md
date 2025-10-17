@@ -40,3 +40,20 @@ The function is designed as a lightweight probe operation that doesn't hold any 
 - No locks are retained after the function completes, making it safe for use in situations where long-term cache consistency is not required
 - The function is optimized for existence checking rather than data retrieval
 - All four key parameters are provided for maximum flexibility, but not all may be used depending on the specific cache being searched
+
+## Simplified Source
+
+```c
+bool SearchSysCacheExists(int cacheId, Datum key1, Datum key2, Datum key3, Datum key4) {
+    HeapTuple tuple;
+
+    // Search for tuple in system cache
+    tuple = SearchSysCache(cacheId, key1, key2, key3, key4);
+    if (!HeapTupleIsValid(tuple))
+        return false;
+
+    // Release immediately and return existence indicator
+    ReleaseSysCache(tuple);
+    return true;
+}
+```

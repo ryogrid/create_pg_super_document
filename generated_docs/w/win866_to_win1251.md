@@ -43,3 +43,23 @@ Both encodings represent Cyrillic characters but with different byte values - WI
 - Part of PostgreSQL's comprehensive Cyrillic encoding support
 - Returns the number of bytes converted for error checking and partial conversion detection
 - Useful for data migration between different Windows/DOS environments
+
+## Simplified Source
+
+```c
+Datum win866_to_win1251(PG_FUNCTION_ARGS) {
+    // Extract function parameters
+    unsigned char *src = PG_GETARG_CSTRING(2);   // Source WIN866 string
+    unsigned char *dest = PG_GETARG_CSTRING(3);  // Destination WIN1251 buffer
+    int len = PG_GETARG_INT32(4);                 // Length to convert
+    bool noError = PG_GETARG_BOOL(5);            // Error handling flag
+
+    // Validate encoding compatibility
+    CHECK_ENCODING_CONVERSION_ARGS(PG_WIN866, PG_WIN1251);
+
+    // Perform DOS to Windows Cyrillic conversion using mapping table
+    int converted = local2local(src, dest, len, PG_WIN866, PG_WIN1251, win8662win1251, noError);
+
+    return converted;  // Return number of bytes converted
+}
+```

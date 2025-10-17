@@ -34,3 +34,29 @@ The function uses assertions to ensure the input table is indeed a partition wit
 - Uses assertions that will only trigger in debug builds to validate input assumptions
 - Essential for proper handling of partitioned tables in pg_dump operations
 - Located at src/bin/pg_dump/pg_dump.c:2603-2627
+
+## Simplified Source
+
+```c
+static TableInfo *
+getRootTableInfo(const TableInfo *tbinfo)
+{
+    TableInfo *current_table;
+
+    // Validate input - must be a partition with exactly one parent
+    Assert(tbinfo->ispartition);
+    Assert(tbinfo->numParents == 1);
+
+    // Start with the direct parent
+    current_table = tbinfo->parents[0];
+
+    // Traverse up the partition hierarchy until we find the root
+    while (current_table->ispartition) {
+        Assert(current_table->numParents == 1);
+        current_table = current_table->parents[0];
+    }
+
+    // Return the root table (not a partition itself)
+    return current_table;
+}
+```

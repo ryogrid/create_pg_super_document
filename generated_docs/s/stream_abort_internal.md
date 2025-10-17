@@ -52,3 +52,60 @@ The function uses reverse iteration when scanning subtransactions for efficiency
 - Commits transaction commands to ensure metadata changes are persistent
 - Part of the logical replication streaming transaction abort protocol
 - Critical for maintaining data consistency during transaction rollbacks
+
+## Simplified Source
+
+```c
+static void stream_abort_internal(TransactionId xid, TransactionId subxid)
+{
+    // Top-level transaction abort: clean up all files
+    if (xid == subxid) {
+        stream_cleanup_files(MyLogicalRepWorker->subid, xid);
+        return;
+    }
+
+    // Subtransaction abort: need to truncate at specific point
+    int64 i, subidx = -1;
+    BufFile *fd;
+    bool found = false;
+    char path[MAXPGPATH];
+
+    begin_replication_step();
+
+    // Read subtransaction information
+    subxact_info_read(MyLogicalRepWorker->subid, xid);
+
+    // Find the subtransaction to abort (scan from tail for efficiency)
+    for (i = subxact_data.nsubxacts; i > 0; i--) {
+        if (subxact_data.subxacts[i - 1].xid == subxid) {
+            subidx = (i - 1);
+            found = true;
+            break;
+        }
+    }
+
+    // Handle empty subtransaction case
+    if (!found) {
+        cleanup_subxact_info();
+        end_replication_step();
+        CommitTransactionCommand();
+        return;
+    }
+
+    // Open the changes file and truncate at the rollback point
+    changes_filename(path, MyLogicalRepWorker->subid, xid);
+    fd = BufFileOpenFileSet(MyLogicalRepWorker->stream_fileset, path, O_RDWR, false);
+
+    // Truncate file at the subtransaction's offset
+    BufFileTruncateFileSet(fd, subxact_data.subxacts[subidx].fileno,
+                           subxact_data.subxacts[subidx].offset);
+    BufFileClose(fd);
+
+    // Remove later subtransactions and update metadata
+    subxact_data.nsubxacts = subidx;
+    subxact_info_write(MyLogicalRepWorker->subid, xid);
+
+    end_replication_step();
+    CommitTransactionCommand();
+}
+```

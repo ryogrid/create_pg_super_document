@@ -58,3 +58,82 @@ During operation, it monitors both shutdown events and the postmaster process st
 - Includes timeout handling (12 checkpoints × 5 seconds = 60 seconds) for shutdown operations
 - Ensures proper resource cleanup even in error conditions
 - The service accepts STOP, SHUTDOWN, and PAUSE_CONTINUE control commands
+
+## Simplified Source
+
+```c
+static void WINAPI
+pgwin32_ServiceMain(DWORD argc, LPTSTR *argv)
+{
+    PROCESS_INFORMATION pi;
+    DWORD ret;
+
+    // Initialize service status structure
+    status.dwWin32ExitCode = S_OK;
+    status.dwCheckPoint = 0;
+    status.dwWaitHint = 60000;
+    status.dwServiceType = SERVICE_WIN32_OWN_PROCESS;
+    status.dwControlsAccepted = SERVICE_ACCEPT_STOP | SERVICE_ACCEPT_SHUTDOWN | SERVICE_ACCEPT_PAUSE_CONTINUE;
+    status.dwServiceSpecificExitCode = 0;
+    status.dwCurrentState = SERVICE_START_PENDING;
+
+    memset(&pi, 0, sizeof(pi));
+    read_post_opts();
+
+    // Register service control handler
+    if ((hStatus = RegisterServiceCtrlHandler(register_servicename, pgwin32_ServiceHandler)) == 0)
+        return;
+
+    // Create shutdown event
+    if ((shutdownEvent = CreateEvent(NULL, true, false, NULL)) == NULL)
+        return;
+
+    // Start PostgreSQL postmaster process
+    pgwin32_SetServiceStatus(SERVICE_START_PENDING);
+    if (!CreateRestrictedProcess(pgwin32_CommandLine(false), &pi, true)) {
+        pgwin32_SetServiceStatus(SERVICE_STOPPED);
+        return;
+    }
+
+    postmasterPID = pi.dwProcessId;
+    postmasterProcess = pi.hProcess;
+    CloseHandle(pi.hThread);
+
+    // Wait for startup if configured
+    if (do_wait) {
+        write_eventlog(EVENTLOG_INFORMATION_TYPE, "Waiting for server startup...");
+        if (wait_for_postmaster_start(postmasterPID, true) != POSTMASTER_READY) {
+            write_eventlog(EVENTLOG_ERROR_TYPE, "Timed out waiting for server startup");
+            pgwin32_SetServiceStatus(SERVICE_STOPPED);
+            return;
+        }
+        write_eventlog(EVENTLOG_INFORMATION_TYPE, "Server started and accepting connections");
+    }
+
+    // Service is now running
+    pgwin32_SetServiceStatus(SERVICE_RUNNING);
+
+    // Wait for shutdown event or process termination
+    ret = WaitForMultipleObjects(2, shutdownHandles, FALSE, INFINITE);
+
+    pgwin32_SetServiceStatus(SERVICE_STOP_PENDING);
+
+    if (ret == WAIT_OBJECT_0) {  // shutdown event
+        int maxShutdownCheckPoint = status.dwCheckPoint + 12;
+
+        // Send shutdown signal and wait with periodic checkpoints
+        kill(postmasterPID, SIGINT);
+        while (WaitForSingleObject(postmasterProcess, 5000) == WAIT_TIMEOUT &&
+               status.dwCheckPoint < maxShutdownCheckPoint) {
+            status.dwCheckPoint++;
+            SetServiceStatus(hStatus, (LPSERVICE_STATUS) &status);
+        }
+    }
+    // else: postmaster went down on its own
+
+    // Cleanup and stop service
+    CloseHandle(shutdownEvent);
+    CloseHandle(postmasterProcess);
+    pgwin32_SetServiceStatus(SERVICE_STOPPED);
+}
+```

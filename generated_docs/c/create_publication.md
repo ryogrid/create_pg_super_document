@@ -50,3 +50,61 @@ The function uses proper SQL escaping for both identifiers and literals when con
 - Sets the made_publication flag in LogicalRepInfo for proper cleanup handling
 - [Publication](../P/Publication.md) names are properly escaped to prevent SQL injection vulnerabilities
 - Error handling includes helpful hints for resolving naming conflicts
+
+## Simplified Source
+
+```c
+static void create_publication(PGconn *conn, struct LogicalRepInfo *dbinfo)
+{
+    PQExpBuffer str = createPQExpBuffer();
+    PGresult *res;
+    char *ipubname_esc, *spubname_esc;
+
+    // Escape publication name for SQL safety
+    ipubname_esc = PQescapeIdentifier(conn, dbinfo->pubname, strlen(dbinfo->pubname));
+    spubname_esc = PQescapeLiteral(conn, dbinfo->pubname, strlen(dbinfo->pubname));
+
+    // Check if publication already exists
+    appendPQExpBuffer(str, "SELECT 1 FROM pg_catalog.pg_publication WHERE pubname = %s", spubname_esc);
+    res = PQexec(conn, str->data);
+
+    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+        pg_log_error("could not obtain publication information: %s", PQresultErrorMessage(res));
+        disconnect_database(conn, true);
+    }
+
+    // Handle existing publication
+    if (PQntuples(res) == 1) {
+        pg_log_error("publication \"%s\" already exists", dbinfo->pubname);
+        pg_log_error_hint("Consider renaming this publication before continuing.");
+        disconnect_database(conn, true);
+    }
+
+    PQclear(res);
+    resetPQExpBuffer(str);
+
+    // Create the publication for all tables
+    pg_log_info("creating publication \"%s\" in database \"%s\"", dbinfo->pubname, dbinfo->dbname);
+    appendPQExpBuffer(str, "CREATE PUBLICATION %s FOR ALL TABLES", ipubname_esc);
+    pg_log_debug("command is: %s", str->data);
+
+    // Execute creation (unless dry run)
+    if (!dry_run) {
+        res = PQexec(conn, str->data);
+        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+            pg_log_error("could not create publication \"%s\" in database \"%s\": %s",
+                        dbinfo->pubname, dbinfo->dbname, PQresultErrorMessage(res));
+            disconnect_database(conn, true);
+        }
+        PQclear(res);
+    }
+
+    // Mark as created for cleanup tracking
+    dbinfo->made_publication = true;
+
+    // Cleanup
+    PQfreemem(ipubname_esc);
+    PQfreemem(spubname_esc);
+    destroyPQExpBuffer(str);
+}
+```

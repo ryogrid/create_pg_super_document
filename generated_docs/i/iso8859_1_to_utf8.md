@@ -48,3 +48,47 @@ The conversion follows the PostgreSQL function calling conventions, taking param
 - High-bit characters are encoded as 2-byte UTF-8 sequences using bit manipulation:  for the first byte and  for the second byte
 - Function validates encoding arguments and handles null byte detection for security
 - Part of PostgreSQL's multibyte character conversion system
+
+## Simplified Source
+```c
+Datum
+iso8859_1_to_utf8(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+    unsigned char *start = src;
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_LATIN1, PG_UTF8);
+
+    // Process each character in the source string
+    while (len > 0) {
+        unsigned short c = *src;
+
+        // Check for null bytes (invalid in ISO-8859-1)
+        if (c == 0) {
+            if (noError) break;
+            report_invalid_encoding(PG_LATIN1, (const char *) src, len);
+        }
+
+        // ASCII characters: copy directly
+        if (!IS_HIGHBIT_SET(c)) {
+            *dest++ = c;
+        }
+        // High-bit characters: encode as 2-byte UTF-8
+        else {
+            *dest++ = (c >> 6) | 0xc0;      // First byte: 110xxxxx
+            *dest++ = (c & 0x003f) | HIGHBIT; // Second byte: 10xxxxxx
+        }
+
+        src++;
+        len--;
+    }
+
+    *dest = '\0';
+    PG_RETURN_INT32(src - start);
+}
+```

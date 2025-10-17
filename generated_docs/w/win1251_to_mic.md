@@ -41,3 +41,24 @@ The function follows PostgreSQL's standard function argument protocol (PG_FUNCTI
 - Handles the character encoding differences between Windows-1251 and the KOI8-R-based MULE internal representation
 - Windows-1251 is widely used in Russian Windows systems and differs from both KOI8-R and ISO-8859-5 in its character mappings
 - This function is typically registered as a conversion procedure in PostgreSQL's encoding conversion system rather than called directly
+
+## Simplified Source
+
+```c
+Datum win1251_to_mic(PG_FUNCTION_ARGS) {
+    // Extract conversion parameters from PostgreSQL function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate that we're converting from Windows-1251 to MULE internal
+    CHECK_ENCODING_CONVERSION_ARGS(PG_WIN1251, PG_MULE_INTERNAL);
+
+    // Convert using win12512koi translation table to map WIN1251 to KOI8-R equivalents
+    int converted = latin2mic_with_table(src, dest, len, LC_KOI8_R, PG_WIN1251, win12512koi, noError);
+
+    // Return number of bytes successfully converted
+    PG_RETURN_INT32(converted);
+}
+```

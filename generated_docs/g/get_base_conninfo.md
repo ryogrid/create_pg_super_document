@@ -46,3 +46,45 @@ Key operations:
 - Handles empty or NULL connection parameter values appropriately
 - Uses libpq's standard connection string parsing to ensure compatibility
 - The returned base connection string can be combined with different database names using other helper functions
+
+## Simplified Source
+
+```c
+static char *get_base_conninfo(const char *conninfo, char **dbname) {
+    PQExpBuffer buf;
+    PQconninfoOption *conn_opts;
+    PQconninfoOption *conn_opt;
+    char *errmsg = NULL;
+    char *ret;
+
+    // Parse connection string into individual options
+    conn_opts = PQconninfoParse(conninfo, &errmsg);
+    if (conn_opts == NULL) {
+        pg_log_error("could not parse connection string: %s", errmsg);
+        PQfreemem(errmsg);
+        return NULL;
+    }
+
+    // Build new connection string excluding database name
+    buf = createPQExpBuffer();
+    for (conn_opt = conn_opts; conn_opt->keyword != NULL; conn_opt++) {
+        if (conn_opt->val != NULL && conn_opt->val[0] != '\0') {
+            // Extract database name separately if requested
+            if (strcmp(conn_opt->keyword, "dbname") == 0) {
+                if (dbname)
+                    *dbname = pg_strdup(conn_opt->val);
+                continue;
+            }
+            // Add all other connection parameters
+            appendConnStrItem(buf, conn_opt->keyword, conn_opt->val);
+        }
+    }
+
+    // Return base connection string
+    ret = pg_strdup(buf->data);
+    destroyPQExpBuffer(buf);
+    PQconninfoFree(conn_opts);
+
+    return ret;
+}
+```

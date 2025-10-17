@@ -55,3 +55,45 @@ The conversion process:
 - Error messages include the string representation of invalid intervals for better user feedback
 - Used typically with the AT TIME ZONE syntax when the timezone is specified as an interval rather than a name
 - The conversion treats the interval as a fixed offset, making it suitable for simple timezone arithmetic
+
+## Simplified Source
+
+```c
+Datum timestamptz_izone(PG_FUNCTION_ARGS) {
+    Interval *zone = PG_GETARG_INTERVAL_P(0);
+    TimestampTz timestamp = PG_GETARG_TIMESTAMPTZ(1);
+    Timestamp result;
+    int tz;
+
+    // Handle infinite timestamps
+    if (TIMESTAMP_NOT_FINITE(timestamp))
+        PG_RETURN_TIMESTAMP(timestamp);
+
+    // Validate interval zone is finite
+    if (INTERVAL_NOT_FINITE(zone))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                errmsg("interval time zone \"%s\" must be finite",
+                       DatumGetCString(DirectFunctionCall1(interval_out,
+                                                           PointerGetDatum(zone))))));
+
+    // Validate interval contains only time components
+    if (zone->month != 0 || zone->day != 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                errmsg("interval time zone \"%s\" must not include months or days",
+                       DatumGetCString(DirectFunctionCall1(interval_out,
+                                                           PointerGetDatum(zone))))));
+
+    // Convert interval to seconds offset (negated for reverse conversion)
+    tz = -(zone->time / USECS_PER_SEC);
+
+    // Apply timezone offset to convert timestamptz to timestamp
+    result = dt2local(timestamp, tz);
+
+    // Validate result is in range
+    if (!IS_VALID_TIMESTAMP(result))
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                errmsg("timestamp out of range")));
+
+    PG_RETURN_TIMESTAMP(result);
+}
+```

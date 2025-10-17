@@ -43,3 +43,25 @@ This approach allows the initdb process to modularize SQL setup scripts and exec
 - This function is heavily used during database initialization, being called multiple times from  for different SQL setup files
 - The function assumes the input file exists and is readable - [error](../e/error.md) handling for file access is managed by the  function
 - The design allows for modular SQL script organization, making the initdb codebase more maintainable by separating SQL logic into external files
+
+## Simplified Source
+
+```c
+static void setup_run_file(FILE *cmdfd, const char *filename) {
+    char **lines;
+
+    // Read file contents into array of strings
+    lines = readfile(filename);
+
+    // Execute each line as SQL command
+    for (char **line = lines; *line != NULL; line++) {
+        PG_CMD_PUTS(*line);
+        free(*line);
+    }
+
+    // Add formatting separation
+    PG_CMD_PUTS("\n\n");
+
+    free(lines);
+}
+```

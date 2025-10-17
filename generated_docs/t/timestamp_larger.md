@@ -36,3 +36,20 @@ The function extracts two Timestamp arguments from the PostgreSQL function call 
 - Handles all timestamp values including infinite timestamps  
 - Typically exposed as SQL function GREATEST() for timestamp types
 - Located at src/backend/utils/adt/timestamp.c:2771-2785
+
+## Simplified Source
+
+```c
+Datum timestamp_larger(PG_FUNCTION_ARGS)
+{
+    // Extract two timestamp arguments
+    Timestamp timestamp1 = PG_GETARG_TIMESTAMP(0);
+    Timestamp timestamp2 = PG_GETARG_TIMESTAMP(1);
+
+    // Compare timestamps and return the larger one
+    if (timestamp_cmp_internal(timestamp1, timestamp2) > 0)
+        PG_RETURN_TIMESTAMP(timestamp1);
+    else
+        PG_RETURN_TIMESTAMP(timestamp2);
+}
+```

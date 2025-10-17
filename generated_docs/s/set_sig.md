@@ -47,3 +47,33 @@ The function supports the following signals that are commonly used for PostgreSQ
 - This function enables the pg_ctl kill command syntax: 
 - Error messages are internationalized using the  macro
 - Located in src/bin/pg_ctl/pg_ctl.c:2063-2091
+
+## Simplified Source
+
+```c
+static void set_sig(char *signame) {
+    // Convert signal name string to signal constant
+    if (strcmp(signame, "HUP") == 0)
+        sig = SIGHUP;
+    else if (strcmp(signame, "INT") == 0)
+        sig = SIGINT;
+    else if (strcmp(signame, "QUIT") == 0)
+        sig = SIGQUIT;
+    else if (strcmp(signame, "ABRT") == 0)
+        sig = SIGABRT;
+    else if (strcmp(signame, "KILL") == 0)
+        sig = SIGKILL;
+    else if (strcmp(signame, "TERM") == 0)
+        sig = SIGTERM;
+    else if (strcmp(signame, "USR1") == 0)
+        sig = SIGUSR1;
+    else if (strcmp(signame, "USR2") == 0)
+        sig = SIGUSR2;
+    else {
+        // Invalid signal name - show error and exit
+        write_stderr(_("%s: unrecognized signal name \"%s\"\n"), progname, signame);
+        do_advice();
+        exit(1);
+    }
+}
+```

@@ -41,3 +41,25 @@ The function creates a hash table with 16 initial buckets (larger than parser an
 - The separation of initialization from lookup allows for early cache setup, which is particularly important for caching the current default configuration
 - This function must be called before any configuration caching operations to ensure proper callback registration and cache invalidation behavior
 - The cache uses CacheMemoryContext for long-lived storage that persists across transactions
+
+## Simplified Source
+
+```c
+static void init_ts_config_cache(void)
+{
+    HASHCTL ctl;
+
+    // Create configuration cache hash table
+    ctl.keysize = sizeof(Oid);
+    ctl.entrysize = sizeof(TSConfigCacheEntry);
+    TSConfigCacheHash = hash_create("Tsearch configuration cache", 16, &ctl, HASH_ELEM | HASH_BLOBS);
+
+    // Register cache invalidation callbacks for both config catalogs
+    CacheRegisterSyscacheCallback(TSCONFIGOID, InvalidateTSCacheCallBack, PointerGetDatum(TSConfigCacheHash));
+    CacheRegisterSyscacheCallback(TSCONFIGMAP, InvalidateTSCacheCallBack, PointerGetDatum(TSConfigCacheHash));
+
+    // Ensure cache memory context exists
+    if (!CacheMemoryContext)
+        CreateCacheMemoryContext();
+}
+```

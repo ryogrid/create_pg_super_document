@@ -49,3 +49,25 @@ Second, when operating within valid array contexts (nested levels), the function
 - The token parameter contains de-escaped string values ready for use
 - Essential for proper handling of string values within json_array_elements() functions
 - Returns JSON_SUCCESS on successful processing or validation
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+elements_scalar(void *state, char *token, JsonTokenType tokentype)
+{
+    ElementsState *_state = (ElementsState *) state;
+
+    // Validate: cannot process scalar at top level when expecting arrays
+    if (_state->lex->lex_level == 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("cannot call %s on a scalar",
+                              _state->function_name)));
+
+    // Store de-escaped scalar value if needed for normalization
+    if (_state->next_scalar)
+        _state->normalized_scalar = token;
+
+    return JSON_SUCCESS;
+}
+```

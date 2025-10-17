@@ -34,3 +34,16 @@ This function implements the equality operator (=) for cross-type comparisons be
 - The actual comparison logic is handled by timestamp_cmp_timestamptz_internal, which this function wraps
 - Returns a PostgreSQL Datum containing a boolean value indicating equality
 - Enables seamless comparison between timestamp types with different timezone representations in SQL queries
+
+## Simplified Source
+
+```c
+Datum timestamp_eq_timestamptz(PG_FUNCTION_ARGS) {
+    // Extract timestamp (without timezone) and timestamptz (with timezone)
+    Timestamp timestamp_val = PG_GETARG_TIMESTAMP(0);
+    TimestampTz timestamptz_val = PG_GETARG_TIMESTAMPTZ(1);
+
+    // Compare the values and return true if equal (comparison result == 0)
+    PG_RETURN_BOOL(timestamp_cmp_timestamptz_internal(timestamp_val, timestamptz_val) == 0);
+}
+```

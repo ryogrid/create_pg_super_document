@@ -41,3 +41,25 @@ The comparison respects the current collation setting, making it suitable for us
 - Returns the first argument if both values are equal (cmp <= 0 condition)
 - Part of PostgreSQL's type-specific operator implementation for BPCHAR data type
 - Functionally inverse of bpchar_larger, using <= instead of >= for the comparison result
+
+## Simplified Source
+
+```c
+Datum bpchar_smaller(PG_FUNCTION_ARGS) {
+    // Extract both BPCHAR arguments
+    BpChar *arg1 = PG_GETARG_BPCHAR_PP(0);
+    BpChar *arg2 = PG_GETARG_BPCHAR_PP(1);
+
+    // Get true lengths (excluding trailing spaces)
+    int len1 = bcTruelen(arg1);
+    int len2 = bcTruelen(arg2);
+
+    // Compare strings using collation-aware comparison
+    int cmp = varstr_cmp(VARDATA_ANY(arg1), len1,
+                         VARDATA_ANY(arg2), len2,
+                         PG_GET_COLLATION());
+
+    // Return the smaller value (arg1 if <= 0, arg2 if > 0)
+    return PG_RETURN_BPCHAR_P((cmp <= 0) ? arg1 : arg2);
+}
+```

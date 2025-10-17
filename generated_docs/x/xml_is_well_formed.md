@@ -37,3 +37,21 @@ This function takes a text argument containing XML data and returns a boolean in
 - Part of PostgreSQL's SQL-accessible XML validation functions
 - Returns true if XML is well-formed, false otherwise
 - Can be used in SQL queries to validate XML data before processing
+
+## Simplified Source
+
+```c
+Datum xml_is_well_formed(PG_FUNCTION_ARGS)
+{
+#ifdef USE_LIBXML
+    // Extract text data argument
+    text *data = PG_GETARG_TEXT_PP(0);
+
+    // Check XML well-formedness using global xmloption setting
+    PG_RETURN_BOOL(wellformed_xml(data, xmloption));
+#else
+    NO_XML_SUPPORT();
+    return 0;
+#endif
+}
+```

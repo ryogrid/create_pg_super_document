@@ -47,3 +47,67 @@ The typmod encoding stores the range in the high 16 bits and precision in the lo
 - Returns -1 for full range intervals without explicit precision
 - Part of PostgreSQL's type system infrastructure for interval data type management
 - Handles error cases gracefully with descriptive error messages for invalid type modifiers
+
+## Simplified Source
+
+```c
+Datum intervaltypmodin(PG_FUNCTION_ARGS) {
+    ArrayType *ta = PG_GETARG_ARRAYTYPE_P(0);
+    int32 *tl;
+    int n;
+    int32 typmod;
+
+    // Extract integer type modifiers from array
+    tl = ArrayGetIntegerTypmods(ta, &n);
+
+    // Validate field range specification (tl[0])
+    if (n > 0) {
+        // Check against valid interval field combinations
+        switch (tl[0]) {
+            case INTERVAL_MASK(YEAR):
+            case INTERVAL_MASK(MONTH):
+            case INTERVAL_MASK(DAY):
+            case INTERVAL_MASK(HOUR):
+            case INTERVAL_MASK(MINUTE):
+            case INTERVAL_MASK(SECOND):
+            case INTERVAL_MASK(YEAR) | INTERVAL_MASK(MONTH):
+            case INTERVAL_MASK(DAY) | INTERVAL_MASK(HOUR):
+            // ... other valid combinations
+            case INTERVAL_FULL_RANGE:
+                break;
+            default:
+                ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                    errmsg("invalid INTERVAL type modifier")));
+        }
+    }
+
+    // Process based on number of modifiers
+    if (n == 1) {
+        // Only range specified, use full precision
+        if (tl[0] != INTERVAL_FULL_RANGE)
+            typmod = INTERVAL_TYPMOD(INTERVAL_FULL_PRECISION, tl[0]);
+        else
+            typmod = -1;
+    } else if (n == 2) {
+        // Both range and precision specified
+        if (tl[1] < 0)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                errmsg("INTERVAL(%d) precision must not be negative", tl[1])));
+
+        if (tl[1] > MAX_INTERVAL_PRECISION) {
+            ereport(WARNING, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                errmsg("INTERVAL(%d) precision reduced to maximum allowed, %d",
+                    tl[1], MAX_INTERVAL_PRECISION)));
+            typmod = INTERVAL_TYPMOD(MAX_INTERVAL_PRECISION, tl[0]);
+        } else {
+            typmod = INTERVAL_TYPMOD(tl[1], tl[0]);
+        }
+    } else {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+            errmsg("invalid INTERVAL type modifier")));
+        typmod = 0;
+    }
+
+    return PG_RETURN_INT32(typmod);
+}
+```

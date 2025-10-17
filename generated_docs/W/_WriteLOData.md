@@ -35,3 +35,25 @@ _WriteLOData is a specialized function used by the null archive format to handle
 - Only processes data when dLen > 0 to avoid generating empty statements
 - The function substitutes _WriteData temporarily during large object emission
 - The hardcoded handle '0' in the lowrite call suggests this is used in a specific large object context
+
+## Simplified Source
+
+```c
+static void _WriteLOData(ArchiveHandle *AH, const void *data, size_t dLen)
+{
+    // Only process if there's actual data to write
+    if (dLen > 0) {
+        // Create buffer for SQL formatting
+        PQExpBuffer buf = createPQExpBuffer();
+
+        // Convert binary data to bytea literal format
+        appendByteaLiteralAHX(buf, (const unsigned char *) data, dLen, AH);
+
+        // Generate SQL statement to write large object data
+        ahprintf(AH, "SELECT pg_catalog.lowrite(0, %s);\n", buf->data);
+
+        // Clean up buffer
+        destroyPQExpBuffer(buf);
+    }
+}
+```

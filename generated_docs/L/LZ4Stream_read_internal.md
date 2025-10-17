@@ -54,3 +54,109 @@ This is the primary workhorse function for LZ4 decompression in PostgreSQL's pg_
 - The decompression loop continues until either the requested amount of data is read, EOF is reached, or a newline is found (when eol_flag is true)
 - Memory management uses PostgreSQL's allocation functions (pg_malloc, pg_realloc, pg_free) for consistent error handling
 - The function handles partial reads from fread() and distinguishes between EOF and actual read errors
+
+## Simplified Source
+
+```c
+static int
+LZ4Stream_read_internal(LZ4State *state, void *ptr, int ptrsize, bool eol_flag)
+{
+    int dsize = 0;      // bytes decompressed so far
+    int size = ptrsize;
+    bool eol_found = false;
+
+    // Lazy initialization for decompression
+    if (!LZ4Stream_init(state, size, false)) {
+        pg_log_error("unable to initialize LZ4 library: %s",
+                     LZ4F_getErrorName(state->errcode));
+        return -1;
+    }
+
+    if (size <= 0) return 0;
+
+    // Ensure buffer is large enough
+    if (size > state->buflen) {
+        state->buflen = size;
+        state->buffer = pg_realloc(state->buffer, size);
+    }
+
+    // First, try to satisfy request from overflow buffer
+    dsize = LZ4Stream_read_overflow(state, ptr, size, eol_flag);
+    if (dsize == size || (eol_flag && memchr(ptr, '\n', dsize))) {
+        return dsize;
+    }
+
+    // Read and decompress new data as needed
+    void *readbuf = pg_malloc(size);
+    int rsize;
+
+    do {
+        // Read compressed data from file
+        rsize = fread(readbuf, 1, size, state->fp);
+        if (rsize < size && !feof(state->fp)) {
+            pg_log_error("could not read from input file: %m");
+            return -1;
+        }
+
+        // Process all read data
+        char *rp = (char *) readbuf;
+        char *rend = (char *) readbuf + rsize;
+
+        while (rp < rend) {
+            // Decompress chunk
+            size_t outlen = state->buflen;
+            size_t read_remain = rend - rp;
+
+            memset(state->buffer, 0, outlen);
+            size_t status = LZ4F_decompress(state->dtx, state->buffer, &outlen,
+                                           rp, &read_remain, NULL);
+            if (LZ4F_isError(status)) {
+                state->errcode = status;
+                pg_log_error("could not read from input file: %s",
+                             LZ4F_getErrorName(state->errcode));
+                return -1;
+            }
+            rp += read_remain;
+
+            // Copy decompressed data to output buffer
+            if (outlen > 0 && dsize < size && !eol_found) {
+                size_t lib = (!eol_flag) ? size - dsize : size - 1 - dsize;
+                size_t len = outlen < lib ? outlen : lib;
+
+                // Check for newline if in line mode
+                if (eol_flag) {
+                    char *p = memchr(state->buffer, '\n', outlen);
+                    if (p && (size_t)(p - state->buffer + 1) <= len) {
+                        len = p - state->buffer + 1;
+                        eol_found = true;
+                    }
+                }
+
+                memcpy((char *) ptr + dsize, state->buffer, len);
+                dsize += len;
+
+                // Move remaining data to front of buffer
+                if (len < outlen) {
+                    memmove(state->buffer, state->buffer + len, outlen - len);
+                }
+                outlen -= len;
+            }
+
+            // Store overflow data for future reads
+            if (outlen > 0) {
+                // Grow overflow buffer if needed
+                while (state->overflowlen + outlen > state->overflowalloclen) {
+                    state->overflowalloclen *= 2;
+                    state->overflowbuf = pg_realloc(state->overflowbuf,
+                                                   state->overflowalloclen);
+                }
+                memcpy(state->overflowbuf + state->overflowlen, state->buffer, outlen);
+                state->overflowlen += outlen;
+            }
+        }
+    } while (rsize == size && dsize < size && !eol_found);
+
+    pg_free(readbuf);
+    return dsize;
+}
+```

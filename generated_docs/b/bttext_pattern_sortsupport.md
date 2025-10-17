@@ -38,3 +38,22 @@ This function is part of PostgreSQL's sort support framework, which provides per
 - Part of the pattern comparison operator class infrastructure for efficient indexing
 - Enables performance optimizations for sorting operations in pattern-based indexes
 - Essential for LIKE clause performance when using pattern-compatible indexes
+
+## Simplified Source
+
+```c
+Datum
+bttext_pattern_sortsupport(PG_FUNCTION_ARGS)
+{
+    // Get sort support structure and save current memory context
+    SortSupport ssup = (SortSupport) PG_GETARG_POINTER(0);
+    MemoryContext oldcontext = MemoryContextSwitchTo(ssup->ssup_cxt);
+
+    // Configure generic string sort support with "C" collation for consistent pattern matching
+    varstr_sortsupport(ssup, TEXTOID, C_COLLATION_OID);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcontext);
+    PG_RETURN_VOID();
+}
+```

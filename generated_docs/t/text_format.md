@@ -51,7 +51,7 @@ The function parses the format string character by character, handling literal t
   - SQL FORMAT() function invocations
 
 ## Notes and Other Information
-- Located in 
+- Located in
 - Supports both variadic and non-variadic calling conventions
 - Implements comprehensive error checking for malformed format strings and insufficient arguments
 - Optimizes type output function lookups by caching previous results
@@ -60,3 +60,93 @@ The function parses the format string character by character, handling literal t
 - Position specification allows reordering arguments (e.g., %2$s uses the 2nd argument)
 - Width can be specified directly as a number or indirectly by referencing another argument
 - Memory management follows PostgreSQL conventions with proper cleanup of temporary allocations
+
+## Simplified Source
+
+```c
+Datum text_format(PG_FUNCTION_ARGS) {
+    text *fmt;
+    StringInfoData str;
+    const char *cp;
+    const char *start_ptr;
+    const char *end_ptr;
+    text *result;
+    int arg;
+    bool funcvariadic;
+    int nargs;
+    Datum *elements = NULL;
+    bool *nulls = NULL;
+    Oid element_type = InvalidOid;
+    FmgrInfo typoutputfinfo;
+    FmgrInfo typoutputinfo_width;
+
+    if (PG_ARGISNULL(0))
+        PG_RETURN_NULL();
+
+    // Handle variadic arguments by expanding array
+    if (get_fn_expr_variadic(fcinfo->flinfo)) {
+        ArrayType *arr = PG_GETARG_ARRAYTYPE_P(1);
+        element_type = ARR_ELEMTYPE(arr);
+        // Extract array elements into elements[] and nulls[]
+        deconstruct_array(arr, element_type, ...);
+        funcvariadic = true;
+    } else {
+        nargs = PG_NARGS();
+        funcvariadic = false;
+    }
+
+    // Initialize format string parsing
+    fmt = PG_GETARG_TEXT_PP(0);
+    start_ptr = VARDATA_ANY(fmt);
+    end_ptr = start_ptr + VARSIZE_ANY_EXHDR(fmt);
+    initStringInfo(&str);
+    arg = 1;
+
+    // Main loop: scan format string for conversion specifiers
+    for (cp = start_ptr; cp < end_ptr; cp++) {
+        // Copy literal characters
+        if (*cp != '%') {
+            appendStringInfoCharMacro(&str, *cp);
+            continue;
+        }
+
+        // Handle %% -> single %
+        if (*++cp == '%') {
+            appendStringInfoCharMacro(&str, *cp);
+            continue;
+        }
+
+        // Parse format specifier: %[position$][width]specifier
+        int argpos, widthpos, flags, width;
+        cp = text_format_parse_format(cp, end_ptr, &argpos, &widthpos, &flags, &width);
+
+        // Validate specifier type (s, I, L)
+        if (strchr("sIL", *cp) == NULL)
+            ereport(ERROR, "unrecognized format specifier");
+
+        // Get width value if indirect width specified
+        if (widthpos >= 0) {
+            Datum width_value = get_argument_value(widthpos or arg++);
+            width = convert_to_int32(width_value);
+        }
+
+        // Get main argument value
+        Datum value = get_argument_value(argpos or arg++);
+        Oid typid = get_argument_type();
+
+        // Convert value to string and apply formatting
+        switch (*cp) {
+            case 's':  // String conversion
+            case 'I':  // SQL identifier
+            case 'L':  // SQL literal
+                text_format_string_conversion(&str, *cp, &typoutputfinfo,
+                                            value, isNull, flags, width);
+                break;
+        }
+    }
+
+    // Generate final result
+    result = cstring_to_text_with_len(str.data, str.len);
+    PG_RETURN_TEXT_P(result);
+}
+```

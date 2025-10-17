@@ -46,3 +46,35 @@ The function follows PostgreSQL's SRF pattern with initialization on the first c
 - Part of PostgreSQL's text search functionality for analyzing document collections
 - Function continues returning rows until all lexemes in the statistics tree are processed
 - Proper cleanup of SPI resources after query execution completes
+
+## Simplified Source
+
+```c
+Datum ts_stat1(PG_FUNCTION_ARGS) {
+    FuncCallContext *funcctx;
+    Datum result;
+
+    if (SRF_IS_FIRSTCALL()) {
+        // First call: initialize and execute query
+        TSVectorStat *stat;
+        text *query_txt = PG_GETARG_TEXT_PP(0);
+
+        funcctx = SRF_FIRSTCALL_INIT();
+        SPI_connect();
+
+        // Execute SQL query and build statistics (no weight filter)
+        stat = ts_stat_sql(funcctx->multi_call_memory_ctx, query_txt, NULL);
+
+        PG_FREE_IF_COPY(query_txt, 0);
+        ts_setup_firstcall(fcinfo, funcctx, stat);
+        SPI_finish();
+    }
+
+    // Subsequent calls: return next result row
+    funcctx = SRF_PERCALL_SETUP();
+    if ((result = ts_process_call(funcctx)) != (Datum) 0)
+        SRF_RETURN_NEXT(funcctx, result);
+
+    SRF_RETURN_DONE(funcctx);
+}
+```

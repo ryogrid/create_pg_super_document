@@ -58,3 +58,94 @@ Unlike the  function,  treats the type modifier () as the maximum allowed length
 - For hex format, validates that the total bit length doesn't exceed VARBITMAXLEN/4 characters
 - Located in src/backend/utils/adt/varbit.c:452-586
 - Part of PostgreSQL's comprehensive bit string type system alongside bit_in, bit_out, and related functions
+
+## Simplified Source
+
+```c
+Datum varbit_in(PG_FUNCTION_ARGS) {
+    char *input_string = PG_GETARG_CSTRING(0);
+    int32 atttypmod = PG_GETARG_INT32(2);
+    Node *escontext = fcinfo->context;
+
+    // Determine input format (binary vs hex)
+    char *sp;
+    bool bit_not_hex;
+    if (input_string[0] == 'b' || input_string[0] == 'B') {
+        bit_not_hex = true;
+        sp = input_string + 1;
+    } else if (input_string[0] == 'x' || input_string[0] == 'X') {
+        bit_not_hex = false;
+        sp = input_string + 1;
+    } else {
+        bit_not_hex = true;
+        sp = input_string;
+    }
+
+    // Calculate bit length from input
+    int slen = strlen(sp);
+    int bitlen = bit_not_hex ? slen : slen * 4;
+
+    // Validate against hex length limits
+    if (!bit_not_hex && slen > VARBITMAXLEN / 4)
+        ereturn(escontext, (Datum) 0, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                errmsg("bit string length exceeds the maximum allowed (%d)", VARBITMAXLEN)));
+
+    // Check type modifier constraints
+    if (atttypmod <= 0)
+        atttypmod = bitlen;
+    else if (bitlen > atttypmod)
+        ereturn(escontext, (Datum) 0, (errcode(ERRCODE_STRING_DATA_RIGHT_TRUNCATION),
+                errmsg("bit string too long for type bit varying(%d)", atttypmod)));
+
+    // Allocate and initialize result
+    int len = VARBITTOTALLEN(bitlen);
+    VarBit *result = (VarBit *) palloc0(len);
+    SET_VARSIZE(result, len);
+    VARBITLEN(result) = Min(bitlen, atttypmod);
+
+    // Parse input into bit data
+    bits8 *r = VARBITS(result);
+    if (bit_not_hex) {
+        // Parse binary format
+        bits8 x = HIGHBIT;
+        for (; *sp; sp++) {
+            if (*sp == '1')
+                *r |= x;
+            else if (*sp != '0')
+                ereturn(escontext, (Datum) 0, (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                        errmsg("\"%.*s\" is not a valid binary digit", pg_mblen(sp), sp)));
+
+            x >>= 1;
+            if (x == 0) {
+                x = HIGHBIT;
+                r++;
+            }
+        }
+    } else {
+        // Parse hexadecimal format
+        int bc = 0;
+        for (; *sp; sp++) {
+            bits8 x;
+            if (*sp >= '0' && *sp <= '9')
+                x = (bits8) (*sp - '0');
+            else if (*sp >= 'A' && *sp <= 'F')
+                x = (bits8) (*sp - 'A') + 10;
+            else if (*sp >= 'a' && *sp <= 'f')
+                x = (bits8) (*sp - 'a') + 10;
+            else
+                ereturn(escontext, (Datum) 0, (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                        errmsg("\"%.*s\" is not a valid hexadecimal digit", pg_mblen(sp), sp)));
+
+            if (bc) {
+                *r++ |= x;
+                bc = 0;
+            } else {
+                *r = x << 4;
+                bc = 1;
+            }
+        }
+    }
+
+    PG_RETURN_VARBIT_P(result);
+}
+```

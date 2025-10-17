@@ -57,3 +57,73 @@ Key features include:
 - Checksum information is optional - if checksum_length is 0, no checksum fields are added
 - This is similar to the backend's AddFileToBackupManifest but adapted for frontend use
 - The JSON structure follows PostgreSQL's backup manifest specification
+
+## Simplified Source
+
+```c
+void add_file_to_manifest(manifest_writer *mwriter, const char *manifest_path,
+                         size_t size, time_t mtime,
+                         pg_checksum_type checksum_type,
+                         int checksum_length,
+                         uint8 *checksum_payload)
+{
+    int pathlen = strlen(manifest_path);
+
+    // Add JSON separator between file entries
+    if (mwriter->first_file) {
+        appendStringInfoChar(&mwriter->buf, '\n');
+        mwriter->first_file = false;
+    } else {
+        appendStringInfoString(&mwriter->buf, ",\n");
+    }
+
+    // Encode file path (UTF-8 or hex-encoded)
+    if (pg_encoding_verifymbstr(PG_UTF8, manifest_path, pathlen) == pathlen) {
+        appendStringInfoString(&mwriter->buf, "{ \"Path\": ");
+        escape_json(&mwriter->buf, manifest_path);
+        appendStringInfoString(&mwriter->buf, ", ");
+    } else {
+        // Non-UTF-8 path - hex encode it
+        appendStringInfoString(&mwriter->buf, "{ \"Encoded-Path\": \"");
+        enlargeStringInfo(&mwriter->buf, 2 * pathlen);
+        mwriter->buf.len += hex_encode((const uint8 *) manifest_path, pathlen,
+                                      &mwriter->buf.data[mwriter->buf.len]);
+        appendStringInfoString(&mwriter->buf, "\", ");
+    }
+
+    // Add file size
+    appendStringInfo(&mwriter->buf, "\"Size\": %zu, ", size);
+
+    // Add modification timestamp in ISO format
+    appendStringInfoString(&mwriter->buf, "\"Last-Modified\": \"");
+    enlargeStringInfo(&mwriter->buf, 128);
+    mwriter->buf.len += strftime(&mwriter->buf.data[mwriter->buf.len], 128,
+                                "%Y-%m-%d %H:%M:%S %Z",
+                                gmtime(&mtime));
+    appendStringInfoChar(&mwriter->buf, '"');
+
+    // Flush buffer if it's getting large
+    if (mwriter->buf.len > 128 * 1024)
+        flush_manifest(mwriter);
+
+    // Add checksum information if present
+    if (checksum_length > 0) {
+        appendStringInfo(&mwriter->buf,
+                        ", \"Checksum-Algorithm\": \"%s\", \"Checksum\": \"",
+                        pg_checksum_type_name(checksum_type));
+
+        // Hex encode the checksum payload
+        enlargeStringInfo(&mwriter->buf, 2 * checksum_length);
+        mwriter->buf.len += hex_encode(checksum_payload, checksum_length,
+                                      &mwriter->buf.data[mwriter->buf.len]);
+        appendStringInfoChar(&mwriter->buf, '"');
+    }
+
+    // Close the JSON object for this file
+    appendStringInfoString(&mwriter->buf, " }");
+
+    // Flush buffer again if needed
+    if (mwriter->buf.len > 128 * 1024)
+        flush_manifest(mwriter);
+}
+```

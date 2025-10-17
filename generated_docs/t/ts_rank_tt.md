@@ -55,3 +55,21 @@ The  function is the simplest PostgreSQL built-in text search ranking function. 
 - Part of PostgreSQL's full-text search system alongside ts_rank_wtt (custom weights) and ts_rank_ttf (custom normalization)
 - The function automatically handles memory management by freeing detoasted argument copies
 - Provides the foundation for more complex ranking calculations in other ts_rank variants
+
+## Simplified Source
+
+```c
+Datum ts_rank_tt(PG_FUNCTION_ARGS) {
+    TSVector txt = PG_GETARG_TSVECTOR(0);
+    TSQuery query = PG_GETARG_TSQUERY(1);
+    float res;
+
+    // Calculate ranking with default weights and default normalization
+    res = calc_rank(getWeights(NULL), txt, query, DEF_NORM_METHOD);
+
+    // Clean up memory for detoasted arguments
+    PG_FREE_IF_COPY(txt, 0);
+    PG_FREE_IF_COPY(query, 1);
+    PG_RETURN_FLOAT4(res);
+}
+```

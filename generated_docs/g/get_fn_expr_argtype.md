@@ -43,3 +43,16 @@ This functionality is essential for PostgreSQL's flexible type system, particula
 - Critical for array functions that need to determine element types
 - Used extensively in string formatting and concatenation operations where argument types affect output formatting
 - The argnum parameter uses zero-based indexing, consistent with C array conventions
+
+## Simplified Source
+
+```c
+Oid get_fn_expr_argtype(FmgrInfo *flinfo, int argnum) {
+    // Check if function info and expression are available
+    if (!flinfo || !flinfo->fn_expr)
+        return InvalidOid;
+
+    // Delegate to expression-specific type extraction
+    return get_call_expr_argtype(flinfo->fn_expr, argnum);
+}
+```

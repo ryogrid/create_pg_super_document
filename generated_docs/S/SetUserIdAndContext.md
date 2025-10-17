@@ -31,3 +31,24 @@ This function modifies the current user ID (CurrentUserId) and updates the secur
 - Updates SecurityRestrictionContext flags to track local user ID changes
 - Part of PostgreSQL's role-based access control system
 - Used primarily for SECURITY DEFINER functions and similar contexts where temporary user identity changes are needed
+
+## Simplified Source
+
+```c
+void SetUserIdAndContext(Oid userid, bool sec_def_context) {
+    // Security check: prevent user ID changes in restricted operations
+    if (InSecurityRestrictedOperation())
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("cannot set parameter \"%s\" within security-restricted operation", "role")));
+
+    // Update current user ID
+    CurrentUserId = userid;
+
+    // Update security context flags
+    if (sec_def_context)
+        SecurityRestrictionContext |= SECURITY_LOCAL_USERID_CHANGE;
+    else
+        SecurityRestrictionContext &= ~SECURITY_LOCAL_USERID_CHANGE;
+}
+```

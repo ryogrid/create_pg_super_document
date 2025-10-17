@@ -41,3 +41,25 @@ The function performs encoding validation to ensure the conversion is between th
 - Part of the UTF8_AND_GBK conversion module located in src/backend/utils/mb/conversion_procs/utf8_and_gbk/
 - The function handles conversion errors gracefully when noError is set to true
 - GBK encoding supports Simplified Chinese characters and is widely used in Chinese computing environments
+
+## Simplified Source
+```c
+Datum gbk_to_utf8(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_GBK, PG_UTF8);
+
+    // Perform GBK to UTF-8 conversion using mapping tree
+    int converted = LocalToUtf(src, len, dest,
+                              &gbk_to_unicode_tree,
+                              NULL, 0, NULL,
+                              PG_GBK, noError);
+
+    return converted;
+}
+```

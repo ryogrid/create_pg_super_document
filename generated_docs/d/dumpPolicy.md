@@ -56,3 +56,105 @@ The function also generates the corresponding DROP statement for cleanup during 
 - Handles both restrictive (default) and permissive policies (PostgreSQL 10+)
 - Generates qualified table names to handle cross-schema references correctly
 - Part of the comprehensive database object recreation system in pg_dump/pg_restore
+
+## Simplified Source
+
+```c
+static void
+dumpPolicy(Archive *fout, const PolicyInfo *polinfo)
+{
+    DumpOptions *dopt = fout->dopt;
+    TableInfo *tbinfo = polinfo->poltable;
+
+    // Skip in data-only dumps
+    if (dopt->dataOnly)
+        return;
+
+    // Handle RLS enablement (polname = NULL)
+    if (polinfo->polname == NULL) {
+        PQExpBuffer query = createPQExpBuffer();
+
+        appendPQExpBuffer(query, "ALTER TABLE %s ENABLE ROW LEVEL SECURITY;",
+                         fmtQualifiedDumpable(tbinfo));
+
+        if (polinfo->dobj.dump & DUMP_COMPONENT_DEFINITION)
+            ArchiveEntry(fout, polinfo->dobj.catId, polinfo->dobj.dumpId,
+                        ARCHIVE_OPTS(.tag = polinfo->dobj.name,
+                                    .namespace = polinfo->dobj.namespace->dobj.name,
+                                    .owner = tbinfo->rolname,
+                                    .description = "ROW SECURITY",
+                                    .section = SECTION_POST_DATA,
+                                    .createStmt = query->data,
+                                    .deps = &(tbinfo->dobj.dumpId),
+                                    .nDeps = 1));
+
+        destroyPQExpBuffer(query);
+        return;
+    }
+
+    // Map policy command character to SQL clause
+    const char *cmd;
+    switch (polinfo->polcmd) {
+        case '*': cmd = ""; break;                    // ALL commands
+        case 'r': cmd = " FOR SELECT"; break;
+        case 'a': cmd = " FOR INSERT"; break;
+        case 'w': cmd = " FOR UPDATE"; break;
+        case 'd': cmd = " FOR DELETE"; break;
+        default:
+            pg_fatal("unexpected policy command type: %c", polinfo->polcmd);
+    }
+
+    PQExpBuffer query = createPQExpBuffer();
+    PQExpBuffer delqry = createPQExpBuffer();
+    char *qtabname = pg_strdup(fmtId(tbinfo->dobj.name));
+
+    // Build CREATE POLICY statement
+    appendPQExpBuffer(query, "CREATE POLICY %s", fmtId(polinfo->polname));
+    appendPQExpBuffer(query, " ON %s%s%s", fmtQualifiedDumpable(tbinfo),
+                     !polinfo->polpermissive ? " AS RESTRICTIVE" : "", cmd);
+
+    if (polinfo->polroles != NULL)
+        appendPQExpBuffer(query, " TO %s", polinfo->polroles);
+
+    if (polinfo->polqual != NULL)
+        appendPQExpBuffer(query, " USING (%s)", polinfo->polqual);
+
+    if (polinfo->polwithcheck != NULL)
+        appendPQExpBuffer(query, " WITH CHECK (%s)", polinfo->polwithcheck);
+
+    appendPQExpBufferStr(query, ";\n");
+
+    // Build DROP POLICY statement
+    appendPQExpBuffer(delqry, "DROP POLICY %s ON %s;\n",
+                     fmtId(polinfo->polname), fmtQualifiedDumpable(tbinfo));
+
+    // Create archive entry
+    char *tag = psprintf("%s %s", tbinfo->dobj.name, polinfo->dobj.name);
+
+    if (polinfo->dobj.dump & DUMP_COMPONENT_DEFINITION)
+        ArchiveEntry(fout, polinfo->dobj.catId, polinfo->dobj.dumpId,
+                    ARCHIVE_OPTS(.tag = tag,
+                                .namespace = polinfo->dobj.namespace->dobj.name,
+                                .owner = tbinfo->rolname,
+                                .description = "POLICY",
+                                .section = SECTION_POST_DATA,
+                                .createStmt = query->data,
+                                .dropStmt = delqry->data));
+
+    // Dump policy comments if requested
+    if (polinfo->dobj.dump & DUMP_COMPONENT_COMMENT) {
+        PQExpBuffer polprefix = createPQExpBuffer();
+        appendPQExpBuffer(polprefix, "POLICY %s ON", fmtId(polinfo->polname));
+        dumpComment(fout, polprefix->data, qtabname,
+                   tbinfo->dobj.namespace->dobj.name, tbinfo->rolname,
+                   polinfo->dobj.catId, 0, polinfo->dobj.dumpId);
+        destroyPQExpBuffer(polprefix);
+    }
+
+    // Cleanup
+    free(tag);
+    free(qtabname);
+    destroyPQExpBuffer(query);
+    destroyPQExpBuffer(delqry);
+}
+```

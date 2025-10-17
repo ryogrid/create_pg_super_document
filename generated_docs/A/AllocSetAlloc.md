@@ -59,3 +59,68 @@ The function includes extensive debugging support through Valgrind instrumentati
 - The function carefully manages Valgrind memory access tracking to help detect memory violations
 - Returns space that may be marked NOACCESS in some code paths, which AllocSetRealloc must account for
 - Performance-critical code paths are kept inline while complex cases are delegated to helper functions
+
+## Simplified Source
+
+```c
+void *
+AllocSetAlloc(MemoryContext context, Size size, int flags)
+{
+    AllocSet set = (AllocSet) context;
+    AllocBlock block;
+    MemoryChunk *chunk;
+    int fidx;
+    Size chunk_size, availspace;
+
+    Assert(AllocSetIsValid(set));
+    Assert(set->blocks != NULL);
+
+    // Large allocations get special handling
+    if (size > set->allocChunkLimit) {
+        return AllocSetAllocLarge(context, size, flags);
+    }
+
+    // Try to reuse a chunk from the appropriate freelist
+    fidx = AllocSetFreeIndex(size);
+    chunk = set->freelist[fidx];
+    if (chunk != NULL) {
+        AllocFreeListLink *link = GetFreeListLink(chunk);
+
+        // Remove chunk from freelist
+        VALGRIND_MAKE_MEM_DEFINED(chunk, ALLOC_CHUNKHDRSZ);
+        VALGRIND_MAKE_MEM_DEFINED(link, sizeof(AllocFreeListLink));
+        set->freelist[fidx] = link->next;
+        VALGRIND_MAKE_MEM_NOACCESS(link, sizeof(AllocFreeListLink));
+
+#ifdef MEMORY_CONTEXT_CHECKING
+        chunk->requested_size = size;
+        if (size < GetChunkSizeFromFreeListIdx(fidx)) {
+            set_sentinel(MemoryChunkGetPointer(chunk), size);
+        }
+#endif
+
+#ifdef RANDOMIZE_ALLOCATED_MEMORY
+        randomize_mem((char *) MemoryChunkGetPointer(chunk), size);
+#endif
+
+        // Mark padding as inaccessible and return pointer
+        VALGRIND_MAKE_MEM_NOACCESS((char *) MemoryChunkGetPointer(chunk) + size,
+                                   GetChunkSizeFromFreeListIdx(fidx) - size);
+        VALGRIND_MAKE_MEM_NOACCESS(chunk, ALLOC_CHUNKHDRSZ);
+        return MemoryChunkGetPointer(chunk);
+    }
+
+    // No reusable chunk - allocate new one
+    chunk_size = GetChunkSizeFromFreeListIdx(fidx);
+    block = set->blocks;
+    availspace = block->endptr - block->freeptr;
+
+    // Check if current block has enough space
+    if (unlikely(availspace < (chunk_size + ALLOC_CHUNKHDRSZ))) {
+        return AllocSetAllocFromNewBlock(context, size, flags, fidx);
+    }
+
+    // Allocate from current block
+    return AllocSetAllocChunkFromBlock(context, block, size, chunk_size, fidx);
+}
+```

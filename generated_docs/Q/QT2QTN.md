@@ -46,3 +46,44 @@ For operators, the function recursively processes child nodes and combines their
 - Signature bits are calculated as  for efficient bitwise operations
 - Memory is allocated using palloc0 to ensure zero-initialized structures
 - The function is fundamental to PostgreSQL's full-text search functionality, converting linear query representations into tree structures suitable for query execution and optimization
+
+## Simplified Source
+
+```c
+QTNode *
+QT2QTN(QueryItem *in, char *operand)
+{
+    // Allocate and initialize new node
+    QTNode *node = (QTNode *) palloc0(sizeof(QTNode));
+
+    // Prevent stack overflow during recursion
+    check_stack_depth();
+
+    node->valnode = in;
+
+    if (in->type == QI_OPR) {
+        // Handle operator nodes - allocate space for children
+        node->child = (QTNode **) palloc0(sizeof(QTNode *) * 2);
+
+        // Process left child recursively
+        node->child[0] = QT2QTN(in + 1, operand);
+        node->sign = node->child[0]->sign;
+
+        if (in->qoperator.oper == OP_NOT) {
+            // Unary NOT operator - only one child
+            node->nchild = 1;
+        } else {
+            // Binary operator (AND/OR) - process right child
+            node->nchild = 2;
+            node->child[1] = QT2QTN(in + in->qoperator.left, operand);
+            node->sign |= node->child[1]->sign;  // Combine signatures
+        }
+    } else if (operand) {
+        // Handle operand leaf nodes
+        node->word = operand + in->qoperand.distance;
+        node->sign = ((uint32) 1) << (in->qoperand.valcrc % 32);  // Calculate signature bit
+    }
+
+    return node;
+}
+```

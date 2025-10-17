@@ -44,3 +44,18 @@ The function is static (internal) and follows the ExprContextCallbackFunction si
 - Part of the resource management strategy for set-returning functions to prevent memory leaks
 - Can be invoked either through normal completion (via end_MultiFuncCall) or automatically on context termination
 - The memory context deletion is comprehensive - it frees the FuncCallContext and all associated user data
+
+## Simplified Source
+
+```c
+static void shutdown_MultiFuncCall(Datum arg) {
+    FmgrInfo *flinfo = (FmgrInfo *) DatumGetPointer(arg);
+    FuncCallContext *funcctx = (FuncCallContext *) flinfo->fn_extra;
+
+    // Unbind context from function info
+    flinfo->fn_extra = NULL;
+
+    // Delete memory context containing all multi-call data
+    MemoryContextDelete(funcctx->multi_call_memory_ctx);
+}
+```

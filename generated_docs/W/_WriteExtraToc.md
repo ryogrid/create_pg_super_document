@@ -38,3 +38,17 @@ This mechanism allows the custom format to maintain precise offset information f
 - The data written here will be read back by the corresponding _ReadExtraToc function during archive restoration
 - The offset information enables efficient random access to data blocks, which is a key feature of the custom archive format
 - This function is part of the format-specific function pointer interface that makes the archive system extensible
+
+## Simplified Source
+
+```c
+static void
+_WriteExtraToc(ArchiveHandle *AH, TocEntry *te)
+{
+    // Get format-specific context from TOC entry
+    lclTocEntry *ctx = (lclTocEntry *) te->formatData;
+
+    // Write data position and state to archive for later seeking
+    WriteOffset(AH, ctx->dataPos, ctx->dataState);
+}
+```

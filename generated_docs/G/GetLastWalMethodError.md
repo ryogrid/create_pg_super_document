@@ -36,3 +36,15 @@ This function provides a unified interface for accessing error information from 
 - Used extensively throughout the WAL streaming and archiving code for error diagnostics
 - Provides a consistent error reporting interface across all WAL method implementations (directory, tar, etc.)
 - The error state is typically set by individual WAL method operations when they encounter failures
+
+## Simplified Source
+
+```c
+const char *GetLastWalMethodError(WalWriteMethod *wwmethod) {
+    // Return custom error string if available, otherwise system error
+    if (wwmethod->lasterrstring)
+        return wwmethod->lasterrstring;
+
+    return strerror(wwmethod->lasterrno);
+}
+```

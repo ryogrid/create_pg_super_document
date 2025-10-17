@@ -40,3 +40,47 @@ The function requires libz (zlib) support at compile time. If libz is not availa
 - File creation mode is "wb" (write binary)
 - When file parameter is provided, duplicates the file descriptor to avoid conflicts with gzip's close behavior
 - Returns a bbstreamer pointer that should be used with the backup streaming infrastructure
+
+## Simplified Source
+
+```c
+bbstreamer *
+bbstreamer_gzip_writer_new(char *pathname, FILE *file,
+                           pg_compress_specification *compress)
+{
+#ifdef HAVE_LIBZ
+    bbstreamer_gzip_writer *streamer;
+
+    // Allocate and initialize gzip writer structure
+    streamer = palloc0(sizeof(bbstreamer_gzip_writer));
+    *((const bbstreamer_ops **) &streamer->base.bbs_ops) = &bbstreamer_gzip_writer_ops;
+
+    streamer->pathname = pstrdup(pathname);
+
+    // Open gzip file - either create new or wrap existing file handle
+    if (file == NULL) {
+        streamer->gzfile = gzopen(pathname, "wb");
+        if (streamer->gzfile == NULL)
+            pg_fatal("could not create compressed file \"%s\": %m", pathname);
+    } else {
+        int fd = dup(fileno(file));
+        if (fd < 0)
+            pg_fatal("could not duplicate stdout: %m");
+
+        streamer->gzfile = gzdopen(fd, "wb");
+        if (streamer->gzfile == NULL)
+            pg_fatal("could not open output file: %m");
+    }
+
+    // Set compression parameters
+    if (gzsetparams(streamer->gzfile, compress->level, Z_DEFAULT_STRATEGY) != Z_OK)
+        pg_fatal("could not set compression level %d: %s",
+                 compress->level, get_gz_error(streamer->gzfile));
+
+    return &streamer->base;
+#else
+    pg_fatal("this build does not support compression with %s", "gzip");
+    return NULL;
+#endif
+}
+```

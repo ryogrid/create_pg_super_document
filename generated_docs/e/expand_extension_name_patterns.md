@@ -52,3 +52,56 @@ Unlike schema patterns, extension patterns cannot be qualified names - any patte
 - When strict_names is true, the function will terminate with a fatal error if any pattern produces no matches
 - Extensions are database-wide objects and are not contained within schemas, which is why qualification is not allowed
 - The function builds separate queries for each pattern rather than trying to combine them into a single query
+
+## Simplified Source
+
+```c
+static void
+expand_extension_name_patterns(Archive *fout,
+                              SimpleStringList *patterns,
+                              SimpleOidList *oids,
+                              bool strict_names)
+{
+    PQExpBuffer query;
+    PGresult   *res;
+    SimpleStringListCell *cell;
+
+    if (patterns->head == NULL)
+        return;  /* nothing to do */
+
+    query = createPQExpBuffer();
+
+    // Process each pattern in the list
+    for (cell = patterns->head; cell; cell = cell->next)
+    {
+        int dotcnt;
+
+        // Build SELECT query for pg_extension
+        appendPQExpBufferStr(query, "SELECT oid FROM pg_catalog.pg_extension e\n");
+
+        // Process pattern with SQL wildcards
+        processSQLNamePattern(GetConnection(fout), query, cell->val, false,
+                             false, NULL, "e.extname", NULL, NULL, NULL, &dotcnt);
+
+        // Extensions cannot be qualified - reject dotted names
+        if (dotcnt > 0)
+            pg_fatal("improper qualified name (too many dotted names): %s", cell->val);
+
+        // Execute query and collect results
+        res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+        if (strict_names && PQntuples(res) == 0)
+            pg_fatal("no matching extensions were found for pattern \"%s\"", cell->val);
+
+        // Add all matching OIDs to the list
+        for (int i = 0; i < PQntuples(res); i++)
+        {
+            simple_oid_list_append(oids, atooid(PQgetvalue(res, i, 0)));
+        }
+
+        PQclear(res);
+        resetPQExpBuffer(query);
+    }
+
+    destroyPQExpBuffer(query);
+}
+```

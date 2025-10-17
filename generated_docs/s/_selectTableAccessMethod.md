@@ -47,3 +47,47 @@ Table access methods were introduced in PostgreSQL 12 as a pluggable storage int
 - Uses libpq functions (PQexec, PQclear) for database communication when restoring directly to a database
 - Only processes non-NULL tableam parameters, skipping when no table access method is specified
 - The function helps ensure that restored tables use the same storage engine as in the original database
+
+## Simplified Source
+
+```c
+static void _selectTableAccessMethod(ArchiveHandle *AH, const char *tableam) {
+    RestoreOptions *ropt = AH->public.ropt;
+    PQExpBuffer cmd;
+    const char *want, *have;
+
+    // Skip if --no-table-access-method option is set
+    if (ropt->noTableAm)
+        return;
+
+    have = AH->currTableAm;
+    want = tableam;
+
+    // Skip if no table access method specified or already current
+    if (!want)
+        return;
+    if (have && strcmp(want, have) == 0)
+        return;
+
+    // Build SET default_table_access_method command
+    cmd = createPQExpBuffer();
+    appendPQExpBuffer(cmd, "SET default_table_access_method = %s;", fmtId(want));
+
+    // Execute or output command
+    if (RestoringToDB(AH)) {
+        PGresult *res = PQexec(AH->connection, cmd->data);
+        if (!res || PQresultStatus(res) != PGRES_COMMAND_OK)
+            warn_or_exit_horribly(AH,
+                                 "could not set \"default_table_access_method\": %s",
+                                 PQerrorMessage(AH->connection));
+        PQclear(res);
+    } else {
+        ahprintf(AH, "%s\n\n", cmd->data);
+    }
+
+    // Update current table access method tracking
+    destroyPQExpBuffer(cmd);
+    free(AH->currTableAm);
+    AH->currTableAm = pg_strdup(want);
+}
+```

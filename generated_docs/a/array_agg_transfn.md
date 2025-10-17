@@ -48,3 +48,41 @@ The function is designed to work exclusively within PostgreSQL's aggregate execu
 - Supports null element values in the resulting array
 - Critical component of PostgreSQL's SQL aggregate functionality
 - Parser validates array element type compatibility during query planning phase
+
+## Simplified Source
+
+```c
+Datum
+array_agg_transfn(PG_FUNCTION_ARGS)
+{
+    // Get element type from function expression
+    Oid arg1_typeid = get_fn_expr_argtype(fcinfo->flinfo, 1);
+
+    // Validate input type
+    if (arg1_typeid == InvalidOid)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("could not determine input data type")));
+
+    // Ensure called in aggregate context
+    MemoryContext aggcontext;
+    if (!AggCheckCallContext(fcinfo, &aggcontext))
+        elog(ERROR, "array_agg_transfn called in non-aggregate context");
+
+    // Initialize or get existing state
+    ArrayBuildState *state;
+    if (PG_ARGISNULL(0))
+        state = initArrayResult(arg1_typeid, aggcontext, false);
+    else
+        state = (ArrayBuildState *) PG_GETARG_POINTER(0);
+
+    // Get element value (null or actual datum)
+    Datum elem = PG_ARGISNULL(1) ? (Datum) 0 : PG_GETARG_DATUM(1);
+
+    // Accumulate element into array state
+    state = accumArrayResult(state, elem, PG_ARGISNULL(1),
+                           arg1_typeid, aggcontext);
+
+    // Return updated state pointer
+    PG_RETURN_POINTER(state);
+}
+```

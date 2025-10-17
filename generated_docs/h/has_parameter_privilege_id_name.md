@@ -39,3 +39,24 @@ The function converts the privilege string to an AclMode and delegates the actua
 - Part of the SQL-accessible interface for parameter privilege checking
 - The function name 'id_name' indicates the first argument is an ID (OID) and others are names/text
 - Avoids the username resolution step that would be required in the name_name variant
+
+## Simplified Source
+
+```c
+Datum
+has_parameter_privilege_id_name(PG_FUNCTION_ARGS)
+{
+    // Extract role OID, parameter name, and privilege string from arguments
+    Oid role_oid = PG_GETARG_OID(0);
+    text *parameter_name = PG_GETARG_TEXT_PP(1);
+    text *privilege_string = PG_GETARG_TEXT_PP(2);
+
+    // Convert privilege string to internal AclMode representation
+    AclMode privilege_mode = convert_parameter_priv_string(privilege_string);
+
+    // Check if specified role has the privilege on the parameter
+    bool has_privilege = has_param_priv_byname(role_oid, parameter_name, privilege_mode);
+
+    PG_RETURN_BOOL(has_privilege);
+}
+```

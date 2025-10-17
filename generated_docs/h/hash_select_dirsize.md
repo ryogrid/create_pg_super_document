@@ -34,3 +34,24 @@ The function mirrors the logic used in `init_htab` to ensure consistency between
 - Returns directory size as a power of two to accommodate segment doubling during growth
 - Critical for preventing directory overflow in shared memory environments
 - The directory size cannot be changed after hash table creation in shared memory
+
+## Simplified Source
+
+```c
+long hash_select_dirsize(long num_entries) {
+    long nBuckets, nSegments, nDirEntries;
+
+    // Calculate number of buckets needed (round up to power of 2)
+    nBuckets = next_pow2_long(num_entries);
+
+    // Calculate number of segments needed for those buckets
+    nSegments = next_pow2_long((nBuckets - 1) / DEF_SEGSIZE + 1);
+
+    // Start with default directory size and expand as needed
+    nDirEntries = DEF_DIRSIZE;
+    while (nDirEntries < nSegments)
+        nDirEntries <<= 1;  // Directory doubles at each expansion
+
+    return nDirEntries;
+}
+```

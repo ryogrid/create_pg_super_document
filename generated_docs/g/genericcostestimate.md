@@ -54,3 +54,104 @@ The cost model considers nested loop scenarios where the index scan may be repea
 - Uses the Mackert-Lohman formula for cache-aware I/O cost estimation when multiple scans are involved
 - Estimates are primarily focused on leaf page access costs; upper tree level costs are left to specific index AM implementations
 - The function provides a baseline that specific index access methods can build upon or override as needed
+
+## Simplified Source
+
+```c
+void genericcostestimate(PlannerInfo *root, IndexPath *path, double loop_count, GenericCosts *costs)
+{
+    IndexOptInfo *index = path->indexinfo;
+    List *indexQuals = get_quals_from_indexclauses(path->indexclauses);
+    List *indexOrderBys = path->indexorderbys;
+
+    Cost indexStartupCost;
+    Cost indexTotalCost;
+    Selectivity indexSelectivity;
+    double numIndexPages;
+    double numIndexTuples;
+    double spc_random_page_cost;
+    double num_sa_scans;
+    double qual_op_cost;
+    double qual_arg_cost;
+
+    // Include index predicate if partial index
+    List *selectivityQuals = add_predicate_to_index_quals(index, indexQuals);
+
+    // Estimate ScalarArrayOpExpr scans if not provided
+    num_sa_scans = costs->num_sa_scans;
+    if (num_sa_scans < 1) {
+        num_sa_scans = 1;
+        // Calculate scan multiplier for array operations
+        ListCell *l;
+        foreach(l, indexQuals) {
+            RestrictInfo *rinfo = (RestrictInfo *) lfirst(l);
+            if (IsA(rinfo->clause, ScalarArrayOpExpr)) {
+                ScalarArrayOpExpr *saop = (ScalarArrayOpExpr *) rinfo->clause;
+                double alength = estimate_array_length(root, lsecond(saop->args));
+                if (alength > 1)
+                    num_sa_scans *= alength;
+            }
+        }
+    }
+
+    // Estimate selectivity and number of tuples
+    indexSelectivity = clauselist_selectivity(root, selectivityQuals,
+                                             index->rel->relid, JOIN_INNER, NULL);
+
+    numIndexTuples = costs->numIndexTuples;
+    if (numIndexTuples <= 0.0) {
+        numIndexTuples = indexSelectivity * index->rel->tuples;
+        numIndexTuples = rint(numIndexTuples / num_sa_scans);
+    }
+
+    // Bound tuple estimates
+    if (numIndexTuples > index->tuples)
+        numIndexTuples = index->tuples;
+    if (numIndexTuples < 1.0)
+        numIndexTuples = 1.0;
+
+    // Estimate index pages to access
+    if (index->pages > 1 && index->tuples > 1)
+        numIndexPages = ceil(numIndexTuples * index->pages / index->tuples);
+    else
+        numIndexPages = 1.0;
+
+    // Get storage cost parameters
+    get_tablespace_page_costs(index->reltablespace, &spc_random_page_cost, NULL);
+
+    // Calculate disk I/O costs
+    double num_outer_scans = loop_count;
+    double num_scans = num_sa_scans * num_outer_scans;
+
+    if (num_scans > 1) {
+        // Use cache-aware formula for multiple scans
+        double pages_fetched = numIndexPages * num_scans;
+        pages_fetched = index_pages_fetched(pages_fetched, index->pages,
+                                          (double) index->pages, root);
+        indexTotalCost = (pages_fetched * spc_random_page_cost) / num_outer_scans;
+    } else {
+        // Single scan: simple cost per page
+        indexTotalCost = numIndexPages * spc_random_page_cost;
+    }
+
+    // Calculate CPU costs for qualifier evaluation
+    qual_arg_cost = index_other_operands_eval_cost(root, indexQuals) +
+                   index_other_operands_eval_cost(root, indexOrderBys);
+    qual_op_cost = cpu_operator_cost *
+                  (list_length(indexQuals) + list_length(indexOrderBys));
+
+    indexStartupCost = qual_arg_cost;
+    indexTotalCost += qual_arg_cost;
+    indexTotalCost += numIndexTuples * num_sa_scans * (cpu_index_tuple_cost + qual_op_cost);
+
+    // Return all cost estimates
+    costs->indexStartupCost = indexStartupCost;
+    costs->indexTotalCost = indexTotalCost;
+    costs->indexSelectivity = indexSelectivity;
+    costs->indexCorrelation = 0.0;  // Generic assumption
+    costs->numIndexPages = numIndexPages;
+    costs->numIndexTuples = numIndexTuples;
+    costs->spc_random_page_cost = spc_random_page_cost;
+    costs->num_sa_scans = num_sa_scans;
+}
+```

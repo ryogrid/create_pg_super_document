@@ -54,3 +54,40 @@ The function uses a hash table (`_state->json_hash`) to efficiently map field na
 - Memory for JSON substring values is allocated using PostgreSQL's memory context system (palloc)
 - The hash table created here is later used by tuple construction functions to build the final recordset
 - This function maintains the exact equality requirement for field names rather than allowing truncation-based matching
+
+## Simplified Source
+
+```c
+static JsonParseErrorType populate_recordset_object_field_end(void *state, char *fname, bool isnull) {
+    PopulateRecordsetState *_state = (PopulateRecordsetState *) state;
+    JsonHashEntry *hashentry;
+    bool found;
+
+    // Skip deeply nested fields and overly long field names
+    if (_state->lex->lex_level > 2 || strlen(fname) >= NAMEDATALEN)
+        return JSON_SUCCESS;
+
+    // Create or find hash entry for this field name
+    hashentry = hash_search(_state->json_hash, fname, HASH_ENTER, &found);
+    // Note: duplicate fields override earlier values (found == true)
+
+    // Store field type and validate null consistency
+    hashentry->type = _state->saved_token_type;
+    Assert(isnull == (hashentry->type == JSON_TOKEN_NULL));
+
+    // Store field value - either JSON substring or saved scalar
+    if (_state->save_json_start != NULL) {
+        // Complex JSON value (array/object) - copy substring
+        int len = _state->lex->prev_token_terminator - _state->save_json_start;
+        char *val = palloc((len + 1) * sizeof(char));
+        memcpy(val, _state->save_json_start, len);
+        val[len] = '\0';
+        hashentry->val = val;
+    } else {
+        // Scalar value - use saved scalar
+        hashentry->val = _state->saved_scalar;
+    }
+
+    return JSON_SUCCESS;
+}
+```

@@ -44,3 +44,39 @@ The function also manages memory allocation carefully, ensuring that the returne
 - Error reporting integration with PostgreSQL's statistics system ensures proper monitoring and diagnostics
 - Assert statement ensures this function is only called by table synchronization workers
 - The function abstracts the complexity of error handling from the core synchronization logic in LogicalRepSyncTableStart
+
+## Simplified Source
+
+```c
+static void start_table_sync(XLogRecPtr *origin_startpos, char **slotname)
+{
+    char *sync_slotname = NULL;
+
+    Assert(am_tablesync_worker());
+
+    // Attempt table synchronization with error protection
+    PG_TRY();
+    {
+        // Perform the core table sync operation
+        sync_slotname = LogicalRepSyncTableStart(origin_startpos);
+    }
+    PG_CATCH();
+    {
+        // Handle synchronization failure based on subscription config
+        if (MySubscription->disableonerr)
+            DisableSubscriptionAndExit();
+        else
+        {
+            // Report error and re-throw for upstream handling
+            AbortOutOfAnyTransaction();
+            pgstat_report_subscription_error(MySubscription->oid, false);
+            PG_RE_THROW();
+        }
+    }
+    PG_END_TRY();
+
+    // Copy slot name to long-lived memory context
+    *slotname = MemoryContextStrdup(ApplyContext, sync_slotname);
+    pfree(sync_slotname);
+}
+```

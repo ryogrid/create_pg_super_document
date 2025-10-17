@@ -40,3 +40,26 @@ This function is part of PostgreSQL's compression infrastructure for pg_dump, al
 - Part of PostgreSQL's modular compression system that supports multiple compression algorithms
 - Unlike other LZ4Stream functions, this one handles errors gracefully by returning NULL rather than calling pg_fatal()
 - The implementation treats both EOF and error conditions identically, returning NULL in both cases
+
+## Simplified Source
+
+```c
+static char *
+LZ4Stream_gets(char *ptr, int size, CompressFileHandle *CFH)
+{
+    LZ4State *state = (LZ4State *) CFH->private_data;
+    int ret;
+
+    // Read line data using internal function with EOL detection
+    ret = LZ4Stream_read_internal(state, ptr, size - 1, true);
+
+    // Return NULL for EOF or error (both treated the same)
+    if (ret <= 0)
+        return NULL;
+
+    // Null-terminate the string at the end
+    ptr[ret - 1] = '\0';
+
+    return ptr;
+}
+```

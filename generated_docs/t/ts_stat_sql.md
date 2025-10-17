@@ -53,3 +53,73 @@ The function supports weight filtering through the ws parameter, allowing analys
 - Memory allocation occurs in persistent context to ensure data survives function return
 - Part of PostgreSQL's text search functionality for analyzing corpus-wide tsvector statistics
 - Error handling includes specific messages for SPI operation failures and invalid parameters
+
+## Simplified Source
+
+```c
+static TSVectorStat *ts_stat_sql(MemoryContext persistentContext, text *txt, text *ws) {
+    char *query = text_to_cstring(txt);
+    TSVectorStat *stat;
+    bool isnull;
+    Portal portal;
+    SPIPlanPtr plan;
+
+    // Prepare and open cursor for the query
+    if ((plan = SPI_prepare(query, 0, NULL)) == NULL)
+        elog(ERROR, "SPI_prepare(\"%s\") failed", query);
+
+    if ((portal = SPI_cursor_open(NULL, plan, NULL, NULL, true)) == NULL)
+        elog(ERROR, "SPI_cursor_open(\"%s\") failed", query);
+
+    SPI_cursor_fetch(portal, true, 100);
+
+    // Validate query returns one tsvector column
+    if (SPI_tuptable == NULL ||
+        SPI_tuptable->tupdesc->natts != 1 ||
+        !IsBinaryCoercible(SPI_gettypeid(SPI_tuptable->tupdesc, 1), TSVECTOROID))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("ts_stat query must return one tsvector column")));
+
+    // Initialize statistics structure
+    stat = MemoryContextAllocZero(persistentContext, sizeof(TSVectorStat));
+    stat->maxdepth = 1;
+
+    // Parse weight specification
+    if (ws) {
+        char *buf = VARDATA_ANY(ws);
+        while (buf - VARDATA_ANY(ws) < VARSIZE_ANY_EXHDR(ws)) {
+            if (pg_mblen(buf) == 1) {
+                switch (*buf) {
+                    case 'A': case 'a': stat->weight |= 1 << 3; break;
+                    case 'B': case 'b': stat->weight |= 1 << 2; break;
+                    case 'C': case 'c': stat->weight |= 1 << 1; break;
+                    case 'D': case 'd': stat->weight |= 1; break;
+                    default: stat->weight |= 0;
+                }
+            }
+            buf += pg_mblen(buf);
+        }
+    }
+
+    // Process all result rows
+    while (SPI_processed > 0) {
+        uint64 i;
+        for (i = 0; i < SPI_processed; i++) {
+            Datum data = SPI_getbinval(SPI_tuptable->vals[i], SPI_tuptable->tupdesc, 1, &isnull);
+            if (!isnull)
+                stat = ts_accum(persistentContext, stat, data);
+        }
+
+        SPI_freetuptable(SPI_tuptable);
+        SPI_cursor_fetch(portal, true, 100);
+    }
+
+    // Cleanup resources
+    SPI_freetuptable(SPI_tuptable);
+    SPI_cursor_close(portal);
+    SPI_freeplan(plan);
+    pfree(query);
+
+    return stat;
+}
+```

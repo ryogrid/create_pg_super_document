@@ -37,3 +37,25 @@ The function takes a Datum representing a catalog cache tuple reference, recover
 - Includes a safety check (CT_MAGIC assertion) to verify the structure validity
 - Provides detailed information including cache name, cache ID, tuple location (block/offset), and reference count
 - Essential for diagnosing catalog cache reference leaks and understanding resource usage patterns
+
+## Simplified Source
+
+```c
+static char *ResOwnerPrintCatCache(Datum res) {
+    // Convert Datum to HeapTuple and recover containing CatCTup structure
+    HeapTuple tuple = (HeapTuple) DatumGetPointer(res);
+    CatCTup *ct = (CatCTup *) (((char *) tuple) - offsetof(CatCTup, tuple));
+
+    // Safety check for valid cache entry
+    Assert(ct->ct_magic == CT_MAGIC);
+
+    // Generate diagnostic string with cache info, tuple location, and ref count
+    return psprintf("cache %s (%d), tuple %u/%u has count %d",
+                    ct->my_cache->cc_relname, ct->my_cache->id,
+                    ItemPointerGetBlockNumber(&(tuple->t_self)),
+                    ItemPointerGetOffsetNumber(&(tuple->t_self)),
+                    ct->refcount);
+}
+```
+
+This simplified version shows the function's core diagnostic purpose: it recovers the catalog cache structure from a tuple pointer using offset arithmetic, validates it, and creates a formatted string with cache name, tuple location, and reference count for debugging.

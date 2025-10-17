@@ -47,3 +47,66 @@ The function validates the element type compatibility, extracts the constant arr
 - Adjusts selectivity for null fraction when statistics are available
 - Falls back to default selectivity when element comparison function is unavailable
 - Uses both MCELEM (most-common-elements) and DECHIST (distinct-element-count histogram) statistics when available
+
+## Simplified Source
+
+```c
+static Selectivity calc_arraycontsel(VariableStatData *vardata, Datum constval,
+                                    Oid elemtype, Oid operator) {
+    // Get element type's comparison function
+    TypeCacheEntry *typentry = lookup_type_cache(elemtype, TYPECACHE_CMP_PROC_FINFO);
+    if (!OidIsValid(typentry->cmp_proc_finfo.fn_oid))
+        return DEFAULT_SEL(operator);
+
+    ArrayType *array = DatumGetArrayTypeP(constval);
+    Selectivity selec;
+
+    // Try to use statistics if available and security check passes
+    if (HeapTupleIsValid(vardata->statsTuple) &&
+        statistic_proc_security_check(vardata, typentry->cmp_proc_finfo.fn_oid)) {
+
+        Form_pg_statistic stats = (Form_pg_statistic) GETSTRUCT(vardata->statsTuple);
+        AttStatsSlot sslot, hslot;
+
+        // Get most-common-elements statistics
+        if (get_attstatsslot(&sslot, vardata->statsTuple,
+                            STATISTIC_KIND_MCELEM, InvalidOid,
+                            ATTSTATSSLOT_VALUES | ATTSTATSSLOT_NUMBERS)) {
+
+            // For "contained by" operator, also get distinct element count histogram
+            if (operator != OID_ARRAY_CONTAINED_OP ||
+                !get_attstatsslot(&hslot, vardata->statsTuple,
+                                 STATISTIC_KIND_DECHIST, InvalidOid,
+                                 ATTSTATSSLOT_NUMBERS))
+                memset(&hslot, 0, sizeof(hslot));
+
+            // Calculate selectivity using statistics
+            selec = mcelem_array_selec(array, typentry,
+                                      sslot.values, sslot.nvalues,
+                                      sslot.numbers, sslot.nnumbers,
+                                      hslot.numbers, hslot.nnumbers,
+                                      operator);
+
+            free_attstatsslot(&hslot);
+            free_attstatsslot(&sslot);
+        } else {
+            // No MCE statistics available
+            selec = mcelem_array_selec(array, typentry,
+                                      NULL, 0, NULL, 0, NULL, 0, operator);
+        }
+
+        // Adjust for null fraction
+        selec *= (1.0 - stats->stanullfrac);
+    } else {
+        // No statistics available
+        selec = mcelem_array_selec(array, typentry,
+                                  NULL, 0, NULL, 0, NULL, 0, operator);
+    }
+
+    // Clean up toasted array if needed
+    if (PointerGetDatum(array) != constval)
+        pfree(array);
+
+    return selec;
+}
+```

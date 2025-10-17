@@ -39,3 +39,56 @@ This function processes a complete tar header block (512 bytes) that has been bu
 - Calculates padding bytes needed to align file content to tar block boundaries
 - End-of-archive detection is based on tar standard: a block of all zero bytes
 - Forwards the complete header block to the next processing stage with BBSTREAMER_MEMBER_HEADER context
+
+## Simplified Source
+
+```c
+static bool
+bbstreamer_tar_header(bbstreamer_tar_parser *mystreamer)
+{
+    bool has_nonzero_byte = false;
+    int i;
+    bbstreamer_member *member = &mystreamer->member;
+    char *buffer = mystreamer->base.bbs_buffer.data;
+
+    Assert(mystreamer->base.bbs_buffer.len == TAR_BLOCK_SIZE);
+
+    // Check for end-of-archive (all zero bytes)
+    for (i = 0; i < TAR_BLOCK_SIZE; ++i) {
+        if (buffer[i] != '\0') {
+            has_nonzero_byte = true;
+            break;
+        }
+    }
+
+    // End of archive detected
+    if (!has_nonzero_byte)
+        return false;
+
+    // Parse tar header fields
+    strlcpy(member->pathname, &buffer[TAR_OFFSET_NAME], MAXPGPATH);
+    if (member->pathname[0] == '\0')
+        pg_fatal("tar member has empty name");
+
+    member->size = read_tar_number(&buffer[TAR_OFFSET_SIZE], 12);
+    member->mode = read_tar_number(&buffer[TAR_OFFSET_MODE], 8);
+    member->uid = read_tar_number(&buffer[TAR_OFFSET_UID], 8);
+    member->gid = read_tar_number(&buffer[TAR_OFFSET_GID], 8);
+
+    // Determine file type
+    member->is_directory = (buffer[TAR_OFFSET_TYPEFLAG] == TAR_FILETYPE_DIRECTORY);
+    member->is_link = (buffer[TAR_OFFSET_TYPEFLAG] == TAR_FILETYPE_SYMLINK);
+    if (member->is_link)
+        strlcpy(member->linktarget, &buffer[TAR_OFFSET_LINKNAME], 100);
+
+    // Calculate padding bytes for block alignment
+    mystreamer->pad_bytes_expected = tarPaddingBytesRequired(member->size);
+
+    // Forward header to next bbstreamer
+    bbstreamer_content(mystreamer->base.bbs_next, member,
+                      buffer, TAR_BLOCK_SIZE,
+                      BBSTREAMER_MEMBER_HEADER);
+
+    return true;
+}
+```

@@ -47,3 +47,63 @@ The function allocates memory for an array of OpfamilyInfo structures and initia
 - System-defined operator families are included in the collection but filtered during dump output
 - Each operator family is assigned a unique dump ID for dependency tracking
 - The function properly handles PostgreSQL result set processing and memory cleanup
+
+## Simplified Source
+
+```c
+OpfamilyInfo *
+getOpfamilies(Archive *fout, int *numOpfamilies)
+{
+    PGresult   *res;
+    int         ntups;
+    int         i;
+    PQExpBuffer query;
+    OpfamilyInfo *opfinfo;
+
+    query = createPQExpBuffer();
+
+    // Query all operator families from system catalog
+    appendPQExpBufferStr(query, "SELECT tableoid, oid, opfmethod, opfname, "
+                                "opfnamespace, opfowner "
+                                "FROM pg_opfamily");
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+    *numOpfamilies = ntups;
+
+    // Allocate array for operator family info
+    opfinfo = (OpfamilyInfo *) pg_malloc(ntups * sizeof(OpfamilyInfo));
+
+    // Get column indices for result fields
+    int i_tableoid = PQfnumber(res, "tableoid");
+    int i_oid = PQfnumber(res, "oid");
+    int i_opfname = PQfnumber(res, "opfname");
+    int i_opfmethod = PQfnumber(res, "opfmethod");
+    int i_opfnamespace = PQfnumber(res, "opfnamespace");
+    int i_opfowner = PQfnumber(res, "opfowner");
+
+    // Process each operator family result
+    for (i = 0; i < ntups; i++)
+    {
+        // Set object type and catalog info
+        opfinfo[i].dobj.objType = DO_OPFAMILY;
+        opfinfo[i].dobj.catId.tableoid = atooid(PQgetvalue(res, i, i_tableoid));
+        opfinfo[i].dobj.catId.oid = atooid(PQgetvalue(res, i, i_oid));
+
+        // Assign dump ID and basic properties
+        AssignDumpId(&opfinfo[i].dobj);
+        opfinfo[i].dobj.name = pg_strdup(PQgetvalue(res, i, i_opfname));
+        opfinfo[i].dobj.namespace = findNamespace(atooid(PQgetvalue(res, i, i_opfnamespace)));
+        opfinfo[i].opfmethod = atooid(PQgetvalue(res, i, i_opfmethod));
+        opfinfo[i].rolname = getRoleName(PQgetvalue(res, i, i_opfowner));
+
+        // Determine if this operator family should be dumped
+        selectDumpableObject(&(opfinfo[i].dobj), fout);
+    }
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+
+    return opfinfo;
+}
+```

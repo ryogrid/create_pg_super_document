@@ -33,3 +33,26 @@ This function provides an extended interface for retrieving PostgreSQL rewrite r
 - Returns NULL if the rule definition cannot be retrieved
 - Provides user control over output formatting through the pretty parameter
 - Part of PostgreSQL's extended system information functions
+
+## Simplified Source
+
+```c
+Datum
+pg_get_ruledef_ext(PG_FUNCTION_ARGS)
+{
+    Oid ruleoid = PG_GETARG_OID(0);
+    bool pretty = PG_GETARG_BOOL(1);
+    char *res;
+
+    // Convert pretty flag to formatting options
+    int prettyFlags = GET_PRETTY_FLAGS(pretty);
+
+    // Get rule definition with user-specified formatting
+    res = pg_get_ruledef_worker(ruleoid, prettyFlags);
+
+    if (res == NULL)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(string_to_text(res));
+}
+```

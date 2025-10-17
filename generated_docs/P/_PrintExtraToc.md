@@ -40,3 +40,18 @@ This diagnostic information is valuable for debugging archive issues, understand
 - Uses ahprintf to ensure output is properly formatted and directed to the appropriate output stream
 - The comment format ("-- Data Pos: ...") follows SQL comment conventions, making it safe to include in SQL output
 - This function complements the other Extra TOC functions (_WriteExtraToc and _ReadExtraToc) by providing visibility into their operation
+
+## Simplified Source
+
+```c
+static void
+_PrintExtraToc(ArchiveHandle *AH, TocEntry *te)
+{
+    // Get format-specific context
+    lclTocEntry *ctx = (lclTocEntry *) te->formatData;
+
+    // Print data position if verbose mode is enabled
+    if (AH->public.verbose)
+        ahprintf(AH, "-- Data Pos: " INT64_FORMAT "\n", (int64) ctx->dataPos);
+}
+```

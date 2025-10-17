@@ -53,3 +53,77 @@ The function includes safeguards against monitoring stale PID files by comparing
 - The polling interval is configurable via WAITS_PER_SEC (typically 10 checks per second)
 - Clock skew tolerance of 2 seconds is built in for cross-process time comparisons
 - Progress indication helps users understand that startup is proceeding normally during lengthy initialization
+
+## Simplified Source
+
+```c
+static WaitPMResult wait_for_postmaster_start(pid_t pm_pid, bool do_checkpoint) {
+    int i;
+
+    // Poll for startup completion up to wait_seconds * WAITS_PER_SEC times
+    for (i = 0; i < wait_seconds * WAITS_PER_SEC; i++) {
+        char **optlines;
+        int numlines;
+
+        // Try to read postmaster.pid file
+        if ((optlines = readfile(pid_file, &numlines)) != NULL &&
+            numlines >= LOCK_FILE_LINE_PM_STATUS) {
+
+            // Parse PID and start time from lock file
+            pid_t pmpid = atol(optlines[LOCK_FILE_LINE_PID - 1]);
+            time_t pmstart = atoll(optlines[LOCK_FILE_LINE_START_TIME - 1]);
+
+            // Validate this is our postmaster instance
+            if (pmstart >= start_time - 2 &&  // Allow 2-second clock skew
+#ifndef WIN32
+                pmpid == pm_pid  // Unix: exact PID match
+#else
+                pmpid > 0        // Windows: just check for valid PID
+#endif
+                ) {
+
+                // Check status line for readiness
+                char *pmstatus = optlines[LOCK_FILE_LINE_PM_STATUS - 1];
+
+                if (strcmp(pmstatus, PM_STATUS_READY) == 0 ||
+                    strcmp(pmstatus, PM_STATUS_STANDBY) == 0) {
+                    // Postmaster is ready!
+                    free_readfile(optlines);
+                    return POSTMASTER_READY;
+                }
+            }
+        }
+
+        free_readfile(optlines);
+
+        // Check if postmaster process is still alive
+#ifndef WIN32
+        int exitstatus;
+        if (waitpid(pm_pid, &exitstatus, WNOHANG) == pm_pid)
+            return POSTMASTER_FAILED;  // Process died
+#else
+        if (WaitForSingleObject(postmasterProcess, 0) == WAIT_OBJECT_0)
+            return POSTMASTER_FAILED;  // Process died
+#endif
+
+        // Show progress once per second
+        if (i % WAITS_PER_SEC == 0) {
+#ifdef WIN32
+            if (do_checkpoint) {
+                // Update Windows service control manager
+                status.dwWaitHint += 6000;
+                status.dwCheckPoint++;
+                SetServiceStatus(hStatus, (LPSERVICE_STATUS) &status);
+            } else
+#endif
+                print_msg(".");  // Print progress dot
+        }
+
+        // Sleep for 1/WAITS_PER_SEC seconds
+        pg_usleep(USEC_PER_SEC / WAITS_PER_SEC);
+    }
+
+    // Timeout exceeded
+    return POSTMASTER_STILL_STARTING;
+}
+```

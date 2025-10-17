@@ -49,3 +49,55 @@ The function accepts the same first four parameters as  plus an additional text 
   - "return_target": Returns the original JSONB unchanged
 - When new value is not NULL, delegates directly to jsonb_set
 - File location: src/backend/utils/adt/jsonfuncs.c:4893-4959
+
+## Simplified Source
+
+```c
+Datum jsonb_set_lax(PG_FUNCTION_ARGS) {
+    text *handle_null;
+    char *handle_val;
+
+    // Return NULL if required arguments are NULL
+    if (PG_ARGISNULL(0) || PG_ARGISNULL(1) || PG_ARGISNULL(3))
+        PG_RETURN_NULL();
+
+    // Null handling strategy must be provided
+    if (PG_ARGISNULL(4))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("null_value_treatment must be \"delete_key\", \"return_target\", \"use_json_null\", or \"raise_exception\"")));
+
+    // If new value is not NULL, delegate to regular jsonb_set
+    if (!PG_ARGISNULL(2))
+        return jsonb_set(fcinfo);
+
+    // Handle NULL new value based on strategy
+    handle_null = PG_GETARG_TEXT_P(4);
+    handle_val = text_to_cstring(handle_null);
+
+    if (strcmp(handle_val, "raise_exception") == 0) {
+        ereport(ERROR, (errcode(ERRCODE_NULL_VALUE_NOT_ALLOWED),
+                       errmsg("JSON value must not be null"),
+                       errdetail("Exception was raised because null_value_treatment is \"raise_exception\".")));
+    }
+    else if (strcmp(handle_val, "use_json_null") == 0) {
+        // Convert SQL NULL to JSON null
+        Datum newval = DirectFunctionCall1(jsonb_in, CStringGetDatum("null"));
+        fcinfo->args[2].value = newval;
+        fcinfo->args[2].isnull = false;
+        return jsonb_set(fcinfo);
+    }
+    else if (strcmp(handle_val, "delete_key") == 0) {
+        return jsonb_delete_path(fcinfo);
+    }
+    else if (strcmp(handle_val, "return_target") == 0) {
+        Jsonb *in = PG_GETARG_JSONB_P(0);
+        PG_RETURN_JSONB_P(in);
+    }
+    else {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("null_value_treatment must be \"delete_key\", \"return_target\", \"use_json_null\", or \"raise_exception\"")));
+    }
+
+    return (Datum) 0;  // Never reached
+}
+```

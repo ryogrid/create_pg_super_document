@@ -52,3 +52,43 @@ The `parse_sane_timezone` function attempts to parse and validate a timezone spe
 - The tm_isdst field may be updated inconsistently across different code paths (noted in comments)
 - Provides detailed error messages distinguishing between format errors and overflow conditions
 - Returns timezone offset in seconds (negative values indicate west of UTC)
+
+## Simplified Source
+
+```c
+static int parse_sane_timezone(struct pg_tm *tm, text *zone) {
+    char tzname[TZ_STRLEN_MAX + 1];
+    int tz;
+
+    // Convert text to C string
+    text_to_cstring_buffer(zone, tzname, sizeof(tzname));
+
+    // Reject numeric timezones without proper +/- prefix
+    if (isdigit((unsigned char) *tzname)) {
+        ereport(ERROR, "Numeric time zones must have \"-\" or \"+\" as first character.");
+    }
+
+    // Try to decode as numeric timezone offset
+    if (DecodeTimezone(tzname, &tz) == 0) {
+        return tz;  // Successfully parsed numeric offset
+    }
+
+    // Fall back to timezone name lookup
+    int type, val;
+    pg_tz *tzp;
+    type = DecodeTimezoneName(tzname, &val, &tzp);
+
+    if (type == TZNAME_FIXED_OFFSET) {
+        // Fixed offset abbreviation (e.g., "EST")
+        tz = -val;
+    } else if (type == TZNAME_DYNTZ) {
+        // Dynamic timezone abbreviation (changes with DST)
+        tz = DetermineTimeZoneAbbrevOffset(tm, tzname, tzp);
+    } else {
+        // Full timezone name (e.g., "America/New_York")
+        tz = DetermineTimeZoneOffset(tm, tzp);
+    }
+
+    return tz;
+}
+```

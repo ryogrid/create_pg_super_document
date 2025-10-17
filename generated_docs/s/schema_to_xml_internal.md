@@ -55,3 +55,48 @@ The function supports both simple XML output and XML Schema-aware output, and ca
 - Creates XML with proper namespace handling and schema inclusion
 - Located in src/backend/utils/adt/xml.c:3181-3223
 - Part of PostgreSQL's XML support infrastructure
+
+## Simplified Source
+
+```c
+static StringInfo
+schema_to_xml_internal(Oid nspid, const char *xmlschema, bool nulls,
+                       bool tableforest, const char *targetns, bool top_level)
+{
+    // Convert schema name to XML-safe format
+    char *xmlsn = map_sql_identifier_to_xml_name(get_namespace_name(nspid), true, false);
+    StringInfo result = makeStringInfo();
+
+    // Create XML root element with optional schema
+    xmldata_root_element_start(result, xmlsn, xmlschema, targetns, top_level);
+    appendStringInfoChar(result, '\n');
+
+    // Include XML schema if provided
+    if (xmlschema)
+        appendStringInfo(result, "%s\n\n", xmlschema);
+
+    // Connect to SPI to access table information
+    SPI_connect();
+
+    // Get all visible tables in the schema
+    List *relid_list = schema_get_xml_visible_tables(nspid);
+
+    // Convert each table to XML and append to result
+    ListCell *cell;
+    foreach(cell, relid_list)
+    {
+        Oid relid = lfirst_oid(cell);
+        StringInfo subres = table_to_xml_internal(relid, NULL, nulls,
+                                                 tableforest, targetns, false);
+        appendBinaryStringInfo(result, subres->data, subres->len);
+        appendStringInfoChar(result, '\n');
+    }
+
+    SPI_finish();
+
+    // Close XML root element
+    xmldata_root_element_end(result, xmlsn);
+
+    return result;
+}
+```

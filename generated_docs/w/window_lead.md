@@ -29,3 +29,15 @@ This function provides the SQL LEAD window function functionality without offset
 - The three boolean parameters to leadlag_common represent: is_lead=true (it's a lead), has_offset=false, has_default=false
 - Part of PostgreSQL's SQL window function implementation for LEAD(expr)
 - This is the simplest version of the LEAD function, defaulting to offset=1 and no default value
+
+## Simplified Source
+
+```c
+Datum
+window_lead(PG_FUNCTION_ARGS)
+{
+    // Delegate to common lag/lead implementation
+    // Parameters: is_lead=true, has_offset=false, has_default=false
+    return leadlag_common(fcinfo, true, false, false);
+}
+```

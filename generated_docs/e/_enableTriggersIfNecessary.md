@@ -44,3 +44,27 @@ This function is critical for maintaining database integrity after bulk data loa
 - Essential for restoring normal database operation after optimized data loading
 - Ensures database integrity and business logic enforcement after bulk data operations
 - Part of the comprehensive trigger management strategy in PostgreSQL backup/restore utilities
+
+## Simplified Source
+
+```c
+static void
+_enableTriggersIfNecessary(ArchiveHandle *AH, TocEntry *te)
+{
+    RestoreOptions *ropt = AH->public.ropt;
+
+    // Only re-enable triggers if we're doing a data-only restore
+    // and the user requested trigger disabling
+    if (!ropt->dataOnly || !ropt->disable_triggers)
+        return;
+
+    pg_log_info("enabling triggers for %s", te->tag);
+
+    // Switch to superuser if available since they can enable constraint triggers
+    _becomeUser(AH, ropt->superuser);
+
+    // Re-enable all triggers on the table
+    ahprintf(AH, "ALTER TABLE %s ENABLE TRIGGER ALL;\n\n",
+             fmtQualifiedId(te->namespace, te->tag));
+}
+```

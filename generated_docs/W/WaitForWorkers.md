@@ -49,3 +49,51 @@ This design enables efficient resource utilization by allowing the leader to dis
 - Central to pg_dump's load balancing by enabling dynamic work redistribution
 - Optimized for common case where typically only one worker completes at a time
 - Essential for preventing resource exhaustion and ensuring orderly shutdown of parallel operations
+
+## Simplified Source
+
+```c
+void WaitForWorkers(ArchiveHandle *AH, ParallelState *pstate, WFW_WaitOption mode) {
+    bool do_wait = false;
+
+    // In GOT_STATUS mode, always wait for a message initially
+    if (mode == WFW_GOT_STATUS) {
+        Assert(!IsEveryWorkerIdle(pstate));  // Must have active workers
+        do_wait = true;
+    }
+
+    for (;;) {
+        // Check for status messages from workers
+        if (ListenToWorkers(AH, pstate, do_wait)) {
+            // Got a message - check if we're done based on mode
+            if (mode != WFW_ALL_IDLE) {
+                return;  // Done for all modes except ALL_IDLE
+            }
+        }
+
+        // Check termination conditions based on wait mode
+        switch (mode) {
+            case WFW_NO_WAIT:
+                return;  // Never wait, just collect available messages
+
+            case WFW_GOT_STATUS:
+                Assert(false);  // Should have returned above after getting message
+
+            case WFW_ONE_IDLE:
+                if (GetIdleWorker(pstate) != NO_SLOT) {
+                    return;  // Found at least one idle worker
+                }
+                break;
+
+            case WFW_ALL_IDLE:
+                if (IsEveryWorkerIdle(pstate)) {
+                    return;  // All workers are now idle
+                }
+                break;
+        }
+
+        // If we get here, wait for something to happen
+        do_wait = true;
+    }
+}
+```

@@ -54,3 +54,64 @@ After preprocessing, it delegates to specialized functions:
 - Sorts constant array elements for efficient statistical analysis
 - Validates operator type and raises ERROR for unrecognized operators
 - Core component of PostgreSQL's array selectivity estimation framework
+
+## Simplified Source
+
+```c
+static Selectivity mcelem_array_selec(ArrayType *array, TypeCacheEntry *typentry,
+                                     Datum *mcelem, int nmcelem,
+                                     float4 *numbers, int nnumbers,
+                                     float4 *hist, int nhist, Oid operator) {
+    // Deconstruct array into individual elements
+    int num_elems;
+    Datum *elem_values;
+    bool *elem_nulls;
+
+    deconstruct_array(array, typentry->type_id, typentry->typlen,
+                     typentry->typbyval, typentry->typalign,
+                     &elem_values, &elem_nulls, &num_elems);
+
+    // Remove null elements and check for null presence
+    int nonnull_nitems = 0;
+    bool null_present = false;
+    for (int i = 0; i < num_elems; i++) {
+        if (elem_nulls[i])
+            null_present = true;
+        else
+            elem_values[nonnull_nitems++] = elem_values[i];
+    }
+
+    // Special case: "column @> array_with_null" always returns 0
+    if (null_present && operator == OID_ARRAY_CONTAINS_OP) {
+        pfree(elem_values);
+        pfree(elem_nulls);
+        return (Selectivity) 0.0;
+    }
+
+    // Sort elements for efficient comparison with statistics
+    qsort_arg(elem_values, nonnull_nitems, sizeof(Datum),
+              element_compare, typentry);
+
+    Selectivity selec;
+
+    // Delegate to appropriate specialized function
+    if (operator == OID_ARRAY_CONTAINS_OP || operator == OID_ARRAY_OVERLAP_OP) {
+        selec = mcelem_array_contain_overlap_selec(mcelem, nmcelem,
+                                                  numbers, nnumbers,
+                                                  elem_values, nonnull_nitems,
+                                                  operator, typentry);
+    } else if (operator == OID_ARRAY_CONTAINED_OP) {
+        selec = mcelem_array_contained_selec(mcelem, nmcelem,
+                                           numbers, nnumbers,
+                                           elem_values, nonnull_nitems,
+                                           hist, nhist, operator, typentry);
+    } else {
+        elog(ERROR, "arraycontsel called for unrecognized operator %u", operator);
+        selec = 0.0;
+    }
+
+    pfree(elem_values);
+    pfree(elem_nulls);
+    return selec;
+}
+```

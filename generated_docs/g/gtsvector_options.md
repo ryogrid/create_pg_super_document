@@ -42,3 +42,21 @@ The function sets up the infrastructure for PostgreSQL's CREATE INDEX ... WITH (
 - This function is called during index creation when WITH clauses specify tsvector-specific options
 - The GistTsVectorOptions structure is stored as part of the index's metadata
 - Changing signature length requires reindexing to take effect
+
+## Simplified Source
+
+```c
+Datum gtsvector_options(PG_FUNCTION_ARGS) {
+    local_relopts *relopts = (local_relopts *) PG_GETARG_POINTER(0);
+
+    // Initialize relation options system
+    init_local_reloptions(relopts, sizeof(GistTsVectorOptions));
+
+    // Add signature length option: default 124 bytes, range 1 to SIGLEN_MAX
+    add_local_int_reloption(relopts, "siglen", "signature length",
+                            SIGLEN_DEFAULT, 1, SIGLEN_MAX,
+                            offsetof(GistTsVectorOptions, siglen));
+
+    PG_RETURN_VOID();
+}
+```

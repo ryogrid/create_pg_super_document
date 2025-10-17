@@ -43,3 +43,24 @@ The function uses PostgreSQL's standard function argument interface:
 - Part of PostgreSQL's multibyte character encoding conversion infrastructure
 - Returns the number of input bytes successfully converted
 - Windows-1250 is a Microsoft code page used primarily for Central and Eastern European languages
+
+## Simplified Source
+
+```c
+Datum win1250_to_mic(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate conversion is between expected encodings
+    CHECK_ENCODING_CONVERSION_ARGS(PG_WIN1250, PG_MULE_INTERNAL);
+
+    // Perform table-based conversion: Win1250 -> ISO8859-2 -> MIC
+    int converted = latin2mic_with_table(src, dest, len, LC_ISO8859_2, PG_WIN1250,
+                                         win1250_2_iso88592, noError);
+
+    PG_RETURN_INT32(converted);
+}
+```

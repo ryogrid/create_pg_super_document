@@ -39,3 +39,49 @@ The `injection_points_attach` function provides the primary interface for creati
 - Throws an ERROR for unsupported action types
 - Essential component of PostgreSQL's testing infrastructure for creating controlled test scenarios
 - Part of the injection_points extension module
+
+## Simplified Source
+
+```c
+Datum
+injection_points_attach(PG_FUNCTION_ARGS)
+{
+    char *name = text_to_cstring(PG_GETARG_TEXT_PP(0));
+    char *action = text_to_cstring(PG_GETARG_TEXT_PP(1));
+    char *function;
+    InjectionPointCondition condition = {0};
+
+    // Map action types to callback function names
+    if (strcmp(action, "error") == 0)
+        function = "injection_error";
+    else if (strcmp(action, "notice") == 0)
+        function = "injection_notice";
+    else if (strcmp(action, "wait") == 0)
+        function = "injection_wait";
+    else
+        elog(ERROR, "incorrect action \"%s\" for injection point creation", action);
+
+    // Set up condition for local injection points
+    if (injection_point_local)
+    {
+        condition.type = INJ_CONDITION_PID;
+        condition.pid = MyProcPid;
+    }
+
+    // Register the injection point
+    InjectionPointAttach(name, "injection_points", function, &condition,
+                         sizeof(InjectionPointCondition));
+
+    // Track local injection points for cleanup
+    if (injection_point_local)
+    {
+        MemoryContext oldctx;
+
+        oldctx = MemoryContextSwitchTo(TopMemoryContext);
+        inj_list_local = lappend(inj_list_local, makeString(pstrdup(name)));
+        MemoryContextSwitchTo(oldctx);
+    }
+
+    PG_RETURN_VOID();
+}
+```

@@ -39,3 +39,52 @@ This function is responsible for receiving streaming replication data from a Pos
 - Uses a two-stage approach: first attempts immediate receive, then waits if no data is available
 - Critical component of pg_basebackup's WAL streaming functionality for continuous replication
 - Handles both blocking and non-blocking scenarios gracefully
+
+## Simplified Source
+
+```c
+static int
+CopyStreamReceive(PGconn *conn, long timeout, pgsocket stop_socket,
+                  char **buffer)
+{
+    char *copybuf = NULL;
+    int rawlen;
+
+    // Free previous buffer and reset
+    PQfreemem(*buffer);
+    *buffer = NULL;
+
+    // Try immediate receive
+    rawlen = PQgetCopyData(conn, &copybuf, 1);
+
+    // If no data available, wait with timeout
+    if (rawlen == 0) {
+        int ret = CopyStreamPoll(conn, timeout, stop_socket);
+        if (ret <= 0)
+            return ret;  // Timeout or error
+
+        // Consume input and try again
+        if (PQconsumeInput(conn) == 0) {
+            pg_log_error("could not receive data from WAL stream: %s",
+                         PQerrorMessage(conn));
+            return -1;
+        }
+
+        rawlen = PQgetCopyData(conn, &copybuf, 1);
+        if (rawlen == 0)
+            return 0;  // Still no data
+    }
+
+    // Handle special cases
+    if (rawlen == -1)  // End of stream
+        return -2;
+    if (rawlen == -2) {  // Error
+        pg_log_error("could not read COPY data: %s", PQerrorMessage(conn));
+        return -1;
+    }
+
+    // Success - return buffer and length
+    *buffer = copybuf;
+    return rawlen;
+}
+```

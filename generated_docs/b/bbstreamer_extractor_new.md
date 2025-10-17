@@ -39,3 +39,26 @@ The `bbstreamer_extractor_new` function creates and initializes a new bbstreamer
 - Part of PostgreSQL's backup and restore streaming architecture
 - The link_map callback allows for redirecting symbolic links during extraction
 - Located in src/bin/pg_basebackup/bbstreamer_file.c:183-202
+
+## Simplified Source
+
+```c
+bbstreamer *
+bbstreamer_extractor_new(const char *basepath,
+                         const char *(*link_map) (const char *),
+                         void (*report_output_file) (const char *))
+{
+    bbstreamer_extractor *streamer;
+
+    // Allocate and initialize extractor structure
+    streamer = palloc0(sizeof(bbstreamer_extractor));
+    *((const bbstreamer_ops **) &streamer->base.bbs_ops) = &bbstreamer_extractor_ops;
+
+    // Store configuration
+    streamer->basepath = pstrdup(basepath);
+    streamer->link_map = link_map;
+    streamer->report_output_file = report_output_file;
+
+    return &streamer->base;
+}
+```

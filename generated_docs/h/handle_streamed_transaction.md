@@ -58,3 +58,62 @@ The function includes special handling for RELATION and TYPE messages, ensuring 
 - Validates transaction IDs and reports protocol violations for invalid XIDs
 - Part of PostgreSQL's advanced logical replication streaming and parallel processing infrastructure
 - Handles both streaming serialization for large transactions and parallel processing for performance
+
+## Simplified Source
+
+```c
+static bool handle_streamed_transaction(LogicalRepMsgType action, StringInfo s) {
+    TransactionId current_xid;
+    ParallelApplyWorkerInfo *winfo;
+    TransApplyAction apply_action;
+    StringInfoData original_msg;
+
+    // Determine how to process this transaction
+    apply_action = get_transaction_apply_action(stream_xid, &winfo);
+
+    // Regular non-streaming mode
+    if (apply_action == TRANS_LEADER_APPLY)
+        return false;
+
+    // Save original message for fallback scenarios
+    original_msg = *s;
+
+    // Extract transaction ID from message
+    current_xid = pq_getmsgint(s, 4);
+    if (!TransactionIdIsValid(current_xid))
+        ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                       errmsg_internal("invalid transaction ID")));
+
+    switch (apply_action) {
+        case TRANS_LEADER_SERIALIZE:
+            // Serialize changes to disk for later processing
+            subxact_info_add(current_xid);
+            stream_write_change(action, s);
+            return true;
+
+        case TRANS_LEADER_SEND_TO_PARALLEL:
+            // Try to send to parallel worker, fallback to serialization
+            if (pa_send_data(winfo, s->len, s->data))
+                return (action != LOGICAL_REP_MSG_RELATION &&
+                       action != LOGICAL_REP_MSG_TYPE);
+            pa_switch_to_partial_serialize(winfo, false);
+            // fall through
+
+        case TRANS_LEADER_PARTIAL_SERIALIZE:
+            // Partial serialization mode
+            stream_write_change(action, &original_msg);
+            return (action != LOGICAL_REP_MSG_RELATION &&
+                   action != LOGICAL_REP_MSG_TYPE);
+
+        case TRANS_PARALLEL_APPLY:
+            // Handle in parallel apply worker
+            parallel_stream_nchanges += 1;
+            pa_start_subtrans(current_xid, stream_xid);
+            return false;
+
+        default:
+            elog(ERROR, "unexpected apply action: %d", (int) apply_action);
+            return false;
+    }
+}
+```

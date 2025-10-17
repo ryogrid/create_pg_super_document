@@ -36,3 +36,14 @@ The function is remarkably simple and efficient, using PostgreSQLs `PQExpBuffer`
 - The callback_data parameter must be properly cast to PQExpBuffer for correct operation
 - Part of the streaming data architecture that supports both file-based and memory-based manifest processing
 - Extremely lightweight implementation focused solely on data accumulation
+
+## Simplified Source
+
+```c
+static void ReceiveBackupManifestInMemoryChunk(size_t r, char *copybuf, void *callback_data) {
+    PQExpBuffer buf = callback_data;
+
+    // Append chunk data to memory buffer
+    appendPQExpBuffer(buf, copybuf, r);
+}
+```

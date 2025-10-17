@@ -31,3 +31,30 @@ This static function is responsible for removing an interval value from the accu
 - Infinite intervals are tracked separately and do not contribute to the finite value count N
 - The function includes safety measures to reset the sum when all values are discarded to prevent floating-point accumulation errors
 - Used specifically for interval average calculations in window functions and moving aggregates
+
+## Simplified Source
+```c
+static void do_interval_discard(IntervalAggState *state, Interval *newval) {
+    // Handle infinite intervals separately
+    if (INTERVAL_IS_NOBEGIN(newval)) {
+        state->nInfcount--;  // Remove negative infinity count
+        return;
+    }
+
+    if (INTERVAL_IS_NOEND(newval)) {
+        state->pInfcount--;  // Remove positive infinity count
+        return;
+    }
+
+    // Handle finite interval removal
+    state->N--;
+    if (state->N > 0) {
+        // Subtract from running sum
+        finite_interval_mi(&state->sumX, newval, &state->sumX);
+    } else {
+        // All values discarded, reset sum to prevent accumulation errors
+        Assert(state->N == 0);
+        memset(&state->sumX, 0, sizeof(state->sumX));
+    }
+}
+```

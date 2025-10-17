@@ -44,3 +44,55 @@ The function includes stack overflow protection and uses careful memory manageme
 - The function can significantly reduce query tree complexity by removing redundant negation operations
 - Memory management is critical as the function restructures the tree and must properly deallocate removed nodes
 - The resulting optimized tree maintains the same logical meaning while being more efficient to execute
+
+## Simplified Source
+
+```c
+static NODE *clean_NOT_intree(NODE *node) {
+    // Prevent stack overflow
+    check_stack_depth();
+
+    // Value nodes are left unchanged
+    if (node->valnode->type == QI_VAL)
+        return node;
+
+    // Remove NOT operators completely (they always return TRUE)
+    if (node->valnode->qoperator.oper == OP_NOT) {
+        freetree(node);
+        return NULL;
+    }
+
+    // Handle OR operators: if either child becomes NULL, remove entire subtree
+    if (node->valnode->qoperator.oper == OP_OR) {
+        if ((node->left = clean_NOT_intree(node->left)) == NULL ||
+            (node->right = clean_NOT_intree(node->right)) == NULL) {
+            freetree(node);
+            return NULL;
+        }
+    } else {
+        // Handle AND/PHRASE operators: can survive with one child
+        NODE *result = node;
+
+        // Clean both children
+        node->left = clean_NOT_intree(node->left);
+        node->right = clean_NOT_intree(node->right);
+
+        if (node->left == NULL && node->right == NULL) {
+            // Both children removed - remove this node too
+            pfree(node);
+            result = NULL;
+        } else if (node->left == NULL) {
+            // Left child removed - replace node with right child
+            result = node->right;
+            pfree(node);
+        } else if (node->right == NULL) {
+            // Right child removed - replace node with left child
+            result = node->left;
+            pfree(node);
+        }
+        return result;
+    }
+
+    return node;
+}
+```

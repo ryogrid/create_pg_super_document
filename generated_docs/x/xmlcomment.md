@@ -37,3 +37,43 @@ The function uses PostgreSQL's internal string manipulation functions to build t
 - Throws  error for invalid comment content
 - XML comments cannot contain  sequences or end with  according to XML specification
 - Returns XML type using PostgreSQL's internal XML handling mechanisms
+
+## Simplified Source
+
+```c
+Datum xmlcomment(PG_FUNCTION_ARGS) {
+#ifdef USE_LIBXML
+    text *arg = PG_GETARG_TEXT_PP(0);
+    char *argdata = VARDATA_ANY(arg);
+    int len = VARSIZE_ANY_EXHDR(arg);
+    StringInfoData buf;
+
+    // Validate comment content - no "--" sequences
+    for (int i = 1; i < len; i++) {
+        if (argdata[i] == '-' && argdata[i - 1] == '-') {
+            ereport(ERROR,
+                    (errcode(ERRCODE_INVALID_XML_COMMENT),
+                     errmsg("invalid XML comment")));
+        }
+    }
+
+    // Validate comment doesn't end with "-"
+    if (len > 0 && argdata[len - 1] == '-') {
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_XML_COMMENT),
+                 errmsg("invalid XML comment")));
+    }
+
+    // Build XML comment
+    initStringInfo(&buf);
+    appendStringInfoString(&buf, "<!--");
+    appendStringInfoText(&buf, arg);
+    appendStringInfoString(&buf, "-->");
+
+    PG_RETURN_XML_P(stringinfo_to_xmltype(&buf));
+#else
+    NO_XML_SUPPORT();
+    return 0;
+#endif
+}
+```

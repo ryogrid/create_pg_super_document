@@ -47,3 +47,109 @@ The getConstraints function focuses specifically on foreign key constraints, as 
 - The function assumes tblinfo array is sorted by OID for efficient table lookup during constraint processing
 - All created ConstraintInfo objects are marked as separate dump objects with proper namespace inheritance
 - Memory allocation for ConstraintInfo array is based on the actual number of foreign key constraints found
+
+## Simplified Source
+
+```c
+void getConstraints(Archive *fout, TableInfo tblinfo[], int numTables) {
+    PQExpBuffer query = createPQExpBuffer();
+    PQExpBuffer tbloids = createPQExpBuffer();
+
+    // Build array of table OIDs to query constraints for
+    appendPQExpBufferChar(tbloids, '{');
+    for (int i = 0; i < numTables; i++) {
+        TableInfo *tinfo = &tblinfo[i];
+
+        // Skip tables without triggers (except partitioned tables)
+        if ((!tinfo->hastriggers && tinfo->relkind != RELKIND_PARTITIONED_TABLE) ||
+            !(tinfo->dobj.dump & DUMP_COMPONENT_DEFINITION))
+            continue;
+
+        if (tbloids->len > 1)
+            appendPQExpBufferChar(tbloids, ',');
+        appendPQExpBuffer(tbloids, "%u", tinfo->dobj.catId.oid);
+    }
+    appendPQExpBufferChar(tbloids, '}');
+
+    // Build SQL query for foreign key constraints
+    appendPQExpBufferStr(query,
+        "SELECT c.tableoid, c.oid, conrelid, conname, confrelid, ");
+    if (fout->remoteVersion >= 110000)
+        appendPQExpBufferStr(query, "conindid, ");
+    else
+        appendPQExpBufferStr(query, "0 AS conindid, ");
+    appendPQExpBuffer(query,
+        "pg_catalog.pg_get_constraintdef(c.oid) AS condef\n"
+        "FROM unnest('%s'::pg_catalog.oid[]) AS src(tbloid)\n"
+        "JOIN pg_catalog.pg_constraint c ON (src.tbloid = c.conrelid)\n"
+        "WHERE contype = 'f' ", tbloids->data);
+    if (fout->remoteVersion >= 110000)
+        appendPQExpBufferStr(query, "AND conparentid = 0 ");
+    appendPQExpBufferStr(query, "ORDER BY conrelid, conname");
+
+    // Execute query and process results
+    PGresult *res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    int ntups = PQntuples(res);
+
+    // Get column indices
+    int i_contableoid = PQfnumber(res, "tableoid");
+    int i_conoid = PQfnumber(res, "oid");
+    int i_conrelid = PQfnumber(res, "conrelid");
+    int i_conname = PQfnumber(res, "conname");
+    int i_confrelid = PQfnumber(res, "confrelid");
+    int i_conindid = PQfnumber(res, "conindid");
+    int i_condef = PQfnumber(res, "condef");
+
+    // Allocate constraint info array
+    ConstraintInfo *constrinfo = pg_malloc(ntups * sizeof(ConstraintInfo));
+
+    // Process each constraint result
+    int curtblindx = -1;
+    TableInfo *tbinfo = NULL;
+    for (int j = 0; j < ntups; j++) {
+        Oid conrelid = atooid(PQgetvalue(res, j, i_conrelid));
+
+        // Find associated table (relies on OID-sorted tblinfo array)
+        if (tbinfo == NULL || tbinfo->dobj.catId.oid != conrelid) {
+            while (++curtblindx < numTables) {
+                tbinfo = &tblinfo[curtblindx];
+                if (tbinfo->dobj.catId.oid == conrelid)
+                    break;
+            }
+        }
+
+        // Initialize constraint info structure
+        constrinfo[j].dobj.objType = DO_FK_CONSTRAINT;
+        constrinfo[j].dobj.catId.tableoid = atooid(PQgetvalue(res, j, i_contableoid));
+        constrinfo[j].dobj.catId.oid = atooid(PQgetvalue(res, j, i_conoid));
+        AssignDumpId(&constrinfo[j].dobj);
+        constrinfo[j].dobj.name = pg_strdup(PQgetvalue(res, j, i_conname));
+        constrinfo[j].dobj.namespace = tbinfo->dobj.namespace;
+        constrinfo[j].contable = tbinfo;
+        constrinfo[j].contype = 'f';
+        constrinfo[j].condef = pg_strdup(PQgetvalue(res, j, i_condef));
+        constrinfo[j].confrelid = atooid(PQgetvalue(res, j, i_confrelid));
+        constrinfo[j].separate = true;
+
+        // Handle partitioned table dependencies
+        TableInfo *reftable = findTableByOid(constrinfo[j].confrelid);
+        if (reftable && reftable->relkind == RELKIND_PARTITIONED_TABLE) {
+            Oid indexOid = atooid(PQgetvalue(res, j, i_conindid));
+            if (indexOid != InvalidOid) {
+                // Find and add dependencies on partition index attach objects
+                for (int k = 0; k < reftable->numIndexes; k++) {
+                    if (reftable->indexes[k].dobj.catId.oid == indexOid) {
+                        addConstrChildIdxDeps(&constrinfo[j].dobj, &reftable->indexes[k]);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    // Cleanup
+    PQclear(res);
+    destroyPQExpBuffer(query);
+    destroyPQExpBuffer(tbloids);
+}
+```

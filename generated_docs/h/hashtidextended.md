@@ -38,3 +38,20 @@ The  function is a PostgreSQL built-in function that generates a seeded hash val
 - Used in complex hash operations like multi-level hash joins
 - Part of PostgreSQL's extended hash operator family for the TID data type
 - Located in src/backend/utils/adt/tid.c:272-295
+
+## Simplified Source
+
+```c
+Datum
+hashtidextended(PG_FUNCTION_ARGS)
+{
+    // Extract arguments: TID and seed value
+    ItemPointer key = PG_GETARG_ITEMPOINTER(0);
+    uint64 seed = PG_GETARG_INT64(1);
+
+    // Compute extended hash with seed, using explicit size calculation
+    return hash_any_extended((unsigned char *) key,
+                             sizeof(BlockIdData) + sizeof(OffsetNumber),
+                             seed);
+}
+```

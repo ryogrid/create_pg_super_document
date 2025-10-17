@@ -49,3 +49,47 @@ Memory management follows PostgreSQL patterns using , , and  functions. If the f
 - Companion function to  for memory cleanup
 - Essential for reading configuration templates and SQL scripts during database initialization
 - Handles empty files correctly (returns array with single NULL element)
+
+## Simplified Source
+
+```c
+static char **readfile(const char *path) {
+    char **result;
+    FILE *infile;
+    StringInfoData line;
+    int maxlines;
+    int n;
+
+    // Open file for reading
+    if ((infile = fopen(path, "r")) == NULL)
+        pg_fatal("could not open file \"%s\" for reading: %m", path);
+
+    initStringInfo(&line);
+
+    // Start with capacity for 1024 lines
+    maxlines = 1024;
+    result = (char **) pg_malloc(maxlines * sizeof(char *));
+
+    // Read lines from file
+    n = 0;
+    while (pg_get_line_buf(infile, &line)) {
+        // Expand array if needed (leave room for NULL terminator)
+        if (n >= maxlines - 1) {
+            maxlines *= 2;
+            result = (char **) pg_realloc(result, maxlines * sizeof(char *));
+        }
+
+        // Copy line to result array
+        result[n++] = pg_strdup(line.data);
+    }
+
+    // NULL-terminate the array
+    result[n] = NULL;
+
+    // Cleanup
+    pfree(line.data);
+    fclose(infile);
+
+    return result;
+}
+```

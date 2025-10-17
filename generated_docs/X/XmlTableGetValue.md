@@ -57,3 +57,115 @@ The function includes comprehensive error handling using PostgreSQL's PG_TRY/PG_
 - Implements proper resource cleanup using PG_TRY/PG_FINALLY to ensure XPath objects are freed
 - Sets the current XML node as the context for column XPath evaluation
 - For XML target columns, properly escapes string values and concatenates multiple node results
+
+## Simplified Source
+
+```c
+static Datum
+XmlTableGetValue(TableFuncScanState *state, int colnum,
+                 Oid typid, int32 typmod, bool *isnull)
+{
+#ifdef USE_LIBXML
+    XmlTableBuilderData *xtCxt = GetXmlTableBuilderPrivateData(state, "XmlTableGetValue");
+    Datum result = (Datum) 0;
+    xmlNodePtr cur;
+    char *cstr = NULL;
+    volatile xmlXPathObjectPtr xpathobj = NULL;
+
+    Assert(xtCxt->xpathobj && xtCxt->xpathobj->type == XPATH_NODESET &&
+           xtCxt->xpathobj->nodesetval != NULL);
+
+    xmlSetStructuredErrorFunc((void *) xtCxt->xmlerrcxt, xml_errorHandler);
+    *isnull = false;
+
+    // Get current row node and set as XPath context
+    cur = xtCxt->xpathobj->nodesetval->nodeTab[xtCxt->row_count - 1];
+    Assert(xtCxt->xpathscomp[colnum] != NULL);
+
+    PG_TRY();
+    {
+        xtCxt->xpathcxt->node = cur;
+
+        // Evaluate column XPath expression
+        xpathobj = xmlXPathCompiledEval(xtCxt->xpathscomp[colnum], xtCxt->xpathcxt);
+        if (xpathobj == NULL || xtCxt->xmlerrcxt->err_occurred)
+            xml_ereport(xtCxt->xmlerrcxt, ERROR, ERRCODE_INTERNAL_ERROR,
+                        "could not create XPath object");
+
+        // Handle different XPath result types
+        if (xpathobj->type == XPATH_NODESET)
+        {
+            int count = (xpathobj->nodesetval != NULL) ? xpathobj->nodesetval->nodeNr : 0;
+
+            if (count == 0)
+            {
+                *isnull = true;
+            }
+            else if (typid == XMLOID)
+            {
+                // For XML columns: concatenate all nodes
+                StringInfoData str;
+                initStringInfo(&str);
+                for (int i = 0; i < count; i++)
+                {
+                    text *textstr = xml_xmlnodetoxmltype(xpathobj->nodesetval->nodeTab[i],
+                                                         xtCxt->xmlerrcxt);
+                    appendStringInfoText(&str, textstr);
+                }
+                cstr = str.data;
+            }
+            else
+            {
+                // For non-XML columns: require single node
+                if (count > 1)
+                    ereport(ERROR, (errcode(ERRCODE_CARDINALITY_VIOLATION),
+                            errmsg("more than one value returned by column XPath expression")));
+
+                xmlChar *str = xmlXPathCastNodeSetToString(xpathobj->nodesetval);
+                cstr = str ? xml_pstrdup_and_free(str) : "";
+            }
+        }
+        else if (xpathobj->type == XPATH_STRING)
+        {
+            cstr = (typid == XMLOID) ? escape_xml((char *) xpathobj->stringval)
+                                     : (char *) xpathobj->stringval;
+        }
+        else if (xpathobj->type == XPATH_BOOLEAN)
+        {
+            // Handle boolean results with type conversion
+            char typcategory;
+            bool typispreferred;
+            get_type_category_preferred(typid, &typcategory, &typispreferred);
+
+            xmlChar *str = (typcategory != TYPCATEGORY_NUMERIC)
+                ? xmlXPathCastBooleanToString(xpathobj->boolval)
+                : xmlXPathCastNumberToString(xmlXPathCastBooleanToNumber(xpathobj->boolval));
+            cstr = xml_pstrdup_and_free(str);
+        }
+        else if (xpathobj->type == XPATH_NUMBER)
+        {
+            xmlChar *str = xmlXPathCastNumberToString(xpathobj->floatval);
+            cstr = xml_pstrdup_and_free(str);
+        }
+        else
+            elog(ERROR, "unexpected XPath object type %u", xpathobj->type);
+
+        // Convert to target PostgreSQL type
+        if (!*isnull)
+            result = InputFunctionCall(&state->in_functions[colnum], cstr,
+                                       state->typioparams[colnum], typmod);
+    }
+    PG_FINALLY();
+    {
+        if (xpathobj != NULL)
+            xmlXPathFreeObject(xpathobj);
+    }
+    PG_END_TRY();
+
+    return result;
+#else
+    NO_XML_SUPPORT();
+    return 0;
+#endif
+}
+```

@@ -46,3 +46,59 @@ The normalization process ensures that intervals are represented in a canonical 
 - Implements complex sign normalization logic to ensure consistent interval representation
 - Critical for maintaining predictable behavior in interval arithmetic operations
 - Located at src/backend/utils/adt/timestamp.c:2880-2959
+
+## Simplified Source
+
+```c
+Datum interval_justify_interval(PG_FUNCTION_ARGS) {
+    Interval *span = PG_GETARG_INTERVAL_P(0);
+    Interval *result = (Interval *) palloc(sizeof(Interval));
+
+    // Copy input interval
+    result->month = span->month;
+    result->day = span->day;
+    result->time = span->time;
+
+    // Handle infinite intervals
+    if (INTERVAL_NOT_FINITE(result))
+        PG_RETURN_INTERVAL_P(result);
+
+    // Pre-justify days to prevent overflow when same sign
+    if ((result->day > 0 && result->time > 0) ||
+        (result->day < 0 && result->time < 0)) {
+        int32 wholemonth = result->day / DAYS_PER_MONTH;
+        result->day -= wholemonth * DAYS_PER_MONTH;
+        result->month += wholemonth; // with overflow check
+    }
+
+    // Normalize time: extract whole days from time component
+    TimeOffset wholeday;
+    TMODULO(result->time, wholeday, USECS_PER_DAY);
+    result->day += wholeday;
+
+    // Normalize days: extract whole months from day component
+    int32 wholemonth = result->day / DAYS_PER_MONTH;
+    result->day -= wholemonth * DAYS_PER_MONTH;
+    result->month += wholemonth; // with overflow check
+
+    // Ensure consistent signs: align month with day/time
+    if (result->month > 0 && (result->day < 0 || (result->day == 0 && result->time < 0))) {
+        result->day += DAYS_PER_MONTH;
+        result->month--;
+    } else if (result->month < 0 && (result->day > 0 || (result->day == 0 && result->time > 0))) {
+        result->day -= DAYS_PER_MONTH;
+        result->month++;
+    }
+
+    // Ensure consistent signs: align day with time
+    if (result->day > 0 && result->time < 0) {
+        result->time += USECS_PER_DAY;
+        result->day--;
+    } else if (result->day < 0 && result->time > 0) {
+        result->time -= USECS_PER_DAY;
+        result->day++;
+    }
+
+    PG_RETURN_INTERVAL_P(result);
+}
+```

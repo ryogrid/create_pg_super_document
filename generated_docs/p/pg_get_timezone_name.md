@@ -35,3 +35,14 @@ This is a straightforward getter function that provides safe access to the timez
 - Accesses the TZname field directly from the pg_tz structure
 - Simple one-line implementation with null check for defensive programming
 - Located in src/timezone/localtime.c:1875-1889
+
+## Simplified Source
+
+```c
+const char *pg_get_timezone_name(pg_tz *tz) {
+    // Return timezone name if valid, NULL otherwise
+    if (tz)
+        return tz->TZname;
+    return NULL;
+}
+```

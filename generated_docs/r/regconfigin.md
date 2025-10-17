@@ -46,3 +46,42 @@ The function performs name resolution by parsing the input into qualified name c
 - Part of PostgreSQL's full-text search system infrastructure
 - Located in src/backend/utils/adt/regproc.c
 - Uses error context for proper error handling and reporting
+
+## Simplified Source
+
+```c
+Datum
+regconfigin(PG_FUNCTION_ARGS)
+{
+    char *input = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    Oid result;
+
+    // Handle "-" or numeric OID input
+    if (parseDashOrOid(input, &result, escontext)) {
+        PG_RETURN_OID(result);
+    }
+
+    // Bootstrap mode only accepts numeric OIDs
+    if (IsBootstrapProcessingMode()) {
+        elog(ERROR, "regconfig values must be OIDs in bootstrap mode");
+    }
+
+    // Parse qualified name and look up in catalog
+    List *names = stringToQualifiedNameList(input, escontext);
+    if (names == NIL) {
+        PG_RETURN_NULL();
+    }
+
+    result = get_ts_config_oid(names, true);
+
+    if (!OidIsValid(result)) {
+        ereturn(escontext, (Datum) 0,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("text search configuration \"%s\" does not exist",
+                        NameListToString(names))));
+    }
+
+    PG_RETURN_OID(result);
+}
+```

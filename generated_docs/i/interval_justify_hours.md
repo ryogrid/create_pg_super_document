@@ -42,3 +42,37 @@ This is a more limited normalization compared to interval_justify_interval, focu
 - Includes sign normalization between day and time fields
 - Does not affect the month field, unlike interval_justify_interval
 - Located at src/backend/utils/adt/timestamp.c:2960-3001
+
+## Simplified Source
+
+```c
+Datum interval_justify_hours(PG_FUNCTION_ARGS) {
+    Interval *span = PG_GETARG_INTERVAL_P(0);
+    Interval *result = (Interval *) palloc(sizeof(Interval));
+
+    // Copy input interval
+    result->month = span->month;
+    result->day = span->day;
+    result->time = span->time;
+
+    // Handle infinite intervals
+    if (INTERVAL_NOT_FINITE(result))
+        PG_RETURN_INTERVAL_P(result);
+
+    // Extract whole days from time component (time -> days conversion)
+    TimeOffset wholeday;
+    TMODULO(result->time, wholeday, USECS_PER_DAY);
+    result->day += wholeday; // with overflow check
+
+    // Normalize signs between day and time components
+    if (result->day > 0 && result->time < 0) {
+        result->time += USECS_PER_DAY;
+        result->day--;
+    } else if (result->day < 0 && result->time > 0) {
+        result->time -= USECS_PER_DAY;
+        result->day++;
+    }
+
+    PG_RETURN_INTERVAL_P(result);
+}
+```

@@ -38,3 +38,19 @@ The function parses the input text as a qualified name (potentially schema.relat
 - Critical for supporting legacy function calls that pass text arguments where regclass is expected
 - Part of the broader regproc family handling various registry data types
 - Located in src/backend/utils/adt/regproc.c with related registry type functions
+
+## Simplified Source
+
+```c
+Datum text_regclass(PG_FUNCTION_ARGS) {
+    text *relname = PG_GETARG_TEXT_PP(0);
+
+    // Convert text to qualified name list, then to RangeVar
+    RangeVar *rv = makeRangeVarFromNameList(textToQualifiedNameList(relname));
+
+    // Resolve relation name to OID without locking (might not have permissions)
+    Oid result = RangeVarGetRelid(rv, NoLock, false);
+
+    PG_RETURN_OID(result);
+}
+```

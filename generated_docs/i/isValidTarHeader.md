@@ -34,3 +34,32 @@ This function performs TAR header validation by first verifying the checksum int
 - Essential for archive format auto-detection in PostgreSQL backup/restore operations
 - The function assumes the header parameter points to a complete 512-byte TAR header block
 - Located in src/bin/pg_dump/pg_backup_tar.c:988-1013
+
+## Simplified Source
+
+```c
+bool isValidTarHeader(char *header) {
+    // Calculate and verify header checksum
+    int calculated_checksum = tarChecksum(header);
+    int stored_checksum = read_tar_number(&header[TAR_OFFSET_CHECKSUM], 8);
+
+    if (stored_checksum != calculated_checksum)
+        return false;
+
+    // Check for supported TAR format magic numbers
+    // POSIX tar format: "ustar\0" + version "00"
+    if (memcmp(&header[TAR_OFFSET_MAGIC], "ustar\0", 6) == 0 &&
+        memcmp(&header[TAR_OFFSET_VERSION], "00", 2) == 0)
+        return true;
+
+    // GNU tar format: "ustar  \0"
+    if (memcmp(&header[TAR_OFFSET_MAGIC], "ustar  \0", 8) == 0)
+        return true;
+
+    // Legacy pg_dump format (pre-9.3): "ustar00\0"
+    if (memcmp(&header[TAR_OFFSET_MAGIC], "ustar00\0", 8) == 0)
+        return true;
+
+    return false;
+}
+```

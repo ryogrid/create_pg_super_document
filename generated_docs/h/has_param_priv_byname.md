@@ -35,3 +35,16 @@ The function is part of PostgreSQL's access control system for configuration par
 - Returns true if the user has been granted the specified privilege, false otherwise
 - The function handles the data type conversion needed to interface with the underlying ACL checking system
 - Part of the family of has_parameter_privilege functions that provide different interfaces for parameter privilege checking
+
+## Simplified Source
+
+```c
+static bool has_param_priv_byname(Oid roleid, const text *parameter, AclMode priv)
+{
+    // Convert PostgreSQL text parameter name to C string
+    char *paramstr = text_to_cstring(parameter);
+
+    // Check if role has specified privilege on the parameter
+    return pg_parameter_aclcheck(paramstr, roleid, priv) == ACLCHECK_OK;
+}
+```

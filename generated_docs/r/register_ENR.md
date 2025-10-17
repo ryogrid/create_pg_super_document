@@ -32,3 +32,16 @@ This function adds an ephemeral named relation to a query environment's list of 
 - The ENR is added to the namedRelList which is a PostgreSQL List structure
 - This is a mutating operation that modifies the query environment
 - Duplicate registrations with the same name will trigger an assertion failure
+
+## Simplified Source
+
+```c
+void register_ENR(QueryEnvironment *queryEnv, EphemeralNamedRelation enr) {
+    // Validate input parameters
+    Assert(enr != NULL);
+    Assert(get_ENR(queryEnv, enr->md.name) == NULL);  // No duplicate names
+
+    // Add ENR to the query environment's named relation list
+    queryEnv->namedRelList = lappend(queryEnv->namedRelList, enr);
+}
+```

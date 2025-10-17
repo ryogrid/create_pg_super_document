@@ -48,3 +48,67 @@ static int LogStreamerMain(logstreamer_param *param)
 - Handles both plain format (directory method) and tar format (tar method) for WAL storage  
 - Includes platform-specific error signaling for the parent process on failure
 - Critical component of pg_basebackup's parallel streaming architecture
+
+## Simplified Source
+
+```c
+static int
+LogStreamerMain(logstreamer_param *param)
+{
+    StreamCtl stream = {0};
+
+    in_log_streamer = true;
+
+    // Configure streaming parameters
+    stream.startpos = param->startptr;
+    stream.timeline = param->timeline;
+    stream.sysidentifier = param->sysidentifier;
+    stream.stream_stop = reached_end_position;
+    stream.standby_message_timeout = standby_message_timeout;
+    stream.synchronous = false;
+    stream.do_sync = false;  // fsync happens at the end of pg_basebackup
+    stream.mark_done = true;
+    stream.partial_suffix = NULL;
+    stream.replication_slot = replication_slot;
+
+#ifndef WIN32
+    stream.stop_socket = bgpipe[0];
+#else
+    stream.stop_socket = PGINVALID_SOCKET;
+#endif
+
+    // Create appropriate WAL method based on format
+    if (format == 'p') {
+        // Plain format - use directory method
+        stream.walmethod = CreateWalDirectoryMethod(param->xlog, PG_COMPRESSION_NONE, 0, stream.do_sync);
+    }
+    else {
+        // Tar format - use tar method with compression
+        stream.walmethod = CreateWalTarMethod(param->xlog, param->wal_compress_algorithm,
+                                            param->wal_compress_level, stream.do_sync);
+    }
+
+    // Start receiving WAL stream
+    if (!ReceiveXlogStream(param->bgconn, &stream)) {
+        // Signal failure to parent process
+#ifdef WIN32
+        bgchild_exited = true;
+#endif
+        return 1;
+    }
+
+    // Finish and cleanup
+    if (!stream.walmethod->ops->finish(stream.walmethod)) {
+        pg_log_error("could not finish writing WAL files: %m");
+#ifdef WIN32
+        bgchild_exited = true;
+#endif
+        return 1;
+    }
+
+    PQfinish(param->bgconn);
+    stream.walmethod->ops->free(stream.walmethod);
+
+    return 0;
+}
+```

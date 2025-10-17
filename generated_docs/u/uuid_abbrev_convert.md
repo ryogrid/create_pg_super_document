@@ -43,3 +43,36 @@ The function employs several key techniques:
 - During the estimation phase, contributes hash values to HyperLogLog for cardinality analysis
 - The conversion maintains sort order correctness while enabling significantly faster comparisons
 - Platform-specific handling ensures optimal performance on both 32-bit and 64-bit systems
+
+## Simplified Source
+
+```c
+static Datum uuid_abbrev_convert(Datum original, SortSupport ssup) {
+    uuid_sortsupport_state *uss = ssup->ssup_extra;
+    pg_uuid_t *uuid = DatumGetUUIDP(original);
+    Datum result;
+
+    // Pack first bytes of UUID into Datum for fast comparison
+    memcpy(&result, uuid->data, sizeof(Datum));
+    uss->input_count += 1;
+
+    // Update cardinality estimation if still sampling
+    if (uss->estimating) {
+        uint32 hash_input;
+
+        // Extract hash input based on platform word size
+        #if SIZEOF_DATUM == 8
+            hash_input = (uint32) result ^ (uint32) ((uint64) result >> 32);
+        #else
+            hash_input = (uint32) result;
+        #endif
+
+        addHyperLogLog(&uss->abbr_card, DatumGetUInt32(hash_uint32(hash_input)));
+    }
+
+    // Convert to native byte order for proper unsigned comparison
+    result = DatumBigEndianToNative(result);
+
+    return result;
+}
+```

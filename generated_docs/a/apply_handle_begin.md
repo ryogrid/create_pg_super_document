@@ -34,3 +34,28 @@ This function processes logical replication BEGIN messages that signal the start
 - Stores the final_lsn for the transaction in the global remote_final_lsn variable
 - The function is static and only called internally within the logical replication worker
 - Part of PostgreSQL's logical replication apply worker message handling system
+
+## Simplified Source
+
+```c
+static void
+apply_handle_begin(StringInfo s)
+{
+    LogicalRepBeginData begin_data;
+
+    // No streaming transaction should be active
+    Assert(!TransactionIdIsValid(stream_xid));
+
+    // Read transaction begin data from message
+    logicalrep_read_begin(s, &begin_data);
+    set_apply_error_context_xact(begin_data.xid, begin_data.final_lsn);
+
+    // Store transaction final LSN and start tracking
+    remote_final_lsn = begin_data.final_lsn;
+    maybe_start_skipping_changes(begin_data.final_lsn);
+    in_remote_transaction = true;
+
+    // Report worker is now processing transaction
+    pgstat_report_activity(STATE_RUNNING, NULL);
+}
+```

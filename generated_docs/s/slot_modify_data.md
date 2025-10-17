@@ -62,3 +62,64 @@ The function is designed to be memory-efficient by only converting and replacing
 - The function assumes that both source and destination slots have the same tuple descriptor structure
 - More efficient than creating a completely new tuple when only some columns have changed
 - Critical for logical replication UPDATE processing where minimizing data conversion overhead is important
+
+## Simplified Source
+
+```c
+static void
+slot_modify_data(TupleTableSlot *slot, TupleTableSlot *srcslot,
+                 LogicalRepRelMapEntry *rel,
+                 LogicalRepTupleData *tupleData)
+{
+    int natts = slot->tts_tupleDescriptor->natts;
+
+    // Clear destination slot and copy all values from source
+    ExecClearTuple(slot);
+    slot_getallattrs(srcslot);
+    memcpy(slot->tts_values, srcslot->tts_values, natts * sizeof(Datum));
+    memcpy(slot->tts_isnull, srcslot->tts_isnull, natts * sizeof(bool));
+
+    // Process each attribute, replacing changed columns
+    for (int i = 0; i < natts; i++) {
+        Form_pg_attribute att = TupleDescAttr(slot->tts_tupleDescriptor, i);
+        int remoteattnum = rel->attrmap->attnums[i];
+
+        if (remoteattnum < 0)
+            continue;
+
+        // Only process changed columns
+        if (tupleData->colstatus[remoteattnum] != LOGICALREP_COLUMN_UNCHANGED) {
+            StringInfo colvalue = &tupleData->colvalues[remoteattnum];
+            apply_error_callback_arg.remote_attnum = remoteattnum;
+
+            if (tupleData->colstatus[remoteattnum] == LOGICALREP_COLUMN_TEXT) {
+                // Convert text format data
+                Oid typinput, typioparam;
+                getTypeInputInfo(att->atttypid, &typinput, &typioparam);
+                slot->tts_values[i] = OidInputFunctionCall(typinput, colvalue->data,
+                                                         typioparam, att->atttypmod);
+                slot->tts_isnull[i] = false;
+            }
+            else if (tupleData->colstatus[remoteattnum] == LOGICALREP_COLUMN_BINARY) {
+                // Convert binary format data
+                Oid typreceive, typioparam;
+                colvalue->cursor = 0; // Reset for re-parsing
+                getTypeBinaryInputInfo(att->atttypid, &typreceive, &typioparam);
+                slot->tts_values[i] = OidReceiveFunctionCall(typreceive, colvalue,
+                                                           typioparam, att->atttypmod);
+                slot->tts_isnull[i] = false;
+            }
+            else {
+                // Handle NULL values
+                slot->tts_values[i] = (Datum) 0;
+                slot->tts_isnull[i] = true;
+            }
+
+            apply_error_callback_arg.remote_attnum = -1;
+        }
+    }
+
+    // Store the virtual tuple in the slot
+    ExecStoreVirtualTuple(slot);
+}
+```

@@ -37,3 +37,25 @@ This function constructs and executes a SQL query to find all tables, materializ
 - Uses PostgreSQL's privilege system (has_table_privilege) to ensure security
 - Results are ordered by relation name for consistent output
 - Only includes objects where the user has SELECT privileges
+
+## Simplified Source
+
+```c
+static List *schema_get_xml_visible_tables(Oid nspid)
+{
+    StringInfoData query;
+
+    // Build SQL query to find visible tables in the schema
+    initStringInfo(&query);
+    appendStringInfo(&query, "SELECT oid FROM pg_catalog.pg_class"
+                     " WHERE relnamespace = %u AND relkind IN ("
+                     CppAsString2(RELKIND_RELATION) ","
+                     CppAsString2(RELKIND_MATVIEW) ","
+                     CppAsString2(RELKIND_VIEW) ")"
+                     " AND pg_catalog.has_table_privilege (oid, 'SELECT')"
+                     " ORDER BY relname;", nspid);
+
+    // Execute query and return list of table OIDs
+    return query_to_oid_list(query.data);
+}
+```

@@ -42,3 +42,66 @@ The `big52euc_tw` function performs the reverse conversion of `euc_tw2big5`, con
 - Returns the number of bytes processed from the input
 - Null-terminates the output buffer
 - Complementary function to `euc_tw2big5` for bidirectional conversion support
+
+## Simplified Source
+
+```c
+static int big52euc_tw(const unsigned char *big5, unsigned char *p, int len, bool noError) {
+    const unsigned char *start = big5;
+
+    while (len > 0) {
+        unsigned short c1 = *big5;
+
+        if (IS_HIGHBIT_SET(c1)) {
+            // Verify multi-byte character in Big5
+            int char_len = pg_encoding_verifymbchar(PG_BIG5, (const char *) big5, len);
+            if (char_len < 0) {
+                if (noError) break;
+                report_invalid_encoding(PG_BIG5, (const char *) big5, len);
+            }
+
+            // Convert Big5 to CNS format
+            unsigned short big5buf = (c1 << 8) | big5[1];
+            unsigned char plane;
+            unsigned short cnsBuf = BIG5toCNS(big5buf, &plane);
+
+            // Generate appropriate EUC-TW sequence based on plane
+            if (plane == LC_CNS11643_1) {
+                // Direct 2-byte output
+                *p++ = (cnsBuf >> 8) & 0x00ff;
+                *p++ = cnsBuf & 0x00ff;
+            } else if (plane == LC_CNS11643_2) {
+                // SS2 + 0xa2 + 2-byte CNS code
+                *p++ = SS2;
+                *p++ = 0xa2;
+                *p++ = (cnsBuf >> 8) & 0x00ff;
+                *p++ = cnsBuf & 0x00ff;
+            } else if (plane >= LC_CNS11643_3 && plane <= LC_CNS11643_7) {
+                // SS2 + plane identifier + 2-byte CNS code
+                *p++ = SS2;
+                *p++ = plane - LC_CNS11643_3 + 0xa3;
+                *p++ = (cnsBuf >> 8) & 0x00ff;
+                *p++ = cnsBuf & 0x00ff;
+            } else {
+                if (noError) break;
+                report_untranslatable_char(PG_BIG5, PG_EUC_TW, (const char *) big5, len);
+            }
+
+            big5 += char_len;
+            len -= char_len;
+        } else {
+            // ASCII character - copy directly
+            if (c1 == 0) {
+                if (noError) break;
+                report_invalid_encoding(PG_BIG5, (const char *) big5, len);
+            }
+            *p++ = c1;
+            big5++;
+            len--;
+        }
+    }
+
+    *p = '\0';
+    return big5 - start;
+}
+```

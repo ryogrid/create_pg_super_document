@@ -48,3 +48,39 @@ Key operations include:
 - File descriptor remains open between flushes for efficiency
 - Uses pg_file_create_mode for appropriate file permissions on creation
 - Handles partial write scenarios by reporting exactly how many bytes were written
+
+## Simplified Source
+
+```c
+static void flush_manifest(manifest_writer *mwriter) {
+    // Create manifest file on first call
+    if (mwriter->fd == -1) {
+        mwriter->fd = open(mwriter->pathname, O_WRONLY | O_CREAT | O_EXCL | PG_BINARY, pg_file_create_mode);
+        if (mwriter->fd < 0)
+            pg_fatal("could not open file \"%s\": %m", mwriter->pathname);
+    }
+
+    // Write buffered data to file
+    if (mwriter->buf.len > 0) {
+        ssize_t wb = write(mwriter->fd, mwriter->buf.data, mwriter->buf.len);
+
+        // Check for write errors
+        if (wb != mwriter->buf.len) {
+            if (wb < 0)
+                pg_fatal("could not write file \"%s\": %m", mwriter->pathname);
+            else
+                pg_fatal("could not write file \"%s\": wrote %d of %d",
+                        mwriter->pathname, (int) wb, mwriter->buf.len);
+        }
+
+        // Update checksum if still calculating
+        if (mwriter->still_checksumming) {
+            if (pg_checksum_update(&mwriter->manifest_ctx, (uint8 *) mwriter->buf.data, mwriter->buf.len) < 0)
+                pg_fatal("could not update checksum of file \"%s\"", mwriter->pathname);
+        }
+
+        // Clear buffer after successful write
+        resetStringInfo(&mwriter->buf);
+    }
+}
+```

@@ -42,3 +42,23 @@ The function follows PostgreSQL's standard function call convention using  and r
 - The function converts Name to text before processing since the generic matching function works with text
 - Located in src/backend/utils/adt/like.c:370-384
 - Uses PostgreSQL's collation system for proper case-insensitive matching across different locales
+
+## Simplified Source
+
+```c
+Datum
+nameiclike(PG_FUNCTION_ARGS)
+{
+    // Extract arguments
+    Name str = PG_GETARG_NAME(0);
+    text *pat = PG_GETARG_TEXT_PP(1);
+
+    // Convert Name to text for processing
+    text *strtext = DatumGetTextPP(DirectFunctionCall1(name_text, NameGetDatum(str)));
+
+    // Perform case-insensitive pattern matching
+    bool result = (Generic_Text_IC_like(strtext, pat, PG_GET_COLLATION()) == LIKE_TRUE);
+
+    PG_RETURN_BOOL(result);
+}
+```

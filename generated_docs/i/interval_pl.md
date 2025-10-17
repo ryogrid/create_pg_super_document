@@ -54,3 +54,39 @@ The function follows PostgreSQL's standard function interface pattern, extractin
 - Allocates new memory for results rather than modifying inputs
 - Raises ERROR with ERRCODE_DATETIME_VALUE_OUT_OF_RANGE for undefined operations
 - Core component of PostgreSQL's interval arithmetic system
+
+## Simplified Source
+
+```c
+Datum interval_pl(PG_FUNCTION_ARGS) {
+    // Extract input arguments
+    Interval *span1 = PG_GETARG_INTERVAL_P(0);
+    Interval *span2 = PG_GETARG_INTERVAL_P(1);
+
+    // Allocate result memory
+    Interval *result = (Interval *) palloc(sizeof(Interval));
+
+    // Handle infinite intervals - prevent "infinity - infinity" cases
+    if (INTERVAL_IS_NOBEGIN(span1)) {
+        if (INTERVAL_IS_NOEND(span2))
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                           errmsg("interval out of range")));
+        else
+            INTERVAL_NOBEGIN(result);
+    }
+    else if (INTERVAL_IS_NOEND(span1)) {
+        if (INTERVAL_IS_NOBEGIN(span2))
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                           errmsg("interval out of range")));
+        else
+            INTERVAL_NOEND(result);
+    }
+    else if (INTERVAL_NOT_FINITE(span2))
+        memcpy(result, span2, sizeof(Interval));
+    else
+        // Both intervals are finite - do safe addition
+        finite_interval_pl(span1, span2, result);
+
+    PG_RETURN_INTERVAL_P(result);
+}
+```

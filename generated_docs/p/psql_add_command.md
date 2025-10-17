@@ -44,3 +44,43 @@ The function first uses a variadic argument mechanism to format the query string
 - Uses a retry loop for string formatting to handle cases where the initial buffer size is insufficient
 - Memory allocated for the temporary command buffer is properly freed after use
 - The function wraps each SQL command in double quotes as a -c argument to psql
+
+## Simplified Source
+
+```c
+static void psql_add_command(StringInfo buf, const char *query, ...)
+{
+    StringInfoData cmdbuf;
+    const char *cmdptr;
+
+    // Add -c argument wrapper to psql command
+    appendStringInfoString(buf, " -c \"");
+
+    // Format the query string with variable arguments
+    initStringInfo(&cmdbuf);
+    for (;;) {
+        va_list args;
+        int needed;
+
+        va_start(args, query);
+        needed = appendStringInfoVA(&cmdbuf, query, args);
+        va_end(args);
+
+        if (needed == 0)
+            break;  // Success - string fits in buffer
+        enlargeStringInfo(&cmdbuf, needed);
+    }
+
+    // Escape shell metacharacters: \ " $ `
+    for (cmdptr = cmdbuf.data; *cmdptr; cmdptr++) {
+        if (strchr("\\\"$`", *cmdptr))
+            appendStringInfoChar(buf, '\\');
+        appendStringInfoChar(buf, *cmdptr);
+    }
+
+    // Close the quoted argument
+    appendStringInfoChar(buf, '"');
+
+    pfree(cmdbuf.data);
+}
+```

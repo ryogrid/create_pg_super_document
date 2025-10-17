@@ -40,3 +40,32 @@ The function is critical to the parallel restore mechanism as it populates the w
 - The function carefully saves the next pointer before potentially removing an entry from the list to avoid iterator invalidation
 - Only items matching the current restore pass are considered, enabling phased restoration (structure, data, constraints, etc.)
 - The binary heap maintains priority ordering of ready work items for optimal scheduling
+
+## Simplified Source
+
+```c
+static void move_to_ready_heap(TocEntry *pending_list,
+                              binaryheap *ready_heap,
+                              RestorePass pass) {
+    TocEntry *current_entry;
+    TocEntry *next_entry;
+
+    // Iterate through all pending entries
+    for (current_entry = pending_list->pending_next;
+         current_entry != pending_list;
+         current_entry = next_entry) {
+
+        // Save next pointer before potentially removing current entry
+        next_entry = current_entry->pending_next;
+
+        // Check if entry is ready: no dependencies and correct restore pass
+        if (current_entry->depCount == 0 &&
+            _tocEntryRestorePass(current_entry) == pass) {
+
+            // Move from pending list to ready heap
+            pending_list_remove(current_entry);
+            binaryheap_add(ready_heap, current_entry);
+        }
+    }
+}
+```

@@ -37,3 +37,56 @@ This function serves as a validation hook for the default_text_search_config GUC
 - Modifies the stored value to be fully qualified to prevent search_path dependency issues
 - Uses GUC memory management functions (guc_free, guc_strdup) for proper memory handling
 - Part of PostgreSQL's GUC (Grand Unified Configuration) system infrastructure
+
+## Simplified Source
+
+```c
+bool check_default_text_search_config(char **newval, void **extra, GucSource source)
+{
+    // Skip validation if not in transaction or no database connection
+    if (IsTransactionState() && MyDatabaseId != InvalidOid) {
+        ErrorSaveContext escontext = {T_ErrorSaveContext};
+        List *namelist;
+        Oid cfgId;
+
+        // Parse configuration name
+        namelist = stringToQualifiedNameList(*newval, (Node *) &escontext);
+        if (namelist != NIL)
+            cfgId = get_ts_config_oid(namelist, true);
+        else
+            cfgId = InvalidOid;  // bad syntax
+
+        // Handle non-existent configuration
+        if (!OidIsValid(cfgId)) {
+            if (source == PGC_S_TEST) {
+                // Just issue notice for test mode
+                ereport(NOTICE,
+                    (errcode(ERRCODE_UNDEFINED_OBJECT),
+                     errmsg("text search configuration \"%s\" does not exist", *newval)));
+                return true;
+            } else {
+                return false;  // reject invalid config
+            }
+        }
+
+        // Normalize to fully qualified name to avoid search_path issues
+        HeapTuple tuple = SearchSysCache1(TSCONFIGOID, ObjectIdGetDatum(cfgId));
+        if (!HeapTupleIsValid(tuple))
+            elog(ERROR, "cache lookup failed for text search configuration %u", cfgId);
+
+        Form_pg_ts_config cfg = (Form_pg_ts_config) GETSTRUCT(tuple);
+        char *buf = quote_qualified_identifier(get_namespace_name(cfg->cfgnamespace), NameStr(cfg->cfgname));
+        ReleaseSysCache(tuple);
+
+        // Replace value with fully qualified name using GUC memory functions
+        guc_free(*newval);
+        *newval = guc_strdup(LOG, buf);
+        pfree(buf);
+
+        if (!*newval)
+            return false;
+    }
+
+    return true;
+}
+```

@@ -37,3 +37,38 @@ This function serves as a utility for XML mapping operations in PostgreSQL, spec
 - Filters out NULL values from the result set
 - Returns NIL (empty list) if no valid OIDs are found
 - Error handling includes logging with specific SPI result codes
+
+## Simplified Source
+
+```c
+static List *query_to_oid_list(const char *query)
+{
+    uint64 i;
+    List *list = NIL;
+    int spi_result;
+
+    // Execute the query using SPI
+    spi_result = SPI_execute(query, true, 0);
+    if (spi_result != SPI_OK_SELECT)
+        elog(ERROR, "SPI_execute returned %s for %s",
+             SPI_result_code_string(spi_result), query);
+
+    // Process each row in the result set
+    for (i = 0; i < SPI_processed; i++) {
+        Datum oid;
+        bool isnull;
+
+        // Get the OID value from the first column
+        oid = SPI_getbinval(SPI_tuptable->vals[i],
+                           SPI_tuptable->tupdesc,
+                           1,
+                           &isnull);
+
+        // Add non-null OIDs to the result list
+        if (!isnull)
+            list = lappend_oid(list, DatumGetObjectId(oid));
+    }
+
+    return list;
+}
+```

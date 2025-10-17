@@ -34,3 +34,17 @@ The function uses the PG_CMD_PUTS and PG_CMD_PRINTF macros to send SQL commands 
 - Password escaping is performed using escape_quotes to handle special characters and prevent SQL injection
 - This function is called during the final phases of database initialization after the basic catalog structure is in place
 - The commands are executed as part of the bootstrap process where the backend is running in a special initialization mode
+
+## Simplified Source
+
+```c
+static void setup_auth(FILE *cmdfd) {
+    // Secure the pg_authid table - remove public access to password hashes
+    PG_CMD_PUTS("REVOKE ALL ON pg_authid FROM public;\n\n");
+
+    // Set superuser password if provided
+    if (superuser_password)
+        PG_CMD_PRINTF("ALTER USER \"%s\" WITH PASSWORD E'%s';\n\n",
+                      username, escape_quotes(superuser_password));
+}
+```

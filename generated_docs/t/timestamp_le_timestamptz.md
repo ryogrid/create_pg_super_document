@@ -35,3 +35,16 @@ This function is part of PostgreSQL's timestamp comparison operator family and h
 - The actual comparison logic is delegated to timestamp_cmp_timestamptz_internal which handles timezone conversions and comparisons
 - Returns a Datum containing a boolean value that can be used in SQL expressions and ordering operations
 - Essential for range queries, sorting operations, and boundary checks involving mixed timestamp types
+
+## Simplified Source
+
+```c
+Datum timestamp_le_timestamptz(PG_FUNCTION_ARGS) {
+    // Extract timestamp (without timezone) and timestamptz (with timezone)
+    Timestamp timestamp_val = PG_GETARG_TIMESTAMP(0);
+    TimestampTz timestamptz_val = PG_GETARG_TIMESTAMPTZ(1);
+
+    // Compare and return true if first is LESS THAN OR EQUAL to second (comparison result <= 0)
+    PG_RETURN_BOOL(timestamp_cmp_timestamptz_internal(timestamp_val, timestamptz_val) <= 0);
+}
+```

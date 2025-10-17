@@ -37,3 +37,34 @@ This function processes logical replication BEGIN PREPARE messages that signal t
 - Part of PostgreSQL's two-phase commit support in logical replication
 - The function is static and only called internally within the logical replication worker
 - Uses prepare_lsn instead of final_lsn for LSN tracking in prepared transaction context
+
+## Simplified Source
+
+```c
+static void
+apply_handle_begin_prepare(StringInfo s)
+{
+    LogicalRepPreparedTxnData begin_data;
+
+    // Tablesync workers should never receive prepare messages
+    if (am_tablesync_worker())
+        ereport(ERROR,
+                (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                 errmsg_internal("tablesync worker received a BEGIN PREPARE message")));
+
+    // No streaming transaction should be active
+    Assert(!TransactionIdIsValid(stream_xid));
+
+    // Read prepared transaction begin data
+    logicalrep_read_begin_prepare(s, &begin_data);
+    set_apply_error_context_xact(begin_data.xid, begin_data.prepare_lsn);
+
+    // Store prepare LSN and start tracking
+    remote_final_lsn = begin_data.prepare_lsn;
+    maybe_start_skipping_changes(begin_data.prepare_lsn);
+    in_remote_transaction = true;
+
+    // Report worker is processing transaction
+    pgstat_report_activity(STATE_RUNNING, NULL);
+}
+```

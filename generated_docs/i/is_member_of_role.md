@@ -40,4 +40,25 @@ The function implements fast-path optimizations for simple cases and leverages P
 - Superusers are considered members of every role in the system
 - The function recursively traverses the entire role membership hierarchy
 - Despite its apparent utility, the extensive warnings in the source code indicate this function has very limited appropriate use cases in PostgreSQL's security model
-- Located in 
+- Located in src/backend/utils/adt/acl.c:5231-5258
+
+## Simplified Source
+
+```c
+bool is_member_of_role(Oid member, Oid role)
+{
+    // Fast path: member is the same as role
+    if (member == role)
+        return true;
+
+    // Superusers are members of every role
+    if (superuser_arg(member))
+        return true;
+
+    // Find all roles that member belongs to (with recursion)
+    // and check if target role is among them
+    return list_member_oid(roles_is_member_of(member, ROLERECURSE_MEMBERS,
+                                            InvalidOid, NULL),
+                          role);
+}
+``` 

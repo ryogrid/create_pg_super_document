@@ -41,3 +41,23 @@ The gtsvector_alloc function is responsible for allocating memory and initializi
 - Part of the GiST indexing infrastructure for tsvector full-text search functionality
 - The function abstracts away the complexity of calculating proper structure sizes
 - Memory allocated by this function must be managed according to PostgreSQL's memory context rules
+
+## Simplified Source
+
+```c
+static SignTSVector *gtsvector_alloc(int flag, int len, BITVECP sign) {
+    // Calculate required structure size based on flag and length
+    int size = CALCGTSIZE(flag, len);
+
+    // Allocate memory and initialize structure
+    SignTSVector *res = palloc(size);
+    SET_VARSIZE(res, size);
+    res->flag = flag;
+
+    // Copy signature data if this is a SIGNKEY (but not ALLISTRUE) and sign provided
+    if ((flag & (SIGNKEY | ALLISTRUE)) == SIGNKEY && sign)
+        memcpy(GETSIGN(res), sign, len);
+
+    return res;
+}
+```

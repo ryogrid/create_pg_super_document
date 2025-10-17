@@ -55,3 +55,54 @@ This function serves as a comprehensive interface for retrieving type-related me
 - The function will throw an ERROR if the type OID is not found in the system catalog
 - This is part of the lsyscache.c module, which provides cached access to system catalog information
 - The returned type information is essential for proper serialization, deserialization, and storage of PostgreSQL data types
+
+## Simplified Source
+
+```c
+void get_type_io_data(Oid typid, IOFuncSelector which_func,
+                     int16 *typlen, bool *typbyval, char *typalign,
+                     char *typdelim, Oid *typioparam, Oid *func) {
+
+    // Handle bootstrap mode with special processing
+    if (IsBootstrapProcessingMode()) {
+        Oid typinput, typoutput;
+        boot_get_type_io_data(typid, typlen, typbyval, typalign,
+                             typdelim, typioparam, &typinput, &typoutput);
+
+        // Select appropriate function for bootstrap mode
+        switch (which_func) {
+            case IOFunc_input:  *func = typinput; break;
+            case IOFunc_output: *func = typoutput; break;
+            default:
+                elog(ERROR, "binary I/O not supported during bootstrap");
+        }
+        return;
+    }
+
+    // Normal mode: look up type in system cache
+    HeapTuple typeTuple = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+    if (!HeapTupleIsValid(typeTuple))
+        elog(ERROR, "cache lookup failed for type %u", typid);
+
+    Form_pg_type typeStruct = (Form_pg_type) GETSTRUCT(typeTuple);
+
+    // Extract all type attributes
+    *typlen = typeStruct->typlen;
+    *typbyval = typeStruct->typbyval;
+    *typalign = typeStruct->typalign;
+    *typdelim = typeStruct->typdelim;
+    *typioparam = getTypeIOParam(typeTuple);
+
+    // Select requested I/O function
+    switch (which_func) {
+        case IOFunc_input:   *func = typeStruct->typinput; break;
+        case IOFunc_output:  *func = typeStruct->typoutput; break;
+        case IOFunc_receive: *func = typeStruct->typreceive; break;
+        case IOFunc_send:    *func = typeStruct->typsend; break;
+    }
+
+    ReleaseSysCache(typeTuple);
+}
+```
+
+This simplified version shows the function's dual-mode operation: bootstrap mode with limited I/O function support, and normal mode with complete type metadata retrieval. It efficiently extracts six type attributes in one catalog lookup and selects the appropriate I/O function based on the caller's needs.

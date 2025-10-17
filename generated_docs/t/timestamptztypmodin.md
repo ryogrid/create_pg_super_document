@@ -35,3 +35,14 @@ The function delegates the actual parsing and validation logic to , passing  to 
 - The resulting typmod value is used by other functions like 
 - Type modifiers for timestamptz typically specify fractional seconds precision (0-6)
 - Called automatically by PostgreSQL's parser infrastructure, not by user code directly
+
+## Simplified Source
+
+```c
+Datum timestamptztypmodin(PG_FUNCTION_ARGS) {
+    ArrayType *ta = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Process type modifier for timestamptz (with timezone = true)
+    PG_RETURN_INT32(anytimestamp_typmodin(true, ta));
+}
+```

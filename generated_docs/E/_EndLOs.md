@@ -30,3 +30,12 @@ _EndLOs is a callback function specific to the custom archive format that handle
 
 ## Notes and Other Information
 This function is marked as optional in the archiver interface and is specific to the custom format implementation. The use of a zero OID as an end marker is a simple but effective way to delimit the large objects section, as zero is not a valid OID for actual database objects.
+
+## Simplified Source
+```c
+static void _EndLOs(ArchiveHandle *AH, TocEntry *te)
+{
+    // Mark end of large objects section with zero OID
+    WriteInt(AH, 0);
+}
+```

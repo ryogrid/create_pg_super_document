@@ -44,3 +44,49 @@ For each non-null lexeme in the array, the function performs a binary search to 
 - Proper memory management with cleanup of temporary arrays and copied arguments
 - Part of PostgreSQL's full-text search functionality for batch TSVector manipulation
 - More efficient than calling tsvector_delete_str multiple times for multiple deletions
+
+## Simplified Source
+
+```c
+Datum tsvector_delete_arr(PG_FUNCTION_ARGS) {
+    TSVector input_tsvector = PG_GETARG_TSVECTOR(0);
+    ArrayType *lexeme_array = PG_GETARG_ARRAYTYPE_P(1);
+
+    // Deconstruct the array into individual elements
+    Datum *lexemes;
+    bool *nulls;
+    int num_lexemes;
+    deconstruct_array_builtin(lexeme_array, TEXTOID, &lexemes, &nulls, &num_lexemes);
+
+    // Allocate array to collect indices of lexemes to delete
+    int *indices_to_delete = palloc0(num_lexemes * sizeof(int));
+    int delete_count = 0;
+
+    // Find indices of lexemes that exist in the TSVector
+    for (int i = 0; i < num_lexemes; i++) {
+        if (nulls[i]) continue; // Skip NULL elements
+
+        // Extract lexeme text and length
+        char *lexeme_text = VARDATA(lexemes[i]);
+        int lexeme_len = VARSIZE(lexemes[i]) - VARHDRSZ;
+
+        // Search for lexeme in TSVector
+        int lexeme_pos = tsvector_bsearch(input_tsvector, lexeme_text, lexeme_len);
+
+        // Add to deletion list if found
+        if (lexeme_pos >= 0) {
+            indices_to_delete[delete_count++] = lexeme_pos;
+        }
+    }
+
+    // Perform batch deletion using collected indices
+    TSVector output_tsvector = tsvector_delete_by_indices(input_tsvector, indices_to_delete, delete_count);
+
+    // Clean up memory
+    pfree(indices_to_delete);
+    PG_FREE_IF_COPY(input_tsvector, 0);
+    PG_FREE_IF_COPY(lexeme_array, 1);
+
+    PG_RETURN_POINTER(output_tsvector);
+}
+```

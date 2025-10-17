@@ -41,3 +41,22 @@ The `tidsend` function serializes TID values into PostgreSQL's binary wire proto
 - Part of PostgreSQL's type system binary I/O infrastructure alongside `tidrecv`
 - The binary format produced by this function can be deserialized by the corresponding `tidrecv` function
 - Memory management for the output buffer is handled automatically by the pq_*typsend functions
+
+## Simplified Source
+
+```c
+Datum tidsend(PG_FUNCTION_ARGS) {
+    ItemPointer tid_pointer = PG_GETARG_ITEMPOINTER(0);
+    StringInfoData binary_buffer;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&binary_buffer);
+
+    // Send block number (32-bit) and offset number (16-bit) to buffer
+    pq_sendint32(&binary_buffer, ItemPointerGetBlockNumberNoCheck(tid_pointer));
+    pq_sendint16(&binary_buffer, ItemPointerGetOffsetNumberNoCheck(tid_pointer));
+
+    // Finalize and return the binary data
+    PG_RETURN_BYTEA_P(pq_endtypsend(&binary_buffer));
+}
+```

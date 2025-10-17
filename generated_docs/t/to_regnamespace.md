@@ -42,3 +42,22 @@ This pattern is commonly used in PostgreSQL for "safe" conversion functions that
 - Part of PostgreSQL's family of "to_reg*" functions that provide safe conversion semantics
 - Commonly used in applications where namespace existence checking is needed without error handling complexity
 - Located in src/backend/utils/adt/regproc.c with other reg* type functions
+
+## Simplified Source
+
+```c
+Datum to_regnamespace(PG_FUNCTION_ARGS) {
+    char *nsp_name = text_to_cstring(PG_GETARG_TEXT_PP(0));
+    Datum result;
+    ErrorSaveContext escontext = {T_ErrorSaveContext};
+
+    // Use safe call to regnamespacein - returns NULL on error instead of throwing
+    if (!DirectInputFunctionCallSafe(regnamespacein, nsp_name,
+                                     InvalidOid, -1,
+                                     (Node *) &escontext,
+                                     &result))
+        PG_RETURN_NULL();
+
+    PG_RETURN_DATUM(result);
+}
+```

@@ -43,3 +43,47 @@ Key operations performed:
 - Cache invalidation ensures that query plans using the deleted statistics are rebuilt
 - Holds table lock until transaction end to maintain consistency during the deletion process
 - Forms part of the cleanup process when tables are dropped or when statistics are explicitly dropped
+
+## Simplified Source
+
+```c
+void
+RemoveStatisticsById(Oid statsOid)
+{
+    Relation relation;
+    Relation rel;
+    HeapTuple tup;
+    Form_pg_statistic_ext statext;
+    Oid relid;
+
+    // Open the pg_statistic_ext catalog with exclusive lock
+    relation = table_open(StatisticExtRelationId, RowExclusiveLock);
+
+    // Find the statistics object tuple
+    tup = SearchSysCache1(STATEXTOID, ObjectIdGetDatum(statsOid));
+
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for statistics object %u", statsOid);
+
+    statext = (Form_pg_statistic_ext) GETSTRUCT(tup);
+    relid = statext->stxrelid;
+
+    // Lock the target table to prevent concurrent operations
+    rel = table_open(relid, ShareUpdateExclusiveLock);
+
+    // Remove statistical data entries for both inheritance modes
+    RemoveStatisticsDataById(statsOid, true);   // inherited data
+    RemoveStatisticsDataById(statsOid, false);  // direct data
+
+    // Invalidate relation cache to trigger plan rebuilds
+    CacheInvalidateRelcacheByRelid(relid);
+
+    // Delete the main statistics object tuple
+    CatalogTupleDelete(relation, &tup->t_self);
+
+    // Cleanup
+    ReleaseSysCache(tup);
+    table_close(rel, NoLock);           // Keep lock until transaction end
+    table_close(relation, RowExclusiveLock);
+}
+```

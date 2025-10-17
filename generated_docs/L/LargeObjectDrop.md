@@ -39,3 +39,50 @@ The function uses system table scans with appropriate indexes (LargeObjectMetada
 - Ensures data consistency by using RowExclusiveLock on both relations
 - Part of the dependency deletion system - automatically called when objects dependent on large objects are dropped
 - Located in src/backend/catalog/pg_largeobject.c:83-154
+
+## Simplified Source
+
+```c
+void LargeObjectDrop(Oid loid)
+{
+    Relation pg_lo_meta, pg_largeobject;
+    ScanKeyData skey[1];
+    SysScanDesc scan;
+    HeapTuple tuple;
+
+    // Open both large object tables with exclusive locks
+    pg_lo_meta = table_open(LargeObjectMetadataRelationId, RowExclusiveLock);
+    pg_largeobject = table_open(LargeObjectRelationId, RowExclusiveLock);
+
+    // Delete metadata entry from pg_largeobject_metadata
+    ScanKeyInit(&skey[0], Anum_pg_largeobject_metadata_oid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(loid));
+
+    scan = systable_beginscan(pg_lo_meta, LargeObjectMetadataOidIndexId,
+                             true, NULL, 1, skey);
+
+    tuple = systable_getnext(scan);
+    if (!HeapTupleIsValid(tuple))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("large object %u does not exist", loid)));
+
+    CatalogTupleDelete(pg_lo_meta, &tuple->t_self);
+    systable_endscan(scan);
+
+    // Delete all data pages from pg_largeobject
+    ScanKeyInit(&skey[0], Anum_pg_largeobject_loid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(loid));
+
+    scan = systable_beginscan(pg_largeobject, LargeObjectLOidPNIndexId,
+                             true, NULL, 1, skey);
+    while (HeapTupleIsValid(tuple = systable_getnext(scan))) {
+        CatalogTupleDelete(pg_largeobject, &tuple->t_self);
+    }
+
+    systable_endscan(scan);
+
+    // Close tables
+    table_close(pg_largeobject, RowExclusiveLock);
+    table_close(pg_lo_meta, RowExclusiveLock);
+}
+```

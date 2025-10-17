@@ -31,3 +31,17 @@ This function retrieves the count of timed restartpoints that have been performe
 - This metric is particularly relevant for standby servers where restartpoints replace checkpoints
 - The counter is maintained in the checkpointer statistics structure's restartpoints_timed field
 - Useful for tuning checkpoint_timeout and understanding restartpoint patterns on standby servers
+
+## Simplified Source
+
+```c
+Datum pg_stat_get_checkpointer_restartpoints_timed(PG_FUNCTION_ARGS) {
+    // Fetch checkpointer statistics and return timed restartpoints count
+    return PG_RETURN_INT64(pgstat_fetch_stat_checkpointer()->restartpoints_timed);
+}
+```
+
+**Simplified Logic:**
+1. Get the checkpointer statistics structure
+2. Extract the count of timeout-triggered restartpoints
+3. Return as 64-bit integer

@@ -44,3 +44,32 @@ The `join_tsqueries` function is an internal utility that creates a new query tr
 - Memory management is handled through the QTN_NEEDFREE flag
 - Distance parameter is only meaningful for phrase operators
 - This is a static function, only accessible within the same compilation unit
+
+## Simplified Source
+
+```c
+static QTNode *join_tsqueries(TSQuery a, TSQuery b, int8 operator, uint16 distance)
+{
+    QTNode *result = (QTNode *) palloc0(sizeof(QTNode));
+
+    // Mark for memory cleanup
+    result->flags |= QTN_NEEDFREE;
+
+    // Create operator node
+    result->valnode = (QueryItem *) palloc0(sizeof(QueryItem));
+    result->valnode->type = QI_OPR;
+    result->valnode->qoperator.oper = operator;
+
+    // Set distance for phrase operators
+    if (operator == OP_PHRASE)
+        result->valnode->qoperator.distance = distance;
+
+    // Create child nodes (b=left, a=right)
+    result->child = (QTNode **) palloc0(sizeof(QTNode *) * 2);
+    result->child[0] = QT2QTN(GETQUERY(b), GETOPERAND(b));
+    result->child[1] = QT2QTN(GETQUERY(a), GETOPERAND(a));
+    result->nchild = 2;
+
+    return result;
+}
+```

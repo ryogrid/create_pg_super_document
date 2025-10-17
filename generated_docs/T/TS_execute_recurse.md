@@ -55,3 +55,79 @@ The function maintains bug-compatibility with older implementations by convertin
 - Critical distinction: operates without position tracking unlike TS_phrase_execute
 - The conversion of TS_MAYBE results at phrase boundaries maintains backward compatibility
 - Essential component of PostgreSQL's full-text search infrastructure, bridging high-level boolean logic with position-aware phrase matching
+
+## Simplified Source
+
+```c
+static TSTernaryValue TS_execute_recurse(QueryItem *curitem, void *arg, uint32 flags,
+                                        TSExecuteCallback chkcond) {
+    TSTernaryValue lmatch;
+
+    // Safety checks
+    check_stack_depth();
+    CHECK_FOR_INTERRUPTS();
+
+    // Base case: evaluate leaf operand
+    if (curitem->type == QI_VAL)
+        return chkcond(arg, (QueryOperand *) curitem, NULL /* no position info needed */);
+
+    // Handle different operators
+    switch (curitem->qoperator.oper) {
+        case OP_NOT:
+            if (flags & TS_EXEC_SKIP_NOT)
+                return TS_YES;
+
+            // Invert the result of the operand
+            switch (TS_execute_recurse(curitem + 1, arg, flags, chkcond)) {
+                case TS_NO:   return TS_YES;
+                case TS_YES:  return TS_NO;
+                case TS_MAYBE: return TS_MAYBE;
+            }
+            break;
+
+        case OP_AND:
+            // Short-circuit: if left is NO, result is NO
+            lmatch = TS_execute_recurse(curitem + curitem->qoperator.left, arg, flags, chkcond);
+            if (lmatch == TS_NO)
+                return TS_NO;
+
+            // Result depends on right operand
+            switch (TS_execute_recurse(curitem + 1, arg, flags, chkcond)) {
+                case TS_NO:    return TS_NO;
+                case TS_YES:   return lmatch;  // Return left result (YES or MAYBE)
+                case TS_MAYBE: return TS_MAYBE;
+            }
+            break;
+
+        case OP_OR:
+            // Short-circuit: if left is YES, result is YES
+            lmatch = TS_execute_recurse(curitem + curitem->qoperator.left, arg, flags, chkcond);
+            if (lmatch == TS_YES)
+                return TS_YES;
+
+            // Result depends on right operand
+            switch (TS_execute_recurse(curitem + 1, arg, flags, chkcond)) {
+                case TS_NO:    return lmatch;  // Return left result (NO or MAYBE)
+                case TS_YES:   return TS_YES;
+                case TS_MAYBE: return TS_MAYBE;
+            }
+            break;
+
+        case OP_PHRASE:
+            // Delegate to phrase execution logic
+            switch (TS_phrase_execute(curitem, arg, flags, chkcond, NULL)) {
+                case TS_NO:    return TS_NO;
+                case TS_YES:   return TS_YES;
+                case TS_MAYBE:
+                    // Convert MAYBE to NO unless caller wants MAYBE results
+                    return (flags & TS_EXEC_PHRASE_NO_POS) ? TS_MAYBE : TS_NO;
+            }
+            break;
+
+        default:
+            elog(ERROR, "unrecognized operator: %d", curitem->qoperator.oper);
+    }
+
+    return TS_NO;
+}
+```

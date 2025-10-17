@@ -39,3 +39,14 @@ This function is part of PostgreSQL's type input/output function framework, spec
 - The binary format for regclass is identical to OID: 4-byte big-endian integer
 - Automatically invoked by PostgreSQL's type system when binary input is required
 - No validation of the OID value is performed at this level - validation happens at higher levels
+
+## Simplified Source
+
+```c
+Datum
+regclassrecv(PG_FUNCTION_ARGS)
+{
+    // Delegate to oidrecv since regclass uses identical binary format
+    return oidrecv(fcinfo);
+}
+```

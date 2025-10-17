@@ -49,3 +49,46 @@ The function performs several critical operations:
 - The chunk header stores metadata including the owning block, free list index, and context type ID
 - Memory padding bytes are explicitly marked as inaccessible to catch buffer overruns
 - The function assumes the caller has already verified that sufficient space exists in the block
+
+## Simplified Source
+
+```c
+static inline void *
+AllocSetAllocChunkFromBlock(MemoryContext context, AllocBlock block,
+                           Size size, Size chunk_size, int fidx)
+{
+    MemoryChunk *chunk;
+
+    // Position chunk at current free pointer
+    chunk = (MemoryChunk *) (block->freeptr);
+
+    // Update block's free pointer
+    block->freeptr += (chunk_size + ALLOC_CHUNKHDRSZ);
+    Assert(block->freeptr <= block->endptr);
+
+    // Initialize chunk header with metadata
+    MemoryChunkSetHdrMask(chunk, block, fidx, MCTX_ASET_ID);
+
+#ifdef MEMORY_CONTEXT_CHECKING
+    // Store requested size and add sentinel if needed
+    chunk->requested_size = size;
+    if (size < chunk_size) {
+        set_sentinel(MemoryChunkGetPointer(chunk), size);
+    }
+#endif
+
+#ifdef RANDOMIZE_ALLOCATED_MEMORY
+    // Fill allocated space with random data for testing
+    randomize_mem((char *) MemoryChunkGetPointer(chunk), size);
+#endif
+
+    // Mark padding bytes as inaccessible for memory safety
+    VALGRIND_MAKE_MEM_NOACCESS((char *) MemoryChunkGetPointer(chunk) + size,
+                               chunk_size - size);
+
+    // Mark chunk header as inaccessible
+    VALGRIND_MAKE_MEM_NOACCESS(chunk, ALLOC_CHUNKHDRSZ);
+
+    return MemoryChunkGetPointer(chunk);
+}
+```

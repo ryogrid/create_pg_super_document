@@ -32,3 +32,23 @@ The function performs validation to ensure that the parallel worker doesn't have
 - Only restores active mappings, not pending ones
 - Part of PostgreSQL's relation mapper subsystem which handles mapping between relation OIDs and physical file locations
 - The function assumes the serialized data format matches SerializedActiveRelMaps structure
+
+## Simplified Source
+
+```c
+void RestoreRelationMap(char *startAddress) {
+    SerializedActiveRelMaps *relmaps;
+
+    // Verify parallel worker has clean state (no existing mappings)
+    if (active_shared_updates.num_mappings != 0 ||
+        active_local_updates.num_mappings != 0 ||
+        pending_shared_updates.num_mappings != 0 ||
+        pending_local_updates.num_mappings != 0)
+        elog(ERROR, "parallel worker has existing mappings");
+
+    // Restore active relation mappings from serialized data
+    relmaps = (SerializedActiveRelMaps *) startAddress;
+    active_shared_updates = relmaps->active_shared_updates;
+    active_local_updates = relmaps->active_local_updates;
+}
+```

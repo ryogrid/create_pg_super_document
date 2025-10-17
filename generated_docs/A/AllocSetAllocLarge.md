@@ -59,3 +59,66 @@ The block insertion strategy places new large blocks as the second block in the 
 - Handles allocation failures through context-specific failure reporting mechanisms
 - Block size calculation includes space for block header, chunk header, and proper alignment
 - The allocation strategy balances memory efficiency with allocation performance for large requests
+
+## Simplified Source
+
+```c
+static void *
+AllocSetAllocLarge(MemoryContext context, Size size, int flags)
+{
+    AllocSet set = (AllocSet) context;
+    AllocBlock block;
+    MemoryChunk *chunk;
+    Size chunk_size, blksize;
+
+    // Validate size for the given flags
+    MemoryContextCheckSize(context, size, flags);
+
+    // Calculate chunk size (aligned, with optional debug padding)
+#ifdef MEMORY_CONTEXT_CHECKING
+    chunk_size = MAXALIGN(size + 1);  // Extra byte for sentinel
+#else
+    chunk_size = MAXALIGN(size);
+#endif
+
+    // Allocate dedicated block for this large chunk
+    blksize = chunk_size + ALLOC_BLOCKHDRSZ + ALLOC_CHUNKHDRSZ;
+    block = (AllocBlock) malloc(blksize);
+    if (block == NULL) {
+        return MemoryContextAllocationFailure(context, size, flags);
+    }
+
+    context->mem_allocated += blksize;
+
+    // Initialize block structure
+    block->aset = set;
+    block->freeptr = block->endptr = ((char *) block) + blksize;
+
+    // Setup chunk as externally managed (occupies entire block)
+    chunk = (MemoryChunk *) (((char *) block) + ALLOC_BLOCKHDRSZ);
+    MemoryChunkSetHdrMaskExternal(chunk, MCTX_ASET_ID);
+
+#ifdef MEMORY_CONTEXT_CHECKING
+    chunk->requested_size = size;
+    if (size < chunk_size) {
+        set_sentinel(MemoryChunkGetPointer(chunk), size);
+    }
+#endif
+
+    // Insert block into block list (as second block to preserve active space)
+    if (set->blocks != NULL) {
+        block->prev = set->blocks;
+        block->next = set->blocks->next;
+        if (block->next) {
+            block->next->prev = block;
+        }
+        set->blocks->next = block;
+    } else {
+        block->prev = NULL;
+        block->next = NULL;
+        set->blocks = block;
+    }
+
+    return MemoryChunkGetPointer(chunk);
+}
+```

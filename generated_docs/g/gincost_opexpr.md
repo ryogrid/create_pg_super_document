@@ -37,3 +37,37 @@ The gincost_opexpr function processes operator expressions in GIN index cost est
 - Returns false for null constants since they cannot match any index entries
 - Uses the second argument of the operator expression as the search operand (assumes index column is first argument)
 - Relies on gincost_pattern for the actual cost calculation when dealing with constant operands
+
+## Simplified Source
+
+```c
+static bool gincost_opexpr(PlannerInfo *root, IndexOptInfo *index, int indexcol,
+                          OpExpr *clause, GinQualCounts *counts) {
+    Oid clause_op = clause->opno;
+    Node *operand = (Node *) lsecond(clause->args);
+
+    // Try to reduce operand to a constant value
+    operand = estimate_expression_value(root, operand);
+
+    // Remove RelabelType wrapper if present
+    if (IsA(operand, RelabelType))
+        operand = (Node *) ((RelabelType *) operand)->arg;
+
+    // Handle non-constant operands with conservative estimate
+    if (!IsA(operand, Const)) {
+        counts->exactEntries++;
+        counts->searchEntries++;
+        return true;
+    }
+
+    // Handle null constants - cannot match anything
+    if (((Const *) operand)->constisnull)
+        return false;
+
+    // Delegate to gincost_pattern for actual cost calculation
+    return gincost_pattern(index, indexcol, clause_op,
+                          ((Const *) operand)->constvalue, counts);
+}
+```
+
+**Core Logic**: Extracts and evaluates operands from GIN operator expressions, making conservative estimates for non-constants and delegating to gincost_pattern for precise constant-based cost calculations.

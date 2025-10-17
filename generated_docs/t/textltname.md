@@ -34,3 +34,14 @@ The function is part of PostgreSQL's type system infrastructure, specifically ha
 - Located in the variable-length data type utilities module (varlena.c)
 - Complements the name-to-text comparison functions by providing text-to-name comparisons
 - Uses `bttextnamecmp` instead of `btnametextcmp`, reflecting the reversed argument order
+
+## Simplified Source
+
+```c
+Datum
+textltname(PG_FUNCTION_ARGS)
+{
+    // Return true if text < name comparison result is negative
+    PG_RETURN_BOOL(CmpCall(bttextnamecmp) < 0);
+}
+```

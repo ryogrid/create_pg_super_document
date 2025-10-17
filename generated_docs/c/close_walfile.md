@@ -45,3 +45,60 @@ This function properly closes the current WAL file that is being written during 
 - Handles compression-aware file naming through walmethod operations
 - Returns false on any error during closing or archiving operations
 - Prevents duplicate archiving in pg_basebackup scenarios by marking segments as done
+
+## Simplified Source
+
+```c
+static bool
+close_walfile(StreamCtl *stream, XLogRecPtr pos)
+{
+    char       *fn;
+    pgoff_t     currpos;
+    int         r;
+    char        walfile_name[MAXPGPATH];
+
+    // Nothing to close if no file is open
+    if (walfile == NULL)
+        return true;
+
+    // Save current file info before closing
+    strlcpy(walfile_name, walfile->pathname, MAXPGPATH);
+    currpos = walfile->currpos;
+
+    // Get filename with appropriate suffix/compression
+    fn = stream->walmethod->ops->get_file_name(stream->walmethod,
+                                              walfile_name,
+                                              stream->partial_suffix);
+
+    // Choose close mode based on completion status
+    if (stream->partial_suffix) {
+        if (currpos == WalSegSz)
+            r = stream->walmethod->ops->close(walfile, CLOSE_NORMAL);
+        else {
+            pg_log_info("not renaming \"%s\", segment is not complete", fn);
+            r = stream->walmethod->ops->close(walfile, CLOSE_NO_RENAME);
+        }
+    } else
+        r = stream->walmethod->ops->close(walfile, CLOSE_NORMAL);
+
+    walfile = NULL;
+
+    if (r != 0) {
+        pg_log_error("could not close file \"%s\": %s",
+                    fn, GetLastWalMethodError(stream->walmethod));
+        pg_free(fn);
+        return false;
+    }
+
+    pg_free(fn);
+
+    // Mark complete segments as archived if requested
+    if (currpos == WalSegSz && stream->mark_done) {
+        if (!mark_file_as_archived(stream, walfile_name))
+            return false;
+    }
+
+    lastFlushPosition = pos;
+    return true;
+}
+```

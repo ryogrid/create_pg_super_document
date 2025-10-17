@@ -34,3 +34,14 @@ The implementation simply delegates to  since regconfig is internally represente
 - Used primarily in binary protocol communications, replication, and binary file operations
 - The function signature follows PostgreSQL's standard for type send functions
 - Critical for performance in binary data transfer scenarios
+
+## Simplified Source
+
+```c
+Datum
+regconfigsend(PG_FUNCTION_ARGS)
+{
+    // Delegate to oidsend since regconfig is internally an OID
+    return oidsend(fcinfo);
+}
+```

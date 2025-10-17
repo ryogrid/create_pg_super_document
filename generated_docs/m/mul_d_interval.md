@@ -44,3 +44,16 @@ The function uses  to directly invoke  with the arguments reordered, avoiding th
 - Directly delegates all actual computation to 
 - Part of PostgreSQL's operator system for providing symmetric multiplication operations
 - Located in src/backend/utils/adt/timestamp.c:3687-3696
+
+## Simplified Source
+
+```c
+Datum mul_d_interval(PG_FUNCTION_ARGS) {
+    // Extract arguments as generic Datums
+    Datum factor = PG_GETARG_DATUM(0);  // float8
+    Datum span = PG_GETARG_DATUM(1);    // Interval
+
+    // Call interval_mul with arguments swapped
+    return DirectFunctionCall2(interval_mul, span, factor);
+}
+```

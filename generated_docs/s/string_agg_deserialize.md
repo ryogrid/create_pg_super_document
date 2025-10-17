@@ -58,3 +58,43 @@ The deserialization process:
 - Calculates data length by subtracting cursor field size (4 bytes) from total bytea size
 - Ensures proper memory context allocation through makeStringAggState
 - Validates complete message consumption with pq_getmsgend for data integrity
+
+## Simplified Source
+
+```c
+Datum
+string_agg_deserialize(PG_FUNCTION_ARGS)
+{
+    bytea *sstate;
+    StringInfo result;
+    StringInfoData buf;
+    char *data;
+    int datalen;
+
+    // Validate context (strict function, so no NULL input expected)
+    Assert(AggCheckCallContext(fcinfo, NULL));
+
+    // Get serialized state
+    sstate = PG_GETARG_BYTEA_PP(0);
+
+    // Initialize read buffer from bytea data
+    initReadOnlyStringInfo(&buf, VARDATA_ANY(sstate),
+                          VARSIZE_ANY_EXHDR(sstate));
+
+    // Create new StringInfo result in aggregate context
+    result = makeStringAggState(fcinfo);
+
+    // Deserialize cursor field (first delimiter length)
+    result->cursor = pq_getmsgint(&buf, 4);
+
+    // Deserialize string data
+    datalen = VARSIZE_ANY_EXHDR(sstate) - 4;  // Subtract cursor field size
+    data = (char *) pq_getmsgbytes(&buf, datalen);
+    appendBinaryStringInfo(result, data, datalen);
+
+    // Validate complete consumption
+    pq_getmsgend(&buf);
+
+    PG_RETURN_POINTER(result);
+}
+```

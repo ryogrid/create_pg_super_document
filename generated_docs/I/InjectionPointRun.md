@@ -41,3 +41,24 @@ The function is designed to be lightweight and fast, suitable for embedding thro
 - Used throughout PostgreSQL source code via the INJECTION_POINT() macro for testing and debugging
 - The lightweight design allows injection points to be placed in performance-critical code paths
 - When USE_INJECTION_POINTS is not defined, the function throws an error if called
+
+## Simplified Source
+
+```c
+void
+InjectionPointRun(const char *name)
+{
+#ifdef USE_INJECTION_POINTS
+    // Look up injection point in cache/shared memory
+    InjectionPointCacheEntry *cache_entry = InjectionPointCacheRefresh(name);
+
+    // Execute callback if injection point exists
+    if (cache_entry)
+        cache_entry->callback(name, cache_entry->private_data);
+
+    // Do nothing if injection point not found (silent no-op)
+#else
+    elog(ERROR, "Injection points are not supported by this build");
+#endif
+}
+```

@@ -45,3 +45,64 @@ This function converts EUC-JP encoded Japanese text to Mule Internal Code format
 - Returns the number of source bytes processed
 - Located in src/backend/utils/mb/conversion_procs/euc_jp_and_sjis/euc_jp_and_sjis.c:406-466
 - Implements straightforward EUC-JP to MIC mapping following the EUC structure
+
+## Simplified Source
+
+```c
+static int euc_jp2mic(const unsigned char *euc, unsigned char *p, int len, bool noError) {
+    const unsigned char *start = euc;
+    int c1, l;
+
+    while (len > 0) {
+        c1 = *euc;
+
+        // Handle ASCII characters
+        if (!IS_HIGHBIT_SET(c1)) {
+            if (c1 == 0) {
+                if (!noError) {
+                    report_invalid_encoding(PG_EUC_JP, (const char *) euc, len);
+                }
+                break;
+            }
+            *p++ = c1;
+            euc++;
+            len--;
+            continue;
+        }
+
+        // Verify EUC-JP character sequence length
+        l = pg_encoding_verifymbchar(PG_EUC_JP, (const char *) euc, len);
+        if (l < 0) {
+            if (!noError) {
+                report_invalid_encoding(PG_EUC_JP, (const char *) euc, len);
+            }
+            break;
+        }
+
+        // Convert based on EUC-JP structure
+        if (c1 == SS2) {
+            // JIS X0201 katakana (SS2 + 1 byte)
+            *p++ = LC_JISX0201K;
+            *p++ = euc[1];
+        }
+        else if (c1 == SS3) {
+            // JIS X0212 supplementary kanji (SS3 + 2 bytes)
+            *p++ = LC_JISX0212;
+            *p++ = euc[1];
+            *p++ = euc[2];
+        }
+        else {
+            // JIS X0208 kanji/kana (2 bytes with high bits)
+            *p++ = LC_JISX0208;
+            *p++ = c1;
+            *p++ = euc[1];
+        }
+
+        euc += l;
+        len -= l;
+    }
+
+    *p = '\0';
+    return euc - start;
+}
+```

@@ -43,3 +43,42 @@ This function takes no parameters and returns a pointer to the copied ErrorData 
 - Copies even theoretically-constant strings like filename to handle JIT code segment unloading scenarios
 - The copied ErrorData can survive transaction boundaries, making it suitable for deferred error handling
 - All string fields are null-checked before copying to avoid segmentation faults
+
+## Simplified Source
+
+```c
+ErrorData *
+CopyErrorData(void)
+{
+    ErrorData *edata = &errordata[errordata_stack_depth];
+    ErrorData *newedata;
+
+    CHECK_STACK_DEPTH();
+    Assert(CurrentMemoryContext != ErrorContext);
+
+    // Copy the main structure
+    newedata = (ErrorData *) palloc(sizeof(ErrorData));
+    memcpy(newedata, edata, sizeof(ErrorData));
+
+    // Deep copy all string fields to ensure persistence
+    if (newedata->filename)   newedata->filename = pstrdup(newedata->filename);
+    if (newedata->funcname)   newedata->funcname = pstrdup(newedata->funcname);
+    if (newedata->domain)     newedata->domain = pstrdup(newedata->domain);
+    if (newedata->message)    newedata->message = pstrdup(newedata->message);
+    if (newedata->detail)     newedata->detail = pstrdup(newedata->detail);
+    if (newedata->hint)       newedata->hint = pstrdup(newedata->hint);
+    if (newedata->context)    newedata->context = pstrdup(newedata->context);
+    if (newedata->backtrace)  newedata->backtrace = pstrdup(newedata->backtrace);
+
+    // Copy database object names
+    if (newedata->schema_name)     newedata->schema_name = pstrdup(newedata->schema_name);
+    if (newedata->table_name)      newedata->table_name = pstrdup(newedata->table_name);
+    if (newedata->column_name)     newedata->column_name = pstrdup(newedata->column_name);
+    if (newedata->constraint_name) newedata->constraint_name = pstrdup(newedata->constraint_name);
+
+    // Set context for string allocations
+    newedata->assoc_context = CurrentMemoryContext;
+
+    return newedata;
+}
+```

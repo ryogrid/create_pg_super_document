@@ -37,3 +37,40 @@ The function implements a lookahead mechanism to verify that there is indeed an 
 - Part of PostgreSQL's websearch-style query parsing, which provides a more user-friendly query syntax
 - Returns false if OR appears at the end of input or is part of a compound word
 - Used to differentiate between searching for the word "or" versus using OR as a logical operator
+
+## Simplified Source
+
+```c
+static bool parse_or_operator(TSQueryParserState pstate) {
+    char *ptr = pstate->buf;
+
+    // Check if input starts with "OR" (case insensitive)
+    if (pg_strncasecmp(ptr, "or", 2) != 0)
+        return false;
+
+    ptr += 2;
+
+    // Reject if no operand follows OR
+    if (*ptr == '\0')
+        return false;
+
+    // Reject if OR is part of a compound word (has -, _, or alphanumeric chars)
+    if (t_iseq(ptr, '-') || t_iseq(ptr, '_') || t_isalnum(ptr))
+        return false;
+
+    // Look ahead to ensure there's an operand after whitespace
+    for (;;) {
+        ptr += pg_mblen(ptr);
+
+        if (*ptr == '\0')  // End of string without operand
+            return false;
+
+        if (!t_isspace(ptr))  // Found non-whitespace (potential operand)
+            break;
+    }
+
+    // Valid OR operator found - advance buffer and return success
+    pstate->buf += 2;
+    return true;
+}
+```

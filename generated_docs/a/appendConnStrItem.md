@@ -43,3 +43,18 @@ This function is essential for building connection strings dynamically in pg_cre
 - Used extensively in building connection strings for both primary and subscriber database connections
 - Part of the connection string building infrastructure in pg_createsubscriber
 - Maintains proper connection string format with space-separated keyword=value pairs
+
+## Simplified Source
+
+```c
+static void appendConnStrItem(PQExpBuffer buf, const char *keyword, const char *val) {
+    // Add space separator if buffer has existing content
+    if (buf->len > 0)
+        appendPQExpBufferChar(buf, ' ');
+
+    // Append keyword=value with proper value quoting
+    appendPQExpBufferStr(buf, keyword);
+    appendPQExpBufferChar(buf, '=');
+    appendConnStrVal(buf, val);
+}
+```

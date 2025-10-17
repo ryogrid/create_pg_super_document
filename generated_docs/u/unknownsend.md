@@ -39,3 +39,21 @@ This function complements `unknownrecv` as part of PostgreSQL's binary protocol 
 - Forms a complementary pair with unknownrecv for complete binary protocol support
 - Memory management is handled automatically by the pq_* functions
 - The binary format is compatible with PostgreSQL's wire protocol specifications
+
+## Simplified Source
+
+```c
+Datum unknownsend(PG_FUNCTION_ARGS) {
+    char *str = PG_GETARG_CSTRING(0);
+    StringInfoData buf;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Write string data to binary buffer
+    pq_sendtext(&buf, str, strlen(str));
+
+    // Finalize and return binary data
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

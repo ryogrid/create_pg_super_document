@@ -37,3 +37,39 @@ The function uses PostgreSQL's standard utility location functions ( and ) to pe
 - The function will terminate the entire process if the required program is not found or has incompatible version
 - Debug logging is enabled to help troubleshoot path resolution issues
 - The version string format follows PostgreSQL's standard: "progname (PostgreSQL) version"
+
+## Simplified Source
+
+```c
+static char *get_exec_path(const char *argv0, const char *progname) {
+    char *versionstr;
+    char *exec_path;
+    int ret;
+
+    // Create version string for validation
+    versionstr = psprintf("%s (PostgreSQL) %s\n", progname, PG_VERSION);
+
+    // Allocate path buffer and search for executable
+    exec_path = pg_malloc(MAXPGPATH);
+    ret = find_other_exec(argv0, progname, versionstr, exec_path);
+
+    // Handle search failures with appropriate error messages
+    if (ret < 0) {
+        char full_path[MAXPGPATH];
+
+        if (find_my_exec(argv0, full_path) < 0)
+            strlcpy(full_path, progname, sizeof(full_path));
+
+        if (ret == -1)
+            pg_fatal("program \"%s\" is needed by %s but was not found in the same directory as \"%s\"",
+                     progname, "pg_createsubscriber", full_path);
+        else
+            pg_fatal("program \"%s\" was found by \"%s\" but was not the same version as %s",
+                     progname, full_path, "pg_createsubscriber");
+    }
+
+    // Log success and return path
+    pg_log_debug("%s path is: %s", progname, exec_path);
+    return exec_path;
+}
+```

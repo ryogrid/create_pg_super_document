@@ -52,3 +52,48 @@ The function intelligently handles namespace qualification - it only includes th
 - Part of the regclass data type I/O functions alongside regclassin
 - Uses the system cache for efficient catalog lookups
 - Properly handles memory management with palloc and pstrdup
+
+## Simplified Source
+
+```c
+Datum
+regclassout(PG_FUNCTION_ARGS)
+{
+    Oid classid = PG_GETARG_OID(0);
+    char *result;
+    HeapTuple classtup;
+
+    // Handle invalid OID special case
+    if (classid == InvalidOid) {
+        result = pstrdup("-");
+        PG_RETURN_CSTRING(result);
+    }
+
+    // Look up relation in system catalog
+    classtup = SearchSysCache1(RELOID, ObjectIdGetDatum(classid));
+
+    if (HeapTupleIsValid(classtup)) {
+        Form_pg_class classform = (Form_pg_class) GETSTRUCT(classtup);
+        char *classname = NameStr(classform->relname);
+
+        // In bootstrap mode, return simple name
+        if (IsBootstrapProcessingMode())
+            result = pstrdup(classname);
+        else {
+            // Check if namespace qualification needed
+            char *nspname = NULL;
+            if (!RelationIsVisible(classid))
+                nspname = get_namespace_name(classform->relnamespace);
+
+            result = quote_qualified_identifier(nspname, classname);
+        }
+        ReleaseSysCache(classtup);
+    } else {
+        // Return numeric representation if not found in catalog
+        result = (char *) palloc(NAMEDATALEN);
+        snprintf(result, NAMEDATALEN, "%u", classid);
+    }
+
+    PG_RETURN_CSTRING(result);
+}
+```

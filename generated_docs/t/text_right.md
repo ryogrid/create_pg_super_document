@@ -39,8 +39,34 @@ The implementation uses PostgreSQL's multibyte-aware functions to ensure correct
   - SQL RIGHT() function invocations
 
 ## Notes and Other Information
-- Located in 
+- Located in
 - Properly handles multibyte character encodings (UTF-8, etc.)
 - The function uses character-based positioning rather than byte-based positioning
 - Memory management is handled through PostgreSQL's memory context system
 - Returns a new text object containing the extracted substring
+
+## Simplified Source
+
+```c
+Datum text_right(PG_FUNCTION_ARGS) {
+    text *str = PG_GETARG_TEXT_PP(0);
+    const char *p = VARDATA_ANY(str);
+    int len = VARSIZE_ANY_EXHDR(str);
+    int n = PG_GETARG_INT32(1);
+    int off;
+
+    // Handle negative n: convert to "skip first |n| characters"
+    if (n < 0) {
+        n = -n;
+    } else {
+        // For positive n: calculate characters to skip from start
+        n = pg_mbstrlen_with_len(p, len) - n;
+    }
+
+    // Find byte offset for character position n
+    off = pg_mbcharcliplen(p, len, n);
+
+    // Return substring from offset to end
+    PG_RETURN_TEXT_P(cstring_to_text_with_len(p + off, len - off));
+}
+```

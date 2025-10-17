@@ -36,3 +36,15 @@ The function uses DirectFunctionCall2Coll to invoke the texteq operator with the
 - It abstracts away the complexity of PostgreSQL's function call interface for internal use
 - The use of DirectFunctionCall2Coll ensures optimal performance by bypassing some function call overhead
 - Located in src/backend/utils/adt/varlena.c:4500-4513
+
+## Simplified Source
+
+```c
+static bool text_isequal(text *txt1, text *txt2, Oid collid) {
+    // Use PostgreSQL's built-in text equality function with collation support
+    return DatumGetBool(DirectFunctionCall2Coll(texteq,
+                                                collid,
+                                                PointerGetDatum(txt1),
+                                                PointerGetDatum(txt2)));
+}
+```

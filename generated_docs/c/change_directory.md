@@ -164,3 +164,31 @@ write_data_to_archive_lz4_doc.md: A constant string specifying the target direct
 - After successful execution, all subsequent file operations in the program will be relative to the new directory
 - The function follows a "fail-fast" approach, terminating the program if directory operations cannot be completed
 - Critical for timezone compilation workflow as it sets up the working directory for output file generation
+
+## Simplified Source
+
+```c
+static void
+change_directory(char const *dir)
+{
+    // Try to change to the directory
+    if (chdir(dir) != 0) {
+        // If directory doesn't exist, create it and try again
+        if (errno == ENOENT) {
+            mkdirs(dir, false);
+            if (chdir(dir) != 0) {
+                // Still failed after creating - fatal error
+                fprintf(stderr, "Can't chdir to %s: %s\n",
+                        progname, dir, strerror(errno));
+                exit(EXIT_FAILURE);
+            }
+        } else {
+            // Other error - fatal
+            fprintf(stderr, "Can't chdir to %s: %s\n",
+                    progname, dir, strerror(errno));
+            exit(EXIT_FAILURE);
+        }
+    }
+    // Success - all subsequent file operations are relative to dir
+}
+```

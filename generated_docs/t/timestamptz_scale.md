@@ -31,3 +31,19 @@ The  function is a PostgreSQL type system function that adjusts the precision of
 - This function is part of PostgreSQL's type system infrastructure and is typically invoked automatically when values are stored in timestamptz columns with explicit precision
 - The actual precision adjustment logic is delegated to 
 - The function follows PostgreSQL's standard function calling convention using  and return macros
+
+## Simplified Source
+
+```c
+Datum timestamptz_scale(PG_FUNCTION_ARGS) {
+    TimestampTz timestamp = PG_GETARG_TIMESTAMPTZ(0);
+    int32 typmod = PG_GETARG_INT32(1);
+
+    TimestampTz result = timestamp;
+
+    // Adjust timestamp precision according to typmod
+    AdjustTimestampForTypmod(&result, typmod, NULL);
+
+    PG_RETURN_TIMESTAMPTZ(result);
+}
+```

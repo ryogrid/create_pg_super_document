@@ -30,3 +30,14 @@ This function serves as the type modifier input handler for the VARCHAR data typ
 - The function shares implementation logic with  through the common  helper function
 - The returned typmod value includes VARHDRSZ offset for historical compatibility reasons
 - Input validation ensures length specifications are within the range [1, MaxAttrSize]
+
+## Simplified Source
+
+```c
+Datum varchartypmodin(PG_FUNCTION_ARGS) {
+    ArrayType *ta = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Delegate to shared character type modifier validation
+    PG_RETURN_INT32(anychar_typmodin(ta, "varchar"));
+}
+```

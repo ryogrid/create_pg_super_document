@@ -34,3 +34,20 @@ The  function performs a binary search to locate a specific enum value within th
 - Includes a specific workaround for Solaris systems where bsearch on zero items could cause crashes
 - The enum_values array must be sorted by OID for binary search to work correctly
 - Used primarily for enum value comparison operations in the type cache system
+
+## Simplified Source
+
+```c
+static EnumItem *find_enumitem(TypeCacheEnumData *enumdata, Oid arg) {
+    EnumItem search_key;
+
+    // Safety check for empty array (Solaris compatibility)
+    if (enumdata->num_values <= 0)
+        return NULL;
+
+    // Set up search key and perform binary search
+    search_key.enum_oid = arg;
+    return bsearch(&search_key, enumdata->enum_values, enumdata->num_values,
+                   sizeof(EnumItem), enum_oid_cmp);
+}
+```

@@ -35,3 +35,47 @@ This ensures consistency with any uncommitted mapping changes during analysis op
 - Returns InvalidOid when the file number doesn't correspond to a mapped relation, which is common since not all relations use the mapping system
 - Particularly useful when examining filesystem contents or analyzing transaction logs
 - The reverse mapping can help identify which relation a particular file belongs to during troubleshooting
+
+## Simplified Source
+
+```c
+Oid
+RelationMapFilenumberToOid(RelFileNumber filenumber, bool shared)
+{
+    const RelMapFile *map;
+    int32 i;
+
+    if (shared) {
+        // Check active shared updates first (pending changes)
+        map = &active_shared_updates;
+        for (i = 0; i < map->num_mappings; i++) {
+            if (filenumber == map->mappings[i].mapfilenumber)
+                return map->mappings[i].mapoid;
+        }
+
+        // Check shared mapping table
+        map = &shared_map;
+        for (i = 0; i < map->num_mappings; i++) {
+            if (filenumber == map->mappings[i].mapfilenumber)
+                return map->mappings[i].mapoid;
+        }
+    } else {
+        // Check active local updates first (pending changes)
+        map = &active_local_updates;
+        for (i = 0; i < map->num_mappings; i++) {
+            if (filenumber == map->mappings[i].mapfilenumber)
+                return map->mappings[i].mapoid;
+        }
+
+        // Check local mapping table
+        map = &local_map;
+        for (i = 0; i < map->num_mappings; i++) {
+            if (filenumber == map->mappings[i].mapfilenumber)
+                return map->mappings[i].mapoid;
+        }
+    }
+
+    // No mapping found
+    return InvalidOid;
+}
+```

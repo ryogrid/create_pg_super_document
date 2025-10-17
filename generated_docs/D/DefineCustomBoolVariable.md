@@ -56,3 +56,39 @@ This function provides the public interface for PostgreSQL extensions to create 
 - All custom variables are grouped under CUSTOM_OPTIONS in pg_settings
 - The function performs security checks inherited from init_custom_variable
 - Memory for the config structure is allocated via guc_malloc and managed by the GUC system
+
+## Simplified Source
+
+```c
+void DefineCustomBoolVariable(const char *name,
+                             const char *short_desc,
+                             const char *long_desc,
+                             bool *valueAddr,
+                             bool bootValue,
+                             GucContext context,
+                             int flags,
+                             GucBoolCheckHook check_hook,
+                             GucBoolAssignHook assign_hook,
+                             GucShowHook show_hook)
+{
+    struct config_bool *var;
+
+    // Initialize custom variable structure with boolean type
+    var = (struct config_bool *)
+        init_custom_variable(name, short_desc, long_desc, context, flags,
+                           PGC_BOOL, sizeof(struct config_bool));
+
+    // Set boolean-specific fields
+    var->variable = valueAddr;      // Pointer to actual boolean variable
+    var->boot_val = bootValue;      // Default value
+    var->reset_val = bootValue;     // Reset value (same as default)
+
+    // Set optional hook functions
+    var->check_hook = check_hook;   // Validation function
+    var->assign_hook = assign_hook; // Assignment callback
+    var->show_hook = show_hook;     // Display customization
+
+    // Register the variable with GUC system
+    define_custom_variable(&var->gen);
+}
+```

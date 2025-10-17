@@ -42,3 +42,21 @@ This utility function builds PostgreSQL replication protocol commands by appendi
 - Always adds a space before the option name regardless of syntax mode
 - In new syntax mode, adds ", " separator before the space and option name when needed
 - In old syntax mode, adds just " " separator when needed
+
+## Simplified Source
+
+```c
+void AppendPlainCommandOption(PQExpBuffer buf, bool use_new_option_syntax,
+                             char *option_name) {
+    // Add separator if buffer has content and doesn't end with '('
+    if (buf->len > 0 && buf->data[buf->len - 1] != '(') {
+        if (use_new_option_syntax)
+            appendPQExpBufferStr(buf, ", ");  // New syntax: comma separator
+        else
+            appendPQExpBufferChar(buf, ' ');  // Old syntax: space separator
+    }
+
+    // Append the option name with a leading space
+    appendPQExpBuffer(buf, " %s", option_name);
+}
+```

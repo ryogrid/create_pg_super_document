@@ -48,3 +48,59 @@ This function sends the IDENTIFY_SYSTEM replication protocol command to a Postgr
 - All output parameters are optional - callers can pass NULL for information they don't need
 - Returns false on any error (connection issues, unexpected result format, parsing errors)
 - Memory allocated for sysid and db_name strings should be freed by the caller using pg_free()
+
+## Simplified Source
+
+```c
+bool RunIdentifySystem(PGconn *conn, char **sysid, TimeLineID *starttli,
+                      XLogRecPtr *startpos, char **db_name) {
+    PGresult *res;
+    uint32 hi, lo;
+
+    // Execute IDENTIFY_SYSTEM command
+    res = PQexec(conn, "IDENTIFY_SYSTEM");
+    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+        pg_log_error("could not send replication command \"IDENTIFY_SYSTEM\": %s",
+                     PQerrorMessage(conn));
+        PQclear(res);
+        return false;
+    }
+
+    // Validate result format (expect 1 row, at least 3 fields)
+    if (PQntuples(res) != 1 || PQnfields(res) < 3) {
+        pg_log_error("unexpected result format from IDENTIFY_SYSTEM");
+        PQclear(res);
+        return false;
+    }
+
+    // Extract system identifier
+    if (sysid != NULL)
+        *sysid = pg_strdup(PQgetvalue(res, 0, 0));
+
+    // Extract timeline ID
+    if (starttli != NULL)
+        *starttli = atoi(PQgetvalue(res, 0, 1));
+
+    // Extract and parse LSN position (format: X/X)
+    if (startpos != NULL) {
+        if (sscanf(PQgetvalue(res, 0, 2), "%X/%X", &hi, &lo) != 2) {
+            pg_log_error("could not parse LSN location");
+            PQclear(res);
+            return false;
+        }
+        *startpos = ((uint64) hi) << 32 | lo;
+    }
+
+    // Extract database name (PostgreSQL 9.4+ only)
+    if (db_name != NULL) {
+        *db_name = NULL;
+        if (PQserverVersion(conn) >= 90400 && PQnfields(res) >= 4) {
+            if (!PQgetisnull(res, 0, 3))
+                *db_name = pg_strdup(PQgetvalue(res, 0, 3));
+        }
+    }
+
+    PQclear(res);
+    return true;
+}
+```

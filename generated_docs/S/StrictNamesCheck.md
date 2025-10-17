@@ -39,3 +39,44 @@ This strict checking is particularly useful in automated environments where it's
 - Provides specific error messages indicating both the object type and name that wasn't found
 - This validation occurs after the main restoration processing is complete
 - Helps prevent silent failures in scripted backup/restore scenarios
+
+## Simplified Source
+
+```c
+static void StrictNamesCheck(RestoreOptions *ropt) {
+    const char *missing_name;
+
+    Assert(ropt->strict_names);
+
+    // Check each object type list for untouched names
+    if (ropt->schemaNames.head != NULL) {
+        missing_name = simple_string_list_not_touched(&ropt->schemaNames);
+        if (missing_name != NULL)
+            pg_fatal("schema \"%s\" not found", missing_name);
+    }
+
+    if (ropt->tableNames.head != NULL) {
+        missing_name = simple_string_list_not_touched(&ropt->tableNames);
+        if (missing_name != NULL)
+            pg_fatal("table \"%s\" not found", missing_name);
+    }
+
+    if (ropt->indexNames.head != NULL) {
+        missing_name = simple_string_list_not_touched(&ropt->indexNames);
+        if (missing_name != NULL)
+            pg_fatal("index \"%s\" not found", missing_name);
+    }
+
+    if (ropt->functionNames.head != NULL) {
+        missing_name = simple_string_list_not_touched(&ropt->functionNames);
+        if (missing_name != NULL)
+            pg_fatal("function \"%s\" not found", missing_name);
+    }
+
+    if (ropt->triggerNames.head != NULL) {
+        missing_name = simple_string_list_not_touched(&ropt->triggerNames);
+        if (missing_name != NULL)
+            pg_fatal("trigger \"%s\" not found", missing_name);
+    }
+}
+```

@@ -40,3 +40,37 @@ The function allocates a GzipCompressorState structure to maintain gzip-specific
 - Sets up paranoid initialization of zlib stream pointers to handle cases where End might be called after Start without any Write operations
 - Uses pg_fatal for error handling if zlib initialization fails
 - The function is static and located in src/bin/pg_dump/compress_gzip.c:46-79
+
+## Simplified Source
+
+```c
+static void
+DeflateCompressorInit(CompressorState *cs)
+{
+    // Allocate and initialize gzip compressor state
+    GzipCompressorState *gzipcs = pg_malloc0(sizeof(GzipCompressorState));
+    z_streamp zp = gzipcs->zp = pg_malloc(sizeof(z_stream));
+
+    // Initialize zlib stream with default allocators
+    zp->zalloc = Z_NULL;
+    zp->zfree = Z_NULL;
+    zp->opaque = Z_NULL;
+
+    // Allocate output buffer (extra byte for potential trailing zero)
+    gzipcs->outsize = DEFAULT_IO_BUFFER_SIZE;
+    gzipcs->outbuf = pg_malloc(gzipcs->outsize + 1);
+
+    // Initialize deflate compression with specified level
+    Assert(cs->compression_spec.level != 0);  // Level 0 uses "None" compressor
+    if (deflateInit(zp, cs->compression_spec.level) != Z_OK) {
+        pg_fatal("could not initialize compression library: %s", zp->msg);
+    }
+
+    // Setup initial output buffer state
+    zp->next_out = gzipcs->outbuf;
+    zp->avail_out = gzipcs->outsize;
+
+    // Store state in compressor
+    cs->private_data = gzipcs;
+}
+```

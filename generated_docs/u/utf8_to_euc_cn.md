@@ -46,3 +46,28 @@ The function utilizes the `UtfToLocal` conversion utility with the `euc_cn_from_
 - Located in the conversion procedures module specifically for UTF-8 and EUC_CN conversions
 - This function is the complementary reverse conversion to `euc_cn_to_utf8`
 - Uses `UtfToLocal` instead of `LocalToUtf` to convert from UTF-8 to the local encoding (EUC_CN)
+
+## Simplified Source
+
+```c
+Datum
+utf8_to_euc_cn(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_UTF8, PG_EUC_CN);
+
+    // Convert UTF-8 to EUC_CN using conversion tree
+    int converted = UtfToLocal(src, len, dest,
+                              &euc_cn_from_unicode_tree,
+                              NULL, 0, NULL,
+                              PG_EUC_CN, noError);
+
+    return converted;
+}
+```

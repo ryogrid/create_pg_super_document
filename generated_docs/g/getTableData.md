@@ -41,3 +41,17 @@ This is a key initialization function in the pg_dump process that bridges the ga
 - Works in conjunction with makeTableDataInfo to create dumpable data objects
 - Simple but critical function for pg_dump's table data handling pipeline
 - Located at src/bin/pg_dump/pg_dump.c:2806-2824
+
+## Simplified Source
+
+```c
+static void getTableData(DumpOptions *dopt, TableInfo *tblinfo, int numTables, char relkind) {
+    // Iterate through all tables and create data objects for eligible ones
+    for (int i = 0; i < numTables; i++) {
+        if (tblinfo[i].dobj.dump & DUMP_COMPONENT_DATA &&
+            (!relkind || tblinfo[i].relkind == relkind)) {
+            makeTableDataInfo(dopt, &(tblinfo[i]));
+        }
+    }
+}
+```

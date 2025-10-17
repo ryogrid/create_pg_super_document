@@ -27,3 +27,13 @@ This function performs cleanup operations for a TSVectorParseState object by dea
 
 ## Notes and Other Information
 This function should always be called in a try-catch or PG_ENSURE_ERROR_CLEANUP block to guarantee cleanup even when errors occur during parsing. The parser state becomes invalid after calling this function and should not be accessed again.
+
+## Simplified Source
+
+```c
+void close_tsvector_parser(TSVectorParseState state) {
+    // Free allocated buffers and parser state
+    pfree(state->word);  // Free the word buffer
+    pfree(state);        // Free the parser state structure
+}
+```

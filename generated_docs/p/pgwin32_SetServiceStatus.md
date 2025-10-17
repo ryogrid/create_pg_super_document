@@ -33,3 +33,15 @@ This function provides a simplified interface for updating the PostgreSQL servic
 - The global `status` structure contains other service status information that remains unchanged
 - Critical for proper service lifecycle management and system monitoring
 - Used extensively throughout service startup, running, and shutdown phases
+
+## Simplified Source
+
+```c
+static void
+pgwin32_SetServiceStatus(DWORD currentState)
+{
+    // Update service state and notify Windows SCM
+    status.dwCurrentState = currentState;
+    SetServiceStatus(hStatus, (LPSERVICE_STATUS) &status);
+}
+```

@@ -43,3 +43,92 @@ This is the core implementation function that handles the complex reverse conver
 - Implements comprehensive error checking and validation
 - Null-terminates the output string
 - Counterpart to `euc_jis_20042shift_jis_2004` function
+
+## Simplified Source
+
+```c
+static int shift_jis_20042euc_jis_2004(const unsigned char *sjis, unsigned char *p, int len, bool noError) {
+    const unsigned char *start = sjis;
+    int c1, ku, ten, kubun, plane, l;
+
+    while (len > 0) {
+        c1 = *sjis;
+
+        // Handle ASCII characters (0x00-0x7F)
+        if (!IS_HIGHBIT_SET(c1)) {
+            if (c1 == 0 && !noError) {
+                report_invalid_encoding(PG_SHIFT_JIS_2004, (const char *) sjis, len);
+            }
+            *p++ = c1;
+            sjis++;
+            len--;
+            continue;
+        }
+
+        // Verify multibyte character validity
+        l = pg_encoding_verifymbchar(PG_SHIFT_JIS_2004, (const char *) sjis, len);
+        if (l < 0 || l > len) {
+            if (!noError) report_invalid_encoding(PG_SHIFT_JIS_2004, (const char *) sjis, len);
+            break;
+        }
+
+        // Handle JIS X0201 kana (1-byte, 0xA1-0xDF)
+        if (c1 >= 0xa1 && c1 <= 0xdf && l == 1) {
+            *p++ = SS2;  // Single shift 2
+            *p++ = c1;
+        }
+        // Handle 2-byte characters (JIS X 0213)
+        else if (l == 2) {
+            int c2 = sjis[1];
+            plane = 1;
+
+            // Determine ku (row) and ten (column) based on byte ranges
+            if (c1 >= 0x81 && c1 <= 0x9f) {          // Plane 1: 1ku-62ku
+                ku = (c1 << 1) - 0x100;
+                ten = get_ten(c2, &kubun);
+                if (ten >= 0) ku -= kubun;
+            }
+            else if (c1 >= 0xe0 && c1 <= 0xef) {     // Plane 1: 62ku-94ku
+                ku = (c1 << 1) - 0x180;
+                ten = get_ten(c2, &kubun);
+                if (ten >= 0) ku -= kubun;
+            }
+            else if (c1 >= 0xf0 && c1 <= 0xf3) {     // Plane 2: special ku mapping
+                plane = 2;
+                ten = get_ten(c2, &kubun);
+                if (ten >= 0) {
+                    // Map special ku values based on c1 and kubun
+                    if (c1 == 0xf0) ku = kubun == 0 ? 8 : 1;
+                    else if (c1 == 0xf1) ku = kubun == 0 ? 4 : 3;
+                    else if (c1 == 0xf2) ku = kubun == 0 ? 12 : 5;
+                    else ku = kubun == 0 ? 14 : 13;
+                }
+            }
+            else if (c1 >= 0xf4 && c1 <= 0xfc) {     // Plane 2: 78-94ku
+                plane = 2;
+                ten = get_ten(c2, &kubun);
+                if (ten >= 0) {
+                    ku = (c1 == 0xf4 && kubun == 1) ? 15 : (c1 << 1) - 0x19a - kubun;
+                }
+            }
+
+            // Check for conversion errors
+            if (ten < 0) {
+                if (!noError) report_invalid_encoding(PG_SHIFT_JIS_2004, (const char *) sjis, len);
+                break;
+            }
+
+            // Output EUC encoding
+            if (plane == 2) *p++ = SS3;  // Single shift 3 for plane 2
+            *p++ = ku + 0xa0;            // Add EUC offset to ku
+            *p++ = ten + 0xa0;           // Add EUC offset to ten
+        }
+
+        sjis += l;
+        len -= l;
+    }
+
+    *p = '\0';
+    return sjis - start;
+}
+```

@@ -44,3 +44,96 @@ This function is the core handler for actual WAL data received during streaming 
 - Can terminate streaming gracefully when stop condition callback returns true
 - Ignores subsequent messages when still_sending flag is false
 - Critical component for maintaining WAL file integrity during base backup and streaming replication
+
+## Simplified Source
+
+```c
+static bool
+ProcessXLogDataMsg(PGconn *conn, StreamCtl *stream, char *copybuf, int len,
+                   XLogRecPtr *blockpos)
+{
+    int xlogoff;
+    int bytes_left;
+    int bytes_written;
+    int hdr_len;
+
+    // Ignore if no longer receiving
+    if (!still_sending)
+        return true;
+
+    // Parse XLogData header: msgtype(1) + dataStart(8) + walEnd(8) + sendTime(8)
+    hdr_len = 1 + 8 + 8 + 8;
+    if (len < hdr_len) {
+        pg_log_error("streaming header too small: %d", len);
+        return false;
+    }
+    *blockpos = fe_recvint64(&copybuf[1]);  // Extract dataStart
+
+    // Calculate offset within WAL segment
+    xlogoff = XLogSegmentOffset(*blockpos, WalSegSz);
+
+    // Validate position continuity
+    if (walfile == NULL) {
+        if (xlogoff != 0) {
+            pg_log_error("received write-ahead log record for offset %u with no file open", xlogoff);
+            return false;
+        }
+    } else {
+        if (walfile->currpos != xlogoff) {
+            pg_log_error("got WAL data offset %08x, expected %08x", xlogoff, (int) walfile->currpos);
+            return false;
+        }
+    }
+
+    // Write data to WAL files
+    bytes_left = len - hdr_len;
+    bytes_written = 0;
+
+    while (bytes_left) {
+        // Don't cross WAL segment boundaries
+        int bytes_to_write = (xlogoff + bytes_left > WalSegSz) ?
+                             WalSegSz - xlogoff : bytes_left;
+
+        // Open WAL file if needed
+        if (walfile == NULL) {
+            if (!open_walfile(stream, *blockpos))
+                return false;
+        }
+
+        // Write data chunk
+        if (stream->walmethod->ops->write(walfile, copybuf + hdr_len + bytes_written,
+                                          bytes_to_write) != bytes_to_write) {
+            pg_log_error("could not write %d bytes to WAL file \"%s\": %s",
+                         bytes_to_write, walfile->pathname,
+                         GetLastWalMethodError(stream->walmethod));
+            return false;
+        }
+
+        // Update positions
+        bytes_written += bytes_to_write;
+        bytes_left -= bytes_to_write;
+        *blockpos += bytes_to_write;
+        xlogoff += bytes_to_write;
+
+        // Handle WAL segment boundary
+        if (XLogSegmentOffset(*blockpos, WalSegSz) == 0) {
+            if (!close_walfile(stream, *blockpos))
+                return false;
+
+            xlogoff = 0;
+
+            // Check for stop condition
+            if (still_sending && stream->stream_stop(*blockpos, stream->timeline, true)) {
+                if (PQputCopyEnd(conn, NULL) <= 0 || PQflush(conn)) {
+                    pg_log_error("could not send copy-end packet: %s", PQerrorMessage(conn));
+                    return false;
+                }
+                still_sending = false;
+                return true;
+            }
+        }
+    }
+
+    return true;
+}
+```

@@ -48,3 +48,60 @@ This function creates a TableDataInfo object that represents the data content of
 - Sets up dependency relationships to ensure proper dump ordering
 - Marks the parent table as 'interesting' to ensure column information is collected
 - Uses tableoid 0 to prevent confusion with pg_depend entries
+
+## Simplified Source
+
+```c
+static void makeTableDataInfo(DumpOptions *dopt, TableInfo *tbinfo) {
+    TableDataInfo *tdinfo;
+
+    // Skip if already processed or if it's a relation type we don't dump
+    if (tbinfo->dataObj != NULL)
+        return;
+
+    // Skip views, foreign tables, and partitioned tables
+    if (tbinfo->relkind == RELKIND_VIEW ||
+        tbinfo->relkind == RELKIND_PARTITIONED_TABLE)
+        return;
+
+    // Skip foreign tables unless explicitly included
+    if (tbinfo->relkind == RELKIND_FOREIGN_TABLE &&
+        !simple_oid_list_member(&foreign_servers_include_oids, tbinfo->foreign_server))
+        return;
+
+    // Skip unlogged table data if requested
+    if (tbinfo->relpersistence == RELPERSISTENCE_UNLOGGED &&
+        dopt->no_unlogged_table_data)
+        return;
+
+    // Skip explicitly excluded tables
+    if (simple_oid_list_member(&tabledata_exclude_oids, tbinfo->dobj.catId.oid))
+        return;
+
+    // Create TableDataInfo object
+    tdinfo = (TableDataInfo *) pg_malloc(sizeof(TableDataInfo));
+
+    // Set object type based on relation kind
+    if (tbinfo->relkind == RELKIND_MATVIEW)
+        tdinfo->dobj.objType = DO_REFRESH_MATVIEW;
+    else if (tbinfo->relkind == RELKIND_SEQUENCE)
+        tdinfo->dobj.objType = DO_SEQUENCE_SET;
+    else
+        tdinfo->dobj.objType = DO_TABLE_DATA;
+
+    // Initialize object metadata
+    tdinfo->dobj.catId.tableoid = 0;
+    tdinfo->dobj.catId.oid = tbinfo->dobj.catId.oid;
+    AssignDumpId(&tdinfo->dobj);
+    tdinfo->dobj.name = tbinfo->dobj.name;
+    tdinfo->dobj.namespace = tbinfo->dobj.namespace;
+    tdinfo->tdtable = tbinfo;
+    tdinfo->filtercond = NULL;
+
+    // Establish dependency and mark table as interesting
+    addObjectDependency(&tdinfo->dobj, tbinfo->dobj.dumpId);
+    tdinfo->dobj.components |= DUMP_COMPONENT_DATA;
+    tbinfo->dataObj = tdinfo;
+    tbinfo->interesting = true;
+}
+```

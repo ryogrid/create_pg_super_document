@@ -33,3 +33,19 @@ This function calculates how many transactions have occurred since a given trans
 - This function is commonly used in system administration and monitoring contexts
 - The result is returned as a 32-bit signed integer
 - Located in src/backend/utils/adt/xid.c:104-119
+
+## Simplified Source
+
+```c
+Datum xid_age(PG_FUNCTION_ARGS) {
+    TransactionId xid = PG_GETARG_TRANSACTIONID(0);
+    TransactionId latest_xid = GetStableLatestTransactionId();
+
+    // Permanent XIDs (Invalid, Bootstrap, Frozen) are infinitely old
+    if (!TransactionIdIsNormal(xid))
+        PG_RETURN_INT32(INT_MAX);
+
+    // Calculate age as simple difference
+    PG_RETURN_INT32((int32) (latest_xid - xid));
+}
+```

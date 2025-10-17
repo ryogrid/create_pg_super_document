@@ -38,3 +38,44 @@ This function handles string appending with formatting capabilities including fi
 - Right justification: padding spaces first, then string
 - Includes safety check for INT_MIN overflow when converting negative width to positive
 - This function is a key component of PostgreSQL's format() function implementation
+
+## Simplified Source
+
+```c
+static void text_format_append_string(StringInfo buf, const char *str,
+                                     int flags, int width) {
+    bool align_to_left = false;
+    int len;
+
+    // Fast path: no width formatting needed
+    if (width == 0) {
+        appendStringInfoString(buf, str);
+        return;
+    }
+
+    // Handle negative width (implies left alignment)
+    if (width < 0) {
+        align_to_left = true;
+        if (width <= INT_MIN)
+            ereport(ERROR, "number is out of range");
+        width = -width;
+    } else if (flags & TEXT_FORMAT_FLAG_MINUS) {
+        align_to_left = true;
+    }
+
+    // Get multibyte-aware string length
+    len = pg_mbstrlen(str);
+
+    if (align_to_left) {
+        // Left justify: string first, then padding
+        appendStringInfoString(buf, str);
+        if (len < width)
+            appendStringInfoSpaces(buf, width - len);
+    } else {
+        // Right justify: padding first, then string
+        if (len < width)
+            appendStringInfoSpaces(buf, width - len);
+        appendStringInfoString(buf, str);
+    }
+}
+```

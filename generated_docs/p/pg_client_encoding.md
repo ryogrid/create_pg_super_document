@@ -37,3 +37,12 @@ This function takes no parameters (proargtypes => '' in pg_proc.dat).
 - The encoding name returned comes from the pg_enc2name_tbl table structure
 - Function signature location: src/backend/utils/mb/mbutils.c:1279-1284
 - Catalog definition: src/include/catalog/pg_proc.dat:3753-3754
+
+## Simplified Source
+
+```c
+Datum pg_client_encoding(PG_FUNCTION_ARGS) {
+    // Convert client encoding name to PostgreSQL NAME data type
+    return DirectFunctionCall1(namein, CStringGetDatum(ClientEncoding->name));
+}
+```

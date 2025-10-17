@@ -32,3 +32,20 @@ This function serves as the public interface for initializing the "none" compres
 - The compression_spec parameter is stored but not otherwise used in the none implementation
 - All function pointers are set to none-specific implementations that perform no compression
 - Located in src/bin/pg_dump/compress_none.c:66-86
+
+## Simplified Source
+
+```c
+void
+InitCompressorNone(CompressorState *cs,
+                   const pg_compress_specification compression_spec)
+{
+    // Set up function pointers for no-compression operations
+    cs->readData = ReadDataFromArchiveNone;
+    cs->writeData = WriteDataToArchiveNone;
+    cs->end = EndCompressorNone;
+
+    // Store compression specification
+    cs->compression_spec = compression_spec;
+}
+```

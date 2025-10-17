@@ -41,3 +41,25 @@ The function uses the encoding-specific character verifier from pg_wchar_table t
 - Function signature location: src/backend/utils/mb/mbutils.c:1325-1358
 - Part of PostgreSQL's multibyte character handling infrastructure
 - Byte value 255 is treated as the maximum, stopping the search there
+
+## Simplified Source
+
+```c
+static bool pg_generic_charinc(unsigned char *charptr, int len) {
+    unsigned char *last_byte = charptr + len - 1;
+
+    // Get the character verifier function for current database encoding
+    mbchar_verifier verify_func = pg_wchar_table[GetDatabaseEncoding()].mbverifychar;
+
+    // Try incrementing the last byte until we find a valid character
+    while (*last_byte < 255) {
+        (*last_byte)++;
+
+        // Check if this creates a valid character
+        if (verify_func(charptr, len) == len)
+            return true;
+    }
+
+    return false; // No valid next character found
+}
+```

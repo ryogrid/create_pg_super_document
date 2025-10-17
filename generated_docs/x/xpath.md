@@ -39,3 +39,29 @@ This function implements PostgreSQL's xpath() SQL function, which evaluates XPat
 - Function signature follows PostgreSQL's V1 calling convention
 - [Result](../R/Result.md) array elements maintain their XML type for further XML processing
 - Provides the primary interface for XPath functionality in PostgreSQL SQL
+
+## Simplified Source
+
+```c
+Datum xpath(PG_FUNCTION_ARGS)
+{
+#ifdef USE_LIBXML
+    // Extract function arguments
+    text *xpath_expr_text = PG_GETARG_TEXT_PP(0);
+    xmltype *data = PG_GETARG_XML_P(1);
+    ArrayType *namespaces = PG_GETARG_ARRAYTYPE_P(2);
+
+    // Initialize array builder for XML results
+    ArrayBuildState *astate = initArrayResult(XMLOID, CurrentMemoryContext, true);
+
+    // Evaluate XPath expression and build result array
+    xpath_internal(xpath_expr_text, data, namespaces, NULL, astate);
+
+    // Return the completed array
+    PG_RETURN_DATUM(makeArrayResult(astate, CurrentMemoryContext));
+#else
+    NO_XML_SUPPORT();
+    return 0;
+#endif
+}
+```

@@ -54,3 +54,38 @@ Function arguments accessed through :
 - Memory management is handled through  for the input JSONB and JSONPath arguments
 - The  parameter defaults to , promoting error suppression for better indexing behavior
 - The function supports both 2-argument and 4-argument calling conventions
+
+## Simplified Source
+
+```c
+static Datum
+jsonb_path_exists_internal(FunctionCallInfo fcinfo, bool tz)
+{
+    Jsonb *jb = PG_GETARG_JSONB_P(0);
+    JsonPath *jp = PG_GETARG_JSONPATH_P(1);
+    JsonPathExecResult res;
+    Jsonb *vars = NULL;
+    bool silent = true;
+
+    // Check for optional variables and silent mode arguments
+    if (PG_NARGS() == 4) {
+        vars = PG_GETARG_JSONB_P(2);
+        silent = PG_GETARG_BOOL(3);
+    }
+
+    // Execute the JSONPath expression
+    res = executeJsonPath(jp, vars, getJsonPathVariableFromJsonb,
+                         countVariablesFromJsonb,
+                         jb, !silent, NULL, tz);
+
+    // Clean up memory
+    PG_FREE_IF_COPY(jb, 0);
+    PG_FREE_IF_COPY(jp, 1);
+
+    // Return NULL on error, boolean result on success
+    if (jperIsError(res))
+        PG_RETURN_NULL();
+
+    PG_RETURN_BOOL(res == jperOk);
+}
+```

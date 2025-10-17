@@ -54,3 +54,68 @@ When inadequate locking is detected, the function logs WARNING messages with det
 - Generates WARNING messages rather than errors, making this a diagnostic tool
 - The function assumes the relation is already known to be inplace-updateable
 - Helps developers detect insufficient locking that could lead to catalog corruption during concurrent operations
+
+## Simplified Source
+
+```c
+static void
+check_lock_if_inplace_updateable_rel(Relation relation, ItemPointer otid, HeapTuple newtup)
+{
+    // Check if tuple-level lock is held (acceptable for any catalog)
+    switch (RelationGetRelid(relation)) {
+        case RelationRelationId:
+        case DatabaseRelationId:
+            {
+                LOCKTAG tuptag;
+                SET_LOCKTAG_TUPLE(tuptag, relation->rd_lockInfo.lockRelId.dbId,
+                                 relation->rd_lockInfo.lockRelId.relId,
+                                 ItemPointerGetBlockNumber(otid),
+                                 ItemPointerGetOffsetNumber(otid));
+                if (LockHeldByMe(&tuptag, InplaceUpdateTupleLock, false))
+                    return;
+            }
+            break;
+        default:
+            Assert(!IsInplaceUpdateRelation(relation));
+            return;
+    }
+
+    // Check relation-specific lock requirements
+    switch (RelationGetRelid(relation)) {
+        case RelationRelationId:
+            {
+                // For pg_class: tuple or relation lock acceptable
+                Form_pg_class classForm = (Form_pg_class) GETSTRUCT(newtup);
+                Oid relid = classForm->oid;
+                Oid dbid = IsSharedRelation(relid) ? InvalidOid : MyDatabaseId;
+                LOCKTAG tag;
+
+                // For indexes, check lock on underlying table
+                if (classForm->relkind == RELKIND_INDEX) {
+                    Relation irel = index_open(relid, AccessShareLock);
+                    SET_LOCKTAG_RELATION(tag, dbid, irel->rd_index->indrelid);
+                    index_close(irel, AccessShareLock);
+                } else {
+                    SET_LOCKTAG_RELATION(tag, dbid, relid);
+                }
+
+                // Check for required relation locks
+                if (!LockHeldByMe(&tag, ShareUpdateExclusiveLock, false) &&
+                    !LockHeldByMe(&tag, ShareRowExclusiveLock, true))
+                    elog(WARNING, "missing lock for relation \"%s\" (OID %u, relkind %c) @ TID (%u,%u)",
+                         NameStr(classForm->relname), relid, classForm->relkind,
+                         ItemPointerGetBlockNumber(otid), ItemPointerGetOffsetNumber(otid));
+            }
+            break;
+        case DatabaseRelationId:
+            {
+                // For pg_database: tuple lock required
+                Form_pg_database dbForm = (Form_pg_database) GETSTRUCT(newtup);
+                elog(WARNING, "missing lock on database \"%s\" (OID %u) @ TID (%u,%u)",
+                     NameStr(dbForm->datname), dbForm->oid,
+                     ItemPointerGetBlockNumber(otid), ItemPointerGetOffsetNumber(otid));
+            }
+            break;
+    }
+}
+```

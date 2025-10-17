@@ -47,3 +47,28 @@ This approach ensures that system languages are handled appropriately while pres
 - Extension membership always takes precedence over other dump policies
 - Only dumped when include_everything is enabled, unlike some other object types
 - The function is static and only used internally within pg_dump.c
+
+## Simplified Source
+
+```c
+static void
+selectDumpableProcLang(ProcLangInfo *plang, Archive *fout)
+{
+    // Extension membership overrides all other policies
+    if (checkExtensionMembership(&plang->dobj, fout))
+        return;
+
+    // Only dump procedural languages when dumping everything
+    if (!fout->dopt->include_everything)
+        plang->dobj.dump = DUMP_COMPONENT_NONE;
+    else {
+        // Built-in languages: ACL only (for PG 9.6+), or nothing for older versions
+        if (plang->dobj.catId.oid <= (Oid) g_last_builtin_oid)
+            plang->dobj.dump = fout->remoteVersion < 90600 ?
+                DUMP_COMPONENT_NONE : DUMP_COMPONENT_ACL;
+        else
+            // User-defined languages: dump everything
+            plang->dobj.dump = DUMP_COMPONENT_ALL;
+    }
+}
+```

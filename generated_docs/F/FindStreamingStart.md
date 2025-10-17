@@ -44,3 +44,59 @@ If no valid WAL files are found in the directory, it returns InvalidXLogRecPtr t
 - Uses timeline ID to handle PostgreSQL's timeline switching mechanism
 - Critical for ensuring WAL streaming continuity and avoiding gaps or overlaps
 - The function's logic accounts for partial files (*.partial) which are skipped during size validation
+
+## Simplified Source
+
+```c
+static XLogRecPtr FindStreamingStart(uint32 *tli) {
+    DIR *dir;
+    struct dirent *dirent;
+    XLogSegNo high_segno = 0;
+    uint32 high_tli = 0;
+    bool high_ispartial = false;
+
+    // Open destination directory
+    dir = get_destination_dir(basedir);
+
+    // Scan directory for WAL files
+    while ((dirent = readdir(dir)) != NULL) {
+        uint32 timeline;
+        XLogSegNo segno;
+        bool ispartial;
+        pg_compress_algorithm compression;
+
+        // Check if this is a valid WAL filename
+        if (!is_xlogfilename(dirent->d_name, &ispartial, &compression)) {
+            continue;
+        }
+
+        // Parse timeline and segment number from filename
+        XLogFromFileName(dirent->d_name, &timeline, &segno, WalSegSz);
+
+        // Validate segment completeness based on compression type
+        if (!ispartial) {
+            if (!validate_segment_size(dirent->d_name, compression)) {
+                continue; // Skip invalid segments
+            }
+        }
+
+        // Track highest complete segment on highest timeline
+        if (timeline > high_tli ||
+            (timeline == high_tli && segno >= high_segno && !ispartial)) {
+            high_tli = timeline;
+            high_segno = segno;
+            high_ispartial = ispartial;
+        }
+    }
+
+    close_destination_dir(dir, basedir);
+
+    // Return starting position or invalid if no complete segments found
+    if (high_tli == 0) {
+        return InvalidXLogRecPtr;
+    }
+
+    *tli = high_tli;
+    return XLogSegNoOffsetToRecPtr(high_segno + 1, 0, WalSegSz);
+}
+```

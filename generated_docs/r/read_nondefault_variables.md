@@ -60,3 +60,70 @@ Error handling is strict - any format inconsistency results in FATAL errors sinc
 - The binary format read must exactly match what write_one_nondefault_variable produces
 - [Variables](../V/Variables.md) are applied in the order they appear in the file
 - Each variable is validated to exist before attempting to set its value
+
+## Simplified Source
+
+```c
+void read_nondefault_variables(void)
+{
+    FILE *fp;
+    char *varname, *varvalue, *varsourcefile;
+    int varsourceline;
+    GucSource varsource;
+    GucContext varscontext;
+    Oid varsrole;
+
+    // Open configuration parameters file
+    fp = AllocateFile(CONFIG_EXEC_PARAMS, "r");
+    if (!fp)
+    {
+        // Missing file is OK, other errors are fatal
+        if (errno != ENOENT)
+            ereport(FATAL,
+                    (errcode_for_file_access(),
+                     errmsg("could not read from file \"%s\": %m",
+                            CONFIG_EXEC_PARAMS)));
+        return;
+    }
+
+    // Read and restore each variable
+    for (;;)
+    {
+        // Read variable name (NULL indicates EOF)
+        if ((varname = read_string_with_null(fp)) == NULL)
+            break;
+
+        // Validate variable exists
+        if (find_option(varname, true, false, FATAL) == NULL)
+            elog(FATAL, "failed to locate variable \"%s\" in exec config params file", varname);
+
+        // Read variable metadata
+        if ((varvalue = read_string_with_null(fp)) == NULL)
+            elog(FATAL, "invalid format of exec config params file");
+        if ((varsourcefile = read_string_with_null(fp)) == NULL)
+            elog(FATAL, "invalid format of exec config params file");
+        if (fread(&varsourceline, 1, sizeof(varsourceline), fp) != sizeof(varsourceline))
+            elog(FATAL, "invalid format of exec config params file");
+        if (fread(&varsource, 1, sizeof(varsource), fp) != sizeof(varsource))
+            elog(FATAL, "invalid format of exec config params file");
+        if (fread(&varscontext, 1, sizeof(varscontext), fp) != sizeof(varscontext))
+            elog(FATAL, "invalid format of exec config params file");
+        if (fread(&varsrole, 1, sizeof(varsrole), fp) != sizeof(varsrole))
+            elog(FATAL, "invalid format of exec config params file");
+
+        // Apply the variable setting with original source info
+        (void) set_config_option_ext(varname, varvalue,
+                                     varscontext, varsource, varsrole,
+                                     GUC_ACTION_SET, true, 0, true);
+        if (varsourcefile[0])
+            set_config_sourcefile(varname, varsourcefile, varsourceline);
+
+        // Free allocated strings
+        guc_free(varname);
+        guc_free(varvalue);
+        guc_free(varsourcefile);
+    }
+
+    FreeFile(fp);
+}
+```

@@ -35,3 +35,16 @@ The function serves as a wrapper around the standard library getc() function, ad
 - Used extensively throughout the pg_dump/pg_restore infrastructure for low-level data reading
 - Complementary function to _WriteByte for archive I/O operations
 - File location: src/bin/pg_dump/pg_backup_custom.c:686-703
+
+## Simplified Source
+```c
+static int _ReadByte(ArchiveHandle *AH)
+{
+    // Read single byte from archive file
+    int res = getc(AH->FH);
+    if (res == EOF)
+        READ_ERROR_EXIT(AH->FH);
+
+    return res;
+}
+```

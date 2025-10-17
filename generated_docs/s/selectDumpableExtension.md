@@ -50,3 +50,35 @@ The function sets both dump and dump_contains flags to the same value, ensuring 
 - The function handles the complex interaction between schema/table-specific dumps and extension dumps
 - ACL-only dumping for built-in extensions allows preservation of permission changes
 - The function is static and only used internally within pg_dump.c
+
+## Simplified Source
+
+```c
+static void
+selectDumpableExtension(ExtensionInfo *extinfo, DumpOptions *dopt)
+{
+    // Built-in extensions: only dump ACLs to preserve permission changes
+    if (extinfo->dobj.catId.oid <= (Oid) g_last_builtin_oid) {
+        extinfo->dobj.dump = extinfo->dobj.dump_contains = DUMP_COMPONENT_ACL;
+        return;
+    }
+
+    // User-defined extensions: check inclusion/exclusion lists
+    if (extension_include_oids.head != NULL) {
+        // Explicit include list exists: only dump if listed
+        extinfo->dobj.dump = extinfo->dobj.dump_contains =
+            simple_oid_list_member(&extension_include_oids, extinfo->dobj.catId.oid) ?
+            DUMP_COMPONENT_ALL : DUMP_COMPONENT_NONE;
+    } else {
+        // No include list: dump based on include_everything setting
+        extinfo->dobj.dump = extinfo->dobj.dump_contains =
+            dopt->include_everything ?
+            DUMP_COMPONENT_ALL : DUMP_COMPONENT_NONE;
+    }
+
+    // Apply exclude list - overrides all other settings
+    if (extinfo->dobj.dump &&
+        simple_oid_list_member(&extension_exclude_oids, extinfo->dobj.catId.oid))
+        extinfo->dobj.dump = extinfo->dobj.dump_contains = DUMP_COMPONENT_NONE;
+}
+```

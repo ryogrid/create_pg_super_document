@@ -39,3 +39,15 @@ The function performs validation to ensure it's called in the correct trigger co
 - Part of the referential integrity (RI) trigger system that maintains foreign key constraints
 - Located in `src/backend/utils/adt/ri_triggers.c` at lines 608-623
 - Returns a Datum value as required by PostgreSQL's function call interface
+
+## Simplified Source
+
+```c
+Datum RI_FKey_restrict_upd(PG_FUNCTION_ARGS) {
+    // Validate this is a proper UPDATE trigger call
+    ri_CheckTrigger(fcinfo, "RI_FKey_restrict_upd", RI_TRIGTYPE_UPDATE);
+
+    // Use shared constraint logic with RESTRICT behavior (false)
+    return ri_restrict((TriggerData *) fcinfo->context, false);
+}
+```

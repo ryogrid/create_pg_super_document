@@ -53,3 +53,69 @@ The function is designed to be highly efficient for sorting operations where the
 - Buffer management grows exponentially up to MaxAllocSize to balance memory usage and reallocation overhead
 - Cache effectiveness depends on sorting patterns - most beneficial with low to moderate cardinality data sets
 - The function ensures deterministic results even with non-deterministic locales by using strcmp() as a tie-breaker
+
+## Simplified Source
+
+```c
+static int
+varstrfastcmp_locale(char *a1p, int len1, char *a2p, int len2, SortSupport ssup)
+{
+    VarStringSortSupport *sss = (VarStringSortSupport *) ssup->ssup_extra;
+    int result;
+    bool arg1_match;
+
+    // Fast equality check - if strings are identical, return 0 immediately
+    if (len1 == len2 && memcmp(a1p, a2p, len1) == 0) {
+        return 0;
+    }
+
+    // Handle BPCHAR type - strip trailing spaces for comparison
+    if (sss->typid == BPCHAROID) {
+        len1 = bpchartruelen(a1p, len1);
+        len2 = bpchartruelen(a2p, len2);
+    }
+
+    // Ensure comparison buffers are large enough
+    if (len1 >= sss->buflen1) {
+        sss->buflen1 = Max(len1 + 1, Min(sss->buflen1 * 2, MaxAllocSize));
+        sss->buf1 = repalloc(sss->buf1, sss->buflen1);
+    }
+    if (len2 >= sss->buflen2) {
+        sss->buflen2 = Max(len2 + 1, Min(sss->buflen2 * 2, MaxAllocSize));
+        sss->buf2 = repalloc(sss->buf2, sss->buflen2);
+    }
+
+    // Check if first string matches cached value
+    arg1_match = true;
+    if (len1 != sss->last_len1 || memcmp(sss->buf1, a1p, len1) != 0) {
+        arg1_match = false;
+        memcpy(sss->buf1, a1p, len1);
+        sss->buf1[len1] = '\0';
+        sss->last_len1 = len1;
+    }
+
+    // Check if second string matches cached value
+    if (len2 != sss->last_len2 || memcmp(sss->buf2, a2p, len2) != 0) {
+        memcpy(sss->buf2, a2p, len2);
+        sss->buf2[len2] = '\0';
+        sss->last_len2 = len2;
+    }
+    else if (arg1_match && !sss->cache_blob) {
+        // Both strings match cache - return cached result
+        return sss->last_returned;
+    }
+
+    // Perform locale-aware comparison
+    result = pg_strcoll(sss->buf1, sss->buf2, sss->locale);
+
+    // Break ties deterministically if locale comparison returns equal
+    if (result == 0 && pg_locale_deterministic(sss->locale)) {
+        result = strcmp(sss->buf1, sss->buf2);
+    }
+
+    // Cache the result for potential reuse
+    sss->cache_blob = false;
+    sss->last_returned = result;
+    return result;
+}
+```

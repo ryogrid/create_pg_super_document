@@ -36,3 +36,18 @@ The function leverages `JsonbToCStringIndent` to perform the actual formatting w
 - The output includes proper indentation, line breaks, and spacing for readability
 - Useful for debugging and displaying JSON data in a human-friendly format
 - Exposed as the SQL function `jsonb_pretty(jsonb)`
+
+## Simplified Source
+
+```c
+Datum jsonb_pretty(PG_FUNCTION_ARGS) {
+    Jsonb *jb = PG_GETARG_JSONB_P(0);
+    StringInfo str = makeStringInfo();
+
+    // Convert JSONB to indented string representation
+    JsonbToCStringIndent(str, &jb->root, VARSIZE(jb));
+
+    // Return as PostgreSQL text datum
+    PG_RETURN_TEXT_P(cstring_to_text_with_len(str->data, str->len));
+}
+```

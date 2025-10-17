@@ -47,3 +47,14 @@ The function delegates all the actual comparison work to , including dimension c
 - Used through PostgreSQL's operator system for expressions like 
 - Maintains consistency with SQL standards for array inequality operations
 - The function comment indicates it's part of a broader family of array comparison operators that use element-by-element iteration logic
+
+## Simplified Source
+
+```c
+Datum
+array_ne(PG_FUNCTION_ARGS)
+{
+    // Simply negate the result of array equality
+    return PG_RETURN_BOOL(!DatumGetBool(array_eq(fcinfo)));
+}
+```

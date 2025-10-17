@@ -50,3 +50,110 @@ This function serves as the primary constructor for ArchiveHandle objects in Pos
 - Sets up compression for stdout output regardless of archive format
 - Critical initialization function that determines archive behavior through format-specific handlers
 - Version information is embedded using K_VERS_SELF constant
+
+## Simplified Source
+
+```c
+static ArchiveHandle *
+_allocAH(const char *FileSpec, const ArchiveFormat fmt,
+         const pg_compress_specification compression_spec,
+         bool dosync, ArchiveMode mode,
+         SetupWorkerPtrType setupWorkerPtr, DataDirSyncMethod sync_method)
+{
+    ArchiveHandle *AH;
+    CompressFileHandle *CFH;
+    pg_compress_specification out_compress_spec = {0};
+
+    pg_log_debug("allocating AH for %s, format %d",
+                 FileSpec ? FileSpec : "(stdio)", fmt);
+
+    // Allocate and initialize archive handle
+    AH = (ArchiveHandle *) pg_malloc0(sizeof(ArchiveHandle));
+
+    AH->version = K_VERS_SELF;
+
+    // Set defaults for string processing and error handling
+    AH->public.encoding = 0;        // PG_SQL_ASCII
+    AH->public.std_strings = false;
+    AH->public.exit_on_error = true;
+    AH->public.n_errors = 0;
+
+    AH->archiveDumpVersion = PG_VERSION;
+    AH->createDate = time(NULL);
+    AH->intSize = sizeof(int);
+    AH->offSize = sizeof(pgoff_t);
+
+    // Set file specification
+    if (FileSpec)
+        AH->fSpec = pg_strdup(FileSpec);
+    else
+        AH->fSpec = NULL;
+
+    // Initialize context tracking
+    AH->currUser = NULL;
+    AH->currSchema = NULL;
+    AH->currTablespace = NULL;
+    AH->currTableAm = NULL;
+
+    // Create circular TOC list
+    AH->toc = (TocEntry *) pg_malloc0(sizeof(TocEntry));
+    AH->toc->next = AH->toc;
+    AH->toc->prev = AH->toc;
+
+    // Set operational parameters
+    AH->mode = mode;
+    AH->compression_spec = compression_spec;
+    AH->dosync = dosync;
+    AH->sync_method = sync_method;
+
+    memset(&(AH->sqlparse), 0, sizeof(AH->sqlparse));
+
+    // Set up stdout compression handle
+    out_compress_spec.algorithm = PG_COMPRESSION_NONE;
+    CFH = InitCompressFileHandle(out_compress_spec);
+    if (!CFH->open_func(NULL, fileno(stdout), PG_BINARY_A, CFH))
+        pg_fatal("could not open stdout for appending: %m");
+    AH->OF = CFH;
+
+    // Platform-specific binary mode setup
+#ifdef WIN32
+    if ((fmt != archNull || compression_spec.algorithm != PG_COMPRESSION_NONE) &&
+        (AH->fSpec == NULL || strcmp(AH->fSpec, "") == 0))
+    {
+        if (mode == archModeWrite)
+            _setmode(fileno(stdout), O_BINARY);
+        else
+            _setmode(fileno(stdin), O_BINARY);
+    }
+#endif
+
+    AH->SetupWorkerPtr = setupWorkerPtr;
+
+    // Determine and set archive format
+    if (fmt == archUnknown)
+        AH->format = _discoverArchiveFormat(AH);
+    else
+        AH->format = fmt;
+
+    // Initialize format-specific handlers
+    switch (AH->format)
+    {
+        case archCustom:
+            InitArchiveFmt_Custom(AH);
+            break;
+        case archNull:
+            InitArchiveFmt_Null(AH);
+            break;
+        case archDirectory:
+            InitArchiveFmt_Directory(AH);
+            break;
+        case archTar:
+            InitArchiveFmt_Tar(AH);
+            break;
+        default:
+            pg_fatal("unrecognized file format \"%d\"", fmt);
+    }
+
+    return AH;
+}
+```

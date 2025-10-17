@@ -38,3 +38,15 @@ The function serves as a wrapper around the standard library fputc() function, a
 - Used extensively throughout the pg_dump/pg_restore infrastructure
 - The function writes only the least significant byte of the input integer
 - File location: src/bin/pg_dump/pg_backup_custom.c:669-685
+
+## Simplified Source
+```c
+static int _WriteByte(ArchiveHandle *AH, const int i)
+{
+    // Write single byte to archive file
+    if (fputc(i, AH->FH) == EOF)
+        WRITE_ERROR_EXIT;
+
+    return 1;
+}
+```

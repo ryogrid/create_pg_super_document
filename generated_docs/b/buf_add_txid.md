@@ -32,3 +32,19 @@ This function is responsible for adding a transaction ID to a snapshot buffer du
 - The function assumes the buffer contains a valid pg_snapshot structure
 - The nxip counter is incremented before the append operation to avoid potential issues with buffer reallocation
 - The FullTransactionId is stored in binary format for efficient storage and retrieval
+
+## Simplified Source
+
+```c
+static void buf_add_txid(StringInfo buf, FullTransactionId fxid) {
+    // Get pointer to snapshot structure in buffer
+    pg_snapshot *snap = (pg_snapshot *) buf->data;
+
+    // Increment count of in-progress transactions
+    // (done before reallocation to avoid pointer invalidation)
+    snap->nxip++;
+
+    // Append transaction ID in binary format to buffer
+    appendBinaryStringInfo(buf, &fxid, sizeof(fxid));
+}
+```

@@ -36,3 +36,52 @@ The function handles scalar JSONB values by returning them unchanged since scala
 - Uses delayed key processing to avoid adding keys for null values
 - The function preserves the structure of nested objects and arrays while only removing null-valued pairs at all levels
 - Exposed as the SQL function `jsonb_strip_nulls(jsonb)`
+
+## Simplified Source
+
+```c
+Datum jsonb_strip_nulls(PG_FUNCTION_ARGS) {
+    Jsonb *jb = PG_GETARG_JSONB_P(0);
+    JsonbIterator *it;
+    JsonbParseState *parseState = NULL;
+    JsonbValue *res = NULL;
+    JsonbValue v, k;
+    JsonbIteratorToken type;
+    bool last_was_key = false;
+
+    // Return scalar values unchanged
+    if (JB_ROOT_IS_SCALAR(jb))
+        PG_RETURN_POINTER(jb);
+
+    it = JsonbIteratorInit(&jb->root);
+
+    // Iterate through JSONB structure
+    while ((type = JsonbIteratorNext(&it, &v, false)) != WJB_DONE) {
+        if (type == WJB_KEY) {
+            // Store key temporarily until we check the value
+            k = v;
+            last_was_key = true;
+            continue;
+        }
+
+        if (last_was_key) {
+            last_was_key = false;
+
+            // Skip null values (don't add key-value pair)
+            if (type == WJB_VALUE && v.type == jbvNull)
+                continue;
+
+            // Add the key now that we know value is not null
+            pushJsonbValue(&parseState, WJB_KEY, &k);
+        }
+
+        // Add value or other token types
+        if (type == WJB_VALUE || type == WJB_ELEM)
+            res = pushJsonbValue(&parseState, type, &v);
+        else
+            res = pushJsonbValue(&parseState, type, NULL);
+    }
+
+    PG_RETURN_POINTER(JsonbValueToJsonb(res));
+}
+```

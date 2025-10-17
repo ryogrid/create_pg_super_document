@@ -33,3 +33,14 @@ The function follows the standard PostgreSQL notice processor callback signature
 - Provides a standardized way to handle PostgreSQL server notices in client applications
 - The arg parameter is ignored in this simple implementation but allows for context passing in more complex scenarios
 - Essential for capturing diagnostic information that PostgreSQL sends as notices rather than errors
+
+## Simplified Source
+
+```c
+static void
+notice_processor(void *arg, const char *message)
+{
+    // Forward PostgreSQL notices to application logging system
+    pg_log_info("%s", message);
+}
+```

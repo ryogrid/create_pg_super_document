@@ -44,3 +44,19 @@ This design ensures that all the complex timezone-aware calendar arithmetic, DST
 - Creates a local copy of the interval (tspan) for negation, leaving the original unchanged
 - Critical component in PostgreSQL's timezone-aware temporal arithmetic system
 - Part of the internal API used by public timestamptz functions and window function implementations
+
+## Simplified Source
+
+```c
+static TimestampTz timestamptz_mi_interval_internal(TimestampTz timestamp,
+                                                   Interval *span,
+                                                   pg_tz *attimezone) {
+    Interval negated_span;
+
+    // Negate the interval (subtraction = addition with negated interval)
+    interval_um_internal(span, &negated_span);
+
+    // Delegate to timezone-aware addition with negated interval
+    return timestamptz_pl_interval_internal(timestamp, &negated_span, attimezone);
+}
+```

@@ -58,3 +58,132 @@ None - this function operates on global variables including:
 - Contains complex state management for connection lifecycle and output file handling
 - Uses select()-based event loop for efficient I/O multiplexing
 - Implements proper resource cleanup even in error conditions
+
+## Simplified Source
+
+```c
+static void StreamLogicalLog(void) {
+    PGresult *res;
+    char *copybuf = NULL;
+    TimestampTz last_status = -1;
+    PQExpBuffer query;
+    XLogRecPtr cur_record_lsn;
+
+    // Initialize LSN tracking
+    output_written_lsn = InvalidXLogRecPtr;
+    output_fsync_lsn = InvalidXLogRecPtr;
+
+    // Establish replication connection
+    if (!conn) {
+        conn = GetConnection();
+    }
+    if (!conn) {
+        return;
+    }
+
+    // Build and execute START_REPLICATION command
+    query = createPQExpBuffer();
+    appendPQExpBuffer(query, "START_REPLICATION SLOT \"%s\" LOGICAL %X/%X",
+                     replication_slot, LSN_FORMAT_ARGS(startpos));
+
+    // Add any configured options
+    if (noptions) {
+        appendPQExpBufferStr(query, " (");
+        for (int i = 0; i < noptions; i++) {
+            if (i > 0) appendPQExpBufferStr(query, ", ");
+            appendPQExpBuffer(query, "\"%s\"", options[i * 2]);
+            if (options[i * 2 + 1] != NULL) {
+                appendPQExpBuffer(query, " '%s'", options[i * 2 + 1]);
+            }
+        }
+        appendPQExpBufferChar(query, ')');
+    }
+
+    res = PQexec(conn, query->data);
+    if (PQresultStatus(res) != PGRES_COPY_BOTH) {
+        pg_log_error("could not send replication command \"%s\": %s",
+                    query->data, PQresultErrorMessage(res));
+        goto cleanup;
+    }
+
+    if (verbose) {
+        pg_log_info("streaming initiated");
+    }
+
+    // Main streaming loop
+    while (!time_to_abort) {
+        TimestampTz now = feGetCurrentTimestamp();
+
+        // Handle periodic operations (fsync, keepalives)
+        handle_periodic_operations(now, &last_status);
+
+        // Open output file if needed
+        if (outfd == -1) {
+            open_output_file();
+        }
+
+        // Get next message from stream
+        int r = PQgetCopyData(conn, &copybuf, 1);
+
+        if (r == 0) {
+            // No data available, wait with timeout
+            wait_for_data_with_timeout(conn, now, &last_status);
+            continue;
+        }
+
+        if (r == -1) {
+            break; // End of stream
+        }
+
+        if (r == -2) {
+            pg_log_error("could not read COPY data: %s", PQerrorMessage(conn));
+            goto cleanup;
+        }
+
+        // Process message based on type
+        if (copybuf[0] == 'k') {
+            // Keepalive message
+            if (!process_keepalive_message(copybuf, r, conn, &now, &last_status)) {
+                goto cleanup;
+            }
+        } else if (copybuf[0] == 'w') {
+            // WAL data message
+            if (!process_wal_data_message(copybuf, r, &cur_record_lsn, &now)) {
+                goto cleanup;
+            }
+        } else {
+            pg_log_error("unrecognized streaming header: \"%c\"", copybuf[0]);
+            goto cleanup;
+        }
+
+        // Check if we've reached the end position
+        if (endpos != InvalidXLogRecPtr && cur_record_lsn >= endpos) {
+            flushAndSendFeedback(conn, &now);
+            time_to_abort = true;
+            break;
+        }
+
+        if (copybuf) {
+            PQfreemem(copybuf);
+            copybuf = NULL;
+        }
+    }
+
+    // Handle clean termination
+    if (time_to_abort) {
+        prepareToTerminate(conn, endpos, stop_reason, cur_record_lsn);
+    }
+
+cleanup:
+    // Resource cleanup
+    if (copybuf) PQfreemem(copybuf);
+    if (outfd != -1 && strcmp(outfile, "-") != 0) {
+        OutputFsync(feGetCurrentTimestamp());
+        close(outfd);
+    }
+    destroyPQExpBuffer(query);
+    PQfinish(conn);
+    conn = NULL;
+    outfd = -1;
+}
+```

@@ -40,3 +40,24 @@ The function creates an ErrorSaveContext to capture any parsing errors, then cal
 - Returns true if XML parsing succeeds without errors, false otherwise
 - Part of PostgreSQL's XML validation infrastructure
 - Serves as the common implementation for public well-formedness checking functions
+
+## Simplified Source
+
+```c
+static bool wellformed_xml(text *data, XmlOptionType xmloption_arg)
+{
+    xmlDocPtr doc;
+    ErrorSaveContext escontext = {T_ErrorSaveContext};
+
+    // Attempt to parse XML data with error context to catch parsing errors
+    doc = xml_parse(data, xmloption_arg, true, GetDatabaseEncoding(),
+                   NULL, NULL, (Node *) &escontext);
+
+    // Clean up parsed document if successful
+    if (doc)
+        xmlFreeDoc(doc);
+
+    // Return true if no parsing errors occurred
+    return !escontext.error_occurred;
+}
+```

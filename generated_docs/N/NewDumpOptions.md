@@ -33,3 +33,19 @@ The DumpOptions structure contains numerous configuration options for controllin
 - The returned pointer should be freed when no longer needed
 - All initialization is delegated to InitDumpOptions for consistency
 - This is the standard way to create DumpOptions instances in the pg_dump codebase
+
+## Simplified Source
+
+```c
+DumpOptions *
+NewDumpOptions(void)
+{
+    // Allocate memory for a new DumpOptions structure
+    DumpOptions *opts = (DumpOptions *) pg_malloc(sizeof(DumpOptions));
+
+    // Initialize with default values
+    InitDumpOptions(opts);
+
+    return opts;
+}
+```

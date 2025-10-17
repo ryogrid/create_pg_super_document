@@ -38,3 +38,35 @@ EndDBCopyMode handles the proper termination of COPY operations during database 
 - Part of the pg_backup_db.h interface for archive restoration operations
 - Critical for proper cleanup of PostgreSQL COPY protocol state
 - Error messages include table context to aid in debugging restoration issues
+
+## Simplified Source
+
+```c
+void EndDBCopyMode(Archive *AHX, const char *tocEntryTag) {
+    ArchiveHandle *AH = (ArchiveHandle *) AHX;
+
+    if (AH->pgCopyIn) {
+        // Signal end of COPY data transmission
+        if (PQputCopyEnd(AH->connection, NULL) <= 0) {
+            pg_fatal("error returned by PQputCopyEnd: %s",
+                     PQerrorMessage(AH->connection));
+        }
+
+        // Check command status and ensure successful completion
+        PGresult *res = PQgetResult(AH->connection);
+        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+            warn_or_exit_horribly(AH, "COPY failed for table \"%s\": %s",
+                                  tocEntryTag, PQerrorMessage(AH->connection));
+        }
+        PQclear(res);
+
+        // Ensure libpq returns to idle state
+        if (PQgetResult(AH->connection) != NULL) {
+            pg_log_warning("unexpected extra results during COPY of table \"%s\"",
+                           tocEntryTag);
+        }
+
+        AH->pgCopyIn = false;
+    }
+}
+```

@@ -64,3 +64,102 @@ The function ensures TAR format compliance while supporting both compressed and 
 - Handles both padding requested at file creation time and TAR format-required padding
 - Memory cleanup is performed for both the file pathname and the TarMethodFile structure
 - The function seeks back to the end of the file after header updates to prepare for the next file
+
+## Simplified Source
+
+```c
+static int tar_close(Walfile *f, WalCloseMethod method) {
+    TarMethodData *tar_data = (TarMethodData *) f->wwmethod;
+    TarMethodFile *tf = (TarMethodFile *) f;
+
+    clear_error(f->wwmethod);
+
+    // Handle file unlinking by truncating TAR to start of this file
+    if (method == CLOSE_UNLINK) {
+        if (f->wwmethod->compression_algorithm != PG_COMPRESSION_NONE) {
+            f->wwmethod->lasterrstring = _("unlink not supported with compression");
+            return -1;
+        }
+
+        if (ftruncate(tar_data->fd, tf->ofs_start) != 0) {
+            f->wwmethod->lasterrno = errno;
+            return -1;
+        }
+
+        // Clean up and exit
+        pg_free(tf->base.pathname);
+        pg_free(tf);
+        tar_data->currentfile = NULL;
+        return 0;
+    }
+
+    // Handle padding to requested file size
+    if (tf->pad_to_size) {
+        if (f->wwmethod->compression_algorithm == PG_COMPRESSION_GZIP) {
+            // Pad compressed files at close time
+            size_t sizeleft = tf->pad_to_size - tf->base.currpos;
+            if (sizeleft && !tar_write_padding_data(tf, sizeleft))
+                return -1;
+        } else {
+            // Adjust position for uncompressed files (already padded)
+            tf->base.currpos = tf->pad_to_size;
+        }
+    }
+
+    // Add TAR format padding (align to TAR_BLOCK_SIZE)
+    ssize_t filesize = f->currpos;
+    int padding = tarPaddingBytesRequired(filesize);
+    if (padding) {
+        char zerobuf[TAR_BLOCK_SIZE] = {0};
+        if (tar_write(f, zerobuf, padding) != padding)
+            return -1;
+    }
+
+    // Flush compressed data if needed
+    if (f->wwmethod->compression_algorithm == PG_COMPRESSION_GZIP) {
+        if (!tar_write_compressed_data(tar_data, NULL, 0, true))
+            return -1;
+    }
+
+    // Update TAR header with final file size and checksum
+    print_tar_number(&(tf->header[TAR_OFFSET_SIZE]), 12, filesize);
+    if (method == CLOSE_NORMAL)
+        strlcpy(&(tf->header[TAR_OFFSET_NAME]), tf->base.pathname, 100);
+    print_tar_number(&(tf->header[TAR_OFFSET_CHECKSUM]), 8, tarChecksum(tf->header));
+
+    // Write updated header back to TAR file
+    if (lseek(tar_data->fd, tf->ofs_start, SEEK_SET) != tf->ofs_start) {
+        f->wwmethod->lasterrno = errno;
+        return -1;
+    }
+
+    if (f->wwmethod->compression_algorithm == PG_COMPRESSION_NONE) {
+        // Write header directly for uncompressed files
+        if (write(tar_data->fd, tf->header, TAR_BLOCK_SIZE) != TAR_BLOCK_SIZE) {
+            f->wwmethod->lasterrno = errno ? errno : ENOSPC;
+            return -1;
+        }
+    } else if (f->wwmethod->compression_algorithm == PG_COMPRESSION_GZIP) {
+        // Handle compressed header updates with temporary compression changes
+        deflateParams(tar_data->zp, 0, Z_DEFAULT_STRATEGY);
+        tar_write_compressed_data(tar_data, tar_data->currentfile->header, TAR_BLOCK_SIZE, true);
+        deflateParams(tar_data->zp, f->wwmethod->compression_level, Z_DEFAULT_STRATEGY);
+    }
+
+    // Restore file position to end
+    lseek(tar_data->fd, 0, SEEK_END);
+
+    // Always sync on close
+    if (tar_sync(f) < 0) {
+        pg_fatal("could not fsync file \"%s\": %s",
+                tf->base.pathname, GetLastWalMethodError(f->wwmethod));
+    }
+
+    // Clean up
+    pg_free(tf->base.pathname);
+    pg_free(tf);
+    tar_data->currentfile = NULL;
+
+    return 0;
+}
+```

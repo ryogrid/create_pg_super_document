@@ -38,3 +38,19 @@ Like other SearchSysCache variants, it returns a read-only cache copy of the tup
 - Must call ReleaseSysCache() when finished with the returned tuple
 - Part of a family of type-safe cache search functions (SearchSysCache1, SearchSysCache2, etc.)
 - Helps catch programming errors at runtime through key count validation
+
+## Simplified Source
+
+```c
+HeapTuple SearchSysCache1(int cacheId, Datum key1) {
+    // Validate cache ID and ensure cache exists
+    Assert(cacheId >= 0 && cacheId < SysCacheSize &&
+           PointerIsValid(SysCache[cacheId]));
+
+    // Ensure this cache uses exactly one search key
+    Assert(SysCache[cacheId]->cc_nkeys == 1);
+
+    // Delegate to single-key catalog cache search
+    return SearchCatCache1(SysCache[cacheId], key1);
+}
+```

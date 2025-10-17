@@ -32,3 +32,21 @@ This function serves as a cleanup routine for the tar-based WAL writing method. 
 - When gzip compression is enabled, the function specifically frees the zlibOut buffer used for compression output
 - This function follows PostgreSQL's standard memory management patterns using pg_free instead of standard free()
 - The function assumes the wwmethod parameter is actually a TarMethodData structure, as it performs an unsafe cast
+
+## Simplified Source
+
+```c
+static void tar_free(WalWriteMethod *wwmethod) {
+    TarMethodData *tar_data = (TarMethodData *) wwmethod;
+
+    // Free tar filename
+    pg_free(tar_data->tarfilename);
+
+    // Free compression buffer if using gzip
+    if (wwmethod->compression_algorithm == PG_COMPRESSION_GZIP)
+        pg_free(tar_data->zlibOut);
+
+    // Free the method structure itself
+    pg_free(wwmethod);
+}
+```

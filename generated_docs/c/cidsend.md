@@ -38,3 +38,22 @@ The `cidsend` function is part of PostgreSQL's binary protocol infrastructure fo
 - Sends the CommandId as a 32-bit integer in the binary stream
 - Follows PostgreSQL's standard pattern for type send functions using the PG_FUNCTION_ARGS interface
 - The binary format is more efficient than text format for network transmission
+
+## Simplified Source
+
+```c
+Datum cidsend(PG_FUNCTION_ARGS) {
+    // Extract CommandId from function arguments
+    CommandId command_id = PG_GETARG_COMMANDID(0);
+
+    // Create binary output buffer
+    StringInfoData buf;
+    pq_begintypsend(&buf);
+
+    // Send CommandId as 32-bit integer
+    pq_sendint32(&buf, command_id);
+
+    // Return serialized binary data
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

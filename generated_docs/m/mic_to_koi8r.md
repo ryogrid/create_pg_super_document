@@ -39,3 +39,24 @@ The function follows PostgreSQL's standard function argument protocol (PG_FUNCTI
 - The conversion handles multi-byte MULE sequences by extracting the actual character byte from 2-byte MULE sequences
 - This function is typically registered as a conversion procedure in PostgreSQL's encoding conversion system rather than called directly
 - Complementary to koi8r_to_mic, providing bidirectional conversion capability
+
+## Simplified Source
+
+```c
+Datum mic_to_koi8r(PG_FUNCTION_ARGS) {
+    // Extract conversion parameters from PostgreSQL function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate that we're converting from MULE internal to KOI8-R
+    CHECK_ENCODING_CONVERSION_ARGS(PG_MULE_INTERNAL, PG_KOI8R);
+
+    // Perform the actual conversion using the generic mic2latin helper
+    int converted = mic2latin(src, dest, len, LC_KOI8_R, PG_KOI8R, noError);
+
+    // Return number of bytes successfully converted
+    PG_RETURN_INT32(converted);
+}
+```

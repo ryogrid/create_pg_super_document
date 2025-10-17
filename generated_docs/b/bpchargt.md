@@ -37,3 +37,28 @@ The `bpchargt` function compares two BpChar values and returns true if the first
 - Memory management is handled properly with PG_FREE_IF_COPY calls
 - Returns true if the comparison result is > 0 (first string is greater than second)
 - Part of PostgreSQL's type system for CHAR(n) data type operations
+
+## Simplified Source
+
+```c
+Datum bpchargt(PG_FUNCTION_ARGS) {
+    // Extract both BPCHAR arguments
+    BpChar *arg1 = PG_GETARG_BPCHAR_PP(0);
+    BpChar *arg2 = PG_GETARG_BPCHAR_PP(1);
+
+    // Get true lengths (excluding trailing spaces)
+    int len1 = bcTruelen(arg1);
+    int len2 = bcTruelen(arg2);
+
+    // Compare strings using collation-aware comparison
+    int cmp = varstr_cmp(VARDATA_ANY(arg1), len1,
+                         VARDATA_ANY(arg2), len2,
+                         PG_GET_COLLATION());
+
+    // Clean up memory and return > result
+    PG_FREE_IF_COPY(arg1, 0);
+    PG_FREE_IF_COPY(arg2, 1);
+
+    return PG_RETURN_BOOL(cmp > 0);
+}
+```

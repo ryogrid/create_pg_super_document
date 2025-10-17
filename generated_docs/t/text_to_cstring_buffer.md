@@ -48,3 +48,34 @@ Key safety features include: automatic detoasting of compressed/toasted values, 
 - Particularly useful for interfacing with C APIs that require fixed-size string buffers
 - Essential for cases where dynamic memory allocation is not desired or appropriate
 - Located in `src/backend/utils/adt/varlena.c` as part of the variable-length data type utilities
+
+## Simplified Source
+
+```c
+void text_to_cstring_buffer(const text *src, char *dst, size_t dst_len) {
+    // Detoast the input text (handle compressed/out-of-line values)
+    text *srcunpacked = pg_detoast_datum_packed(unconstify(text *, src));
+    size_t src_len = VARSIZE_ANY_EXHDR(srcunpacked);
+
+    if (dst_len > 0) {
+        // Reserve space for null terminator
+        dst_len--;
+
+        // Calculate safe copy length
+        if (dst_len >= src_len) {
+            dst_len = src_len;
+        } else {
+            // Ensure encoding-safe truncation for multibyte characters
+            dst_len = pg_mbcliplen(VARDATA_ANY(srcunpacked), src_len, dst_len);
+        }
+
+        // Copy data and null-terminate
+        memcpy(dst, VARDATA_ANY(srcunpacked), dst_len);
+        dst[dst_len] = '\0';
+    }
+
+    // Clean up detoasted copy if needed
+    if (srcunpacked != src)
+        pfree(srcunpacked);
+}
+```

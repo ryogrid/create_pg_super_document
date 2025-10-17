@@ -36,3 +36,20 @@ Unlike variable-length strings (varlena), NAME types have a fixed maximum length
 - The function relies on null-terminated strings and strlen for length calculation
 - Part of PostgreSQL's sort support framework for optimized sorting performance
 - Used when locale-aware sorting is required for database object names and identifiers
+
+## Simplified Source
+
+```c
+static int
+namefastcmp_locale(Datum x, Datum y, SortSupport ssup)
+{
+    // Extract NAME-typed values from Datum
+    Name name1 = DatumGetName(x);
+    Name name2 = DatumGetName(y);
+
+    // Get null-terminated strings and their lengths, then compare using locale rules
+    return varstrfastcmp_locale(NameStr(*name1), strlen(NameStr(*name1)),
+                              NameStr(*name2), strlen(NameStr(*name2)),
+                              ssup);
+}
+```

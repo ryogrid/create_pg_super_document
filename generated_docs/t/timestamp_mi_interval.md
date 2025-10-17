@@ -43,3 +43,21 @@ This design avoids code duplication by reusing all the complex calendar arithmet
 - The function creates a local copy of the interval (tspan) for negation rather than modifying the original
 - Uses DirectFunctionCall2 to invoke timestamp_pl_interval directly, avoiding SQL function call overhead
 - Part of PostgreSQL's temporal arithmetic system, commonly used in date/time calculations and window functions
+
+## Simplified Source
+
+```c
+Datum timestamp_mi_interval(PG_FUNCTION_ARGS) {
+    Timestamp timestamp = PG_GETARG_TIMESTAMP(0);
+    Interval *span = PG_GETARG_INTERVAL_P(1);
+    Interval negated_span;
+
+    // Negate the interval (subtraction = addition with negated interval)
+    interval_um_internal(span, &negated_span);
+
+    // Delegate to timestamp_pl_interval with negated interval
+    return DirectFunctionCall2(timestamp_pl_interval,
+                              TimestampGetDatum(timestamp),
+                              PointerGetDatum(&negated_span));
+}
+```

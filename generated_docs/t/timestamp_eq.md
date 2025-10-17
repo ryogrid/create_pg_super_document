@@ -38,3 +38,17 @@ timestamp_eq is a PostgreSQL built-in function that implements the equality comp
 - Function signature follows PostgreSQL's version-1 calling convention
 - Used for WHERE clauses, JOIN conditions, and other SQL equality comparisons involving timestamps
 - Performance is dependent on the underlying timestamp_cmp_internal implementation
+
+## Simplified Source
+
+```c
+Datum
+timestamp_eq(PG_FUNCTION_ARGS)
+{
+    Timestamp dt1 = PG_GETARG_TIMESTAMP(0);
+    Timestamp dt2 = PG_GETARG_TIMESTAMP(1);
+
+    // Return true if timestamps are equal
+    PG_RETURN_BOOL(timestamp_cmp_internal(dt1, dt2) == 0);
+}
+```

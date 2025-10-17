@@ -50,3 +50,30 @@ This function is primarily used for testing and validation of PostgreSQL's COPY 
 - Returns void (`PG_RETURN_VOID()`) as it's primarily used for its side effects (logging via callback)
 - Part of the test infrastructure in `src/test/modules/test_copy_callbacks/` for validating COPY functionality
 - The processed row count is reported via NOTICE message, making it visible in PostgreSQL logs or client output
+
+## Simplified Source
+
+```c
+Datum test_copy_to_callback(PG_FUNCTION_ARGS) {
+    // Open the specified relation for reading
+    Relation rel = table_open(PG_GETARG_OID(0), AccessShareLock);
+
+    // Initialize COPY TO operation with callback
+    CopyToState cstate = BeginCopyTo(NULL, rel, NULL, RelationGetRelid(rel),
+                                     NULL, false, to_cb, NIL, NIL);
+
+    // Execute the COPY TO operation
+    int64 processed = DoCopyTo(cstate);
+
+    // Clean up COPY TO state
+    EndCopyTo(cstate);
+
+    // Report number of processed rows
+    ereport(NOTICE, (errmsg("COPY TO callback has processed %lld rows",
+                           (long long) processed)));
+
+    // Close relation and return
+    table_close(rel, NoLock);
+    PG_RETURN_VOID();
+}
+```

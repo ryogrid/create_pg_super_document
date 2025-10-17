@@ -35,3 +35,18 @@ The function serves as a wrapper around PostgreSQL's internal  function, making 
 - Common examples include coercion between domains and their base types, or between types in the same type family
 - Returns true if binary coercion is possible, false otherwise
 - This is a lightweight wrapper function that exposes internal PostgreSQL type system functionality for testing
+
+## Simplified Source
+
+```c
+Datum
+binary_coercible(PG_FUNCTION_ARGS)
+{
+    // Extract source and target type OIDs
+    Oid srctype = PG_GETARG_OID(0);
+    Oid targettype = PG_GETARG_OID(1);
+
+    // Check if source type can be binary-coerced to target type
+    PG_RETURN_BOOL(IsBinaryCoercible(srctype, targettype));
+}
+```

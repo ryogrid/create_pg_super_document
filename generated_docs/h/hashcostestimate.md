@@ -51,3 +51,32 @@ The function currently uses the generic cost model without hash-specific adjustm
 - The one-page-per-bucket guarantee simplifies some cost calculations
 - Lossy operator effects from hash collisions are acknowledged but not currently modeled
 - Future enhancements might include collision probability estimation and bucket distribution analysis
+
+## Simplified Source
+
+```c
+void hashcostestimate(PlannerInfo *root, IndexPath *path, double loop_count,
+                     Cost *indexStartupCost, Cost *indexTotalCost,
+                     Selectivity *indexSelectivity, double *indexCorrelation,
+                     double *indexPages)
+{
+    GenericCosts costs = {0};
+
+    // Use generic cost estimation as baseline
+    genericcostestimate(root, path, loop_count, &costs);
+
+    // Hash indexes have no descent costs - direct bucket access after hash computation
+    // Current implementation uses generic costs without hash-specific adjustments
+    // Potential future improvements:
+    // - Model bucket-specific page costs
+    // - Account for hash collisions
+    // - Adjust for hash comparison vs general datatype comparison costs
+
+    // Return generic cost estimates
+    *indexStartupCost = costs.indexStartupCost;
+    *indexTotalCost = costs.indexTotalCost;
+    *indexSelectivity = costs.indexSelectivity;
+    *indexCorrelation = costs.indexCorrelation;  // Typically 0.0 for hash indexes
+    *indexPages = costs.numIndexPages;
+}
+```

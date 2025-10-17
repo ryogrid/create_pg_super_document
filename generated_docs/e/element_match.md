@@ -32,3 +32,13 @@ This function acts as a comparison callback for hash table operations, specifica
 - Uses the element type's comparison procedure and collation for accurate equality testing
 - Essential for proper hash table key lookup during array element frequency tracking
 - Located in src/backend/utils/adt/array_typanalyze.c:725-739
+
+## Simplified Source
+
+```c
+static int element_match(const void *key1, const void *key2, Size keysize) {
+    // Delegate to element_compare for actual comparison
+    // Returns 0 for match, non-zero for different elements
+    return element_compare(key1, key2);
+}
+```

@@ -34,3 +34,19 @@ The function also logs an informational message indicating that the table could 
 - Works in conjunction with the tableDataId mapping to coordinate table and data operations
 - Helps maintain restore process stability by gracefully handling table creation failures
 - The tag field in the TocEntry is used in the log message to identify the failed table by name
+
+## Simplified Source
+
+```c
+static void inhibit_data_for_failed_table(ArchiveHandle *AH, TocEntry *te) {
+    // Log that table creation failed and data won't be restored
+    pg_log_info("table \"%s\" could not be created, will not restore its data",
+                te->tag);
+
+    // Find corresponding DATA entry and mark it as not wanted
+    if (AH->tableDataId[te->dumpId] != 0) {
+        TocEntry *data_entry = AH->tocsByDumpId[AH->tableDataId[te->dumpId]];
+        data_entry->reqs = 0;  // Mark as not wanted for restoration
+    }
+}
+```

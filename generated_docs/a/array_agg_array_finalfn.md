@@ -31,3 +31,28 @@ This function serves as the final function for the array_agg aggregate operation
 - Returns NULL if no input values were aggregated
 - Memory cleanup is handled by nodeAgg.c when the aggregation context is reset
 - Creates final result in CurrentMemoryContext rather than aggregate context
+
+## Simplified Source
+
+```c
+Datum
+array_agg_array_finalfn(PG_FUNCTION_ARGS)
+{
+    // Ensure aggregate context
+    Assert(AggCheckCallContext(fcinfo, NULL));
+
+    // Get accumulated array state
+    ArrayBuildStateArr *state = PG_ARGISNULL(0) ? NULL :
+                              (ArrayBuildStateArr *) PG_GETARG_POINTER(0);
+
+    // Return NULL if no input values were aggregated
+    if (state == NULL)
+        PG_RETURN_NULL();
+
+    // Create final array result from accumulated state
+    // Note: ArrayBuildStateArr is not freed here as final functions may be re-executed
+    Datum result = makeArrayResultArr(state, CurrentMemoryContext, false);
+
+    PG_RETURN_DATUM(result);
+}
+```

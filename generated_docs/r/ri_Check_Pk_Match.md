@@ -57,3 +57,68 @@ Key aspects of the implementation:
 - Located in src/backend/utils/adt/ri_triggers.c:461-550
 - Handles both regular and partitioned primary key tables appropriately
 - Part of PostgreSQL's comprehensive referential integrity enforcement system
+
+## Simplified Source
+
+```c
+static bool ri_Check_Pk_Match(Relation pk_rel, Relation fk_rel,
+                              TupleTableSlot *oldslot,
+                              const RI_ConstraintInfo *riinfo) {
+    SPIPlanPtr qplan;
+    RI_QueryKey qkey;
+    bool result;
+
+    // Verify old tuple has no NULL key values
+    Assert(ri_NullCheck(RelationGetDescr(pk_rel), oldslot, riinfo, true) == RI_KEYS_NONE_NULL);
+
+    // Connect to SPI for query execution
+    if (SPI_connect() != SPI_OK_CONNECT)
+        elog(ERROR, "SPI_connect failed");
+
+    // Build query key for plan caching
+    ri_BuildQueryKey(&qkey, riinfo, RI_PLAN_CHECK_LOOKUPPK_FROM_PK);
+
+    // Get or create prepared plan
+    if ((qplan = ri_FetchPreparedPlan(&qkey)) == NULL) {
+        StringInfoData querybuf;
+        char pkrelname[MAX_QUOTED_REL_NAME_LEN];
+        Oid queryoids[RI_MAX_NUMKEYS];
+
+        // Build SELECT query: SELECT 1 FROM <pktable> WHERE key_cols = values FOR KEY SHARE
+        initStringInfo(&querybuf);
+        const char *pk_only = pk_rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE ? "" : "ONLY ";
+
+        quoteRelationName(pkrelname, pk_rel);
+        appendStringInfo(&querybuf, "SELECT 1 FROM %s%s x", pk_only, pkrelname);
+
+        // Add WHERE conditions for each key column
+        const char *querysep = "WHERE";
+        for (int i = 0; i < riinfo->nkeys; i++) {
+            char attname[MAX_QUOTED_NAME_LEN];
+            char paramname[16];
+            Oid pk_type = RIAttType(pk_rel, riinfo->pk_attnums[i]);
+
+            quoteOneName(attname, RIAttName(pk_rel, riinfo->pk_attnums[i]));
+            sprintf(paramname, "$%d", i + 1);
+            ri_GenerateQual(&querybuf, querysep, attname, pk_type,
+                           riinfo->pp_eq_oprs[i], paramname, pk_type);
+            querysep = "AND";
+            queryoids[i] = pk_type;
+        }
+        appendStringInfoString(&querybuf, " FOR KEY SHARE OF x");
+
+        // Prepare and cache the plan
+        qplan = ri_PlanCheck(querybuf.data, riinfo->nkeys, queryoids,
+                           &qkey, fk_rel, pk_rel);
+    }
+
+    // Execute the query to check for matching primary key
+    result = ri_PerformCheck(riinfo, &qkey, qplan, fk_rel, pk_rel,
+                           oldslot, NULL, true, SPI_OK_SELECT);
+
+    if (SPI_finish() != SPI_OK_FINISH)
+        elog(ERROR, "SPI_finish failed");
+
+    return result;
+}
+```

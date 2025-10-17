@@ -38,3 +38,21 @@ This function enforces stricter validation requirements than content validation,
 - Returns true if input is a well-formed XML document, false otherwise
 - Stricter than xml_is_well_formed as it requires complete document structure
 - Useful when you need to ensure input conforms to XML document standards
+
+## Simplified Source
+
+```c
+Datum xml_is_well_formed_document(PG_FUNCTION_ARGS)
+{
+#ifdef USE_LIBXML
+    // Extract text data argument
+    text *data = PG_GETARG_TEXT_PP(0);
+
+    // Check XML well-formedness as document (stricter validation)
+    PG_RETURN_BOOL(wellformed_xml(data, XMLOPTION_DOCUMENT));
+#else
+    NO_XML_SUPPORT();
+    return 0;
+#endif
+}
+```

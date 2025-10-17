@@ -53,3 +53,61 @@ The function includes special handling for tuple descriptors during transactions
 - Provides transaction-safe tuple descriptor cleanup to handle concurrent DDL
 - Part of PostgreSQL's relation cache memory management infrastructure
 - Critical for preventing memory leaks in long-running database sessions
+
+## Simplified Source
+
+```c
+static void RelationDestroyRelation(Relation relation, bool remember_tupdesc) {
+    // Ensure relation has zero references
+    Assert(RelationHasReferenceCountZero(relation));
+
+    // Close storage files and unlink statistics
+    RelationCloseSmgr(relation);
+    pgstat_unlink_relation(relation);
+
+    // Free basic relation data
+    if (relation->rd_rel)
+        pfree(relation->rd_rel);
+
+    // Handle tuple descriptor with reference counting
+    Assert(relation->rd_att->tdrefcount > 0);
+    if (--relation->rd_att->tdrefcount == 0) {
+        if (remember_tupdesc)
+            RememberToFreeTupleDescAtEOX(relation->rd_att);
+        else
+            FreeTupleDesc(relation->rd_att);
+    }
+
+    // Free subsidiary data structures
+    FreeTriggerDesc(relation->trigdesc);
+    list_free_deep(relation->rd_fkeylist);
+    list_free(relation->rd_indexlist);
+    list_free(relation->rd_statlist);
+
+    // Free attribute bitmaps
+    bms_free(relation->rd_keyattr);
+    bms_free(relation->rd_pkattr);
+    bms_free(relation->rd_idattr);
+    bms_free(relation->rd_hotblockingattr);
+    bms_free(relation->rd_summarizedattr);
+
+    // Free optional cached data
+    if (relation->rd_pubdesc) pfree(relation->rd_pubdesc);
+    if (relation->rd_options) pfree(relation->rd_options);
+    if (relation->rd_indextuple) pfree(relation->rd_indextuple);
+    if (relation->rd_amcache) pfree(relation->rd_amcache);
+    if (relation->rd_fdwroutine) pfree(relation->rd_fdwroutine);
+
+    // Delete memory contexts
+    if (relation->rd_indexcxt) MemoryContextDelete(relation->rd_indexcxt);
+    if (relation->rd_rulescxt) MemoryContextDelete(relation->rd_rulescxt);
+    if (relation->rd_rsdesc) MemoryContextDelete(relation->rd_rsdesc->rscxt);
+    if (relation->rd_partkeycxt) MemoryContextDelete(relation->rd_partkeycxt);
+    if (relation->rd_pdcxt) MemoryContextDelete(relation->rd_pdcxt);
+    if (relation->rd_pddcxt) MemoryContextDelete(relation->rd_pddcxt);
+    if (relation->rd_partcheckcxt) MemoryContextDelete(relation->rd_partcheckcxt);
+
+    // Finally free the relation structure itself
+    pfree(relation);
+}
+```

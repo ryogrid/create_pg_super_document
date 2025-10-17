@@ -40,3 +40,32 @@ This function converts an IntervalAggState structure into a serialized bytea for
 - Serialization order: N, sumX.time, sumX.day, sumX.month, pInfcount, nInfcount
 - Includes runtime validation to prevent misuse outside aggregate contexts
 - The serialized bytea can be transmitted over network connections or stored for later deserialization
+
+## Simplified Source
+```c
+Datum interval_avg_serialize(PG_FUNCTION_ARGS) {
+    IntervalAggState *state;
+    StringInfoData buf;
+    bytea *result;
+
+    // Ensure proper aggregate context
+    if (!AggCheckCallContext(fcinfo, NULL))
+        elog(ERROR, "aggregate function called in non-aggregate context");
+
+    state = (IntervalAggState *) PG_GETARG_POINTER(0);
+
+    // Begin binary serialization
+    pq_begintypsend(&buf);
+
+    // Serialize all state fields in order
+    pq_sendint64(&buf, state->N);              // Count of finite values
+    pq_sendint64(&buf, state->sumX.time);      // Time component sum
+    pq_sendint32(&buf, state->sumX.day);       // Day component sum
+    pq_sendint32(&buf, state->sumX.month);     // Month component sum
+    pq_sendint64(&buf, state->pInfcount);      // Positive infinity count
+    pq_sendint64(&buf, state->nInfcount);      // Negative infinity count
+
+    result = pq_endtypsend(&buf);
+    PG_RETURN_BYTEA_P(result);
+}
+```

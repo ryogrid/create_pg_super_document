@@ -45,3 +45,41 @@ When restoring to a live database connection, it executes the SET search_path co
 - Respects the archive's searchpath setting - newer archives with SEARCHPATH entries skip schema switching
 - Part of PostgreSQL's pg_dump/pg_restore infrastructure for maintaining proper schema context during restore
 - Uses libpq functions (PQexec, PQclear) for database communication when restoring directly to a database
+
+## Simplified Source
+
+```c
+static void _selectOutputSchema(ArchiveHandle *AH, const char *schemaName) {
+    PQExpBuffer qry;
+
+    // Skip if archive has global search path or no schema change needed
+    if (AH->public.searchpath)
+        return;
+    if (!schemaName || *schemaName == '\0' ||
+        (AH->currSchema && strcmp(AH->currSchema, schemaName) == 0))
+        return;
+
+    // Build SET search_path command
+    qry = createPQExpBuffer();
+    appendPQExpBuffer(qry, "SET search_path = %s", fmtId(schemaName));
+    if (strcmp(schemaName, "pg_catalog") != 0)
+        appendPQExpBufferStr(qry, ", pg_catalog");
+
+    // Execute or output command
+    if (RestoringToDB(AH)) {
+        PGresult *res = PQexec(AH->connection, qry->data);
+        if (!res || PQresultStatus(res) != PGRES_COMMAND_OK)
+            warn_or_exit_horribly(AH,
+                                 "could not set \"search_path\" to \"%s\": %s",
+                                 schemaName, PQerrorMessage(AH->connection));
+        PQclear(res);
+    } else {
+        ahprintf(AH, "%s;\n\n", qry->data);
+    }
+
+    // Update current schema tracking
+    free(AH->currSchema);
+    AH->currSchema = pg_strdup(schemaName);
+    destroyPQExpBuffer(qry);
+}
+```

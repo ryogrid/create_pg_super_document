@@ -38,3 +38,25 @@ The function serves as a robust alternative to the SHOW SQL command, particularl
 - The function is particularly useful for checking the existence and value of custom or extension-specific parameters
 - Return value is either PostgreSQL text type (for existing parameters) or NULL (for missing parameters when missing_ok=true)
 - This function provides better compatibility across different PostgreSQL versions where parameter names might have changed
+
+## Simplified Source
+
+```c
+Datum
+show_config_by_name_missing_ok(PG_FUNCTION_ARGS)
+{
+    // Get function arguments
+    char *param_name = TextDatumGetCString(PG_GETARG_DATUM(0));
+    bool missing_ok = PG_GETARG_BOOL(1);
+
+    // Retrieve the configuration value (with error suppression if requested)
+    char *param_value = GetConfigOptionByName(param_name, NULL, missing_ok);
+
+    // Return NULL if parameter doesn't exist and missing_ok is true
+    if (param_value == NULL)
+        PG_RETURN_NULL();
+
+    // Convert to PostgreSQL text type and return
+    PG_RETURN_TEXT_P(cstring_to_text(param_value));
+}
+```

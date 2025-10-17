@@ -47,3 +47,39 @@ The core processing involves two key operations: first, it inserts a strategical
 - The accumulator pattern allows processing large numbers of documents incrementally
 - Located in 
 - Critical for enabling statistical analysis of large text search corpora without excessive memory or CPU usage
+
+## Simplified Source
+
+```c
+static TSVectorStat *ts_accum(MemoryContext persistentContext, TSVectorStat *stat, Datum data) {
+    TSVector txt = DatumGetTSVector(data);
+    uint32 i, nbit = 0, offset;
+
+    // Initialize statistics structure on first call
+    if (stat == NULL) {
+        stat = MemoryContextAllocZero(persistentContext, sizeof(TSVectorStat));
+        stat->maxdepth = 1;
+    }
+
+    // Handle empty or null input
+    if (txt == NULL || txt->size == 0) {
+        if (txt && txt != (TSVector) DatumGetPointer(data))
+            pfree(txt);
+        return stat;
+    }
+
+    // Calculate optimal sampling parameters
+    i = txt->size - 1;
+    for (; i > 0; i >>= 1)
+        nbit++;
+
+    nbit = 1 << nbit;
+    offset = (nbit - txt->size) / 2;
+
+    // Process central entry and sample additional entries
+    insertStatEntry(persistentContext, stat, txt, (nbit >> 1) - offset);
+    chooseNextStatEntry(persistentContext, stat, txt, 0, nbit, offset);
+
+    return stat;
+}
+```

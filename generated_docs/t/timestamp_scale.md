@@ -34,3 +34,21 @@ The `timestamp_scale` function is a PostgreSQL built-in function that adjusts ti
 - Located in src/backend/utils/adt/timestamp.c:345-365
 - Used internally by PostgreSQL type system for column type adjustments
 - The function passes NULL as the third argument to `AdjustTimestampForTypmod`, indicating no special error handling context
+
+## Simplified Source
+
+```c
+Datum timestamp_scale(PG_FUNCTION_ARGS) {
+    Timestamp timestamp = PG_GETARG_TIMESTAMP(0);
+    int32 typmod = PG_GETARG_INT32(1);
+    Timestamp result;
+
+    // Copy input timestamp
+    result = timestamp;
+
+    // Adjust precision according to typmod
+    AdjustTimestampForTypmod(&result, typmod, NULL);
+
+    PG_RETURN_TIMESTAMP(result);
+}
+```

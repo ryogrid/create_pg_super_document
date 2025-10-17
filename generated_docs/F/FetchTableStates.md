@@ -49,3 +49,60 @@ The function uses static variables to maintain state across calls, implementing 
 - The function distinguishes between subscriptions with no tables vs. subscriptions with only ready tables
 - Critical for performance as it prevents repeated expensive catalog queries during table sync operations
 - Transaction management is carefully designed to work within existing transaction contexts or create new ones as needed
+
+## Simplified Source
+
+```c
+static bool FetchTableStates(bool *started_tx)
+{
+    static bool has_subrels = false;
+
+    *started_tx = false;
+
+    // Check if cache needs rebuilding
+    if (table_states_validity != SYNC_TABLE_STATE_VALID) {
+        MemoryContext oldctx;
+        List *rstates;
+        ListCell *lc;
+        SubscriptionRelState *rstate;
+
+        // Mark cache rebuild in progress
+        table_states_validity = SYNC_TABLE_STATE_REBUILD_STARTED;
+
+        // Clear old cached data
+        list_free_deep(table_states_not_ready);
+        table_states_not_ready = NIL;
+
+        // Start transaction if needed
+        if (!IsTransactionState()) {
+            StartTransactionCommand();
+            *started_tx = true;
+        }
+
+        // Fetch all non-ready subscription relations from catalogs
+        rstates = GetSubscriptionRelations(MySubscription->oid, true);
+
+        // Allocate tracking info in permanent memory context
+        oldctx = MemoryContextSwitchTo(CacheMemoryContext);
+        foreach(lc, rstates) {
+            rstate = palloc(sizeof(SubscriptionRelState));
+            memcpy(rstate, lfirst(lc), sizeof(SubscriptionRelState));
+            table_states_not_ready = lappend(table_states_not_ready, rstate);
+        }
+        MemoryContextSwitchTo(oldctx);
+
+        // Determine if subscription has any tables at all
+        // Either we found non-ready tables, or check for any tables
+        has_subrels = (table_states_not_ready != NIL) ||
+                      HasSubscriptionRelations(MySubscription->oid);
+
+        // Handle concurrent invalidation gracefully
+        // If cache was invalidated during rebuild, leave it marked stale
+        // for next access, otherwise mark as valid
+        if (table_states_validity == SYNC_TABLE_STATE_REBUILD_STARTED)
+            table_states_validity = SYNC_TABLE_STATE_VALID;
+    }
+
+    return has_subrels;
+}
+```

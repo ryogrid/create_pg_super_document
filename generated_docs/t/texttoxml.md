@@ -35,3 +35,14 @@ This function serves as a bridge between PostgreSQL's text and XML data types, a
 - Part of PostgreSQL's XML support infrastructure
 - Validation ensures input contains well-formed XML before type conversion
 - Follows PostgreSQL's function calling convention with PG_FUNCTION_ARGS
+
+## Simplified Source
+
+```c
+Datum texttoxml(PG_FUNCTION_ARGS) {
+    text *data = PG_GETARG_TEXT_PP(0);
+
+    // Parse text as XML with validation enabled
+    PG_RETURN_XML_P(xmlparse(data, xmloption, true));
+}
+```

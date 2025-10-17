@@ -41,3 +41,27 @@ This function provides a testing interface for reading SLRU (Simple Log-structur
 - Returns the raw page buffer contents as a text string
 - Part of the SLRU testing infrastructure specifically for read-only access patterns
 - Useful for testing scenarios where write protection is required during page access
+
+## Simplified Source
+
+```c
+Datum test_slru_page_readonly(PG_FUNCTION_ARGS) {
+    int64 pageno = PG_GETARG_INT64(0);
+    char *data = NULL;
+    int slotno;
+
+    // Get the appropriate lock for this page
+    LWLock *lock = SimpleLruGetBankLock(TestSlruCtl, pageno);
+
+    // Read page in read-only mode (no write access granted)
+    slotno = SimpleLruReadPage_ReadOnly(TestSlruCtl, pageno, InvalidTransactionId);
+
+    // Verify we hold the lock and get page data
+    Assert(LWLockHeldByMe(lock));
+    data = (char *) TestSlruCtl->shared->page_buffer[slotno];
+
+    // Release lock and return page contents as text
+    LWLockRelease(lock);
+    PG_RETURN_TEXT_P(cstring_to_text(data));
+}
+```

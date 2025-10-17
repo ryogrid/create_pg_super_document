@@ -46,3 +46,21 @@ For nested objects within arrays, the function simply returns success, allowing 
 - Essential for json_array_elements() and related functions to ensure correct input type
 - Part of PostgreSQL's JSON validation and parsing infrastructure
 - Returns JSON_SUCCESS for valid nested object structures
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+elements_object_start(void *state)
+{
+    ElementsState *_state = (ElementsState *) state;
+
+    // Validate: cannot process objects at top level when expecting arrays
+    if (_state->lex->lex_level == 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("cannot call %s on a non-array",
+                              _state->function_name)));
+
+    return JSON_SUCCESS;
+}
+```

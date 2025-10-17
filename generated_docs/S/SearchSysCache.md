@@ -46,3 +46,16 @@ This is the primary interface used throughout PostgreSQL for accessing cached sy
 - The tuple remains locked in cache until ReleaseSysCache() is called or transaction ends
 - This is the most commonly used function for system catalog lookups in PostgreSQL
 - Part of the performance-critical path for metadata access in query processing
+
+## Simplified Source
+
+```c
+HeapTuple SearchSysCache(int cacheId, Datum key1, Datum key2, Datum key3, Datum key4) {
+    // Validate cache ID and ensure cache exists
+    Assert(cacheId >= 0 && cacheId < SysCacheSize &&
+           PointerIsValid(SysCache[cacheId]));
+
+    // Delegate to underlying catalog cache search
+    return SearchCatCache(SysCache[cacheId], key1, key2, key3, key4);
+}
+```

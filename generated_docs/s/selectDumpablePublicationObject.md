@@ -35,3 +35,19 @@ The design philosophy is that publications, along with their associated schemas 
 - Extension membership takes precedence over all other dumping policies
 - This function ignores schemas and tables associated with publications in the decision-making process
 - The function is part of the pg_dump utility's selective dumping mechanism
+
+## Simplified Source
+
+```c
+static void
+selectDumpablePublicationObject(DumpableObject *dobj, Archive *fout)
+{
+    // Extension membership overrides all other policies
+    if (checkExtensionMembership(dobj, fout))
+        return;
+
+    // Publication objects are only dumped during complete dumps
+    dobj->dump = fout->dopt->include_everything ?
+        DUMP_COMPONENT_ALL : DUMP_COMPONENT_NONE;
+}
+```

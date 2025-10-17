@@ -32,3 +32,21 @@ This function determines if a timeline history file exists for the current timel
 - Leverages walmethod operations for file existence checking, making it compatible with different storage methods (files, tar archives)
 - Part of the timeline management system in pg_basebackup for handling database timeline branches
 - History files are essential for understanding timeline succession during recovery scenarios
+
+## Simplified Source
+
+```c
+static bool
+existsTimeLineHistoryFile(StreamCtl *stream)
+{
+    char histfname[MAXFNAMELEN];
+
+    // Timeline 1 never has a history file - treat as existing
+    if (stream->timeline == 1)
+        return true;
+
+    // Generate timeline history filename and check if it exists
+    TLHistoryFileName(histfname, stream->timeline);
+    return stream->walmethod->ops->existsfile(stream->walmethod, histfname);
+}
+```

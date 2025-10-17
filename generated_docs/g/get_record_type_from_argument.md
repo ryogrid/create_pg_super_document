@@ -45,3 +45,29 @@ Key behaviors:
 - Error reporting includes the function name to provide context to users
 - Sets up caching infrastructure to optimize repeated type operations
 - Part of the argument validation and setup phase for JSON record population
+
+## Simplified Source
+
+```c
+static void
+get_record_type_from_argument(FunctionCallInfo fcinfo,
+                              const char *funcname,
+                              PopulateRecordCache *cache)
+{
+    // Extract type information from first function argument
+    cache->argtype = get_fn_expr_argtype(fcinfo->flinfo, 0);
+
+    // Prepare column cache for efficient type handling
+    prepare_column_cache(&cache->c,
+                         cache->argtype, -1,
+                         cache->fn_mcxt, false);
+
+    // Validate that argument is a row type (composite or composite domain)
+    if (cache->c.typcat != TYPECAT_COMPOSITE &&
+        cache->c.typcat != TYPECAT_COMPOSITE_DOMAIN)
+        ereport(ERROR,
+                (errcode(ERRCODE_DATATYPE_MISMATCH),
+                 errmsg("first argument of %s must be a row type",
+                        funcname)));
+}
+```

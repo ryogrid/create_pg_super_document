@@ -35,3 +35,36 @@ The `unicode_assigned` function validates that all Unicode code points in a give
 - The function is designed to be used as a PostgreSQL SQL function for Unicode validation
 - It processes multi-byte UTF-8 sequences correctly by advancing the pointer by the appropriate number of bytes for each character
 - Returns immediately upon finding the first unassigned code point for efficiency
+
+## Simplified Source
+
+```c
+Datum unicode_assigned(PG_FUNCTION_ARGS) {
+    text *input = PG_GETARG_TEXT_PP(0);
+
+    // Ensure database is UTF8 encoded
+    if (GetDatabaseEncoding() != PG_UTF8) {
+        ereport(ERROR, (errmsg("Unicode categorization can only be performed if server encoding is UTF8")));
+    }
+
+    // Process each UTF-8 character in the input string
+    int size = pg_mbstrlen_with_len(VARDATA_ANY(input), VARSIZE_ANY_EXHDR(input));
+    unsigned char *p = (unsigned char *) VARDATA_ANY(input);
+
+    for (int i = 0; i < size; i++) {
+        // Convert UTF-8 sequence to Unicode code point
+        pg_wchar uchar = utf8_to_unicode(p);
+        int category = unicode_category(uchar);
+
+        // Return false immediately if any unassigned code point found
+        if (category == PG_U_UNASSIGNED)
+            PG_RETURN_BOOL(false);
+
+        // Advance to next UTF-8 character
+        p += pg_utf_mblen(p);
+    }
+
+    // All code points are assigned
+    PG_RETURN_BOOL(true);
+}
+```

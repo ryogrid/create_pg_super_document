@@ -32,3 +32,17 @@ This function iterates through all worker slots in the parallel state to determi
 - Essential for coordinating the shutdown phase of parallel operations
 - Relies on the WORKER_IS_RUNNING macro which likely checks for specific status values indicating active worker states
 - Used primarily during cleanup and termination sequences to ensure all workers have finished before proceeding
+
+## Simplified Source
+
+```c
+static bool HasEveryWorkerTerminated(ParallelState *pstate) {
+    // Check all workers to see if any are still running
+    for (int i = 0; i < pstate->numWorkers; i++) {
+        if (WORKER_IS_RUNNING(pstate->parallelSlot[i].workerStatus)) {
+            return false;  // Found a running worker
+        }
+    }
+    return true;  // All workers have terminated
+}
+```

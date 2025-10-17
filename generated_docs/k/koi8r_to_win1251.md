@@ -45,3 +45,24 @@ KOI8-R is a widely used Cyrillic encoding that was popular in Unix and internet 
 - The function is likely registered in the system catalogs as an encoding conversion function rather than being called directly
 - More efficient than MIC-based conversions since it avoids intermediate conversion steps
 - KOI8-R to WIN1251 is a common conversion need in Eastern European database systems
+
+## Simplified Source
+
+```c
+Datum koi8r_to_win1251(PG_FUNCTION_ARGS) {
+    // Extract conversion parameters from PostgreSQL function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate that we're converting from KOI8-R to Windows-1251
+    CHECK_ENCODING_CONVERSION_ARGS(PG_KOI8R, PG_WIN1251);
+
+    // Perform direct conversion using koi2win1251 translation table
+    int converted = local2local(src, dest, len, PG_KOI8R, PG_WIN1251, koi2win1251, noError);
+
+    // Return number of bytes successfully converted
+    PG_RETURN_INT32(converted);
+}
+```

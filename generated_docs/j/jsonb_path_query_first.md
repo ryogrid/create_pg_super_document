@@ -36,3 +36,15 @@ The function extracts a JSONB document, JSONPath expression, variable context, a
 - Returns NULL when no matching items are found, making it suitable for optional value extraction
 - Located in src/backend/utils/adt/jsonpath_exec.c:643-648
 - Timezone handling is explicitly disabled (tz=false) - use jsonb_path_query_first_tz for timezone-aware queries
+
+## Simplified Source
+
+```c
+Datum
+jsonb_path_query_first(PG_FUNCTION_ARGS)
+{
+    // Simple wrapper that delegates to internal implementation
+    // with timezone handling disabled
+    return jsonb_path_query_first_internal(fcinfo, false);
+}
+```

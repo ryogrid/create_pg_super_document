@@ -47,3 +47,28 @@ This function provides a convenient abstraction for the common pattern of "execu
 - This function is particularly useful for metadata queries, configuration lookups, and OID retrievals where exactly one result is semantically required
 - The function internally uses ExecuteSqlQuery, inheriting its error handling for connection and execution failures
 - Commonly used in binary upgrade scenarios and when retrieving specific database object properties
+
+## Simplified Source
+
+```c
+PGresult *
+ExecuteSqlQueryForSingleRow(Archive *fout, const char *query)
+{
+    PGresult *res;
+    int ntups;
+
+    // Execute query expecting PGRES_TUPLES_OK
+    res = ExecuteSqlQuery(fout, query, PGRES_TUPLES_OK);
+
+    // Validate exactly one row returned
+    ntups = PQntuples(res);
+    if (ntups != 1)
+        pg_fatal(ngettext("query returned %d row instead of one: %s",
+                         "query returned %d rows instead of one: %s",
+                         ntups),
+                ntups, query);
+
+    // Return validated result to caller
+    return res;
+}
+```

@@ -63,3 +63,89 @@ The function supports various backup modes including plain and tar formats, serv
 - Includes platform-specific code for Windows vs Unix process management
 - Performs atomic operations for backup manifest files to ensure consistency
 - Handles backup target functionality for server-managed backup storage
+
+## Simplified Source
+
+```c
+static void BaseBackup(char *compression_algorithm, char *compression_detail,
+                      CompressionLocation compressloc,
+                      pg_compress_specification *client_compress,
+                      char *incremental_manifest) {
+    PGresult *res;
+    char *sysidentifier;
+    TimeLineID latesttli, starttli;
+    char xlogstart[64], xlogend[64] = {0};
+    int serverVersion, serverMajor;
+    bool use_new_option_syntax = false;
+    PQExpBufferData buf;
+
+    // Initialize and check server version compatibility
+    initPQExpBuffer(&buf);
+    serverVersion = PQserverVersion(conn);
+    serverMajor = serverVersion / 100;
+
+    if (serverMajor < 901 || serverMajor > PG_VERSION_NUM / 100)
+        pg_fatal("incompatible server version");
+
+    if (serverMajor >= 1500)
+        use_new_option_syntax = true;
+
+    // Handle incremental backup manifest upload if specified
+    if (incremental_manifest != NULL) {
+        // Upload manifest file to server for incremental backup
+        upload_incremental_manifest(incremental_manifest);
+        AppendPlainCommandOption(&buf, use_new_option_syntax, "INCREMENTAL");
+    }
+
+    // Build BASE_BACKUP command with all specified options
+    build_backup_command_options(&buf, use_new_option_syntax, compression_algorithm,
+                                compression_detail, compressloc);
+
+    // Execute BASE_BACKUP command and get initial response
+    execute_base_backup_command(&buf, use_new_option_syntax);
+
+    // Get WAL start position and timeline info
+    res = PQgetResult(conn);
+    strlcpy(xlogstart, PQgetvalue(res, 0, 0), sizeof(xlogstart));
+    starttli = (PQnfields(res) >= 2) ? atoi(PQgetvalue(res, 0, 1)) : latesttli;
+
+    // Start WAL streaming if requested
+    if (includewal == STREAM_WAL) {
+        StartLogStreamer(xlogstart, starttli, sysidentifier,
+                        client_compress->algorithm, client_compress->level);
+    }
+
+    // Receive backup data - different methods for different server versions
+    if (serverMajor >= 1500) {
+        // Newer servers: receive single archive stream
+        ReceiveArchiveStream(conn, client_compress);
+    } else {
+        // Older servers: receive individual tar files for each tablespace
+        receive_tablespace_tar_files(res, client_compress);
+
+        // Receive backup manifest if enabled and not writing to stdout
+        if (!writing_to_stdout && manifest)
+            ReceiveBackupManifest(conn);
+    }
+
+    // Get backup completion info
+    res = PQgetResult(conn);
+    strlcpy(xlogend, PQgetvalue(res, 0, 0), sizeof(xlogend));
+
+    // Wait for background WAL streaming to complete if active
+    if (bgchild > 0)
+        wait_for_wal_streaming_completion(xlogend);
+
+    // Sync data to disk if requested and not using backup target
+    if (do_sync && backup_target == NULL)
+        sync_backup_data();
+
+    // Atomically rename temporary manifest file to final name
+    if (!writing_to_stdout && manifest && backup_target == NULL)
+        finalize_backup_manifest();
+
+    // Cleanup
+    PQfinish(conn);
+    conn = NULL;
+}
+```

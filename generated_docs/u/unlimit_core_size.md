@@ -9,7 +9,8 @@ Increases the core file size limit to its maximum allowed value to enable full c
 ## Definition
 
 ```c
-struct rlimit lim;
+static void
+unlimit_core_size(void)
 ```
 ## Detailed Description
 The  function modifies the process resource limits to maximize the size of core files that can be generated when the process crashes. This is essential for debugging PostgreSQL issues, as truncated core files may not contain enough information for effective analysis.
@@ -48,3 +49,28 @@ This function takes no parameters and uses local variables:
 - The function is silent on success, only reporting when core files cannot be enabled
 - Typically called early in process startup to ensure debugging capabilities are available
 - Used by both pg_ctl (for postmaster startup) and regression tests (for debugging test failures)
+
+## Simplified Source
+
+```c
+static void unlimit_core_size(void) {
+    struct rlimit lim;
+
+    // Get current core file size limits
+    getrlimit(RLIMIT_CORE, &lim);
+
+    // Check if hard limit allows core files
+    if (lim.rlim_max == 0) {
+        // Core files completely disabled by system
+        write_stderr(_("%s: cannot set core file size limit; disallowed by hard limit\n"),
+                     progname);
+        return;
+    }
+
+    // Set soft limit to hard limit if beneficial
+    if (lim.rlim_max == RLIM_INFINITY || lim.rlim_cur < lim.rlim_max) {
+        lim.rlim_cur = lim.rlim_max;
+        setrlimit(RLIMIT_CORE, &lim);
+    }
+}
+```

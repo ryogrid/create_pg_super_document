@@ -42,3 +42,15 @@ The function is designed as a lightweight cleanup mechanism that maintains trans
 - Part of the snapshot management infrastructure that ensures consistent data visibility
 - The function is intentionally lightweight to minimize overhead in high-throughput replication scenarios
 - Proper pairing with begin_replication_step() is essential for maintaining snapshot stack integrity
+
+## Simplified Source
+
+```c
+static void end_replication_step(void) {
+    // Clean up snapshot established by begin_replication_step
+    PopActiveSnapshot();
+
+    // Make changes visible to subsequent operations
+    CommandCounterIncrement();
+}
+```

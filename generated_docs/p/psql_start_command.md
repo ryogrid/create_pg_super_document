@@ -36,3 +36,18 @@ The function constructs a command that includes the full path to the psql binary
 - The bindir global variable determines whether to include a full path to the psql executable or rely on PATH resolution
 - Uses double quotes around the psql path to handle paths containing spaces
 - The -X and -q flags ensure consistent, minimal output suitable for automated testing environments
+
+## Simplified Source
+
+```c
+static StringInfo psql_start_command(void) {
+    StringInfo buf = makeStringInfo();
+
+    // Build psql command with path and standard testing flags
+    appendStringInfo(buf,
+                     "\"%s%spsql\" -X -q",
+                     bindir ? bindir : "",
+                     bindir ? "/" : "");
+    return buf;
+}
+```

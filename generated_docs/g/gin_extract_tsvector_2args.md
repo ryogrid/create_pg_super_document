@@ -32,3 +32,18 @@ The function performs a simple validation to ensure at least three arguments are
 - Always delegates to gin_extract_tsvector after argument validation
 - Located in src/backend/utils/adt/tsginidx.c:304-315
 - Should not be used in new code; use gin_extract_tsvector directly instead
+
+## Simplified Source
+
+```c
+Datum
+gin_extract_tsvector_2args(PG_FUNCTION_ARGS)
+{
+    // Safety check for proper argument count
+    if (PG_NARGS() < 3)
+        elog(ERROR, "gin_extract_tsvector requires three arguments");
+
+    // Delegate to the actual implementation
+    return gin_extract_tsvector(fcinfo);
+}
+```

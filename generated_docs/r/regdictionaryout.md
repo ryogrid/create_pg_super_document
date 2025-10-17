@@ -46,3 +46,46 @@ The function uses the system catalog  to look up dictionary details and applies 
 - Memory management uses  for result allocation
 - Part of the regtype system that provides user-friendly representations of internal OIDs
 - Critical for displaying dictionary references in SQL output and system catalogs
+
+## Simplified Source
+
+```c
+Datum
+regdictionaryout(PG_FUNCTION_ARGS)
+{
+    Oid dict_id = PG_GETARG_OID(0);
+    char *result;
+
+    // Handle invalid OID
+    if (dict_id == InvalidOid) {
+        result = pstrdup("-");
+        PG_RETURN_CSTRING(result);
+    }
+
+    // Look up dictionary in system catalog
+    HeapTuple dict_tuple = SearchSysCache1(TSDICTOID, ObjectIdGetDatum(dict_id));
+
+    if (HeapTupleIsValid(dict_tuple)) {
+        // Extract dictionary details
+        Form_pg_ts_dict dict_form = (Form_pg_ts_dict) GETSTRUCT(dict_tuple);
+        char *dict_name = NameStr(dict_form->dictname);
+        char *namespace_name;
+
+        // Check if schema qualification needed
+        if (TSDictionaryIsVisible(dict_id)) {
+            namespace_name = NULL;
+        } else {
+            namespace_name = get_namespace_name(dict_form->dictnamespace);
+        }
+
+        result = quote_qualified_identifier(namespace_name, dict_name);
+        ReleaseSysCache(dict_tuple);
+    } else {
+        // Return numeric OID if not found in catalog
+        result = (char *) palloc(NAMEDATALEN);
+        snprintf(result, NAMEDATALEN, "%u", dict_id);
+    }
+
+    PG_RETURN_CSTRING(result);
+}
+```

@@ -34,3 +34,14 @@ This callback is part of PostgreSQL's resource management system that ensures pr
 - It ensures that cached plans are properly released even if errors occur during query execution
 - The function passes NULL as the second parameter to , which is the  parameter, indicating that the resource owner cleanup is already in progress
 - This callback mechanism helps prevent memory leaks by ensuring cached plans don't remain referenced indefinitely
+
+## Simplified Source
+
+```c
+static void
+ResOwnerReleaseCachedPlan(Datum res)
+{
+    // Extract CachedPlan pointer from Datum and release it
+    ReleaseCachedPlan((CachedPlan *) DatumGetPointer(res), NULL);
+}
+```

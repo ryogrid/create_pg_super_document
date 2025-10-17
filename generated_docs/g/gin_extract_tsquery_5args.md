@@ -33,3 +33,18 @@ Similar to gin_extract_tsvector_2args, this function performs argument count val
 - Should not be used in new code; use gin_extract_tsquery directly instead
 - Located in src/backend/utils/adt/tsginidx.c:316-327
 - Part of PostgreSQL's backward compatibility infrastructure for GIN text search indexes
+
+## Simplified Source
+
+```c
+Datum
+gin_extract_tsquery_5args(PG_FUNCTION_ARGS)
+{
+    // Safety check for proper argument count
+    if (PG_NARGS() < 7)
+        elog(ERROR, "gin_extract_tsquery requires seven arguments");
+
+    // Delegate to the actual implementation
+    return gin_extract_tsquery(fcinfo);
+}
+```

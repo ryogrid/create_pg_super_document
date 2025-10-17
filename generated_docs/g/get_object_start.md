@@ -29,3 +29,22 @@ The `get_object_start` function is a semantic action callback used during JSON p
 - The special case handling ensures that when extracting the entire root object, the starting position is properly recorded
 - At nested levels, the match would have been initiated by outer field or array element callbacks
 - Always returns JSON_SUCCESS to indicate successful processing
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+get_object_start(void *state)
+{
+    GetState *_state = (GetState *) state;
+    int lex_level = _state->lex->lex_level;
+
+    // Special case: match entire root object when no path specified
+    if (lex_level == 0 && _state->npath == 0) {
+        // Record start position for entire object extraction
+        _state->result_start = _state->lex->token_start;
+    }
+
+    return JSON_SUCCESS;
+}
+```

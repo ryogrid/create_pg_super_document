@@ -45,3 +45,107 @@ The logic assumes that the parser has already enforced type consistency and coer
 - Requires valid call_expr to extract argument types; returns false if call_expr is NULL or argument types aren't identifiable
 - The function modifies the argtypes array in-place, replacing polymorphic OIDs with concrete type OIDs
 - Critical for PostgreSQL's polymorphic function resolution system, enabling functions to work with multiple data types while maintaining type safety
+
+## Simplified Source
+
+```c
+bool resolve_polymorphic_argtypes(int numargs, Oid *argtypes, char *argmodes, Node *call_expr) {
+    bool have_polymorphic_result = false;
+    bool have_anyelement_result = false;
+    bool have_anyarray_result = false;
+    bool have_anyrange_result = false;
+    bool have_anymultirange_result = false;
+    bool have_anycompatible_result = false;
+    bool have_anycompatible_array_result = false;
+    bool have_anycompatible_range_result = false;
+    bool have_anycompatible_multirange_result = false;
+
+    polymorphic_actuals poly_actuals;
+    polymorphic_actuals anyc_actuals;
+    int inargno = 0;
+
+    // Initialize tracking structures
+    memset(&poly_actuals, 0, sizeof(poly_actuals));
+    memset(&anyc_actuals, 0, sizeof(anyc_actuals));
+
+    // First pass: resolve input polymorphic types and identify output types
+    for (int i = 0; i < numargs; i++) {
+        char argmode = argmodes ? argmodes[i] : PROARGMODE_IN;
+
+        // Handle each polymorphic type case
+        switch (argtypes[i]) {
+            case ANYELEMENTOID:
+            case ANYNONARRAYOID:
+            case ANYENUMOID:
+                if (argmode == PROARGMODE_OUT || argmode == PROARGMODE_TABLE) {
+                    have_polymorphic_result = true;
+                    have_anyelement_result = true;
+                } else {
+                    // Get concrete type from call expression
+                    if (!OidIsValid(poly_actuals.anyelement_type)) {
+                        poly_actuals.anyelement_type = get_call_expr_argtype(call_expr, inargno);
+                        if (!OidIsValid(poly_actuals.anyelement_type))
+                            return false;
+                    }
+                    argtypes[i] = poly_actuals.anyelement_type;
+                }
+                break;
+
+            case ANYARRAYOID:
+                if (argmode == PROARGMODE_OUT || argmode == PROARGMODE_TABLE) {
+                    have_polymorphic_result = true;
+                    have_anyarray_result = true;
+                } else {
+                    if (!OidIsValid(poly_actuals.anyarray_type)) {
+                        poly_actuals.anyarray_type = get_call_expr_argtype(call_expr, inargno);
+                        if (!OidIsValid(poly_actuals.anyarray_type))
+                            return false;
+                    }
+                    argtypes[i] = poly_actuals.anyarray_type;
+                }
+                break;
+
+            // Similar handling for ANYRANGE, ANYMULTIRANGE, ANYCOMPATIBLE variants...
+            // (Pattern repeats for other polymorphic types)
+
+            default:
+                break;
+        }
+
+        if (argmode != PROARGMODE_OUT && argmode != PROARGMODE_TABLE)
+            inargno++;
+    }
+
+    // Early return if no polymorphic outputs need resolution
+    if (!have_polymorphic_result)
+        return true;
+
+    // Second pass: deduce missing polymorphic types from others
+    if (have_anyelement_result && !OidIsValid(poly_actuals.anyelement_type))
+        resolve_anyelement_from_others(&poly_actuals);
+
+    if (have_anyarray_result && !OidIsValid(poly_actuals.anyarray_type))
+        resolve_anyarray_from_others(&poly_actuals);
+
+    // Continue for other polymorphic types...
+
+    // Final pass: replace output column types with resolved types
+    for (int i = 0; i < numargs; i++) {
+        switch (argtypes[i]) {
+            case ANYELEMENTOID:
+            case ANYNONARRAYOID:
+            case ANYENUMOID:
+                argtypes[i] = poly_actuals.anyelement_type;
+                break;
+            case ANYARRAYOID:
+                argtypes[i] = poly_actuals.anyarray_type;
+                break;
+            // Handle other polymorphic types...
+            default:
+                break;
+        }
+    }
+
+    return true;
+}
+```

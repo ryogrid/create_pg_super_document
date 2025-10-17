@@ -38,3 +38,41 @@ The function uses similar logic to `date2isoweek` but returns the year component
 - Follows the year-zero-exists convention for zero or negative results
 - Used in conjunction with ISO week calculations to provide complete ISO 8601 date functionality
 - Essential for proper date arithmetic and formatting in PostgreSQL's temporal data types
+
+## Simplified Source
+
+```c
+int date2isoyear(int year, int mon, int mday) {
+    // Convert input date to Julian day number
+    int dayn = date2j(year, mon, mday);
+
+    // Find the fourth day (Thursday) of current year
+    int day4 = date2j(year, 1, 4);
+
+    // Get Monday offset for the week containing Thursday
+    int day0 = j2day(day4 - 1);
+
+    // Check if date falls into previous ISO year
+    if (dayn < day4 - day0) {
+        // Use previous year's reference point
+        day4 = date2j(year - 1, 1, 4);
+        day0 = j2day(day4 - 1);
+        year--;  // Date belongs to previous ISO year
+    }
+
+    // Calculate week number to check for next year boundary
+    float8 result = (dayn - (day4 - day0)) / 7 + 1;
+
+    // Check if date falls into next ISO year
+    if (result >= 52) {
+        day4 = date2j(year + 1, 1, 4);
+        day0 = j2day(day4 - 1);
+
+        if (dayn >= day4 - day0) {
+            year++;  // Date belongs to next ISO year
+        }
+    }
+
+    return year;
+}
+```

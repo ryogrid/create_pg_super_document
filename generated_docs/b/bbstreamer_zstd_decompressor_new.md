@@ -38,3 +38,39 @@ The function is simpler than its compression counterpart since decompression doe
 - Initializes the zstd output buffer structure for streaming decompression operations
 - The function returns a pointer to the base bbstreamer, allowing polymorphic use in the streaming pipeline
 - Error handling includes checking for decompression context creation failures
+
+## Simplified Source
+
+```c
+bbstreamer *
+bbstreamer_zstd_decompressor_new(bbstreamer *next)
+{
+#ifdef USE_ZSTD
+    bbstreamer_zstd_frame *streamer;
+
+    // Allocate and initialize the streamer structure
+    streamer = palloc0(sizeof(bbstreamer_zstd_frame));
+    streamer->base.bbs_ops = &bbstreamer_zstd_decompressor_ops;
+    streamer->base.bbs_next = next;
+
+    // Initialize buffer for output data
+    initStringInfo(&streamer->base.bbs_buffer);
+    enlargeStringInfo(&streamer->base.bbs_buffer, ZSTD_DStreamOutSize());
+
+    // Create zstd decompression context
+    streamer->dctx = ZSTD_createDCtx();
+    if (!streamer->dctx)
+        pg_fatal("could not create zstd decompression context");
+
+    // Initialize output buffer for zstd
+    streamer->zstd_outBuf.dst = streamer->base.bbs_buffer.data;
+    streamer->zstd_outBuf.size = streamer->base.bbs_buffer.maxlen;
+    streamer->zstd_outBuf.pos = 0;
+
+    return &streamer->base;
+#else
+    pg_fatal("this build does not support compression with ZSTD");
+    return NULL;
+#endif
+}
+```

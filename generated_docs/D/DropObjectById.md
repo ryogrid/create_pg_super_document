@@ -45,3 +45,57 @@ DropObjectById provides a generic mechanism for deleting catalog entries by thei
 - The function expects exactly one matching tuple and will error if the object is not found
 - Proper error handling includes descriptive messages using get_object_class_descr
 - Uses RowExclusiveLock to ensure safe concurrent access during deletion operations
+
+## Simplified Source
+
+```c
+static void
+DropObjectById(const ObjectAddress *object)
+{
+    int cacheId;
+    Relation rel;
+    HeapTuple tup;
+
+    // Get cache info and open catalog relation
+    cacheId = get_object_catcache_oid(object->classId);
+    rel = table_open(object->classId, RowExclusiveLock);
+
+    // Try cached lookup first for better performance
+    if (cacheId >= 0) {
+        // Use system cache to find the tuple
+        tup = SearchSysCache1(cacheId, ObjectIdGetDatum(object->objectId));
+        if (!HeapTupleIsValid(tup))
+            elog(ERROR, "cache lookup failed for %s %u",
+                 get_object_class_descr(object->classId), object->objectId);
+
+        // Delete the catalog tuple
+        CatalogTupleDelete(rel, &tup->t_self);
+        ReleaseSysCache(tup);
+    }
+    else {
+        // Fallback: scan catalog table directly
+        ScanKeyData skey[1];
+        SysScanDesc scan;
+
+        // Set up scan key for object OID
+        ScanKeyInit(&skey[0], get_object_attnum_oid(object->classId),
+                    BTEqualStrategyNumber, F_OIDEQ,
+                    ObjectIdGetDatum(object->objectId));
+
+        // Scan for the target tuple
+        scan = systable_beginscan(rel, get_object_oid_index(object->classId),
+                                  true, NULL, 1, skey);
+
+        tup = systable_getnext(scan);
+        if (!HeapTupleIsValid(tup))
+            elog(ERROR, "could not find tuple for %s %u",
+                 get_object_class_descr(object->classId), object->objectId);
+
+        // Delete the catalog tuple
+        CatalogTupleDelete(rel, &tup->t_self);
+        systable_endscan(scan);
+    }
+
+    table_close(rel, RowExclusiveLock);
+}
+```

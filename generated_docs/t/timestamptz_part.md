@@ -34,3 +34,12 @@ Unlike its timestamp counterpart, this function handles timezone-aware timestamp
 - Supports timezone-specific extractions not available in the plain timestamp variant
 - Part of PostgreSQL's date/time function family alongside `timestamp_part()` for timezone-unaware timestamps
 - Located in `src/backend/utils/adt/timestamp.c:5883-5886`
+
+## Simplified Source
+
+```c
+Datum timestamptz_part(PG_FUNCTION_ARGS) {
+    // Delegate to common implementation with float8 return type
+    return timestamptz_part_common(fcinfo, false);
+}
+```

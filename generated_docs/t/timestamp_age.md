@@ -59,3 +59,115 @@ The calculation is complex because it maintains calendar semantics - for example
 - Sign handling ensures the result direction matches the timestamp comparison
 - Error handling for out-of-range results and invalid timestamp values
 - Related to timestamptz_age but operates on timestamp without timezone values
+
+## Simplified Source
+
+```c
+Datum timestamp_age(PG_FUNCTION_ARGS) {
+    Timestamp dt1 = PG_GETARG_TIMESTAMP(0);
+    Timestamp dt2 = PG_GETARG_TIMESTAMP(1);
+    Interval *result = (Interval *) palloc(sizeof(Interval));
+
+    // Handle infinite timestamps
+    if (TIMESTAMP_IS_NOBEGIN(dt1)) {
+        if (TIMESTAMP_IS_NOBEGIN(dt2))
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                           errmsg("interval out of range")));
+        else
+            INTERVAL_NOBEGIN(result);
+    } else if (TIMESTAMP_IS_NOEND(dt1)) {
+        if (TIMESTAMP_IS_NOEND(dt2))
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                           errmsg("interval out of range")));
+        else
+            INTERVAL_NOEND(result);
+    } else if (TIMESTAMP_IS_NOBEGIN(dt2)) {
+        INTERVAL_NOEND(result);
+    } else if (TIMESTAMP_IS_NOEND(dt2)) {
+        INTERVAL_NOBEGIN(result);
+    } else {
+        // Convert timestamps to broken-down time
+        struct pg_itm tm;
+        struct pg_tm tm1, tm2;
+        fsec_t fsec1, fsec2;
+
+        if (timestamp2tm(dt1, NULL, &tm1, &fsec1, NULL, NULL) == 0 &&
+            timestamp2tm(dt2, NULL, &tm2, &fsec2, NULL, NULL) == 0) {
+
+            // Calculate field-by-field difference
+            tm.tm_usec = fsec1 - fsec2;
+            tm.tm_sec = tm1.tm_sec - tm2.tm_sec;
+            tm.tm_min = tm1.tm_min - tm2.tm_min;
+            tm.tm_hour = tm1.tm_hour - tm2.tm_hour;
+            tm.tm_mday = tm1.tm_mday - tm2.tm_mday;
+            tm.tm_mon = tm1.tm_mon - tm2.tm_mon;
+            tm.tm_year = tm1.tm_year - tm2.tm_year;
+
+            // Flip sign if dt1 < dt2
+            if (dt1 < dt2) {
+                tm.tm_usec = -tm.tm_usec;
+                tm.tm_sec = -tm.tm_sec;
+                tm.tm_min = -tm.tm_min;
+                tm.tm_hour = -tm.tm_hour;
+                tm.tm_mday = -tm.tm_mday;
+                tm.tm_mon = -tm.tm_mon;
+                tm.tm_year = -tm.tm_year;
+            }
+
+            // Handle negative field propagation (borrowing)
+            // Propagate from microseconds up to years
+            while (tm.tm_usec < 0) {
+                tm.tm_usec += USECS_PER_SEC;
+                tm.tm_sec--;
+            }
+            while (tm.tm_sec < 0) {
+                tm.tm_sec += SECS_PER_MINUTE;
+                tm.tm_min--;
+            }
+            while (tm.tm_min < 0) {
+                tm.tm_min += MINS_PER_HOUR;
+                tm.tm_hour--;
+            }
+            while (tm.tm_hour < 0) {
+                tm.tm_hour += HOURS_PER_DAY;
+                tm.tm_mday--;
+            }
+
+            // Handle day borrowing (accounts for variable month lengths)
+            while (tm.tm_mday < 0) {
+                if (dt1 < dt2) {
+                    tm.tm_mday += day_tab[isleap(tm1.tm_year)][tm1.tm_mon - 1];
+                    tm.tm_mon--;
+                } else {
+                    tm.tm_mday += day_tab[isleap(tm2.tm_year)][tm2.tm_mon - 1];
+                    tm.tm_mon--;
+                }
+            }
+            while (tm.tm_mon < 0) {
+                tm.tm_mon += MONTHS_PER_YEAR;
+                tm.tm_year--;
+            }
+
+            // Restore sign if necessary
+            if (dt1 < dt2) {
+                tm.tm_usec = -tm.tm_usec;
+                tm.tm_sec = -tm.tm_sec;
+                tm.tm_min = -tm.tm_min;
+                tm.tm_hour = -tm.tm_hour;
+                tm.tm_mday = -tm.tm_mday;
+                tm.tm_mon = -tm.tm_mon;
+                tm.tm_year = -tm.tm_year;
+            }
+
+            if (itm2interval(&tm, result) != 0)
+                ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                               errmsg("interval out of range")));
+        } else {
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                           errmsg("timestamp out of range")));
+        }
+    }
+
+    PG_RETURN_INTERVAL_P(result);
+}
+```

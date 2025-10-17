@@ -47,3 +47,53 @@ The function ensures data consistency by using appropriate locking mechanisms an
 - The event relation lock is held until transaction commit to maintain consistency
 - Error handling includes validation that the rule tuple exists before attempting deletion
 - The function is declared in src/include/rewrite/rewriteRemove.h
+
+## Simplified Source
+
+```c
+void
+RemoveRewriteRuleById(Oid ruleOid)
+{
+    Relation RewriteRelation;
+    ScanKeyData skey[1];
+    SysScanDesc rcscan;
+    Relation event_relation;
+    HeapTuple tuple;
+    Oid eventRelationOid;
+
+    // Open the pg_rewrite system catalog with exclusive lock
+    RewriteRelation = table_open(RewriteRelationId, RowExclusiveLock);
+
+    // Find the target rule tuple by OID
+    ScanKeyInit(&skey[0], Anum_pg_rewrite_oid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(ruleOid));
+
+    rcscan = systable_beginscan(RewriteRelation, RewriteOidIndexId, true, NULL, 1, skey);
+    tuple = systable_getnext(rcscan);
+
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "could not find tuple for rule %u", ruleOid);
+
+    // Lock the event relation to prevent concurrent queries using this rule
+    eventRelationOid = ((Form_pg_rewrite) GETSTRUCT(tuple))->ev_class;
+    event_relation = table_open(eventRelationOid, AccessExclusiveLock);
+
+    // Check system catalog modification permissions
+    if (!allowSystemTableMods && IsSystemRelation(event_relation))
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                errmsg("permission denied: \"%s\" is a system catalog",
+                       RelationGetRelationName(event_relation))));
+
+    // Delete the rule tuple from pg_rewrite
+    CatalogTupleDelete(RewriteRelation, &tuple->t_self);
+
+    systable_endscan(rcscan);
+    table_close(RewriteRelation, RowExclusiveLock);
+
+    // Invalidate relation cache to notify all backends
+    CacheInvalidateRelcache(event_relation);
+
+    // Close event relation but keep lock until commit
+    table_close(event_relation, NoLock);
+}
+```

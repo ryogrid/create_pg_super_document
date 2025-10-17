@@ -37,3 +37,32 @@ The function is designed to work with PostgreSQL's sort support infrastructure, 
 - The function checks if the extracted VarString pointers differ from the original Datum pointers and frees temporary copies
 - Used specifically for locale-aware sorting where collation rules must be applied
 - Part of PostgreSQL's sort support optimization framework for improved sorting performance
+
+## Simplified Source
+
+```c
+static int
+varlenafastcmp_locale(Datum x, Datum y, SortSupport ssup)
+{
+    // Extract variable-length strings from Datum values
+    VarString *arg1 = DatumGetVarStringPP(x);
+    VarString *arg2 = DatumGetVarStringPP(y);
+
+    // Get string data pointers and lengths
+    char *string1 = VARDATA_ANY(arg1);
+    char *string2 = VARDATA_ANY(arg2);
+    int len1 = VARSIZE_ANY_EXHDR(arg1);
+    int len2 = VARSIZE_ANY_EXHDR(arg2);
+
+    // Delegate to locale-aware string comparison function
+    int result = varstrfastcmp_locale(string1, len1, string2, len2, ssup);
+
+    // Clean up any detoasted copies to prevent memory leaks
+    if (PointerGetDatum(arg1) != x)
+        pfree(arg1);
+    if (PointerGetDatum(arg2) != y)
+        pfree(arg2);
+
+    return result;
+}
+```

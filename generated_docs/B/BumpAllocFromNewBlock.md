@@ -43,3 +43,40 @@ This function is responsible for creating new memory blocks in the bump memory a
 - Handles allocation failure through MemoryContextAllocationFailure
 - Updates context's total memory allocated counter
 - New blocks are added to the head of the block list for cache locality
+
+## Simplified Source
+
+```c
+static void *
+BumpAllocFromNewBlock(MemoryContext context, Size size, int flags, Size chunk_size)
+{
+    BumpContext *set = (BumpContext *) context;
+    BumpBlock *block;
+    Size blksize;
+
+    // Double block size for next allocation, up to maximum
+    blksize = set->nextBlockSize;
+    set->nextBlockSize <<= 1;
+    if (set->nextBlockSize > set->maxBlockSize)
+        set->nextBlockSize = set->maxBlockSize;
+
+    // Calculate required size: chunk + headers
+    Size required_size = chunk_size + Bump_CHUNKHDRSZ + Bump_BLOCKHDRSZ;
+
+    // Ensure block is large enough, round to power of 2
+    if (blksize < required_size)
+        blksize = pg_nextpower2_size_t(required_size);
+
+    // Allocate and initialize new block
+    block = (BumpBlock *) malloc(blksize);
+    if (block == NULL)
+        return MemoryContextAllocationFailure(context, size, flags);
+
+    context->mem_allocated += blksize;
+    BumpBlockInit(set, block, blksize);
+
+    // Add to block list and allocate chunk
+    dlist_push_head(&set->blocks, &block->node);
+    return BumpAllocChunkFromBlock(context, block, size, chunk_size);
+}
+```

@@ -44,3 +44,24 @@ The reference time is calculated as the difference between the PostgreSQL epoch 
 - Uses a specific test timestamp (2000-01-01 00:00:00 GMT) to detect leap-second behavior
 - Leap-second handling would interfere with PostgreSQL's assumption of consistent time progression
 - Located in src/timezone/localtime.c:1890-1906
+
+## Simplified Source
+
+```c
+bool pg_tz_acceptable(pg_tz *tz)
+{
+    struct pg_tm *tt;
+    pg_time_t time2000;
+
+    // Test timezone using GMT midnight, 2000-01-01
+    // to detect leap-second-aware timekeeping
+    time2000 = (POSTGRES_EPOCH_JDATE - UNIX_EPOCH_JDATE) * SECS_PER_DAY;
+    tt = pg_localtime(&time2000, tz);
+
+    // Reject timezone if conversion fails or shows leap seconds
+    if (!tt || tt->tm_sec != 0)
+        return false;
+
+    return true;
+}
+```

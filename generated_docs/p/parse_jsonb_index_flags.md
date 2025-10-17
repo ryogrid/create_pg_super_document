@@ -50,3 +50,52 @@ The function iterates through the input array, validates each element as a strin
 - The jti* constants correspond to JSON Type Iterator flags used in text search indexing
 - This function is part of the text search integration for JSON/JSONB data types
 - Flag names are chosen to match the output of jsonb_typeof function for consistency
+
+## Simplified Source
+
+```c
+uint32 parse_jsonb_index_flags(Jsonb *jb) {
+    JsonbIterator *it;
+    JsonbValue v;
+    JsonbIteratorToken type;
+    uint32 flags = 0;
+
+    it = JsonbIteratorInit(&jb->root);
+    type = JsonbIteratorNext(&it, &v, false);
+
+    // Validate input is an array (scalars are internally arrays)
+    if (type != WJB_BEGIN_ARRAY)
+        ereport(ERROR, "wrong flag type, only arrays and scalars are allowed");
+
+    // Process each flag string in the array
+    while ((type = JsonbIteratorNext(&it, &v, false)) == WJB_ELEM) {
+        if (v.type != jbvString)
+            ereport(ERROR, "flag array element is not a string");
+
+        // Match flag names (case-insensitive)
+        if (v.val.string.len == 3 && pg_strncasecmp(v.val.string.val, "all", 3) == 0)
+            flags |= jtiAll;
+        else if (v.val.string.len == 3 && pg_strncasecmp(v.val.string.val, "key", 3) == 0)
+            flags |= jtiKey;
+        else if (v.val.string.len == 6 && pg_strncasecmp(v.val.string.val, "string", 6) == 0)
+            flags |= jtiString;
+        else if (v.val.string.len == 7 && pg_strncasecmp(v.val.string.val, "numeric", 7) == 0)
+            flags |= jtiNumeric;
+        else if (v.val.string.len == 7 && pg_strncasecmp(v.val.string.val, "boolean", 7) == 0)
+            flags |= jtiBool;
+        else
+            ereport(ERROR, "wrong flag in flag array: \"%s\"",
+                   pnstrdup(v.val.string.val, v.val.string.len));
+    }
+
+    // Validate proper array termination
+    if (type != WJB_END_ARRAY)
+        elog(ERROR, "unexpected end of flag array");
+
+    type = JsonbIteratorNext(&it, &v, false);
+    if (type != WJB_DONE)
+        elog(ERROR, "unexpected end of flag array");
+
+    return flags;
+}
+```

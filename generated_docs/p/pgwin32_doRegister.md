@@ -41,3 +41,43 @@ This function takes no parameters but relies on global variables:
 - The service is configured with dependency on RPCSS (Remote Procedure Call System Service)
 - Uses SERVICE_WIN32_OWN_PROCESS to run PostgreSQL in its own process space
 - Error handling includes specific error codes from Windows API calls
+
+## Simplified Source
+
+```c
+static void
+pgwin32_doRegister(void)
+{
+    // Open Windows Service Control Manager
+    SC_HANDLE hSCM = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
+    if (!hSCM) {
+        write_stderr("could not open service manager");
+        exit(1);
+    }
+
+    // Check if service already exists
+    if (pgwin32_IsInstalled(hSCM)) {
+        CloseServiceHandle(hSCM);
+        write_stderr("service already registered");
+        exit(1);
+    }
+
+    // Create new Windows service entry
+    SC_HANDLE hService = CreateService(hSCM, register_servicename, register_servicename,
+                                       SERVICE_ALL_ACCESS, SERVICE_WIN32_OWN_PROCESS,
+                                       pgctl_start_type, SERVICE_ERROR_NORMAL,
+                                       pgwin32_CommandLine(true),
+                                       NULL, NULL, "RPCSS\0",
+                                       register_username, register_password);
+
+    if (!hService) {
+        CloseServiceHandle(hSCM);
+        write_stderr("could not register service: error %lu", GetLastError());
+        exit(1);
+    }
+
+    // Clean up handles
+    CloseServiceHandle(hService);
+    CloseServiceHandle(hSCM);
+}
+```

@@ -36,3 +36,33 @@ This function manages the termination process for logical replication apply work
 - Uses proc_exit(0) to terminate the process cleanly
 - Prevents accidental subscription disabling when disable_on_error is configured
 - The launcher can restart workers without waiting for wal_retrieve_retry_interval after cleanup
+
+## Simplified Source
+
+```c
+static void
+apply_worker_exit(void)
+{
+    // Parallel apply workers don't exit to avoid disrupting the leader
+    if (am_parallel_apply_worker()) {
+        /*
+         * Don't stop parallel workers - let the leader detect parameter
+         * changes and restart replication. This prevents communication
+         * errors that could accidentally disable subscriptions.
+         */
+        return;
+    }
+
+    // Leader workers clean up their start time tracking before exiting
+    if (am_leader_apply_worker()) {
+        /*
+         * Reset start time so launcher can restart immediately
+         * without waiting for retry interval, and avoid hash table leaks
+         */
+        ApplyLauncherForgetWorkerStartTime(MyLogicalRepWorker->subid);
+    }
+
+    // Cleanly terminate the worker process
+    proc_exit(0);
+}
+```

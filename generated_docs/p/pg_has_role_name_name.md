@@ -36,3 +36,29 @@ This function is part of the PostgreSQL privilege checking system for roles. It 
 - Returns true if the user has the specified privilege on the role, false otherwise
 - Located in src/backend/utils/adt/acl.c:4705-4730
 - The function follows PostgreSQL's standard function call interface using PG_FUNCTION_ARGS
+
+## Simplified Source
+
+```c
+Datum
+pg_has_role_name_name(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments: username, rolename, and privilege type
+    Name username = PG_GETARG_NAME(0);
+    Name rolename = PG_GETARG_NAME(1);
+    text *privilege_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert names to internal OIDs
+    Oid user_oid = get_role_oid(NameStr(*username), false);
+    Oid role_oid = get_role_oid(NameStr(*rolename), false);
+
+    // Convert privilege string to internal privilege mode
+    AclMode privilege_mode = convert_role_priv_string(privilege_text);
+
+    // Check if user has the specified privilege on the role
+    AclResult check_result = pg_role_aclcheck(role_oid, user_oid, privilege_mode);
+
+    // Return true if privilege check passed, false otherwise
+    PG_RETURN_BOOL(check_result == ACLCHECK_OK);
+}
+```

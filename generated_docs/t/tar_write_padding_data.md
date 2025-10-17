@@ -35,3 +35,29 @@ This function writes a specified number of zero bytes to a TAR file to provide n
 - Ensures proper TAR file format compliance by providing required zero padding
 - Critical for maintaining TAR archive integrity and compatibility with standard TAR tools
 - Handles partial writes by tracking remaining bytes and continuing until all padding is written
+
+## Simplified Source
+
+```c
+static bool
+tar_write_padding_data(TarMethodFile *f, size_t bytes) {
+    PGAlignedXLogBlock zerobuf;
+    size_t bytesleft = bytes;
+
+    // Initialize buffer with zeros
+    memset(zerobuf.data, 0, XLOG_BLCKSZ);
+
+    // Write padding in chunks
+    while (bytesleft) {
+        size_t bytestowrite = Min(bytesleft, XLOG_BLCKSZ);
+        ssize_t r = tar_write(&f->base, zerobuf.data, bytestowrite);
+
+        if (r < 0) {
+            return false;
+        }
+        bytesleft -= r;
+    }
+
+    return true;
+}
+```

@@ -43,3 +43,36 @@ The function skips locking for BLOBS entries since they don't correspond to actu
 - Part of pg_dump's parallel processing infrastructure
 - Terminates the entire backup process if lock cannot be acquired
 - Skips processing for BLOB entries which don't require table locks
+
+## Simplified Source
+
+```c
+static void lockTableForWorker(ArchiveHandle *AH, TocEntry *te) {
+    // Skip locking for BLOBS - they don't correspond to actual tables
+    if (strcmp(te->desc, "BLOBS") == 0) {
+        return;
+    }
+
+    // Build qualified table name for locking
+    const char *qualId = fmtQualifiedId(te->namespace, te->tag);
+    PQExpBuffer query = createPQExpBuffer();
+
+    // Use NOWAIT to prevent deadlocks in parallel operations
+    appendPQExpBuffer(query, "LOCK TABLE %s IN ACCESS SHARE MODE NOWAIT", qualId);
+
+    // Execute lock command
+    PGresult *res = PQexec(AH->connection, query->data);
+
+    // Check if lock was acquired successfully
+    if (!res || PQresultStatus(res) != PGRES_COMMAND_OK) {
+        pg_fatal("could not obtain lock on relation \"%s\"\n"
+                "This usually means that someone requested an ACCESS EXCLUSIVE lock "
+                "on the table after the pg_dump parent process had gotten the "
+                "initial ACCESS SHARE lock on the table.", qualId);
+    }
+
+    // Cleanup
+    PQclear(res);
+    destroyPQExpBuffer(query);
+}
+```

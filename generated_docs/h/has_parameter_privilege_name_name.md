@@ -39,3 +39,23 @@ This function is designed to be called directly from SQL queries where users wan
 - Part of the SQL-accessible interface for parameter privilege checking
 - Handles the conversion of text-based privilege names to internal representations
 - The function name follows PostgreSQL's naming convention where 'name_name' indicates the first argument is a username (Name type) and other arguments are names/text
+
+## Simplified Source
+
+```c
+Datum has_parameter_privilege_name_name(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments
+    Name username = PG_GETARG_NAME(0);
+    text *parameter = PG_GETARG_TEXT_PP(1);
+
+    // Convert privilege string to AclMode bitmask
+    AclMode priv = convert_parameter_priv_string(PG_GETARG_TEXT_PP(2));
+
+    // Convert username to role OID (handles both regular users and 'public')
+    Oid roleid = get_role_oid_or_public(NameStr(*username));
+
+    // Perform the privilege check and return boolean result
+    PG_RETURN_BOOL(has_param_priv_byname(roleid, parameter, priv));
+}
+```

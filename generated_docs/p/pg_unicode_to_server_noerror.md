@@ -44,3 +44,52 @@ The function maintains the same optimization paths as its error-throwing counter
 - Verifies conversion success by ensuring all input bytes were consumed
 - Safe for use in contexts where exception handling is not desired or available
 - Located in src/backend/utils/mb/mbutils.c:926-978
+
+## Simplified Source
+
+```c
+bool
+pg_unicode_to_server_noerror(pg_wchar c, unsigned char *s)
+{
+    // Fail if invalid Unicode code point
+    if (!is_valid_unicode_codepoint(c))
+        return false;
+
+    // Handle ASCII range directly - always succeeds
+    if (c <= 0x7F) {
+        s[0] = (unsigned char) c;
+        s[1] = '\0';
+        return true;
+    }
+
+    // If server encoding is UTF-8, convert directly
+    int server_encoding = GetDatabaseEncoding();
+    if (server_encoding == PG_UTF8) {
+        unicode_to_utf8(c, s);
+        s[pg_utf_mblen(s)] = '\0';
+        return true;
+    }
+
+    // For other encodings, need conversion function
+    if (Utf8ToServerConvProc == NULL)
+        return false;
+
+    // Convert Unicode to UTF-8 first
+    unsigned char c_as_utf8[MAX_MULTIBYTE_CHAR_LEN + 1];
+    unicode_to_utf8(c, c_as_utf8);
+    int c_as_utf8_len = pg_utf_mblen(c_as_utf8);
+    c_as_utf8[c_as_utf8_len] = '\0';
+
+    // Convert UTF-8 to server encoding (with error suppression)
+    int converted_len = DatumGetInt32(FunctionCall6(Utf8ToServerConvProc,
+                                                    Int32GetDatum(PG_UTF8),
+                                                    Int32GetDatum(server_encoding),
+                                                    CStringGetDatum((char *) c_as_utf8),
+                                                    CStringGetDatum((char *) s),
+                                                    Int32GetDatum(c_as_utf8_len),
+                                                    BoolGetDatum(true)));
+
+    // Success if all input was consumed
+    return (converted_len == c_as_utf8_len);
+}
+```

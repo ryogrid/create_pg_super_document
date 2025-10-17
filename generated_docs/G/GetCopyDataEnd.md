@@ -32,3 +32,15 @@ The function is designed as a simple but critical safety check in the pg_basebac
 - The function is specifically used in archive streaming contexts during base backup operations
 - It acts as a defensive programming practice to catch potential parsing inconsistencies early
 - The function is called at multiple points in ReceiveArchiveStreamChunk, indicating its importance in validating different types of archive stream data
+
+## Simplified Source
+
+```c
+static void
+GetCopyDataEnd(size_t r, char *copybuf, size_t cursor)
+{
+    // Ensure we consumed the entire message
+    if (r != cursor)
+        ReportCopyDataParseError(r, copybuf);
+}
+```

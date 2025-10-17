@@ -33,3 +33,13 @@ The function delegates to `jsonb_path_match_internal` with timezone handling dis
 - Does not support timezone-aware datetime operations (unlike `jsonb_path_match_tz`)
 - Located in `src/backend/utils/adt/jsonpath_exec.c:514-525`
 - Comment indicates this is a 2-argument version of `jsonb_path_match()`
+
+## Simplified Source
+
+```c
+Datum jsonb_path_match_opr(PG_FUNCTION_ARGS) {
+    // Implementation of "jsonb @@ jsonpath" operator
+    // Delegates to internal function without timezone handling
+    return jsonb_path_match_internal(fcinfo, false);
+}
+```

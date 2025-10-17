@@ -52,3 +52,43 @@ The function uses PostgreSQL's extended malloc with specific flags to avoid thro
 - Memory allocation uses MCXT_ALLOC_NO_OOM to handle out-of-memory gracefully
 - Part of the compression abstraction layer providing uniform file opening interface
 - Sets errno appropriately on memory allocation failure
+
+## Simplified Source
+
+```c
+static bool
+Zstd_open(const char *path, int fd, const char *mode,
+          CompressFileHandle *CFH)
+{
+    FILE *fp;
+    ZstdCompressorState *zstdcs;
+
+    // Clear state to avoid dangling pointers on error
+    CFH->private_data = NULL;
+
+    // Allocate Zstd state with no-OOM handling
+    zstdcs = (ZstdCompressorState *) pg_malloc_extended(sizeof(*zstdcs),
+                                    MCXT_ALLOC_NO_OOM | MCXT_ALLOC_ZERO);
+    if (!zstdcs) {
+        errno = ENOMEM;
+        return false;
+    }
+
+    // Open file by descriptor or path
+    if (fd >= 0)
+        fp = fdopen(dup(fd), mode);
+    else
+        fp = fopen(path, mode);
+
+    if (fp == NULL) {
+        pg_free(zstdcs);
+        return false;
+    }
+
+    // Initialize state and return success
+    zstdcs->fp = fp;
+    CFH->private_data = zstdcs;
+
+    return true;
+}
+```

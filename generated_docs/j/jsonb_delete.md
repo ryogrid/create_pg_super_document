@@ -45,3 +45,51 @@ The function performs string comparison to match the key or array element. For o
 - Uses skipNested flag to efficiently traverse nested structures
 - Does not modify the original JSONB; returns a new copy
 - Exposed as the SQL function `jsonb_delete(jsonb, text)`
+
+## Simplified Source
+
+```c
+Datum jsonb_delete(PG_FUNCTION_ARGS) {
+    Jsonb *in = PG_GETARG_JSONB_P(0);
+    text *key = PG_GETARG_TEXT_PP(1);
+    char *keyptr = VARDATA_ANY(key);
+    int keylen = VARSIZE_ANY_EXHDR(key);
+    JsonbParseState *state = NULL;
+    JsonbIterator *it;
+    JsonbValue v, *res = NULL;
+    bool skipNested = false;
+    JsonbIteratorToken r;
+
+    // Error check: cannot delete from scalar values
+    if (JB_ROOT_IS_SCALAR(in))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("cannot delete from scalar")));
+
+    // Return unchanged if empty
+    if (JB_ROOT_COUNT(in) == 0)
+        PG_RETURN_JSONB_P(in);
+
+    it = JsonbIteratorInit(&in->root);
+
+    // Iterate through JSONB structure
+    while ((r = JsonbIteratorNext(&it, &v, skipNested)) != WJB_DONE) {
+        skipNested = true;
+
+        // Check if current key/element matches deletion target
+        if ((r == WJB_ELEM || r == WJB_KEY) &&
+            (v.type == jbvString && keylen == v.val.string.len &&
+             memcmp(keyptr, v.val.string.val, keylen) == 0)) {
+
+            // Skip the matching key and its value
+            if (r == WJB_KEY)
+                JsonbIteratorNext(&it, &v, true);  // Skip value too
+            continue;
+        }
+
+        // Add non-matching elements to result
+        res = pushJsonbValue(&state, r, r < WJB_BEGIN_ARRAY ? &v : NULL);
+    }
+
+    PG_RETURN_JSONB_P(JsonbValueToJsonb(res));
+}
+```

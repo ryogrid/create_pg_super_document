@@ -38,3 +38,22 @@ The function accepts text input (which is converted to a C string) and uses Dire
 - Uses ErrorSaveContext to catch and handle conversion errors gracefully
 - Commonly used in SQL contexts where NULL handling is preferred over error conditions
 - The function name follows PostgreSQL's convention for safe conversion functions (to_* prefix)
+
+## Simplified Source
+
+```c
+Datum to_regrole(PG_FUNCTION_ARGS) {
+    char *role_name = text_to_cstring(PG_GETARG_TEXT_PP(0));
+    Datum result;
+    ErrorSaveContext escontext = {T_ErrorSaveContext};
+
+    // Use safe call to regrolein - returns NULL on error instead of throwing
+    if (!DirectInputFunctionCallSafe(regrolein, role_name,
+                                     InvalidOid, -1,
+                                     (Node *) &escontext,
+                                     &result))
+        PG_RETURN_NULL();
+
+    PG_RETURN_DATUM(result);
+}
+```

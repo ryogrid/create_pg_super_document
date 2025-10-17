@@ -36,3 +36,19 @@ The function follows the standard timeout setup pattern: disabling alarm interru
 - The delay parameter passed to enable_timeout is 0, indicating this is a one-time timeout, not periodic
 - Provides precise timestamp-based timeout scheduling for time-critical operations
 - Part of PostgreSQL's comprehensive timeout management system for handling various timing scenarios
+
+## Simplified Source
+
+```c
+void enable_timeout_at(TimeoutId id, TimestampTz fin_time) {
+    // Disable alarm interrupts for atomic timeout configuration
+    disable_alarm();
+
+    // Queue the timeout at the specified absolute time
+    TimestampTz now = GetCurrentTimestamp();
+    enable_timeout(id, now, fin_time, 0);  // 0 = no repetition
+
+    // Reschedule the timer interrupt
+    schedule_alarm(now);
+}
+```

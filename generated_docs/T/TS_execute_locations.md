@@ -54,3 +54,21 @@ The function is particularly important for headline generation and advanced text
 - Currently supports no execution flags beyond the empty flag set
 - The position reporting follows the rule that phrase matches record the position of the rightmost lexeme
 - Critical for applications requiring detailed match location analysis rather than simple boolean results
+
+## Simplified Source
+
+```c
+List *TS_execute_locations(QueryItem *curitem, void *arg, uint32 flags,
+                          TSExecuteCallback chkcond) {
+    List *result;
+
+    // No flags currently supported
+    Assert(flags == TS_EXEC_EMPTY);
+
+    // Delegate to recursive implementation
+    if (TS_execute_locations_recurse(curitem, arg, chkcond, &result))
+        return result;
+
+    return NIL;  // No match or no position data available
+}
+```

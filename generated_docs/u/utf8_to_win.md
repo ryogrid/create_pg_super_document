@@ -46,3 +46,40 @@ The function validates the encoding conversion arguments and iterates through a 
 - Throws an error if an unsupported Windows encoding ID is provided
 - Function is registered with PostgreSQL via PG_FUNCTION_INFO_V1 macro
 - Uses the second map (map2) from the conversion mapping tables for UTF-8 to Windows encoding conversion
+
+## Simplified Source
+
+```c
+Datum
+utf8_to_win(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments
+    int encoding = PG_GETARG_INT32(1);
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion from UTF-8
+    CHECK_ENCODING_CONVERSION_ARGS(PG_UTF8, -1);
+
+    // Find the appropriate conversion map for the encoding
+    for (int i = 0; i < lengthof(maps); i++) {
+        if (encoding == maps[i].encoding) {
+            // Convert using the found mapping (map2 for UTF-8 to Windows)
+            int converted = UtfToLocal(src, len, dest,
+                                       maps[i].map2,
+                                       NULL, 0, NULL,
+                                       encoding, noError);
+            return converted;
+        }
+    }
+
+    // Error: unsupported encoding
+    ereport(ERROR,
+            (errcode(ERRCODE_INTERNAL_ERROR),
+             errmsg("unexpected encoding ID %d for WIN character sets", encoding)));
+
+    return 0;
+}
+```

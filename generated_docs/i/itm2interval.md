@@ -45,3 +45,35 @@ The function prioritizes safety and finite results, rejecting any computation th
 - Uses PostgreSQL's safe arithmetic primitives to prevent undefined behavior
 - Month field is limited to 32-bit signed integer range (INT_MIN to INT_MAX)
 - Any input combination that would result in infinite intervals is rejected as overflow
+
+## Simplified Source
+
+```c
+int
+itm2interval(struct pg_itm *itm, Interval *span)
+{
+    int64 total_months = (int64) itm->tm_year * MONTHS_PER_YEAR + itm->tm_mon;
+
+    // Check month overflow
+    if (total_months > INT_MAX || total_months < INT_MIN)
+        return -1;
+    span->month = (int32) total_months;
+    span->day = itm->tm_mday;
+
+    // Convert time components to microseconds with overflow checking
+    if (pg_mul_s64_overflow(itm->tm_hour, USECS_PER_HOUR, &span->time))
+        return -1;
+    if (pg_add_s64_overflow(span->time, itm->tm_min * USECS_PER_MINUTE, &span->time))
+        return -1;
+    if (pg_add_s64_overflow(span->time, itm->tm_sec * USECS_PER_SEC, &span->time))
+        return -1;
+    if (pg_add_s64_overflow(span->time, itm->tm_usec, &span->time))
+        return -1;
+
+    // Ensure result is finite
+    if (INTERVAL_NOT_FINITE(span))
+        return -1;
+
+    return 0;
+}
+```

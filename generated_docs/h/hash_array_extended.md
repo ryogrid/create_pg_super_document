@@ -51,3 +51,66 @@ This function is particularly important for hash partitioning and other operatio
 - [Hash](../H/Hash.md) algorithm provides better distribution properties due to 64-bit arithmetic
 - Multiplicative constant 31 maintains good distribution properties in 64-bit space
 - Essential for modern hash-based operations that require collision resistance
+
+## Simplified Source
+
+```c
+Datum
+hash_array_extended(PG_FUNCTION_ARGS)
+{
+    LOCAL_FCINFO(locfcinfo, 2);
+    AnyArrayType *array = PG_GETARG_ANY_ARRAY_P(0);
+    uint64 seed = PG_GETARG_INT64(1);
+
+    // Extract array metadata
+    int ndims = AARR_NDIM(array);
+    int *dims = AARR_DIMS(array);
+    Oid element_type = AARR_ELEMTYPE(array);
+    uint64 result = 1;
+
+    // Get cached extended hash function for element type
+    TypeCacheEntry *typentry = (TypeCacheEntry *) fcinfo->flinfo->fn_extra;
+    if (typentry == NULL || typentry->type_id != element_type)
+    {
+        typentry = lookup_type_cache(element_type, TYPECACHE_HASH_EXTENDED_PROC_FINFO);
+        if (!OidIsValid(typentry->hash_extended_proc_finfo.fn_oid))
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                           errmsg("could not identify an extended hash function for type %s",
+                                  format_type_be(element_type))));
+        fcinfo->flinfo->fn_extra = (void *) typentry;
+    }
+
+    // Setup element extended hashing
+    InitFunctionCallInfoData(*locfcinfo, &typentry->hash_extended_proc_finfo, 2,
+                            PG_GET_COLLATION(), NULL, NULL);
+
+    int nitems = ArrayGetNItems(ndims, dims);
+    array_iter iter;
+    array_iter_setup(&iter, array);
+
+    // Hash each element with seed and combine results
+    for (int i = 0; i < nitems; i++)
+    {
+        bool isnull;
+        Datum elt = array_iter_next(&iter, &isnull, i,
+                                   typentry->typlen, typentry->typbyval, typentry->typalign);
+
+        uint64 elthash;
+        if (isnull) {
+            elthash = 0;  // NULL elements have hash value 0
+        } else {
+            locfcinfo->args[0].value = elt;
+            locfcinfo->args[0].isnull = false;
+            locfcinfo->args[1].value = Int64GetDatum(seed);
+            locfcinfo->args[1].isnull = false;
+            elthash = DatumGetUInt64(FunctionCallInvoke(locfcinfo));
+        }
+
+        // Combine using multiplicative hash: result = (result * 31) + elthash
+        result = (result << 5) - result + elthash;
+    }
+
+    AARR_FREE_IF_COPY(array, 0);
+    PG_RETURN_UINT64(result);
+}
+```

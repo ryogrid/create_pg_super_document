@@ -44,3 +44,28 @@ The function iterates through all QueryItem elements in the TSQuery, but only pr
 - Multiple different operands may map to the same bit (hash collision is acceptable)
 - Essential component of PostgreSQL's GiST indexing for full-text search
 - Provides lossy compression suitable for index filtering, not exact matching
+
+## Simplified Source
+
+```c
+TSQuerySign
+makeTSQuerySign(TSQuery a)
+{
+    TSQuerySign signature = 0;
+    QueryItem *items = GETQUERY(a);
+
+    // Process each query item
+    for (int i = 0; i < a->size; i++)
+    {
+        // Only hash value operands, not operators
+        if (items[i].type == QI_VAL)
+        {
+            // Set bit based on CRC hash modulo signature length
+            int bit_pos = items[i].qoperand.valcrc % TSQS_SIGLEN;
+            signature |= ((TSQuerySign) 1) << bit_pos;
+        }
+    }
+
+    return signature;
+}
+```

@@ -36,3 +36,59 @@ The getConversions function is part of pg_dump's catalog scanning infrastructure
 - Conversions are essential for multi-encoding database environments and proper character set handling
 - The function stores basic metadata needed to recreate conversion objects during database restore
 - Memory allocation is done upfront for the entire conversion array based on query results
+
+## Simplified Source
+
+```c
+ConvInfo *getConversions(Archive *fout, int *numConversions)
+{
+    PGresult *res;
+    int ntups, i;
+    PQExpBuffer query;
+    ConvInfo *convinfo;
+    int i_tableoid, i_oid, i_conname, i_connamespace, i_conowner;
+
+    query = createPQExpBuffer();
+
+    // Query all conversions including builtin ones
+    appendPQExpBufferStr(query,
+                         "SELECT tableoid, oid, conname, connamespace, conowner "
+                         "FROM pg_conversion");
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+    *numConversions = ntups;
+
+    // Allocate array for conversion info
+    convinfo = (ConvInfo *) pg_malloc(ntups * sizeof(ConvInfo));
+
+    // Get column indices
+    i_tableoid = PQfnumber(res, "tableoid");
+    i_oid = PQfnumber(res, "oid");
+    i_conname = PQfnumber(res, "conname");
+    i_connamespace = PQfnumber(res, "connamespace");
+    i_conowner = PQfnumber(res, "conowner");
+
+    // Process each conversion
+    for (i = 0; i < ntups; i++) {
+        // Initialize dump object
+        convinfo[i].dobj.objType = DO_CONVERSION;
+        convinfo[i].dobj.catId.tableoid = atooid(PQgetvalue(res, i, i_tableoid));
+        convinfo[i].dobj.catId.oid = atooid(PQgetvalue(res, i, i_oid));
+        AssignDumpId(&convinfo[i].dobj);
+        convinfo[i].dobj.name = pg_strdup(PQgetvalue(res, i, i_conname));
+        convinfo[i].dobj.namespace = findNamespace(atooid(PQgetvalue(res, i, i_connamespace)));
+
+        // Set conversion properties
+        convinfo[i].rolname = getRoleName(PQgetvalue(res, i, i_conowner));
+
+        // Determine if this conversion should be dumped
+        selectDumpableObject(&(convinfo[i].dobj), fout);
+    }
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+
+    return convinfo;
+}
+```

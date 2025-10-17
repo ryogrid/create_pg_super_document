@@ -61,3 +61,32 @@ The function creates two mapping files:
 - No error recovery is needed since bootstrap is an all-or-nothing operation
 - The mapping files created here are critical for PostgreSQL to be able to locate its own system catalogs on subsequent startups
 - Future mapping changes will use the normal transactional update mechanisms rather than this bootstrap-specific function
+
+## Simplified Source
+
+```c
+void
+RelationMapFinishBootstrap(void)
+{
+    Assert(IsBootstrapProcessingMode());
+
+    // Verify no pending updates exist - all mappings should be finalized
+    Assert(active_shared_updates.num_mappings == 0);
+    Assert(active_local_updates.num_mappings == 0);
+    Assert(pending_shared_updates.num_mappings == 0);
+    Assert(pending_local_updates.num_mappings == 0);
+
+    // Write mapping files with exclusive lock (no WAL/sinval needed during bootstrap)
+    LWLockAcquire(RelationMappingLock, LW_EXCLUSIVE);
+
+    // Write shared mapping file (global catalogs)
+    write_relmap_file(&shared_map, false, false, false,
+                      InvalidOid, GLOBALTABLESPACE_OID, "global");
+
+    // Write local mapping file (database-specific catalogs)
+    write_relmap_file(&local_map, false, false, false,
+                      MyDatabaseId, MyDatabaseTableSpace, DatabasePath);
+
+    LWLockRelease(RelationMappingLock);
+}
+```

@@ -39,3 +39,24 @@ The `tidout` function converts an internal ItemPointer structure to a human-read
 - Buffer size of 32 characters is sufficient for maximum possible TID values on all supported platforms
 - The function comment suggests that future versions might output TID as a record type instead of a string
 - Memory for the returned string is allocated using `pstrdup` to ensure proper PostgreSQL memory context handling
+
+## Simplified Source
+
+```c
+Datum tidout(PG_FUNCTION_ARGS) {
+    ItemPointer tid_pointer = PG_GETARG_ITEMPOINTER(0);
+    BlockNumber block_number;
+    OffsetNumber offset_number;
+    char buffer[32];
+
+    // Extract block and offset numbers from ItemPointer
+    block_number = ItemPointerGetBlockNumberNoCheck(tid_pointer);
+    offset_number = ItemPointerGetOffsetNumberNoCheck(tid_pointer);
+
+    // Format as "(block,offset)" string
+    snprintf(buffer, sizeof(buffer), "(%u,%u)", block_number, offset_number);
+
+    // Return duplicated string in proper memory context
+    PG_RETURN_CSTRING(pstrdup(buffer));
+}
+```

@@ -36,3 +36,25 @@ The `interval_recv` function is the binary input conversion function for Postgre
 - Applies type modifier constraints after reading the binary data to ensure type compliance
 - The binary format is more efficient than text parsing for high-volume data transfer
 - Complements `interval_send` for bidirectional binary conversion
+
+## Simplified Source
+
+```c
+Datum interval_recv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    int32 typmod = PG_GETARG_INT32(2);
+
+    // Allocate memory for new interval
+    Interval *interval = (Interval *) palloc(sizeof(Interval));
+
+    // Read binary data: time (microseconds), days, months
+    interval->time = pq_getmsgint64(buf);
+    interval->day = pq_getmsgint(buf, sizeof(interval->day));
+    interval->month = pq_getmsgint(buf, sizeof(interval->month));
+
+    // Apply type modifier constraints
+    AdjustIntervalForTypmod(interval, typmod, NULL);
+
+    return PG_RETURN_INTERVAL_P(interval);
+}
+```

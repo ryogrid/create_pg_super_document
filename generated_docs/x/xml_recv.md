@@ -49,3 +49,48 @@ This function handles the binary protocol reception of XML data from clients. Un
 - Validates XML well-formedness before final conversion
 - Uses pg_any_to_server for robust encoding conversion between different character sets
 - Different from xml_in in that it doesn't rely on client-to-server encoding conversion pipeline
+
+## Simplified Source
+
+```c
+Datum xml_recv(PG_FUNCTION_ARGS) {
+#ifdef USE_LIBXML
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+
+    // Read raw binary data
+    int nbytes = buf->len - buf->cursor;
+    char *str = (char *) pq_getmsgbytes(buf, nbytes);
+
+    // Create null-terminated copy for parsing
+    xmltype *result = palloc(nbytes + 1 + VARHDRSZ);
+    SET_VARSIZE(result, nbytes + VARHDRSZ);
+    memcpy(VARDATA(result), str, nbytes);
+    str = VARDATA(result);
+    str[nbytes] = '\0';
+
+    // Parse XML declaration to detect encoding
+    xmlChar *encodingStr = NULL;
+    parse_xml_decl((const xmlChar *) str, NULL, NULL, &encodingStr, NULL);
+
+    // Default to UTF-8 if no encoding specified
+    int encoding = encodingStr ? xmlChar_to_encoding(encodingStr) : PG_UTF8;
+
+    // Validate XML well-formedness
+    xmlDocPtr doc = xml_parse(result, xmloption, true, encoding, NULL, NULL, NULL);
+    xmlFreeDoc(doc);
+
+    // Convert to server encoding
+    char *newstr = pg_any_to_server(str, nbytes, encoding);
+    if (newstr != str) {
+        pfree(result);
+        result = (xmltype *) cstring_to_text(newstr);
+        pfree(newstr);
+    }
+
+    PG_RETURN_XML_P(result);
+#else
+    NO_XML_SUPPORT();
+    return 0;
+#endif
+}
+```

@@ -40,3 +40,53 @@ This function prepares for the restoration of an individual Large Object. It ini
 - In connected mode, uses libpq LO functions; in disconnected mode, generates SQL
 - Provides user feedback by logging the OID being restored
 - The LO is opened with INV_WRITE permission for data writing
+
+## Simplified Source
+
+```c
+void
+StartRestoreLO(ArchiveHandle *AH, Oid oid, bool drop)
+{
+    bool old_lo_style = (AH->version < K_VERS_1_12);
+    Oid loOid;
+
+    AH->loCount++;
+
+    // Initialize LO buffer on first use
+    if (AH->lo_buf == NULL) {
+        AH->lo_buf_size = LOBBUFSIZE;
+        AH->lo_buf = (void *) pg_malloc(LOBBUFSIZE);
+    }
+    AH->lo_buf_used = 0;
+
+    pg_log_info("restoring large object with OID %u", oid);
+
+    // Handle old archive format: explicit drop and create
+    if (old_lo_style && drop)
+        DropLOIfExists(AH, oid);
+
+    if (AH->connection) {
+        // Connected mode: use libpq LO functions
+        if (old_lo_style) {
+            loOid = lo_create(AH->connection, oid);
+            if (loOid == 0 || loOid != oid)
+                pg_fatal("could not create large object %u: %s",
+                         oid, PQerrorMessage(AH->connection));
+        }
+        AH->loFd = lo_open(AH->connection, oid, INV_WRITE);
+        if (AH->loFd == -1)
+            pg_fatal("could not open large object %u: %s",
+                     oid, PQerrorMessage(AH->connection));
+    } else {
+        // Disconnected mode: generate SQL statements
+        if (old_lo_style)
+            ahprintf(AH, "SELECT pg_catalog.lo_open(pg_catalog.lo_create('%u'), %d);\n",
+                     oid, INV_WRITE);
+        else
+            ahprintf(AH, "SELECT pg_catalog.lo_open('%u', %d);\n",
+                     oid, INV_WRITE);
+    }
+
+    AH->writingLO = true;
+}
+```

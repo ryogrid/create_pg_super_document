@@ -46,3 +46,49 @@ Like apply_handle_commit_prepared, this function operates outside of transaction
 - Origin state updates and parallel table synchronization are handled similarly to the commit case
 - The function uses FinishPreparedTransaction with false parameter to indicate rollback rather than commit
 - Error context and activity reporting are managed to maintain proper monitoring during replication
+
+## Simplified Source
+
+```c
+static void
+apply_handle_rollback_prepared(StringInfo s)
+{
+    LogicalRepRollbackPreparedTxnData rollback_data;
+    char gid[GIDSIZE];
+
+    // Read rollback prepared data and set error context
+    logicalrep_read_rollback_prepared(s, &rollback_data);
+    set_apply_error_context_xact(rollback_data.xid, rollback_data.rollback_end_lsn);
+
+    // Generate the same GID used during prepare
+    TwoPhaseTransactionGid(MySubscription->oid, rollback_data.xid,
+                           gid, sizeof(gid));
+
+    // Only rollback if the prepared transaction actually exists
+    // This handles cases where PREPARE was missed due to timing issues
+    if (LookupGXact(gid, rollback_data.prepare_end_lsn,
+                    rollback_data.prepare_time)) {
+        // Update origin state for crash recovery
+        replorigin_session_origin_lsn = rollback_data.rollback_end_lsn;
+        replorigin_session_origin_timestamp = rollback_data.rollback_time;
+
+        // Execute rollback outside transaction boundaries
+        begin_replication_step();
+        FinishPreparedTransaction(gid, false); // false = rollback
+        end_replication_step();
+        CommitTransactionCommand();
+
+        clear_subscription_skip_lsn(rollback_data.rollback_end_lsn);
+    }
+
+    // Update statistics and store flush position
+    pgstat_report_stat(false);
+    store_flush_position(rollback_data.rollback_end_lsn, XactLastCommitEnd);
+    in_remote_transaction = false;
+
+    // Process parallel table synchronization and clean up
+    process_syncing_tables(rollback_data.rollback_end_lsn);
+    pgstat_report_activity(STATE_IDLE, NULL);
+    reset_apply_error_context_info();
+}
+```

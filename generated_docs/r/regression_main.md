@@ -80,3 +80,109 @@ The function supports multiple testing modes including single-user mode, bootstr
 - Includes comprehensive error handling with detailed logging to help diagnose test failures
 - Uses function pointers to allow different test frameworks (main regression, isolation tests, ECPG tests) to customize behavior
 - Returns integer exit code indicating success/failure status
+
+## Simplified Source
+
+```c
+int regression_main(int argc, char *argv[],
+                   init_function ifunc,
+                   test_start_function startfunc,
+                   postprocess_result_function postfunc)
+{
+    // Command-line option definitions
+    static struct option long_options[] = {
+        {"help", no_argument, NULL, 'h'},
+        {"version", no_argument, NULL, 'V'},
+        {"dbname", required_argument, NULL, 1},
+        {"debug", no_argument, NULL, 2},
+        {"inputdir", required_argument, NULL, 3},
+        // ... additional options for connections, directories, etc.
+        {NULL, 0, NULL, 0}
+    };
+
+    // Initialize logging and program setup
+    pg_logging_init(argv[0]);
+    progname = get_progname(argv[0]);
+    set_pglocale_pgservice(argv[0], PG_TEXTDOMAIN("pg_regress"));
+
+    // Platform-specific socket configuration
+    #if defined(WIN32)
+    use_unix_sockets = getenv("PG_TEST_USE_UNIX_SOCKETS") ? true : false;
+    #else
+    use_unix_sockets = true;
+    #endif
+
+    // Call initialization function to set defaults
+    ifunc(argc, argv);
+
+    // Parse command-line arguments
+    while ((c = getopt_long(argc, argv, "hV", long_options, &option_index)) != -1) {
+        switch (c) {
+            case 'h': help(); exit(0);
+            case 'V': puts("pg_regress (PostgreSQL) " PG_VERSION); exit(0);
+            case 1: /* dbname */ free_stringlist(&dblist); split_to_stringlist(optarg, ",", &dblist); break;
+            case 2: debug = true; break;
+            case 3: inputdir = pg_strdup(optarg); break;
+            // ... handle other options
+            default: pg_log_error_hint("Try \"%s --help\" for more information.", progname); exit(2);
+        }
+    }
+
+    // Add any remaining arguments as extra tests
+    while (argc - optind >= 1) {
+        add_stringlist_item(&extra_tests, argv[optind]);
+        optind++;
+    }
+
+    // Validate database name was specified
+    if (!(dblist && dblist->str && dblist->str[0])) {
+        bail("no database name was specified");
+    }
+
+    // Calculate default port for temp instances
+    if (temp_instance && !port_specified_by_user) {
+        port = 0xC000 | (PG_VERSION_NUM & 0x3FFF);
+    }
+
+    // Make paths absolute
+    inputdir = make_absolute_path(inputdir);
+    outputdir = make_absolute_path(outputdir);
+    expecteddir = make_absolute_path(expecteddir);
+
+    // Initialize test environment
+    open_result_files();
+    initialize_environment();
+
+    // Set up temporary PostgreSQL instance if needed
+    if (temp_instance) {
+        // Create temp instance directory
+        if (directory_exists(temp_instance)) {
+            rmtree(temp_instance, true);
+        }
+        make_directory(temp_instance);
+
+        // Initialize database (via initdb or template copy)
+        if (initdb_template_dir && !nolocale && !debug) {
+            // Copy from template for speed
+            copy_initdb_template();
+        } else {
+            // Run initdb to create new instance
+            run_initdb_command();
+        }
+
+        // Configure postgresql.conf for testing
+        configure_postgresql_conf();
+
+        // Start temporary postmaster
+        postmaster_pid = spawn_postmaster();
+
+        // Wait for server to accept connections
+        wait_for_server_ready();
+
+        postmaster_running = true;
+    }
+
+    // Run the actual tests
+    return run_regression_tests(startfunc, postfunc);
+}
+```

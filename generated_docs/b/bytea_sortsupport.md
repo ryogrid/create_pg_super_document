@@ -36,3 +36,31 @@ The function delegates the actual setup to varstr_sortsupport(), passing BYTEAOI
 - Leverages existing variable-length string sorting infrastructure for efficiency
 - Critical for performance in scenarios involving large-scale bytea sorting operations
 - Memory context switching ensures proper allocation scope for sorting structures
+
+## Simplified Source
+
+```c
+Datum bytea_sortsupport(PG_FUNCTION_ARGS)
+{
+    SortSupport ssup = (SortSupport) PG_GETARG_POINTER(0);
+    MemoryContext oldcontext;
+
+    // Switch to sort support memory context for allocations
+    oldcontext = MemoryContextSwitchTo(ssup->ssup_cxt);
+
+    // Configure sorting using generic variable-length string support
+    // with C collation for binary comparison (no locale transformations)
+    varstr_sortsupport(ssup, BYTEAOID, C_COLLATION_OID);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcontext);
+
+    PG_RETURN_VOID();
+}
+```
+
+**Key Points:**
+- Initializes optimized sorting support for bytea data type
+- Uses C collation for proper binary comparison semantics
+- Leverages PostgreSQL's generic variable-length string sorting infrastructure
+- Manages memory context to ensure proper allocation scope for sorting operations

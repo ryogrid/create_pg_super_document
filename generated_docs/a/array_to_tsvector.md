@@ -51,3 +51,62 @@ The resulting TSVector contains lexemes without position or weight information (
 - Part of PostgreSQL's full-text search functionality for TSVector construction
 - Complement to tsvector_to_array function for round-trip conversion
 - Generated TSVectors are suitable for basic text search but lack positional information for phrase searches
+
+## Simplified Source
+
+```c
+Datum array_to_tsvector(PG_FUNCTION_ARGS) {
+    ArrayType *v = PG_GETARG_ARRAYTYPE_P(0);
+    Datum *dlexemes;
+    bool *nulls;
+    int nitems;
+
+    // Extract array elements
+    deconstruct_array_builtin(v, TEXTOID, &dlexemes, &nulls, &nitems);
+
+    // Validate: reject nulls and empty strings
+    for (int i = 0; i < nitems; i++) {
+        if (nulls[i])
+            ereport(ERROR, (errcode(ERRCODE_NULL_VALUE_NOT_ALLOWED),
+                           errmsg("lexeme array may not contain nulls")));
+
+        if (VARSIZE(dlexemes[i]) - VARHDRSZ == 0)
+            ereport(ERROR, (errcode(ERRCODE_ZERO_LENGTH_CHARACTER_STRING),
+                           errmsg("lexeme array may not contain empty strings")));
+    }
+
+    // Sort and deduplicate lexemes
+    if (nitems > 1) {
+        qsort(dlexemes, nitems, sizeof(Datum), compare_text_lexemes);
+        nitems = qunique(dlexemes, nitems, sizeof(Datum), compare_text_lexemes);
+    }
+
+    // Calculate storage space needed
+    int datalen = 0;
+    for (int i = 0; i < nitems; i++)
+        datalen += VARSIZE(dlexemes[i]) - VARHDRSZ;
+    int tslen = CALCDATASIZE(nitems, datalen);
+
+    // Create TSVector structure
+    TSVector tsout = (TSVector) palloc0(tslen);
+    SET_VARSIZE(tsout, tslen);
+    tsout->size = nitems;
+
+    // Fill in lexeme data
+    WordEntry *arrout = ARRPTR(tsout);
+    char *cur = STRPTR(tsout);
+    for (int i = 0; i < nitems; i++) {
+        char *lex = VARDATA(dlexemes[i]);
+        int lex_len = VARSIZE(dlexemes[i]) - VARHDRSZ;
+
+        memcpy(cur, lex, lex_len);
+        arrout[i].haspos = 0;  // No position info
+        arrout[i].len = lex_len;
+        arrout[i].pos = cur - STRPTR(tsout);
+        cur += lex_len;
+    }
+
+    PG_FREE_IF_COPY(v, 0);
+    PG_RETURN_POINTER(tsout);
+}
+```

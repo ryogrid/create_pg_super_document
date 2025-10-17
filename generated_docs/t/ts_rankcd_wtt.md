@@ -42,3 +42,26 @@ This function is one of four ts_rankcd variants that provide different parameter
 - [ts_rankcd_tt](ts_rankcd_tt.md): tsvector + tsquery (uses defaults for both)
 
 By using DEF_NORM_METHOD, this variant provides a balance between customization (custom weights) and convenience (default normalization), making it suitable for applications that need to tune lexeme weights but are satisfied with the standard normalization approach.
+
+## Simplified Source
+
+```c
+Datum
+ts_rankcd_wtt(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments
+    ArrayType *win = (ArrayType *) PG_DETOAST_DATUM(PG_GETARG_DATUM(0));
+    TSVector txt = PG_GETARG_TSVECTOR(1);
+    TSQuery query = PG_GETARG_TSQUERY(2);
+    float res;
+
+    // Calculate cover density ranking with default normalization method
+    res = calc_rank_cd(getWeights(win), txt, query, DEF_NORM_METHOD);
+
+    // Clean up memory and return result
+    PG_FREE_IF_COPY(win, 0);
+    PG_FREE_IF_COPY(txt, 1);
+    PG_FREE_IF_COPY(query, 2);
+    PG_RETURN_FLOAT4(res);
+}
+```

@@ -42,3 +42,39 @@ On any failure, the function logs detailed error information including the origi
 - The function assumes that a return code of 0 indicates success and does nothing in that case
 - Part of the defensive programming approach in pg_createsubscriber to ensure database operations complete successfully
 - Error messages include both the specific failure reason and the original command for debugging purposes
+
+## Simplified Source
+
+```c
+static void
+pg_ctl_status(const char *pg_ctl_cmd, int rc)
+{
+    // Only process non-zero return codes (failures)
+    if (rc != 0) {
+        // Check if pg_ctl exited normally with error code
+        if (WIFEXITED(rc)) {
+            pg_log_error("pg_ctl failed with exit code %d", WEXITSTATUS(rc));
+        }
+        // Check if pg_ctl was terminated by signal
+        else if (WIFSIGNALED(rc)) {
+#if defined(WIN32)
+            // Windows: Report as hexadecimal exception code
+            pg_log_error("pg_ctl was terminated by exception 0x%X", WTERMSIG(rc));
+            pg_log_error_detail("See C include file \"ntstatus.h\" for a description of the hexadecimal value.");
+#else
+            // Unix-like: Report signal number and name
+            pg_log_error("pg_ctl was terminated by signal %d: %s",
+                         WTERMSIG(rc), pg_strsignal(WTERMSIG(rc)));
+#endif
+        }
+        // Unknown failure mode
+        else {
+            pg_log_error("pg_ctl exited with unrecognized status %d", rc);
+        }
+
+        // Always include the failed command and terminate program
+        pg_log_error_detail("The failed command was: %s", pg_ctl_cmd);
+        exit(1);
+    }
+}
+```

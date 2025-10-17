@@ -34,3 +34,18 @@ This function implements the three-way comparison (spaceship operator) between a
 - Used for sorting and ordering operations involving timestamptz and timestamp types
 - The comparison handles timezone considerations through the internal function
 - Located in src/backend/utils/adt/timestamp.c:2463-2482
+
+## Simplified Source
+
+```c
+Datum timestamptz_cmp_timestamp(PG_FUNCTION_ARGS)
+{
+    // Extract timestamptz and timestamp arguments
+    TimestampTz timestamptz_val = PG_GETARG_TIMESTAMPTZ(0);
+    Timestamp timestamp_val = PG_GETARG_TIMESTAMP(1);
+
+    // Three-way comparison: returns -1, 0, or 1
+    // Negated to maintain proper comparison semantics (timestamptz vs timestamp)
+    PG_RETURN_INT32(-timestamp_cmp_timestamptz_internal(timestamp_val, timestamptz_val));
+}
+```

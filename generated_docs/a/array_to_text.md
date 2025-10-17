@@ -31,3 +31,16 @@ This function serves as the main entry point for the array_to_text SQL function 
 
 ## Notes and Other Information
 This function corresponds to the two-parameter version of PostgreSQL's array_to_text() SQL function. The function signature follows PostgreSQL's V1 calling convention using the PG_FUNCTION_ARGS macro. Unlike array_to_text_null, this function does not provide a mechanism to replace NULL array elements with a custom string - NULL elements are simply omitted from the result. The actual concatenation logic is delegated to array_to_text_internal with a NULL parameter for the null replacement string.
+
+## Simplified Source
+
+```c
+Datum array_to_text(PG_FUNCTION_ARGS) {
+    // Extract array and field separator arguments
+    ArrayType *v = PG_GETARG_ARRAYTYPE_P(0);
+    char *fldsep = text_to_cstring(PG_GETARG_TEXT_PP(1));
+
+    // Delegate to internal function with no null string replacement
+    PG_RETURN_TEXT_P(array_to_text_internal(fcinfo, v, fldsep, NULL));
+}
+```

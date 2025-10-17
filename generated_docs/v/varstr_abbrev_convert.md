@@ -55,3 +55,107 @@ The abbreviated keys allow the sort algorithm to perform most comparisons using 
 - Endianness conversion ensures that unsigned integer comparison works correctly across different architectures
 - Memory management prevents leaks when detoasted copies are created during processing
 - Works in conjunction with varstr_abbrev_abort() which can disable abbreviation if it proves ineffective
+
+## Simplified Source
+
+```c
+static Datum
+varstr_abbrev_convert(Datum original, SortSupport ssup)
+{
+    const size_t max_prefix_bytes = sizeof(Datum);
+    VarStringSortSupport *sss = (VarStringSortSupport *) ssup->ssup_extra;
+    VarString *authoritative = DatumGetVarStringPP(original);
+    char *authoritative_data = VARDATA_ANY(authoritative);
+
+    // Initialize result buffer
+    Datum res;
+    char *pres = (char *) &res;
+    memset(pres, 0, max_prefix_bytes);
+
+    // Get string length, handling BPCHAR trailing spaces
+    int len = VARSIZE_ANY_EXHDR(authoritative);
+    if (sss->typid == BPCHAROID)
+        len = bpchartruelen(authoritative_data, len);
+
+    // Fast path for C collation - direct memory copy
+    if (sss->collate_c) {
+        memcpy(pres, authoritative_data, Min(len, max_prefix_bytes));
+    }
+    else {
+        // Locale-aware path using strxfrm transformation
+
+        // Ensure buffer1 is large enough and copy source data
+        if (len >= sss->buflen1) {
+            sss->buflen1 = Max(len + 1, Min(sss->buflen1 * 2, MaxAllocSize));
+            sss->buf1 = repalloc(sss->buf1, sss->buflen1);
+        }
+
+        // Check cache for reusable transformation
+        if (sss->last_len1 == len && sss->cache_blob &&
+            memcmp(sss->buf1, authoritative_data, len) == 0) {
+            memcpy(pres, sss->buf2, Min(max_prefix_bytes, sss->last_len2));
+            goto done;
+        }
+
+        // Copy and null-terminate source string
+        memcpy(sss->buf1, authoritative_data, len);
+        sss->buf1[len] = '\0';
+        sss->last_len1 = len;
+
+        // Transform string using appropriate method
+        if (pg_strxfrm_prefix_enabled(sss->locale)) {
+            // Use prefix-optimized transformation
+            if (sss->buflen2 < max_prefix_bytes) {
+                sss->buflen2 = Max(max_prefix_bytes, Min(sss->buflen2 * 2, MaxAllocSize));
+                sss->buf2 = repalloc(sss->buf2, sss->buflen2);
+            }
+            Size bsize = pg_strxfrm_prefix(sss->buf2, sss->buf1, max_prefix_bytes, sss->locale);
+            sss->last_len2 = bsize;
+        }
+        else {
+            // Use full transformation with retry loop
+            Size bsize;
+            for (;;) {
+                bsize = pg_strxfrm(sss->buf2, sss->buf1, sss->buflen2, sss->locale);
+                sss->last_len2 = bsize;
+                if (bsize < sss->buflen2)
+                    break;
+                // Grow buffer and retry
+                sss->buflen2 = Max(bsize + 1, Min(sss->buflen2 * 2, MaxAllocSize));
+                sss->buf2 = repalloc(sss->buf2, sss->buflen2);
+            }
+        }
+
+        // Copy transformation result to abbreviated key
+        memcpy(pres, sss->buf2, Min(max_prefix_bytes, bsize));
+        sss->cache_blob = true;
+    }
+
+    // Track cardinality for abbreviation effectiveness monitoring
+    uint32 hash = DatumGetUInt32(hash_any((unsigned char *) authoritative_data,
+                                         Min(len, PG_CACHE_LINE_SIZE)));
+    if (len > PG_CACHE_LINE_SIZE)
+        hash ^= DatumGetUInt32(hash_uint32((uint32) len));
+    addHyperLogLog(&sss->full_card, hash);
+
+    // Hash the abbreviated key
+#if SIZEOF_DATUM == 8
+    uint32 lohalf = (uint32) res;
+    uint32 hihalf = (uint32) (res >> 32);
+    hash = DatumGetUInt32(hash_uint32(lohalf ^ hihalf));
+#else
+    hash = DatumGetUInt32(hash_uint32((uint32) res));
+#endif
+    addHyperLogLog(&sss->abbr_card, hash);
+
+done:
+    // Convert to big-endian for consistent cross-platform comparison
+    res = DatumBigEndianToNative(res);
+
+    // Clean up temporary detoasted copy if needed
+    if (PointerGetDatum(authoritative) != original)
+        pfree(authoritative);
+
+    return res;
+}
+```

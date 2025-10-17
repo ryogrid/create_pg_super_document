@@ -41,3 +41,21 @@ The function extracts the original text, replacement text, and start position fr
 - Part of PostgreSQL's variable-length character data handling utilities
 - Located in src/backend/utils/adt/varlena.c with other text manipulation functions
 - Complements the standard  function by providing automatic length calculation
+
+## Simplified Source
+```c
+Datum textoverlay_no_len(PG_FUNCTION_ARGS)
+{
+    // Extract arguments: original text, replacement text, start position
+    text *original_text = PG_GETARG_TEXT_PP(0);
+    text *replacement_text = PG_GETARG_TEXT_PP(1);
+    int start_position = PG_GETARG_INT32(2);
+
+    // Auto-calculate replacement length from replacement text
+    int replacement_length = text_length(PointerGetDatum(replacement_text));
+
+    // Delegate to text_overlay with calculated length
+    return PG_RETURN_TEXT_P(text_overlay(original_text, replacement_text,
+                                        start_position, replacement_length));
+}
+```

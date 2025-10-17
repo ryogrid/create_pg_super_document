@@ -38,3 +38,28 @@ The cleanOpStack function implements operator precedence handling in tsquery par
 - Essential for converting infix notation to postfix/polish notation
 - Works together with pushOpStack to manage the operator stack
 - The function modifies the stack by popping elements and decrements lenstack accordingly
+
+## Simplified Source
+
+```c
+static void cleanOpStack(TSQueryParserState state,
+                        OperatorElement *stack, int *lenstack, int8 op) {
+    int opPriority = OP_PRIORITY(op);
+
+    // Pop operators with higher precedence (or equal for right-associative NOT)
+    while (*lenstack) {
+        int stackOpPriority = OP_PRIORITY(stack[*lenstack - 1].op);
+
+        // Check precedence and associativity rules
+        bool shouldPop = (op != OP_NOT && opPriority > stackOpPriority) ||
+                        (op == OP_NOT && opPriority >= stackOpPriority);
+
+        if (shouldPop)
+            break;
+
+        // Pop operator from stack and convert to postfix
+        (*lenstack)--;
+        pushOperator(state, stack[*lenstack].op, stack[*lenstack].distance);
+    }
+}
+```

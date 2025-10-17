@@ -50,3 +50,53 @@ The `append_relation_pattern_helper` function is the core implementation for pro
 - Program will exit with code 2 if patterns contain too many dotted components
 - Proper memory management through buffer initialization and termination
 - Forms the foundation for relation pattern matching in pg_amcheck's integrity checking operations
+
+## Simplified Source
+
+```c
+static void
+append_relation_pattern_helper(PatternInfoArray *pia, const char *pattern,
+                              int encoding, bool heap_only, bool btree_only)
+{
+    PQExpBufferData dbbuf;
+    PQExpBufferData nspbuf;
+    PQExpBufferData relbuf;
+    int dotcnt;
+    PatternInfo *info = extend_pattern_info_array(pia);
+
+    // Initialize buffers for all three components
+    initPQExpBuffer(&dbbuf);
+    initPQExpBuffer(&nspbuf);
+    initPQExpBuffer(&relbuf);
+
+    // Convert pattern to SQL regex (handles database.schema.relation format)
+    patternToSQLRegex(encoding, &dbbuf, &nspbuf, &relbuf, pattern, false, false, &dotcnt);
+
+    // Relation patterns allow at most two dots (database.schema.relation)
+    if (dotcnt > 2)
+    {
+        pg_log_error("improper relation name (too many dotted names): %s", pattern);
+        exit(2);
+    }
+
+    // Store pattern and all components
+    info->pattern = pattern;
+    if (dbbuf.data[0])
+    {
+        opts.dbpattern = true;
+        info->db_regex = pstrdup(dbbuf.data);
+    }
+    if (nspbuf.data[0])
+        info->nsp_regex = pstrdup(nspbuf.data);
+    if (relbuf.data[0])
+        info->rel_regex = pstrdup(relbuf.data);
+
+    // Store type filtering flags
+    info->heap_only = heap_only;
+    info->btree_only = btree_only;
+
+    termPQExpBuffer(&dbbuf);
+    termPQExpBuffer(&nspbuf);
+    termPQExpBuffer(&relbuf);
+}
+```

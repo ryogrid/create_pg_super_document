@@ -36,3 +36,50 @@ This function analyzes index qualification expressions to determine the computat
 
 ## Notes and Other Information
 This function is a key component in PostgreSQL's cost-based query optimizer, specifically for index access method costing. It differentiates between different expression types that can appear in index clauses and handles RestrictInfo wrappers that may be present around the actual clauses. The function assumes that operands are evaluated just once per scan rather than per row, which is appropriate for index qualification evaluation. For unsupported clause types, it raises an ERROR, ensuring that all expected index clause formats are explicitly handled. The cost calculation includes both startup and per-tuple components, reflecting the complete cost of operand evaluation during index scanning.
+
+## Simplified Source
+
+```c
+Cost index_other_operands_eval_cost(PlannerInfo *root, List *indexquals)
+{
+    Cost qual_arg_cost = 0;
+    ListCell *lc;
+
+    foreach(lc, indexquals) {
+        Expr *clause = (Expr *) lfirst(lc);
+        Node *other_operand;
+        QualCost index_qual_cost;
+
+        // Look through RestrictInfo wrapper if present
+        if (IsA(clause, RestrictInfo))
+            clause = ((RestrictInfo *) clause)->clause;
+
+        // Extract the non-index operand based on clause type
+        if (IsA(clause, OpExpr)) {
+            OpExpr *op = (OpExpr *) clause;
+            other_operand = (Node *) lsecond(op->args);
+        }
+        else if (IsA(clause, RowCompareExpr)) {
+            RowCompareExpr *rc = (RowCompareExpr *) clause;
+            other_operand = (Node *) rc->rargs;
+        }
+        else if (IsA(clause, ScalarArrayOpExpr)) {
+            ScalarArrayOpExpr *saop = (ScalarArrayOpExpr *) clause;
+            other_operand = (Node *) lsecond(saop->args);
+        }
+        else if (IsA(clause, NullTest)) {
+            other_operand = NULL;  // No other operand to evaluate
+        }
+        else {
+            elog(ERROR, "unsupported indexqual type: %d", (int) nodeTag(clause));
+            other_operand = NULL;
+        }
+
+        // Calculate cost and add to total
+        cost_qual_eval_node(&index_qual_cost, other_operand, root);
+        qual_arg_cost += index_qual_cost.startup + index_qual_cost.per_tuple;
+    }
+
+    return qual_arg_cost;
+}
+```

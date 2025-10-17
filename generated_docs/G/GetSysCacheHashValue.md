@@ -41,3 +41,17 @@ GetSysCacheHashValue calculates the hash value for a hypothetical tuple in a sys
 - [Hash](../H/Hash.md) values are exposed in cache invalidation operations, making this function necessary for external cache management
 - The function is a thin wrapper around GetCatCacheHashValue, providing the syscache interface layer
 - Located in src/backend/utils/cache/syscache.c:662-678
+
+## Simplified Source
+
+```c
+uint32 GetSysCacheHashValue(int cacheId, Datum key1, Datum key2, Datum key3, Datum key4) {
+    // Validate cache ID and ensure cache exists
+    if (cacheId < 0 || cacheId >= SysCacheSize ||
+        !PointerIsValid(SysCache[cacheId]))
+        elog(ERROR, "invalid cache ID: %d", cacheId);
+
+    // Delegate to underlying catalog cache hash computation
+    return GetCatCacheHashValue(SysCache[cacheId], key1, key2, key3, key4);
+}
+```

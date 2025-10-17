@@ -38,3 +38,39 @@ This function is part of the pg_createsubscriber utility and is responsible for 
 - Uses proper SQL identifier escaping to prevent SQL injection attacks
 - Implements robust error handling that terminates the database connection on command failure
 - Part of the larger pg_createsubscriber utility workflow for converting a physical replica to a logical subscriber
+
+## Simplified Source
+
+```c
+static void enable_subscription(PGconn *conn, const struct LogicalRepInfo *dbinfo)
+{
+    PQExpBuffer str = createPQExpBuffer();
+    PGresult *res;
+    char *subname;
+
+    // Escape subscription name for SQL safety
+    subname = PQescapeIdentifier(conn, dbinfo->subname, strlen(dbinfo->subname));
+
+    // Log the enable operation
+    pg_log_info("enabling subscription \"%s\" in database \"%s\"", dbinfo->subname, dbinfo->dbname);
+
+    // Build ALTER SUBSCRIPTION ENABLE command
+    appendPQExpBuffer(str, "ALTER SUBSCRIPTION %s ENABLE", subname);
+    pg_log_debug("command is: %s", str->data);
+
+    // Execute the enable command (unless dry run)
+    if (!dry_run) {
+        res = PQexec(conn, str->data);
+        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+            pg_log_error("could not enable subscription \"%s\": %s",
+                        dbinfo->subname, PQresultErrorMessage(res));
+            disconnect_database(conn, true);
+        }
+        PQclear(res);
+    }
+
+    // Cleanup
+    PQfreemem(subname);
+    destroyPQExpBuffer(str);
+}
+```

@@ -31,3 +31,12 @@ The function follows PostgreSQL's standard function calling convention using the
 - This is part of PostgreSQL's reg* family of types (regproc, regtype, regrole, etc.) that provide human-readable representations of system catalog objects
 - The binary format for regrole is identical to that of OID, which explains the code reuse
 - Located in src/backend/utils/adt/regproc.c alongside other reg* type functions
+
+## Simplified Source
+
+```c
+Datum regrolerecv(PG_FUNCTION_ARGS) {
+    // Delegate to oidrecv - regrole uses same binary format as OID
+    return oidrecv(fcinfo);
+}
+```

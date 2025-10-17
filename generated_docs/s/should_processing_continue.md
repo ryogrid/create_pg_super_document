@@ -44,3 +44,35 @@ The function is designed to handle the fact that amcheck functions report corrup
 - Distinguishes between corruption-related errors (which are expected) and system-level failures (which require termination)
 - Critical for maintaining robustness in parallel checking operations where one corrupted relation shouldn't prevent checking of other relations
 - Located in src/bin/pg_amcheck/pg_amcheck.c:962-1005
+
+## Simplified Source
+
+```c
+static bool
+should_processing_continue(PGresult *res)
+{
+    const char *severity;
+
+    switch (PQresultStatus(res))
+    {
+        // Expected successful results
+        case PGRES_COMMAND_OK:
+        case PGRES_TUPLES_OK:
+        case PGRES_NONFATAL_ERROR:
+            return true;
+
+        // Check error severity for fatal errors
+        case PGRES_FATAL_ERROR:
+            severity = PQresultErrorField(res, PG_DIAG_SEVERITY_NONLOCALIZED);
+            if (severity == NULL)
+                return false;  // Lost connection
+            if (strcmp(severity, "FATAL") == 0 || strcmp(severity, "PANIC") == 0)
+                return false;  // Fatal database error
+            return true;  // Recoverable error like corruption
+
+        // Unexpected result types
+        default:
+            return false;
+    }
+}
+```

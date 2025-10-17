@@ -35,3 +35,32 @@ This function serves as common code for both bpchartypmodin and varchartypmodin 
 - The typmod encoding adds VARHDRSZ to the user-specified length for historical compatibility reasons
 - Error messages use the provided typename parameter to give context-specific feedback
 - This is a static function, meaning it's only accessible within the varchar.c source file
+
+## Simplified Source
+
+```c
+static int32 anychar_typmodin(ArrayType *ta, const char *typename) {
+    int32 *length_array;
+    int num_modifiers;
+
+    // Extract integer type modifiers from input array
+    length_array = ArrayGetIntegerTypmods(ta, &num_modifiers);
+
+    // Validate exactly one modifier provided
+    if (num_modifiers != 1) {
+        ereport(ERROR, "invalid type modifier");
+    }
+
+    // Validate length is within acceptable range
+    int32 specified_length = *length_array;
+    if (specified_length < 1) {
+        ereport(ERROR, "length must be at least 1");
+    }
+    if (specified_length > MaxAttrSize) {
+        ereport(ERROR, "length cannot exceed maximum");
+    }
+
+    // Convert to internal typmod format (length + header size)
+    return VARHDRSZ + specified_length;
+}
+```

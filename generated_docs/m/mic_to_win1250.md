@@ -43,3 +43,25 @@ The function uses PostgreSQL's standard function argument interface:
 - Part of PostgreSQL's multibyte character encoding conversion infrastructure
 - Returns the number of input bytes successfully converted
 - The `mic2latin_with_table` function handles MIC multibyte character validation and proper character mapping through the translation table
+
+## Simplified Source
+
+```c
+Datum mic_to_win1250(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);   // Source MIC string
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);  // Destination buffer
+    int len = PG_GETARG_INT32(4);                                  // Source length
+    bool noError = PG_GETARG_BOOL(5);                              // Error handling flag
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_MULE_INTERNAL, PG_WIN1250);
+
+    // Perform MIC to Windows-1250 conversion using ISO 8859-2 as intermediate
+    int converted = mic2latin_with_table(src, dest, len, LC_ISO8859_2,
+                                       PG_WIN1250, iso88592_2_win1250, noError);
+
+    // Return number of bytes converted
+    PG_RETURN_INT32(converted);
+}
+```

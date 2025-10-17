@@ -42,3 +42,61 @@ The `euc_tw2mic` function converts EUC-TW encoded text to Mule Internal Code (MI
 - Null-terminates the output buffer
 - Part of PostgreSQL's encoding conversion system, specifically for converting to MULE internal representation
 - Uses MULE private charset mechanism to handle extended CNS character planes not directly supported in standard MIC
+
+## Simplified Source
+
+```c
+static int euc_tw2mic(const unsigned char *euc, unsigned char *p, int len, bool noError) {
+    const unsigned char *start = euc;
+
+    while (len > 0) {
+        int c1 = *euc;
+
+        if (IS_HIGHBIT_SET(c1)) {
+            // Verify multi-byte character in EUC-TW
+            int char_len = pg_encoding_verifymbchar(PG_EUC_TW, (const char *) euc, len);
+            if (char_len < 0) {
+                if (noError) break;
+                report_invalid_encoding(PG_EUC_TW, (const char *) euc, len);
+            }
+
+            // Handle plane switching with SS2
+            if (c1 == SS2) {
+                // Multi-plane character
+                c1 = euc[1]; // plane number
+                if (c1 == 0xa1) {
+                    *p++ = LC_CNS11643_1;
+                } else if (c1 == 0xa2) {
+                    *p++ = LC_CNS11643_2;
+                } else {
+                    // Extended planes use MULE private charset
+                    *p++ = LCPRV2_B;
+                    *p++ = c1 - 0xa3 + LC_CNS11643_3;
+                }
+                *p++ = euc[2];
+                *p++ = euc[3];
+            } else {
+                // CNS11643-1 plane
+                *p++ = LC_CNS11643_1;
+                *p++ = c1;
+                *p++ = euc[1];
+            }
+
+            euc += char_len;
+            len -= char_len;
+        } else {
+            // ASCII character - copy directly
+            if (c1 == 0) {
+                if (noError) break;
+                report_invalid_encoding(PG_EUC_TW, (const char *) euc, len);
+            }
+            *p++ = c1;
+            euc++;
+            len--;
+        }
+    }
+
+    *p = '\0';
+    return euc - start;
+}
+```

@@ -58,3 +58,43 @@ The function essentially prepares a fresh execution state for iterating through 
 - The ordinal counter is reset to 0, which is used for row numbering in JSON_TABLE
 - Error handling depends on the plan's errorOnError setting - errors may be suppressed or propagated
 - The function is essential for both initial document processing and nested plan resets
+
+## Simplified Source
+
+```c
+static void
+JsonTableResetRowPattern(JsonTablePlanState *planstate, Datum item)
+{
+    JsonTablePathScan *scan = castNode(JsonTablePathScan, planstate->plan);
+    MemoryContext oldcxt;
+    JsonPathExecResult res;
+    Jsonb *js = (Jsonb *) DatumGetJsonbP(item);
+
+    // Clear previous results and reset memory context
+    JsonValueListClear(&planstate->found);
+    MemoryContextResetOnly(planstate->mcxt);
+
+    oldcxt = MemoryContextSwitchTo(planstate->mcxt);
+
+    // Execute jsonpath against the JSON item
+    res = executeJsonPath(planstate->path, planstate->args,
+                         GetJsonPathVar, CountJsonPathVars,
+                         js, scan->errorOnError,
+                         &planstate->found,
+                         true);
+
+    MemoryContextSwitchTo(oldcxt);
+
+    // Handle errors if errorOnError is false
+    if (jperIsError(res)) {
+        Assert(!scan->errorOnError);
+        JsonValueListClear(&planstate->found);
+    }
+
+    // Reset iterator to beginning and clear current row state
+    JsonValueListInitIterator(&planstate->found, &planstate->iter);
+    planstate->current.value = PointerGetDatum(NULL);
+    planstate->current.isnull = true;
+    planstate->ordinal = 0;
+}
+```

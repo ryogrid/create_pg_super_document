@@ -50,3 +50,78 @@ The test uses random selection to provide comprehensive coverage of different de
 - Part of the PostgreSQL test suite for validating Red-Black Tree implementation
 - Memory management includes proper cleanup of allocated arrays
 - Tests the tree's ability to be completely emptied and return to initial state
+
+## Simplified Source
+
+```c
+static void testdelete(int size, int delsize) {
+    RBTree *tree = create_int_rbtree();
+    int *deleteIds;
+    bool *chosen;
+
+    // Populate tree with consecutive natural numbers 0 to size-1
+    rbt_populate(tree, size, 1);
+
+    // Choose unique random IDs to delete
+    deleteIds = (int *) palloc(delsize * sizeof(int));
+    chosen = (bool *) palloc0(size * sizeof(bool));
+
+    for (int i = 0; i < delsize; i++) {
+        int k = pg_prng_uint64_range(&pg_global_prng_state, 0, size - 1);
+
+        // Find next unchosen element using wrap-around
+        while (chosen[k])
+            k = (k + 1) % size;
+
+        deleteIds[i] = k;
+        chosen[k] = true;
+    }
+
+    // Delete the randomly selected elements
+    for (int i = 0; i < delsize; i++) {
+        IntRBTreeNode find = {.key = deleteIds[i]};
+        IntRBTreeNode *node = (IntRBTreeNode *) rbt_find(tree, &find);
+
+        if (!node || node->key != deleteIds[i])
+            elog(ERROR, "Expected element not found during deletion");
+
+        rbt_delete(tree, (RBTNode *) node);
+    }
+
+    // Verify deletion results - deleted elements absent, others present
+    for (int i = 0; i < size; i++) {
+        IntRBTreeNode searchNode = {.key = i};
+        IntRBTreeNode *result = (IntRBTreeNode *) rbt_find(tree, &searchNode);
+
+        if (chosen[i]) {
+            // Deleted element should be absent
+            if (result != NULL)
+                elog(ERROR, "Deleted element still present");
+        } else {
+            // Non-deleted element should be present
+            if (!result || result->key != i)
+                elog(ERROR, "Delete operation removed wrong value");
+        }
+    }
+
+    // Delete all remaining elements to test empty tree reduction
+    for (int i = 0; i < size; i++) {
+        if (chosen[i]) continue;  // Already deleted
+
+        IntRBTreeNode find = {.key = i};
+        IntRBTreeNode *node = (IntRBTreeNode *) rbt_find(tree, &find);
+
+        if (!node || node->key != i)
+            elog(ERROR, "Expected element not found during cleanup");
+
+        rbt_delete(tree, (RBTNode *) node);
+    }
+
+    // Verify tree is completely empty
+    if (rbt_leftmost(tree) != NULL)
+        elog(ERROR, "Failed to delete all elements");
+
+    pfree(deleteIds);
+    pfree(chosen);
+}
+```

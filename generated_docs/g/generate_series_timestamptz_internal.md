@@ -51,3 +51,67 @@ Key behaviors:
 - Validates step parameters to prevent infinite loops (zero step) or invalid operations (infinite step)
 - Memory management handled through PostgreSQL's memory context system
 - Function state preserved in generate_series_timestamptz_fctx structure across calls
+
+## Simplified Source
+
+```c
+static Datum
+generate_series_timestamptz_internal(FunctionCallInfo fcinfo)
+{
+    FuncCallContext *funcctx;
+    generate_series_timestamptz_fctx *fctx;
+    TimestampTz result;
+
+    // First call: initialize series parameters
+    if (SRF_IS_FIRSTCALL()) {
+        TimestampTz start = PG_GETARG_TIMESTAMPTZ(0);
+        TimestampTz finish = PG_GETARG_TIMESTAMPTZ(1);
+        Interval *step = PG_GETARG_INTERVAL_P(2);
+        text *zone = (PG_NARGS() == 4) ? PG_GETARG_TEXT_PP(3) : NULL;
+
+        // Setup SRF context
+        funcctx = SRF_FIRSTCALL_INIT();
+        MemoryContext oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
+
+        // Initialize function context
+        fctx = palloc(sizeof(generate_series_timestamptz_fctx));
+        fctx->current = start;
+        fctx->finish = finish;
+        fctx->step = *step;
+        fctx->attimezone = zone ? lookup_timezone(zone) : session_timezone;
+        fctx->step_sign = interval_sign(&fctx->step);
+
+        // Validate step parameters
+        if (fctx->step_sign == 0)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("step size cannot equal zero")));
+
+        if (INTERVAL_NOT_FINITE((&fctx->step)))
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("step size cannot be infinite")));
+
+        funcctx->user_fctx = fctx;
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    // Each call: return next timestamp in series
+    funcctx = SRF_PERCALL_SETUP();
+    fctx = funcctx->user_fctx;
+    result = fctx->current;
+
+    // Check if we've reached the end based on step direction
+    bool continue_series = (fctx->step_sign > 0) ?
+        (timestamp_cmp_internal(result, fctx->finish) <= 0) :
+        (timestamp_cmp_internal(result, fctx->finish) >= 0);
+
+    if (continue_series) {
+        // Advance to next timestamp for next iteration
+        fctx->current = timestamptz_pl_interval_internal(fctx->current,
+                                                         &fctx->step,
+                                                         fctx->attimezone);
+        SRF_RETURN_NEXT(funcctx, TimestampTzGetDatum(result));
+    } else {
+        SRF_RETURN_DONE(funcctx);
+    }
+}
+```

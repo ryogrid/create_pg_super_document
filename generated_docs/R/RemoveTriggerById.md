@@ -38,3 +38,63 @@ RemoveTriggerById is the fundamental function for deleting triggers in PostgreSQ
 - Does not update relhastriggers flag, relying on relcache rebuild to handle it correctly
 - Part of PostgreSQL's dependency management system, typically called during CASCADE deletions
 - Used internally by the dependency system when triggers are dropped as part of larger operations
+
+## Simplified Source
+
+```c
+void
+RemoveTriggerById(Oid trigOid)
+{
+    Relation tgrel;
+    SysScanDesc tgscan;
+    ScanKeyData skey[1];
+    HeapTuple tup;
+    Oid relid;
+    Relation rel;
+
+    // Open the pg_trigger catalog with exclusive lock
+    tgrel = table_open(TriggerRelationId, RowExclusiveLock);
+
+    // Find the trigger to delete by OID
+    ScanKeyInit(&skey[0], Anum_pg_trigger_oid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(trigOid));
+
+    tgscan = systable_beginscan(tgrel, TriggerOidIndexId, true, NULL, 1, skey);
+    tup = systable_getnext(tgscan);
+
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "could not find tuple for trigger %u", trigOid);
+
+    // Open and exclusive-lock the relation the trigger belongs to
+    relid = ((Form_pg_trigger) GETSTRUCT(tup))->tgrelid;
+    rel = table_open(relid, AccessExclusiveLock);
+
+    // Validate relation type supports triggers
+    if (rel->rd_rel->relkind != RELKIND_RELATION &&
+        rel->rd_rel->relkind != RELKIND_VIEW &&
+        rel->rd_rel->relkind != RELKIND_FOREIGN_TABLE &&
+        rel->rd_rel->relkind != RELKIND_PARTITIONED_TABLE)
+        ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                errmsg("relation \"%s\" cannot have triggers",
+                       RelationGetRelationName(rel)),
+                errdetail_relkind_not_supported(rel->rd_rel->relkind)));
+
+    // Check system catalog modification permissions
+    if (!allowSystemTableMods && IsSystemRelation(rel))
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                errmsg("permission denied: \"%s\" is a system catalog",
+                       RelationGetRelationName(rel))));
+
+    // Delete the trigger tuple
+    CatalogTupleDelete(tgrel, &tup->t_self);
+
+    systable_endscan(tgscan);
+    table_close(tgrel, RowExclusiveLock);
+
+    // Force relcache invalidation to notify all backends
+    CacheInvalidateRelcache(rel);
+
+    // Keep lock on trigger's relation until end of transaction
+    table_close(rel, NoLock);
+}
+```

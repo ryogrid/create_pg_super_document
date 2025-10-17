@@ -40,3 +40,27 @@ The `convert_role_priv_string` function is a static helper function that transla
 - The role_priv_map array defines the complete mapping between text strings and ACL mode values
 - Function is static, indicating it's only used within the same compilation unit
 - Part of the pg_has_role family of functions for role privilege checking
+
+## Simplified Source
+
+```c
+static AclMode convert_role_priv_string(text *priv_type_text)
+{
+    // Define mapping table for role privilege strings to ACL modes
+    static const priv_map role_priv_map[] = {
+        {"USAGE", ACL_USAGE},                    // Basic role usage
+        {"MEMBER", ACL_CREATE},                  // Role membership (uses ACL_CREATE)
+        {"SET", ACL_SET},                        // SET ROLE privilege
+        {"USAGE WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_CREATE)},
+        {"USAGE WITH ADMIN OPTION", ACL_GRANT_OPTION_FOR(ACL_CREATE)},
+        {"MEMBER WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_CREATE)},
+        {"MEMBER WITH ADMIN OPTION", ACL_GRANT_OPTION_FOR(ACL_CREATE)},
+        {"SET WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_CREATE)},
+        {"SET WITH ADMIN OPTION", ACL_GRANT_OPTION_FOR(ACL_CREATE)},
+        {NULL, 0}  // End marker
+    };
+
+    // Convert using generic privilege string converter
+    return convert_any_priv_string(priv_type_text, role_priv_map);
+}
+```

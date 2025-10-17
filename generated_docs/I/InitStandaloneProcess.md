@@ -43,3 +43,39 @@ Unlike InitPostmasterChild, this function does not set up postmaster death monit
 - Responsible for computing executable and package library paths when not inherited from a parent
 - Essential for single-user mode and bootstrap operations where no postmaster is present
 - Maintains consistency with postmaster child initialization while adapting for standalone operation
+
+## Simplified Source
+
+```c
+void InitStandaloneProcess(const char *argv0) {
+    Assert(!IsPostmasterEnvironment);
+
+    // Set backend type for identification
+    MyBackendType = B_STANDALONE_BACKEND;
+
+    // Initialize Win32 signal handling
+#ifdef WIN32
+    pgwin32_signal_initialize();
+#endif
+
+    // Set up process globals and latch support
+    InitProcessGlobals();
+    InitializeLatchSupport();
+    InitProcessLocalLatch();
+    InitializeLatchWaitSet();
+
+    // Configure signal mask (similar to postmaster children)
+    pqinitmask();
+    sigprocmask(SIG_SETMASK, &BlockSig, NULL);
+
+    // Determine executable path if not already known
+    if (my_exec_path[0] == '\0') {
+        if (find_my_exec(argv0, my_exec_path) < 0)
+            elog(FATAL, "%s: could not locate my own executable path", argv0);
+    }
+
+    // Determine package library path
+    if (pkglib_path[0] == '\0')
+        get_pkglib_path(my_exec_path, pkglib_path);
+}
+```

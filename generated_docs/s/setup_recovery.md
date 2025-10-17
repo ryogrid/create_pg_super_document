@@ -39,3 +39,48 @@ This function prepares the recovery configuration for a PostgreSQL standby serve
 - Critical for ensuring smooth transition from physical to logical replication
 - Uses publisher connection info despite writing subscriber recovery parameters
 - Part of the standby-to-subscriber conversion workflow
+
+## Simplified Source
+
+```c
+static void
+setup_recovery(const struct LogicalRepInfo *dbinfo, const char *datadir, const char *lsn)
+{
+    PGconn *conn;
+    PQExpBuffer recoveryconfcontents;
+
+    // Connect using publisher connection info to generate recovery config
+    conn = connect_database(dbinfo[0].pubconninfo, true);
+
+    // Generate base recovery configuration
+    recoveryconfcontents = GenerateRecoveryConfig(conn, NULL, NULL);
+
+    // Add recovery parameters to control behavior
+    appendPQExpBuffer(recoveryconfcontents, "recovery_target = ''\n");
+    appendPQExpBuffer(recoveryconfcontents, "recovery_target_timeline = 'latest'\n");
+
+    // Set recovery_target_inclusive = false to prevent duplicate transactions
+    // after logical replication starts
+    appendPQExpBuffer(recoveryconfcontents, "recovery_target_inclusive = false\n");
+    appendPQExpBuffer(recoveryconfcontents, "recovery_target_action = promote\n");
+
+    // Clear other recovery target settings to avoid conflicts
+    appendPQExpBuffer(recoveryconfcontents, "recovery_target_name = ''\n");
+    appendPQExpBuffer(recoveryconfcontents, "recovery_target_time = ''\n");
+    appendPQExpBuffer(recoveryconfcontents, "recovery_target_xid = ''\n");
+
+    // Set recovery target LSN based on mode
+    if (dry_run) {
+        appendPQExpBuffer(recoveryconfcontents, "# dry run mode");
+        appendPQExpBuffer(recoveryconfcontents, "recovery_target_lsn = '%X/%X'\n",
+                          LSN_FORMAT_ARGS((XLogRecPtr) InvalidXLogRecPtr));
+    } else {
+        appendPQExpBuffer(recoveryconfcontents, "recovery_target_lsn = '%s'\n", lsn);
+        WriteRecoveryConfig(conn, datadir, recoveryconfcontents);
+    }
+
+    disconnect_database(conn, false);
+
+    pg_log_debug("recovery parameters:\n%s", recoveryconfcontents->data);
+}
+```

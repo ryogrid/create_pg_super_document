@@ -37,3 +37,25 @@ The function includes safety checks for NULL pointers and stack overflow protect
 - Stack depth checking prevents potential issues with deeply nested query trees
 - Essential for preventing memory leaks in text search query processing
 - The function is designed to be safe to call on any NODE tree, including NULL or partially constructed trees
+
+## Simplified Source
+
+```c
+static void freetree(NODE *node) {
+    // Prevent stack overflow from deep recursion
+    check_stack_depth();
+
+    // Handle NULL node safely
+    if (!node)
+        return;
+
+    // Post-order traversal: free children first, then parent
+    if (node->left)
+        freetree(node->left);
+    if (node->right)
+        freetree(node->right);
+
+    // Free current node after children are freed
+    pfree(node);
+}
+```

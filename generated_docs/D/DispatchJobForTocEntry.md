@@ -44,3 +44,33 @@ This function is the core job dispatcher for parallel pg_dump operations. It ass
 - The callback mechanism allows for flexible handling of job completion events
 - Part of the parallel infrastructure that enables pg_dump and pg_restore to utilize multiple processes for improved performance
 - Commands are constructed dynamically based on the action type and TocEntry properties
+
+## Simplified Source
+
+```c
+void
+DispatchJobForTocEntry(ArchiveHandle *AH,
+                      ParallelState *pstate,
+                      TocEntry *te,
+                      T_Action act,
+                      ParallelCompletionPtr callback,
+                      void *callback_data)
+{
+    int worker;
+    char buf[256];
+
+    // Find an idle worker, waiting if necessary
+    while ((worker = GetIdleWorker(pstate)) == NO_SLOT)
+        WaitForWorkers(AH, pstate, WFW_ONE_IDLE);
+
+    // Build and send command to worker
+    buildWorkerCommand(AH, te, act, buf, sizeof(buf));
+    sendMessageToWorker(pstate, worker, buf);
+
+    // Update worker state and tracking information
+    pstate->parallelSlot[worker].workerStatus = WRKR_WORKING;
+    pstate->parallelSlot[worker].callback = callback;
+    pstate->parallelSlot[worker].callback_data = callback_data;
+    pstate->te[worker] = te;
+}
+```

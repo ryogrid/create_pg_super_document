@@ -41,3 +41,45 @@ Extensions typically call this function after defining all their custom GUC vari
 
 ## Notes and Other Information
 This function should be called after an extension has finished defining all its custom GUC variables, typically at the end of the _PG_init function. The reserved prefix string is duplicated and stored in GUCMemoryContext, so it persists for the lifetime of the process. The function generates warnings when removing existing placeholders, alerting administrators to potential configuration errors. The prefix matching includes the GUC_QUALIFIER_SEPARATOR (typically '.'), so reserving "myext" prevents placeholders like "myext.anything" but not "myextother.setting".
+
+## Simplified Source
+
+```c
+void MarkGUCPrefixReserved(const char *className)
+{
+    int classLen = strlen(className);
+    HASH_SEQ_STATUS status;
+    GUCHashEntry *hentry;
+    MemoryContext oldcontext;
+
+    // Search for existing placeholder variables with this prefix
+    hash_seq_init(&status, guc_hashtab);
+    while ((hentry = (GUCHashEntry *) hash_seq_search(&status)) != NULL)
+    {
+        struct config_generic *var = hentry->gucvar;
+
+        // Check if this is a placeholder with our prefix
+        if ((var->flags & GUC_CUSTOM_PLACEHOLDER) != 0 &&
+            strncmp(className, var->name, classLen) == 0 &&
+            var->name[classLen] == GUC_QUALIFIER_SEPARATOR)
+        {
+            // Warn about removing invalid placeholder
+            ereport(WARNING,
+                    (errcode(ERRCODE_INVALID_NAME),
+                     errmsg("invalid configuration parameter name \"%s\", removing it",
+                            var->name),
+                     errdetail("\"%s\" is now a reserved prefix.",
+                               className)));
+
+            // Remove from hash table and lists
+            hash_search(guc_hashtab, &var->name, HASH_REMOVE, NULL);
+            RemoveGUCFromLists(var);
+        }
+    }
+
+    // Add prefix to reserved list to prevent future placeholders
+    oldcontext = MemoryContextSwitchTo(GUCMemoryContext);
+    reserved_class_prefix = lappend(reserved_class_prefix, pstrdup(className));
+    MemoryContextSwitchTo(oldcontext);
+}
+```

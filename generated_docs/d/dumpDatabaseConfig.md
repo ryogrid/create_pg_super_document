@@ -50,3 +50,45 @@ This function retrieves configuration settings that have been set at the databas
 - Generated ALTER commands preserve the original configuration context (DATABASE vs ROLE IN DATABASE)
 - Essential for maintaining custom database behaviors and performance tunings during restore operations
 - Works in conjunction with makeAlterConfigCommand to format proper SQL syntax for each configuration parameter
+
+## Simplified Source
+
+```c
+static void dumpDatabaseConfig(Archive *AH, PQExpBuffer outbuf,
+                              const char *dbname, Oid dboid) {
+    PGconn *conn = GetConnection(AH);
+    PQExpBuffer buf = createPQExpBuffer();
+    PGresult *res;
+
+    // First collect database-specific options (setrole = 0)
+    printfPQExpBuffer(buf, "SELECT unnest(setconfig) FROM pg_db_role_setting "
+                          "WHERE setrole = 0 AND setdatabase = '%u'::oid", dboid);
+
+    res = ExecuteSqlQuery(AH, buf->data, PGRES_TUPLES_OK);
+
+    // Generate ALTER DATABASE SET commands
+    for (int i = 0; i < PQntuples(res); i++) {
+        makeAlterConfigCommand(conn, PQgetvalue(res, i, 0),
+                              "DATABASE", dbname, NULL, NULL, outbuf);
+    }
+
+    PQclear(res);
+
+    // Now look for role-and-database-specific options
+    printfPQExpBuffer(buf, "SELECT rolname, unnest(setconfig) "
+                          "FROM pg_db_role_setting s, pg_roles r "
+                          "WHERE setrole = r.oid AND setdatabase = '%u'::oid", dboid);
+
+    res = ExecuteSqlQuery(AH, buf->data, PGRES_TUPLES_OK);
+
+    // Generate ALTER ROLE IN DATABASE SET commands
+    for (int i = 0; i < PQntuples(res); i++) {
+        makeAlterConfigCommand(conn, PQgetvalue(res, i, 1),
+                              "ROLE", PQgetvalue(res, i, 0),
+                              "DATABASE", dbname, outbuf);
+    }
+
+    PQclear(res);
+    destroyPQExpBuffer(buf);
+}
+```

@@ -28,3 +28,12 @@ The create_queryEnv function is a simple constructor that allocates and zero-ini
 - Memory is allocated in the current memory context using palloc0
 - The QueryEnvironment structure is used to track ephemeral named relations during query processing
 - This is typically the first step when setting up a query environment that will contain temporary relations
+
+## Simplified Source
+
+```c
+QueryEnvironment *create_queryEnv(void) {
+    // Allocate and zero-initialize a new QueryEnvironment structure
+    return (QueryEnvironment *) palloc0(sizeof(QueryEnvironment));
+}
+```

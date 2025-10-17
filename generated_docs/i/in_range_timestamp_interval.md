@@ -48,3 +48,40 @@ The function validates that the offset interval is non-negative per SQL specific
 - Handles infinite timestamp and interval edge cases consistently with other range functions
 - Does not currently implement overflow hazard avoidance
 - Serves as a foundation for date range functions
+
+## Simplified Source
+```c
+Datum in_range_timestamp_interval(PG_FUNCTION_ARGS) {
+    Timestamp val = PG_GETARG_TIMESTAMP(0);
+    Timestamp base = PG_GETARG_TIMESTAMP(1);
+    Interval *offset = PG_GETARG_INTERVAL_P(2);
+    bool sub = PG_GETARG_BOOL(3);
+    bool less = PG_GETARG_BOOL(4);
+
+    // SQL spec requires non-negative offset
+    if (interval_sign(offset) < 0)
+        ereport(ERROR, "invalid window function offset");
+
+    // Handle infinite timestamp/interval edge cases
+    if (INTERVAL_IS_NOEND(offset) &&
+        (sub ? TIMESTAMP_IS_NOEND(base) : TIMESTAMP_IS_NOBEGIN(base)))
+        PG_RETURN_BOOL(true);
+
+    // Calculate base +/- offset using function calls
+    Timestamp sum;
+    if (sub)
+        sum = DatumGetTimestamp(DirectFunctionCall2(timestamp_mi_interval,
+                                                    TimestampGetDatum(base),
+                                                    IntervalPGetDatum(offset)));
+    else
+        sum = DatumGetTimestamp(DirectFunctionCall2(timestamp_pl_interval,
+                                                    TimestampGetDatum(base),
+                                                    IntervalPGetDatum(offset)));
+
+    // Return comparison result
+    if (less)
+        PG_RETURN_BOOL(val <= sum);
+    else
+        PG_RETURN_BOOL(val >= sum);
+}
+```

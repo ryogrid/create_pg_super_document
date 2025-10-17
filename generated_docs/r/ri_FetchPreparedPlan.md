@@ -37,3 +37,35 @@ The function initializes the hash table on first use and includes logic to detec
 - Requires that both foreign key and primary key relations are locked before calling for trustworthy validity checks
 - Automatically cleans up invalid plans to free memory before plan regeneration
 - Part of PostgreSQL's referential integrity trigger system that optimizes repeated constraint checks
+
+## Simplified Source
+
+```c
+static SPIPlanPtr
+ri_FetchPreparedPlan(RI_QueryKey *key)
+{
+    RI_QueryHashEntry *entry;
+    SPIPlanPtr plan;
+
+    // Initialize hash table on first use
+    if (!ri_query_cache)
+        ri_InitHashTables();
+
+    // Look up the plan in the cache
+    entry = (RI_QueryHashEntry *) hash_search(ri_query_cache, key, HASH_FIND, NULL);
+    if (entry == NULL)
+        return NULL;
+
+    // Validate the cached plan
+    plan = entry->plan;
+    if (plan && SPI_plan_is_valid(plan))
+        return plan;
+
+    // Clean up invalid plan
+    entry->plan = NULL;
+    if (plan)
+        SPI_freeplan(plan);
+
+    return NULL;
+}
+```

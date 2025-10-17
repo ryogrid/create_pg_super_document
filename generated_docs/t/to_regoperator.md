@@ -35,3 +35,24 @@ The function takes a text input in the format "oprname(lefttype,righttype)" or "
 - Uses ErrorSaveContext to handle conversion errors gracefully
 - Returns NULL instead of throwing errors, making it suitable for conditional operator lookups
 - Located in src/backend/utils/adt/regproc.c:694-721
+
+## Simplified Source
+
+```c
+Datum to_regoperator(PG_FUNCTION_ARGS) {
+    // Convert text input to C string
+    char *operator_name = text_to_cstring(PG_GETARG_TEXT_PP(0));
+    Datum result;
+    ErrorSaveContext escontext = {T_ErrorSaveContext};
+
+    // Safely call regoperatorin with error handling
+    // Returns false if conversion fails (operator not found)
+    if (!DirectInputFunctionCallSafe(regoperatorin, operator_name,
+                                    InvalidOid, -1,
+                                    (Node *) &escontext,
+                                    &result))
+        PG_RETURN_NULL();
+
+    PG_RETURN_DATUM(result);
+}
+```

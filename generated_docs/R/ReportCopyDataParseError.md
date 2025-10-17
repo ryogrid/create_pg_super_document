@@ -38,3 +38,18 @@ The function is designed as a 'can't-happen' case handler, as noted in the comme
 - It serves as a debugging aid by providing message type and length information
 - The error messages help distinguish between completely empty messages and messages with invalid content
 - Used throughout the COPY data parsing infrastructure in pg_basebackup for consistent error handling
+
+## Simplified Source
+
+```c
+static void
+ReportCopyDataParseError(size_t r, char *copybuf)
+{
+    // Provide different error messages based on message state
+    if (r == 0)
+        pg_fatal("empty COPY message");
+    else
+        pg_fatal("malformed COPY message of type %d, length %zu",
+                 copybuf[0], r);
+}
+```

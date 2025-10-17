@@ -33,3 +33,15 @@ This function is a PostgreSQL built-in function that implements the subtraction 
 - The actual computation logic is delegated to `timestamptz_mi_interval_internal`
 - Located in src/backend/utils/adt/timestamp.c:3348-3359
 - Returns a Datum containing the resulting timestamp with time zone
+
+## Simplified Source
+
+```c
+Datum timestamptz_mi_interval(PG_FUNCTION_ARGS) {
+    TimestampTz timestamp = PG_GETARG_TIMESTAMPTZ(0);
+    Interval *span = PG_GETARG_INTERVAL_P(1);
+
+    // Delegate to internal function using session timezone
+    PG_RETURN_TIMESTAMP(timestamptz_mi_interval_internal(timestamp, span, NULL));
+}
+```

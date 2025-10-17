@@ -34,3 +34,31 @@ The  function creates an archive entry that contains a SQL command to set the st
 - When standard_conforming_strings is 'on', backslashes are treated as literal characters
 - When 'off', backslashes act as escape characters (legacy behavior)
 - This ensures compatibility when restoring dumps between databases with different default settings
+
+## Simplified Source
+
+```c
+static void
+dumpStdStrings(Archive *AH)
+{
+    // Determine the setting value based on archive flag
+    const char *stdstrings = AH->std_strings ? "on" : "off";
+    PQExpBuffer qry = createPQExpBuffer();
+
+    // Log what we're saving
+    pg_log_info("saving \"standard_conforming_strings = %s\"", stdstrings);
+
+    // Create SQL command to set the parameter
+    appendPQExpBuffer(qry, "SET standard_conforming_strings = '%s';\n", stdstrings);
+
+    // Add to archive as a pre-data section entry
+    ArchiveEntry(AH, nilCatalogId, createDumpId(),
+                 ARCHIVE_OPTS(.tag = "STDSTRINGS",
+                             .description = "STDSTRINGS",
+                             .section = SECTION_PRE_DATA,
+                             .createStmt = qry->data));
+
+    // Clean up buffer
+    destroyPQExpBuffer(qry);
+}
+```

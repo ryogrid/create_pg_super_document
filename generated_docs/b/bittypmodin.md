@@ -37,3 +37,15 @@ The function takes an array of type modifiers (typically containing just the len
 - Ensures the specified length is between 1 and MaxAttrSize * BITS_PER_BYTE
 - Located in src/backend/utils/adt/varbit.c:429-436
 - Used internally by PostgreSQL when parsing SQL statements containing bit type declarations
+
+## Simplified Source
+
+```c
+Datum bittypmodin(PG_FUNCTION_ARGS) {
+    // Extract type modifier array from function arguments
+    ArrayType *ta = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Delegate to shared bit type modifier validation logic
+    PG_RETURN_INT32(anybit_typmodin(ta, "bit"));
+}
+```

@@ -48,3 +48,52 @@ Memory management is carefully handled using temporary memory contexts to ensure
 - Part of PostgreSQL's JSON table function infrastructure
 - Returns JSON_SUCCESS on successful processing
 - Critical for json_array_elements() and related functions
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+elements_array_element_end(void *state, bool isnull)
+{
+    ElementsState *_state = (ElementsState *) state;
+    MemoryContext old_cxt;
+    int len;
+    text *val;
+    HeapTuple tuple;
+    Datum values[1];
+    bool nulls[1] = {false};
+
+    // Only process top-level array elements, skip nested structures
+    if (_state->lex->lex_level != 1)
+        return JSON_SUCCESS;
+
+    // Switch to temporary memory context for tuple processing
+    old_cxt = MemoryContextSwitchTo(_state->tmp_cxt);
+
+    // Handle different value types
+    if (isnull && _state->normalize_results) {
+        // Null value in text normalization mode
+        nulls[0] = true;
+        values[0] = (Datum) NULL;
+    } else if (_state->next_scalar) {
+        // Use pre-processed normalized scalar value
+        values[0] = CStringGetTextDatum(_state->normalized_scalar);
+        _state->next_scalar = false;
+    } else {
+        // Extract raw JSON text from token positions
+        len = _state->lex->prev_token_terminator - _state->result_start;
+        val = cstring_to_text_with_len(_state->result_start, len);
+        values[0] = PointerGetDatum(val);
+    }
+
+    // Create and store tuple for this array element
+    tuple = heap_form_tuple(_state->ret_tdesc, values, nulls);
+    tuplestore_puttuple(_state->tuple_store, tuple);
+
+    // Clean up temporary context and switch back
+    MemoryContextSwitchTo(old_cxt);
+    MemoryContextReset(_state->tmp_cxt);
+
+    return JSON_SUCCESS;
+}
+```

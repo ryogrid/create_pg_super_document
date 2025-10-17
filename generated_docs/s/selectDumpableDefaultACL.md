@@ -37,3 +37,25 @@ The function sets the dump component flags appropriately based on these conditio
 - The function is static and only used internally within pg_dump.c
 - The actual ACL content filtering (dataOnly, aclsSkip) is handled by separate mechanisms
 - Per-schema default ACLs are considered part of their containing namespace for dump purposes
+
+## Simplified Source
+
+```c
+static void
+selectDumpableDefaultACL(DefaultACLInfo *dinfo, DumpOptions *dopt)
+{
+    // Default ACLs cannot be extension members
+
+    if (dinfo->dobj.namespace)
+    {
+        // Per-schema default ACLs: follow their namespace's dump settings
+        dinfo->dobj.dump = dinfo->dobj.namespace->dobj.dump_contains;
+    }
+    else
+    {
+        // Global default ACLs: dump only if including everything
+        dinfo->dobj.dump = dopt->include_everything ?
+                          DUMP_COMPONENT_ALL : DUMP_COMPONENT_NONE;
+    }
+}
+```

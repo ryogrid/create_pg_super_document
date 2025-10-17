@@ -36,3 +36,17 @@ This function serves as a wrapper around the internal `convert_to_base` utility 
 - The actual conversion logic is handled by the shared `convert_to_base` static function
 - Returns a PostgreSQL `text` type containing the octal string representation
 - Useful for Unix-style file permissions and other system-level programming contexts where octal notation is preferred
+
+## Simplified Source
+
+```c
+Datum
+to_oct32(PG_FUNCTION_ARGS)
+{
+    // Extract 32-bit integer and cast to unsigned for consistent octal representation
+    uint64 value = (uint32) PG_GETARG_INT32(0);
+
+    // Convert to octal (base-8) string and return as text
+    PG_RETURN_TEXT_P(convert_to_base(value, 8));
+}
+```

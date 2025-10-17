@@ -39,3 +39,43 @@ A cleanup hook is registered to ensure proper detachment when the worker process
 - Uses TopMemoryContext for hash table attachment to ensure proper memory management
 - Registers the same detach hook as the leader, though future versions may differentiate
 - Once attached, the worker will use shared registry until process exit or detachment
+
+## Simplified Source
+
+```c
+void SharedRecordTypmodRegistryAttach(SharedRecordTypmodRegistry *registry) {
+    MemoryContext old_context;
+    dshash_table *record_table;
+    dshash_table *typmod_table;
+
+    // Validate worker state - must be parallel worker with clean cache
+    Assert(IsParallelWorker());
+    Assert(CurrentSession->shared_typmod_registry == NULL);
+    Assert(NextRecordTypmod == 0);
+
+    old_context = MemoryContextSwitchTo(TopMemoryContext);
+
+    // Attach to the shared hash tables using registry handles
+    record_table = dshash_attach(CurrentSession->area,
+                                &srtr_record_table_params,
+                                registry->record_table_handle,
+                                CurrentSession->area);
+
+    typmod_table = dshash_attach(CurrentSession->area,
+                                &srtr_typmod_table_params,
+                                registry->typmod_table_handle,
+                                NULL);
+
+    MemoryContextSwitchTo(old_context);
+
+    // Register cleanup hook for worker exit
+    on_dsm_detach(CurrentSession->segment,
+                  shared_record_typmod_registry_detach,
+                  PointerGetDatum(registry));
+
+    // Configure session to use shared registry
+    CurrentSession->shared_typmod_registry = registry;
+    CurrentSession->shared_record_table = record_table;
+    CurrentSession->shared_typmod_table = typmod_table;
+}
+```

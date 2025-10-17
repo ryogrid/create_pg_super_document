@@ -49,3 +49,87 @@ The function handles special cases like MyDatabaseTableSpace normalization and e
 - Handles both shared system tables and regular user tables through different code paths  
 - Cache entry creation is deferred until after catalog operations to prevent invalidation race conditions
 - Critical for logical replication and administrative functions that need to resolve file identifiers back to logical relations
+
+## Simplified Source
+
+```c
+Oid
+RelidByRelfilenumber(Oid reltablespace, RelFileNumber relfilenumber)
+{
+    RelfilenumberMapKey key;
+    RelfilenumberMapEntry *entry;
+    bool found;
+    Oid relid;
+
+    // Initialize cache if needed
+    if (RelfilenumberMapHash == NULL)
+        InitializeRelfilenumberMap();
+
+    // Normalize tablespace (pg_class shows 0 for MyDatabaseTableSpace)
+    if (reltablespace == MyDatabaseTableSpace)
+        reltablespace = 0;
+
+    // Set up cache key
+    MemSet(&key, 0, sizeof(key));
+    key.reltablespace = reltablespace;
+    key.relfilenumber = relfilenumber;
+
+    // Check cache first
+    entry = hash_search(RelfilenumberMapHash, &key, HASH_FIND, &found);
+    if (found)
+        return entry->relid;
+
+    // Cache miss - do the actual lookup
+    relid = InvalidOid;
+
+    if (reltablespace == GLOBALTABLESPACE_OID) {
+        // Shared table - use relation mapper
+        relid = RelationMapFilenumberToOid(relfilenumber, true);
+    } else {
+        // Regular table - scan pg_class
+        Relation relation = table_open(RelationRelationId, AccessShareLock);
+        ScanKeyData skey[2];
+
+        // Copy and set up scan keys
+        memcpy(skey, relfilenumber_skey, sizeof(skey));
+        skey[0].sk_argument = ObjectIdGetDatum(reltablespace);
+        skey[1].sk_argument = ObjectIdGetDatum(relfilenumber);
+
+        SysScanDesc scandesc = systable_beginscan(relation,
+                                                  ClassTblspcRelfilenodeIndexId,
+                                                  true, NULL, 2, skey);
+
+        HeapTuple ntp;
+        found = false;
+        while (HeapTupleIsValid(ntp = systable_getnext(scandesc))) {
+            Form_pg_class classform = (Form_pg_class) GETSTRUCT(ntp);
+
+            // Skip temporary relations to avoid conflicts
+            if (classform->relpersistence == RELPERSISTENCE_TEMP)
+                continue;
+
+            if (found)
+                elog(ERROR, "unexpected duplicate for tablespace %u, relfilenumber %u",
+                     reltablespace, relfilenumber);
+
+            found = true;
+            relid = classform->oid;
+        }
+
+        systable_endscan(scandesc);
+        table_close(relation, AccessShareLock);
+
+        // If not found in pg_class, try non-shared mapped relations
+        if (!found)
+            relid = RelationMapFilenumberToOid(relfilenumber, false);
+    }
+
+    // Cache the result (positive or negative)
+    entry = hash_search(RelfilenumberMapHash, &key, HASH_ENTER, &found);
+    if (found)
+        elog(ERROR, "corrupted hashtable");
+    entry->relid = relid;
+
+    return relid;
+}
+```

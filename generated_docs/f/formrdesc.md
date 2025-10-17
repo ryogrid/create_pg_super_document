@@ -56,3 +56,99 @@ Key characteristics of relations created by formrdesc:
 - Assumes caller has already switched to CacheMemoryContext
 - Part of PostgreSQL's three-phase relation cache initialization process
 - Critical for bootstrap process when system catalogs are being created
+
+## Simplified Source
+
+```c
+static void formrdesc(const char *relationName, Oid relationReltype,
+                     bool isshared, int natts, const FormData_pg_attribute *attrs) {
+    // Allocate and initialize relation descriptor
+    Relation relation = (Relation) palloc0(sizeof(RelationData));
+    relation->rd_smgr = NULL;
+    relation->rd_refcnt = 1;  // Nailed in cache
+
+    // Mark as nailed relation (permanently cached)
+    relation->rd_isnailed = true;
+    relation->rd_createSubid = InvalidSubTransactionId;
+    relation->rd_newRelfilelocatorSubid = InvalidSubTransactionId;
+    relation->rd_firstRelfilelocatorSubid = InvalidSubTransactionId;
+    relation->rd_droppedSubid = InvalidSubTransactionId;
+    relation->rd_backend = INVALID_PROC_NUMBER;
+    relation->rd_islocaltemp = false;
+
+    // Initialize pg_class tuple form (minimal bootstrap data)
+    relation->rd_rel = (Form_pg_class) palloc0(CLASS_TUPLE_SIZE);
+    namestrcpy(&relation->rd_rel->relname, relationName);
+    relation->rd_rel->relnamespace = PG_CATALOG_NAMESPACE;
+    relation->rd_rel->reltype = relationReltype;
+
+    // Set shared/non-shared status and tablespace
+    relation->rd_rel->relisshared = isshared;
+    if (isshared)
+        relation->rd_rel->reltablespace = GLOBALTABLESPACE_OID;
+
+    // All formrdesc relations are permanent and populated
+    relation->rd_rel->relpersistence = RELPERSISTENCE_PERMANENT;
+    relation->rd_rel->relispopulated = true;
+    relation->rd_rel->relreplident = REPLICA_IDENTITY_NOTHING;
+    relation->rd_rel->relpages = 0;
+    relation->rd_rel->reltuples = -1;
+    relation->rd_rel->relallvisible = 0;
+    relation->rd_rel->relkind = RELKIND_RELATION;
+    relation->rd_rel->relnatts = (int16) natts;
+    relation->rd_rel->relam = HEAP_TABLE_AM_OID;
+
+    // Build tuple descriptor from provided attributes
+    relation->rd_att = CreateTemplateTupleDesc(natts);
+    relation->rd_att->tdrefcount = 1;
+    relation->rd_att->tdtypeid = relationReltype;
+    relation->rd_att->tdtypmod = -1;
+
+    // Copy attribute definitions and check for not-null constraints
+    bool has_not_null = false;
+    for (int i = 0; i < natts; i++) {
+        memcpy(TupleDescAttr(relation->rd_att, i), &attrs[i],
+               ATTRIBUTE_FIXED_PART_SIZE);
+        has_not_null |= attrs[i].attnotnull;
+        TupleDescAttr(relation->rd_att, i)->attcacheoff = -1;
+    }
+
+    // Optimize first attribute cache offset
+    TupleDescAttr(relation->rd_att, 0)->attcacheoff = 0;
+
+    // Set up constraint info if any not-null constraints exist
+    if (has_not_null) {
+        TupleConstr *constr = (TupleConstr *) palloc0(sizeof(TupleConstr));
+        constr->has_not_null = true;
+        relation->rd_att->constr = constr;
+    }
+
+    // Extract relation OID from first attribute
+    RelationGetRelid(relation) = TupleDescAttr(relation->rd_att, 0)->attrelid;
+
+    // All formrdesc relations are mapped relations
+    relation->rd_rel->relfilenode = InvalidRelFileNumber;
+    if (IsBootstrapProcessingMode())
+        RelationMapUpdateMap(RelationGetRelid(relation),
+                           RelationGetRelid(relation), isshared, true);
+
+    // Initialize lock manager and physical addressing
+    RelationInitLockInfo(relation);
+    RelationInitPhysicalAddr(relation);
+
+    // Set up heap table access method
+    relation->rd_rel->relam = HEAP_TABLE_AM_OID;
+    relation->rd_tableam = GetHeapamTableAmRoutine();
+
+    // Set index flag based on bootstrap mode
+    if (IsBootstrapProcessingMode()) {
+        relation->rd_rel->relhasindex = false;
+    } else {
+        relation->rd_rel->relhasindex = true;
+    }
+
+    // Insert into cache and mark as valid
+    RelationCacheInsert(relation, false);
+    relation->rd_isvalid = true;
+}
+```

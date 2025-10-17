@@ -46,3 +46,22 @@ This function is called early in the pg_dump process to ensure that interrupt ha
 - Must be called before any parallel operations begin to ensure proper interrupt handling
 - The TRUE parameter to SetConsoleCtrlHandler indicates the handler should be added (not removed)
 - Located in src/bin/pg_dump/parallel.c:708-729
+
+## Simplified Source
+
+```c
+static void
+set_cancel_handler(void)
+{
+    // Only set up handler once per process
+    if (!signal_info.handler_set) {
+        signal_info.handler_set = true;
+
+        // Initialize Windows critical section for thread synchronization
+        InitializeCriticalSection(&signal_info_lock);
+
+        // Register console control handler for Ctrl+C/Ctrl+Break
+        SetConsoleCtrlHandler(consoleHandler, TRUE);
+    }
+}
+```

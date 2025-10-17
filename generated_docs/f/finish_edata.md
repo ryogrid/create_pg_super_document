@@ -45,3 +45,23 @@ The function deliberately avoids calling ExecCloseResultRelations() because the 
 - The function handles both simple cases (no tuple routing) and complex cases (with tuple routing via mtstate and proute)
 - Memory allocated for the ApplyExecutionData structure itself is freed using pfree()
 - Must be paired with create_edata_for_relation() to ensure proper resource management
+
+## Simplified Source
+
+```c
+static void finish_edata(ApplyExecutionData *edata) {
+    EState *estate = edata->estate;
+
+    // Handle any queued AFTER triggers
+    AfterTriggerEndQuery(estate);
+
+    // Clean up tuple routing if it was used
+    if (edata->proute)
+        ExecCleanupTupleRouting(edata->mtstate, edata->proute);
+
+    // Clean up executor state and free memory
+    ExecResetTupleTable(estate->es_tupleTable, false);
+    FreeExecutorState(estate);
+    pfree(edata);
+}
+```

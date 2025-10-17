@@ -38,8 +38,32 @@ Cover density ranking differs from regular ranking by considering the density of
 ## Notes and Other Information
 This function serves as a PostgreSQL SQL-callable wrapper around the core cover density ranking algorithm. It is one of four ts_rankcd variants that differ in their parameter signatures:
 - [ts_rankcd_wttf](ts_rankcd_wttf.md): weights + tsvector + tsquery + method
-- [ts_rankcd_wtt](ts_rankcd_wtt.md): weights + tsvector + tsquery (uses default method)  
+- [ts_rankcd_wtt](ts_rankcd_wtt.md): weights + tsvector + tsquery (uses default method)
 - [ts_rankcd_ttf](ts_rankcd_ttf.md): tsvector + tsquery + method (uses default weights)
 - [ts_rankcd_tt](ts_rankcd_tt.md): tsvector + tsquery (uses defaults for both)
 
 The function handles memory management for potentially large arguments through PostgreSQL's detoasting and copy mechanisms.
+
+## Simplified Source
+
+```c
+Datum
+ts_rankcd_wttf(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments
+    ArrayType *win = (ArrayType *) PG_DETOAST_DATUM(PG_GETARG_DATUM(0));
+    TSVector txt = PG_GETARG_TSVECTOR(1);
+    TSQuery query = PG_GETARG_TSQUERY(2);
+    int method = PG_GETARG_INT32(3);
+    float res;
+
+    // Calculate cover density ranking
+    res = calc_rank_cd(getWeights(win), txt, query, method);
+
+    // Clean up memory and return result
+    PG_FREE_IF_COPY(win, 0);
+    PG_FREE_IF_COPY(txt, 1);
+    PG_FREE_IF_COPY(query, 2);
+    PG_RETURN_FLOAT4(res);
+}
+```

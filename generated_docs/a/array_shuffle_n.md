@@ -48,3 +48,81 @@ The algorithm uses PostgreSQL's global pseudo-random number generator () for ran
 - Lower bound handling: preserves original if keep_lb=true, else sets to 1
 - Supports both fixed-length and variable-length element types through TypeCacheEntry
 - Located in src/backend/utils/adt/array_userfuncs.c:1537-1625
+
+## Simplified Source
+
+```c
+static ArrayType *
+array_shuffle_n(ArrayType *array, int n, bool keep_lb,
+                Oid elmtyp, TypeCacheEntry *typentry)
+{
+    ArrayType  *result;
+    int         ndim, *dims, *lbs, nelm, nitem;
+    int         rdims[MAXDIM], rlbs[MAXDIM];
+    int16       elmlen;
+    bool        elmbyval;
+    char        elmalign;
+    Datum      *elms, *ielms;
+    bool       *nuls, *inuls;
+
+    // Get array properties
+    ndim = ARR_NDIM(array);
+    dims = ARR_DIMS(array);
+    lbs = ARR_LBOUND(array);
+
+    // Get element type properties from cache
+    elmlen = typentry->typlen;
+    elmbyval = typentry->typbyval;
+    elmalign = typentry->typalign;
+
+    // Return empty array for invalid inputs
+    if (ndim < 1 || dims[0] < 1 || n < 1)
+        return construct_empty_array(elmtyp);
+
+    // Deconstruct input array into elements
+    deconstruct_array(array, elmtyp, elmlen, elmbyval, elmalign,
+                      &elms, &nuls, &nelm);
+
+    nitem = dims[0];        // total number of items in first dimension
+    nelm /= nitem;          // number of elements per item
+
+    Assert(n <= nitem);     // caller must ensure valid n
+
+    // Fisher-Yates shuffle: randomly swap items for first n positions
+    ielms = elms;
+    inuls = nuls;
+    for (int i = 0; i < n; i++) {
+        // Choose random position from i to nitem-1
+        int j = (int) pg_prng_uint64_range(&pg_global_prng_state, i, nitem - 1) * nelm;
+        Datum *jelms = elms + j;
+        bool  *jnuls = nuls + j;
+
+        // Swap entire items (all nelm elements)
+        for (int k = 0; k < nelm; k++) {
+            Datum elm = *ielms;
+            bool  nul = *inuls;
+
+            *ielms++ = *jelms;
+            *inuls++ = *jnuls;
+            *jelms++ = elm;
+            *jnuls++ = nul;
+        }
+    }
+
+    // Set up result dimensions
+    memcpy(rdims, dims, ndim * sizeof(int));
+    memcpy(rlbs, lbs, ndim * sizeof(int));
+    rdims[0] = n;                    // first dimension has n items
+    if (!keep_lb)
+        rlbs[0] = 1;                // reset lower bound to 1 if requested
+
+    // Construct result array with first n shuffled items
+    result = construct_md_array(elms, nuls, ndim, rdims, rlbs,
+                               elmtyp, elmlen, elmbyval, elmalign);
+
+    pfree(elms);
+    pfree(nuls);
+
+    return result;
+}
+```

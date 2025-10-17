@@ -36,3 +36,12 @@ This function implements "image" comparison semantics where different representa
 - Located in src/backend/utils/adt/rowtypes.c:1783-1793
 - Part of PostgreSQL's indexing infrastructure for composite types
 - The "bt" prefix indicates this is a B-tree support function
+
+## Simplified Source
+
+```c
+Datum btrecordimagecmp(PG_FUNCTION_ARGS) {
+    // Return three-way comparison result for B-tree indexing
+    return record_image_cmp(fcinfo);
+}
+```

@@ -41,3 +41,32 @@ The  function processes a database name pattern and adds it to the provided patt
 - The function will terminate the program (exit(2)) if an improperly qualified pattern is provided
 - The converted SQL regex is stored in the db_regex field of the PatternInfo structure
 - Memory management is handled through PQExpBuffer allocation and deallocation
+
+## Simplified Source
+
+```c
+static void
+append_database_pattern(PatternInfoArray *pia, const char *pattern, int encoding)
+{
+    PQExpBufferData buf;
+    int dotcnt;
+    PatternInfo *info = extend_pattern_info_array(pia);
+
+    // Convert pattern to SQL regex
+    initPQExpBuffer(&buf);
+    patternToSQLRegex(encoding, NULL, NULL, &buf, pattern, false, false, &dotcnt);
+
+    // Database patterns must be simple names (no dots)
+    if (dotcnt > 0)
+    {
+        pg_log_error("improper qualified name (too many dotted names): %s", pattern);
+        exit(2);
+    }
+
+    // Store pattern and regex
+    info->pattern = pattern;
+    info->db_regex = pstrdup(buf.data);
+
+    termPQExpBuffer(&buf);
+}
+```

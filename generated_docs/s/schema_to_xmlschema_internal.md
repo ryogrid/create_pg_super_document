@@ -38,3 +38,51 @@ This function creates an XML Schema (XSD) definition that describes the structur
 
 ## Notes and Other Information
 This is a static internal function that handles the core logic for XML Schema generation. It uses the SPI (Server Programming Interface) to access database metadata and requires proper connection management. The function builds the XSD incrementally using StringInfo, first adding type definitions from tuple descriptors, then schema-specific type mappings, all wrapped within proper XSD schema element tags.
+
+## Simplified Source
+
+```c
+static StringInfo
+schema_to_xmlschema_internal(const char *schemaname, bool nulls,
+                            bool tableforest, const char *targetns)
+{
+    StringInfo result = makeStringInfo();
+
+    // Resolve schema name to namespace OID
+    Oid nspid = LookupExplicitNamespace(schemaname, false);
+
+    // Start XSD schema element
+    xsd_schema_element_start(result, targetns);
+
+    // Connect to SPI for table access
+    SPI_connect();
+
+    // Get all visible tables in the schema
+    List *relid_list = schema_get_xml_visible_tables(nspid);
+
+    // Extract tuple descriptors from all tables
+    List *tupdesc_list = NIL;
+    ListCell *cell;
+    foreach(cell, relid_list)
+    {
+        Relation rel = table_open(lfirst_oid(cell), AccessShareLock);
+        tupdesc_list = lappend(tupdesc_list, CreateTupleDescCopy(rel->rd_att));
+        table_close(rel, NoLock);
+    }
+
+    // Add SQL type collection to XSD types mapping
+    appendStringInfoString(result,
+                          map_sql_typecoll_to_xmlschema_types(tupdesc_list));
+
+    // Add schema-specific type mappings
+    appendStringInfoString(result,
+                          map_sql_schema_to_xmlschema_types(nspid, relid_list,
+                                                           nulls, tableforest, targetns));
+
+    // Close XSD schema element
+    xsd_schema_element_end(result);
+
+    SPI_finish();
+    return result;
+}
+```

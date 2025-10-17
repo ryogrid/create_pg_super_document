@@ -35,3 +35,12 @@ The function follows PostgreSQL's convention for SQL-callable functions by takin
 - Despite taking PG_FUNCTION_ARGS, the function ignores any arguments since it has no parameters
 - Used internally by SQL queries that need to determine the current database encoding
 - The returned value can be compared, stored, or manipulated like any other NAME value in SQL
+
+## Simplified Source
+
+```c
+Datum getdatabaseencoding(PG_FUNCTION_ARGS) {
+    // Convert database encoding name to PostgreSQL NAME data type
+    return DirectFunctionCall1(namein, CStringGetDatum(DatabaseEncoding->name));
+}
+```

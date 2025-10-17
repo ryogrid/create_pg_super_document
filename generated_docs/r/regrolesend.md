@@ -32,3 +32,12 @@ The function follows PostgreSQL's standard function calling convention using the
 - The binary format produced is identical to that of OID values, which explains the code reuse with oidsend
 - Part of PostgreSQL's reg* family of types that provide human-readable representations of system catalog objects
 - Located in src/backend/utils/adt/regproc.c alongside other reg* type functions
+
+## Simplified Source
+
+```c
+Datum regrolesend(PG_FUNCTION_ARGS) {
+    // Delegate to oidsend - regrole uses same binary format as OID
+    return oidsend(fcinfo);
+}
+```

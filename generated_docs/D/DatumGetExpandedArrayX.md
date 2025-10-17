@@ -36,3 +36,27 @@ The function is designed for scenarios where the caller maintains a cache of arr
 - The EA_MAGIC assertion ensures the expanded array header has the correct magic number for validation
 - Memory allocation for new expanded arrays occurs in CurrentMemoryContext
 - This function is part of PostgreSQL's expanded object infrastructure for efficient in-memory array manipulation
+
+## Simplified Source
+
+```c
+ExpandedArrayHeader *DatumGetExpandedArrayX(Datum d, ArrayMetaState *metacache) {
+    // If already a writable expanded array, return it directly
+    if (VARATT_IS_EXTERNAL_EXPANDED_RW(DatumGetPointer(d))) {
+        ExpandedArrayHeader *eah = (ExpandedArrayHeader *) DatumGetEOHP(d);
+
+        // Update caller's cache with type information if provided
+        if (metacache) {
+            metacache->element_type = eah->element_type;
+            metacache->typlen = eah->typlen;
+            metacache->typbyval = eah->typbyval;
+            metacache->typalign = eah->typalign;
+        }
+        return eah;
+    }
+
+    // Otherwise, expand the array using the metadata cache
+    d = expand_array(d, CurrentMemoryContext, metacache);
+    return (ExpandedArrayHeader *) DatumGetEOHP(d);
+}
+```

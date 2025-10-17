@@ -50,3 +50,57 @@ Special handling includes:
 - The function name includes '64' suffix for 64-bit file size support
 - Properly handles edge cases like files being deleted while being accessed
 - Uses private handle-based operations to avoid running out of file descriptors
+
+## Simplified Source
+
+```c
+int _pglstat64(const char *name, struct stat *buf) {
+    HANDLE hFile;
+    int ret;
+
+    // Try to open the file/directory
+    hFile = pgwin32_open_handle(name, O_RDONLY, true);
+
+    if (hFile == INVALID_HANDLE_VALUE) {
+        if (errno == ENOENT) {
+            // Handle junction point case - clear buffer for now
+            memset(buf, 0, sizeof(*buf));
+            ret = 0;
+        } else {
+            return -1;
+        }
+    } else {
+        // Get basic file information
+        ret = fileinfo_to_stat(hFile, buf);
+    }
+
+    // Check if this might be a junction point (Windows symbolic link)
+    if ((ret == 0 && S_ISDIR(buf->st_mode)) || hFile == INVALID_HANDLE_VALUE) {
+        char next[MAXPGPATH];
+        ssize_t size;
+
+        // Use readlink to test if it's a junction point
+        size = readlink(name, next, sizeof(next));
+
+        if (size >= 0) {
+            // It's a junction point - treat as symbolic link
+            buf->st_mode &= ~S_IFDIR;
+            buf->st_mode |= S_IFLNK;
+            buf->st_size = size;
+            ret = 0;
+        } else if (errno == EACCES &&
+                   pg_RtlGetLastNtStatus() == STATUS_DELETE_PENDING) {
+            // File being deleted
+            errno = ENOENT;
+            ret = -1;
+        }
+        // Other readlink errors are ignored (not a junction point)
+    }
+
+    // Clean up file handle
+    if (hFile != INVALID_HANDLE_VALUE)
+        CloseHandle(hFile);
+
+    return ret;
+}
+```

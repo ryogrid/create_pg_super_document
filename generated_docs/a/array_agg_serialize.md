@@ -50,3 +50,65 @@ The function handles two different serialization strategies depending on whether
 - Skips null elements for by-reference types to reduce serialization overhead
 - The serialized format includes element type, count, type metadata, null flags, and actual data values
 - Pairs with array_agg_deserialize to enable complete state transfer between parallel workers
+
+## Simplified Source
+
+```c
+Datum
+array_agg_serialize(PG_FUNCTION_ARGS)
+{
+    // Ensure aggregate context
+    Assert(AggCheckCallContext(fcinfo, NULL));
+
+    ArrayBuildState *state = (ArrayBuildState *) PG_GETARG_POINTER(0);
+    StringInfoData buf;
+
+    // Begin serialization
+    pq_begintypsend(&buf);
+
+    // Send metadata first for deserialization
+    pq_sendint32(&buf, state->element_type);  // element type
+    pq_sendint64(&buf, state->nelems);        // number of elements
+    pq_sendint16(&buf, state->typlen);        // type length
+    pq_sendbyte(&buf, state->typbyval);       // pass by value flag
+    pq_sendbyte(&buf, state->typalign);       // type alignment
+
+    // Send null flags array
+    pq_sendbytes(&buf, state->dnulls, sizeof(bool) * state->nelems);
+
+    // Send actual data values
+    if (state->typbyval) {
+        // For by-value types, send raw Datum array
+        pq_sendbytes(&buf, state->dvalues, sizeof(Datum) * state->nelems);
+    } else {
+        // For by-reference types, use type's send function
+        SerialIOData *iodata = (SerialIOData *) fcinfo->flinfo->fn_extra;
+
+        // Cache type send function info
+        if (iodata == NULL) {
+            Oid typsend;
+            bool typisvarlena;
+
+            iodata = (SerialIOData *) MemoryContextAlloc(fcinfo->flinfo->fn_mcxt,
+                                                        sizeof(SerialIOData));
+            getTypeBinaryOutputInfo(state->element_type, &typsend, &typisvarlena);
+            fmgr_info_cxt(typsend, &iodata->typsend, fcinfo->flinfo->fn_mcxt);
+            fcinfo->flinfo->fn_extra = (void *) iodata;
+        }
+
+        // Serialize each non-null element
+        for (int i = 0; i < state->nelems; i++) {
+            if (state->dnulls[i])
+                continue;  // Skip null elements
+
+            bytea *outputbytes = SendFunctionCall(&iodata->typsend, state->dvalues[i]);
+            pq_sendint32(&buf, VARSIZE(outputbytes) - VARHDRSZ);
+            pq_sendbytes(&buf, VARDATA(outputbytes), VARSIZE(outputbytes) - VARHDRSZ);
+        }
+    }
+
+    // Finalize and return serialized bytea
+    bytea *result = pq_endtypsend(&buf);
+    PG_RETURN_BYTEA_P(result);
+}
+```

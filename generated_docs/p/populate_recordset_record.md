@@ -38,3 +38,41 @@ The `populate_recordset_record` function is responsible for converting a single 
 - Creates a HeapTupleData structure with proper metadata before storing in the tuple store
 - Critical component in the pipeline for converting JSON arrays to PostgreSQL recordsets
 - Memory management handled through the function`s memory context
+
+## Simplified Source
+
+```c
+static void populate_recordset_record(PopulateRecordsetState *state, JsObject *obj) {
+    PopulateRecordCache *cache = state->cache;
+    HeapTupleHeader tuphead;
+    HeapTupleData tuple;
+
+    // Update cached tuple descriptor for current record type
+    update_cached_tupdesc(&cache->c.io.composite, cache->fn_mcxt);
+
+    // Convert JSON object to PostgreSQL record/tuple
+    tuphead = populate_record(cache->c.io.composite.tupdesc,
+                             &cache->c.io.composite.record_io,
+                             state->rec,
+                             cache->fn_mcxt,
+                             obj,
+                             NULL);
+
+    // Check domain constraints if this is a composite domain type
+    if (cache->c.typcat == TYPECAT_COMPOSITE_DOMAIN) {
+        domain_check_safe(HeapTupleHeaderGetDatum(tuphead), false,
+                         cache->argtype,
+                         &cache->c.io.composite.domain_info,
+                         cache->fn_mcxt,
+                         NULL);
+    }
+
+    // Package tuple data and store in tuple store
+    tuple.t_len = HeapTupleHeaderGetDatumLength(tuphead);
+    ItemPointerSetInvalid(&(tuple.t_self));
+    tuple.t_tableOid = InvalidOid;
+    tuple.t_data = tuphead;
+
+    tuplestore_puttuple(state->tuple_store, &tuple);
+}
+```

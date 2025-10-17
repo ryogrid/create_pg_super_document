@@ -39,3 +39,25 @@ The function follows PostgreSQL's standard function argument protocol (PG_FUNCTI
 - Returns the number of input bytes successfully converted
 - The conversion leverages the fact that KOI8-R high-bit characters can be directly mapped to MULE internal format with appropriate locale prefixes
 - This function is typically registered as a conversion procedure in PostgreSQL's encoding conversion system rather than called directly
+
+## Simplified Source
+
+```c
+Datum koi8r_to_mic(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion parameters
+    CHECK_ENCODING_CONVERSION_ARGS(PG_KOI8R, PG_MULE_INTERNAL);
+
+    // Delegate to generic latin2mic function with KOI8-R locale
+    int converted = latin2mic(src, dest, len, LC_KOI8_R, PG_KOI8R, noError);
+
+    // Return number of bytes converted
+    PG_RETURN_INT32(converted);
+}
+```

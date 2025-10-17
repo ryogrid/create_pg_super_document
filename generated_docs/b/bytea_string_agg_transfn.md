@@ -46,3 +46,42 @@ The function processes three arguments: the current state (StringInfo), the new 
 - Part of PostgreSQL's aggregate function infrastructure for binary data concatenation
 - The actual stripping of the first delimiter occurs in the corresponding final function
 - Memory management relies on PostgreSQL's memory context system via StringInfo
+
+## Simplified Source
+
+```c
+Datum bytea_string_agg_transfn(PG_FUNCTION_ARGS) {
+    StringInfo state = PG_ARGISNULL(0) ? NULL : (StringInfo) PG_GETARG_POINTER(0);
+
+    // Skip if value is null
+    if (PG_ARGISNULL(1)) {
+        if (state)
+            PG_RETURN_POINTER(state);
+        PG_RETURN_NULL();
+    }
+
+    bytea *value = PG_GETARG_BYTEA_PP(1);
+    bool isfirst = false;
+
+    // Initialize state on first call
+    if (state == NULL) {
+        state = makeStringAggState(fcinfo);
+        isfirst = true;
+    }
+
+    // Add delimiter if provided
+    if (!PG_ARGISNULL(2)) {
+        bytea *delim = PG_GETARG_BYTEA_PP(2);
+        appendBinaryStringInfo(state, VARDATA_ANY(delim), VARSIZE_ANY_EXHDR(delim));
+
+        // Store first delimiter length for parallel aggregation
+        if (isfirst)
+            state->cursor = VARSIZE_ANY_EXHDR(delim);
+    }
+
+    // Append the value data
+    appendBinaryStringInfo(state, VARDATA_ANY(value), VARSIZE_ANY_EXHDR(value));
+
+    PG_RETURN_POINTER(state);
+}
+```

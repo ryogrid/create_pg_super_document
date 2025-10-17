@@ -48,3 +48,41 @@ Unlike the scalar version of array_agg that builds a simple array from individua
 - Parser validation ensures input types are valid arrays before runtime execution
 - Memory management handled within the aggregate context for proper cleanup
 - Essential for enabling ARRAY_AGG to work with array inputs rather than just scalar values
+
+## Simplified Source
+
+```c
+Datum
+array_agg_array_transfn(PG_FUNCTION_ARGS)
+{
+    // Get array type from function expression
+    Oid arg1_typeid = get_fn_expr_argtype(fcinfo->flinfo, 1);
+
+    // Validate input type
+    if (arg1_typeid == InvalidOid)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("could not determine input data type")));
+
+    // Ensure called in aggregate context
+    MemoryContext aggcontext;
+    if (!AggCheckCallContext(fcinfo, &aggcontext))
+        elog(ERROR, "array_agg_array_transfn called in non-aggregate context");
+
+    // Initialize or get existing array state
+    ArrayBuildStateArr *state;
+    if (PG_ARGISNULL(0))
+        state = initArrayResultArr(arg1_typeid, InvalidOid, aggcontext, false);
+    else
+        state = (ArrayBuildStateArr *) PG_GETARG_POINTER(0);
+
+    // Accumulate array input into state
+    state = accumArrayResultArr(state,
+                               PG_GETARG_DATUM(1),
+                               PG_ARGISNULL(1),
+                               arg1_typeid,
+                               aggcontext);
+
+    // Return updated state pointer
+    PG_RETURN_POINTER(state);
+}
+```

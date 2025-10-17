@@ -35,3 +35,33 @@ GucInfoMain serves as the primary function for the PostgreSQL configuration help
 - The function processes configuration variables in a loop, casting each generic config structure to mixedStruct for unified handling
 - Uses a union (mixedStruct) to handle different types of configuration parameters (boolean, integer, real, string, enum)
 - The function terminates the entire program after displaying the configuration information
+
+## Simplified Source
+
+```c
+void
+GucInfoMain(void)
+{
+    struct config_generic **guc_vars;
+    int num_options;
+
+    // Initialize the GUC (Grand Unified Configuration) system
+    build_guc_variables();
+
+    // Get all available configuration variables
+    guc_vars = get_guc_variables(&num_options);
+
+    // Process each configuration variable
+    for (int i = 0; i < num_options; i++) {
+        mixedStruct *config_var = (mixedStruct *) guc_vars[i];
+
+        // Display configuration if it should be shown to users
+        if (displayStruct(config_var)) {
+            printMixedStruct(config_var);
+        }
+    }
+
+    // Exit the program after displaying all configurations
+    exit(0);
+}
+```

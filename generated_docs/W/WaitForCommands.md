@@ -49,3 +49,45 @@ The function runs in an infinite loop until it receives EOF from the leader, ind
 - Ensures table locking only for dump operations to prevent deadlocks
 - Communicates status back to leader for each completed operation
 - Terminates gracefully when leader closes the communication pipe
+
+## Simplified Source
+
+```c
+static void WaitForCommands(ArchiveHandle *AH, int pipefd[2]) {
+    char *command;
+    TocEntry *te;
+    T_Action act;
+    int status = 0;
+    char buf[256];
+
+    // Main worker loop - process commands until EOF
+    for (;;) {
+        // Get command from leader (blocks until available)
+        command = getMessageFromLeader(pipefd);
+        if (!command) {
+            return;  // EOF - leader finished sending commands
+        }
+
+        // Parse the command to get table entry and action
+        parseWorkerCommand(AH, &te, &act, command);
+
+        // Execute the appropriate action
+        if (act == ACT_DUMP) {
+            // Acquire table lock before dumping to prevent deadlocks
+            lockTableForWorker(AH, te);
+            status = (AH->WorkerJobDumpPtr)(AH, te);
+        } else if (act == ACT_RESTORE) {
+            status = (AH->WorkerJobRestorePtr)(AH, te);
+        } else {
+            Assert(false);  // Unknown action type
+        }
+
+        // Send status back to leader
+        buildWorkerResponse(AH, te, act, status, buf, sizeof(buf));
+        sendMessageToLeader(pipefd, buf);
+
+        // Free the command string
+        free(command);
+    }
+}
+```

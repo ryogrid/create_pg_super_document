@@ -39,3 +39,20 @@ This static function serves as a support routine for the has_type_privilege fami
 - Part of PostgreSQL's access control system for type privileges
 - The USAGE privilege on types allows using the type in table definitions, function signatures, etc.
 - Located in src/backend/utils/adt/acl.c:4587-4614
+
+## Simplified Source
+
+```c
+static AclMode convert_type_priv_string(text *priv_type_text)
+{
+    // Define privilege mapping for type privileges
+    static const priv_map type_priv_map[] = {
+        {"USAGE", ACL_USAGE},
+        {"USAGE WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_USAGE)},
+        {NULL, 0}  // Terminator
+    };
+
+    // Use generic privilege string converter with type-specific mapping
+    return convert_any_priv_string(priv_type_text, type_priv_map);
+}
+```

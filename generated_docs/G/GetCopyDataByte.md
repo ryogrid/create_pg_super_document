@@ -34,3 +34,18 @@ This function is typically used for reading message type indicators and other si
 - If no bytes remain in the buffer, the function calls ReportCopyDataParseError and does not return
 - This is a static utility function only used within pg_basebackup.c
 - The function follows the pattern of safe sequential buffer reading used throughout the COPY protocol parsing code
+
+## Simplified Source
+
+```c
+static char
+GetCopyDataByte(size_t r, char *copybuf, size_t *cursor)
+{
+    // Check if we have bytes remaining to read
+    if (*cursor >= r)
+        ReportCopyDataParseError(r, copybuf);
+
+    // Extract byte and advance cursor
+    return copybuf[(*cursor)++];
+}
+```

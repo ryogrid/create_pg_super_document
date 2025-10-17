@@ -38,3 +38,49 @@ This function creates a comprehensive XML representation of a PostgreSQL databas
 
 ## Notes and Other Information
 This is a static internal function that handles the core logic for converting an entire database to XML. It uses SPI for database access and requires proper connection management. The function references SQL/XML:2008 standards for database-to-XML mapping. It creates a hierarchical XML structure with the database as the root element and all visible schemas as child elements. The MyDatabaseId global variable is used to get the current database name for the root element.
+
+## Simplified Source
+
+```c
+static StringInfo
+database_to_xml_internal(const char *xmlschema, bool nulls,
+                         bool tableforest, const char *targetns)
+{
+    // Convert database name to XML-safe format
+    char *xmlcn = map_sql_identifier_to_xml_name(get_database_name(MyDatabaseId),
+                                                 true, false);
+    StringInfo result = makeStringInfo();
+
+    // Create XML root element for database
+    xmldata_root_element_start(result, xmlcn, xmlschema, targetns, true);
+    appendStringInfoChar(result, '\n');
+
+    // Include XML schema if provided
+    if (xmlschema)
+        appendStringInfo(result, "%s\n\n", xmlschema);
+
+    // Connect to SPI for schema access
+    SPI_connect();
+
+    // Get all visible schemas in the database
+    List *nspid_list = database_get_xml_visible_schemas();
+
+    // Convert each schema to XML and append to result
+    ListCell *cell;
+    foreach(cell, nspid_list)
+    {
+        Oid nspid = lfirst_oid(cell);
+        StringInfo subres = schema_to_xml_internal(nspid, NULL, nulls,
+                                                  tableforest, targetns, false);
+        appendBinaryStringInfo(result, subres->data, subres->len);
+        appendStringInfoChar(result, '\n');
+    }
+
+    SPI_finish();
+
+    // Close XML root element
+    xmldata_root_element_end(result, xmlcn);
+
+    return result;
+}
+```

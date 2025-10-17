@@ -38,9 +38,44 @@ The function allocates a new text object of the same size as the input and fills
   - SQL REVERSE() function invocations
 
 ## Notes and Other Information
-- Located in 
+- Located in
 - Handles both single-byte and multibyte character encodings correctly
 - Uses character-aware reversal rather than simple byte reversal for multibyte strings
 - Allocates new memory for the result rather than modifying the input in-place
 - The destination pointer starts at the end of the allocated space and works backward
 - Performance optimized with separate code paths for single-byte vs multibyte encodings
+
+## Simplified Source
+
+```c
+Datum text_reverse(PG_FUNCTION_ARGS) {
+    text *str = PG_GETARG_TEXT_PP(0);
+    const char *p = VARDATA_ANY(str);
+    int len = VARSIZE_ANY_EXHDR(str);
+    const char *endp = p + len;
+    text *result;
+    char *dst;
+
+    // Allocate result buffer same size as input
+    result = palloc(len + VARHDRSZ);
+    dst = (char *) VARDATA(result) + len;  // Start at end, work backward
+    SET_VARSIZE(result, len + VARHDRSZ);
+
+    if (pg_database_encoding_max_length() > 1) {
+        // Multibyte version: copy complete characters
+        while (p < endp) {
+            int sz = pg_mblen(p);  // Get character length
+            dst -= sz;
+            memcpy(dst, p, sz);    // Copy entire character
+            p += sz;
+        }
+    } else {
+        // Single-byte version: simple byte reversal
+        while (p < endp) {
+            *(--dst) = *p++;
+        }
+    }
+
+    PG_RETURN_TEXT_P(result);
+}
+```

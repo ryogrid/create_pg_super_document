@@ -47,3 +47,77 @@ The function supports both sequential and parallel restore operations but only p
 - Error handling includes proper file opening checks with descriptive error messages using pg_fatal()
 - The function distinguishes between write mode (archModeWrite) and read mode for different initialization paths
 - In read mode, the function positions the file pointer after reading the TOC to prepare for data block access
+
+## Simplified Source
+
+```c
+void InitArchiveFmt_Custom(ArchiveHandle *AH) {
+    // Set up all function pointers for custom format operations
+    AH->ArchiveEntryPtr = _ArchiveEntry;
+    AH->StartDataPtr = _StartData;
+    AH->WriteDataPtr = _WriteData;
+    AH->EndDataPtr = _EndData;
+    AH->WriteBytePtr = _WriteByte;
+    AH->ReadBytePtr = _ReadByte;
+    AH->WriteBufPtr = _WriteBuf;
+    AH->ReadBufPtr = _ReadBuf;
+    AH->ClosePtr = _CloseArchive;
+    AH->ReopenPtr = _ReopenArchive;
+    AH->PrintTocDataPtr = _PrintTocData;
+    AH->ReadExtraTocPtr = _ReadExtraToc;
+    AH->WriteExtraTocPtr = _WriteExtraToc;
+    AH->PrintExtraTocPtr = _PrintExtraToc;
+
+    // Set up large object handling
+    AH->StartLOsPtr = _StartLOs;
+    AH->StartLOPtr = _StartLO;
+    AH->EndLOPtr = _EndLO;
+    AH->EndLOsPtr = _EndLOs;
+
+    // Set up parallel processing (restore only)
+    AH->PrepParallelRestorePtr = _PrepParallelRestore;
+    AH->ClonePtr = _Clone;
+    AH->DeClonePtr = _DeClone;
+    AH->WorkerJobDumpPtr = NULL;  // No parallel dump support
+    AH->WorkerJobRestorePtr = _WorkerJobRestoreCustom;
+
+    // Initialize format-specific context
+    lclContext *ctx = (lclContext *) pg_malloc0(sizeof(lclContext));
+    AH->formatData = (void *) ctx;
+
+    // Open file for reading or writing
+    if (AH->mode == archModeWrite) {
+        // Open output file or use stdout
+        if (AH->fSpec && strcmp(AH->fSpec, "") != 0) {
+            AH->FH = fopen(AH->fSpec, PG_BINARY_W);
+            if (!AH->FH)
+                pg_fatal("could not open output file \"%s\": %m", AH->fSpec);
+        } else {
+            AH->FH = stdout;
+            if (!AH->FH)
+                pg_fatal("could not open output file: %m");
+        }
+        ctx->hasSeek = checkSeek(AH->FH);
+    } else {
+        // Open input file or use stdin
+        if (AH->fSpec && strcmp(AH->fSpec, "") != 0) {
+            AH->FH = fopen(AH->fSpec, PG_BINARY_R);
+            if (!AH->FH)
+                pg_fatal("could not open input file \"%s\": %m", AH->fSpec);
+        } else {
+            AH->FH = stdin;
+            if (!AH->FH)
+                pg_fatal("could not open input file: %m");
+        }
+
+        ctx->hasSeek = checkSeek(AH->FH);
+
+        // Read archive header and table of contents
+        ReadHead(AH);
+        ReadToc(AH);
+
+        // Record position after TOC for data block access
+        ctx->lastFilePos = _getFilePos(AH, ctx);
+    }
+}
+```

@@ -46,3 +46,32 @@ The function uses PostgreSQL's standard binary output infrastructure with pq_* f
 - Returns the binary data as a bytea (binary array) PostgreSQL data type
 - The binary format is compact and efficient for network transmission compared to text representation
 - Located in src/backend/utils/adt/xid8funcs.c:534-554
+
+## Simplified Source
+
+```c
+Datum pg_snapshot_send(PG_FUNCTION_ARGS) {
+    // Get snapshot structure from input argument
+    pg_snapshot *snap = (pg_snapshot *) PG_GETARG_VARLENA_P(0);
+    StringInfoData buf;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Send snapshot components in binary format:
+    // 1. Number of active transaction IDs
+    pq_sendint32(&buf, snap->nxip);
+
+    // 2. Minimum and maximum transaction IDs (converted to 64-bit)
+    pq_sendint64(&buf, (int64) U64FromFullTransactionId(snap->xmin));
+    pq_sendint64(&buf, (int64) U64FromFullTransactionId(snap->xmax));
+
+    // 3. Array of active transaction IDs
+    for (uint32 i = 0; i < snap->nxip; i++) {
+        pq_sendint64(&buf, (int64) U64FromFullTransactionId(snap->xip[i]));
+    }
+
+    // Return serialized binary data as bytea
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

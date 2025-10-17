@@ -40,3 +40,33 @@ For each dependent entry, if all conditions are met - no remaining dependencies 
 - Debug logging helps track dependency reduction progress
 - The ready_heap parameter allows flexible usage - dependency counting can be updated without affecting scheduling when set to NULL
 - Works in conjunction with restore pass management to ensure items are processed in the correct order
+
+## Simplified Source
+
+```c
+static void reduce_dependencies(ArchiveHandle *AH, TocEntry *te,
+                               binaryheap *ready_heap) {
+    pg_log_debug("reducing dependencies for %d", te->dumpId);
+
+    // Iterate through all items that depend on this completed entry
+    for (int i = 0; i < te->nRevDeps; i++) {
+        TocEntry *dependent_entry = AH->tocsByDumpId[te->revDeps[i]];
+
+        // Decrement dependency count for this dependent
+        Assert(dependent_entry->depCount > 0);
+        dependent_entry->depCount--;
+
+        // Check if entry is now ready for execution
+        bool has_no_deps = (dependent_entry->depCount == 0);
+        bool correct_pass = (_tocEntryRestorePass(dependent_entry) == AH->restorePass);
+        bool in_pending_list = (dependent_entry->pending_prev != NULL);
+        bool heap_provided = (ready_heap != NULL);
+
+        if (has_no_deps && correct_pass && in_pending_list && heap_provided) {
+            // Move from pending list to ready heap
+            pending_list_remove(dependent_entry);
+            binaryheap_add(ready_heap, dependent_entry);
+        }
+    }
+}
+```

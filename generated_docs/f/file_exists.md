@@ -37,3 +37,18 @@ This is a straightforward implementation that leverages the standard C library's
 - This function tests both existence and readability - a file that exists but cannot be read will return false
 - Does not distinguish between "file does not exist" and "file exists but cannot be read" - both conditions return false
 - Used across multiple testing modules including isolation testing and regression testing
+
+## Simplified Source
+
+```c
+bool file_exists(const char *file)
+{
+    FILE *f = fopen(file, "r");
+
+    if (!f)
+        return false;
+
+    fclose(f);
+    return true;
+}
+```

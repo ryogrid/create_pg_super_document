@@ -37,3 +37,26 @@ The function increments the global fail_count and delegates the actual TAP outpu
 - Uses StringInfo for efficient string building when accumulating failed test names
 - The collected failed test information is typically output at the end using diag() to ensure visibility under test harnesses
 - Part of a paired system with test_status_ok, but includes additional failure tracking mechanisms
+
+## Simplified Source
+
+```c
+static void test_status_failed(const char *testname, double runtime, bool parallel) {
+    // Initialize failed tests buffer on first failure
+    if (!failed_tests) {
+        failed_tests = makeStringInfo();
+    } else {
+        // Add comma separator for subsequent failures
+        appendStringInfoChar(failed_tests, ',');
+    }
+
+    // Add test name to failed tests list
+    appendStringInfo(failed_tests, " %s", testname);
+
+    // Increment global failure counter
+    fail_count++;
+
+    // Print TAP-formatted failure output
+    test_status_print(false, testname, runtime, parallel);
+}
+```

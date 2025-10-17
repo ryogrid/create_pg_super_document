@@ -46,3 +46,35 @@ The function handles empty queries as non-matching and properly manages memory c
 - Properly handles memory management with PG_FREE_IF_COPY for large objects
 - Core implementation used by multiple text search operator variants
 - The checkcondition_str callback handles string-based operand matching
+
+## Simplified Source
+
+```c
+Datum ts_match_vq(PG_FUNCTION_ARGS) {
+    TSVector val = PG_GETARG_TSVECTOR(0);
+    TSQuery query = PG_GETARG_TSQUERY(1);
+    CHKVAL chkval;
+    bool result;
+
+    // Empty query matches nothing
+    if (!query->size) {
+        PG_FREE_IF_COPY(val, 0);
+        PG_FREE_IF_COPY(query, 1);
+        PG_RETURN_BOOL(false);
+    }
+
+    // Set up data structure for matching
+    chkval.arrb = ARRPTR(val);
+    chkval.arre = chkval.arrb + val->size;
+    chkval.values = STRPTR(val);
+    chkval.operand = GETOPERAND(query);
+
+    // Perform the actual text search matching
+    result = TS_execute(GETQUERY(query), &chkval, TS_EXEC_EMPTY, checkcondition_str);
+
+    // Clean up memory and return result
+    PG_FREE_IF_COPY(val, 0);
+    PG_FREE_IF_COPY(query, 1);
+    PG_RETURN_BOOL(result);
+}
+```

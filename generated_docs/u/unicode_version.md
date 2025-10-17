@@ -36,3 +36,13 @@ The function uses the `PG_UNICODE_VERSION` compile-time constant to provide the 
 - Excludes update version numbers as they don't affect character repertoire
 - Reference documentation: https://unicode.org/versions/
 - The actual version returned depends on the `PG_UNICODE_VERSION` constant set during compilation
+
+## Simplified Source
+
+```c
+Datum unicode_version(PG_FUNCTION_ARGS) {
+    // Return PostgreSQL's Unicode version in "major.minor" format
+    // Uses compile-time constant PG_UNICODE_VERSION
+    PG_RETURN_TEXT_P(cstring_to_text(PG_UNICODE_VERSION));
+}
+```

@@ -36,3 +36,28 @@ This function determines if a PostgreSQL server is in recovery mode by executing
 - Uses string comparison with 't' to determine boolean result from SQL query
 - Terminates the program if the query fails by calling disconnect_database with exit flag
 - Essential for determining when a standby server has completed recovery and can be promoted
+
+## Simplified Source
+
+```c
+static bool
+server_is_in_recovery(PGconn *conn)
+{
+    // Query recovery status
+    PGresult *res = PQexec(conn, "SELECT pg_catalog.pg_is_in_recovery()");
+
+    if (PQresultStatus(res) != PGRES_TUPLES_OK)
+    {
+        pg_log_error("could not obtain recovery progress: %s",
+                     PQresultErrorMessage(res));
+        disconnect_database(conn, true);
+    }
+
+    // Compare result with 't' (true)
+    int ret = strcmp("t", PQgetvalue(res, 0, 0));
+
+    PQclear(res);
+
+    return ret == 0;  // true if in recovery
+}
+```

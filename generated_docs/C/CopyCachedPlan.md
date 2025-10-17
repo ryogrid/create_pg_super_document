@@ -48,3 +48,98 @@ The resulting copy is always marked as unsaved (regardless of the source's state
 - Critical for SPI operations that need to create persistent copies of temporary plans
 - The copy maintains all security and access control information from the original
 - Used primarily when converting temporary plans to saved plans in the SPI interface
+
+## Simplified Source
+
+```c
+CachedPlanSource *
+CopyCachedPlan(CachedPlanSource *plansource)
+{
+    // Validate input and check constraints
+    Assert(plansource->magic == CACHEDPLANSOURCE_MAGIC);
+    Assert(plansource->is_complete);
+
+    // One-shot plans cannot be copied safely
+    if (plansource->is_oneshot)
+        elog(ERROR, "cannot copy a one-shot cached plan");
+
+    // Create new memory context for the copied plan source
+    MemoryContext source_context = AllocSetContextCreate(CurrentMemoryContext,
+                                                          "CachedPlanSource",
+                                                          ALLOCSET_START_SMALL_SIZES);
+
+    MemoryContext oldcxt = MemoryContextSwitchTo(source_context);
+
+    // Allocate and initialize new plan source
+    CachedPlanSource *newsource = (CachedPlanSource *) palloc0(sizeof(CachedPlanSource));
+    newsource->magic = CACHEDPLANSOURCE_MAGIC;
+
+    // Copy basic plan data
+    newsource->raw_parse_tree = copyObject(plansource->raw_parse_tree);
+    newsource->query_string = pstrdup(plansource->query_string);
+    MemoryContextSetIdentifier(source_context, newsource->query_string);
+    newsource->commandTag = plansource->commandTag;
+
+    // Copy parameter information
+    if (plansource->num_params > 0)
+    {
+        newsource->param_types = (Oid *) palloc(plansource->num_params * sizeof(Oid));
+        memcpy(newsource->param_types, plansource->param_types,
+               plansource->num_params * sizeof(Oid));
+    }
+    else
+        newsource->param_types = NULL;
+    newsource->num_params = plansource->num_params;
+
+    // Copy parser and cursor options
+    newsource->parserSetup = plansource->parserSetup;
+    newsource->parserSetupArg = plansource->parserSetupArg;
+    newsource->cursor_options = plansource->cursor_options;
+    newsource->fixed_result = plansource->fixed_result;
+
+    // Copy result descriptor if present
+    if (plansource->resultDesc)
+        newsource->resultDesc = CreateTupleDescCopy(plansource->resultDesc);
+    else
+        newsource->resultDesc = NULL;
+
+    newsource->context = source_context;
+
+    // Create separate context for query tree data
+    MemoryContext querytree_context = AllocSetContextCreate(source_context,
+                                                             "CachedPlanQuery",
+                                                             ALLOCSET_START_SMALL_SIZES);
+    MemoryContextSwitchTo(querytree_context);
+
+    // Copy query-related data
+    newsource->query_list = copyObject(plansource->query_list);
+    newsource->relationOids = copyObject(plansource->relationOids);
+    newsource->invalItems = copyObject(plansource->invalItems);
+    if (plansource->search_path)
+        newsource->search_path = CopySearchPathMatcher(plansource->search_path);
+    newsource->query_context = querytree_context;
+
+    // Copy security and RLS settings
+    newsource->rewriteRoleId = plansource->rewriteRoleId;
+    newsource->rewriteRowSecurity = plansource->rewriteRowSecurity;
+    newsource->dependsOnRLS = plansource->dependsOnRLS;
+
+    // Initialize plan state (no generic plan copied)
+    newsource->gplan = NULL;
+    newsource->is_oneshot = false;
+    newsource->is_complete = true;
+    newsource->is_saved = false;  // Always unsaved
+    newsource->is_valid = plansource->is_valid;
+    newsource->generation = plansource->generation;
+
+    // Copy cost estimation data
+    newsource->generic_cost = plansource->generic_cost;
+    newsource->total_custom_cost = plansource->total_custom_cost;
+    newsource->num_generic_plans = plansource->num_generic_plans;
+    newsource->num_custom_plans = plansource->num_custom_plans;
+
+    MemoryContextSwitchTo(oldcxt);
+
+    return newsource;
+}
+```

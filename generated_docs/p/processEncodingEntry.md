@@ -38,3 +38,36 @@ This function handles the special processing required for ENCODING entries in th
 - This immediate processing during TOC reading ensures encoding is set before any data restoration begins
 - The function is critical for maintaining data integrity across different character encodings
 - Part of a set of special entry processors (along with processStdStringsEntry and processSearchPathEntry)
+
+## Simplified Source
+
+```c
+static void processEncodingEntry(ArchiveHandle *AH, TocEntry *te) {
+    // Parse "SET client_encoding = 'encoding_name';" format
+    char *defn = pg_strdup(te->defn);
+    char *ptr1 = strchr(defn, '\'');  // Find first quote
+    char *ptr2 = NULL;
+
+    if (ptr1) {
+        ptr1++;  // Move past first quote
+        ptr2 = strchr(ptr1, '\'');  // Find closing quote
+    }
+
+    if (ptr2) {
+        *ptr2 = '\0';  // Null-terminate encoding name
+
+        // Convert encoding name to internal ID
+        int encoding = pg_char_to_encoding(ptr1);
+        if (encoding < 0)
+            pg_fatal("unrecognized encoding \"%s\"", ptr1);
+
+        // Set encoding for archive and format handler
+        AH->public.encoding = encoding;
+        setFmtEncoding(encoding);
+    } else {
+        pg_fatal("invalid ENCODING item: %s", te->defn);
+    }
+
+    free(defn);
+}
+```

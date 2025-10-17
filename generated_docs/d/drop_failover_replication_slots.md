@@ -42,3 +42,41 @@ This function performs cleanup by identifying and removing failover replication 
 - Provides comprehensive error handling for both connection and query failures
 - Uses non-fatal connection mode to gracefully handle subscriber unavailability
 - Offers user guidance through warning hints if automatic cleanup fails
+
+## Simplified Source
+
+```c
+static void
+drop_failover_replication_slots(struct LogicalRepInfo *dbinfo)
+{
+    PGconn *conn;
+    PGresult *res;
+
+    // Attempt to connect to subscriber (non-fatal connection)
+    conn = connect_database(dbinfo[0].subconninfo, false);
+
+    if (conn != NULL) {
+        // Query for failover replication slots
+        res = PQexec(conn,
+                     "SELECT slot_name FROM pg_catalog.pg_replication_slots WHERE failover");
+
+        if (PQresultStatus(res) == PGRES_TUPLES_OK) {
+            // Drop each failover replication slot found
+            for (int i = 0; i < PQntuples(res); i++)
+                drop_replication_slot(conn, &dbinfo[0], PQgetvalue(res, i, 0));
+        } else {
+            // Query failed - provide warning for manual cleanup
+            pg_log_warning("could not obtain failover replication slot information: %s",
+                           PQresultErrorMessage(res));
+            pg_log_warning_hint("Drop the failover replication slots on subscriber soon to avoid retention of WAL files.");
+        }
+
+        PQclear(res);
+        disconnect_database(conn, false);
+    } else {
+        // Connection failed - provide warning for manual cleanup
+        pg_log_warning("could not drop failover replication slot");
+        pg_log_warning_hint("Drop the failover replication slots on subscriber soon to avoid retention of WAL files.");
+    }
+}
+```

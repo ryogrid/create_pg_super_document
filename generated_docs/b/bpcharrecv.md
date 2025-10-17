@@ -36,3 +36,25 @@ The function extracts the binary message text using , then delegates the actual 
 - The typelem parameter is defined but not used, indicating potential future extensibility
 - Memory management is handled properly with pfree() to avoid leaks
 - Part of the binary I/O protocol infrastructure for the bpchar data type
+
+## Simplified Source
+
+```c
+Datum bpcharrecv(PG_FUNCTION_ARGS) {
+    // Extract binary message buffer and type modifier
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    // Argument 1 (typelem) is unused
+    int32 atttypmod = PG_GETARG_INT32(2);
+
+    // Extract text data from binary message
+    int nbytes;
+    char *str = pq_getmsgtext(buf, buf->len - buf->cursor, &nbytes);
+
+    // Process the extracted text using common bpchar logic
+    BpChar *result = bpchar_input(str, nbytes, atttypmod, NULL);
+
+    // Clean up temporary string and return result
+    pfree(str);
+    PG_RETURN_BPCHAR_P(result);
+}
+```

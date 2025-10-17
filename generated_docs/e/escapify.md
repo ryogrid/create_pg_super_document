@@ -41,3 +41,30 @@ The function handles special characters as follows:
 - The output format is noted in the comments as potentially improvable and not completely unambiguous
 - Used extensively in PostgreSQL's escape-related test modules for displaying test data and results
 - Part of the test infrastructure rather than core PostgreSQL functionality
+
+## Simplified Source
+
+```c
+static void
+escapify(PQExpBuffer buf, const char *str, size_t len)
+{
+    for (size_t i = 0; i < len; i++) {
+        char c = *str;
+
+        // Convert special characters to readable escape sequences
+        if (c == '\n') {
+            appendPQExpBufferStr(buf, "\\n");
+        } else if (c == '\0') {
+            appendPQExpBufferStr(buf, "\\0");
+        } else if (c < ' ' || c > '~') {
+            // Non-printable characters as hex escape sequences
+            appendPQExpBuffer(buf, "\\x%2x", (uint8_t) c);
+        } else {
+            // Printable ASCII characters as-is
+            appendPQExpBufferChar(buf, c);
+        }
+
+        str++;
+    }
+}
+```

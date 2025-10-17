@@ -37,3 +37,16 @@ The comparison handles timezone conversion by converting the plain timestamp to 
 - The actual comparison logic handles timezone conversion and special timestamp values (infinity, -infinity)
 - Used internally by PostgreSQL's operator system for timestamp/timestamptz comparisons
 - Located at src/backend/utils/adt/timestamp.c:2400-2408
+
+## Simplified Source
+
+```c
+Datum timestamp_cmp_timestamptz(PG_FUNCTION_ARGS) {
+    // Extract timestamp (without timezone) and timestamptz (with timezone)
+    Timestamp timestamp_val = PG_GETARG_TIMESTAMP(0);
+    TimestampTz timestamptz_val = PG_GETARG_TIMESTAMPTZ(1);
+
+    // Return comparison result: negative (<), zero (=), or positive (>)
+    PG_RETURN_INT32(timestamp_cmp_timestamptz_internal(timestamp_val, timestamptz_val));
+}
+```

@@ -45,3 +45,33 @@ The function creates a local FunctionCallInfoData structure with space for 3 arg
 - Used primarily for specialized index operations in BRIN, GIN, and GiST access methods
 - Less commonly used compared to FunctionCall1Coll and FunctionCall2Coll, but essential for complex index operations requiring three parameters
 - Located in src/backend/utils/fmgr/fmgr.c:1171-1195
+
+## Simplified Source
+
+```c
+Datum FunctionCall3Coll(FmgrInfo *flinfo, Oid collation, Datum arg1, Datum arg2,
+                        Datum arg3)
+{
+    LOCAL_FCINFO(fcinfo, 3);
+    Datum result;
+
+    /* Initialize function call info with 3 arguments and collation */
+    InitFunctionCallInfoData(*fcinfo, flinfo, 3, collation, NULL, NULL);
+
+    /* Set all three arguments as non-null */
+    fcinfo->args[0].value = arg1;
+    fcinfo->args[0].isnull = false;
+    fcinfo->args[1].value = arg2;
+    fcinfo->args[1].isnull = false;
+    fcinfo->args[2].value = arg3;
+    fcinfo->args[2].isnull = false;
+
+    /* Invoke the function and check for unexpected NULL result */
+    result = FunctionCallInvoke(fcinfo);
+
+    if (fcinfo->isnull)
+        elog(ERROR, "function %u returned NULL", flinfo->fn_oid);
+
+    return result;
+}
+```

@@ -38,3 +38,45 @@ RemoveTSConfigurationById performs the low-level deletion of a text search confi
 - Scans pg_ts_config_map using TSConfigMapIndexId for efficient map entry removal
 - Part of the PostgreSQL dependency system's deletion framework
 - Called during CASCADE deletions and explicit DROP CONFIGURATION commands
+
+## Simplified Source
+
+```c
+void
+RemoveTSConfigurationById(Oid cfgId)
+{
+    Relation relCfg, relMap;
+    HeapTuple tup;
+    ScanKeyData skey;
+    SysScanDesc scan;
+
+    // Remove the main configuration entry from pg_ts_config
+    relCfg = table_open(TSConfigRelationId, RowExclusiveLock);
+
+    tup = SearchSysCache1(TSCONFIGOID, ObjectIdGetDatum(cfgId));
+
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for text search dictionary %u", cfgId);
+
+    CatalogTupleDelete(relCfg, &tup->t_self);
+    ReleaseSysCache(tup);
+    table_close(relCfg, RowExclusiveLock);
+
+    // Remove all associated token-dictionary mappings from pg_ts_config_map
+    relMap = table_open(TSConfigMapRelationId, RowExclusiveLock);
+
+    ScanKeyInit(&skey, Anum_pg_ts_config_map_mapcfg, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(cfgId));
+
+    scan = systable_beginscan(relMap, TSConfigMapIndexId, true, NULL, 1, &skey);
+
+    // Delete all mapping entries for this configuration
+    while (HeapTupleIsValid((tup = systable_getnext(scan))))
+    {
+        CatalogTupleDelete(relMap, &tup->t_self);
+    }
+
+    systable_endscan(scan);
+    table_close(relMap, RowExclusiveLock);
+}
+```

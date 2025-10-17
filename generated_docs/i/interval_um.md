@@ -35,3 +35,21 @@ The function follows PostgreSQL's standard function interface pattern, extractin
 - Includes overflow protection when negating interval components
 - Raises ERROR with ERRCODE_DATETIME_VALUE_OUT_OF_RANGE if overflow occurs
 - Part of PostgreSQL's interval arithmetic operations exposed as SQL functions
+
+## Simplified Source
+
+```c
+Datum interval_um(PG_FUNCTION_ARGS) {
+    // Extract input interval argument
+    Interval *interval = PG_GETARG_INTERVAL_P(0);
+
+    // Allocate memory for result
+    Interval *result = (Interval *) palloc(sizeof(Interval));
+
+    // Perform interval negation
+    interval_um_internal(interval, result);
+
+    // Return the negated interval
+    PG_RETURN_INTERVAL_P(result);
+}
+```

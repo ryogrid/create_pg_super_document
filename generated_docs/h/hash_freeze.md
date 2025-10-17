@@ -27,8 +27,24 @@ The hash_freeze function marks a hash table as frozen, preventing any future ins
 
 ## Notes and Other Information
 - Cannot freeze shared hash tables - will throw an ERROR
-- Cannot freeze tables with active sequential scans - will throw an ERROR  
+- Cannot freeze tables with active sequential scans - will throw an ERROR
 - Multiple calls to hash_freeze() on the same table are allowed and safe
 - Once frozen, deletions are still permitted but insertions are prevented
 - This optimization is particularly useful for hash tables that will only be read from after a certain point
 - Part of the PostgreSQL dynamic hash table implementation in dynahash.c
+
+## Simplified Source
+
+```c
+void hash_freeze(HTAB *hashp) {
+    // Safety checks before freezing
+    if (hashp->isshared)
+        elog(ERROR, "cannot freeze shared hashtable \"%s\"", hashp->tabname);
+
+    if (!hashp->frozen && has_seq_scans(hashp))
+        elog(ERROR, "cannot freeze hashtable \"%s\" because it has active scans", hashp->tabname);
+
+    // Mark table as frozen to prevent future insertions
+    hashp->frozen = true;
+}
+```

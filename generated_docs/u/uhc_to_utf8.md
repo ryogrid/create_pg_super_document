@@ -44,3 +44,28 @@ The conversion is performed using PostgreSQL's internal LocalToUtf utility funct
 - Returns the number of bytes successfully converted
 - Supports graceful error handling when noError flag is set to true
 - Works in conjunction with utf8_to_uhc for bidirectional UHC<->UTF-8 conversion
+
+## Simplified Source
+
+```c
+Datum
+uhc_to_utf8(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion from UHC to UTF-8
+    CHECK_ENCODING_CONVERSION_ARGS(PG_UHC, PG_UTF8);
+
+    // Convert UHC to UTF-8 using mapping tree
+    int converted = LocalToUtf(src, len, dest,
+                               &uhc_to_unicode_tree,
+                               NULL, 0, NULL,
+                               PG_UHC, noError);
+
+    return converted;
+}
+```

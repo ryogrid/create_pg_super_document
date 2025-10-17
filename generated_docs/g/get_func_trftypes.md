@@ -43,3 +43,35 @@ The returned array is palloc'd and becomes the caller's responsibility to manage
 - Part of PostgreSQL's type transformation framework for automatic type conversions
 - Used primarily by system utilities that need to display or analyze function type transformations
 - Transformed types are relatively specialized and not used by all functions
+
+## Simplified Source
+
+```c
+int get_func_trftypes(HeapTuple procTup, Oid **p_trftypes) {
+    Datum protrftypes;
+    ArrayType *arr;
+    int nelems;
+    bool isNull;
+
+    // Get protrftypes array from pg_proc tuple
+    protrftypes = SysCacheGetAttr(PROCOID, procTup, Anum_pg_proc_protrftypes, &isNull);
+
+    if (!isNull) {
+        // Ensure array is not toasted and validate structure
+        arr = DatumGetArrayTypeP(protrftypes);
+        nelems = ARR_DIMS(arr)[0];
+
+        // Validate array format: must be 1-D OID array without nulls
+        if (ARR_NDIM(arr) != 1 || nelems < 0 || ARR_HASNULL(arr) || ARR_ELEMTYPE(arr) != OIDOID)
+            elog(ERROR, "protrftypes is not a 1-D Oid array or it contains nulls");
+
+        // Allocate output array and copy OID data
+        *p_trftypes = (Oid *) palloc(nelems * sizeof(Oid));
+        memcpy(*p_trftypes, ARR_DATA_PTR(arr), nelems * sizeof(Oid));
+
+        return nelems;
+    } else {
+        return 0;  // No transformed types
+    }
+}
+```

@@ -41,6 +41,27 @@ This function uses the standard PostgreSQL function call interface:
 - This function is part of the window function infrastructure in PostgreSQL
 - It's registered in the system catalog and called indirectly through the function manager when LAST_VALUE() is used in SQL
 - The function handles NULL values appropriately by checking the  parameter
-- Located in 
+- Located in
 - Uses the frame-based approach rather than partition-based, meaning it respects the ROWS/RANGE frame specification
 - Commonly used with unbounded preceding and current row frame specification to get meaningful results
+
+## Simplified Source
+
+```c
+Datum
+window_last_value(PG_FUNCTION_ARGS)
+{
+    WindowObject winobj = PG_WINDOW_OBJECT();
+    Datum result;
+    bool is_null;
+
+    // Get the value from the last row of the window frame
+    result = WinGetFuncArgInFrame(winobj, 0, 0, WINDOW_SEEK_TAIL,
+                                  true, &is_null, NULL);
+
+    if (is_null)
+        PG_RETURN_NULL();
+
+    PG_RETURN_DATUM(result);
+}
+```

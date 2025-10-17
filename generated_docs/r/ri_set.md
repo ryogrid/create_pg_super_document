@@ -42,3 +42,114 @@ ri_set is the central workhorse function that implements the actual logic for ON
 - For SET DEFAULT operations, performs additional validation via ri_restrict to ensure no constraint violations
 - Uses SPI (Server Programming Interface) to execute dynamically constructed UPDATE statements
 - Located in src/backend/utils/adt/ri_triggers.c:1031-1225
+
+## Simplified Source
+
+```c
+static Datum
+ri_set(TriggerData *trigdata, bool is_set_null, int tgkind)
+{
+    const RI_ConstraintInfo *riinfo;
+    Relation fk_rel;
+    Relation pk_rel;
+    TupleTableSlot *oldslot;
+    RI_QueryKey qkey;
+    SPIPlanPtr qplan;
+    int32 queryno;
+
+    // Get constraint information and open relations
+    riinfo = ri_FetchConstraintInfo(trigdata->tg_trigger, trigdata->tg_relation, true);
+    fk_rel = table_open(riinfo->fk_relid, RowExclusiveLock);
+    pk_rel = trigdata->tg_relation;
+    oldslot = trigdata->tg_trigslot;
+
+    SPI_connect();
+
+    // Determine query plan type based on trigger kind and set/null flag
+    switch (tgkind) {
+        case RI_TRIGTYPE_UPDATE:
+            queryno = is_set_null ? RI_PLAN_SETNULL_ONUPDATE : RI_PLAN_SETDEFAULT_ONUPDATE;
+            break;
+        case RI_TRIGTYPE_DELETE:
+            queryno = is_set_null ? RI_PLAN_SETNULL_ONDELETE : RI_PLAN_SETDEFAULT_ONDELETE;
+            break;
+        default:
+            elog(ERROR, "invalid tgkind passed to ri_set");
+    }
+
+    // Build or fetch cached query plan
+    ri_BuildQueryKey(&qkey, riinfo, queryno);
+    qplan = ri_FetchPreparedPlan(&qkey);
+
+    if (qplan == NULL) {
+        // Build UPDATE query: "UPDATE [ONLY] <fktable> SET fkatt1 = {NULL|DEFAULT} [, ...] WHERE $1 = fkatt1 [AND ...]"
+        StringInfoData querybuf;
+        char fkrelname[MAX_QUOTED_REL_NAME_LEN];
+        Oid queryoids[RI_MAX_NUMKEYS];
+
+        // Determine which columns to update
+        int num_cols_to_set;
+        const int16 *set_cols;
+        if (tgkind == RI_TRIGTYPE_DELETE && riinfo->ndelsetcols != 0) {
+            // Use specific delete columns if configured
+            num_cols_to_set = riinfo->ndelsetcols;
+            set_cols = riinfo->confdelsetcols;
+        } else {
+            // Use all foreign key columns
+            num_cols_to_set = riinfo->nkeys;
+            set_cols = riinfo->fk_attnums;
+        }
+
+        initStringInfo(&querybuf);
+        quoteRelationName(fkrelname, fk_rel);
+
+        // Handle partitioned tables
+        const char *fk_only = fk_rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE ? "" : "ONLY ";
+        appendStringInfo(&querybuf, "UPDATE %s%s SET", fk_only, fkrelname);
+
+        // Build SET clause: fkatt1 = {NULL|DEFAULT} [, ...]
+        const char *querysep = "";
+        for (int i = 0; i < num_cols_to_set; i++) {
+            char attname[MAX_QUOTED_NAME_LEN];
+            quoteOneName(attname, RIAttName(fk_rel, set_cols[i]));
+            appendStringInfo(&querybuf, "%s %s = %s", querysep, attname, is_set_null ? "NULL" : "DEFAULT");
+            querysep = ",";
+        }
+
+        // Build WHERE clause: $1 = fkatt1 [AND ...]
+        const char *qualsep = "WHERE";
+        for (int i = 0; i < riinfo->nkeys; i++) {
+            char attname[MAX_QUOTED_NAME_LEN];
+            char paramname[16];
+
+            quoteOneName(attname, RIAttName(fk_rel, riinfo->fk_attnums[i]));
+            sprintf(paramname, "$%d", i + 1);
+
+            ri_GenerateQual(&querybuf, qualsep, paramname,
+                           RIAttType(pk_rel, riinfo->pk_attnums[i]),
+                           riinfo->pf_eq_oprs[i], attname,
+                           RIAttType(fk_rel, riinfo->fk_attnums[i]));
+
+            qualsep = "AND";
+            queryoids[i] = RIAttType(pk_rel, riinfo->pk_attnums[i]);
+        }
+
+        // Prepare and cache the plan
+        qplan = ri_PlanCheck(querybuf.data, riinfo->nkeys, queryoids, &qkey, fk_rel, pk_rel);
+    }
+
+    // Execute the SET NULL/DEFAULT operation
+    ri_PerformCheck(riinfo, &qkey, qplan, fk_rel, pk_rel, oldslot, NULL, true, SPI_OK_UPDATE);
+
+    SPI_finish();
+    table_close(fk_rel, RowExclusiveLock);
+
+    // For SET DEFAULT, perform additional validation check
+    if (is_set_null) {
+        return PointerGetDatum(NULL);
+    } else {
+        // Additional check needed for SET DEFAULT to ensure no constraint violations
+        return ri_restrict(trigdata, true);
+    }
+}
+```

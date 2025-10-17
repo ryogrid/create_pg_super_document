@@ -53,3 +53,85 @@ A key complexity addressed is that older databases might have TOAST tables that 
 - Different code paths for regular relations vs indexes, with indexes requiring simpler handling
 - Generated SQL calls specialized binary upgrade functions like `binary_upgrade_set_next_heap_pg_class_oid` and `binary_upgrade_set_next_index_pg_class_oid`
 - Critical for maintaining referential integrity and avoiding OID conflicts during major version upgrades
+
+## Simplified Source
+
+```c
+static void binary_upgrade_set_pg_class_oids(Archive *fout,
+                                             PQExpBuffer upgrade_buffer,
+                                             Oid pg_class_oid,
+                                             bool is_index)
+{
+    PQExpBuffer query = createPQExpBuffer();
+    PGresult *res;
+    RelFileNumber relfilenumber, toast_relfilenumber, toast_index_relfilenumber;
+    Oid toast_oid, toast_index_oid;
+    char relkind;
+
+    // Query to get relation info including TOAST table and index details
+    appendPQExpBuffer(query,
+                      "SELECT c.relkind, c.relfilenode, c.reltoastrelid, "
+                      "ct.relfilenode AS toast_relfilenode, i.indexrelid, "
+                      "cti.relfilenode AS toast_index_relfilenode "
+                      "FROM pg_catalog.pg_class c "
+                      "LEFT JOIN pg_catalog.pg_index i ON (c.reltoastrelid = i.indrelid AND i.indisvalid) "
+                      "LEFT JOIN pg_catalog.pg_class ct ON (c.reltoastrelid = ct.oid) "
+                      "LEFT JOIN pg_catalog.pg_class AS cti ON (i.indexrelid = cti.oid) "
+                      "WHERE c.oid = '%u'::pg_catalog.oid;",
+                      pg_class_oid);
+
+    res = ExecuteSqlQueryForSingleRow(fout, query->data);
+
+    // Extract values from query result
+    relkind = *PQgetvalue(res, 0, PQfnumber(res, "relkind"));
+    relfilenumber = atooid(PQgetvalue(res, 0, PQfnumber(res, "relfilenode")));
+    toast_oid = atooid(PQgetvalue(res, 0, PQfnumber(res, "reltoastrelid")));
+    toast_relfilenumber = atooid(PQgetvalue(res, 0, PQfnumber(res, "toast_relfilenode")));
+    toast_index_oid = atooid(PQgetvalue(res, 0, PQfnumber(res, "indexrelid")));
+    toast_index_relfilenumber = atooid(PQgetvalue(res, 0, PQfnumber(res, "toast_index_relfilenode")));
+
+    if (!is_index) {
+        // Handle table/heap relations
+        appendPQExpBuffer(upgrade_buffer,
+                          "SELECT pg_catalog.binary_upgrade_set_next_heap_pg_class_oid('%u'::pg_catalog.oid);\n",
+                          pg_class_oid);
+
+        // Preserve relfilenode if valid and not a partitioned table
+        if (RelFileNumberIsValid(relfilenumber) && relkind != RELKIND_PARTITIONED_TABLE) {
+            appendPQExpBuffer(upgrade_buffer,
+                              "SELECT pg_catalog.binary_upgrade_set_next_heap_relfilenode('%u'::pg_catalog.oid);\n",
+                              relfilenumber);
+        }
+
+        // Handle TOAST table and its index if they exist
+        if (OidIsValid(toast_oid) && relkind != RELKIND_PARTITIONED_TABLE) {
+            // Set TOAST table OID and relfilenode
+            appendPQExpBuffer(upgrade_buffer,
+                              "SELECT pg_catalog.binary_upgrade_set_next_toast_pg_class_oid('%u'::pg_catalog.oid);\n",
+                              toast_oid);
+            appendPQExpBuffer(upgrade_buffer,
+                              "SELECT pg_catalog.binary_upgrade_set_next_toast_relfilenode('%u'::pg_catalog.oid);\n",
+                              toast_relfilenumber);
+
+            // Set TOAST index OID and relfilenode
+            appendPQExpBuffer(upgrade_buffer,
+                              "SELECT pg_catalog.binary_upgrade_set_next_index_pg_class_oid('%u'::pg_catalog.oid);\n",
+                              toast_index_oid);
+            appendPQExpBuffer(upgrade_buffer,
+                              "SELECT pg_catalog.binary_upgrade_set_next_index_relfilenode('%u'::pg_catalog.oid);\n",
+                              toast_index_relfilenumber);
+        }
+    } else {
+        // Handle index relations
+        appendPQExpBuffer(upgrade_buffer,
+                          "SELECT pg_catalog.binary_upgrade_set_next_index_pg_class_oid('%u'::pg_catalog.oid);\n",
+                          pg_class_oid);
+        appendPQExpBuffer(upgrade_buffer,
+                          "SELECT pg_catalog.binary_upgrade_set_next_index_relfilenode('%u'::pg_catalog.oid);\n",
+                          relfilenumber);
+    }
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+}
+```

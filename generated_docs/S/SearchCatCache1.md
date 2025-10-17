@@ -35,3 +35,13 @@ Like its parent function, SearchCatCache1 searches a system catalog cache for a 
 - Internally calls SearchCatCacheInternal with nkeys=1 and remaining parameters as 0
 - The caller must still call ReleaseCatCache() when done with the returned tuple
 - Same constraints as SearchCatCache: returned tuple must not be modified
+
+## Simplified Source
+
+```c
+HeapTuple SearchCatCache1(CatCache *cache, Datum v1)
+{
+    // Optimized single-key catalog cache search
+    return SearchCatCacheInternal(cache, 1, v1, 0, 0, 0);
+}
+```

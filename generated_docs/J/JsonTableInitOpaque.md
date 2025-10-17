@@ -43,3 +43,56 @@ The function bridges the SQL execution infrastructure with the JSON table proces
 - The function handles the recursive initialization of nested plans through JsonTableInitPlan
 - Memory allocation uses the current memory context for the root plan state
 - The function assumes that passing value expressions and passing names lists have matching lengths when both are present
+
+## Simplified Source
+
+```c
+static void
+JsonTableInitOpaque(TableFuncScanState *state, int natts)
+{
+    JsonTableExecContext *cxt;
+    PlanState *ps = &state->ss.ps;
+    TableFuncScan *tfs = castNode(TableFuncScan, ps->plan);
+    TableFunc *tf = tfs->tablefunc;
+    JsonTablePlan *rootplan = (JsonTablePlan *) tf->plan;
+    JsonExpr *je = castNode(JsonExpr, tf->docexpr);
+    List *args = NIL;
+
+    // Create and initialize execution context
+    cxt = palloc0(sizeof(JsonTableExecContext));
+    cxt->magic = JSON_TABLE_EXEC_CONTEXT_MAGIC;
+
+    // Process PASSING arguments if present
+    if (state->passingvalexprs) {
+        ListCell *exprlc, *namelc;
+
+        // Evaluate each PASSING argument and create JsonPathVariable
+        forboth(exprlc, state->passingvalexprs, namelc, je->passing_names) {
+            ExprState *state = lfirst_node(ExprState, exprlc);
+            String *name = lfirst_node(String, namelc);
+            JsonPathVariable *var = palloc(sizeof(*var));
+
+            // Set up variable name and type info
+            var->name = pstrdup(name->sval);
+            var->namelen = strlen(var->name);
+            var->typid = exprType((Node *) state->expr);
+            var->typmod = exprTypmod((Node *) state->expr);
+
+            // Evaluate and store the variable value
+            var->value = ExecEvalExpr(state, ps->ps_ExprContext, &var->isnull);
+
+            args = lappend(args, var);
+        }
+    }
+
+    // Allocate space for column plan states
+    cxt->colplanstates = palloc(sizeof(JsonTablePlanState *) *
+                               list_length(tf->colvalexprs));
+
+    // Initialize root plan and nested child plans recursively
+    cxt->rootplanstate = JsonTableInitPlan(cxt, rootplan, NULL, args,
+                                          CurrentMemoryContext);
+
+    state->opaque = cxt;
+}
+```

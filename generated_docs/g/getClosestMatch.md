@@ -30,3 +30,13 @@ If no suitable candidates were provided via `updateClosestMatch()`, or if none o
 - The returned pointer is to the original candidate string, so the caller must ensure the string remains valid
 - This function is typically used after a series of `updateClosestMatch()` calls to retrieve the final result
 - Used in PostgreSQL error reporting to suggest corrections for misspelled configuration parameters or identifiers
+
+## Simplified Source
+
+```c
+const char *getClosestMatch(ClosestMatchState *state) {
+    // Simple accessor: return the best match found during fuzzy string matching
+    // Returns NULL if no suitable match was found
+    return state->match;
+}
+```

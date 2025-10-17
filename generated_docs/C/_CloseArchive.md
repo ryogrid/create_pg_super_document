@@ -47,3 +47,38 @@ The function also handles proper file closure and optional file synchronization 
 - Handles optional file synchronization based on dosync setting
 - Part of the mandatory function interface that archive formats must implement
 - The function ensures proper cleanup by setting AH->FH to NULL after closing the file
+
+## Simplified Source
+
+```c
+static void
+_CloseArchive(ArchiveHandle *AH)
+{
+    lclContext *ctx = (lclContext *) AH->formatData;
+    pgoff_t toc_position;
+
+    if (AH->mode == archModeWrite) {
+        // Write archive components in order
+        WriteHead(AH);
+
+        // Remember TOC position for optimization
+        toc_position = ftello(AH->FH);
+        WriteToc(AH);
+        WriteDataChunks(AH, NULL);
+
+        // Optimization: rewrite TOC with updated data offsets
+        // This improves pg_restore performance, especially parallel restore
+        if (ctx->hasSeek && fseeko(AH->FH, toc_position, SEEK_SET) == 0) {
+            WriteToc(AH);
+        }
+    }
+
+    // Close file and sync if requested
+    fclose(AH->FH);
+    if (AH->dosync && AH->mode == archModeWrite && AH->fSpec) {
+        fsync_fname(AH->fSpec, false);
+    }
+
+    AH->FH = NULL;
+}
+```

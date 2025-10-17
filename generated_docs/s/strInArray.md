@@ -30,3 +30,19 @@ This is a simple utility function that performs linear search through an array o
 - Linear search algorithm with O(n) time complexity
 - Static function scope limits usage to within the common.c source file
 - Part of pg_dump's internal utility functions for string processing
+
+## Simplified Source
+
+```c
+static int
+strInArray(const char *pattern, char **arr, int arr_size)
+{
+    // Linear search through string array
+    for (int i = 0; i < arr_size; i++) {
+        if (strcmp(pattern, arr[i]) == 0) {
+            return i;  // Return index of first match
+        }
+    }
+    return -1;  // Not found
+}
+```

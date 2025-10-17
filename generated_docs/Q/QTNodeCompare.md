@@ -51,3 +51,61 @@ This deterministic ordering is essential for query normalization, optimization, 
 - For phrase operators, distance is used as an additional comparison criterion
 - Error handling for unrecognized QueryItem types with appropriate logging
 - Essential for query tree normalization and comparison operations in PostgreSQL's full-text search
+
+## Simplified Source
+
+```c
+int
+QTNodeCompare(QTNode *an, QTNode *bn)
+{
+    // Prevent stack overflow during recursion
+    check_stack_depth();
+
+    // Compare node types first (operators < values)
+    if (an->valnode->type != bn->valnode->type)
+        return (an->valnode->type > bn->valnode->type) ? -1 : 1;
+
+    if (an->valnode->type == QI_OPR) {
+        // Compare operator nodes
+        QueryOperator *ao = &an->valnode->qoperator;
+        QueryOperator *bo = &bn->valnode->qoperator;
+
+        // Compare operator types
+        if (ao->oper != bo->oper)
+            return (ao->oper > bo->oper) ? -1 : 1;
+
+        // Compare number of children
+        if (an->nchild != bn->nchild)
+            return (an->nchild > bn->nchild) ? -1 : 1;
+
+        // Recursively compare all children
+        for (int i = 0; i < an->nchild; i++) {
+            int res = QTNodeCompare(an->child[i], bn->child[i]);
+            if (res != 0)
+                return res;
+        }
+
+        // For phrase operators, compare distance
+        if (ao->oper == OP_PHRASE && ao->distance != bo->distance)
+            return (ao->distance > bo->distance) ? -1 : 1;
+
+        return 0;  // All comparisons equal
+    }
+    else if (an->valnode->type == QI_VAL) {
+        // Compare value nodes
+        QueryOperand *ao = &an->valnode->qoperand;
+        QueryOperand *bo = &bn->valnode->qoperand;
+
+        // Compare CRC values first
+        if (ao->valcrc != bo->valcrc)
+            return (ao->valcrc > bo->valcrc) ? -1 : 1;
+
+        // Compare actual string content
+        return tsCompareString(an->word, ao->length, bn->word, bo->length, false);
+    }
+    else {
+        elog(ERROR, "unrecognized QueryItem type: %d", an->valnode->type);
+        return 0;
+    }
+}
+```

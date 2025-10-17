@@ -48,3 +48,37 @@ The rehashing process involves:
 - Maintains separate hash tables for individual entries (cc_bucket) and lists (cc_lbucket)
 - Debug logging helps monitor list cache performance and rehashing frequency
 - Essential for maintaining efficient access to grouped catalog entries
+
+## Simplified Source
+
+```c
+static void RehashCatCacheLists(CatCache *cp)
+{
+    // Log rehashing operation for debugging
+    elog(DEBUG1, "rehashing catalog cache id %d for %s; %d lists, %d buckets",
+         cp->id, cp->cc_relname, cp->cc_nlist, cp->cc_nlbuckets);
+
+    // Allocate new hash table with double the buckets
+    int newnbuckets = cp->cc_nlbuckets * 2;
+    dlist_head *newbucket = (dlist_head *) MemoryContextAllocZero(
+        CacheMemoryContext, newnbuckets * sizeof(dlist_head));
+
+    // Move all cache lists to new hash table
+    for (int i = 0; i < cp->cc_nlbuckets; i++) {
+        dlist_mutable_iter iter;
+        dlist_foreach_modify(iter, &cp->cc_lbucket[i]) {
+            CatCList *cl = dlist_container(CatCList, cache_elem, iter.cur);
+            int hashIndex = HASH_INDEX(cl->hash_value, newnbuckets);
+
+            // Move list to new bucket
+            dlist_delete(iter.cur);
+            dlist_push_head(&newbucket[hashIndex], &cl->cache_elem);
+        }
+    }
+
+    // Replace old hash table with new one
+    pfree(cp->cc_lbucket);
+    cp->cc_nlbuckets = newnbuckets;
+    cp->cc_lbucket = newbucket;
+}
+```

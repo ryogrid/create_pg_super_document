@@ -33,3 +33,38 @@ This function orchestrates the data dumping process for a single database object
 - The actual data dumping is delegated to the te->dataDumper function, which is expected to call AH->WriteData
 - This function provides a standardized framework for data dumping that can be used in both sequential and parallel dump operations
 - The start and end pointer functions are optional (can be NULL) and are used for format-specific initialization and cleanup
+
+## Simplified Source
+
+```c
+void WriteDataChunksForTocEntry(ArchiveHandle *AH, TocEntry *te) {
+    StartDataPtrType startPtr;
+    EndDataPtrType endPtr;
+
+    // Set current TOC entry being processed
+    AH->currToc = te;
+
+    // Choose appropriate start/end functions based on data type
+    if (strcmp(te->desc, "BLOBS") == 0) {
+        startPtr = AH->StartLOsPtr;
+        endPtr = AH->EndLOsPtr;
+    } else {
+        startPtr = AH->StartDataPtr;
+        endPtr = AH->EndDataPtr;
+    }
+
+    // Call pre-dump setup if available
+    if (startPtr != NULL)
+        (*startPtr)(AH, te);
+
+    // Execute the main data dumper routine
+    te->dataDumper((Archive *) AH, te->dataDumperArg);
+
+    // Call post-dump cleanup if available
+    if (endPtr != NULL)
+        (*endPtr)(AH, te);
+
+    // Clear current TOC reference
+    AH->currToc = NULL;
+}
+```

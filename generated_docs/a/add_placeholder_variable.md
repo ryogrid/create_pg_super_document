@@ -56,3 +56,47 @@ Placeholder variables have special characteristics: they're marked with GUC_CUST
 - Placeholder variables can be later replaced by properly defined custom variables when extensions are loaded
 - Memory management includes proper cleanup on allocation failures
 - The function uses specialized GUC memory allocation functions (guc_malloc, guc_strdup, guc_free) for consistent memory management
+
+## Simplified Source
+
+```c
+static struct config_generic *add_placeholder_variable(const char *name, int elevel) {
+    size_t sz = sizeof(struct config_string) + sizeof(char *);
+    struct config_string *var;
+    struct config_generic *gen;
+
+    // Allocate memory for placeholder variable
+    var = (struct config_string *) guc_malloc(elevel, sz);
+    if (var == NULL)
+        return NULL;
+
+    memset(var, 0, sz);
+    gen = &var->gen;
+
+    // Store variable name
+    gen->name = guc_strdup(elevel, name);
+    if (gen->name == NULL) {
+        guc_free(var);
+        return NULL;
+    }
+
+    // Set placeholder configuration
+    gen->context = PGC_USERSET;
+    gen->group = CUSTOM_OPTIONS;
+    gen->short_desc = "GUC placeholder variable";
+    gen->flags = GUC_NO_SHOW_ALL | GUC_NOT_IN_SAMPLE | GUC_CUSTOM_PLACEHOLDER;
+    gen->vartype = PGC_STRING;
+
+    // Set variable pointer at end of struct
+    var->variable = (char **) (var + 1);
+
+    // Add to GUC hash table
+    if (!add_guc_variable((struct config_generic *) var, elevel)) {
+        guc_free(unconstify(char *, gen->name));
+        guc_free(var);
+        return NULL;
+    }
+
+    return gen;
+}
+```

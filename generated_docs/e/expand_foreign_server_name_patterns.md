@@ -51,3 +51,55 @@ Unlike some other pattern expansion functions, this function does not have a str
 - Foreign servers are database-wide objects and are not contained within schemas, which is why qualification is not allowed
 - The function always fails with a fatal error if any pattern produces no matches, making it stricter than some other pattern expansion functions
 - The function builds separate queries for each pattern rather than trying to combine them into a single query
+
+## Simplified Source
+
+```c
+static void
+expand_foreign_server_name_patterns(Archive *fout,
+                                    SimpleStringList *patterns,
+                                    SimpleOidList *oids)
+{
+    PQExpBuffer query;
+    PGresult   *res;
+    SimpleStringListCell *cell;
+
+    if (patterns->head == NULL)
+        return;  /* nothing to do */
+
+    query = createPQExpBuffer();
+
+    // Process each pattern in the list
+    for (cell = patterns->head; cell; cell = cell->next)
+    {
+        int dotcnt;
+
+        // Build SELECT query for pg_foreign_server
+        appendPQExpBufferStr(query, "SELECT oid FROM pg_catalog.pg_foreign_server s\n");
+
+        // Process pattern with SQL wildcards
+        processSQLNamePattern(GetConnection(fout), query, cell->val, false,
+                             false, NULL, "s.srvname", NULL, NULL, NULL, &dotcnt);
+
+        // Foreign servers cannot be qualified - reject dotted names
+        if (dotcnt > 0)
+            pg_fatal("improper qualified name (too many dotted names): %s", cell->val);
+
+        // Execute query and collect results
+        res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+
+        // Always enforce strict matching - no matches is an error
+        if (PQntuples(res) == 0)
+            pg_fatal("no matching foreign servers were found for pattern \"%s\"", cell->val);
+
+        // Add all matching OIDs to the list
+        for (int i = 0; i < PQntuples(res); i++)
+            simple_oid_list_append(oids, atooid(PQgetvalue(res, i, 0)));
+
+        PQclear(res);
+        resetPQExpBuffer(query);
+    }
+
+    destroyPQExpBuffer(query);
+}
+```

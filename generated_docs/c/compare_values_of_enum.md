@@ -42,3 +42,55 @@ The function handles cache management automatically, loading enum data on first 
 - Cache is only refreshed when unknown values are encountered, not proactively
 - Generates errors for corrupt data when enum values cannot be found after cache refresh
 - Part of PostgreSQL's enum type system providing efficient comparison operations
+
+## Simplified Source
+
+```c
+int compare_values_of_enum(TypeCacheEntry *tcache, Oid arg1, Oid arg2) {
+    TypeCacheEnumData *enumdata;
+    EnumItem *item1, *item2;
+
+    // Handle equal OIDs quickly
+    if (arg1 == arg2)
+        return 0;
+
+    // Load enum cache if needed
+    if (tcache->enumData == NULL)
+        load_enum_cache_data(tcache);
+    enumdata = tcache->enumData;
+
+    // Fast path: if both values are known-sorted, compare OIDs directly
+    if (enum_known_sorted(enumdata, arg1) && enum_known_sorted(enumdata, arg2)) {
+        return (arg1 < arg2) ? -1 : 1;
+    }
+
+    // Slow path: lookup actual sort positions
+    item1 = find_enumitem(enumdata, arg1);
+    item2 = find_enumitem(enumdata, arg2);
+
+    if (item1 == NULL || item2 == NULL) {
+        // Enum changed - refresh cache and retry
+        load_enum_cache_data(tcache);
+        enumdata = tcache->enumData;
+
+        item1 = find_enumitem(enumdata, arg1);
+        item2 = find_enumitem(enumdata, arg2);
+
+        // Error if still not found after refresh
+        if (item1 == NULL)
+            elog(ERROR, "enum value %u not found in cache for enum %s",
+                 arg1, format_type_be(tcache->type_id));
+        if (item2 == NULL)
+            elog(ERROR, "enum value %u not found in cache for enum %s",
+                 arg2, format_type_be(tcache->type_id));
+    }
+
+    // Compare by sort order
+    if (item1->sort_order < item2->sort_order)
+        return -1;
+    else if (item1->sort_order > item2->sort_order)
+        return 1;
+    else
+        return 0;
+}
+```

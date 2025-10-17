@@ -40,3 +40,50 @@ The feedback mechanism is crucial for preventing  from killing the connection an
 - Sets apply LSN to InvalidXLogRecPtr since logical replication doesn't track apply position the same way as physical replication
 - Critical for maintaining replication connection health and preventing timeouts
 - Part of the PostgreSQL logical replication feedback protocol
+
+## Simplified Source
+
+```c
+static bool sendFeedback(PGconn *conn, TimestampTz now, bool force, bool replyRequested) {
+    static XLogRecPtr last_written_lsn = InvalidXLogRecPtr;
+    static XLogRecPtr last_fsync_lsn = InvalidXLogRecPtr;
+
+    char replybuf[1 + 8 + 8 + 8 + 8 + 1];
+    int len = 0;
+
+    // Skip redundant feedback unless forced (e.g., due to timeout)
+    if (!force &&
+        last_written_lsn == output_written_lsn &&
+        last_fsync_lsn == output_fsync_lsn) {
+        return true;
+    }
+
+    // Log feedback if verbose mode enabled
+    if (verbose) {
+        pg_log_info("confirming write up to %X/%X, flush to %X/%X (slot %s)",
+                   LSN_FORMAT_ARGS(output_written_lsn),
+                   LSN_FORMAT_ARGS(output_fsync_lsn),
+                   replication_slot);
+    }
+
+    // Build feedback message: type + write_lsn + flush_lsn + apply_lsn + time + reply_flag
+    replybuf[len++] = 'r';                                    // Message type
+    fe_sendint64(output_written_lsn, &replybuf[len]); len += 8;  // Write LSN
+    fe_sendint64(output_fsync_lsn, &replybuf[len]); len += 8;    // Flush LSN
+    fe_sendint64(InvalidXLogRecPtr, &replybuf[len]); len += 8;   // Apply LSN (unused)
+    fe_sendint64(now, &replybuf[len]); len += 8;                 // Send time
+    replybuf[len++] = replyRequested ? 1 : 0;                    // Reply requested flag
+
+    // Update tracking variables
+    last_written_lsn = output_written_lsn;
+    last_fsync_lsn = output_fsync_lsn;
+
+    // Send feedback message
+    if (PQputCopyData(conn, replybuf, len) <= 0 || PQflush(conn)) {
+        pg_log_error("could not send feedback packet: %s", PQerrorMessage(conn));
+        return false;
+    }
+
+    return true;
+}
+```

@@ -36,3 +36,45 @@ This function retrieves the OID of the currently configured text search configur
 - Handles both qualified and unqualified configuration names through stringToQualifiedNameList
 - Part of PostgreSQL's text search functionality for full-text search operations
 - The function is thread-safe as it operates on global state that's properly managed by the GUC system
+
+## Simplified Source
+
+```c
+Oid getTSCurrentConfig(bool emitError)
+{
+    List *namelist;
+
+    // Return cached value if available
+    if (OidIsValid(TSCurrentConfigCache))
+        return TSCurrentConfigCache;
+
+    // Check if GUC is configured
+    if (TSCurrentConfig == NULL || *TSCurrentConfig == '\0') {
+        if (emitError)
+            elog(ERROR, "text search configuration isn't set");
+        else
+            return InvalidOid;
+    }
+
+    // Initialize cache if needed
+    if (TSConfigCacheHash == NULL)
+        init_ts_config_cache();
+
+    // Parse configuration name and resolve to OID
+    if (emitError) {
+        namelist = stringToQualifiedNameList(TSCurrentConfig, NULL);
+        TSCurrentConfigCache = get_ts_config_oid(namelist, false);
+    } else {
+        // Use error context to suppress errors
+        ErrorSaveContext escontext = {T_ErrorSaveContext};
+        namelist = stringToQualifiedNameList(TSCurrentConfig, (Node *) &escontext);
+
+        if (namelist != NIL)
+            TSCurrentConfigCache = get_ts_config_oid(namelist, true);
+        else
+            TSCurrentConfigCache = InvalidOid;  // bad name syntax
+    }
+
+    return TSCurrentConfigCache;
+}
+```

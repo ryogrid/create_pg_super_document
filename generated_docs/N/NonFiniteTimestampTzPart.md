@@ -45,3 +45,39 @@ The function ensures error handling consistency with finite timestamp extraction
 - Returns appropriate signed infinity for monotonically-increasing units
 - Essential for maintaining mathematical consistency in PostgreSQL's infinite timestamp support
 - Error messages match those from finite timestamp extraction to ensure uniform user experience
+
+## Simplified Source
+
+```c
+static float8 NonFiniteTimestampTzPart(int type, int unit, char *lowunits,
+                                      bool isNegative, bool isTz) {
+    // Validate unit type
+    if ((type != UNITS) && (type != RESERV)) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                errmsg("unit \"%s\" not recognized for type %s", lowunits,
+                       format_type_be(isTz ? TIMESTAMPTZOID : TIMESTAMPOID))));
+    }
+
+    switch (unit) {
+        // Oscillating units - return 0.0 (interpreted as NULL)
+        case DTK_MICROSEC: case DTK_MILLISEC: case DTK_SECOND:
+        case DTK_MINUTE: case DTK_HOUR: case DTK_DAY:
+        case DTK_MONTH: case DTK_QUARTER: case DTK_WEEK:
+        case DTK_DOW: case DTK_ISODOW: case DTK_DOY:
+        case DTK_TZ: case DTK_TZ_MINUTE: case DTK_TZ_HOUR:
+            return 0.0;
+
+        // Monotonically-increasing units - return signed infinity
+        case DTK_YEAR: case DTK_DECADE: case DTK_CENTURY:
+        case DTK_MILLENNIUM: case DTK_JULIAN: case DTK_ISOYEAR:
+        case DTK_EPOCH:
+            return isNegative ? -get_float8_infinity() : get_float8_infinity();
+
+        default:
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                    errmsg("unit \"%s\" not supported for type %s", lowunits,
+                           format_type_be(isTz ? TIMESTAMPTZOID : TIMESTAMPOID))));
+            return 0.0;
+    }
+}
+```

@@ -56,3 +56,76 @@ This function takes no parameters but operates on several global variables and c
 - Integrates with PostgreSQL's WAL compression mechanisms
 - Critical error conditions cause the program to exit rather than return, ensuring data integrity
 - The function creates and manages the entire streaming context through the StreamCtl structure
+
+## Simplified Source
+
+```c
+static void StreamLog(void) {
+    XLogRecPtr serverpos;
+    TimeLineID servertli;
+    StreamCtl stream = {0};
+    char *sysidentifier;
+
+    // Establish replication connection
+    if (conn == NULL) {
+        conn = GetConnection();
+    }
+    if (!conn) {
+        return;
+    }
+
+    // Verify server version compatibility
+    if (!CheckServerVersionForStreaming(conn)) {
+        exit(1);
+    }
+
+    // Get server identification and current position
+    if (!RunIdentifySystem(conn, &sysidentifier, &servertli, &serverpos, NULL)) {
+        exit(1);
+    }
+
+    // Determine streaming start position with fallback strategy
+    stream.startpos = FindStreamingStart(&stream.timeline);
+
+    if (stream.startpos == InvalidXLogRecPtr) {
+        // Try replication slot if available (PostgreSQL 15+)
+        if (replication_slot != NULL && PQserverVersion(conn) >= 150000) {
+            GetSlotInformation(conn, replication_slot, &stream.startpos, &stream.timeline);
+        }
+
+        // Fall back to current server position
+        if (stream.startpos == InvalidXLogRecPtr) {
+            stream.startpos = serverpos;
+            stream.timeline = servertli;
+        }
+    }
+
+    // Align to segment boundary
+    stream.startpos -= XLogSegmentOffset(stream.startpos, WalSegSz);
+
+    // Configure streaming parameters
+    if (verbose) {
+        pg_log_info("starting log streaming at %X/%X (timeline %u)",
+                   LSN_FORMAT_ARGS(stream.startpos), stream.timeline);
+    }
+
+    stream.stream_stop = stop_streaming;
+    stream.standby_message_timeout = standby_message_timeout;
+    stream.synchronous = synchronous;
+    stream.do_sync = do_sync;
+    stream.walmethod = CreateWalDirectoryMethod(basedir, compression_algorithm,
+                                               compresslevel, stream.do_sync);
+    stream.partial_suffix = ".partial";
+    stream.replication_slot = replication_slot;
+    stream.sysidentifier = sysidentifier;
+
+    // Begin WAL streaming
+    ReceiveXlogStream(conn, &stream);
+
+    // Cleanup
+    stream.walmethod->ops->finish(stream.walmethod);
+    PQfinish(conn);
+    conn = NULL;
+    stream.walmethod->ops->free(stream.walmethod);
+}
+```

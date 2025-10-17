@@ -50,3 +50,26 @@ The function handles the complete lifecycle of the operation including:
 - The function is part of PostgreSQL's system function catalog and can be called directly from SQL queries
 - Error handling is delegated to the underlying functions, particularly `currtid_internal` which performs access control checks
 - The return type is ItemPointer (TID), which represents the latest version of the requested tuple
+
+## Simplified Source
+
+```c
+Datum
+currtid_byrelname(PG_FUNCTION_ARGS)
+{
+    // Extract arguments: relation name and TID
+    text *relname = PG_GETARG_TEXT_PP(0);
+    ItemPointer tid = PG_GETARG_ITEMPOINTER(1);
+
+    // Parse relation name and open the relation
+    RangeVar *relrv = makeRangeVarFromNameList(textToQualifiedNameList(relname));
+    Relation rel = table_openrv(relrv, AccessShareLock);
+
+    // Get the latest tuple version for this TID
+    ItemPointer result = currtid_internal(rel, tid);
+
+    // Clean up and return result
+    table_close(rel, AccessShareLock);
+    PG_RETURN_ITEMPOINTER(result);
+}
+```

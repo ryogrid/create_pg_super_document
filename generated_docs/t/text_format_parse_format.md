@@ -46,7 +46,7 @@ Key parsing behaviors:
   -  - [Variable](../V/Variable.md)-length string datum extraction
 
 ## Notes and Other Information
-- Located in 
+- Located in
 - Static function, only accessible within the same compilation unit
 - Returns pointer to the type character position (not consumed by this function)
 - Implements comprehensive validation of format specifier syntax
@@ -56,3 +56,64 @@ Key parsing behaviors:
 - Maintains parsing invariant that at least one character remains available at function exit
 - Part of the infrastructure supporting PostgreSQL's type-safe FORMAT() SQL function
 - Error messages provide specific guidance about format specifier syntax requirements
+
+## Simplified Source
+
+```c
+static const char *text_format_parse_format(const char *start_ptr, const char *end_ptr,
+                                           int *argpos, int *widthpos,
+                                           int *flags, int *width) {
+    const char *cp = start_ptr;
+    int n;
+
+    // Initialize output parameters
+    *argpos = -1;    // No specific argument position
+    *widthpos = -1;  // No width argument
+    *flags = 0;      // No formatting flags
+    *width = 0;      // No direct width
+
+    // Try to parse first number (could be argpos or width)
+    if (text_format_parse_digits(&cp, end_ptr, &n)) {
+        if (*cp != '$') {
+            // Number without '$' is direct width specification
+            *width = n;
+            return cp;
+        }
+        // Number followed by '$' is argument position
+        *argpos = n;
+        if (n == 0)
+            ereport(ERROR, "argument positions start from 1, not 0");
+        ADVANCE_PARSE_POINTER(cp, end_ptr);
+    }
+
+    // Parse flags (currently only '-' for left-align)
+    while (*cp == '-') {
+        *flags |= TEXT_FORMAT_FLAG_MINUS;
+        ADVANCE_PARSE_POINTER(cp, end_ptr);
+    }
+
+    // Parse width specification
+    if (*cp == '*') {
+        // Indirect width: get width value from an argument
+        ADVANCE_PARSE_POINTER(cp, end_ptr);
+        if (text_format_parse_digits(&cp, end_ptr, &n)) {
+            // Positional width argument: *n$
+            if (*cp != '$')
+                ereport(ERROR, "width argument position must end with $");
+            *widthpos = n;
+            if (n == 0)
+                ereport(ERROR, "argument positions start from 1, not 0");
+            ADVANCE_PARSE_POINTER(cp, end_ptr);
+        } else {
+            // Non-positional width: just *
+            *widthpos = 0;  // Use next argument for width
+        }
+    } else {
+        // Direct width specification
+        if (text_format_parse_digits(&cp, end_ptr, &n))
+            *width = n;
+    }
+
+    return cp;  // Points to type specifier character
+}
+```

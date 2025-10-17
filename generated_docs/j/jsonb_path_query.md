@@ -33,3 +33,12 @@ The function serves as the entry point for the `jsonb_path_query` SQL function a
 - Timezone handling is disabled (false parameter) unlike timezone-aware variants
 - Each matching value is returned as a separate row in the result set
 - Located in `src/backend/utils/adt/jsonpath_exec.c:574-579`
+
+## Simplified Source
+
+```c
+Datum jsonb_path_query(PG_FUNCTION_ARGS) {
+    // Simple wrapper - delegates to internal function without timezone handling
+    return jsonb_path_query_internal(fcinfo, false);
+}
+```

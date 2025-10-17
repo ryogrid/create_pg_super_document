@@ -38,3 +38,48 @@ This function implements the core functionality for adding files to TAR archives
 - Updates the TAR file position counter to track archive size
 - Part of the TAR archive creation functionality in pg_dump
 - Located in src/bin/pg_dump/pg_backup_tar.c:1014-1065
+
+## Simplified Source
+
+```c
+static void _tarAddFile(ArchiveHandle *AH, TAR_MEMBER *th) {
+    lclContext *ctx = (lclContext *) AH->formatData;
+    FILE *tmp_file = th->tmpFH;
+    char buffer[32768];
+    size_t bytes_read, bytes_written;
+    pgoff_t total_bytes = 0;
+
+    // Determine file length by seeking to end
+    fseeko(tmp_file, 0, SEEK_END);
+    th->fileLen = ftello(tmp_file);
+    fseeko(tmp_file, 0, SEEK_SET);  // Reset to beginning
+
+    // Write TAR header first
+    _tarWriteHeader(th);
+
+    // Copy file content in chunks
+    while ((bytes_read = fread(buffer, 1, sizeof(buffer), tmp_file)) > 0) {
+        bytes_written = fwrite(buffer, 1, bytes_read, th->tarFH);
+        if (bytes_written != bytes_read)
+            WRITE_ERROR_EXIT;
+        total_bytes += bytes_written;
+    }
+
+    // Close and delete temporary file
+    fclose(tmp_file);
+
+    // Verify file length matches expectation
+    if (total_bytes != th->fileLen)
+        pg_fatal("file length mismatch: %lld vs %lld",
+                 (long long) total_bytes, (long long) th->fileLen);
+
+    // Add null padding to reach TAR block boundary (512 bytes)
+    size_t padding = tarPaddingBytesRequired(total_bytes);
+    for (size_t i = 0; i < padding; i++) {
+        fputc('\0', th->tarFH);
+    }
+
+    // Update TAR position counter
+    ctx->tarFHpos += total_bytes + padding;
+}
+```

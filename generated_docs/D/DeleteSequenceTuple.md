@@ -38,3 +38,29 @@ The function operates on the SequenceRelationId catalog (pg_sequence) and uses t
 - Errors out if the sequence tuple is not found in the catalog, indicating a consistency problem
 - Acquires RowExclusiveLock on the pg_sequence catalog during the deletion operation
 - Essential for maintaining catalog consistency during sequence cleanup operations
+
+## Simplified Source
+
+```c
+void
+DeleteSequenceTuple(Oid relid)
+{
+    Relation rel;
+    HeapTuple tuple;
+
+    // Open the pg_sequence catalog with exclusive lock
+    rel = table_open(SequenceRelationId, RowExclusiveLock);
+
+    // Find the sequence tuple by relation OID
+    tuple = SearchSysCache1(SEQRELID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for sequence %u", relid);
+
+    // Delete the sequence metadata tuple
+    CatalogTupleDelete(rel, &tuple->t_self);
+
+    // Cleanup
+    ReleaseSysCache(tuple);
+    table_close(rel, RowExclusiveLock);
+}
+```

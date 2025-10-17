@@ -45,3 +45,45 @@ The `tsquery_phrase_distance` function is a PostgreSQL built-in function that pe
 - Memory management is carefully handled with proper cleanup of intermediate structures
 - Used as the underlying implementation for other phrase search functions
 - The resulting query enforces both term presence and proximity constraints
+
+## Simplified Source
+
+```c
+Datum tsquery_phrase_distance(PG_FUNCTION_ARGS)
+{
+    TSQuery a = PG_GETARG_TSQUERY_COPY(0);
+    TSQuery b = PG_GETARG_TSQUERY_COPY(1);
+    int32 distance = PG_GETARG_INT32(2);
+    QTNode *result_node;
+    TSQuery query;
+
+    // Validate distance parameter
+    if (distance < 0 || distance > MAXENTRYPOS)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("distance in phrase operator must be an integer value between zero and %d inclusive",
+                        MAXENTRYPOS)));
+
+    // Optimization: empty query with phrase = the other query
+    if (a->size == 0) {
+        PG_FREE_IF_COPY(a, 1);
+        PG_RETURN_POINTER(b);
+    } else if (b->size == 0) {
+        PG_FREE_IF_COPY(b, 1);
+        PG_RETURN_POINTER(a);
+    }
+
+    // Combine queries with phrase operator and distance
+    result_node = join_tsqueries(a, b, OP_PHRASE, (uint16) distance);
+
+    // Convert back to TSQuery format
+    query = QTN2QT(result_node);
+
+    // Cleanup memory
+    QTNFree(result_node);
+    PG_FREE_IF_COPY(a, 0);
+    PG_FREE_IF_COPY(b, 1);
+
+    PG_RETURN_TSQUERY(query);
+}
+```

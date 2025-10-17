@@ -35,3 +35,35 @@ This internal function is responsible for accumulating text fields during string
 
 ## Notes and Other Information
 This function is part of PostgreSQL's string manipulation infrastructure, specifically used by the split_text function family. The dual-mode operation (tuple store vs array accumulator) allows the same splitting logic to support both table-valued functions and array-returning functions. The null string comparison uses proper collation rules to ensure consistent behavior across different locale settings. The function is marked as static, indicating it's an internal implementation detail not exposed to external callers.
+
+## Simplified Source
+
+```c
+static void split_text_accum_result(SplitTextOutputData *tstate,
+                                   text *field_value,
+                                   text *null_string,
+                                   Oid collation) {
+    // Check if this field should be treated as NULL
+    bool is_null = false;
+    if (null_string && text_isequal(field_value, null_string, collation))
+        is_null = true;
+
+    if (tstate->tupstore) {
+        // Table output mode - store in tuple store
+        Datum values[1];
+        bool nulls[1];
+
+        values[0] = PointerGetDatum(field_value);
+        nulls[0] = is_null;
+
+        tuplestore_putvalues(tstate->tupstore, tstate->tupdesc, values, nulls);
+    } else {
+        // Array output mode - accumulate in array state
+        tstate->astate = accumArrayResult(tstate->astate,
+                                         PointerGetDatum(field_value),
+                                         is_null,
+                                         TEXTOID,
+                                         CurrentMemoryContext);
+    }
+}
+```

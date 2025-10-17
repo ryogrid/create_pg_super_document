@@ -34,3 +34,39 @@ This function is essential for preventing runtime errors and ensuring reliable s
 - Uses PQparameterStatus to get human-readable server version string for error messages
 - Critical safety check that prevents incompatible streaming attempts
 - Returns boolean value indicating compatibility status for calling functions to handle appropriately
+
+## Simplified Source
+
+```c
+bool
+CheckServerVersionForStreaming(PGconn *conn)
+{
+    int minServerMajor, maxServerMajor;
+    int serverMajor;
+
+    // Define version constraints for streaming compatibility
+    minServerMajor = 903;  // 9.3 minimum (streaming format changed)
+    maxServerMajor = PG_VERSION_NUM / 100;  // Client version maximum
+    serverMajor = PQserverVersion(conn) / 100;
+
+    // Check if server is too old
+    if (serverMajor < minServerMajor) {
+        const char *serverver = PQparameterStatus(conn, "server_version");
+        pg_log_error("incompatible server version %s; client does not support "
+                    "streaming from server versions older than %s",
+                    serverver ? serverver : "'unknown'", "9.3");
+        return false;
+    }
+
+    // Check if server is too new
+    if (serverMajor > maxServerMajor) {
+        const char *serverver = PQparameterStatus(conn, "server_version");
+        pg_log_error("incompatible server version %s; client does not support "
+                    "streaming from server versions newer than %s",
+                    serverver ? serverver : "'unknown'", PG_VERSION);
+        return false;
+    }
+
+    return true;
+}
+```

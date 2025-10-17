@@ -35,5 +35,20 @@ The function extracts a StringInfo buffer from the function arguments, reads a 6
 - This function is essential for PostgreSQL's binary protocol support, enabling efficient transmission of XID8 values
 - Complements the  function to provide complete binary serialization/deserialization support
 - Uses PostgreSQL's message buffer infrastructure for safe binary data handling
-- The function assumes the buffer contains properly formatted binary data as written by 
+- The function assumes the buffer contains properly formatted binary data as written by xid8send
 - Located in src/backend/utils/adt/xid.c alongside other transaction ID utility functions
+
+## Simplified Source
+
+```c
+Datum xid8recv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    uint64 transaction_value;
+
+    // Read 64-bit value from binary buffer
+    transaction_value = (uint64) pq_getmsgint64(buf);
+
+    // Convert to FullTransactionId and return
+    PG_RETURN_FULLTRANSACTIONID(FullTransactionIdFromU64(transaction_value));
+}
+```

@@ -43,3 +43,40 @@ The algorithm works by:
 - The first week of the year is the one containing the first Thursday
 - [Edge](../E/Edge.md) case handling ensures correct week numbers for dates at year boundaries
 - Used internally by various timestamp and date extraction functions in PostgreSQL
+
+## Simplified Source
+
+```c
+int date2isoweek(int year, int mon, int mday) {
+    // Convert input date to Julian day number
+    int dayn = date2j(year, mon, mday);
+
+    // Find the fourth day (Thursday) of current year
+    int day4 = date2j(year, 1, 4);
+
+    // Get Monday offset for the week containing Thursday
+    int day0 = j2day(day4 - 1);
+
+    // Check if date falls into previous year's weeks
+    if (dayn < day4 - day0) {
+        // Use previous year's January 4th as reference
+        day4 = date2j(year - 1, 1, 4);
+        day0 = j2day(day4 - 1);
+    }
+
+    // Calculate week number from first Monday
+    float8 result = (dayn - (day4 - day0)) / 7 + 1;
+
+    // Handle dates that might fall into next year's first week
+    if (result >= 52) {
+        day4 = date2j(year + 1, 1, 4);
+        day0 = j2day(day4 - 1);
+
+        if (dayn >= day4 - day0) {
+            result = (dayn - (day4 - day0)) / 7 + 1;
+        }
+    }
+
+    return (int) result;
+}
+```

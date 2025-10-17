@@ -40,3 +40,41 @@ This function manages the output of all data content during a dump operation by 
 - Part of the final phase of archive creation in pg_dump operations
 - Coordinates between leader and worker processes in parallel dump scenarios
 - Waits for all workers to complete before returning in parallel mode
+
+## Simplified Source
+
+```c
+void WriteDataChunks(ArchiveHandle *AH, ParallelState *pstate) {
+    TocEntry *te;
+
+    if (pstate && pstate->numWorkers > 1) {
+        // Parallel mode: collect eligible entries and sort by size
+        TocEntry **tes = pg_malloc(AH->tocCount * sizeof(TocEntry *));
+        int ntes = 0;
+
+        // Collect entries with data dumpers and REQ_DATA flag
+        for (te = AH->toc->next; te != AH->toc; te = te->next) {
+            if (te->dataDumper && (te->reqs & REQ_DATA))
+                tes[ntes++] = te;
+        }
+
+        // Sort by size (largest first) for optimal parallelism
+        if (ntes > 1)
+            qsort(tes, ntes, sizeof(TocEntry *), TocEntrySizeCompareQsort);
+
+        // Dispatch jobs to workers
+        for (int i = 0; i < ntes; i++)
+            DispatchJobForTocEntry(AH, pstate, tes[i], ACT_DUMP,
+                                   mark_dump_job_done, NULL);
+
+        pg_free(tes);
+        WaitForWorkers(AH, pstate, WFW_ALL_IDLE);
+    } else {
+        // Sequential mode: process entries directly
+        for (te = AH->toc->next; te != AH->toc; te = te->next) {
+            if (te->dataDumper && (te->reqs & REQ_DATA))
+                WriteDataChunksForTocEntry(AH, te);
+        }
+    }
+}
+```

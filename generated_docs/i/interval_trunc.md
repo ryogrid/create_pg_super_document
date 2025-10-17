@@ -45,3 +45,88 @@ This function truncates an interval to the specified time unit precision. It con
 - Includes comprehensive error handling for unsupported or unrecognized units
 - The function carefully handles C division behavior for negative remainders when truncating larger units
 - Located in src/backend/utils/adt/timestamp.c:5017-5115
+
+## Simplified Source
+
+```c
+Datum interval_trunc(PG_FUNCTION_ARGS) {
+    text *units = PG_GETARG_TEXT_PP(0);
+    Interval *interval = PG_GETARG_INTERVAL_P(1);
+    Interval *result = (Interval *) palloc(sizeof(Interval));
+    int type, val;
+    char *lowunits;
+    struct pg_itm tm;
+
+    // Return infinite intervals as-is
+    if (INTERVAL_NOT_FINITE(interval)) {
+        memcpy(result, interval, sizeof(Interval));
+        PG_RETURN_INTERVAL_P(result);
+    }
+
+    // Parse unit string (case-insensitive)
+    lowunits = downcase_truncate_identifier(VARDATA_ANY(units),
+                                           VARSIZE_ANY_EXHDR(units), false);
+    type = DecodeUnits(0, lowunits, &val);
+
+    if (type == UNITS) {
+        // Convert interval to internal time structure
+        interval2itm(*interval, &tm);
+
+        // Truncate based on specified unit (cascading fall-through)
+        switch (val) {
+            case DTK_MILLENNIUM:
+                // Note: C division may have negative remainder
+                tm.tm_year = (tm.tm_year / 1000) * 1000;
+                /* FALL THRU */
+            case DTK_CENTURY:
+                tm.tm_year = (tm.tm_year / 100) * 100;
+                /* FALL THRU */
+            case DTK_DECADE:
+                tm.tm_year = (tm.tm_year / 10) * 10;
+                /* FALL THRU */
+            case DTK_YEAR:
+                tm.tm_mon = 0;
+                /* FALL THRU */
+            case DTK_QUARTER:
+                tm.tm_mon = 3 * (tm.tm_mon / 3);
+                /* FALL THRU */
+            case DTK_MONTH:
+                tm.tm_mday = 0;
+                /* FALL THRU */
+            case DTK_DAY:
+                tm.tm_hour = 0;
+                /* FALL THRU */
+            case DTK_HOUR:
+                tm.tm_min = 0;
+                /* FALL THRU */
+            case DTK_MINUTE:
+                tm.tm_sec = 0;
+                /* FALL THRU */
+            case DTK_SECOND:
+                tm.tm_usec = 0;
+                break;
+            case DTK_MILLISEC:
+                tm.tm_usec = (tm.tm_usec / 1000) * 1000;
+                break;
+            case DTK_MICROSEC:
+                break;
+            default:
+                ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                               errmsg("unit \"%s\" not supported for type %s",
+                                      lowunits, format_type_be(INTERVALOID)),
+                               (val == DTK_WEEK) ? errdetail("Months usually have fractional weeks.") : 0));
+        }
+
+        // Convert back to interval
+        if (itm2interval(&tm, result) != 0)
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                           errmsg("interval out of range")));
+    } else {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("unit \"%s\" not recognized for type %s",
+                              lowunits, format_type_be(INTERVALOID))));
+    }
+
+    PG_RETURN_INTERVAL_P(result);
+}
+```

@@ -38,3 +38,38 @@ The function is critical for maintaining continuous replication across timeline 
 - Combines parsed high and low 32-bit values into a 64-bit XLogRecPtr
 - Essential for handling PostgreSQL timeline transitions during streaming replication
 - Static function used internally within receivelog.c for streaming operations
+
+## Simplified Source
+
+```c
+static bool
+ReadEndOfStreamingResult(PGresult *res, XLogRecPtr *startpos, uint32 *timeline)
+{
+    uint32 startpos_xlogid, startpos_xrecoff;
+
+    // Validate result set structure: should have 1 row, 2 columns
+    // Format: next_tli | next_tli_startpos
+    //         4        | 0/9949AE0
+    if (PQnfields(res) < 2 || PQntuples(res) != 1) {
+        pg_log_error("unexpected result set after end-of-timeline: "
+                    "got %d rows and %d fields, expected %d rows and %d fields",
+                    PQntuples(res), PQnfields(res), 1, 2);
+        return false;
+    }
+
+    // Parse next timeline ID (first column)
+    *timeline = atoi(PQgetvalue(res, 0, 0));
+
+    // Parse starting WAL position (second column, format X/X)
+    if (sscanf(PQgetvalue(res, 0, 1), "%X/%X", &startpos_xlogid, &startpos_xrecoff) != 2) {
+        pg_log_error("could not parse next timeline's starting point \"%s\"",
+                    PQgetvalue(res, 0, 1));
+        return false;
+    }
+
+    // Combine high and low 32-bit values into 64-bit XLogRecPtr
+    *startpos = ((uint64) startpos_xlogid << 32) | startpos_xrecoff;
+
+    return true;
+}
+```

@@ -39,3 +39,28 @@ The function is designed specifically for pg_ctl's needs to verify postmaster st
 - EPERM errors are specifically handled to avoid false positives when checking PIDs belonging to other users
 - This is a core utility function for pg_ctl's process management capabilities
 - The function uses signal 0 with kill(), which is a standard Unix technique to test process existence without affecting the target process
+
+## Simplified Source
+
+```c
+static bool
+postmaster_is_alive(pid_t pid)
+{
+    // Safety checks - don't consider our own PID or parent PID as postmaster
+    if (pid == getpid())
+        return false;
+
+#ifndef WIN32
+    if (pid == getppid())
+        return false;
+#endif
+
+    // Test if process exists using kill with signal 0
+    // Returns true if process exists and we have permission to signal it
+    // EPERM means PID belongs to different user (not our postmaster)
+    if (kill(pid, 0) == 0)
+        return true;
+
+    return false;
+}
+```

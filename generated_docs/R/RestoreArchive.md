@@ -71,3 +71,207 @@ The function handles various restore options including single transactions, tran
 - Critical for both standalone pg_restore operations and integrated dump-restore workflows
 - Supports various output formats and compression algorithms
 - Handles special cases for large objects, database properties, and constraint objects
+
+## Simplified Source
+
+```c
+void
+RestoreArchive(Archive *AHX)
+{
+    ArchiveHandle *AH = (ArchiveHandle *) AHX;
+    RestoreOptions *ropt = AH->public.ropt;
+    bool parallel_mode;
+    TocEntry *te;
+
+    AH->stage = STAGE_INITIALIZING;
+
+    // Check if parallel restore is requested and supported
+    parallel_mode = (AH->public.numWorkers > 1 && ropt->useDB);
+    if (parallel_mode)
+    {
+        // Validate parallel restore compatibility
+        if (AH->ClonePtr == NULL || AH->ReopenPtr == NULL)
+            pg_fatal("parallel restore is not supported with this archive file format");
+        if (AH->version < K_VERS_1_8)
+            pg_fatal("parallel restore is not supported with archives made by pre-8.0 pg_dump");
+
+        // Test that we can reopen the input file
+        AH->ReopenPtr(AH);
+    }
+
+    // Check compression support for data entries
+    if (AH->PrintTocDataPtr != NULL)
+    {
+        for (te = AH->toc->next; te != AH->toc; te = te->next)
+        {
+            if (te->hadDumper && (te->reqs & REQ_DATA) != 0)
+            {
+                char *errmsg = supports_compression(AH->compression_spec);
+                if (errmsg)
+                    pg_fatal("cannot restore from compressed archive (%s)", errmsg);
+                break;
+            }
+        }
+    }
+
+    // Prepare TOC entry arrays if not already done
+    if (AH->tocsByDumpId == NULL)
+        buildTocEntryArrays(AH);
+
+    // Connect to database if needed
+    if (ropt->useDB)
+    {
+        pg_log_info("connecting to database for restore");
+        ConnectDatabase(AHX, &ropt->cparams, false);
+        AH->noTocComments = 1;  // Don't send comments to DB
+    }
+
+    // Check if this is an implied data-only restore
+    if (!ropt->dataOnly)
+    {
+        int impliedDataOnly = 1;
+        for (te = AH->toc->next; te != AH->toc; te = te->next)
+        {
+            if ((te->reqs & REQ_SCHEMA) != 0)
+            {
+                impliedDataOnly = 0;
+                break;
+            }
+        }
+        if (impliedDataOnly)
+        {
+            ropt->dataOnly = impliedDataOnly;
+            pg_log_info("implied data-only restore");
+        }
+    }
+
+    // Setup output file and write header
+    CompressFileHandle *sav = SaveOutput(AH);
+    if (ropt->filename || ropt->compression_spec.algorithm != PG_COMPRESSION_NONE)
+        SetOutput(AH, ropt->filename, ropt->compression_spec);
+
+    ahprintf(AH, "--\n-- PostgreSQL database dump\n--\n\n");
+
+    // Start transaction if requested
+    if (ropt->single_txn)
+    {
+        if (AH->connection)
+            StartTransaction(AHX);
+        else
+            ahprintf(AH, "BEGIN;\n\n");
+    }
+
+    _doSetFixedOutputState(AH);
+    AH->stage = STAGE_PROCESSING;
+
+    // Drop phase: remove existing objects if requested
+    if (ropt->dropSchema)
+    {
+        for (te = AH->toc->prev; te != AH->toc; te = te->prev)
+        {
+            if (((te->reqs & (REQ_SCHEMA | REQ_DATA)) != 0) && te->dropStmt)
+            {
+                pg_log_info("dropping %s %s", te->desc, te->tag);
+                _becomeOwner(AH, te);
+                _selectOutputSchema(AH, te->namespace);
+
+                // Emit DROP command with IF EXISTS if requested
+                if (*te->dropStmt != '\0')
+                    ahprintf(AH, "%s", te->dropStmt);  // Simplified drop handling
+            }
+        }
+
+        // Reset schema tracking after drops
+        free(AH->currSchema);
+        AH->currSchema = NULL;
+    }
+
+    // Main restore phase
+    if (parallel_mode)
+    {
+        // Parallel restore using worker processes
+        ParallelState *pstate;
+        TocEntry pending_list;
+
+        if (AH->PrepParallelRestorePtr)
+            AH->PrepParallelRestorePtr(AH);
+
+        pending_list_header_init(&pending_list);
+        restore_toc_entries_prefork(AH, &pending_list);
+
+        pstate = ParallelBackupStart(AH);
+        restore_toc_entries_parallel(AH, pstate, &pending_list);
+        ParallelBackupEnd(AH, pstate);
+
+        restore_toc_entries_postfork(AH, &pending_list);
+    }
+    else
+    {
+        // Serial restore with three passes: main, ACL, post-ACL
+        bool haveACL = false;
+        bool havePostACL = false;
+
+        // First pass: main objects
+        for (te = AH->toc->next; te != AH->toc; te = te->next)
+        {
+            if ((te->reqs & (REQ_SCHEMA | REQ_DATA)) == 0)
+                continue;
+
+            switch (_tocEntryRestorePass(te))
+            {
+                case RESTORE_PASS_MAIN:
+                    restore_toc_entry(AH, te, false);
+                    break;
+                case RESTORE_PASS_ACL:
+                    haveACL = true;
+                    break;
+                case RESTORE_PASS_POST_ACL:
+                    havePostACL = true;
+                    break;
+            }
+        }
+
+        // Second pass: ACL objects
+        if (haveACL)
+        {
+            for (te = AH->toc->next; te != AH->toc; te = te->next)
+            {
+                if ((te->reqs & (REQ_SCHEMA | REQ_DATA)) != 0 &&
+                    _tocEntryRestorePass(te) == RESTORE_PASS_ACL)
+                    restore_toc_entry(AH, te, false);
+            }
+        }
+
+        // Third pass: post-ACL objects
+        if (havePostACL)
+        {
+            for (te = AH->toc->next; te != AH->toc; te = te->next)
+            {
+                if ((te->reqs & (REQ_SCHEMA | REQ_DATA)) != 0 &&
+                    _tocEntryRestorePass(te) == RESTORE_PASS_POST_ACL)
+                    restore_toc_entry(AH, te, false);
+            }
+        }
+    }
+
+    // Commit final transaction
+    if (ropt->single_txn || ropt->txn_size > 0)
+    {
+        if (AH->connection)
+            CommitTransaction(AHX);
+        else
+            ahprintf(AH, "COMMIT;\n\n");
+    }
+
+    // Write completion message and cleanup
+    ahprintf(AH, "--\n-- PostgreSQL database dump complete\n--\n\n");
+
+    AH->stage = STAGE_FINALIZING;
+
+    if (ropt->filename || ropt->compression_spec.algorithm != PG_COMPRESSION_NONE)
+        RestoreOutput(AH, sav);
+
+    if (ropt->useDB)
+        DisconnectDatabase(&AH->public);
+}
+```

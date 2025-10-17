@@ -37,3 +37,26 @@ The function internally uses the  function to perform the XPath evaluation and s
 - Located in src/backend/utils/adt/xml.c:4544-4566
 - Part of PostgreSQL's XML data type support
 - Returns true if one or more nodes match the XPath expression, false otherwise
+
+## Simplified Source
+
+```c
+Datum xmlexists(PG_FUNCTION_ARGS)
+{
+#ifdef USE_LIBXML
+    // Extract function arguments
+    text *xpath_expr_text = PG_GETARG_TEXT_PP(0);
+    xmltype *data = PG_GETARG_XML_P(1);
+    int res_nitems;
+
+    // Evaluate XPath expression to count matching nodes
+    xpath_internal(xpath_expr_text, data, NULL, &res_nitems, NULL);
+
+    // Return true if any nodes match, false otherwise
+    PG_RETURN_BOOL(res_nitems > 0);
+#else
+    NO_XML_SUPPORT();
+    return 0;
+#endif
+}
+```

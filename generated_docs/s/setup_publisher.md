@@ -45,3 +45,65 @@ The function returns the LSN from the last created replication slot, which will 
 - Object names are auto-generated if not provided via command-line options
 - The replication slot name defaults to the subscription name if not explicitly specified
 - Publications are created before replication slots to ensure proper transaction visibility
+
+## Simplified Source
+
+```c
+static char *
+setup_publisher(struct LogicalRepInfo *dbinfo)
+{
+    char *lsn = NULL;
+
+    // Initialize random number generator for object name generation
+    pg_prng_seed(&prng_state, (uint64) (getpid() ^ time(NULL)));
+
+    // Process each database
+    for (int i = 0; i < num_dbs; i++)
+    {
+        PGconn *conn = connect_database(dbinfo[i].pubconninfo, true);
+
+        // Generate object names if not provided
+        char *genname = NULL;
+        if (num_pubs == 0 || num_subs == 0 || num_replslots == 0)
+            genname = generate_object_name(conn);
+
+        if (num_pubs == 0)
+            dbinfo[i].pubname = pg_strdup(genname);
+        if (num_subs == 0)
+            dbinfo[i].subname = pg_strdup(genname);
+        if (num_replslots == 0)
+            dbinfo[i].replslotname = pg_strdup(dbinfo[i].subname);
+
+        // Create publication first (before promoting subscriber)
+        create_publication(conn, &dbinfo[i]);
+
+        // Create replication slot and get LSN
+        if (lsn)
+            pg_free(lsn);
+        lsn = create_logical_replication_slot(conn, &dbinfo[i]);
+
+        if (lsn != NULL || dry_run)
+            pg_log_info("create replication slot \"%s\" on publisher",
+                       dbinfo[i].replslotname);
+        else
+            exit(1);
+
+        // For the last database, write WAL record to avoid recovery delays
+        if (i == num_dbs - 1 && !dry_run)
+        {
+            PGresult *res = PQexec(conn, "SELECT pg_log_standby_snapshot()");
+            if (PQresultStatus(res) != PGRES_TUPLES_OK)
+            {
+                pg_log_error("could not write an additional WAL record: %s",
+                            PQresultErrorMessage(res));
+                disconnect_database(conn, true);
+            }
+            PQclear(res);
+        }
+
+        disconnect_database(conn, false);
+    }
+
+    return lsn;
+}
+```

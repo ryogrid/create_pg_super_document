@@ -46,3 +46,24 @@ The resulting UUID has the format xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx where x r
 - The probability of generating duplicate UUIDs is astronomically low (approximately 1 in 2^122)
 - Version 4 UUIDs are preferred for most applications due to their lack of dependency on network hardware or timestamps
 - Available as a SQL function for use in queries, defaults, and stored procedures
+
+## Simplified Source
+
+```c
+Datum gen_random_uuid(PG_FUNCTION_ARGS) {
+    // Allocate memory for UUID structure
+    pg_uuid_t *uuid = palloc(UUID_LEN);
+
+    // Generate cryptographically strong random bytes
+    if (!pg_strong_random(uuid, UUID_LEN))
+        ereport(ERROR,
+                (errcode(ERRCODE_INTERNAL_ERROR),
+                 errmsg("could not generate random values")));
+
+    // Set version 4 UUID magic numbers per RFC 4122
+    uuid->data[6] = (uuid->data[6] & 0x0f) | 0x40;  // version = 4
+    uuid->data[8] = (uuid->data[8] & 0x3f) | 0x80;  // variant = 10
+
+    PG_RETURN_UUID_P(uuid);
+}
+```

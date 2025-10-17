@@ -38,3 +38,42 @@ The `checksum_file` function is a static utility that computes checksums for fil
 - Uses a 50-block buffer size for efficient I/O operations
 - Static function scope limits its use to the copy_file.c module
 - Location: src/bin/pg_combinebackup/copy_file.c:127-159
+
+## Simplified Source
+
+```c
+static void
+checksum_file(const char *src, pg_checksum_context *checksum_ctx)
+{
+    int src_fd;
+    uint8 *buffer;
+    const int buffer_size = 50 * BLCKSZ;
+    ssize_t bytes_read;
+
+    // Skip checksum calculation if not needed
+    if (checksum_ctx->type == CHECKSUM_TYPE_NONE)
+        return;
+
+    // Open source file for reading
+    if ((src_fd = open(src, O_RDONLY | PG_BINARY, 0)) < 0)
+        pg_fatal("could not open file \"%s\": %m", src);
+
+    // Allocate read buffer
+    buffer = pg_malloc(buffer_size);
+
+    // Read file in chunks and update checksum
+    while ((bytes_read = read(src_fd, buffer, buffer_size)) > 0)
+    {
+        if (pg_checksum_update(checksum_ctx, buffer, bytes_read) < 0)
+            pg_fatal("could not update checksum of file \"%s\"", src);
+    }
+
+    // Check for read errors
+    if (bytes_read < 0)
+        pg_fatal("could not read file \"%s\": %m", src);
+
+    // Clean up resources
+    pg_free(buffer);
+    close(src_fd);
+}
+```

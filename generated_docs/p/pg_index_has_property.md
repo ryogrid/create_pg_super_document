@@ -38,3 +38,17 @@ This function provides a SQL interface for querying index-level properties of a 
 - Used by query planners, applications, and administrative tools to determine index capabilities
 - The function automatically determines the access method from the provided index OID
 - The function signature follows PostgreSQL's C function calling convention
+
+## Simplified Source
+
+```c
+Datum pg_index_has_property(PG_FUNCTION_ARGS)
+{
+    // Extract index OID and property name from SQL arguments
+    Oid relid = PG_GETARG_OID(0);
+    char *propname = text_to_cstring(PG_GETARG_TEXT_PP(1));
+
+    // Test index-level property (InvalidOid for AM, 0 for column means index-level)
+    return indexam_property(fcinfo, propname, InvalidOid, relid, 0);
+}
+```

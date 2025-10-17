@@ -38,3 +38,27 @@ If a matching mapping is found, the function returns the corresponding new_dir (
 - Returns a const char* pointing either to the original input or to a string stored in the tablespace mapping list
 - The function is central to pg_basebackup's tablespace relocation feature, allowing users to change tablespace locations during backup restore
 - Used extensively throughout the backup creation process wherever tablespace paths need to be resolved
+
+## Simplified Source
+
+```c
+static const char *
+get_tablespace_mapping(const char *dir)
+{
+    TablespaceListCell *cell;
+    char canon_dir[MAXPGPATH];
+
+    // Canonicalize input path for consistent comparison
+    strlcpy(canon_dir, dir, sizeof(canon_dir));
+    canonicalize_path(canon_dir);
+
+    // Search for mapping in tablespace_dirs list
+    for (cell = tablespace_dirs.head; cell; cell = cell->next) {
+        if (strcmp(canon_dir, cell->old_dir) == 0)
+            return cell->new_dir;
+    }
+
+    // Return original path if no mapping found
+    return dir;
+}
+```

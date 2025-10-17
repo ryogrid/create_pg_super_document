@@ -62,3 +62,51 @@ Function arguments accessed through :
 - The function supports both 2-argument and 4-argument calling conventions
 - Unlike existence checking, this function requires the JSONPath to produce a predicate (boolean) result
 - Part of the implementation supporting the "@@" operator for JSONPath predicate matching
+
+## Simplified Source
+
+```c
+static Datum
+jsonb_path_match_internal(FunctionCallInfo fcinfo, bool tz)
+{
+    Jsonb *jb = PG_GETARG_JSONB_P(0);
+    JsonPath *jp = PG_GETARG_JSONPATH_P(1);
+    JsonValueList found = {0};
+    Jsonb *vars = NULL;
+    bool silent = true;
+
+    // Check for optional variables and silent mode arguments
+    if (PG_NARGS() == 4) {
+        vars = PG_GETARG_JSONB_P(2);
+        silent = PG_GETARG_BOOL(3);
+    }
+
+    // Execute JSONPath and collect results
+    executeJsonPath(jp, vars, getJsonPathVariableFromJsonb,
+                   countVariablesFromJsonb,
+                   jb, !silent, &found, tz);
+
+    // Clean up memory
+    PG_FREE_IF_COPY(jb, 0);
+    PG_FREE_IF_COPY(jp, 1);
+
+    // Validate result: must be exactly one boolean or null value
+    if (JsonValueListLength(&found) == 1) {
+        JsonbValue *jbv = JsonValueListHead(&found);
+
+        if (jbv->type == jbvBool)
+            PG_RETURN_BOOL(jbv->val.boolean);
+
+        if (jbv->type == jbvNull)
+            PG_RETURN_NULL();
+    }
+
+    // Handle validation failure
+    if (!silent)
+        ereport(ERROR,
+                (errcode(ERRCODE_SINGLETON_SQL_JSON_ITEM_REQUIRED),
+                 errmsg("single boolean result is expected")));
+
+    PG_RETURN_NULL();
+}
+```

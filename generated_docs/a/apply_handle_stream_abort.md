@@ -53,3 +53,88 @@ The function includes sophisticated handling of XID wraparound concerns and main
 - Handles both serialized and parallel apply scenarios with appropriate cleanup
 - Part of the logical replication streaming transaction abort protocol
 - Critical for maintaining data consistency during transaction rollbacks and failures
+
+## Simplified Source
+
+```c
+static void apply_handle_stream_abort(StringInfo s)
+{
+    TransactionId xid, subxid;
+    LogicalRepStreamAbortData abort_data;
+    ParallelApplyWorkerInfo *winfo;
+    TransApplyAction apply_action;
+    StringInfoData original_msg = *s;
+    bool toplevel_xact;
+
+    // Validate: should not be in active streaming transaction
+    if (in_streamed_transaction)
+        ereport(ERROR, "STREAM ABORT message without STREAM STOP");
+
+    // Read abort data from message
+    logicalrep_read_stream_abort(s, &abort_data, MyLogicalRepWorker->parallel_apply);
+
+    xid = abort_data.xid;
+    subxid = abort_data.subxid;
+    toplevel_xact = (xid == subxid);
+
+    set_apply_error_context_xact(subxid, abort_data.abort_lsn);
+
+    // Determine how to handle the abort
+    apply_action = get_transaction_apply_action(xid, &winfo);
+
+    switch (apply_action) {
+        case TRANS_LEADER_APPLY:
+            // Handle abort for serialized transaction
+            stream_abort_internal(xid, subxid);
+            elog(DEBUG1, "finished processing the STREAM ABORT command");
+            break;
+
+        case TRANS_LEADER_SEND_TO_PARALLEL:
+            // Complex locking for subtransaction aborts
+            if (!toplevel_xact) {
+                pa_unlock_stream(xid, AccessExclusiveLock);
+                pg_atomic_add_fetch_u32(&winfo->shared->pending_stream_count, 1);
+                pa_lock_stream(xid, AccessExclusiveLock);
+            }
+
+            if (pa_send_data(winfo, s->len, s->data)) {
+                // Wait for top-level aborts to prevent XID wraparound issues
+                if (toplevel_xact)
+                    pa_xact_finish(winfo, InvalidXLogRecPtr);
+                break;
+            }
+
+            // Fall back to serialization if sending fails
+            pa_switch_to_partial_serialize(winfo, true);
+
+        case TRANS_LEADER_PARTIAL_SERIALIZE:
+            // Write abort message to spool file
+            stream_open_and_write_change(xid, LOGICAL_REP_MSG_STREAM_ABORT, &original_msg);
+
+            if (toplevel_xact) {
+                pa_set_fileset_state(winfo->shared, FS_SERIALIZE_DONE);
+                pa_xact_finish(winfo, InvalidXLogRecPtr);
+            }
+            break;
+
+        case TRANS_PARALLEL_APPLY:
+            // Close stream file if processing top-level abort
+            if (toplevel_xact && stream_fd)
+                stream_close_file();
+
+            pa_stream_abort(&abort_data);
+
+            // Wait for more changes if it's a subtransaction abort
+            if (!toplevel_xact)
+                pa_decr_and_wait_stream_block();
+
+            elog(DEBUG1, "finished processing the STREAM ABORT command");
+            break;
+
+        default:
+            elog(ERROR, "unexpected apply action: %d", (int) apply_action);
+    }
+
+    reset_apply_error_context_info();
+}
+```

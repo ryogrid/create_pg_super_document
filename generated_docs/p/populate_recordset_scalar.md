@@ -42,3 +42,23 @@ The validation at level 0 ensures that recordset functions receive properly stru
 - The tokentype parameter provides additional context about the scalar value but is not currently used in the function logic
 - Error reporting includes the function name from the state for context-appropriate error messages
 - Level 2 typically represents scalar values within JSON objects that represent individual record fields
+
+## Simplified Source
+
+```c
+static JsonParseErrorType populate_recordset_scalar(void *state, char *token, JsonTokenType tokentype) {
+    PopulateRecordsetState *_state = (PopulateRecordsetState *) state;
+
+    // Top level must be array, not scalar
+    if (_state->lex->lex_level == 0) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("cannot call %s on a scalar", _state->function_name)));
+    }
+
+    // Save scalar values at level 2 (object field values)
+    if (_state->lex->lex_level == 2)
+        _state->saved_scalar = token;
+
+    return JSON_SUCCESS;
+}
+```

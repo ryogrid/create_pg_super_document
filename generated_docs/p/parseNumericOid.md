@@ -39,3 +39,26 @@ The function performs two main operations: first, it validates that the string c
 - Part of the broader registry type parsing infrastructure in PostgreSQL
 - Serves as an optimization for direct OID input in contexts where both names and OIDs are acceptable
 - Located in src/backend/utils/adt/regproc.c in the support routines section
+
+## Simplified Source
+
+```c
+static bool parseNumericOid(char *string, Oid *result, Node *escontext) {
+    // Check if string contains only digits
+    if (string[0] >= '0' && string[0] <= '9' &&
+        strspn(string, "0123456789") == strlen(string)) {
+
+        Datum oid_datum;
+
+        // Convert numeric string to OID using safe input function
+        DirectInputFunctionCallSafe(oidin, string, InvalidOid, -1,
+                                   escontext, &oid_datum);
+        *result = DatumGetObjectId(oid_datum);
+        return true;
+    }
+
+    // Not a numeric string - prevent uninitialized variable warnings
+    *result = InvalidOid;
+    return false;
+}
+```

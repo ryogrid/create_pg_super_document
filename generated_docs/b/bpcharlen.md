@@ -34,3 +34,21 @@ This function implements the length calculation for PostgreSQL's CHAR data type 
 - The function automatically handles detoasting (decompression) of compressed CHAR values through PG_GETARG_BPCHAR_PP
 - Trailing spaces are excluded from the length calculation, which is consistent with SQL standard CHAR semantics
 - Performance is optimized by only calling multibyte conversion functions when the database encoding requires it
+
+## Simplified Source
+
+```c
+Datum bpcharlen(PG_FUNCTION_ARGS) {
+    BpChar *arg = PG_GETARG_BPCHAR_PP(0);
+
+    // Get byte length, ignoring trailing spaces
+    int len = bcTruelen(arg);
+
+    // Convert to character length for multibyte encodings
+    if (pg_database_encoding_max_length() != 1) {
+        len = pg_mbstrlen_with_len(VARDATA_ANY(arg), len);
+    }
+
+    PG_RETURN_INT32(len);
+}
+```

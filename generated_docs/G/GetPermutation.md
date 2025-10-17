@@ -36,3 +36,31 @@ The function ensures that all possible permutations have equal probability of be
 - The "inside-out" variant is more cache-friendly than the traditional Fisher-Yates shuffle
 - Critical for red-black tree testing as it ensures diverse tree structures through randomized insertion patterns
 - Part of the test_rbtree module used for validating red-black tree correctness
+
+## Simplified Source
+
+```c
+static int *
+GetPermutation(int size)
+{
+    int *permutation = palloc(size * sizeof(int));
+
+    // Initialize first element
+    permutation[0] = 0;
+
+    // Fisher-Yates "inside-out" shuffle algorithm
+    for (int i = 1; i < size; i++) {
+        // Pick random position from 0 to i (inclusive)
+        int j = pg_prng_uint64_range(&pg_global_prng_state, 0, i);
+
+        // Move existing value at position j to position i
+        if (j < i)  // Avoid fetching undefined data when j=i
+            permutation[i] = permutation[j];
+
+        // Place current value at randomly chosen position
+        permutation[j] = i;
+    }
+
+    return permutation;
+}
+```

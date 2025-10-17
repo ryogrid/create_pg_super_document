@@ -39,3 +39,53 @@ The  function captures the current database's search path and stores it as a res
 - The resolved search path is stored in both the archive entry and AH->searchpath for different dump formats
 - Critical for ensuring schema-qualified object references resolve correctly during restoration
 - Placed in SECTION_PRE_DATA to ensure search path is set before other database objects are processed
+
+## Simplified Source
+
+```c
+static void
+dumpSearchPath(Archive *AH)
+{
+    PQExpBuffer qry = createPQExpBuffer();
+    PQExpBuffer path = createPQExpBuffer();
+    char **schemanames = NULL;
+    int nschemanames = 0;
+
+    // Get current resolved schema names (not raw search_path to avoid wildcards)
+    PGresult *res = ExecuteSqlQueryForSingleRow(AH,
+                       "SELECT pg_catalog.current_schemas(false)");
+
+    // Parse the array result into schema names
+    if (!parsePGArray(PQgetvalue(res, 0, 0), &schemanames, &nschemanames))
+        pg_fatal("could not parse result of current_schemas()");
+
+    // Build comma-separated list of properly quoted schema names
+    for (int i = 0; i < nschemanames; i++) {
+        if (i > 0)
+            appendPQExpBufferStr(path, ", ");
+        appendPQExpBufferStr(path, fmtId(schemanames[i]));
+    }
+
+    // Create set_config() command (more robust than SET search_path)
+    appendPQExpBufferStr(qry, "SELECT pg_catalog.set_config('search_path', ");
+    appendStringLiteralAH(qry, path->data, AH);
+    appendPQExpBufferStr(qry, ", false);\n");
+
+    // Log and archive the command
+    pg_log_info("saving \"search_path = %s\"", path->data);
+    ArchiveEntry(AH, nilCatalogId, createDumpId(),
+                 ARCHIVE_OPTS(.tag = "SEARCHPATH",
+                             .description = "SEARCHPATH",
+                             .section = SECTION_PRE_DATA,
+                             .createStmt = qry->data));
+
+    // Store for plain text dumps
+    AH->searchpath = pg_strdup(qry->data);
+
+    // Cleanup
+    free(schemanames);
+    PQclear(res);
+    destroyPQExpBuffer(qry);
+    destroyPQExpBuffer(path);
+}
+```

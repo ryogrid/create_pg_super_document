@@ -32,3 +32,12 @@ The `extract_timestamp` function is a PostgreSQL SQL-callable function that extr
 - The numeric return type provides higher precision for fractional seconds and other precise measurements
 - Part of PostgreSQL's date/time function family alongside `extract_timestamptz()` for timezone-aware timestamps
 - Located in `src/backend/utils/adt/timestamp.c:5617-5620`
+
+## Simplified Source
+
+```c
+Datum extract_timestamp(PG_FUNCTION_ARGS) {
+    // Delegate to common implementation with numeric return type for precision
+    return timestamp_part_common(fcinfo, true);
+}
+```

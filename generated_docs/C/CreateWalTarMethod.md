@@ -43,3 +43,40 @@ This function creates a tar-based WAL method implementation that packages WAL fi
 - The returned WalWriteMethod pointer should be freed using the tar_free function through the ops table
 - The function follows PostgreSQL's zero-initialization pattern using pg_malloc0 for the main structure
 - File descriptor is initialized to -1 to indicate no open file initially
+
+## Simplified Source
+
+```c
+WalWriteMethod *CreateWalTarMethod(const char *tarbase,
+                                   pg_compress_algorithm compression_algorithm,
+                                   int compression_level, bool sync) {
+    TarMethodData *wwmethod;
+
+    // Determine file extension based on compression
+    const char *suffix = (compression_algorithm == PG_COMPRESSION_GZIP) ?
+                        ".tar.gz" : ".tar";
+
+    // Allocate and initialize the TAR method structure
+    wwmethod = pg_malloc0(sizeof(TarMethodData));
+
+    // Set up function pointer table and basic configuration
+    *((const WalWriteMethodOps **) &wwmethod->base.ops) = &WalTarMethodOps;
+    wwmethod->base.compression_algorithm = compression_algorithm;
+    wwmethod->base.compression_level = compression_level;
+    wwmethod->base.sync = sync;
+    clear_error(&wwmethod->base);
+
+    // Build the tar filename with appropriate extension
+    wwmethod->tarfilename = pg_malloc0(strlen(tarbase) + strlen(suffix) + 1);
+    sprintf(wwmethod->tarfilename, "%s%s", tarbase, suffix);
+
+    // Initialize file descriptor
+    wwmethod->fd = -1;
+
+    // Allocate compression buffer if using gzip
+    if (compression_algorithm == PG_COMPRESSION_GZIP)
+        wwmethod->zlibOut = (char *) pg_malloc(ZLIB_OUT_SIZE + 1);
+
+    return &wwmethod->base;
+}
+```

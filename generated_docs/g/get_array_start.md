@@ -40,3 +40,38 @@ The function performs several key operations:
 - The function handles special case logic for matching entire arrays at the outermost level
 - INT_MIN is used as a reserved value to represent invalid subscripts
 - The function integrates with PostgreSQL's JSON lexical analyzer system for parsing
+
+## Simplified Source
+
+```c
+static JsonParseErrorType get_array_start(void *state) {
+    GetState *_state = (GetState *) state;
+    int lex_level = _state->lex->lex_level;
+
+    if (lex_level < _state->npath) {
+        // Initialize array element counting
+        _state->array_cur_index[lex_level] = -1;
+
+        // Handle negative array subscripts (convert to positive indices)
+        if (_state->path_indexes[lex_level] < 0 &&
+            _state->path_indexes[lex_level] != INT_MIN) {
+
+            // Count total array elements
+            int nelements;
+            JsonParseErrorType error = json_count_array_elements(_state->lex, &nelements);
+            if (error != JSON_SUCCESS)
+                json_errsave_error(error, _state->lex, NULL);
+
+            // Convert negative index to positive (e.g., -1 becomes last element)
+            if (-_state->path_indexes[lex_level] <= nelements)
+                _state->path_indexes[lex_level] += nelements;
+        }
+    }
+    else if (lex_level == 0 && _state->npath == 0) {
+        // Special case: match entire array at outermost level
+        _state->result_start = _state->lex->token_start;
+    }
+
+    return JSON_SUCCESS;
+}
+```

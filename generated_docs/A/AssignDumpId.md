@@ -38,3 +38,63 @@ The function dynamically manages memory allocation for the dumpIdMap array, doub
 The function maintains a global lastDumpId counter that ensures each object receives a unique sequential identifier. Default initialization assumes objects should be dumped completely (DUMP_COMPONENT_ALL) and are not extension members. The dumpIdMap array uses a doubling growth strategy starting at 256 entries to balance memory usage with allocation overhead.
 
 Objects are entered into the catalogIdHash only if they have valid PostgreSQL catalog OIDs, as some synthetic objects (like TableAttachInfo) don't correspond to actual catalog entries. The function is called for virtually every dumpable object encountered during the schema collection phase.
+
+## Simplified Source
+
+```c
+void AssignDumpId(DumpableObject *dobj) {
+    // Assign unique sequential dump ID
+    dobj->dumpId = ++lastDumpId;
+
+    // Initialize standard fields with defaults
+    dobj->name = NULL;                           // must be set later
+    dobj->namespace = NULL;                      // may be set later
+    dobj->dump = DUMP_COMPONENT_ALL;             // default assumption
+    dobj->dump_contains = DUMP_COMPONENT_ALL;    // default assumption
+    dobj->components = DUMP_COMPONENT_DEFINITION; // all objects have definitions
+    dobj->ext_member = false;                    // default assumption
+    dobj->depends_on_ext = false;                // default assumption
+    dobj->dependencies = NULL;
+    dobj->nDeps = 0;
+    dobj->allocDeps = 0;
+
+    // Expand dumpIdMap array if needed (double-sizing strategy)
+    while (dobj->dumpId >= allocedDumpIds) {
+        int newAlloc;
+
+        if (allocedDumpIds <= 0) {
+            newAlloc = 256;
+            dumpIdMap = pg_malloc_array(DumpableObject *, newAlloc);
+        } else {
+            newAlloc = allocedDumpIds * 2;
+            dumpIdMap = pg_realloc_array(dumpIdMap, DumpableObject *, newAlloc);
+        }
+
+        // Clear new entries
+        memset(dumpIdMap + allocedDumpIds, 0,
+               (newAlloc - allocedDumpIds) * sizeof(DumpableObject *));
+        allocedDumpIds = newAlloc;
+    }
+
+    // Register object in dump ID map
+    dumpIdMap[dobj->dumpId] = dobj;
+
+    // Enter into catalog hash table if it has a valid catalog OID
+    if (OidIsValid(dobj->catId.tableoid)) {
+        CatalogIdMapEntry *entry;
+        bool found;
+
+        // Initialize catalog hash table if not done yet
+        if (catalogIdHash == NULL)
+            catalogIdHash = catalogid_create(CATALOGIDHASH_INITIAL_SIZE, NULL);
+
+        entry = catalogid_insert(catalogIdHash, dobj->catId, &found);
+        if (!found) {
+            entry->dobj = NULL;
+            entry->ext = NULL;
+        }
+        Assert(entry->dobj == NULL);
+        entry->dobj = dobj;
+    }
+}
+```

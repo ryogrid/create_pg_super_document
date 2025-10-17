@@ -50,3 +50,24 @@ The function is designed to be idempotent within a transaction - if called multi
 - Memory context switching to ApplyMessageContext helps manage memory lifecycle for replication messages
 - [Snapshot](../S/Snapshot.md) management ensures consistent data visibility throughout replication operations
 - Must be paired with end_replication_step() for proper cleanup
+
+## Simplified Source
+
+```c
+static void begin_replication_step(void) {
+    // Set statement start timestamp for timing
+    SetCurrentStatementStartTimestamp();
+
+    // Start transaction if not already active
+    if (!IsTransactionState()) {
+        StartTransactionCommand();
+        maybe_reread_subscription();  // Refresh subscription config
+    }
+
+    // Establish snapshot for consistent data visibility
+    PushActiveSnapshot(GetTransactionSnapshot());
+
+    // Switch to appropriate memory context for replication
+    MemoryContextSwitchTo(ApplyMessageContext);
+}
+```

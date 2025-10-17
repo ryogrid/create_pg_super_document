@@ -37,3 +37,31 @@ The function follows a two-step process: first reading the length of the compres
 - Returns 0 when no more data is available (blkLen == 0)
 - Used specifically with the custom format archive type in pg_dump/pg_restore
 - Works in conjunction with PostgreSQL's compression system for efficient data storage and retrieval
+
+## Simplified Source
+
+```c
+static size_t
+_CustomReadFunc(ArchiveHandle *AH, char **buf, size_t *buflen)
+{
+    size_t block_length;
+
+    // Read compressed block length
+    block_length = ReadInt(AH);
+    if (block_length == 0) {
+        return 0;  // No more data available
+    }
+
+    // Ensure buffer is large enough, reallocate if needed
+    if (block_length > *buflen) {
+        free(*buf);
+        *buf = (char *) pg_malloc(block_length);
+        *buflen = block_length;
+    }
+
+    // Read the actual compressed data block
+    _ReadBuf(AH, *buf, block_length);
+
+    return block_length;
+}
+```

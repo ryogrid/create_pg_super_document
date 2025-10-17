@@ -36,3 +36,30 @@ This function implements the pruning step of the Lossy Counting algorithm used i
 - Essential for preventing unbounded memory growth during array statistics computation
 - References compute_tsvector_stats() for similar implementation pattern
 - Located in src/backend/utils/adt/array_typanalyze.c:681-709
+
+## Simplified Source
+
+```c
+static void prune_element_hashtable(HTAB *elements_tab, int b_current) {
+    HASH_SEQ_STATUS scan_status;
+    TrackItem *item;
+
+    // Iterate through all elements in the hash table
+    hash_seq_init(&scan_status, elements_tab);
+    while ((item = (TrackItem *) hash_seq_search(&scan_status)) != NULL) {
+
+        // Apply Lossy Counting pruning condition
+        if (item->frequency + item->delta <= b_current) {
+            Datum value = item->key;
+
+            // Remove the item from hash table
+            if (hash_search(elements_tab, &item->key, HASH_REMOVE, NULL) == NULL)
+                elog(ERROR, "hash table corrupted");
+
+            // Free memory for pass-by-reference types
+            if (!array_extra_data->typbyval)
+                pfree(DatumGetPointer(value));
+        }
+    }
+}
+```

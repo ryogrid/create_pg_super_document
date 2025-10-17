@@ -37,3 +37,32 @@ The function uses a simple incremental search strategy, querying the database to
 - Starts searching from `FirstNormalObjectId` to avoid conflicts with built-in PostgreSQL types
 - The comment acknowledges that the local static state is "kind of ugly" but necessary for correct operation
 - Part of the binary upgrade infrastructure that preserves object OIDs during major version upgrades
+
+## Simplified Source
+
+```c
+static Oid get_next_possible_free_pg_type_oid(Archive *fout, PQExpBuffer upgrade_query) {
+    // Static counter to avoid returning the same OID multiple times
+    static Oid next_possible_free_oid = FirstNormalObjectId;
+    PGresult *res;
+    bool is_dup;
+
+    // Search for the next unused OID
+    do {
+        ++next_possible_free_oid;
+
+        // Check if this OID is already in use
+        printfPQExpBuffer(upgrade_query,
+                          "SELECT EXISTS(SELECT 1 "
+                          "FROM pg_catalog.pg_type "
+                          "WHERE oid = '%u'::pg_catalog.oid);",
+                          next_possible_free_oid);
+
+        res = ExecuteSqlQueryForSingleRow(fout, upgrade_query->data);
+        is_dup = (PQgetvalue(res, 0, 0)[0] == 't');
+        PQclear(res);
+    } while (is_dup);
+
+    return next_possible_free_oid;
+}
+```

@@ -32,3 +32,22 @@ This function performs a lookup in the local injection point cache hash table to
 - Does not modify the cache or trigger any loading operations
 - Simple lookup operation with no side effects
 - Used primarily during cache validation and refresh processes
+
+## Simplified Source
+
+```c
+static InjectionPointCacheEntry *
+injection_point_cache_get(const char *name)
+{
+    // Return NULL if cache not initialized
+    if (InjectionPointCache == NULL)
+        return NULL;
+
+    // Search for entry in hash table
+    bool found;
+    InjectionPointCacheEntry *entry = hash_search(InjectionPointCache, name, HASH_FIND, &found);
+
+    // Return entry if found, NULL otherwise
+    return found ? entry : NULL;
+}
+```

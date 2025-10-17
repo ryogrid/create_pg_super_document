@@ -9,26 +9,7 @@ RemoveGUCFromLists is a static helper function that summarily removes a GUC (Gra
 ## Definition
 
 ```c
-struct config_generic *gconf)
-{
-	if (gconf->source != PGC_S_DEFAULT)
-		dlist_delete(&gconf->nondef_link);
-	if (gconf->stack != NULL)
-		slist_delete(&guc_stack_list, &gconf->stack_link);
-	if (gconf->status & GUC_NEEDS_REPORT)
-		slist_delete(&guc_report_list, &gconf->report_link);
-}
-
-
-/*
- * Select the configuration files and data directory to be used, and
- * do the initial read of postgresql.conf.
- *
- * This is called after processing command-line switches.
- *		userDoption is the -D switch value if any (NULL if unspecified).
- *		progname is just for use in error messages.
- *
- * Returns true on success;
+static void RemoveGUCFromLists(struct config_generic *gconf)
 ```
 ## Detailed Description
 This function performs cleanup operations on a GUC variable by removing it from three possible linked lists maintained by the GUC system:
@@ -60,3 +41,21 @@ The function is designed to be called in uncommon operations like variable delet
 - The function performs conditional removals based on the current state of the GUC variable (source, stack presence, and report flag)
 - Since deletion/reset operations are uncommon, the function prioritizes correctness over performance
 - The function is part of the cleanup mechanism for GUC variables and helps prevent memory leaks and dangling references
+
+## Simplified Source
+
+```c
+static void RemoveGUCFromLists(struct config_generic *gconf) {
+    // Remove from non-default values list if not using default source
+    if (gconf->source != PGC_S_DEFAULT)
+        dlist_delete(&gconf->nondef_link);
+
+    // Remove from stack list if variable has stacked values
+    if (gconf->stack != NULL)
+        slist_delete(&guc_stack_list, &gconf->stack_link);
+
+    // Remove from report list if variable needs reporting
+    if (gconf->status & GUC_NEEDS_REPORT)
+        slist_delete(&guc_report_list, &gconf->report_link);
+}
+```

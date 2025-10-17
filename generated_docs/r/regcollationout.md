@@ -46,3 +46,48 @@ The function ensures that the output string can be parsed back by  by applying a
 - In bootstrap mode, namespace qualification is skipped for simplicity
 - Memory allocation uses PostgreSQL's palloc system for proper memory management
 - The function is typically used internally by PostgreSQL when displaying regcollation values in query results or system views
+
+## Simplified Source
+
+```c
+Datum
+regcollationout(PG_FUNCTION_ARGS)
+{
+    Oid collationid = PG_GETARG_OID(0);
+    char *result;
+    HeapTuple collationtup;
+
+    // Handle invalid OID special case
+    if (collationid == InvalidOid) {
+        result = pstrdup("-");
+        PG_RETURN_CSTRING(result);
+    }
+
+    // Look up collation in system catalog
+    collationtup = SearchSysCache1(COLLOID, ObjectIdGetDatum(collationid));
+
+    if (HeapTupleIsValid(collationtup)) {
+        Form_pg_collation collationform = (Form_pg_collation) GETSTRUCT(collationtup);
+        char *collationname = NameStr(collationform->collname);
+
+        // In bootstrap mode, return simple name
+        if (IsBootstrapProcessingMode())
+            result = pstrdup(collationname);
+        else {
+            // Check if namespace qualification needed
+            char *nspname = NULL;
+            if (!CollationIsVisible(collationid))
+                nspname = get_namespace_name(collationform->collnamespace);
+
+            result = quote_qualified_identifier(nspname, collationname);
+        }
+        ReleaseSysCache(collationtup);
+    } else {
+        // Return numeric representation if not found in catalog
+        result = (char *) palloc(NAMEDATALEN);
+        snprintf(result, NAMEDATALEN, "%u", collationid);
+    }
+
+    PG_RETURN_CSTRING(result);
+}
+```

@@ -58,3 +58,90 @@ The function determines whether to query the primary key or foreign key table ba
 - May report constraint violations through ri_ReportViolation when appropriate
 - Uses pre-compiled SPI plans for performance optimization
 - Supports various referential integrity actions through different query types
+
+## Simplified Source
+
+```c
+static bool
+ri_PerformCheck(const RI_ConstraintInfo *riinfo, RI_QueryKey *qkey, SPIPlanPtr qplan,
+                Relation fk_rel, Relation pk_rel, TupleTableSlot *oldslot,
+                TupleTableSlot *newslot, bool detectNewRows, int expect_OK)
+{
+    Relation query_rel, source_rel;
+    bool source_is_pk;
+    Snapshot test_snapshot, crosscheck_snapshot;
+    int limit, spi_result;
+    Oid save_userid;
+    int save_sec_context;
+    Datum vals[RI_MAX_NUMKEYS * 2];
+    char nulls[RI_MAX_NUMKEYS * 2];
+
+    // Determine which table to query based on query type
+    if (qkey->constr_queryno <= RI_PLAN_LAST_ON_PK)
+        query_rel = pk_rel;
+    else
+        query_rel = fk_rel;
+
+    // Determine source table for extracting values
+    if (qkey->constr_queryno == RI_PLAN_CHECK_LOOKUPPK) {
+        source_rel = fk_rel;
+        source_is_pk = false;
+    } else {
+        source_rel = pk_rel;
+        source_is_pk = true;
+    }
+
+    // Extract parameter values from tuple slots
+    if (newslot) {
+        ri_ExtractValues(source_rel, newslot, riinfo, source_is_pk, vals, nulls);
+        if (oldslot)
+            ri_ExtractValues(source_rel, oldslot, riinfo, source_is_pk,
+                           vals + riinfo->nkeys, nulls + riinfo->nkeys);
+    } else {
+        ri_ExtractValues(source_rel, oldslot, riinfo, source_is_pk, vals, nulls);
+    }
+
+    // Set up snapshots for transaction isolation
+    if (IsolationUsesXactSnapshot() && detectNewRows) {
+        CommandCounterIncrement();
+        test_snapshot = GetLatestSnapshot();
+        crosscheck_snapshot = GetTransactionSnapshot();
+    } else {
+        test_snapshot = InvalidSnapshot;
+        crosscheck_snapshot = InvalidSnapshot;
+    }
+
+    // Set query limit (1 for SELECT queries, 0 for modification queries)
+    limit = (expect_OK == SPI_OK_SELECT) ? 1 : 0;
+
+    // Switch to table owner's security context
+    GetUserIdAndSecContext(&save_userid, &save_sec_context);
+    SetUserIdAndSecContext(RelationGetForm(query_rel)->relowner,
+                          save_sec_context | SECURITY_LOCAL_USERID_CHANGE |
+                          SECURITY_NOFORCE_RLS);
+
+    // Execute the query
+    spi_result = SPI_execute_snapshot(qplan, vals, nulls, test_snapshot,
+                                     crosscheck_snapshot, false, false, limit);
+
+    // Restore original security context
+    SetUserIdAndSecContext(save_userid, save_sec_context);
+
+    // Validate result
+    if (spi_result < 0)
+        elog(ERROR, "SPI_execute_snapshot returned %s", SPI_result_code_string(spi_result));
+
+    if (expect_OK >= 0 && spi_result != expect_OK)
+        ereport(ERROR, (errcode(ERRCODE_INTERNAL_ERROR),
+                       errmsg("referential integrity query gave unexpected result")));
+
+    // Report violations if needed
+    if (qkey->constr_queryno != RI_PLAN_CHECK_LOOKUPPK_FROM_PK &&
+        expect_OK == SPI_OK_SELECT &&
+        (SPI_processed == 0) == (qkey->constr_queryno == RI_PLAN_CHECK_LOOKUPPK))
+        ri_ReportViolation(riinfo, pk_rel, fk_rel, newslot ? newslot : oldslot,
+                          NULL, qkey->constr_queryno, false);
+
+    return SPI_processed != 0;
+}
+```

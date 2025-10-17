@@ -50,3 +50,121 @@ The search implementation uses PostgreSQL's ArrayIterator for efficient traversa
 - Uses collation-aware comparison through FunctionCall2Coll for proper element matching
 - Memory management includes proper cleanup of toasted input arrays
 - Located in src/backend/utils/adt/array_userfuncs.c:1244-1398
+
+## Simplified Source
+
+```c
+static Datum
+array_position_common(FunctionCallInfo fcinfo)
+{
+    ArrayType  *array;
+    Oid         element_type;
+    Datum       searched_element;
+    Datum       value;
+    bool        isnull;
+    int         position, position_min;
+    bool        found = false;
+    bool        null_search;
+    ArrayIterator array_iterator;
+    ArrayMetaState *my_extra;
+    TypeCacheEntry *typentry;
+
+    // Return NULL if array is NULL
+    if (PG_ARGISNULL(0))
+        PG_RETURN_NULL();
+
+    array = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Only support 1-dimensional arrays
+    if (ARR_NDIM(array) > 1)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                errmsg("searching for elements in multidimensional arrays is not supported")));
+
+    // Empty arrays always return NULL
+    if (ARR_NDIM(array) < 1)
+        PG_RETURN_NULL();
+
+    // Handle search element (NULL or actual value)
+    if (PG_ARGISNULL(1)) {
+        if (!array_contains_nulls(array))
+            PG_RETURN_NULL();
+        null_search = true;
+    } else {
+        searched_element = PG_GETARG_DATUM(1);
+        null_search = false;
+    }
+
+    element_type = ARR_ELEMTYPE(array);
+    position = (ARR_LBOUND(array))[0] - 1;
+
+    // Set starting position (optional 3rd argument)
+    if (PG_NARGS() == 3) {
+        if (PG_ARGISNULL(2))
+            ereport(ERROR, (errcode(ERRCODE_NULL_VALUE_NOT_ALLOWED),
+                    errmsg("initial position must not be null")));
+        position_min = PG_GETARG_INT32(2);
+    } else {
+        position_min = (ARR_LBOUND(array))[0];
+    }
+
+    // Cache type information for efficiency
+    my_extra = (ArrayMetaState *) fcinfo->flinfo->fn_extra;
+    if (my_extra == NULL || my_extra->element_type != element_type) {
+        // Initialize or update cached type info
+        if (my_extra == NULL) {
+            fcinfo->flinfo->fn_extra = MemoryContextAlloc(fcinfo->flinfo->fn_mcxt,
+                                                          sizeof(ArrayMetaState));
+            my_extra = (ArrayMetaState *) fcinfo->flinfo->fn_extra;
+        }
+
+        get_typlenbyvalalign(element_type, &my_extra->typlen,
+                           &my_extra->typbyval, &my_extra->typalign);
+
+        typentry = lookup_type_cache(element_type, TYPECACHE_EQ_OPR_FINFO);
+
+        if (!OidIsValid(typentry->eq_opr_finfo.fn_oid))
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                    errmsg("could not identify an equality operator for type %s",
+                           format_type_be(element_type))));
+
+        my_extra->element_type = element_type;
+        fmgr_info_cxt(typentry->eq_opr_finfo.fn_oid, &my_extra->proc,
+                      fcinfo->flinfo->fn_mcxt);
+    }
+
+    // Iterate through array elements
+    array_iterator = array_create_iterator(array, 0, my_extra);
+    while (array_iterate(array_iterator, &value, &isnull)) {
+        position++;
+
+        // Skip elements before starting position
+        if (position < position_min)
+            continue;
+
+        // Handle NULL searches and NULL elements
+        if (isnull || null_search) {
+            if (isnull && null_search) {
+                found = true;
+                break;
+            } else {
+                continue;
+            }
+        }
+
+        // Compare non-NULL values using equality operator
+        if (DatumGetBool(FunctionCall2Coll(&my_extra->proc, PG_GET_COLLATION(),
+                                         searched_element, value))) {
+            found = true;
+            break;
+        }
+    }
+
+    array_free_iterator(array_iterator);
+    PG_FREE_IF_COPY(array, 0);
+
+    if (!found)
+        PG_RETURN_NULL();
+
+    PG_RETURN_INT32(position);
+}
+```

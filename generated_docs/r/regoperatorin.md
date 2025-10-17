@@ -59,3 +59,51 @@ The function performs comprehensive validation:
 - Part of PostgreSQL's regtype family for type/object name resolution
 - The function is stricter than `regoperin` because operator overloading requires precise type matching
 - Used primarily for the regoperator data type which stores operators with their complete signatures
+
+## Simplified Source
+
+```c
+Datum regoperatorin(PG_FUNCTION_ARGS) {
+    char *input = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    Oid result;
+    List *names;
+    int nargs;
+    Oid argtypes[FUNC_MAX_ARGS];
+
+    // Handle numeric OID input (e.g., "123" or "0")
+    if (parseNumericOid(input, &result, escontext))
+        PG_RETURN_OID(result);
+
+    // Bootstrap mode only accepts numeric OIDs
+    if (IsBootstrapProcessingMode())
+        elog(ERROR, "regoperator values must be OIDs in bootstrap mode");
+
+    // Parse operator name and argument types from input string
+    if (!parseNameAndArgTypes(input, true, &names, &nargs, argtypes, escontext))
+        PG_RETURN_NULL();
+
+    // Validate argument count - operators need exactly 2 arguments
+    if (nargs == 1)
+        ereturn(escontext, (Datum) 0,
+                (errcode(ERRCODE_UNDEFINED_PARAMETER),
+                 errmsg("missing argument"),
+                 errhint("Use NONE to denote the missing argument of a unary operator.")));
+
+    if (nargs != 2)
+        ereturn(escontext, (Datum) 0,
+                (errcode(ERRCODE_TOO_MANY_ARGUMENTS),
+                 errmsg("too many arguments"),
+                 errhint("Provide two argument types for operator.")));
+
+    // Look up operator by name and argument types
+    result = OpernameGetOprid(names, argtypes[0], argtypes[1]);
+
+    if (!OidIsValid(result))
+        ereturn(escontext, (Datum) 0,
+                (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                 errmsg("operator does not exist: %s", input)));
+
+    PG_RETURN_OID(result);
+}
+```

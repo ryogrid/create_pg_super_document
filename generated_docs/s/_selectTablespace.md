@@ -39,10 +39,57 @@ When an empty string is provided as the tablespace name, it sets the default_tab
   - [_printTocEntry](../p/_printTocEntry.md) - TOC entry output function that manages object creation context
 
 ## Notes and Other Information
-- This is a static function, only accessible within pg_backup_archiver.c  
+- This is a static function, only accessible within pg_backup_archiver.c
 - Maintains the current tablespace state in `AH->currTablespace` to avoid redundant SET operations
 - Respects the `noTablespace` restore option, allowing users to disable tablespace handling entirely
 - Handles the special case of empty string tablespace name to reset to database default
 - Part of PostgreSQL's pg_dump/pg_restore infrastructure for maintaining proper tablespace context during restore
 - Uses libpq functions (PQexec, PQclear) for database communication when restoring directly to a database
 - The function is called less frequently than schema selection, primarily during object creation rather than for every restore operation
+
+## Simplified Source
+
+```c
+static void _selectTablespace(ArchiveHandle *AH, const char *tablespace) {
+    RestoreOptions *ropt = AH->public.ropt;
+    PQExpBuffer qry;
+    const char *want, *have;
+
+    // Skip if --no-tablespaces option is set
+    if (ropt->noTablespace)
+        return;
+
+    have = AH->currTablespace;
+    want = tablespace;
+
+    // Skip if no tablespace specified or already current
+    if (!want)
+        return;
+    if (have && strcmp(want, have) == 0)
+        return;
+
+    // Build SET default_tablespace command
+    qry = createPQExpBuffer();
+    if (strcmp(want, "") == 0)
+        appendPQExpBufferStr(qry, "SET default_tablespace = ''");
+    else
+        appendPQExpBuffer(qry, "SET default_tablespace = %s", fmtId(want));
+
+    // Execute or output command
+    if (RestoringToDB(AH)) {
+        PGresult *res = PQexec(AH->connection, qry->data);
+        if (!res || PQresultStatus(res) != PGRES_COMMAND_OK)
+            warn_or_exit_horribly(AH,
+                                 "could not set \"default_tablespace\" to %s: %s",
+                                 fmtId(want), PQerrorMessage(AH->connection));
+        PQclear(res);
+    } else {
+        ahprintf(AH, "%s;\n\n", qry->data);
+    }
+
+    // Update current tablespace tracking
+    free(AH->currTablespace);
+    AH->currTablespace = pg_strdup(want);
+    destroyPQExpBuffer(qry);
+}
+```

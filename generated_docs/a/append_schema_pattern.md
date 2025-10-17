@@ -45,3 +45,43 @@ The `append_schema_pattern` function processes a schema name pattern and adds it
 - Stores separate regex patterns for database and schema components
 - Uses two separate PQExpBuffer structures to handle database and schema components independently
 - Memory cleanup is properly handled through termPQExpBuffer calls
+
+## Simplified Source
+
+```c
+static void
+append_schema_pattern(PatternInfoArray *pia, const char *pattern, int encoding)
+{
+    PQExpBufferData dbbuf;
+    PQExpBufferData nspbuf;
+    int dotcnt;
+    PatternInfo *info = extend_pattern_info_array(pia);
+
+    // Initialize buffers for database and schema components
+    initPQExpBuffer(&dbbuf);
+    initPQExpBuffer(&nspbuf);
+
+    // Convert pattern to SQL regex (handles database.schema format)
+    patternToSQLRegex(encoding, NULL, &dbbuf, &nspbuf, pattern, false, false, &dotcnt);
+
+    // Schema patterns allow at most one dot (database.schema)
+    if (dotcnt > 1)
+    {
+        pg_log_error("improper qualified name (too many dotted names): %s", pattern);
+        exit(2);
+    }
+
+    // Store pattern and components
+    info->pattern = pattern;
+    if (dbbuf.data[0])
+    {
+        opts.dbpattern = true;
+        info->db_regex = pstrdup(dbbuf.data);
+    }
+    if (nspbuf.data[0])
+        info->nsp_regex = pstrdup(nspbuf.data);
+
+    termPQExpBuffer(&dbbuf);
+    termPQExpBuffer(&nspbuf);
+}
+```

@@ -54,3 +54,130 @@ This function creates the complete SQL DDL needed to recreate a subscription dur
 - Supports comments and security labels on subscription objects
 - Parses publication arrays to handle multiple publications per subscription
 - Uses proper SQL identifier quoting for subscription and publication names
+
+## Simplified Source
+
+```c
+static void dumpSubscription(Archive *fout, const SubscriptionInfo *subinfo) {
+    DumpOptions *dopt = fout->dopt;
+    PQExpBuffer delq;
+    PQExpBuffer query;
+    PQExpBuffer publications;
+    char *qsubname;
+    char **pubnames = NULL;
+    int npubnames = 0;
+
+    // Skip in data-only dumps
+    if (dopt->dataOnly)
+        return;
+
+    delq = createPQExpBuffer();
+    query = createPQExpBuffer();
+
+    qsubname = pg_strdup(fmtId(subinfo->dobj.name));
+
+    // Generate DROP SUBSCRIPTION statement
+    appendPQExpBuffer(delq, "DROP SUBSCRIPTION %s;\n", qsubname);
+
+    // Start CREATE SUBSCRIPTION statement
+    appendPQExpBuffer(query, "CREATE SUBSCRIPTION %s CONNECTION ", qsubname);
+    appendStringLiteralAH(query, subinfo->subconninfo, fout);
+
+    // Parse and format publications list
+    parsePGArray(subinfo->subpublications, &pubnames, &npubnames);
+    publications = createPQExpBuffer();
+    for (int i = 0; i < npubnames; i++) {
+        if (i > 0)
+            appendPQExpBufferStr(publications, ", ");
+        appendPQExpBufferStr(publications, fmtId(pubnames[i]));
+    }
+
+    // Add PUBLICATION clause with connect=false and slot_name
+    appendPQExpBuffer(query, " PUBLICATION %s WITH (connect = false, slot_name = ",
+                      publications->data);
+    if (subinfo->subslotname)
+        appendStringLiteralAH(query, subinfo->subslotname, fout);
+    else
+        appendPQExpBufferStr(query, "NONE");
+
+    // Add subscription options based on configuration
+    if (strcmp(subinfo->subbinary, "t") == 0)
+        appendPQExpBufferStr(query, ", binary = true");
+
+    if (strcmp(subinfo->substream, "t") == 0)
+        appendPQExpBufferStr(query, ", streaming = on");
+    else if (strcmp(subinfo->substream, "p") == 0)
+        appendPQExpBufferStr(query, ", streaming = parallel");
+
+    char two_phase_disabled[] = {LOGICALREP_TWOPHASE_STATE_DISABLED, '\0'};
+    if (strcmp(subinfo->subtwophasestate, two_phase_disabled) != 0)
+        appendPQExpBufferStr(query, ", two_phase = on");
+
+    if (strcmp(subinfo->subdisableonerr, "t") == 0)
+        appendPQExpBufferStr(query, ", disable_on_error = true");
+
+    if (strcmp(subinfo->subpasswordrequired, "t") != 0)
+        appendPQExpBuffer(query, ", password_required = false");
+
+    if (strcmp(subinfo->subrunasowner, "t") == 0)
+        appendPQExpBufferStr(query, ", run_as_owner = true");
+
+    if (strcmp(subinfo->subfailover, "t") == 0)
+        appendPQExpBufferStr(query, ", failover = true");
+
+    if (strcmp(subinfo->subsynccommit, "off") != 0)
+        appendPQExpBuffer(query, ", synchronous_commit = %s", fmtId(subinfo->subsynccommit));
+
+    if (pg_strcasecmp(subinfo->suborigin, LOGICALREP_ORIGIN_ANY) != 0)
+        appendPQExpBuffer(query, ", origin = %s", subinfo->suborigin);
+
+    appendPQExpBufferStr(query, ");\n");
+
+    // Handle binary upgrade specific operations
+    if (dopt->binary_upgrade && fout->remoteVersion >= 170000) {
+        // Preserve replication origin remote LSN
+        if (subinfo->suboriginremotelsn) {
+            appendPQExpBufferStr(query,
+                                 "\n-- For binary upgrade, must preserve the remote_lsn for the subscriber's replication origin.\n");
+            appendPQExpBufferStr(query,
+                                 "SELECT pg_catalog.binary_upgrade_replorigin_advance(");
+            appendStringLiteralAH(query, subinfo->dobj.name, fout);
+            appendPQExpBuffer(query, ", '%s');\n", subinfo->suboriginremotelsn);
+        }
+
+        // Enable subscription if it was enabled before
+        if (strcmp(subinfo->subenabled, "t") == 0) {
+            appendPQExpBufferStr(query,
+                                 "\n-- For binary upgrade, must preserve the subscriber's running state.\n");
+            appendPQExpBuffer(query, "ALTER SUBSCRIPTION %s ENABLE;\n", qsubname);
+        }
+    }
+
+    // Create archive entry
+    if (subinfo->dobj.dump & DUMP_COMPONENT_DEFINITION) {
+        ArchiveEntry(fout, subinfo->dobj.catId, subinfo->dobj.dumpId,
+                     ARCHIVE_OPTS(.tag = subinfo->dobj.name,
+                                  .owner = subinfo->rolname,
+                                  .description = "SUBSCRIPTION",
+                                  .section = SECTION_POST_DATA,
+                                  .createStmt = query->data,
+                                  .dropStmt = delq->data));
+    }
+
+    // Handle comments and security labels
+    if (subinfo->dobj.dump & DUMP_COMPONENT_COMMENT)
+        dumpComment(fout, "SUBSCRIPTION", qsubname, NULL, subinfo->rolname,
+                    subinfo->dobj.catId, 0, subinfo->dobj.dumpId);
+
+    if (subinfo->dobj.dump & DUMP_COMPONENT_SECLABEL)
+        dumpSecLabel(fout, "SUBSCRIPTION", qsubname, NULL, subinfo->rolname,
+                     subinfo->dobj.catId, 0, subinfo->dobj.dumpId);
+
+    // Cleanup
+    destroyPQExpBuffer(publications);
+    free(pubnames);
+    destroyPQExpBuffer(delq);
+    destroyPQExpBuffer(query);
+    free(qsubname);
+}
+```

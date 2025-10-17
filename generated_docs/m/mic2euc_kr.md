@@ -43,3 +43,51 @@ This static function implements the core logic for converting MULE (Multi-byte U
 - Handles embedded null bytes as invalid input in MULE context
 - More complex than euc_kr2mic due to the need to handle multiple language codes in MULE format
 - Part of PostgreSQL's bidirectional multi-byte character encoding conversion system
+
+## Simplified Source
+
+```c
+static int mic2euc_kr(const unsigned char *mic, unsigned char *p, int len, bool noError) {
+    const unsigned char *start = mic;
+
+    while (len > 0) {
+        int c1 = *mic;
+
+        // Handle ASCII characters (copy directly)
+        if (!IS_HIGHBIT_SET(c1)) {
+            if (c1 == 0) {
+                if (noError) break;
+                report_invalid_encoding(PG_MULE_INTERNAL, (const char *) mic, len);
+            }
+            *p++ = c1;
+            mic++;
+            len--;
+            continue;
+        }
+
+        // Verify multi-byte character in MULE encoding
+        int char_len = pg_encoding_verifymbchar(PG_MULE_INTERNAL, (const char *) mic, len);
+        if (char_len < 0) {
+            if (noError) break;
+            report_invalid_encoding(PG_MULE_INTERNAL, (const char *) mic, len);
+        }
+
+        // Convert Korean characters (LC_KS5601 prefix)
+        if (c1 == LC_KS5601) {
+            // Strip MULE prefix and copy EUC-KR bytes
+            *p++ = mic[1];
+            *p++ = mic[2];
+        } else {
+            // Other language codes are not translatable to EUC-KR
+            if (noError) break;
+            report_untranslatable_char(PG_MULE_INTERNAL, PG_EUC_KR, (const char *) mic, len);
+        }
+
+        mic += char_len;
+        len -= char_len;
+    }
+
+    *p = '\0';
+    return mic - start;
+}
+```

@@ -36,3 +36,30 @@ This function performs cleanup by removing the physical replication slot on the 
 - Part of the cleanup phase in the standby-to-subscriber conversion workflow
 - Provides user guidance through warning hints if automatic cleanup fails
 - Uses non-fatal connection mode to gracefully handle primary server unavailability
+
+## Simplified Source
+
+```c
+static void
+drop_primary_replication_slot(struct LogicalRepInfo *dbinfo, const char *slotname)
+{
+    PGconn *conn;
+
+    // Skip if no replication slot was configured
+    if (!primary_slot_name)
+        return;
+
+    // Attempt to connect to primary server (non-fatal connection)
+    conn = connect_database(dbinfo[0].pubconninfo, false);
+
+    if (conn != NULL) {
+        // Successfully connected - drop the slot
+        drop_replication_slot(conn, &dbinfo[0], slotname);
+        disconnect_database(conn, false);
+    } else {
+        // Connection failed - provide warnings for manual cleanup
+        pg_log_warning("could not drop replication slot \"%s\" on primary", slotname);
+        pg_log_warning_hint("Drop this replication slot soon to avoid retention of WAL files.");
+    }
+}
+```

@@ -44,3 +44,26 @@ The function performs a SearchSysCache operation, validates that a tuple was fou
 - No locks are retained on the cache entry after the function completes
 - The oidcol parameter uses AttrNumber type, which is a 1-based column numbering system
 - Commonly used to retrieve object identifiers from system catalog tables efficiently
+
+## Simplified Source
+
+```c
+Oid GetSysCacheOid(int cacheId, AttrNumber oidcol, Datum key1, Datum key2, Datum key3, Datum key4) {
+    HeapTuple tuple;
+    bool isNull;
+    Oid result;
+
+    // Search for tuple in system cache
+    tuple = SearchSysCache(cacheId, key1, key2, key3, key4);
+    if (!HeapTupleIsValid(tuple))
+        return InvalidOid;
+
+    // Extract OID from specified column
+    result = heap_getattr(tuple, oidcol, SysCache[cacheId]->cc_tupdesc, &isNull);
+    Assert(!isNull);  // OID columns should never be NULL
+
+    // Release cache entry and return OID
+    ReleaseSysCache(tuple);
+    return result;
+}
+```

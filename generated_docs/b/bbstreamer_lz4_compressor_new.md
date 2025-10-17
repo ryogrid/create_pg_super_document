@@ -35,3 +35,41 @@ The streamer uses LZ4 frame format with a maximum 256KB block size and honors th
 - Uses LZ4F_max256KB block size for optimal performance
 - Returns NULL and logs fatal error if LZ4 compression context creation fails
 - Part of the bbstreamer chain architecture for processing backup data streams
+
+## Simplified Source
+
+```c
+bbstreamer *
+bbstreamer_lz4_compressor_new(bbstreamer *next, pg_compress_specification *compress)
+{
+#ifdef USE_LZ4
+    bbstreamer_lz4_frame *streamer;
+    LZ4F_errorCode_t ctxError;
+    LZ4F_preferences_t *prefs;
+
+    // Allocate and initialize LZ4 compression streamer
+    streamer = palloc0(sizeof(bbstreamer_lz4_frame));
+    streamer->base.bbs_ops = &bbstreamer_lz4_compressor_ops;
+    streamer->base.bbs_next = next;
+    initStringInfo(&streamer->base.bbs_buffer);
+    streamer->header_written = false;
+
+    // Configure LZ4 compression preferences
+    prefs = &streamer->prefs;
+    memset(prefs, 0, sizeof(LZ4F_preferences_t));
+    prefs->frameInfo.blockSizeID = LZ4F_max256KB;
+    prefs->compressionLevel = compress->level;
+
+    // Create LZ4 compression context
+    ctxError = LZ4F_createCompressionContext(&streamer->cctx, LZ4F_VERSION);
+    if (LZ4F_isError(ctxError))
+        pg_log_error("could not create lz4 compression context: %s",
+                     LZ4F_getErrorName(ctxError));
+
+    return &streamer->base;
+#else
+    pg_fatal("this build does not support compression with %s", "LZ4");
+    return NULL;
+#endif
+}
+```

@@ -56,3 +56,166 @@ Key behaviors include:
 - The width calculation follows the rule that positions represent match ends rather than starts when width > 0
 - Critical for phrase search functionality where word proximity and order matter
 - Returns TSTernaryValue (TS_YES, TS_NO, TS_MAYBE) to handle uncertain match scenarios
+
+## Simplified Source
+
+```c
+static TSTernaryValue TS_phrase_execute(QueryItem *curitem, void *arg, uint32 flags,
+                                       TSExecuteCallback chkcond, ExecPhraseData *data) {
+    ExecPhraseData Ldata, Rdata;
+    TSTernaryValue lmatch, rmatch;
+    int Loffset, Roffset, maxwidth;
+
+    // Safety checks
+    check_stack_depth();
+    CHECK_FOR_INTERRUPTS();
+
+    // Base case: evaluate leaf node (operand)
+    if (curitem->type == QI_VAL)
+        return chkcond(arg, (QueryOperand *) curitem, data);
+
+    // Handle different operators
+    switch (curitem->qoperator.oper) {
+        case OP_NOT:
+            if (flags & TS_EXEC_SKIP_NOT) {
+                // Report NOT as "match everywhere"
+                Assert(data->npos == 0 && !data->negate);
+                data->negate = true;
+                return TS_YES;
+            }
+
+            // Recursively evaluate the negated operand
+            switch (TS_phrase_execute(curitem + 1, arg, flags, chkcond, data)) {
+                case TS_NO:
+                    // "match nowhere" becomes "match everywhere"
+                    data->negate = true;
+                    return TS_YES;
+                case TS_YES:
+                    if (data->npos > 0) {
+                        // Invert the negate flag
+                        data->negate = !data->negate;
+                        return TS_YES;
+                    } else if (data->negate) {
+                        // "match everywhere" becomes "match nowhere"
+                        data->negate = false;
+                        return TS_NO;
+                    }
+                    break;
+                case TS_MAYBE:
+                    return TS_MAYBE;
+            }
+            break;
+
+        case OP_PHRASE:
+        case OP_AND:
+            // Initialize left and right data structures
+            memset(&Ldata, 0, sizeof(Ldata));
+            memset(&Rdata, 0, sizeof(Rdata));
+
+            // Evaluate left and right operands
+            lmatch = TS_phrase_execute(curitem + curitem->qoperator.left, arg, flags, chkcond, &Ldata);
+            if (lmatch == TS_NO) return TS_NO;
+
+            rmatch = TS_phrase_execute(curitem + 1, arg, flags, chkcond, &Rdata);
+            if (rmatch == TS_NO) return TS_NO;
+
+            // Handle uncertain matches
+            if (lmatch == TS_MAYBE || rmatch == TS_MAYBE)
+                return TS_MAYBE;
+
+            // Calculate position offsets and width
+            if (curitem->qoperator.oper == OP_PHRASE) {
+                // Phrase: compute distance-based offsets
+                Loffset = curitem->qoperator.distance + Rdata.width;
+                Roffset = 0;
+                if (data)
+                    data->width = curitem->qoperator.distance + Ldata.width + Rdata.width;
+            } else {
+                // AND: align to maximum width
+                maxwidth = Max(Ldata.width, Rdata.width);
+                Loffset = maxwidth - Ldata.width;
+                Roffset = maxwidth - Rdata.width;
+                if (data)
+                    data->width = maxwidth;
+            }
+
+            // Handle negated operands using boolean logic
+            if (Ldata.negate && Rdata.negate) {
+                // !L & !R: treat as !(L | R)
+                TS_phrase_output(data, &Ldata, &Rdata,
+                               TSPO_BOTH | TSPO_L_ONLY | TSPO_R_ONLY,
+                               Loffset, Roffset, Ldata.npos + Rdata.npos);
+                if (data) data->negate = true;
+                return TS_YES;
+            } else if (Ldata.negate) {
+                // !L & R
+                return TS_phrase_output(data, &Ldata, &Rdata, TSPO_R_ONLY,
+                                      Loffset, Roffset, Rdata.npos);
+            } else if (Rdata.negate) {
+                // L & !R
+                return TS_phrase_output(data, &Ldata, &Rdata, TSPO_L_ONLY,
+                                      Loffset, Roffset, Ldata.npos);
+            } else {
+                // Straight AND
+                return TS_phrase_output(data, &Ldata, &Rdata, TSPO_BOTH,
+                                      Loffset, Roffset, Min(Ldata.npos, Rdata.npos));
+            }
+
+        case OP_OR:
+            // Initialize data structures
+            memset(&Ldata, 0, sizeof(Ldata));
+            memset(&Rdata, 0, sizeof(Rdata));
+
+            // Evaluate both operands
+            lmatch = TS_phrase_execute(curitem + curitem->qoperator.left, arg, flags, chkcond, &Ldata);
+            rmatch = TS_phrase_execute(curitem + 1, arg, flags, chkcond, &Rdata);
+
+            if (lmatch == TS_NO && rmatch == TS_NO)
+                return TS_NO;
+
+            if (lmatch == TS_MAYBE || rmatch == TS_MAYBE)
+                return TS_MAYBE;
+
+            // Handle undefined widths from failed matches
+            if (lmatch == TS_NO) Ldata.width = 0;
+            if (rmatch == TS_NO) Rdata.width = 0;
+
+            // Align to maximum width
+            maxwidth = Max(Ldata.width, Rdata.width);
+            Loffset = maxwidth - Ldata.width;
+            Roffset = maxwidth - Rdata.width;
+            data->width = maxwidth;
+
+            // Handle negated operands using boolean logic
+            if (Ldata.negate && Rdata.negate) {
+                // !L | !R: treat as !(L & R)
+                TS_phrase_output(data, &Ldata, &Rdata, TSPO_BOTH,
+                               Loffset, Roffset, Min(Ldata.npos, Rdata.npos));
+                data->negate = true;
+                return TS_YES;
+            } else if (Ldata.negate) {
+                // !L | R: treat as !(L & !R)
+                TS_phrase_output(data, &Ldata, &Rdata, TSPO_L_ONLY,
+                               Loffset, Roffset, Ldata.npos);
+                data->negate = true;
+                return TS_YES;
+            } else if (Rdata.negate) {
+                // L | !R: treat as !(!L & R)
+                TS_phrase_output(data, &Ldata, &Rdata, TSPO_R_ONLY,
+                               Loffset, Roffset, Rdata.npos);
+                data->negate = true;
+                return TS_YES;
+            } else {
+                // Straight OR
+                return TS_phrase_output(data, &Ldata, &Rdata,
+                                      TSPO_BOTH | TSPO_L_ONLY | TSPO_R_ONLY,
+                                      Loffset, Roffset, Ldata.npos + Rdata.npos);
+            }
+
+        default:
+            elog(ERROR, "unrecognized operator: %d", curitem->qoperator.oper);
+    }
+
+    return TS_NO;
+}
+```

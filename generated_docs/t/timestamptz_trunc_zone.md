@@ -37,3 +37,27 @@ This function provides timezone-aware truncation of timestamp with timezone valu
 - Timezone lookup is performed for every call, which may have performance implications for high-frequency operations
 - The actual truncation logic is delegated to `timestamptz_trunc_internal`, making this function primarily a wrapper that handles timezone resolution
 - Located in src/backend/utils/adt/timestamp.c:4988-5016
+
+## Simplified Source
+
+```c
+Datum timestamptz_trunc_zone(PG_FUNCTION_ARGS) {
+    text *units = PG_GETARG_TEXT_PP(0);
+    TimestampTz timestamp = PG_GETARG_TIMESTAMPTZ(1);
+    text *zone = PG_GETARG_TEXT_PP(2);
+    TimestampTz result;
+    pg_tz *tzp;
+
+    // Return infinite timestamps as-is (following timestamptz_zone() pattern)
+    if (TIMESTAMP_NOT_FINITE(timestamp))
+        PG_RETURN_TIMESTAMP(timestamp);
+
+    // Look up the specified timezone
+    tzp = lookup_timezone(zone);
+
+    // Delegate to internal function using specified timezone
+    result = timestamptz_trunc_internal(units, timestamp, tzp);
+
+    PG_RETURN_TIMESTAMPTZ(result);
+}
+```

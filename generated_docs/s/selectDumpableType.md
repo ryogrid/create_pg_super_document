@@ -45,3 +45,44 @@ The DO_DUMMY_TYPE classification is crucial for maintaining the correct dump ord
 - The function ensures that casts involving special types can still be dumped correctly
 - Extension membership takes precedence over all other dump decisions
 - Table rowtypes follow their underlying table's dump status for consistency
+
+## Simplified Source
+
+```c
+static void
+selectDumpableType(TypeInfo *tyinfo, Archive *fout)
+{
+    // Handle table rowtypes (but not standalone composite types)
+    if (OidIsValid(tyinfo->typrelid) &&
+        tyinfo->typrelkind != RELKIND_COMPOSITE_TYPE)
+    {
+        TableInfo *tytable = findTableByOid(tyinfo->typrelid);
+
+        // Mark as dummy type to control dump ordering
+        tyinfo->dobj.objType = DO_DUMMY_TYPE;
+
+        // Follow the underlying table's dump status
+        if (tytable != NULL)
+            tyinfo->dobj.dump = tytable->dobj.dump;
+        else
+            tyinfo->dobj.dump = DUMP_COMPONENT_NONE;
+        return;
+    }
+
+    // Handle auto-generated array and multirange types
+    if (tyinfo->isArray || tyinfo->isMultirange)
+    {
+        // Mark as dummy type - these are created automatically with base types
+        tyinfo->dobj.objType = DO_DUMMY_TYPE;
+
+        // Continue to set dump flag based on namespace/extension rules
+    }
+
+    // Check extension membership first - it overrides other rules
+    if (checkExtensionMembership(&tyinfo->dobj, fout))
+        return;
+
+    // Regular types inherit from namespace dump settings
+    tyinfo->dobj.dump = tyinfo->dobj.namespace->dobj.dump_contains;
+}
+```

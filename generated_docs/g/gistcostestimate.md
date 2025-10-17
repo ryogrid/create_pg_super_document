@@ -54,3 +54,48 @@ The cost model includes both comparison costs during tree traversal and fixed pe
 - Tree height calculation avoids computing log(0) by checking for single-page indexes
 - Per-page CPU costs are calculated using the same multiplier as B-trees (DEFAULT_PAGE_CPU_MULTIPLIER)
 - The cost model is conservative and may overestimate costs for GiST indexes with higher actual fanouts
+
+## Simplified Source
+
+```c
+void gistcostestimate(PlannerInfo *root, IndexPath *path, double loop_count,
+                     Cost *indexStartupCost, Cost *indexTotalCost,
+                     Selectivity *indexSelectivity, double *indexCorrelation,
+                     double *indexPages) {
+    IndexOptInfo *index = path->indexinfo;
+    GenericCosts costs = {0};
+    Cost descentCost;
+
+    // Get base cost estimates using generic estimation
+    genericcostestimate(root, path, loop_count, &costs);
+
+    // Calculate tree height using fanout assumption of 100
+    if (index->tree_height < 0) {
+        if (index->pages > 1)
+            index->tree_height = (int) (log(index->pages) / log(100.0));
+        else
+            index->tree_height = 0;
+    }
+
+    // Add CPU cost for tree descent based on number of tuples
+    if (index->tuples > 1) {
+        descentCost = ceil(log(index->tuples)) * cpu_operator_cost;
+        costs.indexStartupCost += descentCost;
+        costs.indexTotalCost += costs.num_sa_scans * descentCost;
+    }
+
+    // Add per-page cost for tree traversal
+    descentCost = (index->tree_height + 1) * DEFAULT_PAGE_CPU_MULTIPLIER * cpu_operator_cost;
+    costs.indexStartupCost += descentCost;
+    costs.indexTotalCost += costs.num_sa_scans * descentCost;
+
+    // Return computed costs
+    *indexStartupCost = costs.indexStartupCost;
+    *indexTotalCost = costs.indexTotalCost;
+    *indexSelectivity = costs.indexSelectivity;
+    *indexCorrelation = costs.indexCorrelation;
+    *indexPages = costs.numIndexPages;
+}
+```
+
+**Core Logic**: Extends generic cost estimation with GiST-specific tree descent costs, using logarithmic tree height calculation with fanout of 100 and adding both comparison and page processing costs.

@@ -42,3 +42,25 @@ The function also handles backward compatibility with older archive versions. Pr
 - The restored offset information enables efficient seeking to data blocks during restoration
 - If a formatData context doesn't exist, the function creates one, making it robust for various initialization scenarios
 - Uses archiver-provided routines to ensure proper endianness handling and consistent file format interpretation
+
+## Simplified Source
+
+```c
+static void
+_ReadExtraToc(ArchiveHandle *AH, TocEntry *te)
+{
+    // Get or create format-specific context
+    lclTocEntry *ctx = (lclTocEntry *) te->formatData;
+    if (ctx == NULL) {
+        ctx = (lclTocEntry *) pg_malloc0(sizeof(lclTocEntry));
+        te->formatData = (void *) ctx;
+    }
+
+    // Read data position and state from archive
+    ctx->dataState = ReadOffset(AH, &(ctx->dataPos));
+
+    // Handle backwards compatibility: older versions stored data size
+    if (AH->version < K_VERS_1_7)
+        ReadInt(AH);  // Read and discard obsolete data size
+}
+```

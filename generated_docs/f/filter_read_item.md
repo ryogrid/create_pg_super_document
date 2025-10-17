@@ -49,3 +49,77 @@ This function parses one filter item from a filter file in the format: `<command
 - Will terminate the program via exit_nicely on any parsing errors or invalid input
 - Maintains line number tracking for accurate error reporting
 - Returns false only on clean EOF, true for successful parsing or when skipping comments/empty lines
+
+## Simplified Source
+
+```c
+bool filter_read_item(FilterStateData *fstate,
+                     char **objname,
+                     FilterCommandType *comtype,
+                     FilterObjectType *objtype) {
+    // Read next line from filter file
+    if (pg_get_line_buf(fstate->fp, &fstate->linebuff)) {
+        const char *str = fstate->linebuff.data;
+        const char *keyword;
+        int size;
+        PQExpBufferData pattern;
+
+        fstate->lineno++;
+
+        // Skip initial whitespace
+        while (isspace((unsigned char) *str))
+            str++;
+
+        // Skip empty lines and comments
+        if (*str != '\0' && *str != '#') {
+            // Parse command keyword (include/exclude)
+            keyword = filter_get_keyword(&str, &size);
+            if (!keyword) {
+                pg_log_filter_error(fstate, _("no filter command found (expected \"include\" or \"exclude\")"));
+                fstate->exit_nicely(1);
+            }
+
+            if (is_keyword_str("include", keyword, size))
+                *comtype = FILTER_COMMAND_TYPE_INCLUDE;
+            else if (is_keyword_str("exclude", keyword, size))
+                *comtype = FILTER_COMMAND_TYPE_EXCLUDE;
+            else {
+                pg_log_filter_error(fstate, _("invalid filter command (expected \"include\" or \"exclude\")"));
+                fstate->exit_nicely(1);
+            }
+
+            // Parse object type keyword
+            keyword = filter_get_keyword(&str, &size);
+            if (!keyword) {
+                pg_log_filter_error(fstate, _("missing filter object type"));
+                fstate->exit_nicely(1);
+            }
+
+            if (!get_object_type(keyword, size, objtype)) {
+                pg_log_filter_error(fstate, _("unsupported filter object type: \"%.*s\""), size, keyword);
+                fstate->exit_nicely(1);
+            }
+
+            // Parse object pattern (may span multiple lines)
+            initPQExpBuffer(&pattern);
+            str = read_pattern(fstate, str, &pattern);
+            *objname = pattern.data;
+        } else {
+            // Empty line or comment - set defaults
+            *objname = NULL;
+            *comtype = FILTER_COMMAND_TYPE_NONE;
+            *objtype = FILTER_OBJECT_TYPE_NONE;
+        }
+
+        return true;
+    }
+
+    // Check for file read errors
+    if (ferror(fstate->fp)) {
+        pg_log_error("could not read from filter file \"%s\": %m", fstate->filename);
+        fstate->exit_nicely(1);
+    }
+
+    return false;  // EOF reached
+}
+```

@@ -39,3 +39,24 @@ This function performs a collation-aware comparison between a text value and a n
 - Uses collation-aware comparison through 
 - Properly handles variable-length text data with detoasting
 - Frees copied text argument to prevent memory leaks
+
+## Simplified Source
+
+```c
+Datum
+bttextnamecmp(PG_FUNCTION_ARGS)
+{
+    // Extract text and name arguments
+    text *text_arg = PG_GETARG_TEXT_PP(0);
+    Name name_arg = PG_GETARG_NAME(1);
+
+    // Compare text with name using locale-aware comparison
+    int32 result = varstr_cmp(VARDATA_ANY(text_arg), VARSIZE_ANY_EXHDR(text_arg),
+                             NameStr(*name_arg), strlen(NameStr(*name_arg)),
+                             PG_GET_COLLATION());
+
+    // Clean up memory and return comparison result
+    PG_FREE_IF_COPY(text_arg, 0);
+    PG_RETURN_INT32(result);
+}
+```

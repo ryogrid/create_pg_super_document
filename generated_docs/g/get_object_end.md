@@ -31,3 +31,26 @@ The `get_object_end` function is a semantic action callback used during JSON par
 - The extracted text is converted to PostgreSQL's text type using cstring_to_text_with_len
 - Works in conjunction with get_object_start which records the initial position
 - Always returns JSON_SUCCESS to indicate successful processing
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+get_object_end(void *state)
+{
+    GetState *_state = (GetState *) state;
+    int lex_level = _state->lex->lex_level;
+
+    // Special case: extract entire root object
+    if (lex_level == 0 && _state->npath == 0) {
+        // Calculate object length from start to current position
+        const char *start = _state->result_start;
+        int len = _state->lex->prev_token_terminator - start;
+
+        // Convert extracted text to PostgreSQL text type
+        _state->tresult = cstring_to_text_with_len(start, len);
+    }
+
+    return JSON_SUCCESS;
+}
+```

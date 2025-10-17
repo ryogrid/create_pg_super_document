@@ -34,3 +34,15 @@ The existence of this wrapper is necessitated by PostgreSQL's grammar requiremen
 - Part of PostgreSQL's AT LOCAL syntax implementation
 - Does not perform any validation or processing itself, purely delegates to timestamp_timestamptz
 - Function is registered in PostgreSQL's system catalogs to support AT LOCAL grammar parsing
+
+## Simplified Source
+
+```c
+Datum
+timestamp_at_local(PG_FUNCTION_ARGS)
+{
+    // Simple wrapper for AT LOCAL syntax support
+    // Converts timestamp to timestamptz using session timezone
+    return timestamp_timestamptz(fcinfo);
+}
+```

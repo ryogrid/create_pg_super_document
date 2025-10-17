@@ -32,3 +32,17 @@ The function is straightforward and efficient, leveraging the BumpReset function
 - Since the initial block contains both the context header and keeper block, a single free() call releases both
 - After this function completes, the context pointer becomes invalid and should not be used
 - This is the final cleanup function in the lifecycle of a Bump memory context
+
+## Simplified Source
+
+```c
+void
+BumpDelete(MemoryContext context)
+{
+    // Reset to release all releasable BumpBlocks
+    BumpReset(context);
+
+    // Free the context header and keeper block
+    free(context);
+}
+```

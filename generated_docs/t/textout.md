@@ -33,4 +33,15 @@ The  function is a PostgreSQL data type output function that handles the convers
 - It uses PostgreSQL's function call convention with  and 
 - The actual text-to-string conversion logic is delegated to the  helper function
 - Complementary to the  function, forming the input/output pair for text data type
-- Located in 
+- Located in src/backend/utils/adt/varlena.c
+
+## Simplified Source
+
+```c
+Datum textout(PG_FUNCTION_ARGS) {
+    Datum txt = PG_GETARG_DATUM(0);
+
+    // Convert text datum to C-style string
+    PG_RETURN_CSTRING(TextDatumGetCString(txt));
+}
+``` 

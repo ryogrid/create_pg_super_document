@@ -33,3 +33,17 @@ This function is designed to be called during the DSM segment initialization pha
 - Part of the test_dsm_registry test module, used for testing PostgreSQL's DSM functionality
 - The function assumes the provided pointer has sufficient space for a `TestDSMRegistryStruct`
 - The lock initialization uses a new tranche ID, which helps with lock contention monitoring and debugging
+
+## Simplified Source
+
+```c
+static void tdr_init_shmem(void *ptr) {
+    TestDSMRegistryStruct *state = (TestDSMRegistryStruct *) ptr;
+
+    // Initialize the lock with a new tranche ID
+    LWLockInitialize(&state->lck, LWLockNewTrancheId());
+
+    // Initialize the value field
+    state->val = 0;
+}
+```

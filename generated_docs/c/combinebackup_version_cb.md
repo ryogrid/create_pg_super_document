@@ -37,3 +37,14 @@ When an incompatible version (specifically version 1) is encountered, the functi
 - Critical for ensuring pg_combinebackup only processes compatible backup manifests
 - The context parameter is provided for callback interface compatibility but not utilized
 - Part of the incremental backup validation system in PostgreSQL's backup tooling
+
+## Simplified Source
+
+```c
+static void combinebackup_version_cb(JsonManifestParseContext *context,
+                                   int manifest_version) {
+    // Check if manifest version supports incremental backup
+    if (manifest_version == 1)
+        pg_fatal("backup manifest version 1 does not support incremental backup");
+}
+```

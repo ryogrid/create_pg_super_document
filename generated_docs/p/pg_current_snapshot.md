@@ -45,3 +45,38 @@ This function takes no parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL fu
 - Duplicate transaction IDs are automatically removed during the sorting process
 - The function handles the transient state during two-phase commit preparation where both the original backend and dummy PGPROC entry may hold the same XID
 - Located in src/backend/utils/adt/xid8funcs.c:370-419
+
+## Simplified Source
+
+```c
+Datum pg_current_snapshot(PG_FUNCTION_ARGS) {
+    // Get reference to next transaction ID for conversion
+    FullTransactionId next_fxid = ReadNextFullTransactionId();
+
+    // Get current active snapshot
+    Snapshot cur = GetActiveSnapshot();
+    if (cur == NULL)
+        elog(ERROR, "no active snapshot set");
+
+    // Allocate memory for pg_snapshot structure
+    uint32 nxip = cur->xcnt;
+    pg_snapshot *snap = palloc(PG_SNAPSHOT_SIZE(nxip));
+
+    // Fill snapshot with transaction boundaries
+    snap->xmin = FullTransactionIdFromAllowableAt(next_fxid, cur->xmin);
+    snap->xmax = FullTransactionIdFromAllowableAt(next_fxid, cur->xmax);
+    snap->nxip = nxip;
+
+    // Copy active transaction IDs
+    for (uint32 i = 0; i < nxip; i++)
+        snap->xip[i] = FullTransactionIdFromAllowableAt(next_fxid, cur->xip[i]);
+
+    // Sort and remove duplicates for consistency
+    sort_snapshot(snap);
+
+    // Set final size after potential duplicate removal
+    SET_VARSIZE(snap, PG_SNAPSHOT_SIZE(snap->nxip));
+
+    PG_RETURN_POINTER(snap);
+}
+```

@@ -34,3 +34,49 @@ The `get_object_field_start` function is a semantic action callback used during 
 - The normalization behavior differs based on token type: for string tokens in normalize mode, it delegates to get_scalar; otherwise it records the starting position
 - The function supports nested object navigation by maintaining path state across multiple lexical levels
 - Always returns JSON_SUCCESS regardless of whether a match is found
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+get_object_field_start(void *state, char *fname, bool isnull)
+{
+    GetState *_state = (GetState *) state;
+    bool get_next = false;
+    int lex_level = _state->lex->lex_level;
+
+    // Check if this field matches our target path
+    if (lex_level <= _state->npath &&
+        _state->pathok[lex_level - 1] &&
+        _state->path_names != NULL &&
+        _state->path_names[lex_level - 1] != NULL &&
+        strcmp(fname, _state->path_names[lex_level - 1]) == 0) {
+
+        if (lex_level < _state->npath) {
+            // Intermediate path level - mark as valid for deeper navigation
+            _state->pathok[lex_level] = true;
+        } else {
+            // Final path level - this is our target field
+            get_next = true;
+        }
+    }
+
+    if (get_next) {
+        // Clear previous results (handles object field overrides)
+        _state->tresult = NULL;
+        _state->result_start = NULL;
+
+        // Set up extraction mode based on normalization requirements
+        if (_state->normalize_results &&
+            _state->lex->token_type == JSON_TOKEN_STRING) {
+            // For text variants, delegate to get_scalar for normalization
+            _state->next_scalar = true;
+        } else {
+            // For JSON variants, record starting position for later extraction
+            _state->result_start = _state->lex->token_start;
+        }
+    }
+
+    return JSON_SUCCESS;
+}
+```

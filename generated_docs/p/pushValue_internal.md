@@ -45,3 +45,33 @@ The function includes comprehensive error handling with appropriate error codes 
 - Weight parameter uses a bitmask format to indicate which text search weight classes (A, B, C, D) apply to the operand
 - The distance parameter is used for phrase queries and proximity operations
 - Memory allocation uses palloc0 to ensure proper zero-initialization of the structure
+
+## Simplified Source
+
+```c
+static void pushValue_internal(TSQueryParserState state, pg_crc32 valcrc, int distance,
+                              int lenval, int weight, bool prefix) {
+    // Validate input parameters against PostgreSQL limits
+    if (distance >= MAXSTRPOS)
+        ereturn(state->escontext,,
+                (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                 errmsg("value is too big in tsquery: \"%s\"", state->buffer)));
+
+    if (lenval >= MAXSTRLEN)
+        ereturn(state->escontext,,
+                (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                 errmsg("operand is too long in tsquery: \"%s\"", state->buffer)));
+
+    // Create and initialize new operand
+    QueryOperand *tmp = (QueryOperand *) palloc0(sizeof(QueryOperand));
+    tmp->type = QI_VAL;
+    tmp->weight = weight;
+    tmp->prefix = prefix;
+    tmp->valcrc = (int32) valcrc;
+    tmp->length = lenval;
+    tmp->distance = distance;
+
+    // Add operand to polish notation list
+    state->polstr = lcons(tmp, state->polstr);
+}
+```

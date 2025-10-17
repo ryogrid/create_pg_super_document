@@ -32,3 +32,15 @@ This function is specifically designed for parallel backup operations in the pg_
 - Part of the parallel backup infrastructure specific to directory-format archives
 - The function comment indicates it "returns void" conceptually, as the return value is primarily for successful completion indication
 - Designed for execution in forked child processes during parallel operations
+
+## Simplified Source
+
+```c
+static int _WorkerJobDumpDirectory(ArchiveHandle *AH, TocEntry *te) {
+    // Dump the actual data for this TOC entry
+    // Failure will terminate the child process, detected by parent
+    WriteDataChunksForTocEntry(AH, te);
+
+    return 0;  // Success
+}
+```

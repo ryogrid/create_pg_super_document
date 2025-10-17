@@ -57,3 +57,59 @@ The function performs extensive validation to ensure data integrity:
 - The transaction IDs must be provided in ascending order in the binary format
 - All transaction IDs in xip must fall within the range [xmin, xmax) for the snapshot to be valid
 - Located in src/backend/utils/adt/xid8funcs.c:468-533
+
+## Simplified Source
+
+```c
+Datum pg_snapshot_recv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    FullTransactionId last = InvalidFullTransactionId;
+
+    // Read and validate number of in-progress transactions
+    int nxip = pq_getmsgint(buf, 4);
+    if (nxip < 0 || nxip > PG_SNAPSHOT_MAX_NXIP)
+        goto bad_format;
+
+    // Read and validate transaction boundaries
+    FullTransactionId xmin = FullTransactionIdFromU64(pq_getmsgint64(buf));
+    FullTransactionId xmax = FullTransactionIdFromU64(pq_getmsgint64(buf));
+    if (!FullTransactionIdIsValid(xmin) || !FullTransactionIdIsValid(xmax) ||
+        FullTransactionIdPrecedes(xmax, xmin))
+        goto bad_format;
+
+    // Allocate and initialize snapshot structure
+    pg_snapshot *snap = palloc(PG_SNAPSHOT_SIZE(nxip));
+    snap->xmin = xmin;
+    snap->xmax = xmax;
+
+    // Read and validate active transaction IDs
+    for (int i = 0; i < nxip; i++) {
+        FullTransactionId cur = FullTransactionIdFromU64(pq_getmsgint64(buf));
+
+        // Validate ordering and range
+        if (FullTransactionIdPrecedes(cur, last) ||
+            FullTransactionIdPrecedes(cur, xmin) ||
+            FullTransactionIdPrecedes(xmax, cur))
+            goto bad_format;
+
+        // Skip duplicates
+        if (FullTransactionIdEquals(cur, last)) {
+            i--;
+            nxip--;
+            continue;
+        }
+
+        snap->xip[i] = cur;
+        last = cur;
+    }
+
+    snap->nxip = nxip;
+    SET_VARSIZE(snap, PG_SNAPSHOT_SIZE(nxip));
+    PG_RETURN_POINTER(snap);
+
+bad_format:
+    ereport(ERROR, (errcode(ERRCODE_INVALID_BINARY_REPRESENTATION),
+                    errmsg("invalid external pg_snapshot data")));
+    PG_RETURN_POINTER(NULL);
+}
+```

@@ -46,3 +46,37 @@ If the user parameter is NULL or empty, the command uses DEFAULT to restore the 
 - Provides specific error handling with pg_fatal() rather than warn_or_exit_horribly()
 - The caller is responsible for updating any necessary state after the authorization change
 - Essential for privilege separation during restore operations where different objects may need to be created under different user contexts
+
+## Simplified Source
+
+```c
+static void _doSetSessionAuth(ArchiveHandle *AH, const char *user) {
+    PQExpBuffer cmd = createPQExpBuffer();
+
+    // Build SET SESSION AUTHORIZATION command
+    appendPQExpBufferStr(cmd, "SET SESSION AUTHORIZATION ");
+
+    if (user && *user)
+        appendStringLiteralAHX(cmd, user, AH);  // Proper SQL string literal
+    else
+        appendPQExpBufferStr(cmd, "DEFAULT");
+    appendPQExpBufferChar(cmd, ';');
+
+    // Execute command or output to script
+    if (RestoringToDB(AH)) {
+        // Connected mode: execute directly
+        PGresult *res = PQexec(AH->connection, cmd->data);
+
+        if (!res || PQresultStatus(res) != PGRES_COMMAND_OK)
+            pg_fatal("could not set session user to \"%s\": %s",
+                    user, PQerrorMessage(AH->connection));
+
+        PQclear(res);
+    } else {
+        // Script mode: output command
+        ahprintf(AH, "%s\n\n", cmd->data);
+    }
+
+    destroyPQExpBuffer(cmd);
+}
+```

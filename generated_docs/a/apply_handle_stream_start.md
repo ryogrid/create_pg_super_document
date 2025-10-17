@@ -54,3 +54,84 @@ The function coordinates between the leader apply worker and parallel apply work
 - Implements sophisticated parallel processing logic to maximize replication throughput
 - The function must handle the transition between different processing modes gracefully
 - Includes proper locking mechanisms to coordinate between leader and parallel workers
+
+## Simplified Source
+
+```c
+static void apply_handle_stream_start(StringInfo s)
+{
+    bool first_segment;
+    ParallelApplyWorkerInfo *winfo;
+    TransApplyAction apply_action;
+
+    // Save original message for potential serialization
+    StringInfoData original_msg = *s;
+
+    // Validate: no duplicate STREAM START messages
+    if (in_streamed_transaction)
+        ereport(ERROR, "duplicate STREAM START message");
+
+    // Mark that we're processing a streaming transaction
+    in_streamed_transaction = true;
+
+    // Extract transaction ID from message
+    stream_xid = logicalrep_read_stream_start(s, &first_segment);
+
+    // Validate transaction ID
+    if (!TransactionIdIsValid(stream_xid))
+        ereport(ERROR, "invalid transaction ID in streamed replication");
+
+    set_apply_error_context_xact(stream_xid, InvalidXLogRecPtr);
+
+    // Try to allocate parallel worker for first segment
+    if (first_segment)
+        pa_allocate_worker(stream_xid);
+
+    // Determine how to handle this transaction
+    apply_action = get_transaction_apply_action(stream_xid, &winfo);
+
+    switch (apply_action) {
+        case TRANS_LEADER_SERIALIZE:
+            // Serialize changes to spool file
+            stream_start_internal(stream_xid, first_segment);
+            break;
+
+        case TRANS_LEADER_SEND_TO_PARALLEL:
+            // Send data directly to parallel worker
+            if (pa_send_data(winfo, s->len, s->data)) {
+                if (!first_segment)
+                    pa_unlock_stream(winfo->shared->xid, AccessExclusiveLock);
+
+                pg_atomic_add_fetch_u32(&winfo->shared->pending_stream_count, 1);
+                pa_set_stream_apply_worker(winfo);
+                break;
+            }
+            // Fall through to partial serialize if sending fails
+            pa_switch_to_partial_serialize(winfo, !first_segment);
+
+        case TRANS_LEADER_PARTIAL_SERIALIZE:
+            // Fallback: serialize after parallel attempt failed
+            if (apply_action != TRANS_LEADER_SEND_TO_PARALLEL)
+                stream_start_internal(stream_xid, first_segment);
+
+            stream_write_change(LOGICAL_REP_MSG_STREAM_START, &original_msg);
+            pa_set_stream_apply_worker(winfo);
+            break;
+
+        case TRANS_PARALLEL_APPLY:
+            // Handle in parallel apply worker
+            if (first_segment) {
+                pa_lock_transaction(MyParallelShared->xid, AccessExclusiveLock);
+                pa_set_xact_state(MyParallelShared, PARALLEL_TRANS_STARTED);
+                logicalrep_worker_wakeup(MyLogicalRepWorker->subid, InvalidOid);
+            }
+            parallel_stream_nchanges = 0;
+            break;
+
+        default:
+            elog(ERROR, "unexpected apply action: %d", (int) apply_action);
+    }
+
+    pgstat_report_activity(STATE_RUNNING, NULL);
+}
+```

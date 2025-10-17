@@ -48,3 +48,41 @@ The generated names are designed to fit within PostgreSQL's  limit (typically 64
 - The returned string is allocated with psprintf and should be freed by the caller
 - Useful for creating publications, subscriptions, and replication slots when user doesn't provide explicit names
 - Database OID provides database-specific uniqueness, while random number provides temporal uniqueness
+
+## Simplified Source
+
+```c
+static char *
+generate_object_name(PGconn *conn)
+{
+    // Query current database OID
+    PGresult *res = PQexec(conn,
+                          "SELECT oid FROM pg_catalog.pg_database "
+                          "WHERE datname = pg_catalog.current_database()");
+    if (PQresultStatus(res) != PGRES_TUPLES_OK)
+    {
+        pg_log_error("could not obtain database OID: %s", PQresultErrorMessage(res));
+        disconnect_database(conn, true);
+    }
+
+    // Validate single result row
+    if (PQntuples(res) != 1)
+    {
+        pg_log_error("could not obtain database OID: got %d rows, expected %d row",
+                     PQntuples(res), 1);
+        disconnect_database(conn, true);
+    }
+
+    // Extract database OID
+    Oid oid = strtoul(PQgetvalue(res, 0, 0), NULL, 10);
+    PQclear(res);
+
+    // Generate random component
+    uint32 rand = pg_prng_uint32(&prng_state);
+
+    // Build unique object name: pg_createsubscriber_{oid}_{random_hex}
+    char *objname = psprintf("pg_createsubscriber_%u_%x", oid, rand);
+
+    return objname;
+}
+```

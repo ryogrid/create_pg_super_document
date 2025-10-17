@@ -28,3 +28,36 @@ This function serves as a JSON parser callback handler specifically for scalar v
 
 ## Notes and Other Information
 The function is designed to be used as a callback in the JSON parser's semantic action framework. It filters scalar values based on the jtiString, jtiNumeric, and jtiBool flags, allowing selective processing of different JSON value types. The function always returns JSON_SUCCESS to indicate successful processing. Unlike iterate_jsonb_values which handles value conversion, this function passes the raw token strings directly to the action callback since JSON parsing already provides string representations.
+
+## Simplified Source
+
+```c
+static JsonParseErrorType iterate_values_scalar(void *state, char *token, JsonTokenType tokentype) {
+    IterateJsonStringValuesState *_state = (IterateJsonStringValuesState *) state;
+
+    // Process scalar tokens based on type and flags
+    switch (tokentype) {
+        case JSON_TOKEN_STRING:
+            if (_state->flags & jtiString)
+                _state->action(_state->action_state, token, strlen(token));
+            break;
+
+        case JSON_TOKEN_NUMBER:
+            if (_state->flags & jtiNumeric)
+                _state->action(_state->action_state, token, strlen(token));
+            break;
+
+        case JSON_TOKEN_TRUE:
+        case JSON_TOKEN_FALSE:
+            if (_state->flags & jtiBool)
+                _state->action(_state->action_state, token, strlen(token));
+            break;
+
+        default:
+            // Ignore other token types
+            break;
+    }
+
+    return JSON_SUCCESS;
+}
+```

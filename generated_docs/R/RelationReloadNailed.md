@@ -44,3 +44,44 @@ The function is transaction-aware and will defer reloading if not in a transacti
 - Includes self-recursion protection when rebuilding pg_class
 - Defers reloading when not in transaction state or relation not actively used
 - Part of PostgreSQL's relation cache invalidation and consistency mechanism
+
+## Simplified Source
+
+```c
+static void RelationReloadNailed(Relation relation) {
+    Assert(relation->rd_isnailed);
+
+    // Reinitialize physical addressing for mapped relations
+    RelationInitPhysicalAddr(relation);
+
+    // Mark as needing revalidation
+    relation->rd_isvalid = false;
+
+    // Only reload if in transaction and relation is actively used
+    if (!IsTransactionState() || relation->rd_refcnt <= 1)
+        return;
+
+    if (relation->rd_rel->relkind == RELKIND_INDEX) {
+        // For nailed indexes, reload index-specific information
+        RelationReloadIndexInfo(relation);
+    } else {
+        // For non-index relations, reload pg_class data if relcaches are built
+        if (criticalRelcachesBuilt) {
+            // Mark valid before scan to avoid self-recursion
+            relation->rd_isvalid = true;
+
+            // Fetch fresh pg_class tuple
+            HeapTuple pg_class_tuple = ScanPgRelation(RelationGetRelid(relation),
+                                                     true, false);
+            Form_pg_class relp = (Form_pg_class) GETSTRUCT(pg_class_tuple);
+
+            // Update pg_class data in relation descriptor
+            memcpy(relation->rd_rel, relp, CLASS_TUPLE_SIZE);
+            heap_freetuple(pg_class_tuple);
+
+            // Mark valid again to protect against concurrent invalidations
+            relation->rd_isvalid = true;
+        }
+    }
+}
+```

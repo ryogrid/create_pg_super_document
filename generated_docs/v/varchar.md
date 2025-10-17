@@ -51,3 +51,39 @@ The function optimizes for the common case where no truncation is needed by retu
 - Error messages include the specific length constraint that was violated
 - The typmod parameter includes the VARHDRSZ offset, which must be subtracted to get the actual length limit
 - Preserves the original data structure when possible for performance reasons
+
+## Simplified Source
+
+```c
+Datum varchar(PG_FUNCTION_ARGS) {
+    VarChar *source = PG_GETARG_VARCHAR_PP(0);
+    int32 typmod = PG_GETARG_INT32(1);
+    bool isExplicit = PG_GETARG_BOOL(2);
+
+    // Get source string info
+    int32 len = VARSIZE_ANY_EXHDR(source);
+    char *s_data = VARDATA_ANY(source);
+    int32 maxlen = typmod - VARHDRSZ;
+
+    // Return unchanged if no truncation needed
+    if (maxlen < 0 || len <= maxlen) {
+        PG_RETURN_VARCHAR_P(source);
+    }
+
+    // Truncate preserving multibyte character boundaries
+    size_t maxmblen = pg_mbcharcliplen(s_data, len, maxlen);
+
+    // For implicit casts, check that excess chars are only spaces
+    if (!isExplicit) {
+        for (int i = maxmblen; i < len; i++) {
+            if (s_data[i] != ' ') {
+                ereport(ERROR, (errcode(ERRCODE_STRING_DATA_RIGHT_TRUNCATION),
+                    errmsg("value too long for type character varying(%d)", maxlen)));
+            }
+        }
+    }
+
+    // Return truncated result
+    PG_RETURN_VARCHAR_P((VarChar *) cstring_to_text_with_len(s_data, maxmblen));
+}
+```

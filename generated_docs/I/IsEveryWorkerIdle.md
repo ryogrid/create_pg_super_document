@@ -33,3 +33,17 @@ This function performs a comprehensive check across all worker slots to verify t
 - Critical for synchronization points in parallel operations where all workers must be idle before proceeding
 - Commonly used at the end of parallel phases to ensure completion before cleanup or next phase
 - More restrictive than HasEveryWorkerTerminated, as it specifically requires the idle state rather than just non-running
+
+## Simplified Source
+
+```c
+bool IsEveryWorkerIdle(ParallelState *pstate) {
+    // Check if all workers are in idle state
+    for (int i = 0; i < pstate->numWorkers; i++) {
+        if (pstate->parallelSlot[i].workerStatus != WRKR_IDLE) {
+            return false;  // Found a non-idle worker
+        }
+    }
+    return true;  // All workers are idle
+}
+```

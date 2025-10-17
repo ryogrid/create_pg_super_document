@@ -41,3 +41,53 @@ This function implements the @> (contains) operator for TSQuery objects. It extr
 - The containment check uses an optimized algorithm that takes advantage of both arrays being sorted
 - Short-circuits early if the second query has more unique terms than the first (impossible to contain)
 - Memory allocation is handled by PostgreSQL's memory management system and automatically freed at function end
+
+## Simplified Source
+
+```c
+Datum
+tsq_mcontains(PG_FUNCTION_ARGS)
+{
+    TSQuery query = PG_GETARG_TSQUERY(0);
+    TSQuery ex = PG_GETARG_TSQUERY(1);
+
+    // Extract and sort unique terms from both queries
+    char **query_values;
+    int query_nvalues;
+    char **ex_values;
+    int ex_nvalues;
+
+    query_values = collectTSQueryValues(query, &query_nvalues);
+    ex_values = collectTSQueryValues(ex, &ex_nvalues);
+
+    // Sort and remove duplicates
+    qsort(query_values, query_nvalues, sizeof(char *), cmp_string);
+    query_nvalues = qunique(query_values, query_nvalues, sizeof(char *), cmp_string);
+    qsort(ex_values, ex_nvalues, sizeof(char *), cmp_string);
+    ex_nvalues = qunique(ex_values, ex_nvalues, sizeof(char *), cmp_string);
+
+    // Quick check: if ex has more terms than query, cannot contain
+    if (ex_nvalues > query_nvalues)
+        PG_RETURN_BOOL(false);
+
+    // Check if query contains all terms from ex
+    bool result = true;
+    int j = 0;
+    for (int i = 0; i < ex_nvalues; i++)
+    {
+        // Find ex_values[i] in query_values starting from j
+        for (; j < query_nvalues; j++)
+        {
+            if (strcmp(ex_values[i], query_values[j]) == 0)
+                break;
+        }
+        if (j == query_nvalues)  // Not found
+        {
+            result = false;
+            break;
+        }
+    }
+
+    PG_RETURN_BOOL(result);
+}
+```

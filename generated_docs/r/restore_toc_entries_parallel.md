@@ -53,3 +53,82 @@ The function operates in multiple restore passes (RESTORE_PASS_MAIN through REST
 - Guarantees at least one idle worker is available before dispatching new jobs to prevent blocking
 - Processes items in dependency-respecting order while maximizing parallel opportunities
 - Handles edge cases like items with no remaining dependencies and transition between restore passes
+
+## Simplified Source
+
+```c
+static void
+restore_toc_entries_parallel(ArchiveHandle *AH, ParallelState *pstate,
+                             TocEntry *pending_list)
+{
+    binaryheap *ready_heap;
+    TocEntry   *next_work_item;
+
+    pg_log_debug("entering restore_toc_entries_parallel");
+
+    // Set up binary heap for ready items, ordered by size for load balancing
+    ready_heap = binaryheap_allocate(AH->tocCount,
+                                     TocEntrySizeCompareBinaryheap,
+                                     NULL);
+
+    // Move items with no dependencies to ready_heap
+    AH->restorePass = RESTORE_PASS_MAIN;
+    move_to_ready_heap(pending_list, ready_heap, AH->restorePass);
+
+    // Main parallel processing loop
+    pg_log_info("entering main parallel loop");
+
+    for (;;)
+    {
+        // Get next ready item from heap
+        next_work_item = pop_next_work_item(ready_heap, pstate);
+
+        if (next_work_item != NULL)
+        {
+            // Skip items that don't need restoration
+            if ((next_work_item->reqs & (REQ_SCHEMA | REQ_DATA)) == 0)
+            {
+                pg_log_info("skipping item %d %s %s",
+                           next_work_item->dumpId,
+                           next_work_item->desc, next_work_item->tag);
+
+                // Update dependencies as if completed
+                reduce_dependencies(AH, next_work_item, ready_heap);
+                continue;
+            }
+
+            pg_log_info("launching item %d %s %s",
+                       next_work_item->dumpId,
+                       next_work_item->desc, next_work_item->tag);
+
+            // Dispatch job to available worker
+            DispatchJobForTocEntry(AH, pstate, next_work_item, ACT_RESTORE,
+                                   mark_restore_job_done, ready_heap);
+        }
+        else if (IsEveryWorkerIdle(pstate))
+        {
+            // No ready items and all workers idle
+            if (AH->restorePass == RESTORE_PASS_LAST)
+                break;  // Completely done
+
+            // Advance to next restore pass
+            AH->restorePass++;
+            move_to_ready_heap(pending_list, ready_heap, AH->restorePass);
+            continue;
+        }
+        // else: nothing ready but workers are busy, wait for completion
+
+        // Wait for workers to finish jobs and update dependencies
+        // Strategy: if we dispatched work, wait for one idle worker
+        //          if no work dispatched, wait for any status update
+        WaitForWorkers(AH, pstate,
+                       next_work_item ? WFW_ONE_IDLE : WFW_GOT_STATUS);
+    }
+
+    // Cleanup
+    Assert(binaryheap_empty(ready_heap));
+    binaryheap_free(ready_heap);
+
+    pg_log_info("finished main parallel loop");
+}
+```

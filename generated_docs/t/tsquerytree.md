@@ -62,3 +62,45 @@ Internal variables:
 - The function handles edge cases like empty queries and trivial conditions gracefully
 - Located in src/backend/utils/adt/tsquery.c:1363-1399
 - Useful for developers working with full-text search indexes and query optimization
+
+## Simplified Source
+
+```c
+Datum tsquerytree(PG_FUNCTION_ARGS) {
+    TSQuery query = PG_GETARG_TSQUERY(0);
+
+    // Handle empty query
+    if (query->size == 0) {
+        text *res = (text *) palloc(VARHDRSZ);
+        SET_VARSIZE(res, VARHDRSZ);
+        PG_RETURN_POINTER(res);
+    }
+
+    // Clean NOT operations from query
+    int len;
+    QueryItem *cleaned_query = clean_NOT(GETQUERY(query), &len);
+
+    text *result;
+    if (!cleaned_query) {
+        // Trivial condition - return "T"
+        result = cstring_to_text("T");
+    } else {
+        // Convert to infix notation
+        INFIX infix_builder;
+        infix_builder.curpol = cleaned_query;
+        infix_builder.buflen = 32;
+        infix_builder.cur = infix_builder.buf = palloc(sizeof(char) * infix_builder.buflen);
+        *(infix_builder.cur) = '\0';
+        infix_builder.op = GETOPERAND(query);
+
+        // Build infix representation
+        infix(&infix_builder, -1, false);
+        result = cstring_to_text_with_len(infix_builder.buf, infix_builder.cur - infix_builder.buf);
+
+        pfree(cleaned_query);
+    }
+
+    PG_FREE_IF_COPY(query, 0);
+    PG_RETURN_TEXT_P(result);
+}
+```

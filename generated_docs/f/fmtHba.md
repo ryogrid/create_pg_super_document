@@ -32,3 +32,33 @@ This function is specifically designed to support SSPI authentication configurat
 - Part of the PostgreSQL regression testing framework's SSPI authentication support
 - The returned pointer remains valid until the next call to fmtHba
 - Memory efficient - reuses and grows the static buffer rather than allocating new memory each time
+
+## Simplified Source
+
+```c
+static const char *fmtHba(const char *raw) {
+    static char *ret;
+    const char *rp;
+    char *wp;
+
+    // Allocate buffer: opening quote + 2x string length + closing quote + null
+    wp = ret = pg_realloc(ret, 3 + strlen(raw) * 2);
+
+    // Add opening quote
+    *wp++ = '"';
+
+    // Copy string, escaping any quotes by doubling them
+    for (rp = raw; *rp; rp++) {
+        if (*rp == '"') {
+            *wp++ = '"';  // Escape quote with another quote
+        }
+        *wp++ = *rp;
+    }
+
+    // Add closing quote and terminator
+    *wp++ = '"';
+    *wp++ = '\0';
+
+    return ret;
+}
+```

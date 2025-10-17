@@ -32,3 +32,17 @@ This function retrieves the count of requested restartpoints that have been perf
 - The counter is maintained in the checkpointer statistics structure's restartpoints_requested field
 - Particularly relevant for standby servers where restartpoint behavior affects recovery performance
 - Useful for understanding workload patterns and tuning restartpoint-related configuration parameters
+
+## Simplified Source
+
+```c
+Datum pg_stat_get_checkpointer_restartpoints_requested(PG_FUNCTION_ARGS) {
+    // Fetch checkpointer statistics and return requested restartpoints count
+    return PG_RETURN_INT64(pgstat_fetch_stat_checkpointer()->restartpoints_requested);
+}
+```
+
+**Simplified Logic:**
+1. Get the checkpointer statistics structure
+2. Extract the count of explicitly requested restartpoints
+3. Return as 64-bit integer

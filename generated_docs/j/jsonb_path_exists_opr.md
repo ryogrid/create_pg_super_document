@@ -41,3 +41,14 @@ The function uses PostgreSQL's operator function argument mechanism:
 - Part of PostgreSQL's JSONPath operator ecosystem that supports SQL/JSON standard operations
 - The comment explicitly states it "can handle both cases", referring to the internal function's ability to handle different argument counts
 - Provides syntactic consistency with other PostgreSQL JSONB operators like @>, <@, etc.
+
+## Simplified Source
+
+```c
+Datum
+jsonb_path_exists_opr(PG_FUNCTION_ARGS)
+{
+    /* Implementation of operator "jsonb @? jsonpath" (2-argument version) */
+    return jsonb_path_exists_internal(fcinfo, false);
+}
+```

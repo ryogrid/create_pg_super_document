@@ -42,3 +42,43 @@ The implementation preserves the original `errno` value and uses `pvsnprintf` fo
 - Part of the convenience functions suite alongside `archputs` for simpler string output
 - Located in `src/bin/pg_dump/pg_backup_archiver.c:1636-1674`
 - The function handles memory allocation failures through pg_malloc which will exit on failure
+
+## Simplified Source
+
+```c
+int
+archprintf(Archive *AH, const char *fmt, ...)
+{
+    int save_errno = errno;
+    char *p;
+    size_t len = 128;  // Initial buffer size
+    size_t cnt;
+
+    for (;;) {
+        va_list args;
+
+        // Allocate buffer for formatted string
+        p = (char *) pg_malloc(len);
+
+        // Try to format the string
+        errno = save_errno;
+        va_start(args, fmt);
+        cnt = pvsnprintf(p, len, fmt, args);
+        va_end(args);
+
+        // Check if formatting succeeded
+        if (cnt < len)
+            break;  // Success - string fit in buffer
+
+        // Buffer too small, try again with larger size
+        free(p);
+        len = cnt;
+    }
+
+    // Write formatted data to archive
+    WriteData(AH, p, cnt);
+    free(p);
+
+    return (int) cnt;
+}
+```

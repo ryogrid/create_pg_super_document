@@ -26,3 +26,30 @@ This function performs several validation checks on a timezone entry before it c
 
 ## Notes and Other Information
 The function enforces a maximum length limit for timezone abbreviations (TOKMAXLEN characters) and validates that timezone offsets don't exceed ±14 hours, which is a reasonable sanity check for valid timezone offsets. All abbreviations are converted to lowercase for consistency with PostgreSQL's internal datetime handling.
+
+## Simplified Source
+
+```c
+static bool validateTzEntry(tzEntry *tzentry) {
+    // Check abbreviation length limit
+    if (strlen(tzentry->abbrev) > TOKMAXLEN) {
+        GUC_check_errmsg("time zone abbreviation \"%s\" is too long (maximum %d characters)",
+                         tzentry->abbrev, TOKMAXLEN);
+        return false;
+    }
+
+    // Validate offset is within ±14 hours
+    if (tzentry->offset > 14 * SECS_PER_HOUR ||
+        tzentry->offset < -14 * SECS_PER_HOUR) {
+        GUC_check_errmsg("time zone offset %d is out of range", tzentry->offset);
+        return false;
+    }
+
+    // Convert abbreviation to lowercase for consistency
+    for (unsigned char *p = (unsigned char *) tzentry->abbrev; *p; p++) {
+        *p = pg_tolower(*p);
+    }
+
+    return true;
+}
+```

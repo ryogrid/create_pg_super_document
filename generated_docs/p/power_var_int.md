@@ -56,3 +56,137 @@ The algorithm processes the binary representation of the exponent, squaring the 
 - Handles both positive and negative exponents efficiently
 - The sig_digits calculation includes error estimation based on log10(abs(exp)) to account for accumulated multiplication errors
 - Located at src/backend/utils/adt/numeric.c:11109-11313
+
+## Simplified Source
+
+```c
+static void
+power_var_int(const NumericVar *base, int exp, int exp_dscale, NumericVar *result)
+{
+    double f;
+    int rscale;
+    int sig_digits;
+    unsigned int mask;
+    bool neg;
+    NumericVar base_prod;
+    int local_rscale;
+
+    // Estimate result weight using double precision to prevent overflow
+    if (base->ndigits != 0) {
+        f = base->digits[0];
+        int p = base->weight * DEC_DIGITS;
+
+        // Build approximate base value
+        for (int i = 1; i < base->ndigits && i * DEC_DIGITS < 16; i++) {
+            f = f * NBASE + base->digits[i];
+            p -= DEC_DIGITS;
+        }
+
+        f = exp * (log10(f) + p);  // approximate result weight
+    } else {
+        f = 0;  // base is zero
+    }
+
+    // Check for overflow/underflow
+    if (f > (NUMERIC_WEIGHT_MAX + 1) * DEC_DIGITS)
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("value overflows numeric format")));
+
+    if (f + 1 < -NUMERIC_MAX_DISPLAY_SCALE) {
+        zero_var(result);
+        result->dscale = NUMERIC_MAX_DISPLAY_SCALE;
+        return;
+    }
+
+    // Choose result scale with sufficient significant digits
+    rscale = NUMERIC_MIN_SIG_DIGITS - (int) f;
+    rscale = Max(rscale, base->dscale);
+    rscale = Max(rscale, exp_dscale);
+    rscale = Max(rscale, NUMERIC_MIN_DISPLAY_SCALE);
+    rscale = Min(rscale, NUMERIC_MAX_DISPLAY_SCALE);
+
+    // Handle special cases
+    switch (exp) {
+        case 0:
+            set_var_from_var(&const_one, result);  // Any number^0 = 1
+            result->dscale = rscale;
+            return;
+        case 1:
+            set_var_from_var(base, result);        // base^1 = base
+            round_var(result, rscale);
+            return;
+        case -1:
+            div_var(&const_one, base, result, rscale, true);  // base^-1 = 1/base
+            return;
+        case 2:
+            mul_var(base, base, result, rscale);   // base^2 = base * base
+            return;
+    }
+
+    // Handle zero base
+    if (base->ndigits == 0) {
+        if (exp < 0)
+            ereport(ERROR, (errcode(ERRCODE_DIVISION_BY_ZERO),
+                           errmsg("division by zero")));
+        zero_var(result);
+        result->dscale = rscale;
+        return;
+    }
+
+    // Binary exponentiation algorithm
+    sig_digits = 1 + rscale + (int) f;
+    sig_digits += (int) log(fabs((double) exp)) + 8;  // error margin
+
+    neg = (exp < 0);
+    mask = abs(exp);
+
+    init_var(&base_prod);
+    set_var_from_var(base, &base_prod);
+
+    // Initialize result based on least significant bit
+    if (mask & 1)
+        set_var_from_var(base, result);
+    else
+        set_var_from_var(&const_one, result);
+
+    // Process remaining bits by repeated squaring
+    while ((mask >>= 1) > 0) {
+        // Square base_prod
+        local_rscale = sig_digits - 2 * base_prod.weight * DEC_DIGITS;
+        local_rscale = Min(local_rscale, 2 * base_prod.dscale);
+        local_rscale = Max(local_rscale, NUMERIC_MIN_DISPLAY_SCALE);
+
+        mul_var(&base_prod, &base_prod, &base_prod, local_rscale);
+
+        // If bit is set, multiply into result
+        if (mask & 1) {
+            local_rscale = sig_digits -
+                          (base_prod.weight + result->weight) * DEC_DIGITS;
+            local_rscale = Min(local_rscale,
+                              base_prod.dscale + result->dscale);
+            local_rscale = Max(local_rscale, NUMERIC_MIN_DISPLAY_SCALE);
+
+            mul_var(&base_prod, result, result, local_rscale);
+        }
+
+        // Check for overflow during computation
+        if (base_prod.weight > NUMERIC_WEIGHT_MAX ||
+            result->weight > NUMERIC_WEIGHT_MAX) {
+            if (!neg)
+                ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                               errmsg("value overflows numeric format")));
+            zero_var(result);
+            neg = false;
+            break;
+        }
+    }
+
+    free_var(&base_prod);
+
+    // Handle negative exponent by taking reciprocal
+    if (neg)
+        div_var_fast(&const_one, result, result, rscale, true);
+    else
+        round_var(result, rscale);
+}
+```

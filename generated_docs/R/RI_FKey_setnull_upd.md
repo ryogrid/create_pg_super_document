@@ -31,3 +31,17 @@ RI_FKey_setnull_upd is a trigger function that enforces referential integrity by
 - It shares implementation code with RI_FKey_setnull_del through the ri_set function
 - The function performs validation to ensure it's called in the correct trigger context (UPDATE event)
 - Located in src/backend/utils/adt/ri_triggers.c:985-999
+
+## Simplified Source
+
+```c
+Datum
+RI_FKey_setnull_upd(PG_FUNCTION_ARGS)
+{
+    // Validate trigger call for UPDATE operation
+    ri_CheckTrigger(fcinfo, "RI_FKey_setnull_upd", RI_TRIGTYPE_UPDATE);
+
+    // Delegate to shared ri_set function (true = set to NULL, UPDATE operation)
+    return ri_set((TriggerData *) fcinfo->context, true, RI_TRIGTYPE_UPDATE);
+}
+```

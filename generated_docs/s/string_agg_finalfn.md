@@ -49,3 +49,29 @@ The function completes the string_agg operation by:
 - Efficient text creation using cstring_to_text_with_len avoids unnecessary string copying
 - The final step in the string_agg aggregate execution pipeline
 - Works for both regular and parallel execution scenarios
+
+## Simplified Source
+
+```c
+Datum
+string_agg_finalfn(PG_FUNCTION_ARGS)
+{
+    StringInfo state;
+
+    // Validate context
+    Assert(AggCheckCallContext(fcinfo, NULL));
+
+    // Get accumulated state
+    state = PG_ARGISNULL(0) ? NULL : (StringInfo) PG_GETARG_POINTER(0);
+
+    if (state != NULL)
+    {
+        // Strip first delimiter using cursor position
+        // Return text from cursor position to end of accumulated data
+        PG_RETURN_TEXT_P(cstring_to_text_with_len(&state->data[state->cursor],
+                                                  state->len - state->cursor));
+    }
+    else
+        PG_RETURN_NULL();
+}
+```

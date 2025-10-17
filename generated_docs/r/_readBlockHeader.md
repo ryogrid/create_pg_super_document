@@ -37,3 +37,31 @@ _readBlockHeader centralizes the logic for reading data block headers from custo
 - Part of the custom archive format's block-oriented data organization
 - Block types include BLK_DATA (regular data) and BLK_BLOBS (large object data)
 - The block ID corresponds to a dump ID that identifies which TOC entry the block belongs to
+
+## Simplified Source
+
+```c
+static void
+_readBlockHeader(ArchiveHandle *AH, int *type, int *id)
+{
+    int byte_value;
+
+    // Handle format change in version 1.3
+    if (AH->version < K_VERS_1_3) {
+        // Pre-1.3: only block ID stored, type is always BLK_DATA
+        *type = BLK_DATA;
+    } else {
+        // Version 1.3+: read block type first
+        byte_value = getc(AH->FH);
+        *type = byte_value;
+
+        if (byte_value == EOF) {
+            *id = 0;  // Initialize to prevent garbage values
+            return;
+        }
+    }
+
+    // Read block ID for both formats
+    *id = ReadInt(AH);
+}
+```

@@ -41,3 +41,23 @@ The function notes that built-in casts do not currently support ACLs, so ACL-onl
 - Extension membership always overrides other dump policies
 - Built-in casts currently do not support ACLs, simplifying the dump logic
 - The function is static and only used internally within pg_dump.c
+
+## Simplified Source
+
+```c
+static void
+selectDumpableCast(CastInfo *cast, Archive *fout)
+{
+    // Extension membership overrides all other policies
+    if (checkExtensionMembership(&cast->dobj, fout))
+        return;
+
+    // Built-in casts (low OIDs) are not dumped
+    if (cast->dobj.catId.oid <= (Oid) g_last_builtin_oid)
+        cast->dobj.dump = DUMP_COMPONENT_NONE;
+    else
+        // User-defined casts: dump only if dumping everything
+        cast->dobj.dump = fout->dopt->include_everything ?
+            DUMP_COMPONENT_ALL : DUMP_COMPONENT_NONE;
+}
+```

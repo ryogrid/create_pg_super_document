@@ -48,3 +48,34 @@ The extracted entries become the keys that GIN uses to build its inverted index 
 - Essential component of GIN operator class for TSVector indexing
 - Used during index creation and maintenance operations
 - Part of PostgreSQL's full-text search infrastructure
+
+## Simplified Source
+
+```c
+Datum
+gin_extract_tsvector(PG_FUNCTION_ARGS)
+{
+    TSVector vector = PG_GETARG_TSVECTOR(0);
+    int32 *nentries = (int32 *) PG_GETARG_POINTER(1);
+    Datum *entries = NULL;
+
+    // Set number of entries to extract
+    *nentries = vector->size;
+
+    if (vector->size > 0) {
+        WordEntry *we = ARRPTR(vector);  // Get word entries array
+        entries = palloc(sizeof(Datum) * vector->size);
+
+        // Extract each lexeme as a separate text entry
+        for (int i = 0; i < vector->size; i++) {
+            // Convert lexeme to text datum
+            text *txt = cstring_to_text_with_len(STRPTR(vector) + we->pos, we->len);
+            entries[i] = PointerGetDatum(txt);
+            we++;
+        }
+    }
+
+    PG_FREE_IF_COPY(vector, 0);
+    PG_RETURN_POINTER(entries);
+}
+```

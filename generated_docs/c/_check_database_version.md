@@ -38,3 +38,41 @@ This internal function performs critical version compatibility checks when pg_du
 - Determines standby status by querying pg_catalog.pg_is_in_recovery()
 - Terminates program execution on version mismatch rather than returning error code
 - Part of pg_dump's connection establishment and validation process
+
+## Simplified Source
+
+```c
+static void
+_check_database_version(ArchiveHandle *AH)
+{
+    // Get server version information
+    const char *remoteversion_str = PQparameterStatus(AH->connection, "server_version");
+    int remoteversion = PQserverVersion(AH->connection);
+
+    // Basic validation
+    if (remoteversion == 0 || !remoteversion_str)
+        pg_fatal("could not get server_version from libpq");
+
+    // Store version information in archive handle
+    AH->public.remoteVersionStr = pg_strdup(remoteversion_str);
+    AH->public.remoteVersion = remoteversion;
+    if (!AH->archiveRemoteVersion)
+        AH->archiveRemoteVersion = AH->public.remoteVersionStr;
+
+    // Check version compatibility
+    if (remoteversion != PG_VERSION_NUM &&
+        (remoteversion < AH->public.minRemoteVersion ||
+         remoteversion > AH->public.maxRemoteVersion)) {
+        pg_log_error("aborting because of server version mismatch");
+        pg_log_error_detail("server version: %s; %s version: %s",
+                           remoteversion_str, progname, PG_VERSION);
+        exit(1);
+    }
+
+    // Check if server is in recovery mode (hot standby)
+    PGresult *res = ExecuteSqlQueryForSingleRow((Archive *) AH,
+                                              "SELECT pg_catalog.pg_is_in_recovery()");
+    AH->public.isStandby = (strcmp(PQgetvalue(res, 0, 0), "t") == 0);
+    PQclear(res);
+}
+```

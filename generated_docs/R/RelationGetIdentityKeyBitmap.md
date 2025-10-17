@@ -47,4 +47,59 @@ The function first checks if the result is already cached in . If not cached, it
 - Caches results in  for performance
 - Only includes key columns in the bitmap, excluding non-key columns from covering indexes
 - Returns NULL if the relation has no indexes or no replica identity index is configured
-- The returned bitmap should be freed with  when no longer needed
+- The returned bitmap should be freed with bms_free when no longer needed
+
+## Simplified Source
+
+```c
+Bitmapset *RelationGetIdentityKeyBitmap(Relation relation) {
+    Bitmapset *idindexattrs = NULL;
+    Relation indexDesc;
+    int i;
+    Oid replidindex;
+    MemoryContext oldcxt;
+
+    // Return cached result if available
+    if (relation->rd_idattr != NULL)
+        return bms_copy(relation->rd_idattr);
+
+    // Quick exit if no indexes
+    if (!RelationGetForm(relation)->relhasindex)
+        return NULL;
+
+    // Must be using historic snapshot for logical replication
+    Assert(HistoricSnapshotActive());
+
+    // Get the replica identity index OID
+    replidindex = RelationGetReplicaIndex(relation);
+    if (!OidIsValid(replidindex))
+        return NULL;
+
+    // Open the replica identity index
+    indexDesc = RelationIdGetRelation(replidindex);
+    if (!RelationIsValid(indexDesc))
+        elog(ERROR, "could not open relation with OID %u", relation->rd_replidindex);
+
+    // Build bitmap of key attributes
+    for (i = 0; i < indexDesc->rd_index->indnatts; i++) {
+        int attrnum = indexDesc->rd_index->indkey.values[i];
+
+        // Include only key columns (not included columns)
+        if (attrnum != 0 && i < indexDesc->rd_index->indnkeyatts) {
+            idindexattrs = bms_add_member(idindexattrs,
+                                          attrnum - FirstLowInvalidHeapAttributeNumber);
+        }
+    }
+
+    RelationClose(indexDesc);
+
+    // Free old cached bitmap and cache the new one
+    bms_free(relation->rd_idattr);
+    oldcxt = MemoryContextSwitchTo(CacheMemoryContext);
+    relation->rd_idattr = bms_copy(idindexattrs);
+    MemoryContextSwitchTo(oldcxt);
+
+    // Return working copy for caller
+    return idindexattrs;
+}
+```

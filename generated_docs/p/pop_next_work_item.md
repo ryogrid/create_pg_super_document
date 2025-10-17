@@ -37,3 +37,43 @@ The function performs a sequential scan through heap nodes rather than strictly 
 - The function removes the selected item from the heap, so it becomes unavailable for other workers
 - Uses bidirectional conflict checking (te conflicts with running_te AND running_te conflicts with te)
 - Logs debug information when no items are available for execution
+
+## Simplified Source
+
+```c
+static TocEntry *pop_next_work_item(binaryheap *ready_heap,
+                                   ParallelState *pstate) {
+
+    // Search through ready heap for an item without lock conflicts
+    for (int i = 0; i < binaryheap_size(ready_heap); i++) {
+        TocEntry *candidate = (TocEntry *) binaryheap_get_node(ready_heap, i);
+        bool has_conflicts = false;
+
+        // Check for lock conflicts with currently running items
+        for (int worker = 0; worker < pstate->numWorkers; worker++) {
+            TocEntry *running_item = pstate->te[worker];
+
+            if (running_item == NULL)
+                continue;
+
+            // Check bidirectional lock conflicts
+            if (has_lock_conflicts(candidate, running_item) ||
+                has_lock_conflicts(running_item, candidate)) {
+                has_conflicts = true;
+                break;
+            }
+        }
+
+        if (has_conflicts)
+            continue;
+
+        // Found suitable item - remove from heap and return it
+        binaryheap_remove_node(ready_heap, i);
+        return candidate;
+    }
+
+    // No suitable item found
+    pg_log_debug("no item ready");
+    return NULL;
+}
+```

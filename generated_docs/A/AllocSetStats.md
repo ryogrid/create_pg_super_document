@@ -42,3 +42,72 @@ AllocSetStats performs a detailed analysis of memory usage within an AllocSet co
 - Formats statistics as: "X total in Y blocks; Z free (W chunks); V used"
 - Can both print statistics immediately and accumulate them for aggregate reporting
 - Part of PostgreSQL's memory context system for monitoring and debugging memory usage
+
+## Simplified Source
+
+```c
+void
+AllocSetStats(MemoryContext context,
+              MemoryStatsPrintFunc printfunc, void *passthru,
+              MemoryContextCounters *totals, bool print_to_stderr)
+{
+    AllocSet set = (AllocSet) context;
+    Size nblocks = 0;
+    Size freechunks = 0;
+    Size totalspace;
+    Size freespace = 0;
+    AllocBlock block;
+    int fidx;
+
+    // Include context header in total space calculation
+    totalspace = MAXALIGN(sizeof(AllocSetContext));
+
+    // Traverse all blocks to calculate used and free space
+    for (block = set->blocks; block != NULL; block = block->next)
+    {
+        nblocks++;
+        totalspace += block->endptr - ((char *) block);
+        freespace += block->endptr - block->freeptr;
+    }
+
+    // Examine all freelists to count free chunks
+    for (fidx = 0; fidx < ALLOCSET_NUM_FREELISTS; fidx++)
+    {
+        Size chksz = GetChunkSizeFromFreeListIdx(fidx);
+        MemoryChunk *chunk = set->freelist[fidx];
+
+        // Walk through free chunks in this size class
+        while (chunk != NULL)
+        {
+            AllocFreeListLink *link = GetFreeListLink(chunk);
+
+            freechunks++;
+            freespace += chksz + ALLOC_CHUNKHDRSZ;
+
+            // Move to next free chunk
+            chunk = link->next;
+        }
+    }
+
+    // Print formatted statistics if requested
+    if (printfunc)
+    {
+        char stats_string[200];
+
+        snprintf(stats_string, sizeof(stats_string),
+                 "%zu total in %zu blocks; %zu free (%zu chunks); %zu used",
+                 totalspace, nblocks, freespace, freechunks,
+                 totalspace - freespace);
+        printfunc(context, passthru, stats_string, print_to_stderr);
+    }
+
+    // Accumulate statistics if totals structure provided
+    if (totals)
+    {
+        totals->nblocks += nblocks;
+        totals->freechunks += freechunks;
+        totals->totalspace += totalspace;
+        totals->freespace += freespace;
+    }
+}
+```

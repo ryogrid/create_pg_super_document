@@ -49,3 +49,52 @@ The function enforces that it can only be called once per function invocation se
 - This is typically called through the SRF_FIRSTCALL_INIT() macro rather than directly
 - The function pointer is stored in `fcinfo->flinfo->fn_extra` to detect repeated initialization attempts
 - Memory allocation uses ALLOCSET_SMALL_SIZES for efficiency with typical SRF usage patterns
+
+## Simplified Source
+
+```c
+FuncCallContext *init_MultiFuncCall(PG_FUNCTION_ARGS) {
+    FuncCallContext *retval;
+
+    // Verify function called in set-returning context
+    if (fcinfo->resultinfo == NULL || !IsA(fcinfo->resultinfo, ReturnSetInfo))
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                errmsg("set-valued function called in context that cannot accept a set")));
+
+    if (fcinfo->flinfo->fn_extra == NULL) {
+        // First call - initialize context
+        ReturnSetInfo *rsi = (ReturnSetInfo *) fcinfo->resultinfo;
+        MemoryContext multi_call_ctx;
+
+        // Create long-lived memory context for cross-call data
+        multi_call_ctx = AllocSetContextCreate(fcinfo->flinfo->fn_mcxt,
+                                               "SRF multi-call context",
+                                               ALLOCSET_SMALL_SIZES);
+
+        // Allocate and initialize FuncCallContext
+        retval = (FuncCallContext *)
+            MemoryContextAllocZero(multi_call_ctx, sizeof(FuncCallContext));
+
+        retval->call_cntr = 0;
+        retval->max_calls = 0;
+        retval->user_fctx = NULL;
+        retval->attinmeta = NULL;
+        retval->tuple_desc = NULL;
+        retval->multi_call_memory_ctx = multi_call_ctx;
+
+        // Store for subsequent calls
+        fcinfo->flinfo->fn_extra = retval;
+
+        // Register cleanup callback
+        RegisterExprContextCallback(rsi->econtext,
+                                    shutdown_MultiFuncCall,
+                                    PointerGetDatum(fcinfo->flinfo));
+    } else {
+        // Prevent multiple initialization
+        elog(ERROR, "init_MultiFuncCall cannot be called more than once");
+        retval = NULL;  // Never reached
+    }
+
+    return retval;
+}
+```

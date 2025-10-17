@@ -39,3 +39,32 @@ InitArchiveFmt_Null sets up the function pointers in an ArchiveHandle structure 
 - The null format sets ClonePtr and DeClonePtr to NULL, indicating no support for parallel dump operations
 - ReopenPtr is also set to NULL, meaning the format doesn't support reopening closed archives
 - This format is primarily used for testing pg_dump performance without I/O bottlenecks
+
+## Simplified Source
+
+```c
+void InitArchiveFmt_Null(ArchiveHandle *AH) {
+    // Set up write operations (all discard data)
+    AH->WriteDataPtr = _WriteData;
+    AH->EndDataPtr = _EndData;
+    AH->WriteBytePtr = _WriteByte;
+    AH->WriteBufPtr = _WriteBuf;
+    AH->ClosePtr = _CloseArchive;
+    AH->PrintTocDataPtr = _PrintTocData;
+
+    // Set up large object operations
+    AH->StartLOsPtr = _StartLOs;
+    AH->StartLOPtr = _StartLO;
+    AH->EndLOPtr = _EndLO;
+    AH->EndLOsPtr = _EndLOs;
+
+    // Disable unsupported operations
+    AH->ReopenPtr = NULL;
+    AH->ClonePtr = NULL;
+    AH->DeClonePtr = NULL;
+
+    // Prevent reading - this format is write-only
+    if (AH->mode == archModeRead)
+        pg_fatal("this format cannot be read");
+}
+```

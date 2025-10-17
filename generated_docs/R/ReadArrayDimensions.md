@@ -53,3 +53,80 @@ The function performs careful overflow checking when computing dimension sizes t
 - Performs overflow checking to prevent arithmetic overflow in dimension calculations
 - Does not accept zero-length dimensions (where upper bound < lower bound)
 - Uses soft error handling through escontext when available
+
+## Simplified Source
+
+```c
+static bool
+ReadArrayDimensions(char **srcptr, int *ndim_p, int *dim, int *lBound,
+                    const char *origStr, Node *escontext)
+{
+    char   *p = *srcptr;
+    int     ndim = 0;
+
+    // Parse dimension items in format [n] or [m:n]
+    for (;;) {
+        char   *q;
+        int     i, ub;
+
+        // Skip whitespace between dimension items
+        while (scanner_isspace(*p))
+            p++;
+
+        // No more dimensions if not starting with '['
+        if (*p != '[')
+            break;
+        p++;
+
+        // Check dimension limit
+        if (ndim >= MAXDIM)
+            ereturn(escontext, false, /* error: too many dimensions */);
+
+        // Parse first integer (lower bound or single dimension)
+        q = p;
+        if (!ReadDimensionInt(&p, &i, origStr, escontext))
+            return false;
+        if (p == q)  // no digits found
+            ereturn(escontext, false, /* error: missing dimension value */);
+
+        if (*p == ':') {
+            // [m:n] format - explicit bounds
+            lBound[ndim] = i;
+            p++;
+            q = p;
+            if (!ReadDimensionInt(&p, &ub, origStr, escontext))
+                return false;
+            if (p == q)  // no digits after ':'
+                ereturn(escontext, false, /* error: missing upper bound */);
+        } else {
+            // [n] format - dimension size with default lower bound
+            lBound[ndim] = 1;
+            ub = i;
+        }
+
+        // Expect closing bracket
+        if (*p != ']')
+            ereturn(escontext, false, /* error: missing ']' */);
+        p++;
+
+        // Validate bounds
+        if (ub < lBound[ndim])
+            ereturn(escontext, false, /* error: upper < lower bound */);
+
+        if (ub == INT_MAX)
+            ereturn(escontext, false, /* error: upper bound too large */);
+
+        // Calculate dimension size with overflow checking
+        if (pg_sub_s32_overflow(ub, lBound[ndim], &ub) ||
+            pg_add_s32_overflow(ub, 1, &ub))
+            ereturn(escontext, false, /* error: dimension size overflow */);
+
+        dim[ndim] = ub;
+        ndim++;
+    }
+
+    *srcptr = p;
+    *ndim_p = ndim;
+    return true;
+}
+```

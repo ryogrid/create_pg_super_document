@@ -44,3 +44,38 @@ This function implements the main allocation logic for the bump memory allocator
 - Maximum allocation size is MAXALIGN_DOWN(SIZE_MAX) - Bump_BLOCKHDRSZ - Bump_CHUNKHDRSZ
 - Uses MAXALIGN to ensure proper memory alignment for all platforms
 - Designed to minimize stack frame overhead for the common allocation path
+
+## Simplified Source
+
+```c
+void *
+BumpAlloc(MemoryContext context, Size size, int flags)
+{
+    BumpContext *set = (BumpContext *) context;
+    BumpBlock *block;
+    Size chunk_size;
+    Size required_size;
+
+    // Calculate aligned chunk size (add sentinel byte in debug mode)
+#ifdef MEMORY_CONTEXT_CHECKING
+    chunk_size = MAXALIGN(size + 1);
+#else
+    chunk_size = MAXALIGN(size);
+#endif
+
+    // Handle oversized allocations separately
+    if (chunk_size > set->allocChunkLimit)
+        return BumpAllocLarge(context, size, flags);
+
+    required_size = chunk_size + Bump_CHUNKHDRSZ;
+
+    // Try to allocate from current block
+    block = dlist_container(BumpBlock, node, dlist_head_node(&set->blocks));
+
+    if (BumpBlockFreeBytes(block) < required_size)
+        return BumpAllocFromNewBlock(context, size, flags, chunk_size);
+
+    // Current block has space - allocate there
+    return BumpAllocChunkFromBlock(context, block, size, chunk_size);
+}
+```

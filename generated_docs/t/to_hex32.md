@@ -37,3 +37,17 @@ This function serves as a wrapper around the internal `convert_to_base` utility 
 - The actual conversion logic is handled by the shared `convert_to_base` static function
 - Returns a PostgreSQL `text` type containing the hexadecimal string representation
 - Particularly useful for debugging, displaying memory addresses, color codes, and other contexts where hexadecimal notation is the standard representation
+
+## Simplified Source
+
+```c
+Datum
+to_hex32(PG_FUNCTION_ARGS)
+{
+    // Extract 32-bit integer and cast to unsigned for consistent hex representation
+    uint64 value = (uint32) PG_GETARG_INT32(0);
+
+    // Convert to hexadecimal (base-16) string and return as text
+    PG_RETURN_TEXT_P(convert_to_base(value, 16));
+}
+```

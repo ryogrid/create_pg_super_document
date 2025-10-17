@@ -38,3 +38,21 @@ The function checks if the current JSON string being built already has content b
 - The comma logic ensures proper JSON object syntax by checking the last character of the current output
 - Part of the JSON string transformation infrastructure used for functions like json_strip_nulls and similar operations
 - Returns JSON_SUCCESS on successful completion, following the standard JSON parsing callback pattern
+
+## Simplified Source
+```c
+static JsonParseErrorType
+transform_string_values_object_field_start(void *state, char *fname, bool isnull) {
+    TransformJsonStringValuesState *_state = (TransformJsonStringValuesState *) state;
+
+    // Add comma separator if not the first field
+    if (_state->strval->data[_state->strval->len - 1] != '{')
+        appendStringInfoCharMacro(_state->strval, ',');
+
+    // Re-escape and append field name with colon
+    escape_json(_state->strval, fname);
+    appendStringInfoCharMacro(_state->strval, ':');
+
+    return JSON_SUCCESS;
+}
+```

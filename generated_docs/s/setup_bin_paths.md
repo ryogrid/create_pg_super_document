@@ -44,3 +44,49 @@ The function implements robust error handling and provides detailed diagnostic m
 - When an explicit share path is provided, it must be an absolute path
 - Error messages include the full paths to help users diagnose installation or configuration issues
 - The postgres executable version must exactly match the initdb version to prevent compatibility issues
+
+## Simplified Source
+
+```c
+void
+setup_bin_paths(const char *argv0)
+{
+    int ret;
+
+    // Locate postgres executable and verify version compatibility
+    if ((ret = find_other_exec(argv0, "postgres", PG_BACKEND_VERSIONSTR,
+                               backend_exec)) < 0)
+    {
+        char full_path[MAXPGPATH];
+
+        // Get the path to this executable for error reporting
+        if (find_my_exec(argv0, full_path) < 0)
+            strlcpy(full_path, progname, sizeof(full_path));
+
+        // Report specific error based on failure type
+        if (ret == -1)
+            pg_fatal("program \"%s\" is needed by %s but was not found in the same directory as \"%s\"",
+                     "postgres", progname, full_path);
+        else
+            pg_fatal("program \"%s\" was found by \"%s\" but was not the same version as %s",
+                     "postgres", full_path, progname);
+    }
+
+    // Extract and store binary directory path
+    strcpy(bin_path, backend_exec);
+    *last_dir_separator(bin_path) = '\0';
+    canonicalize_path(bin_path);
+
+    // Set up share directory path
+    if (!share_path) {
+        // Auto-detect share path from backend location
+        share_path = pg_malloc(MAXPGPATH);
+        get_share_path(backend_exec, share_path);
+    } else if (!is_absolute_path(share_path)) {
+        // Validate explicitly provided share path
+        pg_fatal("input file location must be an absolute path");
+    }
+
+    canonicalize_path(share_path);
+}
+```

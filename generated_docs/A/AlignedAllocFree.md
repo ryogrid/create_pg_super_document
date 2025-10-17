@@ -44,3 +44,28 @@ The function is designed to work with PostgreSQL's memory context system, ensuri
 - The function works by recovering the original unaligned pointer and then using the standard pfree() function
 - Assertions ensure that external chunks are not processed by this function
 - The function is part of PostgreSQL's aligned memory allocation subsystem located in src/backend/utils/mmgr/alignedalloc.c
+
+## Simplified Source
+
+```c
+void AlignedAllocFree(void *pointer) {
+    MemoryChunk *chunk = PointerGetMemoryChunk(pointer);
+    void *unaligned;
+
+    VALGRIND_MAKE_MEM_DEFINED(chunk, sizeof(MemoryChunk));
+    Assert(!MemoryChunkIsExternal(chunk));
+
+    // Get the original unaligned pointer
+    unaligned = MemoryChunkGetBlock(chunk);
+
+#ifdef MEMORY_CONTEXT_CHECKING
+    // Check for memory corruption
+    if (!sentinel_ok(pointer, chunk->requested_size))
+        elog(WARNING, "detected write past chunk end in %s %p",
+             GetMemoryChunkContext(unaligned)->name, chunk);
+#endif
+
+    // Free the original unaligned chunk
+    pfree(unaligned);
+}
+```

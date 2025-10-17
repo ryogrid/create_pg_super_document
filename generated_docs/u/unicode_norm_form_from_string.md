@@ -44,3 +44,28 @@ The function includes important validation:
 - [String](../S/String.md) comparison is case-insensitive using `pg_strcasecmp()`
 - Raises `ERRCODE_SYNTAX_ERROR` for encoding issues and `ERRCODE_INVALID_PARAMETER_VALUE` for invalid form strings
 - This function is part of PostgreSQL\s Unicode text processing support
+
+## Simplified Source
+
+```c
+static UnicodeNormalizationForm unicode_norm_form_from_string(const char *formstr) {
+    // Ensure database is UTF8 encoded - Unicode normalization requires UTF8
+    if (GetDatabaseEncoding() != PG_UTF8) {
+        ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                errmsg("Unicode normalization can only be performed if server encoding is UTF8")));
+    }
+
+    // Parse normalization form string (case-insensitive)
+    if (pg_strcasecmp(formstr, "NFC") == 0)
+        return UNICODE_NFC;
+    else if (pg_strcasecmp(formstr, "NFD") == 0)
+        return UNICODE_NFD;
+    else if (pg_strcasecmp(formstr, "NFKC") == 0)
+        return UNICODE_NFKC;
+    else if (pg_strcasecmp(formstr, "NFKD") == 0)
+        return UNICODE_NFKD;
+    else
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                errmsg("invalid normalization form: %s", formstr)));
+}
+```

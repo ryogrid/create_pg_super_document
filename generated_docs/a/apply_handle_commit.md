@@ -36,3 +36,34 @@ This function processes logical replication COMMIT messages that signal the comp
 - Processes parallel table synchronization as part of commit handling
 - Part of PostgreSQL's logical replication apply worker message handling system
 - The function ensures proper cleanup of error context information after commit
+
+## Simplified Source
+
+```c
+static void
+apply_handle_commit(StringInfo s)
+{
+    LogicalRepCommitData commit_data;
+
+    // Read commit data from message
+    logicalrep_read_commit(s, &commit_data);
+
+    // Validate LSN matches expected final LSN
+    if (commit_data.commit_lsn != remote_final_lsn)
+        ereport(ERROR,
+                (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                 errmsg_internal("incorrect commit LSN %X/%X in commit message (expected %X/%X)",
+                                 LSN_FORMAT_ARGS(commit_data.commit_lsn),
+                                 LSN_FORMAT_ARGS(remote_final_lsn))));
+
+    // Execute the actual commit
+    apply_handle_commit_internal(&commit_data);
+
+    // Process parallel table synchronization
+    process_syncing_tables(commit_data.end_lsn);
+
+    // Clean up and report idle state
+    pgstat_report_activity(STATE_IDLE, NULL);
+    reset_apply_error_context_info();
+}
+```

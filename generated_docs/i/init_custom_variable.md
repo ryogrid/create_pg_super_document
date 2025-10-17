@@ -49,3 +49,46 @@ This internal function serves as the common initialization routine for all Defin
 - Enforces that PGC_POSTMASTER variables can only be created during shared library preload
 - Prohibits custom variables from using the GUC_LIST_QUOTE flag
 - All custom variables are assigned to the CUSTOM_OPTIONS group for organization
+
+## Simplified Source
+
+```c
+static struct config_generic *init_custom_variable(const char *name,
+                                                  const char *short_desc,
+                                                  const char *long_desc,
+                                                  GucContext context,
+                                                  int flags,
+                                                  enum config_type type,
+                                                  size_t sz) {
+    struct config_generic *gen;
+
+    // Security check: PGC_POSTMASTER variables only during preload
+    if (context == PGC_POSTMASTER && !process_shared_preload_libraries_in_progress)
+        elog(FATAL, "cannot create PGC_POSTMASTER variables after startup");
+
+    // Security check: Custom variables cannot use GUC_LIST_QUOTE
+    if (flags & GUC_LIST_QUOTE)
+        elog(FATAL, "extensions cannot define GUC_LIST_QUOTE variables");
+
+    // Security hardening: Restrict pljava variables
+    if (context == PGC_USERSET &&
+        (strcmp(name, "pljava.classpath") == 0 ||
+         strcmp(name, "pljava.vmoptions") == 0))
+        context = PGC_SUSET;
+
+    // Allocate and initialize the config structure
+    gen = (struct config_generic *) guc_malloc(ERROR, sz);
+    memset(gen, 0, sz);
+
+    // Set generic fields
+    gen->name = guc_strdup(ERROR, name);
+    gen->context = context;
+    gen->group = CUSTOM_OPTIONS;
+    gen->short_desc = short_desc;
+    gen->long_desc = long_desc;
+    gen->flags = flags;
+    gen->vartype = type;
+
+    return gen;
+}
+```

@@ -60,3 +60,57 @@ The function uses the postgres backend's ability to read configuration files and
 - Memory management includes proper cleanup of allocated strings and process handles
 - The backend query uses the  option which must be the first option (as noted in comments)
 - Located in src/bin/pg_ctl/pg_ctl.c:2113-2170
+
+## Simplified Source
+
+```c
+static void adjust_data_dir(void) {
+    char filename[MAXPGPATH];
+    char *my_exec_path, *cmd;
+    FILE *fd;
+
+    // Skip if no config directory specified
+    if (pg_config == NULL)
+        return;
+
+    // Check if postgresql.conf exists - if not, not a config directory
+    snprintf(filename, sizeof(filename), "%s/postgresql.conf", pg_config);
+    if ((fd = fopen(filename, "r")) == NULL)
+        return;
+    fclose(fd);
+
+    // Check if PG_VERSION exists - if yes, already a data directory
+    snprintf(filename, sizeof(filename), "%s/PG_VERSION", pg_config);
+    if ((fd = fopen(filename, "r")) != NULL) {
+        fclose(fd);
+        return;
+    }
+
+    // This is a config-only directory, find the real data directory
+    if (exec_path == NULL)
+        my_exec_path = find_other_exec_or_die(argv0, "postgres", PG_BACKEND_VERSIONSTR);
+    else
+        my_exec_path = pg_strdup(exec_path);
+
+    // Query backend for data_directory setting
+    cmd = psprintf("\"%s\" -C data_directory %s%s",
+                   my_exec_path,
+                   pgdata_opt ? pgdata_opt : "",
+                   post_opts ? post_opts : "");
+    fflush(NULL);
+
+    // Execute command and read result
+    fd = popen(cmd, "r");
+    if (fd == NULL || fgets(filename, sizeof(filename), fd) == NULL || pclose(fd) != 0) {
+        write_stderr(_("%s: could not determine the data directory using command \"%s\"\n"), progname, cmd);
+        exit(1);
+    }
+    free(my_exec_path);
+
+    // Clean up result and update global data directory path
+    pg_strip_crlf(filename);
+    free(pg_data);
+    pg_data = pg_strdup(filename);
+    canonicalize_path(pg_data);
+}
+```

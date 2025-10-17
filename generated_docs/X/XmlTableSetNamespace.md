@@ -36,3 +36,30 @@ The function explicitly rejects DEFAULT namespace declarations (where name is NU
 - Located in src/backend/utils/adt/xml.c:4789-4814
 - Registered namespaces remain available throughout the XmlTable processing
 - Part of the XmlTable setup phase before row processing begins
+
+## Simplified Source
+
+```c
+static void
+XmlTableSetNamespace(TableFuncScanState *state, const char *name, const char *uri)
+{
+#ifdef USE_LIBXML
+    // Reject DEFAULT namespace declarations (not supported)
+    if (name == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("DEFAULT namespace is not supported")));
+
+    XmlTableBuilderData *xtCxt = GetXmlTableBuilderPrivateData(state, "XmlTableSetNamespace");
+
+    // Register namespace prefix and URI with XPath context
+    if (xmlXPathRegisterNs(xtCxt->xpathcxt,
+                           pg_xmlCharStrndup(name, strlen(name)),
+                           pg_xmlCharStrndup(uri, strlen(uri))))
+        xml_ereport(xtCxt->xmlerrcxt, ERROR, ERRCODE_DATA_EXCEPTION,
+                    "could not set XML namespace");
+#else
+    NO_XML_SUPPORT();
+#endif
+}
+```

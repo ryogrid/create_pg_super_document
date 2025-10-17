@@ -47,3 +47,37 @@ The function follows PostgreSQL's standard I/O function conventions, using the  
 - Properly manages memory by freeing the input TSQuery if it was a copy (varlena detoasting)
 - The function is typically called indirectly through PostgreSQL's type conversion system when TSQuery values need to be displayed or converted to text
 - The output string is allocated using palloc and will be automatically freed by PostgreSQL's memory management system
+
+## Simplified Source
+
+```c
+Datum
+tsqueryout(PG_FUNCTION_ARGS)
+{
+    // Get input TSQuery from function arguments
+    TSQuery query = PG_GETARG_TSQUERY(0);
+    INFIX nrm;
+
+    // Handle empty query case
+    if (query->size == 0)
+    {
+        char *b = palloc(1);
+        *b = '\0';
+        PG_RETURN_POINTER(b);
+    }
+
+    // Initialize output buffer structure
+    nrm.curpol = GETQUERY(query);        // Query items array
+    nrm.buflen = 32;                     // Initial buffer size
+    nrm.cur = nrm.buf = (char *) palloc(sizeof(char) * nrm.buflen);
+    *(nrm.cur) = '\0';                   // Null-terminate
+    nrm.op = GETOPERAND(query);          // Operand strings
+
+    // Convert query tree to infix notation string
+    infix(&nrm, -1 /* lowest priority */, false);
+
+    // Clean up and return result
+    PG_FREE_IF_COPY(query, 0);
+    PG_RETURN_CSTRING(nrm.buf);
+}
+```

@@ -44,3 +44,34 @@ The search process:
 - Uses efficient binary search providing O(log n) time complexity
 - Critical for various TSVector operations that need to locate specific lexemes
 - The comparison is performed using  which handles TSVector-specific string comparison rules
+
+## Simplified Source
+
+```c
+static int tsvector_bsearch(const TSVector tsv, char *lexeme, int lexeme_len) {
+    WordEntry *entries = ARRPTR(tsv);
+    int low = 0;
+    int high = tsv->size;
+
+    // Standard binary search algorithm
+    while (low < high) {
+        int middle = (low + high) / 2;
+
+        // Compare search lexeme with middle entry
+        int cmp = tsCompareString(lexeme, lexeme_len,
+                                 STRPTR(tsv) + entries[middle].pos,
+                                 entries[middle].len,
+                                 false);
+
+        if (cmp < 0) {
+            high = middle;          // Search in lower half
+        } else if (cmp > 0) {
+            low = middle + 1;       // Search in upper half
+        } else {
+            return middle;          // Found exact match
+        }
+    }
+
+    return -1;  // Not found
+}
+```

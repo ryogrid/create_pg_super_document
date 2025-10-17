@@ -56,3 +56,44 @@ The function ensures that RI checks are performed with appropriate privileges wh
 - [Plan](../P/Plan.md) caching mechanism improves performance by avoiding repeated preparation of identical queries
 - Essential component of PostgreSQL's referential integrity enforcement system
 - Located in src/backend/utils/adt/ri_triggers.c:2269-2311
+
+## Simplified Source
+
+```c
+static SPIPlanPtr
+ri_PlanCheck(const char *querystr, int nargs, Oid *argtypes,
+             RI_QueryKey *qkey, Relation fk_rel, Relation pk_rel)
+{
+    SPIPlanPtr qplan;
+    Relation query_rel;
+    Oid save_userid;
+    int save_sec_context;
+
+    // Determine which table to run the query against (PK or FK)
+    if (qkey->constr_queryno <= RI_PLAN_LAST_ON_PK) {
+        query_rel = pk_rel;
+    } else {
+        query_rel = fk_rel;
+    }
+
+    // Switch to table owner's security context for proper permissions
+    GetUserIdAndSecContext(&save_userid, &save_sec_context);
+    SetUserIdAndSecContext(RelationGetForm(query_rel)->relowner,
+                          save_sec_context | SECURITY_LOCAL_USERID_CHANGE | SECURITY_NOFORCE_RLS);
+
+    // Prepare the SQL query plan
+    qplan = SPI_prepare(querystr, nargs, argtypes);
+    if (qplan == NULL) {
+        elog(ERROR, "SPI_prepare returned %s for %s", SPI_result_code_string(SPI_result), querystr);
+    }
+
+    // Restore original security context
+    SetUserIdAndSecContext(save_userid, save_sec_context);
+
+    // Save and cache the plan for future use
+    SPI_keepplan(qplan);
+    ri_HashPreparedPlan(qkey, qplan);
+
+    return qplan;
+}
+```

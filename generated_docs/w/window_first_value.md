@@ -39,5 +39,26 @@ This function uses the standard PostgreSQL function call interface:
 - This function is part of the window function infrastructure in PostgreSQL
 - It's registered in the system catalog and called indirectly through the function manager when FIRST_VALUE() is used in SQL
 - The function handles NULL values appropriately by checking the  parameter
-- Located in 
+- Located in
 - Uses the frame-based approach rather than partition-based, meaning it respects the ROWS/RANGE frame specification
+
+## Simplified Source
+
+```c
+Datum
+window_first_value(PG_FUNCTION_ARGS)
+{
+    WindowObject winobj = PG_WINDOW_OBJECT();
+    Datum result;
+    bool is_null;
+
+    // Get the value from the first row of the window frame
+    result = WinGetFuncArgInFrame(winobj, 0, 0, WINDOW_SEEK_HEAD,
+                                  true, &is_null, NULL);
+
+    if (is_null)
+        PG_RETURN_NULL();
+
+    PG_RETURN_DATUM(result);
+}
+```

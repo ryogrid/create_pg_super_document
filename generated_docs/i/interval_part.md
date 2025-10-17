@@ -29,3 +29,12 @@ This function is typically called directly from SQL queries using the interval_p
 
 ## Notes and Other Information
 This function is registered in PostgreSQL's system catalog as a built-in function and can be invoked directly from SQL. It provides the float8 variant of interval component extraction, while extract_interval() provides the numeric variant. The choice between them depends on whether exact decimal precision (numeric) or floating-point performance (float8) is preferred for the specific use case.
+
+## Simplified Source
+
+```c
+Datum interval_part(PG_FUNCTION_ARGS) {
+    // Extract interval parts returning float8 values
+    return interval_part_common(fcinfo, false);
+}
+```

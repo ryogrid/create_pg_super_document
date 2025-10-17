@@ -56,3 +56,58 @@ This function calculates the total byte size required to store a specified slice
 - Uses sophisticated multidimensional array iteration logic to handle arbitrary-dimensional slices
 - The traversal respects array element alignment requirements and variable-length element encoding
 - Critical for memory management in array slice operations to ensure proper allocation
+
+## Simplified Source
+
+```c
+static int
+array_slice_size(char *arraydataptr, bits8 *arraynullsptr,
+                 int ndim, int *dim, int *lb,
+                 int *st, int *endp,
+                 int typlen, bool typbyval, char typalign)
+{
+    int span[MAXDIM], prod[MAXDIM], dist[MAXDIM], indx[MAXDIM];
+    int src_offset, count = 0;
+    char *ptr;
+
+    // Get the span (size) of the slice in each dimension
+    mda_get_range(ndim, span, st, endp);
+
+    // Fast path for fixed-length types without nulls
+    if (typlen > 0 && !arraynullsptr)
+        return ArrayGetNItems(ndim, span) * att_align_nominal(typlen, typalign);
+
+    // Complex path: traverse slice elements to calculate total size
+    src_offset = ArrayGetOffset(ndim, dim, lb, st);
+    ptr = array_seek(arraydataptr, 0, arraynullsptr, src_offset,
+                    typlen, typbyval, typalign);
+
+    // Setup navigation arrays for multidimensional iteration
+    mda_get_prod(ndim, dim, prod);
+    mda_get_offset_values(ndim, dist, prod, span);
+    for (int i = 0; i < ndim; i++)
+        indx[i] = 0;
+
+    // Iterate through all elements in the slice
+    int j = ndim - 1;
+    do {
+        // Skip to next element position if needed
+        if (dist[j]) {
+            ptr = array_seek(ptr, src_offset, arraynullsptr, dist[j],
+                           typlen, typbyval, typalign);
+            src_offset += dist[j];
+        }
+
+        // Add size of current element if not null
+        if (!array_get_isnull(arraynullsptr, src_offset)) {
+            int inc = att_addlength_pointer(0, typlen, ptr);
+            inc = att_align_nominal(inc, typalign);
+            ptr += inc;
+            count += inc;
+        }
+        src_offset++;
+    } while ((j = mda_next_tuple(ndim, indx, span)) != -1);
+
+    return count;
+}
+```

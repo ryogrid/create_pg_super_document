@@ -40,3 +40,17 @@ This conditional compilation approach allows the function to exist in all Postgr
 - Useful for verifying Unicode version compatibility between PostgreSQL and ICU
 - Primarily used in testing and diagnostic contexts to ensure proper ICU integration
 - The function allows applications to detect ICU availability and version information at runtime
+
+## Simplified Source
+
+```c
+Datum icu_unicode_version(PG_FUNCTION_ARGS) {
+#ifdef USE_ICU
+    // Return ICU's Unicode version if ICU support is compiled in
+    PG_RETURN_TEXT_P(cstring_to_text(U_UNICODE_VERSION));
+#else
+    // Return NULL if ICU support is not available
+    PG_RETURN_NULL();
+#endif
+}
+```

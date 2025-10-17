@@ -36,3 +36,53 @@ The function operates within a critical section to ensure thread-safe access to 
 - Always returns FALSE to allow Windows default signal handling to continue (which will exit the process)
 - Uses simple write_stderr for output since other threads have been terminated uncleanly
 - Part of pg_dump's parallel backup functionality, ensuring clean cancellation of database operations
+
+## Simplified Source
+
+```c
+static BOOL WINAPI
+consoleHandler(DWORD dwCtrlType)
+{
+    int i;
+    char errbuf[1];
+
+    // Handle Ctrl+C and Ctrl+Break events
+    if (dwCtrlType == CTRL_C_EVENT || dwCtrlType == CTRL_BREAK_EVENT) {
+        // Enter critical section for thread-safe access
+        EnterCriticalSection(&signal_info_lock);
+
+        // Stop worker threads and cancel their database connections
+        if (signal_info.pstate != NULL) {
+            for (i = 0; i < signal_info.pstate->numWorkers; i++) {
+                ParallelSlot *slot = &(signal_info.pstate->parallelSlot[i]);
+                ArchiveHandle *AH = slot->AH;
+                HANDLE hThread = (HANDLE) slot->hThread;
+
+                // Terminate worker thread (resource leaks acceptable since process is ending)
+                if (hThread != INVALID_HANDLE_VALUE)
+                    TerminateThread(hThread, 0);
+
+                // Cancel database query for this worker
+                if (AH != NULL && AH->connCancel != NULL)
+                    PQcancel(AH->connCancel, errbuf, sizeof(errbuf));
+            }
+        }
+
+        // Cancel leader connection query
+        if (signal_info.myAH != NULL && signal_info.myAH->connCancel != NULL)
+            PQcancel(signal_info.myAH->connCancel, errbuf, sizeof(errbuf));
+
+        LeaveCriticalSection(&signal_info_lock);
+
+        // Report termination to user
+        if (progname) {
+            write_stderr(progname);
+            write_stderr(": ");
+        }
+        write_stderr("terminated by user\n");
+    }
+
+    // Return FALSE to allow default Windows signal handling (process termination)
+    return FALSE;
+}
+```

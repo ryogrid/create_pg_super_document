@@ -49,3 +49,81 @@ The parser leverages the tsvector parser for operand processing and supports wei
 - Integrates with tsvector parser for consistent lexeme processing
 - Returns different PT_* token types: PT_VAL, PT_OPR, PT_OPEN, PT_CLOSE, PT_END, PT_ERR
 - Weight parameter is reused to store phrase distance when parsing phrase operators
+
+## Simplified Source
+
+```c
+static ts_tokentype gettoken_query_standard(TSQueryParserState state, int8 *operator,
+                                          int *lenval, char **strval,
+                                          int16 *weight, bool *prefix) {
+    *weight = 0;
+    *prefix = false;
+
+    while (true) {
+        switch (state->state) {
+            case WAITFIRSTOPERAND:
+            case WAITOPERAND:
+                // Handle operators that precede operands
+                if (t_iseq(state->buf, '!')) {
+                    state->buf++;
+                    state->state = WAITOPERAND;
+                    *operator = OP_NOT;
+                    return PT_OPR;
+                }
+                else if (t_iseq(state->buf, '(')) {
+                    state->buf++;
+                    state->state = WAITOPERAND;
+                    state->count++;
+                    return PT_OPEN;
+                }
+                else if (!t_isspace(state->buf) && !t_iseq(state->buf, ':')) {
+                    // Parse operand using tsvector parser
+                    reset_tsvector_parser(state->valstate, state->buf);
+                    if (gettoken_tsvector(state->valstate, strval, lenval, NULL, NULL, &state->buf)) {
+                        state->buf = get_modifiers(state->buf, weight, prefix);
+                        state->state = WAITOPERATOR;
+                        return PT_VAL;
+                    }
+                    // Handle errors and empty input
+                    return (state->state == WAITFIRSTOPERAND) ? PT_END : PT_ERR;
+                }
+                break;
+
+            case WAITOPERATOR:
+                // Handle binary operators
+                if (t_iseq(state->buf, '&')) {
+                    state->buf++;
+                    state->state = WAITOPERAND;
+                    *operator = OP_AND;
+                    return PT_OPR;
+                }
+                else if (t_iseq(state->buf, '|')) {
+                    state->buf++;
+                    state->state = WAITOPERAND;
+                    *operator = OP_OR;
+                    return PT_OPR;
+                }
+                else if (parse_phrase_operator(state, weight)) {
+                    state->state = WAITOPERAND;
+                    *operator = OP_PHRASE;
+                    return PT_OPR;
+                }
+                else if (t_iseq(state->buf, ')')) {
+                    state->buf++;
+                    state->count--;
+                    return (state->count < 0) ? PT_ERR : PT_CLOSE;
+                }
+                else if (*state->buf == '\0') {
+                    return (state->count) ? PT_ERR : PT_END;
+                }
+                else if (!t_isspace(state->buf)) {
+                    return PT_ERR;
+                }
+                break;
+        }
+
+        // Skip whitespace and advance to next character
+        state->buf += pg_mblen(state->buf);
+    }
+}
+```

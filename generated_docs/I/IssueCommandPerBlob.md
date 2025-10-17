@@ -48,3 +48,42 @@ The function parses the TocEntry's definition string line by line, treating each
 - The function assumes the TocEntry's defn field contains newline-separated large object OIDs
 - Each generated command is automatically terminated with a semicolon
 - File location: src/bin/pg_dump/pg_backup_db.c:552-598
+
+## Simplified Source
+
+```c
+void IssueCommandPerBlob(ArchiveHandle *AH, TocEntry *te,
+                         const char *cmdBegin, const char *cmdEnd) {
+    // Create working copy of blob OIDs definition string
+    char *buf = pg_strdup(te->defn);
+    RestoreOptions *ropt = AH->public.ropt;
+    char *st = buf;
+    char *en;
+
+    // Process each line (blob OID) in the definition
+    while ((en = strchr(st, '\n')) != NULL) {
+        *en++ = '\0';
+
+        // Generate command: cmdBegin + OID + cmdEnd
+        ahprintf(AH, "%s%s%s;\n", cmdBegin, st, cmdEnd);
+
+        // Handle transaction size limits for batch processing
+        if (ropt && ropt->txn_size > 0) {
+            if (++AH->txnCount >= ropt->txn_size) {
+                if (AH->connection) {
+                    CommitTransaction(&AH->public);
+                    StartTransaction(&AH->public);
+                } else {
+                    ahprintf(AH, "COMMIT;\nBEGIN;\n\n");
+                }
+                AH->txnCount = 0;
+            }
+        }
+
+        st = en;
+    }
+
+    ahprintf(AH, "\n");
+    pg_free(buf);
+}
+```

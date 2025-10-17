@@ -39,3 +39,27 @@ The function allocates memory for the enumeration state structure, determines th
 - Designed to work with pg_tzenumerate_next() for iterating through timezones
 - Part of a trilogy of functions: start, next, and end for timezone enumeration
 - Uses PostgreSQL's memory management (palloc0) rather than standard malloc
+
+## Simplified Source
+
+```c
+pg_tzenum *pg_tzenumerate_start(void) {
+    // Allocate and initialize enumeration state
+    pg_tzenum *enumerator = (pg_tzenum *) palloc0(sizeof(pg_tzenum));
+    char *timezone_dir = pstrdup(pg_TZDIR());
+
+    // Set up initial directory traversal state
+    enumerator->baselen = strlen(timezone_dir) + 1;
+    enumerator->depth = 0;
+    enumerator->dirname[0] = timezone_dir;
+
+    // Open the timezone directory for reading
+    enumerator->dirdesc[0] = AllocateDir(timezone_dir);
+    if (!enumerator->dirdesc[0]) {
+        ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("could not open directory \"%s\": %m", timezone_dir)));
+    }
+
+    return enumerator;
+}
+```

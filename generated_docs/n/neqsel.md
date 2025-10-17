@@ -34,3 +34,13 @@ Like eqsel, this function supports operators that are not strict inequality ("!=
 - Uses the formula: 1.0 - equality_selectivity - nullfrac for selectivity calculation
 - Part of PostgreSQL's selectivity function framework used by the query optimizer for cost-based planning
 - Complements eqsel by providing the inverse selectivity estimation for the same operator families
+
+## Simplified Source
+
+```c
+Datum neqsel(PG_FUNCTION_ARGS) {
+    // Calculate inequality selectivity by delegating to eqsel_internal
+    // with negate flag set to true
+    return (float8) eqsel_internal(fcinfo, true);
+}
+```

@@ -41,3 +41,28 @@ This function serves as a PostgreSQL SQL function entry point for retrieving vie
 - Uses NoLock when looking up the view name since privileges may not be available
 - Automatically enables indentation for better formatted output
 - Uses default column wrapping behavior
+
+## Simplified Source
+
+```c
+Datum
+pg_get_viewdef_name(PG_FUNCTION_ARGS)
+{
+    text *viewname = PG_GETARG_TEXT_PP(0);
+    RangeVar *viewrel;
+    Oid viewoid;
+    char *res;
+
+    // Convert view name to qualified name list and resolve to OID
+    viewrel = makeRangeVarFromNameList(textToQualifiedNameList(viewname));
+    viewoid = RangeVarGetRelid(viewrel, NoLock, false);
+
+    // Get view definition with pretty printing enabled
+    res = pg_get_viewdef_worker(viewoid, PRETTYFLAG_INDENT, WRAP_COLUMN_DEFAULT);
+
+    if (res == NULL)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(string_to_text(res));
+}
+```

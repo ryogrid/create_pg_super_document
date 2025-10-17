@@ -31,3 +31,16 @@ _DeClone is a cleanup function specifically designed for the custom archive form
 - Part of the archive format interface for managing format-specific cleanup
 - Used in conjunction with _Clone function for parallel restore operations
 - The lclContext structure contains compression state, seek capability flag, and file position information
+
+## Simplified Source
+
+```c
+static void
+_DeClone(ArchiveHandle *AH)
+{
+    lclContext *ctx = (lclContext *) AH->formatData;
+
+    // Simply free the format-specific context allocated by _Clone
+    free(ctx);
+}
+```

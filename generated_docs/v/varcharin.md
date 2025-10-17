@@ -37,3 +37,20 @@ The `varcharin` function serves as the primary input function for PostgreSQL's v
 - The `typelem` parameter is marked as NOT_USED, indicating it's not needed for varchar processing
 - Uses `fcinfo->context` to pass error context for soft error handling
 - This function is registered as the input function for varchar in PostgreSQL's type system catalog
+
+## Simplified Source
+
+```c
+Datum varcharin(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    char *s = PG_GETARG_CSTRING(0);
+    // Argument 1 (typelem) is unused
+    int32 atttypmod = PG_GETARG_INT32(2);
+
+    // Process the input string using common varchar logic
+    VarChar *result = varchar_input(s, strlen(s), atttypmod, fcinfo->context);
+
+    // Return the processed result
+    PG_RETURN_VARCHAR_P(result);
+}
+```

@@ -33,3 +33,22 @@ The function acts as a wrapper around , setting default formatting flags and han
 - Returns NULL if the rule definition cannot be retrieved
 - Uses fixed pretty-printing flags with indentation enabled
 - Part of PostgreSQL's system information functions accessible via SQL
+
+## Simplified Source
+
+```c
+Datum
+pg_get_ruledef(PG_FUNCTION_ARGS)
+{
+    Oid ruleoid = PG_GETARG_OID(0);
+    char *res;
+
+    // Get rule definition with pretty printing enabled
+    res = pg_get_ruledef_worker(ruleoid, PRETTYFLAG_INDENT);
+
+    if (res == NULL)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(string_to_text(res));
+}
+```

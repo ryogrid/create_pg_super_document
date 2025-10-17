@@ -42,3 +42,25 @@ The returned value represents the total space used by the underlying unaligned a
 - Essential for memory usage tracking and analysis of aligned allocations
 - Part of PostgreSQL's aligned memory allocation subsystem located in src/backend/utils/mmgr/alignedalloc.c
 - Works in conjunction with PostgreSQL's memory context system to provide accurate space reporting
+
+## Simplified Source
+
+```c
+Size AlignedAllocGetChunkSpace(void *pointer) {
+    MemoryChunk *redirchunk = PointerGetMemoryChunk(pointer);
+    void *unaligned;
+    Size space;
+
+    // Make chunk metadata accessible for reading
+    VALGRIND_MAKE_MEM_DEFINED(redirchunk, sizeof(MemoryChunk));
+
+    // Get space from the original unaligned allocation
+    unaligned = MemoryChunkGetBlock(redirchunk);
+    space = GetMemoryChunkSpace(unaligned);
+
+    // Restore memory access protection
+    VALGRIND_MAKE_MEM_NOACCESS(redirchunk, sizeof(MemoryChunk));
+
+    return space;
+}
+```

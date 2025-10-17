@@ -43,3 +43,37 @@ The function uses the `LOCAL_FCINFO` macro to create a local function call info 
 - Part of a family of DirectFunctionCall functions that handle different numbers of arguments
 - The collation parameter allows for locale-specific operations, particularly important for text processing functions
 - Used in selectivity estimation functions where five-argument functions with collation support are needed
+
+## Simplified Source
+
+```c
+Datum DirectFunctionCall5Coll(PGFunction func, Oid collation, Datum arg1, Datum arg2,
+                              Datum arg3, Datum arg4, Datum arg5)
+{
+    LOCAL_FCINFO(fcinfo, 5);
+    Datum result;
+
+    /* Initialize function call info with 5 arguments and collation */
+    InitFunctionCallInfoData(*fcinfo, NULL, 5, collation, NULL, NULL);
+
+    /* Set all five arguments as non-null */
+    fcinfo->args[0].value = arg1;
+    fcinfo->args[0].isnull = false;
+    fcinfo->args[1].value = arg2;
+    fcinfo->args[1].isnull = false;
+    fcinfo->args[2].value = arg3;
+    fcinfo->args[2].isnull = false;
+    fcinfo->args[3].value = arg4;
+    fcinfo->args[3].isnull = false;
+    fcinfo->args[4].value = arg5;
+    fcinfo->args[4].isnull = false;
+
+    /* Call the function and check for unexpected NULL result */
+    result = (*func) (fcinfo);
+
+    if (fcinfo->isnull)
+        elog(ERROR, "function %p returned NULL", (void *) func);
+
+    return result;
+}
+```

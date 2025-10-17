@@ -60,3 +60,65 @@ The function delegates to specialized handlers (setPathObject, setPathArray) bas
 - Uses recursive delegation to specialized object/array handlers for type-specific logic
 - Implements comprehensive error checking for invalid scalar replacement attempts
 - The function serves as the central dispatcher for various JSONB modification operations
+
+## Simplified Source
+
+```c
+static JsonbValue *setPath(JsonbIterator **it, Datum *path_elems,
+                          bool *path_nulls, int path_len,
+                          JsonbParseState **st, int level, JsonbValue *newval, int op_type) {
+    JsonbValue v;
+    JsonbIteratorToken r;
+    JsonbValue *res;
+
+    check_stack_depth();
+
+    // Validate path element is not null
+    if (path_nulls[level])
+        ereport(ERROR, "path element at position %d is null", level + 1);
+
+    // Get next token from iterator
+    r = JsonbIteratorNext(it, &v, false);
+
+    switch (r) {
+        case WJB_BEGIN_ARRAY:
+            // Validate scalar replacement for arrays with FILL_GAPS
+            if ((op_type & JB_PATH_FILL_GAPS) && (level <= path_len - 1) &&
+                v.val.array.rawScalar)
+                ereport(ERROR, "cannot replace existing key - scalar value");
+
+            // Delegate to array handler
+            pushJsonbValue(st, r, NULL);
+            setPathArray(it, path_elems, path_nulls, path_len, st, level,
+                        newval, v.val.array.nElems, op_type);
+            r = JsonbIteratorNext(it, &v, false);
+            res = pushJsonbValue(st, r, NULL);
+            break;
+
+        case WJB_BEGIN_OBJECT:
+            // Delegate to object handler
+            pushJsonbValue(st, r, NULL);
+            setPathObject(it, path_elems, path_nulls, path_len, st, level,
+                         newval, v.val.object.nPairs, op_type);
+            r = JsonbIteratorNext(it, &v, true);
+            res = pushJsonbValue(st, r, NULL);
+            break;
+
+        case WJB_ELEM:
+        case WJB_VALUE:
+            // Validate scalar replacement with FILL_GAPS
+            if ((op_type & JB_PATH_FILL_GAPS) && (level <= path_len - 1))
+                ereport(ERROR, "cannot replace existing key - scalar value");
+
+            res = pushJsonbValue(st, r, &v);
+            break;
+
+        default:
+            elog(ERROR, "unrecognized iterator result: %d", (int) r);
+            res = NULL;
+            break;
+    }
+
+    return res;
+}
+```

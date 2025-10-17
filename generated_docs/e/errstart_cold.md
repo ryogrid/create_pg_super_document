@@ -32,3 +32,15 @@ The function provides identical functionality to errstart but with better optimi
 - This function is primarily used in macro expansions rather than direct calls
 - The cold attribute is especially beneficial in hot code paths where error conditions are rare
 - Identical functionality to errstart but with compiler optimization hints for better cache locality
+
+## Simplified Source
+
+```c
+pg_attribute_cold bool
+errstart_cold(int elevel, const char *domain)
+{
+    // Simple wrapper around errstart with cold attribute
+    // Helps compilers move error code away from hot paths
+    return errstart(elevel, domain);
+}
+```

@@ -41,3 +41,20 @@ After providing the specific error detail, it always includes a hint recommendin
 - The function only handles specific mount point indicators (errors 2 and 3); other error conditions are handled elsewhere
 - The warnings help prevent subtle configuration issues that might not be immediately apparent but could cause problems later
 - This is a user education function that improves the overall robustness of PostgreSQL installations
+
+## Simplified Source
+
+```c
+void warn_on_mount_point(int error) {
+    // Provide specific warning based on mount point indicator
+    if (error == 2) {
+        pg_log_error_detail("Directory contains dot-prefixed/invisible files, likely a mount point.");
+    } else if (error == 3) {
+        pg_log_error_detail("Directory contains lost+found directory, likely a mount point.");
+    }
+
+    // Always recommend creating subdirectory instead
+    pg_log_error_hint("Using a mount point directly as the data directory is not recommended.\n"
+                      "Create a subdirectory under the mount point.");
+}
+```

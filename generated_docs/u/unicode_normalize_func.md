@@ -42,3 +42,49 @@ The `unicode_normalize_func` function performs Unicode normalization on input te
 - Two-pass approach: first pass calculates output size, second pass fills the result buffer
 - The function assumes UTF-8 encoding for both input and output text
 - Supports all standard Unicode normalization forms through the unicode_norm_form_from_string parser
+
+## Simplified Source
+
+```c
+Datum unicode_normalize_func(PG_FUNCTION_ARGS) {
+    text *input = PG_GETARG_TEXT_PP(0);
+    char *formstr = text_to_cstring(PG_GETARG_TEXT_PP(1));
+
+    // Parse normalization form string (validates UTF8 encoding)
+    UnicodeNormalizationForm form = unicode_norm_form_from_string(formstr);
+
+    // Convert UTF-8 input to wide character array
+    int size = pg_mbstrlen_with_len(VARDATA_ANY(input), VARSIZE_ANY_EXHDR(input));
+    pg_wchar *input_chars = palloc((size + 1) * sizeof(pg_wchar));
+    unsigned char *p = (unsigned char *) VARDATA_ANY(input);
+
+    for (int i = 0; i < size; i++) {
+        input_chars[i] = utf8_to_unicode(p);
+        p += pg_utf_mblen(p);
+    }
+    input_chars[size] = (pg_wchar) '\0';
+
+    // Apply Unicode normalization
+    pg_wchar *output_chars = unicode_normalize(form, input_chars);
+
+    // Calculate output size by converting back to UTF-8
+    int output_size = 0;
+    for (pg_wchar *wp = output_chars; *wp; wp++) {
+        unsigned char buf[4];
+        unicode_to_utf8(*wp, buf);
+        output_size += pg_utf_mblen(buf);
+    }
+
+    // Create result buffer and convert normalized characters to UTF-8
+    text *result = palloc(output_size + VARHDRSZ);
+    SET_VARSIZE(result, output_size + VARHDRSZ);
+
+    p = (unsigned char *) VARDATA_ANY(result);
+    for (pg_wchar *wp = output_chars; *wp; wp++) {
+        unicode_to_utf8(*wp, p);
+        p += pg_utf_mblen(p);
+    }
+
+    PG_RETURN_TEXT_P(result);
+}
+```

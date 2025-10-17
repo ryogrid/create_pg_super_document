@@ -39,3 +39,26 @@ This function is a mixed-parameter variant of the pg_has_role privilege checking
 - Completes the comprehensive pg_has_role function family that covers all combinations of name/OID parameters
 - Useful when user OIDs are available from system catalogs but role names are more convenient for specification
 - Less commonly used than other variants but provides completeness to the function family
+
+## Simplified Source
+
+```c
+Datum pg_has_role_id_name(PG_FUNCTION_ARGS)
+{
+    Oid roleid = PG_GETARG_OID(0);           // User OID to check
+    Name rolename = PG_GETARG_NAME(1);       // Role name to check against
+    text *priv_type_text = PG_GETARG_TEXT_PP(2); // Privilege type
+
+    // Convert role name to OID
+    Oid roleoid = get_role_oid(NameStr(*rolename), false);
+
+    // Convert privilege string to access mode
+    AclMode mode = convert_role_priv_string(priv_type_text);
+
+    // Check if user has the specified privilege on the role
+    AclResult result = pg_role_aclcheck(roleoid, roleid, mode);
+
+    // Return true if access is granted
+    PG_RETURN_BOOL(result == ACLCHECK_OK);
+}
+```

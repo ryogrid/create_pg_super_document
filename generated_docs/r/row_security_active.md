@@ -34,3 +34,18 @@ The function calls  with  for the checkAsUser parameter (meaning it checks the c
 - Uses the noError=true parameter to avoid throwing exceptions during the check
 - The function simplifies the three-state return value of check_enable_rls into a binary active/inactive result
 - Part of PostgreSQL's system catalog functions for introspecting security settings
+
+## Simplified Source
+
+```c
+Datum row_security_active(PG_FUNCTION_ARGS) {
+    // Get table OID from function argument
+    Oid tableoid = PG_GETARG_OID(0);
+
+    // Check RLS status for the table
+    int rls_status = check_enable_rls(tableoid, InvalidOid, true);
+
+    // Return true only if RLS is enabled
+    PG_RETURN_BOOL(rls_status == RLS_ENABLED);
+}
+```

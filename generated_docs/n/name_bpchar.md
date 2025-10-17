@@ -33,3 +33,16 @@ The  function performs type conversion from PostgreSQL's internal  type to the  
 - This function assumes that BpChar and text types are equivalent, which is a key design principle in PostgreSQL's type system
 - The conversion is straightforward as it relies on the existing text handling infrastructure
 - Part of PostgreSQL's type casting system for name-related operations
+
+## Simplified Source
+
+```c
+Datum name_bpchar(PG_FUNCTION_ARGS) {
+    Name s = PG_GETARG_NAME(0);
+
+    // Convert name to bpchar using text conversion infrastructure
+    BpChar *result = (BpChar *) cstring_to_text(NameStr(*s));
+
+    PG_RETURN_BPCHAR_P(result);
+}
+```

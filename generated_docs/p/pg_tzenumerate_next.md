@@ -47,3 +47,68 @@ The function maintains traversal state in the pg_tzenum structure, tracking the 
 - Constructs canonical timezone names by removing the base directory prefix
 - Maintains open directory handles for efficient iteration through large directory trees
 - Part of the timezone enumeration API trilogy: start, next, and end functions
+
+## Simplified Source
+
+```c
+pg_tz *pg_tzenumerate_next(pg_tzenum *enumerator) {
+    while (enumerator->depth >= 0) {
+        struct dirent *entry;
+        char fullpath[MAXPGPATH * 2];
+
+        // Read next entry from current directory
+        entry = ReadDir(enumerator->dirdesc[enumerator->depth],
+                       enumerator->dirname[enumerator->depth]);
+
+        if (!entry) {
+            // End of directory - backtrack to parent
+            FreeDir(enumerator->dirdesc[enumerator->depth]);
+            pfree(enumerator->dirname[enumerator->depth]);
+            enumerator->depth--;
+            continue;
+        }
+
+        // Skip hidden files
+        if (entry->d_name[0] == '.')
+            continue;
+
+        // Build full path
+        snprintf(fullpath, sizeof(fullpath), "%s/%s",
+                enumerator->dirname[enumerator->depth], entry->d_name);
+
+        if (get_dirent_type(fullpath, entry, true, ERROR) == PGFILETYPE_DIR) {
+            // Descend into subdirectory
+            if (enumerator->depth >= MAX_TZDIR_DEPTH - 1) {
+                ereport(ERROR, (errmsg_internal("timezone directory stack overflow")));
+            }
+
+            enumerator->depth++;
+            enumerator->dirname[enumerator->depth] = pstrdup(fullpath);
+            enumerator->dirdesc[enumerator->depth] = AllocateDir(fullpath);
+
+            if (!enumerator->dirdesc[enumerator->depth]) {
+                ereport(ERROR, (errcode_for_file_access(),
+                               errmsg("could not open directory \"%s\": %m", fullpath)));
+            }
+            continue;
+        }
+
+        // Try to load timezone file
+        if (tzload(fullpath + enumerator->baselen, NULL, &enumerator->tz.state, true) != 0) {
+            continue; // Could not load - skip
+        }
+
+        if (!pg_tz_acceptable(&enumerator->tz)) {
+            continue; // Invalid timezone - skip
+        }
+
+        // Valid timezone found - set canonical name and return
+        strlcpy(enumerator->tz.TZname, fullpath + enumerator->baselen,
+                sizeof(enumerator->tz.TZname));
+        return &enumerator->tz;
+    }
+
+    // No more timezones found
+    return NULL;
+}
+```

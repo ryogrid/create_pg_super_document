@@ -42,3 +42,29 @@ The  function provides the capability to modify JSONB data structures by setting
 - Handles raw scalar arrays by unwrapping the first element
 - Allocates temporary path_nulls array to track null path elements
 - Returns a new JSONB structure with the modification applied (immutable operation)
+
+## Simplified Source
+
+```c
+Datum jsonb_set_element(Jsonb *jb, Datum *path, int path_len, JsonbValue *newval) {
+    JsonbValue *res;
+    JsonbParseState *state = NULL;
+    JsonbIterator *it;
+    bool *path_nulls = palloc0(path_len * sizeof(bool));
+
+    // Handle raw scalar arrays by extracting the first element
+    if (newval->type == jbvArray && newval->val.array.rawScalar)
+        *newval = newval->val.array.elems[0];
+
+    // Initialize iterator for the input JSONB
+    it = JsonbIteratorInit(&jb->root);
+
+    // Perform the actual path modification
+    res = setPath(&it, path, path_nulls, path_len, &state, 0, newval,
+                  JB_PATH_CREATE | JB_PATH_FILL_GAPS | JB_PATH_CONSISTENT_POSITION);
+
+    pfree(path_nulls);
+
+    PG_RETURN_JSONB_P(JsonbValueToJsonb(res));
+}
+```

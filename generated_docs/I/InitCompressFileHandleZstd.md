@@ -42,3 +42,29 @@ This function serves as the initialization routine for the zstd compression back
 - The private_data field is initialized to NULL and allocated later during actual compression operations
 - Part of the modular compression system that allows pg_dump to support multiple compression formats
 - The compression_spec parameter allows configuration of zstd-specific settings like compression level
+
+## Simplified Source
+
+```c
+void
+InitCompressFileHandleZstd(CompressFileHandle *CFH,
+                           const pg_compress_specification compression_spec)
+{
+    // Set up all function pointers for zstd file operations
+    CFH->open_func = Zstd_open;
+    CFH->open_write_func = Zstd_open_write;
+    CFH->read_func = Zstd_read;
+    CFH->write_func = Zstd_write;
+    CFH->gets_func = Zstd_gets;
+    CFH->getc_func = Zstd_getc;
+    CFH->close_func = Zstd_close;
+    CFH->eof_func = Zstd_eof;
+    CFH->get_error_func = Zstd_get_error;
+
+    // Store compression configuration
+    CFH->compression_spec = compression_spec;
+
+    // Initialize private data (allocated later)
+    CFH->private_data = NULL;
+}
+```

@@ -43,3 +43,15 @@ This function follows PostgreSQL's trigger function interface:
 - Located in src/backend/utils/adt/ri_triggers.c:440-447
 - Part of PostgreSQL's comprehensive referential integrity system
 - Only validates constraints if the foreign key columns are actually modified in the UPDATE operation
+
+## Simplified Source
+
+```c
+Datum RI_FKey_check_upd(PG_FUNCTION_ARGS) {
+    // Validate this is a proper UPDATE trigger call
+    ri_CheckTrigger(fcinfo, "RI_FKey_check_upd", RI_TRIGTYPE_UPDATE);
+
+    // Share the core constraint checking logic with INSERT case
+    return RI_FKey_check((TriggerData *) fcinfo->context);
+}
+```

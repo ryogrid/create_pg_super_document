@@ -35,3 +35,25 @@ The function first creates a role with LOGIN privilege, then iterates through th
 - Uses StringInfo buffer to build the SQL command sequence before execution
 - Part of the PostgreSQL regression testing framework, not the core database engine
 - The role is created with LOGIN privilege, making it suitable for database connections during tests
+
+## Simplified Source
+
+```c
+static void
+create_role(const char *rolename, const _stringlist *granted_dbs)
+{
+    StringInfo buf = psql_start_command();
+
+    // Create role with login privilege
+    psql_add_command(buf, "CREATE ROLE \"%s\" WITH LOGIN", rolename);
+
+    // Grant ALL privileges on specified databases
+    for (; granted_dbs != NULL; granted_dbs = granted_dbs->next)
+    {
+        psql_add_command(buf, "GRANT ALL ON DATABASE \"%s\" TO \"%s\"",
+                         granted_dbs->str, rolename);
+    }
+
+    psql_end_command(buf, "postgres");
+}
+```

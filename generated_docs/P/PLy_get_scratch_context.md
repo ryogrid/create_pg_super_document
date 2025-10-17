@@ -32,3 +32,19 @@ PLy_get_scratch_context provides access to a dedicated memory context for tempor
 - Uses TopTransactionContext as parent to ensure proper cleanup at transaction end
 - The context is automatically cleaned up when the execution context is popped via PLy_pop_execution_context
 - Primarily used for type conversion operations that require temporary memory allocations
+
+## Simplified Source
+
+```c
+MemoryContext
+PLy_get_scratch_context(PLyExecutionContext *context)
+{
+    // Lazy allocation: create scratch context only when first needed
+    if (context->scratch_ctx == NULL)
+        context->scratch_ctx =
+            AllocSetContextCreate(TopTransactionContext,
+                                "PL/Python scratch context",
+                                ALLOCSET_DEFAULT_SIZES);
+    return context->scratch_ctx;
+}
+```

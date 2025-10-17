@@ -47,3 +47,21 @@ The function creates a copy of the input interval and delegates the actual adjus
 - Part of the standard PostgreSQL function infrastructure for interval data type operations
 - Companion to `interval_support()` which optimizes away unnecessary calls to this function
 - Essential for maintaining data type integrity when storing intervals with specific type constraints
+
+## Simplified Source
+
+```c
+Datum interval_scale(PG_FUNCTION_ARGS) {
+    Interval *interval = PG_GETARG_INTERVAL_P(0);
+    int32 typmod = PG_GETARG_INT32(1);
+
+    // Create copy of input interval
+    Interval *result = palloc(sizeof(Interval));
+    *result = *interval;
+
+    // Apply type modifier constraints
+    AdjustIntervalForTypmod(result, typmod, NULL);
+
+    return PG_RETURN_INTERVAL_P(result);
+}
+```

@@ -60,3 +60,91 @@ Key behaviors:
 - Returns unchanged record for null JSON inputs
 - Part of PostgreSQL's comprehensive JSON/JSONB to record conversion infrastructure
 - The function signature uses boolean flags to distinguish between different calling patterns
+
+## Simplified Source
+
+```c
+static Datum
+populate_record_worker(FunctionCallInfo fcinfo, const char *funcname,
+                       bool is_json, bool have_record_arg,
+                       Node *escontext)
+{
+    int json_arg_num = have_record_arg ? 1 : 0;
+    JsValue jsv = {0};
+    HeapTupleHeader rec;
+    Datum rettuple;
+    bool isnull;
+    JsonbValue jbv;
+    MemoryContext fnmcxt = fcinfo->flinfo->fn_mcxt;
+    PopulateRecordCache *cache = fcinfo->flinfo->fn_extra;
+
+    // Initialize cache on first call
+    if (!cache) {
+        fcinfo->flinfo->fn_extra = cache =
+            MemoryContextAllocZero(fnmcxt, sizeof(*cache));
+        cache->fn_mcxt = fnmcxt;
+
+        // Determine record type from argument or query context
+        if (have_record_arg)
+            get_record_type_from_argument(fcinfo, funcname, cache);
+        else
+            get_record_type_from_query(fcinfo, funcname, cache);
+    }
+
+    // Handle record argument
+    if (!have_record_arg)
+        rec = NULL; // json{b}_to_record() case
+    else if (!PG_ARGISNULL(0)) {
+        rec = PG_GETARG_HEAPTUPLEHEADER(0);
+
+        // For RECORD type, get actual type from tuple header
+        if (cache->argtype == RECORDOID) {
+            cache->c.io.composite.base_typid = HeapTupleHeaderGetTypeId(rec);
+            cache->c.io.composite.base_typmod = HeapTupleHeaderGetTypMod(rec);
+        }
+    } else {
+        rec = NULL;
+
+        // For null RECORD argument, get type from query context
+        if (cache->argtype == RECORDOID) {
+            get_record_type_from_query(fcinfo, funcname, cache);
+            Assert(cache->argtype == RECORDOID);
+        }
+    }
+
+    // Handle null JSON input - return record unchanged
+    if (PG_ARGISNULL(json_arg_num)) {
+        if (rec)
+            PG_RETURN_POINTER(rec);
+        else
+            PG_RETURN_NULL();
+    }
+
+    // Setup JSON/JSONB value for processing
+    jsv.is_json = is_json;
+
+    if (is_json) {
+        // JSON text format
+        text *json = PG_GETARG_TEXT_PP(json_arg_num);
+        jsv.val.json.str = VARDATA_ANY(json);
+        jsv.val.json.len = VARSIZE_ANY_EXHDR(json);
+        jsv.val.json.type = JSON_TOKEN_INVALID;
+    } else {
+        // JSONB binary format
+        Jsonb *jb = PG_GETARG_JSONB_P(json_arg_num);
+        jsv.val.jsonb = &jbv;
+        jbv.type = jbvBinary;
+        jbv.val.binary.data = &jb->root;
+        jbv.val.binary.len = VARSIZE(jb) - VARHDRSZ;
+    }
+
+    // Perform the actual conversion
+    isnull = false;
+    rettuple = populate_composite(&cache->c.io.composite, cache->argtype,
+                                  NULL, fnmcxt, rec, &jsv, &isnull,
+                                  escontext);
+    Assert(!isnull || SOFT_ERROR_OCCURRED(escontext));
+
+    PG_RETURN_DATUM(rettuple);
+}
+```

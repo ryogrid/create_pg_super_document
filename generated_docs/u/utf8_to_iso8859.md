@@ -46,3 +46,37 @@ The function follows PostgreSQL's standard conversion procedure interface, accep
 - Returns the number of bytes successfully converted
 - Part of PostgreSQL's pluggable character set conversion system
 - Note that UTF-8 can represent characters not present in ISO 8859 sets, which may cause conversion errors depending on the noError parameter
+
+## Simplified Source
+```c
+Datum
+utf8_to_iso8859(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments
+    int encoding = PG_GETARG_INT32(1);
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_UTF8, -1);
+
+    // Find the matching encoding in the maps table
+    for (int i = 0; i < lengthof(maps); i++) {
+        if (encoding == maps[i].encoding) {
+            // Convert using the appropriate mapping table
+            int converted = UtfToLocal(src, len, dest,
+                                     maps[i].map2, NULL, 0, NULL,
+                                     encoding, noError);
+            PG_RETURN_INT32(converted);
+        }
+    }
+
+    // Error if encoding not found
+    ereport(ERROR, (errcode(ERRCODE_INTERNAL_ERROR),
+                   errmsg("unexpected encoding ID %d for ISO 8859 character sets", encoding)));
+
+    PG_RETURN_INT32(0);
+}
+```

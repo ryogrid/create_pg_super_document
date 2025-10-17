@@ -32,3 +32,44 @@ The function serves both debugging and validation purposes, ensuring that the re
 
 ## Notes and Other Information
 This function only processes sources that were actually used (non-NULL and had blocks read). In dry-run mode, it performs file size validation to ensure the source files contain enough data to satisfy the reconstruction requirements. The function helps identify potential issues in backup chains before attempting actual reconstruction.
+
+## Simplified Source
+
+```c
+static void debug_reconstruction(int n_source, rfile **sources, bool dry_run)
+{
+    unsigned i;
+
+    // Iterate through all source files
+    for (i = 0; i < n_source; ++i) {
+        rfile *s = sources[i];
+
+        // Skip unused or empty sources
+        if (s == NULL || s->num_blocks_read == 0)
+            continue;
+
+        // Log debug information about blocks read
+        if (dry_run)
+            pg_log_debug("would have read %u blocks from \"%s\"",
+                        s->num_blocks_read, s->filename);
+        else
+            pg_log_debug("read %u blocks from \"%s\"",
+                        s->num_blocks_read, s->filename);
+
+        // In dry-run mode, validate file size without actually reading
+        if (dry_run) {
+            struct stat sb;
+
+            if (fstat(s->fd, &sb) < 0)
+                pg_fatal("could not stat file \"%s\": %m", s->filename);
+
+            // Check if file is long enough for required reads
+            if (sb.st_size < s->highest_offset_read)
+                pg_fatal("file \"%s\" is too short: expected %llu, found %llu",
+                        s->filename,
+                        (unsigned long long) s->highest_offset_read,
+                        (unsigned long long) sb.st_size);
+        }
+    }
+}
+```

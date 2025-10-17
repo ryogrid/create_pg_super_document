@@ -61,3 +61,70 @@ The registration process involves:
 - Will error if maximum number of injection points is exceeded
 - Uses memory barriers to ensure proper ordering of memory operations
 - Primarily used for testing and debugging purposes in PostgreSQL development
+
+## Simplified Source
+
+```c
+void
+InjectionPointAttach(const char *name,
+                     const char *library,
+                     const char *function,
+                     const void *private_data,
+                     int private_data_size)
+{
+#ifdef USE_INJECTION_POINTS
+    // Validate input parameter lengths
+    if (strlen(name) >= INJ_NAME_MAXLEN ||
+        strlen(library) >= INJ_LIB_MAXLEN ||
+        strlen(function) >= INJ_FUNC_MAXLEN ||
+        private_data_size >= INJ_PRIVATE_MAXLEN)
+        elog(ERROR, "injection point parameter too long");
+
+    // Find free slot and check for duplicates
+    LWLockAcquire(InjectionPointLock, LW_EXCLUSIVE);
+
+    uint32 max_inuse = pg_atomic_read_u32(&ActiveInjectionPoints->max_inuse);
+    int free_idx = -1;
+
+    for (int idx = 0; idx < max_inuse; idx++) {
+        InjectionPointEntry *entry = &ActiveInjectionPoints->entries[idx];
+        uint64 generation = pg_atomic_read_u64(&entry->generation);
+
+        // Even generation = free slot, odd = active
+        if (generation % 2 == 0) {
+            if (free_idx == -1) free_idx = idx;
+        } else if (strcmp(entry->name, name) == 0) {
+            elog(ERROR, "injection point \"%s\" already defined", name);
+        }
+    }
+
+    // Expand array if no free slot found
+    if (free_idx == -1) {
+        if (max_inuse == MAX_INJECTION_POINTS)
+            elog(ERROR, "too many injection points");
+        free_idx = max_inuse;
+    }
+
+    // Fill entry with provided data
+    InjectionPointEntry *entry = &ActiveInjectionPoints->entries[free_idx];
+    strlcpy(entry->name, name, sizeof(entry->name));
+    strlcpy(entry->library, library, sizeof(entry->library));
+    strlcpy(entry->function, function, sizeof(entry->function));
+    if (private_data != NULL)
+        memcpy(entry->private_data, private_data, private_data_size);
+
+    // Atomically activate entry (make generation odd)
+    uint64 generation = pg_atomic_read_u64(&entry->generation);
+    pg_write_barrier();
+    pg_atomic_write_u64(&entry->generation, generation + 1);
+
+    // Update max_inuse if needed
+    if (free_idx + 1 > max_inuse)
+        pg_atomic_write_u32(&ActiveInjectionPoints->max_inuse, free_idx + 1);
+
+    LWLockRelease(InjectionPointLock);
+#else
+    elog(ERROR, "injection points are not supported by this build");
+#endif
+}
+```

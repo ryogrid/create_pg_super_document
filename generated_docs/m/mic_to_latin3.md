@@ -41,3 +41,24 @@ This function serves as a PostgreSQL conversion procedure that transforms charac
 - Follows the standard PostgreSQL function calling convention using PG_FUNCTION_ARGS
 - Performs the reverse operation of latin3_to_mic function
 - Converts back to Latin-3 encoding which is designed for South European languages
+
+## Simplified Source
+
+```c
+Datum mic_to_latin3(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);   // Source MIC string
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);  // Destination buffer
+    int len = PG_GETARG_INT32(4);                                  // Source length
+    bool noError = PG_GETARG_BOOL(5);                              // Error handling flag
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_MULE_INTERNAL, PG_LATIN3);
+
+    // Convert MIC to Latin-3 using mic2latin with ISO 8859-3 character set
+    int converted = mic2latin(src, dest, len, LC_ISO8859_3, PG_LATIN3, noError);
+
+    // Return number of bytes converted
+    PG_RETURN_INT32(converted);
+}
+```

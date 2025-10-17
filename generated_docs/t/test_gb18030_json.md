@@ -54,3 +54,45 @@ The test exercises the same wide-character infrastructure (wchar.c) that the mai
 - Expects the parser to return JSON_UNICODE_ESCAPE_FORMAT error for the malformed Unicode escape
 - Part of PostgreSQL's memory safety testing infrastructure for JSON processing
 - The test validates that JSON parsing properly handles encoding-specific boundary conditions without memory access violations
+
+## Simplified Source
+
+```c
+static void
+test_gb18030_json(pe_test_config *tc)
+{
+    PQExpBuffer raw_buf;
+    PQExpBuffer testname;
+    const char input[] = "{\"\\u\xFE";  // Invalid Unicode escape
+    size_t input_len = sizeof(input) - 1;
+    JsonLexContext *lex;
+    JsonSemAction sem = {0};  // No callbacks needed
+    JsonParseErrorType json_error;
+
+    // Prepare input buffer with Valgrind memory protection
+    raw_buf = createPQExpBuffer();
+    appendBinaryPQExpBuffer(raw_buf, input, input_len);
+    appendPQExpBufferStr(raw_buf, NEVER_ACCESS_STR);
+    VALGRIND_MAKE_MEM_NOACCESS(&raw_buf->data[input_len],
+                               raw_buf->len - input_len);
+
+    // Create test description
+    testname = createPQExpBuffer();
+    appendPQExpBuffer(testname, ">");
+    escapify(testname, input, input_len);
+    appendPQExpBuffer(testname, "< - GB18030 - pg_parse_json");
+
+    // Test JSON parsing with invalid Unicode escape
+    lex = makeJsonLexContextCstringLen(NULL, raw_buf->data, input_len,
+                                       PG_GB18030, false);
+    json_error = pg_parse_json(lex, &sem);
+    report_result(tc, json_error == JSON_UNICODE_ESCAPE_FORMAT,
+                  testname->data, "",
+                  "diagnosed", json_errdetail(json_error, lex));
+
+    // Cleanup
+    freeJsonLexContext(lex);
+    destroyPQExpBuffer(testname);
+    destroyPQExpBuffer(raw_buf);
+}
+```

@@ -37,3 +37,26 @@ This static function finds the closest point on a line segment to a given point 
 - The algorithm constructs a perpendicular line from the input point to find the optimal closest point
 - Used extensively in distance calculations and closest point operations for various geometric types
 - Returns float8 (double precision) distance value
+
+## Simplified Source
+
+```c
+static float8 lseg_closept_point(Point *result, LSEG *lseg, Point *pt) {
+    Point closept;
+    LINE tmp;
+
+    // Create perpendicular line from point to line segment
+    // This helps find the closest point on the segment
+    line_construct(&tmp, pt, point_invsl(&lseg->p[0], &lseg->p[1]));
+
+    // Find closest point on line segment to the perpendicular line
+    lseg_closept_line(&closept, lseg, &tmp);
+
+    // Store result if caller wants the coordinates
+    if (result != NULL)
+        *result = closept;
+
+    // Return distance between closest point and input point
+    return point_dt(&closept, pt);
+}
+```

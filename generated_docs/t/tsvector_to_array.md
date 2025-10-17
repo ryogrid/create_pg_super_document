@@ -42,3 +42,30 @@ This is useful when you need just the vocabulary from a TSVector without the ass
 - Simpler alternative to tsvector_unnest when only lexeme text is needed
 - Part of PostgreSQL's full-text search functionality for TSVector conversion
 - Useful for extracting vocabulary lists from full-text search vectors
+
+## Simplified Source
+
+```c
+Datum tsvector_to_array(PG_FUNCTION_ARGS) {
+    TSVector tsin = PG_GETARG_TSVECTOR(0);
+    WordEntry *arrin = ARRPTR(tsin);
+
+    // Allocate array for lexeme elements
+    Datum *elements = palloc(tsin->size * sizeof(Datum));
+
+    // Extract each lexeme as text
+    for (int i = 0; i < tsin->size; i++) {
+        char *lexeme_str = STRPTR(tsin) + arrin[i].pos;
+        int lexeme_len = arrin[i].len;
+        elements[i] = PointerGetDatum(cstring_to_text_with_len(lexeme_str, lexeme_len));
+    }
+
+    // Build PostgreSQL array from lexemes
+    ArrayType *array = construct_array_builtin(elements, tsin->size, TEXTOID);
+
+    // Cleanup and return
+    pfree(elements);
+    PG_FREE_IF_COPY(tsin, 0);
+    PG_RETURN_POINTER(array);
+}
+```

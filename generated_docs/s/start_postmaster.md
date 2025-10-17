@@ -57,3 +57,79 @@ This function takes no parameters but relies on several global variables:
 - Uses shell execution to properly handle command-line quoting and special characters
 - Includes error handling for fork failures, exec failures, and Windows process creation failures
 - The function exits with status 1 on any critical failure rather than returning an error code
+
+## Simplified Source
+
+```c
+static pid_t start_postmaster(void) {
+    char *cmd;
+
+#ifndef WIN32
+    // Unix implementation: fork and exec
+    pid_t pm_pid;
+
+    fflush(NULL);  // Avoid double-output problems
+
+    pm_pid = fork();
+    if (pm_pid < 0) {
+        // Fork failed
+        write_stderr(_("%s: could not start server: %m\n"), progname);
+        exit(1);
+    }
+    if (pm_pid > 0) {
+        // Parent process - return child PID
+        return pm_pid;
+    }
+
+    // Child process - detach from process group
+    setsid();  // Become session leader
+
+    // Build command with shell redirection
+    if (log_file != NULL)
+        cmd = psprintf("exec \"%s\" %s%s < \"%s\" >> \"%s\" 2>&1",
+                       exec_path, pgdata_opt, post_opts, DEVNULL, log_file);
+    else
+        cmd = psprintf("exec \"%s\" %s%s < \"%s\" 2>&1",
+                       exec_path, pgdata_opt, post_opts, DEVNULL);
+
+    // Execute via shell
+    execl("/bin/sh", "/bin/sh", "-c", cmd, (char *) NULL);
+
+    // If we get here, exec failed
+    write_stderr(_("%s: could not start server: %m\n"), progname);
+    exit(1);
+
+#else
+    // Windows implementation: use CreateRestrictedProcess
+    PROCESS_INFORMATION pi;
+    const char *comspec = getenv("COMSPEC");
+    if (comspec == NULL)
+        comspec = "CMD";
+
+    // Handle log file permissions on Windows
+    if (log_file != NULL) {
+        int fd = open(log_file, O_RDWR, 0);
+        if (fd != -1)
+            close(fd);
+
+        cmd = psprintf("\"%s\" /C \"\"%s\" %s%s < \"%s\" >> \"%s\" 2>&1\"",
+                       comspec, exec_path, pgdata_opt, post_opts, DEVNULL, log_file);
+    } else {
+        cmd = psprintf("\"%s\" /C \"\"%s\" %s%s < \"%s\" 2>&1\"",
+                       comspec, exec_path, pgdata_opt, post_opts, DEVNULL);
+    }
+
+    // Create process with restricted privileges
+    if (!CreateRestrictedProcess(cmd, &pi, false)) {
+        write_stderr(_("%s: could not start server: error code %lu\n"),
+                     progname, (unsigned long) GetLastError());
+        exit(1);
+    }
+
+    // Store process handle and return shell PID
+    postmasterProcess = pi.hProcess;
+    CloseHandle(pi.hThread);
+    return pi.dwProcessId;
+#endif
+}
+```

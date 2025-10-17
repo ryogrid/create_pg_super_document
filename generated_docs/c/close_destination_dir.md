@@ -33,3 +33,17 @@ The function is part of the pg_receivewal utility's file management infrastructu
 - The function uses PostgreSQL's standard error reporting mechanism (pg_fatal) which will terminate the program on failure
 - Includes defensive programming with Assert statements to catch programming errors during development
 - The function follows PostgreSQL's naming convention and error handling patterns
+
+## Simplified Source
+
+```c
+static void close_destination_dir(DIR *dest_dir, char *dest_folder) {
+    // Validate input parameters
+    Assert(dest_dir != NULL && dest_folder != NULL);
+
+    // Close the directory handle with error checking
+    if (closedir(dest_dir)) {
+        pg_fatal("could not close directory \"%s\": %m", dest_folder);
+    }
+}
+```

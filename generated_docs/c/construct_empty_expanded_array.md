@@ -40,3 +40,25 @@ The function first creates a regular empty array using construct_empty_array, th
 - Expanded arrays are part of PostgreSQL's expanded object infrastructure for optimizing composite data types
 - The returned ExpandedArrayHeader provides access to both the array data and additional metadata for efficient operations
 - This function is less commonly used than other array constructors due to the specialized nature of expanded arrays
+
+## Simplified Source
+
+```c
+ExpandedArrayHeader *
+construct_empty_expanded_array(Oid element_type,
+                               MemoryContext parentcontext,
+                               ArrayMetaState *metacache)
+{
+    // Create empty array of specified element type
+    ArrayType *array = construct_empty_array(element_type);
+
+    // Convert to expanded format for efficient operations
+    Datum expanded_datum = expand_array(PointerGetDatum(array), parentcontext, metacache);
+
+    // Free temporary array (data now in expanded form)
+    pfree(array);
+
+    // Return expanded array header
+    return (ExpandedArrayHeader *) DatumGetEOHP(expanded_datum);
+}
+```

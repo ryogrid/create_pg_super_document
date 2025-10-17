@@ -43,3 +43,62 @@ The function creates a new JSONB value rather than modifying the input in place,
 - Empty arrays return the original array unchanged
 - Uses PostgreSQL's iterator pattern for efficient JSONB traversal
 - File location: src/backend/utils/adt/jsonfuncs.c:4780-4843
+
+## Simplified Source
+
+```c
+Datum jsonb_delete_idx(PG_FUNCTION_ARGS) {
+    Jsonb *in = PG_GETARG_JSONB_P(0);
+    int idx = PG_GETARG_INT32(1);
+    JsonbParseState *state = NULL;
+    JsonbIterator *it;
+    uint32 i = 0, n;
+    JsonbValue v, *res = NULL;
+    JsonbIteratorToken r;
+
+    // Error checks: only arrays supported
+    if (JB_ROOT_IS_SCALAR(in))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("cannot delete from scalar")));
+
+    if (JB_ROOT_IS_OBJECT(in))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("cannot delete from object using integer index")));
+
+    if (JB_ROOT_COUNT(in) == 0)
+        PG_RETURN_JSONB_P(in);
+
+    it = JsonbIteratorInit(&in->root);
+
+    // Get array information
+    r = JsonbIteratorNext(&it, &v, false);
+    n = v.val.array.nElems;
+
+    // Handle negative indices (count from end)
+    if (idx < 0) {
+        if (-idx > n)
+            idx = n;  // Clamp to valid range
+        else
+            idx = n + idx;  // Convert to positive index
+    }
+
+    // Return unchanged if index out of bounds
+    if (idx >= n)
+        PG_RETURN_JSONB_P(in);
+
+    // Start building result array
+    pushJsonbValue(&state, r, NULL);
+
+    // Iterate through array elements, skip target index
+    while ((r = JsonbIteratorNext(&it, &v, true)) != WJB_DONE) {
+        if (r == WJB_ELEM) {
+            if (i++ == idx)
+                continue;  // Skip element at target index
+        }
+
+        res = pushJsonbValue(&state, r, r < WJB_BEGIN_ARRAY ? &v : NULL);
+    }
+
+    PG_RETURN_JSONB_P(JsonbValueToJsonb(res));
+}
+```

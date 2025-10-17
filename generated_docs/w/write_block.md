@@ -25,19 +25,42 @@ This function is critical for maintaining data integrity during file reconstruct
 - `*checksum_ctx`: Context for checksum calculation that will be updated with the written block data
 ## Dependencies
 - Functions called/Symbols referenced:
-  -  (system call for writing data to file)
-  -  (PostgreSQL error reporting function)
-  -  (function to update checksum with block data)
-  -  (PostgreSQL block size constant)
+  - write (system call for writing data to file)
+  - pg_fatal (PostgreSQL error reporting function)
+  - pg_checksum_update (function to update checksum with block data)
+  - BLCKSZ (PostgreSQL block size constant)
 
 - Called from:
-  -  (called twice: lines 670, 684)
+  - write_reconstructed_file (called twice: lines 670, 684)
 
 ## Notes and Other Information
 - This is a static function within the pg_combinebackup reconstruction module
 - The function assumes the buffer contains exactly BLCKSZ bytes (typically 8KB)
-- Uses  for error reporting, which terminates the program on any write errors
+- Uses pg_fatal for error reporting, which terminates the program on any write errors
 - Handles two types of write errors: complete failures (write returns -1) and partial writes
 - The checksum update is performed after successful write, ensuring data integrity
 - Essential for maintaining PostgreSQL's block-level data consistency during backup reconstruction
 - The filename parameter is solely for error message clarity and diagnostics
+
+## Simplified Source
+
+```c
+static void write_block(int fd, char *output_filename,
+                       uint8 *buffer, pg_checksum_context *checksum_ctx)
+{
+    int wb;
+
+    // Write exactly BLCKSZ bytes to the file
+    if ((wb = write(fd, buffer, BLCKSZ)) != BLCKSZ) {
+        if (wb < 0)
+            pg_fatal("could not write file \"%s\": %m", output_filename);
+        else
+            pg_fatal("could not write file \"%s\": wrote %d of %d",
+                    output_filename, wb, BLCKSZ);
+    }
+
+    // Update checksum with the written block data
+    if (pg_checksum_update(checksum_ctx, buffer, BLCKSZ) < 0)
+        pg_fatal("could not update checksum of file \"%s\"", output_filename);
+}
+```

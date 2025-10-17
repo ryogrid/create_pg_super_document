@@ -35,3 +35,19 @@ The function is designed specifically for the parallel dumping architecture wher
 - Converts numeric encoding back to string format for compatibility with setup_connection
 - Much simpler than the main setup_connection as it reuses leader's configuration
 - Part of PostgreSQL's parallel dump architecture introduced for performance optimization
+
+## Simplified Source
+
+```c
+static void setupDumpWorker(Archive *AH) {
+    /*
+     * Configure worker connection with same settings as leader process.
+     * Worker inherits sync_snapshot_id and use_role from the Archive handle,
+     * but encoding needs to be converted back to string format.
+     */
+    setup_connection(AH,
+                     pg_encoding_to_char(AH->encoding),  // Convert encoding ID to string
+                     NULL,                               // dumpsnapshot already in AH->sync_snapshot_id
+                     NULL);                              // use_role already in AH->use_role
+}
+```

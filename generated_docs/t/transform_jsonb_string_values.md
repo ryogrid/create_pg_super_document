@@ -35,3 +35,42 @@ This function provides a mechanism for transforming string values within a JSONB
 
 ## Notes and Other Information
 The function handles memory management by detoasting the transformed text values to ensure proper memory layout. It preserves the scalar nature of the original JSONB if it was a scalar value. The transformation is applied only to string values (jbvString type) within WJB_VALUE and WJB_ELEM contexts, leaving object keys, numeric values, boolean values, and structural elements unchanged. The function constructs the result incrementally using pushJsonbValue and converts it back to a complete JSONB structure using JsonbValueToJsonb.
+
+## Simplified Source
+```c
+Jsonb *
+transform_jsonb_string_values(Jsonb *jsonb, void *action_state,
+                              JsonTransformStringValuesAction transform_action) {
+    JsonbIterator *it;
+    JsonbValue v, *res = NULL;
+    JsonbIteratorToken type;
+    JsonbParseState *st = NULL;
+    text *out;
+    bool is_scalar = false;
+
+    // Initialize iterator and check if input is scalar
+    it = JsonbIteratorInit(&jsonb->root);
+    is_scalar = it->isScalar;
+
+    // Iterate through all JSONB elements
+    while ((type = JsonbIteratorNext(&it, &v, false)) != WJB_DONE) {
+        if ((type == WJB_VALUE || type == WJB_ELEM) && v.type == jbvString) {
+            // Transform string values
+            out = transform_action(action_state, v.val.string.val, v.val.string.len);
+            out = pg_detoast_datum_packed(out);  // Ensure proper memory layout
+            v.val.string.val = VARDATA_ANY(out);
+            v.val.string.len = VARSIZE_ANY_EXHDR(out);
+            res = pushJsonbValue(&st, type, type < WJB_BEGIN_ARRAY ? &v : NULL);
+        } else {
+            // Keep non-string values unchanged
+            res = pushJsonbValue(&st, type, (type == WJB_KEY || type == WJB_VALUE || type == WJB_ELEM) ? &v : NULL);
+        }
+    }
+
+    // Preserve scalar property if original was scalar
+    if (res->type == jbvArray)
+        res->val.array.rawScalar = is_scalar;
+
+    return JsonbValueToJsonb(res);
+}
+```

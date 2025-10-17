@@ -9,7 +9,7 @@ Creates an output directory for pg_combinebackup operations, ensuring it exists 
 ## Definition
 
 ```c
-structs full backups from incrementals.\n\n"), progname);
+static void create_output_directory(char *dirname, cb_options *opt)
 ```
 ## Detailed Description
 This function is responsible for creating and validating output directories used by the pg_combinebackup utility. It performs several key operations:
@@ -47,3 +47,34 @@ The function handles different directory states gracefully, providing appropriat
 - The function automatically registers created directories for cleanup, ensuring proper resource management
 - Fatal errors are used for invalid directory states to prevent data corruption
 - The function is specific to pg_combinebackup utility and handles output directory management for backup combination operations
+
+## Simplified Source
+
+```c
+static void create_output_directory(char *dirname, cb_options *opt) {
+    switch (pg_check_dir(dirname)) {
+        case 0:  // Directory doesn't exist
+            if (opt->dry_run) {
+                pg_log_debug("would create directory \"%s\"", dirname);
+                return;
+            }
+            // Create directory with proper permissions
+            if (pg_mkdir_p(dirname, pg_dir_create_mode) == -1)
+                pg_fatal("could not create directory \"%s\": %m", dirname);
+            remember_to_cleanup_directory(dirname, true);
+            break;
+
+        case 1:  // Directory exists and is empty
+            remember_to_cleanup_directory(dirname, false);
+            break;
+
+        case 2:
+        case 3:
+        case 4:  // Directory exists but not empty
+            pg_fatal("directory \"%s\" exists but is not empty", dirname);
+
+        case -1:  // Directory access error
+            pg_fatal("could not access directory \"%s\": %m", dirname);
+    }
+}
+```

@@ -37,3 +37,15 @@ The function performs validation to ensure it's called in the correct trigger co
 - The function is part of the referential integrity (RI) trigger system that maintains foreign key constraints
 - Located in  at lines 588-607
 - Returns a Datum value as required by PostgreSQL's function call interface
+
+## Simplified Source
+
+```c
+Datum RI_FKey_noaction_upd(PG_FUNCTION_ARGS) {
+    // Validate this is a proper UPDATE trigger call
+    ri_CheckTrigger(fcinfo, "RI_FKey_noaction_upd", RI_TRIGTYPE_UPDATE);
+
+    // Use shared constraint logic with NO ACTION behavior (true)
+    return ri_restrict((TriggerData *) fcinfo->context, true);
+}
+```

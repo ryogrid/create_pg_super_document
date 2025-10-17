@@ -40,3 +40,30 @@ The function is designed to be efficient, checking for the existence of child me
 - Only cleans up relations that weren't created in the current transaction to avoid premature cleanup
 - The cleanup is opportunistic - it only occurs when reference counts naturally drop to zero
 - Child context existence is checked before deletion to avoid unnecessary mcxt.c calls
+
+## Simplified Source
+
+```c
+static void RelationCloseCleanup(Relation relation) {
+    // Clean up partition descriptor contexts if relation has zero references
+    if (RelationHasReferenceCountZero(relation)) {
+        // Clean up partition descriptor child contexts to free memory
+        if (relation->rd_pdcxt != NULL &&
+            relation->rd_pdcxt->firstchild != NULL)
+            MemoryContextDeleteChildren(relation->rd_pdcxt);
+
+        if (relation->rd_pddcxt != NULL &&
+            relation->rd_pddcxt->firstchild != NULL)
+            MemoryContextDeleteChildren(relation->rd_pddcxt);
+    }
+
+#ifdef RELCACHE_FORCE_RELEASE
+    // In debug builds, aggressively clear cache entries with zero references
+    // that weren't created in current transaction/subtransaction
+    if (RelationHasReferenceCountZero(relation) &&
+        relation->rd_createSubid == InvalidSubTransactionId &&
+        relation->rd_firstRelfilelocatorSubid == InvalidSubTransactionId)
+        RelationClearRelation(relation, false);
+#endif
+}
+```

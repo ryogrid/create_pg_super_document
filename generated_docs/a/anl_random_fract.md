@@ -27,3 +27,19 @@ This function serves as a simplified wrapper around the sampling random number g
 
 ## Notes and Other Information
 The function uses a global static variable `oldrs_initialized` to track whether the random state has been set up. This lazy initialization pattern ensures that the random state is only created when needed and avoids unnecessary initialization overhead. The use of the unlikely() macro around the initialization check optimizes for the common case where the state is already initialized. This function is part of PostgreSQL's table analysis infrastructure and provides a convenient way for ANALYZE operations to access random numbers without managing their own random state.
+
+## Simplified Source
+
+```c
+double anl_random_fract(void) {
+    // Initialize random state on first use
+    if (unlikely(!oldrs_initialized)) {
+        sampler_random_init_state(pg_prng_uint32(&pg_global_prng_state),
+                                  &oldrs.randstate);
+        oldrs_initialized = true;
+    }
+
+    // Generate and return a random fraction
+    return sampler_random_fract(&oldrs.randstate);
+}
+```

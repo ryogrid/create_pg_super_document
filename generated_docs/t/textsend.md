@@ -39,4 +39,22 @@ The  function is a PostgreSQL data type binary send function that handles the co
 - Uses  which can handle both normal and packed text representations efficiently
 - Complementary to the  function, forming the binary send/receive pair for text data type
 - The result is a bytea that contains the binary representation suitable for network transmission
-- Located in 
+- Located in src/backend/utils/adt/varlena.c
+
+## Simplified Source
+
+```c
+Datum textsend(PG_FUNCTION_ARGS) {
+    text *t = PG_GETARG_TEXT_PP(0);
+    StringInfoData buf;
+
+    // Initialize binary send buffer
+    pq_begintypsend(&buf);
+
+    // Write text data to binary buffer
+    pq_sendtext(&buf, VARDATA_ANY(t), VARSIZE_ANY_EXHDR(t));
+
+    // Finalize and return binary data
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+``` 

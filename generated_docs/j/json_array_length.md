@@ -43,3 +43,33 @@ The `json_array_length` function implements the SQL function `json_array_length(
 - Returns the total count as a 32-bit integer
 - Part of PostgreSQL's JSON functionality for analyzing JSON array structures
 - Related to the summary symbols alen_array_element_start, alen_object_start, and alen_scalar which provide the parsing callbacks
+
+## Simplified Source
+
+```c
+Datum
+json_array_length(PG_FUNCTION_ARGS)
+{
+    // Get JSON text input
+    text *json = PG_GETARG_TEXT_PP(0);
+
+    // Set up state to track array length
+    AlenState *state = palloc0(sizeof(AlenState));
+    JsonLexContext lex;
+    state->lex = makeJsonLexContext(&lex, json, false);
+    // state->count initialized to 0 by palloc0
+
+    // Configure JSON parser callbacks
+    JsonSemAction *sem = palloc0(sizeof(JsonSemAction));
+    sem->semstate = (void *) state;
+    sem->object_start = alen_object_start;          // Validates input is not object
+    sem->scalar = alen_scalar;                      // Validates input is not scalar
+    sem->array_element_start = alen_array_element_start;  // Counts array elements
+
+    // Parse JSON and count elements
+    pg_parse_json_or_ereport(state->lex, sem);
+
+    // Return the count
+    PG_RETURN_INT32(state->count);
+}
+```

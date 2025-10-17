@@ -33,3 +33,18 @@ The function performs the actual restoration work for a single TOC entry by call
 - Returns the status code from restore_toc_entry for error handling by the leader
 - Part of the parallel processing framework that allows multiple TOC entries to be restored concurrently
 - Workers report completion back to leader process which then assigns new work items
+
+## Simplified Source
+
+```c
+int parallel_restore(ArchiveHandle *AH, TocEntry *te) {
+    // Ensure database connection is available
+    Assert(AH->connection != NULL);
+
+    // Reset error count for this specific TOC entry
+    AH->public.n_errors = 0;
+
+    // Restore the TOC entry and return status
+    return restore_toc_entry(AH, te, true);
+}
+```

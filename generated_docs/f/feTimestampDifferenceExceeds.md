@@ -33,3 +33,17 @@ This function provides a frontend implementation for checking if a time interval
 - Essential for timeout checking and performance monitoring in PostgreSQL client utilities
 - The INT64CONST macro ensures proper 64-bit arithmetic regardless of platform
 - Returns true even if stop_time is earlier than start_time (negative difference treated as exceeding any positive threshold)
+
+## Simplified Source
+
+```c
+bool feTimestampDifferenceExceeds(TimestampTz start_time,
+                                 TimestampTz stop_time,
+                                 int msec) {
+    // Calculate difference in microseconds
+    TimestampTz diff = stop_time - start_time;
+
+    // Compare against threshold (convert milliseconds to microseconds)
+    return (diff >= msec * INT64CONST(1000));
+}
+```

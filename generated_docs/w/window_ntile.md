@@ -49,3 +49,54 @@ The function uses a ntile_context structure stored in partition-local memory to 
 - Uses partition-local memory to maintain state efficiently across multiple calls within the same partition
 - Located in src/backend/utils/adt/windowfuncs.c:411-482
 - Bucket numbers are 1-based as required by the SQL standard
+
+## Simplified Source
+
+```c
+Datum window_ntile(PG_FUNCTION_ARGS)
+{
+    WindowObject winobj = PG_WINDOW_OBJECT();
+    ntile_context *context = (ntile_context *)
+        WinGetPartitionLocalMemory(winobj, sizeof(ntile_context));
+
+    if (context->ntile == 0) {
+        // First call: initialize bucket distribution
+        int64 total = WinGetPartitionRowCount(winobj);
+        bool isnull;
+        int32 nbuckets = DatumGetInt32(WinGetFuncArgCurrent(winobj, 0, &isnull));
+
+        if (isnull) PG_RETURN_NULL();
+        if (nbuckets <= 0) {
+            ereport(ERROR, (errcode(ERRCODE_INVALID_ARGUMENT_FOR_NTILE),
+                           errmsg("argument of ntile must be greater than zero")));
+        }
+
+        // Calculate bucket size and remainder distribution
+        context->ntile = 1;
+        context->rows_per_bucket = 0;
+        context->boundary = total / nbuckets;
+        if (context->boundary <= 0) {
+            context->boundary = 1;
+        } else {
+            context->remainder = total % nbuckets;
+            if (context->remainder != 0) {
+                context->boundary++;  // Extra row for leading buckets
+            }
+        }
+    }
+
+    // Check if we need to move to next bucket
+    context->rows_per_bucket++;
+    if (context->boundary < context->rows_per_bucket) {
+        // Move to next bucket
+        if (context->remainder != 0 && context->ntile == context->remainder) {
+            context->remainder = 0;
+            context->boundary--;  // Remaining buckets have one less row
+        }
+        context->ntile++;
+        context->rows_per_bucket = 1;
+    }
+
+    PG_RETURN_INT32(context->ntile);
+}
+```

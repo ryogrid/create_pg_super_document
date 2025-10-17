@@ -42,3 +42,18 @@ The function creates a message buffer, writes the UUID's raw 16-byte binary data
 - Part of PostgreSQL's binary I/O system for optimized network communication
 - The function is registered in the type system for UUID binary output operations
 - Returns a bytea containing exactly `UUID_LEN` bytes of UUID data
+
+## Simplified Source
+
+```c
+Datum uuid_send(PG_FUNCTION_ARGS) {
+    pg_uuid_t *uuid = PG_GETARG_UUID_P(0);
+    StringInfoData buffer;
+
+    // Create message buffer and write UUID binary data
+    pq_begintypsend(&buffer);
+    pq_sendbytes(&buffer, uuid->data, UUID_LEN);
+
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buffer));
+}
+```

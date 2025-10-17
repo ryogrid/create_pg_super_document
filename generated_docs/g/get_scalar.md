@@ -48,3 +48,38 @@ The function implements different text capture strategies depending on whether n
 - The `next_scalar` flag is used for deferred string processing and is automatically reset after use
 - Null values are properly represented as PostgreSQL NULL (text *) NULL when normalization is enabled
 - The function is the final callback in the JSON extraction pipeline for scalar value processing
+
+## Simplified Source
+
+```c
+static JsonParseErrorType get_scalar(void *state, char *token, JsonTokenType tokentype) {
+    GetState *_state = (GetState *) state;
+    int lex_level = _state->lex->lex_level;
+
+    // Check for whole-object match (extracting entire scalar document)
+    if (lex_level == 0 && _state->npath == 0) {
+        if (_state->normalize_results && tokentype == JSON_TOKEN_STRING) {
+            // Want de-escaped string content
+            _state->next_scalar = true;
+        } else if (_state->normalize_results && tokentype == JSON_TOKEN_NULL) {
+            // Return PostgreSQL NULL for JSON null
+            _state->tresult = (text *) NULL;
+        } else {
+            // Capture raw JSON text (may suppress trailing whitespace)
+            const char *start = _state->lex->input;
+            int len = _state->lex->prev_token_terminator - start;
+            _state->tresult = cstring_to_text_with_len(start, len);
+        }
+    }
+
+    // Handle deferred string de-escaping
+    if (_state->next_scalar) {
+        // Convert de-escaped token to PostgreSQL text
+        _state->tresult = cstring_to_text(token);
+        // Reset flag to prevent overwriting
+        _state->next_scalar = false;
+    }
+
+    return JSON_SUCCESS;
+}
+```

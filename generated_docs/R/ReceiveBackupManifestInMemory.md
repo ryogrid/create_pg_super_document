@@ -34,3 +34,12 @@ The function leverages the same streaming data reception mechanism as its file-b
 - Particularly useful in scenarios where manifest data requires processing before storage
 - Part of the flexible backup manifest handling system in pg_basebackup utility
 - The PQExpBuffer automatically handles memory allocation and reallocation as data is appended
+
+## Simplified Source
+
+```c
+static void ReceiveBackupManifestInMemory(PGconn *conn, PQExpBuffer buf) {
+    // Receive manifest data into memory buffer using callback
+    ReceiveCopyData(conn, ReceiveBackupManifestInMemoryChunk, buf);
+}
+```

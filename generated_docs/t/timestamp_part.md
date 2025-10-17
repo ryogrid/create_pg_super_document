@@ -31,4 +31,13 @@ The  function is a PostgreSQL SQL-callable function that extracts specific date/
 - This function is the non-numeric variant of timestamp field extraction (returns float8)
 - Counterpart to  which returns numeric values
 - Part of PostgreSQL's date/time function family alongside  for timezone-aware timestamps
-- Located in 
+- Located in src/backend/utils/adt/timestamp.c:5611-5616
+
+## Simplified Source
+
+```c
+Datum timestamp_part(PG_FUNCTION_ARGS) {
+    // Delegate to common implementation with float8 return type
+    return timestamp_part_common(fcinfo, false);
+}
+```

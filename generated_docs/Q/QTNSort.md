@@ -46,3 +46,27 @@ The sorting is applied only to commutative operators (AND, OR) where operand ord
 - Essential for query tree normalization and equivalence testing
 - Enables consistent internal representation regardless of original query structure
 - Critical component of the tsquery rewrite and optimization system
+
+## Simplified Source
+
+```c
+void
+QTNSort(QTNode *in)
+{
+    // Prevent stack overflow during recursion
+    check_stack_depth();
+
+    // Only process operator nodes
+    if (in->valnode->type != QI_OPR)
+        return;
+
+    // Recursively sort all children first (post-order traversal)
+    for (int i = 0; i < in->nchild; i++)
+        QTNSort(in->child[i]);
+
+    // Sort children if there are multiple and it's not a phrase operator
+    // (phrase operators need to preserve positional order)
+    if (in->nchild > 1 && in->valnode->qoperator.oper != OP_PHRASE)
+        qsort(in->child, in->nchild, sizeof(QTNode *), cmpQTN);
+}
+```

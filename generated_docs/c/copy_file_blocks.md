@@ -41,3 +41,55 @@ The `copy_file_blocks` function implements a straightforward block-by-block file
 - Serves as the reliable fallback when platform-specific optimized copy methods fail
 - Part of PostgreSQL's pg_combinebackup utility for incremental backup processing
 - Location: src/bin/pg_combinebackup/copy_file.c:160-212
+
+## Simplified Source
+
+```c
+static void
+copy_file_blocks(const char *src, const char *dst,
+                 pg_checksum_context *checksum_ctx)
+{
+    int src_fd;
+    int dest_fd;
+    uint8 *buffer;
+    const int buffer_size = 50 * BLCKSZ;
+    ssize_t bytes_read;
+    unsigned offset = 0;
+
+    // Open source file for reading
+    if ((src_fd = open(src, O_RDONLY | PG_BINARY, 0)) < 0)
+        pg_fatal("could not open file \"%s\": %m", src);
+
+    // Open destination file for writing
+    if ((dest_fd = open(dst, O_WRONLY | O_CREAT | O_EXCL | PG_BINARY,
+                        pg_file_create_mode)) < 0)
+        pg_fatal("could not open file \"%s\": %m", dst);
+
+    // Allocate copy buffer
+    buffer = pg_malloc(buffer_size);
+
+    // Copy file in chunks
+    while ((bytes_read = read(src_fd, buffer, buffer_size)) > 0)
+    {
+        // Write chunk to destination
+        ssize_t bytes_written = write(dest_fd, buffer, bytes_read);
+        if (bytes_written != bytes_read)
+            pg_fatal("write error to file \"%s\" at offset %u", dst, offset);
+
+        // Update checksum with copied data
+        if (pg_checksum_update(checksum_ctx, buffer, bytes_read) < 0)
+            pg_fatal("could not update checksum of file \"%s\"", dst);
+
+        offset += bytes_read;
+    }
+
+    // Check for read errors
+    if (bytes_read < 0)
+        pg_fatal("could not read from file \"%s\": %m", src);
+
+    // Clean up resources
+    pg_free(buffer);
+    close(src_fd);
+    close(dest_fd);
+}
+```

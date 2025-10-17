@@ -52,3 +52,48 @@ The function ensures a minimum positive score (1e-20) to avoid negative or zero 
 - RANK_NORM_EXTDIST normalization method is explicitly noted as not applicable
 - Ensures minimum score of 1e-20 to prevent mathematical issues with zero/negative scores
 - Multiple normalization methods can be combined using bitwise OR in the method parameter
+
+## Simplified Source
+
+```c
+static float calc_rank(const float *w, TSVector t, TSQuery q, int32 method) {
+    QueryItem *item = GETQUERY(q);
+    float res = 0.0;
+    int len;
+
+    // Return 0 if document or query is empty
+    if (!t->size || !q->size)
+        return 0.0;
+
+    // Choose ranking algorithm based on query type
+    // Use AND-based ranking for AND/PHRASE operators, OR-based otherwise
+    res = (item->type == QI_OPR && (item->qoperator.oper == OP_AND ||
+                                   item->qoperator.oper == OP_PHRASE)) ?
+          calc_rank_and(w, t, q) : calc_rank_or(w, t, q);
+
+    // Ensure minimum positive score
+    if (res < 0)
+        res = 1e-20f;
+
+    // Apply various normalization methods based on method flags
+    if ((method & RANK_NORM_LOGLENGTH) && t->size > 0)
+        res /= log((double) (cnt_length(t) + 1)) / log(2.0);
+
+    if (method & RANK_NORM_LENGTH) {
+        len = cnt_length(t);
+        if (len > 0)
+            res /= (float) len;
+    }
+
+    if ((method & RANK_NORM_UNIQ) && t->size > 0)
+        res /= (float) (t->size);
+
+    if ((method & RANK_NORM_LOGUNIQ) && t->size > 0)
+        res /= log((double) (t->size + 1)) / log(2.0);
+
+    if (method & RANK_NORM_RDIVRPLUS1)
+        res /= (res + 1);
+
+    return res;
+}
+```

@@ -58,3 +58,40 @@ The function includes bootstrap mode restrictions since full catalog lookups are
 - Error handling includes soft error support via error context parameter
 - Search path rules apply when resolving unqualified collation names
 - Encoding compatibility is enforced at lookup time
+
+## Simplified Source
+
+```c
+Datum
+regcollationin(PG_FUNCTION_ARGS)
+{
+    char *collation_name_or_oid = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    Oid result;
+    List *names;
+
+    // Handle special "-" value or numeric OID
+    if (parseDashOrOid(collation_name_or_oid, &result, escontext))
+        PG_RETURN_OID(result);
+
+    // Bootstrap mode restriction
+    if (IsBootstrapProcessingMode())
+        elog(ERROR, "regcollation values must be OIDs in bootstrap mode");
+
+    // Parse collation name (potentially schema-qualified)
+    names = stringToQualifiedNameList(collation_name_or_oid, escontext);
+    if (names == NIL)
+        PG_RETURN_NULL();
+
+    // Look up collation OID
+    result = get_collation_oid(names, true);
+
+    if (!OidIsValid(result))
+        ereturn(escontext, (Datum) 0,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("collation \"%s\" for encoding \"%s\" does not exist",
+                        NameListToString(names), GetDatabaseEncodingName())));
+
+    PG_RETURN_OID(result);
+}
+```

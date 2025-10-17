@@ -32,3 +32,19 @@ This function removes a cached injection point entry from the local hash table c
 - Intentionally leaks dynamically loaded callbacks, which is acceptable for testing scenarios
 - The found variable is marked with PG_USED_FOR_ASSERTS_ONLY to avoid compiler warnings in non-assert builds
 - Assumes the InjectionPointCache hash table has already been initialized
+
+## Simplified Source
+
+```c
+static void
+injection_point_cache_remove(const char *name)
+{
+    bool found PG_USED_FOR_ASSERTS_ONLY;
+
+    // Remove entry from cache hash table
+    (void) hash_search(InjectionPointCache, name, HASH_REMOVE, &found);
+
+    // Verify the entry was found and removed
+    Assert(found);
+}
+```

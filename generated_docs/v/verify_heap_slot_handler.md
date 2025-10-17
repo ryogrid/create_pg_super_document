@@ -47,3 +47,64 @@ The function also manages memory cleanup for the RelationInfo context and determ
 - Properly manages memory by freeing allocated strings in the RelationInfo context
 - The function returns a boolean indicating whether parallel processing should continue
 - Part of the parallel verification framework in pg_amcheck
+
+## Simplified Source
+
+```c
+static bool
+verify_heap_slot_handler(PGresult *res, PGconn *conn, void *context)
+{
+    RelationInfo *rel = (RelationInfo *) context;
+
+    if (PQresultStatus(res) == PGRES_TUPLES_OK)
+    {
+        int ntups = PQntuples(res);
+
+        if (ntups > 0)
+            all_checks_pass = false;
+
+        // Print corruption details for each tuple
+        for (int i = 0; i < ntups; i++)
+        {
+            const char *msg = PQgetisnull(res, i, 3) ? "NO MESSAGE" : PQgetvalue(res, i, 3);
+
+            // Print location info with increasing detail based on available fields
+            if (!PQgetisnull(res, i, 2))  // Has attribute info
+                printf(_("heap table \"%s.%s.%s\", block %s, offset %s, attribute %s:\n"),
+                       rel->datinfo->datname, rel->nspname, rel->relname,
+                       PQgetvalue(res, i, 0), PQgetvalue(res, i, 1), PQgetvalue(res, i, 2));
+            else if (!PQgetisnull(res, i, 1))  // Has offset info
+                printf(_("heap table \"%s.%s.%s\", block %s, offset %s:\n"),
+                       rel->datinfo->datname, rel->nspname, rel->relname,
+                       PQgetvalue(res, i, 0), PQgetvalue(res, i, 1));
+            else if (!PQgetisnull(res, i, 0))  // Has block info
+                printf(_("heap table \"%s.%s.%s\", block %s:\n"),
+                       rel->datinfo->datname, rel->nspname, rel->relname,
+                       PQgetvalue(res, i, 0));
+            else  // Table-level error
+                printf(_("heap table \"%s.%s.%s\":\n"),
+                       rel->datinfo->datname, rel->nspname, rel->relname);
+
+            printf("    %s\n", msg);
+        }
+    }
+    else
+    {
+        // Handle query errors
+        char *msg = indent_lines(PQerrorMessage(conn));
+        all_checks_pass = false;
+        printf(_("heap table \"%s.%s.%s\":\n"), rel->datinfo->datname, rel->nspname, rel->relname);
+        printf("%s", msg);
+        if (opts.verbose)
+            printf(_("query was: %s\n"), rel->sql);
+        FREE_AND_SET_NULL(msg);
+    }
+
+    // Cleanup relation info
+    FREE_AND_SET_NULL(rel->sql);
+    FREE_AND_SET_NULL(rel->nspname);
+    FREE_AND_SET_NULL(rel->relname);
+
+    return should_processing_continue(res);
+}
+```

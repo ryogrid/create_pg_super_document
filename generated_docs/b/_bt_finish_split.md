@@ -56,3 +56,54 @@ This function is crucial for maintaining B-tree integrity and is typically calle
 - Handles both normal splits and root splits through different logic paths
 - The wasonly flag is important for determining whether this was a "fast root" split scenario
 - Part of PostgreSQL's Write-Ahead Logging (WAL) recovery mechanism for ensuring data consistency after crashes
+
+## Simplified Source
+
+```c
+void
+_bt_finish_split(Relation rel, Relation heaprel, Buffer lbuf, BTStack stack)
+{
+    Page lpage = BufferGetPage(lbuf);
+    BTPageOpaque lpageop = BTPageGetOpaque(lpage);
+    Buffer rbuf;
+    Page rpage;
+    BTPageOpaque rpageop;
+    bool wasroot;
+    bool wasonly;
+
+    Assert(P_INCOMPLETE_SPLIT(lpageop));
+    Assert(heaprel != NULL);
+
+    // Lock the right sibling page that needs the downlink
+    rbuf = _bt_getbuf(rel, lpageop->btpo_next, BT_WRITE);
+    rpage = BufferGetPage(rbuf);
+    rpageop = BTPageGetOpaque(rpage);
+
+    // Check if this was a root split
+    if (!stack)
+    {
+        Buffer metabuf;
+        Page metapg;
+        BTMetaPageData *metad;
+
+        // Check metapage to see if left page was the root
+        metabuf = _bt_getbuf(rel, BTREE_METAPAGE, BT_WRITE);
+        metapg = BufferGetPage(metabuf);
+        metad = BTPageGetMeta(metapg);
+
+        wasroot = (metad->btm_root == BufferGetBlockNumber(lbuf));
+        _bt_relbuf(rel, metabuf);
+    }
+    else
+        wasroot = false;
+
+    // Check if page was alone on its level before split
+    wasonly = (P_LEFTMOST(lpageop) && P_RIGHTMOST(rpageop));
+
+    elog(DEBUG1, "finishing incomplete split of %u/%u",
+         BufferGetBlockNumber(lbuf), BufferGetBlockNumber(rbuf));
+
+    // Complete the split by inserting parent downlink
+    _bt_insert_parent(rel, heaprel, lbuf, rbuf, stack, wasroot, wasonly);
+}
+```

@@ -50,3 +50,41 @@ When both intervals are finite, the function delegates to  for safe arithmetic c
 - Follows mathematical rules for infinity arithmetic in other cases
 - Part of PostgreSQL's timestamp/interval arithmetic system
 - Located in src/backend/utils/adt/timestamp.c:3518-3566
+
+## Simplified Source
+
+```c
+Datum interval_mi(PG_FUNCTION_ARGS) {
+    // Extract input arguments
+    Interval *span1 = PG_GETARG_INTERVAL_P(0);
+    Interval *span2 = PG_GETARG_INTERVAL_P(1);
+
+    // Allocate result memory
+    Interval *result = (Interval *) palloc(sizeof(Interval));
+
+    // Handle infinite intervals - prevent "infinity - infinity" cases
+    if (INTERVAL_IS_NOBEGIN(span1)) {
+        if (INTERVAL_IS_NOBEGIN(span2))
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                           errmsg("interval out of range")));
+        else
+            INTERVAL_NOBEGIN(result);
+    }
+    else if (INTERVAL_IS_NOEND(span1)) {
+        if (INTERVAL_IS_NOEND(span2))
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                           errmsg("interval out of range")));
+        else
+            INTERVAL_NOEND(result);
+    }
+    else if (INTERVAL_IS_NOBEGIN(span2))
+        INTERVAL_NOEND(result);
+    else if (INTERVAL_IS_NOEND(span2))
+        INTERVAL_NOBEGIN(result);
+    else
+        // Both intervals are finite - do safe subtraction
+        finite_interval_mi(span1, span2, result);
+
+    PG_RETURN_INTERVAL_P(result);
+}
+```

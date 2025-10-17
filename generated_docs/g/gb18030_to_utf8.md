@@ -40,3 +40,26 @@ The function supports both strict and non-strict conversion modes through the `n
 
 ## Notes and Other Information
 This function is registered with PostgreSQL's type conversion system and is typically invoked automatically when text data needs conversion from GB18030 to UTF-8. The function follows PostgreSQL's Version-1 calling convention using the PG_FUNCTION_ARGS macro. The return value indicates the number of bytes successfully converted, which allows callers to detect partial conversions in case of errors. The function is part of PostgreSQL's comprehensive character encoding support system that enables proper handling of international text data.
+
+## Simplified Source
+```c
+Datum gb18030_to_utf8(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_GB18030, PG_UTF8);
+
+    // Perform GB18030 to UTF-8 conversion using mapping tree and callback
+    int converted = LocalToUtf(src, len, dest,
+                              &gb18030_to_unicode_tree,
+                              NULL, 0,
+                              conv_18030_to_utf8,
+                              PG_GB18030, noError);
+
+    return converted;
+}
+```

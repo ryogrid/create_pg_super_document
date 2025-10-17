@@ -32,3 +32,18 @@ This function serves as a comparator for qsort operations on arrays of WordEntry
 - Follows the standard qsort comparator function signature
 - Used specifically in text search vector processing where maintaining sorted word positions is critical for performance
 - Part of PostgreSQL's full-text search infrastructure
+
+## Simplified Source
+
+```c
+int
+compareWordEntryPos(const void *a, const void *b)
+{
+    // Extract positions from WordEntryPos structures
+    int apos = WEP_GETPOS(*(const WordEntryPos *) a);
+    int bpos = WEP_GETPOS(*(const WordEntryPos *) b);
+
+    // Compare positions using standard PostgreSQL comparison
+    return pg_cmp_s32(apos, bpos);
+}
+```

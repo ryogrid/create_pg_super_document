@@ -38,3 +38,19 @@ The function works by:
 - Part of PostgreSQL's test cleanup and setup infrastructure for role management
 - Designed to be safe for use in automated testing environments where role state may be uncertain
 - Complementary to drop_database_if_exists for complete test environment cleanup
+
+## Simplified Source
+
+```c
+static void
+drop_role_if_exists(const char *rolename)
+{
+    StringInfo buf = psql_start_command();
+
+    // Suppress warnings about non-existent roles
+    psql_add_command(buf, "SET client_min_messages = warning");
+    psql_add_command(buf, "DROP ROLE IF EXISTS \"%s\"", rolename);
+
+    psql_end_command(buf, "postgres");
+}
+```

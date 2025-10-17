@@ -30,6 +30,23 @@ The function allocates memory for a  structure and initializes it with the appro
   - [bbstreamer_buffer_until](bbstreamer_buffer_until.md) (src/bin/pg_basebackup/bbstreamer.h:218)
 
 ## Notes and Other Information
-- The archiver maintains state through the  structure, which includes a  boolean flag used to track when tar headers have been regenerated and corresponding padding needs to be updated
+- The archiver maintains state through the structure, which includes a boolean flag used to track when tar headers have been regenerated and corresponding padding needs to be updated
 - This is part of PostgreSQL's backup streaming infrastructure, used primarily in pg_basebackup operations
 - The archiver works in conjunction with other bbstreamer components to form a processing pipeline for backup data
+
+## Simplified Source
+
+```c
+extern bbstreamer *
+bbstreamer_tar_archiver_new(bbstreamer *next)
+{
+    bbstreamer_tar_archiver *streamer;
+
+    // Allocate and initialize tar archiver streamer
+    streamer = palloc0(sizeof(bbstreamer_tar_archiver));
+    streamer->base.bbs_ops = &bbstreamer_tar_archiver_ops;
+    streamer->base.bbs_next = next;
+
+    return &streamer->base;
+}
+```

@@ -41,3 +41,37 @@ The generated SQL command follows a specific column order and naming convention 
 - The function uses global opts structure to access configuration options like on_error_stop, reconcile_toast, skip pattern, and block range settings
 - Block range parameters (startblock/endblock) are only added to the SQL when they have non-negative values
 - Located in src/bin/pg_amcheck/pg_amcheck.c:841-880
+
+## Simplified Source
+
+```c
+static void prepare_heap_command(PQExpBuffer sql, RelationInfo *rel, PGconn *conn) {
+    // Clear the SQL buffer and start building the command
+    resetPQExpBuffer(sql);
+
+    // Build the main SELECT query calling verify_heapam()
+    appendPQExpBuffer(sql,
+        "SELECT v.blkno, v.offnum, v.attnum, v.msg "
+        "FROM pg_catalog.pg_class c, %s.verify_heapam("
+        "\nrelation := c.oid, on_error_stop := %s, check_toast := %s, skip := '%s'",
+        rel->datinfo->amcheck_schema,
+        opts.on_error_stop ? "true" : "false",
+        opts.reconcile_toast ? "true" : "false",
+        opts.skip);
+
+    // Add optional block range parameters if specified
+    if (opts.startblock >= 0) {
+        appendPQExpBuffer(sql, ", startblock := " INT64_FORMAT, opts.startblock);
+    }
+    if (opts.endblock >= 0) {
+        appendPQExpBuffer(sql, ", endblock := " INT64_FORMAT, opts.endblock);
+    }
+
+    // Complete the query with WHERE clause to filter target relation
+    // and exclude temporary tables
+    appendPQExpBuffer(sql,
+        "\n) v WHERE c.oid = %u "
+        "AND c.relpersistence != 't'",
+        rel->reloid);
+}
+```

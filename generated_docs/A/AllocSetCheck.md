@@ -45,3 +45,113 @@ AllocSetCheck is a debugging and validation function that thoroughly examines an
 - Only active when MEMORY_CONTEXT_CHECKING is enabled
 - Part of PostgreSQL's memory debugging and validation infrastructure
 - Critical for detecting memory corruption in development and testing environments
+
+## Simplified Source
+
+```c
+void
+AllocSetCheck(MemoryContext context)
+{
+    AllocSet set = (AllocSet) context;
+    const char *name = set->header.name;
+    AllocBlock prevblock;
+    AllocBlock block;
+    Size total_allocated = 0;
+
+    // Walk through all blocks in the context
+    for (prevblock = NULL, block = set->blocks;
+         block != NULL;
+         prevblock = block, block = block->next)
+    {
+        char *bpoz = ((char *) block) + ALLOC_BLOCKHDRSZ;
+        long blk_used = block->freeptr - bpoz;
+        long blk_data = 0;
+        long nchunks = 0;
+        bool has_external_chunk = false;
+
+        // Track total allocated memory
+        if (IsKeeperBlock(set, block))
+            total_allocated += block->endptr - ((char *) set);
+        else
+            total_allocated += block->endptr - ((char *) block);
+
+        // Validate empty blocks
+        if (!blk_used && !IsKeeperBlock(set, block))
+            elog(WARNING, "problem in alloc set %s: empty block %p", name, block);
+
+        // Check block header fields
+        if (block->aset != set ||
+            block->prev != prevblock ||
+            block->freeptr < bpoz ||
+            block->freeptr > block->endptr)
+            elog(WARNING, "problem in alloc set %s: corrupt header in block %p", name, block);
+
+        // Walk through all chunks in the block
+        while (bpoz < block->freeptr)
+        {
+            MemoryChunk *chunk = (MemoryChunk *) bpoz;
+            Size chsize, dsize;
+
+            if (MemoryChunkIsExternal(chunk))
+            {
+                // External chunk should consume entire block
+                chsize = block->endptr - (char *) MemoryChunkGetPointer(chunk);
+                has_external_chunk = true;
+
+                if (chsize + ALLOC_CHUNKHDRSZ != blk_used)
+                    elog(WARNING, "problem in alloc set %s: bad single-chunk %p in block %p",
+                         name, chunk, block);
+            }
+            else
+            {
+                // Regular chunk - validate free list index
+                int fidx = MemoryChunkGetValue(chunk);
+
+                if (!FreeListIdxIsValid(fidx))
+                    elog(WARNING, "problem in alloc set %s: bad chunk size for chunk %p in block %p",
+                         name, chunk, block);
+
+                chsize = GetChunkSizeFromFreeListIdx(fidx);
+
+                // Check block offset points to correct block
+                if (block != MemoryChunkGetBlock(chunk))
+                    elog(WARNING, "problem in alloc set %s: bad block offset for chunk %p in block %p",
+                         name, chunk, block);
+            }
+
+            dsize = chunk->requested_size;
+
+            // Validate requested size doesn't exceed chunk size
+            if (dsize != InvalidAllocSize && dsize > chsize)
+                elog(WARNING, "problem in alloc set %s: req size > alloc size for chunk %p in block %p",
+                     name, chunk, block);
+
+            // Check minimum chunk size
+            if (chsize < (1 << ALLOC_MINBITS))
+                elog(WARNING, "problem in alloc set %s: bad size %zu for chunk %p in block %p",
+                     name, chsize, chunk, block);
+
+            // Check for buffer overruns using sentinel
+            if (dsize != InvalidAllocSize && dsize < chsize &&
+                !sentinel_ok(chunk, ALLOC_CHUNKHDRSZ + dsize))
+                elog(WARNING, "problem in alloc set %s: detected write past chunk end in block %p, chunk %p",
+                     name, block, chunk);
+
+            blk_data += chsize;
+            nchunks++;
+
+            bpoz += ALLOC_CHUNKHDRSZ + chsize;
+        }
+
+        // Validate block consistency
+        if ((blk_data + (nchunks * ALLOC_CHUNKHDRSZ)) != blk_used)
+            elog(WARNING, "problem in alloc set %s: found inconsistent memory block %p", name, block);
+
+        if (has_external_chunk && nchunks > 1)
+            elog(WARNING, "problem in alloc set %s: external chunk on non-dedicated block %p", name, block);
+    }
+
+    // Final validation: total memory should match context accounting
+    Assert(total_allocated == context->mem_allocated);
+}
+```

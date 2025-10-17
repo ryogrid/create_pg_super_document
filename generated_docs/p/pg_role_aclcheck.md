@@ -45,3 +45,37 @@ The `pg_role_aclcheck` function is a static helper function that provides "quick
 - Returns ACLCHECK_OK on first successful privilege match, providing short-circuit evaluation
 - Function is static, indicating internal use within the ACL subsystem
 - Part of PostgreSQL's role-based access control system supporting hierarchical role privileges
+
+## Simplified Source
+
+```c
+static AclResult pg_role_aclcheck(Oid role_oid, Oid roleid, AclMode mode)
+{
+    // Check admin privileges (grant option for CREATE = admin)
+    if (mode & ACL_GRANT_OPTION_FOR(ACL_CREATE)) {
+        if (is_admin_of_role(roleid, role_oid))
+            return ACLCHECK_OK;
+    }
+
+    // Check membership privileges (CREATE = member)
+    if (mode & ACL_CREATE) {
+        if (is_member_of_role(roleid, role_oid))
+            return ACLCHECK_OK;
+    }
+
+    // Check usage privileges (has privileges of role)
+    if (mode & ACL_USAGE) {
+        if (has_privs_of_role(roleid, role_oid))
+            return ACLCHECK_OK;
+    }
+
+    // Check SET privileges (can set role)
+    if (mode & ACL_SET) {
+        if (member_can_set_role(roleid, role_oid))
+            return ACLCHECK_OK;
+    }
+
+    // No privileges found
+    return ACLCHECK_NO_PRIV;
+}
+```

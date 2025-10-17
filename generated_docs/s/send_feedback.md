@@ -41,3 +41,88 @@ This function constructs and sends a replication protocol feedback message ('r' 
 - The 'r' message type follows the logical replication protocol specification
 - Includes debug logging to trace feedback messages being sent
 - Maintains three different LSN positions: received data, written/flushed data, and applied data
+
+## Simplified Source
+
+```c
+static void
+send_feedback(XLogRecPtr recvpos, bool force, bool requestReply)
+{
+    static StringInfo reply_message = NULL;
+    static TimestampTz send_time = 0;
+    static XLogRecPtr last_recvpos = InvalidXLogRecPtr;
+    static XLogRecPtr last_writepos = InvalidXLogRecPtr;
+    static XLogRecPtr last_flushpos = InvalidXLogRecPtr;
+
+    XLogRecPtr writepos, flushpos;
+    TimestampTz now;
+    bool have_pending_txes;
+
+    // Exit early if status reporting is disabled and not forced
+    if (!force && wal_receiver_status_interval <= 0)
+        return;
+
+    // Ensure recvpos doesn't go backwards
+    if (recvpos < last_recvpos)
+        recvpos = last_recvpos;
+
+    // Get current flush positions from WAL system
+    get_flush_position(&writepos, &flushpos, &have_pending_txes);
+
+    // For synchronous replication: if no pending transactions,
+    // report received position as both write and flush
+    if (!have_pending_txes)
+        flushpos = writepos = recvpos;
+
+    // Ensure positions don't go backwards
+    if (writepos < last_writepos)
+        writepos = last_writepos;
+    if (flushpos < last_flushpos)
+        flushpos = last_flushpos;
+
+    now = GetCurrentTimestamp();
+
+    // Skip sending if nothing changed and not enough time passed
+    if (!force &&
+        writepos == last_writepos &&
+        flushpos == last_flushpos &&
+        !TimestampDifferenceExceeds(send_time, now,
+                                   wal_receiver_status_interval * 1000))
+        return;
+
+    send_time = now;
+
+    // Initialize or reset the reply message buffer
+    if (!reply_message) {
+        MemoryContext oldctx = MemoryContextSwitchTo(ApplyContext);
+        reply_message = makeStringInfo();
+        MemoryContextSwitchTo(oldctx);
+    } else {
+        resetStringInfo(reply_message);
+    }
+
+    // Build the 'r' (standby status update) protocol message
+    pq_sendbyte(reply_message, 'r');
+    pq_sendint64(reply_message, recvpos);    // write position
+    pq_sendint64(reply_message, flushpos);   // flush position
+    pq_sendint64(reply_message, writepos);   // apply position
+    pq_sendint64(reply_message, now);        // timestamp
+    pq_sendbyte(reply_message, requestReply); // reply requested flag
+
+    // Debug logging
+    elog(DEBUG2, "sending feedback (force %d) to recv %X/%X, write %X/%X, flush %X/%X",
+         force, LSN_FORMAT_ARGS(recvpos), LSN_FORMAT_ARGS(writepos),
+         LSN_FORMAT_ARGS(flushpos));
+
+    // Send the message to publisher
+    walrcv_send(LogRepWorkerWalRcvConn, reply_message->data, reply_message->len);
+
+    // Update last reported positions
+    if (recvpos > last_recvpos)
+        last_recvpos = recvpos;
+    if (writepos > last_writepos)
+        last_writepos = writepos;
+    if (flushpos > last_flushpos)
+        last_flushpos = flushpos;
+}
+```

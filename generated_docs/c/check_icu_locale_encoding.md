@@ -37,3 +37,26 @@ When an incompatible encoding is detected, the function provides clear error mes
 - The validation logic mirrors the backend createdb() function for consistency
 - Used specifically when ICU is selected as the locale provider
 - Helps users choose appropriate encoding/provider combinations during setup
+
+## Simplified Source
+
+```c
+static bool
+check_icu_locale_encoding(int user_enc)
+{
+    // Check if the encoding is supported by ICU
+    if (!(is_encoding_supported_by_icu(user_enc)))
+    {
+        // Report ICU encoding incompatibility
+        pg_log_error("encoding mismatch");
+        pg_log_error_detail("The encoding you selected (%s) is not supported with the ICU provider.",
+                            pg_encoding_to_char(user_enc));
+        pg_log_error_hint("Rerun %s and either do not specify an encoding explicitly, "
+                          "or choose a matching combination.",
+                          progname);
+        return false;
+    }
+
+    return true;
+}
+```

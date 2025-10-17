@@ -41,3 +41,28 @@ The function returns the OID of the to-SQL transformation function if found, or 
 - The function performs early validation by checking the trftypes list before accessing the system catalog
 - Complements get_transform_fromsql to provide bidirectional type conversion capabilities
 - Transform functions enable seamless data exchange between PostgreSQL's type system and procedural languages
+
+## Simplified Source
+
+```c
+Oid get_transform_tosql(Oid typid, Oid langid, List *trftypes) {
+    // Early check: ensure type is in the transform types list
+    if (!list_member_oid(trftypes, typid))
+        return InvalidOid;
+
+    // Look up transform definition in system cache
+    HeapTuple tup = SearchSysCache2(TRFTYPELANG, ObjectIdGetDatum(typid),
+                                    ObjectIdGetDatum(langid));
+
+    if (HeapTupleIsValid(tup)) {
+        // Extract the to-SQL transformation function OID
+        Oid funcid = ((Form_pg_transform) GETSTRUCT(tup))->trftosql;
+        ReleaseSysCache(tup);
+        return funcid;
+    } else {
+        return InvalidOid;
+    }
+}
+```
+
+This simplified version shows the function's identical structure to get_transform_fromsql but retrieving the complementary to-SQL transformation function. It validates the type is transformable, searches the pg_transform catalog, and returns the function that converts from language-native format back to PostgreSQL's SQL format.

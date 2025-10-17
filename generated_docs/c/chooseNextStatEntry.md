@@ -47,4 +47,29 @@ The sampling strategy helps balance statistical accuracy with performance, parti
 - Part of PostgreSQL's text search statistics optimization system
 - The recursive nature creates a balanced sampling across the entire word range
 - Located in 
-- Critical for maintaining reasonable performance in  operations on large text corpora
+- Critical for maintaining reasonable performance in ts_stat operations on large text corpora
+
+## Simplified Source
+
+```c
+static void chooseNextStatEntry(MemoryContext persistentContext, TSVectorStat *stat,
+                               TSVector txt, uint32 low, uint32 high, uint32 offset) {
+    uint32 pos;
+    uint32 middle = (low + high) >> 1;
+
+    // Sample two positions around the middle point
+    pos = (low + middle) >> 1;
+    if (low != middle && pos >= offset && pos - offset < txt->size)
+        insertStatEntry(persistentContext, stat, txt, pos - offset);
+
+    pos = (high + middle + 1) >> 1;
+    if (middle + 1 != high && pos >= offset && pos - offset < txt->size)
+        insertStatEntry(persistentContext, stat, txt, pos - offset);
+
+    // Recursively process left and right halves
+    if (low != middle)
+        chooseNextStatEntry(persistentContext, stat, txt, low, middle, offset);
+    if (high != middle + 1)
+        chooseNextStatEntry(persistentContext, stat, txt, middle + 1, high, offset);
+}
+```

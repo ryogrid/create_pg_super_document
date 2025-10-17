@@ -46,3 +46,46 @@ The original expression tree is not modified, and temporary data is intentionall
 - The cached expression is added to a global list for management
 - The is_valid flag is initially set to true
 - Located in src/backend/utils/cache/plancache.c:1677-1733
+
+## Simplified Source
+
+```c
+CachedExpression *
+GetCachedExpression(Node *expr)
+{
+    List *relationOids;
+    List *invalItems;
+
+    // Transform expression through planner and collect dependencies
+    // (This leaks memory in caller's context intentionally)
+    expr = (Node *) expression_planner_with_deps((Expr *) expr,
+                                                 &relationOids,
+                                                 &invalItems);
+
+    // Create private memory context for cached expression
+    MemoryContext cexpr_context = AllocSetContextCreate(CurrentMemoryContext,
+                                                         "CachedExpression",
+                                                         ALLOCSET_SMALL_SIZES);
+
+    MemoryContext oldcxt = MemoryContextSwitchTo(cexpr_context);
+
+    // Allocate and initialize cached expression structure
+    CachedExpression *cexpr = (CachedExpression *) palloc(sizeof(CachedExpression));
+    cexpr->magic = CACHEDEXPR_MAGIC;
+    cexpr->expr = copyObject(expr);
+    cexpr->is_valid = true;
+    cexpr->relationOids = copyObject(relationOids);
+    cexpr->invalItems = copyObject(invalItems);
+    cexpr->context = cexpr_context;
+
+    MemoryContextSwitchTo(oldcxt);
+
+    // Move context under CacheMemoryContext for indefinite lifetime
+    MemoryContextSetParent(cexpr_context, CacheMemoryContext);
+
+    // Add to global list of cached expressions
+    dlist_push_tail(&cached_expression_list, &cexpr->node);
+
+    return cexpr;
+}
+```

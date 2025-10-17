@@ -35,3 +35,29 @@ This function is essential for parsing string fields in COPY protocol messages, 
 - If no NUL terminator is found within the buffer bounds, the function calls ReportCopyDataParseError and does not return
 - This is a static utility function only used within pg_basebackup.c for COPY protocol parsing
 - The returned string pointer is valid only as long as the original copybuf remains valid
+
+## Simplified Source
+
+```c
+static char *
+GetCopyDataString(size_t r, char *copybuf, size_t *cursor)
+{
+    size_t startpos = *cursor;
+    size_t endpos = startpos;
+
+    // Scan for NUL terminator
+    while (1) {
+        if (endpos >= r)
+            ReportCopyDataParseError(r, copybuf);
+        if (copybuf[endpos] == '\0')
+            break;
+        ++endpos;
+    }
+
+    // Advance cursor past the NUL terminator
+    *cursor = endpos + 1;
+
+    // Return pointer to string start
+    return &copybuf[startpos];
+}
+```

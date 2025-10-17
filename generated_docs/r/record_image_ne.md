@@ -33,3 +33,12 @@ The function delegates all the complex comparison logic to `record_image_eq` and
 - Used for inequality testing in contexts requiring physical representation matching
 - Simple wrapper function that delegates to `record_image_eq` for consistency
 - Located in src/backend/utils/adt/rowtypes.c at lines 1753-1758
+
+## Simplified Source
+
+```c
+Datum record_image_ne(PG_FUNCTION_ARGS) {
+    // Simply negate the result of record_image_eq
+    return !DatumGetBool(record_image_eq(fcinfo));
+}
+```

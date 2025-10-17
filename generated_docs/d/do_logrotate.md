@@ -55,3 +55,55 @@ This function takes no parameters and operates on global variables:
 - The server will only rotate logs if logging_collector is enabled and log_filename contains time-based patterns
 - Cleans up the logrotate signal file if the signal cannot be sent to prevent stale files
 - Error messages are internationalized using the gettext system
+
+## Simplified Source
+
+```c
+static void
+do_logrotate(void)
+{
+    FILE *logrotatefile;
+    pid_t pid;
+
+    // Get the postmaster process ID from PID file
+    pid = get_pgpid(false);
+
+    // Validate server state
+    if (pid == 0) {
+        // No PID file exists
+        write_stderr("PID file does not exist\n");
+        write_stderr("Is server running?\n");
+        exit(1);
+    } else if (pid < 0) {
+        // Standalone backend cannot rotate logs
+        pid = -pid;
+        write_stderr("Cannot rotate log file; single-user server is running (PID: %d)\n", (int) pid);
+        exit(1);
+    }
+
+    // Create logrotate signal file
+    snprintf(logrotate_file, MAXPGPATH, "%s/logrotate", pg_data);
+
+    if ((logrotatefile = fopen(logrotate_file, "w")) == NULL) {
+        write_stderr("Could not create log rotation signal file\n");
+        exit(1);
+    }
+    if (fclose(logrotatefile)) {
+        write_stderr("Could not write log rotation signal file\n");
+        exit(1);
+    }
+
+    // Send log rotation signal (SIGUSR1) to postmaster
+    sig = SIGUSR1;
+    if (kill(pid, sig) != 0) {
+        write_stderr("Could not send log rotation signal (PID: %d)\n", (int) pid);
+        // Clean up signal file on failure
+        if (unlink(logrotate_file) != 0)
+            write_stderr("Could not remove log rotation signal file\n");
+        exit(1);
+    }
+
+    // Confirm signal sent
+    print_msg("server signaled to rotate log file\n");
+}
+```

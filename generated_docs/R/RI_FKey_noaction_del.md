@@ -44,3 +44,15 @@ This function follows PostgreSQL's trigger function interface:
 - Part of PostgreSQL's comprehensive foreign key constraint system
 - Raises FOREIGN_KEY_VIOLATION error if the constraint would be violated
 - Works in conjunction with deferred constraint checking mechanisms in PostgreSQL
+
+## Simplified Source
+
+```c
+Datum RI_FKey_noaction_del(PG_FUNCTION_ARGS) {
+    // Validate this is a proper DELETE trigger call
+    ri_CheckTrigger(fcinfo, "RI_FKey_noaction_del", RI_TRIGTYPE_DELETE);
+
+    // Use shared constraint logic with NO ACTION behavior (true)
+    return ri_restrict((TriggerData *) fcinfo->context, true);
+}
+```

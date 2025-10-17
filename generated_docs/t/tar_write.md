@@ -39,3 +39,42 @@ This function serves as the main write interface for TAR-based WAL files in Post
 - Requires HAVE_LIBZ compilation flag for gzip compression support
 - Returns ENOSYS error for unsupported compression algorithms
 - Critical component of PostgreSQL's WAL archiving and base backup infrastructure
+
+## Simplified Source
+
+```c
+static ssize_t
+tar_write(Walfile *f, const void *buf, size_t count) {
+    TarMethodData *tar_data = (TarMethodData *) f->wwmethod;
+    ssize_t r;
+
+    clear_error(f->wwmethod);
+
+    // Handle uncompressed writes
+    if (f->wwmethod->compression_algorithm == PG_COMPRESSION_NONE) {
+        // Write directly to file descriptor
+        r = write(tar_data->fd, buf, count);
+        if (r != count) {
+            // Set error - assume no disk space if errno not set
+            f->wwmethod->lasterrno = errno ? errno : ENOSPC;
+            return -1;
+        }
+        f->currpos += r;
+        return r;
+    }
+    // Handle gzip compressed writes
+    else if (f->wwmethod->compression_algorithm == PG_COMPRESSION_GZIP) {
+        // Delegate to compression handler
+        if (!tar_write_compressed_data(tar_data, buf, count, false)) {
+            return -1;
+        }
+        f->currpos += count;
+        return count;
+    }
+    // Unsupported compression algorithm
+    else {
+        f->wwmethod->lasterrno = ENOSYS;
+        return -1;
+    }
+}
+```

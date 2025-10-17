@@ -45,3 +45,28 @@ The conversion is performed using PostgreSQL's internal UtfToLocal utility funct
 - Supports graceful error handling when noError flag is set to true
 - Works in conjunction with uhc_to_utf8 for bidirectional UHC<->UTF-8 conversion
 - Essential for Korean language support in PostgreSQL databases
+
+## Simplified Source
+
+```c
+Datum
+utf8_to_uhc(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion from UTF-8 to UHC
+    CHECK_ENCODING_CONVERSION_ARGS(PG_UTF8, PG_UHC);
+
+    // Convert UTF-8 to UHC using mapping tree
+    int converted = UtfToLocal(src, len, dest,
+                               &uhc_from_unicode_tree,
+                               NULL, 0, NULL,
+                               PG_UHC, noError);
+
+    return converted;
+}
+```

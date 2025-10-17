@@ -45,3 +45,29 @@ The function notes that built-in access methods do not currently support ACLs, w
 - Extension membership always takes precedence over other dump policies
 - The function references getAccessMethods() for additional context about version 9.6 support
 - The function is static and only used internally within pg_dump.c
+
+## Simplified Source
+
+```c
+static void
+selectDumpableAccessMethod(AccessMethodInfo *method, Archive *fout)
+{
+    // Access methods are only supported in PostgreSQL 9.6+
+    if (fout->remoteVersion < 90600) {
+        method->dobj.dump = DUMP_COMPONENT_NONE;
+        return;
+    }
+
+    // Extension membership overrides all other policies
+    if (checkExtensionMembership(&method->dobj, fout))
+        return;
+
+    // Built-in access methods are not dumped
+    if (method->dobj.catId.oid <= (Oid) g_last_builtin_oid)
+        method->dobj.dump = DUMP_COMPONENT_NONE;
+    else
+        // User-defined access methods: dump only if dumping everything
+        method->dobj.dump = fout->dopt->include_everything ?
+            DUMP_COMPONENT_ALL : DUMP_COMPONENT_NONE;
+}
+```

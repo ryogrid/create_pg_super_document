@@ -35,3 +35,21 @@ The implementation is straightforward: it extracts the timestamp argument, initi
 - The binary format is a simple 64-bit integer representation of the timestamp
 - Used by PostgreSQL's binary protocol for efficient data transmission
 - Located in src/backend/utils/adt/timestamp.c:291-301
+
+## Simplified Source
+
+```c
+Datum timestamp_send(PG_FUNCTION_ARGS) {
+    Timestamp timestamp = PG_GETARG_TIMESTAMP(0);
+    StringInfoData buf;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Write timestamp as 64-bit integer
+    pq_sendint64(&buf, timestamp);
+
+    // Return completed binary representation
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

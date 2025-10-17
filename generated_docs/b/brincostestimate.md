@@ -59,3 +59,83 @@ The cost model accounts for BRIN's two-phase access pattern: first reading the r
 - The cost model includes a small charge (0.1 * cpu_operator_cost) per expected matching range to account for bitmap manipulation overhead
 - The function assumes BRIN_DEFAULT_PAGES_PER_RANGE (128) pages per range for hypothetical indexes
 - Cost calculation considers both sequential access for the revmap and random access for regular index pages
+
+## Simplified Source
+
+```c
+void brincostestimate(PlannerInfo *root, IndexPath *path, double loop_count,
+                     Cost *indexStartupCost, Cost *indexTotalCost,
+                     Selectivity *indexSelectivity, double *indexCorrelation,
+                     double *indexPages) {
+    IndexOptInfo *index = path->indexinfo;
+    List *indexQuals = get_quals_from_indexclauses(path->indexclauses);
+    RelOptInfo *baserel = index->rel;
+    Cost spc_seq_page_cost, spc_random_page_cost;
+    double qual_arg_cost;
+    double qualSelectivity;
+    BrinStatsData statsData;
+    double indexRanges, minimalRanges, estimatedRanges, selec;
+
+    // Get tablespace page costs
+    get_tablespace_page_costs(index->reltablespace, &spc_random_page_cost, &spc_seq_page_cost);
+
+    // Get BRIN statistics or use defaults for hypothetical indexes
+    if (!index->hypothetical) {
+        Relation indexRel = index_open(index->indexoid, NoLock);
+        brinGetStats(indexRel, &statsData);
+        index_close(indexRel, NoLock);
+        indexRanges = Max(ceil((double) baserel->pages / statsData.pagesPerRange), 1.0);
+    } else {
+        indexRanges = Max(ceil((double) baserel->pages / BRIN_DEFAULT_PAGES_PER_RANGE), 1.0);
+        statsData.pagesPerRange = BRIN_DEFAULT_PAGES_PER_RANGE;
+        statsData.revmapNumPages = (indexRanges / REVMAP_PAGE_MAXITEMS) + 1;
+    }
+
+    // Compute index correlation from column statistics
+    *indexCorrelation = 0;
+    foreach(lc, path->indexclauses) {
+        IndexClause *iclause = lfirst_node(IndexClause, lc);
+        AttrNumber attnum = index->indexkeys[iclause->indexcol];
+
+        // Get statistics and extract correlation if available
+        if (attnum != 0) {
+            /* lookup stats for base table column */
+        } else {
+            /* lookup stats for index expression column */
+        }
+
+        if (/* correlation found */) {
+            *indexCorrelation = Max(*indexCorrelation, fabs(correlation_value));
+        }
+    }
+
+    // Calculate selectivity and estimate ranges to scan
+    qualSelectivity = clauselist_selectivity(root, indexQuals, baserel->relid, JOIN_INNER, NULL);
+    minimalRanges = ceil(indexRanges * qualSelectivity);
+
+    // Estimate actual ranges based on correlation
+    if (*indexCorrelation < 1.0e-10)
+        estimatedRanges = indexRanges;
+    else
+        estimatedRanges = Min(minimalRanges / *indexCorrelation, indexRanges);
+
+    selec = estimatedRanges / indexRanges;
+    CLAMP_PROBABILITY(selec);
+    *indexSelectivity = selec;
+
+    // Calculate costs
+    qual_arg_cost = index_other_operands_eval_cost(root, indexQuals);
+
+    // Startup cost: sequential read of revmap + qual evaluation
+    *indexStartupCost = spc_seq_page_cost * statsData.revmapNumPages * loop_count + qual_arg_cost;
+
+    // Total cost: startup + random access to regular index pages + bitmap manipulation
+    *indexTotalCost = *indexStartupCost +
+                     spc_random_page_cost * (index->pages - statsData.revmapNumPages) * loop_count +
+                     0.1 * cpu_operator_cost * estimatedRanges * statsData.pagesPerRange;
+
+    *indexPages = index->pages;
+}
+```
+
+**Core Logic**: Calculates BRIN index costs by determining ranges to scan based on query selectivity and correlation, with startup costs for sequential revmap reading and total costs including random page access and bitmap manipulation overhead.

@@ -29,4 +29,13 @@ The function follows PostgreSQL's standard function calling convention using  an
 - This is a thin wrapper function that provides the SQL interface
 - The actual logic is implemented in 
 - Timezone handling is disabled (false parameter) unlike 
-- Located in 
+- Located in
+
+## Simplified Source
+
+```c
+Datum jsonb_path_match(PG_FUNCTION_ARGS) {
+    // Simple wrapper - delegates to internal function without timezone handling
+    return jsonb_path_match_internal(fcinfo, false);
+}
+```

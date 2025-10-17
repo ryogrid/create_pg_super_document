@@ -45,3 +45,32 @@ The function includes robust error checking for integer overflow conditions and 
 - Uses bitsubstring to extract prefix (characters 1 to sp-1) and suffix (characters sp+sl onward)
 - Follows the SQL standard's definition of OVERLAY() precisely
 - Error messages follow PostgreSQL conventions for substring and numeric range errors
+
+## Simplified Source
+
+```c
+static VarBit *bit_overlay(VarBit *t1, VarBit *t2, int sp, int sl) {
+    // Validate start position
+    if (sp <= 0)
+        ereport(ERROR, (errcode(ERRCODE_SUBSTRING_ERROR),
+                       errmsg("negative substring length not allowed")));
+
+    // Check for integer overflow in end position calculation
+    int sp_pl_sl;
+    if (pg_add_s32_overflow(sp, sl, &sp_pl_sl))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("integer out of range")));
+
+    // Extract prefix before replacement position
+    VarBit *s1 = bitsubstring(t1, 1, sp - 1, false);
+
+    // Extract suffix after replacement region
+    VarBit *s2 = bitsubstring(t1, sp_pl_sl, -1, true);
+
+    // Concatenate: prefix + replacement + suffix
+    VarBit *result = bit_catenate(s1, t2);
+    result = bit_catenate(result, s2);
+
+    return result;
+}
+```

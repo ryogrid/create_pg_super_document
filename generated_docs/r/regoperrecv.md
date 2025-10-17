@@ -32,3 +32,14 @@ This function is part of PostgreSQL's type input/output framework and is typical
 - Part of PostgreSQL's binary I/O protocol for efficient data transfer
 - Used primarily in client-server communication when binary protocol is enabled
 - The simplicity of this function reflects that the binary representation of regoper is identical to that of OID
+
+## Simplified Source
+
+```c
+Datum
+regoperrecv(PG_FUNCTION_ARGS)
+{
+    // regoper binary format is identical to OID, so delegate to oidrecv
+    return oidrecv(fcinfo);
+}
+```

@@ -66,3 +66,125 @@ The function builds a processing pipeline by chaining together appropriate bbstr
 - Critical for pg_basebackup functionality as it determines how backup data will be processed and output
 - The function carefully manages the order of streaming components to ensure correct data transformation
 - Includes extensive error checking and user-friendly error messages for invalid configurations
+
+## Simplified Source
+
+```c
+static bbstreamer *
+CreateBackupStreamer(char *archive_name, char *spclocation,
+                     bbstreamer **manifest_inject_streamer_p,
+                     bool is_recovery_guc_supported, bool expect_unterminated_tarfile,
+                     pg_compress_specification *compress)
+{
+    bbstreamer *streamer = NULL;
+    bbstreamer *manifest_inject_streamer = NULL;
+    bool inject_manifest, is_tar, is_compressed_tar, must_parse_archive;
+    int archive_name_len = strlen(archive_name);
+
+    // Determine if we need to inject manifest (only for tar to stdout with manifest enabled)
+    inject_manifest = (format == 't' && strcmp(basedir, "-") == 0 && manifest);
+
+    // Detect archive types based on file extension
+    is_tar = (archive_name_len > 4 && strcmp(archive_name + archive_name_len - 4, ".tar") == 0);
+    bool is_tar_gz = (archive_name_len > 7 && strcmp(archive_name + archive_name_len - 7, ".tar.gz") == 0);
+    bool is_tar_lz4 = (archive_name_len > 8 && strcmp(archive_name + archive_name_len - 8, ".tar.lz4") == 0);
+    bool is_tar_zstd = (archive_name_len > 8 && strcmp(archive_name + archive_name_len - 8, ".tar.zst") == 0);
+    is_compressed_tar = is_tar_gz || is_tar_lz4 || is_tar_zstd;
+
+    // Validate manifest injection compatibility
+    if (inject_manifest && is_compressed_tar) {
+        pg_log_error("cannot inject manifest into a compressed tar file");
+        pg_log_error_hint("Use client-side compression, send output to directory, or use --no-manifest");
+        exit(1);
+    }
+
+    // Determine if we need to parse the archive
+    must_parse_archive = (format == 'p' || inject_manifest || (spclocation == NULL && writerecoveryconf));
+
+    // Validate that we can parse this archive type
+    if (must_parse_archive && !is_tar && !is_compressed_tar) {
+        pg_log_error("cannot parse archive \"%s\"", archive_name);
+        pg_log_error_detail("Only tar archives can be parsed.");
+        exit(1);
+    }
+
+    if (format == 'p') {
+        // Plain format - extract to directory
+        const char *directory;
+        if (spclocation == NULL)
+            directory = basedir;
+        else if (!is_absolute_path(spclocation))
+            directory = psprintf("%s/%s", basedir, spclocation);
+        else
+            directory = get_tablespace_mapping(spclocation);
+
+        streamer = bbstreamer_extractor_new(directory, get_tablespace_mapping, progress_update_filename);
+    }
+    else {
+        // Tar format - create appropriate writer with compression
+        char archive_filename[MAXPGPATH];
+        FILE *archive_file = NULL;
+
+        if (strcmp(basedir, "-") == 0) {
+            snprintf(archive_filename, sizeof(archive_filename), "-");
+            archive_file = stdout;
+        }
+        else {
+            snprintf(archive_filename, sizeof(archive_filename), "%s/%s", basedir, archive_name);
+        }
+
+        // Create writer based on compression algorithm
+        if (compress->algorithm == PG_COMPRESSION_NONE) {
+            streamer = bbstreamer_plain_writer_new(archive_filename, archive_file);
+        }
+        else if (compress->algorithm == PG_COMPRESSION_GZIP) {
+            strlcat(archive_filename, ".gz", sizeof(archive_filename));
+            streamer = bbstreamer_gzip_writer_new(archive_filename, archive_file, compress);
+        }
+        else if (compress->algorithm == PG_COMPRESSION_LZ4) {
+            strlcat(archive_filename, ".lz4", sizeof(archive_filename));
+            streamer = bbstreamer_plain_writer_new(archive_filename, archive_file);
+            streamer = bbstreamer_lz4_compressor_new(streamer, compress);
+        }
+        else if (compress->algorithm == PG_COMPRESSION_ZSTD) {
+            strlcat(archive_filename, ".zst", sizeof(archive_filename));
+            streamer = bbstreamer_plain_writer_new(archive_filename, archive_file);
+            streamer = bbstreamer_zstd_compressor_new(streamer, compress);
+        }
+
+        // Add tar archiver if we need to parse
+        if (must_parse_archive)
+            streamer = bbstreamer_tar_archiver_new(streamer);
+
+        progress_update_filename(archive_filename);
+    }
+
+    // Set up manifest injection point
+    if (inject_manifest)
+        manifest_inject_streamer = streamer;
+
+    // Add recovery configuration injection for main tablespace
+    if (spclocation == NULL && writerecoveryconf) {
+        streamer = bbstreamer_recovery_injector_new(streamer, is_recovery_guc_supported, recoveryconfcontents);
+    }
+
+    // Add tar parser or terminator as needed
+    if (must_parse_archive)
+        streamer = bbstreamer_tar_parser_new(streamer);
+    else if (expect_unterminated_tarfile)
+        streamer = bbstreamer_tar_terminator_new(streamer);
+
+    // Add decompression for plain format with compressed input
+    if (format == 'p') {
+        if (is_tar_gz)
+            streamer = bbstreamer_gzip_decompressor_new(streamer);
+        else if (is_tar_lz4)
+            streamer = bbstreamer_lz4_decompressor_new(streamer);
+        else if (is_tar_zstd)
+            streamer = bbstreamer_zstd_decompressor_new(streamer);
+    }
+
+    *manifest_inject_streamer_p = manifest_inject_streamer;
+    return streamer;
+}
+```

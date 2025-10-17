@@ -37,3 +37,29 @@ This function provides a standardized way to test index column properties that a
 - The indoptions array uses 0-based indexing internally, so attno is decremented by 1
 - Used for testing properties like ASC/DESC ordering, NULLS FIRST/LAST positioning
 - The guard parameter allows callers to short-circuit testing when conditions make the result predictable
+
+## Simplified Source
+
+```c
+static bool test_indoption(HeapTuple tuple, int attno, bool guard,
+                          int16 iopt_mask, int16 iopt_expect, bool *res)
+{
+    // Early exit if guard condition fails
+    if (!guard) {
+        *res = false;
+        return true;  // Definitive result available
+    }
+
+    // Get indoptions array from pg_index tuple
+    Datum datum = SysCacheGetAttrNotNull(INDEXRELID, tuple, Anum_pg_index_indoption);
+    int2vector *indoption = (int2vector *) DatumGetPointer(datum);
+
+    // Extract the specific column's indoption value (convert 1-based to 0-based)
+    int16 indoption_val = indoption->values[attno - 1];
+
+    // Test if the masked bits match the expected pattern
+    *res = (indoption_val & iopt_mask) == iopt_expect;
+
+    return true;  // Definitive result available
+}
+```

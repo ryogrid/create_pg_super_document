@@ -53,3 +53,60 @@ This function uses the standard PostgreSQL function interface:
 - The function demonstrates PostgreSQL's robust approach to character encoding handling
 - Proper encoding validation is essential for preventing issues like character set confusion attacks
 - The use of WARNING level logging allows the test to continue even if some encodings have unexpected behavior
+
+## Simplified Source
+
+```c
+Datum
+test_enc_setup(PG_FUNCTION_ARGS)
+{
+    // Test invalid character sequences for all multibyte encodings
+    for (int i = 0; i < _PG_LAST_ENCODING_; i++)
+    {
+        char buf[2], bigbuf[16];
+        int len, mblen, valid;
+
+        // Skip single-byte encodings
+        if (pg_encoding_max_length(i) == 1)
+            continue;
+
+        // Create official invalid string for this encoding
+        pg_encoding_set_invalid(i, buf);
+
+        // Verify invalid string has expected length (2 bytes)
+        len = strnlen(buf, 2);
+        if (len != 2)
+            elog(WARNING, "invalid string for encoding \"%s\" has length %d",
+                 pg_enc2name_tbl[i].name, len);
+
+        // Verify multibyte length detection
+        mblen = pg_encoding_mblen(i, buf);
+        if (mblen != 2)
+            elog(WARNING, "invalid string for encoding \"%s\" has mblen %d",
+                 pg_enc2name_tbl[i].name, mblen);
+
+        // Test that invalid string has no valid prefix
+        valid = pg_encoding_verifymbstr(i, buf, len);
+        if (valid != 0)
+            elog(WARNING, "invalid string for encoding \"%s\" has valid prefix",
+                 pg_enc2name_tbl[i].name);
+
+        // Test that first byte alone has no valid prefix
+        valid = pg_encoding_verifymbstr(i, buf, 1);
+        if (valid != 0)
+            elog(WARNING, "first byte of invalid string for encoding \"%s\" has valid prefix",
+                 pg_enc2name_tbl[i].name);
+
+        // Test invalid string with trailing data
+        memset(bigbuf, ' ', sizeof(bigbuf));
+        bigbuf[0] = buf[0];
+        bigbuf[1] = buf[1];
+        valid = pg_encoding_verifymbstr(i, bigbuf, sizeof(bigbuf));
+        if (valid != 0)
+            elog(WARNING, "invalid string with trailing data for encoding \"%s\" has valid prefix",
+                 pg_enc2name_tbl[i].name);
+    }
+
+    PG_RETURN_VOID();
+}
+```

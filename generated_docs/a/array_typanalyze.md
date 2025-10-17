@@ -36,3 +36,55 @@ The function stores all necessary type information in an ArrayAnalyzeExtraData s
 - Preserves the original compute_stats function and extra_data for fallback scalar statistics
 - The function maintains the minrows setting from std_typanalyze without modification
 - Located in src/backend/utils/adt/array_typanalyze.c:98-215
+
+## Simplified Source
+
+```c
+Datum array_typanalyze(PG_FUNCTION_ARGS) {
+    VacAttrStats *stats = (VacAttrStats *) PG_GETARG_POINTER(0);
+
+    // First run standard type analysis
+    if (!std_typanalyze(stats))
+        PG_RETURN_BOOL(false);
+
+    // Verify this is actually an array type
+    Oid element_typeid = get_base_element_type(stats->attrtypid);
+    if (!OidIsValid(element_typeid))
+        elog(ERROR, "array_typanalyze invoked for non-array type %u", stats->attrtypid);
+
+    // Get element type information needed for array analysis
+    TypeCacheEntry *typentry = lookup_type_cache(element_typeid,
+                                                 TYPECACHE_EQ_OPR |
+                                                 TYPECACHE_CMP_PROC_FINFO |
+                                                 TYPECACHE_HASH_PROC_FINFO);
+
+    // Require all necessary operators and procedures
+    if (!OidIsValid(typentry->eq_opr) ||
+        !OidIsValid(typentry->cmp_proc_finfo.fn_oid) ||
+        !OidIsValid(typentry->hash_proc_finfo.fn_oid))
+        PG_RETURN_BOOL(true);
+
+    // Set up array-specific analysis data
+    ArrayAnalyzeExtraData *extra_data = (ArrayAnalyzeExtraData *)
+        palloc(sizeof(ArrayAnalyzeExtraData));
+
+    extra_data->type_id = typentry->type_id;
+    extra_data->eq_opr = typentry->eq_opr;
+    extra_data->coll_id = stats->attrcollid;
+    extra_data->typbyval = typentry->typbyval;
+    extra_data->typlen = typentry->typlen;
+    extra_data->typalign = typentry->typalign;
+    extra_data->cmp = &typentry->cmp_proc_finfo;
+    extra_data->hash = &typentry->hash_proc_finfo;
+
+    // Preserve standard statistics computation for fallback
+    extra_data->std_compute_stats = stats->compute_stats;
+    extra_data->std_extra_data = stats->extra_data;
+
+    // Replace with array-specific statistics computation
+    stats->compute_stats = compute_array_stats;
+    stats->extra_data = extra_data;
+
+    PG_RETURN_BOOL(true);
+}
+```

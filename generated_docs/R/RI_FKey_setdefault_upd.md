@@ -32,3 +32,17 @@ RI_FKey_setdefault_upd is a trigger function that enforces referential integrity
 - The function performs validation to ensure it's called in the correct trigger context (UPDATE event)
 - The second parameter to ri_set is false, indicating default values should be used instead of NULL
 - Located in src/backend/utils/adt/ri_triggers.c:1015-1030
+
+## Simplified Source
+
+```c
+Datum
+RI_FKey_setdefault_upd(PG_FUNCTION_ARGS)
+{
+    // Validate trigger call for UPDATE operation
+    ri_CheckTrigger(fcinfo, "RI_FKey_setdefault_upd", RI_TRIGTYPE_UPDATE);
+
+    // Delegate to shared ri_set function (false = set to default, UPDATE operation)
+    return ri_set((TriggerData *) fcinfo->context, false, RI_TRIGTYPE_UPDATE);
+}
+```

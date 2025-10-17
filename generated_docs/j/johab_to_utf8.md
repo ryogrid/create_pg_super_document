@@ -38,3 +38,27 @@ The function follows PostgreSQL's standard conversion function interface, accept
 - The function validates encoding parameters using CHECK_ENCODING_CONVERSION_ARGS macro
 - Returns the number of bytes successfully converted, enabling partial conversion handling
 - Supports error suppression through the noError parameter for graceful handling of invalid sequences
+
+## Simplified Source
+```c
+Datum
+johab_to_utf8(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_JOHAB, PG_UTF8);
+
+    // Convert using radix tree mapping
+    int converted = LocalToUtf(src, len, dest,
+                              &johab_to_unicode_tree,
+                              NULL, 0, NULL,
+                              PG_JOHAB, noError);
+
+    PG_RETURN_INT32(converted);
+}
+```

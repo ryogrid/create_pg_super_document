@@ -30,3 +30,12 @@ This function serves as the timezone-aware version of JSONPath array query opera
 - Located in src/backend/utils/adt/jsonpath_exec.c:613-623
 - Complements jsonb_path_query_array for timezone-unaware operations
 - Timezone awareness affects datetime operations and comparisons in JSONPath expressions
+
+## Simplified Source
+
+```c
+Datum jsonb_path_query_array_tz(PG_FUNCTION_ARGS) {
+    // Timezone-aware wrapper - delegates to internal function with timezone handling
+    return jsonb_path_query_array_internal(fcinfo, true);
+}
+```

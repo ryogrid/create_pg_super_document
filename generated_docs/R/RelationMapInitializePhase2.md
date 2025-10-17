@@ -29,3 +29,18 @@ This function represents the second phase of relation mapper initialization duri
 - Uses load_relmap_file with parameters (true, false) indicating shared=true, fatal_on_error=false
 - Part of the multi-phase startup sequence that ensures proper ordering of system initialization
 - Critical for accessing shared system catalogs like pg_database
+
+## Simplified Source
+
+```c
+void
+RelationMapInitializePhase2(void)
+{
+    // Skip in bootstrap mode - map file doesn't exist yet
+    if (IsBootstrapProcessingMode())
+        return;
+
+    // Load the shared map file (fatal on error)
+    load_relmap_file(true, false);
+}
+```

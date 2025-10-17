@@ -43,3 +43,33 @@ The function processes SupportRequestSimplify requests, examining the function c
 - Ignores isExplicit argument as the optimization applies to both explicit and implicit casts
 - Returns NULL when no optimization is possible, allowing normal function execution
 - Located in src/backend/utils/adt/varbit.c:702-741
+
+## Simplified Source
+
+```c
+Datum varbit_support(PG_FUNCTION_ARGS) {
+    Node *rawreq = (Node *) PG_GETARG_POINTER(0);
+    Node *ret = NULL;
+
+    // Handle simplification requests from the planner
+    if (IsA(rawreq, SupportRequestSimplify)) {
+        SupportRequestSimplify *req = (SupportRequestSimplify *) rawreq;
+        FuncExpr *expr = req->fcall;
+        Node *typmod = (Node *) lsecond(expr->args);
+
+        // Check if typmod is a constant value
+        if (IsA(typmod, Const) && !((Const *) typmod)->constisnull) {
+            Node *source = (Node *) linitial(expr->args);
+            int32 new_typmod = DatumGetInt32(((Const *) typmod)->constvalue);
+            int32 old_max = exprTypmod(source);
+            int32 new_max = new_typmod;
+
+            // Optimize when new length >= old length (no truncation needed)
+            if (new_max <= 0 || (old_max > 0 && old_max <= new_max))
+                ret = relabel_to_typmod(source, new_typmod);
+        }
+    }
+
+    PG_RETURN_POINTER(ret);
+}
+```

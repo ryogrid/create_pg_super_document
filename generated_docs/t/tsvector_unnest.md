@@ -51,3 +51,78 @@ The function creates a tuple descriptor with three columns and processes each le
 - Extracts 14-bit positions from the combined 16-bit position-weight storage format
 - Useful for debugging and detailed analysis of TSVector contents
 - Part of PostgreSQL's full-text search functionality for TSVector inspection
+
+## Simplified Source
+
+```c
+Datum tsvector_unnest(PG_FUNCTION_ARGS) {
+    FuncCallContext *funcctx;
+    TSVector tsin;
+
+    if (SRF_IS_FIRSTCALL()) {
+        // Initialize SRF context and setup tuple descriptor
+        funcctx = SRF_FIRSTCALL_INIT();
+        MemoryContext oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
+
+        // Create tuple descriptor for 3 columns: lexeme, positions, weights
+        TupleDesc tupdesc = CreateTemplateTupleDesc(3);
+        TupleDescInitEntry(tupdesc, 1, "lexeme", TEXTOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 2, "positions", INT2ARRAYOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 3, "weights", TEXTARRAYOID, -1, 0);
+
+        // Validate return type and store input TSVector
+        if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+            elog(ERROR, "return type must be a row type");
+        funcctx->tuple_desc = tupdesc;
+        funcctx->user_fctx = PG_GETARG_TSVECTOR_COPY(0);
+
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    // Setup for each call and get TSVector
+    funcctx = SRF_PERCALL_SETUP();
+    tsin = (TSVector) funcctx->user_fctx;
+
+    if (funcctx->call_cntr < tsin->size) {
+        // Process current lexeme entry
+        WordEntry *arrin = ARRPTR(tsin);
+        char *data = STRPTR(tsin);
+        int i = funcctx->call_cntr;
+
+        bool nulls[] = {false, false, false};
+        Datum values[3];
+
+        // Extract lexeme text
+        values[0] = PointerGetDatum(cstring_to_text_with_len(
+            data + arrin[i].pos, arrin[i].len));
+
+        if (arrin[i].haspos) {
+            // Extract position and weight data
+            WordEntryPosVector *posv = _POSVECPTR(tsin, arrin + i);
+            Datum *positions = palloc(posv->npos * sizeof(Datum));
+            Datum *weights = palloc(posv->npos * sizeof(Datum));
+
+            // Separate combined position-weight values
+            for (int j = 0; j < posv->npos; j++) {
+                positions[j] = Int16GetDatum(WEP_GETPOS(posv->pos[j]));
+                char weight = 'D' - WEP_GETWEIGHT(posv->pos[j]);
+                weights[j] = PointerGetDatum(cstring_to_text_with_len(&weight, 1));
+            }
+
+            // Build arrays for positions and weights
+            values[1] = PointerGetDatum(construct_array_builtin(positions, posv->npos, INT2OID));
+            values[2] = PointerGetDatum(construct_array_builtin(weights, posv->npos, TEXTOID));
+        } else {
+            // No position data available
+            nulls[1] = nulls[2] = true;
+        }
+
+        // Create and return tuple for this lexeme
+        HeapTuple tuple = heap_form_tuple(funcctx->tuple_desc, values, nulls);
+        SRF_RETURN_NEXT(funcctx, HeapTupleGetDatum(tuple));
+    } else {
+        // All lexemes processed
+        SRF_RETURN_DONE(funcctx);
+    }
+}
+```

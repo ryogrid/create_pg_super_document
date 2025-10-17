@@ -49,3 +49,44 @@ The function is designed to work safely in signal handler context, using only as
 - Only leader processes report termination messages to avoid duplicate output
 - Function accesses global signal_info structure that must be properly initialized before signal installation
 - Located in src/bin/pg_dump/parallel.c:545-607
+
+## Simplified Source
+
+```c
+static void
+sigTermHandler(SIGNAL_ARGS)
+{
+    int i;
+    char errbuf[1];
+
+    // Disable further signal delivery to prevent interruption
+    pqsignal(SIGINT, SIG_IGN);
+    pqsignal(SIGTERM, SIG_IGN);
+    pqsignal(SIGQUIT, SIG_IGN);
+
+    // Forward signal to all worker processes (leader only)
+    if (signal_info.pstate != NULL) {
+        for (i = 0; i < signal_info.pstate->numWorkers; i++) {
+            pid_t pid = signal_info.pstate->parallelSlot[i].pid;
+            if (pid != 0)
+                kill(pid, SIGTERM);
+        }
+    }
+
+    // Cancel active database query if connection exists
+    if (signal_info.myAH != NULL && signal_info.myAH->connCancel != NULL)
+        PQcancel(signal_info.myAH->connCancel, errbuf, sizeof(errbuf));
+
+    // Report termination (leader process only)
+    if (!signal_info.am_worker) {
+        if (progname) {
+            write_stderr(progname);
+            write_stderr(": ");
+        }
+        write_stderr("terminated by user\n");
+    }
+
+    // Exit immediately without cleanup
+    _exit(1);
+}
+```

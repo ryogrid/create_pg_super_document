@@ -40,3 +40,54 @@ When processing an ATTACH PARTITION command with a partition bound, the function
 - Sets cxt->partbound to the transformed partition bound for successful ATTACH PARTITION operations
 - The function enforces PostgreSQL's partitioning rules at the parser level before execution
 - Uses Assert to ensure partitioned tables have a valid partition key
+
+## Simplified Source
+
+```c
+static void
+transformPartitionCmd(CreateStmtContext *cxt, PartitionCmd *cmd)
+{
+    Relation parentRel = cxt->rel;
+
+    // Validate parent relation type and handle partition bounds
+    switch (parentRel->rd_rel->relkind) {
+        case RELKIND_PARTITIONED_TABLE:
+            // Transform partition bound for ATTACH PARTITION if specified
+            Assert(RelationGetPartitionKey(parentRel) != NULL);
+            if (cmd->bound != NULL)
+                cxt->partbound = transformPartitionBound(cxt->pstate, parentRel, cmd->bound);
+            break;
+
+        case RELKIND_PARTITIONED_INDEX:
+            // Partitioned indexes cannot have partition bounds
+            if (cmd->bound != NULL)
+                ereport(ERROR,
+                       (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                        errmsg("\"%s\" is not a partitioned table",
+                               RelationGetRelationName(parentRel))));
+            break;
+
+        case RELKIND_RELATION:
+            // Regular table: must be partitioned
+            ereport(ERROR,
+                   (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                    errmsg("table \"%s\" is not partitioned",
+                           RelationGetRelationName(parentRel))));
+            break;
+
+        case RELKIND_INDEX:
+            // Regular index: must be partitioned
+            ereport(ERROR,
+                   (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                    errmsg("index \"%s\" is not partitioned",
+                           RelationGetRelationName(parentRel))));
+            break;
+
+        default:
+            // Unexpected relation kind
+            elog(ERROR, "\"%s\" is not a partitioned table or index",
+                 RelationGetRelationName(parentRel));
+            break;
+    }
+}
+```

@@ -49,3 +49,73 @@ The function maintains archive statistics by incrementing the TOC count and trac
 - Format-specific handlers can perform additional processing on the TOC entry after creation
 - The hadDumper flag tracks whether the object has associated data dumping functionality
 - Memory management is carefully handled to prevent leaks while supporting variable-length object metadata
+
+## Simplified Source
+
+```c
+TocEntry *
+ArchiveEntry(Archive *AHX, CatalogId catalogId, DumpId dumpId,
+             ArchiveOpts *opts)
+{
+    ArchiveHandle *AH = (ArchiveHandle *) AHX;
+    TocEntry *newToc;
+
+    // Allocate and initialize new TOC entry
+    newToc = (TocEntry *) pg_malloc0(sizeof(TocEntry));
+
+    // Update archive statistics
+    AH->tocCount++;
+    if (dumpId > AH->maxDumpId)
+        AH->maxDumpId = dumpId;
+
+    // Link entry into doubly-linked TOC list
+    newToc->prev = AH->toc->prev;
+    newToc->next = AH->toc;
+    AH->toc->prev->next = newToc;
+    AH->toc->prev = newToc;
+
+    // Set basic identifiers and section
+    newToc->catalogId = catalogId;
+    newToc->dumpId = dumpId;
+    newToc->section = opts->section;
+
+    // Copy object metadata strings
+    newToc->tag = pg_strdup(opts->tag);
+    newToc->namespace = opts->namespace ? pg_strdup(opts->namespace) : NULL;
+    newToc->tablespace = opts->tablespace ? pg_strdup(opts->tablespace) : NULL;
+    newToc->tableam = opts->tableam ? pg_strdup(opts->tableam) : NULL;
+    newToc->owner = opts->owner ? pg_strdup(opts->owner) : NULL;
+    newToc->desc = pg_strdup(opts->description);
+    newToc->defn = opts->createStmt ? pg_strdup(opts->createStmt) : NULL;
+    newToc->dropStmt = opts->dropStmt ? pg_strdup(opts->dropStmt) : NULL;
+    newToc->copyStmt = opts->copyStmt ? pg_strdup(opts->copyStmt) : NULL;
+
+    // Copy object properties
+    newToc->relkind = opts->relkind;
+
+    // Handle dependencies array
+    if (opts->nDeps > 0) {
+        newToc->dependencies = (DumpId *) pg_malloc(opts->nDeps * sizeof(DumpId));
+        memcpy(newToc->dependencies, opts->deps, opts->nDeps * sizeof(DumpId));
+        newToc->nDeps = opts->nDeps;
+    } else {
+        newToc->dependencies = NULL;
+        newToc->nDeps = 0;
+    }
+
+    // Set dumper function information
+    newToc->dataDumper = opts->dumpFn;
+    newToc->dataDumperArg = opts->dumpArg;
+    newToc->hadDumper = opts->dumpFn ? true : false;
+
+    // Initialize format data
+    newToc->formatData = NULL;
+    newToc->dataLength = 0;
+
+    // Call format-specific entry handler if available
+    if (AH->ArchiveEntryPtr != NULL)
+        AH->ArchiveEntryPtr(AH, newToc);
+
+    return newToc;
+}
+```

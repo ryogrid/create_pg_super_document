@@ -55,3 +55,85 @@ The function is critical for ensuring that calendar arithmetic respects timezone
 - Recalculates timezone offsets after both month and day arithmetic to handle DST transitions correctly
 - Critical for PostgreSQL's timezone-aware temporal arithmetic - ensures results respect local calendar rules
 - The timezone parameter allows for cross-timezone calculations when needed
+
+## Simplified Source
+
+```c
+static TimestampTz timestamptz_pl_interval_internal(TimestampTz timestamp,
+                                                   Interval *span,
+                                                   pg_tz *attimezone) {
+    TimestampTz result;
+    int tz;
+
+    // Handle infinity cases (prevent infinity - infinity)
+    if (INTERVAL_IS_NOBEGIN(span)) {
+        if (TIMESTAMP_IS_NOEND(timestamp))
+            ereport(ERROR, "timestamp out of range");
+        TIMESTAMP_NOBEGIN(result);
+    } else if (INTERVAL_IS_NOEND(span)) {
+        if (TIMESTAMP_IS_NOBEGIN(timestamp))
+            ereport(ERROR, "timestamp out of range");
+        TIMESTAMP_NOEND(result);
+    } else if (TIMESTAMP_NOT_FINITE(timestamp)) {
+        result = timestamp;
+    } else {
+        // Use session timezone if none specified
+        if (attimezone == NULL)
+            attimezone = session_timezone;
+
+        // Add months first (timezone-aware calendar arithmetic)
+        if (span->month != 0) {
+            struct pg_tm tm;
+            fsec_t fsec;
+
+            timestamp2tm(timestamp, &tz, &tm, &fsec, NULL, attimezone);
+
+            // Add months with year overflow handling
+            tm.tm_mon += span->month;
+            while (tm.tm_mon > MONTHS_PER_YEAR) {
+                tm.tm_year++;
+                tm.tm_mon -= MONTHS_PER_YEAR;
+            }
+            while (tm.tm_mon < 1) {
+                tm.tm_year--;
+                tm.tm_mon += MONTHS_PER_YEAR;
+            }
+
+            // Handle end-of-month boundary
+            if (tm.tm_mday > day_tab[isleap(tm.tm_year)][tm.tm_mon - 1])
+                tm.tm_mday = day_tab[isleap(tm.tm_year)][tm.tm_mon - 1];
+
+            // Recalculate timezone offset for new date
+            tz = DetermineTimeZoneOffset(&tm, attimezone);
+            tm2timestamp(&tm, fsec, &tz, &timestamp);
+        }
+
+        // Add days using Julian date arithmetic (timezone-aware)
+        if (span->day != 0) {
+            struct pg_tm tm;
+            fsec_t fsec;
+            int julian;
+
+            timestamp2tm(timestamp, &tz, &tm, &fsec, NULL, attimezone);
+            julian = date2j(tm.tm_year, tm.tm_mon, tm.tm_mday);
+            julian += span->day; // with overflow check (allows -1 for TZ edge cases)
+            j2date(julian, &tm.tm_year, &tm.tm_mon, &tm.tm_mday);
+
+            // Recalculate timezone offset for new date
+            tz = DetermineTimeZoneOffset(&tm, attimezone);
+            tm2timestamp(&tm, fsec, &tz, &timestamp);
+        }
+
+        // Add microseconds directly to UTC timestamp
+        timestamp += span->time; // with overflow check
+
+        // Validate result timestamp
+        if (!IS_VALID_TIMESTAMP(timestamp))
+            ereport(ERROR, "timestamp out of range");
+
+        result = timestamp;
+    }
+
+    return result;
+}
+```

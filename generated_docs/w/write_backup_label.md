@@ -51,3 +51,74 @@ This is essential for creating clean backup label files when combining increment
 - File permissions are set using pg_file_create_mode for consistent PostgreSQL file permissions
 - If manifest writer is provided, the function automatically adds the new file to the backup manifest with size, modification time, and checksum information
 - Part of the pg_combinebackup utility infrastructure for merging incremental backups into full backups
+
+## Simplified Source
+
+```c
+void
+write_backup_label(char *output_directory, StringInfo buf,
+                   pg_checksum_type checksum_type, manifest_writer *mwriter)
+{
+    char output_filename[MAXPGPATH];
+    int output_fd;
+    pg_checksum_context checksum_ctx;
+    uint8 checksum_payload[PG_CHECKSUM_MAX_LENGTH];
+    int checksum_length;
+
+    // Initialize checksum calculation
+    pg_checksum_init(&checksum_ctx, checksum_type);
+
+    // Create output file path
+    snprintf(output_filename, MAXPGPATH, "%s/backup_label", output_directory);
+
+    // Open output file for writing
+    if ((output_fd = open(output_filename,
+                          O_WRONLY | O_CREAT | O_EXCL | PG_BINARY,
+                          pg_file_create_mode)) < 0)
+        pg_fatal("could not open file \"%s\": %m", output_filename);
+
+    // Process input buffer line by line
+    while (buf->cursor < buf->len)
+    {
+        char *line_start = &buf->data[buf->cursor];
+        int eol_offset = get_eol_offset(buf);
+        char *line_end = &buf->data[eol_offset];
+
+        // Skip incremental backup lines
+        if (!line_starts_with(line_start, line_end, "INCREMENTAL FROM LSN: ", NULL) &&
+            !line_starts_with(line_start, line_end, "INCREMENTAL FROM TLI: ", NULL))
+        {
+            // Write line to output file
+            ssize_t bytes_written = write(output_fd, line_start, line_end - line_start);
+            if (bytes_written != line_end - line_start)
+                pg_fatal("write error to file \"%s\"", output_filename);
+
+            // Update running checksum
+            if (pg_checksum_update(&checksum_ctx, (uint8 *) line_start,
+                                 line_end - line_start) < 0)
+                pg_fatal("could not update checksum of file \"%s\"", output_filename);
+        }
+
+        buf->cursor = eol_offset;
+    }
+
+    // Close output file
+    if (close(output_fd) != 0)
+        pg_fatal("could not close file \"%s\": %m", output_filename);
+
+    // Finalize checksum
+    checksum_length = pg_checksum_final(&checksum_ctx, checksum_payload);
+
+    // Add to manifest if writer provided
+    if (mwriter != NULL)
+    {
+        struct stat sb;
+        if (stat(output_filename, &sb) < 0)
+            pg_fatal("could not stat file \"%s\": %m", output_filename);
+
+        add_file_to_manifest(mwriter, "backup_label", sb.st_size,
+                           sb.st_mtime, checksum_type,
+                           checksum_length, checksum_payload);
+    }
+}
+```

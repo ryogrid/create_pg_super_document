@@ -37,3 +37,15 @@ The function defers validation of the system identifier to a later stage in the 
 - Critical for ensuring all backup manifests belong to the same PostgreSQL cluster
 - Accesses the manifest_data structure through the context's private_data field
 - Part of the manifest parsing callback system used by pg_combinebackup utility
+
+## Simplified Source
+
+```c
+static void combinebackup_system_identifier_cb(JsonManifestParseContext *context,
+                                              uint64 manifest_system_identifier) {
+    manifest_data *manifest = context->private_data;
+
+    // Store system identifier for later validation
+    manifest->system_identifier = manifest_system_identifier;
+}
+```

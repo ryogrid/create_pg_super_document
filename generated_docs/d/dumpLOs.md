@@ -42,3 +42,48 @@ The function logs progress information and handles errors that may occur during 
 - Handles large objects that may be larger than available memory by streaming the data
 - Part of the pg_dump utility's infrastructure for backing up PostgreSQL databases
 - Large objects are a PostgreSQL-specific feature for storing binary data outside of regular table storage
+
+## Simplified Source
+
+```c
+static int
+dumpLOs(Archive *fout, const void *arg)
+{
+    const LoInfo *loinfo = (const LoInfo *) arg;
+    PGconn *conn = GetConnection(fout);
+    char buf[LOBBUFSIZE];
+
+    pg_log_info("saving large objects \"%s\"", loinfo->dobj.name);
+
+    // Process each large object in the group
+    for (int i = 0; i < loinfo->numlos; i++) {
+        Oid loOid = loinfo->looids[i];
+
+        // Open large object for reading
+        int loFd = lo_open(conn, loOid, INV_READ);
+        if (loFd == -1)
+            pg_fatal("could not open large object %u: %s",
+                    loOid, PQerrorMessage(conn));
+
+        // Mark start of LO data in archive
+        StartLO(fout, loOid);
+
+        // Read and write LO data in chunks
+        int cnt;
+        do {
+            cnt = lo_read(conn, loFd, buf, LOBBUFSIZE);
+            if (cnt < 0)
+                pg_fatal("error reading large object %u: %s",
+                        loOid, PQerrorMessage(conn));
+
+            WriteData(fout, buf, cnt);
+        } while (cnt > 0);
+
+        // Close LO and mark end in archive
+        lo_close(conn, loFd);
+        EndLO(fout, loOid);
+    }
+
+    return 1; // Success
+}
+```

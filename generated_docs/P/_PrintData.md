@@ -29,3 +29,18 @@ _PrintData is a utility function in the custom archive format that handles the r
 
 ## Notes and Other Information
 This function is designed to work at the current file position and assumes that the caller has already positioned the file pointer correctly. It handles the full lifecycle of compression state management, from allocation through cleanup, ensuring no resource leaks occur during data restoration operations.
+
+## Simplified Source
+```c
+static void _PrintData(ArchiveHandle *AH)
+{
+    // Set up decompressor for current compression settings
+    CompressorState *cs = AllocateCompressor(AH->compression_spec, _CustomReadFunc, NULL);
+
+    // Read and decompress data from current file position
+    cs->readData(AH, cs);
+
+    // Clean up compression resources
+    EndCompressor(AH, cs);
+}
+```

@@ -48,3 +48,68 @@ The  function is the core iteration mechanism for traversing PostgreSQL arrays. 
 - Handles both fixed-length and variable-length data types correctly
 - For slice iteration, constructs proper multi-dimensional arrays with correct dimensions and bounds
 - Memory management for returned arrays in slice mode is handled by the caller
+
+## Simplified Source
+
+```c
+bool
+array_iterate(ArrayIterator iterator, Datum *value, bool *isnull)
+{
+    // Check if we've reached the end of the array
+    if (iterator->current_item >= iterator->nitems)
+        return false;
+
+    if (iterator->slice_ndim == 0) {
+        // Scalar mode: return individual elements
+        if (array_get_isnull(iterator->nullbitmap, iterator->current_item++)) {
+            *isnull = true;
+            *value = (Datum) 0;
+        } else {
+            // Extract non-NULL element
+            char *p = iterator->data_ptr;
+            *isnull = false;
+            *value = fetch_att(p, iterator->typbyval, iterator->typlen);
+
+            // Advance data pointer to next element
+            p = att_addlength_pointer(p, iterator->typlen, p);
+            p = (char *) att_align_nominal(p, iterator->typalign);
+            iterator->data_ptr = p;
+        }
+    } else {
+        // Slice mode: build and return sub-array
+        ArrayType *result;
+        Datum *values = iterator->slice_values;
+        bool *nulls = iterator->slice_nulls;
+        char *p = iterator->data_ptr;
+
+        // Collect elements for the slice
+        for (int i = 0; i < iterator->slice_len; i++) {
+            if (array_get_isnull(iterator->nullbitmap, iterator->current_item++)) {
+                nulls[i] = true;
+                values[i] = (Datum) 0;
+            } else {
+                nulls[i] = false;
+                values[i] = fetch_att(p, iterator->typbyval, iterator->typlen);
+
+                // Advance data pointer
+                p = att_addlength_pointer(p, iterator->typlen, p);
+                p = (char *) att_align_nominal(p, iterator->typalign);
+            }
+        }
+
+        iterator->data_ptr = p;
+
+        // Construct the sub-array
+        result = construct_md_array(values, nulls, iterator->slice_ndim,
+                                  iterator->slice_dims, iterator->slice_lbound,
+                                  ARR_ELEMTYPE(iterator->arr),
+                                  iterator->typlen, iterator->typbyval,
+                                  iterator->typalign);
+
+        *isnull = false;
+        *value = PointerGetDatum(result);
+    }
+
+    return true;
+}
+```

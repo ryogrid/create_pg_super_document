@@ -36,3 +36,30 @@ The comparison is binary - it returns 0 for equal keys and 1 for unequal keys, w
 - It properly handles the mixed case where one key might reference a shared TupleDesc while another references a local one
 - The function is static and only used internally within the typcache.c module
 - Returns 0 for equality and 1 for inequality, following standard C comparison function conventions for hash tables
+
+## Simplified Source
+
+```c
+static int shared_record_table_compare(const void *a, const void *b, size_t size, void *arg)
+{
+    dsa_area *area = (dsa_area *) arg;
+    SharedRecordTableKey *k1 = (SharedRecordTableKey *) a;
+    SharedRecordTableKey *k2 = (SharedRecordTableKey *) b;
+    TupleDesc t1, t2;
+
+    // Get TupleDesc from first key (shared or local)
+    if (k1->shared)
+        t1 = (TupleDesc) dsa_get_address(area, k1->u.shared_tupdesc);
+    else
+        t1 = k1->u.local_tupdesc;
+
+    // Get TupleDesc from second key (shared or local)
+    if (k2->shared)
+        t2 = (TupleDesc) dsa_get_address(area, k2->u.shared_tupdesc);
+    else
+        t2 = k2->u.local_tupdesc;
+
+    // Compare row types: return 0 if equal, 1 if different
+    return equalRowTypes(t1, t2) ? 0 : 1;
+}
+```

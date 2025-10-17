@@ -34,3 +34,16 @@ The  function serves as a centralized check to determine if the restoration proc
 - Returns non-zero (true) if all conditions are met: restore options exist, useDB is enabled, and there is an active database connection
 - This function centralizes the logic for database restoration detection, making the codebase more maintainable
 - Used extensively throughout the archiver to conditionally execute database-specific restoration logic
+
+## Simplified Source
+
+```c
+static int
+RestoringToDB(ArchiveHandle *AH)
+{
+    RestoreOptions *ropt = AH->public.ropt;
+
+    // Check if we're restoring directly to database
+    return (ropt && ropt->useDB && AH->connection);
+}
+```

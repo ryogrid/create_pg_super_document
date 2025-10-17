@@ -41,3 +41,23 @@ The function allocates memory for a new QueryOperator structure, initializes its
 - The distance parameter is only meaningful for OP_PHRASE operators and is ignored for other types
 - The polstr (polish string) represents the query in postfix notation for efficient evaluation
 - The left operand field is intentionally left uninitialized and filled in later during query tree construction
+
+## Simplified Source
+
+```c
+void pushOperator(TSQueryParserState state, int8 oper, int16 distance) {
+    // Validate operator type
+    Assert(oper == OP_NOT || oper == OP_AND || oper == OP_OR || oper == OP_PHRASE);
+
+    // Create new operator node
+    QueryOperator *tmp = (QueryOperator *) palloc0(sizeof(QueryOperator));
+    tmp->type = QI_OPR;
+    tmp->oper = oper;
+
+    // Set distance for phrase operators only
+    tmp->distance = (oper == OP_PHRASE) ? distance : 0;
+
+    // Add operator to front of polish notation list
+    state->polstr = lcons(tmp, state->polstr);
+}
+```

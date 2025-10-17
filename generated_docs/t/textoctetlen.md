@@ -36,3 +36,14 @@ The function uses  to get the total size of the datum and then subtracts the var
 - Returns the byte length, not the character length (important distinction for multibyte encodings)
 - The comment indicates this returns the physical length which is less than the VARSIZE of the text
 - This function is useful for storage analysis and memory management operations
+
+## Simplified Source
+
+```c
+Datum textoctetlen(PG_FUNCTION_ARGS) {
+    Datum str = PG_GETARG_DATUM(0);
+
+    // Return byte length without detoasting - efficient for large values
+    PG_RETURN_INT32(toast_raw_datum_size(str) - VARHDRSZ);
+}
+```

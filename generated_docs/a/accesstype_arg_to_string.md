@@ -51,3 +51,64 @@ The function supports the following object access types:
 - Memory for returned strings is allocated using PostgreSQL's memory management functions (pstrdup/psprintf)
 - Used primarily for audit logging and error reporting in object access hook testing scenarios
 - Location: src/test/modules/test_oat_hooks/test_oat_hooks.c:458-518
+
+## Simplified Source
+
+```c
+static char *accesstype_arg_to_string(ObjectAccessType access, void *arg) {
+    // Handle NULL argument case
+    if (arg == NULL) {
+        return pstrdup("extra info null");
+    }
+
+    switch (access) {
+        case OAT_POST_CREATE: {
+            ObjectAccessPostCreate *pc_arg = (ObjectAccessPostCreate *) arg;
+            return pstrdup(pc_arg->is_internal ? "internal" : "explicit");
+        }
+
+        case OAT_DROP: {
+            ObjectAccessDrop *drop_arg = (ObjectAccessDrop *) arg;
+
+            // Build comma-separated list of active drop flags
+            return psprintf("%s%s%s%s%s%s",
+                           ((drop_arg->dropflags & PERFORM_DELETION_INTERNAL)
+                            ? "internal action," : ""),
+                           ((drop_arg->dropflags & PERFORM_DELETION_CONCURRENTLY)
+                            ? "concurrent drop," : ""),
+                           ((drop_arg->dropflags & PERFORM_DELETION_QUIETLY)
+                            ? "suppress notices," : ""),
+                           ((drop_arg->dropflags & PERFORM_DELETION_SKIP_ORIGINAL)
+                            ? "keep original object," : ""),
+                           ((drop_arg->dropflags & PERFORM_DELETION_SKIP_EXTENSIONS)
+                            ? "keep extensions," : ""),
+                           ((drop_arg->dropflags & PERFORM_DELETION_CONCURRENT_LOCK)
+                            ? "normal concurrent drop," : ""));
+        }
+
+        case OAT_POST_ALTER: {
+            ObjectAccessPostAlter *pa_arg = (ObjectAccessPostAlter *) arg;
+            return psprintf("%s %s auxiliary object",
+                           (pa_arg->is_internal ? "internal" : "explicit"),
+                           (OidIsValid(pa_arg->auxiliary_id) ? "with" : "without"));
+        }
+
+        case OAT_NAMESPACE_SEARCH: {
+            ObjectAccessNamespaceSearch *ns_arg = (ObjectAccessNamespaceSearch *) arg;
+            return psprintf("%s, %s",
+                           (ns_arg->ereport_on_violation ? "report on violation" : "no report on violation"),
+                           (ns_arg->result ? "allowed" : "denied"));
+        }
+
+        case OAT_TRUNCATE:
+        case OAT_FUNCTION_EXECUTE:
+            // These access types don't expect arguments
+            return pstrdup("unexpected extra info pointer received");
+
+        default:
+            return pstrdup("cannot parse extra info for unrecognized access type");
+    }
+
+    return pstrdup("unknown");
+}
+```

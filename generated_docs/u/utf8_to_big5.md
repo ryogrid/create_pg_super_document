@@ -43,3 +43,28 @@ The function uses the `UtfToLocal` utility function along with the `big5_from_un
 - Registered as a PostgreSQL function via PG_FUNCTION_INFO_V1 macro
 - Complementary function to `big5_to_utf8` for bidirectional encoding conversion
 - Located in src/backend/utils/mb/conversion_procs/utf8_and_big5/utf8_and_big5.c:60-78
+
+## Simplified Source
+
+```c
+Datum
+utf8_to_big5(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_UTF8, PG_BIG5);
+
+    // Convert UTF-8 to BIG5 using conversion tree
+    int converted = UtfToLocal(src, len, dest,
+                              &big5_from_unicode_tree,
+                              NULL, 0, NULL,
+                              PG_BIG5, noError);
+
+    return converted;
+}
+```

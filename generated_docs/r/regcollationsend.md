@@ -36,3 +36,14 @@ The binary format produced is compatible with the OID binary format, ensuring ef
 - Part of the standard set of I/O functions required for any PostgreSQL data type
 - Works in conjunction with  for binary serialization/deserialization
 - The binary format is platform-independent and suitable for network transmission
+
+## Simplified Source
+
+```c
+Datum
+regcollationsend(PG_FUNCTION_ARGS)
+{
+    // Delegate to oidsend since regcollation uses identical binary format
+    return oidsend(fcinfo);
+}
+```

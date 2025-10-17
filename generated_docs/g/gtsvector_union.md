@@ -40,3 +40,31 @@ This function is a PostgreSQL GiST index support function that creates a union o
 
 ## Notes and Other Information
 This is a PostgreSQL extension function following the PG_FUNCTION_ARGS/PG_RETURN_POINTER convention. It's specifically designed to be registered as a GiST index support function for TSVector data types. The function handles the ALLISTRUE optimization where if any signature represents all possible values, the entire union becomes all-true, allowing for more efficient index operations.
+
+## Simplified Source
+
+```c
+Datum gtsvector_union(PG_FUNCTION_ARGS) {
+    GistEntryVector *entryvec = (GistEntryVector *) PG_GETARG_POINTER(0);
+    int *size = (int *) PG_GETARG_POINTER(1);
+    int siglen = GET_SIGLEN();
+
+    // Allocate result signature and initialize to zeros
+    SignTSVector *result = gtsvector_alloc(SIGNKEY, siglen, NULL);
+    BITVECP base = GETSIGN(result);
+    memset(base, 0, siglen);
+
+    // Union all signatures together
+    for (int32 i = 0; i < entryvec->n; i++) {
+        if (unionkey(base, GETENTRY(entryvec, i), siglen)) {
+            // Union resulted in all bits set
+            result->flag |= ALLISTRUE;
+            SET_VARSIZE(result, CALCGTSIZE(result->flag, siglen));
+            break;
+        }
+    }
+
+    *size = VARSIZE(result);
+    PG_RETURN_POINTER(result);
+}
+```

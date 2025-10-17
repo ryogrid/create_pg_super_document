@@ -38,3 +38,36 @@ The function includes safety checks to ensure the provided tuple is actually a v
 - Only removes cache entries when both the entry and any associated catalog list have zero references
 - Supports NULL resource owner parameter for cases where resource tracking is not needed
 - Part of PostgreSQL's memory management system for preventing cache entry leaks
+
+## Simplified Source
+
+```c
+static void ReleaseCatCacheWithOwner(HeapTuple tuple, ResourceOwner resowner)
+{
+    // Convert HeapTuple back to CatCTup structure
+    CatCTup *ct = (CatCTup *) (((char *) tuple) - offsetof(CatCTup, tuple));
+
+    // Verify this is a valid cache entry
+    Assert(ct->ct_magic == CT_MAGIC);
+    Assert(ct->refcount > 0);
+
+    // Decrement reference count
+    ct->refcount--;
+
+    // Remove from resource owner tracking if specified
+    if (resowner) {
+        ResourceOwnerForgetCatCacheRef(CurrentResourceOwner, &ct->tuple);
+    }
+
+    // Remove entry if conditions are met
+    if (
+#ifndef CATCACHE_FORCE_RELEASE
+        ct->dead &&
+#endif
+        ct->refcount == 0 &&
+        (ct->c_list == NULL || ct->c_list->refcount == 0)
+    ) {
+        CatCacheRemoveCTup(ct->my_cache, ct);
+    }
+}
+```

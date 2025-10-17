@@ -31,3 +31,12 @@ The implementation is straightforward - it delegates all processing to the oidre
 - Shares implementation with oidrecv due to identical binary representation
 - Used internally by PostgreSQL's type system for binary I/O operations
 - The regdictionary type allows referencing text search dictionaries by name while storing them as OIDs internally
+
+## Simplified Source
+
+```c
+Datum regdictionaryrecv(PG_FUNCTION_ARGS) {
+    // Delegate to oidrecv - regdictionary uses same binary format as OID
+    return oidrecv(fcinfo);
+}
+```

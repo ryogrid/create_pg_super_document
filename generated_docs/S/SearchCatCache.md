@@ -45,3 +45,14 @@ The search mechanism supports flexible key handling, including a special case fo
 - The caller is responsible for calling ReleaseCatCache() to release the returned tuple
 - The returned tuple should never be modified by the caller
 - This function may trigger the opening of the underlying relation on first access to a cache
+
+## Simplified Source
+
+```c
+HeapTuple SearchCatCache(CatCache *cache,
+                        Datum v1, Datum v2, Datum v3, Datum v4)
+{
+    // Delegate to internal search function with configured key count
+    return SearchCatCacheInternal(cache, cache->cc_nkeys, v1, v2, v3, v4);
+}
+```

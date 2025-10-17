@@ -41,3 +41,61 @@ This function validates the `log_destination` configuration parameter by parsing
 - Properly handles memory management by freeing temporary allocations on error
 - Returns allocated memory via the extra parameter for use by assign_log_destination
 - Located in src/backend/utils/error/elog.c:2232-2293
+
+## Simplified Source
+
+```c
+bool check_log_destination(char **newval, void **extra, GucSource source)
+{
+    char *input_copy;
+    List *dest_list;
+    ListCell *cell;
+    int destinations = 0;
+    int *result;
+
+    /* Parse comma-separated list of destinations */
+    input_copy = pstrdup(*newval);
+    if (!SplitIdentifierString(input_copy, ',', &dest_list)) {
+        GUC_check_errdetail("List syntax is invalid.");
+        pfree(input_copy);
+        list_free(dest_list);
+        return false;
+    }
+
+    /* Validate each destination and build bitmask */
+    foreach(cell, dest_list) {
+        char *dest = (char *) lfirst(cell);
+
+        if (pg_strcasecmp(dest, "stderr") == 0)
+            destinations |= LOG_DESTINATION_STDERR;
+        else if (pg_strcasecmp(dest, "csvlog") == 0)
+            destinations |= LOG_DESTINATION_CSVLOG;
+        else if (pg_strcasecmp(dest, "jsonlog") == 0)
+            destinations |= LOG_DESTINATION_JSONLOG;
+#ifdef HAVE_SYSLOG
+        else if (pg_strcasecmp(dest, "syslog") == 0)
+            destinations |= LOG_DESTINATION_SYSLOG;
+#endif
+#ifdef WIN32
+        else if (pg_strcasecmp(dest, "eventlog") == 0)
+            destinations |= LOG_DESTINATION_EVENTLOG;
+#endif
+        else {
+            GUC_check_errdetail("Unrecognized key word: \"%s\".", dest);
+            pfree(input_copy);
+            list_free(dest_list);
+            return false;
+        }
+    }
+
+    /* Clean up and store result */
+    pfree(input_copy);
+    list_free(dest_list);
+
+    result = (int *) guc_malloc(ERROR, sizeof(int));
+    *result = destinations;
+    *extra = (void *) result;
+
+    return true;
+}
+```

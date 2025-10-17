@@ -44,3 +44,42 @@ The `uuid_sortsupport` function is a PostgreSQL sort support strategy routine th
 - The abbreviation system can dynamically abort if not providing benefits
 - Critical for performance optimization in large-scale UUID sorting operations
 - Part of PostgreSQL's advanced sort optimization infrastructure
+
+## Simplified Source
+
+```c
+Datum uuid_sortsupport(PG_FUNCTION_ARGS) {
+    SortSupport ssup = (SortSupport) PG_GETARG_POINTER(0);
+
+    // Set primary comparator function
+    ssup->comparator = uuid_fast_cmp;
+    ssup->ssup_extra = NULL;
+
+    // Enable abbreviation support if requested
+    if (ssup->abbreviate) {
+        uuid_sortsupport_state *uss;
+        MemoryContext oldcontext;
+
+        // Switch to sort support memory context
+        oldcontext = MemoryContextSwitchTo(ssup->ssup_cxt);
+
+        // Initialize abbreviation state
+        uss = palloc(sizeof(uuid_sortsupport_state));
+        uss->input_count = 0;
+        uss->estimating = true;
+        initHyperLogLog(&uss->abbr_card, 10);  // 10-bit cardinality estimation
+
+        ssup->ssup_extra = uss;
+
+        // Set abbreviation functions
+        ssup->comparator = ssup_datum_unsigned_cmp;
+        ssup->abbrev_converter = uuid_abbrev_convert;
+        ssup->abbrev_abort = uuid_abbrev_abort;
+        ssup->abbrev_full_comparator = uuid_fast_cmp;
+
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    PG_RETURN_VOID();
+}
+```

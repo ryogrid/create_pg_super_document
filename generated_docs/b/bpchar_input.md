@@ -41,3 +41,52 @@ This function implements the core logic for processing BPCHAR input data. It han
 - The typmod parameter is measured in characters, not bytes
 - Allocates result using palloc, so it's freed automatically at end of transaction
 - This is a static function, only accessible within varchar.c
+
+## Simplified Source
+
+```c
+static BpChar *bpchar_input(const char *s, size_t len, int32 atttypmod, Node *escontext) {
+    BpChar *result;
+    char *r;
+    size_t maxlen;
+
+    // Use actual string length if no type modifier specified
+    if (atttypmod < (int32) VARHDRSZ) {
+        maxlen = len;
+    } else {
+        // Calculate required character length from typmod
+        maxlen = atttypmod - VARHDRSZ;
+        size_t charlen = pg_mbstrlen_with_len(s, len);
+
+        // Handle input longer than required length
+        if (charlen > maxlen) {
+            // Find byte boundary for maxlen characters
+            size_t mbmaxlen = pg_mbcharcliplen(s, len, maxlen);
+
+            // Verify excess characters are only spaces
+            for (size_t j = mbmaxlen; j < len; j++) {
+                if (s[j] != ' ') {
+                    ereturn(escontext, NULL, "value too long for type");
+                }
+            }
+            maxlen = len = mbmaxlen;
+        } else {
+            // Calculate byte length needed (including padding)
+            maxlen = len + (maxlen - charlen);
+        }
+    }
+
+    // Allocate result with proper varlena header
+    result = (BpChar *) palloc(maxlen + VARHDRSZ);
+    SET_VARSIZE(result, maxlen + VARHDRSZ);
+    r = VARDATA(result);
+
+    // Copy input data and blank-pad if needed
+    memcpy(r, s, len);
+    if (maxlen > len) {
+        memset(r + len, ' ', maxlen - len);
+    }
+
+    return result;
+}
+```

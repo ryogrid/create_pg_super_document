@@ -41,3 +41,86 @@ _PrintTocData is a core function in the custom archive format that handles the r
 
 ## Notes and Other Information
 This function includes special handling for Windows threading concerns where multiple threads might access the same lclTocEntry concurrently. The function implements a block caching mechanism to remember positions of data blocks encountered during sequential scans, improving performance for subsequent random access operations. The function handles both regular table data and large objects through different code paths, ensuring appropriate restoration logic for each data type.
+
+## Simplified Source
+```c
+static void _PrintTocData(ArchiveHandle *AH, TocEntry *te)
+{
+    lclContext *ctx = (lclContext *) AH->formatData;
+    lclTocEntry *tctx = (lclTocEntry *) te->formatData;
+    int blkType, id;
+
+    // Skip if no data to restore
+    if (tctx->dataState == K_OFFSET_NO_DATA)
+        return;
+
+    // Handle non-seekable files or unknown positions - scan sequentially
+    if (!ctx->hasSeek || tctx->dataState == K_OFFSET_POS_NOT_SET) {
+        // Start from last known position if seekable
+        if (ctx->hasSeek)
+            fseeko(AH->FH, ctx->lastFilePos, SEEK_SET);
+
+        // Search for the target block
+        for (;;) {
+            pgoff_t thisBlkPos = _getFilePos(AH, ctx);
+            _readBlockHeader(AH, &blkType, &id);
+
+            if (blkType == EOF || id == te->dumpId)
+                break;
+
+            // Cache block positions for future use
+            if (thisBlkPos >= 0) {
+                TocEntry *otherte = getTocEntryByDumpId(AH, id);
+                if (otherte && otherte->formatData) {
+                    lclTocEntry *othertctx = (lclTocEntry *) otherte->formatData;
+                    if (othertctx->dataState == K_OFFSET_POS_NOT_SET) {
+                        othertctx->dataPos = thisBlkPos;
+                        othertctx->dataState = K_OFFSET_POS_SET;
+                    }
+                }
+            }
+
+            // Skip over unwanted blocks
+            switch (blkType) {
+                case BLK_DATA:
+                    _skipData(AH);
+                    break;
+                case BLK_BLOBS:
+                    _skipLOs(AH);
+                    break;
+                default:
+                    pg_fatal("unrecognized data block type (%d)", blkType);
+            }
+        }
+    } else {
+        // Direct seek to known position
+        fseeko(AH->FH, tctx->dataPos, SEEK_SET);
+        _readBlockHeader(AH, &blkType, &id);
+    }
+
+    // Verify we found the correct block
+    if (blkType == EOF)
+        pg_fatal("could not find block ID %d in archive", te->dumpId);
+    if (id != te->dumpId)
+        pg_fatal("found unexpected block ID (%d) when reading data", id);
+
+    // Process the data block
+    switch (blkType) {
+        case BLK_DATA:
+            _PrintData(AH);
+            break;
+        case BLK_BLOBS:
+            _LoadLOs(AH, AH->public.ropt->dropSchema);
+            break;
+        default:
+            pg_fatal("unrecognized data block type %d", blkType);
+    }
+
+    // Update search position for future operations
+    if (ctx->hasSeek && tctx->dataState == K_OFFSET_POS_NOT_SET) {
+        pgoff_t curPos = _getFilePos(AH, ctx);
+        if (curPos > ctx->lastFilePos)
+            ctx->lastFilePos = curPos;
+    }
+}
+```

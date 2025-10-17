@@ -33,3 +33,39 @@ This static function builds and caches FmgrInfo structures for the output functi
 - Memory is allocated for all arguments but only populated from argidx onwards
 - Error handling includes validation of argument data types with appropriate error messages
 - The cache improves performance by avoiding repeated lookups of output function metadata during concatenation operations
+
+## Simplified Source
+
+```c
+static FmgrInfo *
+build_concat_foutcache(FunctionCallInfo fcinfo, int argidx)
+{
+    FmgrInfo *foutcache;
+    int i;
+
+    // Allocate cache in function's memory context for persistence
+    foutcache = (FmgrInfo *) MemoryContextAlloc(fcinfo->flinfo->fn_mcxt,
+                                                PG_NARGS() * sizeof(FmgrInfo));
+
+    // Build output function info for each argument starting from argidx
+    for (i = argidx; i < PG_NARGS(); i++)
+    {
+        Oid valtype, typOutput;
+        bool typIsVarlena;
+
+        // Get argument data type
+        valtype = get_fn_expr_argtype(fcinfo->flinfo, i);
+        if (!OidIsValid(valtype))
+            elog(ERROR, "could not determine data type of concat() input");
+
+        // Get output function info for this type
+        getTypeOutputInfo(valtype, &typOutput, &typIsVarlena);
+        fmgr_info_cxt(typOutput, &foutcache[i], fcinfo->flinfo->fn_mcxt);
+    }
+
+    // Store cache in function extra data
+    fcinfo->flinfo->fn_extra = foutcache;
+
+    return foutcache;
+}
+```

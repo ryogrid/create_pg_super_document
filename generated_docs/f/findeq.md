@@ -42,3 +42,102 @@ The function sets the QTN_NOCHANGE flag on successfully modified nodes to preven
 - Handles the QTN_NOCHANGE flag to avoid redundant processing in recursive scenarios
 - The subset matching algorithm works only for AND/OR operators due to their commutative/associative properties
 - Memory management is carefully handled with proper cleanup of replaced nodes and copying of substitution nodes
+
+## Simplified Source
+
+```c
+static QTNode *
+findeq(QTNode *node, QTNode *ex, QTNode *subs, bool *isfind)
+{
+    // Quick signature and type check
+    if ((node->sign & ex->sign) != ex->sign ||
+        node->valnode->type != ex->valnode->type ||
+        node->flags & QTN_NOCHANGE)
+        return node;
+
+    if (node->valnode->type == QI_OPR)
+    {
+        // Must be same operator
+        if (node->valnode->qoperator.oper != ex->valnode->qoperator.oper)
+            return node;
+
+        if (node->nchild == ex->nchild)
+        {
+            // Simple case: exact match when same number of children
+            if (QTNEq(node, ex))
+            {
+                QTNFree(node);
+                node = subs ? QTNCopy(subs) : NULL;
+                if (node) node->flags |= QTN_NOCHANGE;
+                *isfind = true;
+            }
+        }
+        else if (node->nchild > ex->nchild && ex->nchild > 0 &&
+                 (node->valnode->qoperator.oper == OP_AND ||
+                  node->valnode->qoperator.oper == OP_OR))
+        {
+            // Subset matching for associative operators (AND/OR)
+            bool *matched = palloc0(node->nchild * sizeof(bool));
+            int nmatched = 0;
+            int i = 0, j = 0;
+
+            // Find matching children in sorted order
+            while (i < node->nchild && j < ex->nchild)
+            {
+                int cmp = QTNodeCompare(node->child[i], ex->child[j]);
+                if (cmp == 0)
+                {
+                    matched[i] = true;
+                    nmatched++;
+                    i++; j++;
+                }
+                else if (cmp < 0)
+                    i++;
+                else
+                    break;
+            }
+
+            // If all ex children matched, replace them with subs
+            if (nmatched == ex->nchild)
+            {
+                // Remove matched children and insert substitution
+                j = 0;
+                for (i = 0; i < node->nchild; i++)
+                {
+                    if (matched[i])
+                        QTNFree(node->child[i]);
+                    else
+                        node->child[j++] = node->child[i];
+                }
+
+                if (subs)
+                {
+                    subs = QTNCopy(subs);
+                    subs->flags |= QTN_NOCHANGE;
+                    node->child[j++] = subs;
+                }
+
+                node->nchild = j;
+                QTNSort(node);  // Re-sort for consistency
+                *isfind = true;
+            }
+
+            pfree(matched);
+        }
+    }
+    else  // QI_VAL
+    {
+        // Value node: check CRC and exact equality
+        if (node->valnode->qoperand.valcrc == ex->valnode->qoperand.valcrc &&
+            QTNEq(node, ex))
+        {
+            QTNFree(node);
+            node = subs ? QTNCopy(subs) : NULL;
+            if (node) node->flags |= QTN_NOCHANGE;
+            *isfind = true;
+        }
+    }
+
+    return node;
+}
+```

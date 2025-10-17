@@ -56,3 +56,70 @@ This function takes no parameters and operates on global variables set during co
 - Objects created after  are not "pinned" and can be dropped by database administrators
 - Uses PG_CMD_OPEN/PG_CMD_CLOSE macros to manage communication with the standalone backend process
 - Failure at any step results in a fatal error and incomplete cluster initialization
+
+## Simplified Source
+
+```c
+void initialize_data_directory(void) {
+    // Set up environment and permissions
+    setup_signals();
+    umask(pg_mode_mask);
+
+    // Create directory structure
+    create_data_directory();
+    create_xlog_or_symlink();
+
+    // Create all required subdirectories
+    printf("creating subdirectories ... ");
+    for (int i = 0; i < lengthof(subdirs); i++) {
+        char *path = psprintf("%s/%s", pg_data, subdirs[i]);
+        if (mkdir(path, pg_dir_create_mode) < 0) {
+            pg_fatal("could not create directory \"%s\": %m", path);
+        }
+        free(path);
+    }
+    check_ok();
+
+    // Create version files and configuration
+    write_version_file(NULL);
+    set_null_conf();
+    test_config_settings();
+    setup_config();
+
+    // Bootstrap template1 database
+    bootstrap_template1();
+    write_version_file("base/1");
+
+    // Post-bootstrap initialization using standalone backend
+    printf("performing post-bootstrap initialization ... ");
+
+    // Initialize backend command
+    initPQExpBuffer(&cmd);
+    printfPQExpBuffer(&cmd, "\"%s\" %s %s template1 >%s",
+                      backend_exec, backend_options, extra_options, DEVNULL);
+    PG_CMD_OPEN(cmd.data);
+
+    // Set up system components in dependency order
+    setup_auth(cmdfd);
+    setup_run_file(cmdfd, system_constraints_file);
+    setup_run_file(cmdfd, system_functions_file);
+    setup_depend(cmdfd);
+    setup_run_file(cmdfd, system_views_file);
+    setup_description(cmdfd);
+    setup_collation(cmdfd);
+    setup_run_file(cmdfd, dictionary_file);
+    setup_privileges(cmdfd);
+    setup_schema(cmdfd);
+    load_plpgsql(cmdfd);
+    vacuum_db(cmdfd);
+
+    // Create template0 and postgres databases
+    make_template0(cmdfd);
+    make_postgres(cmdfd);
+
+    // Clean up
+    PG_CMD_CLOSE();
+    termPQExpBuffer(&cmd);
+    check_ok();
+}
+```

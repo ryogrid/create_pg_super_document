@@ -44,3 +44,43 @@ The function includes comprehensive error handling for connection failures, quer
 - Error conditions result in program termination via 
 - Located in src/bin/pg_basebackup/pg_createsubscriber.c:560-600
 - The returned system identifier is logged for diagnostic purposes
+
+## Simplified Source
+
+```c
+static uint64
+get_primary_sysid(const char *conninfo)
+{
+    pg_log_info("getting system identifier from publisher");
+
+    // Connect to the publisher database
+    PGconn *conn = connect_database(conninfo, true);
+
+    // Query the system identifier
+    PGresult *res = PQexec(conn, "SELECT system_identifier FROM pg_catalog.pg_control_system()");
+    if (PQresultStatus(res) != PGRES_TUPLES_OK)
+    {
+        pg_log_error("could not get system identifier: %s", PQresultErrorMessage(res));
+        disconnect_database(conn, true);
+    }
+
+    // Validate result has exactly one row
+    if (PQntuples(res) != 1)
+    {
+        pg_log_error("could not get system identifier: got %d rows, expected %d row",
+                     PQntuples(res), 1);
+        disconnect_database(conn, true);
+    }
+
+    // Extract and convert system identifier
+    uint64 sysid = strtou64(PQgetvalue(res, 0, 0), NULL, 10);
+
+    pg_log_info("system identifier is %llu on publisher", (unsigned long long) sysid);
+
+    // Cleanup and return
+    PQclear(res);
+    disconnect_database(conn, false);
+
+    return sysid;
+}
+```

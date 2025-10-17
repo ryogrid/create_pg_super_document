@@ -50,3 +50,54 @@ This function uses PostgreSQL's function call convention:
 - Used internally by PostgreSQL for network communication and binary storage
 - Counterpart to  which deserializes the binary format back to TSQuery
 - Located in src/backend/utils/adt/tsquery.c:1189-1226
+
+## Simplified Source
+
+```c
+Datum
+tsquerysend(PG_FUNCTION_ARGS)
+{
+    // Get input TSQuery and initialize binary output buffer
+    TSQuery query = PG_GETARG_TSQUERY(0);
+    StringInfoData buf;
+    int i;
+    QueryItem *item = GETQUERY(query);
+
+    pq_begintypsend(&buf);
+
+    // Send number of query items
+    pq_sendint32(&buf, query->size);
+
+    // Serialize each query item
+    for (i = 0; i < query->size; i++)
+    {
+        // Send item type
+        pq_sendint8(&buf, item->type);
+
+        switch (item->type)
+        {
+            case QI_VAL:
+                // Serialize operand: weight, prefix flag, and text
+                pq_sendint8(&buf, item->qoperand.weight);
+                pq_sendint8(&buf, item->qoperand.prefix);
+                pq_sendstring(&buf, GETOPERAND(query) + item->qoperand.distance);
+                break;
+
+            case QI_OPR:
+                // Serialize operator: operator type and distance for phrase ops
+                pq_sendint8(&buf, item->qoperator.oper);
+                if (item->qoperator.oper == OP_PHRASE)
+                    pq_sendint16(&buf, item->qoperator.distance);
+                break;
+
+            default:
+                elog(ERROR, "unrecognized tsquery node type: %d", item->type);
+        }
+        item++;
+    }
+
+    // Clean up and return binary data
+    PG_FREE_IF_COPY(query, 0);
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

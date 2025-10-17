@@ -32,3 +32,12 @@ Like its counterpart `regnamespacerecv`, this function implementation delegates 
 - Part of the regproc family of functions that handle various registry data types
 - Located in src/backend/utils/adt/regproc.c alongside other registry type functions
 - Binary output functions like this are typically called during binary protocol communication between PostgreSQL server and clients
+
+## Simplified Source
+
+```c
+Datum regnamespacesend(PG_FUNCTION_ARGS) {
+    // Delegates to oidsend since regnamespace is internally an OID
+    return oidsend(fcinfo);
+}
+```

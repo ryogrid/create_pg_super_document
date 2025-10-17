@@ -40,3 +40,14 @@ This function is deliberately simple and focuses solely on generating the closin
 - Must be called with the same element name as the corresponding `xmldata_root_element_start` call
 - Used consistently across all XML-to-data mapping functions for uniform XML structure
 - Essential for generating well-formed XML that passes validation
+
+## Simplified Source
+
+```c
+static void
+xmldata_root_element_end(StringInfo result, const char *eltname)
+{
+    // Generate closing XML tag with newline
+    appendStringInfo(result, "</%s>\n", eltname);
+}
+```

@@ -40,3 +40,44 @@ The `bytea_overlay` function implements the core logic for the SQL OVERLAY() ope
 - Throws ERRCODE_SUBSTRING_ERROR for negative start positions
 - Throws ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE for integer overflow conditions
 - Located in src/backend/utils/adt/varlena.c:3118-3150
+
+## Simplified Source
+
+```c
+static bytea *
+bytea_overlay(bytea *target, bytea *replacement, int start_pos, int replace_len)
+{
+    bytea *result;
+    bytea *before_part;   // Part before replacement
+    bytea *after_part;    // Part after replacement
+    int end_pos;
+
+    // Validate start position (must be positive per SQL standard)
+    if (start_pos <= 0)
+        ereport(ERROR, (errcode(ERRCODE_SUBSTRING_ERROR),
+                       errmsg("negative substring length not allowed")));
+
+    // Check for integer overflow when calculating end position
+    if (pg_add_s32_overflow(start_pos, replace_len, &end_pos))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("integer out of range")));
+
+    // Extract the part before the replacement point (1 to start_pos-1)
+    before_part = bytea_substring(PointerGetDatum(target), 1, start_pos - 1, false);
+
+    // Extract the part after the replacement point (end_pos to end)
+    after_part = bytea_substring(PointerGetDatum(target), end_pos, -1, true);
+
+    // Concatenate: before_part + replacement + after_part
+    result = bytea_catenate(before_part, replacement);
+    result = bytea_catenate(result, after_part);
+
+    return result;
+}
+```
+
+**Key Points:**
+- Implements SQL OVERLAY() operation by replacing a substring with new data
+- Validates start position and checks for integer overflow
+- Uses bytea_substring to extract parts before/after replacement point
+- Concatenates the three parts: before + replacement + after

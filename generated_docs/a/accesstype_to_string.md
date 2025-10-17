@@ -47,3 +47,49 @@ The function uses psprintf() to format the output string, including both the acc
 - Essential for making audit logs human-readable by converting internal enum values to descriptive text
 - The hexadecimal subId display helps with debugging by showing the raw flag values
 - Used throughout the hook functions to provide consistent string representations for logging purposes
+
+## Simplified Source
+
+```c
+static char *accesstype_to_string(ObjectAccessType access, int subId) {
+    const char *type;
+
+    // Convert access type enum to string
+    switch (access) {
+        case OAT_POST_CREATE:
+            type = "create";
+            break;
+        case OAT_DROP:
+            type = "drop";
+            break;
+        case OAT_POST_ALTER:
+            type = "alter";
+            break;
+        case OAT_NAMESPACE_SEARCH:
+            type = "namespace search";
+            break;
+        case OAT_FUNCTION_EXECUTE:
+            type = "execute";
+            break;
+        case OAT_TRUNCATE:
+            type = "truncate";
+            break;
+        default:
+            type = "UNRECOGNIZED ObjectAccessType";
+    }
+
+    // Handle special subId flag combinations for ACL operations
+    if ((subId & ACL_SET) && (subId & ACL_ALTER_SYSTEM)) {
+        return psprintf("%s (subId=0x%x, all privileges)", type, subId);
+    }
+    if (subId & ACL_SET) {
+        return psprintf("%s (subId=0x%x, set)", type, subId);
+    }
+    if (subId & ACL_ALTER_SYSTEM) {
+        return psprintf("%s (subId=0x%x, alter system)", type, subId);
+    }
+
+    // Default case with hex subId
+    return psprintf("%s (subId=0x%x)", type, subId);
+}
+```

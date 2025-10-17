@@ -54,3 +54,57 @@ The `mic2latin_with_table` function converts from PostgreSQL's internal MIC form
 - Provides the reverse operation to `latin2mic_with_table` for round-trip conversion capability
 - Essential for complex MIC to single-byte encoding conversions where direct mapping is not possible
 - Part of PostgreSQL's bidirectional character encoding conversion system
+
+## Simplified Source
+
+```c
+int mic2latin_with_table(const unsigned char *mic, unsigned char *p, int len,
+                         int lc, int encoding, const unsigned char *tab,
+                         bool noError)
+{
+    const unsigned char *start = mic;
+
+    while (len > 0) {
+        unsigned char c1 = *mic;
+
+        // Check for null byte (invalid)
+        if (c1 == 0) {
+            if (noError) break;
+            report_invalid_encoding(PG_MULE_INTERNAL, (const char *) mic, len);
+        }
+
+        // ASCII characters: copy directly
+        if (!IS_HIGHBIT_SET(c1)) {
+            *p++ = c1;
+            mic++;
+            len--;
+        }
+        // MIC multi-byte sequence
+        else {
+            int mblen = pg_mule_mblen(mic);
+
+            // Validate sequence length
+            if (len < mblen) {
+                if (noError) break;
+                report_invalid_encoding(PG_MULE_INTERNAL, (const char *) mic, len);
+            }
+
+            // Extract and validate 2-byte MIC sequence
+            unsigned char c2 = tab[mic[1] - HIGHBIT];
+            if (mblen != 2 || c1 != lc || !IS_HIGHBIT_SET(mic[1]) || c2 == 0) {
+                if (noError) break;
+                report_untranslatable_char(PG_MULE_INTERNAL, encoding,
+                                         (const char *) mic, len);
+            }
+
+            // Output translated character
+            *p++ = c2;
+            mic += 2;
+            len -= 2;
+        }
+    }
+
+    *p = '\0';
+    return mic - start;  // Return bytes consumed
+}
+```

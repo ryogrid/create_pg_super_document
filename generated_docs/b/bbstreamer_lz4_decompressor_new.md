@@ -35,3 +35,33 @@ Similar to the compressor, this function only compiles when USE_LZ4 is defined a
 - Uses pg_fatal instead of pg_log_error for context creation failures (more severe)
 - Complements the compression functionality for complete backup/restore LZ4 support
 - Part of the streaming decompression pipeline for restoring compressed PostgreSQL backups
+
+## Simplified Source
+
+```c
+bbstreamer *
+bbstreamer_lz4_decompressor_new(bbstreamer *next)
+{
+#ifdef USE_LZ4
+    bbstreamer_lz4_frame *streamer;
+    LZ4F_errorCode_t ctxError;
+
+    // Allocate and initialize LZ4 decompression streamer
+    streamer = palloc0(sizeof(bbstreamer_lz4_frame));
+    streamer->base.bbs_ops = &bbstreamer_lz4_decompressor_ops;
+    streamer->base.bbs_next = next;
+    initStringInfo(&streamer->base.bbs_buffer);
+
+    // Create LZ4 decompression context
+    ctxError = LZ4F_createDecompressionContext(&streamer->dctx, LZ4F_VERSION);
+    if (LZ4F_isError(ctxError))
+        pg_fatal("could not initialize compression library: %s",
+                 LZ4F_getErrorName(ctxError));
+
+    return &streamer->base;
+#else
+    pg_fatal("this build does not support compression with %s", "LZ4");
+    return NULL;
+#endif
+}
+```

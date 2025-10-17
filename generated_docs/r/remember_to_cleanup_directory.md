@@ -34,3 +34,19 @@ This function creates a new cleanup directory entry and adds it to the front of 
 - Works in conjunction with cleanup routines that process the cleanup_dir_list
 - Memory for the cb_cleanup_dir structure is allocated but not freed by this function
 - File location: src/bin/pg_combinebackup/pg_combinebackup.c:1205-1225
+
+## Simplified Source
+
+```c
+static void remember_to_cleanup_directory(char *target_path, bool rmtopdir) {
+    cb_cleanup_dir *dir = pg_malloc(sizeof(cb_cleanup_dir));
+
+    // Initialize cleanup directory entry
+    dir->target_path = target_path;
+    dir->rmtopdir = rmtopdir;
+
+    // Add to front of cleanup list (LIFO)
+    dir->next = cleanup_dir_list;
+    cleanup_dir_list = dir;
+}
+```

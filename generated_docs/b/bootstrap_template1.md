@@ -47,3 +47,61 @@ This function takes no parameters but operates on numerous global variables incl
 - The PGCLIENTENCODING environment variable is cleared to avoid confusion during bootstrap
 - Creates the foundation template1 database which will be copied to create other databases
 - This process is essential and must complete successfully for the cluster initialization to succeed
+
+## Simplified Source
+
+```c
+static void bootstrap_template1(void) {
+    PG_CMD_DECL;
+    PQExpBufferData cmd;
+    char **bki_lines;
+    char headerline[MAXPGPATH];
+    char buf[64];
+
+    printf(_("running bootstrap script ... "));
+    fflush(stdout);
+
+    // Read and validate BKI file
+    bki_lines = readfile(bki_file);
+    snprintf(headerline, sizeof(headerline), "# PostgreSQL %s\n", PG_MAJORVERSION);
+    if (strcmp(headerline, *bki_lines) != 0) {
+        pg_log_error("input file \"%s\" does not belong to PostgreSQL %s", bki_file, PG_VERSION);
+        exit(1);
+    }
+
+    // Substitute tokens in BKI file
+    sprintf(buf, "%d", NAMEDATALEN);
+    bki_lines = replace_token(bki_lines, "NAMEDATALEN", buf);
+
+    sprintf(buf, "%d", (int) sizeof(Pointer));
+    bki_lines = replace_token(bki_lines, "SIZEOF_POINTER", buf);
+
+    bki_lines = replace_token(bki_lines, "POSTGRES", escape_quotes_bki(username));
+    bki_lines = replace_token(bki_lines, "ENCODING", encodingid_to_string(encodingid));
+    bki_lines = replace_token(bki_lines, "LC_COLLATE", escape_quotes_bki(lc_collate));
+    bki_lines = replace_token(bki_lines, "LC_CTYPE", escape_quotes_bki(lc_ctype));
+
+    // Clear environment variable to avoid confusion
+    unsetenv("PGCLIENTENCODING");
+
+    // Build backend command
+    initPQExpBuffer(&cmd);
+    printfPQExpBuffer(&cmd, "\"%s\" --boot %s %s", backend_exec, boot_options, extra_options);
+    appendPQExpBuffer(&cmd, " -X %d", wal_segment_size_mb * (1024 * 1024));
+    if (data_checksums)
+        appendPQExpBuffer(&cmd, " -k");
+
+    // Execute BKI script
+    PG_CMD_OPEN(cmd.data);
+    for (char **line = bki_lines; *line != NULL; line++) {
+        PG_CMD_PUTS(*line);
+        free(*line);
+    }
+    PG_CMD_CLOSE();
+
+    // Cleanup
+    termPQExpBuffer(&cmd);
+    free(bki_lines);
+    check_ok();
+}
+```

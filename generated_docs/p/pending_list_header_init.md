@@ -31,3 +31,14 @@ The pending list uses separate list links (pending_prev and pending_next) from t
 - The circular list design with a dummy header simplifies list manipulation operations by eliminating special cases for empty lists
 - The separate pending list links allow for sophisticated scheduling and dependency management during database restore operations
 - The function is located at src/bin/pg_dump/pg_backup_archiver.c:4454-4460
+
+## Simplified Source
+
+```c
+static void
+pending_list_header_init(TocEntry *l)
+{
+    // Initialize circular doubly-linked list with dummy header
+    l->pending_prev = l->pending_next = l;
+}
+```

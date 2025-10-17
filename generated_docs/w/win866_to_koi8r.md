@@ -43,3 +43,23 @@ WIN866 is the Cyrillic code page used in MS-DOS and IBM PC systems in Russian en
 - Part of PostgreSQL's modular character encoding conversion system
 - Returns the number of bytes converted, enabling detection of partial conversions
 - The conversion uses direct character mapping rather than Unicode intermediate conversion
+
+## Simplified Source
+
+```c
+Datum win866_to_koi8r(PG_FUNCTION_ARGS) {
+    // Extract function parameters
+    unsigned char *src = PG_GETARG_CSTRING(2);   // Source WIN866 string
+    unsigned char *dest = PG_GETARG_CSTRING(3);  // Destination KOI8-R buffer
+    int len = PG_GETARG_INT32(4);                 // Length to convert
+    bool noError = PG_GETARG_BOOL(5);            // Error handling flag
+
+    // Validate encoding compatibility
+    CHECK_ENCODING_CONVERSION_ARGS(PG_WIN866, PG_KOI8R);
+
+    // Perform character conversion using mapping table
+    int converted = local2local(src, dest, len, PG_WIN866, PG_KOI8R, win8662koi, noError);
+
+    return converted;  // Return number of bytes converted
+}
+```

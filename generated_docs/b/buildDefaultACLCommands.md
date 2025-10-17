@@ -48,3 +48,37 @@ The function incorporates the target role directly into the command rather than 
 - Default privileges can be set either globally (when nspname is NULL) or for a specific schema
 - The resulting commands modify what permissions are granted by default for future object creation
 - Location: src/bin/pg_dump/dumputils.c:364-420
+
+## Simplified Source
+
+```c
+bool
+buildDefaultACLCommands(const char *type, const char *nspname,
+                        const char *acls, const char *acldefault,
+                        const char *owner,
+                        int remoteVersion,
+                        PQExpBuffer sql)
+{
+    PQExpBuffer prefix;
+
+    prefix = createPQExpBuffer();
+
+    // Build the ALTER DEFAULT PRIVILEGES command prefix
+    appendPQExpBuffer(prefix, "ALTER DEFAULT PRIVILEGES FOR ROLE %s ",
+                      fmtId(owner));
+    if (nspname)
+        appendPQExpBuffer(prefix, "IN SCHEMA %s ", fmtId(nspname));
+
+    // Delegate to buildACLCommands with empty name/subname
+    // since default ACLs apply to object types, not specific objects
+    if (!buildACLCommands("", NULL, NULL, type,
+                          acls, acldefault, owner,
+                          prefix->data, remoteVersion, sql)) {
+        destroyPQExpBuffer(prefix);
+        return false;
+    }
+
+    destroyPQExpBuffer(prefix);
+    return true;
+}
+```

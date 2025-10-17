@@ -50,3 +50,33 @@ The function distinguishes between top-level elements (where namespace declarati
 - Works in conjunction with `xmldata_root_element_end` to create balanced XML tags
 - Generates namespace-aware XML following W3C standards
 - FIXME comment indicates schema location handling could be improved
+
+## Simplified Source
+
+```c
+static void
+xmldata_root_element_start(StringInfo result, const char *eltname,
+                          const char *xmlschema, const char *targetns,
+                          bool top_level)
+{
+    // Start the XML element
+    appendStringInfo(result, "<%s", eltname);
+
+    // Add namespace declarations only at top level
+    if (top_level) {
+        appendStringInfoString(result, " xmlns:xsi=\"" NAMESPACE_XSI "\"");
+        if (strlen(targetns) > 0)
+            appendStringInfo(result, " xmlns=\"%s\"", targetns);
+    }
+
+    // Add schema location if provided
+    if (xmlschema) {
+        if (strlen(targetns) > 0)
+            appendStringInfo(result, " xsi:schemaLocation=\"%s #\"", targetns);
+        else
+            appendStringInfoString(result, " xsi:noNamespaceSchemaLocation=\"#\"");
+    }
+
+    appendStringInfoString(result, ">\n");
+}
+```

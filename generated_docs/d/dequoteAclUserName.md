@@ -32,3 +32,37 @@ This function processes ACL (Access Control List) user names by extracting them 
 - Handles syntax errors gracefully by returning current position on malformed input
 - Used specifically for parsing ACL entries during PostgreSQL dump operations
 - The function clears the output buffer before processing, unlike quoteAclUserName()
+
+## Simplified Source
+
+```c
+static char *dequoteAclUserName(PQExpBuffer output, char *input) {
+    resetPQExpBuffer(output);
+
+    // Process characters until '=' or end of string
+    while (*input && *input != '=') {
+        if (*input != '"') {
+            // Unquoted character - add directly
+            appendPQExpBufferChar(output, *input++);
+        } else {
+            // Quoted name - skip opening quote
+            input++;
+
+            // Process until unescaped closing quote
+            while (!(*input == '"' && *(input + 1) != '"')) {
+                if (*input == '\0')
+                    return input;  // Malformed input
+
+                // Handle escaped quotes ("" becomes ")
+                if (*input == '"' && *(input + 1) == '"')
+                    input++;  // Skip first quote of pair
+
+                appendPQExpBufferChar(output, *input++);
+            }
+            input++;  // Skip closing quote
+        }
+    }
+
+    return input;
+}
+```

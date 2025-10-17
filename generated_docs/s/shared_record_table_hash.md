@@ -38,3 +38,23 @@ The function works in conjunction with shared_record_table_compare to provide co
 - The hash value is computed using hashRowType, ensuring consistency with equalRowTypes comparison semantics
 - The function is static and only used internally within the typcache.c module
 - Returns a uint32 hash value suitable for hash table indexing
+
+## Simplified Source
+
+```c
+static uint32 shared_record_table_hash(const void *a, size_t size, void *arg) {
+    dsa_area *area = (dsa_area *) arg;
+    SharedRecordTableKey *key = (SharedRecordTableKey *) a;
+    TupleDesc tupdesc;
+
+    // Extract TupleDesc from either shared or local memory
+    if (key->shared) {
+        tupdesc = (TupleDesc) dsa_get_address(area, key->u.shared_tupdesc);
+    } else {
+        tupdesc = key->u.local_tupdesc;
+    }
+
+    // Compute hash value using the TupleDesc
+    return hashRowType(tupdesc);
+}
+```

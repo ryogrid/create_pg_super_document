@@ -53,3 +53,52 @@ The function builds a tree structure of plan states that mirrors the logical str
 - Initial row pattern state is set to null/invalid, indicating no pattern has been evaluated yet
 - The recursive nature allows for complex nested JSON_TABLE structures with multiple levels
 - Memory context naming uses "JsonTableExecContext" for easier debugging and memory tracking
+
+## Simplified Source
+
+```c
+static JsonTablePlanState *
+JsonTableInitPlan(JsonTableExecContext *cxt, JsonTablePlan *plan,
+                  JsonTablePlanState *parentstate,
+                  List *args, MemoryContext mcxt)
+{
+    JsonTablePlanState *planstate = palloc0(sizeof(*planstate));
+
+    planstate->plan = plan;
+    planstate->parent = parentstate;
+
+    if (IsA(plan, JsonTablePathScan)) {
+        JsonTablePathScan *scan = (JsonTablePathScan *) plan;
+        int i;
+
+        // Extract jsonpath and set up execution context
+        planstate->path = DatumGetJsonPathP(scan->path->value->constvalue);
+        planstate->args = args;
+        planstate->mcxt = AllocSetContextCreate(mcxt, "JsonTableExecContext",
+                                               ALLOCSET_DEFAULT_SIZES);
+
+        // Initialize current row pattern (no pattern evaluated yet)
+        planstate->current.value = PointerGetDatum(NULL);
+        planstate->current.isnull = true;
+
+        // Map columns to this plan state
+        for (i = scan->colMin; i >= 0 && i <= scan->colMax; i++)
+            cxt->colplanstates[i] = planstate;
+
+        // Recursively initialize child plan if present
+        planstate->nested = scan->child ?
+            JsonTableInitPlan(cxt, scan->child, planstate, args, mcxt) : NULL;
+    }
+    else if (IsA(plan, JsonTableSiblingJoin)) {
+        JsonTableSiblingJoin *join = (JsonTableSiblingJoin *) plan;
+
+        // Recursively initialize left and right child plans
+        planstate->left = JsonTableInitPlan(cxt, join->lplan, parentstate,
+                                           args, mcxt);
+        planstate->right = JsonTableInitPlan(cxt, join->rplan, parentstate,
+                                            args, mcxt);
+    }
+
+    return planstate;
+}
+```

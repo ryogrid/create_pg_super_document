@@ -53,3 +53,73 @@ The function supports both synchronous and asynchronous modes, with synchronous 
 - Returns NULL on error, with error details stored in wwmethod->lasterrno or lasterrstring
 - The returned Walfile structure must be properly closed using dir_close
 - File descriptor is tracked for all files (compressed and uncompressed) for sync operations
+
+## Simplified Source
+
+```c
+static Walfile *
+dir_open_for_write(WalWriteMethod *wwmethod, const char *pathname,
+                   const char *temp_suffix, size_t pad_to_size) {
+    DirectoryMethodData *dir_data = (DirectoryMethodData *) wwmethod;
+    char tmppath[MAXPGPATH];
+    char *filename;
+    int fd;
+    DirectoryMethodFile *f;
+
+    clear_error(wwmethod);
+
+    // Construct full file path
+    filename = dir_get_file_name(wwmethod, pathname, temp_suffix);
+    snprintf(tmppath, sizeof(tmppath), "%s/%s", dir_data->basedir, filename);
+    pg_free(filename);
+
+    // Create the file
+    fd = open(tmppath, O_WRONLY | O_CREAT | PG_BINARY, pg_file_create_mode);
+    if (fd < 0) {
+        wwmethod->lasterrno = errno;
+        return NULL;
+    }
+
+    // Initialize compression if needed
+    if (wwmethod->compression_algorithm == PG_COMPRESSION_GZIP) {
+        // Setup gzip compression context
+        // (compression setup details omitted for brevity)
+    }
+    if (wwmethod->compression_algorithm == PG_COMPRESSION_LZ4) {
+        // Setup LZ4 compression context and write header
+        // (compression setup details omitted for brevity)
+    }
+
+    // Pre-pad uncompressed files if requested
+    if (pad_to_size && wwmethod->compression_algorithm == PG_COMPRESSION_NONE) {
+        if (pg_pwrite_zeros(fd, pad_to_size, 0) < 0) {
+            wwmethod->lasterrno = errno;
+            close(fd);
+            return NULL;
+        }
+        // Reset file position after padding
+        lseek(fd, 0, SEEK_SET);
+    }
+
+    // Sync file and directory if in sync mode
+    if (wwmethod->sync) {
+        if (fsync_fname(tmppath, false) != 0 || fsync_parent_path(tmppath) != 0) {
+            wwmethod->lasterrno = errno;
+            close(fd);
+            return NULL;
+        }
+    }
+
+    // Create and initialize file structure
+    f = pg_malloc0(sizeof(DirectoryMethodFile));
+    f->base.wwmethod = wwmethod;
+    f->base.currpos = 0;
+    f->base.pathname = pg_strdup(pathname);
+    f->fd = fd;
+    f->fullpath = pg_strdup(tmppath);
+    if (temp_suffix)
+        f->temp_suffix = pg_strdup(temp_suffix);
+
+    return &f->base;
+}
+```

@@ -36,3 +36,22 @@ The support function is part of PostgreSQL's extensible type system, allowing da
 - Uses MAX_TIMESTAMP_PRECISION as the upper bound for precision specifications
 - Returns NULL for unsupported request types, allowing for future extensibility
 - Located in src/backend/utils/adt/timestamp.c:325-344
+
+## Simplified Source
+
+```c
+Datum timestamp_support(PG_FUNCTION_ARGS) {
+    Node *rawreq = (Node *) PG_GETARG_POINTER(0);
+    Node *ret = NULL;
+
+    // Handle simplification requests from planner
+    if (IsA(rawreq, SupportRequestSimplify)) {
+        SupportRequestSimplify *req = (SupportRequestSimplify *) rawreq;
+
+        // Delegate to temporal simplification with max precision
+        ret = TemporalSimplify(MAX_TIMESTAMP_PRECISION, (Node *) req->fcall);
+    }
+
+    PG_RETURN_POINTER(ret);
+}
+```

@@ -46,3 +46,36 @@ The test creates an input buffer filled with ASCII dash characters ('-') and ter
 - The test expects PQescapeLiteral to return NULL for invalid input, indicating graceful failure
 - Part of PostgreSQL's memory safety testing infrastructure
 - Comments indicate that smaller buffer sizes (4096 bytes) didn't trigger the issue, while 8192 bytes did on the tested system
+
+## Simplified Source
+
+```c
+static void
+test_gb18030_page_multiple(pe_test_config *tc)
+{
+    PQExpBuffer testname;
+    size_t input_len = 0x20000;  // 128 KiB to hit page boundaries
+    char *input;
+
+    // Create large buffer ending with invalid GB18030 byte
+    input = pg_malloc(input_len);
+    memset(input, '-', input_len - 1);
+    input[input_len - 1] = 0xfe;  // Invalid GB18030 byte
+
+    // Create test description
+    testname = createPQExpBuffer();
+    appendPQExpBuffer(testname, ">repeat(%c, %zu)", input[0], input_len - 1);
+    escapify(testname, input + input_len - 1, 1);
+    appendPQExpBuffer(testname, "< - GB18030 - PQescapeLiteral");
+
+    // Test memory boundary safety
+    PQsetClientEncoding(tc->conn, "GB18030");
+    report_result(tc, PQescapeLiteral(tc->conn, input, input_len) == NULL,
+                  testname->data, "",
+                  "input validity vs escape success", "ok");
+
+    // Cleanup
+    destroyPQExpBuffer(testname);
+    pg_free(input);
+}
+```

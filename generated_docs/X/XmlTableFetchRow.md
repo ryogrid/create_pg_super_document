@@ -43,3 +43,43 @@ The function returns true when a new row is available for processing, and false 
 - Maintains an internal row_count to track iteration through the node set
 - The function assumes that XmlTableSetRowFilter and XmlTableSetDocument have been called previously
 - Returns false for empty node sets or when all nodes have been processed
+
+## Simplified Source
+
+```c
+static bool
+XmlTableFetchRow(TableFuncScanState *state)
+{
+#ifdef USE_LIBXML
+    XmlTableBuilderData *xtCxt = GetXmlTableBuilderPrivateData(state, "XmlTableFetchRow");
+
+    // Set up error handling context
+    xmlSetStructuredErrorFunc((void *) xtCxt->xmlerrcxt, xml_errorHandler);
+
+    // Lazy evaluation: execute XPath expression on first call
+    if (xtCxt->xpathobj == NULL)
+    {
+        xtCxt->xpathobj = xmlXPathCompiledEval(xtCxt->xpathcomp, xtCxt->xpathcxt);
+        if (xtCxt->xpathobj == NULL || xtCxt->xmlerrcxt->err_occurred)
+            xml_ereport(xtCxt->xmlerrcxt, ERROR, ERRCODE_INTERNAL_ERROR,
+                        "could not create XPath object");
+        xtCxt->row_count = 0;
+    }
+
+    // Check if we have more rows in the nodeset
+    if (xtCxt->xpathobj->type == XPATH_NODESET)
+    {
+        if (xtCxt->xpathobj->nodesetval != NULL)
+        {
+            if (xtCxt->row_count++ < xtCxt->xpathobj->nodesetval->nodeNr)
+                return true;
+        }
+    }
+
+    return false;
+#else
+    NO_XML_SUPPORT();
+    return false;
+#endif
+}
+```

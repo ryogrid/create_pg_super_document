@@ -32,3 +32,17 @@ This function implements the greater-than comparison operator (>) for PostgreSQL
 - Uses the internal comparison function for consistent comparison logic across all timestamp operators
 - Returns a Datum (PostgreSQL's generic return type) containing a boolean value
 - Located in src/backend/utils/adt/timestamp.c:2243-2251
+
+## Simplified Source
+
+```c
+Datum
+timestamp_gt(PG_FUNCTION_ARGS)
+{
+    Timestamp dt1 = PG_GETARG_TIMESTAMP(0);
+    Timestamp dt2 = PG_GETARG_TIMESTAMP(1);
+
+    // Return true if first timestamp is greater than second
+    PG_RETURN_BOOL(timestamp_cmp_internal(dt1, dt2) > 0);
+}
+```

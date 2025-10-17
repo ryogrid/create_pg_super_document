@@ -33,3 +33,37 @@ This function constructs the path to the PG_VERSION file within the given direct
 - Includes specific error handling for old PostgreSQL versions with multi-part version numbers
 - Uses StringInfo for safe string handling and memory management
 - File location: src/bin/pg_combinebackup/pg_combinebackup.c:1154-1204
+
+## Simplified Source
+
+```c
+static int read_pg_version_file(char *directory) {
+    char filename[MAXPGPATH];
+    StringInfoData buf;
+    int fd, version;
+    char *ep;
+
+    // Open PG_VERSION file
+    snprintf(filename, MAXPGPATH, "%s/PG_VERSION", directory);
+    if ((fd = open(filename, O_RDONLY, 0)) < 0)
+        pg_fatal("could not open file \"%s\": %m", filename);
+
+    // Read file contents with size limit
+    initStringInfo(&buf);
+    slurp_file(fd, filename, &buf, 128);
+    close(fd);
+
+    // Parse version number
+    errno = 0;
+    version = strtoul(buf.data, &ep, 10);
+    if (errno != 0 || *ep != '\n') {
+        // Reject old multi-part version numbers (e.g., 9.6)
+        if (version < 10 && *ep == '.')
+            pg_fatal("%s: server version too old", filename);
+        pg_fatal("%s: could not parse version number", filename);
+    }
+
+    pfree(buf.data);
+    return version * 10000;  // Convert to internal format (e.g., 14 -> 140000)
+}
+```

@@ -39,3 +39,25 @@ Like other SLRU operations, this function works at the segment level rather than
 - Provides logging with NOTICE level messages to track operations
 - Returns void as the operation is performed for its side effects
 - Use with caution as it permanently removes data from storage
+
+## Simplified Source
+
+```c
+Datum test_slru_page_delete(PG_FUNCTION_ARGS) {
+    // Get page number from function arguments
+    int64 pageno = PG_GETARG_INT64(0);
+
+    // Calculate which segment contains this page
+    FileTag ftag;
+    ftag.segno = pageno / SLRU_PAGES_PER_SEGMENT;
+
+    // Delete the entire segment
+    SlruDeleteSegment(TestSlruCtl, ftag.segno);
+
+    // Log the operation
+    elog(NOTICE, "Called SlruDeleteSegment() for segment %lld",
+         (long long) ftag.segno);
+
+    PG_RETURN_VOID();
+}
+```

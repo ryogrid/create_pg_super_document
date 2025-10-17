@@ -9,8 +9,7 @@ Determines whether conversions between timestamp and timestamptz types require r
 ## Definition
 
 ```c
-struct pg_tm tt,
-			   *tm = &tt;
+bool TimestampTimestampTzRequiresRewrite(void)
 ```
 ## Detailed Description
 This function checks if the current TimeZone GUC setting would cause timestamp_timestamptz and timestamptz_timestamp conversion functions to be no-ops (where the return value has the same bits as the argument). The function returns false only when the session timezone has a zero offset from UTC, meaning conversions between timestamp and timestamptz would not change the actual stored value. This information is used to optimize table alterations and comparisons by avoiding unnecessary data rewrites when the timezone offset is zero.
@@ -35,3 +34,19 @@ The function follows PostgreSQL's convention of assuming GUC changes occur no mo
 - Critical for performance optimization in timestamp/timestamptz conversions
 - Located in src/backend/utils/adt/timestamp.c:6273-6285
 - Used by table alteration commands to determine if column type changes require physical data rewriting
+
+## Simplified Source
+
+```c
+bool
+TimestampTimestampTzRequiresRewrite(void)
+{
+    long offset;
+
+    // Check if current session timezone has zero UTC offset
+    if (pg_get_timezone_offset(session_timezone, &offset) && offset == 0)
+        return false;  // No rewrite needed - timezone conversion is a no-op
+
+    return true;  // Rewrite required - timezone conversion changes data
+}
+```

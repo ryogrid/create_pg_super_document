@@ -42,3 +42,32 @@ If the OID doesn't correspond to any existing namespace in the system catalog, t
 - The pstrdup call is used to avoid compiler warnings about const string handling
 - Located in src/backend/utils/adt/regproc.c with other reg* type functions
 - Maximum output length is bounded by NAMEDATALEN for numeric fallback cases
+
+## Simplified Source
+
+```c
+Datum regnamespaceout(PG_FUNCTION_ARGS) {
+    Oid nspid = PG_GETARG_OID(0);
+    char *result;
+
+    // Handle invalid OID - return "-"
+    if (nspid == InvalidOid) {
+        result = pstrdup("-");
+        PG_RETURN_CSTRING(result);
+    }
+
+    // Look up namespace name by OID
+    result = get_namespace_name(nspid);
+
+    if (result) {
+        // Quote the namespace name for safe output
+        result = pstrdup(quote_identifier(result));
+    } else {
+        // Namespace not found - return numeric OID
+        result = (char *) palloc(NAMEDATALEN);
+        snprintf(result, NAMEDATALEN, "%u", nspid);
+    }
+
+    PG_RETURN_CSTRING(result);
+}
+```

@@ -37,3 +37,24 @@ This function is designed to provide fread()-like semantics for tar archive memb
 - Provides fread()-like semantics for tar archive file reading
 - Serves as the safe, boundary-checked interface to _tarReadRaw
 - Used by higher-level archive reading functions for data extraction
+
+## Simplified Source
+
+```c
+static size_t tarRead(void *buf, size_t len, TAR_MEMBER *th) {
+    // Don't read past the end of the file
+    if (th->pos + len > th->fileLen)
+        len = th->fileLen - th->pos;
+
+    if (len <= 0)
+        return 0;
+
+    // Perform the actual read operation
+    size_t res = _tarReadRaw(th->AH, buf, len, th, NULL);
+
+    // Update current position in file
+    th->pos += res;
+
+    return res;
+}
+```

@@ -33,3 +33,21 @@ QTNClearFlags traverses a QTNode tree recursively and clears the specified flag 
 - Essential for cleaning up temporary flags used during query processing operations
 - Stack depth checking prevents issues with deeply nested query tree structures
 - Commonly used in query rewriting to reset processing state flags
+
+## Simplified Source
+
+```c
+void QTNClearFlags(QTNode *in, uint32 flags) {
+    // Prevent stack overflow in deeply nested trees
+    check_stack_depth();
+
+    // Clear specified flag bits from current node
+    in->flags &= ~flags;
+
+    // Recursively clear flags from child nodes (skip leaf nodes)
+    if (in->valnode->type != QI_VAL) {
+        for (int i = 0; i < in->nchild; i++)
+            QTNClearFlags(in->child[i], flags);
+    }
+}
+```

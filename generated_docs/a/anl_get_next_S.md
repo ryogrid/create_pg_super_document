@@ -29,3 +29,20 @@ This function acts as an interface between ANALYZE operations and the low-level 
 
 ## Notes and Other Information
 This function is part of PostgreSQL's implementation of Vitter's Algorithm Z for efficient reservoir sampling during table analysis. It provides a simplified interface that manages the W state value automatically, allowing ANALYZE operations to perform reservoir sampling by simply calling this function in a loop. The function updates the caller's state pointer with the new W value, which must be preserved between calls to maintain the correct sampling behavior. The skip value S returned indicates how many records should be skipped before selecting the next sample.
+
+## Simplified Source
+
+```c
+double anl_get_next_S(double t, int n, double *stateptr) {
+    // Store current W value in global reservoir state
+    oldrs.W = *stateptr;
+
+    // Compute next skip value S using Algorithm Z
+    double result = reservoir_get_next_S(&oldrs, t, n);
+
+    // Update caller's state with new W value
+    *stateptr = oldrs.W;
+
+    return result;
+}
+```

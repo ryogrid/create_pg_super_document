@@ -35,3 +35,17 @@ The function serves as a wrapper around the internal  utility function, specific
 - Part of a family of base conversion functions including , , , and 
 - The actual conversion logic is handled by the shared  static function
 - Returns a PostgreSQL  type containing the binary string representation
+
+## Simplified Source
+
+```c
+Datum
+to_bin32(PG_FUNCTION_ARGS)
+{
+    // Extract 32-bit integer and cast to unsigned for consistent binary representation
+    uint64 value = (uint32) PG_GETARG_INT32(0);
+
+    // Convert to binary (base-2) string and return as text
+    PG_RETURN_TEXT_P(convert_to_base(value, 2));
+}
+```

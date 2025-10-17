@@ -29,3 +29,12 @@ This function serves as the public interface for JSONPath array query operations
 - Always returns results as a JSONB array, even if no matches are found
 - Located in src/backend/utils/adt/jsonpath_exec.c:607-612
 - Complemented by jsonb_path_query_array_tz for timezone-aware operations
+
+## Simplified Source
+
+```c
+Datum jsonb_path_query_array(PG_FUNCTION_ARGS) {
+    // Simple wrapper - delegates to internal function without timezone handling
+    return jsonb_path_query_array_internal(fcinfo, false);
+}
+```

@@ -43,3 +43,43 @@ The function operates in three phases:
 - Essential for generating complete XML Schema documents that cover all types used in a database structure
 - Memory management relies on StringInfo for building the result string
 - Processes tuple descriptors which are PostgreSQL's internal representation of table row structures
+
+## Simplified Source
+
+```c
+static const char *map_sql_typecoll_to_xmlschema_types(List *tupdesc_list) {
+    List *uniquetypes = NIL;
+    StringInfoData result;
+    ListCell *cell0;
+
+    // Extract all column types from tuple descriptors
+    foreach(cell0, tupdesc_list) {
+        TupleDesc tupdesc = (TupleDesc) lfirst(cell0);
+
+        for (int i = 0; i < tupdesc->natts; i++) {
+            Form_pg_attribute att = TupleDescAttr(tupdesc, i);
+
+            if (att->attisdropped) continue;
+            uniquetypes = list_append_unique_oid(uniquetypes, att->atttypid);
+        }
+    }
+
+    // Add base types for any domains found
+    foreach(cell0, uniquetypes) {
+        Oid typid = lfirst_oid(cell0);
+        Oid basetypid = getBaseType(typid);
+
+        if (basetypid != typid)
+            uniquetypes = list_append_unique_oid(uniquetypes, basetypid);
+    }
+
+    // Convert each unique type to XML Schema type definition
+    initStringInfo(&result);
+    foreach(cell0, uniquetypes) {
+        appendStringInfo(&result, "%s\n",
+            map_sql_type_to_xmlschema_type(lfirst_oid(cell0), -1));
+    }
+
+    return result.data;
+}
+```

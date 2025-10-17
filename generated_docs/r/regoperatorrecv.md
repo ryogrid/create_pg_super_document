@@ -32,3 +32,12 @@ This function is part of PostgreSQL's type system infrastructure, specifically h
 - Part of the binary I/O function quartet (input, output, receive, send) required for each PostgreSQL data type
 - The comment "Exactly the same as oidrecv, so share code" explicitly documents the design decision to reuse existing functionality
 - This function would typically be registered in the PostgreSQL type system as the receive function for the  type
+
+## Simplified Source
+
+```c
+Datum regoperatorrecv(PG_FUNCTION_ARGS) {
+    // regoperator has same binary format as OID, so delegate to oidrecv
+    return oidrecv(fcinfo);
+}
+```

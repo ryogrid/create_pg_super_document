@@ -43,3 +43,33 @@ This phase normally should have no work to do if the parallel phase completed su
 - Provides resilience against circular dependencies and other edge cases that could block parallel processing
 - Uses the same restore_toc_entry function as other phases for consistency
 - Iterates through pending_list using the pending_next linkage rather than the main TOC next linkage
+
+## Simplified Source
+
+```c
+static void
+restore_toc_entries_postfork(ArchiveHandle *AH, TocEntry *pending_list)
+{
+    RestoreOptions *ropt = AH->public.ropt;
+    TocEntry *te;
+
+    pg_log_debug("entering restore_toc_entries_postfork");
+
+    // Reconnect parent database connection
+    ConnectDatabase((Archive *) AH, &ropt->cparams, true);
+
+    // Re-establish fixed database state (schema, user, tablespace settings)
+    _doSetFixedOutputState(AH);
+
+    // Process any remaining items serially as a fallback
+    // This handles cases like circular dependencies that blocked parallel processing
+    for (te = pending_list->pending_next; te != pending_list; te = te->pending_next)
+    {
+        pg_log_info("processing missed item %d %s %s",
+                    te->dumpId, te->desc, te->tag);
+
+        // Restore the entry in single-threaded mode
+        restore_toc_entry(AH, te, false);
+    }
+}
+```

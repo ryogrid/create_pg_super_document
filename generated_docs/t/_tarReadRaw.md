@@ -43,3 +43,34 @@ The function can read from either a TAR_MEMBER file handle or a direct FILE poin
 - Uses READ_ERROR_EXIT macro for consistent error handling
 - Returns actual number of bytes read, which may be less than requested at EOF
 - Critical foundation function used by all higher-level tar reading operations
+
+## Simplified Source
+
+```c
+static size_t _tarReadRaw(ArchiveHandle *AH, void *buf, size_t len, TAR_MEMBER *th, FILE *fh) {
+    lclContext *ctx = (lclContext *) AH->formatData;
+    size_t used = 0;
+    size_t res = 0;
+
+    // Use lookahead buffer if available
+    size_t avail = AH->lookaheadLen - AH->lookaheadPos;
+    if (avail > 0) {
+        used = (avail >= len) ? len : avail;
+        memcpy(buf, AH->lookahead + AH->lookaheadPos, used);
+        AH->lookaheadPos += used;
+        len -= used;
+    }
+
+    // Read remaining data from file if needed
+    if (len > 0) {
+        FILE *file_handle = fh ? fh : th->nFH;
+        res = fread(&((char *) buf)[used], 1, len, file_handle);
+        if (res != len && !feof(file_handle))
+            READ_ERROR_EXIT(file_handle);
+    }
+
+    // Update position and return total bytes read
+    ctx->tarFHpos += res + used;
+    return res + used;
+}
+```

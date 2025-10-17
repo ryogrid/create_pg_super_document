@@ -46,3 +46,49 @@ The function is designed to work with PostgreSQL's parallel query execution, ens
 - Uses StringInfo's cursor field to track first delimiter length
 - Must be called within an aggregate context (enforced by makeStringAggState)
 - Efficient string building through StringInfo's dynamic buffer management
+
+## Simplified Source
+
+```c
+Datum
+string_agg_transfn(PG_FUNCTION_ARGS)
+{
+    StringInfo state;
+
+    // Get current state (NULL on first call)
+    state = PG_ARGISNULL(0) ? NULL : (StringInfo) PG_GETARG_POINTER(0);
+
+    // Process non-NULL input values
+    if (!PG_ARGISNULL(1))
+    {
+        text *value = PG_GETARG_TEXT_PP(1);
+        bool is_first = false;
+
+        // Initialize state on first call
+        if (state == NULL)
+        {
+            state = makeStringAggState(fcinfo);
+            is_first = true;
+        }
+
+        // Add delimiter if provided
+        if (!PG_ARGISNULL(2))
+        {
+            text *delim = PG_GETARG_TEXT_PP(2);
+            appendStringInfoText(state, delim);
+
+            // Store first delimiter length for final processing
+            if (is_first)
+                state->cursor = VARSIZE_ANY_EXHDR(delim);
+        }
+
+        // Append the actual value
+        appendStringInfoText(state, value);
+    }
+
+    // Return state pointer or NULL
+    if (state)
+        PG_RETURN_POINTER(state);
+    PG_RETURN_NULL();
+}
+```

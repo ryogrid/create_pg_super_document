@@ -36,3 +36,21 @@ This comparator is used to organize distinct element count statistics, which hel
 - Used to organize distinct element counts for histogram and selectivity estimation purposes
 - The function operates on pointers to DECountItem pointers, requiring double dereferencing
 - Critical for creating accurate statistics about array element distribution patterns
+
+## Simplified Source
+
+```c
+static int countitem_compare_count(const void *e1, const void *e2, void *arg) {
+    // Cast to DECountItem pointers and extract count values
+    const DECountItem *const *t1 = (const DECountItem *const *) e1;
+    const DECountItem *const *t2 = (const DECountItem *const *) e2;
+
+    // Compare counts in ascending order (lowest first)
+    if ((*t1)->count < (*t2)->count)
+        return -1;
+    else if ((*t1)->count == (*t2)->count)
+        return 0;
+    else
+        return 1;
+}
+```

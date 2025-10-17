@@ -28,3 +28,22 @@ This ensures that the reconstructed file will be large enough to contain both th
 
 ## Notes and Other Information
 The function implements a simple algorithm that ensures the reconstructed file will accommodate all blocks present in the incremental backup. It handles cases where incremental backups contain blocks beyond the original file's truncation point, which can happen when a file is extended after the base backup was taken.
+
+## Simplified Source
+
+```c
+static unsigned find_reconstructed_block_length(rfile *s)
+{
+    unsigned block_length = s->truncation_block_length;
+    unsigned i;
+
+    // Check all blocks in the incremental file
+    for (i = 0; i < s->num_blocks; ++i) {
+        // If any block extends beyond current length, expand to include it
+        if (s->relative_block_numbers[i] >= block_length)
+            block_length = s->relative_block_numbers[i] + 1;
+    }
+
+    return block_length;
+}
+```

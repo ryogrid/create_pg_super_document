@@ -45,3 +45,43 @@ The conversion process involves parsing qualified names, validating the syntax (
 - Part of the regnamespace type system for referencing database schemas
 - Located in src/backend/utils/adt/regproc.c with other reg* type functions
 - The function expects single unqualified namespace names, not dot-separated qualified names
+
+## Simplified Source
+
+```c
+Datum regnamespacein(PG_FUNCTION_ARGS) {
+    char *nsp_name_or_oid = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    Oid result;
+    List *names;
+
+    // Handle "-" (unknown namespace) or numeric OID input
+    if (parseDashOrOid(nsp_name_or_oid, &result, escontext))
+        PG_RETURN_OID(result);
+
+    // Bootstrap mode only accepts OIDs
+    if (IsBootstrapProcessingMode())
+        elog(ERROR, "regnamespace values must be OIDs in bootstrap mode");
+
+    // Parse namespace name and validate syntax
+    names = stringToQualifiedNameList(nsp_name_or_oid, escontext);
+    if (names == NIL)
+        PG_RETURN_NULL();
+
+    if (list_length(names) != 1)
+        ereturn(escontext, (Datum) 0,
+                (errcode(ERRCODE_INVALID_NAME),
+                 errmsg("invalid name syntax")));
+
+    // Look up namespace OID by name
+    result = get_namespace_oid(strVal(linitial(names)), true);
+
+    if (!OidIsValid(result))
+        ereturn(escontext, (Datum) 0,
+                (errcode(ERRCODE_UNDEFINED_SCHEMA),
+                 errmsg("schema \"%s\" does not exist",
+                        strVal(linitial(names)))));
+
+    PG_RETURN_OID(result);
+}
+```

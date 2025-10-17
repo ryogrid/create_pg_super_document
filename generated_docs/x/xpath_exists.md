@@ -39,3 +39,27 @@ The function accepts an additional namespaces parameter (as an array) that allow
 - Differs from xmlexists by supporting namespaces and not being defined in SQL/XML standard
 - Returns true if one or more nodes match the XPath expression, false otherwise
 - Part of PostgreSQL's extended XML processing capabilities
+
+## Simplified Source
+
+```c
+Datum xpath_exists(PG_FUNCTION_ARGS)
+{
+#ifdef USE_LIBXML
+    // Extract function arguments
+    text *xpath_expr_text = PG_GETARG_TEXT_PP(0);
+    xmltype *data = PG_GETARG_XML_P(1);
+    ArrayType *namespaces = PG_GETARG_ARRAYTYPE_P(2);
+    int res_nitems;
+
+    // Evaluate XPath expression with namespace support to count matching nodes
+    xpath_internal(xpath_expr_text, data, namespaces, &res_nitems, NULL);
+
+    // Return true if any nodes match, false otherwise
+    PG_RETURN_BOOL(res_nitems > 0);
+#else
+    NO_XML_SUPPORT();
+    return 0;
+#endif
+}
+```

@@ -43,3 +43,31 @@ This function provides a convenient combination of table_to_xml and table_to_xml
 - Uses table_to_xml_internal for the actual data generation, passing the pre-generated schema
 - Part of PostgreSQL's comprehensive XML support providing complete XML documents with embedded schemas
 - Useful for data export scenarios where both structure and content are needed
+
+## Simplified Source
+
+```c
+Datum
+table_to_xml_and_xmlschema(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    Oid table_oid = PG_GETARG_OID(0);
+    bool include_nulls = PG_GETARG_BOOL(1);
+    bool table_forest_format = PG_GETARG_BOOL(2);
+    const char *target_namespace = text_to_cstring(PG_GETARG_TEXT_PP(3));
+
+    Relation rel;
+    const char *xmlschema;
+
+    // Open table and generate schema
+    rel = table_open(table_oid, AccessShareLock);
+    xmlschema = map_sql_table_to_xmlschema(rel->rd_att, table_oid, include_nulls,
+                                          table_forest_format, target_namespace);
+    table_close(rel, NoLock);
+
+    // Generate XML with embedded schema
+    PG_RETURN_XML_P(stringinfo_to_xmltype(
+        table_to_xml_internal(table_oid, xmlschema, include_nulls,
+                             table_forest_format, target_namespace, true)));
+}
+```

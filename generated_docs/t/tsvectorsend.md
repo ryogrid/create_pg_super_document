@@ -43,3 +43,40 @@ The function uses PostgreSQL's pq_send* family of functions to construct a binar
 - Position data is sent as raw WordEntryPos values, preserving both position and weight information
 - The format is designed for efficient parsing by the corresponding  function
 - This function is part of PostgreSQL's type system binary I/O infrastructure
+
+## Simplified Source
+
+```c
+Datum tsvectorsend(PG_FUNCTION_ARGS) {
+    TSVector vec = PG_GETARG_TSVECTOR(0);
+    StringInfoData buf;
+    WordEntry *entries = ARRPTR(vec);
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Send number of lexemes
+    pq_sendint32(&buf, vec->size);
+
+    // Send each lexeme with its position data
+    for (int i = 0; i < vec->size; i++) {
+        // Send lexeme text with null terminator
+        pq_sendtext(&buf, STRPTR(vec) + entries[i].pos, entries[i].len);
+        pq_sendbyte(&buf, '\0');
+
+        // Send position count
+        uint16 pos_count = POSDATALEN(vec, &entries[i]);
+        pq_sendint16(&buf, pos_count);
+
+        // Send position data if present
+        if (pos_count > 0) {
+            WordEntryPos *positions = POSDATAPTR(vec, &entries[i]);
+            for (int j = 0; j < pos_count; j++) {
+                pq_sendint16(&buf, positions[j]);
+            }
+        }
+    }
+
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

@@ -35,3 +35,24 @@ The function is designed to handle the SQL syntax for timestamp types with preci
 - Error handling is intentionally minimal since the SQL grammar should prevent invalid modifier counts from reaching this function
 - Returns the validated type modifier value (precision) as an int32
 - This is part of PostgreSQL's type system infrastructure for handling parameterized types
+
+## Simplified Source
+
+```c
+static int32 anytimestamp_typmodin(bool istz, ArrayType *ta) {
+    int32 *tl;
+    int n;
+
+    // Extract type modifiers from the array
+    tl = ArrayGetIntegerTypmods(ta, &n);
+
+    // Validate that exactly one modifier is provided
+    if (n != 1) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("invalid type modifier")));
+    }
+
+    // Validate and return the precision value
+    return anytimestamp_typmod_check(istz, tl[0]);
+}
+```

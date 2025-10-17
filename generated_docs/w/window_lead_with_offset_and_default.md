@@ -30,3 +30,15 @@ This function provides the full SQL LEAD window function functionality with both
 - Part of PostgreSQL's SQL window function implementation for LEAD(expr, offset, default)
 - This is the most complete version of the LEAD function, supporting all optional parameters
 - Counterpart to window_lag_with_offset_and_default, but looks forward instead of backward in the partition
+
+## Simplified Source
+
+```c
+Datum
+window_lead_with_offset_and_default(PG_FUNCTION_ARGS)
+{
+    // Delegate to common lag/lead implementation
+    // Parameters: is_lead=true, has_offset=true, has_default=true
+    return leadlag_common(fcinfo, true, true, true);
+}
+```

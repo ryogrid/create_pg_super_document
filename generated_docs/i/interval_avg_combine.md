@@ -36,3 +36,39 @@ This function implements the combine operation for PostgreSQL's parallel aggrega
 - Handles all three interval components (day, month, time) separately during combination
 - Maintains separate counters for positive and negative infinity values
 - Only performs finite interval addition when the source state contains finite values (N > 0)
+
+## Simplified Source
+```c
+Datum interval_avg_combine(PG_FUNCTION_ARGS) {
+    IntervalAggState *state1;
+    IntervalAggState *state2;
+
+    state1 = PG_ARGISNULL(0) ? NULL : (IntervalAggState *) PG_GETARG_POINTER(0);
+    state2 = PG_ARGISNULL(1) ? NULL : (IntervalAggState *) PG_GETARG_POINTER(1);
+
+    // Handle NULL states
+    if (state2 == NULL)
+        PG_RETURN_POINTER(state1);
+
+    if (state1 == NULL) {
+        // Copy state2 to new state1
+        state1 = makeIntervalAggState(fcinfo);
+        state1->N = state2->N;
+        state1->pInfcount = state2->pInfcount;
+        state1->nInfcount = state2->nInfcount;
+        state1->sumX = state2->sumX;  // Copy all interval fields
+        PG_RETURN_POINTER(state1);
+    }
+
+    // Combine both states
+    state1->N += state2->N;
+    state1->pInfcount += state2->pInfcount;
+    state1->nInfcount += state2->nInfcount;
+
+    // Add finite interval sums if present
+    if (state2->N > 0)
+        finite_interval_pl(&state1->sumX, &state2->sumX, &state1->sumX);
+
+    PG_RETURN_POINTER(state1);
+}
+```

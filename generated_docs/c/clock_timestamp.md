@@ -35,3 +35,12 @@ This function takes no parameters (uses `PG_FUNCTION_ARGS` macro for PostgreSQL 
 - Useful for performance measurement, timing operations, and getting real-time timestamps
 - Can be used multiple times in a query to measure execution time of different parts
 - The function is defined in `src/backend/utils/adt/timestamp.c` at lines 1630-1635
+
+## Simplified Source
+
+```c
+Datum clock_timestamp(PG_FUNCTION_ARGS) {
+    // Return current system timestamp with timezone
+    return PG_RETURN_TIMESTAMPTZ(GetCurrentTimestamp());
+}
+```

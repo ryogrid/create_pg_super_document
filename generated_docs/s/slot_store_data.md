@@ -58,3 +58,66 @@ The function includes comprehensive error handling and supports schema differenc
 - The function assumes that the number of attributes in the slot matches the attribute map length
 - Sets both tts_values and tts_isnull arrays for proper NULL handling
 - Calls ExecStoreVirtualTuple() to finalize the slot after all data is populated
+
+## Simplified Source
+
+```c
+static void slot_store_data(TupleTableSlot *slot, LogicalRepRelMapEntry *rel,
+                           LogicalRepTupleData *tupleData) {
+    int natts = slot->tts_tupleDescriptor->natts;
+    int i;
+
+    ExecClearTuple(slot);
+
+    // Process each attribute in the local relation
+    for (i = 0; i < natts; i++) {
+        Form_pg_attribute att = TupleDescAttr(slot->tts_tupleDescriptor, i);
+        int remoteattnum = rel->attrmap->attnums[i];
+
+        if (!att->attisdropped && remoteattnum >= 0) {
+            StringInfo colvalue = &tupleData->colvalues[remoteattnum];
+
+            // Set error context for better error reporting
+            apply_error_callback_arg.remote_attnum = remoteattnum;
+
+            if (tupleData->colstatus[remoteattnum] == LOGICALREP_COLUMN_TEXT) {
+                // Convert text format data
+                Oid typinput, typioparam;
+                getTypeInputInfo(att->atttypid, &typinput, &typioparam);
+                slot->tts_values[i] = OidInputFunctionCall(typinput, colvalue->data,
+                                                          typioparam, att->atttypmod);
+                slot->tts_isnull[i] = false;
+            }
+            else if (tupleData->colstatus[remoteattnum] == LOGICALREP_COLUMN_BINARY) {
+                // Convert binary format data
+                Oid typreceive, typioparam;
+                colvalue->cursor = 0;  // Reset for re-parsing
+                getTypeBinaryInputInfo(att->atttypid, &typreceive, &typioparam);
+                slot->tts_values[i] = OidReceiveFunctionCall(typreceive, colvalue,
+                                                            typioparam, att->atttypmod);
+
+                // Validate complete consumption of binary data
+                if (colvalue->cursor != colvalue->len)
+                    ereport(ERROR, (errcode(ERRCODE_INVALID_BINARY_REPRESENTATION),
+                                   errmsg("incorrect binary data format in column %d",
+                                          remoteattnum + 1)));
+                slot->tts_isnull[i] = false;
+            }
+            else {
+                // NULL or unchanged value
+                slot->tts_values[i] = (Datum) 0;
+                slot->tts_isnull[i] = true;
+            }
+
+            apply_error_callback_arg.remote_attnum = -1;
+        }
+        else {
+            // Dropped or unmapped columns set to NULL
+            slot->tts_values[i] = (Datum) 0;
+            slot->tts_isnull[i] = true;
+        }
+    }
+
+    ExecStoreVirtualTuple(slot);
+}
+```

@@ -57,3 +57,68 @@ The  function provides access to the checkpoint information stored in PostgreSQL
 - Critical for monitoring checkpoint state and recovery planning
 - Part of the administrative interface for checkpoint monitoring
 - Located in src/backend/utils/misc/pg_controldata.c:70-162
+
+## Simplified Source
+
+```c
+Datum
+pg_control_checkpoint(PG_FUNCTION_ARGS)
+{
+    Datum values[18];
+    bool nulls[18];
+    TupleDesc tupdesc;
+
+    // Validate function return type is composite
+    if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+        elog(ERROR, "return type must be a row type");
+
+    // Read control file with shared lock
+    LWLockAcquire(ControlFileLock, LW_SHARED);
+    bool crc_ok;
+    ControlFileData *ControlFile = get_controlfile(DataDir, &crc_ok);
+    LWLockRelease(ControlFileLock);
+
+    // Verify control file integrity
+    if (!crc_ok)
+        ereport(ERROR, (errmsg("calculated CRC checksum does not match value stored in file")));
+
+    // Calculate WAL filename for checkpoint REDO point
+    XLogSegNo segno;
+    char xlogfilename[MAXFNAMELEN];
+    XLByteToSeg(ControlFile->checkPointCopy.redo, segno, wal_segment_size);
+    XLogFileName(xlogfilename, ControlFile->checkPointCopy.ThisTimeLineID, segno, wal_segment_size);
+
+    // Extract checkpoint information into return values
+    values[0] = LSNGetDatum(ControlFile->checkPoint);                    // Checkpoint LSN
+    values[1] = LSNGetDatum(ControlFile->checkPointCopy.redo);          // REDO start LSN
+    values[2] = CStringGetTextDatum(xlogfilename);                      // WAL filename
+    values[3] = Int32GetDatum(ControlFile->checkPointCopy.ThisTimeLineID); // Current timeline
+    values[4] = Int32GetDatum(ControlFile->checkPointCopy.PrevTimeLineID); // Previous timeline
+    values[5] = BoolGetDatum(ControlFile->checkPointCopy.fullPageWrites);  // Full page writes
+
+    // Format next XID as "epoch:xid" string
+    values[6] = CStringGetTextDatum(psprintf("%u:%u",
+                EpochFromFullTransactionId(ControlFile->checkPointCopy.nextXid),
+                XidFromFullTransactionId(ControlFile->checkPointCopy.nextXid)));
+
+    // Transaction and object tracking
+    values[7] = ObjectIdGetDatum(ControlFile->checkPointCopy.nextOid);           // Next OID
+    values[8] = TransactionIdGetDatum(ControlFile->checkPointCopy.nextMulti);    // Next multixact
+    values[9] = TransactionIdGetDatum(ControlFile->checkPointCopy.nextMultiOffset); // Multixact offset
+    values[10] = TransactionIdGetDatum(ControlFile->checkPointCopy.oldestXid);   // Oldest XID
+    values[11] = ObjectIdGetDatum(ControlFile->checkPointCopy.oldestXidDB);      // Oldest XID DB
+    values[12] = TransactionIdGetDatum(ControlFile->checkPointCopy.oldestActiveXid); // Oldest active XID
+    values[13] = TransactionIdGetDatum(ControlFile->checkPointCopy.oldestMulti); // Oldest multixact
+    values[14] = ObjectIdGetDatum(ControlFile->checkPointCopy.oldestMultiDB);    // Oldest multixact DB
+    values[15] = TransactionIdGetDatum(ControlFile->checkPointCopy.oldestCommitTsXid); // Oldest commit TS XID
+    values[16] = TransactionIdGetDatum(ControlFile->checkPointCopy.newestCommitTsXid); // Newest commit TS XID
+    values[17] = TimestampTzGetDatum(time_t_to_timestamptz(ControlFile->checkPointCopy.time)); // Checkpoint time
+
+    // All fields are non-null
+    memset(nulls, false, sizeof(nulls));
+
+    // Create and return composite tuple
+    HeapTuple htup = heap_form_tuple(tupdesc, values, nulls);
+    PG_RETURN_DATUM(HeapTupleGetDatum(htup));
+}
+```

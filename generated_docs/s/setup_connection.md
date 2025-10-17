@@ -54,3 +54,112 @@ The function handles both single-process and parallel dump scenarios, with speci
 - Establishes transaction with appropriate isolation level (SERIALIZABLE or REPEATABLE READ)
 - Handles snapshot coordination for parallel dumps through snapshot IDs
 - Includes special handling for standby servers in parallel dump scenarios
+
+## Simplified Source
+
+```c
+static void setup_connection(Archive *AH, const char *dumpencoding,
+                            const char *dumpsnapshot, char *use_role) {
+    DumpOptions *dopt = AH->dopt;
+    PGconn *conn = GetConnection(AH);
+
+    // Set secure search path
+    PQclear(ExecuteSqlQueryForSingleRow(AH, ALWAYS_SECURE_SEARCH_PATH_SQL));
+
+    // Configure client encoding if specified
+    if (dumpencoding) {
+        if (PQsetClientEncoding(conn, dumpencoding) < 0)
+            pg_fatal("invalid client encoding \"%s\" specified", dumpencoding);
+    }
+
+    // Store encoding settings for string escaping
+    AH->encoding = PQclientEncoding(conn);
+    setFmtEncoding(AH->encoding);
+
+    const char *std_strings = PQparameterStatus(conn, "standard_conforming_strings");
+    AH->std_strings = (std_strings && strcmp(std_strings, "on") == 0);
+
+    // Set database role if specified
+    if (!use_role && AH->use_role)
+        use_role = AH->use_role;
+
+    if (use_role) {
+        PQExpBuffer query = createPQExpBuffer();
+        appendPQExpBuffer(query, "SET ROLE %s", fmtId(use_role));
+        ExecuteSqlStatement(AH, query->data);
+        destroyPQExpBuffer(query);
+
+        if (!AH->use_role)
+            AH->use_role = pg_strdup(use_role);
+    }
+
+    // Configure PostgreSQL settings for consistent dumps
+    ExecuteSqlStatement(AH, "SET DATESTYLE = ISO");
+    ExecuteSqlStatement(AH, "SET INTERVALSTYLE = POSTGRES");
+
+    // Set floating-point precision
+    if (have_extra_float_digits) {
+        PQExpBuffer q = createPQExpBuffer();
+        appendPQExpBuffer(q, "SET extra_float_digits TO %d", extra_float_digits);
+        ExecuteSqlStatement(AH, q->data);
+        destroyPQExpBuffer(q);
+    } else {
+        ExecuteSqlStatement(AH, "SET extra_float_digits TO 3");
+    }
+
+    // Configure for consistent behavior
+    ExecuteSqlStatement(AH, "SET synchronize_seqscans TO off");
+
+    // Disable timeouts
+    ExecuteSqlStatement(AH, "SET statement_timeout = 0");
+    if (AH->remoteVersion >= 90300)
+        ExecuteSqlStatement(AH, "SET lock_timeout = 0");
+    if (AH->remoteVersion >= 90600)
+        ExecuteSqlStatement(AH, "SET idle_in_transaction_session_timeout = 0");
+    if (AH->remoteVersion >= 170000)
+        ExecuteSqlStatement(AH, "SET transaction_timeout = 0");
+
+    // Additional configuration
+    if (quote_all_identifiers)
+        ExecuteSqlStatement(AH, "SET quote_all_identifiers = true");
+
+    // Row-level security (PostgreSQL 9.5+)
+    if (AH->remoteVersion >= 90500) {
+        if (dopt->enable_row_security)
+            ExecuteSqlStatement(AH, "SET row_security = on");
+        else
+            ExecuteSqlStatement(AH, "SET row_security = off");
+    }
+
+    // Security restrictions
+    set_restrict_relation_kind(AH, "view, foreign-table");
+
+    // Initialize prepared query state
+    AH->is_prepared = (bool *) pg_malloc0(NUM_PREP_QUERIES * sizeof(bool));
+
+    // Start transaction with appropriate isolation level
+    ExecuteSqlStatement(AH, "BEGIN");
+
+    if (dopt->serializable_deferrable && AH->sync_snapshot_id == NULL)
+        ExecuteSqlStatement(AH, "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE, READ ONLY, DEFERRABLE");
+    else
+        ExecuteSqlStatement(AH, "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ, READ ONLY");
+
+    // Handle snapshot for consistent reads
+    if (dumpsnapshot)
+        AH->sync_snapshot_id = pg_strdup(dumpsnapshot);
+
+    if (AH->sync_snapshot_id) {
+        PQExpBuffer query = createPQExpBuffer();
+        appendPQExpBufferStr(query, "SET TRANSACTION SNAPSHOT ");
+        appendStringLiteralConn(query, AH->sync_snapshot_id, conn);
+        ExecuteSqlStatement(AH, query->data);
+        destroyPQExpBuffer(query);
+    } else if (AH->numWorkers > 1) {
+        // Get synchronized snapshot for parallel dumps
+        if (AH->isStandby && AH->remoteVersion < 100000)
+            pg_fatal("parallel dumps from standby servers are not supported by this server version");
+        AH->sync_snapshot_id = get_synchronized_snapshot(AH);
+    }
+}
+```

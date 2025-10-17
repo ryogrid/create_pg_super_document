@@ -50,3 +50,29 @@ The function validates the encoding conversion arguments and delegates the actua
 - Located in src/backend/utils/mb/conversion_procs/utf8_and_euc2004/utf8_and_euc2004.c:60-78
 - Follows PostgreSQL's standard conversion function protocol for encoding transformations
 - Uses  and  for reverse mapping from Unicode to EUC-JIS-2004
+
+## Simplified Source
+
+```c
+Datum
+utf8_to_euc_jis_2004(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_UTF8, PG_EUC_JIS_2004);
+
+    // Convert UTF-8 to EUC-JIS-2004 using conversion tree and combined mapping
+    int converted = UtfToLocal(src, len, dest,
+                              &euc_jis_2004_from_unicode_tree,
+                              ULmapEUC_JIS_2004_combined,
+                              lengthof(ULmapEUC_JIS_2004_combined),
+                              NULL, PG_EUC_JIS_2004, noError);
+
+    return converted;
+}
+```

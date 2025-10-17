@@ -32,3 +32,17 @@ This is a specialized comparison function designed for high-performance sorting 
 - Static function, only accessible within the timestamp.c compilation unit
 - Located in src/backend/utils/adt/timestamp.c:2281-2290
 - Returns standard comparison result: -1 for less than, 0 for equal, 1 for greater than
+
+## Simplified Source
+
+```c
+static int
+timestamp_fastcmp(Datum x, Datum y, SortSupport ssup)
+{
+    Timestamp a = DatumGetTimestamp(x);
+    Timestamp b = DatumGetTimestamp(y);
+
+    // Fast comparison for sorting - delegates to internal comparison
+    return timestamp_cmp_internal(a, b);
+}
+```

@@ -54,3 +54,43 @@ The function initializes all necessary metadata for the real variable including 
 
 ## Notes and Other Information
 The variable remains registered for the lifetime of the process. The valueAddr pointer must remain valid throughout the process lifetime as the GUC system will read from and write to this location. The boot value is used both as the initial value and as the reset value when the configuration is reset to defaults. Bounds checking is automatically enforced by the GUC system using the provided min and max values.
+
+## Simplified Source
+
+```c
+void DefineCustomRealVariable(const char *name,
+                             const char *short_desc,
+                             const char *long_desc,
+                             double *valueAddr,
+                             double bootValue,
+                             double minValue,
+                             double maxValue,
+                             GucContext context,
+                             int flags,
+                             GucRealCheckHook check_hook,
+                             GucRealAssignHook assign_hook,
+                             GucShowHook show_hook)
+{
+    struct config_real *var;
+
+    // Initialize custom variable structure with real/double type
+    var = (struct config_real *)
+        init_custom_variable(name, short_desc, long_desc, context, flags,
+                           PGC_REAL, sizeof(struct config_real));
+
+    // Set real-specific fields
+    var->variable = valueAddr;      // Pointer to actual double variable
+    var->boot_val = bootValue;      // Default value
+    var->reset_val = bootValue;     // Reset value (same as default)
+    var->min = minValue;            // Minimum allowed value
+    var->max = maxValue;            // Maximum allowed value
+
+    // Set optional hook functions
+    var->check_hook = check_hook;   // Validation function
+    var->assign_hook = assign_hook; // Assignment callback
+    var->show_hook = show_hook;     // Display customization
+
+    // Register the variable with GUC system
+    define_custom_variable(&var->gen);
+}
+```

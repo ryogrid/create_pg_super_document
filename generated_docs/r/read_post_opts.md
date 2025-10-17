@@ -45,3 +45,51 @@ This function takes no parameters but operates on several global variables:
 - Error handling includes immediate exit with status 1 if file reading fails or format is invalid
 - The parsing logic assumes options are enclosed in double quotes and separated from the executable path by whitespace
 - Memory management is handled through `free_readfile` to clean up dynamically allocated file content
+
+## Simplified Source
+
+```c
+static void read_post_opts(void) {
+    // If options already set, nothing to do
+    if (post_opts == NULL) {
+        post_opts = "";  // Default to empty string
+
+        // For RESTART command, read saved options from file
+        if (ctl_command == RESTART_COMMAND) {
+            char **optlines;
+            int numlines;
+
+            // Read the options file
+            optlines = readfile(postopts_file, &numlines);
+            if (optlines == NULL) {
+                write_stderr(_("%s: could not read file \"%s\"\n"), progname, postopts_file);
+                exit(1);
+            }
+
+            // Validate file has exactly one line
+            if (numlines != 1) {
+                write_stderr(_("%s: option file \"%s\" must have exactly one line\n"),
+                             progname, postopts_file);
+                exit(1);
+            }
+
+            // Parse the line to separate executable path from options
+            char *optline = optlines[0];
+            char *arg1;
+
+            // Find first option by looking for space + double-quote pattern
+            if ((arg1 = strstr(optline, " \"")) != NULL) {
+                *arg1 = '\0';                           // Terminate at program name
+                post_opts = pg_strdup(arg1 + 1);       // Copy options (skip space)
+            }
+
+            // Set executable path if not already set
+            if (exec_path == NULL)
+                exec_path = pg_strdup(optline);
+
+            // Clean up memory
+            free_readfile(optlines);
+        }
+    }
+}
+```

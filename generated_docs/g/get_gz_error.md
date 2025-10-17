@@ -33,3 +33,23 @@ This abstraction allows other gzip writer functions to provide consistent, infor
 - Essential for providing meaningful error messages in gzip backup operations
 - Used consistently across gzip writer functions for error reporting
 - Encapsulates the complexity of zlib error handling in a single location
+
+## Simplified Source
+
+```c
+static const char *
+get_gz_error(gzFile gzf)
+{
+    int errnum;
+    const char *errmsg;
+
+    // Get error info from gzip file
+    errmsg = gzerror(gzf, &errnum);
+
+    // Return system error or zlib error message
+    if (errnum == Z_ERRNO)
+        return strerror(errno);
+    else
+        return errmsg;
+}
+```

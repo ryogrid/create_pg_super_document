@@ -42,3 +42,48 @@ The function first validates the input parameters, extracts offset data from the
 - Dynamically expands verification arrays using a doubling strategy when capacity is exceeded
 - Returns the block number as a PostgreSQL Datum for SQL interface compatibility
 - Part of the PostgreSQL testing infrastructure specifically for TidStore functionality validation
+
+## Simplified Source
+
+```c
+Datum do_set_block_offsets(PG_FUNCTION_ARGS) {
+    BlockNumber blkno = PG_GETARG_INT64(0);
+    ArrayType *ta = PG_GETARG_ARRAYTYPE_P_COPY(1);
+
+    // Validate inputs
+    check_tidstore_available();
+    sanity_check_array(ta);
+
+    // Extract offset data from array
+    int noffs = ArrayGetNItems(ARR_NDIM(ta), ARR_DIMS(ta));
+    OffsetNumber *offs = ((OffsetNumber *) ARR_DATA_PTR(ta));
+
+    // Store TIDs in tidstore with exclusive lock
+    TidStoreLockExclusive(tidstore);
+    TidStoreSetBlockOffsets(tidstore, blkno, offs, noffs);
+    TidStoreUnlock(tidstore);
+
+    // Maintain verification array for testing
+    purge_from_verification_array(blkno);
+
+    // Add new TIDs to verification arrays
+    for (int i = 0; i < noffs; i++) {
+        int idx = items.num_tids + i;
+
+        // Expand arrays if needed
+        if (idx >= items.max_tids) {
+            items.max_tids *= 2;
+            items.insert_tids = repalloc(items.insert_tids, sizeof(ItemPointerData) * items.max_tids);
+            items.lookup_tids = repalloc(items.lookup_tids, sizeof(ItemPointerData) * items.max_tids);
+            items.iter_tids = repalloc(items.iter_tids, sizeof(ItemPointerData) * items.max_tids);
+        }
+
+        // Set TID in verification array
+        ItemPointer tid = &(items.insert_tids[idx]);
+        ItemPointerSet(tid, blkno, offs[i]);
+    }
+
+    items.num_tids += noffs;
+    PG_RETURN_INT64(blkno);
+}
+```

@@ -38,3 +38,32 @@ The function extracts a 64-bit integer from the input buffer using `pq_getmsgint
 - Special handling for non-finite timestamp values (infinity, -infinity)
 - Type modifier adjustment handles precision constraints for fractional seconds
 - Located in src/backend/utils/adt/timestamp.c:258-290
+
+## Simplified Source
+
+```c
+Datum timestamp_recv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    int32 typmod = PG_GETARG_INT32(2);
+    Timestamp timestamp;
+    struct pg_tm tt, *tm = &tt;
+    fsec_t fsec;
+
+    // Read 64-bit timestamp from binary buffer
+    timestamp = (Timestamp) pq_getmsgint64(buf);
+
+    // Validate timestamp range
+    if (TIMESTAMP_NOT_FINITE(timestamp)) {
+        // Infinite timestamps are valid
+    } else if (timestamp2tm(timestamp, NULL, tm, &fsec, NULL, NULL) != 0 ||
+               !IS_VALID_TIMESTAMP(timestamp)) {
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                       errmsg("timestamp out of range")));
+    }
+
+    // Apply precision constraints
+    AdjustTimestampForTypmod(&timestamp, typmod, NULL);
+
+    PG_RETURN_TIMESTAMP(timestamp);
+}
+```

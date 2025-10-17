@@ -32,3 +32,12 @@ The function follows PostgreSQL's standard function calling convention and is sp
 - The actual logic is implemented in `jsonb_path_match_internal`
 - Particularly useful for JSONPath expressions involving datetime comparisons
 - Located in `src/backend/utils/adt/jsonpath_exec.c:503-513`
+
+## Simplified Source
+
+```c
+Datum jsonb_path_match_tz(PG_FUNCTION_ARGS) {
+    // Timezone-aware wrapper - delegates to internal function with timezone handling
+    return jsonb_path_match_internal(fcinfo, true);
+}
+```

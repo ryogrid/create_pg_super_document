@@ -42,3 +42,47 @@ This function tests the interaction between PostgreSQL's resource ownership syst
 - The function creates a tranche for lightweight locks but does not properly clean it up (marked with XXX comment)
 - Located in src/test/modules/test_dsa/test_dsa.c:64-113
 - This is a testing utility function specifically for validating resource management integration
+
+## Simplified Source
+
+```c
+Datum test_dsa_resowners(PG_FUNCTION_ARGS) {
+    dsa_area *a;
+    dsa_pointer p[10000];
+    ResourceOwner oldowner;
+    ResourceOwner childowner;
+
+    // Setup DSA area with tranche for locking
+    int tranche_id = LWLockNewTrancheId();
+    LWLockRegisterTranche(tranche_id, "test_dsa");
+    a = dsa_create(tranche_id);
+
+    // Create child resource owner and switch context
+    oldowner = CurrentResourceOwner;
+    childowner = ResourceOwnerCreate(oldowner, "test_dsa temp owner");
+    CurrentResourceOwner = childowner;
+
+    // Allocate 10,000 blocks in DSA and fill with test data
+    for (int i = 0; i < 10000; i++) {
+        p[i] = dsa_allocate(a, 1000);
+        snprintf(dsa_get_address(a, p[i]), 1000, "foobar%d", i);
+    }
+
+    // Free some allocations to test mixed scenarios
+    for (int i = 0; i < 500; i++) {
+        dsa_free(a, p[i]);
+    }
+
+    // Release child resource owner (tests automatic DSA cleanup)
+    CurrentResourceOwner = oldowner;
+    ResourceOwnerRelease(childowner, RESOURCE_RELEASE_BEFORE_LOCKS, true, false);
+    ResourceOwnerRelease(childowner, RESOURCE_RELEASE_LOCKS, true, false);
+    ResourceOwnerRelease(childowner, RESOURCE_RELEASE_AFTER_LOCKS, true, false);
+    ResourceOwnerDelete(childowner);
+
+    // Clean up DSA
+    dsa_detach(a);
+
+    PG_RETURN_VOID();
+}
+```

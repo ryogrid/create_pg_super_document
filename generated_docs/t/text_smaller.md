@@ -32,3 +32,20 @@ This function implements a min operation for text data types. It compares two te
 - Commonly used in MIN aggregate functions or comparison operators for text types
 - Complementary function to text_larger, using less-than comparison instead of greater-than
 - Located in src/backend/utils/adt/varlena.c:2583-2599
+
+## Simplified Source
+
+```c
+Datum
+text_smaller(PG_FUNCTION_ARGS)
+{
+    // Get the two text arguments
+    text *arg1 = PG_GETARG_TEXT_PP(0);
+    text *arg2 = PG_GETARG_TEXT_PP(1);
+
+    // Compare using current collation and return the smaller one
+    text *result = ((text_cmp(arg1, arg2, PG_GET_COLLATION()) < 0) ? arg1 : arg2);
+
+    PG_RETURN_TEXT_P(result);
+}
+```

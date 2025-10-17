@@ -38,3 +38,62 @@ ExecuteSimpleCommands is a sophisticated SQL parser and executor designed specif
 - Assumes input does not contain SQL comments, E-style literals, or dollar-quoted strings
 - Uses lazy initialization for the command buffer (curCmd)
 - Strips newlines between commands for cleaner formatting
+
+## Simplified Source
+
+```c
+static void
+ExecuteSimpleCommands(ArchiveHandle *AH, const char *buf, size_t bufLen)
+{
+    const char *qry = buf;
+    const char *eos = buf + bufLen;
+
+    // Initialize command buffer on first use
+    if (AH->sqlparse.curCmd == NULL)
+        AH->sqlparse.curCmd = createPQExpBuffer();
+
+    // Parse character by character
+    for (; qry < eos; qry++) {
+        char ch = *qry;
+
+        // Skip newlines between commands for neatness
+        if (!(ch == '\n' && AH->sqlparse.curCmd->len == 0))
+            appendPQExpBufferChar(AH->sqlparse.curCmd, ch);
+
+        // State machine for SQL parsing
+        switch (AH->sqlparse.state) {
+            case SQL_SCAN:  // Default scanning state
+                if (ch == ';') {
+                    // Found statement terminator - execute and reset
+                    ExecuteSqlCommand(AH, AH->sqlparse.curCmd->data,
+                                    "could not execute query");
+                    resetPQExpBuffer(AH->sqlparse.curCmd);
+                } else if (ch == '\'') {
+                    // Enter single-quoted string
+                    AH->sqlparse.state = SQL_IN_SINGLE_QUOTE;
+                    AH->sqlparse.backSlash = false;
+                } else if (ch == '"') {
+                    // Enter double-quoted identifier
+                    AH->sqlparse.state = SQL_IN_DOUBLE_QUOTE;
+                }
+                break;
+
+            case SQL_IN_SINGLE_QUOTE:
+                // Handle single-quoted strings with backslash escaping
+                if (ch == '\'' && !AH->sqlparse.backSlash)
+                    AH->sqlparse.state = SQL_SCAN;
+                else if (ch == '\\' && !AH->public.std_strings)
+                    AH->sqlparse.backSlash = !AH->sqlparse.backSlash;
+                else
+                    AH->sqlparse.backSlash = false;
+                break;
+
+            case SQL_IN_DOUBLE_QUOTE:
+                // Handle double-quoted identifiers
+                if (ch == '"')
+                    AH->sqlparse.state = SQL_SCAN;
+                break;
+        }
+    }
+}
+```

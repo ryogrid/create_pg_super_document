@@ -52,3 +52,26 @@ This function is registered in the PostgreSQL system catalog as both 'namelike' 
 - Supports the full LIKE pattern syntax including % (any string) and _ (any character) wildcards
 - Uses the collation specified in the function call context for locale-aware matching
 - Returns LIKE_TRUE converted to PostgreSQL boolean format
+
+## Simplified Source
+
+```c
+Datum
+namelike(PG_FUNCTION_ARGS)
+{
+    // Extract arguments
+    Name str = PG_GETARG_NAME(0);
+    text *pat = PG_GETARG_TEXT_PP(1);
+
+    // Get string data and lengths
+    char *s = NameStr(*str);
+    int slen = strlen(s);
+    char *p = VARDATA_ANY(pat);
+    int plen = VARSIZE_ANY_EXHDR(pat);
+
+    // Perform pattern matching
+    bool result = (GenericMatchText(s, slen, p, plen, PG_GET_COLLATION()) == LIKE_TRUE);
+
+    PG_RETURN_BOOL(result);
+}
+```

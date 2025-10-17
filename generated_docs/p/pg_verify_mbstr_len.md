@@ -41,3 +41,59 @@ For single-byte encodings, the function only needs to check for null bytes (\0) 
 - The function processes the string character by character, advancing by the byte length of each valid character
 - Cannot use the faster mbverifystr function because character counting is required
 - Null bytes (\0) are considered invalid in all encodings handled by this function
+
+## Simplified Source
+
+```c
+int pg_verify_mbstr_len(int encoding, const char *mbstr, int len, bool noError) {
+    int char_count = 0;
+
+    Assert(PG_VALID_ENCODING(encoding));
+
+    // For single-byte encodings, just check for null bytes
+    if (pg_encoding_max_length(encoding) <= 1) {
+        const char *null_pos = memchr(mbstr, 0, len);
+        if (null_pos == NULL)
+            return len; // Character count equals byte count
+
+        if (noError)
+            return -1;
+        report_invalid_encoding(encoding, null_pos, 1);
+    }
+
+    // Get character verification function for this encoding
+    mbchar_verifier verify_char = pg_wchar_table[encoding].mbverifychar;
+
+    // Process each character in the string
+    while (len > 0) {
+        int char_byte_len;
+
+        // Fast path for ASCII characters
+        if (!IS_HIGHBIT_SET(*mbstr)) {
+            if (*mbstr != '\0') {
+                char_count++;
+                mbstr++;
+                len--;
+                continue;
+            }
+            // Found null byte - invalid
+            if (noError) return -1;
+            report_invalid_encoding(encoding, mbstr, len);
+        }
+
+        // Verify multibyte character
+        char_byte_len = verify_char((const unsigned char *) mbstr, len);
+        if (char_byte_len < 0) {
+            if (noError) return -1;
+            report_invalid_encoding(encoding, mbstr, len);
+        }
+
+        // Move to next character
+        mbstr += char_byte_len;
+        len -= char_byte_len;
+        char_count++;
+    }
+
+    return char_count;
+}
+```

@@ -47,3 +47,45 @@ The output format allows efficient, reentrant scanning when errors occur without
 - Designed to avoid non-reentrant functions like strtok() for thread safety
 - The processed string format enables efficient scanning during error backtrace generation
 - Used as part of PostgreSQL's GUC (Grand Unified Configuration) system
+
+## Simplified Source
+
+```c
+bool check_backtrace_functions(char **newval, void **extra, GucSource source)
+{
+    int len = strlen(*newval);
+    char *result;
+    int i, j;
+
+    /* Validate input contains only allowed characters */
+    int validlen = strspn(*newval, "0123456789_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ, \n\t");
+    if (validlen != len) {
+        GUC_check_errdetail("Invalid character");
+        return false;
+    }
+
+    /* Handle empty string */
+    if (*newval[0] == '\0') {
+        *extra = NULL;
+        return true;
+    }
+
+    /* Convert comma-separated list to null-separated format */
+    result = guc_malloc(ERROR, len + 1 + 1);
+    for (i = 0, j = 0; i < len; i++) {
+        if ((*newval)[i] == ',') {
+            result[j++] = '\0';  /* Replace comma with null */
+        } else if ((*newval)[i] != ' ' && (*newval)[i] != '\n' && (*newval)[i] != '\t') {
+            result[j++] = (*newval)[i];  /* Copy non-whitespace chars */
+        }
+        /* Skip whitespace characters */
+    }
+
+    /* Double-null terminate the result */
+    result[j] = '\0';
+    result[j + 1] = '\0';
+
+    *extra = result;
+    return true;
+}
+```

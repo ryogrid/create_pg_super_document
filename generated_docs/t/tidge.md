@@ -33,3 +33,15 @@ This function implements the "greater than or equal" operator for the tid (tuple
 - This is part of the family of tid comparison operators (tideq, tidne, tidlt, tidle, tidgt, tidge)
 - Uses ItemPointerCompare result >= 0 to determine if first argument is greater than or equal to second
 - Essential for range queries with inclusive upper bounds involving tuple identifiers
+
+## Simplified Source
+
+```c
+Datum tidge(PG_FUNCTION_ARGS) {
+    ItemPointer tid1 = PG_GETARG_ITEMPOINTER(0);
+    ItemPointer tid2 = PG_GETARG_ITEMPOINTER(1);
+
+    // Return true if first TID is greater than or equal to second (comparison result >= 0)
+    PG_RETURN_BOOL(ItemPointerCompare(tid1, tid2) >= 0);
+}
+```

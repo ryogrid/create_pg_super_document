@@ -37,3 +37,18 @@ This function is typically called with the final (most recent) input directory t
 - Uses standard UNIX stat() system call for permission retrieval
 - The intent is to match the permission scheme of the final input directory
 - Error handling uses PostgreSQL's standard pg_fatal() for consistency with other error reporting
+
+## Simplified Source
+
+```c
+static void check_input_dir_permissions(char *dir) {
+    struct stat st;
+
+    // Get directory permissions
+    if (stat(dir, &st) != 0)
+        pg_fatal("could not stat file \"%s\": %m", dir);
+
+    // Configure system to use same permissions for new files
+    SetDataDirectoryCreatePerm(st.st_mode);
+}
+```

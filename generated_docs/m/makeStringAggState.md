@@ -47,3 +47,27 @@ This ensures that the aggregation state is properly allocated in long-lived memo
 - The function ensures that aggregation state survives across multiple function calls during aggregate processing
 - Used as part of the implementation of SQL's `string_agg()` function and related string aggregation operations
 - The error check prevents misuse of the function outside of aggregate contexts where the memory management assumptions would be violated
+
+## Simplified Source
+
+```c
+static StringInfo
+makeStringAggState(FunctionCallInfo fcinfo)
+{
+    StringInfo state;
+    MemoryContext aggcontext;
+    MemoryContext oldcontext;
+
+    // Verify we're in aggregate context and get aggregate memory context
+    if (!AggCheckCallContext(fcinfo, &aggcontext)) {
+        elog(ERROR, "string_agg_transfn called in non-aggregate context");
+    }
+
+    // Create state in aggregate context for persistence across calls
+    oldcontext = MemoryContextSwitchTo(aggcontext);
+    state = makeStringInfo();
+    MemoryContextSwitchTo(oldcontext);
+
+    return state;
+}
+```

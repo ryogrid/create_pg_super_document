@@ -42,3 +42,101 @@ This function implements the cover density ranking algorithm for PostgreSQL's te
 
 ## Notes and Other Information
 This function is the core implementation of PostgreSQL's cover density ranking algorithm, which is considered more sophisticated than simple term frequency approaches. The algorithm finds minimal text spans containing all query terms and calculates density scores based on cover tightness and term weights. Multiple normalization methods are supported to handle different document characteristics. The function handles edge cases like overlapping covers and missing terms gracefully. Performance is optimized through efficient cover finding and memory management.
+
+## Simplified Source
+
+```c
+static float4
+calc_rank_cd(const float4 *arrdata, TSVector txt, TSQuery query, int method)
+{
+    DocRepresentation *doc;
+    int len, doclen = 0;
+    CoverExt ext;
+    double Wdoc = 0.0;
+    double invws[lengthof(weights)];
+    double SumDist = 0.0, PrevExtPos = 0.0;
+    int NExtent = 0;
+    QueryRepresentation qr;
+
+    // Initialize inverse weights and validate ranges
+    for (int i = 0; i < lengthof(weights); i++) {
+        invws[i] = (arrdata[i] >= 0) ? arrdata[i] : weights[i];
+        if (invws[i] > 1.0)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("weight out of range")));
+        invws[i] = 1.0 / invws[i];
+    }
+
+    // Build query representation
+    qr.query = query;
+    qr.operandData = palloc0(sizeof(QueryRepresentationOperand) * query->size);
+
+    // Get document representation with positions
+    doc = get_docrep(txt, &qr, &doclen);
+    if (!doc) {
+        pfree(qr.operandData);
+        return 0.0;
+    }
+
+    // Find covers and calculate ranking
+    MemSet(&ext, 0, sizeof(CoverExt));
+    while (Cover(doc, doclen, &qr, &ext)) {
+        double Cpos = 0.0;
+        double InvSum = 0.0;
+        double CurExtPos;
+        int nNoise;
+        DocRepresentation *ptr = ext.begin;
+
+        // Sum inverse weights for cover terms
+        while (ptr <= ext.end) {
+            InvSum += invws[WEP_GETWEIGHT(ptr->pos)];
+            ptr++;
+        }
+
+        // Calculate cover density
+        Cpos = ((double) (ext.end - ext.begin + 1)) / InvSum;
+
+        // Estimate noise words in cover
+        nNoise = (ext.q - ext.p) - (ext.end - ext.begin);
+        if (nNoise < 0)
+            nNoise = (ext.end - ext.begin) / 2;
+
+        Wdoc += Cpos / ((double) (1 + nNoise));
+
+        // Calculate distance between extents
+        CurExtPos = ((double) (ext.q + ext.p)) / 2.0;
+        if (NExtent > 0 && CurExtPos > PrevExtPos)
+            SumDist += 1.0 / (CurExtPos - PrevExtPos);
+
+        PrevExtPos = CurExtPos;
+        NExtent++;
+    }
+
+    // Apply normalization methods
+    if ((method & RANK_NORM_LOGLENGTH) && txt->size > 0)
+        Wdoc /= log((double) (cnt_length(txt) + 1));
+
+    if (method & RANK_NORM_LENGTH) {
+        len = cnt_length(txt);
+        if (len > 0)
+            Wdoc /= (double) len;
+    }
+
+    if ((method & RANK_NORM_EXTDIST) && NExtent > 0 && SumDist > 0)
+        Wdoc /= ((double) NExtent) / SumDist;
+
+    if ((method & RANK_NORM_UNIQ) && txt->size > 0)
+        Wdoc /= (double) (txt->size);
+
+    if ((method & RANK_NORM_LOGUNIQ) && txt->size > 0)
+        Wdoc /= log((double) (txt->size + 1)) / log(2.0);
+
+    if (method & RANK_NORM_RDIVRPLUS1)
+        Wdoc /= (Wdoc + 1);
+
+    pfree(doc);
+    pfree(qr.operandData);
+
+    return (float4) Wdoc;
+}
+```

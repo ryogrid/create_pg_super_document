@@ -9,7 +9,7 @@ Sets the source file and line number information for a configuration parameter t
 ## Definition
 
 ```c
-struct config_generic *record;
+static void set_config_sourcefile(const char *name, char *sourcefile, int sourceline)
 ```
 ## Detailed Description
 This internal function updates the source file and line number metadata for a configuration parameter. It's used to track the origin of configuration settings, particularly when reading from configuration files. The function helps with debugging and auditing by maintaining information about where each configuration value was set. It handles memory management by duplicating the source file string and freeing any previously stored source file information.
@@ -17,9 +17,9 @@ This internal function updates the source file and line number metadata for a co
 This function is part of the internal GUC system infrastructure and is typically called during configuration file processing to maintain provenance information for each parameter setting.
 
 ## Parameters / Member Variables
-- : Name of the configuration parameter to update
-- : Path to the source file where the setting was defined
-- : Line number in the source file where the setting was defined
+- `name`: Name of the configuration parameter to update
+- `sourcefile`: Path to the source file where the setting was defined
+- `sourceline`: Line number in the source file where the setting was defined
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -40,3 +40,26 @@ This function is part of the internal GUC system infrastructure and is typically
 - Uses different error levels depending on whether running under postmaster
 - Source file information is primarily used for debugging and configuration tracking
 - Located in src/backend/utils/misc/guc.c:4302-4334
+
+## Simplified Source
+
+```c
+static void set_config_sourcefile(const char *name, char *sourcefile, int sourceline) {
+    struct config_generic *record;
+    int elevel;
+
+    // Use different log levels depending on postmaster status
+    elevel = IsUnderPostmaster ? DEBUG3 : LOG;
+
+    // Find the configuration variable
+    record = find_option(name, true, false, elevel);
+    if (record == NULL)
+        return;
+
+    // Update source file information with memory management
+    sourcefile = guc_strdup(elevel, sourcefile);
+    guc_free(record->sourcefile);
+    record->sourcefile = sourcefile;
+    record->sourceline = sourceline;
+}
+```

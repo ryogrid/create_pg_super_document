@@ -40,3 +40,35 @@ The function manages memory efficiently by reusing and growing the buffer as nee
 - Zero-length blocks serve as sentinel values to mark the end of data sections
 - Error handling includes specific messages for EOF and general read errors
 - File location: src/bin/pg_dump/pg_backup_custom.c:623-668
+
+## Simplified Source
+```c
+static void _skipData(ArchiveHandle *AH)
+{
+    lclContext *ctx = (lclContext *) AH->formatData;
+    size_t blkLen;
+    char *buf = NULL;
+    int buflen = 0;
+
+    // Skip data blocks until zero length terminator
+    blkLen = ReadInt(AH);
+    while (blkLen != 0) {
+        if (ctx->hasSeek) {
+            // Efficient seek past the data
+            fseeko(AH->FH, blkLen, SEEK_CUR);
+        } else {
+            // Read and discard data when seeking not available
+            if (blkLen > buflen) {
+                free(buf);
+                buf = (char *) pg_malloc(blkLen);
+                buflen = blkLen;
+            }
+            fread(buf, 1, blkLen, AH->FH);
+        }
+
+        blkLen = ReadInt(AH);  // Read next block length
+    }
+
+    free(buf);  // Clean up buffer
+}
+```

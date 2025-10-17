@@ -40,3 +40,35 @@ This function converts a variable-length text string to PostgreSQL's fixed-lengt
 - NAMEDATALEN is typically 64 bytes in standard PostgreSQL builds
 - Part of PostgreSQL's data type conversion functions in varlena.c
 - Located in src/backend/utils/adt/varlena.c:3359-3381
+
+## Simplified Source
+
+```c
+Datum text_name(PG_FUNCTION_ARGS)
+{
+    text *input_text = PG_GETARG_TEXT_PP(0);
+    Name result;
+    int text_len;
+
+    // Get the length of the input text (excluding variable header)
+    text_len = VARSIZE_ANY_EXHDR(input_text);
+
+    // Truncate if text is too long for Name type (typically 64 bytes max)
+    if (text_len >= NAMEDATALEN)
+        text_len = pg_mbcliplen(VARDATA_ANY(input_text), text_len, NAMEDATALEN - 1);
+
+    // Allocate zero-padded memory for Name type (fixed-length)
+    result = (Name) palloc0(NAMEDATALEN);
+
+    // Copy the text data into the Name buffer
+    memcpy(NameStr(*result), VARDATA_ANY(input_text), text_len);
+
+    PG_RETURN_NAME(result);
+}
+```
+
+**Key Points:**
+- Converts variable-length text to fixed-length Name type (used for identifiers)
+- Truncates oversize input to fit NAMEDATALEN-1 characters (typically 63 chars)
+- Uses pg_mbcliplen to respect multibyte character boundaries when truncating
+- Allocates zero-padded memory to ensure consistent Name format

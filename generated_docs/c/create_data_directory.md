@@ -54,3 +54,61 @@ This function operates on global variables:
 - The function sets global flags that influence subsequent initialization steps
 - Proper error handling ensures that users receive clear guidance on resolving directory-related issues
 - Directory permissions are set to , which is typically restrictive for security
+
+## Simplified Source
+
+```c
+void
+create_data_directory(void)
+{
+    int ret;
+
+    // Check current state of the data directory
+    switch ((ret = pg_check_dir(pg_data)))
+    {
+        case 0:
+            // Directory doesn't exist - create it
+            printf(_("creating directory %s ... "), pg_data);
+            fflush(stdout);
+
+            if (pg_mkdir_p(pg_data, pg_dir_create_mode) != 0)
+                pg_fatal("could not create directory \"%s\": %m", pg_data);
+            else
+                check_ok();
+
+            made_new_pgdata = true;
+            break;
+
+        case 1:
+            // Directory exists but is empty - fix permissions
+            printf(_("fixing permissions on existing directory %s ... "), pg_data);
+            fflush(stdout);
+
+            if (chmod(pg_data, pg_dir_create_mode) != 0)
+                pg_fatal("could not change permissions of directory \"%s\": %m", pg_data);
+            else
+                check_ok();
+
+            found_existing_pgdata = true;
+            break;
+
+        case 2:
+        case 3:
+        case 4:
+            // Directory exists and is not empty - error
+            pg_log_error("directory \"%s\" exists but is not empty", pg_data);
+            if (ret != 4)
+                warn_on_mount_point(ret);
+            else
+                pg_log_error_hint("If you want to create a new database system, either remove or empty "
+                                  "the directory \"%s\" or run %s "
+                                  "with an argument other than \"%s\".",
+                                  pg_data, progname, pg_data);
+            exit(1);
+
+        default:
+            // Cannot access directory
+            pg_fatal("could not access directory \"%s\": %m", pg_data);
+    }
+}
+```

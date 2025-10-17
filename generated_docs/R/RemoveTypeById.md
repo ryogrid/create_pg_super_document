@@ -45,3 +45,37 @@ This function is typically called indirectly through the dependency management s
 - Operates under exclusive row locking to prevent concurrent modifications
 - Part of the broader object deletion infrastructure in PostgreSQL
 - The actual DROP TYPE command goes through higher-level functions that handle dependencies first
+
+## Simplified Source
+
+```c
+void
+RemoveTypeById(Oid typeOid)
+{
+    Relation relation;
+    HeapTuple tup;
+
+    // Open the pg_type catalog with exclusive lock
+    relation = table_open(TypeRelationId, RowExclusiveLock);
+
+    // Find the type tuple by OID
+    tup = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typeOid));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for type %u", typeOid);
+
+    // Delete the main type tuple from pg_type
+    CatalogTupleDelete(relation, &tup->t_self);
+
+    // Handle specialized cleanup for enum types
+    if (((Form_pg_type) GETSTRUCT(tup))->typtype == TYPTYPE_ENUM)
+        EnumValuesDelete(typeOid);
+
+    // Handle specialized cleanup for range types
+    if (((Form_pg_type) GETSTRUCT(tup))->typtype == TYPTYPE_RANGE)
+        RangeDelete(typeOid);
+
+    // Cleanup
+    ReleaseSysCache(tup);
+    table_close(relation, RowExclusiveLock);
+}
+```

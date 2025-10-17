@@ -35,3 +35,20 @@ The function follows a simple three-stage process: worker setup, table synchroni
 - Part of PostgreSQL's logical replication infrastructure
 - The function is designed to run in a separate background process dedicated to synchronizing a specific table
 - Error handling and transaction management are handled by the called functions rather than at this level
+
+## Simplified Source
+
+```c
+void TablesyncWorkerMain(Datum main_arg) {
+    int worker_slot = DatumGetInt32(main_arg);
+
+    // Stage 1: Initialize worker environment
+    SetupApplyOrSyncWorker(worker_slot);
+
+    // Stage 2: Execute table synchronization
+    run_tablesync_worker();
+
+    // Stage 3: Clean up and finalize
+    finish_sync_worker();
+}
+```

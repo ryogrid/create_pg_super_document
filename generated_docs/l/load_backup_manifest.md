@@ -44,3 +44,79 @@ The function handles both small manifests (loaded entirely into memory) and larg
 - Handles chunked reading intelligently to ensure the last chunk contains the complete checksum portion
 - Sets up comprehensive callback functions for different JSON manifest elements during parsing
 - Memory management includes proper cleanup of buffers and incremental parsing state
+
+## Simplified Source
+
+```c
+manifest_data *load_backup_manifest(char *backup_directory) {
+    char pathname[MAXPGPATH];
+    int fd;
+    struct stat statbuf;
+    manifest_data *result;
+
+    // Open manifest file
+    snprintf(pathname, MAXPGPATH, "%s/backup_manifest", backup_directory);
+    if ((fd = open(pathname, O_RDONLY | PG_BINARY, 0)) < 0) {
+        if (errno == ENOENT) {
+            pg_log_warning("file \"%s\" does not exist", pathname);
+            return NULL;
+        }
+        pg_fatal("could not open file \"%s\": %m", pathname);
+    }
+
+    // Get file size for parsing strategy
+    if (fstat(fd, &statbuf) != 0)
+        pg_fatal("could not stat file \"%s\": %m", pathname);
+
+    // Create hash table and result structure
+    off_t estimate = statbuf.st_size / ESTIMATED_BYTES_PER_MANIFEST_LINE;
+    uint32 initial_size = Min(PG_UINT32_MAX, Max(estimate, 256));
+    manifest_files_hash *ht = manifest_files_create(initial_size, NULL);
+
+    result = pg_malloc0(sizeof(manifest_data));
+    result->files = ht;
+
+    // Setup JSON parsing callbacks
+    JsonManifestParseContext context;
+    context.private_data = result;
+    context.version_cb = combinebackup_version_cb;
+    context.system_identifier_cb = combinebackup_system_identifier_cb;
+    context.per_file_cb = combinebackup_per_file_cb;
+    context.per_wal_range_cb = combinebackup_per_wal_range_cb;
+    context.error_cb = report_manifest_error;
+
+    // Parse file (small files: all at once, large files: chunked)
+    if (statbuf.st_size <= READ_CHUNK_SIZE) {
+        // Parse entire file at once
+        char *buffer = pg_malloc(statbuf.st_size);
+        if (read(fd, buffer, statbuf.st_size) != statbuf.st_size)
+            pg_fatal("could not read file \"%s\"", pathname);
+
+        close(fd);
+        json_parse_manifest(&context, buffer, statbuf.st_size);
+        pfree(buffer);
+    } else {
+        // Parse incrementally for large files
+        JsonManifestParseIncrementalState *inc_state =
+            json_parse_manifest_incremental_init(&context);
+        char *buffer = pg_malloc(READ_CHUNK_SIZE + 1);
+        int bytes_left = statbuf.st_size;
+
+        while (bytes_left > 0) {
+            int bytes_to_read = Min(READ_CHUNK_SIZE, bytes_left);
+            if (read(fd, buffer, bytes_to_read) != bytes_to_read)
+                pg_fatal("could not read file \"%s\"", pathname);
+
+            bytes_left -= bytes_to_read;
+            json_parse_manifest_incremental_chunk(inc_state, buffer,
+                                                 bytes_to_read, bytes_left == 0);
+        }
+
+        json_parse_manifest_incremental_shutdown(inc_state);
+        close(fd);
+        pfree(buffer);
+    }
+
+    return result;
+}
+```

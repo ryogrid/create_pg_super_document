@@ -43,3 +43,24 @@ This function is essential for memory context management operations that need to
 - The function returns the context of the underlying unaligned allocation, not a separate context for aligned allocations
 - Part of PostgreSQL's aligned memory allocation subsystem located in src/backend/utils/mmgr/alignedalloc.c
 - Essential for integrating aligned allocations with PostgreSQL's memory context system
+
+## Simplified Source
+
+```c
+MemoryContext AlignedAllocGetChunkContext(void *pointer) {
+    MemoryChunk *redirchunk = PointerGetMemoryChunk(pointer);
+    MemoryContext cxt;
+
+    // Make chunk metadata accessible for reading
+    VALGRIND_MAKE_MEM_DEFINED(redirchunk, sizeof(MemoryChunk));
+    Assert(!MemoryChunkIsExternal(redirchunk));
+
+    // Get context from the original unaligned allocation
+    cxt = GetMemoryChunkContext(MemoryChunkGetBlock(redirchunk));
+
+    // Restore memory access protection
+    VALGRIND_MAKE_MEM_NOACCESS(redirchunk, sizeof(MemoryChunk));
+
+    return cxt;
+}
+```

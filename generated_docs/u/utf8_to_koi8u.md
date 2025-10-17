@@ -41,3 +41,28 @@ This function serves as a PostgreSQL conversion procedure that transforms UTF-8 
 - The conversion relies on a Unicode tree structure for efficient character mapping
 - Error handling is controlled by the noError parameter, allowing for graceful failure handling when requested
 - KOI8-U includes characters like Ukrainian 'ґ' (ghe with upturn) and 'є' (Ukrainian ye) not present in KOI8-R
+
+## Simplified Source
+
+```c
+Datum
+utf8_to_koi8u(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_UTF8, PG_KOI8U);
+
+    // Convert UTF-8 to KOI8-U using conversion tree
+    int converted = UtfToLocal(src, len, dest,
+                              &koi8u_from_unicode_tree,
+                              NULL, 0, NULL,
+                              PG_KOI8U, noError);
+
+    return converted;
+}
+```

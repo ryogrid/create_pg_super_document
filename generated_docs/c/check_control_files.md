@@ -46,3 +46,51 @@ The function processes control files in reverse order (latest backup first) and 
 - Processes backups in reverse chronological order for efficient validation
 - Performs memory cleanup by freeing allocated control file data and path strings
 - Validates both CRC integrity and version compatibility before processing control file contents
+
+## Simplified Source
+
+```c
+static uint64 check_control_files(int n_backups, char **backup_dirs) {
+    uint64 system_identifier = 0;
+    uint32 data_checksum_version = 0;
+    bool data_checksum_mismatch = false;
+
+    // Process each backup's control file (newest to oldest)
+    for (int i = n_backups - 1; i >= 0; --i) {
+        // Read and validate control file
+        char *controlpath = psprintf("%s/global/pg_control", backup_dirs[i]);
+        ControlFileData *control_file = get_controlfile_by_exact_path(controlpath, &crc_ok);
+
+        // Verify file integrity and version
+        if (!crc_ok)
+            pg_fatal("%s: CRC is incorrect", controlpath);
+        if (control_file->pg_control_version != PG_CONTROL_VERSION)
+            pg_fatal("%s: unexpected control file version", controlpath);
+
+        // Ensure system identifiers match across all backups
+        if (i == n_backups - 1)
+            system_identifier = control_file->system_identifier;
+        else if (system_identifier != control_file->system_identifier)
+            pg_fatal("%s: system identifier mismatch", controlpath);
+
+        // Track checksum configuration consistency
+        if (i == n_backups - 1)
+            data_checksum_version = control_file->data_checksum_version;
+        else if (data_checksum_version != 0 &&
+                 data_checksum_version != control_file->data_checksum_version)
+            data_checksum_mismatch = true;
+
+        // Cleanup memory
+        pfree(control_file);
+        pfree(controlpath);
+    }
+
+    // Warn about checksum configuration mismatches
+    if (data_checksum_mismatch) {
+        pg_log_warning("only some backups have checksums enabled");
+        pg_log_warning_hint("Disable, and optionally reenable, checksums on the output directory to avoid failures.");
+    }
+
+    return system_identifier;
+}
+```

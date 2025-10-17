@@ -36,3 +36,19 @@ The function is designed to be called on both newly allocated DumpOptions struct
 - dumpSections is set to DUMP_UNSECTIONED (0xff), indicating no specific section filtering
 - This function establishes the baseline behavior that pg_dump uses when no specific options are provided
 - All boolean flags default to false (via memset), which generally means features are disabled by default
+
+## Simplified Source
+
+```c
+void
+InitDumpOptions(DumpOptions *opts)
+{
+    // Zero out the entire structure to set all fields to false/NULL/0
+    memset(opts, 0, sizeof(DumpOptions));
+
+    // Set non-zero defaults for specific fields
+    opts->include_everything = true;               // Include all objects by default
+    opts->cparams.promptPassword = TRI_DEFAULT;    // Default password prompting
+    opts->dumpSections = DUMP_UNSECTIONED;         // No section filtering
+}
+```

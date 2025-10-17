@@ -60,3 +60,51 @@ The function includes comprehensive error handling to ensure that set-returning 
 - This is a foundational function used by many PostgreSQL system functions that return result sets
 - Error conditions will raise exceptions rather than returning error codes
 - The tuplestore created supports both sequential and random access depending on caller requirements
+
+## Simplified Source
+
+```c
+void InitMaterializedSRF(FunctionCallInfo fcinfo, bits32 flags) {
+    bool random_access;
+    ReturnSetInfo *rsinfo = (ReturnSetInfo *) fcinfo->resultinfo;
+    TuplestoreState *tupstore;
+    MemoryContext old_context, per_query_ctx;
+    TupleDesc stored_tupdesc;
+
+    // Validate that caller supports tuplestore
+    if (rsinfo == NULL || !IsA(rsinfo, ReturnSetInfo))
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                errmsg("set-valued function called in context that cannot accept a set")));
+
+    // Check materialize mode support
+    if (!(rsinfo->allowedModes & SFRM_Materialize) ||
+        ((flags & MAT_SRF_USE_EXPECTED_DESC) != 0 && rsinfo->expectedDesc == NULL))
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                errmsg("materialize mode required, but it is not allowed in this context")));
+
+    // Switch to per-query memory context
+    per_query_ctx = rsinfo->econtext->ecxt_per_query_memory;
+    old_context = MemoryContextSwitchTo(per_query_ctx);
+
+    // Build tuple descriptor
+    if ((flags & MAT_SRF_USE_EXPECTED_DESC) != 0)
+        stored_tupdesc = CreateTupleDescCopy(rsinfo->expectedDesc);
+    else {
+        if (get_call_result_type(fcinfo, NULL, &stored_tupdesc) != TYPEFUNC_COMPOSITE)
+            elog(ERROR, "return type must be a row type");
+    }
+
+    // Bless tuple descriptor if requested
+    if ((flags & MAT_SRF_BLESS) != 0)
+        BlessTupleDesc(stored_tupdesc);
+
+    // Create tuplestore and configure return info
+    random_access = (rsinfo->allowedModes & SFRM_Materialize_Random) != 0;
+    tupstore = tuplestore_begin_heap(random_access, false, work_mem);
+    rsinfo->returnMode = SFRM_Materialize;
+    rsinfo->setResult = tupstore;
+    rsinfo->setDesc = stored_tupdesc;
+
+    MemoryContextSwitchTo(old_context);
+}
+```

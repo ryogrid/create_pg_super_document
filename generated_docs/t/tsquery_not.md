@@ -45,3 +45,38 @@ The implementation creates a new QTNode structure representing the NOT operator,
 - Part of PostgreSQL's full-text search infrastructure
 - Implements the  unary NOT operator in tsquery syntax
 - The resulting query will match documents that do not satisfy the original query condition
+
+## Simplified Source
+
+```c
+Datum
+tsquery_not(PG_FUNCTION_ARGS)
+{
+    TSQuery input = PG_GETARG_TSQUERY_COPY(0);
+
+    // Return empty query unchanged
+    if (input->size == 0)
+        return input;
+
+    // Create NOT operator node
+    QTNode *not_node = palloc0(sizeof(QTNode));
+    not_node->flags |= QTN_NEEDFREE;
+
+    // Set up NOT operator
+    not_node->valnode = palloc0(sizeof(QueryItem));
+    not_node->valnode->type = QI_OPR;
+    not_node->valnode->qoperator.oper = OP_NOT;
+
+    // Add input query as single child
+    not_node->child = palloc0(sizeof(QTNode *));
+    not_node->child[0] = QT2QTN(GETQUERY(input), GETOPERAND(input));
+    not_node->nchild = 1;
+
+    // Convert back to TSQuery and cleanup
+    TSQuery result = QTN2QT(not_node);
+    QTNFree(not_node);
+    PG_FREE_IF_COPY(input, 0);
+
+    PG_RETURN_POINTER(result);
+}
+```

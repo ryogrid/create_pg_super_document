@@ -36,3 +36,50 @@ When the linkname is an absolute path (starts with '/'), the function first conv
 - Memory is allocated dynamically for the result, which must be freed by the caller
 - The algorithm efficiently finds the common directory prefix and calculates the minimum number of "../" sequences needed
 - No direct callers were found in the current analysis, suggesting it may be used internally within the same file or module
+
+## Simplified Source
+
+```c
+static char *
+relname(char const *target, char const *linkname)
+{
+    size_t dir_len = 0, dotdots = 0;
+    char const *f = target;
+    char *result = NULL;
+
+    // If linkname is absolute, make target absolute too
+    if (*linkname == '/') {
+        size_t len = strlen(directory);
+        bool needslash = len && directory[len - 1] != '/';
+
+        size_t linksize = len + needslash + strlen(target) + 1;
+        f = result = emalloc(linksize);
+        strcpy(result, directory);
+        result[len] = '/';
+        strcpy(result + len + needslash, target);
+    }
+
+    // Find common directory prefix
+    size_t i;
+    for (i = 0; f[i] && f[i] == linkname[i]; i++)
+        if (f[i] == '/')
+            dir_len = i + 1;
+
+    // Count directory levels to go up from linkname
+    for (; linkname[i]; i++)
+        dotdots += linkname[i] == '/' && linkname[i - 1] != '/';
+
+    // Build relative path: "../" * dotdots + remaining target path
+    size_t taillen = strlen(f + dir_len);
+    size_t dotdotetcsize = 3 * dotdots + taillen + 1;
+
+    if (!result)
+        result = emalloc(dotdotetcsize);
+
+    for (i = 0; i < dotdots; i++)
+        memcpy(result + 3 * i, "../", 3);
+    memmove(result + 3 * dotdots, f + dir_len, taillen + 1);
+
+    return result;
+}
+```

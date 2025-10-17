@@ -39,3 +39,17 @@ The `namefastcmp_c` function provides optimized comparison functionality specifi
 - Does not support abbreviation optimization (disabled in varstr_sortsupport for NAME type)
 - Returns standard comparison result: negative for x < y, zero for x = y, positive for x > y
 - Located in src/backend/utils/adt/varlena.c at lines 2082-2093
+
+## Simplified Source
+
+```c
+static int namefastcmp_c(Datum x, Datum y, SortSupport ssup) {
+    // Extract NAME values from datums (no detoasting needed for fixed-length type)
+    Name arg1 = DatumGetName(x);
+    Name arg2 = DatumGetName(y);
+
+    // Simple string comparison with fixed maximum length
+    // NAME type is limited to NAMEDATALEN characters (typically 64 bytes)
+    return strncmp(NameStr(*arg1), NameStr(*arg2), NAMEDATALEN);
+}
+```

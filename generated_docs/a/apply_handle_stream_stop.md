@@ -47,3 +47,70 @@ The function includes sophisticated locking mechanisms to coordinate between lea
 - Reports appropriate activity state (IDLE or IDLEINTRANSACTION) based on current transaction status
 - Contains detailed comments about race conditions and their handling in parallel apply scenarios
 - Part of the logical replication streaming transaction completion protocol
+
+## Simplified Source
+
+```c
+static void apply_handle_stream_stop(StringInfo s)
+{
+    ParallelApplyWorkerInfo *winfo;
+    TransApplyAction apply_action;
+
+    // Validate we have an active streaming transaction
+    if (!in_streamed_transaction)
+        ereport(ERROR, "STREAM STOP message without STREAM START");
+
+    // Determine how to handle the transaction stop
+    apply_action = get_transaction_apply_action(stream_xid, &winfo);
+
+    switch (apply_action) {
+        case TRANS_LEADER_SERIALIZE:
+            // Stop serialized transaction directly
+            stream_stop_internal(stream_xid);
+            break;
+
+        case TRANS_LEADER_SEND_TO_PARALLEL:
+            // Lock before sending to prevent race conditions
+            pa_lock_stream(winfo->shared->xid, AccessExclusiveLock);
+
+            if (pa_send_data(winfo, s->len, s->data)) {
+                pa_set_stream_apply_worker(NULL);
+                break;
+            }
+
+            // Fall back to serialization if sending fails
+            pa_switch_to_partial_serialize(winfo, true);
+
+        case TRANS_LEADER_PARTIAL_SERIALIZE:
+            // Write stop message to spool file and finalize
+            stream_write_change(LOGICAL_REP_MSG_STREAM_STOP, s);
+            stream_stop_internal(stream_xid);
+            pa_set_stream_apply_worker(NULL);
+            break;
+
+        case TRANS_PARALLEL_APPLY:
+            // Report changes processed in this streaming chunk
+            elog(DEBUG1, "applied %u changes in the streaming chunk",
+                 parallel_stream_nchanges);
+
+            // Wait for more streaming blocks if needed
+            pa_decr_and_wait_stream_block();
+            break;
+
+        default:
+            elog(ERROR, "unexpected apply action: %d", (int) apply_action);
+    }
+
+    // Clean up streaming transaction state
+    in_streamed_transaction = false;
+    stream_xid = InvalidTransactionId;
+
+    // Report appropriate activity state
+    if (IsTransactionOrTransactionBlock())
+        pgstat_report_activity(STATE_IDLEINTRANSACTION, NULL);
+    else
+        pgstat_report_activity(STATE_IDLE, NULL);
+
+    reset_apply_error_context_info();
+}
+```

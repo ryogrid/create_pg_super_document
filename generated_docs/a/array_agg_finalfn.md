@@ -41,3 +41,33 @@ The function deliberately does not release the ArrayBuildState memory, as aggreg
 - Memory management is delegated to the aggregate execution context
 - Essential component that produces the final array result visible to SQL users
 - Works with both serial and parallel aggregate execution modes
+
+## Simplified Source
+
+```c
+Datum
+array_agg_finalfn(PG_FUNCTION_ARGS)
+{
+    // Ensure aggregate context
+    Assert(AggCheckCallContext(fcinfo, NULL));
+
+    // Get accumulated state
+    ArrayBuildState *state = PG_ARGISNULL(0) ? NULL :
+                           (ArrayBuildState *) PG_GETARG_POINTER(0);
+
+    // Return NULL if no input values were aggregated
+    if (state == NULL)
+        PG_RETURN_NULL();
+
+    // Set up array dimensions (1D array with lower bound 1)
+    int dims[1] = {state->nelems};
+    int lbs[1] = {1};
+
+    // Create final array result from accumulated state
+    // Note: ArrayBuildState is not freed here as final functions may be re-executed
+    Datum result = makeMdArrayResult(state, 1, dims, lbs,
+                                   CurrentMemoryContext, false);
+
+    PG_RETURN_DATUM(result);
+}
+```

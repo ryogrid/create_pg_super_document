@@ -64,3 +64,61 @@ This approach is optimized assuming the lexeme filter array is significantly sho
 - Creates a new TSVector copy rather than modifying input in-place
 - Optimized for cases where filter array is much smaller than the TSVector
 - Essential for implementing targeted document relevance adjustments in full-text search
+
+## Simplified Source
+
+```c
+Datum tsvector_setweight_by_filter(PG_FUNCTION_ARGS) {
+    TSVector input_tsvector = PG_GETARG_TSVECTOR(0);
+    char weight_char = PG_GETARG_CHAR(1);
+    ArrayType *lexeme_array = PG_GETARG_ARRAYTYPE_P(2);
+
+    // Convert weight character to numeric value
+    int weight;
+    switch (weight_char) {
+        case 'A': case 'a': weight = 3; break;
+        case 'B': case 'b': weight = 2; break;
+        case 'C': case 'c': weight = 1; break;
+        case 'D': case 'd': weight = 0; break;
+        default: elog(ERROR, "unrecognized weight: %c", weight_char);
+    }
+
+    // Create a copy of the input TSVector
+    TSVector output_tsvector = (TSVector) palloc(VARSIZE(input_tsvector));
+    memcpy(output_tsvector, input_tsvector, VARSIZE(input_tsvector));
+    WordEntry *entries = ARRPTR(output_tsvector);
+
+    // Deconstruct the lexeme filter array
+    Datum *lexemes;
+    bool *nulls;
+    int num_lexemes;
+    deconstruct_array_builtin(lexeme_array, TEXTOID, &lexemes, &nulls, &num_lexemes);
+
+    // Process each lexeme in the filter array
+    for (int i = 0; i < num_lexemes; i++) {
+        if (nulls[i]) continue; // Skip NULL entries
+
+        // Extract lexeme text
+        char *lexeme_text = VARDATA(lexemes[i]);
+        int lexeme_len = VARSIZE(lexemes[i]) - VARHDRSZ;
+
+        // Find lexeme in TSVector using binary search
+        int lexeme_pos = tsvector_bsearch(output_tsvector, lexeme_text, lexeme_len);
+
+        // Update weights if lexeme found and has position data
+        if (lexeme_pos >= 0) {
+            int pos_count = POSDATALEN(output_tsvector, &entries[lexeme_pos]);
+            if (pos_count > 0) {
+                WordEntryPos *positions = POSDATAPTR(output_tsvector, &entries[lexeme_pos]);
+                for (int j = 0; j < pos_count; j++) {
+                    WEP_SETWEIGHT(positions[j], weight);
+                }
+            }
+        }
+    }
+
+    PG_FREE_IF_COPY(input_tsvector, 0);
+    PG_FREE_IF_COPY(lexeme_array, 2);
+    PG_RETURN_POINTER(output_tsvector);
+}
+```

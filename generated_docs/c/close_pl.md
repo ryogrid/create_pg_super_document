@@ -48,3 +48,24 @@ This function implements the SQL-callable interface for finding the closest poin
 - Serves as a wrapper around the internal  function
 - Part of PostgreSQL's geometric operations suite for point-line proximity calculations
 - The function name follows PostgreSQL's geometric function naming convention (operation_type1_type2)
+
+## Simplified Source
+
+```c
+Datum close_pl(PG_FUNCTION_ARGS) {
+    // Extract input point and line from function arguments
+    Point *pt = PG_GETARG_POINT_P(0);
+    LINE *line = PG_GETARG_LINE_P(1);
+
+    // Allocate memory for result point
+    Point *result = (Point *) palloc(sizeof(Point));
+
+    // Calculate closest point on line to the given point
+    // If calculation fails (returns NaN), return NULL
+    if (isnan(line_closept_point(result, line, pt)))
+        PG_RETURN_NULL();
+
+    // Return the computed closest point
+    PG_RETURN_POINT_P(result);
+}
+```

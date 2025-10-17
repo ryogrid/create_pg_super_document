@@ -32,3 +32,23 @@ The caching mechanism improves performance by allowing reuse of expensive-to-pre
 - Includes assertion to verify that existing entries have NULL plans (indicating they were invalidated)
 - Part of the plan caching optimization system for referential integrity triggers
 - Works in conjunction with ri_FetchPreparedPlan to provide efficient plan reuse
+
+## Simplified Source
+
+```c
+static void
+ri_HashPreparedPlan(RI_QueryKey *key, SPIPlanPtr plan)
+{
+    RI_QueryHashEntry *entry;
+    bool found;
+
+    // Initialize hash table on first use
+    if (!ri_query_cache)
+        ri_InitHashTables();
+
+    // Add the plan to the cache
+    entry = (RI_QueryHashEntry *) hash_search(ri_query_cache, key, HASH_ENTER, &found);
+    Assert(!found || entry->plan == NULL);
+    entry->plan = plan;
+}
+```

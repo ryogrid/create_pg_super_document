@@ -40,3 +40,50 @@ This function implements the core logic for JSON object expansion operations on 
 - Uses EachState structure to maintain parsing state across callbacks
 - Part of PostgreSQL's JSON (text) processing functionality
 - Complements the JSONB-based each_worker_jsonb function
+
+## Simplified Source
+
+```c
+static Datum
+each_worker(FunctionCallInfo fcinfo, bool as_text)
+{
+    // Get JSON text input
+    text *json = PG_GETARG_TEXT_PP(0);
+
+    // Set up parsing state and context
+    EachState *state = palloc0(sizeof(EachState));
+    JsonSemAction *sem = palloc0(sizeof(JsonSemAction));
+    JsonLexContext lex;
+
+    // Initialize set-returning function
+    ReturnSetInfo *rsi = (ReturnSetInfo *) fcinfo->resultinfo;
+    InitMaterializedSRF(fcinfo, MAT_SRF_BLESS);
+
+    state->tuple_store = rsi->setResult;
+    state->ret_tdesc = rsi->setDesc;
+    state->normalize_results = as_text;
+    state->next_scalar = false;
+
+    // Configure JSON parser callbacks
+    sem->semstate = (void *) state;
+    sem->array_start = each_array_start;
+    sem->scalar = each_scalar;
+    sem->object_field_start = each_object_field_start;
+    sem->object_field_end = each_object_field_end;
+
+    // Set up lexical context and temporary memory
+    state->lex = makeJsonLexContext(&lex, json, true);
+    state->tmp_cxt = AllocSetContextCreate(CurrentMemoryContext,
+                                          "json_each temporary cxt",
+                                          ALLOCSET_DEFAULT_SIZES);
+
+    // Parse JSON and process key-value pairs through callbacks
+    pg_parse_json_or_ereport(&lex, sem);
+
+    // Clean up resources
+    MemoryContextDelete(state->tmp_cxt);
+    freeJsonLexContext(&lex);
+
+    PG_RETURN_NULL();
+}
+```

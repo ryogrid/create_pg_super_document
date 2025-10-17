@@ -46,3 +46,24 @@ The caller is responsible for calling `PQclear()` on the returned result to free
 - The status parameter provides flexibility to handle different query types with different expected success statuses
 - This function uses fatal error handling - any query failure or unexpected status terminates the entire pg_dump process
 - The Archive parameter uses type punning (casting from Archive* to ArchiveHandle*) for internal access while maintaining API compatibility
+
+## Simplified Source
+
+```c
+PGresult *
+ExecuteSqlQuery(Archive *AHX, const char *query, ExecStatusType status)
+{
+    ArchiveHandle *AH = (ArchiveHandle *) AHX;
+    PGresult *res;
+
+    // Execute the SQL query
+    res = PQexec(AH->connection, query);
+
+    // Verify expected result status
+    if (PQresultStatus(res) != status)
+        die_on_query_failure(AH, query);
+
+    // Return result to caller (caller must PQclear)
+    return res;
+}
+```

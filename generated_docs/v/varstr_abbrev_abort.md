@@ -47,3 +47,62 @@ The function recognizes that even with low cardinality abbreviated keys, the opt
 - The function recognizes that even modest abbreviated key effectiveness can yield significant performance improvements
 - Works in conjunction with varstr_abbrev_convert() which tracks the cardinality statistics this function analyzes
 - Prevents worst-case scenarios where abbreviation overhead exceeds benefits while preserving most beneficial cases
+
+## Simplified Source
+
+```c
+static bool
+varstr_abbrev_abort(int memtupcount, SortSupport ssup)
+{
+    VarStringSortSupport *sss = (VarStringSortSupport *) ssup->ssup_extra;
+    double abbrev_distinct, key_distinct;
+
+    Assert(ssup->abbreviate);
+
+    // Need sufficient data for meaningful statistics
+    if (memtupcount < 100)
+        return false;
+
+    // Get cardinality estimates from HyperLogLog
+    abbrev_distinct = estimateHyperLogLog(&sss->abbr_card);
+    key_distinct = estimateHyperLogLog(&sss->full_card);
+
+    // Clamp estimates to avoid division issues with all-NULL cases
+    if (abbrev_distinct <= 1.0)
+        abbrev_distinct = 1.0;
+    if (key_distinct <= 1.0)
+        key_distinct = 1.0;
+
+#ifdef TRACE_SORT
+    if (trace_sort) {
+        double norm_abbrev_card = abbrev_distinct / (double) memtupcount;
+        elog(LOG, "varstr_abbrev: abbrev_distinct after %d: %f "
+             "(key_distinct: %f, norm_abbrev_card: %f, prop_card: %f)",
+             memtupcount, abbrev_distinct, key_distinct, norm_abbrev_card,
+             sss->prop_card);
+    }
+#endif
+
+    // Continue if abbreviated keys provide good discrimination
+    // Even low cardinality can be beneficial due to cheap memcmp() tie-breaking
+    if (abbrev_distinct > key_distinct * sss->prop_card) {
+
+        // For large datasets, decay the cardinality requirement
+        // This accounts for changing cost dynamics as size grows
+        if (memtupcount > 10000)
+            sss->prop_card *= 0.65;
+
+        return false;  // Continue using abbreviation
+    }
+
+    // Abort abbreviation - overhead not justified by benefits
+#ifdef TRACE_SORT
+    if (trace_sort)
+        elog(LOG, "varstr_abbrev: aborted abbreviation at %d "
+             "(abbrev_distinct: %f, key_distinct: %f, prop_card: %f)",
+             memtupcount, abbrev_distinct, key_distinct, sss->prop_card);
+#endif
+
+    return true;  // Disable abbreviation optimization
+}
+```

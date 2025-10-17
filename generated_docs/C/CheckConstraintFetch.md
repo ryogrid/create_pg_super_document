@@ -44,3 +44,79 @@ After loading all constraints, the function sorts them by name to ensure determi
 - Sorts constraints by name for deterministic ordering and performance optimization
 - Only processes constraints of type CONSTRAINT_CHECK, ignoring other constraint types
 - Validates that conbin (constraint binary expression) is not null before processing
+
+## Simplified Source
+
+```c
+static void CheckConstraintFetch(Relation relation) {
+    ConstrCheck *check;
+    int ncheck = relation->rd_rel->relchecks;
+    Relation conrel;
+    SysScanDesc conscan;
+    ScanKeyData skey[1];
+    HeapTuple htup;
+    int found = 0;
+
+    // Allocate array for expected check constraints
+    check = (ConstrCheck *) MemoryContextAllocZero(CacheMemoryContext,
+                                                   ncheck * sizeof(ConstrCheck));
+
+    // Search pg_constraint for this relation's check constraints
+    ScanKeyInit(&skey[0], Anum_pg_constraint_conrelid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(RelationGetRelid(relation)));
+
+    conrel = table_open(ConstraintRelationId, AccessShareLock);
+    conscan = systable_beginscan(conrel, ConstraintRelidTypidNameIndexId, true,
+                                 NULL, 1, skey);
+
+    // Process each constraint record
+    while (HeapTupleIsValid(htup = systable_getnext(conscan))) {
+        Form_pg_constraint conform = (Form_pg_constraint) GETSTRUCT(htup);
+        Datum val;
+        bool isnull;
+
+        // Only want check constraints
+        if (conform->contype != CONSTRAINT_CHECK)
+            continue;
+
+        // Check array bounds
+        if (found >= ncheck) {
+            elog(WARNING, "unexpected pg_constraint record found");
+            break;
+        }
+
+        // Store constraint metadata
+        check[found].ccvalid = conform->convalidated;
+        check[found].ccnoinherit = conform->connoinherit;
+        check[found].ccname = MemoryContextStrdup(CacheMemoryContext,
+                                                  NameStr(conform->conname));
+
+        // Extract constraint expression (conbin)
+        val = fastgetattr(htup, Anum_pg_constraint_conbin, conrel->rd_att, &isnull);
+        if (isnull) {
+            elog(WARNING, "null conbin for relation");
+        } else {
+            // Convert to string and store in cache memory
+            char *s = TextDatumGetCString(val);
+            check[found].ccbin = MemoryContextStrdup(CacheMemoryContext, s);
+            pfree(s);
+            found++;
+        }
+    }
+
+    systable_endscan(conscan);
+    table_close(conrel, AccessShareLock);
+
+    // Warn if we didn't find expected number
+    if (found != ncheck)
+        elog(WARNING, "%d pg_constraint record(s) missing", ncheck - found);
+
+    // Sort by constraint name for deterministic ordering
+    if (found > 1)
+        qsort(check, found, sizeof(ConstrCheck), CheckConstraintCmp);
+
+    // Install in relation's constraint structure
+    relation->rd_att->constr->check = check;
+    relation->rd_att->constr->num_check = found;
+}
+```

@@ -35,3 +35,20 @@ The `puttzcodepass` function provides dual-mode timezone data writing capability
 - The function uses an 8-byte buffer for 64-bit output operations
 - Part of PostgreSQL's timezone data compilation infrastructure
 - This function is static and only accessible within the zic.c compilation unit
+
+## Simplified Source
+
+```c
+static void puttzcodepass(zic_t val, FILE *fp, int pass) {
+    // Write timezone data in format determined by pass number
+    if (pass == 1) {
+        // Pass 1: Write as 32-bit integer for compatibility
+        puttzcode(val, fp);
+    } else {
+        // Other passes: Write as 64-bit integer for extended range
+        char buf[8];
+        convert64(val, buf);  // Convert to 64-bit binary format
+        fwrite(buf, sizeof buf, 1, fp);  // Write to file
+    }
+}
+```

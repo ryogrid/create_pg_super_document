@@ -64,3 +64,97 @@ The function includes extensive memory debugging support, including detection of
 - The allocate-copy-free path was chosen over complex in-place expansion to avoid memory leaks in palloc/repalloc/pfree cycles
 - Properly handles memory accounting updates for block size changes in external chunk reallocations
 - Uses conservative memory marking strategies when the original request size is unknown
+
+## Simplified Source
+
+```c
+void *
+AllocSetRealloc(void *pointer, Size size, int flags)
+{
+    AllocBlock block;
+    AllocSet set;
+    MemoryChunk *chunk = PointerGetMemoryChunk(pointer);
+    Size oldchksize;
+    int fidx;
+
+    // Handle external chunks (large allocations)
+    if (MemoryChunkIsExternal(chunk))
+    {
+        Size chksize, blksize, oldblksize;
+
+        block = ExternalChunkGetBlock(chunk);
+
+        // Validate block structure
+        if (!AllocBlockIsValid(block) || block->freeptr != block->endptr)
+            elog(ERROR, "could not find block containing chunk %p", chunk);
+
+        set = block->aset;
+        MemoryContextCheckSize((MemoryContext) set, size, flags);
+
+        oldchksize = block->endptr - (char *) pointer;
+
+        // Calculate new block size and reallocate
+        chksize = MAXALIGN(size);
+        blksize = chksize + ALLOC_BLOCKHDRSZ + ALLOC_CHUNKHDRSZ;
+        oldblksize = block->endptr - ((char *) block);
+
+        block = (AllocBlock) realloc(block, blksize);
+        if (block == NULL)
+            return MemoryContextAllocationFailure(&set->header, size, flags);
+
+        // Update memory accounting and block pointers
+        set->header.mem_allocated -= oldblksize;
+        set->header.mem_allocated += blksize;
+
+        block->freeptr = block->endptr = ((char *) block) + blksize;
+
+        // Update chunk pointer and linked list
+        chunk = (MemoryChunk *) (((char *) block) + ALLOC_BLOCKHDRSZ);
+        pointer = MemoryChunkGetPointer(chunk);
+
+        // Fix linked list pointers since block may have moved
+        if (block->prev)
+            block->prev->next = block;
+        else
+            set->blocks = block;
+        if (block->next)
+            block->next->prev = block;
+
+        return pointer;
+    }
+
+    // Handle regular chunks
+    block = MemoryChunkGetBlock(chunk);
+    set = block->aset;
+
+    fidx = MemoryChunkGetValue(chunk);
+    oldchksize = GetChunkSizeFromFreeListIdx(fidx);
+
+    // If existing chunk is large enough, reuse it
+    if (oldchksize >= size)
+    {
+        // Just update size tracking - no need to move data
+        return pointer;
+    }
+    else
+    {
+        // Need larger chunk - allocate new, copy, and free old
+        AllocPointer newPointer;
+        Size oldsize;
+
+        // Allocate new chunk
+        newPointer = AllocSetAlloc((MemoryContext) set, size, flags);
+        if (newPointer == NULL)
+            return MemoryContextAllocationFailure((MemoryContext) set, size, flags);
+
+        // Copy data from old to new chunk
+        oldsize = oldchksize;  // Use full old chunk size for safety
+        memcpy(newPointer, pointer, oldsize);
+
+        // Free the old chunk
+        AllocSetFree(pointer);
+
+        return newPointer;
+    }
+}
+```

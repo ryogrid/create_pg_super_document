@@ -56,6 +56,43 @@ This function uses the standard PostgreSQL function call interface:
 - The function performs input validation, ensuring the nth argument is greater than zero
 - Uses 1-based indexing for the SQL interface but converts to 0-based indexing internally (nth - 1)
 - The  optimization allows for more efficient processing when the nth argument is constant
-- Located in 
+- Located in
 - Throws  error if nth <= 0
 - Returns NULL if the nth row doesn't exist within the window frame or if the evaluated expression is NULL
+
+## Simplified Source
+
+```c
+Datum
+window_nth_value(PG_FUNCTION_ARGS)
+{
+    WindowObject winobj = PG_WINDOW_OBJECT();
+    bool const_offset;
+    Datum result;
+    bool is_null;
+    int32 nth;
+
+    // Get the nth position from the second argument
+    nth = DatumGetInt32(WinGetFuncArgCurrent(winobj, 1, &is_null));
+    if (is_null)
+        PG_RETURN_NULL();
+
+    // Check if the offset argument is constant for optimization
+    const_offset = get_fn_expr_arg_stable(fcinfo->flinfo, 1);
+
+    // Validate nth position (must be > 0)
+    if (nth <= 0)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_ARGUMENT_FOR_NTH_VALUE),
+                 errmsg("argument of nth_value must be greater than zero")));
+
+    // Get the value from the nth row (convert to 0-based indexing)
+    result = WinGetFuncArgInFrame(winobj, 0, nth - 1, WINDOW_SEEK_HEAD,
+                                  const_offset, &is_null, NULL);
+
+    if (is_null)
+        PG_RETURN_NULL();
+
+    PG_RETURN_DATUM(result);
+}
+```

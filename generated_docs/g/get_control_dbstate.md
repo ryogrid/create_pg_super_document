@@ -47,3 +47,26 @@ This function takes no parameters.
 - Memory allocated by  is properly freed after extracting the state
 - The DBState return type represents various database cluster states like DB_STARTUP, DB_SHUTDOWNED, DB_IN_ARCHIVE_RECOVERY, etc.
 - Critical for determining if the database cluster is in a safe state for various operations
+
+## Simplified Source
+
+```c
+static DBState get_control_dbstate(void) {
+    DBState ret;
+    bool crc_ok;
+
+    // Read control file and validate its integrity
+    ControlFileData *control_file_data = get_controlfile(pg_data, &crc_ok);
+
+    // Exit if control file is corrupted
+    if (!crc_ok) {
+        write_stderr(_("%s: control file appears to be corrupt\n"), progname);
+        exit(1);
+    }
+
+    // Extract database state and clean up
+    ret = control_file_data->state;
+    pfree(control_file_data);
+    return ret;
+}
+```

@@ -35,3 +35,17 @@ The function is straightforward: it gets the current position within the partiti
 - Unlike ranking functions, ROW_NUMBER() always produces unique values within each partition
 - The mark position is set to the current position to maintain proper window function state
 - This function does not use any persistent context between calls within a partition
+
+## Simplified Source
+
+```c
+Datum window_row_number(PG_FUNCTION_ARGS)
+{
+    WindowObject winobj = PG_WINDOW_OBJECT();
+    int64 curpos = WinGetCurrentPosition(winobj);
+
+    // Set mark position and return 1-based row number
+    WinSetMarkPosition(winobj, curpos);
+    PG_RETURN_INT64(curpos + 1);
+}
+```

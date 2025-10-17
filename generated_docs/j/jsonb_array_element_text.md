@@ -40,3 +40,36 @@ The function first validates that the input is indeed a JSONB array, then handle
 - Uses `JsonbValueAsText` for proper conversion of different JSONB value types to text
 - Part of PostgreSQL's JSONB support providing text extraction capabilities with better performance than JSON equivalents
 - The function is registered as a PostgreSQL built-in function and accessible via SQL
+
+## Simplified Source
+
+```c
+Datum
+jsonb_array_element_text(PG_FUNCTION_ARGS)
+{
+    Jsonb *jb = PG_GETARG_JSONB_P(0);
+    int element = PG_GETARG_INT32(1);
+    JsonbValue *v;
+
+    // Verify input is a JSONB array
+    if (!JB_ROOT_IS_ARRAY(jb))
+        PG_RETURN_NULL();
+
+    // Convert negative indices to positive (e.g., -1 becomes last element)
+    if (element < 0) {
+        uint32 nelements = JB_ROOT_COUNT(jb);
+        if (-element > nelements)
+            PG_RETURN_NULL();
+        element += nelements;
+    }
+
+    // Extract the element at the specified index
+    v = getIthJsonbValueFromContainer(&jb->root, element);
+
+    // Convert JSONB value to text if valid and non-null
+    if (v != NULL && v->type != jbvNull)
+        PG_RETURN_TEXT_P(JsonbValueAsText(v));
+
+    PG_RETURN_NULL();
+}
+```

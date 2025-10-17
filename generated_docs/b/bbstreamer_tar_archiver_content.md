@@ -47,3 +47,56 @@ The function maintains state through the rearchive_member flag to coordinate hea
 - [Archive](../A/Archive.md) trailers are always normalized to two zero blocks regardless of input
 - All tar format requirements (block alignment, proper headers) are enforced
 - Part of PostgreSQL's backup streaming system for creating reliable tar archives
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_tar_archiver_content(bbstreamer *streamer,
+                                bbstreamer_member *member,
+                                const char *data, int len,
+                                bbstreamer_archive_context context)
+{
+    bbstreamer_tar_archiver *mystreamer = (bbstreamer_tar_archiver *) streamer;
+    char buffer[2 * TAR_BLOCK_SIZE];
+
+    Assert(context != BBSTREAMER_UNKNOWN);
+
+    // Handle header chunks
+    if (context == BBSTREAMER_MEMBER_HEADER && len != TAR_BLOCK_SIZE) {
+        Assert(len == 0);
+
+        // Construct new tar header to replace zero-length header
+        tarCreateHeader(buffer, member->pathname, NULL,
+                       member->size, member->mode, member->uid, member->gid,
+                       time(NULL));
+        data = buffer;
+        len = TAR_BLOCK_SIZE;
+
+        // Mark that we need to regenerate trailer padding
+        mystreamer->rearchive_member = true;
+    }
+    // Handle trailer chunks when header was regenerated
+    else if (context == BBSTREAMER_MEMBER_TRAILER && mystreamer->rearchive_member) {
+        int pad_bytes = tarPaddingBytesRequired(member->size);
+
+        // Regenerate padding to match new header
+        memset(buffer, 0, pad_bytes);
+        data = buffer;
+        len = pad_bytes;
+
+        // Reset flag until next header regeneration
+        mystreamer->rearchive_member = false;
+    }
+    // Handle archive trailer
+    else if (context == BBSTREAMER_ARCHIVE_TRAILER) {
+        // Always use two blocks of zero bytes for archive trailer
+        memset(buffer, 0, 2 * TAR_BLOCK_SIZE);
+        data = buffer;
+        len = 2 * TAR_BLOCK_SIZE;
+    }
+
+    // Forward processed chunk to next bbstreamer
+    bbstreamer_content(streamer->bbs_next, member, data, len, context);
+}
+```

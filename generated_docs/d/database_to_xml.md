@@ -32,3 +32,20 @@ This function serves as the PostgreSQL SQL function entry point for converting a
 
 ## Notes and Other Information
 This is a PostgreSQL C function that can be called from SQL using the database_to_xml() function. It follows PostgreSQL's function calling conventions and provides a way to export an entire database structure and data to XML format. Unlike database_to_xml_and_xmlschema, this function does not include XML Schema definition in the output, producing only the XML data representation. The function is part of PostgreSQL's SQL/XML functionality for XML data generation and export.
+
+## Simplified Source
+
+```c
+Datum
+database_to_xml(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    bool nulls = PG_GETARG_BOOL(0);
+    bool tableforest = PG_GETARG_BOOL(1);
+    const char *targetns = text_to_cstring(PG_GETARG_TEXT_PP(2));
+
+    // Convert entire database to XML (without schema definition)
+    return PG_RETURN_XML_P(stringinfo_to_xmltype(
+        database_to_xml_internal(NULL, nulls, tableforest, targetns)));
+}
+```

@@ -34,4 +34,20 @@ The function performs string parsing to locate the value portion of the SET comm
 - Only accepts 'on' and 'off' as valid values for the setting
 - Calls pg_fatal() to terminate the program if an invalid STDSTRINGS item is encountered
 - This setting is critical for proper restoration of string literals that may contain backslash escape sequences
-- The parsed value updates the  boolean flag which influences subsequent string processing during restoration
+- The parsed value updates the std_strings boolean flag which influences subsequent string processing during restoration
+
+## Simplified Source
+
+```c
+static void processStdStringsEntry(ArchiveHandle *AH, TocEntry *te) {
+    // Parse "SET standard_conforming_strings = 'value';" format
+    char *ptr1 = strchr(te->defn, '\'');  // Find first quote
+
+    if (ptr1 && strncmp(ptr1, "'on'", 4) == 0)
+        AH->public.std_strings = true;
+    else if (ptr1 && strncmp(ptr1, "'off'", 5) == 0)
+        AH->public.std_strings = false;
+    else
+        pg_fatal("invalid STDSTRINGS item: %s", te->defn);
+}
+```

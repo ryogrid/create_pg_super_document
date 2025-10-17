@@ -49,3 +49,79 @@ The function ensures proper cleanup, state management, and coordination between 
 - Cleans up temporary files and resets transaction state after commit completion
 - Reports activity state changes for monitoring and debugging
 - Part of PostgreSQL streaming replication infrastructure for handling large transactions efficiently
+
+## Simplified Source
+
+```c
+static void apply_handle_stream_commit(StringInfo s)
+{
+    TransactionId xid;
+    LogicalRepCommitData commit_data;
+    ParallelApplyWorkerInfo *winfo;
+    TransApplyAction apply_action;
+    StringInfoData original_msg = *s;
+
+    // Validate protocol: should not be in active streaming transaction
+    if (in_streamed_transaction)
+        ereport(ERROR, "STREAM COMMIT message without STREAM STOP");
+
+    // Read commit data from message
+    xid = logicalrep_read_stream_commit(s, &commit_data);
+    set_apply_error_context_xact(xid, commit_data.commit_lsn);
+
+    // Determine how to handle the commit
+    apply_action = get_transaction_apply_action(xid, &winfo);
+
+    switch (apply_action) {
+        case TRANS_LEADER_APPLY:
+            // Process spooled messages and commit
+            apply_spooled_messages(MyLogicalRepWorker->stream_fileset, xid,
+                                 commit_data.commit_lsn);
+            apply_handle_commit_internal(&commit_data);
+            stream_cleanup_files(MyLogicalRepWorker->subid, xid);
+            elog(DEBUG1, "finished processing the STREAM COMMIT command");
+            break;
+
+        case TRANS_LEADER_SEND_TO_PARALLEL:
+            // Send commit to parallel worker
+            if (pa_send_data(winfo, s->len, s->data)) {
+                pa_xact_finish(winfo, commit_data.end_lsn);
+                break;
+            }
+            // Fall back to serialization if sending fails
+            pa_switch_to_partial_serialize(winfo, true);
+
+        case TRANS_LEADER_PARTIAL_SERIALIZE:
+            // Serialize commit message and coordinate with parallel worker
+            stream_open_and_write_change(xid, LOGICAL_REP_MSG_STREAM_COMMIT, &original_msg);
+            pa_set_fileset_state(winfo->shared, FS_SERIALIZE_DONE);
+            pa_xact_finish(winfo, commit_data.end_lsn);
+            break;
+
+        case TRANS_PARALLEL_APPLY:
+            // Commit in parallel worker context
+            if (stream_fd)
+                stream_close_file();
+
+            apply_handle_commit_internal(&commit_data);
+            MyParallelShared->last_commit_end = XactLastCommitEnd;
+
+            // Set transaction as finished before releasing lock
+            pa_set_xact_state(MyParallelShared, PARALLEL_TRANS_FINISHED);
+            pa_unlock_transaction(xid, AccessExclusiveLock);
+            pa_reset_subtrans();
+
+            elog(DEBUG1, "finished processing the STREAM COMMIT command");
+            break;
+
+        default:
+            elog(ERROR, "unexpected apply action: %d", (int) apply_action);
+    }
+
+    // Process any parallel table synchronization
+    process_syncing_tables(commit_data.end_lsn);
+
+    pgstat_report_activity(STATE_IDLE, NULL);
+    reset_apply_error_context_info();
+}
+```

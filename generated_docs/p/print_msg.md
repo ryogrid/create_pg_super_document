@@ -39,3 +39,14 @@ The function is designed to handle pre-translated/localized strings, meaning int
 - Used extensively throughout pg_ctl operations for user feedback
 - Ensures immediate output by flushing stdout after each message
 - Essential for providing user feedback during PostgreSQL server lifecycle operations
+
+## Simplified Source
+
+```c
+static void print_msg(const char *msg) {
+    if (!silent_mode) {
+        fputs(msg, stdout);
+        fflush(stdout);
+    }
+}
+```

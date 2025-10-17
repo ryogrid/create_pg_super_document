@@ -46,3 +46,40 @@ The function validates that the offset interval is non-negative per SQL specific
 - Handles infinite interval edge cases with INTERVAL_IS_NOEND and INTERVAL_IS_NOBEGIN macros
 - Does not currently implement overflow hazard avoidance
 - Performs all operations within the interval domain, maintaining interval semantics throughout
+
+## Simplified Source
+```c
+Datum in_range_interval_interval(PG_FUNCTION_ARGS) {
+    Interval *val = PG_GETARG_INTERVAL_P(0);
+    Interval *base = PG_GETARG_INTERVAL_P(1);
+    Interval *offset = PG_GETARG_INTERVAL_P(2);
+    bool sub = PG_GETARG_BOOL(3);
+    bool less = PG_GETARG_BOOL(4);
+
+    // SQL spec requires non-negative offset
+    if (interval_sign(offset) < 0)
+        ereport(ERROR, "invalid window function offset");
+
+    // Handle infinite interval edge cases
+    if (INTERVAL_IS_NOEND(offset) &&
+        (sub ? INTERVAL_IS_NOEND(base) : INTERVAL_IS_NOBEGIN(base)))
+        PG_RETURN_BOOL(true);
+
+    // Calculate base +/- offset
+    Interval *sum;
+    if (sub)
+        sum = DatumGetIntervalP(DirectFunctionCall2(interval_mi,
+                                                    IntervalPGetDatum(base),
+                                                    IntervalPGetDatum(offset)));
+    else
+        sum = DatumGetIntervalP(DirectFunctionCall2(interval_pl,
+                                                    IntervalPGetDatum(base),
+                                                    IntervalPGetDatum(offset)));
+
+    // Return comparison result using interval comparison
+    if (less)
+        PG_RETURN_BOOL(interval_cmp_internal(val, sum) <= 0);
+    else
+        PG_RETURN_BOOL(interval_cmp_internal(val, sum) >= 0);
+}
+```

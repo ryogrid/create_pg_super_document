@@ -71,3 +71,120 @@ The function also handles predicate lock transfers, statistics removal, and clea
 - Updates multiple system catalogs but deliberately avoids updating relhasindex (left for VACUUM to fix)
 - In concurrent mode, uses session-level locks to prevent premature relation drops during the multi-transaction process
 - The concurrent algorithm ensures that at no point are there inconsistent states visible to other transactions
+
+## Simplified Source
+
+```c
+void
+index_drop(Oid indexId, bool concurrent, bool concurrent_lock_mode)
+{
+    Oid heapId;
+    Relation userHeapRelation, userIndexRelation, indexRelation;
+    HeapTuple tuple;
+    bool hasexprs;
+    LockRelId heaprelid, indexrelid;
+    LOCKTAG heaplocktag;
+    LOCKMODE lockmode;
+
+    // Get parent table and determine lock mode
+    heapId = IndexGetRelation(indexId, false);
+    lockmode = (concurrent || concurrent_lock_mode) ? ShareUpdateExclusiveLock : AccessExclusiveLock;
+
+    // Open and lock both table and index
+    userHeapRelation = table_open(heapId, lockmode);
+    userIndexRelation = index_open(indexId, lockmode);
+
+    // Safety check: ensure no active use in our session
+    CheckTableNotInUse(userIndexRelation, "DROP INDEX");
+
+    if (concurrent) {
+        // CONCURRENT DROP: Multi-phase process
+
+        // Validate this is first action in transaction
+        if (GetTopTransactionIdIfAny() != InvalidTransactionId)
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                    errmsg("DROP INDEX CONCURRENTLY must be first action in transaction")));
+
+        // Phase 1: Mark index invalid so new queries won't use it
+        index_set_state_flags(indexId, INDEX_DROP_CLEAR_VALID);
+        CacheInvalidateRelcache(userHeapRelation);
+
+        // Save relation IDs and close relations (keeping locks)
+        heaprelid = userHeapRelation->rd_lockInfo.lockRelId;
+        SET_LOCKTAG_RELATION(heaplocktag, heaprelid.dbId, heaprelid.relId);
+        indexrelid = userIndexRelation->rd_lockInfo.lockRelId;
+
+        table_close(userHeapRelation, NoLock);
+        index_close(userIndexRelation, NoLock);
+
+        // Get session locks and commit transaction
+        LockRelationIdForSession(&heaprelid, ShareUpdateExclusiveLock);
+        LockRelationIdForSession(&indexrelid, ShareUpdateExclusiveLock);
+
+        PopActiveSnapshot();
+        CommitTransactionCommand();
+        StartTransactionCommand();
+
+        // Phase 2: Wait for transactions using the index to complete
+        WaitForLockers(heaplocktag, AccessExclusiveLock, true);
+
+        // Mark index as dead (indisready = false, indislive = false)
+        index_concurrently_set_dead(heapId, indexId);
+
+        // Commit and wait again for remaining transactions
+        CommitTransactionCommand();
+        StartTransactionCommand();
+        WaitForLockers(heaplocktag, AccessExclusiveLock, true);
+
+        // Re-open relations for final cleanup
+        userHeapRelation = table_open(heapId, ShareUpdateExclusiveLock);
+        userIndexRelation = index_open(indexId, AccessExclusiveLock);
+    }
+    else {
+        // NON-CONCURRENT DROP: Transfer predicate locks immediately
+        TransferPredicateLocksToHeapRelation(userIndexRelation);
+    }
+
+    // Schedule physical storage removal
+    if (RELKIND_HAS_STORAGE(userIndexRelation->rd_rel->relkind))
+        RelationDropStorage(userIndexRelation);
+
+    // Clean up statistics and close index
+    pgstat_drop_relation(userIndexRelation);
+    index_close(userIndexRelation, NoLock);
+    RelationForgetRelation(indexId);
+
+    // Remove pg_index catalog entry
+    indexRelation = table_open(IndexRelationId, RowExclusiveLock);
+    tuple = SearchSysCache1(INDEXRELID, ObjectIdGetDatum(indexId));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for index %u", indexId);
+
+    // Check if index has expressions (for statistics cleanup)
+    hasexprs = !heap_attisnull(tuple, Anum_pg_index_indexprs,
+                               RelationGetDescr(indexRelation));
+
+    CatalogTupleDelete(indexRelation, &tuple->t_self);
+    ReleaseSysCache(tuple);
+    table_close(indexRelation, RowExclusiveLock);
+
+    // Clean up expression statistics if needed
+    if (hasexprs)
+        RemoveStatistics(indexId, 0);
+
+    // Remove entries from system catalogs
+    DeleteAttributeTuples(indexId);
+    DeleteRelationTuple(indexId);
+    DeleteInheritsTuple(indexId, InvalidOid, false, NULL);
+
+    // Invalidate relation cache and close table
+    CacheInvalidateRelcache(userHeapRelation);
+    table_close(userHeapRelation, NoLock);
+
+    // Release session locks for concurrent case
+    if (concurrent) {
+        UnlockRelationIdForSession(&heaprelid, ShareUpdateExclusiveLock);
+        UnlockRelationIdForSession(&indexrelid, ShareUpdateExclusiveLock);
+    }
+}
+```

@@ -48,3 +48,32 @@ This design allows different worker types to have specialized synchronization lo
 - The parallel apply worker case is explicitly skipped because parallel workers only handle tables that are already synchronized (READY state)
 - Error handling ensures that unknown worker types are caught early with a clear error message
 - The function is part of PostgreSQL's logical replication infrastructure that enables selective table synchronization between publisher and subscriber nodes
+
+## Simplified Source
+
+```c
+void process_syncing_tables(XLogRecPtr current_lsn)
+{
+    // Dispatch based on worker type
+    switch (MyLogicalRepWorker->type)
+    {
+        case WORKERTYPE_PARALLEL_APPLY:
+            // Skip - parallel workers only handle READY tables
+            break;
+
+        case WORKERTYPE_TABLESYNC:
+            // Handle table sync worker synchronization
+            process_syncing_tables_for_sync(current_lsn);
+            break;
+
+        case WORKERTYPE_APPLY:
+            // Handle apply worker synchronization
+            process_syncing_tables_for_apply(current_lsn);
+            break;
+
+        case WORKERTYPE_UNKNOWN:
+            // Error case - should never happen
+            elog(ERROR, "Unknown worker type");
+    }
+}
+```

@@ -50,3 +50,32 @@ The function determines the length of the untranslatable character using pg_enco
 - Specifically designed for valid characters that cannot be converted, not for invalid byte sequences
 - The len parameter represents remaining string length, not the length of the untranslatable character
 - Commonly used in PostgreSQL's character set conversion system when characters exist in one encoding but not another
+
+## Simplified Source
+
+```c
+void report_untranslatable_char(int src_encoding, int dest_encoding,
+                               const char *mbstr, int len) {
+    char hex_buffer[8 * 5 + 1]; // Buffer for hex representation
+    char *p = hex_buffer;
+
+    // Determine the length of the untranslatable character (defensive)
+    int char_len = pg_encoding_mblen_or_incomplete(src_encoding, mbstr, len);
+    int bytes_to_show = Min(Min(char_len, len), 8); // Limit to prevent overflow
+
+    // Format character bytes as hexadecimal values
+    for (int i = 0; i < bytes_to_show; i++) {
+        p += sprintf(p, "0x%02x", (unsigned char) mbstr[i]);
+        if (i < bytes_to_show - 1)
+            p += sprintf(p, " ");
+    }
+
+    // Report the untranslatable character error
+    ereport(ERROR,
+            (errcode(ERRCODE_UNTRANSLATABLE_CHARACTER),
+             errmsg("character with byte sequence %s in encoding \"%s\" has no equivalent in encoding \"%s\"",
+                    hex_buffer,
+                    pg_enc2name_tbl[src_encoding].name,
+                    pg_enc2name_tbl[dest_encoding].name)));
+}
+```

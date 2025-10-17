@@ -44,3 +44,19 @@ The function is designed as an internal utility that can be called by various st
 - Avoids unnecessary decompression when possible for performance
 - Used extensively throughout PostgreSQL for string length operations
 - The fastpath optimization significantly improves performance for ASCII/Latin1 databases
+
+## Simplified Source
+
+```c
+static int32 text_length(Datum str) {
+    // Fast path for single-byte encodings - calculate without decompression
+    if (pg_database_encoding_max_length() == 1) {
+        return toast_raw_datum_size(str) - VARHDRSZ;
+    }
+    else {
+        // Multi-byte encodings require character-aware length calculation
+        text *t = DatumGetTextPP(str);
+        return pg_mbstrlen_with_len(VARDATA_ANY(t), VARSIZE_ANY_EXHDR(t));
+    }
+}
+```

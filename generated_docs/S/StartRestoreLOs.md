@@ -30,3 +30,25 @@ This function is called by format handlers before beginning to restore a group o
 - The function respects global transaction settings (single_txn, txn_size) to avoid nested transactions
 - Resets the loCount field to 0 to begin counting LOs in the current restoration session
 - Works with both connected (database connection) and disconnected (script output) restoration modes
+
+## Simplified Source
+
+```c
+void
+StartRestoreLOs(ArchiveHandle *AH)
+{
+    RestoreOptions *ropt = AH->public.ropt;
+
+    // Start transaction if not already in one
+    // LOs need transaction block to keep handles open during restoration
+    if (!(ropt->single_txn || ropt->txn_size > 0)) {
+        if (AH->connection)
+            StartTransaction(&AH->public);
+        else
+            ahprintf(AH, "BEGIN;\n\n");
+    }
+
+    // Reset LO counter for this restoration session
+    AH->loCount = 0;
+}
+```

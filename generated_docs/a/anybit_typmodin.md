@@ -43,3 +43,38 @@ If any validation fails, it reports an appropriate error. Upon successful valida
 - Error messages include the type name to provide context-specific feedback to users
 - The maximum length validation ensures bit strings don't exceed PostgreSQL's maximum attribute size limits
 - Type modifier values in PostgreSQL are used internally to store length constraints for variable-length data types
+
+## Simplified Source
+
+```c
+static int32 anybit_typmodin(ArrayType *ta, const char *typename) {
+    int32 typmod;
+    int32 *tl;
+    int n;
+
+    // Extract type modifier parameters from array
+    tl = ArrayGetIntegerTypmods(ta, &n);
+
+    // Validate exactly one parameter provided
+    if (n != 1)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("invalid type modifier")));
+
+    // Validate minimum length requirement
+    if (*tl < 1)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("length for type %s must be at least 1", typename)));
+
+    // Validate maximum length doesn't exceed PostgreSQL limits
+    if (*tl > (MaxAttrSize * BITS_PER_BYTE))
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("length for type %s cannot exceed %d",
+                        typename, MaxAttrSize * BITS_PER_BYTE)));
+
+    typmod = *tl;
+    return typmod;
+}
+```

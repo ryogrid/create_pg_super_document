@@ -40,3 +40,53 @@ This static function implements the core logic for converting EUC-KR encoded tex
 - Validates character boundaries using PostgreSQL's encoding verification system
 - Handles embedded null bytes as invalid input in EUC-KR context
 - Part of PostgreSQL's comprehensive multi-byte character encoding conversion infrastructure
+
+## Simplified Source
+
+```c
+static int euc_kr2mic(const unsigned char *euc, unsigned char *p, int len, bool noError) {
+    const unsigned char *start = euc;
+    int c1, l;
+
+    while (len > 0) {
+        c1 = *euc;
+
+        // Handle Korean characters (high bit set)
+        if (IS_HIGHBIT_SET(c1)) {
+            // Verify 2-byte EUC-KR sequence
+            l = pg_encoding_verifymbchar(PG_EUC_KR, (const char *) euc, len);
+            if (l != 2) {
+                if (!noError) {
+                    report_invalid_encoding(PG_EUC_KR, (const char *) euc, len);
+                }
+                break;
+            }
+
+            // Convert to MIC: add language code prefix + 2 bytes
+            *p++ = LC_KS5601;   // MIC language code for Korean KS5601
+            *p++ = c1;          // First byte of Korean character
+            *p++ = euc[1];      // Second byte of Korean character
+            euc += 2;
+            len -= 2;
+        }
+        // Handle ASCII characters
+        else {
+            // Check for invalid null byte
+            if (c1 == 0) {
+                if (!noError) {
+                    report_invalid_encoding(PG_EUC_KR, (const char *) euc, len);
+                }
+                break;
+            }
+
+            // Copy ASCII character directly
+            *p++ = c1;
+            euc++;
+            len--;
+        }
+    }
+
+    *p = '\0';
+    return euc - start;
+}
+```

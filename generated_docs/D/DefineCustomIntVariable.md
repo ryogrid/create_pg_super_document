@@ -62,3 +62,43 @@ This function provides the public interface for PostgreSQL extensions to create 
 - The function performs security checks inherited from init_custom_variable
 - Memory for the config structure is allocated via guc_malloc and managed by the GUC system
 - [Range](../R/Range.md) violations are automatically caught and reported as errors by the GUC infrastructure
+
+## Simplified Source
+
+```c
+void DefineCustomIntVariable(const char *name,
+                            const char *short_desc,
+                            const char *long_desc,
+                            int *valueAddr,
+                            int bootValue,
+                            int minValue,
+                            int maxValue,
+                            GucContext context,
+                            int flags,
+                            GucIntCheckHook check_hook,
+                            GucIntAssignHook assign_hook,
+                            GucShowHook show_hook)
+{
+    struct config_int *var;
+
+    // Initialize custom variable structure with integer type
+    var = (struct config_int *)
+        init_custom_variable(name, short_desc, long_desc, context, flags,
+                           PGC_INT, sizeof(struct config_int));
+
+    // Set integer-specific fields
+    var->variable = valueAddr;      // Pointer to actual integer variable
+    var->boot_val = bootValue;      // Default value
+    var->reset_val = bootValue;     // Reset value (same as default)
+    var->min = minValue;            // Minimum allowed value
+    var->max = maxValue;            // Maximum allowed value
+
+    // Set optional hook functions
+    var->check_hook = check_hook;   // Validation function
+    var->assign_hook = assign_hook; // Assignment callback
+    var->show_hook = show_hook;     // Display customization
+
+    // Register the variable with GUC system
+    define_custom_variable(&var->gen);
+}
+```

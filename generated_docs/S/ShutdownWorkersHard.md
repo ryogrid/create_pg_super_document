@@ -43,3 +43,41 @@ The implementation differs between Unix-like systems and Windows:
 - The function includes error tolerance - it ignores errors when closing sockets since some workers might not have been fully initialized
 - Critical section usage on Windows prevents race conditions during worker state changes
 - Located in src/bin/pg_dump/parallel.c:395-445
+
+## Simplified Source
+
+```c
+static void
+ShutdownWorkersHard(ParallelState *pstate)
+{
+    int i;
+
+    // Close communication pipes to signal workers to exit
+    for (i = 0; i < pstate->numWorkers; i++)
+        closesocket(pstate->parallelSlot[i].pipeWrite);
+
+    // Force termination of worker processes
+#ifndef WIN32
+    // Unix: Send SIGTERM to each worker process
+    for (i = 0; i < pstate->numWorkers; i++) {
+        pid_t pid = pstate->parallelSlot[i].pid;
+        if (pid != 0)
+            kill(pid, SIGTERM);
+    }
+#else
+    // Windows: Cancel queries using PostgreSQL cancellation
+    EnterCriticalSection(&signal_info_lock);
+    for (i = 0; i < pstate->numWorkers; i++) {
+        ArchiveHandle *AH = pstate->parallelSlot[i].AH;
+        char errbuf[1];
+
+        if (AH != NULL && AH->connCancel != NULL)
+            PQcancel(AH->connCancel, errbuf, sizeof(errbuf));
+    }
+    LeaveCriticalSection(&signal_info_lock);
+#endif
+
+    // Wait for all workers to terminate
+    WaitForTerminatingWorkers(pstate);
+}
+```

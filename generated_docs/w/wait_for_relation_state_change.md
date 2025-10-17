@@ -49,3 +49,50 @@ The function performs the following operations in each iteration:
 - Critical for ensuring proper synchronization coordination in logical replication
 - Part of PostgreSQL's logical replication infrastructure for maintaining table sync state consistency
 - The function is static, indicating it's only used within the tablesync.c module
+
+## Simplified Source
+
+```c
+static bool
+wait_for_relation_state_change(Oid relid, char expected_state)
+{
+    char state;
+
+    for (;;)
+    {
+        LogicalRepWorker *worker;
+        XLogRecPtr statelsn;
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Get fresh catalog data and check current state
+        InvalidateCatalogSnapshot();
+        state = GetSubscriptionRelState(MyLogicalRepWorker->subid,
+                                       relid, &statelsn);
+
+        // Exit if relation no longer exists
+        if (state == SUBREL_STATE_UNKNOWN)
+            break;
+
+        // Success - reached expected state
+        if (state == expected_state)
+            return true;
+
+        // Verify sync worker still exists
+        LWLockAcquire(LogicalRepWorkerLock, LW_SHARED);
+        worker = logicalrep_worker_find(MyLogicalRepWorker->subid, relid, false);
+        LWLockRelease(LogicalRepWorkerLock);
+        if (!worker)
+            break;
+
+        // Wait for state change with 1 second timeout
+        (void) WaitLatch(MyLatch,
+                        WL_LATCH_SET | WL_TIMEOUT | WL_EXIT_ON_PM_DEATH,
+                        1000L, WAIT_EVENT_LOGICAL_SYNC_STATE_CHANGE);
+
+        ResetLatch(MyLatch);
+    }
+
+    return false;
+}
+```

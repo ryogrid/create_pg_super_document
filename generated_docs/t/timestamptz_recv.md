@@ -43,3 +43,33 @@ The function performs range checking to ensure the timestamp value is valid and 
 - The typelem parameter is marked as NOT_USED but preserved for function signature compatibility
 - Throws ERRCODE_DATETIME_VALUE_OUT_OF_RANGE error for invalid timestamp values
 - Used by PostgreSQL's type system infrastructure rather than being called directly by user code
+
+## Simplified Source
+
+```c
+Datum timestamptz_recv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    int32 typmod = PG_GETARG_INT32(2);
+
+    TimestampTz timestamp;
+    struct pg_tm tt, *tm = &tt;
+    fsec_t fsec;
+    int tz;
+
+    // Read 64-bit timestamp from binary buffer
+    timestamp = (TimestampTz) pq_getmsgint64(buf);
+
+    // Validate timestamp range
+    if (TIMESTAMP_NOT_FINITE(timestamp)) {
+        // Infinite timestamps are OK
+    } else if (timestamp2tm(timestamp, &tz, tm, &fsec, NULL, NULL) != 0 ||
+               !IS_VALID_TIMESTAMP(timestamp)) {
+        ereport(ERROR, "timestamp out of range");
+    }
+
+    // Apply typmod precision adjustments
+    AdjustTimestampForTypmod(&timestamp, typmod, NULL);
+
+    PG_RETURN_TIMESTAMPTZ(timestamp);
+}
+```

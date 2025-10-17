@@ -36,3 +36,21 @@ The  function is a utility function used by the directory archive format in pg_d
 - [Path](../P/Path.md) length validation prevents buffer overflows by checking against MAXPGPATH
 - Uses forward slashes as directory separators, which works across platforms
 - Critical for the directory archive format's file organization and access patterns
+
+## Simplified Source
+
+```c
+static void setFilePath(ArchiveHandle *AH, char *buf, const char *relativeFilename) {
+    lclContext *ctx = (lclContext *) AH->formatData;
+    char *dname = ctx->directory;
+
+    // Check path length to prevent buffer overflow
+    if (strlen(dname) + 1 + strlen(relativeFilename) + 1 > MAXPGPATH)
+        pg_fatal("file name too long: \"%s\"", dname);
+
+    // Build complete file path: directory + "/" + filename
+    strcpy(buf, dname);
+    strcat(buf, "/");
+    strcat(buf, relativeFilename);
+}
+```

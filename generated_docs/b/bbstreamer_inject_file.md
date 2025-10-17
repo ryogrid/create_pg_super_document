@@ -49,3 +49,31 @@ The function generates three consecutive bbstreamer_content calls to properly re
 - Essential for injecting recovery configuration files and standby.signal
 - Part of the base backup streaming infrastructure
 - Located in src/bin/pg_basebackup/bbstreamer_inject.c:219-249
+
+## Simplified Source
+
+```c
+void
+bbstreamer_inject_file(bbstreamer *streamer, char *pathname, char *data,
+                       int len)
+{
+    bbstreamer_member member;
+
+    // Set up archive member metadata
+    strlcpy(member.pathname, pathname, MAXPGPATH);
+    member.size = len;
+    member.mode = pg_file_create_mode;
+    member.is_directory = false;
+    member.is_link = false;
+    member.linktarget[0] = '\0';
+
+    // Historical PostgreSQL UID/GID values
+    member.uid = 04000;
+    member.gid = 02000;
+
+    // Send file through standard three-phase archive member protocol
+    bbstreamer_content(streamer, &member, NULL, 0, BBSTREAMER_MEMBER_HEADER);
+    bbstreamer_content(streamer, &member, data, len, BBSTREAMER_MEMBER_CONTENTS);
+    bbstreamer_content(streamer, &member, NULL, 0, BBSTREAMER_MEMBER_TRAILER);
+}
+```

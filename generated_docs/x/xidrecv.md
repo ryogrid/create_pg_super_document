@@ -30,3 +30,14 @@ xidrecv serves as the binary input conversion function for the xid data type in 
 - Reads exactly sizeof(TransactionId) bytes from the input buffer using pq_getmsgint()
 - Essential for client-server communication when using binary format for xid values
 - Works in conjunction with xidsend() for bidirectional binary data conversion
+
+## Simplified Source
+
+```c
+Datum xidrecv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+
+    // Read transaction ID from binary buffer and return it
+    PG_RETURN_TRANSACTIONID((TransactionId) pq_getmsgint(buf, sizeof(TransactionId)));
+}
+```

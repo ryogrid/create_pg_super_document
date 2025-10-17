@@ -38,3 +38,48 @@ The spgcostestimate function provides cost estimates for SP-GiST index scans to 
 - Adds both CPU costs for tree navigation and page access costs
 - Handles edge cases like single-page indexes and empty indexes gracefully
 - The cost model accounts for multiple ScalarArrayOp scans via num_sa_scans
+
+## Simplified Source
+
+```c
+void spgcostestimate(PlannerInfo *root, IndexPath *path, double loop_count,
+                    Cost *indexStartupCost, Cost *indexTotalCost,
+                    Selectivity *indexSelectivity, double *indexCorrelation,
+                    double *indexPages) {
+    IndexOptInfo *index = path->indexinfo;
+    GenericCosts costs = {0};
+    Cost descentCost;
+
+    // Get base cost estimates using generic estimation
+    genericcostestimate(root, path, loop_count, &costs);
+
+    // Calculate tree height using fanout assumption of 100
+    if (index->tree_height < 0) {
+        if (index->pages > 1)
+            index->tree_height = (int) (log(index->pages) / log(100.0));
+        else
+            index->tree_height = 0;
+    }
+
+    // Add CPU cost for tree descent based on number of tuples
+    if (index->tuples > 1) {
+        descentCost = ceil(log(index->tuples)) * cpu_operator_cost;
+        costs.indexStartupCost += descentCost;
+        costs.indexTotalCost += costs.num_sa_scans * descentCost;
+    }
+
+    // Add per-page cost for tree traversal
+    descentCost = (index->tree_height + 1) * DEFAULT_PAGE_CPU_MULTIPLIER * cpu_operator_cost;
+    costs.indexStartupCost += descentCost;
+    costs.indexTotalCost += costs.num_sa_scans * descentCost;
+
+    // Return computed costs
+    *indexStartupCost = costs.indexStartupCost;
+    *indexTotalCost = costs.indexTotalCost;
+    *indexSelectivity = costs.indexSelectivity;
+    *indexCorrelation = costs.indexCorrelation;
+    *indexPages = costs.numIndexPages;
+}
+```
+
+**Core Logic**: Estimates SP-GiST index scan costs by extending generic cost estimation with space-partitioned tree-specific descent costs, using the same logarithmic model as GiST with fanout of 100.

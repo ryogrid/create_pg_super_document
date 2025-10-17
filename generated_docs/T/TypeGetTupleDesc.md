@@ -47,3 +47,66 @@ The function determines the type class using get_type_func_class and handles eac
 - Cannot handle RECORD types due to lack of typmod parameter
 - Column alias count must match the number of attributes in composite types
 - Returns a newly allocated tuple descriptor that the caller must manage
+
+## Simplified Source
+
+```c
+TupleDesc TypeGetTupleDesc(Oid typeoid, List *colaliases) {
+    Oid base_typeoid;
+    TypeFuncClass functypclass = get_type_func_class(typeoid, &base_typeoid);
+    TupleDesc tupdesc = NULL;
+
+    if (functypclass == TYPEFUNC_COMPOSITE) {
+        // Handle composite types (table row types)
+        tupdesc = lookup_rowtype_tupdesc_copy(base_typeoid, -1);
+
+        if (colaliases != NIL) {
+            int natts = tupdesc->natts;
+
+            // Validate alias count matches attribute count
+            if (list_length(colaliases) != natts)
+                ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                    errmsg("number of aliases does not match number of columns")));
+
+            // Apply column aliases
+            for (int varattno = 0; varattno < natts; varattno++) {
+                char *label = strVal(list_nth(colaliases, varattno));
+                Form_pg_attribute attr = TupleDescAttr(tupdesc, varattno);
+
+                if (label != NULL)
+                    namestrcpy(&(attr->attname), label);
+            }
+
+            // Convert to anonymous record type
+            tupdesc->tdtypeid = RECORDOID;
+            tupdesc->tdtypmod = -1;
+        }
+    }
+    else if (functypclass == TYPEFUNC_SCALAR) {
+        // Handle scalar types - require exactly one alias
+        if (colaliases == NIL)
+            ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                errmsg("no column alias was provided")));
+
+        if (list_length(colaliases) != 1)
+            ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                errmsg("number of aliases does not match number of columns")));
+
+        char *attname = strVal(linitial(colaliases));
+
+        // Create single-column tuple descriptor
+        tupdesc = CreateTemplateTupleDesc(1);
+        TupleDescInitEntry(tupdesc, (AttrNumber) 1, attname, typeoid, -1, 0);
+    }
+    else if (functypclass == TYPEFUNC_RECORD) {
+        // Cannot support RECORD types without typmod
+        ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+            errmsg("could not determine row description for function returning record")));
+    }
+    else {
+        elog(ERROR, "function in FROM has unsupported return type");
+    }
+
+    return tupdesc;
+}
+```

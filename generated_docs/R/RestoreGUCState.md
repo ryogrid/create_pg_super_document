@@ -43,3 +43,102 @@ The function provides only active GUC values to workers, not stacked or reset va
 - Memory management is carefully handled to avoid leaks when resetting GUCs
 - Works in conjunction with SerializeGUCState for parallel query execution
 - Only processes 'shippable' GUCs that can be safely transferred between processes
+
+## Simplified Source
+
+```c
+void RestoreGUCState(void *gucstate)
+{
+    char *varname, *varvalue, *varsourcefile;
+    int varsourceline;
+    GucSource varsource;
+    GucContext varscontext;
+    Oid varsrole;
+    char *srcptr = (char *) gucstate;
+    char *srcend;
+    Size len;
+    dlist_mutable_iter iter;
+    ErrorContextCallback error_context_callback;
+
+    // Phase 1: Reset all potentially-shippable GUCs to defaults
+    dlist_foreach_modify(iter, &guc_nondef_list)
+    {
+        struct config_generic *gconf = dlist_container(struct config_generic,
+                                                      nondef_link, iter.cur);
+
+        // Skip non-shippable or already-default GUCs
+        if (can_skip_gucvar(gconf))
+            continue;
+
+        // Free existing subsidiary data to avoid memory leaks
+        Assert(gconf->stack == NULL);
+        guc_free(gconf->extra);
+        guc_free(gconf->last_reported);
+        guc_free(gconf->sourcefile);
+
+        // Free type-specific data
+        switch (gconf->vartype)
+        {
+            case PGC_BOOL:
+            case PGC_INT:
+            case PGC_REAL:
+            case PGC_ENUM:
+                // Free reset_extra if different from extra
+                break;
+            case PGC_STRING:
+                // Free string value and reset_val
+                guc_free(*((struct config_string *)gconf)->variable);
+                break;
+        }
+
+        // Remove from lists and reset to default
+        RemoveGUCFromLists(gconf);
+        InitializeOneGUCOption(gconf);
+    }
+
+    // Phase 2: Deserialize and restore GUC values
+    // Read data length
+    memcpy(&len, gucstate, sizeof(len));
+    srcptr += sizeof(len);
+    srcend = srcptr + len;
+
+    // Set up error context for better error messages
+    error_context_callback.callback = guc_restore_error_context_callback;
+    error_context_callback.previous = error_context_stack;
+    error_context_callback.arg = NULL;
+    error_context_stack = &error_context_callback;
+
+    // Process each serialized GUC variable
+    while (srcptr < srcend)
+    {
+        // Deserialize variable data
+        varname = read_gucstate(&srcptr, srcend);
+        varvalue = read_gucstate(&srcptr, srcend);
+        varsourcefile = read_gucstate(&srcptr, srcend);
+
+        if (varsourcefile[0])
+            read_gucstate_binary(&srcptr, srcend, &varsourceline, sizeof(varsourceline));
+        else
+            varsourceline = 0;
+
+        read_gucstate_binary(&srcptr, srcend, &varsource, sizeof(varsource));
+        read_gucstate_binary(&srcptr, srcend, &varscontext, sizeof(varscontext));
+        read_gucstate_binary(&srcptr, srcend, &varsrole, sizeof(varsrole));
+
+        // Apply the GUC setting
+        int result = set_config_option_ext(varname, varvalue,
+                                          varscontext, varsource, varsrole,
+                                          GUC_ACTION_SET, true, ERROR, true);
+        if (result <= 0)
+            ereport(ERROR,
+                    (errcode(ERRCODE_INTERNAL_ERROR),
+                     errmsg("parameter \"%s\" could not be set", varname)));
+
+        // Set source file info if provided
+        if (varsourcefile[0])
+            set_config_sourcefile(varname, varsourcefile, varsourceline);
+    }
+
+    error_context_stack = error_context_callback.previous;
+}
+```

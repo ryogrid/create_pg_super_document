@@ -48,3 +48,25 @@ This is the simpler version that does not include XML schema definitions, in con
 - Part of PostgreSQL's SQL/XML compliance implementation
 - Located in src/backend/utils/adt/xml.c:3224-3245
 - Companion function to schema_to_xml_and_xmlschema which includes schema definitions
+
+## Simplified Source
+
+```c
+Datum
+schema_to_xml(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    Name name = PG_GETARG_NAME(0);
+    bool nulls = PG_GETARG_BOOL(1);
+    bool tableforest = PG_GETARG_BOOL(2);
+    const char *targetns = text_to_cstring(PG_GETARG_TEXT_PP(3));
+
+    // Resolve schema name to namespace OID
+    char *schemaname = NameStr(*name);
+    Oid nspid = LookupExplicitNamespace(schemaname, false);
+
+    // Convert schema to XML (without schema definition)
+    return PG_RETURN_XML_P(stringinfo_to_xmltype(
+        schema_to_xml_internal(nspid, NULL, nulls, tableforest, targetns, true)));
+}
+```

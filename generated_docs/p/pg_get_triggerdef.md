@@ -34,3 +34,22 @@ This function serves as a PostgreSQL SQL function entry point for retrieving tri
 - The worker function is called with `false` parameter, likely controlling some formatting option
 - Part of the PostgreSQL function interface accessible via SQL for trigger introspection
 - Useful for database administration and schema documentation tasks
+
+## Simplified Source
+
+```c
+Datum
+pg_get_triggerdef(PG_FUNCTION_ARGS)
+{
+    Oid trigid = PG_GETARG_OID(0);
+    char *res;
+
+    // Get trigger definition (false parameter controls some formatting option)
+    res = pg_get_triggerdef_worker(trigid, false);
+
+    if (res == NULL)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(string_to_text(res));
+}
+```

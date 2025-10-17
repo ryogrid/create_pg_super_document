@@ -30,3 +30,20 @@ This function serves as the PostgreSQL SQL function entry point for the concat()
 - Returns NULL if the internal concatenation operation determines the result should be NULL
 - Uses standard PostgreSQL function calling conventions with PG_FUNCTION_ARGS and PG_RETURN_* macros
 - Part of the text/varchar data type implementation in PostgreSQL
+
+## Simplified Source
+
+```c
+Datum
+text_concat(PG_FUNCTION_ARGS)
+{
+    text *result;
+
+    // Call concat_internal with empty separator (no delimiter)
+    result = concat_internal("", 0, fcinfo);
+
+    if (result == NULL)
+        PG_RETURN_NULL();
+    PG_RETURN_TEXT_P(result);
+}
+```

@@ -41,3 +41,25 @@ This function is part of the ts_rankcd family of functions, specifically designe
 - [ts_rankcd_tt](ts_rankcd_tt.md): tsvector + tsquery (defaults for both)
 
 By passing NULL to getWeights, this function leverages the default weight scheme while allowing fine-tuning of the normalization approach, making it useful for applications that need to control ranking normalization but don't require custom lexeme category weights.
+
+## Simplified Source
+
+```c
+Datum
+ts_rankcd_ttf(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments
+    TSVector txt = PG_GETARG_TSVECTOR(0);
+    TSQuery query = PG_GETARG_TSQUERY(1);
+    int method = PG_GETARG_INT32(2);
+    float res;
+
+    // Calculate cover density ranking with default weights
+    res = calc_rank_cd(getWeights(NULL), txt, query, method);
+
+    // Clean up memory and return result
+    PG_FREE_IF_COPY(txt, 0);
+    PG_FREE_IF_COPY(query, 1);
+    PG_RETURN_FLOAT4(res);
+}
+```

@@ -43,3 +43,21 @@ The function casts the raw WAL record data to the expected  structure and append
 - Located in 
 - Part of the test custom resource manager registered with ID 
 - The binary data display allows examination of the actual message payload stored in the WAL record
+
+## Simplified Source
+
+```c
+void testcustomrmgrs_desc(StringInfo buf, XLogReaderState *record) {
+    char *rec = XLogRecGetData(record);
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    // Only handle TEST_CUSTOM_RMGRS_MESSAGE records
+    if (info == XLOG_TEST_CUSTOM_RMGRS_MESSAGE) {
+        xl_testcustomrmgrs_message *xlrec = (xl_testcustomrmgrs_message *) rec;
+
+        // Format payload size and content for debugging output
+        appendStringInfo(buf, "payload (%zu bytes): ", xlrec->message_size);
+        appendBinaryStringInfo(buf, xlrec->message, xlrec->message_size);
+    }
+}
+```

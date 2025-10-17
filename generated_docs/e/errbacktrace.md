@@ -34,3 +34,28 @@ This function adds a call stack backtrace to the current error context, intended
 - Part of PostgreSQL's comprehensive debugging and error reporting infrastructure
 - Can be used within ereport() calls to add stack trace information
 - Located in src/backend/utils/error/elog.c:1092-1115
+
+## Simplified Source
+
+```c
+int
+errbacktrace(void)
+{
+    ErrorData *edata = &errordata[errordata_stack_depth];
+    MemoryContext oldcontext;
+
+    // Set up for backtrace capture
+    recursion_depth++;
+    CHECK_STACK_DEPTH();
+    oldcontext = MemoryContextSwitchTo(edata->assoc_context);
+
+    // Capture backtrace (skip=1 to exclude errbacktrace itself)
+    set_backtrace(edata, 1);
+
+    // Restore memory context and recursion state
+    MemoryContextSwitchTo(oldcontext);
+    recursion_depth--;
+
+    return 0;  // Return value not meaningful
+}
+```

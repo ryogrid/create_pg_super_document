@@ -44,3 +44,37 @@ The function validates that the requested column number is within the valid rang
 - Used primarily by index access method property functions
 - Essential for determining index behavior and optimization strategies
 - The indclass array contains operator class OIDs in column order
+
+## Simplified Source
+
+```c
+Oid get_index_column_opclass(Oid index_oid, int attno) {
+    // Look up index definition in system cache
+    HeapTuple tuple = SearchSysCache1(INDEXRELID, ObjectIdGetDatum(index_oid));
+    if (!HeapTupleIsValid(tuple))
+        return InvalidOid;
+
+    Form_pg_index rd_index = (Form_pg_index) GETSTRUCT(tuple);
+
+    // Validate column number is within range
+    Assert(attno > 0 && attno <= rd_index->indnatts);
+
+    // Non-key attributes don't have operator classes
+    if (attno > rd_index->indnkeyatts) {
+        ReleaseSysCache(tuple);
+        return InvalidOid;
+    }
+
+    // Extract operator class array and get the specific column's opclass
+    Datum datum = SysCacheGetAttrNotNull(INDEXRELID, tuple, Anum_pg_index_indclass);
+    oidvector *indclass = (oidvector *) DatumGetPointer(datum);
+
+    Assert(attno <= indclass->dim1);
+    Oid opclass = indclass->values[attno - 1];  // Convert to 0-based indexing
+
+    ReleaseSysCache(tuple);
+    return opclass;
+}
+```
+
+This simplified version shows the function's validation and lookup process: it finds the index definition, validates the column number is a key attribute, extracts the operator class array, and returns the specific opclass OID for the requested column position.

@@ -41,3 +41,18 @@ The function operates on the assumption that UUIDs are transmitted in their raw 
 - Allocates exactly `UUID_LEN` bytes for the UUID structure
 - Part of PostgreSQL's binary I/O system for efficient network communication
 - The function is registered in the type system for UUID binary input operations
+
+## Simplified Source
+
+```c
+Datum uuid_recv(PG_FUNCTION_ARGS) {
+    StringInfo buffer = (StringInfo) PG_GETARG_POINTER(0);
+    pg_uuid_t *uuid;
+
+    // Allocate space for UUID and copy binary data
+    uuid = (pg_uuid_t *) palloc(UUID_LEN);
+    memcpy(uuid->data, pq_getmsgbytes(buffer, UUID_LEN), UUID_LEN);
+
+    PG_RETURN_POINTER(uuid);
+}
+```

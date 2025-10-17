@@ -35,3 +35,22 @@ This function generates a hash value for an Interval by first converting the int
 - Critical that equal intervals (per interval_cmp_internal) produce equal hash values
 - Used by PostgreSQL for hash-based query operations like hash joins and hash indexes
 - The upper 64 bits of the span are intentionally ignored as they seldom provide useful hash distribution
+
+## Simplified Source
+
+```c
+Datum interval_hash(PG_FUNCTION_ARGS)
+{
+    // Extract interval argument
+    Interval *interval = PG_GETARG_INTERVAL_P(0);
+
+    // Convert interval to standardized 128-bit span value
+    INT128 span = interval_cmp_value(interval);
+
+    // Use only lower 64 bits for backward compatibility
+    int64 span64 = int128_to_int64(span);
+
+    // Hash the 64-bit span value
+    return DirectFunctionCall1(hashint8, Int64GetDatumFast(span64));
+}
+```

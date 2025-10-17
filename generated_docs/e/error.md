@@ -29,8 +29,20 @@ The function accesses the  (SQL Communication Area) structure which is a standar
   - No direct references found in the indexed codebase
 
 ## Notes and Other Information
-- This is a test-specific function located in 
+- This is a test-specific function located in
 - The function is declared as , meaning it has internal linkage and is only accessible within the same translation unit
 - Uses the ECPG-specific  and  fields to report SQL error details
 - The error message format includes the error code and error message text
 - This function provides a "fail-fast" approach by immediately terminating the program when called
+
+## Simplified Source
+
+```c
+static void error(void) {
+    // Print SQL error information from global sqlca structure
+    printf("\n#%ld:%s\n", sqlca.sqlcode, sqlca.sqlerrm.sqlerrmc);
+
+    // Terminate program with error status
+    exit(1);
+}
+```

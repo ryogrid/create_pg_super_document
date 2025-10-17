@@ -50,3 +50,42 @@ The function implements version-specific behavior because PostgreSQL 9.6 introdu
 - Binary upgrade mode is an exception where all components are dumped to exactly reproduce the database
 - The function returns true if the object is an extension member, false otherwise
 - Future enhancements might include RLS policies and security labels, but these require additional privileges
+
+## Simplified Source
+
+```c
+static bool
+checkExtensionMembership(DumpableObject *dobj, Archive *fout)
+{
+    ExtensionInfo *ext = findOwningExtension(dobj->catId);
+
+    if (ext == NULL)
+        return false;
+
+    // Mark as extension member and record dependency
+    dobj->ext_member = true;
+    addObjectDependency(dobj, ext->dobj.dumpId);
+
+    // Set dump flags based on PostgreSQL version and dump mode
+    if (fout->dopt->binary_upgrade)
+    {
+        // Binary upgrade: dump all components to exactly reproduce database
+        dobj->dump = ext->dobj.dump;
+    }
+    else
+    {
+        if (fout->remoteVersion < 90600)
+        {
+            // Pre-9.6: don't dump extension member components
+            dobj->dump = DUMP_COMPONENT_NONE;
+        }
+        else
+        {
+            // 9.6+: dump only ACL deltas (changes from initial setup)
+            dobj->dump = ext->dobj.dump_contains & (DUMP_COMPONENT_ACL);
+        }
+    }
+
+    return true;
+}
+```

@@ -44,3 +44,29 @@ The function ensures that all memory allocations are done in the caller's memory
 - Context callbacks are expected to call errcontext() to contribute to the context string
 - The returned string contains the complete error call stack context information
 - Used primarily for diagnostic and debugging purposes to understand error context
+
+## Simplified Source
+
+```c
+char *GetErrorContextStack(void)
+{
+    ErrorData *edata;
+    ErrorContextCallback *callback;
+
+    /* Set up temporary error data entry */
+    recursion_depth++;
+    edata = get_error_stack_entry();
+    edata->assoc_context = CurrentMemoryContext;
+
+    /* Call all registered context callbacks to build context string */
+    for (callback = error_context_stack; callback != NULL; callback = callback->previous) {
+        callback->callback(callback->arg);
+    }
+
+    /* Clean up and return the collected context string */
+    errordata_stack_depth--;
+    recursion_depth--;
+
+    return edata->context;
+}
+```

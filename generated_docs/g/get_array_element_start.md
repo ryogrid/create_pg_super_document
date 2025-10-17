@@ -44,3 +44,47 @@ When an element matches the extraction path, the function prepares for value cap
 - [String](../S/String.md) normalization is conditionally enabled based on parsing configuration
 - The function follows the same logical pattern as object field processing ("`same logic as for objects`" comment)
 - Null array elements are supported through the isnull parameter but current implementation focuses on index tracking regardless of null status
+
+## Simplified Source
+
+```c
+static JsonParseErrorType get_array_element_start(void *state, bool isnull) {
+    GetState *_state = (GetState *) state;
+    bool get_next = false;
+    int lex_level = _state->lex->lex_level;
+
+    // Update array element counter
+    if (lex_level <= _state->npath)
+        _state->array_cur_index[lex_level - 1]++;
+
+    // Check if current element matches target path index
+    if (lex_level <= _state->npath &&
+        _state->pathok[lex_level - 1] &&
+        _state->path_indexes != NULL &&
+        _state->array_cur_index[lex_level - 1] == _state->path_indexes[lex_level - 1]) {
+
+        if (lex_level < _state->npath) {
+            // Not at end of path, mark path as valid for next level
+            _state->pathok[lex_level] = true;
+        } else {
+            // End of path reached, capture this element
+            get_next = true;
+        }
+    }
+
+    // Prepare for value capture if this element is our target
+    if (get_next) {
+        _state->tresult = NULL;
+        _state->result_start = NULL;
+
+        if (_state->normalize_results &&
+            _state->lex->token_type == JSON_TOKEN_STRING) {
+            _state->next_scalar = true;
+        } else {
+            _state->result_start = _state->lex->token_start;
+        }
+    }
+
+    return JSON_SUCCESS;
+}
+```

@@ -49,3 +49,44 @@ The function includes safety checks and respects restore options:
 - Respects the `noTableAm` restore option to allow users to disable table access method handling
 - Essential for properly restoring partitioned table configurations in PostgreSQL 12+ where table access methods are supported
 - Uses libpq functions (PQexec, PQclear) for database communication when restoring directly to a database
+
+## Simplified Source
+
+```c
+static void _printTableAccessMethodNoStorage(ArchiveHandle *AH, TocEntry *te) {
+    RestoreOptions *ropt = AH->public.ropt;
+    const char *tableam = te->tableam;
+    PQExpBuffer cmd;
+
+    // Skip if --no-table-access-method option is set
+    if (ropt->noTableAm)
+        return;
+
+    // Skip if no table access method specified
+    if (!tableam)
+        return;
+
+    // Must be a partitioned table
+    Assert(te->relkind == RELKIND_PARTITIONED_TABLE);
+
+    // Build ALTER TABLE SET ACCESS METHOD command
+    cmd = createPQExpBuffer();
+    appendPQExpBufferStr(cmd, "ALTER TABLE ");
+    appendPQExpBuffer(cmd, "%s ", fmtQualifiedId(te->namespace, te->tag));
+    appendPQExpBuffer(cmd, "SET ACCESS METHOD %s;", fmtId(tableam));
+
+    // Execute or output command
+    if (RestoringToDB(AH)) {
+        PGresult *res = PQexec(AH->connection, cmd->data);
+        if (!res || PQresultStatus(res) != PGRES_COMMAND_OK)
+            warn_or_exit_horribly(AH,
+                                 "could not alter table access method: %s",
+                                 PQerrorMessage(AH->connection));
+        PQclear(res);
+    } else {
+        ahprintf(AH, "%s\n\n", cmd->data);
+    }
+
+    destroyPQExpBuffer(cmd);
+}
+```

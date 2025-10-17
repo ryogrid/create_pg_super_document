@@ -33,3 +33,15 @@ The function takes four arguments: start timestamp, end timestamp, step interval
 - Function is registered in PostgreSQL's system catalogs as a built-in function
 - Returns a set of timestamptz values, making it usable in FROM clauses and other set-returning contexts
 - Useful for generating timestamp series that need consistent timezone handling regardless of session settings
+
+## Simplified Source
+
+```c
+Datum
+generate_series_timestamptz_at_zone(PG_FUNCTION_ARGS)
+{
+    // Simple wrapper that delegates to internal implementation
+    // Fourth parameter will be the timezone specification
+    return generate_series_timestamptz_internal(fcinfo);
+}
+```

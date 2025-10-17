@@ -35,3 +35,18 @@ The cidin function is part of PostgreSQL's command identifier (cid) data type im
 - The "cid" parameter in uint32in_subr provides context for error messages
 - Located in src/backend/utils/adt/xid.c:322-334
 - Complemented by cidout function for output conversion
+
+## Simplified Source
+
+```c
+Datum cidin(PG_FUNCTION_ARGS) {
+    char *input_string = PG_GETARG_CSTRING(0);
+    CommandId parsed_cid;
+
+    // Parse string as 32-bit unsigned integer with error handling
+    parsed_cid = uint32in_subr(input_string, NULL, "cid", fcinfo->context);
+
+    // Return the parsed CommandId
+    PG_RETURN_COMMANDID(parsed_cid);
+}
+```

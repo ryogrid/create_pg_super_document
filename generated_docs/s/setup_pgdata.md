@@ -39,3 +39,37 @@ The function includes comprehensive error handling and user guidance when no dat
 - The PGDATA environment variable is explicitly set to avoid command-line quoting issues on Windows
 - The function provides helpful error messages guiding users to use either the -D option or PGDATA environment variable
 - [Path](../P/Path.md) canonicalization ensures consistent handling of relative paths, symbolic links, and path separators across platforms
+
+## Simplified Source
+
+```c
+void
+setup_pgdata(void)
+{
+    char *pgdata_get_env;
+
+    // If data directory not set, try PGDATA environment variable
+    if (!pg_data) {
+        pgdata_get_env = getenv("PGDATA");
+        if (pgdata_get_env && strlen(pgdata_get_env)) {
+            pg_data = pg_strdup(pgdata_get_env);
+        } else {
+            // No data directory found - report error with helpful hints
+            pg_log_error("no data directory specified");
+            pg_log_error_hint("You must identify the directory where the data for this database system "
+                              "will reside. Do this with either the invocation option -D or the "
+                              "environment variable PGDATA.");
+            exit(1);
+        }
+    }
+
+    // Store original path and canonicalize for consistent handling
+    pgdata_native = pg_strdup(pg_data);
+    canonicalize_path(pg_data);
+
+    // Set PGDATA environment variable for child processes
+    // (avoids quoting issues on Windows)
+    if (setenv("PGDATA", pg_data, 1) != 0)
+        pg_fatal("could not set environment");
+}
+```

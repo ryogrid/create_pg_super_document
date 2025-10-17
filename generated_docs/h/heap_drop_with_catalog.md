@@ -54,3 +54,84 @@ This function performs the comprehensive catalog cleanup required when dropping 
 - Performs comprehensive cache invalidation for partitioning hierarchy changes
 - Removes subscription relations, ON COMMIT actions, inheritance, statistics, and attribute tuples
 - Uses RELKIND_HAS_STORAGE macro to determine if storage cleanup is needed
+
+## Simplified Source
+
+```c
+void
+heap_drop_with_catalog(Oid relid)
+{
+    Relation rel;
+    HeapTuple tuple;
+    Oid parentOid = InvalidOid, defaultPartOid = InvalidOid;
+
+    // Handle partition locking: if this is a partition, lock parent and default partition
+    tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for relation %u", relid);
+
+    if (((Form_pg_class) GETSTRUCT(tuple))->relispartition) {
+        // Lock parent to prevent queries with stale partition descriptors
+        parentOid = get_partition_parent(relid, true);
+        LockRelationOid(parentOid, AccessExclusiveLock);
+
+        // Lock default partition if it will be affected
+        defaultPartOid = get_default_partition_oid(parentOid);
+        if (OidIsValid(defaultPartOid) && relid != defaultPartOid)
+            LockRelationOid(defaultPartOid, AccessExclusiveLock);
+    }
+    ReleaseSysCache(tuple);
+
+    // Open the target relation with exclusive lock
+    rel = relation_open(relid, AccessExclusiveLock);
+
+    // Safety checks
+    CheckTableNotInUse(rel, "DROP TABLE");
+    CheckTableForSerializableConflictIn(rel);
+
+    // Clean up type-specific catalog entries
+    if (rel->rd_rel->relkind == RELKIND_FOREIGN_TABLE) {
+        // Remove foreign table catalog entry
+        Relation ftrel = table_open(ForeignTableRelationId, RowExclusiveLock);
+        HeapTuple fttuple = SearchSysCache1(FOREIGNTABLEREL, ObjectIdGetDatum(relid));
+        if (!HeapTupleIsValid(fttuple))
+            elog(ERROR, "cache lookup failed for foreign table %u", relid);
+        CatalogTupleDelete(ftrel, &fttuple->t_self);
+        ReleaseSysCache(fttuple);
+        table_close(ftrel, RowExclusiveLock);
+    }
+
+    if (rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+        RemovePartitionKeyByRelId(relid);
+
+    // Update default partition OID if we're dropping the default partition
+    if (relid == defaultPartOid)
+        update_default_partition_oid(parentOid, InvalidOid);
+
+    // Schedule physical storage deletion
+    if (RELKIND_HAS_STORAGE(rel->rd_rel->relkind))
+        RelationDropStorage(rel);
+
+    // Clean up statistics and close relation (keeping lock)
+    pgstat_drop_relation(rel);
+    relation_close(rel, NoLock);
+
+    // Remove associated metadata
+    RemoveSubscriptionRel(InvalidOid, relid);
+    remove_on_commit_action(relid);
+    RelationForgetRelation(relid);
+
+    // Remove catalog entries
+    RelationRemoveInheritance(relid);
+    RemoveStatistics(relid, 0);
+    DeleteAttributeTuples(relid);
+    DeleteRelationTuple(relid);
+
+    // Invalidate caches for partition hierarchy changes
+    if (OidIsValid(parentOid)) {
+        if (OidIsValid(defaultPartOid) && relid != defaultPartOid)
+            CacheInvalidateRelcacheByRelid(defaultPartOid);
+        CacheInvalidateRelcacheByRelid(parentOid);
+    }
+}
+```

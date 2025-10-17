@@ -50,3 +50,38 @@ The function performs name resolution using the current search path and validate
 - Provides detailed error messages when relations don't exist
 - Part of the regtype family of input/output functions for database object references
 - Returns 0 (InvalidOid) for dash input, following PostgreSQL conventions for "unknown" values
+
+## Simplified Source
+
+```c
+Datum regclassin(PG_FUNCTION_ARGS) {
+    char *class_name_or_oid = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    Oid result;
+    List *names;
+
+    // Handle "-" (unknown) or numeric OID input
+    if (parseDashOrOid(class_name_or_oid, &result, escontext))
+        PG_RETURN_OID(result);
+
+    // Bootstrap mode only accepts numeric OIDs
+    if (IsBootstrapProcessingMode())
+        elog(ERROR, "regclass values must be OIDs in bootstrap mode");
+
+    // Parse potentially schema-qualified class name
+    names = stringToQualifiedNameList(class_name_or_oid, escontext);
+    if (names == NIL)
+        PG_RETURN_NULL();
+
+    // Look up relation OID without locking (performance optimization)
+    result = RangeVarGetRelid(makeRangeVarFromNameList(names), NoLock, true);
+
+    if (!OidIsValid(result))
+        ereturn(escontext, (Datum) 0,
+                (errcode(ERRCODE_UNDEFINED_TABLE),
+                 errmsg("relation \"%s\" does not exist",
+                        NameListToString(names))));
+
+    PG_RETURN_OID(result);
+}
+```

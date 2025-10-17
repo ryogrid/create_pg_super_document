@@ -43,3 +43,51 @@ This static function performs the lazy initialization of an LZ4State structure, 
 - The function uses PostgreSQL's pg_malloc() instead of standard malloc(), ensuring memory allocation failures are handled consistently with the rest of PostgreSQL
 - Buffer size for decompression is determined by taking the maximum of the provided size parameter and DEFAULT_IO_BUFFER_SIZE
 - Error handling distinguishes between LZ4 library errors (stored in errcode) and system errors (reflected in errno)
+
+## Simplified Source
+
+```c
+static bool
+LZ4Stream_init(LZ4State *state, int size, bool compressing)
+{
+    // Skip if already initialized
+    if (state->inited) {
+        return true;
+    }
+
+    state->compressing = compressing;
+
+    if (state->compressing) {
+        // Setup compression context and write header to output stream
+        if (!LZ4State_compression_init(state)) {
+            return false;
+        }
+
+        // Write LZ4 header to file
+        errno = 0;
+        if (fwrite(state->buffer, 1, state->compressedlen, state->fp) != state->compressedlen) {
+            errno = (errno) ? errno : ENOSPC;
+            return false;
+        }
+    } else {
+        // Setup decompression context
+        size_t status = LZ4F_createDecompressionContext(&state->dtx, LZ4F_VERSION);
+        if (LZ4F_isError(status)) {
+            state->errcode = status;
+            return false;
+        }
+
+        // Allocate buffers for decompression
+        state->buflen = Max(size, DEFAULT_IO_BUFFER_SIZE);
+        state->buffer = pg_malloc(state->buflen);
+
+        // Allocate overflow buffer for excess data handling
+        state->overflowalloclen = state->buflen;
+        state->overflowbuf = pg_malloc(state->overflowalloclen);
+        state->overflowlen = 0;
+    }
+
+    state->inited = true;
+    return true;
+}
+```

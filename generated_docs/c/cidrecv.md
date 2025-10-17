@@ -35,3 +35,14 @@ The `cidrecv` function is part of PostgreSQL's binary protocol infrastructure fo
 - Works with PostgreSQL's binary protocol for efficient data transfer
 - Uses pq_getmsgint to extract the CommandId from the binary message buffer
 - Follows PostgreSQL's standard pattern for type receive functions using the PG_FUNCTION_ARGS interface
+
+## Simplified Source
+
+```c
+Datum cidrecv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+
+    // Read CommandId from binary buffer and return it
+    PG_RETURN_COMMANDID((CommandId) pq_getmsgint(buf, sizeof(CommandId)));
+}
+```

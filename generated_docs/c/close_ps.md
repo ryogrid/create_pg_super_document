@@ -38,3 +38,21 @@ This function serves as the PostgreSQL SQL interface for finding the closest poi
 - Allocates memory using palloc for the result point
 - Properly handles edge cases by returning NULL for invalid calculations
 - Part of PostgreSQL's geometric data type system for 2D geometry operations
+
+## Simplified Source
+
+```c
+Datum close_ps(PG_FUNCTION_ARGS) {
+    Point *pt = PG_GETARG_POINT_P(0);     // Input point
+    LSEG *lseg = PG_GETARG_LSEG_P(1);     // Input line segment
+
+    // Allocate memory for result point
+    Point *result = (Point *) palloc(sizeof(Point));
+
+    // Calculate closest point on line segment to the given point
+    if (isnan(lseg_closept_point(result, lseg, pt)))
+        PG_RETURN_NULL();  // Return NULL if calculation fails
+
+    PG_RETURN_POINT_P(result);
+}
+```

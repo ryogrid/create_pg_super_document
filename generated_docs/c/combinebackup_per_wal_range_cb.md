@@ -43,3 +43,29 @@ The function maintains the linked list by properly setting both forward and back
 - Part of the pg_combinebackup utility's manifest parsing infrastructure
 - The function assumes the context's private_data field points to a valid manifest_data structure
 - Memory allocated by palloc will be automatically freed when the memory context is reset or deleted
+
+## Simplified Source
+
+```c
+static void combinebackup_per_wal_range_cb(JsonManifestParseContext *context,
+                                          TimeLineID tli,
+                                          XLogRecPtr start_lsn, XLogRecPtr end_lsn) {
+    manifest_data *manifest = context->private_data;
+    manifest_wal_range *range;
+
+    // Create new WAL range entry
+    range = palloc(sizeof(manifest_wal_range));
+    range->tli = tli;
+    range->start_lsn = start_lsn;
+    range->end_lsn = end_lsn;
+    range->prev = manifest->last_wal_range;
+    range->next = NULL;
+
+    // Add to end of doubly-linked list
+    if (manifest->first_wal_range == NULL)
+        manifest->first_wal_range = range;
+    else
+        manifest->last_wal_range->next = range;
+    manifest->last_wal_range = range;
+}
+```

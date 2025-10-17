@@ -39,3 +39,34 @@ For stop and shutdown requests, it sets a wait hint of 10 seconds, updates the s
 - Wait hints are provided to inform the SCM about expected operation duration
 - Graceful shutdown is implemented through event signaling rather than direct termination
 - The function includes FIXME comment suggesting future expansion for additional signal handling
+
+## Simplified Source
+
+```c
+static void WINAPI
+pgwin32_ServiceHandler(DWORD request)
+{
+    switch (request)
+    {
+        case SERVICE_CONTROL_STOP:
+        case SERVICE_CONTROL_SHUTDOWN:
+            // Initiate graceful shutdown
+            status.dwWaitHint = 10000;
+            pgwin32_SetServiceStatus(SERVICE_STOP_PENDING);
+            SetEvent(shutdownEvent);
+            return;
+
+        case SERVICE_CONTROL_PAUSE:
+            // Reload configuration via SIGHUP signal
+            status.dwWaitHint = 5000;
+            kill(postmasterPID, SIGHUP);
+            return;
+
+        case SERVICE_CONTROL_CONTINUE:
+        case SERVICE_CONTROL_INTERROGATE:
+        default:
+            // No action needed for these requests
+            break;
+    }
+}
+```

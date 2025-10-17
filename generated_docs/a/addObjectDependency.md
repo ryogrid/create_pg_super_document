@@ -39,3 +39,26 @@ The dependency tracking is crucial for pg_dump's operation as it ensures objects
 - Initial allocation size is 16 DumpId entries, providing a reasonable balance between memory usage and reallocation frequency
 - The function directly modifies the DumpableObject's nDeps, allocDeps, and dependencies fields
 - This function is heavily used throughout the pg_dump codebase for establishing object relationships and dump ordering
+
+## Simplified Source
+
+```c
+void addObjectDependency(DumpableObject *dobj, DumpId refId) {
+    // Expand dependencies array if needed (doubling strategy)
+    if (dobj->nDeps >= dobj->allocDeps) {
+        if (dobj->allocDeps <= 0) {
+            // Initial allocation: 16 entries
+            dobj->allocDeps = 16;
+            dobj->dependencies = pg_malloc_array(DumpId, dobj->allocDeps);
+        } else {
+            // Double the allocation size
+            dobj->allocDeps *= 2;
+            dobj->dependencies = pg_realloc_array(dobj->dependencies,
+                                                DumpId, dobj->allocDeps);
+        }
+    }
+
+    // Add dependency to the list
+    dobj->dependencies[dobj->nDeps++] = refId;
+}
+```

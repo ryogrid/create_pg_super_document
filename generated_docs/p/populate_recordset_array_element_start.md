@@ -40,3 +40,21 @@ For elements at other nesting levels, no validation is performed as nested struc
 - The isnull parameter is not currently used but provides extensibility for null element handling
 - Error messages include the function name from the state for better user feedback
 - This validation is crucial for the proper functioning of downstream record processing functions
+
+## Simplified Source
+
+```c
+static JsonParseErrorType populate_recordset_array_element_start(void *state, bool isnull) {
+    PopulateRecordsetState *_state = (PopulateRecordsetState *) state;
+
+    // Validate that top-level array elements are objects
+    if (_state->lex->lex_level == 1 &&
+        _state->lex->token_type != JSON_TOKEN_OBJECT_START) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("argument of %s must be an array of objects",
+                              _state->function_name)));
+    }
+
+    return JSON_SUCCESS;
+}
+```

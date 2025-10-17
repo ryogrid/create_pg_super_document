@@ -40,3 +40,47 @@ This function serves as the entry point for initializing Zstd compression suppor
 - The private_data field is used to store the ZstdCompressorState containing Zstd-specific context and buffers
 - Error handling uses pg_fatal() for critical initialization failures
 - The function is designed to work with both compression and decompression workflows in pg_dump
+
+## Simplified Source
+
+```c
+void
+InitCompressorZstd(CompressorState *cs,
+                   const pg_compress_specification compression_spec)
+{
+    ZstdCompressorState *zstdcs;
+
+    // Set up function pointers for Zstd operations
+    cs->readData = ReadDataFromArchiveZstd;
+    cs->writeData = WriteDataToArchiveZstd;
+    cs->end = EndCompressorZstd;
+    cs->compression_spec = compression_spec;
+
+    // Allocate and initialize Zstd state
+    zstdcs = (ZstdCompressorState *) pg_malloc0(sizeof(*zstdcs));
+    cs->private_data = zstdcs;
+
+    // Ensure exactly one of read or write is specified
+    Assert((cs->readF == NULL) != (cs->writeF == NULL));
+
+    if (cs->readF != NULL) {
+        // Initialize for decompression
+        zstdcs->dstream = ZSTD_createDStream();
+        if (zstdcs->dstream == NULL)
+            pg_fatal("could not initialize compression library");
+
+        // Allocate input and output buffers
+        zstdcs->input.size = ZSTD_DStreamInSize();
+        zstdcs->input.src = pg_malloc(zstdcs->input.size);
+        zstdcs->output.size = ZSTD_DStreamOutSize();
+        zstdcs->output.dst = pg_malloc(zstdcs->output.size + 1); // +1 for null terminator
+    }
+    else if (cs->writeF != NULL) {
+        // Initialize for compression
+        zstdcs->cstream = _ZstdCStreamParams(cs->compression_spec);
+        zstdcs->output.size = ZSTD_CStreamOutSize();
+        zstdcs->output.dst = pg_malloc(zstdcs->output.size);
+        zstdcs->output.pos = 0;
+    }
+}
+```

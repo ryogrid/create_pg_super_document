@@ -33,3 +33,25 @@ This function handles reconnection to a PostgreSQL server during dump or restore
 - Stores override_dbname in RestoreOptions to persist database preference across reconnections
 - Temporarily sets AH->connection to NULL to bypass error checks in ConnectDatabase
 - Critical for operations that require switching databases or recovering from connection failures during lengthy dump/restore processes
+
+## Simplified Source
+
+```c
+void
+ReconnectToServer(ArchiveHandle *AH, const char *dbname)
+{
+    PGconn *oldConn = AH->connection;
+    RestoreOptions *ropt = AH->public.ropt;
+
+    // Save the database name for future reconnections
+    if (dbname)
+        ropt->cparams.override_dbname = pg_strdup(dbname);
+
+    // Establish new connection before closing old one to avoid race conditions
+    AH->connection = NULL;  // Bypass error check in ConnectDatabase
+    ConnectDatabase((Archive *) AH, &ropt->cparams, true);
+
+    // Clean up old connection
+    PQfinish(oldConn);
+}
+```

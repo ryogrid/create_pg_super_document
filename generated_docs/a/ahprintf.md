@@ -37,3 +37,44 @@ The  function provides formatted text output functionality for PostgreSQL's pg_d
 - Preserves errno across the function call to maintain error state consistency
 - Widely used throughout the pg_dump archiver for formatted output operations
 - Returns the number of characters written, following standard printf conventions
+
+## Simplified Source
+
+```c
+int
+ahprintf(ArchiveHandle *AH, const char *fmt, ...)
+{
+    int save_errno = errno;
+    char *p;
+    size_t len = 128;  // Initial buffer size
+    size_t cnt;
+
+    // Dynamic buffer allocation with retry loop
+    for (;;)
+    {
+        va_list args;
+
+        // Allocate work buffer
+        p = (char *) pg_malloc(len);
+
+        // Try to format the data
+        errno = save_errno;
+        va_start(args, fmt);
+        cnt = pvsnprintf(p, len, fmt, args);
+        va_end(args);
+
+        // Success if formatted string fits in buffer
+        if (cnt < len)
+            break;
+
+        // Buffer too small - expand and retry
+        free(p);
+        len = cnt;
+    }
+
+    // Write formatted text to archive output
+    ahwrite(p, 1, cnt, AH);
+    free(p);
+    return (int) cnt;
+}
+```

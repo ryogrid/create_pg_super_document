@@ -40,3 +40,22 @@ This function is essential for resolving table references throughout pg_dump's o
 - The function assumes that if an object is found with the given OID, it should be a table - the assertion will fail if this assumption is violated
 - Part of a family of similar lookup functions (like findIndexByOid) that provide type-safe access to specific kinds of database objects
 - Critical for maintaining referential integrity and proper dependency tracking in pg_dump's object model
+
+## Simplified Source
+
+```c
+TableInfo *
+findTableByOid(Oid oid)
+{
+    // Create catalog identifier for the table lookup
+    CatalogId catId;
+    catId.tableoid = RelationRelationId;  // pg_class system catalog
+    catId.oid = oid;
+
+    // Find the object and verify it's a table
+    DumpableObject *dobj = findObjectByCatalogId(catId);
+    Assert(dobj == NULL || dobj->objType == DO_TABLE);
+
+    return (TableInfo *) dobj;  // NULL if not found
+}
+```

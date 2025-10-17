@@ -33,3 +33,17 @@ This function creates and pushes null JSON values as array elements into a JSONB
 
 ## Notes and Other Information
 This is a static helper function used internally within jsonfuncs.c for JSONB manipulation operations. It's particularly useful when building arrays where gaps need to be filled with null values or when extending arrays to a specific length.
+
+## Simplified Source
+
+```c
+static void push_null_elements(JsonbParseState **ps, int num) {
+    JsonbValue null;
+
+    null.type = jbvNull;
+
+    // Push the specified number of null elements
+    while (num-- > 0)
+        pushJsonbValue(ps, WJB_ELEM, &null);
+}
+```

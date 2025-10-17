@@ -45,3 +45,39 @@ The function is specifically designed for reading serialized snapshot components
 - Wait event reporting allows monitoring of snapshot restoration I/O operations
 - Performs cleanup by closing the file descriptor before throwing errors, preventing file descriptor leaks
 - Assumes that the caller has already positioned the file descriptor correctly for the next read operation
+
+## Simplified Source
+
+```c
+static void
+SnapBuildRestoreContents(int fd, char *dest, Size size, const char *path)
+{
+    int readBytes;
+
+    // Report wait event and perform the read operation
+    pgstat_report_wait_start(WAIT_EVENT_SNAPBUILD_READ);
+    readBytes = read(fd, dest, size);
+    pgstat_report_wait_end();
+
+    // Ensure we read exactly the expected amount
+    if (readBytes != size)
+    {
+        int save_errno = errno;
+        CloseTransientFile(fd);
+
+        // Report appropriate error based on failure type
+        if (readBytes < 0)
+        {
+            errno = save_errno;
+            ereport(ERROR, (errcode_for_file_access(),
+                           errmsg("could not read file \"%s\": %m", path)));
+        }
+        else
+        {
+            ereport(ERROR, (errcode(ERRCODE_DATA_CORRUPTED),
+                           errmsg("could not read file \"%s\": read %d of %zu",
+                                  path, readBytes, size)));
+        }
+    }
+}
+```

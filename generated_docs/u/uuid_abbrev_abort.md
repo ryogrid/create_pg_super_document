@@ -38,3 +38,32 @@ The function implements a two-threshold system:
 - Includes detailed trace logging when TRACE_SORT is enabled for debugging sort optimization decisions
 - The 0.5 fudge factor in the low cardinality check helps handle pathological cases with very low initial diversity
 - Returns false to continue abbreviation, true to abort and switch to full key comparison
+
+## Simplified Source
+
+```c
+static bool uuid_abbrev_abort(int memtupcount, SortSupport ssup) {
+    uuid_sortsupport_state *uss = ssup->ssup_extra;
+    double abbr_card;
+
+    // Only evaluate after sufficient data points
+    if (memtupcount < 10000 || uss->input_count < 10000 || !uss->estimating)
+        return false;
+
+    // Estimate cardinality using HyperLogLog
+    abbr_card = estimateHyperLogLog(&uss->abbr_card);
+
+    // Stop counting if we have very high cardinality (>100k distinct values)
+    if (abbr_card > 100000.0) {
+        uss->estimating = false;
+        return false;
+    }
+
+    // Abort if cardinality is too low (less than 1 per ~2k inputs)
+    if (abbr_card < uss->input_count / 2000.0 + 0.5) {
+        return true;  // Abort abbreviation
+    }
+
+    return false;  // Continue abbreviation
+}
+```

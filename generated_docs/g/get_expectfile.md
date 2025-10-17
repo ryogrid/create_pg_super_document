@@ -33,3 +33,29 @@ This function enables PostgreSQL's regression testing framework to use different
 - Searches the resultmap in the order entries were added (with last-match-wins from load_resultmap)
 - Part of the PostgreSQL regression testing framework (pg_regress)
 - Used to handle platform-specific differences in test output
+
+## Simplified Source
+
+```c
+static const char *get_expectfile(const char *testname, const char *file) {
+    char *file_type;
+    _resultmap *rm;
+
+    // Extract file extension (type) from filename
+    if (!file || !(file_type = strrchr(file, '.'))) {
+        return NULL;
+    }
+    file_type++; // Skip the dot
+
+    // Search resultmap for matching test name and file type
+    for (rm = resultmap; rm != NULL; rm = rm->next) {
+        if (strcmp(testname, rm->test) == 0 &&
+            strcmp(file_type, rm->type) == 0) {
+            return rm->resultfile;
+        }
+    }
+
+    // No alternative file found
+    return NULL;
+}
+```

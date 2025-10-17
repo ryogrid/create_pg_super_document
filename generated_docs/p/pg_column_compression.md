@@ -50,3 +50,53 @@ Like `pg_column_size`, it caches the type length information for efficiency.
 - Supports PostgreSQL's two main compression methods: PGLZ (traditional) and LZ4 (newer, faster)
 - Useful for database administrators to analyze storage efficiency and compression effectiveness
 - Returns NULL for uncompressed varlena data or when compression information is not available
+
+## Simplified Source
+
+```c
+Datum
+pg_column_compression(PG_FUNCTION_ARGS)
+{
+    int typlen;
+    char *result;
+    ToastCompressionId cmid;
+
+    // Cache type length information for efficiency
+    if (fcinfo->flinfo->fn_extra == NULL) {
+        Oid argtypeid = get_fn_expr_argtype(fcinfo->flinfo, 0);
+        typlen = get_typlen(argtypeid);
+
+        if (typlen == 0)  // Sanity check
+            elog(ERROR, "cache lookup failed for type %u", argtypeid);
+
+        // Store typlen in function context for reuse
+        fcinfo->flinfo->fn_extra = MemoryContextAlloc(fcinfo->flinfo->fn_mcxt, sizeof(int));
+        *((int *) fcinfo->flinfo->fn_extra) = typlen;
+    } else {
+        typlen = *((int *) fcinfo->flinfo->fn_extra);
+    }
+
+    // Only varlena types can be compressed
+    if (typlen != -1)
+        PG_RETURN_NULL();
+
+    // Get compression method ID from TOAST header
+    cmid = toast_get_compression_id((struct varlena *) DatumGetPointer(PG_GETARG_DATUM(0)));
+    if (cmid == TOAST_INVALID_COMPRESSION_ID)
+        PG_RETURN_NULL();
+
+    // Map compression ID to method name
+    switch (cmid) {
+        case TOAST_PGLZ_COMPRESSION_ID:
+            result = "pglz";
+            break;
+        case TOAST_LZ4_COMPRESSION_ID:
+            result = "lz4";
+            break;
+        default:
+            elog(ERROR, "invalid compression method id %d", cmid);
+    }
+
+    PG_RETURN_TEXT_P(cstring_to_text(result));
+}
+```

@@ -29,3 +29,18 @@ None (void function)
 - Part of the initialization sequence for pg_bsd_indent
 - The typenames array can be dynamically expanded later as needed
 - Essential for supporting user-defined type recognition during formatting
+
+## Simplified Source
+
+```c
+void alloc_typenames(void) {
+    // Allocate initial space for 16 typename pointers
+    typenames = (const char **)malloc(sizeof(typenames[0]) *
+                                      (typename_count = 16));
+
+    // Exit with error if allocation fails
+    if (typenames == NULL) {
+        err(1, NULL);
+    }
+}
+```

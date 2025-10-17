@@ -38,3 +38,35 @@ This function performs a complete file read operation by first checking the file
 - Fatal errors occur if file is too large or read operation fails/is incomplete
 - Designed for reading small configuration or metadata files safely
 - File location: src/bin/pg_combinebackup/pg_combinebackup.c:1376-1409
+
+## Simplified Source
+
+```c
+static void slurp_file(int fd, char *filename, StringInfo buf, int maxlen) {
+    struct stat st;
+    ssize_t rb;
+
+    // Check file size
+    if (fstat(fd, &st) != 0)
+        pg_fatal("could not stat file \"%s\": %m", filename);
+    if (st.st_size > maxlen)
+        pg_fatal("file \"%s\" is too large", filename);
+
+    // Prepare buffer space
+    enlargeStringInfo(buf, st.st_size);
+
+    // Read entire file
+    rb = read(fd, &buf->data[buf->len], st.st_size);
+    if (rb != st.st_size) {
+        if (rb < 0)
+            pg_fatal("could not read file \"%s\": %m", filename);
+        else
+            pg_fatal("could not read file \"%s\": read %zd of %lld",
+                     filename, rb, (long long int) st.st_size);
+    }
+
+    // Update buffer length and maintain null termination
+    buf->len += rb;
+    buf->data[buf->len] = '\0';
+}
+```

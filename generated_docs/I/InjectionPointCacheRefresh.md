@@ -53,3 +53,67 @@ The function is designed to be lock-free during reads, using atomic operations a
 - The function is tolerant of concurrent attach/detach operations and provides eventual consistency
 - Uses memcmp for name comparison with explicit length checking for efficiency
 - Memory barriers ensure proper ordering between generation reads and data access
+
+## Simplified Source
+
+```c
+static InjectionPointCacheEntry *
+InjectionPointCacheRefresh(const char *name)
+{
+    // Check if any injection points exist
+    uint32 max_inuse = pg_atomic_read_u32(&ActiveInjectionPoints->max_inuse);
+    if (max_inuse == 0) {
+        // Destroy cache if no points exist
+        if (InjectionPointCache) {
+            hash_destroy(InjectionPointCache);
+            InjectionPointCache = NULL;
+        }
+        return NULL;
+    }
+
+    // Check if entry is already cached and still valid
+    InjectionPointCacheEntry *cached = injection_point_cache_get(name);
+    if (cached) {
+        int idx = cached->slot_idx;
+        InjectionPointEntry *entry = &ActiveInjectionPoints->entries[idx];
+
+        // Verify generation hasn't changed (entry still valid)
+        if (pg_atomic_read_u64(&entry->generation) == cached->generation)
+            return cached;  // Cache hit - still valid
+
+        // Cache entry stale, remove it
+        injection_point_cache_remove(name);
+    }
+
+    // Search shared memory for the injection point
+    int namelen = strlen(name);
+    for (int idx = 0; idx < max_inuse; idx++) {
+        InjectionPointEntry *entry = &ActiveInjectionPoints->entries[idx];
+
+        // Read generation atomically to detect concurrent changes
+        uint64 generation = pg_atomic_read_u64(&entry->generation);
+        if (generation % 2 == 0)
+            continue;  // Empty slot
+
+        pg_read_barrier();  // Ensure generation read before data access
+
+        // Check if this matches our target name
+        if (memcmp(entry->name, name, namelen + 1) != 0)
+            continue;
+
+        // Copy entry to local memory (may be modified concurrently)
+        InjectionPointEntry local_copy;
+        memcpy(&local_copy, entry, sizeof(InjectionPointEntry));
+
+        // Verify generation unchanged after copy
+        pg_read_barrier();
+        if (pg_atomic_read_u64(&entry->generation) != generation)
+            continue;  // Entry was modified, try again
+
+        // Success - load into cache and return
+        return injection_point_cache_load(&local_copy, idx, generation);
+    }
+
+    return NULL;  // Not found
+}
+```

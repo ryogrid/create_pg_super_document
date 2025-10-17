@@ -39,3 +39,34 @@ The `array_dims` function examines a PostgreSQL array and returns a text string 
 - Returns NULL for arrays with invalid dimension counts (≤ 0 or > MAXDIM)
 - Part of PostgreSQL's array introspection function suite
 - Defined in src/backend/utils/adt/arrayfuncs.c:1668-1705
+
+## Simplified Source
+
+```c
+Datum
+array_dims(PG_FUNCTION_ARGS)
+{
+    AnyArrayType *v = PG_GETARG_ANY_ARRAY_P(0);
+    char *p;
+    int i;
+    int *dimv, *lb;
+    char buf[MAXDIM * 33 + 1];  // Buffer for dimension strings
+
+    // Validate array dimensions
+    if (AARR_NDIM(v) <= 0 || AARR_NDIM(v) > MAXDIM)
+        PG_RETURN_NULL();
+
+    // Extract dimension and bound information
+    dimv = AARR_DIMS(v);
+    lb = AARR_LBOUND(v);
+
+    // Build dimension string: [lower:upper] for each dimension
+    p = buf;
+    for (i = 0; i < AARR_NDIM(v); i++) {
+        sprintf(p, "[%d:%d]", lb[i], dimv[i] + lb[i] - 1);
+        p += strlen(p);
+    }
+
+    PG_RETURN_TEXT_P(cstring_to_text(buf));
+}
+```

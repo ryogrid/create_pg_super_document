@@ -45,3 +45,24 @@ This function is widely used throughout the pg_dump codebase for executing setup
 - It is designed for SQL statements that do not return data - for queries that return rows, use ExecuteSqlQuery or ExecuteSqlQueryForSingleRow instead
 - The function uses a fatal error handling approach - any query failure terminates the entire pg_dump process
 - The Archive parameter uses type punning (casting from Archive* to ArchiveHandle*) to maintain API compatibility while accessing internal connection details
+
+## Simplified Source
+
+```c
+void
+ExecuteSqlStatement(Archive *AHX, const char *query)
+{
+    ArchiveHandle *AH = (ArchiveHandle *) AHX;
+    PGresult *res;
+
+    // Execute the SQL statement
+    res = PQexec(AH->connection, query);
+
+    // Verify successful execution
+    if (PQresultStatus(res) != PGRES_COMMAND_OK)
+        die_on_query_failure(AH, query);
+
+    // Clean up resources
+    PQclear(res);
+}
+```

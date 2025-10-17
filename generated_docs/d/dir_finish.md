@@ -36,3 +36,25 @@ This function is a static implementation of the finish operation for the directo
 - Part of the directory-based WAL writing method implementation for pg_basebackup
 - Static function, only accessible within the walmethods.c compilation unit
 - Critical for ensuring data durability in PostgreSQL backup operations
+
+## Simplified Source
+
+```c
+static bool
+dir_finish(WalWriteMethod *wwmethod) {
+    clear_error(wwmethod);
+
+    // If sync mode is enabled, sync the base directory
+    if (wwmethod->sync) {
+        DirectoryMethodData *dir_data = (DirectoryMethodData *) wwmethod;
+
+        // Sync directory entry to ensure durability
+        if (fsync_fname(dir_data->basedir, true) != 0) {
+            wwmethod->lasterrno = errno;
+            return false;
+        }
+    }
+
+    return true;
+}
+```

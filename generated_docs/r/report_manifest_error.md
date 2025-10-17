@@ -39,3 +39,20 @@ The function uses PostgreSQL's internationalization support through gettext() to
 - Uses PostgreSQL's standard logging infrastructure with localization support
 - Designed specifically as an error callback for JSON manifest parsing operations
 - The context parameter is provided for compatibility with the callback interface but is not currently utilized in the implementation
+
+## Simplified Source
+
+```c
+static void report_manifest_error(JsonManifestParseContext *context,
+                                 const char *fmt, ...) {
+    va_list ap;
+
+    // Format and log the error message
+    va_start(ap, fmt);
+    pg_log_generic_v(PG_LOG_ERROR, PG_LOG_PRIMARY, gettext(fmt), ap);
+    va_end(ap);
+
+    // Fatal error - terminate program
+    exit(1);
+}
+```

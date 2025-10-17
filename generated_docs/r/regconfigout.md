@@ -45,3 +45,46 @@ The function uses the system catalog  to look up configuration details and appli
 - Falls back to numeric representation for non-existent OIDs rather than throwing an error
 - Memory management uses  for result allocation
 - Part of the regtype system that provides user-friendly representations of internal OIDs
+
+## Simplified Source
+
+```c
+Datum
+regconfigout(PG_FUNCTION_ARGS)
+{
+    Oid config_id = PG_GETARG_OID(0);
+    char *result;
+
+    // Handle invalid OID
+    if (config_id == InvalidOid) {
+        result = pstrdup("-");
+        PG_RETURN_CSTRING(result);
+    }
+
+    // Look up configuration in system catalog
+    HeapTuple config_tuple = SearchSysCache1(TSCONFIGOID, ObjectIdGetDatum(config_id));
+
+    if (HeapTupleIsValid(config_tuple)) {
+        // Extract configuration details
+        Form_pg_ts_config config_form = (Form_pg_ts_config) GETSTRUCT(config_tuple);
+        char *config_name = NameStr(config_form->cfgname);
+        char *namespace_name;
+
+        // Check if schema qualification needed
+        if (TSConfigIsVisible(config_id)) {
+            namespace_name = NULL;
+        } else {
+            namespace_name = get_namespace_name(config_form->cfgnamespace);
+        }
+
+        result = quote_qualified_identifier(namespace_name, config_name);
+        ReleaseSysCache(config_tuple);
+    } else {
+        // Return numeric OID if not found in catalog
+        result = (char *) palloc(NAMEDATALEN);
+        snprintf(result, NAMEDATALEN, "%u", config_id);
+    }
+
+    PG_RETURN_CSTRING(result);
+}
+```

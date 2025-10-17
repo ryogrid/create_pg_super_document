@@ -33,3 +33,12 @@ This function returns all schemas (namespaces) in the current database that are 
 - Uses PostgreSQL's privilege system (has_schema_privilege) with 'USAGE' permission
 - Results are ordered by schema name (nspname) for consistent output
 - Only includes schemas where the user has USAGE privileges
+
+## Simplified Source
+
+```c
+static List *database_get_xml_visible_schemas(void)
+{
+    return query_to_oid_list(XML_VISIBLE_SCHEMAS " ORDER BY nspname;");
+}
+```

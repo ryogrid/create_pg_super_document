@@ -39,3 +39,22 @@ The function extracts the composite type OID from the table's metadata (`tbinfo-
 - Part of the broader binary upgrade infrastructure that ensures object identity preservation across PostgreSQL major version upgrades
 - The reltype field in TableInfo corresponds to the OID of the composite type in pg_type that represents the table's row structure
 - Essential for maintaining referential integrity in systems that rely on specific type OIDs for table row types
+
+## Simplified Source
+
+```c
+static void binary_upgrade_set_type_oids_by_rel(Archive *fout,
+                                                PQExpBuffer upgrade_buffer,
+                                                const TableInfo *tbinfo)
+{
+    Oid type_oid = tbinfo->reltype;
+
+    // Only process if table has an associated composite type
+    if (OidIsValid(type_oid)) {
+        // Delegate to main type OID preservation function
+        // Use conservative settings: no forced arrays, no multirange types
+        binary_upgrade_set_type_oids_by_type_oid(fout, upgrade_buffer,
+                                                  type_oid, false, false);
+    }
+}
+```

@@ -41,3 +41,59 @@ This function is executed in the leader process to monitor and receive status me
 - EOF detection on worker pipes returns NULL, which may be indistinguishable from no-data-available
 - Critical component of the leader-worker communication protocol in PostgreSQL's parallel dump infrastructure
 - The function iterates through workers in order, so message processing has deterministic ordering when multiple workers have pending messages
+
+## Simplified Source
+
+```c
+static char *getMessageFromWorker(ParallelState *pstate, bool do_wait, int *worker) {
+    int i;
+    fd_set workerset;
+    int maxFd = -1;
+    struct timeval nowait = {0, 0};
+
+    // Build file descriptor set for all running workers
+    FD_ZERO(&workerset);
+    for (i = 0; i < pstate->numWorkers; i++) {
+        if (!WORKER_IS_RUNNING(pstate->parallelSlot[i].workerStatus)) {
+            continue;
+        }
+        FD_SET(pstate->parallelSlot[i].pipeRead, &workerset);
+        if (pstate->parallelSlot[i].pipeRead > maxFd) {
+            maxFd = pstate->parallelSlot[i].pipeRead;
+        }
+    }
+
+    // Check for ready pipes using select()
+    if (do_wait) {
+        i = select_loop(maxFd, &workerset);  // Blocking select
+        Assert(i != 0);
+    } else {
+        // Non-blocking select with zero timeout
+        if ((i = select(maxFd + 1, &workerset, NULL, NULL, &nowait)) == 0) {
+            return NULL;  // No messages available
+        }
+    }
+
+    if (i < 0) {
+        pg_fatal("%s() failed: %m", "select");
+    }
+
+    // Find first worker with a ready pipe and read message
+    for (i = 0; i < pstate->numWorkers; i++) {
+        if (!WORKER_IS_RUNNING(pstate->parallelSlot[i].workerStatus)) {
+            continue;
+        }
+        if (!FD_ISSET(pstate->parallelSlot[i].pipeRead, &workerset)) {
+            continue;
+        }
+
+        // Read message from this worker
+        char *msg = readMessageFromPipe(pstate->parallelSlot[i].pipeRead);
+        *worker = i;
+        return msg;  // Returns NULL on EOF
+    }
+
+    Assert(false);  // Should never reach here
+    return NULL;
+}
+```

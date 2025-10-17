@@ -43,3 +43,22 @@ The transformation process involves calling the user-provided action function wi
 - Part of the JSON transformation infrastructure supporting functions like json_strip_nulls, json_transform_text, etc.
 - Returns JSON_SUCCESS on successful completion following the standard JSON parsing callback pattern
 - The function assumes the action callback can handle the string content and return valid transformed text
+
+## Simplified Source
+```c
+static JsonParseErrorType
+transform_string_values_scalar(void *state, char *token, JsonTokenType tokentype) {
+    TransformJsonStringValuesState *_state = (TransformJsonStringValuesState *) state;
+
+    if (tokentype == JSON_TOKEN_STRING) {
+        // Transform string values using user-defined action
+        text *out = _state->action(_state->action_state, token, strlen(token));
+        escape_json(_state->strval, text_to_cstring(out));
+    } else {
+        // Pass through non-string scalars unchanged
+        appendStringInfoString(_state->strval, token);
+    }
+
+    return JSON_SUCCESS;
+}
+```

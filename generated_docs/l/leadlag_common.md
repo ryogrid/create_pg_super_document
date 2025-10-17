@@ -53,3 +53,42 @@ The direction (forward for LEAD, backward for LAG) is controlled by the `forward
 - Optimizes performance by checking if the offset is constant using get_fn_expr_arg_stable()
 - Returns NULL when the offset parameter is NULL, the target row is out of bounds with no default, or when the retrieved value is NULL
 - Located in src/backend/utils/adt/windowfuncs.c:528-579
+
+## Simplified Source
+
+```c
+static Datum leadlag_common(FunctionCallInfo fcinfo,
+                           bool forward, bool withoffset, bool withdefault)
+{
+    WindowObject winobj = PG_WINDOW_OBJECT();
+    int32 offset;
+    bool const_offset;
+    Datum result;
+    bool isnull, isout;
+
+    // Determine offset: from parameter or default to 1
+    if (withoffset) {
+        offset = DatumGetInt32(WinGetFuncArgCurrent(winobj, 1, &isnull));
+        if (isnull) PG_RETURN_NULL();
+        const_offset = get_fn_expr_arg_stable(fcinfo->flinfo, 1);
+    } else {
+        offset = 1;
+        const_offset = true;
+    }
+
+    // Get value from target row (forward for LEAD, backward for LAG)
+    result = WinGetFuncArgInPartition(winobj, 0,
+                                     forward ? offset : -offset,
+                                     WINDOW_SEEK_CURRENT,
+                                     const_offset,
+                                     &isnull, &isout);
+
+    // Handle out-of-bounds case with optional default value
+    if (isout && withdefault) {
+        result = WinGetFuncArgCurrent(winobj, 2, &isnull);
+    }
+
+    if (isnull) PG_RETURN_NULL();
+    PG_RETURN_DATUM(result);
+}
+```

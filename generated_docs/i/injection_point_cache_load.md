@@ -37,3 +37,38 @@ This function loads injection point callbacks from external libraries into the l
 - Raises ERROR level messages (which abort the transaction) if loading fails
 - The loaded callback function pointer is cast to void* for storage
 - Private data from the shared memory entry is passed through to the cache entry
+
+## Simplified Source
+
+```c
+static InjectionPointCacheEntry *
+injection_point_cache_load(InjectionPointEntry *entry, int slot_idx, uint64 generation)
+{
+    char path[MAXPGPATH];
+    void *injection_callback_local;
+
+    // Construct full library path
+    snprintf(path, MAXPGPATH, "%s/%s%s", pkglib_path,
+             entry->library, DLSUFFIX);
+
+    // Verify library file exists
+    if (!pg_file_exists(path))
+        elog(ERROR, "could not find library \"%s\" for injection point \"%s\"",
+             path, entry->name);
+
+    // Load callback function from library
+    injection_callback_local = (void *)
+        load_external_function(path, entry->function, false, NULL);
+
+    if (injection_callback_local == NULL)
+        elog(ERROR, "could not find function \"%s\" in library \"%s\" for injection point \"%s\"",
+             entry->function, path, entry->name);
+
+    // Add loaded callback to local cache
+    return injection_point_cache_add(entry->name,
+                                     slot_idx,
+                                     generation,
+                                     injection_callback_local,
+                                     entry->private_data);
+}
+```

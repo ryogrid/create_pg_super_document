@@ -33,3 +33,23 @@ This function sets up the service table entry for PostgreSQL when running as a W
 - Error handling includes retrieving the Windows error code via GetLastError() for diagnostic purposes
 - The function is marked as static, limiting its scope to the pg_ctl.c file
 - This is part of PostgreSQL's Windows service integration functionality in the pg_ctl utility
+
+## Simplified Source
+
+```c
+static void
+pgwin32_doRunAsService(void)
+{
+    // Create service table entry mapping service name to main function
+    SERVICE_TABLE_ENTRY st[] = {
+        {register_servicename, pgwin32_ServiceMain},
+        {NULL, NULL}
+    };
+
+    // Hand control to Windows Service Control Manager
+    if (StartServiceCtrlDispatcher(st) == 0) {
+        write_stderr("could not start service: error code %lu", GetLastError());
+        exit(1);
+    }
+}
+```

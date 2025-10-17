@@ -61,3 +61,91 @@ Key operational aspects:
 - The function maintains several global counters that are used for final reporting and progress tracking
 - File operations use `PG_BINARY` flag for proper binary file handling across platforms
 - The checksum verification only proceeds if the data checksum version matches the expected version (`PG_DATA_CHECKSUM_VERSION`)
+
+## Simplified Source
+
+```c
+static void scan_file(const char *fn, int segmentno) {
+    PGIOAlignedBlock buf;
+    PageHeader header = (PageHeader) buf.data;
+    int f;
+    BlockNumber blockno;
+    int64 blocks_written_in_file = 0;
+
+    // Open file in appropriate mode (read-only for check, read-write for enable)
+    int flags = (mode == PG_MODE_ENABLE) ? O_RDWR : O_RDONLY;
+    f = open(fn, PG_BINARY | flags, 0);
+    if (f < 0)
+        pg_fatal("could not open file \"%s\": %m", fn);
+
+    files_scanned++;
+
+    // Process each block in the file
+    for (blockno = 0;; blockno++) {
+        // Read one database page (8KB block)
+        int r = read(f, buf.data, BLCKSZ);
+        if (r == 0)
+            break;  // End of file
+
+        if (r != BLCKSZ)
+            pg_fatal("could not read block %u in file \"%s\": %m", blockno, fn);
+
+        blocks_scanned++;
+        current_size += r;
+
+        // Skip new pages - they don't have checksums yet
+        if (PageIsNew(buf.data))
+            continue;
+
+        // Calculate expected checksum for this page
+        uint16 csum = pg_checksum_page(buf.data, blockno + segmentno * RELSEG_SIZE);
+
+        if (mode == PG_MODE_CHECK) {
+            // Verify existing checksum
+            if (csum != header->pd_checksum) {
+                if (ControlFile->data_checksum_version == PG_DATA_CHECKSUM_VERSION)
+                    pg_log_error("checksum verification failed in file \"%s\", block %u",
+                                fn, blockno);
+                badblocks++;
+            }
+        } else if (mode == PG_MODE_ENABLE) {
+            // Enable checksums by writing them
+            if (header->pd_checksum == csum)
+                continue;  // Already has correct checksum
+
+            blocks_written_in_file++;
+
+            // Update page header with new checksum
+            header->pd_checksum = csum;
+
+            // Seek back and write the updated block
+            if (lseek(f, -BLCKSZ, SEEK_CUR) < 0)
+                pg_fatal("seek failed for block %u in file \"%s\": %m", blockno, fn);
+
+            int w = write(f, buf.data, BLCKSZ);
+            if (w != BLCKSZ)
+                pg_fatal("could not write block %u in file \"%s\": %m", blockno, fn);
+        }
+
+        // Update progress if enabled
+        if (showprogress)
+            progress_report(false);
+    }
+
+    // Log completion if verbose mode
+    if (verbose) {
+        if (mode == PG_MODE_CHECK)
+            pg_log_info("checksums verified in file \"%s\"", fn);
+        if (mode == PG_MODE_ENABLE)
+            pg_log_info("checksums enabled in file \"%s\"", fn);
+    }
+
+    // Update write statistics
+    if (blocks_written_in_file > 0) {
+        files_written++;
+        blocks_written += blocks_written_in_file;
+    }
+
+    close(f);
+}
+```

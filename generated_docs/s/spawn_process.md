@@ -50,3 +50,54 @@ On Windows, it uses CreateRestrictedProcess() to spawn the command via CMD.EXE (
 - Windows implementation closes the thread handle immediately since only the process handle is needed for monitoring
 - The function is specifically optimized for parallel test execution scenarios
 - Process cleanup and waiting must be handled separately by the caller
+
+## Simplified Source
+
+```c
+PID_TYPE spawn_process(const char *cmdline)
+{
+#ifndef WIN32
+    pid_t pid;
+
+    // Flush buffers before fork to prevent duplicate output
+    fflush(NULL);
+
+#ifdef EXEC_BACKEND
+    pg_disable_aslr();
+#endif
+
+    pid = fork();
+    if (pid == -1) {
+        bail("could not fork: %m");
+    }
+
+    if (pid == 0) {
+        // Child process: execute command via shell
+        char *cmdline2 = psprintf("exec %s", cmdline);
+        execl(shellprog, shellprog, "-c", cmdline2, (char *) NULL);
+        bail_noatexit("could not exec \"%s\": %m", shellprog);
+    }
+
+    // Parent process: return child PID
+    return pid;
+
+#else
+    // Windows implementation
+    PROCESS_INFORMATION pi;
+    char *cmdline2;
+    const char *comspec = getenv("COMSPEC");
+
+    if (comspec == NULL)
+        comspec = "CMD";
+
+    memset(&pi, 0, sizeof(pi));
+    cmdline2 = psprintf("\"%s\" /c \"%s\"", comspec, cmdline);
+
+    if (!CreateRestrictedProcess(cmdline2, &pi))
+        exit(2);
+
+    CloseHandle(pi.hThread);
+    return pi.hProcess;
+#endif
+}
+```

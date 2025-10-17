@@ -41,3 +41,20 @@ This mechanism is essential for scenarios where archive output needs to be tempo
 - Located in `src/bin/pg_dump/pg_backup_archiver.c:1721-1735`
 - The function assumes that savedOutput is a valid handle that was previously saved
 - Should always be called to restore output after temporary redirection to prevent resource leaks
+
+## Simplified Source
+
+```c
+static void
+RestoreOutput(ArchiveHandle *AH, CompressFileHandle *savedOutput)
+{
+    errno = 0;
+
+    // Close current output file handle
+    if (!EndCompressFileHandle(AH->OF))
+        pg_fatal("could not close output file: %m");
+
+    // Restore previously saved output handle
+    AH->OF = savedOutput;
+}
+```

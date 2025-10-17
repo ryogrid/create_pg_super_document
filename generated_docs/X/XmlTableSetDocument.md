@@ -52,3 +52,58 @@ The function employs PostgreSQL's exception handling mechanism to ensure proper 
 - Located in src/backend/utils/adt/xml.c:4732-4788
 - Sets the document root as the initial XPath context node
 - Critical step in XmlTable processing pipeline
+
+## Simplified Source
+
+```c
+static void
+XmlTableSetDocument(TableFuncScanState *state, Datum value)
+{
+#ifdef USE_LIBXML
+    XmlTableBuilderData *xtCxt = GetXmlTableBuilderPrivateData(state, "XmlTableSetDocument");
+    xmltype *xmlval = DatumGetXmlP(value);
+
+    // Convert XML to string format suitable for parsing
+    char *str = xml_out_internal(xmlval, 0);
+    int length = strlen(str);
+    xmlChar *xstr = pg_xmlCharStrndup(str, length);
+
+    volatile xmlDocPtr doc = NULL;
+    volatile xmlXPathContextPtr xpathcxt = NULL;
+
+    // Parse XML document and create XPath context with cleanup on failure
+    PG_TRY();
+    {
+        // Parse the XML document
+        doc = xmlCtxtReadMemory(xtCxt->ctxt, (char *) xstr, length, NULL, NULL, 0);
+        if (doc == NULL || xtCxt->xmlerrcxt->err_occurred)
+            xml_ereport(xtCxt->xmlerrcxt, ERROR, ERRCODE_INVALID_XML_DOCUMENT,
+                        "could not parse XML document");
+
+        // Create XPath evaluation context
+        xpathcxt = xmlXPathNewContext(doc);
+        if (xpathcxt == NULL || xtCxt->xmlerrcxt->err_occurred)
+            xml_ereport(xtCxt->xmlerrcxt, ERROR, ERRCODE_OUT_OF_MEMORY,
+                        "could not allocate XPath context");
+
+        xpathcxt->node = (xmlNodePtr) doc;
+    }
+    PG_CATCH();
+    {
+        // Clean up on error
+        if (xpathcxt != NULL)
+            xmlXPathFreeContext(xpathcxt);
+        if (doc != NULL)
+            xmlFreeDoc(doc);
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    // Store the parsed document and context for later use
+    xtCxt->doc = doc;
+    xtCxt->xpathcxt = xpathcxt;
+#else
+    NO_XML_SUPPORT();
+#endif
+}
+```

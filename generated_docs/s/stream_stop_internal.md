@@ -41,3 +41,25 @@ This function ensures that all streaming transaction state is properly cleaned u
 - The function commits the per-stream transaction that was started during stream_start_internal
 - Memory context reset helps prevent memory leaks in long-running replication workers
 - Part of the logical replication streaming transaction cleanup protocol
+
+## Simplified Source
+
+```c
+void stream_stop_internal(TransactionId xid)
+{
+    // Serialize subtransaction information for persistence
+    subxact_info_write(MyLogicalRepWorker->subid, xid);
+
+    // Close the stream messages spool file
+    stream_close_file();
+
+    // Verify we're in a valid transaction state
+    Assert(IsTransactionState());
+
+    // Commit the per-stream transaction
+    CommitTransactionCommand();
+
+    // Reset streaming context to free memory
+    MemoryContextReset(LogicalStreamingContext);
+}
+```

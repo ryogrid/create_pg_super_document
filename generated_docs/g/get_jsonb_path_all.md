@@ -42,3 +42,33 @@ The  function is the core implementation for JSONB path extraction in PostgreSQL
 - The actual element extraction is delegated to 
 - Static function, only accessible within the same compilation unit
 - Handles both JSONB and text output formats through the  parameter
+
+## Simplified Source
+
+```c
+static Datum get_jsonb_path_all(FunctionCallInfo fcinfo, bool as_text) {
+    Jsonb *jb = PG_GETARG_JSONB_P(0);
+    ArrayType *path = PG_GETARG_ARRAYTYPE_P(1);
+    Datum *pathtext;
+    bool *pathnulls;
+    bool isnull;
+    int npath;
+    Datum res;
+
+    // Return NULL if path array contains any null elements
+    // This matches the behavior of nested -> operator applications
+    if (array_contains_nulls(path))
+        PG_RETURN_NULL();
+
+    // Extract path elements from the input array
+    deconstruct_array_builtin(path, TEXTOID, &pathtext, &pathnulls, &npath);
+
+    // Perform the actual JSONB element extraction
+    res = jsonb_get_element(jb, pathtext, npath, &isnull, as_text);
+
+    if (isnull)
+        PG_RETURN_NULL();
+    else
+        PG_RETURN_DATUM(res);
+}
+```

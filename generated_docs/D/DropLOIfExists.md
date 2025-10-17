@@ -41,3 +41,16 @@ The function is typically used in pg_restore scenarios where large objects may a
 - The SQL output includes proper formatting with newline termination
 - This function is part of the pg_dump/pg_restore infrastructure for handling large objects during database backup and restoration
 - File location: src/bin/pg_dump/pg_backup_db.c:673-680
+
+## Simplified Source
+
+```c
+void DropLOIfExists(ArchiveHandle *AH, Oid oid) {
+    // Generate SQL to conditionally drop large object if it exists
+    ahprintf(AH,
+             "SELECT pg_catalog.lo_unlink(oid) "
+             "FROM pg_catalog.pg_largeobject_metadata "
+             "WHERE oid = '%u';\n",
+             oid);
+}
+```

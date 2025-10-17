@@ -32,3 +32,12 @@ The function uses `PG_FUNCTION_ARGS` macro, which provides access to:
 - The function is declared in `src/backend/utils/adt/tsginidx.c` at line 340-349
 - All actual functionality is delegated to the current `gin_extract_tsquery` implementation
 - Part of the GIN (Generalized Inverted Index) indexing system for full-text search in PostgreSQL
+
+## Simplified Source
+
+```c
+Datum gin_extract_tsquery_oldsig(PG_FUNCTION_ARGS) {
+    // Legacy compatibility wrapper - delegates to current implementation
+    return gin_extract_tsquery(fcinfo);
+}
+```

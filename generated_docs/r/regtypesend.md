@@ -34,3 +34,14 @@ This function is part of PostgreSQL's type system infrastructure and is called a
 - Located in src/backend/utils/adt/regproc.c
 - Handles binary protocol conversion automatically within PostgreSQL's type system
 - Used in client-server communication and binary data storage operations
+
+## Simplified Source
+
+```c
+Datum
+regtypesend(PG_FUNCTION_ARGS)
+{
+    // Delegate to oidsend since regtype is internally an OID
+    return oidsend(fcinfo);
+}
+```

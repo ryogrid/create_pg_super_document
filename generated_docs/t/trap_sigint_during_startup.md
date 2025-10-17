@@ -47,3 +47,20 @@ The function operates on these global variables:
 - The two-step termination (forward signal, then default handling) ensures proper cleanup and prevents signal handling loops
 - This mechanism prevents the common issue of orphaned server processes when startup is interrupted
 - The use of `pqsignal` instead of standard `signal` provides PostgreSQL-specific signal handling behavior
+
+## Simplified Source
+
+```c
+static void trap_sigint_during_startup(SIGNAL_ARGS) {
+    // If we have a postmaster process, forward the signal to it
+    if (postmasterPID != -1) {
+        if (kill(postmasterPID, SIGINT) != 0)
+            write_stderr(_("%s: could not send stop signal (PID: %d): %m\n"),
+                         progname, (int) postmasterPID);
+    }
+
+    // Restore default signal handler and re-raise signal to terminate pg_ctl
+    pqsignal(postgres_signal_arg, SIG_DFL);
+    raise(postgres_signal_arg);
+}
+```

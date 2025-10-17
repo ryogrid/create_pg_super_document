@@ -55,3 +55,56 @@ This internal worker function implements the core logic for retrieving view defi
 - Handles SPI connection lifecycle properly with error checking
 - The actual formatting work is delegated to the make_viewdef function
 - Uses a static plan_getviewrule variable for caching the prepared statement
+
+## Simplified Source
+
+```c
+static char *
+pg_get_viewdef_worker(Oid viewoid, int prettyFlags, int wrapColumn)
+{
+    Datum args[2];
+    char nulls[2];
+    HeapTuple ruletup;
+    TupleDesc rulettc;
+    StringInfoData buf;
+
+    // Initialize result buffer in outer context
+    initStringInfo(&buf);
+
+    // Connect to SPI for secure catalog access
+    if (SPI_connect() != SPI_OK_CONNECT)
+        elog(ERROR, "SPI_connect failed");
+
+    // Prepare query plan on first call (cached)
+    if (plan_getviewrule == NULL) {
+        Oid argtypes[2] = {OIDOID, NAMEOID};
+        SPIPlanPtr plan = SPI_prepare(query_getviewrule, 2, argtypes);
+        if (plan == NULL)
+            elog(ERROR, "SPI_prepare failed");
+        SPI_keepplan(plan);
+        plan_getviewrule = plan;
+    }
+
+    // Execute query to get view's SELECT rule
+    args[0] = ObjectIdGetDatum(viewoid);
+    args[1] = DirectFunctionCall1(namein, CStringGetDatum(ViewSelectRuleName));
+    nulls[0] = nulls[1] = ' ';
+    int spirc = SPI_execute_plan(plan_getviewrule, args, nulls, true, 0);
+
+    if (spirc != SPI_OK_SELECT)
+        elog(ERROR, "failed to get pg_rewrite tuple for view %u", viewoid);
+
+    // Format view definition if found
+    if (SPI_processed == 1) {
+        ruletup = SPI_tuptable->vals[0];
+        rulettc = SPI_tuptable->tupdesc;
+        make_viewdef(&buf, ruletup, rulettc, prettyFlags, wrapColumn);
+    }
+
+    // Clean up SPI connection
+    if (SPI_finish() != SPI_OK_FINISH)
+        elog(ERROR, "SPI_finish failed");
+
+    return (buf.len == 0) ? NULL : buf.data;
+}
+```

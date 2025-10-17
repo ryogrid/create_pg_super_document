@@ -33,3 +33,16 @@ The function is designed for cases where a function needs to be called only once
 - The function automatically handles the FmgrInfo setup and cleanup
 - Located in src/backend/utils/fmgr/fmgr.c at lines 1401-1410
 - Part of a family including OidFunctionCall1Coll, OidFunctionCall2Coll, etc. for different argument counts
+
+## Simplified Source
+
+```c
+Datum OidFunctionCall0Coll(Oid functionId, Oid collation) {
+    // Set up function manager info for the given function OID
+    FmgrInfo flinfo;
+    fmgr_info(functionId, &flinfo);
+
+    // Call the function with collation support
+    return FunctionCall0Coll(&flinfo, collation);
+}
+```

@@ -40,3 +40,28 @@ This function is a PostgreSQL built-in function that creates an XML Schema Defin
 - Returns XML datatype that can be used in SQL queries and applications
 - Core schema generation logic delegated to map_sql_table_to_xmlschema function
 - Part of PostgreSQL's XML support functionality introduced for XML data type operations
+
+## Simplified Source
+
+```c
+Datum
+table_to_xmlschema(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    Oid table_oid = PG_GETARG_OID(0);
+    bool include_nulls = PG_GETARG_BOOL(1);
+    bool table_forest_format = PG_GETARG_BOOL(2);
+    const char *target_namespace = text_to_cstring(PG_GETARG_TEXT_PP(3));
+
+    const char *result;
+    Relation rel;
+
+    // Open table with shared lock and generate schema
+    rel = table_open(table_oid, AccessShareLock);
+    result = map_sql_table_to_xmlschema(rel->rd_att, table_oid, include_nulls,
+                                       table_forest_format, target_namespace);
+    table_close(rel, NoLock);
+
+    PG_RETURN_XML_P(cstring_to_xmltype(result));
+}
+```

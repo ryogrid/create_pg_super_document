@@ -34,3 +34,18 @@ The function delegates the actual parsing work to parse_snapshot(), which handle
 - Uses the standard PostgreSQL function calling convention with PG_FUNCTION_ARGS
 - Memory allocation and error handling are managed by the parse_snapshot function
 - Located in src/backend/utils/adt/xid8funcs.c:420-435
+
+## Simplified Source
+
+```c
+Datum pg_snapshot_in(PG_FUNCTION_ARGS) {
+    // Extract string argument from function call
+    char *str = PG_GETARG_CSTRING(0);
+
+    // Parse string into pg_snapshot structure
+    pg_snapshot *snap = parse_snapshot(str, fcinfo->context);
+
+    // Return parsed snapshot
+    PG_RETURN_POINTER(snap);
+}
+```

@@ -41,3 +41,23 @@ The function uses PostgreSQL's standard function argument interface:
 - Part of PostgreSQL's multibyte character encoding conversion infrastructure
 - Returns the number of input bytes successfully converted
 - The `mic2latin` function handles multibyte character validation and proper character mapping from MIC to Latin-2
+
+## Simplified Source
+
+```c
+Datum mic_to_latin2(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate conversion is between expected encodings
+    CHECK_ENCODING_CONVERSION_ARGS(PG_MULE_INTERNAL, PG_LATIN2);
+
+    // Perform the actual conversion using mic2latin utility function
+    int converted = mic2latin(src, dest, len, LC_ISO8859_2, PG_LATIN2, noError);
+
+    PG_RETURN_INT32(converted);
+}
+```

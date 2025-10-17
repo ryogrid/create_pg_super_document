@@ -46,3 +46,31 @@ This function is a factory constructor that creates and initializes a DirectoryM
 - Part of PostgreSQL's pluggable WAL writing method system
 - Used primarily by pg_basebackup and pg_receivewal utilities
 - The returned pointer should eventually be freed using the corresponding dir_free() function
+
+## Simplified Source
+
+```c
+WalWriteMethod *
+CreateWalDirectoryMethod(const char *basedir,
+                         pg_compress_algorithm compression_algorithm,
+                         int compression_level, bool sync) {
+    DirectoryMethodData *wwmethod;
+
+    // Allocate and zero-initialize the method structure
+    wwmethod = pg_malloc0(sizeof(DirectoryMethodData));
+
+    // Set up function pointer table for directory operations
+    *((const WalWriteMethodOps **) &wwmethod->base.ops) = &WalDirectoryMethodOps;
+
+    // Configure compression and sync settings
+    wwmethod->base.compression_algorithm = compression_algorithm;
+    wwmethod->base.compression_level = compression_level;
+    wwmethod->base.sync = sync;
+
+    // Initialize error state and store base directory
+    clear_error(&wwmethod->base);
+    wwmethod->basedir = pg_strdup(basedir);
+
+    return &wwmethod->base;
+}
+```

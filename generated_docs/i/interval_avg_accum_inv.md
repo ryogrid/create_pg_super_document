@@ -39,3 +39,22 @@ The function includes error handling to ensure it is not called with a NULL stat
 - The function handles NULL checking for both the state parameter and the interval value to be removed
 - Error handling ensures the function fails gracefully if called with invalid state
 - Part of PostgreSQL's aggregate function framework for interval data types
+
+## Simplified Source
+```c
+Datum interval_avg_accum_inv(PG_FUNCTION_ARGS) {
+    IntervalAggState *state;
+
+    state = PG_ARGISNULL(0) ? NULL : (IntervalAggState *) PG_GETARG_POINTER(0);
+
+    // Validate state exists
+    if (state == NULL)
+        elog(ERROR, "interval_avg_accum_inv called with NULL state");
+
+    // Remove non-NULL interval values from aggregate
+    if (!PG_ARGISNULL(1))
+        do_interval_discard(state, PG_GETARG_INTERVAL_P(1));
+
+    PG_RETURN_POINTER(state);
+}
+```

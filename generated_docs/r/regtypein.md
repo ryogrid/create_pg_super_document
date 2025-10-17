@@ -49,3 +49,30 @@ The function uses PostgreSQL's full type parser to handle complex type specifica
 - Type modifier information from parsing is ignored since regtype only tracks type identity, not modifiers
 - Input validation ensures that all non-special inputs must correspond to existing pg_type catalog entries
 - Used internally by PostgreSQL when converting string literals to regtype values in SQL contexts
+
+## Simplified Source
+
+```c
+Datum
+regtypein(PG_FUNCTION_ARGS)
+{
+    char *typ_name_or_oid = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    Oid result;
+    int32 typmod;
+
+    // Handle special "-" value or numeric OID
+    if (parseDashOrOid(typ_name_or_oid, &result, escontext))
+        PG_RETURN_OID(result);
+
+    // Bootstrap mode restriction
+    if (IsBootstrapProcessingMode())
+        elog(ERROR, "regtype values must be OIDs in bootstrap mode");
+
+    // Parse type name using full parser (handles arrays, qualified names, etc.)
+    // Note: typmod is ignored for regtype purposes
+    (void) parseTypeString(typ_name_or_oid, &result, &typmod, escontext);
+
+    PG_RETURN_OID(result);
+}
+```

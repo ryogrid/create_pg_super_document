@@ -71,3 +71,86 @@ This comprehensive function handles dumping all aspects of a database definition
 - Supports various locale providers (builtin, libc, ICU) with appropriate parameter handling
 - Database properties are separated from creation to avoid transaction block restrictions with CREATE DATABASE
 - Includes comprehensive error handling for unrecognized locale providers and missing metadata
+
+## Simplified Source
+
+```c
+static void dumpDatabase(Archive *fout) {
+    DumpOptions *dopt = fout->dopt;
+    PQExpBuffer dbQry = createPQExpBuffer();
+    PQExpBuffer delQry = createPQExpBuffer();
+    PQExpBuffer creaQry = createPQExpBuffer();
+    PQExpBuffer labelq = createPQExpBuffer();
+    PGconn *conn = GetConnection(fout);
+    PGresult *res;
+    CatalogId dbCatId;
+    DumpId dbDumpId;
+
+    pg_log_info("saving database definition");
+
+    // Query database properties with version-specific fields
+    appendPQExpBufferStr(dbQry, "SELECT tableoid, oid, datname, datdba, "
+                               "pg_encoding_to_char(encoding) AS encoding, "
+                               "datcollate, datctype, datfrozenxid, datacl, "
+                               "acldefault('d', datdba) AS acldefault, "
+                               "datistemplate, datconnlimit, ");
+
+    // Add version-specific columns
+    if (fout->remoteVersion >= 90300)
+        appendPQExpBufferStr(dbQry, "datminmxid, ");
+    if (fout->remoteVersion >= 170000)
+        appendPQExpBufferStr(dbQry, "datlocprovider, datlocale, datcollversion, ");
+    // ... other version checks
+
+    appendPQExpBufferStr(dbQry, "FROM pg_database WHERE datname = current_database()");
+
+    res = ExecuteSqlQueryForSingleRow(fout, dbQry->data);
+
+    // Extract database properties
+    dbCatId.tableoid = atooid(PQgetvalue(res, 0, i_tableoid));
+    dbCatId.oid = atooid(PQgetvalue(res, 0, i_oid));
+    const char *datname = PQgetvalue(res, 0, i_datname);
+    const char *encoding = PQgetvalue(res, 0, i_encoding);
+    // ... extract other properties
+
+    // Build CREATE DATABASE statement
+    if (dopt->binary_upgrade) {
+        appendPQExpBuffer(creaQry, "CREATE DATABASE %s WITH TEMPLATE = template0 OID = %u",
+                         qdatname, dbCatId.oid);
+    } else {
+        appendPQExpBuffer(creaQry, "CREATE DATABASE %s WITH TEMPLATE = template0", qdatname);
+    }
+
+    // Add encoding, locale provider, and other options
+    if (strlen(encoding) > 0) {
+        appendPQExpBufferStr(creaQry, " ENCODING = ");
+        appendStringLiteralAH(creaQry, encoding, fout);
+    }
+
+    // Handle locale provider and locale settings
+    // ... locale configuration logic
+
+    // Create main database archive entry
+    dbDumpId = createDumpId();
+    ArchiveEntry(fout, dbCatId, dbDumpId, /* database creation entry */);
+
+    // Add comments, security labels, and ACLs if present
+    // ... additional entries for comments, security labels, ACLs
+
+    // Create DATABASE PROPERTIES entry for configuration settings
+    dumpDatabaseConfig(fout, creaQry, datname, dbCatId.oid);
+
+    // Handle binary upgrade specific tasks (frozen XIDs, large objects)
+    if (dopt->binary_upgrade) {
+        // ... binary upgrade logic
+    }
+
+    // Cleanup
+    PQclear(res);
+    free(qdatname);
+    destroyPQExpBuffer(dbQry);
+    destroyPQExpBuffer(delQry);
+    destroyPQExpBuffer(creaQry);
+    destroyPQExpBuffer(labelq);
+}
+```

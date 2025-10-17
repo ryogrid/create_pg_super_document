@@ -49,3 +49,45 @@ LC_ALL=: A string specifying the locale name to test for date ordering (e.g., "e
 - The function is locale-safe, preserving the original LC_TIME setting
 - Part of the initdb utility used during PostgreSQL database cluster initialization
 - The function handles edge cases where strftime fails or produces malformed output gracefully
+
+## Simplified Source
+
+```c
+static int locale_date_order(const char *locale) {
+    struct tm testtime;
+    char buf[128];
+    char *posD, *posM, *posY;
+    save_locale_t save;
+    int result = DATEORDER_MDY;  // default
+
+    // Save current locale and set to test locale
+    save = save_global_locale(LC_TIME);
+    setlocale(LC_TIME, locale);
+
+    // Create test date: November 22, 2033
+    memset(&testtime, 0, sizeof(testtime));
+    testtime.tm_mday = 22;    // Day: 22
+    testtime.tm_mon = 10;     // Month: November (11)
+    testtime.tm_year = 133;   // Year: 2033
+
+    // Format date and analyze component positions
+    if (my_strftime(buf, sizeof(buf), "%x", &testtime) > 0) {
+        posM = strstr(buf, "11");  // Find month
+        posD = strstr(buf, "22");  // Find day
+        posY = strstr(buf, "33");  // Find year
+
+        if (posM && posD && posY) {
+            if (posY < posM && posM < posD)
+                result = DATEORDER_YMD;
+            else if (posD < posM)
+                result = DATEORDER_DMY;
+            else
+                result = DATEORDER_MDY;
+        }
+    }
+
+    // Restore original locale
+    restore_global_locale(LC_TIME, save);
+    return result;
+}
+```

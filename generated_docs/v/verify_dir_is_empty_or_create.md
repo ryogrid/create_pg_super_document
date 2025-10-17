@@ -42,3 +42,37 @@ This function implements directory validation logic crucial for pg_basebackup op
 - Uses pg_fatal for error termination, which provides consistent error formatting and cleanup
 - The created and found parameters are optional and can be NULL if the caller doesn't need this information
 - Essential for ensuring backup integrity by guaranteeing clean target directories
+
+## Simplified Source
+
+```c
+static void
+verify_dir_is_empty_or_create(char *dirname, bool *created, bool *found)
+{
+    switch (pg_check_dir(dirname)) {
+        case 0:
+            // Directory does not exist - create it
+            if (pg_mkdir_p(dirname, pg_dir_create_mode) == -1)
+                pg_fatal("could not create directory \"%s\": %m", dirname);
+            if (created)
+                *created = true;
+            return;
+
+        case 1:
+            // Directory exists and is empty
+            if (found)
+                *found = true;
+            return;
+
+        case 2:
+        case 3:
+        case 4:
+            // Directory exists but is not empty
+            pg_fatal("directory \"%s\" exists but is not empty", dirname);
+
+        case -1:
+            // Access problem
+            pg_fatal("could not access directory \"%s\": %m", dirname);
+    }
+}
+```

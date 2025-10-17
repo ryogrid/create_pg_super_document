@@ -44,3 +44,65 @@ After a worker is detected as terminated on either platform, the function update
 - The function ensures proper state synchronization by updating both workerStatus and task entry arrays
 - Uses infinite timeout on Windows (INFINITE parameter) to ensure all workers are properly waited for
 - Located in src/bin/pg_dump/parallel.c:446-544
+
+## Simplified Source
+
+```c
+static void
+WaitForTerminatingWorkers(ParallelState *pstate)
+{
+    // Wait until all workers have terminated
+    while (!HasEveryWorkerTerminated(pstate)) {
+        ParallelSlot *slot = NULL;
+        int j;
+
+#ifndef WIN32
+        // Unix: Wait for next worker process to end
+        int status;
+        pid_t pid = wait(&status);
+
+        // Find the slot for the terminated worker and clear PID
+        for (j = 0; j < pstate->numWorkers; j++) {
+            slot = &(pstate->parallelSlot[j]);
+            if (slot->pid == pid) {
+                slot->pid = 0;
+                break;
+            }
+        }
+#else
+        // Windows: Use WaitForMultipleObjects for thread handles
+        HANDLE *lpHandles = pg_malloc(sizeof(HANDLE) * pstate->numWorkers);
+        int nrun = 0;
+        DWORD ret;
+        uintptr_t hThread;
+
+        // Collect running worker thread handles
+        for (j = 0; j < pstate->numWorkers; j++) {
+            if (WORKER_IS_RUNNING(pstate->parallelSlot[j].workerStatus)) {
+                lpHandles[nrun] = (HANDLE) pstate->parallelSlot[j].hThread;
+                nrun++;
+            }
+        }
+
+        // Wait for any worker to terminate
+        ret = WaitForMultipleObjects(nrun, lpHandles, false, INFINITE);
+        hThread = (uintptr_t) lpHandles[ret - WAIT_OBJECT_0];
+        free(lpHandles);
+
+        // Find terminated worker slot and clean up thread handle
+        for (j = 0; j < pstate->numWorkers; j++) {
+            slot = &(pstate->parallelSlot[j]);
+            if (slot->hThread == hThread) {
+                CloseHandle((HANDLE) slot->hThread);
+                slot->hThread = (uintptr_t) INVALID_HANDLE_VALUE;
+                break;
+            }
+        }
+#endif
+
+        // Update worker status and clear task entry
+        slot->workerStatus = WRKR_TERMINATED;
+        pstate->te[j] = NULL;
+    }
+}
+```

@@ -82,3 +82,82 @@ LC_ALL=: General locale setting that serves as default for other categories
 - The function will terminate initdb with a fatal error if ICU support is required but not compiled in
 - Platform-specific behavior for LC_MESSAGES handling on Windows systems
 - Essential part of the database cluster initialization process, ensuring locale consistency across the cluster
+
+## Simplified Source
+
+```c
+static void
+setlocales(void)
+{
+    char *canonname;
+
+    // Apply general locale setting to unspecified categories
+    if (locale) {
+        if (!lc_ctype) lc_ctype = locale;
+        if (!lc_collate) lc_collate = locale;
+        if (!lc_numeric) lc_numeric = locale;
+        if (!lc_time) lc_time = locale;
+        if (!lc_monetary) lc_monetary = locale;
+        if (!lc_messages) lc_messages = locale;
+        if (!datlocale && locale_provider != COLLPROVIDER_LIBC)
+            datlocale = locale;
+    }
+
+    // Canonicalize and validate each locale category
+    check_locale_name(LC_CTYPE, lc_ctype, &canonname);
+    lc_ctype = canonname;
+    check_locale_name(LC_COLLATE, lc_collate, &canonname);
+    lc_collate = canonname;
+    check_locale_name(LC_NUMERIC, lc_numeric, &canonname);
+    lc_numeric = canonname;
+    check_locale_name(LC_TIME, lc_time, &canonname);
+    lc_time = canonname;
+    check_locale_name(LC_MONETARY, lc_monetary, &canonname);
+    lc_monetary = canonname;
+
+    // Handle LC_MESSAGES (platform-dependent)
+#if defined(LC_MESSAGES) && !defined(WIN32)
+    check_locale_name(LC_MESSAGES, lc_messages, &canonname);
+    lc_messages = canonname;
+#else
+    check_locale_name(LC_CTYPE, lc_messages, &canonname);
+    lc_messages = canonname;
+#endif
+
+    // Validate datlocale requirement for non-libc providers
+    if (locale_provider != COLLPROVIDER_LIBC && datlocale == NULL)
+        pg_fatal("locale must be specified if provider is %s",
+                 collprovider_name(locale_provider));
+
+    // Handle provider-specific locale processing
+    if (locale_provider == COLLPROVIDER_BUILTIN) {
+        // Builtin provider only accepts C and C.UTF-8
+        if (strcmp(datlocale, "C") == 0)
+            canonname = "C";
+        else if (strcmp(datlocale, "C.UTF-8") == 0 ||
+                 strcmp(datlocale, "C.UTF8") == 0)
+            canonname = "C.UTF-8";
+        else
+            pg_fatal("invalid locale name \"%s\" for builtin provider", datlocale);
+
+        datlocale = canonname;
+    }
+    else if (locale_provider == COLLPROVIDER_ICU) {
+        char *langtag;
+
+        // Convert to ICU language tag format
+        langtag = icu_language_tag(datlocale);
+        printf(_("Using language tag \"%s\" for ICU locale \"%s\".\n"),
+               langtag, datlocale);
+        pg_free(datlocale);
+        datlocale = langtag;
+
+        // Validate ICU locale
+        icu_validate_locale(datlocale);
+
+#ifndef USE_ICU
+        pg_fatal("ICU is not supported in this build");
+#endif
+    }
+}
+```

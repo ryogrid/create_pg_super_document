@@ -42,3 +42,22 @@ This design allows for both simple substitution operations (where the caller doe
 - Provides an optional mechanism for callers to determine if the tree was actually modified
 - Acts as a stable public interface that isolates callers from internal implementation changes in the recursive matching logic
 - The returned tree may be the same as the input tree (if no changes) or a completely reconstructed tree (if substitutions occurred)
+
+## Simplified Source
+
+```c
+QTNode *
+findsubquery(QTNode *root, QTNode *ex, QTNode *subs, bool *isfind)
+{
+    bool did_find = false;
+
+    // Delegate to recursive implementation
+    root = dofindsubquery(root, ex, subs, &did_find);
+
+    // Report whether any substitution was made
+    if (isfind)
+        *isfind = did_find;
+
+    return root;
+}
+```

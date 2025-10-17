@@ -33,3 +33,14 @@ The function is part of PostgreSQL's type system infrastructure, specifically ha
 - The comparison is performed lexicographically using standard string comparison semantics
 - Located in the variable-length data type utilities module (varlena.c)
 - Complementary to other comparison functions like nameletext, namegetext, etc.
+
+## Simplified Source
+
+```c
+Datum
+namegttext(PG_FUNCTION_ARGS)
+{
+    // Return true if name > text comparison result is positive
+    PG_RETURN_BOOL(CmpCall(btnametextcmp) > 0);
+}
+```

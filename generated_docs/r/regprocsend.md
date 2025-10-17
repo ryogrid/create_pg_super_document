@@ -31,3 +31,13 @@ Since regproc values are internally represented as OIDs, this function is implem
 - Network optimization: Binary format is more efficient than text format for network communication and storage
 - Type system consistency: Maintains separate function identity while sharing implementation with OID type
 - Complementary function: Works in tandem with regprocrecv to provide complete binary I/O support for regproc type
+
+## Simplified Source
+
+```c
+Datum regprocsend(PG_FUNCTION_ARGS) {
+    // Convert regproc to binary format by delegating to OID binary output
+    // Since regproc is internally stored as OID, we can reuse oidsend
+    return oidsend(fcinfo);
+}
+```

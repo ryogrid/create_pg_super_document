@@ -32,3 +32,14 @@ The `bpchartypmodin` function serves as the type modifier input function for Pos
 - The function is a thin wrapper around the more generic `anychar_typmodin` function
 - Type modifier functions are automatically invoked by PostgreSQL when processing CREATE TABLE and similar DDL statements
 - The returned integer represents the internal encoding of the type modifier (e.g., maximum length)
+
+## Simplified Source
+
+```c
+Datum bpchartypmodin(PG_FUNCTION_ARGS) {
+    ArrayType *ta = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Delegate to common character type modifier processing
+    PG_RETURN_INT32(anychar_typmodin(ta, "char"));
+}
+```

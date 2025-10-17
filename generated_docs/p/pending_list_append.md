@@ -34,3 +34,17 @@ The implementation follows the standard circular list insertion pattern: it upda
 - Entries can be in both the main TOC list and pending list simultaneously due to separate link fields
 - Used during pg_dump/pg_restore operations to manage the order of operations and dependencies
 - The function is located at src/bin/pg_dump/pg_backup_archiver.c:4461-4470
+
+## Simplified Source
+
+```c
+static void
+pending_list_append(TocEntry *l, TocEntry *te)
+{
+    // Insert new entry at end of circular list (just before header)
+    te->pending_prev = l->pending_prev;     // Point to current last entry
+    l->pending_prev->pending_next = te;     // Make last entry point to new entry
+    l->pending_prev = te;                   // Make header's prev point to new entry
+    te->pending_next = l;                   // Make new entry point to header
+}
+```

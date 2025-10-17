@@ -49,3 +49,53 @@ All input validation is performed with overflow-safe arithmetic operations, and 
 - Rejects infinite or NaN seconds input values
 - Combines weeks into days (weeks * 7) and years into months (years * 12) during processing
 - Function signature follows PostgreSQL's PG_FUNCTION_ARGS convention for SQL-callable functions
+
+## Simplified Source
+
+```c
+Datum make_interval(PG_FUNCTION_ARGS) {
+    int32 years = PG_GETARG_INT32(0);
+    int32 months = PG_GETARG_INT32(1);
+    int32 weeks = PG_GETARG_INT32(2);
+    int32 days = PG_GETARG_INT32(3);
+    int32 hours = PG_GETARG_INT32(4);
+    int32 mins = PG_GETARG_INT32(5);
+    double secs = PG_GETARG_FLOAT8(6);
+
+    // Check for invalid seconds input
+    if (isinf(secs) || isnan(secs))
+        goto out_of_range;
+
+    Interval *result = (Interval *) palloc(sizeof(Interval));
+
+    // Convert years and months to total months (with overflow check)
+    if (pg_mul_s32_overflow(years, MONTHS_PER_YEAR, &result->month) ||
+        pg_add_s32_overflow(result->month, months, &result->month))
+        goto out_of_range;
+
+    // Convert weeks and days to total days (with overflow check)
+    if (pg_mul_s32_overflow(weeks, DAYS_PER_WEEK, &result->day) ||
+        pg_add_s32_overflow(result->day, days, &result->day))
+        goto out_of_range;
+
+    // Convert hours and minutes to microseconds
+    result->time = hours * USECS_PER_HOUR + mins * USECS_PER_MINUTE;
+
+    // Convert seconds to microseconds and add to time
+    secs = rint(float8_mul(secs, USECS_PER_SEC));
+    if (!FLOAT8_FITS_IN_INT64(secs) ||
+        pg_add_s64_overflow(result->time, (int64) secs, &result->time))
+        goto out_of_range;
+
+    // Ensure result is finite
+    if (INTERVAL_NOT_FINITE(result))
+        goto out_of_range;
+
+    return PG_RETURN_INTERVAL_P(result);
+
+out_of_range:
+    ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+        errmsg("interval out of range")));
+    return PG_RETURN_NULL();
+}
+```

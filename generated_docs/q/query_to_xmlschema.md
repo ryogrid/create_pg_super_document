@@ -45,3 +45,39 @@ This function executes a SQL query and generates an XML Schema Definition that d
 - Uses InvalidOid as table OID since this represents a query result rather than a specific table
 - Memory management includes _SPI_strdup for safe string duplication
 - Part of PostgreSQL's comprehensive XML support for dynamic schema generation
+
+## Simplified Source
+
+```c
+Datum
+query_to_xmlschema(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    char *query = text_to_cstring(PG_GETARG_TEXT_PP(0));
+    bool include_nulls = PG_GETARG_BOOL(1);
+    bool table_forest_format = PG_GETARG_BOOL(2);
+    const char *target_namespace = text_to_cstring(PG_GETARG_TEXT_PP(3));
+
+    const char *result;
+    SPIPlanPtr plan;
+    Portal portal;
+
+    SPI_connect();
+
+    // Prepare query and open cursor to analyze structure
+    if ((plan = SPI_prepare(query, 0, NULL)) == NULL)
+        elog(ERROR, "SPI_prepare(\"%s\") failed", query);
+
+    if ((portal = SPI_cursor_open(NULL, plan, NULL, NULL, true)) == NULL)
+        elog(ERROR, "SPI_cursor_open(\"%s\") failed", query);
+
+    // Generate schema from portal tuple descriptor
+    result = _SPI_strdup(map_sql_table_to_xmlschema(portal->tupDesc,
+                                                   InvalidOid, include_nulls,
+                                                   table_forest_format, target_namespace));
+    SPI_cursor_close(portal);
+    SPI_finish();
+
+    PG_RETURN_XML_P(cstring_to_xmltype(result));
+}
+```

@@ -56,3 +56,56 @@ The function performs several sophisticated operations:
 - In bootstrap mode, namespace resolution is skipped for simplicity
 - Returns numeric representation for operators that no longer exist in the catalog
 - Part of PostgreSQL's regtype family for displaying object references in a user-friendly format
+
+## Simplified Source
+
+```c
+Datum
+regoperout(PG_FUNCTION_ARGS)
+{
+    Oid oprid = PG_GETARG_OID(0);
+    char *result;
+    HeapTuple opertup;
+
+    // Handle invalid OID case
+    if (oprid == InvalidOid) {
+        result = pstrdup("0");
+        PG_RETURN_CSTRING(result);
+    }
+
+    // Look up operator in system catalog
+    opertup = SearchSysCache1(OPEROID, ObjectIdGetDatum(oprid));
+
+    if (HeapTupleIsValid(opertup)) {
+        Form_pg_operator operform = (Form_pg_operator) GETSTRUCT(opertup);
+        char *oprname = NameStr(operform->oprname);
+
+        // In bootstrap mode, just return the operator name
+        if (IsBootstrapProcessingMode()) {
+            result = pstrdup(oprname);
+        } else {
+            // Check if operator name needs namespace qualification
+            FuncCandidateList clist = OpernameGetCandidates(
+                list_make1(makeString(oprname)), '\0', false);
+
+            if (clist != NULL && clist->next == NULL && clist->oid == oprid) {
+                // Name is unique, no qualification needed
+                result = pstrdup(oprname);
+            } else {
+                // Need to qualify with namespace
+                const char *nspname = get_namespace_name(operform->oprnamespace);
+                nspname = quote_identifier(nspname);
+                result = (char *) palloc(strlen(nspname) + strlen(oprname) + 2);
+                sprintf(result, "%s.%s", nspname, oprname);
+            }
+        }
+        ReleaseSysCache(opertup);
+    } else {
+        // Operator not found, return numeric OID
+        result = (char *) palloc(NAMEDATALEN);
+        snprintf(result, NAMEDATALEN, "%u", oprid);
+    }
+
+    PG_RETURN_CSTRING(result);
+}
+```

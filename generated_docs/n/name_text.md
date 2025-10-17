@@ -42,3 +42,21 @@ The conversion process involves:
 - The function is typically used internally when PostgreSQL needs to convert Name types to text for comparison or output operations
 - The Name type has a fixed maximum length (NAMEDATALEN), while text is variable-length
 - Location: src/backend/utils/adt/varlena.c:3382-3398
+
+## Simplified Source
+
+```c
+Datum name_text(PG_FUNCTION_ARGS)
+{
+    Name input_name = PG_GETARG_NAME(0);
+
+    // Convert Name to text: extract C string from Name, then convert to text
+    PG_RETURN_TEXT_P(cstring_to_text(NameStr(*input_name)));
+}
+```
+
+**Key Points:**
+- Converts fixed-length Name type to variable-length text type
+- Uses NameStr() to extract null-terminated string from Name
+- Uses cstring_to_text() to create properly formatted text datum
+- Simple one-step conversion with proper PostgreSQL type handling

@@ -58,3 +58,89 @@ For foreign tables and filtered queries, it uses COPY (SELECT ...) TO syntax, wh
 - Manages libpq connection state carefully to ensure proper cleanup
 - Special handling for filtered queries and foreign tables using COPY (SELECT ...) syntax
 - Outputs COPY termination sequence (\.\n\n\n) to mark end of data
+
+## Simplified Source
+
+```c
+static int
+dumpTableData_copy(Archive *fout, const void *dcontext)
+{
+    TableDataInfo *tdinfo = (TableDataInfo *) dcontext;
+    TableInfo  *tbinfo = tdinfo->tdtable;
+    const char *classname = tbinfo->dobj.name;
+    PQExpBuffer query = createPQExpBuffer();
+    PQExpBuffer columnList = createPQExpBuffer();
+    PGconn     *conn = GetConnection(fout);
+    PGresult   *res;
+    int         ret;
+    char       *copybuf;
+    const char *column_list;
+
+    pg_log_info("dumping contents of table \"%s.%s\"",
+                tbinfo->dobj.namespace->dobj.name, classname);
+
+    // Get explicit column list to ensure correct ordering
+    column_list = fmtCopyColumnList(tbinfo, columnList);
+
+    // Handle foreign tables and filtered queries with COPY (SELECT ...)
+    if (tdinfo->filtercond || tbinfo->relkind == RELKIND_FOREIGN_TABLE) {
+        if (tbinfo->relkind == RELKIND_FOREIGN_TABLE)
+            set_restrict_relation_kind(fout, "view");
+
+        appendPQExpBufferStr(query, "COPY (SELECT ");
+        if (strlen(column_list) > 2) {
+            appendPQExpBufferStr(query, column_list + 1);
+            query->data[query->len - 1] = ' ';
+        } else {
+            appendPQExpBufferStr(query, "* ");
+        }
+        appendPQExpBuffer(query, "FROM %s %s) TO stdout;",
+                         fmtQualifiedDumpable(tbinfo),
+                         tdinfo->filtercond ? tdinfo->filtercond : "");
+    } else {
+        // Simple COPY for regular tables
+        appendPQExpBuffer(query, "COPY %s %s TO stdout;",
+                         fmtQualifiedDumpable(tbinfo), column_list);
+    }
+
+    // Execute COPY command and read data
+    res = ExecuteSqlQuery(fout, query->data, PGRES_COPY_OUT);
+    PQclear(res);
+    destroyPQExpBuffer(columnList);
+
+    // Read COPY data and write to output
+    for (;;) {
+        ret = PQgetCopyData(conn, &copybuf, 0);
+        if (ret < 0)
+            break;  // End of data or error
+
+        if (copybuf) {
+            WriteData(fout, copybuf, ret);
+            PQfreemem(copybuf);
+        }
+    }
+
+    archprintf(fout, "\\.\n\n\n");
+
+    // Error handling for copy data transfer
+    if (ret == -2) {
+        pg_log_error("Dumping the contents of table \"%s\" failed: PQgetCopyData() failed.", classname);
+        exit_nicely(1);
+    }
+
+    // Verify final command status
+    res = PQgetResult(conn);
+    if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+        pg_log_error("Dumping the contents of table \"%s\" failed: PQgetResult() failed.", classname);
+        exit_nicely(1);
+    }
+    PQclear(res);
+
+    // Clean up
+    destroyPQExpBuffer(query);
+    if (tbinfo->relkind == RELKIND_FOREIGN_TABLE)
+        set_restrict_relation_kind(fout, "view, foreign-table");
+
+    return 1;
+}
+```

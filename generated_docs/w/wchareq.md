@@ -36,3 +36,28 @@ This function is essential for accurate pattern matching in databases that store
 - Previously there was an iwchareq() routine for case-insensitive comparison, but it has been removed
 - The function is typically accessed through the CHAREQ(p1, p2) macro defined in the same file
 - Critical for proper Unicode and multibyte character support in PostgreSQL's pattern matching operations
+
+## Simplified Source
+
+```c
+static inline int
+wchareq(const char *p1, const char *p2)
+{
+    // Quick optimization: compare first byte
+    if (*p1 != *p2)
+        return 0;
+
+    // Get character lengths and verify they match
+    int p1_len = pg_mblen(p1);
+    if (pg_mblen(p2) != p1_len)
+        return 0;
+
+    // Compare all bytes of the multibyte character
+    while (p1_len--) {
+        if (*p1++ != *p2++)
+            return 0;
+    }
+
+    return 1;  // Characters match
+}
+```

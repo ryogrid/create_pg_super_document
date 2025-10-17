@@ -33,3 +33,12 @@ This function is particularly useful in contexts where unambiguous operator iden
 - Always includes schema qualification, making output more verbose but unambiguous
 - Particularly important for operators that might exist in multiple schemas
 - Located in src/backend/utils/adt/regproc.c:799-805
+
+## Simplified Source
+
+```c
+char *format_operator_qualified(Oid operator_oid) {
+    // Always format with schema qualification, regardless of search_path
+    return format_operator_extended(operator_oid, FORMAT_OPERATOR_FORCE_QUALIFY);
+}
+```

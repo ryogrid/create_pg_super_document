@@ -43,3 +43,25 @@ The information schema provides a standardized way for applications to discover 
 - Feature support data is loaded from an external file that documents PostgreSQL's SQL standard compliance
 - The information schema views are read-only and provide standardized access to system catalog information
 - This setup is essential for tools and applications that expect standard SQL metadata interfaces
+
+## Simplified Source
+
+```c
+static void setup_schema(FILE *cmdfd) {
+    // Load information schema SQL script
+    setup_run_file(cmdfd, info_schema_file);
+
+    // Update version information in information schema
+    PG_CMD_PRINTF("UPDATE information_schema.sql_implementation_info "
+                  "  SET character_value = '%s' "
+                  "  WHERE implementation_info_name = 'DBMS VERSION';\n\n",
+                  infoversion);
+
+    // Load SQL standard feature support data
+    PG_CMD_PRINTF("COPY information_schema.sql_features "
+                  "  (feature_id, feature_name, sub_feature_id, "
+                  "  sub_feature_name, is_supported, comments) "
+                  " FROM E'%s';\n\n",
+                  escape_quotes(features_file));
+}
+```

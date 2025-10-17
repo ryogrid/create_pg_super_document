@@ -48,3 +48,71 @@ This function converts MIC encoded Japanese text back to EUC-JP format by proces
 - Returns the number of source bytes processed
 - Located in src/backend/utils/mb/conversion_procs/euc_jp_and_sjis/euc_jp_and_sjis.c:467-533
 - Implements clean reverse mapping from MIC to EUC-JP structure
+
+## Simplified Source
+
+```c
+static int mic2euc_jp(const unsigned char *mic, unsigned char *p, int len, bool noError) {
+    const unsigned char *start = mic;
+    int c1, l;
+
+    while (len > 0) {
+        c1 = *mic;
+
+        // Handle ASCII characters
+        if (!IS_HIGHBIT_SET(c1)) {
+            if (c1 == 0) {
+                if (!noError) {
+                    report_invalid_encoding(PG_MULE_INTERNAL, (const char *) mic, len);
+                }
+                break;
+            }
+            *p++ = c1;
+            mic++;
+            len--;
+            continue;
+        }
+
+        // Verify MIC character sequence length
+        l = pg_encoding_verifymbchar(PG_MULE_INTERNAL, (const char *) mic, len);
+        if (l < 0) {
+            if (!noError) {
+                report_invalid_encoding(PG_MULE_INTERNAL, (const char *) mic, len);
+            }
+            break;
+        }
+
+        // Convert based on MIC language character codes
+        if (c1 == LC_JISX0201K) {
+            // JIS X0201 katakana -> SS2 + 1 byte
+            *p++ = SS2;
+            *p++ = mic[1];
+        }
+        else if (c1 == LC_JISX0212) {
+            // JIS X0212 supplementary kanji -> SS3 + 2 bytes
+            *p++ = SS3;
+            *p++ = mic[1];
+            *p++ = mic[2];
+        }
+        else if (c1 == LC_JISX0208) {
+            // JIS X0208 kanji/kana -> 2 bytes directly
+            *p++ = mic[1];
+            *p++ = mic[2];
+        }
+        else {
+            // Unknown language character code
+            if (!noError) {
+                report_untranslatable_char(PG_MULE_INTERNAL, PG_EUC_JP,
+                                         (const char *) mic, len);
+            }
+            break;
+        }
+
+        mic += l;
+        len -= l;
+    }
+
+    *p = '\0';
+    return mic - start;
+}
+```

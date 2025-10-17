@@ -52,3 +52,52 @@ The function skips dropped columns and generated columns, and only processes col
 - Memory for defmap and defexprs arrays is allocated based on the total number of physical attributes
 - The function modifies the slot's tts_values and tts_isnull arrays directly for unmapped columns
 - Critical for maintaining data integrity when subscriber tables have evolved beyond publisher schema
+
+## Simplified Source
+
+```c
+static void slot_fill_defaults(LogicalRepRelMapEntry *rel, EState *estate,
+                              TupleTableSlot *slot) {
+    TupleDesc desc = RelationGetDescr(rel->localrel);
+    int num_phys_attrs = desc->natts;
+    int attnum, num_defaults = 0;
+    int *defmap;
+    ExprState **defexprs;
+    ExprContext *econtext;
+
+    econtext = GetPerTupleExprContext(estate);
+
+    // Early return if all data came via replication
+    if (num_phys_attrs == rel->remoterel.natts)
+        return;
+
+    // Allocate arrays for default expressions
+    defmap = (int *) palloc(num_phys_attrs * sizeof(int));
+    defexprs = (ExprState **) palloc(num_phys_attrs * sizeof(ExprState *));
+
+    // Build default expressions for unmapped columns
+    for (attnum = 0; attnum < num_phys_attrs; attnum++) {
+        Expr *defexpr;
+
+        // Skip dropped, generated, or mapped columns
+        if (TupleDescAttr(desc, attnum)->attisdropped ||
+            TupleDescAttr(desc, attnum)->attgenerated ||
+            rel->attrmap->attnums[attnum] >= 0)
+            continue;
+
+        // Build and prepare default expression
+        defexpr = (Expr *) build_column_default(rel->localrel, attnum + 1);
+        if (defexpr != NULL) {
+            defexpr = expression_planner(defexpr);
+            defexprs[num_defaults] = ExecInitExpr(defexpr, NULL);
+            defmap[num_defaults] = attnum;
+            num_defaults++;
+        }
+    }
+
+    // Evaluate defaults and store in slot
+    for (int i = 0; i < num_defaults; i++)
+        slot->tts_values[defmap[i]] =
+            ExecEvalExpr(defexprs[i], econtext, &slot->tts_isnull[defmap[i]]);
+}
+```

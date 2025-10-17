@@ -40,3 +40,18 @@ The function is typically used by pg_ctl for sending various signals to PostgreS
 - The %m format specifier in the error message automatically expands to the system error message (strerror equivalent)
 - Never returns on failure - always exits with code 1 when signal delivery fails
 - Part of pg_ctl's signal handling infrastructure for process management
+
+## Simplified Source
+
+```c
+static void
+do_kill(pid_t pid)
+{
+    // Send signal to target process
+    if (kill(pid, sig) != 0) {
+        // Signal delivery failed
+        write_stderr("Could not send signal %d (PID: %d): %m\n", sig, (int) pid);
+        exit(1);
+    }
+}
+```

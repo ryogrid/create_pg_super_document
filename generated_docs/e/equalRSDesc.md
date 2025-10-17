@@ -39,3 +39,34 @@ The function assumes that RelationBuildRowSecurity builds policies in a consiste
 - Uses forboth macro for efficient parallel iteration through both policy lists
 - Part of PostgreSQL's Row Level Security (RLS) system infrastructure
 - Used in relation cache management to determine if cached row security information needs to be updated
+
+## Simplified Source
+
+```c
+static bool equalRSDesc(RowSecurityDesc *rsdesc1, RowSecurityDesc *rsdesc2) {
+    // Handle null cases: both null = equal
+    if (rsdesc1 == NULL && rsdesc2 == NULL)
+        return true;
+
+    // One null, one not null = not equal
+    if ((rsdesc1 != NULL && rsdesc2 == NULL) ||
+        (rsdesc1 == NULL && rsdesc2 != NULL))
+        return false;
+
+    // Check if policy list lengths are equal
+    if (list_length(rsdesc1->policies) != list_length(rsdesc2->policies))
+        return false;
+
+    // Compare each policy pair in parallel (ordering is consistent)
+    ListCell *lc, *rc;
+    forboth(lc, rsdesc1->policies, rc, rsdesc2->policies) {
+        RowSecurityPolicy *l = (RowSecurityPolicy *) lfirst(lc);
+        RowSecurityPolicy *r = (RowSecurityPolicy *) lfirst(rc);
+
+        if (!equalPolicy(l, r))
+            return false;
+    }
+
+    return true;  // All policies match
+}
+```

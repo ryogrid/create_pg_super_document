@@ -37,3 +37,21 @@ A key optimization of this function is that it does not need to detoast the inpu
 - Essential for determining binary data sizes without performance penalties
 - Equivalent to the `LENGTH()` function when applied to bytea values
 - The function name reflects "octet length" (byte length) terminology
+
+## Simplified Source
+
+```c
+Datum byteaoctetlen(PG_FUNCTION_ARGS)
+{
+    Datum str = PG_GETARG_DATUM(0);
+
+    // Get total size including header, then subtract 4-byte header
+    // No need to detoast - works efficiently with compressed data
+    PG_RETURN_INT32(toast_raw_datum_size(str) - VARHDRSZ);
+}
+```
+
+**Key Points:**
+- Returns the number of data bytes in a bytea value (excluding header)
+- Optimized to work without detoasting the input datum
+- Simply calculates: total_raw_size - header_size (4 bytes)

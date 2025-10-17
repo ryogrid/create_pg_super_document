@@ -42,3 +42,60 @@ This static function implements the core algorithm for converting text from Post
 - The function stops processing on error if noError is true, otherwise reports appropriate encoding errors
 - Output is null-terminated for string safety
 - Performs the reverse conversion of euc_cn2mic function
+
+## Simplified Source
+
+```c
+static int mic2euc_cn(const unsigned char *mic, unsigned char *p, int len, bool noError) {
+    const unsigned char *start = mic;
+    int c1;
+
+    while (len > 0) {
+        c1 = *mic;
+
+        // Handle MIC-encoded Chinese characters (high bit set)
+        if (IS_HIGHBIT_SET(c1)) {
+            // Check for correct language code
+            if (c1 != LC_GB2312_80) {
+                if (!noError) {
+                    report_untranslatable_char(PG_MULE_INTERNAL, PG_EUC_CN,
+                                             (const char *) mic, len);
+                }
+                break;
+            }
+
+            // Validate 3-byte MIC sequence
+            if (len < 3 || !IS_HIGHBIT_SET(mic[1]) || !IS_HIGHBIT_SET(mic[2])) {
+                if (!noError) {
+                    report_invalid_encoding(PG_MULE_INTERNAL, (const char *) mic, len);
+                }
+                break;
+            }
+
+            // Convert to EUC-CN: skip language code, copy 2 character bytes
+            mic++;              // Skip LC_GB2312_80 language code
+            *p++ = *mic++;      // First byte of Chinese character
+            *p++ = *mic++;      // Second byte of Chinese character
+            len -= 3;
+        }
+        // Handle ASCII characters
+        else {
+            // Check for invalid null byte
+            if (c1 == 0) {
+                if (!noError) {
+                    report_invalid_encoding(PG_MULE_INTERNAL, (const char *) mic, len);
+                }
+                break;
+            }
+
+            // Copy ASCII character directly
+            *p++ = c1;
+            mic++;
+            len--;
+        }
+    }
+
+    *p = '\0';
+    return mic - start;
+}
+```

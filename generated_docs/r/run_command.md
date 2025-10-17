@@ -45,3 +45,26 @@ The function is designed for fire-and-forget command execution where the caller 
 - The function will terminate the entire program (exit(1)) if command transmission fails, indicating this is considered a fatal error condition
 - Supports debugging through the opts.echo flag which prints executed SQL commands to stdout
 - Located in src/bin/pg_amcheck/pg_amcheck.c:930-961
+
+## Simplified Source
+
+```c
+static void run_command(ParallelSlot *slot, const char *sql) {
+    // Echo the command if requested for debugging
+    if (opts.echo) {
+        printf("%s\n", sql);
+    }
+
+    // Send the command asynchronously
+    if (PQsendQuery(slot->connection, sql) == 0) {
+        // Log error and exit if command cannot be sent
+        pg_log_error("error sending command to database \"%s\": %s",
+                     PQdb(slot->connection),
+                     PQerrorMessage(slot->connection));
+        pg_log_error_detail("Command was: %s", sql);
+        exit(1);
+    }
+
+    // Note: Command results are handled asynchronously by ParallelSlotHandler
+}
+```

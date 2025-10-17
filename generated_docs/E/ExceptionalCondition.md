@@ -45,3 +45,40 @@ ExceptionalCondition is the core assertion failure handler in PostgreSQL. It is 
 - Always terminates the process with abort() after reporting the failure
 - Validates input parameters to handle cases where the assertion system itself may be compromised
 - Critical for PostgreSQL's debugging and development infrastructure, ensuring assertion failures are properly diagnosed
+
+## Simplified Source
+
+```c
+void ExceptionalCondition(const char *conditionName,
+                         const char *fileName,
+                         int lineNumber)
+{
+    // Report assertion failure to stderr
+    if (!PointerIsValid(conditionName) || !PointerIsValid(fileName))
+        write_stderr("TRAP: ExceptionalCondition: bad arguments in PID %d\n",
+                     (int) getpid());
+    else
+        write_stderr("TRAP: failed Assert(\"%s\"), File: \"%s\", Line: %d, PID: %d\n",
+                     conditionName, fileName, lineNumber, (int) getpid());
+
+    // Ensure message is output
+    fflush(stderr);
+
+    // Optional: dump backtrace if supported
+    #ifdef HAVE_BACKTRACE_SYMBOLS
+    {
+        void *buf[100];
+        int nframes = backtrace(buf, lengthof(buf));
+        backtrace_symbols_fd(buf, nframes, fileno(stderr));
+    }
+    #endif
+
+    // Optional: sleep for debugger attachment
+    #ifdef SLEEP_ON_ASSERT
+    sleep(1000000);
+    #endif
+
+    // Terminate the process
+    abort();
+}
+```

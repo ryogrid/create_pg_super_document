@@ -47,3 +47,83 @@ Internal state variables:
 - Visibility of parameters respects PostgreSQL's security model - some parameters may be hidden from non-privileged users
 - The function uses PostgreSQL's SRF (Set Returning Function) framework for efficient streaming of large result sets
 - Memory management is handled through PostgreSQL's multi-call memory context to prevent memory leaks across multiple function calls
+
+## Simplified Source
+
+```c
+Datum
+show_all_settings(PG_FUNCTION_ARGS)
+{
+    FuncCallContext *funcctx;
+    struct config_generic **guc_vars;
+    TupleDesc tupdesc;
+    AttInMetadata *attinmeta;
+
+    // First call: Initialize SRF context and setup
+    if (SRF_IS_FIRSTCALL()) {
+        funcctx = SRF_FIRSTCALL_INIT();
+
+        // Switch to multi-call memory context
+        MemoryContext oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
+
+        // Create tuple descriptor for 17 columns (pg_settings structure)
+        tupdesc = CreateTemplateTupleDesc(NUM_PG_SETTINGS_ATTS);
+        TupleDescInitEntry(tupdesc, 1, "name", TEXTOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 2, "setting", TEXTOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 3, "unit", TEXTOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 4, "category", TEXTOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 5, "short_desc", TEXTOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 6, "extra_desc", TEXTOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 7, "context", TEXTOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 8, "vartype", TEXTOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 9, "source", TEXTOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 10, "min_val", TEXTOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 11, "max_val", TEXTOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 12, "enumvals", TEXTARRAYOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 13, "boot_val", TEXTOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 14, "reset_val", TEXTOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 15, "sourcefile", TEXTOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 16, "sourceline", INT4OID, -1, 0);
+        TupleDescInitEntry(tupdesc, 17, "pending_restart", BOOLOID, -1, 0);
+
+        // Setup attribute metadata for tuple construction
+        attinmeta = TupleDescGetAttInMetadata(tupdesc);
+        funcctx->attinmeta = attinmeta;
+
+        // Get all GUC variables and store in context
+        int num_vars;
+        guc_vars = get_guc_variables(&num_vars);
+        funcctx->user_fctx = guc_vars;
+        funcctx->max_calls = num_vars;
+
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    // Per-call setup: Retrieve context and process next parameter
+    funcctx = SRF_PERCALL_SETUP();
+    guc_vars = (struct config_generic **) funcctx->user_fctx;
+    attinmeta = funcctx->attinmeta;
+
+    // Iterate through configuration parameters
+    while (funcctx->call_cntr < funcctx->max_calls) {
+        struct config_generic *conf = guc_vars[funcctx->call_cntr];
+
+        // Skip hidden or non-visible parameters
+        if ((conf->flags & GUC_NO_SHOW_ALL) || !ConfigOptionIsVisible(conf)) {
+            funcctx->call_cntr++;
+            continue;
+        }
+
+        // Extract parameter values and build tuple
+        char *values[NUM_PG_SETTINGS_ATTS];
+        GetConfigOptionValues(conf, (const char **) values);
+        HeapTuple tuple = BuildTupleFromCStrings(attinmeta, values);
+        Datum result = HeapTupleGetDatum(tuple);
+
+        SRF_RETURN_NEXT(funcctx, result);
+    }
+
+    // No more parameters to process
+    SRF_RETURN_DONE(funcctx);
+}
+```

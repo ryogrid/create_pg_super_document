@@ -45,3 +45,22 @@ Key characteristics:
 - The actual truncation logic is implemented in `timestamptz_trunc_internal`
 - Timezone-aware truncation is essential for correct behavior when dealing with DST transitions
 - The function signature follows PostgreSQL's standard function argument pattern
+
+## Simplified Source
+
+```c
+Datum timestamptz_trunc(PG_FUNCTION_ARGS) {
+    text *units = PG_GETARG_TEXT_PP(0);
+    TimestampTz timestamp = PG_GETARG_TIMESTAMPTZ(1);
+    TimestampTz result;
+
+    // Return infinite timestamps as-is
+    if (TIMESTAMP_NOT_FINITE(timestamp))
+        PG_RETURN_TIMESTAMPTZ(timestamp);
+
+    // Delegate to internal function using session timezone
+    result = timestamptz_trunc_internal(units, timestamp, session_timezone);
+
+    PG_RETURN_TIMESTAMPTZ(result);
+}
+```

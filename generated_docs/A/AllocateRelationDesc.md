@@ -34,3 +34,38 @@ The function creates a template tuple descriptor using CreateTemplateTupleDesc a
 - Initializes rd_smgr to NULL to indicate no open storage manager file
 - The returned relation descriptor requires further initialization by other functions
 - Critical for relcache memory management and ensuring consistent relation metadata access
+
+## Simplified Source
+
+```c
+static Relation
+AllocateRelationDesc(Form_pg_class relp)
+{
+    // Switch to cache memory context for persistent storage
+    MemoryContext oldcxt = MemoryContextSwitchTo(CacheMemoryContext);
+
+    // Allocate and zero-initialize relation descriptor
+    Relation relation = (Relation) palloc0(sizeof(RelationData));
+
+    // Initialize storage manager reference to NULL
+    relation->rd_smgr = NULL;
+
+    // Copy the fixed-size portion of pg_class tuple
+    // Note: Variable-length fields (relacl, reloptions) are not copied
+    Form_pg_class relationForm = (Form_pg_class) palloc(CLASS_TUPLE_SIZE);
+    memcpy(relationForm, relp, CLASS_TUPLE_SIZE);
+
+    // Set relation tuple form
+    relation->rd_rel = relationForm;
+
+    // Create template tuple descriptor for attributes
+    relation->rd_att = CreateTemplateTupleDesc(relationForm->relnatts);
+
+    // Mark tuple descriptor as reference-counted
+    relation->rd_att->tdrefcount = 1;
+
+    MemoryContextSwitchTo(oldcxt);
+
+    return relation;
+}
+```

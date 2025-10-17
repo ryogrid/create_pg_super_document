@@ -36,3 +36,18 @@ This function is part of PostgreSQL's type system infrastructure, specifically h
 - The buffer cursor and length are used to determine how much data to read
 - Part of the binary protocol support for the unknown data type
 - Memory management is handled by pq_getmsgtext which allocates appropriately
+
+## Simplified Source
+
+```c
+Datum unknownrecv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+
+    // Extract text from binary message buffer
+    int nbytes;
+    char *str = pq_getmsgtext(buf, buf->len - buf->cursor, &nbytes);
+
+    // Return as C string (unknown type uses same representation)
+    PG_RETURN_CSTRING(str);
+}
+```

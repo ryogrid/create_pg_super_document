@@ -43,3 +43,36 @@ The returned data includes various PostgreSQL build and installation parameters 
 - Uses the standard PostgreSQL SRF (Set Returning Function) pattern with materialized results
 - The configuration data is obtained from the common/config_info module which contains build-time configuration information
 - Returns Datum 0 as is standard for SRF functions (actual results are stored in the tuplestore)
+
+## Simplified Source
+
+```c
+Datum
+pg_config(PG_FUNCTION_ARGS)
+{
+    ReturnSetInfo *rsinfo = (ReturnSetInfo *) fcinfo->resultinfo;
+
+    // Initialize materialized SRF framework
+    InitMaterializedSRF(fcinfo, 0);
+
+    // Get configuration data from build-time settings
+    ConfigData *configdata;
+    size_t configdata_len;
+    configdata = get_configdata(my_exec_path, &configdata_len);
+
+    // Iterate through all config entries and add to result set
+    for (int i = 0; i < configdata_len; i++) {
+        Datum values[2];
+        bool nulls[2] = {false, false};
+
+        // Create text datums for name and setting
+        values[0] = CStringGetTextDatum(configdata[i].name);
+        values[1] = CStringGetTextDatum(configdata[i].setting);
+
+        // Add row to result tuplestore
+        tuplestore_putvalues(rsinfo->setResult, rsinfo->setDesc, values, nulls);
+    }
+
+    return (Datum) 0;  // SRF standard return
+}
+```

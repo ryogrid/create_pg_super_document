@@ -58,3 +58,67 @@ The function implements SQL99 compliance for substring operations, including pro
 - Part of PostgreSQL's variable-length data type infrastructure
 - Returns freshly palloc'd text datum that caller must manage
 - Located in src/backend/utils/adt/varlena.c along with other varlena utilities
+
+## Simplified Source
+```c
+static text *
+text_substring(Datum str, int32 start, int32 length, bool length_not_specified)
+{
+    int32 eml = pg_database_encoding_max_length();
+    int32 adjusted_start = Max(start, 1);  // SQL99: start position at least 1
+
+    // Single-byte encoding: fast path
+    if (eml == 1) {
+        int32 adjusted_length;
+
+        if (length_not_specified) {
+            adjusted_length = -1;  // To end of string
+        } else if (length < 0) {
+            ereport(ERROR, "negative substring length not allowed");
+        } else {
+            int32 end_pos;
+            if (pg_add_s32_overflow(start, length, &end_pos)) {
+                adjusted_length = -1;  // Overflow, use rest of string
+            } else if (end_pos < 1) {
+                return cstring_to_text("");  // Empty result
+            } else {
+                adjusted_length = end_pos - adjusted_start;
+            }
+        }
+
+        // Use efficient byte-based slicing
+        return DatumGetTextPSlice(str, adjusted_start - 1, adjusted_length);
+    }
+
+    // Multi-byte encoding: character-aware processing
+    else if (eml > 1) {
+        // Get slice that might contain the desired substring
+        text *slice = get_conservative_slice(str, start, length, eml);
+
+        if (VARSIZE_ANY_EXHDR(slice) == 0) {
+            cleanup_and_return_empty(slice, str);
+        }
+
+        // Calculate actual character positions in the slice
+        int32 slice_char_len = pg_mbstrlen_with_len(VARDATA_ANY(slice),
+                                                   VARSIZE_ANY_EXHDR(slice));
+
+        if (adjusted_start > slice_char_len) {
+            cleanup_and_return_empty(slice, str);
+        }
+
+        // Find byte positions for the substring
+        char *start_ptr = find_char_position(slice, adjusted_start);
+        char *end_ptr = find_end_position(start_ptr, adjusted_start, length, slice_char_len);
+
+        // Create result text
+        text *result = create_result_text(start_ptr, end_ptr - start_ptr);
+
+        cleanup_slice_if_needed(slice, str);
+        return result;
+    }
+
+    elog(ERROR, "invalid backend encoding: encoding max length < 1");
+    return NULL;
+}
+```

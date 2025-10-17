@@ -41,4 +41,56 @@ The  function initializes an iterator object for traversing arrays in PostgreSQL
 - The passed array must remain valid for the entire lifetime of the iterator
 - Performs sanity checks on slice_ndim parameter to ensure it's within valid bounds
 - Supports both cases where ArrayMetaState is pre-computed (for efficiency) or looked up dynamically
-- Sets up all necessary pointers and counters for subsequent iteration via 
+- Sets up all necessary pointers and counters for subsequent iteration via
+
+## Simplified Source
+
+```c
+ArrayIterator
+array_create_iterator(ArrayType *arr, int slice_ndim, ArrayMetaState *mstate)
+{
+    ArrayIterator iterator = palloc0(sizeof(ArrayIteratorData));
+
+    // Validate input parameters
+    Assert(PointerIsValid(arr));
+    if (slice_ndim < 0 || slice_ndim > ARR_NDIM(arr))
+        elog(ERROR, "invalid arguments to array_create_iterator");
+
+    // Store basic array information
+    iterator->arr = arr;
+    iterator->nullbitmap = ARR_NULLBITMAP(arr);
+    iterator->nitems = ArrayGetNItems(ARR_NDIM(arr), ARR_DIMS(arr));
+
+    // Get type information from mstate or lookup
+    if (mstate != NULL) {
+        iterator->typlen = mstate->typlen;
+        iterator->typbyval = mstate->typbyval;
+        iterator->typalign = mstate->typalign;
+    } else {
+        get_typlenbyvalalign(ARR_ELEMTYPE(arr),
+                           &iterator->typlen,
+                           &iterator->typbyval,
+                           &iterator->typalign);
+    }
+
+    // Setup slicing parameters
+    iterator->slice_ndim = slice_ndim;
+
+    if (slice_ndim > 0) {
+        // Configure slice dimensions and bounds (rightmost N dimensions)
+        iterator->slice_dims = ARR_DIMS(arr) + ARR_NDIM(arr) - slice_ndim;
+        iterator->slice_lbound = ARR_LBOUND(arr) + ARR_NDIM(arr) - slice_ndim;
+        iterator->slice_len = ArrayGetNItems(slice_ndim, iterator->slice_dims);
+
+        // Allocate workspace for sub-arrays
+        iterator->slice_values = palloc(iterator->slice_len * sizeof(Datum));
+        iterator->slice_nulls = palloc(iterator->slice_len * sizeof(bool));
+    }
+
+    // Initialize iteration pointers
+    iterator->data_ptr = ARR_DATA_PTR(arr);
+    iterator->current_item = 0;
+
+    return iterator;
+}
+```

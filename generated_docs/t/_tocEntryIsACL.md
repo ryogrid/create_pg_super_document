@@ -35,3 +35,17 @@ The function checks for three specific ACL types:
 - The "ACL LANGUAGE" check is maintained for backward compatibility with PostgreSQL 7.4 dumps, though it's considered deprecated
 - This function helps maintain separation of concerns between ACL identification and restoration phases
 - Part of the pg_dump/pg_restore utility's archiver component
+
+## Simplified Source
+
+```c
+static bool _tocEntryIsACL(TocEntry *te) {
+    // Check if TOC entry is an ACL-related object
+    if (strcmp(te->desc, "ACL") == 0 ||
+        strcmp(te->desc, "ACL LANGUAGE") == 0 ||  // Legacy PG 7.4 compatibility
+        strcmp(te->desc, "DEFAULT ACL") == 0) {
+        return true;
+    }
+    return false;
+}
+```

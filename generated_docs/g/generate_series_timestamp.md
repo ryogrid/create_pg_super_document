@@ -66,3 +66,70 @@ The function handles both forward (positive step) and backward (negative step) i
 - The function can generate arbitrarily long sequences limited only by timestamp range and available memory
 - Comparison logic automatically adapts to step direction: <= for positive steps, >= for negative steps
 - Used extensively in PostgreSQL for generating timestamp sequences in queries and reports
+
+## Simplified Source
+
+```c
+Datum generate_series_timestamp(PG_FUNCTION_ARGS) {
+    FuncCallContext *funcctx;
+    generate_series_timestamp_fctx *fctx;
+    Timestamp result;
+
+    // First call: initialize state
+    if (SRF_IS_FIRSTCALL()) {
+        Timestamp start = PG_GETARG_TIMESTAMP(0);
+        Timestamp finish = PG_GETARG_TIMESTAMP(1);
+        Interval *step = PG_GETARG_INTERVAL_P(2);
+        MemoryContext oldcontext;
+
+        // Set up function context for multi-call persistence
+        funcctx = SRF_FIRSTCALL_INIT();
+        oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
+
+        // Allocate and initialize state structure
+        fctx = (generate_series_timestamp_fctx *)
+               palloc(sizeof(generate_series_timestamp_fctx));
+
+        fctx->current = start;
+        fctx->finish = finish;
+        fctx->step = *step;
+
+        // Determine iteration direction based on interval sign
+        fctx->step_sign = interval_sign(&fctx->step);
+
+        // Validate step parameters
+        if (fctx->step_sign == 0)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                    errmsg("step size cannot equal zero")));
+
+        if (INTERVAL_NOT_FINITE((&fctx->step)))
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                    errmsg("step size cannot be infinite")));
+
+        funcctx->user_fctx = fctx;
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    // Subsequent calls: return next value or finish
+    funcctx = SRF_PERCALL_SETUP();
+    fctx = funcctx->user_fctx;
+    result = fctx->current;
+
+    // Check if more values to return (direction-dependent comparison)
+    if (fctx->step_sign > 0 ?
+        timestamp_cmp_internal(result, fctx->finish) <= 0 :
+        timestamp_cmp_internal(result, fctx->finish) >= 0) {
+
+        // Advance to next timestamp
+        fctx->current = DatumGetTimestamp(DirectFunctionCall2(timestamp_pl_interval,
+                                          TimestampGetDatum(fctx->current),
+                                          PointerGetDatum(&fctx->step)));
+
+        // Return current value
+        SRF_RETURN_NEXT(funcctx, TimestampGetDatum(result));
+    } else {
+        // Series complete
+        SRF_RETURN_DONE(funcctx);
+    }
+}
+```

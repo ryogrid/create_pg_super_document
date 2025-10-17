@@ -49,3 +49,47 @@ The function is specifically designed for logical replication workers and ensure
 - The function prepares the system to catch AFTER triggers by calling AfterTriggerBeginQuery()
 - Uses AccessShareLock as the relation lock mode in the range table entry
 - The returned ApplyExecutionData structure has most fields initialized to NULL initially, with specific fields populated as needed by subsequent operations
+
+## Simplified Source
+
+```c
+static ApplyExecutionData *create_edata_for_relation(LogicalRepRelMapEntry *rel) {
+    ApplyExecutionData *edata;
+    EState *estate;
+    RangeTblEntry *rte;
+    List *perminfos = NIL;
+    ResultRelInfo *resultRelInfo;
+
+    // Allocate and initialize execution data structure
+    edata = (ApplyExecutionData *) palloc0(sizeof(ApplyExecutionData));
+    edata->targetRel = rel;
+
+    // Create executor state
+    edata->estate = estate = CreateExecutorState();
+
+    // Set up range table entry for the target relation
+    rte = makeNode(RangeTblEntry);
+    rte->rtekind = RTE_RELATION;
+    rte->relid = RelationGetRelid(rel->localrel);
+    rte->relkind = rel->localrel->rd_rel->relkind;
+    rte->rellockmode = AccessShareLock;
+
+    // Initialize range table with permissions
+    addRTEPermissionInfo(&perminfos, rte);
+    ExecInitRangeTable(estate, list_make1(rte), perminfos);
+
+    // Set up result relation info
+    edata->targetRelInfo = resultRelInfo = makeNode(ResultRelInfo);
+    InitResultRelInfo(resultRelInfo, rel->localrel, 1, NULL, 0);
+
+    // Add to executor state for trigger support
+    estate->es_opened_result_relations =
+        lappend(estate->es_opened_result_relations, resultRelInfo);
+
+    // Set command ID and prepare for triggers
+    estate->es_output_cid = GetCurrentCommandId(true);
+    AfterTriggerBeginQuery();
+
+    return edata;
+}
+```

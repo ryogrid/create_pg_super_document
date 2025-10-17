@@ -31,3 +31,17 @@ RI_FKey_setnull_del is a trigger function that enforces referential integrity by
 - It shares implementation code with RI_FKey_setnull_upd through the ri_set function
 - The function performs validation to ensure it's called in the correct trigger context (DELETE event)
 - Located in src/backend/utils/adt/ri_triggers.c:970-984
+
+## Simplified Source
+
+```c
+Datum
+RI_FKey_setnull_del(PG_FUNCTION_ARGS)
+{
+    // Validate trigger call for DELETE operation
+    ri_CheckTrigger(fcinfo, "RI_FKey_setnull_del", RI_TRIGTYPE_DELETE);
+
+    // Delegate to shared ri_set function (true = set to NULL, DELETE operation)
+    return ri_set((TriggerData *) fcinfo->context, true, RI_TRIGTYPE_DELETE);
+}
+```

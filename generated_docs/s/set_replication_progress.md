@@ -54,3 +54,79 @@ The function performs careful validation to ensure exactly one subscription reco
 - Critical for ensuring logical replication starts from the correct position to maintain data consistency
 - Uses pg_replication_origin_advance() to set the initial replication progress
 - Properly escapes SQL parameters and handles memory management for allocated strings
+
+## Simplified Source
+
+```c
+static void set_replication_progress(PGconn *conn, const struct LogicalRepInfo *dbinfo, const char *lsn)
+{
+    PQExpBuffer str = createPQExpBuffer();
+    PGresult *res;
+    Oid suboid;
+    char *subname, *dbname, *originname, *lsnstr;
+
+    // Escape parameters for SQL safety
+    subname = PQescapeLiteral(conn, dbinfo->subname, strlen(dbinfo->subname));
+    dbname = PQescapeLiteral(conn, dbinfo->dbname, strlen(dbinfo->dbname));
+
+    // Get subscription OID from system catalogs
+    appendPQExpBuffer(str,
+                      "SELECT s.oid FROM pg_catalog.pg_subscription s "
+                      "INNER JOIN pg_catalog.pg_database d ON (s.subdbid = d.oid) "
+                      "WHERE s.subname = %s AND d.datname = %s",
+                      subname, dbname);
+
+    res = PQexec(conn, str->data);
+    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+        pg_log_error("could not obtain subscription OID: %s", PQresultErrorMessage(res));
+        disconnect_database(conn, true);
+    }
+
+    // Validate exactly one subscription found
+    if (PQntuples(res) != 1 && !dry_run) {
+        pg_log_error("could not obtain subscription OID: got %d rows, expected %d row",
+                    PQntuples(res), 1);
+        disconnect_database(conn, true);
+    }
+
+    // Handle dry run vs real execution
+    if (dry_run) {
+        suboid = InvalidOid;
+        lsnstr = psprintf("%X/%X", LSN_FORMAT_ARGS((XLogRecPtr) InvalidXLogRecPtr));
+    } else {
+        suboid = strtoul(PQgetvalue(res, 0, 0), NULL, 10);
+        lsnstr = psprintf("%s", lsn);
+    }
+    PQclear(res);
+
+    // Build replication origin name (format: "pg_%u" where %u is subscription OID)
+    originname = psprintf("pg_%u", suboid);
+
+    // Set replication progress using pg_replication_origin_advance()
+    pg_log_info("setting the replication progress (node name \"%s\", LSN %s) in database \"%s\"",
+                originname, lsnstr, dbinfo->dbname);
+
+    resetPQExpBuffer(str);
+    appendPQExpBuffer(str, "SELECT pg_catalog.pg_replication_origin_advance('%s', '%s')",
+                      originname, lsnstr);
+    pg_log_debug("command is: %s", str->data);
+
+    // Execute the progress setting (unless dry run)
+    if (!dry_run) {
+        res = PQexec(conn, str->data);
+        if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+            pg_log_error("could not set replication progress for subscription \"%s\": %s",
+                        dbinfo->subname, PQresultErrorMessage(res));
+            disconnect_database(conn, true);
+        }
+        PQclear(res);
+    }
+
+    // Cleanup
+    PQfreemem(subname);
+    PQfreemem(dbname);
+    pg_free(originname);
+    pg_free(lsnstr);
+    destroyPQExpBuffer(str);
+}
+```

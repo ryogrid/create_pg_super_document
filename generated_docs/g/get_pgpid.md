@@ -48,3 +48,52 @@ The function handles different error scenarios appropriately, using different ex
 - Critical for all pg_ctl operations that need to interact with running PostgreSQL server
 - Uses different exit codes (1 vs 4) depending on whether it's a status request
 - Static function, only available within pg_ctl.c
+
+## Simplified Source
+
+```c
+static pid_t get_pgpid(bool is_status_request) {
+    FILE *pidf;
+    int pid;
+    struct stat statbuf;
+
+    // Check if data directory exists
+    if (stat(pg_data, &statbuf) != 0) {
+        if (errno == ENOENT)
+            write_stderr(_("%s: directory \"%s\" does not exist\n"), progname, pg_data);
+        else
+            write_stderr(_("%s: could not access directory \"%s\": %m\n"), progname, pg_data);
+        exit(is_status_request ? 4 : 1);
+    }
+
+    // Check if it's actually a database cluster directory
+    if (stat(version_file, &statbuf) != 0 && errno == ENOENT) {
+        write_stderr(_("%s: directory \"%s\" is not a database cluster directory\n"),
+                    progname, pg_data);
+        exit(is_status_request ? 4 : 1);
+    }
+
+    // Try to open PID file
+    pidf = fopen(pid_file, "r");
+    if (pidf == NULL) {
+        if (errno == ENOENT)
+            return 0;  // No PID file, not an error on startup
+        else {
+            write_stderr(_("%s: could not open PID file \"%s\": %m\n"), progname, pid_file);
+            exit(1);
+        }
+    }
+
+    // Read and validate PID from file
+    if (fscanf(pidf, "%d", &pid) != 1) {
+        if (ftell(pidf) == 0 && feof(pidf))
+            write_stderr(_("%s: the PID file \"%s\" is empty\n"), progname, pid_file);
+        else
+            write_stderr(_("%s: invalid data in PID file \"%s\"\n"), progname, pid_file);
+        exit(1);
+    }
+
+    fclose(pidf);
+    return (pid_t) pid;
+}
+```

@@ -45,3 +45,19 @@ The function extracts TSQuery signatures from the GiST entry parameters, uses th
 - The penalty calculation directly uses Hamming distance, making signature similarity the primary factor for insertion decisions
 - Located in src/backend/utils/adt/tsquery_gist.c:139-154
 - Returns a Datum containing a pointer to the calculated penalty float value
+
+## Simplified Source
+
+```c
+Datum gtsquery_penalty(PG_FUNCTION_ARGS)
+{
+    TSQuerySign orig_signature = DatumGetTSQuerySign(((GISTENTRY *) PG_GETARG_POINTER(0))->key);
+    TSQuerySign new_signature = DatumGetTSQuerySign(((GISTENTRY *) PG_GETARG_POINTER(1))->key);
+    float *penalty = (float *) PG_GETARG_POINTER(2);
+
+    // Calculate penalty as Hamming distance between signatures
+    *penalty = hemdist(orig_signature, new_signature);
+
+    PG_RETURN_POINTER(penalty);
+}
+```

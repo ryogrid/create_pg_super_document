@@ -42,3 +42,33 @@ When double quotes are present in the role name itself, they are escaped by doub
 - The safety check considers only alphanumeric characters and underscores as safe
 - Location: src/bin/pg_dump/dumputils.c:582-615
 - This is a public function used across the pg_dump utilities
+
+## Simplified Source
+
+```c
+void quoteAclUserName(PQExpBuffer output, const char *input) {
+    // Check if the username needs quoting (contains non-alphanumeric chars except underscore)
+    bool safe = true;
+    for (const char *src = input; *src; src++) {
+        if (!isalnum((unsigned char) *src) && *src != '_') {
+            safe = false;
+            break;
+        }
+    }
+
+    // Add opening quote if needed
+    if (!safe)
+        appendPQExpBufferChar(output, '"');
+
+    // Copy username, escaping any double quotes by doubling them
+    for (const char *src = input; *src; src++) {
+        if (*src == '"')
+            appendPQExpBufferChar(output, '"');  // Escape quote
+        appendPQExpBufferChar(output, *src);
+    }
+
+    // Add closing quote if needed
+    if (!safe)
+        appendPQExpBufferChar(output, '"');
+}
+```

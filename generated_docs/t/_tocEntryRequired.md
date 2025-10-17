@@ -45,3 +45,119 @@ The decision logic flows through multiple stages: special entry handling, databa
 - Manages schema-only and data-only restore modes with special cases for sequences and large objects
 - Large object handling includes special rules for binary upgrade mode
 - The function is critical for implementing pg_restore's flexible selective restore capabilities
+
+## Simplified Source
+
+```c
+static int _tocEntryRequired(TocEntry *te, teSection curSection, ArchiveHandle *AH) {
+    int res = REQ_SCHEMA | REQ_DATA;
+    RestoreOptions *ropt = AH->public.ropt;
+
+    // Handle special configuration entries
+    if (strcmp(te->desc, "ENCODING") == 0 ||
+        strcmp(te->desc, "STDSTRINGS") == 0 ||
+        strcmp(te->desc, "SEARCHPATH") == 0)
+        return REQ_SPECIAL;
+
+    // DATABASE entries only restored if createDB is enabled
+    if (strcmp(te->desc, "DATABASE") == 0 ||
+        strcmp(te->desc, "DATABASE PROPERTIES") == 0)
+        return ropt->createDB ? REQ_SCHEMA : 0;
+
+    // Apply exclusion filters
+    if (ropt->aclsSkip && _tocEntryIsACL(te)) return 0;
+    if (ropt->no_comments && strcmp(te->desc, "COMMENT") == 0) return 0;
+    if (ropt->no_publications &&
+        (strcmp(te->desc, "PUBLICATION") == 0 ||
+         strcmp(te->desc, "PUBLICATION TABLE") == 0)) return 0;
+
+    // Check section filtering (pre-data/data/post-data)
+    switch (curSection) {
+        case SECTION_PRE_DATA:
+            if (!(ropt->dumpSections & DUMP_PRE_DATA)) return 0;
+            break;
+        case SECTION_DATA:
+            if (!(ropt->dumpSections & DUMP_DATA)) return 0;
+            break;
+        case SECTION_POST_DATA:
+            if (!(ropt->dumpSections & DUMP_POST_DATA)) return 0;
+            break;
+        default:
+            return 0;
+    }
+
+    // Apply ID-based filtering
+    if (ropt->idWanted && !ropt->idWanted[te->dumpId - 1])
+        return 0;
+
+    // Handle dependent objects (ACL, COMMENT, SECURITY LABEL)
+    if (strcmp(te->desc, "ACL") == 0 ||
+        strcmp(te->desc, "COMMENT") == 0 ||
+        strcmp(te->desc, "SECURITY LABEL") == 0) {
+
+        // Database properties use createDB rule
+        if (strncmp(te->tag, "DATABASE ", 9) == 0) {
+            if (!ropt->createDB) return 0;
+        }
+        // Check if parent object is being restored
+        else if (ropt->schemaNames.head != NULL || ropt->selTypes) {
+            bool dumpthis = false;
+            for (int i = 0; i < te->nDeps; i++) {
+                TocEntry *pte = getTocEntryByDumpId(AH, te->dependencies[i]);
+                if (pte && strcmp(pte->desc, "ACL") != 0 && pte->reqs != 0) {
+                    dumpthis = true;
+                    break;
+                }
+            }
+            if (!dumpthis) return 0;
+        }
+    } else {
+        // Apply selective restore rules for standalone objects
+        if (ropt->schemaNames.head != NULL) {
+            if (!te->namespace ||
+                !simple_string_list_member(&ropt->schemaNames, te->namespace))
+                return 0;
+        }
+
+        if (ropt->selTypes) {
+            // Check object type filters (tables, indexes, functions, triggers)
+            if (strcmp(te->desc, "TABLE") == 0 || strcmp(te->desc, "TABLE DATA") == 0) {
+                if (!ropt->selTable ||
+                    (ropt->tableNames.head &&
+                     !simple_string_list_member(&ropt->tableNames, te->tag)))
+                    return 0;
+            } else if (strcmp(te->desc, "INDEX") == 0) {
+                if (!ropt->selIndex ||
+                    (ropt->indexNames.head &&
+                     !simple_string_list_member(&ropt->indexNames, te->tag)))
+                    return 0;
+            }
+            // Similar checks for functions, triggers...
+        }
+    }
+
+    // Determine schema vs data components
+    if (!te->hadDumper) {
+        // Special data-only entries
+        if (strcmp(te->desc, "SEQUENCE SET") == 0 ||
+            strncmp(te->desc, "BLOB", 4) == 0)
+            res = res & REQ_DATA;
+        else
+            res = res & ~REQ_DATA;
+    }
+
+    // Remove schema component if no definition
+    if (!te->defn || !te->defn[0])
+        res = res & ~REQ_SCHEMA;
+
+    // Apply schema-only or data-only filtering
+    if (ropt->schemaOnly) {
+        if (!(ropt->sequence_data && strcmp(te->desc, "SEQUENCE SET") == 0))
+            res = res & REQ_SCHEMA;
+    }
+    if (ropt->dataOnly)
+        res = res & REQ_DATA;
+
+    return res;
+}
+```

@@ -48,3 +48,49 @@ The function constructs a CREATE SUBSCRIPTION SQL command with proper escaping f
 - Properly escapes all SQL parameters to prevent injection attacks
 - Supports dry run mode for testing without making actual changes
 - Part of the multi-step pg_createsubscriber process for converting physical replicas to logical subscriptions
+
+## Simplified Source
+
+```c
+static void create_subscription(PGconn *conn, const struct LogicalRepInfo *dbinfo)
+{
+    PQExpBuffer str = createPQExpBuffer();
+    PGresult *res;
+    char *pubname_esc, *subname_esc, *pubconninfo_esc, *replslotname_esc;
+
+    // Escape all parameters for SQL safety
+    pubname_esc = PQescapeIdentifier(conn, dbinfo->pubname, strlen(dbinfo->pubname));
+    subname_esc = PQescapeIdentifier(conn, dbinfo->subname, strlen(dbinfo->subname));
+    pubconninfo_esc = PQescapeLiteral(conn, dbinfo->pubconninfo, strlen(dbinfo->pubconninfo));
+    replslotname_esc = PQescapeLiteral(conn, dbinfo->replslotname, strlen(dbinfo->replslotname));
+
+    // Create subscription command with predefined options
+    pg_log_info("creating subscription \"%s\" in database \"%s\"", dbinfo->subname, dbinfo->dbname);
+
+    appendPQExpBuffer(str,
+                      "CREATE SUBSCRIPTION %s CONNECTION %s PUBLICATION %s "
+                      "WITH (create_slot = false, enabled = false, "
+                      "slot_name = %s, copy_data = false)",
+                      subname_esc, pubconninfo_esc, pubname_esc, replslotname_esc);
+
+    pg_log_debug("command is: %s", str->data);
+
+    // Execute the subscription creation (unless dry run)
+    if (!dry_run) {
+        res = PQexec(conn, str->data);
+        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+            pg_log_error("could not create subscription \"%s\" in database \"%s\": %s",
+                        dbinfo->subname, dbinfo->dbname, PQresultErrorMessage(res));
+            disconnect_database(conn, true);
+        }
+        PQclear(res);
+    }
+
+    // Cleanup escaped strings
+    PQfreemem(pubname_esc);
+    PQfreemem(subname_esc);
+    PQfreemem(pubconninfo_esc);
+    PQfreemem(replslotname_esc);
+    destroyPQExpBuffer(str);
+}
+```

@@ -36,3 +36,24 @@ This function provides a frontend implementation of timestamp retrieval since cl
 - Uses microsecond precision consistent with PostgreSQL's timestamp handling
 - Essential for timing operations in PostgreSQL client utilities like pg_basebackup and pg_recvlogical
 - The epoch conversion accounts for PostgreSQL using year 2000 as its epoch instead of Unix's 1970
+
+## Simplified Source
+
+```c
+TimestampTz feGetCurrentTimestamp(void) {
+    TimestampTz result;
+    struct timeval tp;
+
+    // Get current system time
+    gettimeofday(&tp, NULL);
+
+    // Convert Unix epoch to PostgreSQL epoch (2000-01-01 vs 1970-01-01)
+    result = (TimestampTz) tp.tv_sec -
+        ((POSTGRES_EPOCH_JDATE - UNIX_EPOCH_JDATE) * SECS_PER_DAY);
+
+    // Convert to microseconds and add microsecond component
+    result = (result * USECS_PER_SEC) + tp.tv_usec;
+
+    return result;
+}
+```

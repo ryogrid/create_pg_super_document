@@ -44,3 +44,41 @@ The function validates input parameters to ensure the path array is one-dimensio
 - Non-existent paths are handled gracefully (no error, returns original)
 - Works with both object keys and array indices in the path
 - File location: src/backend/utils/adt/jsonfuncs.c:4960-5002
+
+## Simplified Source
+
+```c
+Datum jsonb_delete_path(PG_FUNCTION_ARGS) {
+    Jsonb *in = PG_GETARG_JSONB_P(0);
+    ArrayType *path = PG_GETARG_ARRAYTYPE_P(1);
+
+    // Validate input: path must be 1-dimensional, input cannot be scalar
+    if (ARR_NDIM(path) > 1)
+        ereport(ERROR, "wrong number of array subscripts");
+    if (JB_ROOT_IS_SCALAR(in))
+        ereport(ERROR, "cannot delete path in scalar");
+
+    // Handle empty cases - return original unchanged
+    if (JB_ROOT_COUNT(in) == 0)
+        PG_RETURN_JSONB_P(in);
+
+    // Extract path elements from array
+    Datum *path_elems;
+    bool *path_nulls;
+    int path_len;
+    deconstruct_array_builtin(path, TEXTOID, &path_elems, &path_nulls, &path_len);
+
+    if (path_len == 0)
+        PG_RETURN_JSONB_P(in);
+
+    // Initialize iterator and perform deletion
+    JsonbIterator *it = JsonbIteratorInit(&in->root);
+    JsonbParseState *st = NULL;
+
+    // Use setPath with JB_PATH_DELETE mode to remove the path
+    JsonbValue *res = setPath(&it, path_elems, path_nulls, path_len, &st,
+                              0, NULL, JB_PATH_DELETE);
+
+    return JsonbValueToJsonb(res);
+}
+```

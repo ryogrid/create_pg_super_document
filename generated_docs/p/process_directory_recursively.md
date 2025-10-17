@@ -9,7 +9,15 @@ Recursively processes directory structures to reconstruct full files from increm
 ## Definition
 
 ```c
-struct dirent *de;
+static void process_directory_recursively(Oid tsoid,
+                                          char *input_directory,
+                                          char *output_directory,
+                                          char *relative_path,
+                                          int n_prior_backups,
+                                          char **prior_backup_dirs,
+                                          manifest_data **manifests,
+                                          manifest_writer *mwriter,
+                                          cb_options *opt)
 ```
 ## Detailed Description
 This is the core function of pg_combinebackup that handles the recursive processing of PostgreSQL backup directory structures. It performs several critical operations:
@@ -59,3 +67,119 @@ The function intelligently skips certain files (backup_label, backup_manifest) a
 - Special handling for pg_tblspc directory prevents recursion into tablespace directories that are processed separately
 - The function maintains proper error handling with fatal errors for critical failures and warnings for non-critical issues
 - Self-recursive design allows it to handle arbitrarily deep directory structures while maintaining context about the current processing state
+
+## Simplified Source
+
+```c
+static void process_directory_recursively(Oid tsoid,
+                                          char *input_directory,
+                                          char *output_directory,
+                                          char *relative_path,
+                                          int n_prior_backups,
+                                          char **prior_backup_dirs,
+                                          manifest_data **manifests,
+                                          manifest_writer *mwriter,
+                                          cb_options *opt) {
+    char ifulldir[MAXPGPATH], ofulldir[MAXPGPATH];
+    DIR *dir;
+    struct dirent *de;
+
+    // Classify directory type for special handling
+    bool is_pg_tblspc = (relative_path && strcmp(relative_path, "pg_tblspc") == 0);
+    bool is_pg_wal = (relative_path && strncmp(relative_path, "pg_wal", 6) == 0);
+    bool is_incremental_dir = (OidIsValid(tsoid) ||
+                               (relative_path && (strncmp(relative_path, "base/", 5) == 0 ||
+                                                  strcmp(relative_path, "global") == 0 ||
+                                                  strncmp(relative_path, "pg_tblspc/", 10) == 0)));
+
+    // Build full directory paths
+    if (relative_path == NULL) {
+        strlcpy(ifulldir, input_directory, MAXPGPATH);
+        strlcpy(ofulldir, output_directory, MAXPGPATH);
+    } else {
+        snprintf(ifulldir, MAXPGPATH, "%s/%s", input_directory, relative_path);
+        snprintf(ofulldir, MAXPGPATH, "%s/%s", output_directory, relative_path);
+
+        // Create output subdirectory
+        if (!opt->dry_run && mkdir(ofulldir, pg_dir_create_mode) == -1)
+            pg_fatal("could not create directory \"%s\": %m", ofulldir);
+    }
+
+    // Scan directory entries
+    if ((dir = opendir(ifulldir)) == NULL)
+        pg_fatal("could not open directory \"%s\": %m", ifulldir);
+
+    while ((de = readdir(dir)) != NULL) {
+        // Skip . and .. entries
+        if (strcmp(de->d_name, ".") == 0 || strcmp(de->d_name, "..") == 0)
+            continue;
+
+        char ifullpath[MAXPGPATH], ofullpath[MAXPGPATH];
+        snprintf(ifullpath, MAXPGPATH, "%s/%s", ifulldir, de->d_name);
+
+        PGFileType type = get_dirent_type(ifullpath, de, false, PG_LOG_ERROR);
+
+        // Skip tablespace directories in pg_tblspc
+        if (is_pg_tblspc && parse_oid(de->d_name, &oid) &&
+            (type == PGFILETYPE_LNK || type == PGFILETYPE_DIR))
+            continue;
+
+        // Recurse into subdirectories
+        if (type == PGFILETYPE_DIR) {
+            char new_relative_path[MAXPGPATH];
+            if (relative_path == NULL)
+                strlcpy(new_relative_path, de->d_name, MAXPGPATH);
+            else
+                snprintf(new_relative_path, MAXPGPATH, "%s/%s", relative_path, de->d_name);
+
+            process_directory_recursively(tsoid, input_directory, output_directory,
+                                          new_relative_path, n_prior_backups,
+                                          prior_backup_dirs, manifests, mwriter, opt);
+            continue;
+        }
+
+        // Process only regular files
+        if (type != PGFILETYPE_REG)
+            continue;
+
+        // Skip special files handled elsewhere
+        if (relative_path == NULL &&
+            (strcmp(de->d_name, "backup_label") == 0 ||
+             strcmp(de->d_name, "backup_manifest") == 0))
+            continue;
+
+        // Handle incremental files
+        if (is_incremental_dir &&
+            strncmp(de->d_name, INCREMENTAL_PREFIX, INCREMENTAL_PREFIX_LENGTH) == 0) {
+            // Remove INCREMENTAL. prefix for output path
+            snprintf(ofullpath, MAXPGPATH, "%s/%s", ofulldir,
+                     de->d_name + INCREMENTAL_PREFIX_LENGTH);
+
+            // Reconstruct file from incremental data
+            reconstruct_from_incremental_file(ifullpath, ofullpath,
+                                             manifest_prefix,
+                                             de->d_name + INCREMENTAL_PREFIX_LENGTH,
+                                             n_prior_backups, prior_backup_dirs,
+                                             manifests, manifest_path,
+                                             checksum_type, &checksum_length,
+                                             &checksum_payload, opt->copy_method,
+                                             opt->debug, opt->dry_run);
+        } else {
+            // Copy regular file directly
+            snprintf(ofullpath, MAXPGPATH, "%s/%s", ofulldir, de->d_name);
+            copy_file(ifullpath, ofullpath, &checksum_ctx, opt->copy_method, opt->dry_run);
+        }
+
+        // Add to manifest if needed
+        if (mwriter != NULL) {
+            struct stat sb;
+            if (stat(ofullpath, &sb) >= 0) {
+                add_file_to_manifest(mwriter, manifest_path, sb.st_size, sb.st_mtime,
+                                     checksum_type, checksum_length, checksum_payload);
+            }
+        }
+    }
+
+    closedir(dir);
+}
+```

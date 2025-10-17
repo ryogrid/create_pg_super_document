@@ -37,3 +37,16 @@ This function implements the <@ (contained by) operator for TSQuery objects. It 
 - Inherits all performance characteristics and behavior from tsq_mcontains
 - Example: if query A contains query B, then B is contained by A (A @> B ≡ B <@ A)
 - Part of PostgreSQL's full-text search functionality for complex query relationships
+
+## Simplified Source
+
+```c
+Datum
+tsq_mcontained(PG_FUNCTION_ARGS)
+{
+    // Implement "A <@ B" by calling "B @> A" (swap arguments)
+    return DirectFunctionCall2(tsq_mcontains,
+                              PG_GETARG_DATUM(1),  // second argument becomes first
+                              PG_GETARG_DATUM(0)); // first argument becomes second
+}
+```

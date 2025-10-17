@@ -45,3 +45,24 @@ The function checks if a scalar appears at the top level (lex_level == 0) and ra
 - Part of PostgreSQL's JSON expansion infrastructure for functions like json_each() and jsonb_each()
 - Only validates top-level scalars (lex_level == 0) as scalars within objects are expected and valid
 - Returns JSON_SUCCESS when validation passes and scalar is processed correctly
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+each_scalar(void *state, char *token, JsonTokenType tokentype)
+{
+    EachState *_state = (EachState *) state;
+
+    // Validate: cannot deconstruct a standalone scalar value
+    if (_state->lex->lex_level == 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("cannot deconstruct a scalar")));
+
+    // Store de-escaped scalar value if needed
+    if (_state->next_scalar)
+        _state->normalized_scalar = token;
+
+    return JSON_SUCCESS;
+}
+```

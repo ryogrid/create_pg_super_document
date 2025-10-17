@@ -47,3 +47,43 @@ The function uses the internal  function with either  or  modes depending on the
 - The insertion behavior depends on the target structure type (array vs object)
 - Creates new JSONB structure rather than modifying in place
 - File location: src/backend/utils/adt/jsonfuncs.c:5003-5051
+
+## Simplified Source
+
+```c
+Datum jsonb_insert(PG_FUNCTION_ARGS) {
+    Jsonb *in = PG_GETARG_JSONB_P(0);
+    ArrayType *path = PG_GETARG_ARRAYTYPE_P(1);
+    Jsonb *newjsonb = PG_GETARG_JSONB_P(2);
+    bool after = PG_GETARG_BOOL(3);
+
+    // Convert new value to internal format
+    JsonbValue newval;
+    JsonbToJsonbValue(newjsonb, &newval);
+
+    // Validate input: path must be 1-dimensional, input cannot be scalar
+    if (ARR_NDIM(path) > 1)
+        ereport(ERROR, "wrong number of array subscripts");
+    if (JB_ROOT_IS_SCALAR(in))
+        ereport(ERROR, "cannot set path in scalar");
+
+    // Extract path elements from array
+    Datum *path_elems;
+    bool *path_nulls;
+    int path_len;
+    deconstruct_array_builtin(path, TEXTOID, &path_elems, &path_nulls, &path_len);
+
+    if (path_len == 0)
+        PG_RETURN_JSONB_P(in);
+
+    // Initialize iterator and perform insertion
+    JsonbIterator *it = JsonbIteratorInit(&in->root);
+    JsonbParseState *st = NULL;
+
+    // Choose insert mode based on 'after' parameter
+    JsonbValue *res = setPath(&it, path_elems, path_nulls, path_len, &st, 0, &newval,
+                              after ? JB_PATH_INSERT_AFTER : JB_PATH_INSERT_BEFORE);
+
+    return JsonbValueToJsonb(res);
+}
+```

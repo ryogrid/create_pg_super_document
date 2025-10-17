@@ -34,3 +34,14 @@ audit_attempt is a simple wrapper function that provides a semantic interface fo
 - Located at src/test/modules/test_oat_hooks/test_oat_hooks.c:259-264
 - Forms a trio with audit_success() and audit_failure() for complete audit trail
 - Memory management for action and objName parameters is handled by emit_audit_message()
+
+## Simplified Source
+
+```c
+static void audit_attempt(const char *hook, char *action, char *objName) {
+    // Log access attempt with "attempting" message type
+    emit_audit_message("attempting", hook, action, objName);
+}
+```
+
+**Core Logic**: Simple wrapper that calls emit_audit_message() with "attempting" type to log when access control hooks are triggered and about to evaluate permissions.

@@ -36,3 +36,18 @@ The function includes safety checks to respect restore options that may disable 
 - The function respects the  and  restore options to provide flexibility in restore behavior
 - Part of PostgreSQL's pg_dump/pg_restore infrastructure for database backup and restore operations
 - The actual session authorization change is delegated to the  helper function
+
+## Simplified Source
+
+```c
+static void _becomeOwner(ArchiveHandle *AH, TocEntry *te) {
+    RestoreOptions *ropt = AH->public.ropt;
+
+    // Skip if ownership changes are disabled
+    if (ropt && (ropt->noOwner || !ropt->use_setsessauth))
+        return;
+
+    // Change to the object's owner
+    _becomeUser(AH, te->owner);
+}
+```

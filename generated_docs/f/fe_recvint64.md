@@ -33,3 +33,16 @@ The function uses PostgreSQL's portable byte-swapping infrastructure (pg_ntoh64)
 - Part of the frontend utility functions for pg_basebackup and related tools
 - Declared in streamutil.h as part of the streaming utilities interface
 - Commonly used for processing replication protocol messages and logical replication data
+
+## Simplified Source
+
+```c
+int64 fe_recvint64(char *buf) {
+    // Read 8 bytes from buffer into local variable
+    uint64 network_value;
+    memcpy(&network_value, buf, sizeof(network_value));
+
+    // Convert from network byte order to host byte order
+    return pg_ntoh64(network_value);
+}
+```

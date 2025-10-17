@@ -40,3 +40,49 @@ The function implements a polling mechanism with a fixed wait interval (WAIT_INT
 - Recovery timeout is specified in seconds through the CreateSubscriberOptions structure
 - The function provides user-friendly logging and hints about potential failure scenarios
 - After successful recovery completion, it warns users that failure beyond this point requires recreating the physical replica
+
+## Simplified Source
+
+```c
+static void wait_for_end_recovery(const char *conninfo, const struct CreateSubscriberOptions *opt)
+{
+    PGconn *conn;
+    int status = POSTMASTER_STILL_STARTING;
+    int timer = 0;
+
+    pg_log_info("waiting for the target server to reach the consistent state");
+    conn = connect_database(conninfo, true);
+
+    // Poll server recovery status until complete
+    for (;;) {
+        bool in_recovery = server_is_in_recovery(conn);
+
+        // Check if recovery has finished (or in dry run mode)
+        if (!in_recovery || dry_run) {
+            status = POSTMASTER_READY;
+            recovery_ended = true;
+            break;
+        }
+
+        // Handle timeout if configured
+        if (opt->recovery_timeout > 0 && timer >= opt->recovery_timeout) {
+            stop_standby_server(subscriber_dir);
+            pg_log_error("recovery timed out");
+            disconnect_database(conn, true);  // This exits the program
+        }
+
+        // Wait before checking again
+        pg_usleep(WAIT_INTERVAL * USEC_PER_SEC);
+        timer += WAIT_INTERVAL;
+    }
+
+    disconnect_database(conn, false);
+
+    // Ensure recovery actually completed
+    if (status == POSTMASTER_STILL_STARTING)
+        pg_fatal("server did not end recovery");
+
+    pg_log_info("target server reached the consistent state");
+    pg_log_info_hint("If pg_createsubscriber fails after this point, you must recreate the physical replica before continuing.");
+}
+```

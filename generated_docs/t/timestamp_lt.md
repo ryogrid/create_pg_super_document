@@ -40,3 +40,17 @@ timestamp_lt is a PostgreSQL built-in function that implements the less-than com
 - Essential for temporal queries and chronological sorting operations
 - Performance is dependent on the underlying timestamp_cmp_internal implementation
 - Works with PostgreSQL's indexing system for efficient range queries on timestamp columns
+
+## Simplified Source
+
+```c
+Datum
+timestamp_lt(PG_FUNCTION_ARGS)
+{
+    Timestamp dt1 = PG_GETARG_TIMESTAMP(0);
+    Timestamp dt2 = PG_GETARG_TIMESTAMP(1);
+
+    // Return true if first timestamp is less than second
+    PG_RETURN_BOOL(timestamp_cmp_internal(dt1, dt2) < 0);
+}
+```

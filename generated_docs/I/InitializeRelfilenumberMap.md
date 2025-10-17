@@ -47,3 +47,43 @@ The function uses a two-element scan key array to efficiently query pg_class by 
 - Critical for establishing the reverse mapping infrastructure from file identifiers to relation OIDs
 - Registers RelfilenumberMapInvalidateCallback to handle cache invalidation events
 - Delayed hash table creation prevents partial initialization on memory errors
+
+## Simplified Source
+
+```c
+static void
+InitializeRelfilenumberMap(void)
+{
+    HASHCTL ctl;
+    int i;
+
+    // Ensure cache memory context is available
+    if (CacheMemoryContext == NULL)
+        CreateCacheMemoryContext();
+
+    // Initialize scan key structure for pg_class lookups
+    MemSet(&relfilenumber_skey, 0, sizeof(relfilenumber_skey));
+
+    // Set up scan keys for reltablespace and relfilenode columns
+    for (i = 0; i < 2; i++) {
+        fmgr_info_cxt(F_OIDEQ, &relfilenumber_skey[i].sk_func, CacheMemoryContext);
+        relfilenumber_skey[i].sk_strategy = BTEqualStrategyNumber;
+        relfilenumber_skey[i].sk_subtype = InvalidOid;
+        relfilenumber_skey[i].sk_collation = InvalidOid;
+    }
+
+    relfilenumber_skey[0].sk_attno = Anum_pg_class_reltablespace;
+    relfilenumber_skey[1].sk_attno = Anum_pg_class_relfilenode;
+
+    // Create the hash table for relfilenumber-to-relid mapping
+    ctl.keysize = sizeof(RelfilenumberMapKey);
+    ctl.entrysize = sizeof(RelfilenumberMapEntry);
+    ctl.hcxt = CacheMemoryContext;
+
+    RelfilenumberMapHash = hash_create("RelfilenumberMap cache", 64, &ctl,
+                                      HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+
+    // Register callback for cache invalidation events
+    CacheRegisterRelcacheCallback(RelfilenumberMapInvalidateCallback, (Datum) 0);
+}
+```

@@ -39,3 +39,16 @@ Unlike regular operands, stopword placeholders don't contain actual text content
 - Stopword handling is an important optimization in text search systems to improve both performance and relevance
 - The function is typically called during morphological analysis when the text search dictionary identifies a word as a stopword
 - Memory allocation uses palloc0 to ensure proper zero-initialization, though only the type field is explicitly set
+
+## Simplified Source
+
+```c
+void pushStop(TSQueryParserState state) {
+    // Create stopword placeholder operand
+    QueryOperand *tmp = (QueryOperand *) palloc0(sizeof(QueryOperand));
+    tmp->type = QI_VALSTOP;
+
+    // Add placeholder to polish notation list
+    state->polstr = lcons(tmp, state->polstr);
+}
+```

@@ -41,3 +41,37 @@ The `tsquery_or` function is a PostgreSQL built-in function that performs a logi
 - The resulting query will match documents that satisfy either input condition
 - Uses distance parameter of 0 since OR operations don't involve proximity
 - Structurally very similar to `tsquery_and` but uses OP_OR instead of OP_AND
+
+## Simplified Source
+
+```c
+Datum tsquery_or(PG_FUNCTION_ARGS)
+{
+    TSQuery a = PG_GETARG_TSQUERY_COPY(0);
+    TSQuery b = PG_GETARG_TSQUERY_COPY(1);
+    QTNode *result_node;
+    TSQuery query;
+
+    // Optimization: empty query OR anything = the other query
+    if (a->size == 0) {
+        PG_FREE_IF_COPY(a, 1);
+        PG_RETURN_POINTER(b);
+    } else if (b->size == 0) {
+        PG_FREE_IF_COPY(b, 1);
+        PG_RETURN_POINTER(a);
+    }
+
+    // Combine queries with OR operator
+    result_node = join_tsqueries(a, b, OP_OR, 0);
+
+    // Convert back to TSQuery format
+    query = QTN2QT(result_node);
+
+    // Cleanup memory
+    QTNFree(result_node);
+    PG_FREE_IF_COPY(a, 0);
+    PG_FREE_IF_COPY(b, 1);
+
+    PG_RETURN_TSQUERY(query);
+}
+```

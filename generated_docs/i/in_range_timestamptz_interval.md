@@ -43,3 +43,36 @@ The function handles special cases involving infinite timestamps and intervals, 
 - Handles infinite timestamp and interval edge cases gracefully
 - Does not currently implement overflow hazard avoidance
 - Returns boolean result indicating whether val is within the computed range
+
+## Simplified Source
+```c
+Datum in_range_timestamptz_interval(PG_FUNCTION_ARGS) {
+    TimestampTz val = PG_GETARG_TIMESTAMPTZ(0);
+    TimestampTz base = PG_GETARG_TIMESTAMPTZ(1);
+    Interval *offset = PG_GETARG_INTERVAL_P(2);
+    bool sub = PG_GETARG_BOOL(3);
+    bool less = PG_GETARG_BOOL(4);
+
+    // SQL spec requires non-negative offset
+    if (interval_sign(offset) < 0)
+        ereport(ERROR, "invalid window function offset");
+
+    // Handle infinite timestamp/interval edge cases
+    if (INTERVAL_IS_NOEND(offset) &&
+        (sub ? TIMESTAMP_IS_NOEND(base) : TIMESTAMP_IS_NOBEGIN(base)))
+        PG_RETURN_BOOL(true);
+
+    // Calculate base +/- offset
+    TimestampTz sum;
+    if (sub)
+        sum = timestamptz_mi_interval_internal(base, offset, NULL);
+    else
+        sum = timestamptz_pl_interval_internal(base, offset, NULL);
+
+    // Return comparison result
+    if (less)
+        PG_RETURN_BOOL(val <= sum);
+    else
+        PG_RETURN_BOOL(val >= sum);
+}
+```

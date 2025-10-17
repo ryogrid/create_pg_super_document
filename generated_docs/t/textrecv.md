@@ -34,4 +34,24 @@ The  function is a PostgreSQL data type binary receive function that handles the
 - Memory management is handled properly with  to avoid memory leaks
 - The function extracts the remaining bytes from the buffer ()
 - Complementary to the  function, forming the binary send/receive pair for text data type
-- Located in 
+- Located in src/backend/utils/adt/varlena.c
+
+## Simplified Source
+
+```c
+Datum textrecv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+
+    // Extract text string from binary protocol buffer
+    int nbytes;
+    char *str = pq_getmsgtext(buf, buf->len - buf->cursor, &nbytes);
+
+    // Convert C string to text with known length
+    text *result = cstring_to_text_with_len(str, nbytes);
+
+    // Clean up temporary string
+    pfree(str);
+
+    PG_RETURN_TEXT_P(result);
+}
+``` 

@@ -42,3 +42,26 @@ The function includes an important safety feature: it verifies that any existing
 - Part of the GUC infrastructure for managing configuration-related memory
 - Handles both the case where old memory exists (reallocation) and where it doesn't (new allocation)
 - The assertion helps catch bugs where non-GUC memory is passed to GUC memory functions
+
+## Simplified Source
+
+```c
+void *guc_realloc(int elevel, void *old, size_t size) {
+    void *data;
+
+    if (old != NULL) {
+        // Verify memory belongs to GUC context and resize
+        Assert(GetMemoryChunkContext(old) == GUCMemoryContext);
+        data = repalloc_extended(old, size, MCXT_ALLOC_NO_OOM);
+    } else {
+        // Allocate new memory in GUC context
+        data = MemoryContextAllocExtended(GUCMemoryContext, size, MCXT_ALLOC_NO_OOM);
+    }
+
+    // Report error if allocation failed
+    if (unlikely(data == NULL))
+        ereport(elevel, (errcode(ERRCODE_OUT_OF_MEMORY), errmsg("out of memory")));
+
+    return data;
+}
+```

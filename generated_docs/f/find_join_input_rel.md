@@ -29,3 +29,29 @@ This function serves as a helper to locate RelOptInfo structures for join input 
 
 ## Notes and Other Information
 This function is primarily used in selectivity estimation functions where the planner needs to access relation information for join operations. The function uses bitmap set operations to efficiently determine whether it's dealing with a single relation or a join of multiple relations. The error condition should never occur in normal operation, as it indicates that the planner is trying to reference a relation that hasn't been properly initialized, which would suggest a bug in the planning process. The function is static, meaning it's only used within the selfuncs.c module for internal selectivity calculations.
+
+## Simplified Source
+
+```c
+static RelOptInfo *find_join_input_rel(PlannerInfo *root, Relids relids)
+{
+    RelOptInfo *rel = NULL;
+
+    if (!bms_is_empty(relids)) {
+        int relid;
+
+        // Single relation: find base relation
+        if (bms_get_singleton_member(relids, &relid))
+            rel = find_base_rel(root, relid);
+        else
+            // Multiple relations: find join relation
+            rel = find_join_rel(root, relids);
+    }
+
+    // Should always find a relation
+    if (rel == NULL)
+        elog(ERROR, "could not find RelOptInfo for given relids");
+
+    return rel;
+}
+```

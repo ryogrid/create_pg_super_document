@@ -50,3 +50,51 @@ For failed queries, the function formats and displays error messages with proper
 - Manages memory cleanup for RelationInfo context fields
 - Part of the parallel verification framework in pg_amcheck, specifically for btree index verification
 - Expects btree checking functions to return void results, unlike heap functions which return detailed error information
+
+## Simplified Source
+
+```c
+static bool
+verify_btree_slot_handler(PGresult *res, PGconn *conn, void *context)
+{
+    RelationInfo *rel = (RelationInfo *) context;
+
+    if (PQresultStatus(res) == PGRES_TUPLES_OK)
+    {
+        int ntups = PQntuples(res);
+
+        // Check for unexpected number of rows (version mismatch indicator)
+        if (ntups > 1)
+        {
+            if (opts.show_progress && progress_since_last_stderr)
+                fprintf(stderr, "\n");
+
+            pg_log_warning("btree index \"%s.%s.%s\": btree checking function returned unexpected number of rows: %d",
+                          rel->datinfo->datname, rel->nspname, rel->relname, ntups);
+            if (opts.verbose)
+                pg_log_warning_detail("Query was: %s", rel->sql);
+            pg_log_warning_hint("Are %s's and amcheck's versions compatible?", progname);
+            progress_since_last_stderr = false;
+        }
+    }
+    else
+    {
+        // Handle query errors - btree errors come as connection errors
+        char *msg = indent_lines(PQerrorMessage(conn));
+        all_checks_pass = false;
+        printf(_("btree index \"%s.%s.%s\":\n"),
+               rel->datinfo->datname, rel->nspname, rel->relname);
+        printf("%s", msg);
+        if (opts.verbose)
+            printf(_("query was: %s\n"), rel->sql);
+        FREE_AND_SET_NULL(msg);
+    }
+
+    // Cleanup relation info
+    FREE_AND_SET_NULL(rel->sql);
+    FREE_AND_SET_NULL(rel->nspname);
+    FREE_AND_SET_NULL(rel->relname);
+
+    return should_processing_continue(res);
+}
+```

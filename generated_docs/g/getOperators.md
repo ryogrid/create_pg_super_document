@@ -35,3 +35,68 @@ The getOperators function is part of pg_dump's catalog scanning infrastructure t
 - Each operator is assigned a dump ID for dependency tracking
 - The function populates OprInfo structures with catalog metadata needed for proper operator recreation during restore
 - Memory allocation is done upfront for the entire operator array based on query results
+
+## Simplified Source
+
+```c
+OprInfo *getOperators(Archive *fout, int *numOprs)
+{
+    PGresult *res;
+    int ntups, i;
+    PQExpBuffer query = createPQExpBuffer();
+    OprInfo *oprinfo;
+    int i_tableoid, i_oid, i_oprname, i_oprnamespace, i_oprowner,
+        i_oprkind, i_oprleft, i_oprright, i_oprcode;
+
+    // Query all operators including builtin ones
+    appendPQExpBufferStr(query,
+                         "SELECT tableoid, oid, oprname, oprnamespace, "
+                         "oprowner, oprkind, oprleft, oprright, "
+                         "oprcode::oid AS oprcode "
+                         "FROM pg_operator");
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+    *numOprs = ntups;
+
+    // Allocate array for operator info
+    oprinfo = (OprInfo *) pg_malloc(ntups * sizeof(OprInfo));
+
+    // Get column indices
+    i_tableoid = PQfnumber(res, "tableoid");
+    i_oid = PQfnumber(res, "oid");
+    i_oprname = PQfnumber(res, "oprname");
+    i_oprnamespace = PQfnumber(res, "oprnamespace");
+    i_oprowner = PQfnumber(res, "oprowner");
+    i_oprkind = PQfnumber(res, "oprkind");
+    i_oprleft = PQfnumber(res, "oprleft");
+    i_oprright = PQfnumber(res, "oprright");
+    i_oprcode = PQfnumber(res, "oprcode");
+
+    // Process each operator
+    for (i = 0; i < ntups; i++) {
+        // Initialize dump object
+        oprinfo[i].dobj.objType = DO_OPERATOR;
+        oprinfo[i].dobj.catId.tableoid = atooid(PQgetvalue(res, i, i_tableoid));
+        oprinfo[i].dobj.catId.oid = atooid(PQgetvalue(res, i, i_oid));
+        AssignDumpId(&oprinfo[i].dobj);
+        oprinfo[i].dobj.name = pg_strdup(PQgetvalue(res, i, i_oprname));
+        oprinfo[i].dobj.namespace = findNamespace(atooid(PQgetvalue(res, i, i_oprnamespace)));
+
+        // Set operator properties
+        oprinfo[i].rolname = getRoleName(PQgetvalue(res, i, i_oprowner));
+        oprinfo[i].oprkind = (PQgetvalue(res, i, i_oprkind))[0];
+        oprinfo[i].oprleft = atooid(PQgetvalue(res, i, i_oprleft));
+        oprinfo[i].oprright = atooid(PQgetvalue(res, i, i_oprright));
+        oprinfo[i].oprcode = atooid(PQgetvalue(res, i, i_oprcode));
+
+        // Determine if this operator should be dumped
+        selectDumpableObject(&(oprinfo[i].dobj), fout);
+    }
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+
+    return oprinfo;
+}
+```

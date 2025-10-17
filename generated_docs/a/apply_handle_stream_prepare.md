@@ -64,3 +64,85 @@ The function manages complex state transitions, file cleanup, and synchronizatio
 - The original message is preserved for potential serialization needs
 - Implements proper locking and state transitions for parallel transaction completion
 - Error handling includes context management and activity reporting for monitoring
+
+## Simplified Source
+
+```c
+static void
+apply_handle_stream_prepare(StringInfo s)
+{
+    LogicalRepPreparedTxnData prepare_data;
+    ParallelApplyWorkerInfo *winfo;
+    TransApplyAction apply_action;
+
+    // Save original message before processing
+    StringInfoData original_msg = *s;
+
+    // Validate protocol state - no nested streaming, no tablesync workers
+    if (in_streamed_transaction)
+        ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                        errmsg_internal("STREAM PREPARE message without STREAM STOP")));
+
+    if (am_tablesync_worker())
+        ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                        errmsg_internal("tablesync worker received a STREAM PREPARE message")));
+
+    // Read stream prepare data and determine processing action
+    logicalrep_read_stream_prepare(s, &prepare_data);
+    set_apply_error_context_xact(prepare_data.xid, prepare_data.prepare_lsn);
+    apply_action = get_transaction_apply_action(prepare_data.xid, &winfo);
+
+    switch (apply_action) {
+        case TRANS_LEADER_APPLY:
+            // Replay spooled operations from serialized files
+            apply_spooled_messages(MyLogicalRepWorker->stream_fileset,
+                                   prepare_data.xid, prepare_data.prepare_lsn);
+            apply_handle_prepare_internal(&prepare_data);
+            CommitTransactionCommand();
+            store_flush_position(prepare_data.end_lsn, XactLastCommitEnd);
+            in_remote_transaction = false;
+            stream_cleanup_files(MyLogicalRepWorker->subid, prepare_data.xid);
+            break;
+
+        case TRANS_LEADER_SEND_TO_PARALLEL:
+            // Send to parallel worker or fall back to serialization
+            if (pa_send_data(winfo, s->len, s->data)) {
+                pa_xact_finish(winfo, prepare_data.end_lsn);
+                break;
+            }
+            pa_switch_to_partial_serialize(winfo, true);
+            // fall through
+
+        case TRANS_LEADER_PARTIAL_SERIALIZE:
+            // Serialize prepare message and finish transaction
+            stream_open_and_write_change(prepare_data.xid,
+                                         LOGICAL_REP_MSG_STREAM_PREPARE,
+                                         &original_msg);
+            pa_set_fileset_state(winfo->shared, FS_SERIALIZE_DONE);
+            pa_xact_finish(winfo, prepare_data.end_lsn);
+            break;
+
+        case TRANS_PARALLEL_APPLY:
+            // Handle preparation in parallel worker
+            if (stream_fd)
+                stream_close_file();
+            begin_replication_step();
+            apply_handle_prepare_internal(&prepare_data);
+            end_replication_step();
+            CommitTransactionCommand();
+            MyParallelShared->last_commit_end = XactLastCommitEnd;
+            pa_set_xact_state(MyParallelShared, PARALLEL_TRANS_FINISHED);
+            pa_unlock_transaction(MyParallelShared->xid, AccessExclusiveLock);
+            pa_reset_subtrans();
+            break;
+    }
+
+    // Post-processing: statistics, parallel sync, cleanup
+    pgstat_report_stat(false);
+    process_syncing_tables(prepare_data.end_lsn);
+    stop_skipping_changes();
+    clear_subscription_skip_lsn(prepare_data.prepare_lsn);
+    pgstat_report_activity(STATE_IDLE, NULL);
+    reset_apply_error_context_info();
+}
+```

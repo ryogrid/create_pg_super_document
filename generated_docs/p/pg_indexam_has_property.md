@@ -36,3 +36,17 @@ This function provides a SQL interface for querying access method-level properti
 - Common properties tested include: 'can_order', 'can_unique', 'can_multi_col', 'can_exclude', 'can_include'
 - Used by applications and administrative tools to determine AM capabilities before creating indexes
 - The function signature follows PostgreSQL's C function calling convention
+
+## Simplified Source
+
+```c
+Datum pg_indexam_has_property(PG_FUNCTION_ARGS)
+{
+    // Extract access method OID and property name from SQL arguments
+    Oid amoid = PG_GETARG_OID(0);
+    char *propname = text_to_cstring(PG_GETARG_TEXT_PP(1));
+
+    // Test AM-level property (InvalidOid for index, 0 for column means AM-level)
+    return indexam_property(fcinfo, propname, amoid, InvalidOid, 0);
+}
+```

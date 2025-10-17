@@ -50,3 +50,76 @@ The `varstr_sortsupport` function is the central implementation for character ty
 - Uses sophisticated caching with cache_blob flag to distinguish between original strings and strxfrm() transformed data
 - Implements HyperLogLog cardinality estimation for abbreviation optimization decisions
 - Located in src/backend/utils/adt/varlena.c at lines 1873-2011
+
+## Simplified Source
+
+```c
+void varstr_sortsupport(SortSupport ssup, Oid typid, Oid collid) {
+    bool abbreviate = ssup->abbreviate;
+    bool collate_c = false;
+    VarStringSortSupport *sss;
+    pg_locale_t locale = 0;
+
+    check_collation_set(collid);
+
+    // Choose the optimal comparison function based on collation and type
+    if (lc_collate_is_c(collid)) {
+        // Use fast C-locale comparisons with memcmp()
+        if (typid == BPCHAROID)
+            ssup->comparator = bpcharfastcmp_c;
+        else if (typid == NAMEOID) {
+            ssup->comparator = namefastcmp_c;
+            abbreviate = false;  // Not supported for NAME type
+        }
+        else
+            ssup->comparator = varstrfastcmp_c;
+
+        collate_c = true;
+    }
+    else {
+        // Use locale-aware comparisons with strcoll()
+        locale = pg_newlocale_from_collation(collid);
+
+        if (typid == NAMEOID) {
+            ssup->comparator = namefastcmp_locale;
+            abbreviate = false;  // Not supported for NAME type
+        }
+        else
+            ssup->comparator = varlenafastcmp_locale;
+    }
+
+    // Disable abbreviation if strxfrm() is unreliable on this platform
+    if (!collate_c && !pg_strxfrm_enabled(locale))
+        abbreviate = false;
+
+    // Set up extended sort support structure if needed
+    if (abbreviate || !collate_c) {
+        sss = palloc(sizeof(VarStringSortSupport));
+        sss->buf1 = palloc(TEXTBUFLEN);
+        sss->buflen1 = TEXTBUFLEN;
+        sss->buf2 = palloc(TEXTBUFLEN);
+        sss->buflen2 = TEXTBUFLEN;
+
+        // Initialize state tracking
+        sss->last_len1 = -1;
+        sss->last_len2 = -1;
+        sss->last_returned = 0;
+        sss->locale = locale;
+        sss->cache_blob = true;
+        sss->collate_c = collate_c;
+        sss->typid = typid;
+        ssup->ssup_extra = sss;
+
+        // Enable abbreviation optimization if requested
+        if (abbreviate) {
+            sss->prop_card = 0.20;
+            initHyperLogLog(&sss->abbr_card, 10);
+            initHyperLogLog(&sss->full_card, 10);
+            ssup->abbrev_full_comparator = ssup->comparator;
+            ssup->comparator = ssup_datum_unsigned_cmp;
+            ssup->abbrev_converter = varstr_abbrev_convert;
+            ssup->abbrev_abort = varstr_abbrev_abort;
+        }
+    }
+}
+```

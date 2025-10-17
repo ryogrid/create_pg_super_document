@@ -49,3 +49,44 @@ This function is useful for database administrators and developers who need to i
 - This ID can be used to locate the actual TOAST chunks in the associated TOAST table
 - Useful for debugging TOAST storage issues and understanding PostgreSQL's large object storage mechanism
 - Part of PostgreSQL's suite of functions for inspecting storage internals
+
+## Simplified Source
+
+```c
+Datum
+pg_column_toast_chunk_id(PG_FUNCTION_ARGS)
+{
+    int typlen;
+    struct varlena *attr;
+    struct varatt_external toast_pointer;
+
+    // Cache type length information for efficiency
+    if (fcinfo->flinfo->fn_extra == NULL) {
+        Oid argtypeid = get_fn_expr_argtype(fcinfo->flinfo, 0);
+        typlen = get_typlen(argtypeid);
+
+        if (typlen == 0)  // Sanity check
+            elog(ERROR, "cache lookup failed for type %u", argtypeid);
+
+        // Store typlen in function context for reuse
+        fcinfo->flinfo->fn_extra = MemoryContextAlloc(fcinfo->flinfo->fn_mcxt, sizeof(int));
+        *((int *) fcinfo->flinfo->fn_extra) = typlen;
+    } else {
+        typlen = *((int *) fcinfo->flinfo->fn_extra);
+    }
+
+    // Only varlena types can be TOASTed
+    if (typlen != -1)
+        PG_RETURN_NULL();
+
+    attr = (struct varlena *) DatumGetPointer(PG_GETARG_DATUM(0));
+
+    // Check if value is stored externally on disk
+    if (!VARATT_IS_EXTERNAL_ONDISK(attr))
+        PG_RETURN_NULL();
+
+    // Extract TOAST pointer and return chunk ID
+    VARATT_EXTERNAL_GET_POINTER(toast_pointer, attr);
+    PG_RETURN_OID(toast_pointer.va_valueid);
+}
+```

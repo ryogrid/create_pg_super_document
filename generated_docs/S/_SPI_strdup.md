@@ -63,4 +63,17 @@ This is particularly important for functions that need to return string values t
 - Returns a newly allocated string that is managed by SPI's memory context
 - The copied string includes the null terminator, making it a proper C string
 - Memory allocated by this function will be automatically freed when the SPI context is cleaned up
-- More reliable than standard  in SPI contexts where memory management is critical
+- More reliable than standard strdup() in SPI contexts where memory management is critical
+
+## Simplified Source
+
+```c
+static char *_SPI_strdup(const char *s)
+{
+    size_t len = strlen(s) + 1;
+    char *ret = SPI_palloc(len);
+
+    memcpy(ret, s, len);
+    return ret;
+}
+```

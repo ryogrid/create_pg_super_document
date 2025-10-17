@@ -37,5 +37,24 @@ On non-Windows systems, the function also sets the directory permissions to matc
 - Permission setting via  is skipped on Windows platforms due to different permission models
 - The function uses  for initial directory creation, then applies archive-specific permissions
 - Error handling distinguishes between creation failures due to existing directories versus other system errors
-- The function integrates with PostgreSQL's error reporting system through 
+- The function integrates with PostgreSQL's error reporting system through
 - Located in src/bin/pg_basebackup/bbstreamer_file.c:317-341
+
+## Simplified Source
+
+```c
+static void
+extract_directory(const char *filename, mode_t mode)
+{
+    // Create directory, allow existing if it's a system directory
+    if (mkdir(filename, pg_dir_create_mode) != 0 &&
+        (errno != EEXIST || !should_allow_existing_directory(filename)))
+        pg_fatal("could not create directory \"%s\": %m", filename);
+
+#ifndef WIN32
+    // Set correct permissions on non-Windows systems
+    if (chmod(filename, mode))
+        pg_fatal("could not set permissions on directory \"%s\": %m", filename);
+#endif
+}
+```

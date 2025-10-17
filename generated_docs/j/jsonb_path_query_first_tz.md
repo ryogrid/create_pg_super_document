@@ -37,3 +37,15 @@ The function extracts the same parameters as the non-timezone version but proces
 - Returns NULL when no matching items are found, maintaining consistency with the non-timezone variant
 - Located in src/backend/utils/adt/jsonpath_exec.c:649-678
 - Part of PostgreSQL's comprehensive JSONPath timezone support infrastructure
+
+## Simplified Source
+
+```c
+Datum
+jsonb_path_query_first_tz(PG_FUNCTION_ARGS)
+{
+    // Simple wrapper that delegates to internal implementation
+    // with timezone handling enabled
+    return jsonb_path_query_first_internal(fcinfo, true);
+}
+```

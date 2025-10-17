@@ -57,3 +57,43 @@ This provides more precise control over timezone handling than the session-based
 - The timezone parameter accepts various formats handled by parse_sane_timezone
 - Can be called from SQL as: SELECT make_timestamptz_at_timezone(2023, 12, 25, 10, 30, 45.5, 'UTC');
 - Throws ERRCODE_DATETIME_VALUE_OUT_OF_RANGE errors for various validation failures
+
+## Simplified Source
+
+```c
+Datum make_timestamptz_at_timezone(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    int32 year = PG_GETARG_INT32(0);
+    int32 month = PG_GETARG_INT32(1);
+    int32 mday = PG_GETARG_INT32(2);
+    int32 hour = PG_GETARG_INT32(3);
+    int32 min = PG_GETARG_INT32(4);
+    float8 sec = PG_GETARG_FLOAT8(5);
+    text *zone = PG_GETARG_TEXT_PP(6);
+
+    struct pg_tm tt;
+    fsec_t fsec;
+    TimestampTz result;
+
+    // Create basic timestamp
+    Timestamp timestamp = make_timestamp_internal(year, month, mday, hour, min, sec);
+
+    // Convert timestamp to broken-down time structure
+    if (timestamp2tm(timestamp, NULL, &tt, &fsec, NULL, NULL) != 0) {
+        ereport(ERROR, "timestamp out of range");
+    }
+
+    // Parse the timezone specification
+    int tz = parse_sane_timezone(&tt, zone);
+
+    // Convert timestamp to specified timezone
+    result = dt2local(timestamp, -tz);
+
+    // Final validation
+    if (!IS_VALID_TIMESTAMP(result)) {
+        ereport(ERROR, "timestamp out of range");
+    }
+
+    PG_RETURN_TIMESTAMPTZ(result);
+}
+```

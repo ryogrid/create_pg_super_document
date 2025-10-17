@@ -43,3 +43,27 @@ When processing leaf keys, the function:
 - The compression is lossy but preserves search semantics for GiST index operations
 - Memory for the new GISTENTRY is allocated using palloc() when compression occurs
 - Part of the TSQuery GiST operator class implementation in src/backend/utils/adt/tsquery_gist.c
+
+## Simplified Source
+
+```c
+Datum gtsquery_compress(PG_FUNCTION_ARGS)
+{
+    GISTENTRY *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
+    GISTENTRY *result = entry;
+
+    // Compress only leaf keys by creating a signature
+    if (entry->leafkey) {
+        TSQuerySign signature;
+
+        result = (GISTENTRY *) palloc(sizeof(GISTENTRY));
+        signature = makeTSQuerySign(DatumGetTSQuery(entry->key));
+
+        // Initialize new entry with compressed signature
+        gistentryinit(*result, TSQuerySignGetDatum(signature),
+                      entry->rel, entry->page, entry->offset, false);
+    }
+
+    PG_RETURN_POINTER(result);
+}
+```

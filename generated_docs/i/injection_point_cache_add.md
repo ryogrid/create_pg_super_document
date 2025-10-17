@@ -41,3 +41,46 @@ This function manages a process-local cache of injection point callbacks that ha
 - Uses Assert(\!found) to ensure no duplicate entries are added
 - Cache is stored in TopMemoryContext to persist across transactions
 - Maximum number of injection points is limited by MAX_INJECTION_POINTS constant
+
+## Simplified Source
+
+```c
+static InjectionPointCacheEntry *
+injection_point_cache_add(const char *name,
+                          int slot_idx,
+                          uint64 generation,
+                          InjectionPointCallback callback,
+                          const void *private_data)
+{
+    InjectionPointCacheEntry *entry;
+    bool found;
+
+    // Initialize hash table on first use
+    if (InjectionPointCache == NULL) {
+        HASHCTL hash_ctl;
+        hash_ctl.keysize = sizeof(char[INJ_NAME_MAXLEN]);
+        hash_ctl.entrysize = sizeof(InjectionPointCacheEntry);
+        hash_ctl.hcxt = TopMemoryContext;
+
+        InjectionPointCache = hash_create("InjectionPoint cache hash",
+                                          MAX_INJECTION_POINTS,
+                                          &hash_ctl,
+                                          HASH_ELEM | HASH_STRINGS | HASH_CONTEXT);
+    }
+
+    // Add new entry to cache (should not already exist)
+    entry = (InjectionPointCacheEntry *)
+        hash_search(InjectionPointCache, name, HASH_ENTER, &found);
+
+    Assert(!found);  // Ensure no duplicates
+
+    // Populate cache entry
+    strlcpy(entry->name, name, sizeof(entry->name));
+    entry->slot_idx = slot_idx;
+    entry->generation = generation;
+    entry->callback = callback;
+    memcpy(entry->private_data, private_data, INJ_PRIVATE_MAXLEN);
+
+    return entry;
+}
+```

@@ -32,5 +32,20 @@ The function uses  to parse the input string as a 64-bit unsigned integer, then 
 ## Notes and Other Information
 - This is an essential function for PostgreSQL's type system, enabling conversion from textual representations to XID8 values
 - The function leverages existing uint64 parsing infrastructure to handle string conversion
-- Error messages and validation are handled by  with the type name 'xid8' for context
+- Error messages and validation are handled by uint64in_subr with the type name 'xid8' for context
 - Located in src/backend/utils/adt/xid.c alongside other transaction ID utility functions
+
+## Simplified Source
+
+```c
+Datum xid8in(PG_FUNCTION_ARGS) {
+    char *input_string = PG_GETARG_CSTRING(0);
+    uint64 parsed_value;
+
+    // Parse string as 64-bit unsigned integer
+    parsed_value = uint64in_subr(input_string, NULL, "xid8", fcinfo->context);
+
+    // Convert to FullTransactionId and return
+    PG_RETURN_FULLTRANSACTIONID(FullTransactionIdFromU64(parsed_value));
+}
+```

@@ -42,3 +42,41 @@ The function validates that the sample size is within valid bounds (between 0 an
 - Returns an error with code  if the sample size is out of bounds
 - The function operates only on the first dimension of multi-dimensional arrays
 - Sampling is performed without replacement, ensuring no duplicate elements in the result
+
+## Simplified Source
+
+```c
+Datum
+array_sample(PG_FUNCTION_ARGS)
+{
+    ArrayType  *array = PG_GETARG_ARRAYTYPE_P(0);
+    int         n = PG_GETARG_INT32(1);
+    ArrayType  *result;
+    Oid         elmtyp;
+    TypeCacheEntry *typentry;
+    int         nitem;
+
+    // Get number of items in first dimension
+    nitem = (ARR_NDIM(array) < 1) ? 0 : ARR_DIMS(array)[0];
+
+    // Validate sample size
+    if (n < 0 || n > nitem)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("sample size must be between 0 and %d", nitem)));
+
+    elmtyp = ARR_ELEMTYPE(array);
+
+    // Cache type information for efficiency across calls
+    typentry = (TypeCacheEntry *) fcinfo->flinfo->fn_extra;
+    if (typentry == NULL || typentry->type_id != elmtyp) {
+        typentry = lookup_type_cache(elmtyp, 0);
+        fcinfo->flinfo->fn_extra = (void *) typentry;
+    }
+
+    // Sample n items, reset lower bound to 1
+    result = array_shuffle_n(array, n, false, elmtyp, typentry);
+
+    PG_RETURN_ARRAYTYPE_P(result);
+}
+```

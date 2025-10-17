@@ -43,3 +43,34 @@ This hierarchical approach ensures that extension membership takes precedence, f
 - Tables inherit dump behavior from their containing namespace unless explicitly overridden
 - The function only sets the table's own dump flag, not any subsidiary object dump flags
 - Used in conjunction with namespace-level dump decisions to create a complete dump plan
+
+## Simplified Source
+
+```c
+static void
+selectDumpableTable(TableInfo *tbinfo, Archive *fout)
+{
+    // Check extension membership first - it overrides all other rules
+    if (checkExtensionMembership(&tbinfo->dobj, fout))
+        return;
+
+    // Determine dump policy based on inclusion lists or namespace inheritance
+    if (table_include_oids.head != NULL)
+    {
+        // Specific tables being dumped - check if this one is included
+        tbinfo->dobj.dump = simple_oid_list_member(&table_include_oids,
+                                                   tbinfo->dobj.catId.oid) ?
+                           DUMP_COMPONENT_ALL : DUMP_COMPONENT_NONE;
+    }
+    else
+    {
+        // No specific table list - inherit from parent namespace
+        tbinfo->dobj.dump = tbinfo->dobj.namespace->dobj.dump_contains;
+    }
+
+    // Apply exclusion list override
+    if (tbinfo->dobj.dump &&
+        simple_oid_list_member(&table_exclude_oids, tbinfo->dobj.catId.oid))
+        tbinfo->dobj.dump = DUMP_COMPONENT_NONE;
+}
+```

@@ -57,3 +57,97 @@ The parser is robust enough to handle PostgreSQL's full type syntax, including a
 - Essential for parsing regprocedure and regoperator input values in PostgreSQL's type system
 - Returns false only when escontext allows soft error handling; otherwise throws exceptions on parse errors
 - Memory allocated for rawname is properly freed before function return
+
+## Simplified Source
+
+```c
+static bool parseNameAndArgTypes(const char *string, bool allowNone, List **names,
+                                int *nargs, Oid *argtypes, Node *escontext) {
+    char *rawname = pstrdup(string);
+    char *ptr;
+    bool in_quote = false;
+
+    // Find opening parenthesis (not in quotes)
+    for (ptr = rawname; *ptr; ptr++) {
+        if (*ptr == '"') in_quote = !in_quote;
+        else if (*ptr == '(' && !in_quote) break;
+    }
+    if (*ptr == '\0') {
+        return ereturn(escontext, false, /* missing left paren error */);
+    }
+
+    // Split name and argument list
+    *ptr++ = '\0';
+    *names = stringToQualifiedNameList(rawname, escontext);
+    if (*names == NIL) return false;
+
+    // Find and validate closing parenthesis
+    char *ptr2 = ptr + strlen(ptr) - 1;
+    while (ptr2 > ptr && scanner_isspace(*ptr2)) ptr2--;
+    if (*ptr2 != ')') {
+        return ereturn(escontext, false, /* missing right paren error */);
+    }
+    *ptr2 = '\0';
+
+    // Parse comma-separated argument types
+    *nargs = 0;
+    bool had_comma = false;
+
+    while (*ptr) {
+        // Skip leading whitespace
+        while (scanner_isspace(*ptr)) ptr++;
+        if (*ptr == '\0') {
+            if (had_comma) {
+                return ereturn(escontext, false, /* expected type name error */);
+            }
+            break;
+        }
+
+        // Find end of type name (handle quotes and parentheses)
+        char *typename = ptr;
+        in_quote = false;
+        int paren_count = 0;
+
+        for (; *ptr; ptr++) {
+            if (*ptr == '"') in_quote = !in_quote;
+            else if (*ptr == ',' && !in_quote && paren_count == 0) break;
+            else if (!in_quote) {
+                if (*ptr == '(' || *ptr == '[') paren_count++;
+                else if (*ptr == ')' || *ptr == ']') paren_count--;
+            }
+        }
+
+        // Handle comma or end of string
+        if (*ptr == ',') {
+            had_comma = true;
+            *ptr++ = '\0';
+        } else {
+            had_comma = false;
+        }
+
+        // Trim trailing whitespace from typename
+        ptr2 = ptr - 1;
+        while (ptr2 >= typename && scanner_isspace(*ptr2)) *ptr2-- = '\0';
+
+        // Parse type name to OID
+        Oid typeid;
+        int32 typmod;
+        if (allowNone && pg_strcasecmp(typename, "none") == 0) {
+            typeid = InvalidOid;
+        } else {
+            if (!parseTypeString(typename, &typeid, &typmod, escontext))
+                return false;
+        }
+
+        if (*nargs >= FUNC_MAX_ARGS) {
+            return ereturn(escontext, false, /* too many arguments error */);
+        }
+
+        argtypes[*nargs] = typeid;
+        (*nargs)++;
+    }
+
+    pfree(rawname);
+    return true;
+}
+```

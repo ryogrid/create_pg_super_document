@@ -33,3 +33,15 @@ The comparison is performed using PostgreSQL's pg_cmp_s16 function, which provid
 - Sorts in ascending order by attribute number (adnum field)
 - Enables efficient binary search and comparison operations on AttrDefault arrays
 - Part of the relcache infrastructure for organizing attribute default information
+
+## Simplified Source
+
+```c
+static int AttrDefaultCmp(const void *a, const void *b) {
+    const AttrDefault *ada = (const AttrDefault *) a;
+    const AttrDefault *adb = (const AttrDefault *) b;
+
+    // Compare attribute numbers using PostgreSQL's 16-bit comparison
+    return pg_cmp_s16(ada->adnum, adb->adnum);
+}
+```

@@ -40,3 +40,29 @@ The function only records a dependency if the collation OID is valid and is not 
 - The objectSubId for collations is set to 0 since collations don't have sub-components
 - Essential for maintaining data integrity when custom collations are used in column definitions
 - Part of PostgreSQL's dependency tracking system for safe DDL operations
+
+## Simplified Source
+
+```c
+static void
+add_column_collation_dependency(Oid relid, int32 attnum, Oid collid)
+{
+    ObjectAddress myself, referenced;
+
+    // Skip dependency recording for default collation (it's pinned)
+    if (OidIsValid(collid) && collid != DEFAULT_COLLATION_OID) {
+        // Set up the column as the dependent object
+        myself.classId = RelationRelationId;
+        myself.objectId = relid;
+        myself.objectSubId = attnum;
+
+        // Set up the collation as the referenced object
+        referenced.classId = CollationRelationId;
+        referenced.objectId = collid;
+        referenced.objectSubId = 0;
+
+        // Record the dependency in pg_depend
+        recordDependencyOn(&myself, &referenced, DEPENDENCY_NORMAL);
+    }
+}
+```

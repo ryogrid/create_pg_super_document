@@ -41,3 +41,23 @@ The function supports both basic privileges (SET, ALTER SYSTEM) and their grant 
 - The privilege map is null-terminated for easy iteration
 - Leverages the generic privilege conversion framework through convert_any_priv_string
 - Part of the parameter privilege checking infrastructure in PostgreSQL's access control system
+
+## Simplified Source
+
+```c
+static AclMode
+convert_parameter_priv_string(text *privilege_text)
+{
+    // Define mapping table from privilege strings to ACL mode values
+    static const priv_map parameter_privilege_map[] = {
+        {"SET", ACL_SET},
+        {"SET WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_SET)},
+        {"ALTER SYSTEM", ACL_ALTER_SYSTEM},
+        {"ALTER SYSTEM WITH GRANT OPTION", ACL_GRANT_OPTION_FOR(ACL_ALTER_SYSTEM)},
+        {NULL, 0}  // Null terminator for map
+    };
+
+    // Use generic converter with parameter-specific privilege map
+    return convert_any_priv_string(privilege_text, parameter_privilege_map);
+}
+```

@@ -37,3 +37,32 @@ This function is primarily used in pg_amcheck for formatting error messages and 
 - The function handles empty strings and strings without newlines correctly
 - It's a static function, meaning it's only accessible within the pg_amcheck.c file
 - The function preserves the original content while only adding formatting indentation
+
+## Simplified Source
+
+```c
+static char *
+indent_lines(const char *str)
+{
+    PQExpBufferData buf;
+    const char *c;
+    char *result;
+
+    // Initialize buffer with first indent
+    initPQExpBuffer(&buf);
+    appendPQExpBufferStr(&buf, "    ");
+
+    // Process each character, adding indent after newlines
+    for (c = str; *c; c++)
+    {
+        appendPQExpBufferChar(&buf, *c);
+        if (c[0] == '\n' && c[1] != '\0')
+            appendPQExpBufferStr(&buf, "    ");
+    }
+
+    // Create result and cleanup
+    result = pstrdup(buf.data);
+    termPQExpBuffer(&buf);
+    return result;
+}
+```

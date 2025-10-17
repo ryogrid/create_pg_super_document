@@ -37,3 +37,37 @@ This function is the final step in the pg_createsubscriber process that converts
 - Critical for maintaining data consistency by setting correct LSN starting point
 - Part of the logical replication conversion workflow in PostgreSQL
 - Ensures clean state by removing conflicting publications and subscriptions before setup
+
+## Simplified Source
+
+```c
+static void
+setup_subscriber(struct LogicalRepInfo *dbinfo, const char *consistent_lsn)
+{
+    // Process each database for logical replication setup
+    for (int i = 0; i < num_dbs; i++) {
+        PGconn *conn;
+
+        // Connect to subscriber database
+        conn = connect_database(dbinfo[i].subconninfo, true);
+
+        // Clean up pre-existing subscriptions that could conflict
+        check_and_drop_existing_subscriptions(conn, &dbinfo[i]);
+
+        // Remove publications from subscriber (not needed on subscriber side)
+        drop_publication(conn, &dbinfo[i]);
+
+        // Create new subscription for logical replication
+        create_subscription(conn, &dbinfo[i]);
+
+        // Set replication starting point to consistent LSN
+        set_replication_progress(conn, &dbinfo[i], consistent_lsn);
+
+        // Enable the subscription to start replication
+        enable_subscription(conn, &dbinfo[i]);
+
+        // Clean up database connection
+        disconnect_database(conn, false);
+    }
+}
+```

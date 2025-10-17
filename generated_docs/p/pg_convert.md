@@ -60,3 +60,51 @@ Key characteristics:
 - Handles toasted input values appropriately with PG_FREE_IF_COPY
 - Part of PostgreSQL's comprehensive character set support system
 - Available directly to users for arbitrary encoding conversions
+
+## Simplified Source
+
+```c
+Datum
+pg_convert(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments
+    bytea *string = PG_GETARG_BYTEA_PP(0);
+    char *src_encoding_name = NameStr(*PG_GETARG_NAME(1));
+    char *dest_encoding_name = NameStr(*PG_GETARG_NAME(2));
+
+    // Convert encoding names to internal IDs
+    int src_encoding = pg_char_to_encoding(src_encoding_name);
+    int dest_encoding = pg_char_to_encoding(dest_encoding_name);
+
+    // Validate encoding names
+    if (src_encoding < 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("invalid source encoding name \"%s\"", src_encoding_name)));
+    if (dest_encoding < 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("invalid destination encoding name \"%s\"", dest_encoding_name)));
+
+    // Extract source string data and verify it's valid
+    int len = VARSIZE_ANY_EXHDR(string);
+    const char *src_str = VARDATA_ANY(string);
+    (void) pg_verify_mbstr(src_encoding, src_str, len, false);
+
+    // Perform the encoding conversion
+    char *dest_str = (char *) pg_do_encoding_conversion((unsigned char *) unconstify(char *, src_str),
+                                                        len, src_encoding, dest_encoding);
+
+    // If no conversion was needed, return original
+    if (dest_str == src_str)
+        PG_RETURN_BYTEA_P(string);
+
+    // Build result bytea and clean up
+    len = strlen(dest_str);
+    bytea *result = (bytea *) palloc(len + VARHDRSZ);
+    SET_VARSIZE(result, len + VARHDRSZ);
+    memcpy(VARDATA(result), dest_str, len);
+    pfree(dest_str);
+
+    PG_FREE_IF_COPY(string, 0);
+    PG_RETURN_BYTEA_P(result);
+}
+```

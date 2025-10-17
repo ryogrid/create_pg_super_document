@@ -44,3 +44,40 @@ This function manages the orderly shutdown of a streaming replication session wh
 - Records final stop position for caller reference
 - Critical for ensuring proper cleanup and protocol compliance during streaming termination
 - Must handle both normal shutdown and error conditions gracefully
+
+## Simplified Source
+
+```c
+static PGresult *
+HandleEndOfCopyStream(PGconn *conn, StreamCtl *stream, char *copybuf,
+                      XLogRecPtr blockpos, XLogRecPtr *stoppos)
+{
+    PGresult *res = PQgetResult(conn);
+
+    // If we're still sending, close gracefully
+    if (still_sending) {
+        // Close any open WAL file
+        if (!close_walfile(stream, blockpos)) {
+            PQclear(res);
+            return NULL;
+        }
+
+        // Send copy-end packet if needed
+        if (PQresultStatus(res) == PGRES_COPY_IN) {
+            if (PQputCopyEnd(conn, NULL) <= 0 || PQflush(conn)) {
+                pg_log_error("could not send copy-end packet: %s",
+                             PQerrorMessage(conn));
+                PQclear(res);
+                return NULL;
+            }
+            res = PQgetResult(conn);
+        }
+        still_sending = false;
+    }
+
+    // Cleanup and set final position
+    PQfreemem(copybuf);
+    *stoppos = blockpos;
+    return res;
+}
+```

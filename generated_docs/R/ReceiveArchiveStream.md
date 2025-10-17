@@ -42,3 +42,41 @@ The function manages several key aspects:
 - Backup manifest handling is conditional and depends on whether the manifest is being written to a separate file or injected into the tarfile
 - Proper cleanup is essential as the function manages file handles and streaming resources that must be properly closed/freed
 - The tablespacenum is initialized to -1 indicating no specific tablespace is initially selected
+
+## Simplified Source
+
+```c
+static void
+ReceiveArchiveStream(PGconn *conn, pg_compress_specification *compress)
+{
+    ArchiveStreamState state;
+
+    // Initialize state for archive stream processing
+    memset(&state, 0, sizeof(state));
+    state.tablespacenum = -1;
+    state.compress = compress;
+
+    // Process the COPY stream using callback function
+    ReceiveCopyData(conn, ReceiveArchiveStreamChunk, &state);
+
+    // Close manifest file if it was written
+    if (state.manifest_file != NULL) {
+        fclose(state.manifest_file);
+    }
+
+    // Inject manifest into tarfile if buffered
+    if (state.manifest_inject_streamer != NULL && state.manifest_buffer != NULL) {
+        bbstreamer_inject_file(state.manifest_inject_streamer,
+                              "backup_manifest",
+                              state.manifest_buffer->data,
+                              state.manifest_buffer->len);
+        destroyPQExpBuffer(state.manifest_buffer);
+    }
+
+    // Finalize and cleanup streamer resources
+    if (state.streamer != NULL) {
+        bbstreamer_finalize(state.streamer);
+        bbstreamer_free(state.streamer);
+    }
+}
+```

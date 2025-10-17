@@ -42,3 +42,66 @@ This test function performs thorough validation of Red-Black Tree range search f
 - Part of the PostgreSQL test suite for validating Red-Black Tree implementation
 - The function ensures that both search functions behave consistently when finding equal matches
 - Tests both inclusive (equal_match=true) and exclusive (equal_match=false) search modes
+
+## Simplified Source
+
+```c
+static void testfindltgt(int size) {
+    RBTree *tree = create_int_rbtree();
+
+    // Choose random key in range [0, size-1] to ensure we can find greater matches
+    int randomKey = pg_prng_uint64_range(&pg_global_prng_state, 0, size - 1);
+    IntRBTreeNode searchNode = {.key = randomKey};
+
+    // Populate tree with natural numbers 1 to size
+    rbt_populate(tree, size, 1);
+
+    // Test equal match finding - both functions should find same node
+    IntRBTreeNode *lteNode = (IntRBTreeNode *) rbt_find_less(tree, &searchNode, true);
+    IntRBTreeNode *gteNode = (IntRBTreeNode *) rbt_find_great(tree, &searchNode, true);
+
+    if (!lteNode || lteNode->key != randomKey)
+        elog(ERROR, "rbt_find_less() didn't find the equal key");
+    if (!gteNode || gteNode->key != randomKey)
+        elog(ERROR, "rbt_find_great() didn't find the equal key");
+    if (lteNode != gteNode)
+        elog(ERROR, "Functions found different equal keys");
+
+    // Test finding lesser keys with random deletions
+    bool keyDeleted = false;
+    for (searchNode.key = randomKey; searchNode.key > 0; searchNode.key--) {
+        IntRBTreeNode *node = (IntRBTreeNode *) rbt_find_less(tree, &searchNode, keyDeleted);
+
+        if (!node || node->key >= searchNode.key)
+            elog(ERROR, "rbt_find_less() didn't find a lesser key");
+
+        // Randomly delete found node
+        keyDeleted = (pg_prng_uint64_range(&pg_global_prng_state, 0, 1) == 1);
+        if (keyDeleted)
+            rbt_delete(tree, (RBTNode *) node);
+    }
+
+    // Test finding greater keys with random deletions
+    keyDeleted = false;
+    for (searchNode.key = randomKey; searchNode.key < size - 1; searchNode.key++) {
+        IntRBTreeNode *node = (IntRBTreeNode *) rbt_find_great(tree, &searchNode, keyDeleted);
+
+        if (!node || node->key <= searchNode.key)
+            elog(ERROR, "rbt_find_great() didn't find a greater key");
+
+        // Randomly delete found node
+        keyDeleted = (pg_prng_uint64_range(&pg_global_prng_state, 0, 1) == 1);
+        if (keyDeleted)
+            rbt_delete(tree, (RBTNode *) node);
+    }
+
+    // Test boundary conditions - should find nothing
+    searchNode.key = -1;
+    if (rbt_find_less(tree, &searchNode, true) != NULL)
+        elog(ERROR, "Found element below tree range");
+
+    searchNode.key = size;
+    if (rbt_find_great(tree, &searchNode, true) != NULL)
+        elog(ERROR, "Found element above tree range");
+}
+```

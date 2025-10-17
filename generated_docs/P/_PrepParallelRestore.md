@@ -47,3 +47,46 @@ For the last data item in the archive, the function can determine its length by 
 - The computed dataLength values guide the parallel restore job scheduler
 - Requires seekable files for complete functionality but can work with limited information
 - Part of the optional optimization interface for archive formats supporting parallel operations
+
+## Simplified Source
+
+```c
+static void
+_PrepParallelRestore(ArchiveHandle *AH)
+{
+    lclContext *ctx = (lclContext *) AH->formatData;
+    TocEntry *prev_te = NULL;
+    lclTocEntry *prev_tctx = NULL;
+    TocEntry *te;
+
+    // Calculate data length for each TOC entry using position deltas
+    // Data items are stored in TOC order, so length = next_pos - current_pos
+    for (te = AH->toc->next; te != AH->toc; te = te->next) {
+        lclTocEntry *tctx = (lclTocEntry *) te->formatData;
+
+        // Skip entries without valid data positions
+        if (tctx->dataState != K_OFFSET_POS_SET) {
+            continue;
+        }
+
+        // Calculate previous entry's length using position delta
+        if (prev_te && tctx->dataPos > prev_tctx->dataPos) {
+            prev_te->dataLength = tctx->dataPos - prev_tctx->dataPos;
+        }
+
+        prev_te = te;
+        prev_tctx = tctx;
+    }
+
+    // Calculate length of last data item using file end position
+    if (prev_te && ctx->hasSeek) {
+        pgoff_t end_position;
+
+        fseeko(AH->FH, 0, SEEK_END);
+        end_position = ftello(AH->FH);
+        if (end_position > prev_tctx->dataPos) {
+            prev_te->dataLength = end_position - prev_tctx->dataPos;
+        }
+    }
+}
+```

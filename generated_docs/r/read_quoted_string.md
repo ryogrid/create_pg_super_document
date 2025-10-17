@@ -37,3 +37,64 @@ This function reads a quoted string from filter input that can span across multi
 - Will terminate the program via exit_nicely on file read errors or unexpected end of file
 - Ignores trailing \r and \n characters as they are handled by pg_get_line_buf
 - Part of pg_dump's filter file parsing mechanism
+
+## Simplified Source
+
+```c
+static const char *read_quoted_string(FilterStateData *fstate,
+                                     const char *str,
+                                     PQExpBuffer pattern) {
+    appendPQExpBufferChar(pattern, '"');
+    str++;  // Skip opening quote
+
+    while (1) {
+        // Skip carriage return and newline chars
+        if (*str == '\r' || *str == '\n') {
+            str++;
+            continue;
+        }
+
+        // Handle end of line - read next line from file
+        if (*str == '\0') {
+            if (!pg_get_line_buf(fstate->fp, &fstate->linebuff)) {
+                if (ferror(fstate->fp))
+                    pg_log_error("could not read from filter file \"%s\": %m", fstate->filename);
+                else
+                    pg_log_filter_error(fstate, _("unexpected end of file"));
+                fstate->exit_nicely(1);
+            }
+            str = fstate->linebuff.data;
+            appendPQExpBufferChar(pattern, '\n');
+            fstate->lineno++;
+        }
+
+        // Handle closing quote and escaped quotes
+        if (*str == '"') {
+            appendPQExpBufferChar(pattern, '"');
+            str++;
+            if (*str == '"') {
+                // Escaped quote - add second quote and continue
+                appendPQExpBufferChar(pattern, '"');
+                str++;
+            } else {
+                break;  // End of quoted string
+            }
+        }
+        // Handle backslash escape sequences
+        else if (*str == '\\') {
+            str++;
+            if (*str == 'n')
+                appendPQExpBufferChar(pattern, '\n');
+            else if (*str == '\\')
+                appendPQExpBufferChar(pattern, '\\');
+            str++;
+        }
+        // Regular character
+        else {
+            appendPQExpBufferChar(pattern, *str++);
+        }
+    }
+
+    return str;
+}
+```

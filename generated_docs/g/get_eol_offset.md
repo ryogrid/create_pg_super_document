@@ -33,3 +33,24 @@ This function is essential for line-by-line processing of backup label files, al
 - Cursor position in the buffer is preserved and used as the starting search position
 - Used extensively in backup label parsing to process files line by line
 - Handles both Unix-style line endings (\n) - Windows-style line endings (\r\n) would require additional logic
+
+## Simplified Source
+
+```c
+static int
+get_eol_offset(StringInfo buf)
+{
+    int offset = buf->cursor;
+
+    // Search for newline character starting from cursor
+    while (offset < buf->len)
+    {
+        if (buf->data[offset] == '\n')
+            return offset + 1;  // Return position after newline
+        ++offset;
+    }
+
+    // No newline found, return end of buffer
+    return offset;
+}
+```

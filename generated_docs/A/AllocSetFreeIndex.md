@@ -41,3 +41,33 @@ The function assumes that the caller has already verified that size <= ALLOC_CHU
 - Uses compile-time assertions to ensure ALLOC_CHUNK_LIMIT fits in expected size constraints
 - Returns index 0 for sizes <= (1 << ALLOC_MINBITS), effectively handling small allocations in a single freelist
 - The logarithmic indexing scheme provides good distribution of chunk sizes across freelists while maintaining fast lookup performance
+
+## Simplified Source
+
+```c
+static inline int
+AllocSetFreeIndex(Size size)
+{
+    int idx;
+
+    // Small allocations go to freelist 0
+    if (size <= (1 << ALLOC_MINBITS)) {
+        return 0;
+    }
+
+    // For larger allocations, compute logarithmic index
+    // This maps size to freelist index: ceil(log2(size >> ALLOC_MINBITS))
+#ifdef HAVE_BITSCAN_REVERSE
+    // Use hardware bit scan if available
+    idx = pg_leftmost_one_pos32((uint32) size - 1) - ALLOC_MINBITS + 1;
+#else
+    // Fallback: optimized lookup table approach
+    uint32 tsize = size - 1;
+    uint32 t = tsize >> 8;
+    idx = t ? pg_leftmost_one_pos[t] + 8 : pg_leftmost_one_pos[tsize];
+    idx -= ALLOC_MINBITS - 1;
+#endif
+
+    return idx;
+}
+```

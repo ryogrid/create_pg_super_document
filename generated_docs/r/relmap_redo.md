@@ -42,3 +42,37 @@ This function processes  records during recovery, extracting the new mapping dat
 - Handles both new database creation and existing database relmap updates with the same record type
 - The function acquires locks and sends sinval messages even for new database creation cases, though unnecessary, for code simplicity
 - Located in src/backend/utils/cache/relmapper.c:1096-1141
+
+## Simplified Source
+
+```c
+void relmap_redo(XLogReaderState *record) {
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    // Only backup blocks are not used in relmap records
+    Assert(!XLogRecHasAnyBlockRefs(record));
+
+    if (info == XLOG_RELMAP_UPDATE) {
+        xl_relmap_update *xlrec = (xl_relmap_update *) XLogRecGetData(record);
+        RelMapFile newmap;
+        char *dbpath;
+
+        // Validate record size and copy mapping data
+        if (xlrec->nbytes != sizeof(RelMapFile))
+            elog(PANIC, "relmap_redo: wrong size %u in relmap update record", xlrec->nbytes);
+        memcpy(&newmap, xlrec->data, sizeof(newmap));
+
+        // Construct database path and write updated mapping file
+        dbpath = GetDatabasePath(xlrec->dbid, xlrec->tsid);
+
+        // Write relmap file with exclusive lock (no new WAL during replay)
+        LWLockAcquire(RelationMappingLock, LW_EXCLUSIVE);
+        write_relmap_file(&newmap, false, true, false, xlrec->dbid, xlrec->tsid, dbpath);
+        LWLockRelease(RelationMappingLock);
+
+        pfree(dbpath);
+    } else {
+        elog(PANIC, "relmap_redo: unknown op code %u", info);
+    }
+}
+```

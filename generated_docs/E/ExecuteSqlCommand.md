@@ -43,3 +43,38 @@ ExecuteSqlCommand is a utility function within pg_dump that wraps the execution 
 - Error handling is delegated to warn_or_exit_horribly, which may either warn or terminate the program depending on configuration
 - The pgCopyIn flag is set when PGRES_COPY_IN is encountered, allowing the caller to handle subsequent COPY data appropriately
 - Results are always cleaned up with PQclear to prevent memory leaks
+
+## Simplified Source
+
+```c
+static void
+ExecuteSqlCommand(ArchiveHandle *AH, const char *qry, const char *desc)
+{
+    PGconn *conn = AH->connection;
+    PGresult *res;
+
+    // Execute the SQL command
+    res = PQexec(conn, qry);
+
+    // Handle different result statuses
+    switch (PQresultStatus(res)) {
+        case PGRES_COMMAND_OK:
+        case PGRES_TUPLES_OK:
+        case PGRES_EMPTY_QUERY:
+            // Success cases
+            break;
+        case PGRES_COPY_IN:
+            // Set flag for COPY operations
+            AH->pgCopyIn = true;
+            break;
+        default:
+            // Handle errors
+            warn_or_exit_horribly(AH, "%s: %sCommand was: %s",
+                                desc, PQerrorMessage(conn), qry);
+            break;
+    }
+
+    // Clean up resources
+    PQclear(res);
+}
+```

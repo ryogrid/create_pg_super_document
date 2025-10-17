@@ -45,3 +45,13 @@ The function is designed for use cases where only the match/no-match result is n
 - More efficient than position-aware variants when only boolean results are needed
 - Part of PostgreSQL's full-text search infrastructure, commonly used in GiST index operations and ranking functions
 - The simplicity of this interface makes it suitable for most user-facing text search operations
+
+## Simplified Source
+
+```c
+bool TS_execute(QueryItem *curitem, void *arg, uint32 flags, TSExecuteCallback chkcond) {
+    // Delegate to recursive implementation and convert result to boolean
+    // TS_MAYBE is treated as true (only possible with TS_EXEC_PHRASE_NO_POS flag)
+    return TS_execute_recurse(curitem, arg, flags, chkcond) != TS_NO;
+}
+```

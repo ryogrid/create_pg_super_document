@@ -35,3 +35,16 @@ The function follows the standard C library qsort comparison interface and is sp
 - Used to create ordered MCV (Most Common Values) lists for selectivity estimation
 - The actual comparison logic is delegated to element_compare, which uses the element type's btree comparison operator
 - Critical for maintaining sorted order of statistical data used by the query planner
+
+## Simplified Source
+
+```c
+static int trackitem_compare_element(const void *e1, const void *e2, void *arg) {
+    // Cast to TrackItem pointers and extract key values
+    const TrackItem *const *t1 = (const TrackItem *const *) e1;
+    const TrackItem *const *t2 = (const TrackItem *const *) e2;
+
+    // Compare the actual element values using element_compare
+    return element_compare(&(*t1)->key, &(*t2)->key);
+}
+```

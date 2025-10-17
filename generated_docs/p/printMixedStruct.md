@@ -56,3 +56,59 @@ printMixedStruct is responsible for outputting PostgreSQL configuration paramete
 - For enum parameters: Uses config_enum_lookup_by_value to convert numeric value to string representation
 - Includes error handling for unrecognized parameter types
 - Uses internationalization macros (_) for translatable strings
+
+## Simplified Source
+
+```c
+static void
+printMixedStruct(mixedStruct *structToPrint)
+{
+    // Print common fields: name, context, group
+    printf("%s\t%s\t%s\t",
+           structToPrint->generic.name,
+           GucContext_Names[structToPrint->generic.context],
+           _(config_group_names[structToPrint->generic.group]));
+
+    // Print type-specific information
+    switch (structToPrint->generic.vartype) {
+        case PGC_BOOL:
+            printf("BOOLEAN\t%s\t\t\t",
+                   (structToPrint->_bool.reset_val == 0) ? "FALSE" : "TRUE");
+            break;
+
+        case PGC_INT:
+            printf("INTEGER\t%d\t%d\t%d\t",
+                   structToPrint->integer.reset_val,
+                   structToPrint->integer.min,
+                   structToPrint->integer.max);
+            break;
+
+        case PGC_REAL:
+            printf("REAL\t%g\t%g\t%g\t",
+                   structToPrint->real.reset_val,
+                   structToPrint->real.min,
+                   structToPrint->real.max);
+            break;
+
+        case PGC_STRING:
+            printf("STRING\t%s\t\t\t",
+                   structToPrint->string.boot_val ? structToPrint->string.boot_val : "");
+            break;
+
+        case PGC_ENUM:
+            printf("ENUM\t%s\t\t\t",
+                   config_enum_lookup_by_value(&structToPrint->_enum,
+                                               structToPrint->_enum.boot_val));
+            break;
+
+        default:
+            write_stderr("internal error: unrecognized run-time parameter type\n");
+            break;
+    }
+
+    // Print descriptions (short and long)
+    printf("%s\t%s\n",
+           (structToPrint->generic.short_desc == NULL) ? "" : _(structToPrint->generic.short_desc),
+           (structToPrint->generic.long_desc == NULL) ? "" : _(structToPrint->generic.long_desc));
+}
+```

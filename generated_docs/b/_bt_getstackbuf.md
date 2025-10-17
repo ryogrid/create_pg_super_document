@@ -56,3 +56,97 @@ The function ensures that callers can reliably find parent-child relationships e
 - The two-phase search (right first, then left) is tuned to the probability distribution of where pivot tuples are likely to be found
 - Part of the larger mechanism that enables lock-coupling in concurrent B-tree operations
 - Critical for maintaining consistency during complex operations like page splits that span multiple tree levels
+
+## Simplified Source
+
+```c
+Buffer
+_bt_getstackbuf(Relation rel, Relation heaprel, BTStack stack, BlockNumber child)
+{
+    BlockNumber blkno;
+    OffsetNumber start;
+
+    blkno = stack->bts_blkno;
+    start = stack->bts_offset;
+
+    // Loop through pages until we find the downlink
+    for (;;)
+    {
+        Buffer buf;
+        Page page;
+        BTPageOpaque opaque;
+
+        // Lock the current parent page
+        buf = _bt_getbuf(rel, blkno, BT_WRITE);
+        page = BufferGetPage(buf);
+        opaque = BTPageGetOpaque(page);
+
+        Assert(heaprel != NULL);
+
+        // Handle incomplete splits first
+        if (P_INCOMPLETE_SPLIT(opaque))
+        {
+            _bt_finish_split(rel, heaprel, buf, stack->bts_parent);
+            continue;
+        }
+
+        // Search the page for the downlink to child
+        if (!P_IGNORE(opaque))
+        {
+            OffsetNumber offnum, minoff, maxoff;
+            ItemId itemid;
+            IndexTuple item;
+
+            minoff = P_FIRSTDATAKEY(opaque);
+            maxoff = PageGetMaxOffsetNumber(page);
+
+            // Adjust start position if needed
+            if (start < minoff)
+                start = minoff;
+            if (start > maxoff)
+                start = OffsetNumberNext(maxoff);
+
+            // Search right from start position
+            for (offnum = start; offnum <= maxoff; offnum = OffsetNumberNext(offnum))
+            {
+                itemid = PageGetItemId(page, offnum);
+                item = (IndexTuple) PageGetItem(page, itemid);
+
+                if (BTreeTupleGetDownLink(item) == child)
+                {
+                    // Found it! Update stack and return
+                    stack->bts_blkno = blkno;
+                    stack->bts_offset = offnum;
+                    return buf;
+                }
+            }
+
+            // Search left from start position
+            for (offnum = OffsetNumberPrev(start); offnum >= minoff; offnum = OffsetNumberPrev(offnum))
+            {
+                itemid = PageGetItemId(page, offnum);
+                item = (IndexTuple) PageGetItem(page, itemid);
+
+                if (BTreeTupleGetDownLink(item) == child)
+                {
+                    // Found it! Update stack and return
+                    stack->bts_blkno = blkno;
+                    stack->bts_offset = offnum;
+                    return buf;
+                }
+            }
+        }
+
+        // Not found on this page, move right
+        if (P_RIGHTMOST(opaque))
+        {
+            _bt_relbuf(rel, buf);
+            return InvalidBuffer;  // Not found
+        }
+
+        blkno = opaque->btpo_next;
+        start = InvalidOffsetNumber;
+        _bt_relbuf(rel, buf);
+    }
+}
+```

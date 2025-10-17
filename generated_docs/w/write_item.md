@@ -37,3 +37,19 @@ The function reports FATAL errors if write operations fail, ensuring data integr
 - Simple binary format: [Size length][Data bytes] for each item
 - Counterpart reading is done in load_relcache_init_file() which reads length first, then data
 - File location: src/backend/utils/cache/relcache.c:6703-6725
+
+## Simplified Source
+
+```c
+static void
+write_item(const void *data, Size len, FILE *fp)
+{
+    // Write the data length first
+    if (fwrite(&len, 1, sizeof(len), fp) != sizeof(len))
+        ereport(FATAL, (errmsg_internal("could not write init file")));
+
+    // Write the actual data if length > 0
+    if (len > 0 && fwrite(data, 1, len, fp) != len)
+        ereport(FATAL, (errmsg_internal("could not write init file")));
+}
+```

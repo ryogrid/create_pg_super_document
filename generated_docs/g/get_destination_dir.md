@@ -35,3 +35,20 @@ The get_destination_dir function serves as a safe wrapper around the standard op
 - The '%m' format specifier in the error message automatically includes system error details
 - Essential for ensuring directory accessibility before WAL file operations begin
 - Part of pg_receivewal's initialization and setup process
+
+## Simplified Source
+
+```c
+static DIR *get_destination_dir(char *dest_folder) {
+    // Validate input parameter
+    Assert(dest_folder != NULL);
+
+    // Open the destination directory
+    DIR *dir = opendir(dest_folder);
+    if (dir == NULL) {
+        pg_fatal("could not open directory \"%s\": %m", dest_folder);
+    }
+
+    return dir;
+}
+```

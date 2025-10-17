@@ -35,3 +35,24 @@ The findoprnd function serves as the entry point for processing a tsquery struct
 - Essential step in tsquery processing pipeline between parsing and execution
 - Ensures structural integrity of the tsquery before it can be used for text searching
 - The validation check helps catch internal errors in query construction or transmission
+
+## Simplified Source
+
+```c
+static void
+findoprnd(QueryItem *ptr, int size, bool *needcleanup)
+{
+    uint32 pos;
+
+    // Initialize state
+    *needcleanup = false;
+    pos = 0;
+
+    // Perform recursive traversal to fill operator offsets
+    findoprnd_recurse(ptr, &pos, size, needcleanup);
+
+    // Validate that all nodes were processed
+    if (pos != size)
+        elog(ERROR, "malformed tsquery: extra nodes");
+}
+```

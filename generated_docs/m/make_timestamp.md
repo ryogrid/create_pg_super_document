@@ -43,3 +43,23 @@ This function corresponds to the SQL function  that can be called from SQL queri
 - All validation and error handling is performed by the underlying make_timestamp_internal function
 - Returns a timestamp without timezone information
 - Can be called from SQL as: SELECT make_timestamp(2023, 12, 25, 10, 30, 45.5);
+
+## Simplified Source
+
+```c
+Datum make_timestamp(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    int32 year = PG_GETARG_INT32(0);
+    int32 month = PG_GETARG_INT32(1);
+    int32 mday = PG_GETARG_INT32(2);
+    int32 hour = PG_GETARG_INT32(3);
+    int32 min = PG_GETARG_INT32(4);
+    float8 sec = PG_GETARG_FLOAT8(5);
+
+    // Create timestamp using internal function
+    Timestamp result = make_timestamp_internal(year, month, mday, hour, min, sec);
+
+    // Return as PostgreSQL Datum
+    PG_RETURN_TIMESTAMP(result);
+}
+```

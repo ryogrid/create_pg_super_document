@@ -49,3 +49,125 @@ The function handles version evolution gracefully, supporting multiple archive f
 - Contains detailed comments about timezone handling limitations and future improvement suggestions
 - Version-dependent parsing ensures backward compatibility across PostgreSQL releases
 - Compression support validation prevents silent failures when required libraries are missing
+
+## Simplified Source
+
+```c
+void
+ReadHead(ArchiveHandle *AH)
+{
+    char *errmsg;
+    char vmaj, vmin, vrev;
+    int fmt;
+
+    // Read and validate magic string if not already done
+    if (!AH->readHeader)
+    {
+        char magic[7];
+        AH->ReadBufPtr(AH, magic, 5);
+
+        if (strncmp(magic, "PGDMP", 5) != 0)
+            pg_fatal("did not find magic string in file header");
+    }
+
+    // Read version information
+    vmaj = AH->ReadBytePtr(AH);
+    vmin = AH->ReadBytePtr(AH);
+
+    if (vmaj > 1 || (vmaj == 1 && vmin > 0))  // Version > 1.0
+        vrev = AH->ReadBytePtr(AH);
+    else
+        vrev = 0;
+
+    AH->version = MAKE_ARCHIVE_VERSION(vmaj, vmin, vrev);
+
+    // Validate version compatibility
+    if (AH->version < K_VERS_1_0 || AH->version > K_VERS_MAX)
+        pg_fatal("unsupported version (%d.%d) in file header", vmaj, vmin);
+
+    // Read and validate integer size
+    AH->intSize = AH->ReadBytePtr(AH);
+    if (AH->intSize > 32)
+        pg_fatal("sanity check on integer size (%lu) failed", (unsigned long) AH->intSize);
+
+    if (AH->intSize > sizeof(int))
+        pg_log_warning("archive was made on a machine with larger integers, some operations might fail");
+
+    // Read offset size (introduced in version 1.7)
+    if (AH->version >= K_VERS_1_7)
+        AH->offSize = AH->ReadBytePtr(AH);
+    else
+        AH->offSize = AH->intSize;
+
+    // Validate format
+    fmt = AH->ReadBytePtr(AH);
+    if (AH->format != fmt)
+        pg_fatal("expected format (%d) differs from format found in file (%d)", AH->format, fmt);
+
+    // Read compression information based on version
+    if (AH->version >= K_VERS_1_15)
+    {
+        AH->compression_spec.algorithm = AH->ReadBytePtr(AH);
+    }
+    else if (AH->version >= K_VERS_1_2)
+    {
+        // Older versions: guess compression from level
+        if (AH->version < K_VERS_1_4)
+            AH->compression_spec.level = AH->ReadBytePtr(AH);
+        else
+            AH->compression_spec.level = ReadInt(AH);
+
+        if (AH->compression_spec.level != 0)
+            AH->compression_spec.algorithm = PG_COMPRESSION_GZIP;
+    }
+    else
+    {
+        AH->compression_spec.algorithm = PG_COMPRESSION_GZIP;
+    }
+
+    // Validate compression support
+    errmsg = supports_compression(AH->compression_spec);
+    if (errmsg)
+    {
+        pg_log_warning("archive is compressed, but this installation does not support compression (%s) -- no data will be available", errmsg);
+        pg_free(errmsg);
+    }
+
+    // Read creation timestamp (version 1.4+)
+    if (AH->version >= K_VERS_1_4)
+    {
+        struct tm crtm;
+
+        crtm.tm_sec = ReadInt(AH);
+        crtm.tm_min = ReadInt(AH);
+        crtm.tm_hour = ReadInt(AH);
+        crtm.tm_mday = ReadInt(AH);
+        crtm.tm_mon = ReadInt(AH);
+        crtm.tm_year = ReadInt(AH);
+        crtm.tm_isdst = ReadInt(AH);
+
+        // Convert to time_t with timezone fallback
+        AH->createDate = mktime(&crtm);
+        if (AH->createDate == (time_t) -1)
+        {
+            crtm.tm_isdst = -1;  // Let mktime() figure out DST
+            AH->createDate = mktime(&crtm);
+            if (AH->createDate == (time_t) -1)
+                pg_log_warning("invalid creation date in header");
+        }
+    }
+
+    // Read database name (version 1.4+)
+    if (AH->version >= K_VERS_1_4)
+    {
+        AH->archdbname = ReadStr(AH);
+    }
+
+    // Read version strings (version 1.10+)
+    if (AH->version >= K_VERS_1_10)
+    {
+        AH->archiveRemoteVersion = ReadStr(AH);
+        AH->archiveDumpVersion = ReadStr(AH);
+    }
+}
+```

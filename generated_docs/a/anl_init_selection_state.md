@@ -30,3 +30,20 @@ This function implements the initialization step for Vitter's Algorithm Z, which
 
 ## Notes and Other Information
 This function is part of PostgreSQL's implementation of Vitter's Algorithm Z for efficient reservoir sampling during table analysis. The W value it computes determines the skip length for the next iteration of the algorithm, allowing for more efficient sampling of large datasets. The mathematical formula exp(-log(U)/n) is mathematically equivalent to U^(1/n) but is computed using exp and log functions for numerical stability. The lazy initialization pattern ensures the random state is only set up when needed, sharing the same global state management as anl_random_fract().
+
+## Simplified Source
+
+```c
+double anl_init_selection_state(int n) {
+    // Initialize random state on first use (same as anl_random_fract)
+    if (unlikely(!oldrs_initialized)) {
+        sampler_random_init_state(pg_prng_uint32(&pg_global_prng_state),
+                                  &oldrs.randstate);
+        oldrs_initialized = true;
+    }
+
+    // Compute initial W value for Algorithm Z: W = U^(1/n)
+    // Using exp(-log(U)/n) for numerical stability
+    return exp(-log(sampler_random_fract(&oldrs.randstate)) / n);
+}
+```

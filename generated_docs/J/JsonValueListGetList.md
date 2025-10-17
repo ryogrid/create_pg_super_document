@@ -33,3 +33,17 @@ This function is essential for operations that need to iterate over all values i
 - Provides a uniform interface for accessing all values in a JsonValueList
 - Used primarily when all values need to be processed or returned as a query result
 - The function maintains the optimization benefits of JsonValueList while providing list compatibility
+
+## Simplified Source
+
+```c
+static List *
+JsonValueListGetList(JsonValueList *jvl)
+{
+    // Return singleton as single-element list, or existing list
+    if (jvl->singleton)
+        return list_make1(jvl->singleton);
+
+    return jvl->list;
+}
+```

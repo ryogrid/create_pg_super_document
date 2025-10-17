@@ -36,3 +36,17 @@ This function formats and outputs timestamp information as SQL comments in Postg
 - If strftime fails to format the timestamp (returns 0), no output is produced
 - The timestamp format includes timezone information (%Z) for better temporal context
 - Output format follows SQL comment syntax with "-- " prefix for compatibility with SQL parsers
+
+## Simplified Source
+
+```c
+static void
+dumpTimestamp(ArchiveHandle *AH, const char *msg, time_t tim)
+{
+    char buf[64];
+
+    // Format timestamp and output as SQL comment
+    if (strftime(buf, sizeof(buf), PGDUMP_STRFTIME_FMT, localtime(&tim)) != 0)
+        ahprintf(AH, "-- %s %s\n\n", msg, buf);
+}
+```

@@ -33,3 +33,24 @@ The text_to_array function is a PostgreSQL built-in function that splits a text 
 - Uses memset to initialize the output state structure to all zeroes
 - Handles edge cases by returning NULL for failed splits and empty arrays for no elements
 - Part of PostgreSQL's variable-length data type utilities
+
+## Simplified Source
+
+```c
+Datum text_to_array(PG_FUNCTION_ARGS) {
+    // Initialize output state for array construction
+    SplitTextOutputData tstate;
+    memset(&tstate, 0, sizeof(tstate));
+
+    // Delegate to split_text for the actual parsing work
+    if (!split_text(fcinfo, &tstate))
+        PG_RETURN_NULL();
+
+    // Handle empty result case
+    if (tstate.astate == NULL)
+        PG_RETURN_ARRAYTYPE_P(construct_empty_array(TEXTOID));
+
+    // Convert accumulated array state to final result
+    PG_RETURN_DATUM(makeArrayResult(tstate.astate, CurrentMemoryContext));
+}
+```

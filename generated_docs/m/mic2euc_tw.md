@@ -43,3 +43,63 @@ The `mic2euc_tw` function performs the reverse conversion of `euc_tw2mic`, conve
 - Null-terminates the output buffer
 - Complementary function to `euc_tw2mic` for bidirectional conversion support
 - Handles the complexity of converting from MULE's internal representation back to standard EUC-TW format
+
+## Simplified Source
+
+```c
+static int mic2euc_tw(const unsigned char *mic, unsigned char *p, int len, bool noError) {
+    const unsigned char *start = mic;
+
+    while (len > 0) {
+        int c1 = *mic;
+
+        if (!IS_HIGHBIT_SET(c1)) {
+            // ASCII character - copy directly
+            if (c1 == 0) {
+                if (noError) break;
+                report_invalid_encoding(PG_MULE_INTERNAL, (const char *) mic, len);
+            }
+            *p++ = c1;
+            mic++;
+            len--;
+            continue;
+        }
+
+        // Verify multi-byte character in MIC
+        int char_len = pg_encoding_verifymbchar(PG_MULE_INTERNAL, (const char *) mic, len);
+        if (char_len < 0) {
+            if (noError) break;
+            report_invalid_encoding(PG_MULE_INTERNAL, (const char *) mic, len);
+        }
+
+        // Convert MIC character set indicators to EUC-TW
+        if (c1 == LC_CNS11643_1) {
+            // Direct CNS11643-1 output
+            *p++ = mic[1];
+            *p++ = mic[2];
+        } else if (c1 == LC_CNS11643_2) {
+            // SS2 + 0xa2 + CNS code
+            *p++ = SS2;
+            *p++ = 0xa2;
+            *p++ = mic[1];
+            *p++ = mic[2];
+        } else if (c1 == LCPRV2_B &&
+                   mic[1] >= LC_CNS11643_3 && mic[1] <= LC_CNS11643_7) {
+            // SS2 + plane identifier + CNS code
+            *p++ = SS2;
+            *p++ = mic[1] - LC_CNS11643_3 + 0xa3;
+            *p++ = mic[2];
+            *p++ = mic[3];
+        } else {
+            if (noError) break;
+            report_untranslatable_char(PG_MULE_INTERNAL, PG_EUC_TW, (const char *) mic, len);
+        }
+
+        mic += char_len;
+        len -= char_len;
+    }
+
+    *p = '\0';
+    return mic - start;
+}
+```

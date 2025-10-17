@@ -30,3 +30,28 @@ This function implements efficient base conversion using a reverse-building algo
 
 ## Notes and Other Information
 The function is marked as static inline for performance, as it's called frequently by the various base conversion functions and the inlining optimization helps eliminate function call overhead. The buffer is sized to handle the longest possible output (binary representation of UINT64_MAX), which provides sufficient space for any supported base. The reverse-construction approach eliminates the need for string manipulation operations, making the conversion very efficient. The use of assertion checks ensures that the base parameter stays within the supported range, catching programming errors during development. The digit string "0123456789abcdef" provides a compact lookup table for all possible digit values in bases up to 16.
+
+## Simplified Source
+
+```c
+static inline text *convert_to_base(uint64 value, int base) {
+    const char *digits = "0123456789abcdef";
+
+    // Buffer sized for worst case (binary representation)
+    char buf[sizeof(uint64) * BITS_PER_BYTE];
+    char *const end = buf + sizeof(buf);
+    char *ptr = end;
+
+    Assert(base > 1);
+    Assert(base <= 16);
+
+    // Build string backwards - divide by base, use remainder as digit
+    do {
+        *--ptr = digits[value % base];
+        value /= base;
+    } while (ptr > buf && value);
+
+    // Convert result to PostgreSQL text type
+    return cstring_to_text_with_len(ptr, end - ptr);
+}
+```

@@ -59,3 +59,158 @@ The function implements sophisticated formatting logic, including proper escapin
 - Essential for debugging, logging, and displaying JsonPath expressions to users
 - The output format matches the original JsonPath input syntax, making it suitable for round-trip conversion
 - Supports all PostgreSQL JsonPath extensions including datetime functions and type conversions
+
+## Simplified Source
+
+```c
+static void
+printJsonPathItem(StringInfo buf, JsonPathItem *v, bool inKey, bool printBracketes)
+{
+    JsonPathItem elem;
+    int i;
+
+    check_stack_depth();
+    CHECK_FOR_INTERRUPTS();
+
+    switch (v->type) {
+        // Basic literals
+        case jpiNull:
+            appendStringInfoString(buf, "null");
+            break;
+        case jpiString:
+            escape_json(buf, jspGetString(v, NULL));
+            break;
+        case jpiNumeric:
+            // Handle parentheses for numeric values with next
+            if (jspHasNext(v)) appendStringInfoChar(buf, '(');
+            appendStringInfoString(buf,
+                DatumGetCString(DirectFunctionCall1(numeric_out,
+                    NumericGetDatum(jspGetNumeric(v)))));
+            if (jspHasNext(v)) appendStringInfoChar(buf, ')');
+            break;
+        case jpiBool:
+            appendStringInfoString(buf, jspGetBool(v) ? "true" : "false");
+            break;
+
+        // Binary operators (and, or, comparison, arithmetic)
+        case jpiAnd: case jpiOr: case jpiEqual: case jpiNotEqual:
+        case jpiLess: case jpiGreater: case jpiLessOrEqual: case jpiGreaterOrEqual:
+        case jpiAdd: case jpiSub: case jpiMul: case jpiDiv: case jpiMod:
+        case jpiStartsWith:
+            if (printBracketes) appendStringInfoChar(buf, '(');
+            // Left operand
+            jspGetLeftArg(v, &elem);
+            printJsonPathItem(buf, &elem, false,
+                operationPriority(elem.type) <= operationPriority(v->type));
+            // Operator
+            appendStringInfoChar(buf, ' ');
+            appendStringInfoString(buf, jspOperationName(v->type));
+            appendStringInfoChar(buf, ' ');
+            // Right operand
+            jspGetRightArg(v, &elem);
+            printJsonPathItem(buf, &elem, false,
+                operationPriority(elem.type) <= operationPriority(v->type));
+            if (printBracketes) appendStringInfoChar(buf, ')');
+            break;
+
+        // Unary operators
+        case jpiNot:
+            appendStringInfoString(buf, "!(");
+            jspGetArg(v, &elem);
+            printJsonPathItem(buf, &elem, false, false);
+            appendStringInfoChar(buf, ')');
+            break;
+        case jpiPlus: case jpiMinus:
+            if (printBracketes) appendStringInfoChar(buf, '(');
+            appendStringInfoChar(buf, v->type == jpiPlus ? '+' : '-');
+            jspGetArg(v, &elem);
+            printJsonPathItem(buf, &elem, false,
+                operationPriority(elem.type) <= operationPriority(v->type));
+            if (printBracketes) appendStringInfoChar(buf, ')');
+            break;
+
+        // Array and key access
+        case jpiAnyArray:
+            appendStringInfoString(buf, "[*]");
+            break;
+        case jpiAnyKey:
+            if (inKey) appendStringInfoChar(buf, '.');
+            appendStringInfoChar(buf, '*');
+            break;
+        case jpiIndexArray:
+            appendStringInfoChar(buf, '[');
+            for (i = 0; i < v->content.array.nelems; i++) {
+                JsonPathItem from, to;
+                bool range = jspGetArraySubscript(v, &from, &to, i);
+
+                if (i) appendStringInfoChar(buf, ',');
+                printJsonPathItem(buf, &from, false, false);
+                if (range) {
+                    appendStringInfoString(buf, " to ");
+                    printJsonPathItem(buf, &to, false, false);
+                }
+            }
+            appendStringInfoChar(buf, ']');
+            break;
+
+        // Special constructs
+        case jpiKey:
+            if (inKey) appendStringInfoChar(buf, '.');
+            escape_json(buf, jspGetString(v, NULL));
+            break;
+        case jpiCurrent:
+            appendStringInfoChar(buf, '@');
+            break;
+        case jpiRoot:
+            appendStringInfoChar(buf, '$');
+            break;
+        case jpiFilter:
+            appendStringInfoString(buf, "?(");
+            jspGetArg(v, &elem);
+            printJsonPathItem(buf, &elem, false, false);
+            appendStringInfoChar(buf, ')');
+            break;
+
+        // Functions (simplified - many similar cases)
+        case jpiType:
+            appendStringInfoString(buf, ".type()");
+            break;
+        case jpiSize:
+            appendStringInfoString(buf, ".size()");
+            break;
+        case jpiExists:
+            appendStringInfoString(buf, "exists (");
+            jspGetArg(v, &elem);
+            printJsonPathItem(buf, &elem, false, false);
+            appendStringInfoChar(buf, ')');
+            break;
+
+        // Regex matching
+        case jpiLikeRegex:
+            if (printBracketes) appendStringInfoChar(buf, '(');
+            jspInitByBuffer(&elem, v->base, v->content.like_regex.expr);
+            printJsonPathItem(buf, &elem, false,
+                operationPriority(elem.type) <= operationPriority(v->type));
+            appendStringInfoString(buf, " like_regex ");
+            escape_json(buf, v->content.like_regex.pattern);
+            // Handle regex flags if present
+            if (v->content.like_regex.flags) {
+                appendStringInfoString(buf, " flag \"");
+                // Add flag characters based on flags
+                if (v->content.like_regex.flags & JSP_REGEX_ICASE)
+                    appendStringInfoChar(buf, 'i');
+                // ... other flags
+                appendStringInfoChar(buf, '"');
+            }
+            if (printBracketes) appendStringInfoChar(buf, ')');
+            break;
+
+        default:
+            elog(ERROR, "unrecognized jsonpath item type: %d", v->type);
+    }
+
+    // Process next item in chain
+    if (jspGetNext(v, &elem))
+        printJsonPathItem(buf, &elem, true, true);
+}
+```

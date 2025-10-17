@@ -40,3 +40,27 @@ The function uses HASH_ENTER_NULL mode for hash_search, which allows it to detec
 - Returns true on successful insertion, false on out-of-memory conditions
 - The hash table automatically expands when needed during the HASH_ENTER_NULL operation
 - Error reporting allows callers to choose appropriate error handling based on context (e.g., during initialization vs. runtime)
+
+## Simplified Source
+
+```c
+static bool add_guc_variable(struct config_generic *var, int elevel) {
+    GUCHashEntry *hentry;
+    bool found;
+
+    // Add variable to GUC hash table
+    hentry = (GUCHashEntry *) hash_search(guc_hashtab, &var->name, HASH_ENTER_NULL, &found);
+
+    if (unlikely(hentry == NULL)) {
+        // Report out-of-memory error
+        ereport(elevel, (errcode(ERRCODE_OUT_OF_MEMORY), errmsg("out of memory")));
+        return false;
+    }
+
+    // Variable should not already exist
+    Assert(!found);
+    hentry->gucvar = var;
+
+    return true;
+}
+```

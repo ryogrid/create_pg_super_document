@@ -35,3 +35,30 @@ This function is part of PostgreSQL's regtype family of functions that provide s
 - Part of PostgreSQL's regtype function family
 - Located in src/backend/utils/adt/regproc.c
 - The function extracts only the type modifier part, discarding the type OID that parseTypeString also provides
+
+## Simplified Source
+
+```c
+Datum
+to_regtypemod(PG_FUNCTION_ARGS)
+{
+    // Convert input text to C string
+    char *type_name = text_to_cstring(PG_GETARG_TEXT_PP(0));
+
+    // Variables for parsing result
+    Oid type_id;
+    int32 type_modifier;
+
+    // Set up error handling context
+    ErrorSaveContext escontext = {T_ErrorSaveContext};
+
+    // Parse type string to extract OID and modifier
+    if (!parseTypeString(type_name, &type_id, &type_modifier, (Node *) &escontext)) {
+        // Return NULL if parsing fails
+        PG_RETURN_NULL();
+    }
+
+    // Return only the type modifier
+    PG_RETURN_INT32(type_modifier);
+}
+```

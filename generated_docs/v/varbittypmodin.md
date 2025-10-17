@@ -37,3 +37,15 @@ The function extracts the array of type modifiers passed from the SQL parser and
 - The function validates that length specifications are reasonable (between 1 and the maximum allowed)
 - Returns the validated length as a type modifier value that gets stored with the type information
 - Located in src/backend/utils/adt/varbit.c:774-781
+
+## Simplified Source
+
+```c
+Datum varbittypmodin(PG_FUNCTION_ARGS) {
+    // Extract type modifier array from function arguments
+    ArrayType *ta = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Delegate to shared varbit type modifier validation logic
+    PG_RETURN_INT32(anybit_typmodin(ta, "varbit"));
+}
+```

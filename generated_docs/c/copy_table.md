@@ -65,3 +65,111 @@ The function is designed to handle various table types (regular tables, views, p
 - Properly cleans up resources including relation mappings and temporary structures
 - Supports inheritance hierarchies by using ONLY clause for regular tables to avoid duplicating child table data
 - Performance-critical function that must efficiently handle tables with millions of rows during initial sync
+
+## Simplified Source
+
+```c
+static void copy_table(Relation rel)
+{
+    LogicalRepRelMapEntry *relmapentry;
+    LogicalRepRelation lrel;
+    List *qual = NIL;
+    WalRcvExecResult *res;
+    StringInfoData cmd;
+    CopyFromState cstate;
+    List *attnamelist;
+    ParseState *pstate;
+    List *options = NIL;
+
+    // Step 1: Get publisher table metadata
+    fetch_remote_table_info(get_namespace_name(RelationGetNamespace(rel)),
+                           RelationGetRelationName(rel), &lrel, &qual);
+
+    // Step 2: Update relation mapping
+    logicalrep_relmap_update(&lrel);
+    relmapentry = logicalrep_rel_open(lrel.remoteid, NoLock);
+    Assert(rel == relmapentry->localrel);
+
+    // Step 3: Build COPY command based on table characteristics
+    initStringInfo(&cmd);
+
+    if (lrel.relkind == RELKIND_RELATION && qual == NIL) {
+        // Simple case: regular table with no row filters
+        appendStringInfo(&cmd, "COPY %s",
+                        quote_qualified_identifier(lrel.nspname, lrel.relname));
+
+        // Add column list if needed
+        if (lrel.natts) {
+            appendStringInfoString(&cmd, " (");
+            for (int i = 0; i < lrel.natts; i++) {
+                if (i > 0)
+                    appendStringInfoString(&cmd, ", ");
+                appendStringInfoString(&cmd, quote_identifier(lrel.attnames[i]));
+            }
+            appendStringInfoChar(&cmd, ')');
+        }
+        appendStringInfoString(&cmd, " TO STDOUT");
+    } else {
+        // Complex case: views, partitioned tables, or tables with row filters
+        appendStringInfoString(&cmd, "COPY (SELECT ");
+
+        // Build column list (excluding generated columns)
+        for (int i = 0; i < lrel.natts; i++) {
+            appendStringInfoString(&cmd, quote_identifier(lrel.attnames[i]));
+            if (i < lrel.natts - 1)
+                appendStringInfoString(&cmd, ", ");
+        }
+
+        appendStringInfoString(&cmd, " FROM ");
+        if (lrel.relkind == RELKIND_RELATION)
+            appendStringInfoString(&cmd, "ONLY ");
+        appendStringInfoString(&cmd, quote_qualified_identifier(lrel.nspname, lrel.relname));
+
+        // Add row filters (OR'ed together)
+        if (qual != NIL) {
+            ListCell *lc;
+            char *q = strVal(linitial(qual));
+            appendStringInfo(&cmd, " WHERE %s", q);
+            for_each_from(lc, qual, 1) {
+                q = strVal(lfirst(lc));
+                appendStringInfo(&cmd, " OR %s", q);
+            }
+            list_free_deep(qual);
+        }
+        appendStringInfoString(&cmd, ") TO STDOUT");
+    }
+
+    // Step 4: Add binary format option for PG 16+ if enabled
+    if (walrcv_server_version(LogRepWorkerWalRcvConn) >= 160000 &&
+        MySubscription->binary) {
+        appendStringInfoString(&cmd, " WITH (FORMAT binary)");
+        options = list_make1(makeDefElem("format",
+                                       (Node *) makeString("binary"), -1));
+    }
+
+    // Step 5: Execute COPY command on publisher
+    res = walrcv_exec(LogRepWorkerWalRcvConn, cmd.data, 0, NULL);
+    pfree(cmd.data);
+
+    if (res->status != WALRCV_OK_COPY_OUT)
+        ereport(ERROR, (errcode(ERRCODE_CONNECTION_FAILURE),
+                errmsg("could not start initial contents copy for table \"%s.%s\"",
+                       lrel.nspname, lrel.relname)));
+    walrcv_clear_result(res);
+
+    // Step 6: Set up local COPY FROM with callback
+    copybuf = makeStringInfo();
+    pstate = make_parsestate(NULL);
+    addRangeTableEntryForRelation(pstate, rel, AccessShareLock,
+                                 NULL, false, false);
+    attnamelist = make_copy_attnamelist(relmapentry);
+    cstate = BeginCopyFrom(pstate, rel, NULL, NULL, false,
+                          copy_read_data, attnamelist, options);
+
+    // Step 7: Execute the copy operation
+    CopyFrom(cstate);
+
+    // Step 8: Cleanup
+    logicalrep_rel_close(relmapentry, NoLock);
+}
+```

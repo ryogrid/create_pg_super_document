@@ -51,3 +51,67 @@ The function continues reading until either the minimum read requirement is sati
 - Handles socket timeouts (1000ms) and various latch events (WL_LATCH_SET, WL_TIMEOUT, WL_EXIT_ON_PM_DEATH)
 - The callback interface allows it to be used with PostgreSQL's standard COPY infrastructure
 - Critical for performance during initial table synchronization as it manages the data flow between publisher and subscriber efficiently
+
+## Simplified Source
+
+```c
+static int copy_read_data(void *outbuf, int minread, int maxread)
+{
+    int bytesread = 0;
+    int avail;
+
+    // Use any leftover data from previous reads
+    avail = copybuf->len - copybuf->cursor;
+    if (avail) {
+        if (avail > maxread)
+            avail = maxread;
+        memcpy(outbuf, &copybuf->data[copybuf->cursor], avail);
+        copybuf->cursor += avail;
+        maxread -= avail;
+        bytesread += avail;
+    }
+
+    // Continue reading until minimum requirements met
+    while (maxread > 0 && bytesread < minread) {
+        pgsocket fd = PGINVALID_SOCKET;
+        int len;
+        char *buf = NULL;
+
+        // Try to receive data from WAL receiver
+        for (;;) {
+            len = walrcv_receive(LogRepWorkerWalRcvConn, &buf, &fd);
+
+            CHECK_FOR_INTERRUPTS();
+
+            if (len == 0)
+                break;  // No data available
+            else if (len < 0)
+                return bytesread;  // Error occurred
+            else {
+                // Process received data - copy what fits
+                copybuf->data = buf;
+                copybuf->len = len;
+                copybuf->cursor = 0;
+
+                avail = Min(copybuf->len, maxread);
+                memcpy(outbuf, copybuf->data, avail);
+                outbuf = (char *)outbuf + avail;
+                copybuf->cursor += avail;
+                maxread -= avail;
+                bytesread += avail;
+            }
+
+            if (maxread <= 0 || bytesread >= minread)
+                return bytesread;
+        }
+
+        // Wait for more data on socket
+        WaitLatchOrSocket(MyLatch, WL_SOCKET_READABLE | WL_LATCH_SET |
+                         WL_TIMEOUT | WL_EXIT_ON_PM_DEATH,
+                         fd, 1000L, WAIT_EVENT_LOGICAL_SYNC_DATA);
+        ResetLatch(MyLatch);
+    }
+
+    return bytesread;
+}
+```

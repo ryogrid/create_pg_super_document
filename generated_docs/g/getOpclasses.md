@@ -38,3 +38,61 @@ The getOpclasses function is part of pg_dump's catalog scanning infrastructure t
 - Operator classes are essential for index creation and query optimization as they define how data types can be indexed and compared
 - Memory allocation is done upfront for the entire operator class array based on query results
 - Operator classes work closely with operator families to provide a complete set of operators for indexing and sorting
+
+## Simplified Source
+
+```c
+OpclassInfo *
+getOpclasses(Archive *fout, int *numOpclasses)
+{
+    PGresult   *res;
+    int         ntups;
+    int         i;
+    PQExpBuffer query = createPQExpBuffer();
+    OpclassInfo *opcinfo;
+
+    // Query all operator classes from system catalog
+    appendPQExpBufferStr(query, "SELECT tableoid, oid, opcmethod, opcname, "
+                                "opcnamespace, opcowner "
+                                "FROM pg_opclass");
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+    *numOpclasses = ntups;
+
+    // Allocate array for operator class info
+    opcinfo = (OpclassInfo *) pg_malloc(ntups * sizeof(OpclassInfo));
+
+    // Get column indices for result fields
+    int i_tableoid = PQfnumber(res, "tableoid");
+    int i_oid = PQfnumber(res, "oid");
+    int i_opcmethod = PQfnumber(res, "opcmethod");
+    int i_opcname = PQfnumber(res, "opcname");
+    int i_opcnamespace = PQfnumber(res, "opcnamespace");
+    int i_opcowner = PQfnumber(res, "opcowner");
+
+    // Process each operator class result
+    for (i = 0; i < ntups; i++)
+    {
+        // Set object type and catalog info
+        opcinfo[i].dobj.objType = DO_OPCLASS;
+        opcinfo[i].dobj.catId.tableoid = atooid(PQgetvalue(res, i, i_tableoid));
+        opcinfo[i].dobj.catId.oid = atooid(PQgetvalue(res, i, i_oid));
+
+        // Assign dump ID and basic properties
+        AssignDumpId(&opcinfo[i].dobj);
+        opcinfo[i].dobj.name = pg_strdup(PQgetvalue(res, i, i_opcname));
+        opcinfo[i].dobj.namespace = findNamespace(atooid(PQgetvalue(res, i, i_opcnamespace)));
+        opcinfo[i].opcmethod = atooid(PQgetvalue(res, i, i_opcmethod));
+        opcinfo[i].rolname = getRoleName(PQgetvalue(res, i, i_opcowner));
+
+        // Determine if this operator class should be dumped
+        selectDumpableObject(&(opcinfo[i].dobj), fout);
+    }
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+
+    return opcinfo;
+}
+```

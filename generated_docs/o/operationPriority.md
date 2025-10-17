@@ -30,3 +30,31 @@ This static function assigns numeric priority values to JSON path operations acc
 - Essential for correct parenthesization in JSON path expression string representation
 - Comparison operators and 'starts with' share the same precedence level (2)
 - Binary arithmetic operations have different precedence than their unary counterparts (jpiAdd vs jpiPlus, jpiSub vs jpiMinus)
+
+## Simplified Source
+
+```c
+static int
+operationPriority(JsonPathItemType op)
+{
+    switch (op) {
+        case jpiOr:
+            return 0;  // Lowest precedence
+        case jpiAnd:
+            return 1;
+        case jpiEqual: case jpiNotEqual:
+        case jpiLess: case jpiGreater:
+        case jpiLessOrEqual: case jpiGreaterOrEqual:
+        case jpiStartsWith:
+            return 2;  // Comparison operators
+        case jpiAdd: case jpiSub:
+            return 3;  // Addition/subtraction
+        case jpiMul: case jpiDiv: case jpiMod:
+            return 4;  // Multiplication/division/modulo
+        case jpiPlus: case jpiMinus:
+            return 5;  // Unary operators
+        default:
+            return 6;  // Highest precedence
+    }
+}
+```

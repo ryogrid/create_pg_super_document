@@ -38,3 +38,17 @@ This function is executed in the leader process to send command messages to indi
 - Counterpart to , forming the bidirectional communication system
 - Critical component in PostgreSQL's parallel dump task distribution mechanism
 - The function assumes the worker index is valid and the worker's pipe is properly initialized
+
+## Simplified Source
+
+```c
+static void sendMessageToWorker(ParallelState *pstate, int worker, const char *str) {
+    // Calculate message length including null terminator
+    int len = strlen(str) + 1;
+
+    // Write message to the specified worker via pipe
+    if (pipewrite(pstate->parallelSlot[worker].pipeWrite, str, len) != len) {
+        pg_fatal("could not write to the communication channel: %m");
+    }
+}
+```

@@ -41,3 +41,37 @@ This mechanism is particularly useful for operations that need to attempt potent
 - Sets error_occurred flag in ErrorSaveContext to notify caller of error detection
 - Supports details_wanted flag to control whether full error information is collected
 - Uses recursion_depth tracking for consistency with standard error handling
+
+## Simplified Source
+
+```c
+bool
+errsave_start(struct Node *context, const char *domain)
+{
+    ErrorSaveContext *escontext;
+    ErrorData *edata;
+
+    // No soft error context provided - use normal error handling
+    if (context == NULL || !IsA(context, ErrorSaveContext))
+        return errstart(ERROR, domain);
+
+    // Set error_occurred flag in the context
+    escontext = (ErrorSaveContext *) context;
+    escontext->error_occurred = true;
+
+    // If caller only wants notification, skip detailed processing
+    if (!escontext->details_wanted)
+        return false;
+
+    // Set up error stack entry for detailed error info
+    recursion_depth++;
+    edata = get_error_stack_entry();
+    edata->elevel = LOG;  // Signal soft error to errsave_finish
+    set_stack_entry_domain(edata, domain);
+    edata->sqlerrcode = ERRCODE_INTERNAL_ERROR;
+    edata->assoc_context = CurrentMemoryContext;
+    recursion_depth--;
+
+    return true;  // Continue with error processing
+}
+```

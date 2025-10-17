@@ -45,3 +45,42 @@ The `text_starts_with` function is a PostgreSQL built-in function that determine
 - Properly handles TOAST (The Oversized-Attribute Storage Technique) for large text values
 - Part of PostgreSQL's text processing capabilities, particularly useful for pattern matching and indexing
 - The function is defined in `src/backend/utils/adt/varlena.c` at lines 1791-1830
+
+## Simplified Source
+
+```c
+Datum text_starts_with(PG_FUNCTION_ARGS) {
+    Datum arg1 = PG_GETARG_DATUM(0);  // Text to check (haystack)
+    Datum arg2 = PG_GETARG_DATUM(1);  // Prefix to find (needle)
+    Oid collid = PG_GET_COLLATION();
+
+    // Validate collation and ensure deterministic behavior
+    check_collation_set(collid);
+    if (!lc_collate_is_c(collid)) {
+        pg_locale_t mylocale = pg_newlocale_from_collation(collid);
+        if (!pg_locale_deterministic(mylocale)) {
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                errmsg("nondeterministic collations are not supported for substring searches")));
+        }
+    }
+
+    // Quick length check - prefix can't be longer than target
+    Size len1 = toast_raw_datum_size(arg1);
+    Size len2 = toast_raw_datum_size(arg2);
+    if (len2 > len1) {
+        PG_RETURN_BOOL(false);
+    }
+
+    // Extract prefix-length substring and compare
+    text *targ1 = text_substring(arg1, 1, len2, false);
+    text *targ2 = DatumGetTextPP(arg2);
+
+    bool result = (memcmp(VARDATA_ANY(targ1), VARDATA_ANY(targ2),
+                         VARSIZE_ANY_EXHDR(targ2)) == 0);
+
+    PG_FREE_IF_COPY(targ1, 0);
+    PG_FREE_IF_COPY(targ2, 1);
+
+    PG_RETURN_BOOL(result);
+}
+```

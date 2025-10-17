@@ -34,3 +34,15 @@ This function implements the "not equals" operator for the tid (tuple identifier
 - This is part of the family of tid comparison operators (tideq, tidne, tidlt, tidle, tidgt, tidge)
 - Returns the logical opposite of tideq (tid equals) function
 - Essential for SQL WHERE clauses and other conditional operations involving tuple identifiers
+
+## Simplified Source
+
+```c
+Datum tidne(PG_FUNCTION_ARGS) {
+    ItemPointer tid1 = PG_GETARG_ITEMPOINTER(0);
+    ItemPointer tid2 = PG_GETARG_ITEMPOINTER(1);
+
+    // Return true if TIDs are not equal (comparison result != 0)
+    PG_RETURN_BOOL(ItemPointerCompare(tid1, tid2) != 0);
+}
+```

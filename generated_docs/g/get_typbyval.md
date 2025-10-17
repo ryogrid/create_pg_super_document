@@ -39,3 +39,25 @@ This function is essential for the executor, type system, and serialization code
 - Common pass-by-reference types include: text, varchar, bytea, int8 (on 32-bit), numeric, arrays, and composite types
 - This information is critical for proper memory management and avoiding data corruption when handling type values
 - The function uses the system cache for performance optimization
+
+## Simplified Source
+
+```c
+bool get_typbyval(Oid typid) {
+    // Look up type in system cache
+    HeapTuple tp = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+
+    if (HeapTupleIsValid(tp)) {
+        // Extract type structure and get pass-by-value flag
+        Form_pg_type typtup = (Form_pg_type) GETSTRUCT(tp);
+        bool result = typtup->typbyval;
+        ReleaseSysCache(tp);
+        return result;
+    } else {
+        // Return false (pass-by-reference) if type not found
+        return false;
+    }
+}
+```
+
+This simplified version shows the function's straightforward catalog lookup pattern: search the type cache, extract the typbyval boolean flag that determines whether the type is passed by value or by reference, clean up the cache reference, and return false if the type doesn't exist (defaulting to safer pass-by-reference behavior).

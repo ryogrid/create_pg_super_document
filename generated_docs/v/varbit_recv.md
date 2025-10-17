@@ -44,3 +44,37 @@ The function performs comprehensive validation including length bounds checking 
 - Uses PostgreSQL's message buffer API (pq_getmsgint, pq_copymsgbytes) for binary protocol handling
 - Raises appropriate errors for invalid lengths and string truncation scenarios
 - Located in src/backend/utils/adt/varbit.c:636-680
+
+## Simplified Source
+
+```c
+Datum varbit_recv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    int32 atttypmod = PG_GETARG_INT32(2);
+
+    // Read bit length from binary message
+    int bitlen = pq_getmsgint(buf, sizeof(int32));
+
+    // Validate bit length
+    if (bitlen < 0 || bitlen > VARBITMAXLEN)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_BINARY_REPRESENTATION),
+                       errmsg("invalid length in external bit string")));
+
+    // Check against type modifier constraint for maximum length
+    if (atttypmod > 0 && bitlen > atttypmod)
+        ereport(ERROR, (errcode(ERRCODE_STRING_DATA_RIGHT_TRUNCATION),
+                       errmsg("bit string too long for type bit varying(%d)", atttypmod)));
+
+    // Allocate result structure
+    int len = VARBITTOTALLEN(bitlen);
+    VarBit *result = (VarBit *) palloc(len);
+    SET_VARSIZE(result, len);
+    VARBITLEN(result) = bitlen;
+
+    // Copy binary data and ensure proper padding
+    pq_copymsgbytes(buf, (char *) VARBITS(result), VARBITBYTES(result));
+    VARBIT_PAD(result);
+
+    PG_RETURN_VARBIT_P(result);
+}
+```

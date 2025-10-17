@@ -38,3 +38,34 @@ This function implements PostgreSQL's left() SQL function for extracting charact
 - Uses VARDATA_ANY and VARSIZE_ANY_EXHDR macros for safe text data access
 - Returns appropriate text datum using PostgreSQL's standard return conventions
 - Part of the text/varchar data type implementation in PostgreSQL
+
+## Simplified Source
+
+```c
+Datum
+text_left(PG_FUNCTION_ARGS)
+{
+    int n = PG_GETARG_INT32(1);
+
+    if (n < 0)
+    {
+        // Negative n: return all but last |n| characters
+        text *str = PG_GETARG_TEXT_PP(0);
+        const char *p = VARDATA_ANY(str);
+        int len = VARSIZE_ANY_EXHDR(str);
+        int rlen;
+
+        // Calculate position: total_chars + n (n is negative)
+        n = pg_mbstrlen_with_len(p, len) + n;
+
+        // Clip to character boundary
+        rlen = pg_mbcharcliplen(p, len, n);
+        PG_RETURN_TEXT_P(cstring_to_text_with_len(p, rlen));
+    }
+    else
+    {
+        // Positive n: return first n characters using text_substring
+        PG_RETURN_TEXT_P(text_substring(PG_GETARG_DATUM(0), 1, n, false));
+    }
+}
+```

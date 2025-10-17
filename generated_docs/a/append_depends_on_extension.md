@@ -56,3 +56,51 @@ The function performs a SQL query against `pg_depend` and `pg_extension` tables 
 - The generated ALTER statements ensure that when the dump is restored, the object will be properly marked as depending on the required extensions
 - Uses `fmtId()` for proper SQL identifier formatting and handles potential non-reentrancy issues by duplicating the object name
 - This mechanism is crucial for maintaining extension dependency relationships during database dumps and restores
+
+## Simplified Source
+
+```c
+static void append_depends_on_extension(Archive *fout,
+                                        PQExpBuffer create,
+                                        const DumpableObject *dobj,
+                                        const char *catalog,
+                                        const char *keyword,
+                                        const char *objname) {
+    if (dobj->depends_on_ext) {
+        char *nm;
+        PGresult *res;
+        PQExpBuffer query;
+
+        // Avoid fmtId() non-reentrancy by duplicating object name
+        nm = pg_strdup(objname);
+
+        query = createPQExpBuffer();
+
+        // Query to find all extensions this object depends on
+        appendPQExpBuffer(query,
+                          "SELECT e.extname "
+                          "FROM pg_catalog.pg_depend d, pg_catalog.pg_extension e "
+                          "WHERE d.refobjid = e.oid AND classid = '%s'::pg_catalog.regclass "
+                          "AND objid = '%u'::pg_catalog.oid AND deptype = 'x' "
+                          "AND refclassid = 'pg_catalog.pg_extension'::pg_catalog.regclass",
+                          catalog,
+                          dobj->catId.oid);
+
+        res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+        int ntups = PQntuples(res);
+        int i_extname = PQfnumber(res, "extname");
+
+        // Generate ALTER ... DEPENDS ON EXTENSION statement for each dependency
+        for (int i = 0; i < ntups; i++) {
+            appendPQExpBuffer(create, "\nALTER %s %s DEPENDS ON EXTENSION %s;",
+                              keyword, nm,
+                              fmtId(PQgetvalue(res, i, i_extname)));
+        }
+
+        // Cleanup
+        PQclear(res);
+        destroyPQExpBuffer(query);
+        pg_free(nm);
+    }
+}
+```

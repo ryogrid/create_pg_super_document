@@ -34,3 +34,13 @@ This function is considered obsolete in favor of GetUserIdAndSecContext, which p
 - Uses InLocalUserIdChange() to determine the security context flag value
 - Should not be used in new PostgreSQL code - [GetUserIdAndSecContext](GetUserIdAndSecContext.md) is preferred
 - Part of PostgreSQL's strategy to maintain external extension compatibility while evolving internal APIs
+
+## Simplified Source
+
+```c
+void GetUserIdAndContext(Oid *userid, bool *sec_def_context) {
+    // Return current user ID and local user change status
+    *userid = CurrentUserId;
+    *sec_def_context = InLocalUserIdChange();
+}
+```

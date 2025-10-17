@@ -42,3 +42,33 @@ If an unrecognized format is provided, the function terminates the program with 
 - The function uses case-insensitive comparison, allowing users to specify formats in any case
 - Both single-character and full-word format specifications are supported for user convenience
 - Error handling is immediate and fatal - invalid formats cause program termination rather than returning an error code
+
+## Simplified Source
+
+```c
+static ArchiveFormat parseArchiveFormat(const char *format, ArchiveMode *mode) {
+    ArchiveFormat archive_format;
+
+    // Default to write mode
+    *mode = archModeWrite;
+
+    // Parse format string (case-insensitive)
+    if (pg_strcasecmp(format, "a") == 0 || pg_strcasecmp(format, "append") == 0) {
+        // Special append mode for pg_dumpall (undocumented)
+        archive_format = archNull;
+        *mode = archModeAppend;
+    } else if (pg_strcasecmp(format, "c") == 0 || pg_strcasecmp(format, "custom") == 0) {
+        archive_format = archCustom;
+    } else if (pg_strcasecmp(format, "d") == 0 || pg_strcasecmp(format, "directory") == 0) {
+        archive_format = archDirectory;
+    } else if (pg_strcasecmp(format, "p") == 0 || pg_strcasecmp(format, "plain") == 0) {
+        archive_format = archNull;
+    } else if (pg_strcasecmp(format, "t") == 0 || pg_strcasecmp(format, "tar") == 0) {
+        archive_format = archTar;
+    } else {
+        pg_fatal("invalid output format \"%s\" specified", format);
+    }
+
+    return archive_format;
+}
+```

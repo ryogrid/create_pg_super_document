@@ -37,3 +37,17 @@ This function is used for more complex operations that require three parameters,
 - Located in src/backend/utils/fmgr/fmgr.c at lines 1431-1441
 - Less frequently used than lower-arity variants but essential for complex operations requiring three arguments
 - Part of a family including OidFunctionCall0Coll, OidFunctionCall1Coll, etc. for different argument counts
+
+## Simplified Source
+
+```c
+Datum OidFunctionCall3Coll(Oid functionId, Oid collation, Datum arg1, Datum arg2,
+                           Datum arg3) {
+    // Set up function manager info for the given function OID
+    FmgrInfo flinfo;
+    fmgr_info(functionId, &flinfo);
+
+    // Call the function with collation support and three arguments
+    return FunctionCall3Coll(&flinfo, collation, arg1, arg2, arg3);
+}
+```

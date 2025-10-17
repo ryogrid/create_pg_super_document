@@ -38,3 +38,28 @@ This function is a mixed-parameter variant of the pg_has_role privilege checking
 - Located in src/backend/utils/adt/acl.c:4755-4778
 - Part of the comprehensive pg_has_role function family that covers all combinations of name/OID parameters
 - Useful when role OIDs are available from system catalogs but usernames are more convenient for specification
+
+## Simplified Source
+
+```c
+Datum
+pg_has_role_name_id(PG_FUNCTION_ARGS)
+{
+    // Extract username, role OID, and privilege type from arguments
+    Name username = PG_GETARG_NAME(0);
+    Oid role_oid = PG_GETARG_OID(1);
+    text *privilege_text = PG_GETARG_TEXT_PP(2);
+
+    // Convert username to user OID
+    Oid user_oid = get_role_oid(NameStr(*username), false);
+
+    // Convert privilege string to internal privilege mode
+    AclMode privilege_mode = convert_role_priv_string(privilege_text);
+
+    // Check if user has the specified privilege on the role
+    AclResult check_result = pg_role_aclcheck(role_oid, user_oid, privilege_mode);
+
+    // Return true if privilege check passed, false otherwise
+    PG_RETURN_BOOL(check_result == ACLCHECK_OK);
+}
+```

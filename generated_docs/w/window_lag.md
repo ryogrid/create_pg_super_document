@@ -36,3 +36,16 @@ If the previous row doesn't exist (i.e., current row is the first row in the par
 - Part of a family of LAG functions including window_lag_with_offset and window_lag_with_offset_and_default
 - Follows SQL standard specification for the LAG() window function
 - Located in src/backend/utils/adt/windowfuncs.c:580-591
+
+## Simplified Source
+
+```c
+Datum window_lag(PG_FUNCTION_ARGS)
+{
+    // Call common LAG/LEAD implementation with LAG-specific parameters:
+    // - forward=false: backward direction (LAG)
+    // - withoffset=false: use default offset of 1
+    // - withdefault=false: no default value, return NULL if out of bounds
+    return leadlag_common(fcinfo, false, false, false);
+}
+```

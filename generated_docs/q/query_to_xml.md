@@ -43,3 +43,22 @@ This function provides more flexibility than `table_to_xml` as it can work with 
 - Part of PostgreSQL's SQL/XML standard compliance features
 - Returns XML data type that can be further processed or exported
 - [Query](../Q/Query.md) execution is read-only (uses SPI with read-only flag)
+
+## Simplified Source
+
+```c
+Datum
+query_to_xml(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    char *query = text_to_cstring(PG_GETARG_TEXT_PP(0));
+    bool include_nulls = PG_GETARG_BOOL(1);
+    bool table_forest_format = PG_GETARG_BOOL(2);
+    const char *target_namespace = text_to_cstring(PG_GETARG_TEXT_PP(3));
+
+    // Delegate to internal function and return XML result
+    PG_RETURN_XML_P(stringinfo_to_xmltype(
+        query_to_xml_internal(query, NULL, NULL, include_nulls,
+                             table_forest_format, target_namespace, true)));
+}
+```

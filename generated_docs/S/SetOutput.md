@@ -53,3 +53,48 @@ It also manages the opening mode based on the archive mode (append vs. write) an
 - Located in `src/bin/pg_dump/pg_backup_archiver.c:1675-1714`
 - The function will terminate the program with pg_fatal if the output file cannot be opened
 - Sets the AH->OF field to point to the initialized compression file handle
+
+## Simplified Source
+
+```c
+static void
+SetOutput(ArchiveHandle *AH, const char *filename,
+          const pg_compress_specification compression_spec)
+{
+    CompressFileHandle *CFH;
+    const char *mode;
+    int fn = -1;
+
+    // Determine output destination
+    if (filename) {
+        if (strcmp(filename, "-") == 0)
+            fn = fileno(stdout);
+    } else if (AH->FH) {
+        fn = fileno(AH->FH);
+    } else if (AH->fSpec) {
+        filename = AH->fSpec;
+    } else {
+        fn = fileno(stdout);
+    }
+
+    // Set file mode based on archive mode
+    if (AH->mode == archModeAppend)
+        mode = PG_BINARY_A;
+    else
+        mode = PG_BINARY_W;
+
+    // Initialize compression file handle
+    CFH = InitCompressFileHandle(compression_spec);
+
+    // Open the output file/stream
+    if (!CFH->open_func(filename, fn, mode, CFH)) {
+        if (filename)
+            pg_fatal("could not open output file \"%s\": %m", filename);
+        else
+            pg_fatal("could not open output file: %m");
+    }
+
+    // Set archive output file handle
+    AH->OF = CFH;
+}
+```

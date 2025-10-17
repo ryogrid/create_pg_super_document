@@ -46,3 +46,26 @@ The function operates within the custom archive format context and sets up the n
 - File position tracking enables efficient seeking during archive restoration
 - The BLK_DATA marker and dumpId serve as sanity checks during archive reading
 - Part of the pluggable archive format system that allows different storage formats for pg_dump output
+
+## Simplified Source
+
+```c
+static void
+_StartData(ArchiveHandle *AH, TocEntry *te)
+{
+    lclContext *ctx = (lclContext *) AH->formatData;
+    lclTocEntry *tctx = (lclTocEntry *) te->formatData;
+
+    // Record current file position for seeking during restoration
+    tctx->dataPos = _getFilePos(AH, ctx);
+    if (tctx->dataPos >= 0)
+        tctx->dataState = K_OFFSET_POS_SET;
+
+    // Write control markers for data block
+    _WriteByte(AH, BLK_DATA);    // Block type identifier
+    WriteInt(AH, te->dumpId);    // Sanity check ID
+
+    // Initialize compression for the data that follows
+    ctx->cs = AllocateCompressor(AH->compression_spec, NULL, _CustomWriteFunc);
+}
+```

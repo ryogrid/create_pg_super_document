@@ -45,3 +45,99 @@ The function performs several important tasks:
 - Sets DUMP_COMPONENT_ACL flag when namespaces have non-null ACL information
 - Memory allocation uses pg_malloc for the NamespaceInfo array
 - Returns allocated array that must be freed by caller
+
+## Simplified Source
+
+```c
+NamespaceInfo *getNamespaces(Archive *fout, int *numNamespaces)
+{
+    PGresult *res;
+    int ntups, i;
+    PQExpBuffer query;
+    NamespaceInfo *nsinfo;
+    int i_tableoid, i_oid, i_nspname, i_nspowner, i_nspacl, i_acldefault;
+
+    query = createPQExpBuffer();
+
+    // Query all namespaces including system ones
+    appendPQExpBufferStr(query,
+                         "SELECT n.tableoid, n.oid, n.nspname, n.nspowner, "
+                         "n.nspacl, acldefault('n', n.nspowner) AS acldefault "
+                         "FROM pg_namespace n");
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+
+    // Allocate array for namespace info
+    nsinfo = (NamespaceInfo *) pg_malloc(ntups * sizeof(NamespaceInfo));
+
+    // Get column indices
+    i_tableoid = PQfnumber(res, "tableoid");
+    i_oid = PQfnumber(res, "oid");
+    i_nspname = PQfnumber(res, "nspname");
+    i_nspowner = PQfnumber(res, "nspowner");
+    i_nspacl = PQfnumber(res, "nspacl");
+    i_acldefault = PQfnumber(res, "acldefault");
+
+    // Process each namespace
+    for (i = 0; i < ntups; i++) {
+        const char *nspowner;
+
+        // Initialize dump object
+        nsinfo[i].dobj.objType = DO_NAMESPACE;
+        nsinfo[i].dobj.catId.tableoid = atooid(PQgetvalue(res, i, i_tableoid));
+        nsinfo[i].dobj.catId.oid = atooid(PQgetvalue(res, i, i_oid));
+        AssignDumpId(&nsinfo[i].dobj);
+        nsinfo[i].dobj.name = pg_strdup(PQgetvalue(res, i, i_nspname));
+
+        // Set ACL information
+        nsinfo[i].dacl.acl = pg_strdup(PQgetvalue(res, i, i_nspacl));
+        nsinfo[i].dacl.acldefault = pg_strdup(PQgetvalue(res, i, i_acldefault));
+        nsinfo[i].dacl.privtype = 0;
+        nsinfo[i].dacl.initprivs = NULL;
+
+        // Set owner information
+        nspowner = PQgetvalue(res, i, i_nspowner);
+        nsinfo[i].nspowner = atooid(nspowner);
+        nsinfo[i].rolname = getRoleName(nspowner);
+
+        // Determine if this namespace should be dumped
+        selectDumpableNamespace(&nsinfo[i], fout);
+
+        // Mark ACL component if present
+        if (!PQgetisnull(res, i, i_nspacl))
+            nsinfo[i].dobj.components |= DUMP_COMPONENT_ACL;
+
+        // Special handling for 'public' schema ACL
+        if (strcmp(nsinfo[i].dobj.name, "public") == 0) {
+            PQExpBuffer aclarray = createPQExpBuffer();
+            PQExpBuffer aclitem = createPQExpBuffer();
+
+            // Create standard v15+ ACL: {owner=UC/owner,=U/owner}
+            appendPQExpBufferChar(aclarray, '{');
+            quoteAclUserName(aclitem, nsinfo[i].rolname);
+            appendPQExpBufferStr(aclitem, "=UC/");
+            quoteAclUserName(aclitem, nsinfo[i].rolname);
+            appendPGArray(aclarray, aclitem->data);
+            resetPQExpBuffer(aclitem);
+            appendPQExpBufferStr(aclitem, "=U/");
+            quoteAclUserName(aclitem, nsinfo[i].rolname);
+            appendPGArray(aclarray, aclitem->data);
+            appendPQExpBufferChar(aclarray, '}');
+
+            nsinfo[i].dacl.privtype = 'i';
+            nsinfo[i].dacl.initprivs = pstrdup(aclarray->data);
+            nsinfo[i].dobj.components |= DUMP_COMPONENT_ACL;
+
+            destroyPQExpBuffer(aclarray);
+            destroyPQExpBuffer(aclitem);
+        }
+    }
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+
+    *numNamespaces = ntups;
+    return nsinfo;
+}
+```

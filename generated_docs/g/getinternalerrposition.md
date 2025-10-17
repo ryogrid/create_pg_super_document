@@ -35,3 +35,19 @@ The function accesses the current error data context and returns the internal po
 - Specifically handles internal error positions (vs. user SQL positions)
 - Part of the PostgreSQL error reporting and logging subsystem
 - Used for errors in internally generated SQL or system queries
+
+## Simplified Source
+
+```c
+int
+getinternalerrposition(void)
+{
+    ErrorData *edata = &errordata[errordata_stack_depth];
+
+    // Validate stack state (no recursion_depth increment needed for simple accessor)
+    CHECK_STACK_DEPTH();
+
+    // Return the internal error position (0 if none set)
+    return edata->internalpos;
+}
+```

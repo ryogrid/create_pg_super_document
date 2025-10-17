@@ -48,3 +48,39 @@ The function includes several safety checks to ensure that parallel restore is f
 - Essential for parallel restore functionality
 - Preserves the exact file position across the reopen operation
 - Part of the archive format interface for supporting parallel operations
+
+## Simplified Source
+
+```c
+static void
+_ReopenArchive(ArchiveHandle *AH)
+{
+    lclContext *ctx = (lclContext *) AH->formatData;
+    pgoff_t current_position;
+
+    // Only support input archives for parallel restore
+    if (AH->mode == archModeWrite) {
+        pg_fatal("can only reopen input archives");
+    }
+
+    // Validate parallel restore prerequisites
+    if (AH->fSpec == NULL || strcmp(AH->fSpec, "") == 0) {
+        pg_fatal("parallel restore from standard input is not supported");
+    }
+    if (!ctx->hasSeek) {
+        pg_fatal("parallel restore from non-seekable file is not supported");
+    }
+
+    // Save current file position
+    current_position = ftello(AH->FH);
+
+#ifndef WIN32
+    // On Unix: close original handle (Windows keeps it open for threading)
+    fclose(AH->FH);
+#endif
+
+    // Open new file handle and restore position
+    AH->FH = fopen(AH->fSpec, PG_BINARY_R);
+    fseeko(AH->FH, current_position, SEEK_SET);
+}
+```

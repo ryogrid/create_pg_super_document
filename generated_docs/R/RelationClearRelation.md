@@ -57,3 +57,81 @@ For rebuilds, the function creates a temporary new entry, swaps its contents wit
 - Preserves pointer validity during rebuilds to prevent dangling references
 - Includes protection against concurrent catalog changes during reconstruction
 - Critical for maintaining cache consistency across DDL operations and invalidations
+
+## Simplified Source
+
+```c
+static void RelationClearRelation(Relation relation, bool rebuild) {
+    // Verify rebuild flag matches reference count status
+    Assert(rebuild ? !RelationHasReferenceCountZero(relation) :
+                      RelationHasReferenceCountZero(relation));
+
+    // Close storage files
+    RelationCloseSmgr(relation);
+
+    // Free AM cached data
+    if (relation->rd_amcache)
+        pfree(relation->rd_amcache);
+    relation->rd_amcache = NULL;
+
+    // Handle nailed (critical system) relations specially
+    if (relation->rd_isnailed) {
+        RelationReloadNailed(relation);
+        return;
+    }
+
+    // Mark invalid during rebuild
+    relation->rd_isvalid = false;
+
+    // Don't process dropped relations
+    if (relation->rd_droppedSubid != InvalidSubTransactionId)
+        return;
+
+    // Special handling for open indexes - reload info instead of full rebuild
+    if ((relation->rd_rel->relkind == RELKIND_INDEX ||
+         relation->rd_rel->relkind == RELKIND_PARTITIONED_INDEX) &&
+        relation->rd_refcnt > 0 && relation->rd_indexcxt != NULL) {
+        if (IsTransactionState())
+            RelationReloadIndexInfo(relation);
+        return;
+    }
+
+    // Destroy unused relations completely
+    if (!rebuild) {
+        RelationCacheDelete(relation);
+        RelationDestroyRelation(relation, false);
+        return;
+    }
+
+    // Skip rebuild if not in transaction state
+    if (!IsTransactionState())
+        return;
+
+    // Rebuild active relation in-place using swap strategy
+    {
+        Relation newrel;
+        Oid save_relid = RelationGetRelid(relation);
+        bool keep_tupdesc, keep_rules, keep_policies, keep_partkey;
+
+        // Build temporary replacement entry
+        newrel = RelationBuildDesc(save_relid, false);
+        if (newrel == NULL) {
+            if (HistoricSnapshotActive())
+                return;
+            elog(ERROR, "relation %u deleted while still in use", save_relid);
+        }
+
+        // Determine what to preserve during swap
+        keep_tupdesc = equalTupleDescs(relation->rd_att, newrel->rd_att);
+        keep_rules = equalRuleLocks(relation->rd_rules, newrel->rd_rules);
+        keep_policies = equalRSDesc(relation->rd_rsdesc, newrel->rd_rsdesc);
+        keep_partkey = (relation->rd_partkey != NULL);
+
+        // Perform swap of relation contents (simplified)
+        // [Detailed swap logic preserves pointers and reference counts]
+
+        // Destroy temporary entry, keeping old data that was preserved
+        RelationDestroyRelation(newrel, !keep_tupdesc);
+    }
+}
+```

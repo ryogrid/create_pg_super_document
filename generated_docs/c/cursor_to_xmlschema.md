@@ -44,3 +44,39 @@ This function generates an XML Schema Definition for the result set structure of
 - Complements cursor_to_xml by providing schema-only functionality
 - Useful for applications that need to understand result set structure before processing cursor data
 - Part of PostgreSQL's cursor-based XML functionality for incremental data processing
+
+## Simplified Source
+
+```c
+Datum
+cursor_to_xmlschema(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    char *cursor_name = text_to_cstring(PG_GETARG_TEXT_PP(0));
+    bool include_nulls = PG_GETARG_BOOL(1);
+    bool table_forest_format = PG_GETARG_BOOL(2);
+    const char *target_namespace = text_to_cstring(PG_GETARG_TEXT_PP(3));
+
+    const char *xmlschema;
+    Portal portal;
+
+    SPI_connect();
+
+    // Find and validate the cursor
+    portal = SPI_cursor_find(cursor_name);
+    if (portal == NULL)
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_CURSOR),
+                       errmsg("cursor \"%s\" does not exist", cursor_name)));
+    if (portal->tupDesc == NULL)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_CURSOR_STATE),
+                       errmsg("portal \"%s\" does not return tuples", cursor_name)));
+
+    // Generate schema from cursor tuple descriptor
+    xmlschema = _SPI_strdup(map_sql_table_to_xmlschema(portal->tupDesc,
+                                                      InvalidOid, include_nulls,
+                                                      table_forest_format, target_namespace));
+    SPI_finish();
+
+    PG_RETURN_XML_P(cstring_to_xmltype(xmlschema));
+}
+```

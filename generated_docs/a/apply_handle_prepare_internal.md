@@ -37,3 +37,31 @@ This function performs the core work of preparing a two-phase transaction during
 - Part of PostgreSQL's two-phase commit support in logical replication
 - The function is static and used internally by multiple prepare handling functions
 - Critical for maintaining consistency in two-phase commit scenarios across logical replication
+
+## Simplified Source
+
+```c
+static void
+apply_handle_prepare_internal(LogicalRepPreparedTxnData *prepare_data)
+{
+    char gid[GIDSIZE];
+
+    // Generate unique GID using subscription OID and transaction XID
+    // This prevents deadlocks when multiple subscriptions exist
+    TwoPhaseTransactionGid(MySubscription->oid, prepare_data->xid,
+                           gid, sizeof(gid));
+
+    // Ensure we have a transaction block for proper balancing
+    if (!IsTransactionBlock()) {
+        BeginTransactionBlock();
+        CommitTransactionCommand(); // Complete the Begin command
+    }
+
+    // Update origin state for crash recovery positioning
+    replorigin_session_origin_lsn = prepare_data->end_lsn;
+    replorigin_session_origin_timestamp = prepare_data->prepare_time;
+
+    // Execute the prepare operation
+    PrepareTransactionBlock(gid);
+}
+```

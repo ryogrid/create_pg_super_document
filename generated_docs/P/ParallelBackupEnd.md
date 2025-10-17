@@ -36,3 +36,38 @@ ParallelBackupEnd handles the orderly shutdown of parallel processing infrastruc
 - Performs cleanup of global state to prevent shutdown handler conflicts
 - For numWorkers == 1, performs no operations and returns immediately
 - Memory cleanup includes freeing the TocEntry array, ParallelSlot array, and ParallelState structure itself
+
+## Simplified Source
+
+```c
+void
+ParallelBackupEnd(ArchiveHandle *AH, ParallelState *pstate)
+{
+    int i;
+
+    // Single worker mode - no cleanup needed
+    if (pstate->numWorkers == 1)
+        return;
+
+    // Verify all workers are idle before shutdown
+    Assert(IsEveryWorkerIdle(pstate));
+
+    // Close communication pipes to signal workers to exit
+    for (i = 0; i < pstate->numWorkers; i++) {
+        closesocket(pstate->parallelSlot[i].pipeRead);
+        closesocket(pstate->parallelSlot[i].pipeWrite);
+    }
+
+    // Wait for all workers to terminate
+    WaitForTerminatingWorkers(pstate);
+
+    // Unlink from global shutdown and signal handling structures
+    shutdown_info.pstate = NULL;
+    set_cancel_pstate(NULL);
+
+    // Free allocated memory
+    free(pstate->te);
+    free(pstate->parallelSlot);
+    free(pstate);
+}
+```

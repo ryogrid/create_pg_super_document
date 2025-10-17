@@ -45,3 +45,101 @@ The function handles output redirection, allowing the summary to be written to a
 - Timestamp formatting follows the PGDUMP_STRFTIME_FMT standard for consistency
 - The TOC summary is always generated uncompressed regardless of archive compression settings
 - [Archive](../A/Archive.md) format detection covers all supported formats: CUSTOM, DIRECTORY, TAR, and UNKNOWN fallback
+
+## Simplified Source
+
+```c
+void
+PrintTOCSummary(Archive *AHX)
+{
+    ArchiveHandle *AH = (ArchiveHandle *) AHX;
+    RestoreOptions *ropt = AH->public.ropt;
+    TocEntry *te;
+    teSection curSection;
+    CompressFileHandle *sav;
+    const char *fmtName;
+    char stamp_str[64];
+
+    // Set up output (uncompressed TOC)
+    pg_compress_specification out_compression_spec = {0};
+    out_compression_spec.algorithm = PG_COMPRESSION_NONE;
+
+    sav = SaveOutput(AH);
+    if (ropt->filename)
+        SetOutput(AH, ropt->filename, out_compression_spec);
+
+    // Format timestamp
+    if (strftime(stamp_str, sizeof(stamp_str), PGDUMP_STRFTIME_FMT,
+                 localtime(&AH->createDate)) == 0)
+        strcpy(stamp_str, "[unknown]");
+
+    // Print archive header information
+    ahprintf(AH, ";\n; Archive created at %s\n", stamp_str);
+    ahprintf(AH, ";     dbname: %s\n;     TOC Entries: %d\n;     Compression: %s\n",
+             sanitize_line(AH->archdbname, false),
+             AH->tocCount,
+             get_compress_algorithm_name(AH->compression_spec.algorithm));
+
+    // Determine format name
+    switch (AH->format) {
+        case archCustom:   fmtName = "CUSTOM"; break;
+        case archDirectory: fmtName = "DIRECTORY"; break;
+        case archTar:      fmtName = "TAR"; break;
+        default:           fmtName = "UNKNOWN";
+    }
+
+    // Print version and format details
+    ahprintf(AH, ";     Dump Version: %d.%d-%d\n",
+             ARCHIVE_MAJOR(AH->version), ARCHIVE_MINOR(AH->version), ARCHIVE_REV(AH->version));
+    ahprintf(AH, ";     Format: %s\n", fmtName);
+    ahprintf(AH, ";     Integer: %d bytes\n", (int) AH->intSize);
+    ahprintf(AH, ";     Offset: %d bytes\n", (int) AH->offSize);
+
+    if (AH->archiveRemoteVersion)
+        ahprintf(AH, ";     Dumped from database version: %s\n", AH->archiveRemoteVersion);
+    if (AH->archiveDumpVersion)
+        ahprintf(AH, ";     Dumped by pg_dump version: %s\n", AH->archiveDumpVersion);
+
+    ahprintf(AH, ";\n;\n; Selected TOC Entries:\n;\n");
+
+    // Process TOC entries
+    curSection = SECTION_PRE_DATA;
+    for (te = AH->toc->next; te != AH->toc; te = te->next) {
+        // Update current section and check requirements
+        if (te->section != SECTION_NONE)
+            curSection = te->section;
+        te->reqs = _tocEntryRequired(te, curSection, AH);
+
+        // Print entry if verbose or if required
+        if (ropt->verbose || (te->reqs & (REQ_SCHEMA | REQ_DATA)) != 0) {
+            char *sanitized_name = sanitize_line(te->tag, false);
+            char *sanitized_schema = sanitize_line(te->namespace, true);
+            char *sanitized_owner = sanitize_line(te->owner, false);
+
+            ahprintf(AH, "%d; %u %u %s %s %s %s\n", te->dumpId,
+                     te->catalogId.tableoid, te->catalogId.oid,
+                     te->desc, sanitized_schema, sanitized_name, sanitized_owner);
+
+            free(sanitized_name);
+            free(sanitized_schema);
+            free(sanitized_owner);
+        }
+
+        // Print dependencies in verbose mode
+        if (ropt->verbose && te->nDeps > 0) {
+            ahprintf(AH, ";\tdepends on:");
+            for (int i = 0; i < te->nDeps; i++)
+                ahprintf(AH, " %d", te->dependencies[i]);
+            ahprintf(AH, "\n");
+        }
+    }
+
+    // Enforce strict name checking if requested
+    if (ropt->strict_names)
+        StrictNamesCheck(ropt);
+
+    // Restore original output
+    if (ropt->filename)
+        RestoreOutput(AH, sav);
+}
+```

@@ -48,3 +48,40 @@ Key behaviors:
 - Provides user-friendly error messages with hints for proper usage
 - Part of PostgreSQL's JSON-to-record conversion infrastructure
 - The error hint suggests using column definition lists in FROM clauses
+
+## Simplified Source
+
+```c
+static void
+get_record_type_from_query(FunctionCallInfo fcinfo,
+                           const char *funcname,
+                           PopulateRecordCache *cache)
+{
+    TupleDesc tupdesc;
+    MemoryContext old_cxt;
+
+    // Determine result type from query context
+    if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("could not determine row type for result of %s",
+                        funcname),
+                 errhint("Provide a non-null record argument, "
+                         "or call the function in the FROM clause "
+                         "using a column definition list.")));
+
+    Assert(tupdesc);
+    cache->argtype = tupdesc->tdtypeid;
+
+    // Clean up previous tuple descriptor to prevent memory leak
+    if (cache->c.io.composite.tupdesc)
+        FreeTupleDesc(cache->c.io.composite.tupdesc);
+
+    // Save tuple descriptor in function memory context
+    old_cxt = MemoryContextSwitchTo(cache->fn_mcxt);
+    cache->c.io.composite.tupdesc = CreateTupleDescCopy(tupdesc);
+    cache->c.io.composite.base_typid = tupdesc->tdtypeid;
+    cache->c.io.composite.base_typmod = tupdesc->tdtypmod;
+    MemoryContextSwitchTo(old_cxt);
+}
+```

@@ -46,3 +46,27 @@ This static function serves as the core implementation for JSONPath first-match 
 - The silent parameter controls error handling during path execution
 - Located in src/backend/utils/adt/jsonpath_exec.c:624-642
 - Efficiently handles cases where only the first match is needed
+
+## Simplified Source
+
+```c
+static Datum jsonb_path_query_first_internal(FunctionCallInfo fcinfo, bool tz) {
+    // Extract function arguments
+    Jsonb *jb = PG_GETARG_JSONB_P(0);        // JSONB document
+    JsonPath *jp = PG_GETARG_JSONPATH_P(1);  // JSONPath expression
+    Jsonb *vars = PG_GETARG_JSONB_P(2);      // Variables
+    bool silent = PG_GETARG_BOOL(3);         // Silent mode flag
+
+    JsonValueList found = {0};
+
+    // Execute JSONPath and collect matching values
+    executeJsonPath(jp, vars, getJsonPathVariableFromJsonb,
+                   countVariablesFromJsonb, jb, !silent, &found, tz);
+
+    // Return first match or NULL if no matches found
+    if (JsonValueListLength(&found) >= 1)
+        PG_RETURN_JSONB_P(JsonbValueToJsonb(JsonValueListHead(&found)));
+    else
+        PG_RETURN_NULL();
+}
+```

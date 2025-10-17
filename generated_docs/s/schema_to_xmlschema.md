@@ -34,3 +34,21 @@ This function serves as the PostgreSQL SQL function entry point for converting a
 
 ## Notes and Other Information
 This is a PostgreSQL C function that can be called from SQL using the schema_to_xmlschema() function. It follows PostgreSQL's function calling conventions using the PG_FUNCTION_ARGS macro and related argument extraction macros. The function handles type conversion between PostgreSQL internal types (Name, text) and C types (char*) before calling the internal implementation.
+
+## Simplified Source
+
+```c
+Datum
+schema_to_xmlschema(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    Name name = PG_GETARG_NAME(0);
+    bool nulls = PG_GETARG_BOOL(1);
+    bool tableforest = PG_GETARG_BOOL(2);
+    const char *targetns = text_to_cstring(PG_GETARG_TEXT_PP(3));
+
+    // Generate XML Schema for the named schema
+    return PG_RETURN_XML_P(stringinfo_to_xmltype(
+        schema_to_xmlschema_internal(NameStr(*name), nulls, tableforest, targetns)));
+}
+```

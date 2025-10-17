@@ -65,3 +65,93 @@ The function processes multi-byte characters by first validating their structure
 - Output buffer must be pre-allocated with sufficient space; the function does not perform bounds checking
 - Used extensively throughout PostgreSQL's character encoding conversion system for consistent UTF-8 conversion across all supported encodings
 - The function is critical for PostgreSQL's internationalization support, enabling proper text handling across different database encodings
+
+## Simplified Source
+
+```c
+int LocalToUtf(const unsigned char *iso, int len, unsigned char *utf,
+               const pg_mb_radix_tree *map, const pg_local_to_utf_combined *cmap, int cmapsize,
+               utf_local_conversion_func conv_func, int encoding, bool noError)
+{
+    const unsigned char *start = iso;
+
+    // Validate encoding
+    if (!PG_VALID_ENCODING(encoding)) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("invalid encoding number: %d", encoding)));
+    }
+
+    while (len > 0) {
+        // Check for invalid null byte
+        if (*iso == '\0') break;
+
+        // ASCII fast path: direct copy
+        if (!IS_HIGHBIT_SET(*iso)) {
+            *utf++ = *iso++;
+            len--;
+            continue;
+        }
+
+        // Verify multibyte character structure
+        int char_len = pg_encoding_verifymbchar(encoding, (const char *) iso, len);
+        if (char_len < 0) break;
+
+        // Pack character bytes into 32-bit value for lookup
+        uint32 local_char = 0;
+        for (int i = 0; i < char_len; i++) {
+            local_char = (local_char << 8) | iso[i];
+        }
+
+        // Try radix tree mapping first
+        if (map) {
+            uint32 converted = pg_mb_radix_conv(map, char_len,
+                                              (local_char >> 24) & 0xFF,
+                                              (local_char >> 16) & 0xFF,
+                                              (local_char >> 8) & 0xFF,
+                                              local_char & 0xFF);
+            if (converted) {
+                utf = store_coded_char(utf, converted);
+                iso += char_len;
+                len -= char_len;
+                continue;
+            }
+
+            // Try combined character mapping (produces multiple UTF-8 codepoints)
+            if (cmap) {
+                const pg_local_to_utf_combined *cp = bsearch(&local_char, cmap, cmapsize,
+                                                            sizeof(pg_local_to_utf_combined), compare4);
+                if (cp) {
+                    utf = store_coded_char(utf, cp->utf1);
+                    utf = store_coded_char(utf, cp->utf2);
+                    iso += char_len;
+                    len -= char_len;
+                    continue;
+                }
+            }
+        }
+
+        // Try algorithmic conversion function
+        if (conv_func) {
+            uint32 converted = (*conv_func)(local_char);
+            if (converted) {
+                utf = store_coded_char(utf, converted);
+                iso += char_len;
+                len -= char_len;
+                continue;
+            }
+        }
+
+        // Translation failed
+        if (noError) break;
+        report_untranslatable_char(encoding, PG_UTF8, (const char *) iso, len);
+    }
+
+    // Handle remaining invalid input
+    if (len > 0 && !noError) {
+        report_invalid_encoding(encoding, (const char *) iso, len);
+    }
+
+    *utf = '\0';
+    return iso - start;
+}
+```

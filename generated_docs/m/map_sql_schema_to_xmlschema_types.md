@@ -43,3 +43,57 @@ The function supports two output formats controlled by the  parameter:
 - The generated XML Schema uses the "xsd" namespace prefix for XML Schema constructs
 - Memory management relies on StringInfo for building the result string
 - The function constructs hierarchical type names using the database name, schema name, and relation names
+
+## Simplified Source
+
+```c
+static const char *map_sql_schema_to_xmlschema_types(Oid nspid, List *relid_list, bool nulls,
+                                                   bool tableforest, const char *targetns) {
+    StringInfoData result;
+    initStringInfo(&result);
+
+    // Get database and namespace names
+    char *dbname = get_database_name(MyDatabaseId);
+    char *nspname = get_namespace_name(nspid);
+    char *xmlsn = map_sql_identifier_to_xml_name(nspname, true, false);
+    char *schematypename = map_multipart_sql_identifier_to_xml_name("SchemaType", dbname, nspname, NULL);
+
+    // Create complex type for schema
+    appendStringInfo(&result, "<xsd:complexType name=\"%s\">\n", schematypename);
+
+    // Choose container based on format
+    if (!tableforest)
+        appendStringInfoString(&result, "  <xsd:all>\n");
+    else
+        appendStringInfoString(&result, "  <xsd:sequence>\n");
+
+    // Add elements for each relation in the schema
+    ListCell *cell;
+    foreach(cell, relid_list) {
+        Oid relid = lfirst_oid(cell);
+        char *relname = get_rel_name(relid);
+        char *xmltn = map_sql_identifier_to_xml_name(relname, true, false);
+        char *tabletypename = map_multipart_sql_identifier_to_xml_name(
+            tableforest ? "RowType" : "TableType", dbname, nspname, relname);
+
+        if (!tableforest)
+            appendStringInfo(&result, "    <xsd:element name=\"%s\" type=\"%s\"/>\n", xmltn, tabletypename);
+        else
+            appendStringInfo(&result,
+                "    <xsd:element name=\"%s\" type=\"%s\" minOccurs=\"0\" maxOccurs=\"unbounded\"/>\n",
+                xmltn, tabletypename);
+    }
+
+    // Close container and complex type
+    if (!tableforest)
+        appendStringInfoString(&result, "  </xsd:all>\n");
+    else
+        appendStringInfoString(&result, "  </xsd:sequence>\n");
+    appendStringInfoString(&result, "</xsd:complexType>\n\n");
+
+    // Add root element declaration
+    appendStringInfo(&result, "<xsd:element name=\"%s\" type=\"%s\"/>\n\n", xmlsn, schematypename);
+
+    return result.data;
+}
+```

@@ -41,5 +41,26 @@ The function serves as a wrapper around the lower-level `mic2latin` conversion r
 - Latin-4 (ISO 8859-4) is designed to cover languages like Estonian, Latvian, Lithuanian, Greenlandic, and Sami
 - The function returns the number of bytes converted as an integer
 - MULE Internal Code is an internal encoding format used by PostgreSQL for handling multibyte character sets
-- Error handling behavior depends on the `noError` parameter - [when](../w/when.md) true, invalid characters may be silently skipped or replaced
+- Error handling behavior depends on the `noError` parameter - when true, invalid characters may be silently skipped or replaced
 - The conversion uses the `LC_ISO8859_4` locale specification to ensure proper character mapping
+
+## Simplified Source
+
+```c
+Datum mic_to_latin4(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);   // Source MIC string
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);  // Destination buffer
+    int len = PG_GETARG_INT32(4);                                  // Source length
+    bool noError = PG_GETARG_BOOL(5);                              // Error handling flag
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_MULE_INTERNAL, PG_LATIN4);
+
+    // Convert MIC to Latin-4 using mic2latin with ISO 8859-4 character set
+    int converted = mic2latin(src, dest, len, LC_ISO8859_4, PG_LATIN4, noError);
+
+    // Return number of bytes converted
+    PG_RETURN_INT32(converted);
+}
+```

@@ -61,3 +61,61 @@ For contexts that cannot be recycled (freeListIndex < 0), it performs traditiona
 - The recycling mechanism reduces malloc/free overhead for frequently created/destroyed contexts
 - Assertion validates that only keeper block memory remains before final context header free
 - Freelist overflow handling prevents unbounded memory usage by discarding excess cached contexts
+
+## Simplified Source
+
+```c
+void
+AllocSetDelete(MemoryContext context)
+{
+    AllocSet set = (AllocSet) context;
+    AllocBlock block;
+
+    // Validate context and optionally check for corruption
+    Assert(AllocSetIsValid(set));
+#ifdef MEMORY_CONTEXT_CHECKING
+    AllocSetCheck(context);
+#endif
+
+    // Try to recycle the context if it's a standard size
+    if (set->freeListIndex >= 0) {
+        AllocSetFreeList *freelist = &context_freelists[set->freeListIndex];
+
+        // Reset context if needed to free non-keeper blocks
+        if (!context->isReset) {
+            MemoryContextResetOnly(context);
+        }
+
+        // If freelist is full, discard old contexts
+        if (freelist->num_free >= MAX_FREE_CONTEXTS) {
+            while (freelist->first_free != NULL) {
+                AllocSetContext *oldset = freelist->first_free;
+                freelist->first_free = (AllocSetContext *) oldset->header.nextchild;
+                freelist->num_free--;
+                free(oldset);
+            }
+        }
+
+        // Add this context to freelist for reuse
+        set->header.nextchild = (MemoryContext) freelist->first_free;
+        freelist->first_free = set;
+        freelist->num_free++;
+        return;
+    }
+
+    // Not recyclable - free all blocks including keeper
+    block = set->blocks;
+    while (block != NULL) {
+        AllocBlock next = block->next;
+
+        if (!IsKeeperBlock(set, block)) {
+            context->mem_allocated -= block->endptr - ((char *) block);
+            free(block);
+        }
+        block = next;
+    }
+
+    // Finally free the context header (includes keeper block)
+    free(set);
+}
+```

@@ -54,3 +54,93 @@ Key features include:
 - Ignores invalid operator characters instead of raising errors (more forgiving than standard mode)
 - Quoted strings bypass normal tsvector parsing and are treated as literal phrases
 - The ISOPERATOR macro helps identify characters that should be skipped in websearch mode
+
+## Simplified Source
+
+```c
+static ts_tokentype gettoken_query_websearch(TSQueryParserState state, int8 *operator,
+                                           int *lenval, char **strval,
+                                           int16 *weight, bool *prefix) {
+    *weight = 0;
+    *prefix = false;
+
+    while (true) {
+        switch (state->state) {
+            case WAITFIRSTOPERAND:
+            case WAITOPERAND:
+                // Handle minus sign for NOT operator
+                if (t_iseq(state->buf, '-')) {
+                    state->buf++;
+                    state->state = WAITOPERAND;
+                    *operator = OP_NOT;
+                    return PT_OPR;
+                }
+                // Handle quoted phrases
+                else if (t_iseq(state->buf, '"')) {
+                    state->buf++;  // Skip opening quote
+                    *strval = state->buf;
+
+                    // Find closing quote or end of string
+                    while (*state->buf != '\0' && !t_iseq(state->buf, '"'))
+                        state->buf++;
+                    *lenval = state->buf - *strval;
+
+                    if (*state->buf != '\0')  // Skip closing quote
+                        state->buf++;
+
+                    state->state = WAITOPERATOR;
+                    state->count++;
+                    return PT_VAL;
+                }
+                // Skip invalid operators
+                else if (ISOPERATOR(state->buf)) {
+                    state->buf++;
+                    state->state = WAITOPERAND;
+                    continue;
+                }
+                // Parse regular operands
+                else if (!t_isspace(state->buf)) {
+                    reset_tsvector_parser(state->valstate, state->buf);
+                    if (gettoken_tsvector(state->valstate, strval, lenval, NULL, NULL, &state->buf)) {
+                        state->state = WAITOPERATOR;
+                        return PT_VAL;
+                    }
+                    // Handle end of input or errors
+                    if (state->state == WAITFIRSTOPERAND)
+                        return PT_END;
+                    else {
+                        pushStop(state);
+                        return PT_END;
+                    }
+                }
+                break;
+
+            case WAITOPERATOR:
+                if (*state->buf == '\0') {
+                    return PT_END;
+                }
+                // Check for OR operator
+                else if (parse_or_operator(state)) {
+                    state->state = WAITOPERAND;
+                    *operator = OP_OR;
+                    return PT_OPR;
+                }
+                // Skip other operators
+                else if (ISOPERATOR(state->buf)) {
+                    state->buf++;
+                    continue;
+                }
+                // Insert implicit AND between operands
+                else if (!t_isspace(state->buf)) {
+                    state->state = WAITOPERAND;
+                    *operator = OP_AND;
+                    return PT_OPR;
+                }
+                break;
+        }
+
+        // Advance to next character
+        state->buf += pg_mblen(state->buf);
+    }
+}
+```

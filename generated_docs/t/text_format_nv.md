@@ -30,3 +30,13 @@ This function serves as a simple wrapper around the text_format function. Its pr
 - Part of PostgreSQL's format() SQL function implementation architecture
 - Required to maintain proper separation between variadic and non-variadic function interfaces
 - The wrapper pattern is common in PostgreSQL for functions that need both variadic and fixed-argument variants
+
+## Simplified Source
+
+```c
+Datum text_format_nv(PG_FUNCTION_ARGS) {
+    // Simple non-variadic wrapper for text_format
+    // Required for PostgreSQL's opr_sanity consistency checks
+    return text_format(fcinfo);
+}
+```

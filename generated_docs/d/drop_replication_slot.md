@@ -46,3 +46,45 @@ The function is designed to be resilient - if dropping fails, it marks the slot 
 - Error handling includes updating the LogicalRepInfo state to prevent retry attempts
 - Proper memory management with PQfreemem() and destroyPQExpBuffer()
 - Part of the pg_createsubscriber tool's cleanup and error recovery mechanisms
+
+## Simplified Source
+
+```c
+static void
+drop_replication_slot(PGconn *conn, struct LogicalRepInfo *dbinfo,
+                      const char *slot_name)
+{
+    PQExpBuffer str = createPQExpBuffer();
+    char *slot_name_esc;
+    PGresult *res;
+
+    Assert(conn != NULL);
+
+    pg_log_info("dropping the replication slot \"%s\" in database \"%s\"",
+                slot_name, dbinfo->dbname);
+
+    // Escape slot name for safe SQL usage
+    slot_name_esc = PQescapeLiteral(conn, slot_name, strlen(slot_name));
+
+    // Build SQL command to drop replication slot
+    appendPQExpBuffer(str, "SELECT pg_catalog.pg_drop_replication_slot(%s)", slot_name_esc);
+
+    PQfreemem(slot_name_esc);
+
+    pg_log_debug("command is: %s", str->data);
+
+    // Execute command unless in dry-run mode
+    if (!dry_run) {
+        res = PQexec(conn, str->data);
+        if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+            pg_log_error("could not drop replication slot \"%s\" in database \"%s\": %s",
+                         slot_name, dbinfo->dbname, PQresultErrorMessage(res));
+            dbinfo->made_replslot = false;  // Don't try again
+        }
+
+        PQclear(res);
+    }
+
+    destroyPQExpBuffer(str);
+}
+```

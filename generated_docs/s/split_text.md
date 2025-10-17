@@ -48,3 +48,102 @@ The split_text function is the central text processing engine that handles strin
 - Returns false if the overall result should be NULL, true otherwise
 - Caller must handle empty result sets (when no elements are produced)
 - Part of PostgreSQL's variable-length data type utilities core engine
+
+## Simplified Source
+
+```c
+static bool split_text(FunctionCallInfo fcinfo, SplitTextOutputData *tstate) {
+    text *inputstring;
+    text *fldsep;
+    text *null_string;
+    Oid collation = PG_GET_COLLATION();
+
+    // Return false (NULL result) if input string is NULL
+    if (PG_ARGISNULL(0))
+        return false;
+
+    inputstring = PG_GETARG_TEXT_PP(0);
+
+    // Handle optional field separator
+    fldsep = PG_ARGISNULL(1) ? NULL : PG_GETARG_TEXT_PP(1);
+
+    // Handle optional null replacement string
+    null_string = (PG_NARGS() > 2 && !PG_ARGISNULL(2)) ?
+                  PG_GETARG_TEXT_PP(2) : NULL;
+
+    if (fldsep != NULL) {
+        // Normal delimiter-based splitting
+        int inputstring_len = VARSIZE_ANY_EXHDR(inputstring);
+        int fldsep_len = VARSIZE_ANY_EXHDR(fldsep);
+
+        // Handle empty input
+        if (inputstring_len < 1)
+            return true;
+
+        // Handle empty separator - return input as single element
+        if (fldsep_len < 1) {
+            split_text_accum_result(tstate, inputstring, null_string, collation);
+            return true;
+        }
+
+        // Setup text search for delimiter
+        TextPositionState state;
+        text_position_setup(inputstring, fldsep, collation, &state);
+
+        char *start_ptr = VARDATA_ANY(inputstring);
+
+        // Process each field separated by delimiter
+        for (;;) {
+            CHECK_FOR_INTERRUPTS();
+
+            bool found = text_position_next(&state);
+            char *end_ptr;
+            int chunk_len;
+
+            if (!found) {
+                // Last field - from current position to end
+                chunk_len = ((char *) inputstring + VARSIZE_ANY(inputstring)) - start_ptr;
+            } else {
+                // Regular field - from current position to delimiter
+                end_ptr = text_position_get_match_ptr(&state);
+                chunk_len = end_ptr - start_ptr;
+            }
+
+            // Create text datum for this field and accumulate it
+            text *result_text = cstring_to_text_with_len(start_ptr, chunk_len);
+            split_text_accum_result(tstate, result_text, null_string, collation);
+            pfree(result_text);
+
+            if (!found)
+                break;
+
+            // Move past the delimiter for next iteration
+            start_ptr = end_ptr + fldsep_len;
+        }
+
+        text_position_cleanup(&state);
+    } else {
+        // Character-by-character splitting (when fldsep is NULL)
+        int inputstring_len = VARSIZE_ANY_EXHDR(inputstring);
+        char *start_ptr = VARDATA_ANY(inputstring);
+
+        while (inputstring_len > 0) {
+            CHECK_FOR_INTERRUPTS();
+
+            // Get length of next character (handles multi-byte)
+            int chunk_len = pg_mblen(start_ptr);
+
+            // Create text datum for this character and accumulate it
+            text *result_text = cstring_to_text_with_len(start_ptr, chunk_len);
+            split_text_accum_result(tstate, result_text, null_string, collation);
+            pfree(result_text);
+
+            // Move to next character
+            start_ptr += chunk_len;
+            inputstring_len -= chunk_len;
+        }
+    }
+
+    return true;
+}
+```

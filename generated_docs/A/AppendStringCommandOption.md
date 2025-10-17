@@ -34,3 +34,27 @@ This function extends the functionality of AppendPlainCommandOption by adding su
 - Uses PostgreSQL's built-in string escaping mechanism (PQescapeStringConn) to prevent SQL injection
 - Memory management is handled properly with palloc/pfree for the escaped string buffer
 - Part of the pg_basebackup utility's command construction infrastructure
+
+## Simplified Source
+
+```c
+void AppendStringCommandOption(PQExpBuffer buf, bool use_new_option_syntax,
+                              char *option_name, char *option_value) {
+    // First append the option name using existing function
+    AppendPlainCommandOption(buf, use_new_option_syntax, option_name);
+
+    // If option has a value, escape and append it
+    if (option_value != NULL) {
+        size_t length = strlen(option_value);
+        char *escaped_value = palloc(1 + 2 * length);
+
+        // Escape the string value for safe SQL inclusion
+        PQescapeStringConn(conn, escaped_value, option_value, length, NULL);
+
+        // Append the escaped value in single quotes
+        appendPQExpBuffer(buf, " '%s'", escaped_value);
+
+        pfree(escaped_value);
+    }
+}
+```

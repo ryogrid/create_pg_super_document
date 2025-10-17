@@ -34,3 +34,14 @@ ResourceOwnerRememberCatCacheListRef is a static inline wrapper function that re
 - Essential for preventing catalog cache list reference leaks during error recovery
 - Works in conjunction with the catalog cache list reference counting system
 - The function handles CatCList pointers specifically, distinct from individual HeapTuple references
+
+## Simplified Source
+
+```c
+static inline void
+ResourceOwnerRememberCatCacheListRef(ResourceOwner owner, CatCList *list)
+{
+    // Register catalog cache list reference for cleanup tracking
+    ResourceOwnerRemember(owner, PointerGetDatum(list), &catlistref_resowner_desc);
+}
+```

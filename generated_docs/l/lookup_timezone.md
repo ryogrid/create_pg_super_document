@@ -39,3 +39,17 @@ The `lookup_timezone` function is a utility function that converts a PostgreSQL 
 - Returns NULL if the timezone name is not found or invalid (inherited from DecodeTimezoneNameToTz behavior)
 - Used in timezone-aware arithmetic and truncation operations
 - Functionally equivalent to DecodeTimezoneNameToTz but accepts text input instead of C string
+
+## Simplified Source
+
+```c
+static pg_tz *lookup_timezone(text *zone) {
+    char tzname[TZ_STRLEN_MAX + 1];
+
+    // Convert PostgreSQL text to C string
+    text_to_cstring_buffer(zone, tzname, sizeof(tzname));
+
+    // Look up timezone and return pg_tz structure
+    return DecodeTimezoneNameToTz(tzname);
+}
+```

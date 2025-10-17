@@ -32,3 +32,19 @@ _EndLO is a callback function specific to the custom archive format that handles
 
 ## Notes and Other Information
 This function is marked as optional in the archiver interface and is specific to the custom format implementation. It ensures proper cleanup of compression resources and provides a clear termination marker in the archive stream for large objects.
+
+## Simplified Source
+
+```c
+static void
+_EndLO(ArchiveHandle *AH, TocEntry *te, Oid oid)
+{
+    lclContext *ctx = (lclContext *) AH->formatData;
+
+    // Finalize compression for this large object
+    EndCompressor(AH, ctx->cs);
+
+    // Write end marker to signal completion of large object
+    WriteInt(AH, 0);
+}
+```

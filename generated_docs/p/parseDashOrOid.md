@@ -43,3 +43,18 @@ The function first checks if the input string is exactly "-", and if so, sets th
 - Returns true if parsing succeeds (either dash or valid numeric OID), false if the string doesn't match either pattern
 - Part of PostgreSQL's type input/output system for object identifier types (reg* types)
 - The escontext parameter supports PostgreSQL's soft error handling mechanism introduced for better error reporting in input functions
+
+## Simplified Source
+
+```c
+static bool parseDashOrOid(char *string, Oid *result, Node *escontext) {
+    // Handle dash as InvalidOid
+    if (strcmp(string, "-") == 0) {
+        *result = InvalidOid;
+        return true;
+    }
+
+    // Delegate to numeric OID parsing
+    return parseNumericOid(string, result, escontext);
+}
+```

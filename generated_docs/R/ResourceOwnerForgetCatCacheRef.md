@@ -33,3 +33,14 @@ ResourceOwnerForgetCatCacheRef is a static inline wrapper function that removes 
 - Called during normal catalog cache reference release operations, not during error cleanup
 - Essential for maintaining accurate resource tracking and preventing resource leaks or double-frees
 - The function converts the HeapTuple pointer to a Datum for lookup in the resource owner's tracking structures
+
+## Simplified Source
+
+```c
+static inline void
+ResourceOwnerForgetCatCacheRef(ResourceOwner owner, HeapTuple tuple)
+{
+    // Remove catalog cache reference from resource owner tracking
+    ResourceOwnerForget(owner, PointerGetDatum(tuple), &catcache_resowner_desc);
+}
+```

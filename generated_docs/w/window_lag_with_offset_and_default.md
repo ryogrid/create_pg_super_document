@@ -29,3 +29,15 @@ This function provides the full SQL LAG window function functionality with both 
 - The three boolean parameters to leadlag_common represent: is_lead=false (it's a lag), has_offset=true, has_default=true
 - Part of PostgreSQL's SQL window function implementation for LAG(expr, offset, default)
 - This is the most complete version of the LAG function, supporting all optional parameters
+
+## Simplified Source
+
+```c
+Datum
+window_lag_with_offset_and_default(PG_FUNCTION_ARGS)
+{
+    // Delegate to common lag/lead implementation
+    // Parameters: is_lead=false, has_offset=true, has_default=true
+    return leadlag_common(fcinfo, false, true, true);
+}
+```

@@ -35,3 +35,48 @@ This function is primarily used for SSPI (Security Support Provider Interface) a
 - Part of the PostgreSQL regression testing framework's Windows SSPI authentication support
 - Based on the pg_SSPI_recvauth() implementation from PostgreSQL's main authentication system
 - Only compiled and used on Windows platforms
+
+## Simplified Source
+
+```c
+static void current_windows_user(const char **acct, const char **dom) {
+    static char accountname[MAXPGPATH];
+    static char domainname[MAXPGPATH];
+    HANDLE token;
+    TOKEN_USER *tokenuser;
+    DWORD retlen;
+    DWORD accountnamesize = sizeof(accountname);
+    DWORD domainnamesize = sizeof(domainname);
+    SID_NAME_USE accountnameuse;
+
+    // Open current process token for reading
+    if (!OpenProcessToken(GetCurrentProcess(), TOKEN_READ, &token)) {
+        bail("could not open process token: error code %lu", GetLastError());
+    }
+
+    // Get required buffer size for token information
+    if (!GetTokenInformation(token, TokenUser, NULL, 0, &retlen) &&
+        GetLastError() != 122) {
+        bail("could not get token information buffer size: error code %lu",
+             GetLastError());
+    }
+
+    // Allocate and retrieve token user information
+    tokenuser = pg_malloc(retlen);
+    if (!GetTokenInformation(token, TokenUser, tokenuser, retlen, &retlen)) {
+        bail("could not get token information: error code %lu", GetLastError());
+    }
+
+    // Look up account and domain names from SID
+    if (!LookupAccountSid(NULL, tokenuser->User.Sid, accountname, &accountnamesize,
+                          domainname, &domainnamesize, &accountnameuse)) {
+        bail("could not look up account SID: error code %lu", GetLastError());
+    }
+
+    free(tokenuser);
+
+    // Return pointers to static buffers
+    *acct = accountname;
+    *dom = domainname;
+}
+```

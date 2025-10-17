@@ -53,3 +53,72 @@ This function builds dependency relationships for materialized view refresh oper
 - Ensures that unpopulated status propagates through the dependency chain
 - Must be called after all objects are created but before they are sorted for dumping
 - Critical for maintaining data consistency when restoring materialized views that reference other materialized views
+
+## Simplified Source
+
+```c
+static void buildMatViewRefreshDependencies(Archive *fout) {
+    PQExpBuffer query;
+    PGresult *res;
+    int ntups, i;
+
+    // Skip for pre-9.3 versions (no materialized views)
+    if (fout->remoteVersion < 90300)
+        return;
+
+    // Query to find materialized view dependencies using recursive CTE
+    query = createPQExpBuffer();
+    appendPQExpBufferStr(query,
+        "WITH RECURSIVE w AS ("
+        "  SELECT d1.objid, d2.refobjid, c2.relkind AS refrelkind "
+        "  FROM pg_depend d1 "
+        "  JOIN pg_class c1 ON c1.oid = d1.objid AND c1.relkind = 'm' "
+        "  JOIN pg_rewrite r1 ON r1.ev_class = d1.objid "
+        "  JOIN pg_depend d2 ON d2.classid = 'pg_rewrite'::regclass AND d2.objid = r1.oid "
+        "  JOIN pg_class c2 ON c2.oid = d2.refobjid AND c2.relkind IN ('m','v') "
+        "  WHERE d1.classid = 'pg_class'::regclass "
+        "  UNION "
+        "  SELECT w.objid, d3.refobjid, c3.relkind "
+        "  FROM w JOIN pg_rewrite r3 ON r3.ev_class = w.refobjid "
+        "  JOIN pg_depend d3 ON d3.classid = 'pg_rewrite'::regclass AND d3.objid = r3.oid "
+        "  JOIN pg_class c3 ON c3.oid = d3.refobjid AND c3.relkind IN ('m','v') "
+        ") "
+        "SELECT 'pg_class'::regclass::oid AS classid, objid, refobjid "
+        "FROM w WHERE refrelkind = 'm'");
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+
+    // Process each dependency relationship
+    for (i = 0; i < ntups; i++) {
+        CatalogId objId, refobjId;
+        DumpableObject *dobj, *refdobj;
+        TableInfo *tbinfo, *reftbinfo;
+
+        // Parse catalog IDs from query result
+        objId.tableoid = atooid(PQgetvalue(res, i, 0));
+        objId.oid = atooid(PQgetvalue(res, i, 1));
+        refobjId.tableoid = objId.tableoid;
+        refobjId.oid = atooid(PQgetvalue(res, i, 2));
+
+        // Find objects and establish dependency
+        dobj = findObjectByCatalogId(objId);
+        refdobj = findObjectByCatalogId(refobjId);
+
+        if (dobj && refdobj) {
+            tbinfo = (TableInfo *) dobj;
+            reftbinfo = (TableInfo *) refdobj;
+
+            // Add dependency between refresh operations
+            addObjectDependency(tbinfo->dataObj, reftbinfo->dataObj->dumpId);
+
+            // Propagate unpopulated status
+            if (!reftbinfo->relispopulated)
+                tbinfo->relispopulated = false;
+        }
+    }
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+}
+```

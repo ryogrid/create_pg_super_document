@@ -50,3 +50,120 @@ The function supports a wide range of time units from microseconds up to millenn
 - The function preserves infinite timestamp values without modification
 - Includes comprehensive error handling for invalid units and out-of-range values
 - Uses a case-insensitive unit string matching system
+
+## Simplified Source
+
+```c
+Datum timestamp_trunc(PG_FUNCTION_ARGS) {
+    text *units = PG_GETARG_TEXT_PP(0);
+    Timestamp timestamp = PG_GETARG_TIMESTAMP(1);
+    Timestamp result;
+    int type, val;
+    char *lowunits;
+    fsec_t fsec;
+    struct pg_tm tm;
+
+    // Return infinite timestamps as-is
+    if (TIMESTAMP_NOT_FINITE(timestamp))
+        PG_RETURN_TIMESTAMP(timestamp);
+
+    // Parse unit string (case-insensitive)
+    lowunits = downcase_truncate_identifier(VARDATA_ANY(units),
+                                           VARSIZE_ANY_EXHDR(units), false);
+    type = DecodeUnits(0, lowunits, &val);
+
+    if (type == UNITS) {
+        // Convert timestamp to broken-down time
+        if (timestamp2tm(timestamp, NULL, &tm, &fsec, NULL, NULL) != 0)
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                           errmsg("timestamp out of range")));
+
+        // Truncate based on specified unit
+        switch (val) {
+            case DTK_WEEK:
+                {
+                    int woy = date2isoweek(tm.tm_year, tm.tm_mon, tm.tm_mday);
+
+                    // Handle year boundary weeks
+                    if (woy >= 52 && tm.tm_mon == 1)
+                        --tm.tm_year;
+                    if (woy <= 1 && tm.tm_mon == MONTHS_PER_YEAR)
+                        ++tm.tm_year;
+
+                    isoweek2date(woy, &(tm.tm_year), &(tm.tm_mon), &(tm.tm_mday));
+                    tm.tm_hour = 0;
+                    tm.tm_min = 0;
+                    tm.tm_sec = 0;
+                    fsec = 0;
+                    break;
+                }
+            case DTK_MILLENNIUM:
+                // Round to millennium boundaries: -1000, 1, 1001, 2001...
+                if (tm.tm_year > 0)
+                    tm.tm_year = ((tm.tm_year + 999) / 1000) * 1000 - 999;
+                else
+                    tm.tm_year = -((999 - (tm.tm_year - 1)) / 1000) * 1000 + 1;
+                /* FALL THRU */
+            case DTK_CENTURY:
+                // Round to century boundaries: -100, 1, 101...
+                if (tm.tm_year > 0)
+                    tm.tm_year = ((tm.tm_year + 99) / 100) * 100 - 99;
+                else
+                    tm.tm_year = -((99 - (tm.tm_year - 1)) / 100) * 100 + 1;
+                /* FALL THRU */
+            case DTK_DECADE:
+                // Round to decade boundaries (only if not already processed)
+                if (val != DTK_MILLENNIUM && val != DTK_CENTURY) {
+                    if (tm.tm_year > 0)
+                        tm.tm_year = (tm.tm_year / 10) * 10;
+                    else
+                        tm.tm_year = -((8 - (tm.tm_year - 1)) / 10) * 10;
+                }
+                /* FALL THRU */
+            case DTK_YEAR:
+                tm.tm_mon = 1;
+                /* FALL THRU */
+            case DTK_QUARTER:
+                tm.tm_mon = (3 * ((tm.tm_mon - 1) / 3)) + 1;
+                /* FALL THRU */
+            case DTK_MONTH:
+                tm.tm_mday = 1;
+                /* FALL THRU */
+            case DTK_DAY:
+                tm.tm_hour = 0;
+                /* FALL THRU */
+            case DTK_HOUR:
+                tm.tm_min = 0;
+                /* FALL THRU */
+            case DTK_MINUTE:
+                tm.tm_sec = 0;
+                /* FALL THRU */
+            case DTK_SECOND:
+                fsec = 0;
+                break;
+            case DTK_MILLISEC:
+                fsec = (fsec / 1000) * 1000;
+                break;
+            case DTK_MICROSEC:
+                break;
+            default:
+                ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                               errmsg("unit \"%s\" not supported for type %s",
+                                      lowunits, format_type_be(TIMESTAMPOID))));
+                result = 0;
+        }
+
+        // Convert back to timestamp
+        if (tm2timestamp(&tm, fsec, NULL, &result) != 0)
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                           errmsg("timestamp out of range")));
+    } else {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("unit \"%s\" not recognized for type %s",
+                              lowunits, format_type_be(TIMESTAMPOID))));
+        result = 0;
+    }
+
+    PG_RETURN_TIMESTAMP(result);
+}
+```

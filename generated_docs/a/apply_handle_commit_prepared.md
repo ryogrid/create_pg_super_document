@@ -47,3 +47,47 @@ Note that if the transaction was prepared in a parallel apply worker, no additio
 - The function operates outside of transaction boundaries since COMMIT PREPARED doesn't run within a transaction
 - Statistics reporting and activity state management are handled to maintain proper monitoring
 - Error context is managed to provide meaningful error messages during replication
+
+## Simplified Source
+
+```c
+static void
+apply_handle_commit_prepared(StringInfo s)
+{
+    LogicalRepCommitPreparedTxnData prepare_data;
+    char gid[GIDSIZE];
+
+    // Read commit prepared data and set error context
+    logicalrep_read_commit_prepared(s, &prepare_data);
+    set_apply_error_context_xact(prepare_data.xid, prepare_data.commit_lsn);
+
+    // Generate the same GID used during prepare
+    TwoPhaseTransactionGid(MySubscription->oid, prepare_data.xid,
+                           gid, sizeof(gid));
+
+    // Execute commit prepared outside transaction boundaries
+    begin_replication_step();
+
+    // Update origin state for crash recovery
+    replorigin_session_origin_lsn = prepare_data.end_lsn;
+    replorigin_session_origin_timestamp = prepare_data.commit_time;
+
+    // Commit the prepared transaction
+    FinishPreparedTransaction(gid, true);
+    end_replication_step();
+    CommitTransactionCommand();
+
+    // Update statistics and store flush position
+    pgstat_report_stat(false);
+    store_flush_position(prepare_data.end_lsn, XactLastCommitEnd);
+    in_remote_transaction = false;
+
+    // Process parallel table synchronization and clean up
+    process_syncing_tables(prepare_data.end_lsn);
+    clear_subscription_skip_lsn(prepare_data.end_lsn);
+
+    // Report idle state and clean up error context
+    pgstat_report_activity(STATE_IDLE, NULL);
+    reset_apply_error_context_info();
+}
+```

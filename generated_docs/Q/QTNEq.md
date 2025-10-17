@@ -32,3 +32,22 @@ The function first computes the intersection of the two nodes' signatures and ve
 - Returns true only if both signature compatibility and structural equality (via QTNodeCompare) are satisfied
 - Part of PostgreSQL's text search query processing infrastructure
 - Located in src/backend/utils/adt/tsquery_util.c:183-200
+
+## Simplified Source
+
+```c
+bool
+QTNEq(QTNode *a, QTNode *b)
+{
+    // Fast signature-based filtering - check if signatures are compatible
+    uint32 common_bits = a->sign & b->sign;
+
+    // If either node has signature bits not in the intersection,
+    // they can't be equal
+    if (!(common_bits == a->sign && common_bits == b->sign))
+        return false;
+
+    // Signatures are compatible, do detailed structural comparison
+    return (QTNodeCompare(a, b) == 0);
+}
+```

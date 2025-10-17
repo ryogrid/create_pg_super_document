@@ -50,3 +50,67 @@ When the target length is larger than the input, the function pads the result wi
 - Error handling follows PostgreSQL standards with appropriate error codes for data truncation
 - Memory management uses PostgreSQL's palloc system for proper context handling
 - Blank-padding with spaces is performed when the target length exceeds input length
+
+## Simplified Source
+
+```c
+Datum bpchar(PG_FUNCTION_ARGS) {
+    BpChar *source = PG_GETARG_BPCHAR_PP(0);
+    int32 maxlen = PG_GETARG_INT32(1);
+    bool isExplicit = PG_GETARG_BOOL(2);
+
+    // Return source unchanged if no valid typmod
+    if (maxlen < (int32) VARHDRSZ) {
+        PG_RETURN_BPCHAR_P(source);
+    }
+
+    // Convert typmod to character count
+    maxlen -= VARHDRSZ;
+
+    // Extract source data
+    int32 len = VARSIZE_ANY_EXHDR(source);
+    char *s = VARDATA_ANY(source);
+    int charlen = pg_mbstrlen_with_len(s, len);
+
+    // Return source unchanged if already correct length
+    if (charlen == maxlen) {
+        PG_RETURN_BPCHAR_P(source);
+    }
+
+    BpChar *result;
+    char *r;
+
+    if (charlen > maxlen) {
+        // Truncate excess characters
+        size_t maxmblen = pg_mbcharcliplen(s, len, maxlen);
+
+        // For implicit casts, verify truncated chars are spaces
+        if (!isExplicit) {
+            for (int i = maxmblen; i < len; i++) {
+                if (s[i] != ' ') {
+                    ereport(ERROR, "value too long for type character");
+                }
+            }
+        }
+
+        len = maxmblen;
+        maxlen = len;  // Now represents byte length
+    } else {
+        // Calculate byte length needed for padding
+        maxlen = len + (maxlen - charlen);
+    }
+
+    // Allocate and populate result
+    result = palloc(maxlen + VARHDRSZ);
+    SET_VARSIZE(result, maxlen + VARHDRSZ);
+    r = VARDATA(result);
+
+    // Copy data and pad with spaces if needed
+    memcpy(r, s, len);
+    if (maxlen > len) {
+        memset(r + len, ' ', maxlen - len);
+    }
+
+    PG_RETURN_BPCHAR_P(result);
+}
+```

@@ -38,3 +38,25 @@ Note that this operation flushes the entire segment file that contains the speci
 - Provides verbose logging with NOTICE level messages
 - Synchronizes entire segments rather than individual pages
 - Returns void as the operation is performed for its side effects
+
+## Simplified Source
+
+```c
+Datum test_slru_page_sync(PG_FUNCTION_ARGS) {
+    int64 pageno = PG_GETARG_INT64(0);
+    FileTag ftag;
+    char path[MAXPGPATH];
+
+    // Calculate which segment contains this page
+    ftag.segno = pageno / SLRU_PAGES_PER_SEGMENT;
+
+    // Synchronize the entire segment to disk
+    SlruSyncFileTag(TestSlruCtl, &ftag, path);
+
+    // Log the sync operation for testing visibility
+    elog(NOTICE, "Called SlruSyncFileTag() for segment %lld on path %s",
+         (long long) ftag.segno, path);
+
+    PG_RETURN_VOID();
+}
+```

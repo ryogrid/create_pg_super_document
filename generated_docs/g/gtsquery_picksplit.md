@@ -55,3 +55,90 @@ This sophisticated approach ensures that similar TSQuery signatures are grouped 
 - Critical for maintaining good GiST index performance during insertions
 - Located in src/backend/utils/adt/tsquery_gist.c:167-272
 - Returns a Datum containing the GIST_SPLITVEC structure with split results
+
+## Simplified Source
+
+```c
+Datum gtsquery_picksplit(PG_FUNCTION_ARGS)
+{
+    GistEntryVector *entryvec = (GistEntryVector *) PG_GETARG_POINTER(0);
+    GIST_SPLITVEC *v = (GIST_SPLITVEC *) PG_GETARG_POINTER(1);
+    OffsetNumber maxoff = entryvec->n - 2;
+    TSQuerySign left_signature, right_signature;
+    int32 waste = -1, size_waste;
+    OffsetNumber seed_1 = 0, seed_2 = 0;
+    OffsetNumber *left, *right;
+    SPLITCOST *costvector;
+
+    // Allocate arrays for left and right entries
+    int32 nbytes = (maxoff + 2) * sizeof(OffsetNumber);
+    left = v->spl_left = (OffsetNumber *) palloc(nbytes);
+    right = v->spl_right = (OffsetNumber *) palloc(nbytes);
+    v->spl_nleft = v->spl_nright = 0;
+
+    // Find seeds: pair with maximum Hamming distance
+    for (OffsetNumber k = FirstOffsetNumber; k < maxoff; k = OffsetNumberNext(k)) {
+        for (OffsetNumber j = OffsetNumberNext(k); j <= maxoff; j = OffsetNumberNext(j)) {
+            size_waste = hemdist(GETENTRY(entryvec, j), GETENTRY(entryvec, k));
+            if (size_waste > waste) {
+                waste = size_waste;
+                seed_1 = k;
+                seed_2 = j;
+            }
+        }
+    }
+
+    // Fallback if no good seeds found
+    if (seed_1 == 0 || seed_2 == 0) {
+        seed_1 = 1;
+        seed_2 = 2;
+    }
+
+    left_signature = GETENTRY(entryvec, seed_1);
+    right_signature = GETENTRY(entryvec, seed_2);
+
+    // Calculate costs for each entry and sort by assignment preference
+    maxoff = OffsetNumberNext(maxoff);
+    costvector = (SPLITCOST *) palloc(sizeof(SPLITCOST) * maxoff);
+    for (OffsetNumber j = FirstOffsetNumber; j <= maxoff; j = OffsetNumberNext(j)) {
+        costvector[j - 1].pos = j;
+        int32 alpha_dist = hemdist(GETENTRY(entryvec, seed_1), GETENTRY(entryvec, j));
+        int32 beta_dist = hemdist(GETENTRY(entryvec, seed_2), GETENTRY(entryvec, j));
+        costvector[j - 1].cost = abs(alpha_dist - beta_dist);
+    }
+    qsort(costvector, maxoff, sizeof(SPLITCOST), comparecost);
+
+    // Distribute entries to left or right based on distance and balance
+    for (OffsetNumber k = 0; k < maxoff; k++) {
+        OffsetNumber j = costvector[k].pos;
+
+        if (j == seed_1) {
+            *left++ = j;
+            v->spl_nleft++;
+        } else if (j == seed_2) {
+            *right++ = j;
+            v->spl_nright++;
+        } else {
+            int32 alpha_dist = hemdist(left_signature, GETENTRY(entryvec, j));
+            int32 beta_dist = hemdist(right_signature, GETENTRY(entryvec, j));
+
+            if (alpha_dist < beta_dist + WISH_F(v->spl_nleft, v->spl_nright, 0.05)) {
+                left_signature |= GETENTRY(entryvec, j);
+                *left++ = j;
+                v->spl_nleft++;
+            } else {
+                right_signature |= GETENTRY(entryvec, j);
+                *right++ = j;
+                v->spl_nright++;
+            }
+        }
+    }
+
+    // Finalize split results
+    *right = *left = FirstOffsetNumber;
+    v->spl_ldatum = TSQuerySignGetDatum(left_signature);
+    v->spl_rdatum = TSQuerySignGetDatum(right_signature);
+
+    PG_RETURN_POINTER(v);
+}
+```

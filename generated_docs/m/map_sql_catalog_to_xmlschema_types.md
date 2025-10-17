@@ -41,3 +41,43 @@ Unlike the schema-level mapping function, this function always uses `<xsd:all>` 
 - The generated XML Schema uses the "xsd" namespace prefix for XML Schema constructs
 - Memory management relies on StringInfo for building the result string
 - Represents the top-level database structure in XML Schema format
+
+## Simplified Source
+
+```c
+static const char *map_sql_catalog_to_xmlschema_types(List *nspid_list, bool nulls,
+                                                     bool tableforest, const char *targetns) {
+    StringInfoData result;
+    initStringInfo(&result);
+
+    // Get database name and create XML identifiers
+    char *dbname = get_database_name(MyDatabaseId);
+    char *xmlcn = map_sql_identifier_to_xml_name(dbname, true, false);
+    char *catalogtypename = map_multipart_sql_identifier_to_xml_name("CatalogType", dbname, NULL, NULL);
+
+    // Create complex type for catalog
+    appendStringInfo(&result, "<xsd:complexType name=\"%s\">\n", catalogtypename);
+    appendStringInfoString(&result, "  <xsd:all>\n");
+
+    // Add elements for each schema in the catalog
+    ListCell *cell;
+    foreach(cell, nspid_list) {
+        Oid nspid = lfirst_oid(cell);
+        char *nspname = get_namespace_name(nspid);
+        char *xmlsn = map_sql_identifier_to_xml_name(nspname, true, false);
+        char *schematypename = map_multipart_sql_identifier_to_xml_name("SchemaType",
+                                                                       dbname, nspname, NULL);
+
+        appendStringInfo(&result, "    <xsd:element name=\"%s\" type=\"%s\"/>\n", xmlsn, schematypename);
+    }
+
+    // Close complex type
+    appendStringInfoString(&result, "  </xsd:all>\n");
+    appendStringInfoString(&result, "</xsd:complexType>\n\n");
+
+    // Add root element declaration
+    appendStringInfo(&result, "<xsd:element name=\"%s\" type=\"%s\"/>\n\n", xmlcn, catalogtypename);
+
+    return result.data;
+}
+```

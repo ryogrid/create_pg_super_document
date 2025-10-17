@@ -34,3 +34,26 @@ This function serves as a PostgreSQL SQL function entry point for retrieving vie
 - Returns NULL if the view definition cannot be retrieved
 - Automatically enables pretty printing for better formatted output
 - Part of the PostgreSQL function interface accessible via SQL
+
+## Simplified Source
+
+```c
+Datum
+pg_get_viewdef_wrap(PG_FUNCTION_ARGS)
+{
+    Oid viewoid = PG_GETARG_OID(0);
+    int wrap = PG_GETARG_INT32(1);
+    char *res;
+
+    // Enable pretty printing by default for wrapping functions
+    int prettyFlags = GET_PRETTY_FLAGS(true);
+
+    // Get view definition with custom wrap column
+    res = pg_get_viewdef_worker(viewoid, prettyFlags, wrap);
+
+    if (res == NULL)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(string_to_text(res));
+}
+```

@@ -40,3 +40,31 @@ The function iterates through the string character by character, counting both c
 - The function counts characters, not bytes, making it suitable for user-visible string operations
 - Widely used in PostgreSQL's string data type implementations (varchar, bpchar, text functions)
 - Returns the actual number of bytes needed to represent the specified number of characters
+
+## Simplified Source
+
+```c
+int pg_mbcharcliplen(const char *mbstr, int len, int limit) {
+    int byte_count = 0;
+    int char_count = 0;
+
+    // Optimization: for single-byte encodings, character count equals byte count
+    if (pg_database_encoding_max_length() == 1)
+        return cliplen(mbstr, len, limit);
+
+    // Count characters and accumulate bytes until limit reached
+    while (len > 0 && *mbstr) {
+        int char_byte_len = pg_mblen(mbstr);
+        char_count++;
+
+        if (char_count > limit)
+            break;
+
+        byte_count += char_byte_len;
+        len -= char_byte_len;
+        mbstr += char_byte_len;
+    }
+
+    return byte_count;
+}
+```

@@ -35,3 +35,21 @@ xidsend serves as the binary output conversion function for the xid data type in
 - Essential for client-server communication when using binary format for xid values
 - Works in conjunction with xidrecv() for bidirectional binary data conversion
 - Returns a bytea (binary array) type containing the serialized transaction ID
+
+## Simplified Source
+
+```c
+Datum xidsend(PG_FUNCTION_ARGS) {
+    TransactionId transaction_id = PG_GETARG_TRANSACTIONID(0);
+    StringInfoData buf;
+
+    // Initialize binary output buffer
+    pq_begintypsend(&buf);
+
+    // Write transaction ID as 32-bit integer
+    pq_sendint32(&buf, transaction_id);
+
+    // Return the binary data
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

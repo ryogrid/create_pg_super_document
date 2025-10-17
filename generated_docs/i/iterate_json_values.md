@@ -35,3 +35,29 @@ This function provides a mechanism for traversing a text-based JSON structure an
 
 ## Notes and Other Information
 The function creates an IterateJsonStringValuesState structure to maintain parsing state and passes it through the JSON parser's semantic action mechanism. The actual value filtering and callback invocation is delegated to iterate_values_scalar and iterate_values_object_field_start functions. This approach allows for streaming processing of JSON text without requiring conversion to JSONB format first.
+
+## Simplified Source
+
+```c
+void iterate_json_values(text *json, uint32 flags, void *action_state,
+                        JsonIterateStringValuesAction action) {
+    JsonLexContext lex;
+    JsonSemAction *sem = palloc0(sizeof(JsonSemAction));
+    IterateJsonStringValuesState *state = palloc0(sizeof(IterateJsonStringValuesState));
+
+    // Set up parsing state
+    state->lex = makeJsonLexContext(&lex, json, true);
+    state->action = action;
+    state->action_state = action_state;
+    state->flags = flags;
+
+    // Configure semantic actions for JSON parsing
+    sem->semstate = (void *) state;
+    sem->scalar = iterate_values_scalar;
+    sem->object_field_start = iterate_values_object_field_start;
+
+    // Parse JSON and trigger callbacks
+    pg_parse_json_or_ereport(&lex, sem);
+    freeJsonLexContext(&lex);
+}
+```

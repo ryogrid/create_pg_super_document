@@ -34,8 +34,22 @@ The equality test handles timezone conversion by converting the plain timestamp 
   - PostgreSQL query execution engine (not directly referenced in codebase)
 
 ## Notes and Other Information
-- This function implements the  operator for timestamptz = timestamp comparisons
+- This function implements the = operator for timestamptz = timestamp comparisons
 - Part of PostgreSQL's cross-type comparison infrastructure for temporal data types
 - The underlying comparison handles timezone conversion and special timestamp values
 - Used internally by PostgreSQL's operator system and can be called from SQL queries
 - Located at src/backend/utils/adt/timestamp.c:2409-2417
+
+## Simplified Source
+
+```c
+Datum timestamptz_eq_timestamp(PG_FUNCTION_ARGS) {
+    // Extract timestamptz (with timezone) and timestamp (without timezone)
+    TimestampTz timestamptz_val = PG_GETARG_TIMESTAMPTZ(0);
+    Timestamp timestamp_val = PG_GETARG_TIMESTAMP(1);
+
+    // Compare and return true if equal (comparison result == 0)
+    // Note: argument order is swapped for internal comparison function
+    PG_RETURN_BOOL(timestamp_cmp_timestamptz_internal(timestamp_val, timestamptz_val) == 0);
+}
+```

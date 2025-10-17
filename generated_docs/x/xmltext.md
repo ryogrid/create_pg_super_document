@@ -42,3 +42,26 @@ The resulting escaped text is returned as PostgreSQL's XML type.
 - Essential for safely including arbitrary text content within XML documents
 - Memory management handled with xmlFree to avoid leaks
 - Returns XML type compatible with PostgreSQL's XML handling system
+
+## Simplified Source
+
+```c
+Datum xmltext(PG_FUNCTION_ARGS) {
+#ifdef USE_LIBXML
+    text *arg = PG_GETARG_TEXT_PP(0);
+
+    // Convert to XML encoding and escape special characters
+    xmlChar *xmlbuf = xmlEncodeSpecialChars(NULL, xml_text2xmlChar(arg));
+    Assert(xmlbuf);
+
+    // Convert back to PostgreSQL text with proper length
+    text *result = cstring_to_text_with_len((const char *) xmlbuf, xmlStrlen(xmlbuf));
+    xmlFree(xmlbuf);
+
+    PG_RETURN_XML_P(result);
+#else
+    NO_XML_SUPPORT();
+    return 0;
+#endif
+}
+```

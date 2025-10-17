@@ -36,3 +36,28 @@ The function follows the standard qsort comparator contract: it returns a negati
 - Used primarily in data chunk processing where larger chunks should be handled first
 - The function is located at src/bin/pg_dump/pg_backup_archiver.c:4482-4503
 - Compatible with the standard C library qsort() function signature
+
+## Simplified Source
+
+```c
+static int
+TocEntrySizeCompareQsort(const void *p1, const void *p2)
+{
+    const TocEntry *te1 = *(const TocEntry *const *) p1;
+    const TocEntry *te2 = *(const TocEntry *const *) p2;
+
+    // Primary sort: decreasing dataLength (largest first)
+    if (te1->dataLength > te2->dataLength)
+        return -1;
+    if (te1->dataLength < te2->dataLength)
+        return 1;
+
+    // Secondary sort: increasing dumpId for stability
+    if (te1->dumpId < te2->dumpId)
+        return -1;
+    if (te1->dumpId > te2->dumpId)
+        return 1;
+
+    return 0;
+}
+```

@@ -39,3 +39,21 @@ Since ISO years can have 52 or 53 weeks, the possible return values range from 1
 - Used internally for timestamp comparison and ISO date calculations
 - Provides a compact representation of a date's position within its ISO year
 - Essential for ISO 8601 compliance in PostgreSQL's temporal operations
+
+## Simplified Source
+
+```c
+int date2isoyearday(int year, int mon, int mday) {
+    // Convert input date to Julian day number
+    int current_julian = date2j(year, mon, mday);
+
+    // Get the ISO year for this date
+    int iso_year = date2isoyear(year, mon, mday);
+
+    // Get Julian day number for the first day of the ISO year (week 1, day 1)
+    int iso_year_start = isoweek2j(iso_year, 1);
+
+    // Calculate ordinal day within the ISO year
+    return current_julian - iso_year_start + 1;
+}
+```

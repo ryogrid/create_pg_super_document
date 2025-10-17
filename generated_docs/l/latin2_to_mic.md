@@ -40,3 +40,23 @@ The function uses PostgreSQL's standard function argument interface:
 - Located in: `src/backend/utils/mb/conversion_procs/latin2_and_win1250/latin2_and_win1250.c:83-98`
 - Part of PostgreSQL's multibyte character encoding conversion infrastructure
 - Returns the number of input bytes successfully converted
+
+## Simplified Source
+
+```c
+Datum latin2_to_mic(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate conversion is between expected encodings
+    CHECK_ENCODING_CONVERSION_ARGS(PG_LATIN2, PG_MULE_INTERNAL);
+
+    // Perform the actual conversion using latin2mic utility function
+    int converted = latin2mic(src, dest, len, LC_ISO8859_2, PG_LATIN2, noError);
+
+    PG_RETURN_INT32(converted);
+}
+```

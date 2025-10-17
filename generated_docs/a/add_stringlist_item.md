@@ -40,3 +40,27 @@ This function implements a simple linked list append operation for string lists.
 - Used extensively in PostgreSQL testing infrastructure and initdb
 - Memory for both the list node and string copy is allocated and managed by the function
 - The list head pointer may be modified if the list was initially empty
+
+## Simplified Source
+
+```c
+static void add_stringlist_item(_stringlist **listhead, const char *str)
+{
+    // Create new list node with copied string
+    _stringlist *newentry = pg_malloc(sizeof(_stringlist));
+    newentry->str = pg_strdup(str);
+    newentry->next = NULL;
+
+    // Add to list: either as first item or append to end
+    if (*listhead == NULL) {
+        *listhead = newentry;
+    } else {
+        // Find last item and link new entry
+        _stringlist *current = *listhead;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current->next = newentry;
+    }
+}
+```

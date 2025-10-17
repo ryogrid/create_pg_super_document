@@ -54,3 +54,51 @@ The function finds an existing cursor by name, fetches a specified number of row
 - Part of PostgreSQL's SQL/XML standard compliance features
 - Returns XML data type with the fetched rows converted to XML elements
 - Uses hardcoded "table" as the root element name (unlike other functions that can derive it)
+
+## Simplified Source
+
+```c
+Datum
+cursor_to_xml(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    char *cursor_name = text_to_cstring(PG_GETARG_TEXT_PP(0));
+    int32 row_count = PG_GETARG_INT32(1);
+    bool include_nulls = PG_GETARG_BOOL(2);
+    bool table_forest_format = PG_GETARG_BOOL(3);
+    const char *target_namespace = text_to_cstring(PG_GETARG_TEXT_PP(4));
+
+    StringInfoData result;
+    Portal portal;
+    uint64 i;
+
+    initStringInfo(&result);
+
+    // Add root element start if not in forest format
+    if (!table_forest_format) {
+        xmldata_root_element_start(&result, "table", NULL, target_namespace, true);
+        appendStringInfoChar(&result, '\n');
+    }
+
+    // Connect to SPI and find the cursor
+    SPI_connect();
+    portal = SPI_cursor_find(cursor_name);
+    if (portal == NULL)
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_CURSOR),
+                       errmsg("cursor \"%s\" does not exist", cursor_name)));
+
+    // Fetch rows and convert to XML elements
+    SPI_cursor_fetch(portal, true, row_count);
+    for (i = 0; i < SPI_processed; i++)
+        SPI_sql_row_to_xmlelement(i, &result, NULL, include_nulls,
+                                 table_forest_format, target_namespace, true);
+
+    SPI_finish();
+
+    // Add root element end if not in forest format
+    if (!table_forest_format)
+        xmldata_root_element_end(&result, "table");
+
+    PG_RETURN_XML_P(stringinfo_to_xmltype(&result));
+}
+```

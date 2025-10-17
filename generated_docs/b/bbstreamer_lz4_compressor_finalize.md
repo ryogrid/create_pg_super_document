@@ -35,3 +35,54 @@ The function handles buffer management by forwarding existing compressed data if
 - Forwards any buffered compressed data before writing footer
 - Calls downstream finalization to complete the processing chain
 - Essential for generating valid LZ4 compressed backup files
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_lz4_compressor_finalize(bbstreamer *streamer)
+{
+    bbstreamer_lz4_frame *mystreamer = (bbstreamer_lz4_frame *) streamer;
+    uint8 *next_out;
+    size_t footer_bound, compressed_size, avail_out;
+
+    // Calculate footer space requirements
+    footer_bound = LZ4F_compressBound(0, &mystreamer->prefs);
+
+    // Check if buffer has enough space for footer
+    if ((mystreamer->base.bbs_buffer.maxlen - mystreamer->bytes_written) < footer_bound) {
+        // Forward existing compressed data to next streamer
+        bbstreamer_content(mystreamer->base.bbs_next, NULL,
+                          mystreamer->base.bbs_buffer.data,
+                          mystreamer->bytes_written,
+                          BBSTREAMER_UNKNOWN);
+
+        // Enlarge buffer if needed for footer
+        if (mystreamer->base.bbs_buffer.maxlen < footer_bound)
+            enlargeStringInfo(&mystreamer->base.bbs_buffer, footer_bound);
+
+        avail_out = mystreamer->base.bbs_buffer.maxlen;
+        mystreamer->bytes_written = 0;
+        next_out = (uint8 *) mystreamer->base.bbs_buffer.data;
+    } else {
+        next_out = (uint8 *) mystreamer->base.bbs_buffer.data + mystreamer->bytes_written;
+        avail_out = mystreamer->base.bbs_buffer.maxlen - mystreamer->bytes_written;
+    }
+
+    // Finalize compression and write footer
+    compressed_size = LZ4F_compressEnd(mystreamer->cctx, next_out, avail_out, NULL);
+    if (LZ4F_isError(compressed_size))
+        pg_log_error("could not end lz4 compression: %s",
+                     LZ4F_getErrorName(compressed_size));
+
+    mystreamer->bytes_written += compressed_size;
+
+    // Forward final compressed data and finalize chain
+    bbstreamer_content(mystreamer->base.bbs_next, NULL,
+                      mystreamer->base.bbs_buffer.data,
+                      mystreamer->bytes_written,
+                      BBSTREAMER_UNKNOWN);
+
+    bbstreamer_finalize(mystreamer->base.bbs_next);
+}
+```

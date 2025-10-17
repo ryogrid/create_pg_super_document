@@ -42,3 +42,15 @@ This function is typically used when the caller wants the raw parsed operands to
 - The  parameter is ignored since no additional state is needed for this simple pass-through operation
 - This function provides the simplest possible implementation of the PushFunction callback interface
 - Used primarily by  for direct string-to-TSQuery conversion without text search configuration processing
+
+## Simplified Source
+
+```c
+static void
+pushval_asis(Datum opaque, TSQueryParserState state, char *strval, int lenval,
+             int16 weight, bool prefix)
+{
+    // Simple pass-through: push value as-is without any transformation
+    pushValue(state, strval, lenval, weight, prefix);
+}
+```

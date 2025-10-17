@@ -47,3 +47,37 @@ In PostgreSQL's visibility rules, transactions listed in the xip array are consi
 - The number of returned values equals the  field of the snapshot
 - This is a SQL-callable function that can be used with  syntax
 - Essential for analyzing which specific transactions were in-progress at snapshot creation time
+
+## Simplified Source
+
+```c
+Datum pg_snapshot_xip(PG_FUNCTION_ARGS) {
+    FuncCallContext *fctx;
+    pg_snapshot *snap;
+
+    // First call: initialize context and copy snapshot
+    if (SRF_IS_FIRSTCALL()) {
+        pg_snapshot *arg = (pg_snapshot *) PG_GETARG_VARLENA_P(0);
+
+        fctx = SRF_FIRSTCALL_INIT();
+
+        // Copy snapshot to function's memory context for persistence
+        snap = MemoryContextAlloc(fctx->multi_call_memory_ctx, VARSIZE(arg));
+        memcpy(snap, arg, VARSIZE(arg));
+        fctx->user_fctx = snap;
+    }
+
+    // Subsequent calls: return next transaction ID
+    fctx = SRF_PERCALL_SETUP();
+    snap = fctx->user_fctx;
+
+    if (fctx->call_cntr < snap->nxip) {
+        // Return next in-progress transaction ID
+        FullTransactionId value = snap->xip[fctx->call_cntr];
+        SRF_RETURN_NEXT(fctx, FullTransactionIdGetDatum(value));
+    } else {
+        // All transaction IDs returned, finish
+        SRF_RETURN_DONE(fctx);
+    }
+}
+```

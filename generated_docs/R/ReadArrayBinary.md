@@ -56,3 +56,71 @@ The function also calculates the total storage space required for all elements, 
 
 ## Notes and Other Information
 The function uses -1 as a special length value to indicate NULL elements in the binary format. It employs read-only StringInfo structures to avoid unnecessary data copying during element processing. Comprehensive validation ensures that receive procedures consume exactly the expected amount of data. For variable-length types, the function automatically detoasts values to ensure proper storage calculations. Memory overflow protection prevents creation of arrays exceeding MaxAllocSize limits, maintaining system stability during large array operations.
+
+## Simplified Source
+
+```c
+static void
+ReadArrayBinary(StringInfo buf, int nitems, FmgrInfo *receiveproc,
+                Oid typioparam, int32 typmod, int typlen, bool typbyval, char typalign,
+                Datum *values, bool *nulls, bool *hasnulls, int32 *nbytes)
+{
+    int i;
+    bool hasnull = false;
+    int32 totbytes = 0;
+
+    // Read each array element from binary buffer
+    for (i = 0; i < nitems; i++) {
+        int itemlen;
+        StringInfoData elem_buf;
+
+        // Read element length prefix
+        itemlen = pq_getmsgint(buf, 4);
+        if (itemlen < -1 || itemlen > (buf->len - buf->cursor))
+            ereport(ERROR, /* insufficient data error */);
+
+        if (itemlen == -1) {
+            // -1 indicates NULL element
+            values[i] = ReceiveFunctionCall(receiveproc, NULL,
+                                          typioparam, typmod);
+            nulls[i] = true;
+            continue;
+        }
+
+        // Create read-only StringInfo for element data (no copying)
+        initReadOnlyStringInfo(&elem_buf, &buf->data[buf->cursor], itemlen);
+        buf->cursor += itemlen;
+
+        // Convert binary element using type's receive function
+        values[i] = ReceiveFunctionCall(receiveproc, &elem_buf,
+                                      typioparam, typmod);
+        nulls[i] = false;
+
+        // Verify receive function consumed all data
+        if (elem_buf.cursor != itemlen)
+            ereport(ERROR, /* improper binary format error */);
+    }
+
+    // Calculate total storage space and check for nulls
+    for (i = 0; i < nitems; i++) {
+        if (nulls[i]) {
+            hasnull = true;
+        } else {
+            // Detoast variable-length values if needed
+            if (typlen == -1)
+                values[i] = PointerGetDatum(PG_DETOAST_DATUM(values[i]));
+
+            // Calculate aligned storage size
+            totbytes = att_addlength_datum(totbytes, typlen, values[i]);
+            totbytes = att_align_nominal(totbytes, typalign);
+
+            // Check for memory overflow
+            if (!AllocSizeIsValid(totbytes))
+                ereport(ERROR, /* array size exceeds maximum */);
+        }
+    }
+
+    *hasnulls = hasnull;
+    *nbytes = totbytes;
+}
+```

@@ -34,3 +34,20 @@ This optimization is crucial for enum comparison performance, as it allows the s
 - Part of PostgreSQL's enum type optimization system for faster comparisons
 - The bitmap_base represents the lowest OID in the sortable range
 - Returns false for OIDs outside the trackable range or not in the sorted subset
+
+## Simplified Source
+
+```c
+static inline bool enum_known_sorted(TypeCacheEnumData *enumdata, Oid arg) {
+    // Check if OID is within the sortable range
+    if (arg < enumdata->bitmap_base)
+        return false;
+
+    Oid offset = arg - enumdata->bitmap_base;
+    if (offset > (Oid) INT_MAX)
+        return false;
+
+    // Check if this enum value is in the sorted subset
+    return bms_is_member((int) offset, enumdata->sorted_values);
+}
+```

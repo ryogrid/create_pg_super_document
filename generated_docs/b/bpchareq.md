@@ -41,3 +41,38 @@ This function compares two BPCHAR values for equality. It implements an optimize
 - Properly handles memory management for toasted values to prevent memory leaks
 - Returns a boolean Datum indicating whether the two BPCHAR values are equal
 - Critical for SQL equality operations involving CHAR/BPCHAR data types
+
+## Simplified Source
+
+```c
+Datum bpchareq(PG_FUNCTION_ARGS) {
+    BpChar *arg1 = PG_GETARG_BPCHAR_PP(0);
+    BpChar *arg2 = PG_GETARG_BPCHAR_PP(1);
+    Oid collid = PG_GET_COLLATION();
+    bool result;
+
+    // Validate collation and get true lengths (excluding trailing spaces)
+    check_collation_set(collid);
+    int len1 = bcTruelen(arg1);
+    int len2 = bcTruelen(arg2);
+
+    // Optimize for C locale or deterministic collations
+    if (lc_collate_is_c(collid) || pg_locale_deterministic(pg_newlocale_from_collation(collid))) {
+        // Fast bitwise comparison for C locale
+        if (len1 != len2) {
+            result = false;
+        } else {
+            result = (memcmp(VARDATA_ANY(arg1), VARDATA_ANY(arg2), len1) == 0);
+        }
+    } else {
+        // Full locale-aware comparison for other collations
+        result = (varstr_cmp(VARDATA_ANY(arg1), len1, VARDATA_ANY(arg2), len2, collid) == 0);
+    }
+
+    // Clean up memory
+    PG_FREE_IF_COPY(arg1, 0);
+    PG_FREE_IF_COPY(arg2, 1);
+
+    PG_RETURN_BOOL(result);
+}
+```

@@ -31,3 +31,14 @@ The function is typically called when an insertion operation determines that a p
 - Primarily called during heap update operations when space constraints are encountered
 - Helps optimize insertion performance by preventing repeated attempts on pages with insufficient space
 - The flag serves as a hint and may be cleared during page maintenance operations if space becomes available
+
+## Simplified Source
+
+```c
+static inline void
+PageSetFull(Page page)
+{
+    // Set the PD_PAGE_FULL flag in the page header
+    ((PageHeader) page)->pd_flags |= PD_PAGE_FULL;
+}
+```

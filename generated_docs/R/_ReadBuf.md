@@ -37,3 +37,13 @@ This function is part of the custom archive format's function table and is calle
 - Located in src/bin/pg_dump/pg_backup_custom.c at lines 718-739
 - Part of the mandatory function interface that archive formats must implement
 - Uses the file handle stored in the ArchiveHandle structure (AH->FH)
+
+## Simplified Source
+```c
+static void _ReadBuf(ArchiveHandle *AH, void *buf, size_t len)
+{
+    // Read entire buffer from archive file
+    if (fread(buf, 1, len, AH->FH) != len)
+        READ_ERROR_EXIT(AH->FH);
+}
+```

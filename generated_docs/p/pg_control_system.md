@@ -39,3 +39,42 @@ The  function is a PostgreSQL SQL-callable function that reads the control file 
 - Validates control file CRC checksum and raises ERROR if corrupted
 - Part of the pg_controldata family of functions for administrative access
 - Located in src/backend/utils/misc/pg_controldata.c:32-69
+
+## Simplified Source
+
+```c
+Datum
+pg_control_system(PG_FUNCTION_ARGS)
+{
+    Datum values[4];
+    bool nulls[4];
+    TupleDesc tupdesc;
+
+    // Validate function return type is composite
+    if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+        elog(ERROR, "return type must be a row type");
+
+    // Read control file with shared lock
+    LWLockAcquire(ControlFileLock, LW_SHARED);
+    bool crc_ok;
+    ControlFileData *ControlFile = get_controlfile(DataDir, &crc_ok);
+    LWLockRelease(ControlFileLock);
+
+    // Verify control file integrity
+    if (!crc_ok)
+        ereport(ERROR, (errmsg("calculated CRC checksum does not match value stored in file")));
+
+    // Extract system information into return values
+    values[0] = Int32GetDatum(ControlFile->pg_control_version);  // Control file version
+    values[1] = Int32GetDatum(ControlFile->catalog_version_no);  // Catalog version
+    values[2] = Int64GetDatum(ControlFile->system_identifier);   // System identifier
+    values[3] = TimestampTzGetDatum(time_t_to_timestamptz(ControlFile->time)); // Timestamp
+
+    // All values are non-null
+    nulls[0] = nulls[1] = nulls[2] = nulls[3] = false;
+
+    // Create and return composite tuple
+    HeapTuple htup = heap_form_tuple(tupdesc, values, nulls);
+    PG_RETURN_DATUM(HeapTupleGetDatum(htup));
+}
+```

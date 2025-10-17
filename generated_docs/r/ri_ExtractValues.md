@@ -38,3 +38,28 @@ The function is essential for preparing parameter values when executing referent
 - Converts boolean null indicators to character format required by SPI ('n' for null, ' ' for non-null)
 - Extracts exactly riinfo->nkeys values, corresponding to the number of columns in the foreign key constraint
 - Essential building block for all referential integrity query execution
+
+## Simplified Source
+
+```c
+static void
+ri_ExtractValues(Relation rel, TupleTableSlot *slot,
+                 const RI_ConstraintInfo *riinfo, bool rel_is_pk,
+                 Datum *vals, char *nulls)
+{
+    const int16 *attnums;
+    bool isnull;
+
+    // Choose attribute numbers based on whether this is PK or FK table
+    if (rel_is_pk)
+        attnums = riinfo->pk_attnums;
+    else
+        attnums = riinfo->fk_attnums;
+
+    // Extract each key value from the tuple slot
+    for (int i = 0; i < riinfo->nkeys; i++) {
+        vals[i] = slot_getattr(slot, attnums[i], &isnull);
+        nulls[i] = isnull ? 'n' : ' ';  // Convert to SPI format
+    }
+}
+```

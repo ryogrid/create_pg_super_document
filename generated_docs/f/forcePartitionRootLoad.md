@@ -35,3 +35,25 @@ This is a safety mechanism in pg_dump to handle partitioned tables that may have
 - Complements getRootTableInfo by providing safety checks for partition hierarchies
 - Uses the unsafe_partitions flag in TableInfo to make safety determinations
 - Located at src/bin/pg_dump/pg_dump.c:2628-2655
+
+## Simplified Source
+
+```c
+static bool forcePartitionRootLoad(const TableInfo *tbinfo) {
+    // Check if any ancestor in partition hierarchy has unsafe partitions
+    TableInfo *parentTbinfo = tbinfo->parents[0];
+
+    // Check immediate parent
+    if (parentTbinfo->unsafe_partitions)
+        return true;
+
+    // Walk up the partition hierarchy checking each level
+    while (parentTbinfo->ispartition) {
+        parentTbinfo = parentTbinfo->parents[0];
+        if (parentTbinfo->unsafe_partitions)
+            return true;
+    }
+
+    return false;
+}
+```

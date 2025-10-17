@@ -50,3 +50,57 @@ The function expects input in the format "(block_number,offset_number)" where:
 - The function allocates memory for the result ItemPointer using `palloc`
 - Error messages follow PostgreSQL standards and include the invalid input for debugging
 - The parsing logic is noted to be largely derived from the `boxin()` function implementation
+
+## Simplified Source
+
+```c
+Datum tidin(PG_FUNCTION_ARGS) {
+    char *input_string = PG_GETARG_CSTRING(0);
+    Node *error_context = fcinfo->context;
+    char *coordinate_pointers[NTIDARGS];
+    int i;
+    ItemPointer result;
+    BlockNumber block_number;
+    OffsetNumber offset_number;
+
+    // Parse input string to extract block and offset coordinates
+    // Look for format "(block,offset)" and store pointers to block and offset parts
+    for (i = 0, p = input_string; *p && i < NTIDARGS && *p != ')'; p++) {
+        if (*p == ',' || (*p == '(' && i == 0)) {
+            coordinate_pointers[i++] = p + 1;
+        }
+    }
+
+    // Validate that we found both block and offset parts
+    if (i < NTIDARGS) {
+        ereturn(error_context, (Datum) 0,
+                (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                 errmsg("invalid input syntax for type %s: \"%s\"", "tid", input_string)));
+    }
+
+    // Convert block number string to integer with validation
+    unsigned long converted_value = strtoul(coordinate_pointers[0], &bad_pointer, 10);
+    if (errno || *bad_pointer != ',') {
+        ereturn(error_context, (Datum) 0, /* error reporting */);
+    }
+    block_number = (BlockNumber) converted_value;
+
+    // Handle platform differences where unsigned long > BlockNumber
+    if (converted_value != (unsigned long) block_number) {
+        ereturn(error_context, (Datum) 0, /* error reporting */);
+    }
+
+    // Convert offset number string to integer with validation
+    converted_value = strtoul(coordinate_pointers[1], &bad_pointer, 10);
+    if (errno || *bad_pointer != ')' || converted_value > USHRT_MAX) {
+        ereturn(error_context, (Datum) 0, /* error reporting */);
+    }
+    offset_number = (OffsetNumber) converted_value;
+
+    // Create and return the ItemPointer result
+    result = (ItemPointer) palloc(sizeof(ItemPointerData));
+    ItemPointerSet(result, block_number, offset_number);
+
+    PG_RETURN_ITEMPOINTER(result);
+}
+```

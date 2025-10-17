@@ -38,3 +38,20 @@ This function is a PostgreSQL built-in function that implements the subtraction 
 - Located in src/backend/utils/adt/timestamp.c:3371-3384
 - Returns a Datum containing the resulting timestamp with time zone
 - Provides more control over timezone handling compared to the basic `timestamptz_mi_interval` function
+
+## Simplified Source
+
+```c
+Datum timestamptz_mi_interval_at_zone(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    TimestampTz timestamp = PG_GETARG_TIMESTAMPTZ(0);
+    Interval   *span = PG_GETARG_INTERVAL_P(1);
+    text       *zone = PG_GETARG_TEXT_PP(2);
+
+    // Look up the specified timezone
+    pg_tz *attimezone = lookup_timezone(zone);
+
+    // Perform interval subtraction in the specified timezone
+    PG_RETURN_TIMESTAMP(timestamptz_mi_interval_internal(timestamp, span, attimezone));
+}
+```

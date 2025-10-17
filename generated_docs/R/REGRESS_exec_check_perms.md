@@ -50,3 +50,37 @@ The function returns a boolean indicating whether execution should be allowed, a
 - Part of the executor hook testing framework for validating PostgreSQL's execution permission system
 - The do_abort parameter allows the hook to either silently deny permission or actively abort the operation
 - Used to test scenarios where non-superusers are denied execution permissions during regression testing
+
+## Simplified Source
+
+```c
+static bool
+REGRESS_exec_check_perms(List *rangeTabls, List *rteperminfos, bool do_abort)
+{
+    bool am_super = superuser_arg(GetUserId());
+    bool allow = true;
+
+    // Audit the permission check attempt
+    audit_attempt("executor check perms", pstrdup("execute"), NULL);
+
+    // Determine if execution should be allowed
+    allow = !REGRESS_deny_exec_perms || am_super;
+    if (do_abort && !allow)
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("permission denied: %s", "execute")));
+
+    // Forward to next hook in the chain
+    if (next_exec_check_perms_hook &&
+        !(*next_exec_check_perms_hook) (rangeTabls, rteperminfos, do_abort))
+        allow = false;
+
+    // Audit the result
+    if (allow)
+        audit_success("executor check perms", pstrdup("execute"), NULL);
+    else
+        audit_failure("executor check perms", pstrdup("execute"), NULL);
+
+    return allow;
+}
+```

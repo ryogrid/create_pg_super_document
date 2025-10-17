@@ -51,3 +51,58 @@ The function is designed to handle version compatibility issues, ensuring proper
 - Progress reporting is integrated to provide user feedback during long-running operations
 - File synchronization is deferred - all files are synced together at the end of the backup process
 - The function uses the bbstreamer API for flexible output formatting and compression handling
+
+## Simplified Source
+
+```c
+static void
+ReceiveTarFile(PGconn *conn, char *archive_name, char *spclocation,
+               bool tablespacenum, pg_compress_specification *compress)
+{
+    WriteTarState state;
+    bbstreamer *manifest_inject_streamer;
+    bool is_recovery_guc_supported;
+    bool expect_unterminated_tarfile;
+
+    // Initialize state and check server capabilities
+    memset(&state, 0, sizeof(state));
+    is_recovery_guc_supported =
+        PQserverVersion(conn) >= MINIMUM_VERSION_FOR_RECOVERY_GUC;
+    expect_unterminated_tarfile =
+        PQserverVersion(conn) < MINIMUM_VERSION_FOR_TERMINATED_TARFILE;
+
+    // Create backup streamer for handling output
+    state.streamer = CreateBackupStreamer(archive_name, spclocation,
+                                         &manifest_inject_streamer,
+                                         is_recovery_guc_supported,
+                                         expect_unterminated_tarfile,
+                                         compress);
+    state.tablespacenum = tablespacenum;
+
+    // Receive and process tar data
+    ReceiveCopyData(conn, ReceiveTarCopyChunk, &state);
+    progress_update_filename(NULL);
+
+    // Handle manifest injection if needed
+    if (manifest_inject_streamer != NULL) {
+        PQExpBufferData buf;
+
+        // Load backup manifest into memory
+        initPQExpBuffer(&buf);
+        ReceiveBackupManifestInMemory(conn, &buf);
+        if (PQExpBufferDataBroken(buf))
+            pg_fatal("out of memory");
+
+        // Inject manifest into tarfile
+        bbstreamer_inject_file(manifest_inject_streamer, "backup_manifest",
+                              buf.data, buf.len);
+
+        termPQExpBuffer(&buf);
+    }
+
+    // Cleanup and finalize
+    bbstreamer_finalize(state.streamer);
+    bbstreamer_free(state.streamer);
+    progress_report(tablespacenum, true, false);
+}
+```

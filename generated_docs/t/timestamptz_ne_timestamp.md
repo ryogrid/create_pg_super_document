@@ -39,3 +39,18 @@ The inequality test handles timezone conversion by converting the plain timestam
 - The underlying comparison handles timezone conversion and special timestamp values
 - Used internally by PostgreSQL's operator system and can be called from SQL queries
 - Located at src/backend/utils/adt/timestamp.c:2418-2426
+
+## Simplified Source
+
+```c
+Datum timestamptz_ne_timestamp(PG_FUNCTION_ARGS)
+{
+    // Extract timestamptz and timestamp arguments
+    TimestampTz timestamptz_val = PG_GETARG_TIMESTAMPTZ(0);
+    Timestamp timestamp_val = PG_GETARG_TIMESTAMP(1);
+
+    // Compare values and return true if not equal
+    // Uses internal comparison that handles timezone conversion
+    PG_RETURN_BOOL(timestamp_cmp_timestamptz_internal(timestamp_val, timestamptz_val) != 0);
+}
+```

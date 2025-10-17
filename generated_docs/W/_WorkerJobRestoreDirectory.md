@@ -32,3 +32,12 @@ This function is specifically designed for parallel restore operations in the pg
 - Designed for execution in forked child processes during parallel operations
 - Complements `_WorkerJobDumpDirectory` by providing the restore counterpart functionality
 - The simple wrapper design allows for potential future enhancements or directory-specific processing while maintaining the current interface
+
+## Simplified Source
+
+```c
+static int _WorkerJobRestoreDirectory(ArchiveHandle *AH, TocEntry *te) {
+    // Delegate to the common parallel restore function
+    return parallel_restore(AH, te);
+}
+```

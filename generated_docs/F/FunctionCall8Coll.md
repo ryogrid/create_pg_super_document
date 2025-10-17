@@ -46,3 +46,34 @@ The function uses the LOCAL_FCINFO macro to create a local FunctionCallInfo stru
 - Collation support is essential for proper string comparison and sorting operations in multi-language databases
 - This 8-argument variant is one of the less commonly used higher-arity function call interfaces, primarily used in specialized GIN index operations
 - Located in src/backend/utils/fmgr/fmgr.c:1318-1353
+
+## Simplified Source
+
+```c
+Datum FunctionCall8Coll(FmgrInfo *flinfo, Oid collation, Datum arg1, Datum arg2,
+                        Datum arg3, Datum arg4, Datum arg5, Datum arg6,
+                        Datum arg7, Datum arg8) {
+    // Set up local function call context for 8 arguments
+    LOCAL_FCINFO(fcinfo, 8);
+
+    // Initialize function call with collation info
+    InitFunctionCallInfoData(*fcinfo, flinfo, 8, collation, NULL, NULL);
+
+    // Set all 8 arguments as non-null values
+    fcinfo->args[0].value = arg1; fcinfo->args[0].isnull = false;
+    fcinfo->args[1].value = arg2; fcinfo->args[1].isnull = false;
+    fcinfo->args[2].value = arg3; fcinfo->args[2].isnull = false;
+    fcinfo->args[3].value = arg4; fcinfo->args[3].isnull = false;
+    fcinfo->args[4].value = arg5; fcinfo->args[4].isnull = false;
+    fcinfo->args[5].value = arg6; fcinfo->args[5].isnull = false;
+    fcinfo->args[6].value = arg7; fcinfo->args[6].isnull = false;
+    fcinfo->args[7].value = arg8; fcinfo->args[7].isnull = false;
+
+    // Invoke the function and check for null result
+    Datum result = FunctionCallInvoke(fcinfo);
+    if (fcinfo->isnull)
+        elog(ERROR, "function %u returned NULL", flinfo->fn_oid);
+
+    return result;
+}
+```

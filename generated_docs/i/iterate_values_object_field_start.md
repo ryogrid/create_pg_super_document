@@ -29,3 +29,19 @@ This function serves as a JSON parser callback handler specifically for object f
 
 ## Notes and Other Information
 The function duplicates the field name string using pstrdup before passing it to the action callback, ensuring the callback receives a properly allocated string that won't be invalidated by the parser. The isnull parameter is currently not utilized in the implementation. The function always returns JSON_SUCCESS to indicate successful processing. This callback works in conjunction with iterate_values_scalar to provide complete coverage of JSON elements that might be relevant for text search operations.
+
+## Simplified Source
+```c
+static JsonParseErrorType
+iterate_values_object_field_start(void *state, char *fname, bool isnull) {
+    IterateJsonStringValuesState *_state = (IterateJsonStringValuesState *) state;
+
+    // Process field name if key processing is enabled
+    if (_state->flags & jtiKey) {
+        char *val = pstrdup(fname);  // Duplicate field name
+        _state->action(_state->action_state, val, strlen(val));  // Call action callback
+    }
+
+    return JSON_SUCCESS;
+}
+```

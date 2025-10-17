@@ -35,3 +35,19 @@ This function calculates how many MultiXact operations have occurred since a giv
 - This function helps monitor MultiXact wraparound, which is critical for database maintenance
 - The result is returned as a 32-bit signed integer
 - Located in src/backend/utils/adt/xid.c:120-138
+
+## Simplified Source
+
+```c
+Datum mxid_age(PG_FUNCTION_ARGS) {
+    TransactionId mxid = PG_GETARG_TRANSACTIONID(0);
+    MultiXactId next_mxid = ReadNextMultiXactId();
+
+    // Invalid MultiXact IDs are infinitely old
+    if (!MultiXactIdIsValid(mxid))
+        PG_RETURN_INT32(INT_MAX);
+
+    // Calculate age as difference from next MultiXact ID
+    PG_RETURN_INT32((int32) (next_mxid - mxid));
+}
+```

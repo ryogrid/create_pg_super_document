@@ -37,3 +37,26 @@ This function takes no SQL parameters and returns the integer value stored in sh
 - Automatically handles DSM segment attachment on each call, making it safe to call even if the segment isn't currently attached
 - The global `tdr_state` variable is updated by the attach function and then used to access the shared memory
 - Complements the `set_val_in_shmem` function to provide a complete read/write interface for the shared value
+
+## Simplified Source
+
+```c
+Datum get_val_in_shmem(PG_FUNCTION_ARGS) {
+    int ret;
+
+    // Ensure we're attached to the shared memory segment
+    tdr_attach_shmem();
+
+    // Acquire shared lock for safe reading
+    LWLockAcquire(&tdr_state->lck, LW_SHARED);
+
+    // Read the shared value
+    ret = tdr_state->val;
+
+    // Release the lock
+    LWLockRelease(&tdr_state->lck);
+
+    // Return the value to SQL caller
+    PG_RETURN_INT32(ret);
+}
+```

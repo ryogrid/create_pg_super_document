@@ -36,3 +36,18 @@ The function uses PostgreSQL's function call interface (PG_FUNCTION_ARGS) to acc
 - The function follows PostgreSQL's fmgr (function manager) calling convention
 - Part of PostgreSQL's full-text search functionality
 - Maps to the  operator in tsquery syntax
+
+## Simplified Source
+
+```c
+Datum
+tsquery_phrase(PG_FUNCTION_ARGS)
+{
+    // Create phrase query with default distance of 1
+    // Simply delegates to tsquery_phrase_distance with distance=1
+    return DirectFunctionCall3(tsquery_phrase_distance,
+                              PG_GETARG_DATUM(0),  // first tsquery
+                              PG_GETARG_DATUM(1),  // second tsquery
+                              Int32GetDatum(1));   // fixed distance
+}
+```

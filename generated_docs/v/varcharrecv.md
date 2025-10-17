@@ -41,3 +41,23 @@ The function extracts the string data from the input buffer, applies any type mo
 - Memory management is handled carefully with `pfree` to avoid leaks
 - The function respects type modifiers for length constraints through `varchar_input`
 - Part of PostgreSQL's standard type I/O function set registered in system catalogs
+
+## Simplified Source
+
+```c
+Datum varcharrecv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    int32 atttypmod = PG_GETARG_INT32(2);
+
+    // Extract text from binary buffer
+    int nbytes;
+    char *str = pq_getmsgtext(buf, buf->len - buf->cursor, &nbytes);
+
+    // Convert to VARCHAR with type modifier constraints
+    VarChar *result = varchar_input(str, nbytes, atttypmod, NULL);
+
+    // Clean up temporary string
+    pfree(str);
+    return result;
+}
+```

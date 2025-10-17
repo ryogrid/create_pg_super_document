@@ -38,3 +38,23 @@ This function is primarily used for reading numeric data fields in COPY protocol
 - If insufficient bytes remain in the buffer, the function calls ReportCopyDataParseError and does not return
 - This is a static utility function only used within pg_basebackup.c for COPY protocol parsing
 - The function follows PostgreSQL's conventions for handling binary data in network protocols
+
+## Simplified Source
+
+```c
+static uint64
+GetCopyDataUInt64(size_t r, char *copybuf, size_t *cursor)
+{
+    uint64 result;
+
+    // Check if we have enough bytes for a uint64
+    if (*cursor + sizeof(uint64) > r)
+        ReportCopyDataParseError(r, copybuf);
+
+    // Safely copy bytes and convert from network byte order
+    memcpy(&result, &copybuf[*cursor], sizeof(uint64));
+    *cursor += sizeof(uint64);
+
+    return pg_ntoh64(result);
+}
+```

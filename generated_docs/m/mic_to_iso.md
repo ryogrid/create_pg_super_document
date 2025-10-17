@@ -41,3 +41,24 @@ The function follows PostgreSQL's standard function argument protocol (PG_FUNCTI
 - Complementary to iso_to_mic, providing bidirectional conversion capability between ISO-8859-5 and MULE internal format
 - Handles the character encoding differences between the KOI8-R-based MULE representation and ISO-8859-5 Cyrillic characters
 - This function is typically registered as a conversion procedure in PostgreSQL's encoding conversion system rather than called directly
+
+## Simplified Source
+
+```c
+Datum mic_to_iso(PG_FUNCTION_ARGS) {
+    // Extract conversion parameters from PostgreSQL function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate that we're converting from MULE internal to ISO-8859-5
+    CHECK_ENCODING_CONVERSION_ARGS(PG_MULE_INTERNAL, PG_ISO_8859_5);
+
+    // Convert using koi2iso translation table to map KOI8-R to ISO-8859-5 equivalents
+    int converted = mic2latin_with_table(src, dest, len, LC_KOI8_R, PG_ISO_8859_5, koi2iso, noError);
+
+    // Return number of bytes successfully converted
+    PG_RETURN_INT32(converted);
+}
+```

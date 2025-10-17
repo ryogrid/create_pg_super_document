@@ -35,3 +35,12 @@ The `append_heap_pattern` function is a specialized wrapper around `append_relat
 - Part of pg_amcheck's type-specific filtering system for targeted integrity checks
 - Delegates actual pattern processing to append_relation_pattern_helper
 - Useful for scenarios where only table data integrity needs to be verified
+
+## Simplified Source
+
+```c
+static void append_heap_pattern(PatternInfoArray *pia, const char *pattern, int encoding) {
+    // Add pattern that matches only heap tables (not indexes)
+    append_relation_pattern_helper(pia, pattern, encoding, true, false);
+}
+```

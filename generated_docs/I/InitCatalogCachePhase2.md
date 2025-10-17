@@ -34,3 +34,18 @@ The function iterates through all system caches and calls InitCatCachePhase2() f
 - The function performs actual database access, unlike the first initialization phase
 - Helps reduce cold-start latency by front-loading cache population during strategic moments
 - The 'true' parameter passed to InitCatCachePhase2 likely indicates that database access is permitted
+
+## Simplified Source
+
+```c
+void InitCatalogCachePhase2(void) {
+    int cacheId;
+
+    // Ensure first phase initialization completed
+    Assert(CacheInitialized);
+
+    // Complete initialization for all system caches with database access
+    for (cacheId = 0; cacheId < SysCacheSize; cacheId++)
+        InitCatCachePhase2(SysCache[cacheId], true);
+}
+```

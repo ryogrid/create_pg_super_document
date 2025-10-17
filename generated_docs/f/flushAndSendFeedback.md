@@ -33,3 +33,24 @@ The  function is responsible for ensuring data durability and maintaining commun
 - Used specifically in the pg_recvlogical utility for logical replication WAL streaming
 - The timestamp update ensures that feedback contains the most current timing information
 - Error handling is simplified: any failure in either operation causes the entire function to return false
+
+## Simplified Source
+
+```c
+static bool flushAndSendFeedback(PGconn *conn, TimestampTz *now) {
+    // Flush buffered data to disk for durability
+    if (!OutputFsync(*now)) {
+        return false;
+    }
+
+    // Update timestamp to current time
+    *now = feGetCurrentTimestamp();
+
+    // Send feedback message to server with forced flag
+    if (!sendFeedback(conn, *now, true, false)) {
+        return false;
+    }
+
+    return true;
+}
+```

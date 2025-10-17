@@ -41,3 +41,22 @@ The function supports various XML formatting options including null value handli
 - Internally delegates to  which constructs a SELECT * query and uses  for actual XML generation
 - Part of PostgreSQL's XML data type support and SQL/XML standard compliance
 - Returns XML data type that can be further processed or exported
+
+## Simplified Source
+
+```c
+Datum
+table_to_xml(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    Oid table_oid = PG_GETARG_OID(0);
+    bool include_nulls = PG_GETARG_BOOL(1);
+    bool table_forest_format = PG_GETARG_BOOL(2);
+    const char *target_namespace = text_to_cstring(PG_GETARG_TEXT_PP(3));
+
+    // Delegate to internal function and return XML result
+    PG_RETURN_XML_P(stringinfo_to_xmltype(
+        table_to_xml_internal(table_oid, NULL, include_nulls,
+                             table_forest_format, target_namespace, true)));
+}
+```

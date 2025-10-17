@@ -35,3 +35,18 @@ The function only performs sorting when there are more than one transaction IDs 
 - Ensures consistent on-disk representation regardless of whether bsearch will be used
 - The qunique function removes duplicates while preserving the sorted order
 - Critical for snapshot processing and transaction visibility determination
+
+## Simplified Source
+
+```c
+static void sort_snapshot(pg_snapshot *snap) {
+    // Only sort if we have multiple transaction IDs
+    if (snap->nxip > 1) {
+        // Sort transaction IDs using quicksort
+        qsort(snap->xip, snap->nxip, sizeof(FullTransactionId), cmp_fxid);
+
+        // Remove duplicates and update count
+        snap->nxip = qunique(snap->xip, snap->nxip, sizeof(FullTransactionId), cmp_fxid);
+    }
+}
+```

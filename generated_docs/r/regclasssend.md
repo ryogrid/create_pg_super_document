@@ -41,3 +41,14 @@ This function is part of PostgreSQL's type input/output function framework, spec
 - Automatically invoked by PostgreSQL's type system when binary output is required
 - No additional processing or validation is performed beyond the standard OID binary conversion
 - Complements regclassrecv for complete binary format support
+
+## Simplified Source
+
+```c
+Datum
+regclasssend(PG_FUNCTION_ARGS)
+{
+    // Delegate to oidsend since regclass uses identical binary format
+    return oidsend(fcinfo);
+}
+```

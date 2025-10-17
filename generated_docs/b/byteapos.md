@@ -39,3 +39,41 @@ The `byteapos` function implements the SQL standard POSITION() function for byte
 - Uses efficient linear search algorithm with early termination
 - Handles binary data that may contain null bytes
 - Located in src/backend/utils/adt/varlena.c:3165-3208
+
+## Simplified Source
+
+```c
+Datum byteapos(PG_FUNCTION_ARGS)
+{
+    bytea *target = PG_GETARG_BYTEA_PP(0);    // String to search in
+    bytea *pattern = PG_GETARG_BYTEA_PP(1);   // Pattern to find
+
+    int target_len = VARSIZE_ANY_EXHDR(target);
+    int pattern_len = VARSIZE_ANY_EXHDR(pattern);
+
+    // Empty pattern always found at position 1 (SQL standard)
+    if (pattern_len <= 0)
+        PG_RETURN_INT32(1);
+
+    char *target_data = VARDATA_ANY(target);
+    char *pattern_data = VARDATA_ANY(pattern);
+
+    // Search for pattern in target string
+    int max_start = target_len - pattern_len;
+    for (int pos = 0; pos <= max_start; pos++) {
+        // Check if pattern matches at current position
+        if (target_data[pos] == pattern_data[0] &&
+            memcmp(target_data + pos, pattern_data, pattern_len) == 0) {
+            PG_RETURN_INT32(pos + 1);  // Return 1-based position
+        }
+    }
+
+    PG_RETURN_INT32(0);  // Pattern not found
+}
+```
+
+**Key Points:**
+- Implements SQL POSITION() function for bytea data types
+- Returns 1-based position of first pattern occurrence, 0 if not found
+- Empty patterns return position 1 per SQL standard
+- Uses memcmp for exact binary matching (handles null bytes correctly)

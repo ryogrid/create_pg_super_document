@@ -45,3 +45,25 @@ This function serves as the core table-to-XML conversion mechanism in PostgreSQL
 - Delegates actual XML formatting to query_to_xml_internal for consistency
 - Supports both data-only and data-with-schema XML generation modes
 - Handles various XML output formats through parameter configuration
+
+## Simplified Source
+
+```c
+static StringInfo table_to_xml_internal(Oid relid,
+                                        const char *xmlschema, bool nulls, bool tableforest,
+                                        const char *targetns, bool top_level)
+{
+    StringInfoData query;
+
+    // Build SELECT query for the specified table
+    initStringInfo(&query);
+    appendStringInfo(&query, "SELECT * FROM %s",
+                     DatumGetCString(DirectFunctionCall1(regclassout,
+                                                        ObjectIdGetDatum(relid))));
+
+    // Convert query results to XML format
+    return query_to_xml_internal(query.data, get_rel_name(relid),
+                                xmlschema, nulls, tableforest,
+                                targetns, top_level);
+}
+```

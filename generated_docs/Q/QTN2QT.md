@@ -39,3 +39,36 @@ QTN2QT transforms a tree-based query representation (QTNode) into a flattened TS
 - Uses QTN2QTState structure to track current position during flat structure creation
 - The resulting TSQuery uses a compact binary format for efficient storage and processing
 - Critical function in tsquery processing pipeline, converting parsed trees to executable format
+
+## Simplified Source
+
+```c
+TSQuery QTN2QT(QTNode *in) {
+    TSQuery out;
+    int len;
+    int sumlen = 0, nnode = 0;
+    QTN2QTState state;
+
+    // Calculate total size and node count from tree
+    cntsize(in, &sumlen, &nnode);
+
+    // Check if query exceeds maximum allowed size
+    if (TSQUERY_TOO_BIG(nnode, sumlen))
+        ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                       errmsg("tsquery is too large")));
+
+    // Allocate memory for flat TSQuery structure
+    len = COMPUTESIZE(nnode, sumlen);
+    out = (TSQuery) palloc0(len);
+    SET_VARSIZE(out, len);
+    out->size = nnode;
+
+    // Initialize state for tree-to-flat conversion
+    state.curitem = GETQUERY(out);
+    state.operand = state.curoperand = GETOPERAND(out);
+
+    // Convert tree structure to flat representation
+    fillQT(&state, in);
+    return out;
+}
+```

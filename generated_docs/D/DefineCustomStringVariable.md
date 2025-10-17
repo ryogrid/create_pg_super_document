@@ -52,3 +52,38 @@ The function initializes all necessary metadata for the string variable includin
 
 ## Notes and Other Information
 The variable remains registered for the lifetime of the process. The valueAddr pointer must remain valid throughout the process lifetime, and the GUC system will automatically manage the string memory pointed to by *valueAddr. The boot value is used both as the initial value and as the reset value when the configuration is reset to defaults. String values are automatically copied and managed by the GUC system, so the bootValue parameter can be a static string or temporary value.
+
+## Simplified Source
+
+```c
+void DefineCustomStringVariable(const char *name,
+                               const char *short_desc,
+                               const char *long_desc,
+                               char **valueAddr,
+                               const char *bootValue,
+                               GucContext context,
+                               int flags,
+                               GucStringCheckHook check_hook,
+                               GucStringAssignHook assign_hook,
+                               GucShowHook show_hook)
+{
+    struct config_string *var;
+
+    // Initialize custom variable structure with string type
+    var = (struct config_string *)
+        init_custom_variable(name, short_desc, long_desc, context, flags,
+                           PGC_STRING, sizeof(struct config_string));
+
+    // Set string-specific fields
+    var->variable = valueAddr;      // Pointer to char* that holds the string value
+    var->boot_val = bootValue;      // Default string value
+
+    // Set optional hook functions
+    var->check_hook = check_hook;   // Validation function
+    var->assign_hook = assign_hook; // Assignment callback
+    var->show_hook = show_hook;     // Display customization
+
+    // Register the variable with GUC system
+    define_custom_variable(&var->gen);
+}
+```

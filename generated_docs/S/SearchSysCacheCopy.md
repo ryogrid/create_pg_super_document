@@ -37,3 +37,21 @@ SearchSysCacheCopy combines system cache search with tuple copying in a single o
 - Returns NULL if no matching tuple is found in the cache
 - Essential for code that needs to modify system catalog information
 - More convenient than manual search-copy-release sequences
+
+## Simplified Source
+
+```c
+HeapTuple SearchSysCacheCopy(int cacheId, Datum key1, Datum key2, Datum key3, Datum key4) {
+    HeapTuple tuple, newtuple;
+
+    // Search for tuple in system cache
+    tuple = SearchSysCache(cacheId, key1, key2, key3, key4);
+    if (!HeapTupleIsValid(tuple))
+        return tuple;  // Return NULL if not found
+
+    // Create modifiable copy and release original cached tuple
+    newtuple = heap_copytuple(tuple);
+    ReleaseSysCache(tuple);
+    return newtuple;
+}
+```

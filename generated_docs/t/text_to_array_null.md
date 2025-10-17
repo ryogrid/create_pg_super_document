@@ -28,3 +28,12 @@ The text_to_array_null function is a separate entry point that delegates directl
 - This is essentially a pass-through function that exists for API completeness
 - Created specifically to prevent regression test issues with different argument sets
 - Part of PostgreSQL's variable-length data type utilities
+
+## Simplified Source
+
+```c
+Datum text_to_array_null(PG_FUNCTION_ARGS) {
+    // Simply delegate to text_to_array - this is a wrapper for API compatibility
+    return text_to_array(fcinfo);
+}
+```

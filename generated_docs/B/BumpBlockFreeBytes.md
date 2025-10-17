@@ -29,3 +29,13 @@ BumpBlockFreeBytes is a static inline utility function within PostgreSQL's bump 
 - The calculation relies on the BumpBlock structure's freeptr (start of free space) and endptr (end of block) members
 - Used internally by the bump memory allocator to make allocation decisions and optimize memory usage
 - Part of PostgreSQL's specialized memory management system designed for scenarios where memory is allocated frequently but freed infrequently
+
+## Simplified Source
+
+```c
+static inline Size
+BumpBlockFreeBytes(BumpBlock *block)
+{
+    return (block->endptr - block->freeptr);
+}
+```

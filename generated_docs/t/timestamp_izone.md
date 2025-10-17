@@ -48,3 +48,45 @@ The conversion is performed using the dt2local function which applies the timezo
 - Error handling includes specific error codes for different validation failures (ERRCODE_INVALID_PARAMETER_VALUE, ERRCODE_DATETIME_VALUE_OUT_OF_RANGE)
 - The conversion uses microsecond precision (USECS_PER_SEC) for time calculations
 - Located in src/backend/utils/adt/timestamp.c:6229-6272
+
+## Simplified Source
+
+```c
+Datum timestamp_izone(PG_FUNCTION_ARGS) {
+    Interval *zone = PG_GETARG_INTERVAL_P(0);
+    Timestamp timestamp = PG_GETARG_TIMESTAMP(1);
+    TimestampTz result;
+    int tz;
+
+    // Handle infinite timestamps
+    if (TIMESTAMP_NOT_FINITE(timestamp))
+        PG_RETURN_TIMESTAMPTZ(timestamp);
+
+    // Validate interval zone is finite
+    if (INTERVAL_NOT_FINITE(zone))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                errmsg("interval time zone \"%s\" must be finite",
+                       DatumGetCString(DirectFunctionCall1(interval_out,
+                                                           PointerGetDatum(zone))))));
+
+    // Validate interval contains only time components
+    if (zone->month != 0 || zone->day != 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                errmsg("interval time zone \"%s\" must not include months or days",
+                       DatumGetCString(DirectFunctionCall1(interval_out,
+                                                           PointerGetDatum(zone))))));
+
+    // Convert interval to seconds offset
+    tz = zone->time / USECS_PER_SEC;
+
+    // Apply timezone offset
+    result = dt2local(timestamp, tz);
+
+    // Validate result is in range
+    if (!IS_VALID_TIMESTAMP(result))
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                errmsg("timestamp out of range")));
+
+    PG_RETURN_TIMESTAMPTZ(result);
+}
+```

@@ -43,3 +43,129 @@ The function extracts type information directly from the tuple header, decompose
 - Handles dropped columns by skipping them in output
 - Uses function-local caching (fn_extra) to optimize repeated calls with same type
 - Memory management ensures result string is properly allocated for caller
+
+## Simplified Source
+
+```c
+Datum
+record_out(PG_FUNCTION_ARGS)
+{
+    HeapTupleHeader rec = PG_GETARG_HEAPTUPLEHEADER(0);
+    Oid tupType;
+    int32 tupTypmod;
+    TupleDesc tupdesc;
+    HeapTupleData tuple;
+    RecordIOData *my_extra;
+    bool needComma = false;
+    int ncolumns, i;
+    Datum *values;
+    bool *nulls;
+    StringInfoData buf;
+
+    check_stack_depth();
+
+    // Extract type info from tuple header
+    tupType = HeapTupleHeaderGetTypeId(rec);
+    tupTypmod = HeapTupleHeaderGetTypMod(rec);
+    tupdesc = lookup_rowtype_tupdesc(tupType, tupTypmod);
+    ncolumns = tupdesc->natts;
+
+    // Build temporary tuple control structure
+    tuple.t_len = HeapTupleHeaderGetDatumLength(rec);
+    ItemPointerSetInvalid(&(tuple.t_self));
+    tuple.t_tableOid = InvalidOid;
+    tuple.t_data = rec;
+
+    // Set up or validate cached I/O info
+    my_extra = (RecordIOData *) fcinfo->flinfo->fn_extra;
+    if (my_extra == NULL || my_extra->ncolumns != ncolumns) {
+        fcinfo->flinfo->fn_extra = MemoryContextAlloc(fcinfo->flinfo->fn_mcxt,
+                                                      offsetof(RecordIOData, columns) +
+                                                      ncolumns * sizeof(ColumnIOData));
+        my_extra = (RecordIOData *) fcinfo->flinfo->fn_extra;
+        my_extra->record_type = InvalidOid;
+        my_extra->record_typmod = 0;
+    }
+
+    if (my_extra->record_type != tupType || my_extra->record_typmod != tupTypmod) {
+        MemSet(my_extra, 0, offsetof(RecordIOData, columns) + ncolumns * sizeof(ColumnIOData));
+        my_extra->record_type = tupType;
+        my_extra->record_typmod = tupTypmod;
+        my_extra->ncolumns = ncolumns;
+    }
+
+    values = (Datum *) palloc(ncolumns * sizeof(Datum));
+    nulls = (bool *) palloc(ncolumns * sizeof(bool));
+
+    // Extract individual field values
+    heap_deform_tuple(&tuple, tupdesc, values, nulls);
+
+    // Build output string
+    initStringInfo(&buf);
+    appendStringInfoChar(&buf, '(');
+
+    for (i = 0; i < ncolumns; i++) {
+        Form_pg_attribute att = TupleDescAttr(tupdesc, i);
+        ColumnIOData *column_info = &my_extra->columns[i];
+        Oid column_type = att->atttypid;
+        Datum attr;
+        char *value;
+        char *tmp;
+        bool nq;
+
+        // Skip dropped columns
+        if (att->attisdropped)
+            continue;
+
+        if (needComma)
+            appendStringInfoChar(&buf, ',');
+        needComma = true;
+
+        if (nulls[i]) {
+            // Null fields appear as empty
+            continue;
+        }
+
+        // Convert field to text
+        if (column_info->column_type != column_type) {
+            getTypeOutputInfo(column_type, &column_info->typiofunc, &column_info->typisvarlena);
+            fmgr_info_cxt(column_info->typiofunc, &column_info->proc, fcinfo->flinfo->fn_mcxt);
+            column_info->column_type = column_type;
+        }
+
+        attr = values[i];
+        value = OutputFunctionCall(&column_info->proc, attr);
+
+        // Determine if quoting is needed
+        nq = (value[0] == '\0');  // Force quotes for empty string
+        for (tmp = value; *tmp; tmp++) {
+            char ch = *tmp;
+            if (ch == '"' || ch == '\\' || ch == '(' || ch == ')' || ch == ',' ||
+                isspace((unsigned char) ch)) {
+                nq = true;
+                break;
+            }
+        }
+
+        // Output the value with proper quoting/escaping
+        if (nq)
+            appendStringInfoCharMacro(&buf, '"');
+        for (tmp = value; *tmp; tmp++) {
+            char ch = *tmp;
+            if (ch == '"' || ch == '\\')
+                appendStringInfoCharMacro(&buf, ch);  // Double the character
+            appendStringInfoCharMacro(&buf, ch);
+        }
+        if (nq)
+            appendStringInfoCharMacro(&buf, '"');
+    }
+
+    appendStringInfoChar(&buf, ')');
+
+    pfree(values);
+    pfree(nulls);
+    ReleaseTupleDesc(tupdesc);
+
+    PG_RETURN_CSTRING(buf.data);
+}
+```

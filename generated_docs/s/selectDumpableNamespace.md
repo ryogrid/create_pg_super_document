@@ -45,3 +45,66 @@ The function sets both dump (what to dump for the schema itself) and dump_contai
 - The function handles the distinction between dumping the schema definition itself vs. dumping objects contained within it
 - Extension membership is checked last and can override schema-level dump decisions
 - The create flag determines whether CREATE SCHEMA statements are generated
+
+## Simplified Source
+
+```c
+static void
+selectDumpableNamespace(NamespaceInfo *nsinfo, Archive *fout)
+{
+    // Default: create schema if we're dumping its definition
+    nsinfo->create = true;
+
+    // Determine dump policy based on inclusion lists and schema type
+    if (table_include_oids.head != NULL)
+    {
+        // Specific tables being dumped - don't dump complete namespaces
+        nsinfo->dobj.dump_contains = nsinfo->dobj.dump = DUMP_COMPONENT_NONE;
+    }
+    else if (schema_include_oids.head != NULL)
+    {
+        // Specific schemas being dumped - check if this one is included
+        nsinfo->dobj.dump_contains = nsinfo->dobj.dump =
+            simple_oid_list_member(&schema_include_oids, nsinfo->dobj.catId.oid) ?
+            DUMP_COMPONENT_ALL : DUMP_COMPONENT_NONE;
+    }
+    else if (fout->remoteVersion >= 90600 &&
+             strcmp(nsinfo->dobj.name, "pg_catalog") == 0)
+    {
+        // PostgreSQL 9.6+: dump ACLs only for pg_catalog (not original initdb ACLs)
+        nsinfo->dobj.dump_contains = nsinfo->dobj.dump = DUMP_COMPONENT_ACL;
+    }
+    else if (strncmp(nsinfo->dobj.name, "pg_", 3) == 0 ||
+             strcmp(nsinfo->dobj.name, "information_schema") == 0)
+    {
+        // Other system schemas don't get dumped
+        nsinfo->dobj.dump_contains = nsinfo->dobj.dump = DUMP_COMPONENT_NONE;
+    }
+    else if (strcmp(nsinfo->dobj.name, "public") == 0)
+    {
+        // Special handling for public schema
+        nsinfo->create = false;  // CREATE SCHEMA would fail
+        nsinfo->dobj.dump = DUMP_COMPONENT_ALL;
+
+        // Omit definition if owner is default
+        if (nsinfo->nspowner == ROLE_PG_DATABASE_OWNER)
+            nsinfo->dobj.dump &= ~DUMP_COMPONENT_DEFINITION;
+
+        nsinfo->dobj.dump_contains = DUMP_COMPONENT_ALL;
+        nsinfo->dobj.components |= DUMP_COMPONENT_COMMENT;  // Force comment handling
+    }
+    else
+    {
+        // User schemas: dump all components
+        nsinfo->dobj.dump_contains = nsinfo->dobj.dump = DUMP_COMPONENT_ALL;
+    }
+
+    // Apply exclusion list overrides
+    if (nsinfo->dobj.dump_contains &&
+        simple_oid_list_member(&schema_exclude_oids, nsinfo->dobj.catId.oid))
+        nsinfo->dobj.dump_contains = nsinfo->dobj.dump = DUMP_COMPONENT_NONE;
+
+    // Check extension membership (can override schema dump decision)
+    (void) checkExtensionMembership(&nsinfo->dobj, fout);
+}
+```

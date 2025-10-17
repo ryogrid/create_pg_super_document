@@ -33,3 +33,16 @@ The function uses a heuristic approach by checking if the encoding ID is greater
 - [Backend](../B/Backend.md)-supported encodings (encoding <= PG_ENCODING_BE_LAST) are assumed to not have ASCII conflicts
 - This heuristic approach avoids the need to store ASCII conflict properties directly in encoding metadata
 - Used primarily in testing contexts to determine appropriate escape sequence handling strategies
+
+## Simplified Source
+
+```c
+static bool
+encoding_conflicts_ascii(int encoding)
+{
+    // Client-only encodings may have multi-byte chars with ASCII-like bytes
+    if (encoding > PG_ENCODING_BE_LAST)
+        return true;
+    return false;
+}
+```

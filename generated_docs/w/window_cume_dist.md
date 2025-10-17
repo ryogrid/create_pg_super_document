@@ -50,3 +50,34 @@ The implementation uses a forward-scanning approach: when the rank changes or fo
 - Suitable for statistical analysis and percentile calculations
 - Complies with SQL standard behavior for CUME_DIST() window function
 - The scanning approach ensures accurate peer counting but may impact performance with large numbers of peer rows
+
+## Simplified Source
+
+```c
+Datum window_cume_dist(PG_FUNCTION_ARGS)
+{
+    WindowObject winobj = PG_WINDOW_OBJECT();
+    int64 totalrows = WinGetPartitionRowCount(winobj);
+
+    // Check if rank should increase and get context
+    bool should_increase = rank_up(winobj);
+    rank_context *context = (rank_context *)
+        WinGetPartitionLocalMemory(winobj, sizeof(rank_context));
+
+    if (should_increase || context->rank == 1) {
+        // Count current row and all its peers
+        context->rank = WinGetCurrentPosition(winobj) + 1;
+
+        // Scan forward to count all peer rows
+        for (int64 row = context->rank; row < totalrows; row++) {
+            if (!WinRowsArePeers(winobj, row - 1, row)) {
+                break;  // No more peer rows
+            }
+            context->rank++;
+        }
+    }
+
+    // Return cumulative distribution: peer_count / total_rows
+    PG_RETURN_FLOAT8((float8)context->rank / (float8)totalrows);
+}
+```

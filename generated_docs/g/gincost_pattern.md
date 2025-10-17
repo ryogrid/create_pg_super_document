@@ -41,3 +41,72 @@ The gincost_pattern function analyzes a specific GIN (Generalized Inverted Index
 - Updates both exact and partial entry counts for cost estimation
 - Returns false for unsatisfiable queries (when nentries <= 0 in default search mode)
 - Properly handles collation settings for the extractQuery function call
+
+## Simplified Source
+
+```c
+static bool gincost_pattern(IndexOptInfo *index, int indexcol, Oid clause_op,
+                           Datum query, GinQualCounts *counts) {
+    FmgrInfo flinfo;
+    Oid extractProcOid;
+    Oid collation;
+    int strategy_op;
+    int32 nentries = 0;
+    bool *partial_matches = NULL;
+    int32 searchMode = GIN_SEARCH_MODE_DEFAULT;
+
+    // Get operator strategy and validate
+    get_op_opfamily_properties(clause_op, index->opfamily[indexcol], false,
+                              &strategy_op, NULL, NULL);
+
+    // Get the extractQuery support function
+    extractProcOid = get_opfamily_proc(index->opfamily[indexcol],
+                                      index->opcintype[indexcol],
+                                      index->opcintype[indexcol],
+                                      GIN_EXTRACTQUERY_PROC);
+    if (!OidIsValid(extractProcOid)) {
+        elog(ERROR, "missing support function %d for attribute %d of index \"%s\"",
+             GIN_EXTRACTQUERY_PROC, indexcol + 1, get_rel_name(index->indexoid));
+    }
+
+    // Set up collation and call extractQuery function
+    collation = OidIsValid(index->indexcollations[indexcol]) ?
+                index->indexcollations[indexcol] : DEFAULT_COLLATION_OID;
+
+    fmgr_info(extractProcOid, &flinfo);
+    set_fn_opclass_options(&flinfo, index->opclassoptions[indexcol]);
+
+    FunctionCall7Coll(&flinfo, collation, query,
+                     PointerGetDatum(&nentries), UInt16GetDatum(strategy_op),
+                     PointerGetDatum(&partial_matches), PointerGetDatum(NULL),
+                     PointerGetDatum(NULL), PointerGetDatum(&searchMode));
+
+    // Check if query is satisfiable
+    if (nentries <= 0 && searchMode == GIN_SEARCH_MODE_DEFAULT)
+        return false;
+
+    // Count entries for cost estimation
+    for (int i = 0; i < nentries; i++) {
+        if (partial_matches && partial_matches[i])
+            counts->partialEntries += 100;  // Heuristic estimate
+        else
+            counts->exactEntries++;
+        counts->searchEntries++;
+    }
+
+    // Handle different search modes
+    if (searchMode == GIN_SEARCH_MODE_DEFAULT) {
+        counts->attHasNormalScan[indexcol] = true;
+    } else if (searchMode == GIN_SEARCH_MODE_INCLUDE_EMPTY) {
+        counts->attHasNormalScan[indexcol] = true;
+        counts->exactEntries++;
+        counts->searchEntries++;
+    } else {
+        counts->attHasFullScan[indexcol] = true;
+    }
+
+    return true;
+}
+```
+
+**Core Logic**: Calls the GIN index's extractQuery function to determine search terms for a query pattern, estimates entry counts for cost calculation, and handles different search modes (normal, include empty, full scan).

@@ -45,3 +45,24 @@ The function uses NoLock when resolving the table name since it might not have t
 - Part of PostgreSQL's system catalog functions for introspecting security settings
 - The qualified name can include schema specification (e.g., 'public.mytable') or use the current search path
 - Returns the same simplified boolean result as row_security_active (active/inactive rather than the three-state result of check_enable_rls)
+
+## Simplified Source
+
+```c
+Datum row_security_active_name(PG_FUNCTION_ARGS) {
+    // Get table name from function argument
+    text *tablename = PG_GETARG_TEXT_PP(0);
+
+    // Convert table name to qualified name list and create RangeVar
+    RangeVar *tablerel = makeRangeVarFromNameList(textToQualifiedNameList(tablename));
+
+    // Resolve table name to OID (without locking - might not have privileges)
+    Oid tableoid = RangeVarGetRelid(tablerel, NoLock, false);
+
+    // Check RLS status for the resolved table
+    int rls_status = check_enable_rls(tableoid, InvalidOid, true);
+
+    // Return true only if RLS is enabled
+    PG_RETURN_BOOL(rls_status == RLS_ENABLED);
+}
+```

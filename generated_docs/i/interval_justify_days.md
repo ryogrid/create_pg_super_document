@@ -44,3 +44,37 @@ The function performs the following operations:
 - Sign normalization ensures that month and day components don't have opposite signs
 - This function is part of PostgreSQL's interval arithmetic system and is exposed as a SQL function
 - The function follows PostgreSQL's standard pattern for SQL-callable functions using PG_FUNCTION_ARGS
+
+## Simplified Source
+
+```c
+Datum interval_justify_days(PG_FUNCTION_ARGS) {
+    Interval *span = PG_GETARG_INTERVAL_P(0);
+    Interval *result = (Interval *) palloc(sizeof(Interval));
+
+    // Copy input interval
+    result->month = span->month;
+    result->day = span->day;
+    result->time = span->time;
+
+    // Handle infinite intervals
+    if (INTERVAL_NOT_FINITE(result))
+        PG_RETURN_INTERVAL_P(result);
+
+    // Extract whole months from day component (days -> months conversion)
+    int32 wholemonth = result->day / DAYS_PER_MONTH;
+    result->day -= wholemonth * DAYS_PER_MONTH;
+    result->month += wholemonth; // with overflow check
+
+    // Normalize signs between month and day components
+    if (result->month > 0 && result->day < 0) {
+        result->day += DAYS_PER_MONTH;
+        result->month--;
+    } else if (result->month < 0 && result->day > 0) {
+        result->day -= DAYS_PER_MONTH;
+        result->month++;
+    }
+
+    PG_RETURN_INTERVAL_P(result);
+}
+```

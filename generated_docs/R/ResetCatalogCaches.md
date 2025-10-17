@@ -29,3 +29,13 @@ ResetCatalogCaches is a public function that provides a simple interface for res
 - Serves as the standard entry point for cache invalidation in normal operations
 - Always performs a non-debug reset (debug_discard = false)
 - Part of PostgreSQL's cache invalidation system for maintaining cache consistency across processes
+
+## Simplified Source
+
+```c
+void ResetCatalogCaches(void)
+{
+    // Reset all catalog caches when shared invalidation occurs
+    ResetCatalogCachesExt(false);
+}
+```

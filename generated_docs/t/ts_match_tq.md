@@ -40,4 +40,28 @@ The function follows PostgreSQL's function calling convention using  and returns
 - Uses PostgreSQL's memory management macros (, )
 - This is a convenience function that combines text-to-tsvector conversion with matching in a single operation
 - The function is part of PostgreSQL's full-text search functionality
-- Located in 
+- Located in src/backend/utils/adt/tsvector_op.c
+
+## Simplified Source
+
+```c
+Datum ts_match_tq(PG_FUNCTION_ARGS) {
+    TSVector vector;
+    TSQuery query = PG_GETARG_TSQUERY(1);
+    bool result;
+
+    // Convert plain text to tsvector
+    vector = DatumGetTSVector(DirectFunctionCall1(to_tsvector, PG_GETARG_DATUM(0)));
+
+    // Perform the matching
+    result = DatumGetBool(DirectFunctionCall2(ts_match_vq,
+                                              TSVectorGetDatum(vector),
+                                              TSQueryGetDatum(query)));
+
+    // Clean up memory
+    pfree(vector);
+    PG_FREE_IF_COPY(query, 1);
+
+    PG_RETURN_BOOL(result);
+}
+``` 

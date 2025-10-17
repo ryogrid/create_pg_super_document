@@ -39,3 +39,20 @@ This function provides a clean and efficient way to remove cached expressions wh
 - The function does not return any value (void return type)
 - Part of the cached expression lifecycle management in the plan cache system
 - Located in src/backend/utils/cache/plancache.c:1734-1752
+
+## Simplified Source
+
+```c
+void
+FreeCachedExpression(CachedExpression *cexpr)
+{
+    // Validate cached expression structure
+    Assert(cexpr->magic == CACHEDEXPR_MAGIC);
+
+    // Remove from global list of cached expressions
+    dlist_delete(&cexpr->node);
+
+    // Free all associated memory including the CachedExpression itself
+    MemoryContextDelete(cexpr->context);
+}
+```

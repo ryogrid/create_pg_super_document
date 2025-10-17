@@ -41,3 +41,32 @@ The function includes stack overflow protection via  to prevent infinite recursi
 - Memory for each NODE is allocated using PostgreSQL's memory management system (palloc)
 - The function handles different query item types, with special logic for operators vs. operands
 - Stack depth checking prevents potential denial-of-service attacks through deeply nested queries
+
+## Simplified Source
+
+```c
+static NODE *maketree(QueryItem *in) {
+    // Allocate new tree node
+    NODE *node = (NODE *) palloc(sizeof(NODE));
+
+    // Prevent stack overflow from deep recursion
+    check_stack_depth();
+
+    // Initialize node with input query item
+    node->valnode = in;
+    node->right = node->left = NULL;
+
+    // For operators, recursively build subtrees
+    if (in->type == QI_OPR) {
+        // Always build right subtree (next item in array)
+        node->right = maketree(in + 1);
+
+        // Build left subtree for binary operators (not NOT)
+        if (in->qoperator.oper != OP_NOT) {
+            node->left = maketree(in + in->qoperator.left);
+        }
+    }
+
+    return node;
+}
+```

@@ -40,3 +40,23 @@ The data state is set to either:
 - The allocated lclTocEntry context is attached to the TOC entry's formatData field for later use during data processing
 - The data state tracking enables efficient seeking and positioning during archive restoration
 - Memory allocated here should be properly freed when the TOC entry is destroyed (handled by other cleanup functions in the archive system)
+
+## Simplified Source
+
+```c
+static void
+_ArchiveEntry(ArchiveHandle *AH, TocEntry *te)
+{
+    // Allocate format-specific context for this TOC entry
+    lclTocEntry *ctx = (lclTocEntry *) pg_malloc0(sizeof(lclTocEntry));
+
+    // Set data state based on whether entry has data to dump
+    if (te->dataDumper)
+        ctx->dataState = K_OFFSET_POS_NOT_SET;  // Will have data
+    else
+        ctx->dataState = K_OFFSET_NO_DATA;      // No data
+
+    // Attach context to TOC entry
+    te->formatData = (void *) ctx;
+}
+```

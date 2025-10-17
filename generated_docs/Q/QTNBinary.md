@@ -40,3 +40,48 @@ This binary tree structure is often required for certain query processing algori
 - Modifies tree structure in-place, reducing the number of children per node to at most 2
 - Part of PostgreSQL's text search query processing pipeline
 - Located in src/backend/utils/adt/tsquery_util.c:250-291
+
+## Simplified Source
+
+```c
+void
+QTNBinary(QTNode *in)
+{
+    // Prevent stack overflow during recursion
+    check_stack_depth();
+
+    // Only process operator nodes
+    if (in->valnode->type != QI_OPR)
+        return;
+
+    // Recursively convert all children to binary first
+    for (int i = 0; i < in->nchild; i++)
+        QTNBinary(in->child[i]);
+
+    // Convert multi-child nodes to binary by adding intermediate nodes
+    while (in->nchild > 2) {
+        // Create new intermediate node
+        QTNode *new_node = (QTNode *) palloc0(sizeof(QTNode));
+
+        new_node->valnode = (QueryItem *) palloc0(sizeof(QueryItem));
+        new_node->child = (QTNode **) palloc0(sizeof(QTNode *) * 2);
+
+        new_node->nchild = 2;
+        new_node->flags = QTN_NEEDFREE;
+
+        // Combine first two children into new intermediate node
+        new_node->child[0] = in->child[0];
+        new_node->child[1] = in->child[1];
+        new_node->sign = new_node->child[0]->sign | new_node->child[1]->sign;
+
+        // Copy operator type from parent
+        new_node->valnode->type = in->valnode->type;
+        new_node->valnode->qoperator.oper = in->valnode->qoperator.oper;
+
+        // Replace first two children with intermediate node and last child
+        in->child[0] = new_node;
+        in->child[1] = in->child[in->nchild - 1];
+        in->nchild--;
+    }
+}
+```

@@ -45,3 +45,62 @@ For partitioned tables, it intelligently decides whether to force loading throug
 - Includes overflow protection for 32-bit systems when calculating data length
 - Essential component of PostgreSQL's backup and restore infrastructure
 - Located at src/bin/pg_dump/pg_dump.c:2656-2770
+
+## Simplified Source
+
+```c
+static void dumpTableData(Archive *fout, const TableDataInfo *tdinfo) {
+    DumpOptions *dopt = fout->dopt;
+    TableInfo *tbinfo = tdinfo->tdtable;
+    PQExpBuffer copyBuf = createPQExpBuffer();
+    PQExpBuffer clistBuf = createPQExpBuffer();
+    DataDumperPtr dumpFn;
+    char *tdDefn = NULL;
+    const char *copyFrom;
+
+    // Handle partition loading strategy
+    if (tbinfo->ispartition &&
+        (dopt->load_via_partition_root || forcePartitionRootLoad(tbinfo))) {
+        // Use root table for loading partitioned data safely
+        TableInfo *parentTbinfo = getRootTableInfo(tbinfo);
+        copyFrom = fmtQualifiedDumpable(parentTbinfo);
+
+        // Add comment indicating partition root loading
+        char *sanitized = sanitize_line(copyFrom, true);
+        printfPQExpBuffer(copyBuf, "-- load via partition root %s", sanitized);
+        free(sanitized);
+        tdDefn = pg_strdup(copyBuf->data);
+    } else {
+        copyFrom = fmtQualifiedDumpable(tbinfo);
+    }
+
+    // Choose dump method: COPY or INSERT
+    if (dopt->dump_inserts == 0) {
+        // Use COPY for efficient bulk loading
+        dumpFn = dumpTableData_copy;
+        printfPQExpBuffer(copyBuf, "COPY %s %s FROM stdin;\\n",
+                         copyFrom, fmtCopyColumnList(tbinfo, clistBuf));
+    } else {
+        // Use INSERT statements for compatibility
+        dumpFn = dumpTableData_insert;
+    }
+
+    // Create archive entry for table data
+    if (tdinfo->dobj.dump & DUMP_COMPONENT_DATA) {
+        TocEntry *te = ArchiveEntry(fout, tdinfo->dobj.catId, tdinfo->dobj.dumpId,
+                                   /* archive options with table metadata */);
+
+        // Set data length for parallel dump ordering
+        te->dataLength = (BlockNumber)tbinfo->relpages + (BlockNumber)tbinfo->toastpages;
+
+        // Handle 32-bit overflow protection
+        if (sizeof(te->dataLength) == 4 &&
+            (tbinfo->relpages < 0 || tbinfo->toastpages < 0 || te->dataLength < 0)) {
+            te->dataLength = INT_MAX;
+        }
+    }
+
+    destroyPQExpBuffer(copyBuf);
+    destroyPQExpBuffer(clistBuf);
+}
+```

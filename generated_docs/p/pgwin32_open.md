@@ -46,3 +46,39 @@ For frontend applications (FRONTEND defined), the function ensures that if neith
 - Includes proper cleanup of resources on error (closes handle if file descriptor creation fails)
 - The FRONTEND compilation conditional ensures appropriate default behavior for client applications
 - This function is typically accessed through a macro that redirects the standard open() call to pgwin32_open()
+
+## Simplified Source
+
+```c
+int pgwin32_open(const char *fileName, int fileFlags, ...)
+{
+    HANDLE h;
+    int fd;
+
+    // Step 1: Create Windows file handle using helper function
+    h = pgwin32_open_handle(fileName, fileFlags, false);
+    if (h == INVALID_HANDLE_VALUE)
+        return -1;
+
+#ifdef FRONTEND
+    // Step 2: For frontend apps, default to text mode for compatibility
+    if ((fileFlags & O_BINARY) == 0)
+        fileFlags |= O_TEXT;
+#endif
+
+    // Step 3: Convert Windows handle to C runtime file descriptor
+    if ((fd = _open_osfhandle((intptr_t) h, fileFlags & O_APPEND)) < 0) {
+        CloseHandle(h);
+        return -1;
+    }
+
+    // Step 4: Set text/binary mode if specified
+    if (fileFlags & (O_TEXT | O_BINARY) &&
+        _setmode(fd, fileFlags & (O_TEXT | O_BINARY)) < 0) {
+        _close(fd);
+        return -1;
+    }
+
+    return fd;
+}
+```

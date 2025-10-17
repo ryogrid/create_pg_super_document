@@ -43,3 +43,44 @@ The function ensures all padding is zero-filled and handles both arrays with and
 - Uses memset to zero-fill the entire result buffer, ensuring deterministic output and proper padding
 - Handles the data offset calculation correctly for arrays with and without null bitmaps
 - The false parameter to CopyArrayEls indicates this is not a construction from individual datums but a reconstruction from an already-deconstructed representation
+
+## Simplified Source
+
+```c
+static void EA_flatten_into(ExpandedObjectHeader *eohptr,
+                           void *result, Size allocated_size) {
+    ExpandedArrayHeader *eah = (ExpandedArrayHeader *) eohptr;
+    ArrayType *aresult = (ArrayType *) result;
+
+    // If we already have a flattened version, just copy it
+    if (eah->fvalue) {
+        memcpy(result, eah->fvalue, allocated_size);
+        return;
+    }
+
+    // Otherwise, build array from deconstructed elements
+    int nelems = eah->nelems;
+    int ndims = eah->ndims;
+
+    // Calculate data offset (includes null bitmap if present)
+    int32 dataoffset = eah->dnulls ?
+        ARR_OVERHEAD_WITHNULLS(ndims, nelems) : 0;
+
+    // Zero-fill the entire result buffer
+    memset(aresult, 0, allocated_size);
+
+    // Set up array header
+    SET_VARSIZE(aresult, allocated_size);
+    aresult->ndim = ndims;
+    aresult->dataoffset = dataoffset;
+    aresult->elemtype = eah->element_type;
+
+    // Copy dimension and bound information
+    memcpy(ARR_DIMS(aresult), eah->dims, ndims * sizeof(int));
+    memcpy(ARR_LBOUND(aresult), eah->lbound, ndims * sizeof(int));
+
+    // Copy the actual array elements with proper alignment
+    CopyArrayEls(aresult, eah->dvalues, eah->dnulls, nelems,
+                 eah->typlen, eah->typbyval, eah->typalign, false);
+}
+```

@@ -31,3 +31,20 @@ This function is used to build comma-separated lists of privilege keywords when 
 - When subname is provided, it formats as "keyword(subname)"
 - Essential for generating properly formatted ACL strings during PostgreSQL dump operations
 - Handles the comma separation logic automatically to ensure valid privilege list syntax
+
+## Simplified Source
+
+```c
+static void AddAcl(PQExpBuffer aclbuf, const char *keyword, const char *subname) {
+    // Add comma separator if buffer already has content
+    if (aclbuf->len > 0)
+        appendPQExpBufferChar(aclbuf, ',');
+
+    // Add the privilege keyword
+    appendPQExpBufferStr(aclbuf, keyword);
+
+    // Add optional subname in parentheses (for column privileges, etc.)
+    if (subname)
+        appendPQExpBuffer(aclbuf, "(%s)", subname);
+}
+```

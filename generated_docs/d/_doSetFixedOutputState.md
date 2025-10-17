@@ -45,3 +45,51 @@ Key configuration areas include:
 - In transaction-size mode, initiates the first transaction and resets the transaction counter
 - Sets client_min_messages to 'warning' to reduce noise during restore
 - Conditionally disables escape_string_warning for non-standard-conforming string modes
+
+## Simplified Source
+
+```c
+static void _doSetFixedOutputState(ArchiveHandle *AH) {
+    RestoreOptions *ropt = AH->public.ropt;
+
+    // Disable timeouts for long-running operations
+    ahprintf(AH, "SET statement_timeout = 0;\n");
+    ahprintf(AH, "SET lock_timeout = 0;\n");
+    ahprintf(AH, "SET idle_in_transaction_session_timeout = 0;\n");
+    ahprintf(AH, "SET transaction_timeout = 0;\n");
+
+    // Set encoding and string handling
+    ahprintf(AH, "SET client_encoding = '%s';\n",
+             pg_encoding_to_char(AH->public.encoding));
+    ahprintf(AH, "SET standard_conforming_strings = %s;\n",
+             AH->public.std_strings ? "on" : "off");
+
+    // Set role and search path if specified
+    if (ropt && ropt->use_role)
+        ahprintf(AH, "SET ROLE %s;\n", fmtId(ropt->use_role));
+    if (AH->public.searchpath)
+        ahprintf(AH, "%s", AH->public.searchpath);
+
+    // Configure restore-friendly settings
+    ahprintf(AH, "SET check_function_bodies = false;\n");
+    ahprintf(AH, "SET xmloption = content;\n");
+    ahprintf(AH, "SET client_min_messages = warning;\n");
+
+    // Handle row security
+    if (ropt && ropt->enable_row_security)
+        ahprintf(AH, "SET row_security = on;\n");
+    else
+        ahprintf(AH, "SET row_security = off;\n");
+
+    // Start transaction if using transaction-size mode
+    if (ropt && ropt->txn_size > 0) {
+        if (AH->connection)
+            StartTransaction(&AH->public);
+        else
+            ahprintf(AH, "\nBEGIN;\n");
+        AH->txnCount = 0;
+    }
+
+    ahprintf(AH, "\n");
+}
+```

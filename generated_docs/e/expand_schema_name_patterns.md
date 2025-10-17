@@ -53,3 +53,62 @@ The function accumulates all matching OIDs in the provided oids list, allowing d
 - When strict_names is true, the function will terminate with a fatal error if any pattern produces no matches
 - The function builds separate queries for each pattern rather than trying to combine them into a single query
 - Cross-database references are explicitly prohibited and will cause fatal errors when detected
+
+## Simplified Source
+
+```c
+static void
+expand_schema_name_patterns(Archive *fout,
+                           SimpleStringList *patterns,
+                           SimpleOidList *oids,
+                           bool strict_names)
+{
+    PQExpBuffer query;
+    PGresult   *res;
+    SimpleStringListCell *cell;
+
+    if (patterns->head == NULL)
+        return;  /* nothing to do */
+
+    query = createPQExpBuffer();
+
+    // Process each pattern in the list
+    for (cell = patterns->head; cell; cell = cell->next)
+    {
+        PQExpBufferData dbbuf;
+        int dotcnt;
+
+        // Build SELECT query for pg_namespace
+        appendPQExpBufferStr(query, "SELECT oid FROM pg_catalog.pg_namespace n\n");
+
+        // Process pattern with SQL wildcards and validation
+        initPQExpBuffer(&dbbuf);
+        processSQLNamePattern(GetConnection(fout), query, cell->val, false,
+                             false, NULL, "n.nspname", NULL, NULL, &dbbuf, &dotcnt);
+
+        // Validate qualified names (database.schema format)
+        if (dotcnt > 1)
+            pg_fatal("improper qualified name (too many dotted names): %s", cell->val);
+        else if (dotcnt == 1)
+            prohibit_crossdb_refs(GetConnection(fout), dbbuf.data, cell->val);
+
+        termPQExpBuffer(&dbbuf);
+
+        // Execute query and collect results
+        res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+        if (strict_names && PQntuples(res) == 0)
+            pg_fatal("no matching schemas were found for pattern \"%s\"", cell->val);
+
+        // Add all matching OIDs to the list
+        for (int i = 0; i < PQntuples(res); i++)
+        {
+            simple_oid_list_append(oids, atooid(PQgetvalue(res, i, 0)));
+        }
+
+        PQclear(res);
+        resetPQExpBuffer(query);
+    }
+
+    destroyPQExpBuffer(query);
+}
+```

@@ -50,3 +50,41 @@ The implementation uses a snapshot-based approach to ensure consistent reads and
 - Access control is enforced at the relation level using ACL_SELECT permission
 - The function properly handles different relation kinds and provides appropriate error messages for unsupported operations
 - [Snapshot](../S/Snapshot.md) management ensures MVCC (Multi-Version Concurrency Control) compliance during the TID lookup operation
+
+## Simplified Source
+
+```c
+static ItemPointer
+currtid_internal(Relation rel, ItemPointer tid)
+{
+    // Allocate result pointer
+    ItemPointer result = (ItemPointer) palloc(sizeof(ItemPointerData));
+
+    // Check user has SELECT permission on the relation
+    AclResult aclresult = pg_class_aclcheck(RelationGetRelid(rel), GetUserId(), ACL_SELECT);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, get_relkind_objtype(rel->rd_rel->relkind),
+                       RelationGetRelationName(rel));
+
+    // Handle different relation types
+    if (rel->rd_rel->relkind == RELKIND_VIEW)
+        return currtid_for_view(rel, tid);
+
+    if (!RELKIND_HAS_STORAGE(rel->rd_rel->relkind))
+        elog(ERROR, "cannot look at latest visible tid for relation \"%s.%s\"",
+             get_namespace_name(RelationGetNamespace(rel)),
+             RelationGetRelationName(rel));
+
+    // Copy input TID to result
+    ItemPointerCopy(tid, result);
+
+    // Get latest version of the tuple using table scan
+    Snapshot snapshot = RegisterSnapshot(GetLatestSnapshot());
+    TableScanDesc scan = table_beginscan_tid(rel, snapshot);
+    table_tuple_get_latest_tid(scan, result);
+    table_endscan(scan);
+    UnregisterSnapshot(snapshot);
+
+    return result;
+}
+```

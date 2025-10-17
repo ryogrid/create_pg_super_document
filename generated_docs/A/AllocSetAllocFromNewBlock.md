@@ -56,3 +56,84 @@ The function is marked as  to prevent inlining, which helps with performance pro
 - Extensive Valgrind instrumentation helps detect memory access violations during development
 - The function maintains the doubly-linked list of blocks properly by updating prev/next pointers
 - Block allocation failures are handled gracefully by attempting progressively smaller block sizes
+
+## Simplified Source
+
+```c
+static void *
+AllocSetAllocFromNewBlock(MemoryContext context, Size size, int flags, int fidx)
+{
+    AllocSet set = (AllocSet) context;
+    AllocBlock block;
+    Size availspace, blksize, required_size, chunk_size;
+
+    // Salvage remaining space from current block by adding chunks to freelists
+    block = set->blocks;
+    availspace = block->endptr - block->freeptr;
+
+    while (availspace >= ((1 << ALLOC_MINBITS) + ALLOC_CHUNKHDRSZ)) {
+        AllocFreeListLink *link;
+        MemoryChunk *chunk;
+        Size availchunk = availspace - ALLOC_CHUNKHDRSZ;
+        int a_fidx = AllocSetFreeIndex(availchunk);
+
+        // Adjust to exact freelist size if needed
+        if (availchunk != GetChunkSizeFromFreeListIdx(a_fidx)) {
+            a_fidx--;
+            availchunk = GetChunkSizeFromFreeListIdx(a_fidx);
+        }
+
+        // Create chunk and add to freelist
+        chunk = (MemoryChunk *) (block->freeptr);
+        block->freeptr += (availchunk + ALLOC_CHUNKHDRSZ);
+        availspace -= (availchunk + ALLOC_CHUNKHDRSZ);
+
+        MemoryChunkSetHdrMask(chunk, block, a_fidx, MCTX_ASET_ID);
+        link = GetFreeListLink(chunk);
+        link->next = set->freelist[a_fidx];
+        set->freelist[a_fidx] = chunk;
+    }
+
+    // Calculate new block size (doubling strategy)
+    blksize = set->nextBlockSize;
+    set->nextBlockSize <<= 1;
+    if (set->nextBlockSize > set->maxBlockSize) {
+        set->nextBlockSize = set->maxBlockSize;
+    }
+
+    // Ensure block is large enough for requested chunk
+    chunk_size = GetChunkSizeFromFreeListIdx(fidx);
+    required_size = chunk_size + ALLOC_BLOCKHDRSZ + ALLOC_CHUNKHDRSZ;
+    while (blksize < required_size) {
+        blksize <<= 1;
+    }
+
+    // Allocate new block with fallback for large requests
+    block = (AllocBlock) malloc(blksize);
+    while (block == NULL && blksize > 1024 * 1024) {
+        blksize >>= 1;
+        if (blksize < required_size) break;
+        block = (AllocBlock) malloc(blksize);
+    }
+
+    if (block == NULL) {
+        return MemoryContextAllocationFailure(context, size, flags);
+    }
+
+    context->mem_allocated += blksize;
+
+    // Initialize new block and link it as the active block
+    block->aset = set;
+    block->freeptr = ((char *) block) + ALLOC_BLOCKHDRSZ;
+    block->endptr = ((char *) block) + blksize;
+    block->prev = NULL;
+    block->next = set->blocks;
+    if (block->next) {
+        block->next->prev = block;
+    }
+    set->blocks = block;
+
+    // Allocate the requested chunk from the new block
+    return AllocSetAllocChunkFromBlock(context, block, size, chunk_size, fidx);
+}
+```

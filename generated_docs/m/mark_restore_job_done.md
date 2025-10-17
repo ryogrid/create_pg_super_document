@@ -41,3 +41,36 @@ After processing the completion status, the function calls reduce_dependencies t
 - Increments the global error counter for certain types of failures
 - Calls pg_fatal for unexpected worker exit codes, terminating the entire restore process
 - The reduce_dependencies call may add new items to the ready heap as their dependencies are satisfied
+
+## Simplified Source
+
+```c
+static void mark_restore_job_done(ArchiveHandle *AH,
+                                 TocEntry *te,
+                                 int status,
+                                 void *callback_data) {
+    binaryheap *ready_heap = (binaryheap *) callback_data;
+
+    // Log completion
+    pg_log_info("finished item %d %s %s",
+                te->dumpId, te->desc, te->tag);
+
+    // Handle different completion statuses
+    if (status == WORKER_CREATE_DONE) {
+        mark_create_done(AH, te);
+    }
+    else if (status == WORKER_INHIBIT_DATA) {
+        inhibit_data_for_failed_table(AH, te);
+        AH->public.n_errors++;
+    }
+    else if (status == WORKER_IGNORED_ERRORS) {
+        AH->public.n_errors++;
+    }
+    else if (status != 0) {
+        pg_fatal("worker process failed: exit code %d", status);
+    }
+
+    // Update dependencies - may add new ready items to heap
+    reduce_dependencies(AH, te, ready_heap);
+}
+```

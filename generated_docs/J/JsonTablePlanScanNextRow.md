@@ -36,3 +36,51 @@ This function implements the core row iteration logic for JsonTablePathScan plan
 - Uses memory context switching to ensure proper memory management for row data
 - The nested plan processing involves a reset-and-advance pattern to maintain hierarchical relationships
 - The function handles both cases: when there are active nested rows to join and when new parent rows need to be fetched
+
+## Simplified Source
+
+```c
+static bool
+JsonTablePlanScanNextRow(JsonTablePlanState *planstate)
+{
+    JsonbValue *jbv;
+    MemoryContext oldcxt;
+
+    // If we have an active row and nested plan, try to get next nested row first
+    if (!planstate->current.isnull) {
+        if (planstate->nested && JsonTablePlanNextRow(planstate->nested))
+            return true;
+    }
+
+    // Fetch next row from the found values list
+    jbv = JsonValueListNext(&planstate->found, &planstate->iter);
+
+    // End of list?
+    if (jbv == NULL) {
+        planstate->current.value = PointerGetDatum(NULL);
+        planstate->current.isnull = true;
+        return false;
+    }
+
+    // Set current row item for column evaluation
+    oldcxt = MemoryContextSwitchTo(planstate->mcxt);
+    planstate->current.value = JsonbPGetDatum(JsonbValueToJsonb(jbv));
+    planstate->current.isnull = false;
+    MemoryContextSwitchTo(oldcxt);
+
+    // Increment row ordinal
+    planstate->ordinal++;
+
+    // Process nested plans if present
+    if (planstate->nested) {
+        // Re-evaluate nested path using the new parent row
+        JsonTableResetNestedPlan(planstate->nested);
+
+        // Fetch nested plan's current row to join with parent
+        (void) JsonTablePlanNextRow(planstate->nested);
+    }
+
+    // More rows available
+    return true;
+}
+```

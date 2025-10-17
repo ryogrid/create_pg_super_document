@@ -41,3 +41,94 @@ The preserved arguments allow PostgreSQL processes to show meaningful status inf
 - The PS_USE_CLOBBER_ARGV compilation flag determines whether argv clobbering optimization is available
 - Special handling for musl libc on Linux prevents overwriting LD_LIBRARY_PATH values that the dynamic linker references
 - Returns a potentially modified argv pointer that should be used for subsequent argument parsing
+
+## Simplified Source
+
+```c
+char **save_ps_display_args(int argc, char **argv) {
+    // Save original argc/argv for later use
+    save_argc = argc;
+    save_argv = argv;
+
+#if defined(PS_USE_CLOBBER_ARGV)
+    {
+        char *end_of_area = NULL;
+        char **new_environ;
+        int i;
+
+        // Find contiguous argv strings to determine available space
+        for (i = 0; i < argc; i++) {
+            if (i == 0 || end_of_area + 1 == argv[i])
+                end_of_area = argv[i] + strlen(argv[i]);
+        }
+
+        if (end_of_area == NULL) {
+            ps_buffer = NULL;
+            ps_buffer_size = 0;
+            return argv;
+        }
+
+        // Find contiguous environ strings following argv
+        for (i = 0; environ[i] != NULL; i++) {
+            if (end_of_area + 1 == environ[i]) {
+#if defined(__linux__) && (!defined(__GLIBC__) && !defined(__UCLIBC__))
+                // Special handling for musl libc LD_LIBRARY_PATH
+                if (strncmp(environ[i], "LD_LIBRARY_PATH=", 16) == 0) {
+                    end_of_area = environ[i] + 15;  // Stop at equals sign
+                } else
+#endif
+                {
+                    end_of_area = environ[i] + strlen(environ[i]);
+                }
+            }
+        }
+
+        // Set up process status buffer
+        ps_buffer = argv[0];
+        last_status_len = ps_buffer_size = end_of_area - argv[0];
+
+        // Create new environment array to preserve original strings
+        new_environ = malloc((i + 1) * sizeof(char *));
+        if (!new_environ) {
+            write_stderr("out of memory\n");
+            exit(1);
+        }
+
+        for (i = 0; environ[i] != NULL; i++) {
+            new_environ[i] = strdup(environ[i]);
+            if (!new_environ[i]) {
+                write_stderr("out of memory\n");
+                exit(1);
+            }
+        }
+        new_environ[i] = NULL;
+        environ = new_environ;
+
+        // Create new argv array to preserve original arguments
+        char **new_argv = malloc((argc + 1) * sizeof(char *));
+        if (!new_argv) {
+            write_stderr("out of memory\n");
+            exit(1);
+        }
+
+        for (i = 0; i < argc; i++) {
+            new_argv[i] = strdup(argv[i]);
+            if (!new_argv[i]) {
+                write_stderr("out of memory\n");
+                exit(1);
+            }
+        }
+        new_argv[argc] = NULL;
+
+#if defined(__darwin__)
+        // Update macOS static argv pointer
+        *_NSGetArgv() = new_argv;
+#endif
+
+        argv = new_argv;
+    }
+#endif
+
+    return argv;
+}
+```

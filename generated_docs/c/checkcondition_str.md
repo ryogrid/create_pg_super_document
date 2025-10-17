@@ -66,3 +66,111 @@ When position data is requested (for phrase queries), the function aggregates po
 - Critical component in phrase query execution and proximity-based text search operations
 - Supports weight-restricted searches through delegation to checkclass_str
 - Optimized for the common case of exact matching while supporting the more complex prefix search scenario
+
+## Simplified Source
+
+```c
+static TSTernaryValue checkcondition_str(void *checkval, QueryOperand *val, ExecPhraseData *data) {
+    CHKVAL *chkval = (CHKVAL *) checkval;
+    WordEntry *StopLow = chkval->arrb;
+    WordEntry *StopHigh = chkval->arre;
+    WordEntry *StopMiddle;
+    TSTernaryValue res = TS_NO;
+
+    // Binary search for exact match
+    while (StopLow < StopHigh) {
+        StopMiddle = StopLow + (StopHigh - StopLow) / 2;
+
+        int difference = tsCompareString(chkval->operand + val->distance, val->length,
+                                        chkval->values + StopMiddle->pos, StopMiddle->len,
+                                        false);
+
+        if (difference == 0) {
+            // Found exact match - check weight and fill position data
+            res = checkclass_str(chkval, StopMiddle, val, data);
+            break;
+        }
+        else if (difference > 0)
+            StopLow = StopMiddle + 1;
+        else
+            StopHigh = StopMiddle;
+    }
+
+    // Handle prefix search if enabled
+    if (val->prefix && (res != TS_YES || data)) {
+        WordEntryPos *allpos = NULL;
+        int npos = 0, totalpos = 0;
+
+        // Adjust position for corner cases
+        if (StopLow >= StopHigh)
+            StopMiddle = StopHigh;
+
+        // Clear any previous data from exact match
+        if (data) {
+            if (data->allocated) pfree(data->pos);
+            data->pos = NULL;
+            data->allocated = false;
+            data->npos = 0;
+        }
+        res = TS_NO;
+
+        // Search for all prefix matches
+        while ((res != TS_YES || data) &&
+               StopMiddle < chkval->arre &&
+               tsCompareString(chkval->operand + val->distance, val->length,
+                              chkval->values + StopMiddle->pos, StopMiddle->len,
+                              true) == 0) {
+
+            TSTernaryValue subres = checkclass_str(chkval, StopMiddle, val, data);
+
+            if (subres != TS_NO) {
+                if (data) {
+                    if (subres == TS_MAYBE) {
+                        res = TS_MAYBE;
+                        npos = 0;
+                        if (allpos) pfree(allpos);
+                        break;
+                    }
+
+                    // Expand position array if needed
+                    while (npos + data->npos > totalpos) {
+                        if (totalpos == 0) {
+                            totalpos = 256;
+                            allpos = palloc(sizeof(WordEntryPos) * totalpos);
+                        } else {
+                            totalpos *= 2;
+                            allpos = repalloc(allpos, sizeof(WordEntryPos) * totalpos);
+                        }
+                    }
+
+                    // Copy positions from this match
+                    memcpy(allpos + npos, data->pos, sizeof(WordEntryPos) * data->npos);
+                    npos += data->npos;
+
+                    // Cleanup individual match data
+                    if (data->allocated) pfree(data->pos);
+                    data->pos = NULL;
+                    data->allocated = false;
+                    data->npos = 0;
+                } else {
+                    // No position data needed, just track YES/MAYBE
+                    if (subres == TS_YES || res == TS_NO)
+                        res = subres;
+                }
+            }
+            StopMiddle++;
+        }
+
+        // Finalize position data if we collected any
+        if (data && npos > 0) {
+            data->pos = allpos;
+            qsort(data->pos, npos, sizeof(WordEntryPos), compareWordEntryPos);
+            data->npos = qunique(data->pos, npos, sizeof(WordEntryPos), compareWordEntryPos);
+            data->allocated = true;
+            res = TS_YES;
+        }
+    }
+
+    return res;
+}
+```

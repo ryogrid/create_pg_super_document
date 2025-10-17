@@ -41,3 +41,66 @@ This static function serves as the unified implementation for PostgreSQL's conca
 - Ignores NULL arguments during concatenation process
 - Memory management includes proper cleanup of StringInfo buffer
 - The argidx parameter must remain constant across multiple calls for proper caching behavior
+
+## Simplified Source
+
+```c
+static text *
+concat_internal(const char *sepstr, int argidx, FunctionCallInfo fcinfo)
+{
+    text *result;
+    StringInfoData str;
+    FmgrInfo *foutcache;
+    bool first_arg = true;
+    int i;
+
+    // Handle VARIADIC array case - delegate to array_to_text
+    if (get_fn_expr_variadic(fcinfo->flinfo))
+    {
+        ArrayType *arr;
+
+        // Should have just one argument for VARIADIC case
+        Assert(argidx == PG_NARGS() - 1);
+
+        if (PG_ARGISNULL(argidx))
+            return NULL;
+
+        // Get array and process with array_to_text_internal
+        arr = PG_GETARG_ARRAYTYPE_P(argidx);
+        return array_to_text_internal(fcinfo, arr, sepstr, NULL);
+    }
+
+    // Normal case - concatenate individual arguments
+    initStringInfo(&str);
+
+    // Get or build output function cache
+    foutcache = (FmgrInfo *) fcinfo->flinfo->fn_extra;
+    if (foutcache == NULL)
+        foutcache = build_concat_foutcache(fcinfo, argidx);
+
+    // Process each argument starting from argidx
+    for (i = argidx; i < PG_NARGS(); i++)
+    {
+        if (!PG_ARGISNULL(i))
+        {
+            Datum value = PG_GETARG_DATUM(i);
+
+            // Add separator between values (not before first)
+            if (first_arg)
+                first_arg = false;
+            else
+                appendStringInfoString(&str, sepstr);
+
+            // Convert value to string and append
+            appendStringInfoString(&str,
+                                   OutputFunctionCall(&foutcache[i], value));
+        }
+    }
+
+    // Convert result to text and clean up
+    result = cstring_to_text_with_len(str.data, str.len);
+    pfree(str.data);
+
+    return result;
+}
+```

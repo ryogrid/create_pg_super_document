@@ -39,3 +39,18 @@ The  function is a PostgreSQL built-in function that compares two ItemPointer va
 - Complements the  function to provide min/max operations for TIDs
 - Part of PostgreSQL's TID data type operator family
 - Located in src/backend/utils/adt/tid.c:248-256
+
+## Simplified Source
+
+```c
+Datum
+tidsmaller(PG_FUNCTION_ARGS)
+{
+    // Extract the two TID arguments
+    ItemPointer tid1 = PG_GETARG_ITEMPOINTER(0);
+    ItemPointer tid2 = PG_GETARG_ITEMPOINTER(1);
+
+    // Return the smaller TID (or tid1 if equal)
+    PG_RETURN_ITEMPOINTER(ItemPointerCompare(tid1, tid2) <= 0 ? tid1 : tid2);
+}
+```

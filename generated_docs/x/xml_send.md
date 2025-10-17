@@ -36,3 +36,22 @@ The function first converts the XML value to its string representation using xml
 - The function handles character encoding conversion through pq_sendtext rather than doing it explicitly
 - The output is a bytea value containing the binary-encoded XML string
 - Memory management is handled properly with pfree() to avoid leaks
+
+## Simplified Source
+
+```c
+Datum xml_send(PG_FUNCTION_ARGS) {
+    xmltype *x = PG_GETARG_XML_P(0);
+    StringInfoData buf;
+
+    // Convert XML to string with client encoding declaration
+    char *outval = xml_out_internal(x, pg_get_client_encoding());
+
+    // Create binary protocol message
+    pq_begintypsend(&buf);
+    pq_sendtext(&buf, outval, strlen(outval));
+    pfree(outval);
+
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

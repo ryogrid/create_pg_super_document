@@ -53,3 +53,41 @@ The function includes proper error handling for missing collation information an
 - Memory-safe handling of both regular and toasted (out-of-line) BPCHAR values
 - The transformation approach for non-deterministic collations ensures hash consistency across different string representations that are collation-equivalent
 - Preserves legacy behavior by including the NUL terminator in transformed string hashes
+
+## Simplified Source
+
+```c
+Datum hashbpchar(PG_FUNCTION_ARGS) {
+    BpChar *key = PG_GETARG_BPCHAR_PP(0);
+    Oid collid = PG_GET_COLLATION();
+
+    // Require valid collation
+    if (!collid)
+        ereport(ERROR, (errcode(ERRCODE_INDETERMINATE_COLLATION),
+                        errmsg("could not determine which collation to use for string hashing")));
+
+    // Get character data and true length (ignoring trailing spaces)
+    char *keydata = VARDATA_ANY(key);
+    int keylen = bcTruelen(key);
+
+    // Handle locale-specific hashing
+    pg_locale_t mylocale = lc_collate_is_c(collid) ? 0 : pg_newlocale_from_collation(collid);
+
+    Datum result;
+    if (pg_locale_deterministic(mylocale)) {
+        // Simple case: hash the character data directly
+        result = hash_any((unsigned char *) keydata, keylen);
+    } else {
+        // Complex case: transform string for consistent hashing
+        Size bsize = pg_strnxfrm(NULL, 0, keydata, keylen, mylocale);
+        char *buf = palloc(bsize + 1);
+        pg_strnxfrm(buf, bsize + 1, keydata, keylen, mylocale);
+
+        result = hash_any((uint8_t *) buf, bsize + 1);
+        pfree(buf);
+    }
+
+    PG_FREE_IF_COPY(key, 0);
+    return result;
+}
+```

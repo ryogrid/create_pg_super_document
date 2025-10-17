@@ -33,3 +33,12 @@ This function is part of PostgreSQL's type input/output framework and is automat
 - Used primarily in client-server communication when binary protocol is enabled
 - The binary format is more compact and faster to process than text format
 - The simplicity reflects that regoper and OID have identical binary representations
+
+## Simplified Source
+
+```c
+Datum regopersend(PG_FUNCTION_ARGS) {
+    // regoper has same binary format as OID, so delegate to oidsend
+    return oidsend(fcinfo);
+}
+```

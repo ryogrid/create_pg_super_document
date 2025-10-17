@@ -31,3 +31,20 @@ The  function performs cleanup of an ArrayIterator object created by . It condit
 - The function is safe to call even if the iterator was not fully consumed
 - Does not affect the original array that was being iterated over
 - Should be called in exception handling paths to ensure cleanup even when iteration is interrupted
+
+## Simplified Source
+
+```c
+void
+array_free_iterator(ArrayIterator iterator)
+{
+    // Free slice workspace arrays if they were allocated
+    if (iterator->slice_ndim > 0) {
+        pfree(iterator->slice_values);
+        pfree(iterator->slice_nulls);
+    }
+
+    // Free the iterator structure itself
+    pfree(iterator);
+}
+```

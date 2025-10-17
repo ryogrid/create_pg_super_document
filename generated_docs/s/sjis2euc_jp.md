@@ -51,3 +51,116 @@ The function includes comprehensive error handling and supports both strict and 
 - **IBM kanji lookup**: Uses ibmkanji array to map IBM extended characters, with special handling for X0212 characters (indicated by high byte 0x8f)
 - Unmappable characters are replaced with PGEUCALTCODE placeholder
 - The conversion preserves character boundaries and validates input encoding integrity
+
+## Simplified Source
+
+```c
+static int sjis2euc_jp(const unsigned char *sjis, unsigned char *p, int len, bool noError) {
+    const unsigned char *start = sjis;
+    int c1, c2, i, k, k2, l;
+
+    while (len > 0) {
+        c1 = *sjis;
+
+        // Handle ASCII characters
+        if (!IS_HIGHBIT_SET(c1)) {
+            if (c1 == 0) {
+                if (!noError) {
+                    report_invalid_encoding(PG_SJIS, (const char *) sjis, len);
+                }
+                break;
+            }
+            *p++ = c1;
+            sjis++;
+            len--;
+            continue;
+        }
+
+        // Verify SJIS character sequence length
+        l = pg_encoding_verifymbchar(PG_SJIS, (const char *) sjis, len);
+        if (l < 0) {
+            if (!noError) {
+                report_invalid_encoding(PG_SJIS, (const char *) sjis, len);
+            }
+            break;
+        }
+
+        // Handle JIS X0201 katakana (single-byte 0xA1-0xDF)
+        if (c1 >= 0xa1 && c1 <= 0xdf) {
+            *p++ = SS2;     // Add SS2 prefix for EUC-JP
+            *p++ = c1;
+        }
+        // Handle multi-byte Japanese characters
+        else {
+            c2 = sjis[1];
+            k = (c1 << 8) + c2;
+
+            // Handle NEC selection IBM kanji conversion
+            if (k >= 0xed40 && k < 0xf040) {
+                for (i = 0; ; i++) {
+                    k2 = ibmkanji[i].nec;
+                    if (k2 == 0xffff) break;
+                    if (k2 == k) {
+                        k = ibmkanji[i].sjis;
+                        c1 = (k >> 8) & 0xff;
+                        c2 = k & 0xff;
+                        break;
+                    }
+                }
+            }
+
+            // Convert based on character range
+            if (k < 0xeb3f) {
+                // Standard JIS X0208 characters
+                *p++ = ((c1 & 0x3f) << 1) + 0x9f + (c2 > 0x9e);
+                *p++ = c2 + ((c2 > 0x9e) ? 2 : 0x60) + (c2 < 0x80);
+            }
+            else if ((k >= 0xeb40 && k < 0xf040) || (k >= 0xfc4c && k <= 0xfcfc)) {
+                // NEC/IBM extension characters - use alternative code
+                *p++ = PGEUCALTCODE >> 8;
+                *p++ = PGEUCALTCODE & 0xff;
+            }
+            else if (k >= 0xf040 && k < 0xf540) {
+                // User-defined characters 1 (UDC1) -> JIS X0208
+                c1 -= 0x6f;
+                *p++ = ((c1 & 0x3f) << 1) + 0xf3 + (c2 > 0x9e);
+                *p++ = c2 + ((c2 > 0x9e) ? 2 : 0x60) + (c2 < 0x80);
+            }
+            else if (k >= 0xf540 && k < 0xfa40) {
+                // User-defined characters 2 (UDC2) -> JIS X0212
+                *p++ = SS3;     // Add SS3 prefix for JIS X0212
+                c1 -= 0x74;
+                *p++ = ((c1 & 0x3f) << 1) + 0xf3 + (c2 > 0x9e);
+                *p++ = c2 + ((c2 > 0x9e) ? 2 : 0x60) + (c2 < 0x80);
+            }
+            else if (k >= 0xfa40) {
+                // IBM kanji mapping
+                for (i = 0; ; i++) {
+                    k2 = ibmkanji[i].sjis;
+                    if (k2 == 0xffff) break;
+                    if (k2 == k) {
+                        k = ibmkanji[i].euc;
+                        if (k >= 0x8f0000) {
+                            // JIS X0212 character
+                            *p++ = SS3;
+                            *p++ = 0x80 | ((k & 0xff00) >> 8);
+                            *p++ = 0x80 | (k & 0xff);
+                        } else {
+                            // JIS X0208 character
+                            *p++ = 0x80 | (k >> 8);
+                            *p++ = 0x80 | (k & 0xff);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        sjis += l;
+        len -= l;
+    }
+
+    *p = '\0';
+    return sjis - start;
+}
+```

@@ -36,3 +36,27 @@ The function uses gettimeofday() to obtain the current system time with microsec
 - Format string: "%%a %%b %%d %%H:%%M:%%S.%%06d %%Y %%Z" produces output like "Mon Jan 15 14:30:25.123456 2024 PST"
 - Useful for performance measurement and debugging within transactions
 - Part of PostgreSQL's extended timestamp function set beyond SQL standard functions
+
+## Simplified Source
+
+```c
+Datum
+timeofday(PG_FUNCTION_ARGS)
+{
+    struct timeval tp;
+    char template[128];
+    char buf[128];
+    pg_time_t tt;
+
+    // Get current system time with microsecond precision
+    gettimeofday(&tp, NULL);
+    tt = (pg_time_t) tp.tv_sec;
+
+    // Format timestamp with microseconds
+    pg_strftime(template, sizeof(template), "%a %b %d %H:%M:%S.%%06d %Y %Z",
+                pg_localtime(&tt, session_timezone));
+    snprintf(buf, sizeof(buf), template, tp.tv_usec);
+
+    return PG_RETURN_TEXT_P(cstring_to_text(buf));
+}
+```

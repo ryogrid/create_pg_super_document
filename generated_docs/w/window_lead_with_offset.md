@@ -29,3 +29,15 @@ This function provides the SQL LEAD window function functionality with offset ca
 - The three boolean parameters to leadlag_common represent: is_lead=true (it's a lead), has_offset=true, has_default=false
 - Part of PostgreSQL's SQL window function implementation for LEAD(expr, offset)
 - Counterpart to window_lag_with_offset, but looks forward instead of backward in the partition
+
+## Simplified Source
+
+```c
+Datum
+window_lead_with_offset(PG_FUNCTION_ARGS)
+{
+    // Delegate to common lag/lead implementation
+    // Parameters: is_lead=true, has_offset=true, has_default=false
+    return leadlag_common(fcinfo, true, true, false);
+}
+```

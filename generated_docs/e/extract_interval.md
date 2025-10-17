@@ -29,3 +29,12 @@ This function is typically called from SQL queries using the EXTRACT(unit FROM i
 
 ## Notes and Other Information
 This function is registered in PostgreSQL's system catalog as a built-in function and provides the numeric variant of interval component extraction. It complements interval_part() which returns float8 values. The EXTRACT syntax is SQL standard-compliant and is preferred in applications where exact decimal arithmetic is required, such as financial calculations or when precise time differences must be maintained without floating-point approximations.
+
+## Simplified Source
+
+```c
+Datum extract_interval(PG_FUNCTION_ARGS) {
+    // Extract interval parts returning numeric values for precision
+    return interval_part_common(fcinfo, true);
+}
+```

@@ -33,3 +33,12 @@ This function is a specialized wrapper around `append_relation_pattern_helper` t
 - The function passes `false` for heap_only and `true` for btree_only to the helper function, ensuring the pattern only matches btree indexes
 - Part of pg_amcheck's command-line interface for specifying which btree indexes to check for corruption
 - The pattern parsing supports PostgreSQL's standard naming conventions including schema-qualified names
+
+## Simplified Source
+
+```c
+static void append_btree_pattern(PatternInfoArray *pia, const char *pattern, int encoding) {
+    // Add pattern that matches only btree indexes (not heap tables)
+    append_relation_pattern_helper(pia, pattern, encoding, false, true);
+}
+```

@@ -37,3 +37,20 @@ The function receives arguments through PG_FUNCTION_ARGS containing:
 - Handles PostgreSQL function call protocol and argument conversion
 - Returns XML data type that can be used directly in SQL queries
 - Part of PostgreSQL's XML functionality for schema introspection
+
+## Simplified Source
+
+```c
+Datum
+database_to_xmlschema(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    bool nulls = PG_GETARG_BOOL(0);
+    bool tableforest = PG_GETARG_BOOL(1);
+    const char *targetns = text_to_cstring(PG_GETARG_TEXT_PP(2));
+
+    // Generate XML Schema for entire database
+    return PG_RETURN_XML_P(stringinfo_to_xmltype(
+        database_to_xmlschema_internal(nulls, tableforest, targetns)));
+}
+```

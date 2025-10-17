@@ -41,3 +41,28 @@ This function is a PostgreSQL encoding conversion procedure that converts text f
 - The function returns the number of bytes successfully converted
 - Error handling can be controlled via the noError parameter
 - Uses specialized mapping tables for accurate character conversion between encodings
+
+## Simplified Source
+```c
+Datum
+shift_jis_2004_to_utf8(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_SHIFT_JIS_2004, PG_UTF8);
+
+    // Convert using radix tree mapping with combined tables
+    int converted = LocalToUtf(src, len, dest,
+                              &shift_jis_2004_to_unicode_tree,
+                              LUmapSHIFT_JIS_2004_combined,
+                              lengthof(LUmapSHIFT_JIS_2004_combined),
+                              NULL, PG_SHIFT_JIS_2004, noError);
+
+    PG_RETURN_INT32(converted);
+}
+```

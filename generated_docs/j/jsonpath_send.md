@@ -45,3 +45,29 @@ The current implementation serializes the jsonpath as a version number followed 
 - Memory management includes proper cleanup of temporary StringInfo buffers
 - Part of PostgreSQL's binary protocol support for efficient client-server communication
 - Provides the serialization counterpart to  for complete binary protocol support
+
+## Simplified Source
+
+```c
+Datum
+jsonpath_send(PG_FUNCTION_ARGS)
+{
+    JsonPath *in = PG_GETARG_JSONPATH_P(0);
+    StringInfoData buf;
+    StringInfoData jtext;
+    int version = JSONPATH_VERSION;
+
+    // Convert jsonpath to text representation
+    initStringInfo(&jtext);
+    jsonPathToCstring(&jtext, in, VARSIZE(in));
+
+    // Create binary output with version header
+    pq_begintypsend(&buf);
+    pq_sendint8(&buf, version);
+    pq_sendtext(&buf, jtext.data, jtext.len);
+
+    // Clean up and return binary data
+    pfree(jtext.data);
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

@@ -43,3 +43,25 @@ The function follows PostgreSQL's function call convention using `PG_FUNCTION_AR
 - The radix tree structure enables efficient lookup of character mappings
 - Error handling behavior is controlled by the `noError` parameter
 - Returns the number of bytes successfully converted
+
+## Simplified Source
+```c
+Datum euc_kr_to_utf8(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_EUC_KR, PG_UTF8);
+
+    // Perform EUC-KR to UTF-8 conversion using mapping tree
+    int converted = LocalToUtf(src, len, dest,
+                              &euc_kr_to_unicode_tree,
+                              NULL, 0, NULL,
+                              PG_EUC_KR, noError);
+
+    return converted;
+}
+```

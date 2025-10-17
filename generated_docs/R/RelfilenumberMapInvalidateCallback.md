@@ -41,3 +41,32 @@ The function ensures that stale cache entries are cleaned up whenever relevant c
 - Uses hash table sequential scanning to examine all entries efficiently
 - Critical for maintaining cache consistency when pg_class catalog changes occur
 - Registered as a system cache invalidation callback during initialization
+
+## Simplified Source
+
+```c
+static void
+RelfilenumberMapInvalidateCallback(Datum arg, Oid relid)
+{
+    HASH_SEQ_STATUS status;
+    RelfilenumberMapEntry *entry;
+
+    Assert(RelfilenumberMapHash != NULL);
+
+    // Iterate through all entries in the hash table
+    hash_seq_init(&status, RelfilenumberMapHash);
+    while ((entry = (RelfilenumberMapEntry *) hash_seq_search(&status)) != NULL) {
+        // Remove entries based on invalidation criteria:
+        // - Complete reset (relid == InvalidOid)
+        // - Negative cache entries (entry->relid == InvalidOid)
+        // - Specific relation being invalidated (entry->relid == relid)
+        if (relid == InvalidOid ||
+            entry->relid == InvalidOid ||
+            entry->relid == relid) {
+
+            if (hash_search(RelfilenumberMapHash, &entry->key, HASH_REMOVE, NULL) == NULL)
+                elog(ERROR, "hash table corrupted");
+        }
+    }
+}
+```

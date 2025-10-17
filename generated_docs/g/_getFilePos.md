@@ -36,3 +36,26 @@ _getFilePos obtains the current position in the archive file using the standard 
 - Used for recording file positions in TOC entries to enable efficient random access during restore
 - Part of the custom archive format's position tracking mechanism
 - The returned position is used to populate the dataPos field in lclTocEntry structures
+
+## Simplified Source
+
+```c
+static pgoff_t
+_getFilePos(ArchiveHandle *AH, lclContext *ctx)
+{
+    pgoff_t position;
+
+    // Get current file position
+    position = ftello(AH->FH);
+
+    if (position < 0) {
+        // If file was supposed to be seekable, this is unexpected
+        if (ctx->hasSeek) {
+            pg_fatal("could not determine seek position in archive file: %m");
+        }
+        // For non-seekable files, return -1 (acceptable limitation)
+    }
+
+    return position;
+}
+```

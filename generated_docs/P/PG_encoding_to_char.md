@@ -41,3 +41,18 @@ The underlying pg_encoding_to_char() function performs a simple array lookup in 
 - Function signature location: src/backend/utils/mb/mbutils.c:1293-1307
 - Catalog definition: src/include/catalog/pg_proc.dat:3779-3780
 - Validates encoding ID using PG_VALID_ENCODING macro before lookup
+
+## Simplified Source
+
+```c
+Datum PG_encoding_to_char(PG_FUNCTION_ARGS) {
+    // Extract encoding ID from integer argument
+    int32 encoding_id = PG_GETARG_INT32(0);
+
+    // Convert encoding ID to name string
+    const char *encoding_name = pg_encoding_to_char(encoding_id);
+
+    // Convert C string to PostgreSQL NAME data type and return
+    return DirectFunctionCall1(namein, CStringGetDatum(encoding_name));
+}
+```

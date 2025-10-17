@@ -48,3 +48,64 @@ This function provides a simpler interface compared to `tsquery_rewrite_query` f
 - Proper memory management with cleanup of intermediate tree structures
 - No iterative processing - applies the rule exactly once
 - Suitable for simple, deterministic query transformations where the pattern and replacement are known in advance
+
+## Simplified Source
+
+```c
+Datum
+tsquery_rewrite(PG_FUNCTION_ARGS)
+{
+    TSQuery query = PG_GETARG_TSQUERY_COPY(0);
+    TSQuery pattern = PG_GETARG_TSQUERY(1);
+    TSQuery replacement = PG_GETARG_TSQUERY(2);
+
+    // Return unchanged if query or pattern is empty
+    if (query->size == 0 || pattern->size == 0)
+    {
+        PG_FREE_IF_COPY(pattern, 1);
+        PG_FREE_IF_COPY(replacement, 2);
+        PG_RETURN_POINTER(query);
+    }
+
+    // Convert to trees and prepare for matching
+    QTNode *query_tree = QT2QTN(GETQUERY(query), GETOPERAND(query));
+    QTNTernary(query_tree);
+    QTNSort(query_tree);
+
+    QTNode *pattern_tree = QT2QTN(GETQUERY(pattern), GETOPERAND(pattern));
+    QTNTernary(pattern_tree);
+    QTNSort(pattern_tree);
+
+    QTNode *replacement_tree = NULL;
+    if (replacement->size > 0)
+        replacement_tree = QT2QTN(GETQUERY(replacement), GETOPERAND(replacement));
+
+    // Apply the single rewrite rule
+    query_tree = findsubquery(query_tree, pattern_tree, replacement_tree, NULL);
+
+    // Cleanup pattern and replacement trees
+    QTNFree(pattern_tree);
+    QTNFree(replacement_tree);
+
+    TSQuery result;
+    if (query_tree)
+    {
+        // Convert result back to TSQuery
+        QTNBinary(query_tree);
+        result = QTN2QT(query_tree);
+        QTNFree(query_tree);
+    }
+    else
+    {
+        // Query was completely eliminated - return empty query
+        SET_VARSIZE(query, HDRSIZETQ);
+        query->size = 0;
+        result = query;
+    }
+
+    PG_FREE_IF_COPY(query, 0);
+    PG_FREE_IF_COPY(pattern, 1);
+    PG_FREE_IF_COPY(replacement, 2);
+    PG_RETURN_POINTER(result);
+}
+```

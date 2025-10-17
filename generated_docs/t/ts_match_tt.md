@@ -52,3 +52,28 @@ This function simplifies text search for users who want to perform matching with
 - Manages memory properly by freeing intermediate tsvector and tsquery objects
 - Provides a simplified interface for basic text search without requiring knowledge of tsvector/tsquery creation
 - Part of PostgreSQL's text search operator overloading system for text @@ text operations
+
+## Simplified Source
+
+```c
+Datum ts_match_tt(PG_FUNCTION_ARGS) {
+    TSVector vector;
+    TSQuery query;
+    bool result;
+
+    // Convert plain text to tsvector and tsquery
+    vector = DatumGetTSVector(DirectFunctionCall1(to_tsvector, PG_GETARG_DATUM(0)));
+    query = DatumGetTSQuery(DirectFunctionCall1(plainto_tsquery, PG_GETARG_DATUM(1)));
+
+    // Perform the actual matching
+    result = DatumGetBool(DirectFunctionCall2(ts_match_vq,
+                                              TSVectorGetDatum(vector),
+                                              TSQueryGetDatum(query)));
+
+    // Clean up temporary objects
+    pfree(vector);
+    pfree(query);
+
+    PG_RETURN_BOOL(result);
+}
+```

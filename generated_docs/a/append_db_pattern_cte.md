@@ -40,3 +40,41 @@ This function generates the body of a SQL CTE (Common Table Expression) that con
 - Uses proper SQL string literal escaping via appendStringLiteralConn to prevent injection issues
 - Part of pg_amcheck's database discovery mechanism for pattern-based object selection
 - The generated CTE is typically used in larger SQL queries to match database names against user-specified patterns
+
+## Simplified Source
+
+```c
+static bool append_db_pattern_cte(PQExpBuffer buf, const PatternInfoArray *pia,
+                                  PGconn *conn, bool inclusive) {
+    const char *comma = "";
+    bool have_values = false;
+
+    // Process each pattern in the array
+    for (int pattern_id = 0; pattern_id < pia->len; pattern_id++) {
+        PatternInfo *info = &pia->data[pattern_id];
+
+        // Include pattern if it has database regex and meets inclusion criteria
+        if (info->db_regex != NULL &&
+            (inclusive || (info->nsp_regex == NULL && info->rel_regex == NULL))) {
+
+            // Add VALUES clause on first match
+            if (!have_values)
+                appendPQExpBufferStr(buf, "\nVALUES");
+
+            have_values = true;
+
+            // Add pattern_id and escaped database regex
+            appendPQExpBuffer(buf, "%s\n(%d, ", comma, pattern_id);
+            appendStringLiteralConn(buf, info->db_regex, conn);
+            appendPQExpBufferChar(buf, ')');
+            comma = ",";
+        }
+    }
+
+    // If no patterns found, add dummy SELECT to maintain valid SQL
+    if (!have_values)
+        appendPQExpBufferStr(buf, "\nSELECT NULL, NULL, NULL WHERE false");
+
+    return have_values;
+}
+```

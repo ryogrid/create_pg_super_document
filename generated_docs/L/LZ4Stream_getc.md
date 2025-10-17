@@ -39,3 +39,25 @@ This function is part of PostgreSQL's compression infrastructure for pg_dump, al
 - The function is designed to be used as a callback function pointer in the CompressFileHandle structure
 - Part of PostgreSQL's modular compression system that supports multiple compression algorithms
 - The function always terminates the program via pg_fatal() on any error condition, following pg_dump's fail-fast error handling philosophy
+
+## Simplified Source
+
+```c
+static int
+LZ4Stream_getc(CompressFileHandle *CFH)
+{
+    LZ4State *state = (LZ4State *) CFH->private_data;
+    unsigned char c;
+
+    // Read exactly one byte from the LZ4 stream
+    if (LZ4Stream_read_internal(state, &c, 1, false) <= 0) {
+        // Handle error or EOF by terminating with appropriate message
+        if (!LZ4Stream_eof(CFH))
+            pg_fatal("could not read from input file: %s", LZ4Stream_get_error(CFH));
+        else
+            pg_fatal("could not read from input file: end of file");
+    }
+
+    return c;
+}
+```

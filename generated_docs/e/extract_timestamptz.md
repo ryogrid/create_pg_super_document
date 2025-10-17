@@ -36,3 +36,12 @@ Like `timestamptz_part`, this function handles timezone-aware timestamps and can
 - Particularly useful for applications requiring exact decimal precision in temporal calculations
 - Part of PostgreSQL's date/time function family alongside `extract_timestamp()` for timezone-unaware timestamps
 - Located in `src/backend/utils/adt/timestamp.c:5889-5892`
+
+## Simplified Source
+
+```c
+Datum extract_timestamptz(PG_FUNCTION_ARGS) {
+    // Extract date/time fields from timestamptz with numeric precision
+    return timestamptz_part_common(fcinfo, true);
+}
+```

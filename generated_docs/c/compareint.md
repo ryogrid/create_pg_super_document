@@ -28,3 +28,16 @@ The compareint function is a comparison function designed to be used with sortin
 - Uses PostgreSQL's pg_cmp_s32 function which handles proper comparison semantics including overflow considerations
 - Part of the GiST indexing infrastructure for tsvector full-text search
 - The function signature matches the standard comparator pattern used throughout PostgreSQL's codebase
+
+## Simplified Source
+
+```c
+static int compareint(const void *va, const void *vb) {
+    // Extract int32 values from void pointers
+    int32 a = *((const int32 *) va);
+    int32 b = *((const int32 *) vb);
+
+    // Compare using PostgreSQL's safe comparison function
+    return pg_cmp_s32(a, b);
+}
+```

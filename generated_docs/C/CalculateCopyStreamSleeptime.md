@@ -36,3 +36,43 @@ When a standby message timeout is configured and streaming is active, the functi
 - The calculation includes a 1-second buffer (standby_message_timeout - 1) to ensure messages are sent before the actual timeout
 - Part of PostgreSQL's replication and backup infrastructure, helping maintain responsive communication with the server
 - The sleep time calculation converts timestamp differences to milliseconds for use with system sleep functions
+
+## Simplified Source
+
+```c
+static long
+CalculateCopyStreamSleeptime(TimestampTz now, int standby_message_timeout,
+                             TimestampTz last_status)
+{
+    TimestampTz status_targettime = 0;
+    long sleeptime;
+
+    // Calculate when next status message should be sent
+    if (standby_message_timeout && still_sending) {
+        status_targettime = last_status +
+                           (standby_message_timeout - 1) * 1000;
+    }
+
+    if (status_targettime > 0) {
+        long secs;
+        int usecs;
+
+        // Calculate time difference to target
+        feTimestampDifference(now, status_targettime, &secs, &usecs);
+
+        // Ensure minimum 1 second sleep
+        if (secs <= 0) {
+            secs = 1;
+            usecs = 0;
+        }
+
+        // Convert to milliseconds
+        sleeptime = secs * 1000 + usecs / 1000;
+    } else {
+        // No timeout configured or not streaming
+        sleeptime = -1;
+    }
+
+    return sleeptime;
+}
+```

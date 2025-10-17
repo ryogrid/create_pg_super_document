@@ -43,3 +43,34 @@ The `bpcharfastcmp_c` function provides optimized comparison functionality speci
 - Includes proper memory management to prevent leaks from detoasted copies
 - Returns standard comparison result: negative for x < y, zero for x = y, positive for x > y
 - Located in src/backend/utils/adt/varlena.c at lines 2049-2081
+
+## Simplified Source
+
+```c
+static int bpcharfastcmp_c(Datum x, Datum y, SortSupport ssup) {
+    // Extract BpChar values from datums
+    BpChar *arg1 = DatumGetBpCharPP(x);
+    BpChar *arg2 = DatumGetBpCharPP(y);
+
+    // Get pointers to string data
+    char *a1p = VARDATA_ANY(arg1);
+    char *a2p = VARDATA_ANY(arg2);
+
+    // Calculate true lengths excluding trailing spaces (BpChar semantics)
+    int len1 = bpchartruelen(a1p, VARSIZE_ANY_EXHDR(arg1));
+    int len2 = bpchartruelen(a2p, VARSIZE_ANY_EXHDR(arg2));
+
+    // Fast byte-wise comparison using memcmp
+    int result = memcmp(a1p, a2p, Min(len1, len2));
+
+    // If common prefix is equal, compare by true length
+    if (result == 0 && len1 != len2)
+        result = (len1 < len2) ? -1 : 1;
+
+    // Clean up any detoasted copies to prevent memory leaks
+    if (PointerGetDatum(arg1) != x) pfree(arg1);
+    if (PointerGetDatum(arg2) != y) pfree(arg2);
+
+    return result;
+}
+```

@@ -36,3 +36,32 @@ This function safely disconnects from a PostgreSQL database by performing proper
 - Sets AH->connection to NULL after closing to prevent double-close issues
 - Critical for preventing resource leaks and ensuring clean shutdown in both normal and error conditions
 - Used extensively in parallel processing scenarios where worker connections need proper cleanup
+
+## Simplified Source
+
+```c
+void
+DisconnectDatabase(Archive *AHX)
+{
+    ArchiveHandle *AH = (ArchiveHandle *) AHX;
+    char errbuf[1];
+
+    // Return early if no connection exists
+    if (!AH->connection)
+        return;
+
+    // Handle active queries and signal cancellation
+    if (AH->connCancel) {
+        // Cancel any active query before closing connection
+        if (PQtransactionStatus(AH->connection) == PQTRANS_ACTIVE)
+            (void) PQcancel(AH->connCancel, errbuf, sizeof(errbuf));
+
+        // Deregister signal handler to prevent race conditions
+        set_archive_cancel_info(AH, NULL);
+    }
+
+    // Close the connection and clear the handle
+    PQfinish(AH->connection);
+    AH->connection = NULL;
+}
+```

@@ -45,3 +45,48 @@ The function also performs final cleanup of the PostgreSQL XML error context and
 - Sets state->opaque to NULL to indicate the context is destroyed and should not be used
 - Should be called as part of the cleanup phase of XML table processing to prevent memory leaks
 - Ensures proper error context propagation to libxml2 even during cleanup operations
+
+## Simplified Source
+
+```c
+static void
+XmlTableDestroyOpaque(TableFuncScanState *state)
+{
+#ifdef USE_LIBXML
+    XmlTableBuilderData *xtCxt = GetXmlTableBuilderPrivateData(state, "XmlTableDestroyOpaque");
+
+    // Set up error handling context
+    xmlSetStructuredErrorFunc((void *) xtCxt->xmlerrcxt, xml_errorHandler);
+
+    // Free all column XPath compiled expressions
+    if (xtCxt->xpathscomp != NULL)
+    {
+        for (int i = 0; i < xtCxt->natts; i++)
+            if (xtCxt->xpathscomp[i] != NULL)
+                xmlXPathFreeCompExpr(xtCxt->xpathscomp[i]);
+    }
+
+    // Free libxml2 resources in logical order
+    if (xtCxt->xpathobj != NULL)
+        xmlXPathFreeObject(xtCxt->xpathobj);
+    if (xtCxt->xpathcomp != NULL)
+        xmlXPathFreeCompExpr(xtCxt->xpathcomp);
+    if (xtCxt->xpathcxt != NULL)
+        xmlXPathFreeContext(xtCxt->xpathcxt);
+    if (xtCxt->doc != NULL)
+        xmlFreeDoc(xtCxt->doc);
+    if (xtCxt->ctxt != NULL)
+        xmlFreeParserCtxt(xtCxt->ctxt);
+
+    // Clean up PostgreSQL XML error context
+    pg_xml_done(xtCxt->xmlerrcxt, true);
+
+    // Invalidate context to prevent further use
+    xtCxt->magic = 0;
+    state->opaque = NULL;
+
+#else
+    NO_XML_SUPPORT();
+#endif
+}
+```

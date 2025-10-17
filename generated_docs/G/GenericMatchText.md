@@ -51,3 +51,34 @@ This design allows PostgreSQL to provide optimal performance for each encoding t
 - Returns LIKE_TRUE, LIKE_FALSE, or LIKE_ABORT depending on match result
 - The inline keyword suggests this function is performance-critical and should be inlined by the compiler
 - Part of the generic case handling that doesn't require inline case-folding (as noted in the source comment)
+
+## Simplified Source
+
+```c
+static inline int
+GenericMatchText(const char *s, int slen, const char *p, int plen, Oid collation)
+{
+    // Validate collation if specified
+    if (collation && !lc_ctype_is_c(collation)) {
+        pg_locale_t locale = pg_newlocale_from_collation(collation);
+
+        // Error on nondeterministic collations
+        if (!pg_locale_deterministic(locale))
+            ereport(ERROR,
+                    (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                     errmsg("nondeterministic collations are not supported for LIKE")));
+    }
+
+    // Dispatch to appropriate matching function based on encoding
+    if (pg_database_encoding_max_length() == 1) {
+        // Single-byte encoding - use optimized single-byte matcher
+        return SB_MatchText(s, slen, p, plen, 0, true);
+    } else if (GetDatabaseEncoding() == PG_UTF8) {
+        // UTF-8 encoding - use UTF-8 specific matcher
+        return UTF8_MatchText(s, slen, p, plen, 0, true);
+    } else {
+        // Other multibyte encodings - use general multibyte matcher
+        return MB_MatchText(s, slen, p, plen, 0, true);
+    }
+}
+```

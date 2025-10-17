@@ -46,3 +46,17 @@ The "public" pseudo-role is a fundamental concept in PostgreSQL's permission sys
 - ACL_ID_PUBLIC is a special constant (typically 0) that represents the public pseudo-role throughout PostgreSQL's ACL system
 - Widely used in has_*_privilege SQL functions that need to handle both regular roles and the public pseudo-role
 - The public pseudo-role represents implicit permissions granted to all database users
+
+## Simplified Source
+
+```c
+Oid get_role_oid_or_public(const char *rolname)
+{
+    // Handle special "public" pseudo-role
+    if (strcmp(rolname, "public") == 0)
+        return ACL_ID_PUBLIC;
+
+    // For all other roles, look up in catalog
+    return get_role_oid(rolname, false);
+}
+```

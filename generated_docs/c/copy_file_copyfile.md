@@ -43,3 +43,19 @@ If the CopyFile operation fails, the function maps the Windows error to a POSIX-
 - The function uses the Windows CopyFile API with `bFailIfExists=true`, meaning it will fail if the destination file already exists
 - Checksum calculation is performed on the source file after the copy operation, ensuring data integrity verification
 - Error handling includes proper mapping of Windows-specific errors to POSIX-style errors for consistent error reporting across platforms
+
+## Simplified Source
+
+```c
+static void copy_file_copyfile(const char *src, const char *dst,
+                              pg_checksum_context *checksum_ctx) {
+    // Copy file using Windows API
+    if (CopyFile(src, dst, true) == 0) {
+        _dosmaperr(GetLastError());
+        pg_fatal("could not copy file \"%s\" to \"%s\": %m", src, dst);
+    }
+
+    // Calculate checksum if needed
+    checksum_file(src, checksum_ctx);
+}
+```

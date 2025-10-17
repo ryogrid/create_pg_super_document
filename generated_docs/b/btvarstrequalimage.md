@@ -34,3 +34,28 @@ The function returns true only when:
 - Deduplication is disabled for nondeterministic collations to prevent data corruption
 - The function is designed to be used as a support function in operator class definitions
 - Located in src/backend/utils/adt/varlena.c:2555-2570
+
+## Simplified Source
+
+```c
+Datum
+btvarstrequalimage(PG_FUNCTION_ARGS)
+{
+    // Get the collation ID from the function call context
+    Oid collid = PG_GET_COLLATION();
+
+    // Ensure a collation is set (required for string operations)
+    check_collation_set(collid);
+
+    // Allow deduplication for safe collations:
+    // - C collation (byte-wise comparison)
+    // - Default collation
+    // - Deterministic collations
+    if (lc_collate_is_c(collid) ||
+        collid == DEFAULT_COLLATION_OID ||
+        get_collation_isdeterministic(collid))
+        PG_RETURN_BOOL(true);
+    else
+        PG_RETURN_BOOL(false);  // Disable for nondeterministic collations
+}
+```

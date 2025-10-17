@@ -50,4 +50,24 @@ Unlike table data processing, each large object gets its own compression context
 - Works within the context established by  for the overall BLOB section
 - Part of the pluggable archive format system enabling different storage backends
 - The compression setup allows for optimal handling of potentially very large binary data
-- Forms part of the large object processing pipeline:  →  →  → 
+- Forms part of the large object processing pipeline:  →  →  →
+
+## Simplified Source
+
+```c
+static void
+_StartLO(ArchiveHandle *AH, TocEntry *te, Oid oid)
+{
+    lclContext *ctx = (lclContext *) AH->formatData;
+
+    // Validate OID - must be non-zero for large objects
+    if (oid == 0)
+        pg_fatal("invalid OID for large object");
+
+    // Write the large object OID for restoration identification
+    WriteInt(AH, oid);
+
+    // Initialize compression for this specific large object
+    ctx->cs = AllocateCompressor(AH->compression_spec, NULL, _CustomWriteFunc);
+}
+```

@@ -38,3 +38,16 @@ The `uuid_fast_cmp` function is a static comparison function optimized for use w
 - Essential component of PostgreSQL's high-performance sorting infrastructure for UUIDs
 - The `ssup` parameter is part of the interface but not used in the implementation
 - Provides significant performance benefits for large-scale UUID sorting operations
+
+## Simplified Source
+
+```c
+static int uuid_fast_cmp(Datum x, Datum y, SortSupport ssup) {
+    // Extract UUID pointers from Datum values
+    pg_uuid_t *uuid1 = DatumGetUUIDP(x);
+    pg_uuid_t *uuid2 = DatumGetUUIDP(y);
+
+    // Delegate to internal comparison function
+    return uuid_internal_cmp(uuid1, uuid2);
+}
+```

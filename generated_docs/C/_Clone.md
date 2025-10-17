@@ -40,3 +40,26 @@ Importantly, the function intentionally does not clone TOC-entry-local state, al
 - Part of the parallel operation interface for archive formats
 - Each thread gets its own independent lclContext copy
 - Shared TOC-entry-local state requires careful synchronization in other functions
+
+## Simplified Source
+
+```c
+static void
+_Clone(ArchiveHandle *AH)
+{
+    lclContext *ctx = (lclContext *) AH->formatData;
+
+    // Each thread needs private working state for thread safety
+    AH->formatData = (lclContext *) pg_malloc(sizeof(lclContext));
+    memcpy(AH->formatData, ctx, sizeof(lclContext));
+    ctx = (lclContext *) AH->formatData;
+
+    // Safety check: no active compressor during cloning
+    if (ctx->cs != NULL) {
+        pg_fatal("compressor active");
+    }
+
+    // Note: TOC-entry-local state is intentionally shared across threads
+    // to allow knowledge sharing about data block locations
+}
+```

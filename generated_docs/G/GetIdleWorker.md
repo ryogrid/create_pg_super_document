@@ -33,3 +33,22 @@ This function performs a simple linear search through the parallel worker slots 
 - The function is static and only used within the parallel.c module
 - Critical for resource management in parallel operations to avoid over-scheduling work
 - The returned slot number can be used directly to access worker-specific information in the parallelSlot array
+
+## Simplified Source
+
+```c
+static int
+GetIdleWorker(ParallelState *pstate)
+{
+    int i;
+
+    // Search through all workers for an idle one
+    for (i = 0; i < pstate->numWorkers; i++) {
+        if (pstate->parallelSlot[i].workerStatus == WRKR_IDLE)
+            return i;
+    }
+
+    // No idle workers found
+    return NO_SLOT;
+}
+```

@@ -32,3 +32,30 @@ ReadStr reads a string from a PostgreSQL archive by first reading an integer rep
 - The caller is responsible for freeing the returned memory using pg_free
 - Used extensively in TOC (Table of Contents) reading operations for archive restoration
 - Part of the archive format abstraction layer in pg_dump/pg_restore utilities
+
+## Simplified Source
+
+```c
+char *
+ReadStr(ArchiveHandle *AH)
+{
+    char *buf;
+    int l;
+
+    // Read string length
+    l = ReadInt(AH);
+    if (l < 0)
+        buf = NULL;
+    else
+    {
+        // Allocate buffer and read string data
+        buf = (char *) pg_malloc(l + 1);
+        AH->ReadBufPtr(AH, (void *) buf, l);
+
+        // Null terminate
+        buf[l] = '\0';
+    }
+
+    return buf;
+}
+```

@@ -34,3 +34,29 @@ This function recursively resets nested JSON table plans to re-evaluate their ro
 - The function implements a depth-first traversal pattern for resetting nested plan hierarchies
 - Child nested plans of a JsonTablePathScan are reset implicitly when JsonTablePlanNextRow() is subsequently called
 - The function is essential for maintaining proper parent-child relationships in complex JSON table expressions with multiple nesting levels
+
+## Simplified Source
+
+```c
+static void
+JsonTableResetNestedPlan(JsonTablePlanState *planstate)
+{
+    // This must be a child plan
+    Assert(planstate->parent != NULL);
+
+    if (IsA(planstate->plan, JsonTablePathScan)) {
+        JsonTablePlanState *parent = planstate->parent;
+
+        // Reset row pattern if parent has valid current row
+        if (!parent->current.isnull)
+            JsonTableResetRowPattern(planstate, parent->current.value);
+
+        // Child nested plans will be reset when JsonTablePlanNextRow() is called
+    }
+    else if (IsA(planstate->plan, JsonTableSiblingJoin)) {
+        // Recursively reset both left and right child plans
+        JsonTableResetNestedPlan(planstate->left);
+        JsonTableResetNestedPlan(planstate->right);
+    }
+}
+```

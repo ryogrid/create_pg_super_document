@@ -40,3 +40,50 @@ The calculated size is cached in the expanded array header for future calls, mak
 - The function accounts for null bitmap overhead even if no nulls are currently present, as the flattened array will include a null bitmap if dnulls exists
 - Proper alignment calculation ensures the resulting size estimate matches actual memory layout requirements
 - Caches the calculated size in eah->flat_size to avoid recalculation on subsequent calls
+
+## Simplified Source
+
+```c
+static Size EA_get_flat_size(ExpandedObjectHeader *eohptr) {
+    ExpandedArrayHeader *eah = (ExpandedArrayHeader *) eohptr;
+
+    // Return cached size if available
+    if (eah->fvalue)
+        return ARR_SIZE(eah->fvalue);
+
+    if (eah->flat_size)
+        return eah->flat_size;
+
+    // Calculate size by examining array elements
+    int nelems = eah->nelems;
+    int ndims = eah->ndims;
+    Datum *dvalues = eah->dvalues;
+    bool *dnulls = eah->dnulls;
+
+    Size nbytes = 0;
+
+    // Sum up space needed for each non-null element
+    for (int i = 0; i < nelems; i++) {
+        if (dnulls && dnulls[i])
+            continue;
+
+        nbytes = att_addlength_datum(nbytes, eah->typlen, dvalues[i]);
+        nbytes = att_align_nominal(nbytes, eah->typalign);
+
+        // Check for size overflow
+        if (!AllocSizeIsValid(nbytes))
+            ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                errmsg("array size exceeds maximum allowed")));
+    }
+
+    // Add array overhead (header + null bitmap if needed)
+    if (dnulls)
+        nbytes += ARR_OVERHEAD_WITHNULLS(ndims, nelems);
+    else
+        nbytes += ARR_OVERHEAD_NONULLS(ndims);
+
+    // Cache the result for next time
+    eah->flat_size = nbytes;
+    return nbytes;
+}
+```

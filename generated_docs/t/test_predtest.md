@@ -51,3 +51,104 @@ The function then compares the empirical and theoretical results, issuing warnin
 - Issues warnings when theoretical proofs contradict empirical evidence, indicating potential bugs
 - Part of PostgreSQL's test infrastructure for validating query optimization logic
 - Uses SPI (Server Programming Interface) for query execution and plan analysis
+
+## Simplified Source
+
+```c
+Datum test_predtest(PG_FUNCTION_ARGS) {
+    text *txt = PG_GETARG_TEXT_PP(0);
+    char *query_string = text_to_cstring(txt);
+
+    // Connect to SPI for query execution
+    if (SPI_connect() != SPI_OK_CONNECT)
+        elog(ERROR, "SPI_connect failed");
+
+    // Prepare and execute the test query
+    SPIPlanPtr spiplan = SPI_prepare(query_string, 0, NULL);
+    if (spiplan == NULL)
+        elog(ERROR, "SPI_prepare failed for \"%s\"", query_string);
+
+    int spirc = SPI_execute_plan(spiplan, NULL, NULL, true, 0);
+    if (spirc != SPI_OK_SELECT)
+        elog(ERROR, "failed to execute \"%s\"", query_string);
+
+    // Validate result structure (must have 2 boolean columns)
+    TupleDesc tupdesc = SPI_tuptable->tupdesc;
+    if (tupdesc->natts != 2 ||
+        TupleDescAttr(tupdesc, 0)->atttypid != BOOLOID ||
+        TupleDescAttr(tupdesc, 1)->atttypid != BOOLOID)
+        elog(ERROR, "test_predtest query must yield two boolean columns");
+
+    // Analyze empirical results for logical relationships
+    bool s_i_holds = true, w_i_holds = true, s_r_holds = true, w_r_holds = true;
+
+    for (int i = 0; i < SPI_processed; i++) {
+        HeapTuple tup = SPI_tuptable->vals[i];
+        bool isnull;
+
+        // Extract column values as 3-way logic (true/false/null)
+        Datum dat1 = SPI_getbinval(tup, tupdesc, 1, &isnull);
+        char c1 = isnull ? 'n' : (DatumGetBool(dat1) ? 't' : 'f');
+
+        Datum dat2 = SPI_getbinval(tup, tupdesc, 2, &isnull);
+        char c2 = isnull ? 'n' : (DatumGetBool(dat2) ? 't' : 'f');
+
+        // Check logical relationship violations
+        if (c2 == 't' && c1 != 't') s_i_holds = false;     // strong implication
+        if (c2 != 'f' && c1 == 'f') w_i_holds = false;     // weak implication
+        if (c2 == 't' && c1 != 'f') s_r_holds = false;     // strong refutation
+        if (c2 == 't' && c1 == 't') w_r_holds = false;     // weak refutation
+    }
+
+    // Extract expressions from query plan for theoretical testing
+    CachedPlan *cplan = SPI_plan_get_cached_plan(spiplan);
+    PlannedStmt *stmt = linitial_node(PlannedStmt, cplan->stmt_list);
+    Plan *plan = stmt->planTree;
+
+    Expr *clause1 = linitial_node(TargetEntry, plan->targetlist)->expr;
+    Expr *clause2 = lsecond_node(TargetEntry, plan->targetlist)->expr;
+
+    // Preprocess expressions and run theoretical proofs
+    clause1 = (Expr *) make_ands_implicit(clause1);
+    clause2 = (Expr *) make_ands_implicit(clause2);
+
+    bool strong_implied_by = predicate_implied_by((List *) clause1, (List *) clause2, false);
+    bool weak_implied_by = predicate_implied_by((List *) clause1, (List *) clause2, true);
+    bool strong_refuted_by = predicate_refuted_by((List *) clause1, (List *) clause2, false);
+    bool weak_refuted_by = predicate_refuted_by((List *) clause1, (List *) clause2, true);
+
+    // Compare theoretical proofs with empirical results
+    if (strong_implied_by && !s_i_holds)
+        elog(WARNING, "strong_implied_by result is incorrect");
+    if (weak_implied_by && !w_i_holds)
+        elog(WARNING, "weak_implied_by result is incorrect");
+    if (strong_refuted_by && !s_r_holds)
+        elog(WARNING, "strong_refuted_by result is incorrect");
+    if (weak_refuted_by && !w_r_holds)
+        elog(WARNING, "weak_refuted_by result is incorrect");
+
+    SPI_finish();
+
+    // Build result tuple with all 8 boolean values
+    tupdesc = CreateTemplateTupleDesc(8);
+    TupleDescInitEntry(tupdesc, 1, "strong_implied_by", BOOLOID, -1, 0);
+    TupleDescInitEntry(tupdesc, 2, "weak_implied_by", BOOLOID, -1, 0);
+    TupleDescInitEntry(tupdesc, 3, "strong_refuted_by", BOOLOID, -1, 0);
+    TupleDescInitEntry(tupdesc, 4, "weak_refuted_by", BOOLOID, -1, 0);
+    TupleDescInitEntry(tupdesc, 5, "s_i_holds", BOOLOID, -1, 0);
+    TupleDescInitEntry(tupdesc, 6, "w_i_holds", BOOLOID, -1, 0);
+    TupleDescInitEntry(tupdesc, 7, "s_r_holds", BOOLOID, -1, 0);
+    TupleDescInitEntry(tupdesc, 8, "w_r_holds", BOOLOID, -1, 0);
+    tupdesc = BlessTupleDesc(tupdesc);
+
+    Datum values[8] = {
+        BoolGetDatum(strong_implied_by), BoolGetDatum(weak_implied_by),
+        BoolGetDatum(strong_refuted_by), BoolGetDatum(weak_refuted_by),
+        BoolGetDatum(s_i_holds), BoolGetDatum(w_i_holds),
+        BoolGetDatum(s_r_holds), BoolGetDatum(w_r_holds)
+    };
+    bool nulls[8] = {0};
+
+    return PG_RETURN_DATUM(HeapTupleGetDatum(heap_form_tuple(tupdesc, values, nulls)));
+}
+```

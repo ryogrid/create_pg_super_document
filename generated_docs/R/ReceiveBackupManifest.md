@@ -36,3 +36,26 @@ The function sets up a `WriteManifestState` structure to track the output file h
 - File operations use binary mode ("wb") for cross-platform compatibility
 - Error handling includes checking for file creation failures with descriptive error messages
 - This function is part of the pg_basebackup utility which creates consistent backups of PostgreSQL databases
+
+## Simplified Source
+
+```c
+static void ReceiveBackupManifest(PGconn *conn) {
+    WriteManifestState state;
+
+    // Create temporary manifest file in base directory
+    snprintf(state.filename, sizeof(state.filename),
+             "%s/backup_manifest.tmp", basedir);
+
+    // Open file for writing backup manifest data
+    state.file = fopen(state.filename, "wb");
+    if (state.file == NULL)
+        pg_fatal("could not create file \"%s\": %m", state.filename);
+
+    // Receive manifest data from server connection
+    ReceiveCopyData(conn, ReceiveBackupManifestChunk, &state);
+
+    // Close the manifest file
+    fclose(state.file);
+}
+```

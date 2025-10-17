@@ -33,3 +33,23 @@ This function provides a frontend implementation of timestamp difference calcula
 - Uses PostgreSQL's internal timestamp format (microseconds since PostgreSQL epoch)
 - Essential for timing and performance monitoring in PostgreSQL client utilities
 - The microseconds component is always in the range 0-999999
+
+## Simplified Source
+
+```c
+void feTimestampDifference(TimestampTz start_time, TimestampTz stop_time,
+                          long *secs, int *microsecs) {
+    // Calculate the difference in microseconds
+    TimestampTz diff = stop_time - start_time;
+
+    // Handle negative or zero differences
+    if (diff <= 0) {
+        *secs = 0;
+        *microsecs = 0;
+    } else {
+        // Convert to seconds and remaining microseconds
+        *secs = (long) (diff / USECS_PER_SEC);
+        *microsecs = (int) (diff % USECS_PER_SEC);
+    }
+}
+```

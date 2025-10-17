@@ -34,3 +34,18 @@ The function performs the necessary pointer casting and dereferencing to convert
 - Performs double pointer dereferencing:  to extract QTNode from void pointer to pointer
 - Returns same comparison values as QTNodeCompare (-1, 0, 1) for sort compatibility
 - Used exclusively by QTNSort for array sorting operations
+
+## Simplified Source
+
+```c
+static int
+cmpQTN(const void *a, const void *b)
+{
+    // Cast void pointers to QTNode** and dereference to get QTNode*
+    QTNode *node_a = *(QTNode *const *) a;
+    QTNode *node_b = *(QTNode *const *) b;
+
+    // Delegate to the main comparison function
+    return QTNodeCompare(node_a, node_b);
+}
+```

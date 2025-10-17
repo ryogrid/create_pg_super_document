@@ -51,3 +51,33 @@ The function performs several important operations:
 - Called during RelationCacheInitializePhase2 and RelationCacheInitializePhase3 for different sets of critical indexes
 - The rd_refcnt = 1 setting prevents the index from being dropped from cache during normal operations
 - Loading index attribute options ensures complete index metadata is available in the cache
+
+## Simplified Source
+
+```c
+static void load_critical_index(Oid indexoid, Oid heapoid) {
+    Relation ird;
+
+    // Lock heap relation first, then index to prevent deadlocks
+    LockRelationOid(heapoid, AccessShareLock);
+    LockRelationOid(indexoid, AccessShareLock);
+
+    // Build the index relation descriptor
+    ird = RelationBuildDesc(indexoid, true);
+    if (ird == NULL)
+        ereport(PANIC,
+                errcode(ERRCODE_DATA_CORRUPTED),
+                errmsg_internal("could not open critical system index %u", indexoid));
+
+    // Mark as nailed (permanently cached) with reference count
+    ird->rd_isnailed = true;
+    ird->rd_refcnt = 1;
+
+    // Release locks in reverse order
+    UnlockRelationOid(indexoid, AccessShareLock);
+    UnlockRelationOid(heapoid, AccessShareLock);
+
+    // Load index attribute options
+    (void) RelationGetIndexAttOptions(ird, false);
+}
+```

@@ -37,3 +37,12 @@ The returned value includes timezone information, making it suitable for applica
 - Part of PostgreSQL's temporal function suite alongside CURRENT_TIMESTAMP
 - Function follows PostgreSQL's PG_FUNCTION_ARGS calling convention for SQL-callable functions
 - Critical for maintaining temporal consistency in database transactions
+
+## Simplified Source
+
+```c
+Datum now(PG_FUNCTION_ARGS) {
+    // Return transaction start timestamp with timezone
+    return PG_RETURN_TIMESTAMPTZ(GetCurrentTransactionStartTimestamp());
+}
+```

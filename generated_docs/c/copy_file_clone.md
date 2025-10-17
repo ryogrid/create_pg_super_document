@@ -42,3 +42,50 @@ The `copy_file_clone` function implements high-performance file copying using pl
 - Will fatal error on platforms that don't support file cloning
 - Part of PostgreSQL's pg_combinebackup utility optimization strategies
 - Location: src/bin/pg_combinebackup/copy_file.c:213-258
+
+## Simplified Source
+
+```c
+static void
+copy_file_clone(const char *src, const char *dest,
+                pg_checksum_context *checksum_ctx)
+{
+#if defined(HAVE_COPYFILE) && defined(COPYFILE_CLONE_FORCE)
+    // macOS: Use copyfile with cloning support
+    if (copyfile(src, dest, NULL, COPYFILE_CLONE_FORCE) < 0)
+        pg_fatal("error while cloning file \"%s\" to \"%s\": %m", src, dest);
+
+#elif defined(__linux__) && defined(FICLONE)
+    // Linux: Use FICLONE ioctl for reflink copy
+    int src_fd, dest_fd;
+
+    // Open source file
+    if ((src_fd = open(src, O_RDONLY | PG_BINARY, 0)) < 0)
+        pg_fatal("could not open file \"%s\": %m", src);
+
+    // Create destination file
+    if ((dest_fd = open(dest, O_RDWR | O_CREAT | O_EXCL | PG_BINARY,
+                        pg_file_create_mode)) < 0)
+        pg_fatal("could not create file \"%s\": %m", dest);
+
+    // Perform reflink clone
+    if (ioctl(dest_fd, FICLONE, src_fd) < 0)
+    {
+        int save_errno = errno;
+        unlink(dest);  // Clean up failed destination
+        pg_fatal("error while cloning file \"%s\" to \"%s\": %s",
+                 src, dest, strerror(save_errno));
+    }
+
+    close(src_fd);
+    close(dest_fd);
+
+#else
+    // Platform doesn't support file cloning
+    pg_fatal("file cloning not supported on this platform");
+#endif
+
+    // Calculate checksum of the cloned file if needed
+    checksum_file(src, checksum_ctx);
+}
+```

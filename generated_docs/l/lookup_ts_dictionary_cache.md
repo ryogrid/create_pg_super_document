@@ -48,3 +48,84 @@ The function registers syscache callbacks for both TSDICTOID and TSTEMPLATEOID t
 - The lexize method from the template is required and cached using function manager information
 - Dictionary initialization data is stored in the dictionary's private context and persists across multiple lexize calls
 - Cache uses 8 initial buckets compared to 4 for parsers, reflecting the potentially larger number of dictionaries
+
+## Simplified Source
+
+```c
+TSDictionaryCacheEntry *lookup_ts_dictionary_cache(Oid dictId)
+{
+    TSDictionaryCacheEntry *entry;
+
+    // Initialize hash table on first use
+    if (TSDictionaryCacheHash == NULL) {
+        HASHCTL ctl;
+        ctl.keysize = sizeof(Oid);
+        ctl.entrysize = sizeof(TSDictionaryCacheEntry);
+        TSDictionaryCacheHash = hash_create("Tsearch dictionary cache", 8, &ctl, HASH_ELEM | HASH_BLOBS);
+
+        // Register cache invalidation callbacks
+        CacheRegisterSyscacheCallback(TSDICTOID, InvalidateTSCacheCallBack, PointerGetDatum(TSDictionaryCacheHash));
+        CacheRegisterSyscacheCallback(TSTEMPLATEOID, InvalidateTSCacheCallBack, PointerGetDatum(TSDictionaryCacheHash));
+
+        if (!CacheMemoryContext)
+            CreateCacheMemoryContext();
+    }
+
+    // Check single-entry cache first
+    if (lastUsedDictionary && lastUsedDictionary->dictId == dictId && lastUsedDictionary->isvalid)
+        return lastUsedDictionary;
+
+    // Look up existing entry in hash table
+    entry = (TSDictionaryCacheEntry *) hash_search(TSDictionaryCacheHash, &dictId, HASH_FIND, NULL);
+
+    if (entry == NULL || !entry->isvalid) {
+        // Load dictionary and template from system catalogs
+        HeapTuple tpdict = SearchSysCache1(TSDICTOID, ObjectIdGetDatum(dictId));
+        if (!HeapTupleIsValid(tpdict))
+            elog(ERROR, "cache lookup failed for text search dictionary %u", dictId);
+
+        Form_pg_ts_dict dict = (Form_pg_ts_dict) GETSTRUCT(tpdict);
+
+        HeapTuple tptmpl = SearchSysCache1(TSTEMPLATEOID, ObjectIdGetDatum(dict->dicttemplate));
+        if (!HeapTupleIsValid(tptmpl))
+            elog(ERROR, "cache lookup failed for text search template %u", dict->dicttemplate);
+
+        Form_pg_ts_template template = (Form_pg_ts_template) GETSTRUCT(tptmpl);
+
+        // Create or reset cache entry
+        if (entry == NULL) {
+            entry = (TSDictionaryCacheEntry *) hash_search(TSDictionaryCacheHash, &dictId, HASH_ENTER, NULL);
+            entry->dictCtx = AllocSetContextCreate(CacheMemoryContext, "TS dictionary", ALLOCSET_SMALL_SIZES);
+        } else {
+            MemoryContextReset(entry->dictCtx);
+        }
+
+        // Initialize entry
+        MemSet(entry, 0, sizeof(TSDictionaryCacheEntry));
+        entry->dictId = dictId;
+        entry->lexizeOid = template->tmpllexize;
+
+        // Call dictionary initialization if available
+        if (OidIsValid(template->tmplinit)) {
+            MemoryContext oldcontext = MemoryContextSwitchTo(entry->dictCtx);
+
+            // Get dictionary options and call init function
+            Datum opt = SysCacheGetAttr(TSDICTOID, tpdict, Anum_pg_ts_dict_dictinitoption, &isnull);
+            List *dictoptions = isnull ? NIL : deserialize_deflist(opt);
+            entry->dictData = DatumGetPointer(OidFunctionCall1(template->tmplinit, PointerGetDatum(dictoptions)));
+
+            MemoryContextSwitchTo(oldcontext);
+        }
+
+        ReleaseSysCache(tptmpl);
+        ReleaseSysCache(tpdict);
+
+        // Cache lexize function info
+        fmgr_info_cxt(entry->lexizeOid, &entry->lexize, entry->dictCtx);
+        entry->isvalid = true;
+    }
+
+    lastUsedDictionary = entry;
+    return entry;
+}
+```

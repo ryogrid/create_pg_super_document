@@ -40,3 +40,12 @@ As a blocking operation, this function will suspend the worker process until a m
 - EOF return (NULL) indicates normal termination when leader closes communication
 - Simple wrapper that encapsulates pipe communication details for command reading
 - Part of the bidirectional communication system between leader and worker processes
+
+## Simplified Source
+
+```c
+static char *getMessageFromLeader(int pipefd[2]) {
+    // Simple wrapper around pipe reading - blocks until message available
+    return readMessageFromPipe(pipefd[PIPE_READ]);
+}
+```

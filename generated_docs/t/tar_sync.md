@@ -41,3 +41,28 @@ The function takes a conservative approach by always syncing the entire TAR file
 - Compressed files are explicitly skipped because partial sync of compressed data is meaningless
 - Uses Assert() to ensure the Walfile pointer is not NULL
 - The function syncs the entire TAR file rather than individual WAL file entries
+
+## Simplified Source
+
+```c
+static int tar_sync(Walfile *f) {
+    TarMethodData *tar_data = (TarMethodData *) f->wwmethod;
+
+    clear_error(f->wwmethod);
+
+    // Skip if sync is disabled
+    if (!f->wwmethod->sync)
+        return 0;
+
+    // Skip compressed files - sync makes no sense for partial compressed data
+    if (f->wwmethod->compression_algorithm != PG_COMPRESSION_NONE)
+        return 0;
+
+    // Sync the entire TAR file
+    int result = fsync(tar_data->fd);
+    if (result < 0)
+        f->wwmethod->lasterrno = errno;
+
+    return result;
+}
+```

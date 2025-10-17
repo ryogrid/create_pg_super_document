@@ -35,7 +35,37 @@ The function handles PostgreSQL's variable-length data structures properly, extr
 
 ## Notes and Other Information
 - Returns the original TSVector unchanged if the specified lexeme is not found
-- Uses binary search for efficient lexeme lookup in the sorted TSVector structure  
+- Uses binary search for efficient lexeme lookup in the sorted TSVector structure
 - Properly handles PostgreSQL's TOAST (The Oversized-Attribute Storage Technique) for variable-length data
 - Memory management follows PostgreSQL conventions with appropriate cleanup of potentially copied input arguments
 - Part of PostgreSQL's full-text search functionality for TSVector manipulation
+
+## Simplified Source
+
+```c
+Datum tsvector_delete_str(PG_FUNCTION_ARGS) {
+    TSVector input_tsvector = PG_GETARG_TSVECTOR(0);
+    text *lexeme_text = PG_GETARG_TEXT_PP(1);
+
+    // Extract lexeme string and length
+    char *lexeme = VARDATA_ANY(lexeme_text);
+    int lexeme_len = VARSIZE_ANY_EXHDR(lexeme_text);
+
+    // Search for the lexeme in the TSVector
+    int lexeme_index = tsvector_bsearch(input_tsvector, lexeme, lexeme_len);
+
+    // If lexeme not found, return original TSVector unchanged
+    if (lexeme_index == -1) {
+        PG_RETURN_POINTER(input_tsvector);
+    }
+
+    // Delete the lexeme using the index-based deletion function
+    TSVector output_tsvector = tsvector_delete_by_indices(input_tsvector, &lexeme_index, 1);
+
+    // Clean up memory
+    PG_FREE_IF_COPY(input_tsvector, 0);
+    PG_FREE_IF_COPY(lexeme_text, 1);
+
+    PG_RETURN_POINTER(output_tsvector);
+}
+```

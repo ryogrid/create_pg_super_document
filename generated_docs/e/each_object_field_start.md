@@ -37,3 +37,32 @@ This function serves as a callback handler in PostgreSQL's JSON parsing infrastr
 - Returns JSON_SUCCESS to indicate successful processing
 - Works in conjunction with each_object_field_end to handle complete field processing
 - Critical component in the JSON object expansion pipeline
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+each_object_field_start(void *state, char *fname, bool isnull)
+{
+    EachState *each_state = (EachState *) state;
+
+    // Only process top-level object fields
+    if (each_state->lex->lex_level == 1)
+    {
+        // Handle string values for text normalization
+        if (each_state->normalize_results &&
+            each_state->lex->token_type == JSON_TOKEN_STRING)
+        {
+            // Flag for string value normalization in field_end handler
+            each_state->next_scalar = true;
+        }
+        else
+        {
+            // Save starting position of non-string values
+            each_state->result_start = each_state->lex->token_start;
+        }
+    }
+
+    return JSON_SUCCESS;
+}
+```

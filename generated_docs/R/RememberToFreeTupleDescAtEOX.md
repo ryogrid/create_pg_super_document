@@ -41,3 +41,31 @@ The actual cleanup of these TupleDescs happens during transaction cleanup, ensur
 - Part of PostgreSQL's sophisticated memory management system for relation cache cleanup
 - The deferred cleanup pattern prevents use-after-free errors when TupleDescs might still be referenced elsewhere in the system
 - The "EOX" prefix stands for "End Of Transaction" indicating when the cleanup will occur
+
+## Simplified Source
+
+```c
+static void RememberToFreeTupleDescAtEOX(TupleDesc td) {
+    // Initialize array on first use
+    if (EOXactTupleDescArray == NULL) {
+        MemoryContext oldcxt = MemoryContextSwitchTo(CacheMemoryContext);
+
+        EOXactTupleDescArray = (TupleDesc *) palloc(16 * sizeof(TupleDesc));
+        EOXactTupleDescArrayLen = 16;
+        NextEOXactTupleDescNum = 0;
+
+        MemoryContextSwitchTo(oldcxt);
+    }
+    // Grow array if needed
+    else if (NextEOXactTupleDescNum >= EOXactTupleDescArrayLen) {
+        int32 newlen = EOXactTupleDescArrayLen * 2;
+
+        EOXactTupleDescArray = (TupleDesc *) repalloc(EOXactTupleDescArray,
+                                                      newlen * sizeof(TupleDesc));
+        EOXactTupleDescArrayLen = newlen;
+    }
+
+    // Add TupleDesc to deferred cleanup list
+    EOXactTupleDescArray[NextEOXactTupleDescNum++] = td;
+}
+```

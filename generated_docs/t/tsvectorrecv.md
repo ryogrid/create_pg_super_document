@@ -58,3 +58,92 @@ The function performs extensive validation during deserialization, checking lexe
 - Uses zero-initialized memory allocation and careful padding for alignment requirements
 - Maximum limits enforced: MAXSTRLEN for lexeme length, MAXSTRPOS for total length, MAXNUMPOS for position count
 - Memory is reallocated as needed during parsing to accommodate variable-sized data
+
+## Simplified Source
+
+```c
+Datum tsvectorrecv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+
+    // Read number of lexemes
+    int32 num_entries = pq_getmsgint(buf, sizeof(int32));
+    if (num_entries < 0 || num_entries > (MaxAllocSize / sizeof(WordEntry))) {
+        elog(ERROR, "invalid size of tsvector");
+    }
+
+    // Allocate initial TSVector structure
+    Size header_len = DATAHDRSIZE + sizeof(WordEntry) * num_entries;
+    Size total_len = header_len * 2;
+    TSVector vec = (TSVector) palloc0(total_len);
+    vec->size = num_entries;
+
+    int data_len = 0;
+    bool need_sort = false;
+
+    // Process each lexeme
+    for (int i = 0; i < num_entries; i++) {
+        // Read lexeme text and position count
+        const char *lexeme = pq_getmsgstring(buf);
+        uint16 pos_count = (uint16) pq_getmsgint(buf, sizeof(uint16));
+
+        // Validate input
+        size_t lex_len = strlen(lexeme);
+        if (lex_len > MAXSTRLEN || data_len > MAXSTRPOS || pos_count > MAXNUMPOS) {
+            elog(ERROR, "invalid tsvector data");
+        }
+
+        // Ensure buffer is large enough
+        while (header_len + SHORTALIGN(data_len + lex_len) +
+               sizeof(uint16) + pos_count * sizeof(WordEntryPos) >= total_len) {
+            total_len *= 2;
+            vec = (TSVector) repalloc(vec, total_len);
+        }
+
+        // Fill word entry
+        vec->entries[i].haspos = (pos_count > 0) ? 1 : 0;
+        vec->entries[i].len = lex_len;
+        vec->entries[i].pos = data_len;
+
+        // Copy lexeme text
+        memcpy(STRPTR(vec) + data_len, lexeme, lex_len);
+        data_len += lex_len;
+
+        // Check if sorting is needed
+        if (i > 0 && compareentry(&vec->entries[i], &vec->entries[i - 1], STRPTR(vec)) <= 0) {
+            need_sort = true;
+        }
+
+        // Read position data if present
+        if (pos_count > 0) {
+            // Align data for position storage
+            if (data_len != SHORTALIGN(data_len)) {
+                *(STRPTR(vec) + data_len) = '\0';
+                data_len = SHORTALIGN(data_len);
+            }
+
+            // Store position count
+            memcpy(STRPTR(vec) + data_len, &pos_count, sizeof(uint16));
+
+            // Read position values
+            WordEntryPos *positions = POSDATAPTR(vec, &vec->entries[i]);
+            for (int j = 0; j < pos_count; j++) {
+                positions[j] = (WordEntryPos) pq_getmsgint(buf, sizeof(WordEntryPos));
+                if (j > 0 && WEP_GETPOS(positions[j]) <= WEP_GETPOS(positions[j - 1])) {
+                    elog(ERROR, "position information is misordered");
+                }
+            }
+
+            data_len += sizeof(uint16) + pos_count * sizeof(WordEntryPos);
+        }
+    }
+
+    SET_VARSIZE(vec, header_len + data_len);
+
+    // Sort if necessary
+    if (need_sort) {
+        qsort_arg(ARRPTR(vec), vec->size, sizeof(WordEntry), compareentry, STRPTR(vec));
+    }
+
+    PG_RETURN_TSVECTOR(vec);
+}
+```

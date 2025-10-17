@@ -43,3 +43,41 @@ The function works by:
 - The recursion_depth is managed to track error handling nesting
 - The assoc_context is reset to ErrorContext to ensure proper memory management
 - This function is designed for cases where intermediate processing between error capture and re-throwing might cause additional errors, making it safer than direct PG_RE_THROW() usage
+
+## Simplified Source
+
+```c
+void
+ReThrowError(ErrorData *edata)
+{
+    ErrorData *newedata;
+
+    Assert(edata->elevel == ERROR);
+
+    // Push error data back into error context
+    recursion_depth++;
+    MemoryContextSwitchTo(ErrorContext);
+
+    // Get new error stack entry and copy the error data
+    newedata = get_error_stack_entry();
+    memcpy(newedata, edata, sizeof(ErrorData));
+
+    // Deep copy all string fields to ErrorContext
+    if (newedata->message)    newedata->message = pstrdup(newedata->message);
+    if (newedata->detail)     newedata->detail = pstrdup(newedata->detail);
+    if (newedata->hint)       newedata->hint = pstrdup(newedata->hint);
+    if (newedata->context)    newedata->context = pstrdup(newedata->context);
+    if (newedata->backtrace)  newedata->backtrace = pstrdup(newedata->backtrace);
+
+    // Copy database object names
+    if (newedata->schema_name)     newedata->schema_name = pstrdup(newedata->schema_name);
+    if (newedata->table_name)      newedata->table_name = pstrdup(newedata->table_name);
+    if (newedata->column_name)     newedata->column_name = pstrdup(newedata->column_name);
+    if (newedata->constraint_name) newedata->constraint_name = pstrdup(newedata->constraint_name);
+
+    // Reset context and re-throw
+    newedata->assoc_context = ErrorContext;
+    recursion_depth--;
+    PG_RE_THROW();
+}
+```

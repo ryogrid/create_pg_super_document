@@ -42,3 +42,24 @@ KOI8-R (Kod Obmena Informatsiey 8-bit Russian) is a character encoding designed 
 - Part of PostgreSQL's modular character encoding conversion system
 - Returns the number of bytes converted, which can be used to detect partial conversions
 - The conversion is performed using a direct character mapping approach rather than Unicode intermediate conversion
+
+## Simplified Source
+
+```c
+Datum koi8r_to_win866(PG_FUNCTION_ARGS) {
+    // Extract conversion parameters from PostgreSQL function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate that we're converting from KOI8-R to WIN866
+    CHECK_ENCODING_CONVERSION_ARGS(PG_KOI8R, PG_WIN866);
+
+    // Perform direct conversion using koi2win866 translation table
+    int converted = local2local(src, dest, len, PG_KOI8R, PG_WIN866, koi2win866, noError);
+
+    // Return number of bytes successfully converted
+    PG_RETURN_INT32(converted);
+}
+```

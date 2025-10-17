@@ -38,3 +38,12 @@ The function works by delegating to cstring_to_text, which handles the conversio
 - Primarily used when converting pre-built XML strings, especially XML schema definitions
 - Less commonly used than stringinfo_to_xmltype since most XML generation uses StringInfo buffers
 - The function handles memory allocation automatically through cstring_to_text
+
+## Simplified Source
+
+```c
+static xmltype *cstring_to_xmltype(const char *string) {
+    // Convert C string to PostgreSQL xmltype (which is internally text)
+    return (xmltype *) cstring_to_text(string);
+}
+```

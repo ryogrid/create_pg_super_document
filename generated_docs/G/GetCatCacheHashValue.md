@@ -43,3 +43,19 @@ The function performs lazy initialization of the cache's tuple descriptor if nee
 - Returns a 32-bit hash value that can be used to locate the appropriate hash bucket
 - The hash value must match those computed during normal cache operations for proper invalidation
 - Only uses the number of keys actually configured for the cache (cache->cc_nkeys)
+
+## Simplified Source
+
+```c
+uint32 GetCatCacheHashValue(CatCache *cache,
+                           Datum v1, Datum v2, Datum v3, Datum v4)
+{
+    // Initialize cache tuple descriptor if needed (one-time startup)
+    if (cache->cc_tupdesc == NULL) {
+        CatalogCacheInitializeCache(cache);
+    }
+
+    // Compute and return hash value for the given keys
+    return CatalogCacheComputeHashValue(cache, cache->cc_nkeys, v1, v2, v3, v4);
+}
+```

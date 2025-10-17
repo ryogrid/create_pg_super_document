@@ -39,3 +39,15 @@ The `tideq` function compares two ItemPointer structures for equality and return
 - The function assumes both input ItemPointer structures are valid
 - This is one of several comparison operators available for TID values (others may include <, >, <=, >=, <>)
 - The implementation is straightforward, delegating the actual comparison logic to `ItemPointerCompare`
+
+## Simplified Source
+
+```c
+Datum tideq(PG_FUNCTION_ARGS) {
+    ItemPointer tid1 = PG_GETARG_ITEMPOINTER(0);
+    ItemPointer tid2 = PG_GETARG_ITEMPOINTER(1);
+
+    // Return true if TIDs are equal (comparison result == 0)
+    PG_RETURN_BOOL(ItemPointerCompare(tid1, tid2) == 0);
+}
+```

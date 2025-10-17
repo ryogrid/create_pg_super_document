@@ -35,3 +35,41 @@ This function implements a printf-like interface for writing formatted text data
 - Returns the actual number of bytes written to the TAR member
 - Part of the TAR archive support functionality in pg_dump
 - Located in src/bin/pg_dump/pg_backup_tar.c:954-987
+
+## Simplified Source
+
+```c
+static int tarPrintf(TAR_MEMBER *th, const char *fmt, ...) {
+    int save_errno = errno;
+    char *p;
+    size_t len = 128;  // Initial buffer size
+    size_t cnt;
+
+    // Loop until buffer is large enough
+    for (;;) {
+        va_list args;
+
+        // Allocate buffer
+        p = (char *) pg_malloc(len);
+
+        // Try to format the string
+        errno = save_errno;
+        va_start(args, fmt);
+        cnt = pvsnprintf(p, len, fmt, args);
+        va_end(args);
+
+        // Success if formatted string fits in buffer
+        if (cnt < len)
+            break;
+
+        // Buffer too small, try again with exact size needed
+        free(p);
+        len = cnt;
+    }
+
+    // Write formatted string to TAR member
+    cnt = tarWrite(p, cnt, th);
+    free(p);
+    return (int) cnt;
+}
+```

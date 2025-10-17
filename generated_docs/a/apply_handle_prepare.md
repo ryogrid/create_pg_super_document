@@ -45,3 +45,47 @@ This function processes logical replication PREPARE messages that signal the pre
 - Handles subscription skip LSN clearing and change skipping termination
 - Part of PostgreSQL's two-phase commit support in logical replication
 - Contains crash recovery considerations for subskiplsn handling
+
+## Simplified Source
+
+```c
+static void
+apply_handle_prepare(StringInfo s)
+{
+    LogicalRepPreparedTxnData prepare_data;
+
+    // Read prepare data from message
+    logicalrep_read_prepare(s, &prepare_data);
+
+    // Validate prepare LSN matches expected final LSN
+    if (prepare_data.prepare_lsn != remote_final_lsn)
+        ereport(ERROR,
+                (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                 errmsg_internal("incorrect prepare LSN %X/%X in prepare message (expected %X/%X)",
+                                 LSN_FORMAT_ARGS(prepare_data.prepare_lsn),
+                                 LSN_FORMAT_ARGS(remote_final_lsn))));
+
+    // Always prepare the transaction (unlike commit, which may skip empty transactions)
+    // This simplifies handling of commit prepared messages later
+    begin_replication_step();
+    apply_handle_prepare_internal(&prepare_data);
+    end_replication_step();
+    CommitTransactionCommand();
+
+    // Update statistics and store flush position
+    pgstat_report_stat(false);
+    store_flush_position(prepare_data.end_lsn, XactLastCommitEnd);
+    in_remote_transaction = false;
+
+    // Process parallel table synchronization
+    process_syncing_tables(prepare_data.end_lsn);
+
+    // Handle change skipping and subscription LSN management
+    stop_skipping_changes();
+    clear_subscription_skip_lsn(prepare_data.prepare_lsn);
+
+    // Clean up and report idle state
+    pgstat_report_activity(STATE_IDLE, NULL);
+    reset_apply_error_context_info();
+}
+```

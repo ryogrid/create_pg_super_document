@@ -47,3 +47,91 @@ This function is the core parser for PostgreSQL's timezone abbreviation files. I
 
 ## Notes and Other Information
 The function enforces several security and sanity checks: filenames must contain only alphabetic characters, recursion is limited to 3 levels, and lines cannot exceed the buffer size. Special directives @INCLUDE and @OVERRIDE provide flexibility in organizing timezone data across multiple files. The parser automatically skips empty lines and comments (lines beginning with #).
+
+## Simplified Source
+
+```c
+static int ParseTzFile(const char *filename, int depth,
+                      tzEntry **base, int *arraysize, int n) {
+    char file_path[MAXPGPATH];
+    FILE *tzFile;
+    char tzbuf[1024];
+    tzEntry tzentry;
+    int lineno = 0;
+    bool override = false;
+
+    // Validate filename contains only alpha characters
+    for (const char *p = filename; *p; p++) {
+        if (!isalpha((unsigned char) *p)) {
+            if (depth > 0)
+                GUC_check_errmsg("invalid time zone file name \"%s\"", filename);
+            return -1;
+        }
+    }
+
+    // Check recursion depth limit
+    if (depth > 3) {
+        GUC_check_errmsg("time zone file recursion limit exceeded in file \"%s\"",
+                        filename);
+        return -1;
+    }
+
+    // Build file path and open file
+    get_share_path(my_exec_path, share_path);
+    snprintf(file_path, sizeof(file_path), "%s/timezonesets/%s",
+             share_path, filename);
+    tzFile = AllocateFile(file_path, "r");
+    if (!tzFile) {
+        // Error handling for missing file/directory
+        return -1;
+    }
+
+    // Process each line in the file
+    while (!feof(tzFile)) {
+        lineno++;
+        if (fgets(tzbuf, sizeof(tzbuf), tzFile) == NULL) {
+            if (ferror(tzFile)) {
+                GUC_check_errmsg("could not read time zone file \"%s\": %m", filename);
+                n = -1;
+            }
+            break;
+        }
+
+        // Skip whitespace, empty lines, and comments
+        char *line = tzbuf;
+        while (*line && isspace((unsigned char) *line)) line++;
+        if (*line == '\0' || *line == '#') continue;
+
+        // Handle special directives
+        if (pg_strncasecmp(line, "@INCLUDE", strlen("@INCLUDE")) == 0) {
+            char *includeFile = pstrdup(line + strlen("@INCLUDE"));
+            includeFile = strtok(includeFile, WHITESPACE);
+            if (!includeFile || !*includeFile) {
+                n = -1;
+                break;
+            }
+            n = ParseTzFile(includeFile, depth + 1, base, arraysize, n);
+            if (n < 0) break;
+            continue;
+        }
+
+        if (pg_strncasecmp(line, "@OVERRIDE", strlen("@OVERRIDE")) == 0) {
+            override = true;
+            continue;
+        }
+
+        // Parse timezone entry line
+        if (!splitTzLine(filename, lineno, line, &tzentry) ||
+            !validateTzEntry(&tzentry)) {
+            n = -1;
+            break;
+        }
+
+        n = addToArray(base, arraysize, n, &tzentry, override);
+        if (n < 0) break;
+    }
+
+    FreeFile(tzFile);
+    return n;
+}
+```

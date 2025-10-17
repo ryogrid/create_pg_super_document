@@ -40,3 +40,15 @@ The cleanup process handles different operator types:
 - The function uses recursive tree traversal with stack depth checking to prevent overflow
 - Memory management is handled carefully with  and  calls to avoid leaks
 - The result may be a shorter QueryItem array if redundant operators were removed
+
+## Simplified Source
+
+```c
+QueryItem *clean_NOT(QueryItem *ptr, int *len) {
+    // Convert flat array to tree structure
+    NODE *root = maketree(ptr);
+
+    // Clean NOT operators from tree and convert back to flat array
+    return plaintree(clean_NOT_intree(root), len);
+}
+```

@@ -42,3 +42,29 @@ The function uses the `LocalToUtf` utility function along with the `big5_to_unic
 - Part of PostgreSQL's multi-byte character set conversion system
 - Registered as a PostgreSQL function via PG_FUNCTION_INFO_V1 macro
 - Located in src/backend/utils/mb/conversion_procs/utf8_and_big5/utf8_and_big5.c:39-57
+
+## Simplified Source
+
+```c
+Datum big5_to_utf8(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);   // Source BIG5 string
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);  // Destination buffer
+    int len = PG_GETARG_INT32(4);                                  // Source length
+    bool noError = PG_GETARG_BOOL(5);                              // Error handling flag
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_BIG5, PG_UTF8);
+
+    // Convert BIG5 to UTF-8 using Unicode mapping tree
+    int converted = LocalToUtf(src, len, dest,
+                              &big5_to_unicode_tree,
+                              NULL, 0,
+                              NULL,
+                              PG_BIG5,
+                              noError);
+
+    // Return number of bytes converted
+    PG_RETURN_INT32(converted);
+}
+```

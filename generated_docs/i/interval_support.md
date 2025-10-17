@@ -60,3 +60,49 @@ A conversion is considered redundant (no-op) when:
 - The optimization logic accounts for the fact that sub-second precision only matters for intervals that include SECOND fields
 - Uses `relabel_to_typmod()` to create optimized expressions when conversions are redundant
 - Critical for performance in queries with multiple interval type conversions or casts
+
+## Simplified Source
+
+```c
+Datum interval_support(PG_FUNCTION_ARGS) {
+    Node *rawreq = (Node *) PG_GETARG_POINTER(0);
+    Node *ret = NULL;
+
+    // Only handle simplification requests
+    if (IsA(rawreq, SupportRequestSimplify)) {
+        SupportRequestSimplify *req = (SupportRequestSimplify *) rawreq;
+        FuncExpr *expr = req->fcall;
+        Node *typmod = (Node *) lsecond(expr->args);
+
+        // Check if typmod is a constant value
+        if (IsA(typmod, Const) && !((Const *) typmod)->constisnull) {
+            Node *source = (Node *) linitial(expr->args);
+            int32 new_typmod = DatumGetInt32(((Const *) typmod)->constvalue);
+            bool noop;
+
+            if (new_typmod < 0) {
+                noop = true;
+            } else {
+                // Compare old and new type modifiers
+                int32 old_typmod = exprTypmod(source);
+                int old_least_field = intervaltypmodleastfield(old_typmod);
+                int new_least_field = intervaltypmodleastfield(new_typmod);
+                int old_precis = (old_typmod < 0) ? INTERVAL_FULL_PRECISION : INTERVAL_PRECISION(old_typmod);
+                int new_precis = INTERVAL_PRECISION(new_typmod);
+
+                // Check if conversion is unnecessary
+                // No-op if: new field <= old field AND precision doesn't decrease
+                noop = (new_least_field <= old_least_field) &&
+                       (old_least_field > 0 /* SECOND */ ||
+                        new_precis >= MAX_INTERVAL_PRECISION ||
+                        new_precis >= old_precis);
+            }
+
+            if (noop)
+                ret = relabel_to_typmod(source, new_typmod);
+        }
+    }
+
+    return PG_RETURN_POINTER(ret);
+}
+```

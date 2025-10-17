@@ -40,3 +40,34 @@ The `varchar_input` function serves as the core input processing routine for Pos
 - Binary-compatible with text type, allowing reuse of text conversion functions
 - Supports PostgreSQL's soft error handling mechanism through error context parameter
 - The `atttypmod` parameter is measured in characters, not bytes, requiring multibyte-aware processing
+
+## Simplified Source
+
+```c
+static VarChar *varchar_input(const char *s, size_t len, int32 atttypmod, Node *escontext) {
+    VarChar *result;
+    size_t maxlen;
+
+    // Calculate maximum allowed length from typmod
+    maxlen = atttypmod - VARHDRSZ;
+
+    // Check and handle length constraint violations
+    if (atttypmod >= (int32) VARHDRSZ && len > maxlen) {
+        // Find safe truncation point for multibyte characters
+        size_t mbmaxlen = pg_mbcharcliplen(s, len, maxlen);
+
+        // Verify that truncated characters are only spaces
+        for (size_t j = mbmaxlen; j < len; j++) {
+            if (s[j] != ' ') {
+                ereturn(escontext, NULL, "value too long for varchar");
+            }
+        }
+
+        len = mbmaxlen;
+    }
+
+    // Convert to VarChar using text infrastructure
+    result = (VarChar *) cstring_to_text_with_len(s, len);
+    return result;
+}
+```

@@ -32,3 +32,27 @@ This function is called by format handlers after completing the restoration of a
 - Uses ngettext for proper pluralization of the completion message ("object" vs "objects")
 - Works with both connected (database connection) and disconnected (script output) restoration modes
 - The loCount field tracks the total number of LOs restored during the session
+
+## Simplified Source
+
+```c
+void
+EndRestoreLOs(ArchiveHandle *AH)
+{
+    RestoreOptions *ropt = AH->public.ropt;
+
+    // Commit transaction if we started one in StartRestoreLOs
+    if (!(ropt->single_txn || ropt->txn_size > 0)) {
+        if (AH->connection)
+            CommitTransaction(&AH->public);
+        else
+            ahprintf(AH, "COMMIT;\n\n");
+    }
+
+    // Log completion with proper pluralization
+    pg_log_info(ngettext("restored %d large object",
+                         "restored %d large objects",
+                         AH->loCount),
+                AH->loCount);
+}
+```

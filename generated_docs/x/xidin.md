@@ -31,3 +31,19 @@ xidin serves as the input conversion function for the xid data type in PostgreSQ
 - Uses the standard PostgreSQL function calling convention with PG_FUNCTION_ARGS
 - Relies on uint32in_subr for robust string parsing and error handling
 - The function is registered in the system catalogs as the input function for the xid type
+
+## Simplified Source
+
+```c
+Datum
+xidin(PG_FUNCTION_ARGS)
+{
+    char *str = PG_GETARG_CSTRING(0);
+    TransactionId result;
+
+    // Parse string to transaction ID using generic uint32 parser
+    result = uint32in_subr(str, NULL, "xid", fcinfo->context);
+
+    PG_RETURN_TRANSACTIONID(result);
+}
+```

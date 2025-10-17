@@ -52,3 +52,49 @@ This function takes no parameters but operates on several global variables:
 - It provides a safety mechanism to prevent leaving partially initialized database clusters
 - The --no-clean command line option can disable the cleanup behavior for debugging purposes
 - Different cleanup strategies are used for newly created vs. pre-existing directories to avoid data loss
+
+## Simplified Source
+
+```c
+static void
+cleanup_directories_atexit(void)
+{
+    // If initialization succeeded, no cleanup needed
+    if (success)
+        return;
+
+    if (!noclean) {
+        // Handle data directory cleanup
+        if (made_new_pgdata) {
+            pg_log_info("removing data directory \"%s\"", pg_data);
+            if (!rmtree(pg_data, true))
+                pg_log_error("failed to remove data directory");
+        }
+        else if (found_existing_pgdata) {
+            pg_log_info("removing contents of data directory \"%s\"", pg_data);
+            if (!rmtree(pg_data, false))
+                pg_log_error("failed to remove contents of data directory");
+        }
+
+        // Handle WAL directory cleanup
+        if (made_new_xlogdir) {
+            pg_log_info("removing WAL directory \"%s\"", xlog_dir);
+            if (!rmtree(xlog_dir, true))
+                pg_log_error("failed to remove WAL directory");
+        }
+        else if (found_existing_xlogdir) {
+            pg_log_info("removing contents of WAL directory \"%s\"", xlog_dir);
+            if (!rmtree(xlog_dir, false))
+                pg_log_error("failed to remove contents of WAL directory");
+        }
+    }
+    else {
+        // User requested no cleanup - just log what would be removed
+        if (made_new_pgdata || found_existing_pgdata)
+            pg_log_info("data directory \"%s\" not removed at user's request", pg_data);
+
+        if (made_new_xlogdir || found_existing_xlogdir)
+            pg_log_info("WAL directory \"%s\" not removed at user's request", xlog_dir);
+    }
+}
+```

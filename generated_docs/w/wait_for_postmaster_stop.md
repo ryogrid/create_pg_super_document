@@ -49,3 +49,38 @@ This function takes no parameters but relies on global variables:
 - Progress indication helps users understand that shutdown monitoring is active
 - Timeout behavior allows pg_ctl to avoid hanging indefinitely on problematic shutdowns
 - Used by both stop and restart operations to ensure complete shutdown before proceeding
+
+## Simplified Source
+
+```c
+static bool wait_for_postmaster_stop(void) {
+    int cnt;
+
+    // Poll for shutdown completion up to wait_seconds * WAITS_PER_SEC times
+    for (cnt = 0; cnt < wait_seconds * WAITS_PER_SEC; cnt++) {
+        pid_t pid;
+
+        // Check if PID file is gone (clean shutdown)
+        if ((pid = get_pgpid(false)) == 0)
+            return true;  // PID file removed - clean shutdown
+
+        // Test if process is still alive using kill(pid, 0)
+        if (kill(pid, 0) != 0) {
+            // Process seems dead - double-check PID file to avoid race condition
+            if (get_pgpid(false) == 0)
+                return true;   // PID file gone - clean shutdown
+            return false;      // Process died but PID file remains - unclean shutdown
+        }
+
+        // Show progress once per second
+        if (cnt % WAITS_PER_SEC == 0)
+            print_msg(".");
+
+        // Sleep for 1/WAITS_PER_SEC seconds
+        pg_usleep(USEC_PER_SEC / WAITS_PER_SEC);
+    }
+
+    // Timeout reached
+    return false;
+}
+```

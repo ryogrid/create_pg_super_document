@@ -34,3 +34,27 @@ This function creates and initializes a TSVectorParseState structure that mainta
 
 ## Notes and Other Information
 The parser allocates an initial word buffer of 32 characters that can be expanded during parsing. The encoding maximum length is cached for efficient character processing. The parser state must be properly cleaned up using close_tsvector_parser() after use to avoid memory leaks.
+
+## Simplified Source
+
+```c
+TSVectorParseState init_tsvector_parser(char *input, int flags, Node *escontext) {
+    TSVectorParseState state;
+
+    // Allocate and initialize parser state
+    state = (TSVectorParseState) palloc(sizeof(struct TSVectorParseStateData));
+    state->prsbuf = input;         // Current parsing position
+    state->bufstart = input;       // Start of buffer (for error reporting)
+    state->len = 32;               // Initial word buffer size
+    state->word = (char *) palloc(state->len);  // Word buffer
+    state->eml = pg_database_encoding_max_length();
+
+    // Set parsing mode flags
+    state->oprisdelim = (flags & P_TSV_OPR_IS_DELIM) != 0;  // Operators as delimiters
+    state->is_tsquery = (flags & P_TSV_IS_TSQUERY) != 0;    // TSQuery mode
+    state->is_web = (flags & P_TSV_IS_WEB) != 0;            // Web search mode
+    state->escontext = escontext;                           // Error context
+
+    return state;
+}
+```

@@ -47,3 +47,60 @@ This function converts a textual snapshot representation (in the format "xmin:xm
 - Uses soft error handling through the escontext parameter
 - Returns NULL on parse error with appropriate error message
 - The snapshot string format follows PostgreSQL's internal snapshot representation
+
+## Simplified Source
+
+```c
+static pg_snapshot *parse_snapshot(const char *str, Node *escontext) {
+    FullTransactionId xmin, xmax, last_val = InvalidFullTransactionId, val;
+    const char *str_start = str;
+    char *endp;
+
+    // Parse xmin (format: "xmin:xmax:active_xids...")
+    xmin = FullTransactionIdFromU64(strtou64(str, &endp, 10));
+    if (*endp != ':') goto bad_format;
+    str = endp + 1;
+
+    // Parse xmax
+    xmax = FullTransactionIdFromU64(strtou64(str, &endp, 10));
+    if (*endp != ':') goto bad_format;
+    str = endp + 1;
+
+    // Validate transaction ID range
+    if (!FullTransactionIdIsValid(xmin) || !FullTransactionIdIsValid(xmax) ||
+        FullTransactionIdPrecedes(xmax, xmin))
+        goto bad_format;
+
+    // Initialize snapshot buffer
+    StringInfo buf = buf_init(xmin, xmax);
+
+    // Parse active transaction IDs
+    while (*str != '\0') {
+        val = FullTransactionIdFromU64(strtou64(str, &endp, 10));
+        str = endp;
+
+        // Validate ordering and range
+        if (FullTransactionIdPrecedes(val, xmin) ||
+            FullTransactionIdFollowsOrEquals(val, xmax) ||
+            FullTransactionIdPrecedes(val, last_val))
+            goto bad_format;
+
+        // Add non-duplicate transaction IDs
+        if (!FullTransactionIdEquals(val, last_val))
+            buf_add_txid(buf, val);
+        last_val = val;
+
+        // Handle comma separator or end of string
+        if (*str == ',') str++;
+        else if (*str != '\0') goto bad_format;
+    }
+
+    return buf_finalize(buf);
+
+bad_format:
+    ereturn(escontext, NULL,
+            (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+             errmsg("invalid input syntax for type %s: \"%s\"",
+                    "pg_snapshot", str_start)));
+}
+```

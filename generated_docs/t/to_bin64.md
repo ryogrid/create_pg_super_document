@@ -35,3 +35,17 @@ Like its 32-bit counterpart `to_bin32`, this function serves as a wrapper around
 - Part of a family of base conversion functions including `to_bin32`, `to_oct32`, `to_oct64`, and `to_hex32`
 - The actual conversion logic is handled by the shared `convert_to_base` static function
 - Returns a PostgreSQL `text` type containing the binary string representation
+
+## Simplified Source
+
+```c
+Datum
+to_bin64(PG_FUNCTION_ARGS)
+{
+    // Extract 64-bit integer as unsigned for consistent binary representation
+    uint64 value = (uint64) PG_GETARG_INT64(0);
+
+    // Convert to binary (base-2) string and return as text
+    PG_RETURN_TEXT_P(convert_to_base(value, 2));
+}
+```

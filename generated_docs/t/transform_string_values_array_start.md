@@ -29,3 +29,16 @@ The function operates as a structural pass-through, ensuring that JSON arrays ma
 - Part of the auxiliary function set for transform_json_string_values
 - Located in src/backend/utils/adt/jsonfuncs.c:5882-5891
 - Uses macro for efficient character appending to StringInfo buffer
+
+## Simplified Source
+```c
+static JsonParseErrorType
+transform_string_values_array_start(void *state) {
+    TransformJsonStringValuesState *_state = (TransformJsonStringValuesState *) state;
+
+    // Append opening bracket for JSON array
+    appendStringInfoCharMacro(_state->strval, '[');
+
+    return JSON_SUCCESS;
+}
+```

@@ -41,3 +41,37 @@ The transformation process maintains the original JSON structure while allowing 
 - Uses the PostgreSQL JSON parser infrastructure for robust JSON handling
 - Returns a new text object containing the transformed JSON, leaving the original unchanged
 - Part of the PostgreSQL JSON processing utilities in src/backend/utils/adt/jsonfuncs.c:5829-5861
+
+## Simplified Source
+```c
+text *
+transform_json_string_values(text *json, void *action_state,
+                             JsonTransformStringValuesAction transform_action) {
+    JsonLexContext lex;
+    JsonSemAction *sem = palloc0(sizeof(JsonSemAction));
+    TransformJsonStringValuesState *state = palloc0(sizeof(TransformJsonStringValuesState));
+
+    // Set up parsing context
+    state->lex = makeJsonLexContext(&lex, json, true);
+    state->strval = makeStringInfo();
+    state->action = transform_action;
+    state->action_state = action_state;
+
+    // Configure semantic actions for JSON parsing
+    sem->semstate = (void *) state;
+    sem->object_start = transform_string_values_object_start;
+    sem->object_end = transform_string_values_object_end;
+    sem->array_start = transform_string_values_array_start;
+    sem->array_end = transform_string_values_array_end;
+    sem->scalar = transform_string_values_scalar;
+    sem->array_element_start = transform_string_values_array_element_start;
+    sem->object_field_start = transform_string_values_object_field_start;
+
+    // Parse and transform JSON
+    pg_parse_json_or_ereport(&lex, sem);
+    freeJsonLexContext(&lex);
+
+    // Return transformed JSON as text
+    return cstring_to_text_with_len(state->strval->data, state->strval->len);
+}
+```

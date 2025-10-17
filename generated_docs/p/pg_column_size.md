@@ -42,3 +42,44 @@ The function caches the input type's length information in `fn_extra` for effici
 - Results include compression effects for TOAST-ed data
 - Uses function context caching to avoid repeated type lookups for the same function call context
 - Essential for storage analysis and database administration tasks
+
+## Simplified Source
+
+```c
+Datum
+pg_column_size(PG_FUNCTION_ARGS)
+{
+    Datum value = PG_GETARG_DATUM(0);
+    int32 result;
+    int typlen;
+
+    // Cache type length information for efficiency
+    if (fcinfo->flinfo->fn_extra == NULL) {
+        Oid argtypeid = get_fn_expr_argtype(fcinfo->flinfo, 0);
+        typlen = get_typlen(argtypeid);
+
+        if (typlen == 0)  // Sanity check
+            elog(ERROR, "cache lookup failed for type %u", argtypeid);
+
+        // Store typlen in function context for reuse
+        fcinfo->flinfo->fn_extra = MemoryContextAlloc(fcinfo->flinfo->fn_mcxt, sizeof(int));
+        *((int *) fcinfo->flinfo->fn_extra) = typlen;
+    } else {
+        typlen = *((int *) fcinfo->flinfo->fn_extra);
+    }
+
+    // Calculate size based on type characteristics
+    if (typlen == -1) {
+        // Variable-length type, possibly TOASTed/compressed
+        result = toast_datum_size(value);
+    } else if (typlen == -2) {
+        // C-string type: length + null terminator
+        result = strlen(DatumGetCString(value)) + 1;
+    } else {
+        // Fixed-width type: use type's defined length
+        result = typlen;
+    }
+
+    PG_RETURN_INT32(result);
+}
+```

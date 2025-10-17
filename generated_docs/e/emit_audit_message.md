@@ -42,3 +42,29 @@ The audit messages follow a structured format that includes user privilege infor
 - Located at src/test/modules/test_oat_hooks/test_oat_hooks.c:231-258
 - Takes ownership of and frees the action and objName parameters
 - Uses ERRCODE_INTERNAL_ERROR for all audit messages as they are informational notices
+
+## Simplified Source
+
+```c
+static void emit_audit_message(const char *type, const char *hook, char *action, char *objName) {
+    // Only emit from leader processes when regression auditing is enabled
+    if (REGRESS_audit && !IsParallelWorker()) {
+        const char *who = superuser_arg(GetUserId()) ? "superuser" : "non-superuser";
+
+        // Format and emit audit message with or without object name
+        if (objName) {
+            ereport(NOTICE, (errcode(ERRCODE_INTERNAL_ERROR),
+                    errmsg("in %s: %s %s %s [%s]", hook, who, type, action, objName)));
+        } else {
+            ereport(NOTICE, (errcode(ERRCODE_INTERNAL_ERROR),
+                    errmsg("in %s: %s %s %s", hook, who, type, action)));
+        }
+    }
+
+    // Clean up memory for dynamically allocated parameters
+    if (action) pfree(action);
+    if (objName) pfree(objName);
+}
+```
+
+**Core Logic**: Emits structured audit messages for testing object access hooks, ensuring deterministic output by filtering parallel workers and including user privilege information.

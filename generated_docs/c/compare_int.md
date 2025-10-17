@@ -37,3 +37,15 @@ It uses PostgreSQL's  function to perform the actual comparison, which provides 
 - Part of the TSVector deletion infrastructure where integer indices need to be sorted
 - The void pointer interface is mandated by the qsort function signature
 - Provides ascending order sorting when used with qsort
+
+## Simplified Source
+
+```c
+static int compare_int(const void *va, const void *vb) {
+    int a = *((const int *) va);
+    int b = *((const int *) vb);
+
+    // Use PostgreSQL's standard integer comparison
+    return pg_cmp_s32(a, b);
+}
+```

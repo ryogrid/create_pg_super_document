@@ -33,3 +33,18 @@ This function implements the ">=" comparison operator between a timestamptz (tim
 - The comparison is performed by the internal function which handles timezone considerations
 - Returns true when the result of the internal comparison is <= 0
 - Located in src/backend/utils/adt/timestamp.c:2454-2462
+
+## Simplified Source
+
+```c
+Datum timestamptz_ge_timestamp(PG_FUNCTION_ARGS)
+{
+    // Extract timestamptz and timestamp arguments
+    TimestampTz timestamptz_val = PG_GETARG_TIMESTAMPTZ(0);
+    Timestamp timestamp_val = PG_GETARG_TIMESTAMP(1);
+
+    // Compare values and return true if timestamptz >= timestamp
+    // Uses internal comparison that handles timezone conversion
+    PG_RETURN_BOOL(timestamp_cmp_timestamptz_internal(timestamp_val, timestamptz_val) <= 0);
+}
+```

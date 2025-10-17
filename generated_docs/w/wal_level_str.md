@@ -44,3 +44,19 @@ The function handles the three main WAL levels:
 - Used by both pg_controldata utility and backend WAL description functions
 - Provides consistent string representation of WAL levels across PostgreSQL tools
 - Always returns a valid string, defaulting to error message for invalid inputs
+
+## Simplified Source
+
+```c
+static const char *wal_level_str(WalLevel wal_level) {
+    switch (wal_level) {
+        case WAL_LEVEL_MINIMAL:
+            return "minimal";
+        case WAL_LEVEL_REPLICA:
+            return "replica";
+        case WAL_LEVEL_LOGICAL:
+            return "logical";
+    }
+    return _("unrecognized \"wal_level\"");
+}
+```

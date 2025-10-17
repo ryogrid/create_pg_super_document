@@ -33,3 +33,18 @@ The  function is a PostgreSQL built-in function that performs comparison between
 - The function name prefix 'bt' indicates it's specifically designed for B-tree index operations
 - Returns standard comparison result: negative for less than, 0 for equal, positive for greater than
 - Located in src/backend/utils/adt/tid.c:230-238
+
+## Simplified Source
+
+```c
+Datum
+bttidcmp(PG_FUNCTION_ARGS)
+{
+    // Extract the two TID arguments
+    ItemPointer tid1 = PG_GETARG_ITEMPOINTER(0);
+    ItemPointer tid2 = PG_GETARG_ITEMPOINTER(1);
+
+    // Compare TIDs and return the result (-1, 0, or 1)
+    PG_RETURN_INT32(ItemPointerCompare(tid1, tid2));
+}
+```

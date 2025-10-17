@@ -51,3 +51,50 @@ The function implements careful context management, preserving and restoring the
 - **Location**: src/backend/utils/adt/jsonpath_exec.c:4454-4494
 - **Static Function**: Internal implementation detail of JSON path execution, not exposed in public API
 - **Return Value**: Returns a Datum representing the column value, with NULL indication through the isnull parameter
+
+## Simplified Source
+
+```c
+static Datum
+JsonTableGetValue(TableFuncScanState *state, int colnum,
+                  Oid typid, int32 typmod, bool *isnull)
+{
+    // Get execution context and column plan state
+    JsonTableExecContext *cxt = GetJsonTableExecContext(state, "JsonTableGetValue");
+    ExprState *estate = list_nth(state->colvalexprs, colnum);
+    JsonTablePlanState *planstate = cxt->colplanstates[colnum];
+    JsonTablePlanRowSource *current = &planstate->current;
+
+    // Case 1: Row pattern value is NULL
+    if (current->isnull) {
+        *isnull = true;
+        return (Datum) 0;
+    }
+
+    // Case 2: Evaluate JsonExpr for regular columns
+    if (estate) {
+        ExprContext *econtext = state->ss.ps.ps_ExprContext;
+
+        // Save current context values
+        Datum saved_caseValue = econtext->caseValue_datum;
+        bool saved_caseIsNull = econtext->caseValue_isNull;
+
+        // Set row pattern value for evaluation
+        econtext->caseValue_datum = current->value;
+        econtext->caseValue_isNull = false;
+
+        // Evaluate the expression
+        Datum result = ExecEvalExpr(estate, econtext, isnull);
+
+        // Restore original context values
+        econtext->caseValue_datum = saved_caseValue;
+        econtext->caseValue_isNull = saved_caseIsNull;
+
+        return result;
+    }
+
+    // Case 3: ORDINAL column - return row number
+    *isnull = false;
+    return Int32GetDatum(planstate->ordinal);
+}
+```

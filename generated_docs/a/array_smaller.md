@@ -35,3 +35,17 @@ This function implements the SQL LEAST function for arrays by performing lexicog
 - The comparison semantics are consistent with other PostgreSQL array comparison operations
 - Returns the input array unchanged (no copying), making it efficient for large arrays
 - Complementary function to array_larger, implementing the opposite comparison logic
+
+## Simplified Source
+
+```c
+Datum
+array_smaller(PG_FUNCTION_ARGS)
+{
+    // Compare arrays and return the lexicographically smaller one
+    if (array_cmp(fcinfo) < 0)
+        PG_RETURN_DATUM(PG_GETARG_DATUM(0));  // First array is smaller
+    else
+        PG_RETURN_DATUM(PG_GETARG_DATUM(1));  // Second array is smaller or equal
+}
+```

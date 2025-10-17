@@ -36,3 +36,46 @@ The function handles platform-specific synchronization requirements - using atom
 - Automatically frees previous cancellation objects to prevent memory leaks
 - On Windows, only the main thread sets signal_info.myAH; worker threads handle this differently in RunWorker()
 - Essential for graceful handling of Ctrl+C and other interruption signals during backup operations
+
+## Simplified Source
+
+```c
+void
+set_archive_cancel_info(ArchiveHandle *AH, PGconn *conn)
+{
+    PGcancel *oldConnCancel;
+
+    // Ensure interrupt handler is initialized
+    set_cancel_handler();
+
+    // Enter critical section on Windows for thread safety
+#ifdef WIN32
+    EnterCriticalSection(&signal_info_lock);
+#endif
+
+    // Clean up existing cancellation object
+    oldConnCancel = AH->connCancel;
+    AH->connCancel = NULL;  // Clear before freeing to prevent race conditions
+
+    if (oldConnCancel != NULL)
+        PQfreeCancel(oldConnCancel);
+
+    // Set up new cancellation object if connection provided
+    if (conn)
+        AH->connCancel = PQgetCancel(conn);
+
+    // Update signal handler's archive handle reference
+#ifndef WIN32
+    // Unix: Safe to set unconditionally (one process per ArchiveHandle)
+    signal_info.myAH = AH;
+#else
+    // Windows: Only set in main thread (workers handled differently)
+    if (mainThreadId == GetCurrentThreadId())
+        signal_info.myAH = AH;
+#endif
+
+#ifdef WIN32
+    LeaveCriticalSection(&signal_info_lock);
+#endif
+}
+```

@@ -29,3 +29,17 @@ This function implements the greater-than-or-equal-to comparison operator (>=) f
 - Uses the internal comparison function for consistent comparison logic across all timestamp operators
 - Returns a Datum (PostgreSQL's generic return type) containing a boolean value
 - Located in src/backend/utils/adt/timestamp.c:2261-2269
+
+## Simplified Source
+
+```c
+Datum
+timestamp_ge(PG_FUNCTION_ARGS)
+{
+    Timestamp dt1 = PG_GETARG_TIMESTAMP(0);
+    Timestamp dt2 = PG_GETARG_TIMESTAMP(1);
+
+    // Return true if first timestamp is greater than or equal to second
+    PG_RETURN_BOOL(timestamp_cmp_internal(dt1, dt2) >= 0);
+}
+```

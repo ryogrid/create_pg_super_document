@@ -35,3 +35,14 @@ audit_success is a semantic wrapper function that provides a clear interface for
 - Complements audit_attempt() and audit_failure() for comprehensive access control audit logging
 - Memory management for action and objName parameters is delegated to emit_audit_message()
 - Used to verify that legitimate access requests are properly allowed by the security framework
+
+## Simplified Source
+
+```c
+static void audit_success(const char *hook, char *action, char *objName) {
+    // Log successful completion with "finished" message type
+    emit_audit_message("finished", hook, action, objName);
+}
+```
+
+**Core Logic**: Simple wrapper that calls emit_audit_message() with "finished" type to log successful completion of access control operations.

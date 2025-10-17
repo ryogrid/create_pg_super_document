@@ -42,3 +42,25 @@ The function performs encoding validation to ensure the conversion is between th
 - The function handles conversion errors gracefully when noError is set to true
 - This provides the reverse conversion of gbk_to_utf8, allowing bidirectional text conversion between UTF-8 and GBK encodings
 - Essential for Chinese text processing in PostgreSQL databases where GBK encoding is required
+
+## Simplified Source
+```c
+Datum utf8_to_gbk(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_UTF8, PG_GBK);
+
+    // Perform UTF-8 to GBK conversion using mapping tree
+    int converted = UtfToLocal(src, len, dest,
+                              &gbk_from_unicode_tree,
+                              NULL, 0, NULL,
+                              PG_GBK, noError);
+
+    return converted;
+}
+```

@@ -34,3 +34,27 @@ This function provides an extended version of array_to_text that supports NULL e
 
 ## Notes and Other Information
 This function corresponds to the three-parameter version of PostgreSQL's array_to_text() SQL function. The 'not strict' behavior is important because it allows the third parameter to be NULL while still processing the array, giving users flexibility in NULL handling. The explicit NULL checking for the first two arguments ensures that essential inputs (array and separator) are present before proceeding. The function delegates the actual work to array_to_text_internal, which contains the core concatenation logic shared between the two-parameter and three-parameter variants.
+
+## Simplified Source
+
+```c
+Datum array_to_text_null(PG_FUNCTION_ARGS) {
+    // Return NULL if essential arguments (array or separator) are missing
+    if (PG_ARGISNULL(0) || PG_ARGISNULL(1))
+        PG_RETURN_NULL();
+
+    // Extract required arguments
+    ArrayType *v = PG_GETARG_ARRAYTYPE_P(0);
+    char *fldsep = text_to_cstring(PG_GETARG_TEXT_PP(1));
+
+    // Handle optional null string parameter
+    char *null_string;
+    if (!PG_ARGISNULL(2))
+        null_string = text_to_cstring(PG_GETARG_TEXT_PP(2));
+    else
+        null_string = NULL;
+
+    // Delegate to internal function with null string support
+    PG_RETURN_TEXT_P(array_to_text_internal(fcinfo, v, fldsep, null_string));
+}
+```

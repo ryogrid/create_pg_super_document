@@ -53,3 +53,71 @@ This function generates a complete XML Schema definition for a single SQL table,
 - Provides fallback naming for anonymous tables when relid is invalid
 - Memory management handled through StringInfo structure
 - Creates fully qualified XML type names using database and schema context
+
+## Simplified Source
+
+```c
+static const char *map_sql_table_to_xmlschema(TupleDesc tupdesc, Oid relid, bool nulls,
+                                             bool tableforest, const char *targetns) {
+    char *xmltn, *tabletypename, *rowtypename;
+    StringInfoData result;
+    initStringInfo(&result);
+
+    // Get table and type names from relation metadata or use defaults
+    if (OidIsValid(relid)) {
+        HeapTuple tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+        Form_pg_class reltuple = (Form_pg_class) GETSTRUCT(tuple);
+
+        xmltn = map_sql_identifier_to_xml_name(NameStr(reltuple->relname), true, false);
+        tabletypename = map_multipart_sql_identifier_to_xml_name("TableType",
+            get_database_name(MyDatabaseId), get_namespace_name(reltuple->relnamespace),
+            NameStr(reltuple->relname));
+        rowtypename = map_multipart_sql_identifier_to_xml_name("RowType",
+            get_database_name(MyDatabaseId), get_namespace_name(reltuple->relnamespace),
+            NameStr(reltuple->relname));
+
+        ReleaseSysCache(tuple);
+    } else {
+        // Use defaults for anonymous tables
+        xmltn = tableforest ? "row" : "table";
+        tabletypename = "TableType";
+        rowtypename = "RowType";
+    }
+
+    // Generate XML Schema document
+    xsd_schema_element_start(&result, targetns);
+    appendStringInfoString(&result, map_sql_typecoll_to_xmlschema_types(list_make1(tupdesc)));
+
+    // Create RowType complex type definition
+    appendStringInfo(&result, "<xsd:complexType name=\"%s\">\n  <xsd:sequence>\n", rowtypename);
+
+    // Add elements for each column
+    for (int i = 0; i < tupdesc->natts; i++) {
+        Form_pg_attribute att = TupleDescAttr(tupdesc, i);
+        if (att->attisdropped) continue;
+
+        appendStringInfo(&result, "    <xsd:element name=\"%s\" type=\"%s\"%s></xsd:element>\n",
+            map_sql_identifier_to_xml_name(NameStr(att->attname), true, false),
+            map_sql_type_to_xml_name(att->atttypid, -1),
+            nulls ? " nillable=\"true\"" : " minOccurs=\"0\"");
+    }
+    appendStringInfoString(&result, "  </xsd:sequence>\n</xsd:complexType>\n\n");
+
+    // Create TableType and root element (format depends on tableforest flag)
+    if (!tableforest) {
+        appendStringInfo(&result,
+            "<xsd:complexType name=\"%s\">\n"
+            "  <xsd:sequence>\n"
+            "    <xsd:element name=\"row\" type=\"%s\" minOccurs=\"0\" maxOccurs=\"unbounded\"/>\n"
+            "  </xsd:sequence>\n"
+            "</xsd:complexType>\n\n"
+            "<xsd:element name=\"%s\" type=\"%s\"/>\n\n",
+            tabletypename, rowtypename, xmltn, tabletypename);
+    } else {
+        appendStringInfo(&result, "<xsd:element name=\"%s\" type=\"%s\"/>\n\n", xmltn, rowtypename);
+    }
+
+    xsd_schema_element_end(&result);
+    return result.data;
+}
+```

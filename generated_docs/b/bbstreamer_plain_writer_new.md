@@ -39,3 +39,31 @@ The function allocates memory for the streamer structure using palloc0(), sets u
 - The should_close_file flag is set to true only when the function creates its own file handle
 - Error handling uses pg_fatal() which terminates the program on file creation failure
 - Part of the PostgreSQL base backup streaming infrastructure used by pg_basebackup utility
+
+## Simplified Source
+
+```c
+bbstreamer *
+bbstreamer_plain_writer_new(char *pathname, FILE *file)
+{
+    bbstreamer_plain_writer *streamer;
+
+    // Allocate and initialize streamer structure
+    streamer = palloc0(sizeof(bbstreamer_plain_writer));
+    *((const bbstreamer_ops **) &streamer->base.bbs_ops) = &bbstreamer_plain_writer_ops;
+
+    // Store pathname for error reporting
+    streamer->pathname = pstrdup(pathname);
+    streamer->file = file;
+
+    // Open file if not provided
+    if (file == NULL) {
+        streamer->file = fopen(pathname, "wb");
+        if (streamer->file == NULL)
+            pg_fatal("could not create file \"%s\": %m", pathname);
+        streamer->should_close_file = true;
+    }
+
+    return &streamer->base;
+}
+```

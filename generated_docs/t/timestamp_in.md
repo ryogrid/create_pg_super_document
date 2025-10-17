@@ -43,3 +43,65 @@ The parsing process involves multiple stages: first tokenizing the input string 
 - The typmod parameter controls fractional seconds precision (0-6 digits)
 - Input parsing is locale-aware and respects DateStyle settings
 - Returns NULL on parsing errors when operating in soft error mode
+
+## Simplified Source
+
+```c
+Datum timestamp_in(PG_FUNCTION_ARGS) {
+    char *str = PG_GETARG_CSTRING(0);
+    int32 typmod = PG_GETARG_INT32(2);
+    Node *escontext = fcinfo->context;
+    Timestamp result;
+    fsec_t fsec;
+    struct pg_tm tt, *tm = &tt;
+    int tz, dtype, nf, dterr;
+    char *field[MAXDATEFIELDS];
+    int ftype[MAXDATEFIELDS];
+    char workbuf[MAXDATELEN + MAXDATEFIELDS];
+    DateTimeErrorExtra extra;
+
+    // Parse the input string into tokens
+    dterr = ParseDateTime(str, workbuf, sizeof(workbuf),
+                         field, ftype, MAXDATEFIELDS, &nf);
+    if (dterr == 0) {
+        // Decode tokens into datetime components
+        dterr = DecodeDateTime(field, ftype, nf,
+                              &dtype, tm, &fsec, &tz, &extra);
+    }
+
+    // Handle parsing errors
+    if (dterr != 0) {
+        DateTimeParseError(dterr, &extra, str, "timestamp", escontext);
+        PG_RETURN_NULL();
+    }
+
+    // Convert parsed components to timestamp based on type
+    switch (dtype) {
+        case DTK_DATE:
+            if (tm2timestamp(tm, fsec, NULL, &result) != 0) {
+                ereturn(escontext, (Datum) 0,
+                       (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                        errmsg("timestamp out of range: \"%s\"", str)));
+            }
+            break;
+        case DTK_EPOCH:
+            result = SetEpochTimestamp();
+            break;
+        case DTK_LATE:
+            TIMESTAMP_NOEND(result);
+            break;
+        case DTK_EARLY:
+            TIMESTAMP_NOBEGIN(result);
+            break;
+        default:
+            elog(ERROR, "unexpected dtype %d while parsing timestamp \"%s\"",
+                 dtype, str);
+            TIMESTAMP_NOEND(result);
+    }
+
+    // Apply precision constraints
+    AdjustTimestampForTypmod(&result, typmod, escontext);
+
+    PG_RETURN_TIMESTAMP(result);
+}
+```

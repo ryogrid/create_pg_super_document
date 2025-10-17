@@ -35,3 +35,20 @@ Unlike the tar archiver, the terminator uses the basic bbstreamer structure rath
 - Uses the standard bbstreamer structure rather than a specialized one since no complex state tracking is needed
 - Essential for ensuring tar archive compatibility when dealing with potentially incomplete server-generated archives
 - Part of PostgreSQL's backup infrastructure to guarantee properly formatted tar output
+
+## Simplified Source
+
+```c
+bbstreamer *
+bbstreamer_tar_terminator_new(bbstreamer *next)
+{
+    bbstreamer *streamer;
+
+    // Allocate and initialize tar terminator streamer
+    streamer = palloc0(sizeof(bbstreamer));
+    streamer->bbs_ops = &bbstreamer_tar_terminator_ops;
+    streamer->bbs_next = next;
+
+    return streamer;
+}
+```

@@ -47,3 +47,47 @@ For each database, the function creates complete connection strings by combining
 - Debug logging provides visibility into both publisher and subscriber configurations for troubleshooting
 - The function assumes global variables , , , and  are properly initialized
 - Connection strings are created for both publisher and subscriber sides, even though they may point to the same server initially
+
+## Simplified Source
+
+```c
+static struct LogicalRepInfo *
+store_pub_sub_info(const struct CreateSubscriberOptions *opt,
+                   const char *pub_base_conninfo,
+                   const char *sub_base_conninfo)
+{
+    // Allocate array for database information
+    struct LogicalRepInfo *dbinfo = pg_malloc_array(struct LogicalRepInfo, num_dbs);
+
+    // Initialize list pointers for iterating through names
+    SimpleStringListCell *pubcell = (num_pubs > 0) ? opt->pub_names.head : NULL;
+    SimpleStringListCell *subcell = (num_subs > 0) ? opt->sub_names.head : NULL;
+    SimpleStringListCell *replslotcell = (num_replslots > 0) ? opt->replslot_names.head : NULL;
+
+    // Process each database
+    int i = 0;
+    for (SimpleStringListCell *cell = opt->database_names.head; cell; cell = cell->next)
+    {
+        // Setup publisher information
+        dbinfo[i].pubconninfo = concat_conninfo_dbname(pub_base_conninfo, cell->val);
+        dbinfo[i].dbname = cell->val;
+        dbinfo[i].pubname = (pubcell) ? pubcell->val : NULL;
+        dbinfo[i].replslotname = (replslotcell) ? replslotcell->val : NULL;
+        dbinfo[i].made_replslot = false;
+        dbinfo[i].made_publication = false;
+
+        // Setup subscriber information
+        dbinfo[i].subconninfo = concat_conninfo_dbname(sub_base_conninfo, cell->val);
+        dbinfo[i].subname = (subcell) ? subcell->val : NULL;
+
+        // Advance to next names (if available)
+        if (pubcell) pubcell = pubcell->next;
+        if (subcell) subcell = subcell->next;
+        if (replslotcell) replslotcell = replslotcell->next;
+
+        i++;
+    }
+
+    return dbinfo;
+}
+```

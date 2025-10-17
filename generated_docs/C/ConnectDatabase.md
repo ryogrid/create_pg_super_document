@@ -48,3 +48,92 @@ This function is the primary connection establishment routine for PostgreSQL dum
 - Establishes SIGINT handling for graceful query cancellation
 - Validates server version compatibility after successful connection
 - Uses libpq's parameter-based connection interface for secure parameter passing
+
+## Simplified Source
+
+```c
+void
+ConnectDatabase(Archive *AHX, const ConnParams *cparams, bool isReconnect)
+{
+    ArchiveHandle *AH = (ArchiveHandle *) AHX;
+    trivalue prompt_password;
+    char *password;
+    bool new_pass;
+
+    // Validate not already connected
+    if (AH->connection)
+        pg_fatal("already connected to a database");
+
+    // Set password prompting behavior (never prompt during reconnection)
+    prompt_password = isReconnect ? TRI_NO : cparams->promptPassword;
+    password = AH->savedPassword;
+
+    // Initial password prompt if needed
+    if (prompt_password == TRI_YES && password == NULL)
+        password = simple_prompt("Password: ", false);
+
+    // Connection loop with password retry
+    do {
+        // Build connection parameters
+        const char *keywords[8];
+        const char *values[8];
+        int i = 0;
+
+        keywords[i] = "host"; values[i++] = cparams->pghost;
+        keywords[i] = "port"; values[i++] = cparams->pgport;
+        keywords[i] = "user"; values[i++] = cparams->username;
+        keywords[i] = "password"; values[i++] = password;
+        keywords[i] = "dbname"; values[i++] = cparams->dbname;
+
+        // Override dbname if specified
+        if (cparams->override_dbname) {
+            keywords[i] = "dbname"; values[i++] = cparams->override_dbname;
+        }
+
+        keywords[i] = "fallback_application_name"; values[i++] = progname;
+        keywords[i] = NULL; values[i++] = NULL;
+
+        // Attempt connection
+        new_pass = false;
+        AH->connection = PQconnectdbParams(keywords, values, true);
+
+        if (!AH->connection)
+            pg_fatal("could not connect to database");
+
+        // Handle password authentication failure
+        if (PQstatus(AH->connection) == CONNECTION_BAD &&
+            PQconnectionNeedsPassword(AH->connection) &&
+            password == NULL && prompt_password != TRI_NO) {
+            PQfinish(AH->connection);
+            password = simple_prompt("Password: ", false);
+            new_pass = true;
+        }
+    } while (new_pass);
+
+    // Verify connection success
+    if (PQstatus(AH->connection) == CONNECTION_BAD) {
+        if (isReconnect)
+            pg_fatal("reconnection failed: %s", PQerrorMessage(AH->connection));
+        else
+            pg_fatal("%s", PQerrorMessage(AH->connection));
+    }
+
+    // Set secure search path
+    PQclear(ExecuteSqlQueryForSingleRow((Archive *) AH, ALWAYS_SECURE_SEARCH_PATH_SQL));
+
+    // Clean up temporary password
+    if (password && password != AH->savedPassword)
+        free(password);
+
+    // Save password for future connections
+    if (PQconnectionUsedPassword(AH->connection)) {
+        free(AH->savedPassword);
+        AH->savedPassword = pg_strdup(PQpass(AH->connection));
+    }
+
+    // Perform version check and setup
+    _check_database_version(AH);
+    PQsetNoticeProcessor(AH->connection, notice_processor, NULL);
+    set_archive_cancel_info(AH, AH->connection);
+}
+```

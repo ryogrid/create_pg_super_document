@@ -46,3 +46,24 @@ WIN1251 is the Windows standard for Cyrillic text, while KOI8-R is a widely used
 - Provides the reverse conversion capability to `koi8r_to_win1251`
 - More efficient than MIC-based conversions since it avoids intermediate conversion steps
 - Essential for data migration between Windows and Unix-based systems handling Cyrillic text
+
+## Simplified Source
+
+```c
+Datum win1251_to_koi8r(PG_FUNCTION_ARGS) {
+    // Extract conversion parameters from PostgreSQL function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate that we're converting from Windows-1251 to KOI8-R
+    CHECK_ENCODING_CONVERSION_ARGS(PG_WIN1251, PG_KOI8R);
+
+    // Perform direct conversion using win12512koi translation table
+    int converted = local2local(src, dest, len, PG_WIN1251, PG_KOI8R, win12512koi, noError);
+
+    // Return number of bytes successfully converted
+    PG_RETURN_INT32(converted);
+}
+```

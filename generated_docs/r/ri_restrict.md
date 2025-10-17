@@ -51,3 +51,88 @@ The query built is of the form: `SELECT 1 FROM [ONLY] <fktable> x WHERE  = fkatt
 - Part of PostgreSQL's comprehensive referential integrity system
 - Located in `src/backend/utils/adt/ri_triggers.c` at lines 624-742
 - The function distinguishes between NO ACTION and RESTRICT primarily for the pk_match check optimization
+
+## Simplified Source
+
+```c
+static Datum ri_restrict(TriggerData *trigdata, bool is_no_action) {
+    const RI_ConstraintInfo *riinfo;
+    Relation fk_rel, pk_rel;
+    TupleTableSlot *oldslot;
+    RI_QueryKey qkey;
+    SPIPlanPtr qplan;
+
+    // Get constraint info and open relations
+    riinfo = ri_FetchConstraintInfo(trigdata->tg_trigger,
+                                   trigdata->tg_relation, true);
+    fk_rel = table_open(riinfo->fk_relid, RowShareLock);
+    pk_rel = trigdata->tg_relation;
+    oldslot = trigdata->tg_trigslot;
+
+    // For NO ACTION: check if another PK row exists with same values
+    if (is_no_action &&
+        ri_Check_Pk_Match(pk_rel, fk_rel, oldslot, riinfo)) {
+        table_close(fk_rel, RowShareLock);
+        return PointerGetDatum(NULL);
+    }
+
+    // Connect to SPI for query operations
+    if (SPI_connect() != SPI_OK_CONNECT)
+        elog(ERROR, "SPI_connect failed");
+
+    // Build query key for plan caching
+    ri_BuildQueryKey(&qkey, riinfo, RI_PLAN_RESTRICT);
+
+    // Get or create prepared plan
+    if ((qplan = ri_FetchPreparedPlan(&qkey)) == NULL) {
+        StringInfoData querybuf;
+        char fkrelname[MAX_QUOTED_REL_NAME_LEN];
+        Oid queryoids[RI_MAX_NUMKEYS];
+
+        // Build SELECT query: SELECT 1 FROM <fktable> WHERE pk_vals = fk_cols FOR KEY SHARE
+        initStringInfo(&querybuf);
+        const char *fk_only = fk_rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE ? "" : "ONLY ";
+
+        quoteRelationName(fkrelname, fk_rel);
+        appendStringInfo(&querybuf, "SELECT 1 FROM %s%s x", fk_only, fkrelname);
+
+        // Add WHERE conditions for each key column
+        const char *querysep = "WHERE";
+        for (int i = 0; i < riinfo->nkeys; i++) {
+            char attname[MAX_QUOTED_NAME_LEN];
+            char paramname[16];
+            Oid pk_type = RIAttType(pk_rel, riinfo->pk_attnums[i]);
+            Oid fk_type = RIAttType(fk_rel, riinfo->fk_attnums[i]);
+
+            quoteOneName(attname, RIAttName(fk_rel, riinfo->fk_attnums[i]));
+            sprintf(paramname, "$%d", i + 1);
+            ri_GenerateQual(&querybuf, querysep, paramname, pk_type,
+                           riinfo->pf_eq_oprs[i], attname, fk_type);
+
+            // Handle collation differences if needed
+            Oid pk_coll = RIAttCollation(pk_rel, riinfo->pk_attnums[i]);
+            Oid fk_coll = RIAttCollation(fk_rel, riinfo->fk_attnums[i]);
+            if (pk_coll != fk_coll && !get_collation_isdeterministic(pk_coll))
+                ri_GenerateQualCollation(&querybuf, pk_coll);
+
+            querysep = "AND";
+            queryoids[i] = pk_type;
+        }
+        appendStringInfoString(&querybuf, " FOR KEY SHARE OF x");
+
+        // Prepare and cache the plan
+        qplan = ri_PlanCheck(querybuf.data, riinfo->nkeys, queryoids,
+                           &qkey, fk_rel, pk_rel);
+    }
+
+    // Execute query to check for existing foreign key references
+    ri_PerformCheck(riinfo, &qkey, qplan, fk_rel, pk_rel,
+                   oldslot, NULL, true, SPI_OK_SELECT);
+
+    if (SPI_finish() != SPI_OK_FINISH)
+        elog(ERROR, "SPI_finish failed");
+
+    table_close(fk_rel, RowShareLock);
+    return PointerGetDatum(NULL);
+}
+```

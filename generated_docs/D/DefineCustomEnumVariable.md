@@ -53,3 +53,41 @@ Enum variables provide a controlled set of valid string values that map to integ
 
 ## Notes and Other Information
 The variable remains registered for the lifetime of the process. The valueAddr pointer and options array must remain valid throughout the process lifetime as the GUC system will reference them continuously. The options array must be NULL-terminated with a {NULL, 0, false} entry. The boot value is used both as the initial value and as the reset value when the configuration is reset to defaults. String-to-integer mapping is automatically handled by the GUC system using the provided options array.
+
+## Simplified Source
+
+```c
+void DefineCustomEnumVariable(const char *name,
+                             const char *short_desc,
+                             const char *long_desc,
+                             int *valueAddr,
+                             int bootValue,
+                             const struct config_enum_entry *options,
+                             GucContext context,
+                             int flags,
+                             GucEnumCheckHook check_hook,
+                             GucEnumAssignHook assign_hook,
+                             GucShowHook show_hook)
+{
+    struct config_enum *var;
+
+    // Initialize custom variable structure with enum type
+    var = (struct config_enum *)
+        init_custom_variable(name, short_desc, long_desc, context, flags,
+                           PGC_ENUM, sizeof(struct config_enum));
+
+    // Set enum-specific fields
+    var->variable = valueAddr;      // Pointer to actual integer variable
+    var->boot_val = bootValue;      // Default value
+    var->reset_val = bootValue;     // Reset value (same as default)
+    var->options = options;         // Array of valid string/int pairs
+
+    // Set optional hook functions
+    var->check_hook = check_hook;   // Validation function
+    var->assign_hook = assign_hook; // Assignment callback
+    var->show_hook = show_hook;     // Display customization
+
+    // Register the variable with GUC system
+    define_custom_variable(&var->gen);
+}
+```

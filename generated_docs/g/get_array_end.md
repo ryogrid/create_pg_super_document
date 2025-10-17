@@ -37,3 +37,22 @@ This function is part of the JSON path extraction system and ensures proper comp
 - Text boundaries are determined using lexical analyzer token positions
 - The function works in conjunction with `get_array_start` which sets the initial result_start position
 - Returns JSON_SUCCESS in all cases, indicating successful completion of array processing
+
+## Simplified Source
+
+```c
+static JsonParseErrorType get_array_end(void *state) {
+    GetState *_state = (GetState *) state;
+    int lex_level = _state->lex->lex_level;
+
+    if (lex_level == 0 && _state->npath == 0) {
+        // Special case: capture entire array as result
+        const char *start = _state->result_start;
+        int len = _state->lex->prev_token_terminator - start;
+
+        _state->tresult = cstring_to_text_with_len(start, len);
+    }
+
+    return JSON_SUCCESS;
+}
+```

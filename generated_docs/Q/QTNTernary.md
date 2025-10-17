@@ -40,3 +40,57 @@ The function includes stack depth checking to prevent stack overflow during deep
 - Properly manages memory by freeing intermediate nodes marked with QTN_NEEDFREE
 - Part of PostgreSQL's text search query optimization pipeline
 - Located in src/backend/utils/adt/tsquery_util.c:201-249
+
+## Simplified Source
+
+```c
+void
+QTNTernary(QTNode *in)
+{
+    // Prevent stack overflow during recursion
+    check_stack_depth();
+
+    // Only process operator nodes
+    if (in->valnode->type != QI_OPR)
+        return;
+
+    // Recursively optimize all children first
+    for (int i = 0; i < in->nchild; i++)
+        QTNTernary(in->child[i]);
+
+    // Only flatten associative operations (AND, OR)
+    if (in->valnode->qoperator.oper != OP_AND &&
+        in->valnode->qoperator.oper != OP_OR)
+        return;
+
+    // Look for children with same operator type to flatten
+    for (int i = 0; i < in->nchild; i++) {
+        QTNode *child = in->child[i];
+
+        // If child has same operator, flatten it
+        if (child->valnode->type == QI_OPR &&
+            in->valnode->qoperator.oper == child->valnode->qoperator.oper) {
+
+            int old_nchild = in->nchild;
+
+            // Expand parent's child array to accommodate grandchildren
+            in->nchild += child->nchild - 1;
+            in->child = (QTNode **) repalloc(in->child, in->nchild * sizeof(QTNode *));
+
+            // Move remaining siblings to make room for grandchildren
+            if (i + 1 != old_nchild)
+                memmove(in->child + i + child->nchild, in->child + i + 1,
+                        (old_nchild - i - 1) * sizeof(QTNode *));
+
+            // Copy grandchildren into parent's child array
+            memcpy(in->child + i, child->child, child->nchild * sizeof(QTNode *));
+            i += child->nchild - 1;
+
+            // Free the flattened intermediate node
+            if (child->flags & QTN_NEEDFREE)
+                pfree(child->valnode);
+            pfree(child);
+        }
+    }
+}
+```

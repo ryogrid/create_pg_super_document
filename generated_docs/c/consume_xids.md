@@ -33,3 +33,25 @@ This function is part of the xid_wraparound test module and serves as a SQL-call
 - Uses PostgreSQL's function calling conventions with PG_FUNCTION_ARGS
 - Returns a FullTransactionId representing the last consumed transaction ID
 - Part of testing infrastructure for XID wraparound scenarios in PostgreSQL
+
+## Simplified Source
+
+```c
+Datum consume_xids(PG_FUNCTION_ARGS) {
+    int64 nxids = PG_GETARG_INT64(0);
+    FullTransactionId lastxid;
+
+    // Validate input - must be non-negative
+    if (nxids < 0)
+        elog(ERROR, "invalid nxids argument: %lld", (long long) nxids);
+
+    // If zero XIDs requested, just return current next XID
+    if (nxids == 0)
+        lastxid = ReadNextFullTransactionId();
+    else
+        // Consume the specified number of XIDs
+        lastxid = consume_xids_common(InvalidFullTransactionId, (uint64) nxids);
+
+    PG_RETURN_FULLTRANSACTIONID(lastxid);
+}
+```

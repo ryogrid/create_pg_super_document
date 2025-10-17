@@ -56,3 +56,72 @@ The function queries the system catalogs to determine existing OIDs and generate
 - Uses temporary query buffer that is properly cleaned up after use
 - The `force_array_type` parameter addresses cases where array types weren't created in older versions but are required in newer ones
 - Multirange support was introduced in PostgreSQL 14, so the function handles version compatibility by allocating new OIDs for older versions being upgraded
+
+## Simplified Source
+
+```c
+static void binary_upgrade_set_type_oids_by_type_oid(Archive *fout,
+                                                     PQExpBuffer upgrade_buffer,
+                                                     Oid pg_type_oid,
+                                                     bool force_array_type,
+                                                     bool include_multirange_type)
+{
+    PQExpBuffer query = createPQExpBuffer();
+    PGresult *res;
+    Oid array_oid, multirange_oid, multirange_array_oid;
+
+    // Step 1: Preserve the main type OID
+    appendPQExpBuffer(upgrade_buffer,
+                      "SELECT pg_catalog.binary_upgrade_set_next_pg_type_oid('%u'::pg_catalog.oid);\n",
+                      pg_type_oid);
+
+    // Step 2: Find and preserve array type OID
+    appendPQExpBuffer(query,
+                      "SELECT typarray FROM pg_catalog.pg_type WHERE oid = '%u'::pg_catalog.oid;",
+                      pg_type_oid);
+
+    res = ExecuteSqlQueryForSingleRow(fout, query->data);
+    array_oid = atooid(PQgetvalue(res, 0, PQfnumber(res, "typarray")));
+    PQclear(res);
+
+    // Allocate array OID if needed
+    if (!OidIsValid(array_oid) && force_array_type)
+        array_oid = get_next_possible_free_pg_type_oid(fout, query);
+
+    if (OidIsValid(array_oid)) {
+        appendPQExpBuffer(upgrade_buffer,
+                          "SELECT pg_catalog.binary_upgrade_set_next_array_pg_type_oid('%u'::pg_catalog.oid);\n",
+                          array_oid);
+    }
+
+    // Step 3: Handle multirange types (PostgreSQL 14+)
+    if (include_multirange_type) {
+        if (fout->remoteVersion >= 140000) {
+            // Query existing multirange type and its array
+            printfPQExpBuffer(query,
+                              "SELECT t.oid, t.typarray FROM pg_catalog.pg_type t "
+                              "JOIN pg_catalog.pg_range r ON t.oid = r.rngmultitypid "
+                              "WHERE r.rngtypid = '%u'::pg_catalog.oid;",
+                              pg_type_oid);
+            res = ExecuteSqlQueryForSingleRow(fout, query->data);
+            multirange_oid = atooid(PQgetvalue(res, 0, PQfnumber(res, "oid")));
+            multirange_array_oid = atooid(PQgetvalue(res, 0, PQfnumber(res, "typarray")));
+            PQclear(res);
+        } else {
+            // Allocate new OIDs for older versions
+            multirange_oid = get_next_possible_free_pg_type_oid(fout, query);
+            multirange_array_oid = get_next_possible_free_pg_type_oid(fout, query);
+        }
+
+        // Set multirange type OIDs
+        appendPQExpBuffer(upgrade_buffer,
+                          "SELECT pg_catalog.binary_upgrade_set_next_multirange_pg_type_oid('%u'::pg_catalog.oid);\n",
+                          multirange_oid);
+        appendPQExpBuffer(upgrade_buffer,
+                          "SELECT pg_catalog.binary_upgrade_set_next_multirange_array_pg_type_oid('%u'::pg_catalog.oid);\n",
+                          multirange_array_oid);
+    }
+
+    destroyPQExpBuffer(query);
+}
+```

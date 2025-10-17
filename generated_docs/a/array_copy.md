@@ -43,3 +43,22 @@ This function performs efficient copying of array elements from source to destin
 - **Important limitation**: This function does NOT handle setting up the destination's null bitmap - this must be done separately by the caller
 - The function leverages  for efficient bulk copying after determining the exact size
 - Used primarily in array slice operations where segments of arrays need to be copied efficiently
+
+## Simplified Source
+
+```c
+static int
+array_copy(char *destptr, int nitems,
+           char *srcptr, int offset, bits8 *nullbitmap,
+           int typlen, bool typbyval, char typalign)
+{
+    // Calculate the total size of elements to copy
+    int numbytes = array_nelems_size(srcptr, offset, nullbitmap, nitems,
+                                   typlen, typbyval, typalign);
+
+    // Perform bulk memory copy
+    memcpy(destptr, srcptr, numbytes);
+
+    return numbytes;
+}
+```

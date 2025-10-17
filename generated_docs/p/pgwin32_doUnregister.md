@@ -38,3 +38,45 @@ This function takes no parameters but relies on global variables:
 - The function verifies service existence before attempting deletion to provide meaningful error messages
 - Proper cleanup of service handles is performed even on error conditions
 - Error handling includes specific error codes from Windows API calls for debugging purposes
+
+## Simplified Source
+
+```c
+static void
+pgwin32_doUnregister(void)
+{
+    // Open Windows Service Control Manager
+    SC_HANDLE hSCM = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
+    if (!hSCM) {
+        write_stderr("could not open service manager");
+        exit(1);
+    }
+
+    // Verify service is registered
+    if (!pgwin32_IsInstalled(hSCM)) {
+        CloseServiceHandle(hSCM);
+        write_stderr("service not registered");
+        exit(1);
+    }
+
+    // Open service for deletion
+    SC_HANDLE hService = OpenService(hSCM, register_servicename, DELETE);
+    if (!hService) {
+        CloseServiceHandle(hSCM);
+        write_stderr("could not open service: error %lu", GetLastError());
+        exit(1);
+    }
+
+    // Delete the service
+    if (!DeleteService(hService)) {
+        CloseServiceHandle(hService);
+        CloseServiceHandle(hSCM);
+        write_stderr("could not unregister service: error %lu", GetLastError());
+        exit(1);
+    }
+
+    // Clean up handles
+    CloseServiceHandle(hService);
+    CloseServiceHandle(hSCM);
+}
+```

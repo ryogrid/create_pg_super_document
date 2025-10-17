@@ -57,3 +57,73 @@ This function takes no parameters and operates on global variables:
 - Cleans up the promote file if the signal cannot be sent to prevent confusion
 - Critical for high availability and disaster recovery scenarios in PostgreSQL clusters
 - Error messages are internationalized using the gettext system
+
+## Simplified Source
+
+```c
+static void
+do_promote(void)
+{
+    FILE *prmfile;
+    pid_t pid;
+
+    // Get the postmaster process ID from PID file
+    pid = get_pgpid(false);
+
+    // Validate server state
+    if (pid == 0) {
+        // No PID file exists
+        write_stderr("PID file does not exist\n");
+        write_stderr("Is server running?\n");
+        exit(1);
+    } else if (pid < 0) {
+        // Standalone backend cannot be promoted
+        pid = -pid;
+        write_stderr("Cannot promote single-user server (PID: %d)\n", (int) pid);
+        exit(1);
+    }
+
+    // Check if server is in standby mode
+    if (get_control_dbstate() != DB_IN_ARCHIVE_RECOVERY) {
+        write_stderr("Cannot promote server; not in standby mode\n");
+        exit(1);
+    }
+
+    // Create promote signal file
+    snprintf(promote_file, MAXPGPATH, "%s/promote", pg_data);
+
+    if ((prmfile = fopen(promote_file, "w")) == NULL) {
+        write_stderr("Could not create promote signal file\n");
+        exit(1);
+    }
+    if (fclose(prmfile)) {
+        write_stderr("Could not write promote signal file\n");
+        exit(1);
+    }
+
+    // Send promotion signal (SIGUSR1) to postmaster
+    sig = SIGUSR1;
+    if (kill(pid, sig) != 0) {
+        write_stderr("Could not send promote signal (PID: %d)\n", (int) pid);
+        // Clean up signal file on failure
+        if (unlink(promote_file) != 0)
+            write_stderr("Could not remove promote signal file\n");
+        exit(1);
+    }
+
+    // Handle wait behavior
+    if (do_wait) {
+        print_msg("waiting for server to promote...");
+        if (wait_for_postmaster_promote()) {
+            print_msg(" done\n");
+            print_msg("server promoted\n");
+        } else {
+            print_msg(" stopped waiting\n");
+            write_stderr("server did not promote in time\n");
+            exit(1);
+        }
+    } else {
+        print_msg("server promoting\n");
+    }
+}
+```

@@ -38,3 +38,22 @@ This function is essential for parsing backup label files where specific line pr
 - The sout parameter provides a convenient way to get the position after the prefix for further parsing
 - Used extensively in backup label parsing to identify different types of configuration lines
 - Does not modify any of the input strings - purely a read-only operation
+
+## Simplified Source
+
+```c
+static bool
+line_starts_with(char *s, char *e, char *match, char **sout)
+{
+    // Compare characters while both strings have data
+    while (s < e && *match != '\0' && *s == *match)
+        ++s, ++match;
+
+    // If we matched the entire pattern, optionally store position after match
+    if (*match == '\0' && sout != NULL)
+        *sout = s;
+
+    // Return true if entire match string was consumed
+    return (*match == '\0');
+}
+```

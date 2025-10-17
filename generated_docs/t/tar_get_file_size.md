@@ -32,3 +32,15 @@ The function follows the WalWriteMethod interface pattern but provides no actual
 - The function sets lasterrno to ENOSYS and returns -1 to indicate the operation is not supported
 - The comment indicates this functionality is "Currently not used, so not supported"
 - This is part of the function pointer interface for WalWriteMethod operations
+
+## Simplified Source
+
+```c
+static ssize_t tar_get_file_size(WalWriteMethod *wwmethod, const char *pathname) {
+    clear_error(wwmethod);
+
+    // Currently not implemented - placeholder function
+    wwmethod->lasterrno = ENOSYS;
+    return -1;
+}
+```

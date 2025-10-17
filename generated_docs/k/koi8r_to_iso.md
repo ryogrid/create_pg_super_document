@@ -44,3 +44,23 @@ The conversion process validates the encoding arguments, performs the character-
 - The conversion table handles the mapping between KOI8-R and ISO-8859-5 Cyrillic character sets
 - Returns the number of input bytes successfully processed
 - Registered as PG_FUNCTION_INFO_V1 for PostgreSQL function call interface
+
+## Simplified Source
+
+```c
+Datum koi8r_to_iso(PG_FUNCTION_ARGS) {
+    // Extract function parameters
+    unsigned char *src = PG_GETARG_CSTRING(2);   // Source KOI8-R string
+    unsigned char *dest = PG_GETARG_CSTRING(3);  // Destination ISO-8859-5 buffer
+    int len = PG_GETARG_INT32(4);                 // Length to convert
+    bool noError = PG_GETARG_BOOL(5);            // Error handling flag
+
+    // Validate encoding compatibility
+    CHECK_ENCODING_CONVERSION_ARGS(PG_KOI8R, PG_ISO_8859_5);
+
+    // Perform KOI8-R to ISO-8859-5 Cyrillic conversion using mapping table
+    int converted = local2local(src, dest, len, PG_KOI8R, PG_ISO_8859_5, koi2iso, noError);
+
+    return converted;  // Return number of bytes converted
+}
+```

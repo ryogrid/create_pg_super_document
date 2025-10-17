@@ -40,3 +40,32 @@ The function handles two scenarios:
 - Output destinations are recalculated when severity changes from ERROR to FATAL
 - Uses ExceptionalCondition as a safety net in case the function unexpectedly attempts to return
 - Part of PostgreSQL's setjmp/longjmp-based exception handling system
+
+## Simplified Source
+
+```c
+void pg_re_throw(void)
+{
+    /* Try to jump to the next outer exception handler */
+    if (PG_exception_stack != NULL) {
+        siglongjmp(*PG_exception_stack, 1);
+    } else {
+        /* No outer handler - promote ERROR to FATAL and exit */
+        ErrorData *edata = &errordata[errordata_stack_depth];
+
+        /* Change ERROR to FATAL */
+        edata->elevel = FATAL;
+
+        /* Recalculate output destinations for FATAL level */
+        edata->output_to_server = should_output_to_server(FATAL);
+        edata->output_to_client = should_output_to_client(FATAL);
+
+        /* Clear context stack and finish error processing */
+        error_context_stack = NULL;
+        errfinish(edata->filename, edata->lineno, edata->funcname);
+    }
+
+    /* Should never reach here */
+    ExceptionalCondition("pg_re_throw tried to return", __FILE__, __LINE__);
+}
+```

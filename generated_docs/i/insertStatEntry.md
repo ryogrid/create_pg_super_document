@@ -50,4 +50,62 @@ The function then searches the BST to find if the word already exists. If found,
 - Handles both positioned and non-positioned words appropriately
 - Returns early if no occurrences need to be counted (when weight filtering eliminates all positions)
 - Part of PostgreSQL's full-text search statistics aggregation system
-- Located in 
+- Located in src/backend/utils/adt/tsvector_op.c
+
+## Simplified Source
+
+```c
+static void insertStatEntry(MemoryContext persistentContext, TSVectorStat *stat,
+                           TSVector txt, uint32 off) {
+    WordEntry *we = ARRPTR(txt) + off;
+    StatEntry *node = stat->root, *pnode = NULL;
+    int n, res = 0;
+    uint32 depth = 1;
+
+    // Calculate number of occurrences to count
+    if (stat->weight == 0)
+        n = (we->haspos) ? POSDATALEN(txt, we) : 1;
+    else
+        n = (we->haspos) ? check_weight(txt, we, stat->weight) : 0;
+
+    if (n == 0)
+        return; // Nothing to insert
+
+    // Find insertion point in BST
+    while (node) {
+        res = compareStatWord(node, we, txt);
+        if (res == 0)
+            break; // Found existing entry
+
+        pnode = node;
+        node = (res < 0) ? node->left : node->right;
+        depth++;
+    }
+
+    // Update maximum depth
+    if (depth > stat->maxdepth)
+        stat->maxdepth = depth;
+
+    if (node == NULL) {
+        // Create new node
+        node = MemoryContextAlloc(persistentContext, STATENTRYHDRSZ + we->len);
+        node->left = node->right = NULL;
+        node->ndoc = 1;
+        node->nentry = n;
+        node->lenlexeme = we->len;
+        memcpy(node->lexeme, STRPTR(txt) + we->pos, node->lenlexeme);
+
+        // Insert into tree
+        if (pnode == NULL)
+            stat->root = node;
+        else if (res < 0)
+            pnode->left = node;
+        else
+            pnode->right = node;
+    } else {
+        // Update existing node
+        node->ndoc++;
+        node->nentry += n;
+    }
+}
+``` 

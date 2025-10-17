@@ -52,3 +52,48 @@ The `latin2mic_with_table` function converts single-byte character encodings to 
 - This function is more flexible than `latin2mic` as it supports encodings that require character code remapping
 - Used for complex single-byte to MIC conversions where direct mapping is not possible
 - Part of PostgreSQL's comprehensive character encoding conversion infrastructure
+
+## Simplified Source
+
+```c
+int latin2mic_with_table(const unsigned char *l, unsigned char *p, int len,
+                         int lc, int encoding, const unsigned char *tab,
+                         bool noError)
+{
+    const unsigned char *start = l;
+
+    while (len > 0) {
+        unsigned char c1 = *l;
+
+        // Check for null byte (invalid)
+        if (c1 == 0) {
+            if (noError) break;
+            report_invalid_encoding(encoding, (const char *) l, len);
+        }
+
+        // ASCII characters: copy directly
+        if (!IS_HIGHBIT_SET(c1)) {
+            *p++ = c1;
+        }
+        // High-bit characters: use translation table
+        else {
+            unsigned char c2 = tab[c1 - HIGHBIT];
+            if (c2) {
+                // Create 2-byte MIC sequence
+                *p++ = lc;  // MIC language code
+                *p++ = c2;  // Translated character
+            } else {
+                if (noError) break;
+                report_untranslatable_char(encoding, PG_MULE_INTERNAL,
+                                         (const char *) l, len);
+            }
+        }
+
+        l++;
+        len--;
+    }
+
+    *p = '\0';
+    return l - start;  // Return bytes consumed
+}
+```

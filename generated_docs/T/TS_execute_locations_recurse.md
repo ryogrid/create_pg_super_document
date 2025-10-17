@@ -49,3 +49,105 @@ The function uses a callback mechanism (chkcond) to test individual query operan
 - For OR operations, uses the disjunctive law: (A & B) | (C & D) = (A | C) & (A | D) & (B | C) & (B | D)
 - Returns empty location list by default, populated only when matches are found
 - Handles special cases where operands don't produce locations (failures or NOT operations)
+
+## Simplified Source
+
+```c
+static bool TS_execute_locations_recurse(QueryItem *curitem, void *arg,
+                                        TSExecuteCallback chkcond, List **locations) {
+    bool lmatch, rmatch;
+    List *llocations, *rlocations;
+    ExecPhraseData *data;
+
+    // Safety checks
+    check_stack_depth();
+    CHECK_FOR_INTERRUPTS();
+
+    // Default: no locations found
+    *locations = NIL;
+
+    // Base case: evaluate leaf operand
+    if (curitem->type == QI_VAL) {
+        data = palloc0_object(ExecPhraseData);
+        if (chkcond(arg, (QueryOperand *) curitem, data) == TS_YES) {
+            *locations = list_make1(data);
+            return true;
+        }
+        pfree(data);
+        return false;
+    }
+
+    // Handle different operators
+    switch (curitem->qoperator.oper) {
+        case OP_NOT:
+            // NOT: succeed if operand fails, but don't return any locations
+            if (!TS_execute_locations_recurse(curitem + 1, arg, chkcond, &llocations))
+                return true;  // NOT succeeds, but no locations to report
+            return false;
+
+        case OP_AND:
+            // AND: both operands must succeed
+            if (!TS_execute_locations_recurse(curitem + curitem->qoperator.left,
+                                             arg, chkcond, &llocations))
+                return false;
+            if (!TS_execute_locations_recurse(curitem + 1, arg, chkcond, &rlocations))
+                return false;
+
+            // Concatenate location lists
+            *locations = list_concat(llocations, rlocations);
+            return true;
+
+        case OP_OR:
+            // OR: at least one operand must succeed
+            lmatch = TS_execute_locations_recurse(curitem + curitem->qoperator.left,
+                                                 arg, chkcond, &llocations);
+            rmatch = TS_execute_locations_recurse(curitem + 1, arg, chkcond, &rlocations);
+
+            if (lmatch || rmatch) {
+                // Handle location combination for OR
+                if (llocations == NIL)
+                    *locations = rlocations;
+                else if (rlocations == NIL)
+                    *locations = llocations;
+                else {
+                    // Apply disjunctive law: generate combinations
+                    // (A & B) | (C & D) = (A | C) & (A | D) & (B | C) & (B | D)
+                    ListCell *ll;
+                    foreach(ll, llocations) {
+                        ExecPhraseData *ldata = (ExecPhraseData *) lfirst(ll);
+                        ListCell *lr;
+                        foreach(lr, rlocations) {
+                            ExecPhraseData *rdata = (ExecPhraseData *) lfirst(lr);
+
+                            data = palloc0_object(ExecPhraseData);
+                            TS_phrase_output(data, ldata, rdata,
+                                           TSPO_BOTH | TSPO_L_ONLY | TSPO_R_ONLY,
+                                           0, 0, ldata->npos + rdata->npos);
+                            // Report larger width for OR operations
+                            data->width = Max(ldata->width, rdata->width);
+                            *locations = lappend(*locations, data);
+                        }
+                    }
+                }
+                return true;
+            }
+            return false;
+
+        case OP_PHRASE:
+            // Delegate to phrase execution
+            data = palloc0_object(ExecPhraseData);
+            if (TS_phrase_execute(curitem, arg, TS_EXEC_EMPTY, chkcond, data) == TS_YES) {
+                if (!data->negate)
+                    *locations = list_make1(data);
+                return true;
+            }
+            pfree(data);
+            return false;
+
+        default:
+            elog(ERROR, "unrecognized operator: %d", curitem->qoperator.oper);
+    }
+
+    return false;
+}
+```

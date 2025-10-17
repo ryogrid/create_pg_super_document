@@ -36,3 +36,23 @@ The function only works with FuncExpr nodes, as other expression types (operator
 - Specifically designed for VARIADIC ANY functions that need to handle arguments differently based on call syntax
 - The funcvariadic flag is set during query parsing when the VARIADIC keyword is explicitly used in function calls
 - Essential for proper argument handling in variadic functions like concat(), format(), and statistical functions that accept variable numbers of arguments
+
+## Simplified Source
+
+```c
+bool get_fn_expr_variadic(FmgrInfo *flinfo) {
+    Node *expr;
+
+    // Check if function info and expression are available
+    if (!flinfo || !flinfo->fn_expr)
+        return false;
+
+    expr = flinfo->fn_expr;
+
+    // Only FuncExpr supports variadic syntax
+    if (IsA(expr, FuncExpr))
+        return ((FuncExpr *) expr)->funcvariadic;
+    else
+        return false;
+}
+```

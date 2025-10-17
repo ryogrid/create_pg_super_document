@@ -36,3 +36,22 @@ text_lt(PG_FUNCTION_ARGS)
 - Part of the complete set of text comparison operators (=, <>, <, <=, >, >=)
 - Essential for text sorting, indexing, and range operations in PostgreSQL
 - Proper memory management prevents leaks during repeated comparison operations
+
+## Simplified Source
+```c
+Datum text_lt(PG_FUNCTION_ARGS)
+{
+    // Extract text arguments
+    text *text1 = PG_GETARG_TEXT_PP(0);
+    text *text2 = PG_GETARG_TEXT_PP(1);
+
+    // Perform comparison: result < 0 means text1 < text2
+    bool result = (text_cmp(text1, text2, PG_GET_COLLATION()) < 0);
+
+    // Clean up memory if needed
+    PG_FREE_IF_COPY(text1, 0);
+    PG_FREE_IF_COPY(text2, 1);
+
+    return PG_RETURN_BOOL(result);
+}
+```

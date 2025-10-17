@@ -47,3 +47,88 @@ The function iterates through all TOC entries, identifying those that can be pro
 - Cleans up connection state (currUser, currSchema, currTablespace, currTableAm) after disconnection
 - Uses a 'skipped_some' flag to handle SECTION_NONE items (like comments) that depend on ordering
 - Does not filter out non-restorable entries initially, as they may participate in dependency chains
+
+## Simplified Source
+
+```c
+static void
+restore_toc_entries_prefork(ArchiveHandle *AH, TocEntry *pending_list)
+{
+    bool skipped_some;
+    TocEntry *next_work_item;
+
+    pg_log_debug("entering restore_toc_entries_prefork");
+
+    // Adjust dependency information before processing
+    fix_dependencies(AH);
+
+    // Process PRE_DATA items in single connection for efficiency
+    // Items that can't be processed now go to pending_list
+    AH->restorePass = RESTORE_PASS_MAIN;
+    skipped_some = false;
+
+    for (next_work_item = AH->toc->next; next_work_item != AH->toc; next_work_item = next_work_item->next)
+    {
+        bool do_now = true;
+
+        // Check if item should be processed now
+        if (next_work_item->section != SECTION_PRE_DATA)
+        {
+            if (next_work_item->section == SECTION_DATA ||
+                next_work_item->section == SECTION_POST_DATA)
+            {
+                // DATA and POST_DATA items deferred to later phases
+                do_now = false;
+                skipped_some = true;
+            }
+            else
+            {
+                // SECTION_NONE items (comments) can be processed if we haven't skipped anything
+                // Once we've skipped items, comments must wait to check dependencies
+                if (skipped_some)
+                    do_now = false;
+            }
+        }
+
+        // Skip items that need to be forced into later passes
+        if (_tocEntryRestorePass(next_work_item) != RESTORE_PASS_MAIN)
+            do_now = false;
+
+        if (do_now)
+        {
+            // Process the item immediately
+            pg_log_info("processing item %d %s %s",
+                        next_work_item->dumpId,
+                        next_work_item->desc, next_work_item->tag);
+
+            restore_toc_entry(AH, next_work_item, false);
+
+            // Update dependencies but don't move anything to ready_heap yet
+            reduce_dependencies(AH, next_work_item, NULL);
+        }
+        else
+        {
+            // Defer to later phases
+            pending_list_append(pending_list, next_work_item);
+        }
+    }
+
+    // Commit transaction in transaction-size mode so child workers can see objects
+    if (AH->public.ropt->txn_size > 0)
+        CommitTransaction(&AH->public);
+
+    // Close parent connection to prepare for parallel steps
+    // This ensures we don't exceed the specified parallel connection limit
+    DisconnectDatabase(&AH->public);
+
+    // Clean up transient state from the old connection
+    free(AH->currUser);
+    AH->currUser = NULL;
+    free(AH->currSchema);
+    AH->currSchema = NULL;
+    free(AH->currTablespace);
+    AH->currTablespace = NULL;
+    free(AH->currTableAm);
+    AH->currTableAm = NULL;
+}
+```

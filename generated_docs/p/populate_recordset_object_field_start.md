@@ -45,3 +45,28 @@ This function is specifically designed to work with the  structure and is called
 - The saved token information is used by corresponding field_end handlers to properly manage JSON structure parsing
 - This function is part of the JSON parsing callback system and should not be called directly by application code
 - The return type JsonParseErrorType allows the parser to handle errors gracefully, though this function always returns success
+
+## Simplified Source
+
+```c
+static JsonParseErrorType populate_recordset_object_field_start(void *state, char *fname, bool isnull) {
+    PopulateRecordsetState *_state = (PopulateRecordsetState *) state;
+
+    // Skip deeply nested structures for performance
+    if (_state->lex->lex_level > 2)
+        return JSON_SUCCESS;
+
+    // Save current token type for field processing
+    _state->saved_token_type = _state->lex->token_type;
+
+    // Save start position for arrays/objects for later extraction
+    if (_state->lex->token_type == JSON_TOKEN_ARRAY_START ||
+        _state->lex->token_type == JSON_TOKEN_OBJECT_START) {
+        _state->save_json_start = _state->lex->token_start;
+    } else {
+        _state->save_json_start = NULL;
+    }
+
+    return JSON_SUCCESS;
+}
+```

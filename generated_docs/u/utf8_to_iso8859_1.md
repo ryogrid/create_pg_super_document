@@ -54,3 +54,71 @@ The function follows PostgreSQL's encoding conversion framework and includes rob
 - Decoding of 2-byte UTF-8 uses bit manipulation: `((c & 0x1f) << 6) | (src[1] & 0x3f)`
 - Part of PostgreSQL's comprehensive multibyte character conversion system
 - Handles edge cases like null bytes and malformed UTF-8 sequences gracefully
+
+## Simplified Source
+```c
+Datum
+utf8_to_iso8859_1(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+    unsigned char *start = src;
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_UTF8, PG_LATIN1);
+
+    // Process each UTF-8 character
+    while (len > 0) {
+        unsigned short c = *src;
+
+        // Check for null bytes (invalid in UTF-8)
+        if (c == 0) {
+            if (noError) break;
+            report_invalid_encoding(PG_UTF8, (const char *) src, len);
+        }
+
+        // ASCII characters: copy directly
+        if (!IS_HIGHBIT_SET(c)) {
+            *dest++ = c;
+            src++;
+            len--;
+        }
+        // Multi-byte UTF-8 sequences
+        else {
+            int utf8_len = pg_utf_mblen(src);
+
+            // Validate UTF-8 sequence
+            if (utf8_len > len || !pg_utf8_islegal(src, utf8_len)) {
+                if (noError) break;
+                report_invalid_encoding(PG_UTF8, (const char *) src, len);
+            }
+
+            // Only 2-byte sequences can map to Latin-1
+            if (utf8_len != 2) {
+                if (noError) break;
+                report_untranslatable_char(PG_UTF8, PG_LATIN1, (const char *) src, len);
+            }
+
+            // Decode 2-byte UTF-8 to Latin-1
+            unsigned short c1 = src[1] & 0x3f;
+            c = ((c & 0x1f) << 6) | c1;
+
+            // Check if result is in Latin-1 range
+            if (c >= 0x80 && c <= 0xff) {
+                *dest++ = (unsigned char) c;
+                src += 2;
+                len -= 2;
+            } else {
+                if (noError) break;
+                report_untranslatable_char(PG_UTF8, PG_LATIN1, (const char *) src, len);
+            }
+        }
+    }
+
+    *dest = '\0';
+    PG_RETURN_INT32(src - start);
+}
+```

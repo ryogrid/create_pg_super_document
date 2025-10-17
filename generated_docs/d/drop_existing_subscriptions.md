@@ -48,3 +48,43 @@ The function is designed to handle the scenario where a standby server being con
 - Preserves replication slots by setting slot_name to NONE before dropping the subscription
 - Essential for preventing subscription conflicts during standby-to-subscriber conversion
 - Terminates the program if the drop operation fails
+
+## Simplified Source
+
+```c
+static void
+drop_existing_subscriptions(PGconn *conn, const char *subname, const char *dbname)
+{
+    PQExpBuffer query = createPQExpBuffer();
+    PGresult *res;
+
+    Assert(conn != NULL);
+
+    // Build command sequence to safely drop subscription
+    // 1. Disable subscription to stop replication
+    appendPQExpBuffer(query, "ALTER SUBSCRIPTION %s DISABLE;", subname);
+
+    // 2. Detach slot to preserve it for publisher use
+    appendPQExpBuffer(query, " ALTER SUBSCRIPTION %s SET (slot_name = NONE);", subname);
+
+    // 3. Drop the subscription object
+    appendPQExpBuffer(query, " DROP SUBSCRIPTION %s;", subname);
+
+    pg_log_info("dropping subscription \"%s\" in database \"%s\"", subname, dbname);
+
+    // Execute commands unless in dry-run mode
+    if (!dry_run) {
+        res = PQexec(conn, query->data);
+
+        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+            pg_log_error("could not drop subscription \"%s\": %s",
+                         subname, PQresultErrorMessage(res));
+            disconnect_database(conn, true);
+        }
+
+        PQclear(res);
+    }
+
+    destroyPQExpBuffer(query);
+}
+```

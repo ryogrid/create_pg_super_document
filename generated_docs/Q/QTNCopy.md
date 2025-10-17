@@ -36,3 +36,36 @@ QTNCopy performs a recursive deep copy of a QTNode tree, creating new memory all
 - Sets appropriate memory management flags to track allocated resources
 - Uses stack depth checking to prevent stack overflow in deeply nested trees
 - Essential for query rewriting operations where original trees must be preserved
+
+## Simplified Source
+
+```c
+QTNode *QTNCopy(QTNode *in) {
+    QTNode *out;
+
+    // Prevent stack overflow in deeply nested trees
+    check_stack_depth();
+
+    // Create new node and copy basic structure
+    out = (QTNode *) palloc(sizeof(QTNode));
+    *out = *in;
+    out->valnode = (QueryItem *) palloc(sizeof(QueryItem));
+    *(out->valnode) = *(in->valnode);
+    out->flags |= QTN_NEEDFREE;
+
+    if (in->valnode->type == QI_VAL) {
+        // Copy word data for value nodes
+        out->word = palloc(in->valnode->qoperand.length + 1);
+        memcpy(out->word, in->word, in->valnode->qoperand.length);
+        out->word[in->valnode->qoperand.length] = '\0';
+        out->flags |= QTN_WORDFREE;
+    } else {
+        // Recursively copy child nodes for operator nodes
+        out->child = (QTNode **) palloc(sizeof(QTNode *) * in->nchild);
+        for (int i = 0; i < in->nchild; i++)
+            out->child[i] = QTNCopy(in->child[i]);
+    }
+
+    return out;
+}
+```

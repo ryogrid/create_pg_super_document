@@ -35,3 +35,31 @@ HOT updates are optimizations where the updated tuple fits on the same page with
 - Only processes statistics for relations that should be counted according to pgstat_should_count_relation
 - The different update type counters help analyze update performance characteristics and guide optimization decisions
 - These statistics are used by the autovacuum system and query planners to make informed decisions about maintenance and query execution
+
+## Simplified Source
+
+```c
+void
+pgstat_count_heap_update(Relation rel, bool hot, bool newpage)
+{
+    // Ensure hot and newpage are mutually exclusive
+    Assert(!(hot && newpage));
+
+    // Only count statistics for relations that should be tracked
+    if (pgstat_should_count_relation(rel)) {
+        PgStat_TableStatus *pgstat_info = rel->pgstat_info;
+
+        // Ensure transaction-level statistics structure exists
+        ensure_tabstat_xact_level(pgstat_info);
+
+        // Increment transactional update counter (can be rolled back)
+        pgstat_info->trans->tuples_updated++;
+
+        // Increment non-transactional counters for specific update types
+        if (hot)
+            pgstat_info->counts.tuples_hot_updated++;
+        else if (newpage)
+            pgstat_info->counts.tuples_newpage_updated++;
+    }
+}
+```

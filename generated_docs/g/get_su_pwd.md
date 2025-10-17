@@ -43,3 +43,47 @@ The function performs comprehensive error handling including file access validat
 - The function terminates the program (exit(1)) if password confirmation fails
 - Memory management is handled appropriately with  for the confirmation password
 - Error messages are internationalized using the  macro for localization support
+
+## Simplified Source
+
+```c
+static void get_su_pwd(void) {
+    char *pwd1;
+
+    if (pwprompt) {
+        // Interactive mode: prompt for password twice
+        char *pwd2;
+
+        printf("\n");
+        fflush(stdout);
+        pwd1 = simple_prompt("Enter new superuser password: ", false);
+        pwd2 = simple_prompt("Enter it again: ", false);
+
+        if (strcmp(pwd1, pwd2) != 0) {
+            fprintf(stderr, _("Passwords didn't match.\n"));
+            exit(1);
+        }
+        free(pwd2);
+    } else {
+        // File mode: read password from file
+        FILE *pwf = fopen(pwfilename, "r");
+
+        if (!pwf)
+            pg_fatal("could not open file \"%s\" for reading: %m", pwfilename);
+
+        pwd1 = pg_get_line(pwf, NULL);
+        if (!pwd1) {
+            if (ferror(pwf))
+                pg_fatal("could not read password from file \"%s\": %m", pwfilename);
+            else
+                pg_fatal("password file \"%s\" is empty", pwfilename);
+        }
+        fclose(pwf);
+
+        // Strip any trailing newlines
+        (void) pg_strip_crlf(pwd1);
+    }
+
+    superuser_password = pwd1;
+}
+```

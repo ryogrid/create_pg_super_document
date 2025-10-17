@@ -36,3 +36,17 @@ This function serves as a completion callback for parallel dump operations in Po
 - Any non-zero status from a worker process results in immediate termination of the entire dump operation
 - The function follows the callback pattern typical in parallel processing frameworks
 - The AH and callback_data parameters are not used in the current implementation but are part of the callback interface for potential future extensions
+
+## Simplified Source
+
+```c
+static void mark_dump_job_done(ArchiveHandle *AH, TocEntry *te,
+                               int status, void *callback_data) {
+    // Log completion of dump item
+    pg_log_info("finished item %d %s %s", te->dumpId, te->desc, te->tag);
+
+    // Check for worker failure and terminate if error occurred
+    if (status != 0)
+        pg_fatal("worker process failed: exit code %d", status);
+}
+```

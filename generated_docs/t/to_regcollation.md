@@ -55,3 +55,25 @@ The function accepts the same input formats as :
 - Accepts all the same input formats as regcollationin (names, OIDs, special values)
 - Useful in scenarios where collation existence should be tested rather than enforced
 - Commonly used in data validation and migration scenarios where graceful handling of missing collations is required
+
+## Simplified Source
+
+```c
+Datum
+to_regcollation(PG_FUNCTION_ARGS)
+{
+    // Extract collation name from text input
+    char *collation_name = text_to_cstring(PG_GETARG_TEXT_PP(0));
+    Datum result;
+    ErrorSaveContext escontext = {T_ErrorSaveContext};
+
+    // Safely try to convert using regcollationin with error context
+    if (!DirectInputFunctionCallSafe(regcollationin, collation_name,
+                                     InvalidOid, -1,
+                                     (Node *) &escontext,
+                                     &result))
+        PG_RETURN_NULL();  // Return NULL on any error
+
+    PG_RETURN_DATUM(result);  // Return successful conversion
+}
+```

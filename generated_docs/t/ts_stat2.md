@@ -45,3 +45,37 @@ This is an enhanced version of the basic ts_stat function that allows filtering 
 - Memory management is handled through PostgreSQL's memory context system to prevent leaks during SRF execution
 - The function uses SPI cursors for efficient processing of large result sets
 - Part of PostgreSQL's full-text search functionality for analyzing tsvector statistics
+
+## Simplified Source
+
+```c
+Datum ts_stat2(PG_FUNCTION_ARGS) {
+    FuncCallContext *funcctx;
+    Datum result;
+
+    if (SRF_IS_FIRSTCALL()) {
+        // First call: initialize and execute query with weight filter
+        TSVectorStat *stat;
+        text *query_txt = PG_GETARG_TEXT_PP(0);
+        text *weights_txt = PG_GETARG_TEXT_PP(1);
+
+        funcctx = SRF_FIRSTCALL_INIT();
+        SPI_connect();
+
+        // Execute SQL query and build statistics with weight filtering
+        stat = ts_stat_sql(funcctx->multi_call_memory_ctx, query_txt, weights_txt);
+
+        PG_FREE_IF_COPY(query_txt, 0);
+        PG_FREE_IF_COPY(weights_txt, 1);
+        ts_setup_firstcall(fcinfo, funcctx, stat);
+        SPI_finish();
+    }
+
+    // Subsequent calls: return next result row
+    funcctx = SRF_PERCALL_SETUP();
+    if ((result = ts_process_call(funcctx)) != (Datum) 0)
+        SRF_RETURN_NEXT(funcctx, result);
+
+    SRF_RETURN_DONE(funcctx);
+}
+```

@@ -50,3 +50,44 @@ The function also includes safety checks for background process termination and 
 - The callback pattern allows for flexible processing of received data without coupling this function to specific data handling logic
 - Essential for pg_basebackup operations that receive large data streams from the server
 - Error conditions result in program termination via pg_fatal() calls
+
+## Simplified Source
+
+```c
+static void
+ReceiveCopyData(PGconn *conn, WriteDataCallback callback, void *callback_data)
+{
+    PGresult *res;
+
+    // Get the COPY data stream
+    res = PQgetResult(conn);
+    if (PQresultStatus(res) != PGRES_COPY_OUT)
+        pg_fatal("could not get COPY data stream: %s", PQerrorMessage(conn));
+    PQclear(res);
+
+    // Loop over chunks until done
+    while (1) {
+        int r;
+        char *copybuf;
+
+        r = PQgetCopyData(conn, &copybuf, 0);
+        if (r == -1) {
+            // End of chunk
+            break;
+        }
+        else if (r == -2) {
+            pg_fatal("could not read COPY data: %s", PQerrorMessage(conn));
+        }
+
+        // Check if background process terminated
+        if (bgchild_exited)
+            pg_fatal("background process terminated unexpectedly");
+
+        // Process the data chunk
+        (*callback)(r, copybuf, callback_data);
+
+        // Free the buffer
+        PQfreemem(copybuf);
+    }
+}
+```
